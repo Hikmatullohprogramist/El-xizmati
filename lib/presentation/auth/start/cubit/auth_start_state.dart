@@ -7,8 +7,8 @@ class AuthStartBuildable with _$AuthStartBuildable {
 
 @freezed
 class AuthStartListenable with _$AuthStartListenable {
-  const factory AuthStartListenable(Effect effect, {String? message}) =
+  const factory AuthStartListenable(AuthStartEffect effect, {String? message}) =
       _AuthStartListenable;
 }
 
-enum Effect { success }
+enum AuthStartEffect { success }
