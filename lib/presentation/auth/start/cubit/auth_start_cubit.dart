@@ -1,9 +1,13 @@
-import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/common/base/base_cubit.dart';
 
-part 'auth_start_state.dart';
 part 'auth_start_cubit.freezed.dart';
 
-class AuthStartCubit extends Cubit<AuthStartState> {
-  AuthStartCubit() : super(const AuthStartState.initial());
+part 'auth_start_state.dart';
+
+@injectable
+class AuthStartCubit
+    extends BaseCubit<AuthStartBuildable, AuthStartListenable> {
+  AuthStartCubit() : super(AuthStartBuildable());
 }

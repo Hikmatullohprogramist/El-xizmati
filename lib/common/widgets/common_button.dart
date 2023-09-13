@@ -54,6 +54,9 @@ class CommonButton extends StatelessWidget {
           onPressed: onButtonPressed,
           style: OutlinedButton.styleFrom(
             foregroundColor: color,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10), // <-- Radius
+            ),
             side: BorderSide(
               color: color ?? context.colors.primary,
             ),

@@ -12,7 +12,7 @@ import 'package:onlinebozor/presentation/login/cubit/login_cubit.dart';
 
 @RoutePage()
 class LoginPage extends BasePage<LoginCubit, LoginBuildable, LoginListenable> {
-  const LoginPage({Key? key}) : super(key: key);
+   LoginPage({Key? key}) : super(key: key);
 
   @override
   void listener(BuildContext context, LoginListenable state) {

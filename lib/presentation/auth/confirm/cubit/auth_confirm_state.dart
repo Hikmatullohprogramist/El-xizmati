@@ -6,6 +6,9 @@ class AuthBuildable with _$AuthBuildable {
 }
 
 @freezed
-class AuthListenable with _$AuthListenable{
-  const factory AuthListenable() = _AuthListenable;
+class AuthListenable with _$AuthListenable {
+  const factory AuthListenable(Effect effect, {String? message}) =
+      _AuthListenable;
 }
+
+enum Effect { success }

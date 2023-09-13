@@ -11,6 +11,4 @@ class SetLanguageListenable with _$SetLanguageListenable {
       {String? message}) = _SetLanguageListenable;
 }
 
-enum SetLanguageEffect {
-  effect,
-}
+enum SetLanguageEffect { navigationAuthStart }

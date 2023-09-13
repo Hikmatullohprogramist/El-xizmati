@@ -6,7 +6,7 @@ import 'package:onlinebozor/presentation/auth/confirm/cubit/auth_confirm_cubit.d
 @RoutePage()
 class AuthConfirmPage
     extends BasePage<AuthConfirmCubit, AuthBuildable, AuthListenable> {
-  const AuthConfirmPage({super.key});
+   AuthConfirmPage({super.key});
 
   @override
   Widget builder(BuildContext context, AuthBuildable state) {
