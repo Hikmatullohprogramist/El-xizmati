@@ -1,18 +1,17 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/base/base_page.dart';
-
-import '../dashboard/cubit/dashboard_cubit.dart';
+import 'package:onlinebozor/presentation/home/profile_dashboard/cubit/profile_dashboard_cubit.dart';
 
 @RoutePage()
-class DashboardPage
-    extends BasePage<DashboardCubit, DashboardBuildable, DashboardListenable> {
-  const DashboardPage({super.key});
+class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
+    ProfileDashboardBuildable, ProfileDashboardListenable> {
+  const ProfileDashboardPage({super.key});
 
   @override
-  Widget builder(BuildContext context, DashboardBuildable state) {
+  Widget builder(BuildContext context, ProfileDashboardBuildable state) {
     return Center(
-      child: Text("Auth Start"),
+      child: Text("ProfileDashboard"),
     );
   }
 }

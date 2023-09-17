@@ -4,12 +4,11 @@ part of 'login_cubit.dart';
 class LoginBuildable with _$LoginBuildable {
   const LoginBuildable._();
 
-  const factory LoginBuildable({
-    @Default(false) bool loading,
-    @Default('') String phone,
-  }) = _LoginBuildable;
-
-  bool get enabled => phone.length >= 12;
+  const factory LoginBuildable(
+      {@Default(false) bool loading,
+      @Default('') String phone,
+      @Default('') String password,
+      @Default(false) bool enabled}) = _LoginBuildable;
 }
 
 @freezed

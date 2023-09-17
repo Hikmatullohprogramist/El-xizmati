@@ -1,7 +1,7 @@
-import 'package:onlinebozor/common/base/base_cubit.dart';
-import 'package:onlinebozor/domain/repo/auth_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/common/base/base_cubit.dart';
+import 'package:onlinebozor/domain/repo/auth_repository.dart';
 
 part 'login_cubit.freezed.dart';
 
@@ -15,9 +15,8 @@ class LoginCubit extends BaseCubit<LoginBuildable, LoginListenable> {
 
   Future<void> login() async {
     build((buildable) => buildable.copyWith(loading: true));
-
     try {
-      await _repo.login(buildable.phone);
+      await _repo.login(buildable.phone, buildable.password);
       invoke(LoginListenable(LoginEffect.success, phone: buildable.phone));
     } catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
@@ -29,5 +28,10 @@ class LoginCubit extends BaseCubit<LoginBuildable, LoginListenable> {
 
   void setPhone(String phone) {
     build((buildable) => buildable.copyWith(phone: phone));
+  }
+
+  void setPassword(String password) {
+    build((buildable) =>
+        buildable.copyWith(password: password, enabled: password.length >= 4));
   }
 }

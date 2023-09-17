@@ -2,11 +2,14 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:onlinebozor/common/base/base_page.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/common_button.dart';
-import 'package:onlinebozor/presentation/auth/set_language/cubit/set_language_cubit.dart';
+
+import '../../../common/gen/assets/assets.gen.dart';
+import 'cubit/set_language_cubit.dart';
 
 @RoutePage()
 class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageBuildable,
@@ -27,7 +30,11 @@ class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageBuildable,
   @override
   Widget builder(BuildContext context, SetLanguageBuildable state) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: context.colors.colorBackgroundPrimary,
+        elevation: 0,
+      ),
+      backgroundColor: context.colors.colorBackgroundPrimary,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
@@ -55,7 +62,6 @@ class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageBuildable,
                     color: Color(0xFFE5E9F3),
                     onPressed: () {
                       context.router.push(AuthStartRoute());
-                      // context.read<SetLanguageCubit>().setLanguage(Language.ru);
                     },
                     type: ButtonType.outlined,
                     child: SizedBox(
@@ -63,7 +69,8 @@ class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageBuildable,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Strings.languageRus.w(400).s(14).c(Color(0xFF41455F))
+                          Strings.languageRus.w(400).s(14).c(Color(0xFF41455F)),
+                          Assets.images.pngImages.flagRu.image()
                         ],
                       ),
                     )),
@@ -83,6 +90,7 @@ class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageBuildable,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Strings.languageUzb.w(400).s(14).c(Color(0xFF41455F)),
+                          Assets.images.pngImages.flagUz.image()
                         ],
                       ),
                     ))

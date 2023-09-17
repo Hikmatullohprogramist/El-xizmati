@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 
 class CommonTextField extends StatefulWidget {
@@ -15,6 +16,7 @@ class CommonTextField extends StatefulWidget {
     this.disabledColor,
     this.label,
     this.onChanged,
+    this.inputFormatters,
   }) : super(key: key);
 
   final String? hint;
@@ -27,6 +29,7 @@ class CommonTextField extends StatefulWidget {
   final int? maxLines;
   final bool enabled;
   final Color? disabledColor;
+  final TextInputFormatter? inputFormatters;
   final Function(String text)? onChanged;
 
   @override
@@ -52,6 +55,9 @@ class _CommonTextFieldState extends State<CommonTextField> {
       maxLines: widget.maxLines,
       enabled: widget.enabled,
       onChanged: widget.onChanged,
+      inputFormatters: [
+        if (widget.inputFormatters != null) widget.inputFormatters!
+      ],
       decoration: InputDecoration(
         hintText: widget.hint,
         labelText: widget.label,

@@ -6,7 +6,7 @@ import 'package:onlinebozor/presentation/auth/set_password/cubit/set_password_cu
 @RoutePage()
 class SetPasswordPage extends BasePage<SetPasswordCubit, SetPasswordBuildable,
     SetPasswordListenable> {
-   SetPasswordPage({super.key});
+   const SetPasswordPage({super.key});
 
   @override
   Widget builder(BuildContext context, SetPasswordBuildable state) {

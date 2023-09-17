@@ -11,7 +11,23 @@ abstract class NetworkModule {
 
   @lazySingleton
   Dio dio(AuthInterceptor authInterceptor) {
-    final options = BaseOptions(baseUrl: Constants.baseUrl);
+    final options = BaseOptions(baseUrl: Constants.baseUrl, headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=UTF-8',
+      "Accept-Language": "uz",
+      "App-Version-Code": "122",
+      "App-Version-Name": "1232",
+      "Device-Id": "00000000-0000-0028-ffff-ffff95b0417a",
+      "Device-Name": "Google Pixel 6 Pro",
+      "Device-Manufacturer": "Google",
+      "Device-Model": "Pixel 6 Pro",
+      "Mobile-Os-Version": "33",
+      "Mobile-Os-Type": "android",
+      "User-Agent":
+          "00000000-0000-0028-ffff-ffff95b0417a&&Google Pixel 6 Pro&&Google&&Pixel 6 Pro&&",
+      "Night-Mode": "disabled",
+      "Mobile-Os": "33"
+    });
     final dio = Dio(options);
     dio.interceptors.add(authInterceptor);
     dio.interceptors.add(_loggerInterceptor);
@@ -47,9 +63,19 @@ abstract class NetworkModule {
 
     final headers = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
-      'mobile': 'true',
-      'authorization': basicAuth,
-      'entity': 'OnlineBozor'
+      "Accept-Language": "uz",
+      "App-Version-Code": "122",
+      "App-Version-Name": "1232",
+      "Device-Id": "00000000-0000-0028-ffff-ffff95b0417a",
+      "Device-Name": "Google Pixel 6 Pro",
+      "Device-Manufacturer": "Google",
+      "Device-Model": "Pixel 6 Pro",
+      "Mobile-Os-Version": "33",
+      "Mobile-Os-Type": "android",
+      "User-Agent":
+          "00000000-0000-0028-ffff-ffff95b0417a&&Google Pixel 6 Pro&&Google&&Pixel 6 Pro&&",
+      "Night-Mode": "disabled",
+      "Mobile-Os": "33"
     };
 
     return headers;
