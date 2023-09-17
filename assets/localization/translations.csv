@@ -1,4 +1,4 @@
-str,uz_UZ,ru_Ru
+str,uz_UZ,ru_RU
 language.welcome,xush kelibsiz,Добро пожаловать
 language.setlanguage,Ilova tilini tanlang,Выберите язык приложения
 language.rus,Русский,Русский
@@ -21,44 +21,4 @@ auth.register.password_contain_least_characters,Parol kamida 8 ta belgidan ibora
 common.continue_title,Davom etish ,Продолжить
 common.phone_number,Telefon raqami,Номер телефона
 auth.policy_agree,Tizimga kirish orqali siz rozilik bildirasiz,"Авторизуясь, вы соглашаетесь с "
-auth.person_policy,siyosat \nshaxsiy ma'lumotlarni qayta ishlash,политикой \nnобработки персональных данных 
-auth.login.phone,Telefon raqamingiz,
-auth.login.login,Kirish,
-auth.verify.code_title,"{phone} telefoningizga 
-5 raqamli kod jo’natildi",
-auth.verify.verify,Tasdiqlash,
-auth.next,Keyingisi,
-auth.verity.reset,Qaytadan jo’natish,
-auth.login.no_acaunt,Akkauntim yo’q,
-auth.register.register,Ro’yxatdan o’tish,
-auth.register.name,Ism va sharifingiz,
-auth.register.optional,(ixtiyoriy),
-auth.register.email,Elektron pochtangiz,
-auth.register.year,Yoshingiz,
-auth.register.gender,Jinsingiz,
-auth.register.location,Hududingiz,
-auth.register.terms_of_service,"Ro’yxatdan o’tishingiz bilan Xizmat shartlari va
-Maxfiylik siyosati ga rozilik bergan hisoblanasiz",
-auth.register.yes_acaunt,Akkauntim bor ,
-auth.login.validat,Iltimos telefon raqamni to'ldiring,
-auth.onboarding.slide1_text,  'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
-auth.onboarding.slide2_text,Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
-auth.onboarding.slide3_text,Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
-auth.onboarding.header,Onboarding,
-profile.my_profile,Mening profilim,
-profile.my_about,Mennig ma'lumotlarim,
-profile.outside,Chiqish,
-profile.wraning,Eslatma! Sizda tugatilmagan kitob bor.,
-profile.next,Davom ettirish,
-profile.change,O'zgartirish,
-profile.saved,Saqlash,
-profile.change_saved,"O’zgartirishlar
-muvaffaqiyatli saqlandi!",
-auth.onboarding.skip,Skip,
-onboarding.next_button,Keyingisi,
-onboarding.register_button,Ro’yxatdan o’tish,
-onboarding.enter_button,Kirish,
-profile.maleText,Erkak,
-profile.femaleText,Ayol,
-library.category,Kategoriyalar,
-library.my_library,Kutubxonam,
+auth.person_policy,siyosat shaxsiy ma'lumotlarni qayta ishlash,политикой nобработки персональных данных 

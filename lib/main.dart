@@ -21,7 +21,7 @@ void main() async {
     EasyLocalization(
       supportedLocales: Strings.supportedLocales,
       path: Assets.localization.translations,
-      fallbackLocale: Strings.supportedLocales.first,
+      fallbackLocale: Strings.supportedLocales.first ,
       assetLoader: CsvAssetLoader(),
       child: MyApp(),
     ),

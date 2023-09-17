@@ -1,6 +1,11 @@
 part of 'verification_cubit.dart';
 
 @freezed
-class VerificationState with _$VerificationState {
-  const factory VerificationState.initial() = _Initial;
+class VerificationBuildable with _$VerificationBuildable {
+  const factory VerificationBuildable() = _VerificationBuildable;
+}
+
+@freezed
+class VerificationListenable with _$VerificationListenable {
+  const factory VerificationListenable() = _VerificationListenable;
 }

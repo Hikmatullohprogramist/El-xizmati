@@ -1,9 +1,11 @@
-import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:onlinebozor/common/base/base_cubit.dart';
 
-part 'verification_state.dart';
 part 'verification_cubit.freezed.dart';
 
-class VerificationCubit extends Cubit<VerificationState> {
-  VerificationCubit() : super(const VerificationState.initial());
+part 'verification_state.dart';
+
+class VerificationCubit
+    extends BaseCubit<VerificationBuildable, VerificationListenable> {
+  VerificationCubit() : super(const VerificationBuildable());
 }

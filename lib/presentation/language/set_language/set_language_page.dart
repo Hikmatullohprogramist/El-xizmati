@@ -79,6 +79,7 @@ class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageBuildable,
                 ),
                 CommonButton(
                     onPressed: () {
+                      // context.setLocale(Locale('uz', 'UZ'));
                       context.router.push(AuthStartRoute());
                       // context.read<SetLanguageCubit>().setLanguage(Language.uz);
                     },

@@ -113,6 +113,35 @@ class RegisterPage
                       .c(context.colors.textPrimaryInverse),
                 )),
             SizedBox(height: 20),
+            const Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Авторизуясь, вы соглашаетесь с ',
+                    style: TextStyle(
+                      color: Color(0xFF9EABBE),
+                      fontSize: 12,
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w400,
+                      height: 1.67,
+                      letterSpacing: 0.12,
+                    ),
+                  ),
+                  TextSpan(
+                    text: 'политикой \nобработки персональных данных ',
+                    style: TextStyle(
+                      color: Color(0xFF5C6AC3),
+                      fontSize: 12,
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w400,
+                      height: 1.33,
+                      letterSpacing: 0.12,
+                    ),
+                  ),
+                ],
+              ),
+              textAlign: TextAlign.center,
+            ),
           ],
         ),
       ),
