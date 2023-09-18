@@ -14,6 +14,7 @@ import '../../presentation/auth/set_password/set_password_page.dart';
 import '../../presentation/auth/start/auth_start_page.dart';
 import '../../presentation/auth/verification/verification_page.dart';
 import '../../presentation/common/notification/notification_page.dart';
+import '../../presentation/common/search/search_page.dart';
 import '../../presentation/home/card/card_page.dart';
 import '../../presentation/home/category/category_page.dart';
 import '../../presentation/home/dashboard/dashboard_page.dart';
@@ -33,22 +34,31 @@ part 'app_router.gr.dart';
 class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
+        //
         AutoRoute(
-            page: SetLanguageRoute.page, path: "/set_language", initial: true),
+            page: SetLanguageRoute.page, path: "/set_language", initial: false),
         AutoRoute(page: AuthStartRoute.page, path: "/auth_start"),
         AutoRoute(page: LoginRoute.page, path: '/login'),
         AutoRoute(page: RegisterRoute.page, path: '/register'),
         AutoRoute(page: HomeRoute.page),
         AutoRoute(
+            page: SetPasswordRoute.page, path: '/ser_password', initial: false),
+
+        //home screen
+        AutoRoute(
             page: HomeRoute.page,
             path: '/home',
-            initial: false,
+            initial: true,
             children: [
               AutoRoute(page: DashboardRoute.page, path: 'dashboard'),
               AutoRoute(page: CategoryRoute.page, path: 'category'),
               AutoRoute(page: FavoritesRoute.page, path: 'favorite'),
               AutoRoute(page: CardRoute.page, path: 'card'),
               AutoRoute(page: ProfileDashboardRoute.page, path: 'profile')
-            ])
+            ]),
+
+        //  common page
+        AutoRoute(page: SearchRoute.page, path: '/search'),
+        AutoRoute(page: NotificationRoute.page, path: '/notification')
       ];
 }

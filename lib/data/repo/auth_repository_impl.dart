@@ -41,9 +41,9 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<ConfirmResponse> confirm(
+  Future<ConfirmResponse> setPassword(
       String password, String repeatPassword) async {
-    final response = await _api.confirm(password, repeatPassword);
+    final response = await _api.setPassword(password, repeatPassword);
     final confirmResponse = ConfirmResponse.fromJson(response.data);
     return confirmResponse;
   }

@@ -11,8 +11,6 @@ class NotificationPage extends BasePage<NotificationCubit,
 
   @override
   Widget builder(BuildContext context, NotificationBuildable state) {
-    return Center(
-      child: Text("Auth Start"),
-    );
+    return Scaffold(body: Center(child: Text(" Notification Screen")));
   }
 }

@@ -26,7 +26,7 @@ class AuthApi {
     return _dio.post('v1/auth/phone/verification/register', data: body);
   }
 
-  Future<Response> confirm(String password, String repeatPassword) {
+  Future<Response> setPassword(String password, String repeatPassword) {
     final body = {"password": password, "repeat_password": repeatPassword};
     return _dio.post('v1/auth/user/change_password', data: body);
   }

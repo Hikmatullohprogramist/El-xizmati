@@ -10,7 +10,7 @@ abstract class AuthRepository {
 
   Future<RegisterResponse> register(String phone, String code);
 
-  Future<ConfirmResponse> confirm(String password, String repeatPassword);
+  Future<ConfirmResponse> setPassword(String password, String repeatPassword);
 
   Future<void> verify(String phone, String code);
 }
