@@ -6,6 +6,7 @@ import 'package:onlinebozor/presentation/verify/verify_page.dart';
 import '../../presentation/ads/ads_collection /ads_collection_page.dart';
 import '../../presentation/ads/ads_detail/ads_detail_page.dart';
 import '../../presentation/ads/ads_list/ads_list_page.dart';
+import '../../presentation/ads/ads_list/cubit/ads_list_cubit.dart';
 import '../../presentation/ads/ads_search/ads_search_page.dart';
 import '../../presentation/auth/confirm/confirm_page.dart';
 import '../../presentation/auth/login/login_page.dart';
@@ -33,10 +34,11 @@ part 'app_router.gr.dart';
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
 class AppRouter extends _$AppRouter {
   @override
-  List<AutoRoute> get routes => [
+  List<AutoRoute> get routes =>
+      [
         //
         AutoRoute(
-            page: SetLanguageRoute.page, path: "/set_language", initial: false),
+            page: SetLanguageRoute.page, path: "/set_language", initial: true),
         AutoRoute(page: AuthStartRoute.page, path: "/auth_start"),
         AutoRoute(page: LoginRoute.page, path: '/login'),
         AutoRoute(page: RegisterRoute.page, path: '/register'),
@@ -48,7 +50,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
             page: HomeRoute.page,
             path: '/home',
-            initial: true,
+            initial: false,
             children: [
               AutoRoute(page: DashboardRoute.page, path: 'dashboard'),
               AutoRoute(page: CategoryRoute.page, path: 'category'),
@@ -56,6 +58,10 @@ class AppRouter extends _$AppRouter {
               AutoRoute(page: CardRoute.page, path: 'card'),
               AutoRoute(page: ProfileDashboardRoute.page, path: 'profile')
             ]),
+
+        // Ads collection
+        AutoRoute(page: AdsCollectionRoute.page, path: "/ads_collection"),
+        AutoRoute(page: AdsListRoute.page, path: '/ads_list'),
 
         //  common page
         AutoRoute(page: SearchRoute.page, path: '/search'),

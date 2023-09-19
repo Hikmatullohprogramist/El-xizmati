@@ -67,7 +67,7 @@ class CommonButton extends StatelessWidget {
         return TextButton(
           onPressed: onButtonPressed,
           style: TextButton.styleFrom(
-            textStyle: TextStyle(color: color ?? context.colors.onPrimary),
+            textStyle: TextStyle(color: color ?? context.colors.buttonPrimary),
           ),
           child: _buildChild(context),
         );

@@ -1,5 +1,5 @@
 import 'package:auto_route/annotations.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../../common/base/base_page.dart';
 import 'cubit/ads_list_cubit.dart';
@@ -7,12 +7,15 @@ import 'cubit/ads_list_cubit.dart';
 @RoutePage()
 class AdsListPage
     extends BasePage<AdsListCubit, AdsListBuildable, AdsListListenable> {
-  const AdsListPage({super.key});
+  const AdsListPage({required this.adsListType, super.key});
+
+  final AdsListType adsListType;
 
   @override
   Widget builder(BuildContext context, AdsListBuildable state) {
-    return Center(
-      child: Text("Auth Start"),
-    );
+    return Scaffold(
+        body: Center(
+      child: Text("Ads List"),
+    ));
   }
 }

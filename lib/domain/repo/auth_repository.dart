@@ -13,4 +13,6 @@ abstract class AuthRepository {
   Future<ConfirmResponse> setPassword(String password, String repeatPassword);
 
   Future<void> verify(String phone, String code);
+
+  Future<bool> isLogin();
 }

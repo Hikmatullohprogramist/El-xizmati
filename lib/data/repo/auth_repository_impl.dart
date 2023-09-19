@@ -48,14 +48,10 @@ class AuthRepositoryImpl extends AuthRepository {
     return confirmResponse;
   }
 
-  // String base64Response(String value) {
-  //   return base64.encode(utf8.encode(value));
-  // }
-
-  // @override
-  // Future<void> login(String phone) {
-  //   return _api.login(phone);
-  // }
+  @override
+  Future<bool> isLogin() async {
+    return true;
+  }
 
   @override
   Future<void> verify(String phone, String code) async {

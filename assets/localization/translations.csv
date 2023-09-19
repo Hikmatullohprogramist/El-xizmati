@@ -22,3 +22,15 @@ common.continue_title,Davom etish ,Продолжить
 common.phone_number,Telefon raqami,Номер телефона
 auth.policy_agree,Tizimga kirish orqali siz rozilik bildirasiz,"Авторизуясь, вы соглашаетесь с "
 auth.person_policy,siyosat shaxsiy ma'lumotlarni qayta ishlash,политикой nобработки персональных данных 
+commodity_title,Tovarlar,Товары
+service_title,Xizmatlar,Услуги
+popular_categories,Mashhur toifalar,Популярные категории
+all_title,Barchasi,Все
+recently_viewed_title,Yaqinda ko'rilgan,Недавно посмотренные
+hot_discounts_title,Issiq chegirmalar,Горячие скидки
+popular_commodity_title,Ommabop tovarlar,Популярные товары
+ads.property.personal,Shaxsiy,Частное
+ads.property.biznes,Biznes,Бизнес
+ads.status.new,Yangi,Новый
+ads.status.old,Б/У,Б/У
+search.commodity_and_service,Mahsulotlar va toifalarni qidiring,Искать товары и категории

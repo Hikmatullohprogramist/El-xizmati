@@ -12,3 +12,7 @@ class AdsListListenable with _$AdsListListenable {
 }
 
 enum AdsListEffect { success }
+
+enum AdsListType{
+  hotDiscount, recentlyViewer, popularCommodity
+}

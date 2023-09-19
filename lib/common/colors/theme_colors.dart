@@ -21,4 +21,12 @@ class ThemeColors {
   Color get borderColor => StaticColors.brightGray;
 
   Color get iconGrey => StaticColors.cadetBlue;
+
+  Color get buttonPrimary => StaticColors.slateBlue;
+
+  Color get adsStatusBackground => StaticColors.bondiBlue;
+
+  Color get adsPropertyBusinessBackground => StaticColors.business;
+
+  Color get adsPropertyPersonalBackground => StaticColors.manatee;
 }

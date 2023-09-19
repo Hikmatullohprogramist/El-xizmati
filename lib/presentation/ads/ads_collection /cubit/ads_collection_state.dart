@@ -12,3 +12,8 @@ class AdsCollectionListenable with _$AdsCollectionListenable {
 }
 
 enum AdsCollectionEffect { success }
+
+enum CollectiveType {
+  commodity,
+  service,
+}
