@@ -1,7 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 
-import '../../../common/base/base_page.dart';
+import '../../../common/core/base_page.dart';
 import 'cubit/ads_detail_cubit.dart';
 
 @RoutePage()

@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:onlinebozor/common/base/base_page.dart';
+import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/presentation/auth/eds/cubit/eds_cubit.dart';
 
 class EdsPage extends BasePage<EdsCubit, EdsBuildable, EdsListenable> {

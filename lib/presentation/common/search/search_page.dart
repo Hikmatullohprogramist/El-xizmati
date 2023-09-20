@@ -1,7 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/common/base/base_page.dart';
+import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/presentation/common/search/cubit/search_cubit.dart';
 
 @RoutePage()

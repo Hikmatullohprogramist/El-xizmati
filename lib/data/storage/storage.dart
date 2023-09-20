@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/common/base/base_storage.dart';
+import 'package:onlinebozor/common/core/base_storage.dart';
 import 'package:onlinebozor/domain/model/token/token.dart';
 
 @lazySingleton

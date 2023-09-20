@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:onlinebozor/common/base/base_cubit.dart';
+import 'package:onlinebozor/common/core/base_cubit.dart';
 
 part 'eds_cubit.freezed.dart';
 

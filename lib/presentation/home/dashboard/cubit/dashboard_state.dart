@@ -2,7 +2,12 @@ part of 'dashboard_cubit.dart';
 
 @freezed
 class DashboardBuildable with _$DashboardBuildable {
-  const factory DashboardBuildable() = _DashboardBuildable;
+  const DashboardBuildable._();
+
+  const factory DashboardBuildable({
+    @Default(false) bool loading,
+    PagingController<int, AdsResponse>? adsPagingController,
+  }) = _DashboardBuildable;
 }
 
 @freezed

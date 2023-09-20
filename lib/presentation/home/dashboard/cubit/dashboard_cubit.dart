@@ -1,7 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../common/base/base_cubit.dart';
+import '../../../../common/core/base_cubit.dart';
+import '../../../../domain/model/ads/ads_response.dart';
 import '../../../../domain/repo/ads_repository.dart';
 
 part 'dashboard_cubit.freezed.dart';
@@ -15,13 +17,16 @@ class DashboardCubit
 
   final AdsRepository adsRepository;
 
-  Future<void> getAdsList()async{
-    try{
-
-    }catch(e, stackTrace){
-
-    }finally{
-
-    }
-  }
+  // Future<void> getAdsList()async{
+  //   build((buildable) =>
+  //       buildable.copyWith(loading: buildable.adsPagingController == null));
+  //   try{
+  //     final controller =buildable.adsPagingController??
+  //
+  //   }catch(e, stackTrace){
+  //
+  //   }finally{
+  //
+  //   }
+  // }
 }

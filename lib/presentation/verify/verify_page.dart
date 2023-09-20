@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onlinebozor/common/base/base_page.dart';
+import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/common_button.dart';
 import 'package:onlinebozor/common/widgets/common_text_field.dart';

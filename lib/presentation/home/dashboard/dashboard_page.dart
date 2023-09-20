@@ -1,9 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:logger/logger.dart';
-import 'package:onlinebozor/common/base/base_page.dart';
+import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/ads_widget.dart';
 import 'package:onlinebozor/common/widgets/all_view_widget.dart';
@@ -23,17 +22,7 @@ import 'cubit/dashboard_cubit.dart';
 @RoutePage()
 class DashboardPage
     extends BasePage<DashboardCubit, DashboardBuildable, DashboardListenable> {
-  DashboardPage({super.key});
-
-  @override
-  void init(BuildContext context) {
-    _pagingController.addPageRequestListener((pageKey) {
-      context.read<DashboardCubit>();
-    });
-  }
-
-  final PagingController<int, AdsResponse> _pagingController =
-      PagingController(firstPageKey: 0);
+  const DashboardPage({super.key});
 
   @override
   Widget builder(BuildContext context, DashboardBuildable state) {
@@ -155,18 +144,18 @@ class DashboardPage
             showNewPageProgressIndicatorAsGridChild: false,
             showNewPageErrorIndicatorAsGridChild: false,
             showNoMoreItemsIndicatorAsGridChild: false,
-            pagingController: _pagingController,
+            pagingController: PagingController<int, AdsResponse>(firstPageKey: 1),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          childAspectRatio: 156 / 265,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
-          crossAxisCount: 2,
+              childAspectRatio: 156 / 265,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+              crossAxisCount: 2,
             ),
             builderDelegate: PagedChildBuilderDelegate<AdsResponse>(
-            itemBuilder: (context, item, index) => AppAdsWidget(
-                  onClickFavorite: (value) {
-                    Logger log = Logger();
-                    log.w(value);
+                itemBuilder: (context, item, index) => AppAdsWidget(
+                      onClickFavorite: (value) {
+                        Logger log = Logger();
+                        log.w(value);
                   },
                   onClick: (value) {
                     Logger log = Logger();
