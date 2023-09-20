@@ -6,7 +6,7 @@ import 'package:onlinebozor/common/widgets/common_button.dart';
 import '../gen/localization/strings.dart';
 
 class AppAllViewWidget extends StatelessWidget {
-  final Widget title;
+  final String title;
   final VoidCallback onPressed;
 
   const AppAllViewWidget(
@@ -19,7 +19,7 @@ class AppAllViewWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          title,
+          title.w(600).s(14).c(context.colors.textPrimary),
           CommonButton(
             onPressed: onPressed,
             color: context.colors.buttonPrimary,

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
 class AppPopularCategory extends StatelessWidget {
   const AppPopularCategory(
       {super.key, required this.title, required this.image});
 
-  final Widget title;
+  final String title;
   final Widget image;
 
   @override
@@ -37,7 +38,7 @@ class AppPopularCategory extends StatelessWidget {
               decoration: BoxDecoration(
                   color: Color(0x28AEB2CD),
                   borderRadius: BorderRadius.circular(6)),
-              child: Center(child: title),
+              child: Center(child: title.w(400).s(12)),
             )
           ],
         ),

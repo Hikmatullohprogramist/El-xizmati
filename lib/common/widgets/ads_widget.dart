@@ -10,8 +10,8 @@ import 'package:onlinebozor/common/widgets/favorite_widget.dart';
 
 import '../gen/assets/assets.gen.dart';
 
-class AppAdsHorizontalWidget extends StatelessWidget {
-  const AppAdsHorizontalWidget({
+class AppAdsWidget extends StatelessWidget {
+  const AppAdsWidget({
     super.key,
     this.onClickFavorite,
     this.onClick,
@@ -26,16 +26,16 @@ class AppAdsHorizontalWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          onClick!("onClick in AppAdsHorizontalWidget");
+          onClick!("onClick in AppAdsWidget");
         },
         child: SizedBox(
-          height: 342,
-          width: 140,
+          height: double.infinity,
+          width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                  width: 140,
+                  width: double.infinity,
                   height: 180,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),
@@ -66,7 +66,7 @@ class AppAdsHorizontalWidget extends StatelessWidget {
                           isSelected: true,
                           onEvent: () {
                             onClickFavorite!(
-                                "AppFavoriteWidget in Ads Horizontal Widget");
+                                "AppFavoriteWidget in AppAdsWidget");
                           },
                         ))
                   ])),
@@ -88,9 +88,9 @@ class AppAdsHorizontalWidget extends StatelessWidget {
                       .s(10)
                       .c(context.colors.textSecondary)
                       .copyWith(
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: false,
-                      ),
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: false,
+                  ),
                 )
               ]),
               SizedBox(height: 12),

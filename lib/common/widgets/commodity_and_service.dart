@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
+import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
 class AppCommodityAndService extends StatelessWidget {
   final VoidCallback onPressed;
-  final Widget title;
+  final String title;
   final Widget image;
   final Color color;
   final Color startColorGradient;
@@ -80,10 +82,12 @@ class AppCommodityAndService extends StatelessWidget {
               height: double.infinity,
               child: Stack(children: [
                 Positioned(
-                  left: 8,
-                  top: 8,
-                  child: title
-                ),
+                    left: 8,
+                    top: 8,
+                    child: title
+                        .w(700)
+                        .s(20)
+                        .c(context.colors.textPrimaryInverse)),
                 Container(
                   alignment: Alignment.bottomRight,
                   child: image,

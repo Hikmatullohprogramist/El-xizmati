@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
       // list of your tab routes
       // routes used here must be declared as children
       // routes of /dashboard
-      routes: const [
+      routes: [
         DashboardRoute(),
         CategoryRoute(),
         FavoritesRoute(),

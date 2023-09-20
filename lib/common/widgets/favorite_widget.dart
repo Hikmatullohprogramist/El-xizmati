@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 
 import '../gen/assets/assets.gen.dart';
@@ -18,6 +17,7 @@ class AppFavoriteWidget extends StatefulWidget {
 class _AppFavoriteWidget extends State<AppFavoriteWidget> {
   bool _isSelected = false;
 
+
   @override
   void initState() {
     _isSelected = widget.isSelected;
@@ -27,11 +27,9 @@ class _AppFavoriteWidget extends State<AppFavoriteWidget> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        var log = Logger();
+        widget.onEvent();
         setState(() {
-          widget.onEvent;
           _isSelected = !_isSelected;
-          log.i(widget.isSelected);
         });
       },
       child: Container(
