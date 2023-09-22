@@ -5,6 +5,6 @@ abstract class Constants {
 
 enum AdsStatusType { top, standard }
 
-enum AdsRouteType { private, business }
+//enum AdsRouteType { private, business }
 
-enum AdsPropertyType { newly, used }
+// enum AdsPropertyType { newly, used }

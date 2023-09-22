@@ -8,7 +8,11 @@ class AdsApi {
   AdsApi(this._dio);
 
   Future<Response> getAdsList(int pageIndex, int pageSize) {
-    final body = {'page': pageIndex, 'page_size':pageSize};
-    return _dio.post('v1/home/ads?lang=la', data: body);
+    final queryParameters = {'page': pageIndex, 'page_size': pageSize};
+    return _dio.get('v1/home/ads?lang=la', queryParameters: queryParameters);
+  }
+
+  Future<Response> getBanners() {
+    return _dio.get('v1/home/banners');
   }
 }

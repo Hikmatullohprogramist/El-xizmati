@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:onlinebozor/common/constants.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
+import '../../domain/model/ads/ads_response.dart';
 import '../gen/localization/strings.dart';
 
 class AppAdsRouterWidget extends StatelessWidget {
@@ -10,7 +10,7 @@ class AppAdsRouterWidget extends StatelessWidget {
     required this.adsRouteType,
   });
 
-  final AdsRouteType adsRouteType;
+  final RouteType adsRouteType;
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +19,13 @@ class AppAdsRouterWidget extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             color: switch (adsRouteType) {
-              AdsRouteType.private => Color(0x28AEB2CD),
-              AdsRouteType.business => Color(0x1E6546E7),
+              RouteType.PRIVATE => Color(0x28AEB2CD),
+              RouteType.BUSINESS => Color(0x1E6546E7),
             }),
         child: switch (adsRouteType) {
-          AdsRouteType.private =>
+          RouteType.PRIVATE =>
             Strings.adsPropertyPersonal.w(500).s(8).c(Color(0xFF999CB2)),
-          AdsRouteType.business =>
+          RouteType.BUSINESS =>
             Strings.adsPropertyBiznes.w(500).s(8).c(Color(0xFF6546E7)),
         });
   }

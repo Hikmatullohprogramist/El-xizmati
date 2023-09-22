@@ -7,6 +7,7 @@ import 'package:onlinebozor/common/widgets/ads_property_widget.dart';
 import 'package:onlinebozor/common/widgets/ads_route_widget.dart';
 import 'package:onlinebozor/common/widgets/ads_status_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite_widget.dart';
+import 'package:onlinebozor/domain/model/ads/ads_response.dart';
 
 import '../gen/assets/assets.gen.dart';
 
@@ -94,10 +95,10 @@ class AppAdsHorizontalWidget extends StatelessWidget {
                 )
               ]),
               SizedBox(height: 12),
-              Row(mainAxisAlignment: MainAxisAlignment.start, children: const [
-                AppAdsRouterWidget(adsRouteType: AdsRouteType.private),
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                AppAdsRouterWidget(adsRouteType: RouteType.PRIVATE),
                 SizedBox(width: 5),
-                AppAdsPropertyWidget(adsPropertyType: AdsPropertyType.newly)
+                AppAdsPropertyWidget(adsPropertyType: PropertyStatus.USED)
               ])
             ],
           ),

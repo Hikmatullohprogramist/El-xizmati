@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return DisplayWidget(
       child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
         routerConfig: _appRouter.config(
             initialRoutes: [if (isLogin) HomeRoute() else SetLanguageRoute()]),
         localizationsDelegates: context.localizationDelegates,

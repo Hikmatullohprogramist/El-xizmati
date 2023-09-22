@@ -5,8 +5,8 @@ part 'ads_response.freezed.dart';
 part 'ads_response.g.dart';
 
 @freezed
-class AdsResponse with _$AdsResponse {
-  const factory AdsResponse({
+class AdsRootResponse with _$AdsRootResponse {
+  const factory AdsRootResponse({
     dynamic error,
     dynamic message,
     String? timestamp,
@@ -14,25 +14,25 @@ class AdsResponse with _$AdsResponse {
     dynamic path,
     Data? data,
     dynamic response,
-  }) = _AdsResponse;
+  }) = _AdsRootResponse;
 
-  factory AdsResponse.fromJson(Map<String, dynamic> json) =>
-      _$AdsResponseFromJson(json);
+  factory AdsRootResponse.fromJson(Map<String, dynamic> json) =>
+      _$AdsRootResponseFromJson(json);
 }
 
 @freezed
 class Data with _$Data {
   const factory Data({
     int? count,
-    List<Result>? results,
+    List<AdsResponse>? results,
   }) = _Data;
 
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 }
 
 @freezed
-class Result with _$Result {
-  const factory Result({
+class AdsResponse with _$AdsResponse {
+  const factory AdsResponse({
     int? id,
     String? name,
     int? price,
@@ -51,9 +51,9 @@ class Result with _$Result {
     int? max_amount,
     Seller? seller,
     List<Photo>? photos,
-  }) = _Result;
+  }) = _AdsResponse;
 
-  factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);
+  factory AdsResponse.fromJson(Map<String, dynamic> json) => _$AdsResponseFromJson(json);
 }
 
 @freezed

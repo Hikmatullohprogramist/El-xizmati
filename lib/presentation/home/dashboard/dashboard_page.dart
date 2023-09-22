@@ -25,6 +25,12 @@ class DashboardPage
   const DashboardPage({super.key});
 
   @override
+  void init(BuildContext context) async {
+    // await context.read<DashboardCubit>().getController();
+    // await context.read<DashboardCubit>().getBanners();
+  }
+
+  @override
   Widget builder(BuildContext context, DashboardBuildable state) {
     return Scaffold(
       appBar: CommonSearchBar(
@@ -135,62 +141,74 @@ class DashboardPage
               },
             ),
           ),
-          AppBannerWidget(
-              list: List.generate(
-                  3, (index) => 'http://via.placeholder.com/200x150')),
-          SizedBox(height: 24),
-          PagedGridView<int, AdsResponse>(
-            shrinkWrap: true,
-            showNewPageProgressIndicatorAsGridChild: false,
-            showNewPageErrorIndicatorAsGridChild: false,
-            showNoMoreItemsIndicatorAsGridChild: false,
-            pagingController: PagingController<int, AdsResponse>(firstPageKey: 1),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              childAspectRatio: 156 / 265,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 16,
-              crossAxisCount: 2,
-            ),
-            builderDelegate: PagedChildBuilderDelegate<AdsResponse>(
-                itemBuilder: (context, item, index) => AppAdsWidget(
-                      onClickFavorite: (value) {
-                        Logger log = Logger();
-                        log.w(value);
-                  },
-                  onClick: (value) {
-                    Logger log = Logger();
-                    log.w(value);
-                    context.router.push(AdsDetailRoute());
-                  },
-                )),
-          ),
-          // GridView.builder(
-          //   padding: EdgeInsets.symmetric(horizontal: 16),
-          //   shrinkWrap: true,
-          //   itemCount: 60,
-          //   physics: BouncingScrollPhysics(),
-          //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          //       crossAxisCount: 2,
-          //       crossAxisSpacing: 16,
-          //       mainAxisSpacing: 16,
-          //       childAspectRatio: 156 / 265),
-          //   itemBuilder: (BuildContext context, int index) {
-          //     return AppAdsWidget(
-          //       onClickFavorite: (value) {
-          //         Logger log = Logger();
-          //         log.w(value);
-          //       },
-          //       onClick: (value) {
-          //         Logger log = Logger();
-          //         log.w(value);
-          //         context.router.push(AdsDetailRoute());
-          //       },
-          //     );
-          //   },
-          // ),
-          // AppBannerWidget(),
+          state.banners.isNotEmpty
+              ? AppBannerWidget(list: state.banners)
+              : SizedBox(height: 6),
+          SizedBox(height: 6),
+          state.adsPagingController == null
+              ? SizedBox()
+              : SizedBox(
+                  child: PagedGridView<int, AdsResponse>(
+                    shrinkWrap: true,
+                    addAutomaticKeepAlives: false,
+                    physics: BouncingScrollPhysics(),
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    pagingController: state.adsPagingController!,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio: 156 / 265,
+                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 16,
+                      crossAxisCount: 2,
+                    ),
+                    builderDelegate: PagedChildBuilderDelegate<AdsResponse>(
+                      firstPageErrorIndicatorBuilder: (_) {
+                        return Center(
+                          child: Text('Xatolik Yuz berdi'),
+                        );
+                      },
+                      firstPageProgressIndicatorBuilder: (_) {
+                        return CircularProgressIndicator(
+                          backgroundColor: Colors.red,
+                          strokeWidth: 8,
+                        );
+                      },
+                      noItemsFoundIndicatorBuilder: (_) {
+                        return Center(
+                            child: Text("Hech qanday element topilmadi"));
+                      },
+                      noMoreItemsIndicatorBuilder: (_) {
+                        return Center(child: Text("Boshqa Item Yo'q"));
+                      },
+                      newPageProgressIndicatorBuilder: (_) {
+                        return Center(
+                          child: Text("yuklanyapti"),
+                        );
+                      },
+                      newPageErrorIndicatorBuilder: (_) {
+                        return Center(
+                          child: Text("Xatolik yuz berdi"),
+                        );
+                      },
+                      transitionDuration: Duration(milliseconds: 100),
+                      itemBuilder: (context, item, index) => AppAdsWidget(
+                        result: item,
+                        onClickFavorite: (value) {
+                          Logger log = Logger();
+                          log.w(value);
+                        },
+                        onClick: (value) {
+                          Logger log = Logger();
+                          log.w(value);
+                          context.router.push(AdsDetailRoute());
+                        },
+                      ),
+                    ),
+                  ),
+                )
         ]),
       )),
     );
   }
 }
+

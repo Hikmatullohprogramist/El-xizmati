@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/domain/model/ads/ads_response.dart';
+import 'package:onlinebozor/domain/model/banner/banner_response.dart';
 
 import '../../domain/repo/ads_repository.dart';
 import '../api/ads_api.dart';
@@ -13,10 +14,20 @@ class AdsRepositoryImpl extends AdsRepository {
   AdsRepositoryImpl(this._api, this._storage);
 
   @override
-  Future<AdsResponse> getAds(int pageIndex, int pageSize) async {
-    final response =
-        await _api.getAdsList(pageSize = pageSize, pageIndex = pageIndex);
-    final adsResponse = AdsResponse.fromJson(response.data);
+  Future<List<AdsResponse>> getAds(int pageIndex, int pageSize) async {
+    final response = await _api.getAdsList(
+      pageIndex,
+      pageSize,
+    );
+    final adsResponse =
+        AdsRootResponse.fromJson(response.data).data?.results ?? List.empty();
     return adsResponse;
+  }
+
+  @override
+  Future<List<BannerResponse>> getBanner() async {
+    final response = await _api.getBanners();
+    final banners = BannerRootResponse.fromJson(response.data).data;
+    return banners ?? List.empty();
   }
 }
