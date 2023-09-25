@@ -116,6 +116,4 @@ extension TextExtensions on Text {
   Text a(TextAlign textAlign) => copyWith(style: style, textAlign: textAlign);
 }
 
-extension ResponseExtensions on String {
-
-}
+extension ResponseExtensions on String {}

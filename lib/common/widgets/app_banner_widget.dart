@@ -11,7 +11,7 @@ class AppBannerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
-      options: CarouselOptions(autoPlay: true, aspectRatio:2/1),
+      options: CarouselOptions(autoPlay: true, aspectRatio: 2 / 1),
       items: list.map((i) {
         return Builder(
           builder: (BuildContext context) {

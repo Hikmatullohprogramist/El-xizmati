@@ -17,7 +17,6 @@ class AppFavoriteWidget extends StatefulWidget {
 class _AppFavoriteWidget extends State<AppFavoriteWidget> {
   bool _isSelected = false;
 
-
   @override
   void initState() {
     _isSelected = widget.isSelected;
@@ -42,7 +41,7 @@ class _AppFavoriteWidget extends State<AppFavoriteWidget> {
             color: _isSelected
                 ? context.colors.buttonPrimary
                 : context.colors.textPrimaryInverse),
-        child:_isSelected
+        child: _isSelected
             ? Assets.images.icLiked.svg()
             : Assets.images.icLike.svg(),
       ),

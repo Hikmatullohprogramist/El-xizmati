@@ -34,8 +34,7 @@ part 'app_router.gr.dart';
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
 class AppRouter extends _$AppRouter {
   @override
-  List<AutoRoute> get routes =>
-      [
+  List<AutoRoute> get routes => [
         //
         AutoRoute(
             page: SetLanguageRoute.page, path: "/set_language", initial: true),

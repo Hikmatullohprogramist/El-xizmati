@@ -6,7 +6,6 @@ import 'package:logger/logger.dart';
 
 abstract class BaseCubit<BUILDABLE, LISTENABLE>
     extends Cubit<BaseState<BUILDABLE, LISTENABLE>> {
-
   late BUILDABLE buildable;
 
   final log = getIt<Logger>();
