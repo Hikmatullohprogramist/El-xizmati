@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/common/loading_state.dart';
 import 'package:onlinebozor/domain/model/ads/ads_response.dart';
 import 'package:onlinebozor/domain/model/banner/banner_response.dart';
 
@@ -33,7 +34,7 @@ class DashboardCubit
       display.error(e.toString());
     } finally {
       log.i(buildable.adsPagingController);
-      build((buildable) => buildable.copyWith(loading: false));
+      // build((buildable) => buildable.copyWith(loading: false));
     }
   }
 

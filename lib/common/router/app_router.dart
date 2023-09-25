@@ -65,6 +65,14 @@ class AppRouter extends _$AppRouter {
 
         //  common page
         AutoRoute(page: SearchRoute.page, path: '/search'),
-        AutoRoute(page: NotificationRoute.page, path: '/notification')
+        AutoRoute(page: NotificationRoute.page, path: '/notification'),
+
+        //   profile page
+        AutoRoute(page: ProfileViewerRoute.page, path: '/profile_viewer'),
+        AutoRoute(page: AddAddressRoute.page, path: '/add_address'),
+        AutoRoute(page: MyCardsRoute.page, path: '/my_cards'),
+        AutoRoute(page: PaymentTransactionRoute.page, path: '/payment_transaction'),
+        AutoRoute(page: ProfileEditRoute.page, path: '/profile_edit'),
+        AutoRoute(page: ComparisonDetailRoute.page, path: '/comparison_detail')
       ];
 }

@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:logger/logger.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
+import 'package:onlinebozor/common/loading_state.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/ads_widget.dart';
 import 'package:onlinebozor/common/widgets/all_view_widget.dart';
 import 'package:onlinebozor/common/widgets/app_banner_widget.dart';
+import 'package:onlinebozor/common/widgets/loading/loader_state_widget.dart';
 import 'package:onlinebozor/presentation/ads/ads_collection%20/cubit/ads_collection_cubit.dart';
 import 'package:onlinebozor/presentation/ads/ads_list/cubit/ads_list_cubit.dart';
 
@@ -141,9 +143,10 @@ class DashboardPage
               },
             ),
           ),
-          state.banners.isNotEmpty
-              ? AppBannerWidget(list: state.banners)
-              : SizedBox(height: 6),
+          LoaderStateWidget(
+              isFullScreen: false,
+              loadingState: AppLoadingState.success,
+              child: AppBannerWidget(list: state.banners)),
           SizedBox(height: 6),
           state.adsPagingController == null
               ? SizedBox()
@@ -211,4 +214,3 @@ class DashboardPage
     );
   }
 }
-
