@@ -72,11 +72,14 @@ class AppAdHorizontalWidget extends StatelessWidget {
                         ))
                   ])),
               SizedBox(height: 12),
-              (result.name ?? "")
-                  .w(400)
-                  .s(10)
-                  .c(context.colors.textPrimary)
-                  .copyWith(maxLines: 2),
+              SizedBox(
+                height: 25,
+                child: (result.name ?? "")
+                    .w(400)
+                    .s(10)
+                    .c(context.colors.textPrimary)
+                    .copyWith(maxLines: 2),
+              ),
               SizedBox(height: 22),
               if (result.price == 0)
                 "${result.from_price}-${result.from_price}".w(700).s(10)

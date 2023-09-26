@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/api/common_api.dart';
 import 'package:onlinebozor/domain/model/banner/banner_response.dart';
+import 'package:onlinebozor/domain/model/category/category_response.dart';
 import 'package:onlinebozor/domain/repo/common_repository.dart';
 
 @LazySingleton(as: CommonRepository)
@@ -14,5 +15,12 @@ class CommonRepositoryImpl extends CommonRepository {
     final response = await _api.getBanners();
     final banners = BannerRootResponse.fromJson(response.data).data;
     return banners ?? List.empty();
+  }
+
+  @override
+  Future<List<CategoryResponse>> getCategories() async {
+    final response = await _api.getCategories();
+    final categories = CategoryRootResponse.fromJson(response.data).data;
+    return categories ?? List.empty();
   }
 }

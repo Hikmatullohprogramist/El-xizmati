@@ -2,7 +2,10 @@ part of 'category_cubit.dart';
 
 @freezed
 class CategoryBuildable with _$CategoryBuildable {
-  const factory CategoryBuildable() = _CategoryBuildable;
+  const factory CategoryBuildable({
+    @Default(<CategoryResponse>[]) List<CategoryResponse> categories,
+    @Default(AppLoadingState.loading) AppLoadingState categoriesState
+}) = _CategoryBuildable;
 }
 
 @freezed

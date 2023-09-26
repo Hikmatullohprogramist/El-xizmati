@@ -137,7 +137,7 @@ class DashboardPage
                     pagingController: state.adsPagingController!,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 156 / 275,
+                      childAspectRatio: 156 / 285,
                       crossAxisSpacing: 16,
                       mainAxisSpacing: 16,
                       crossAxisCount: 2,

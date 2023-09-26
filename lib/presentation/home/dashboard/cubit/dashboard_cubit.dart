@@ -18,7 +18,7 @@ class DashboardCubit
     extends BaseCubit<DashboardBuildable, DashboardListenable> {
   DashboardCubit(this.adRepository, this.commonRepository)
       : super(DashboardBuildable()) {
-    getHome();
+    // getHome();
   }
 
   Future<void> getHome() async {

@@ -10,4 +10,8 @@ class CommonApi {
   Future<Response> getBanners() {
     return _dio.get('v1/home/banners');
   }
+
+  Future<Response> getCategories() {
+    return _dio.get('v1/categories?lang=uz');
+  }
 }

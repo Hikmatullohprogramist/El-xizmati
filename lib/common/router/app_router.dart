@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/presentation/home/home_page.dart';
 import 'package:onlinebozor/presentation/verify/verify_page.dart';
 import '../../presentation/ad/ad_collection/ad_collection_page.dart';
+import '../../presentation/ad/ad_detail/ad_detil_page.dart';
+import '../../presentation/ad/ad_list/ad_list_page.dart';
 import '../../presentation/ad/ad_search/ad_search_page.dart';
 import '../../presentation/auth/confirm/confirm_page.dart';
 import '../../presentation/auth/login/login_page.dart';
