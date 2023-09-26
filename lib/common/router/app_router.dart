@@ -2,12 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/presentation/home/home_page.dart';
 import 'package:onlinebozor/presentation/verify/verify_page.dart';
-
-import '../../presentation/ads/ads_collection /ads_collection_page.dart';
-import '../../presentation/ads/ads_detail/ads_detail_page.dart';
-import '../../presentation/ads/ads_list/ads_list_page.dart';
-import '../../presentation/ads/ads_list/cubit/ads_list_cubit.dart';
-import '../../presentation/ads/ads_search/ads_search_page.dart';
+import '../../presentation/ad/ad_collection/ad_collection_page.dart';
+import '../../presentation/ad/ad_search/ad_search_page.dart';
 import '../../presentation/auth/confirm/confirm_page.dart';
 import '../../presentation/auth/login/login_page.dart';
 import '../../presentation/auth/register/register_page.dart';
@@ -59,9 +55,9 @@ class AppRouter extends _$AppRouter {
             ]),
 
         // Ads collection
-        AutoRoute(page: AdsCollectionRoute.page, path: "/ads_collection"),
-        AutoRoute(page: AdsListRoute.page, path: '/ads_list'),
-        AutoRoute(page: AdsDetailRoute.page, path: '/ads_detail'),
+        AutoRoute(page: AdCollectionRoute.page, path: "/ads_collection"),
+        // AutoRoute(page: AdsListRoute.page, path: '/ads_list'),
+        // AutoRoute(page: AdDetailRoute.page, path: '/ads_detail'),
 
         //  common page
         AutoRoute(page: SearchRoute.page, path: '/search'),

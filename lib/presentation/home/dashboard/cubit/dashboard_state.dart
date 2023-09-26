@@ -8,9 +8,10 @@ class DashboardBuildable with _$DashboardBuildable {
     @Default(AppLoadingState.loading) AppLoadingState popularCategoriesState,
     @Default(AppLoadingState.loading) AppLoadingState recentlyAdsState,
     @Default(AppLoadingState.loading) AppLoadingState bannersState,
+    @Default(<AdResponse>[]) List<AdResponse> recentlyViewerAds,
     @Default(<BannerResponse>[]) List<BannerResponse> banners,
-    @Default(<AdsResponse>[]) List<AdsResponse> adsList,
-    PagingController<int, AdsResponse>? adsPagingController,
+    @Default(<AdResponse>[]) List<AdResponse> adsList,
+    PagingController<int, AdResponse>? adsPagingController,
   }) = _DashboardBuildable;
 }
 

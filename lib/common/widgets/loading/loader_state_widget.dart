@@ -43,6 +43,7 @@ class LoadingWidget extends StatelessWidget {
             ),
           )
         : SizedBox(
+            height: 160,
             child: Center(
               child: CircularProgressIndicator(
                 color: Colors.blue,
@@ -76,9 +77,17 @@ class ErrorWidget extends StatelessWidget {
             )),
           )
         : SizedBox(
+            height: 160,
             child: Center(
-              child: CircularProgressIndicator(
-                color: Colors.blue,
+              child:  Column(
+                children: [
+                  "Xatolik yuz berdi?".w(400).s(14).c(context.colors.textPrimary),
+                  SizedBox(height: 12),
+                  CommonButton(
+                      onPressed: onErrorToAgainRequest,
+                      type: ButtonType.elevated,
+                      child: "Qayta urinish".w(400).s(15))
+                ],
               ),
             ),
           );

@@ -24,9 +24,9 @@ class ThemeColors {
 
   Color get buttonPrimary => StaticColors.slateBlue;
 
-  Color get adsStatusBackground => StaticColors.bondiBlue;
+  Color get adStatusBackground => StaticColors.bondiBlue;
 
-  Color get adsPropertyBusinessBackground => StaticColors.business;
+  Color get adPropertyBusinessBackground => StaticColors.business;
 
-  Color get adsPropertyPersonalBackground => StaticColors.manatee;
+  Color get adPropertyPersonalBackground => StaticColors.manatee;
 }

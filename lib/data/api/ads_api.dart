@@ -11,8 +11,8 @@ class AdsApi {
     final queryParameters = {'page': pageIndex, 'page_size': pageSize};
     return _dio.get('v1/home/ads?lang=la', queryParameters: queryParameters);
   }
-
-  Future<Response> getBanners() {
-    return _dio.get('v1/home/banners');
+  
+  Future<Response> getPopularAds(){
+    return _dio.get('v1/popular/ads');
   }
 }

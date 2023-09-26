@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
-import '../../domain/model/ads/ads_response.dart';
-import '../gen/localization/strings.dart';
+import '../../../domain/model/ad/ad_response.dart';
+import '../../gen/localization/strings.dart';
 
-class AppAdsRouterWidget extends StatelessWidget {
-  const AppAdsRouterWidget({
+class AppAdRouterWidget extends StatelessWidget {
+  const AppAdRouterWidget({
     super.key,
     required this.adsRouteType,
   });

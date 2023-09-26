@@ -3,10 +3,10 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/constants.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
-import '../gen/assets/assets.gen.dart';
+import '../../gen/assets/assets.gen.dart';
 
-class AppAdsStatusWidget extends StatelessWidget {
-  const AppAdsStatusWidget({super.key, required this.adsStatusType});
+class AppAdStatusWidget extends StatelessWidget {
+  const AppAdStatusWidget({super.key, required this.adsStatusType});
 
   final AdsStatusType adsStatusType;
 

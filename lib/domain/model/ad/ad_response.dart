@@ -1,12 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'ads_response.freezed.dart';
+part 'ad_response.freezed.dart';
 
-part 'ads_response.g.dart';
+part 'ad_response.g.dart';
 
 @freezed
-class AdsRootResponse with _$AdsRootResponse {
-  const factory AdsRootResponse({
+class AdRootResponse with _$AdRootResponse {
+  const factory AdRootResponse({
     dynamic error,
     dynamic message,
     String? timestamp,
@@ -14,25 +14,25 @@ class AdsRootResponse with _$AdsRootResponse {
     dynamic path,
     Data? data,
     dynamic response,
-  }) = _AdsRootResponse;
+  }) = _AdRootResponse;
 
-  factory AdsRootResponse.fromJson(Map<String, dynamic> json) =>
-      _$AdsRootResponseFromJson(json);
+  factory AdRootResponse.fromJson(Map<String, dynamic> json) =>
+      _$AdRootResponseFromJson(json);
 }
 
 @freezed
 class Data with _$Data {
   const factory Data({
     int? count,
-    List<AdsResponse>? results,
+    List<AdResponse>? results,
   }) = _Data;
 
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 }
 
 @freezed
-class AdsResponse with _$AdsResponse {
-  const factory AdsResponse({
+class AdResponse with _$AdResponse {
+  const factory AdResponse({
     int? id,
     String? name,
     int? price,
@@ -51,9 +51,9 @@ class AdsResponse with _$AdsResponse {
     int? max_amount,
     Seller? seller,
     List<Photo>? photos,
-  }) = _AdsResponse;
+  }) = _AdResponse;
 
-  factory AdsResponse.fromJson(Map<String, dynamic> json) => _$AdsResponseFromJson(json);
+  factory AdResponse.fromJson(Map<String, dynamic> json) => _$AdResponseFromJson(json);
 }
 
 @freezed

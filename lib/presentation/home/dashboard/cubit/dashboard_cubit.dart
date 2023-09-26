@@ -2,11 +2,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/loading_state.dart';
-import 'package:onlinebozor/domain/model/ads/ads_response.dart';
+import 'package:onlinebozor/domain/model/ad/ad_response.dart';
 import 'package:onlinebozor/domain/model/banner/banner_response.dart';
+import 'package:onlinebozor/domain/repo/common_repository.dart';
 
 import '../../../../common/core/base_cubit.dart';
-import '../../../../domain/repo/ads_repository.dart';
+import '../../../../domain/repo/ad_repository.dart';
 
 part 'dashboard_cubit.freezed.dart';
 
@@ -15,14 +16,58 @@ part 'dashboard_state.dart';
 @injectable
 class DashboardCubit
     extends BaseCubit<DashboardBuildable, DashboardListenable> {
-  DashboardCubit(this.adsRepository) : super(DashboardBuildable()) {
-    getBanners();
-    getController();
+  DashboardCubit(this.adRepository, this.commonRepository)
+      : super(DashboardBuildable()) {
+    getHome();
+  }
+
+  Future<void> getHome() async {
+    await Future.wait([
+      getRecentlyViewAds(),
+      getBanners(),
+      getController(),
+    ]);
   }
 
   static const _pageSize = 20;
 
-  final AdsRepository adsRepository;
+  final AdRepository adRepository;
+  final CommonRepository commonRepository;
+
+  Future<void> getRecentlyViewAds() async {
+    try {
+      build((buildable) =>
+          buildable.copyWith(recentlyAdsState: AppLoadingState.loading));
+      final recentlyAds = await adRepository.getRecentlyViewAds();
+      build((buildable) =>
+          buildable.copyWith(
+              recentlyViewerAds: recentlyAds,
+              recentlyAdsState: AppLoadingState.success));
+      log.i("${buildable.banners}");
+    } catch (e, stackTrace) {
+      build((buildable) =>
+          buildable.copyWith(recentlyAdsState: AppLoadingState.error));
+      log.e(e.toString(), error: e, stackTrace: stackTrace);
+      display.error(e.toString());
+    }
+  }
+
+  Future<void> getBanners() async {
+    try {
+      build((buildable) =>
+          buildable.copyWith(bannersState: AppLoadingState.loading));
+      final banners = await commonRepository.getBanner();
+      build((buildable) =>
+          buildable.copyWith(
+              banners: banners, bannersState: AppLoadingState.success));
+      log.i("${buildable.banners}");
+    } catch (e, stackTrace) {
+      build((buildable) =>
+          buildable.copyWith(bannersState: AppLoadingState.error));
+      log.e(e.toString(), error: e, stackTrace: stackTrace);
+      display.error(e.toString());
+    }
+  }
 
   Future<void> getController() async {
     try {
@@ -38,38 +83,26 @@ class DashboardCubit
     }
   }
 
-  PagingController<int, AdsResponse> getAdsController({
+  PagingController<int, AdResponse> getAdsController({
     required int status,
   }) {
-    final adsController = PagingController<int, AdsResponse>(
+    final adController = PagingController<int, AdResponse>(
       firstPageKey: 1,
     );
     log.i(buildable.adsPagingController);
 
-    adsController.addPageRequestListener(
-      (pageKey) async {
-        final adsList = await adsRepository.getAds(pageKey, _pageSize);
+    adController.addPageRequestListener(
+          (pageKey) async {
+        final adsList = await adRepository.getAds(pageKey, _pageSize);
         if (adsList.length <= 19) {
-          adsController.appendLastPage(adsList);
+          adController.appendLastPage(adsList);
           log.i(buildable.adsPagingController);
           return;
         }
-        adsController.appendPage(adsList, pageKey + 1);
+        adController.appendPage(adsList, pageKey + 1);
         log.i(buildable.adsPagingController);
       },
     );
-    return adsController;
-  }
-
-  Future<void> getBanners() async {
-    log.i("${buildable.banners}");
-    try {
-      final banners = await adsRepository.getBanner();
-      build((buildable) => buildable.copyWith(banners: banners));
-      log.i("${buildable.banners}");
-    } catch (e, stackTrace) {
-      log.e(e.toString(), error: e, stackTrace: stackTrace);
-      display.error(e.toString());
-    }
+    return adController;
   }
 }

@@ -2,35 +2,30 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:logger/logger.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
-import 'package:onlinebozor/common/loading_state.dart';
+import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/common/widgets/ads_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/ad_group_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/ad_widget.dart';
 import 'package:onlinebozor/common/widgets/all_view_widget.dart';
 import 'package:onlinebozor/common/widgets/app_banner_widget.dart';
 import 'package:onlinebozor/common/widgets/loading/loader_state_widget.dart';
-import 'package:onlinebozor/presentation/ads/ads_collection%20/cubit/ads_collection_cubit.dart';
-import 'package:onlinebozor/presentation/ads/ads_list/cubit/ads_list_cubit.dart';
 
 import '../../../common/gen/assets/assets.gen.dart';
 import '../../../common/gen/localization/strings.dart';
-import '../../../common/widgets/ads_horizontal_widget.dart';
 import '../../../common/widgets/app_bar/common_search_bar.dart';
 import '../../../common/widgets/commodity_and_service.dart';
+import '../../../common/widgets/common_button.dart';
 import '../../../common/widgets/popular_category.dart';
-import '../../../domain/model/ads/ads_response.dart';
+import '../../../domain/model/ad/ad_response.dart';
+import '../../ad/ad_collection/cubit/ad_collection_cubit.dart';
 import 'cubit/dashboard_cubit.dart';
 
 @RoutePage()
 class DashboardPage
     extends BasePage<DashboardCubit, DashboardBuildable, DashboardListenable> {
   const DashboardPage({super.key});
-
-  @override
-  void init(BuildContext context) async {
-    // await context.read<DashboardCubit>().getController();
-    // await context.read<DashboardCubit>().getBanners();
-  }
 
   @override
   Widget builder(BuildContext context, DashboardBuildable state) {
@@ -55,7 +50,7 @@ class DashboardPage
                 flex: 1,
                 child: AppCommodityAndService(
                   onPressed: () {
-                    context.router.push(AdsCollectionRoute(
+                    context.router.push(AdCollectionRoute(
                         CollectiveType: CollectiveType.commodity));
                   },
                   color: Color(0xFFB9A0FF),
@@ -69,7 +64,7 @@ class DashboardPage
                 flex: 1,
                 child: AppCommodityAndService(
                   onPressed: () {
-                    context.router.push(AdsCollectionRoute(
+                    context.router.push(AdCollectionRoute(
                         CollectiveType: CollectiveType.service));
                   },
                   color: Color(0xFFFFBB79),
@@ -113,45 +108,28 @@ class DashboardPage
           ),
           AppAllViewWidget(
               onPressed: () {
-                context.router
-                    .push(AdsListRoute(adsListType: AdsListType.hotDiscount));
+                // context.router
+                //     .push(AdListRoute(adListType: AdListType.hotDiscount));
               },
               title: Strings.hotDiscountsTitle),
-          SizedBox(
-            height: 342,
-            child: ListView.separated(
-              physics: BouncingScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              itemCount: 15,
-              padding: EdgeInsets.only(left: 16, bottom: 24, right: 16),
-              itemBuilder: (context, index) {
-                return AppAdsHorizontalWidget(
-                  onClickFavorite: (value) {
-                    Logger log = Logger();
-                    log.w(value);
-                  },
-                  onClick: (value) {
-                    Logger log = Logger();
-                    log.w(value);
-                    context.router.push(AdsDetailRoute());
-                  },
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return SizedBox(width: 16);
-              },
-            ),
-          ),
           LoaderStateWidget(
               isFullScreen: false,
-              loadingState: AppLoadingState.success,
+              loadingState: state.recentlyAdsState,
+              child: AdGroupWidget(
+                ads: state.recentlyViewerAds,
+                onClick: (AdResponse result) {},
+                onClickFavorite: (AdResponse result) {},
+              )),
+          LoaderStateWidget(
+              isFullScreen: false,
+              loadingState: state.bannersState,
               child: AppBannerWidget(list: state.banners)),
           SizedBox(height: 6),
           state.adsPagingController == null
               ? SizedBox()
               : SizedBox(
-                  child: PagedGridView<int, AdsResponse>(
+                  height: 600,
+                  child: PagedGridView<int, AdResponse>(
                     shrinkWrap: true,
                     addAutomaticKeepAlives: false,
                     physics: BouncingScrollPhysics(),
@@ -159,21 +137,40 @@ class DashboardPage
                     pagingController: state.adsPagingController!,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 156 / 265,
+                      childAspectRatio: 156 / 275,
                       crossAxisSpacing: 16,
                       mainAxisSpacing: 16,
                       crossAxisCount: 2,
                     ),
-                    builderDelegate: PagedChildBuilderDelegate<AdsResponse>(
+                    builderDelegate: PagedChildBuilderDelegate<AdResponse>(
                       firstPageErrorIndicatorBuilder: (_) {
-                        return Center(
-                          child: Text('Xatolik Yuz berdi'),
+                        return SizedBox(
+                          height: 100,
+                          child: Center(
+                            child: Column(
+                              children: [
+                                "Xatolik yuz berdi?"
+                                    .w(400)
+                                    .s(14)
+                                    .c(context.colors.textPrimary),
+                                SizedBox(height: 12),
+                                CommonButton(
+                                    onPressed: () {},
+                                    type: ButtonType.elevated,
+                                    child: "Qayta urinish".w(400).s(15))
+                              ],
+                            ),
+                          ),
                         );
                       },
                       firstPageProgressIndicatorBuilder: (_) {
-                        return CircularProgressIndicator(
-                          backgroundColor: Colors.red,
-                          strokeWidth: 8,
+                        return SizedBox(
+                          height: 160,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.blue,
+                            ),
+                          ),
                         );
                       },
                       noItemsFoundIndicatorBuilder: (_) {
@@ -184,17 +181,27 @@ class DashboardPage
                         return Center(child: Text("Boshqa Item Yo'q"));
                       },
                       newPageProgressIndicatorBuilder: (_) {
-                        return Center(
-                          child: Text("yuklanyapti"),
+                        return SizedBox(
+                          height: 160,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.blue,
+                            ),
+                          ),
                         );
                       },
                       newPageErrorIndicatorBuilder: (_) {
-                        return Center(
-                          child: Text("Xatolik yuz berdi"),
+                        return SizedBox(
+                          height: 160,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.blue,
+                            ),
+                          ),
                         );
                       },
                       transitionDuration: Duration(milliseconds: 100),
-                      itemBuilder: (context, item, index) => AppAdsWidget(
+                      itemBuilder: (context, item, index) => AppAdWidget(
                         result: item,
                         onClickFavorite: (value) {
                           Logger log = Logger();
@@ -203,7 +210,7 @@ class DashboardPage
                         onClick: (value) {
                           Logger log = Logger();
                           log.w(value);
-                          context.router.push(AdsDetailRoute());
+                          // context.router.push(AdDetailRoute());
                         },
                       ),
                     ),

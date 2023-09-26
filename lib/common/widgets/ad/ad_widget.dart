@@ -3,25 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/constants.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/widgets/ads_property_widget.dart';
-import 'package:onlinebozor/common/widgets/ads_route_widget.dart';
-import 'package:onlinebozor/common/widgets/ads_status_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/ad_property_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/ad_route_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/ad_status_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite_widget.dart';
-import 'package:onlinebozor/domain/model/ads/ads_response.dart';
+import 'package:onlinebozor/domain/model/ad/ad_response.dart';
 
-import '../gen/assets/assets.gen.dart';
+import '../../gen/assets/assets.gen.dart';
 
-class AppAdsWidget extends StatelessWidget {
-  const AppAdsWidget({
+class AppAdWidget extends StatelessWidget {
+  const AppAdWidget({
     super.key,
     this.onClickFavorite,
     this.onClick,
     required this.result,
   });
 
-  final AdsResponse result;
-  final Function(AdsResponse result)? onClick;
-  final Function(AdsResponse result)? onClickFavorite;
+  final AdResponse result;
+  final Function(AdResponse result)? onClick;
+  final Function(AdResponse result)? onClickFavorite;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,7 @@ class AppAdsWidget extends StatelessWidget {
                       errorWidget: (context, url, error) =>
                           Center(child: Icon(Icons.error)),
                     ),
-                    AppAdsStatusWidget(adsStatusType: AdsStatusType.standard),
+                    AppAdStatusWidget(adsStatusType: AdsStatusType.standard),
                     Align(
                         alignment: Alignment.topRight,
                         child: AppFavoriteWidget(
@@ -100,10 +100,10 @@ class AppAdsWidget extends StatelessWidget {
               ]),
               SizedBox(height: 12),
               Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                AppAdsRouterWidget(
+                AppAdRouterWidget(
                     adsRouteType: result.route_type ?? RouteType.PRIVATE),
                 SizedBox(width: 5),
-                AppAdsPropertyWidget(
+                AppAdPropertyWidget(
                     adsPropertyType:
                         result.property_status ?? PropertyStatus.USED)
               ])

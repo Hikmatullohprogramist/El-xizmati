@@ -2,17 +2,17 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/core/base_page.dart';
-import 'cubit/ads_collection_cubit.dart';
+import 'cubit/ad_collection_cubit.dart';
 
 @RoutePage()
-class AdsCollectionPage extends BasePage<AdsCollectionCubit,
-    AdsCollectionBuildable, AdsCollectionListenable> {
-  const AdsCollectionPage(this.CollectiveType, {super.key});
+class AdCollectionPage extends BasePage<AdCollectionCubit,
+    AdCollectionBuildable, AdCollectionListenable> {
+  const AdCollectionPage(this.CollectiveType, {super.key});
 
   final CollectiveType;
 
   @override
-  Widget builder(BuildContext context, AdsCollectionBuildable state) {
+  Widget builder(BuildContext context, AdCollectionBuildable state) {
     return Center(
       child: Scaffold(
         body: Center(
