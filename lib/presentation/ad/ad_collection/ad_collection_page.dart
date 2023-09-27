@@ -7,16 +7,16 @@ import 'cubit/ad_collection_cubit.dart';
 @RoutePage()
 class AdCollectionPage extends BasePage<AdCollectionCubit,
     AdCollectionBuildable, AdCollectionListenable> {
-  const AdCollectionPage(this.CollectiveType, {super.key});
+  const AdCollectionPage(this.collectiveType, {super.key});
 
-  final CollectiveType;
+  final CollectiveType collectiveType;
 
   @override
   Widget builder(BuildContext context, AdCollectionBuildable state) {
     return Center(
       child: Scaffold(
         body: Center(
-          child: Text("Ads_collection"),
+          child: AppBar(),
         ),
       ),
     );

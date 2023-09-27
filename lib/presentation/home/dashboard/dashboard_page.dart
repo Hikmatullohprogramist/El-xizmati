@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:logger/logger.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
+import 'package:onlinebozor/common/constants.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
@@ -17,7 +18,6 @@ import '../../../common/gen/localization/strings.dart';
 import '../../../common/widgets/app_bar/common_search_bar.dart';
 import '../../../common/widgets/commodity_and_service.dart';
 import '../../../common/widgets/common_button.dart';
-import '../../../common/widgets/popular_category.dart';
 import '../../../domain/model/ad/ad_response.dart';
 import '../../ad/ad_collection/cubit/ad_collection_cubit.dart';
 import 'cubit/dashboard_cubit.dart';
@@ -51,7 +51,8 @@ class DashboardPage
                 child: AppCommodityAndService(
                   onPressed: () {
                     context.router.push(AdCollectionRoute(
-                        CollectiveType: CollectiveType.commodity));
+                      collectiveType: CollectiveType.commodity,
+                    ));
                   },
                   color: Color(0xFFB9A0FF),
                   title: Strings.commodityTitle,
@@ -65,7 +66,7 @@ class DashboardPage
                 child: AppCommodityAndService(
                   onPressed: () {
                     context.router.push(AdCollectionRoute(
-                        CollectiveType: CollectiveType.service));
+                        collectiveType: CollectiveType.service));
                   },
                   color: Color(0xFFFFBB79),
                   title: Strings.serviceTitle,
@@ -76,40 +77,39 @@ class DashboardPage
               )
             ],
           ),
+          // AppAllViewWidget(
+          //     onPressed: () {
+          //       // context.router
+          //       //     .push(AdsListRoute(adsListType: AdsListType.hotDiscount));
+          //     },
+          //     title: Strings.popularCategories),
+          // Divider(height: 1.50, color: Color(0xFFE5E9F3)),
+          // SizedBox(
+          //   height: 156,
+          //   child: ListView.separated(
+          //     physics: BouncingScrollPhysics(),
+          //     scrollDirection: Axis.horizontal,
+          //     shrinkWrap: true,
+          //     itemCount: 15,
+          //     padding: EdgeInsets.only(left: 16, bottom: 24, right: 16),
+          //     itemBuilder: (context, index) {
+          //       return AppPopularCategory(
+          //         title: 'Kompyuter',
+          //         image: Assets.images.pc.image(),
+          //       );
+          //     },
+          //     separatorBuilder: (BuildContext context, int index) {
+          //       return SizedBox(width: 16);
+          //     },
+          //   ),
+          // ),
+          // Divider(
+          //   height: 6,
+          //   color: Color(0xFFE5E9F3),
+          // ),
           AppAllViewWidget(
               onPressed: () {
-                // context.router
-                //     .push(AdsListRoute(adsListType: AdsListType.hotDiscount));
-              },
-              title: Strings.popularCategories),
-          Divider(height: 1.50, color: Color(0xFFE5E9F3)),
-          SizedBox(
-            height: 156,
-            child: ListView.separated(
-              physics: BouncingScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              itemCount: 15,
-              padding: EdgeInsets.only(left: 16, bottom: 24, right: 16),
-              itemBuilder: (context, index) {
-                return AppPopularCategory(
-                  title: 'Kompyuter',
-                  image: Assets.images.pc.image(),
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return SizedBox(width: 16);
-              },
-            ),
-          ),
-          Divider(
-            height: 6,
-            color: Color(0xFFE5E9F3),
-          ),
-          AppAllViewWidget(
-              onPressed: () {
-                // context.router
-                //     .push(AdListRoute(adListType: AdListType.hotDiscount));
+                context.router.push(AdListRoute(adType: AdType.list));
               },
               title: Strings.hotDiscountsTitle),
           LoaderStateWidget(
@@ -117,7 +117,9 @@ class DashboardPage
               loadingState: state.recentlyAdsState,
               child: AdGroupWidget(
                 ads: state.recentlyViewerAds,
-                onClick: (AdResponse result) {},
+                onClick: (AdResponse result) {
+                  context.router.push(AdDetailRoute());
+                },
                 onClickFavorite: (AdResponse result) {},
               )),
           LoaderStateWidget(
@@ -208,9 +210,7 @@ class DashboardPage
                           log.w(value);
                         },
                         onClick: (value) {
-                          Logger log = Logger();
-                          log.w(value);
-                          // context.router.push(AdDetailRoute());
+                          context.router.push(AdDetailRoute());
                         },
                       ),
                     ),

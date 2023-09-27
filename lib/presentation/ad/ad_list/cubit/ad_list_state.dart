@@ -2,7 +2,10 @@ part of 'ad_list_cubit.dart';
 
 @freezed
 class AdListBuildable with _$AdListBuildable {
-  const factory AdListBuildable() = _AdListBuildable;
+  const factory AdListBuildable({
+    @Default(AppLoadingState.loading) AppLoadingState adsState,
+    PagingController<int, AdResponse>? adsPagingController,
+  }) = _AdListBuildable;
 }
 
 @freezed

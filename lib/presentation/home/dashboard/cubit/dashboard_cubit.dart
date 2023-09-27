@@ -18,7 +18,7 @@ class DashboardCubit
     extends BaseCubit<DashboardBuildable, DashboardListenable> {
   DashboardCubit(this.adRepository, this.commonRepository)
       : super(DashboardBuildable()) {
-    // getHome();
+    getHome();
   }
 
   Future<void> getHome() async {
@@ -36,14 +36,12 @@ class DashboardCubit
 
   Future<void> getRecentlyViewAds() async {
     try {
-      build((buildable) =>
-          buildable.copyWith(recentlyAdsState: AppLoadingState.loading));
+      log.i("recentlyViewerAds request");
       final recentlyAds = await adRepository.getRecentlyViewAds();
-      build((buildable) =>
-          buildable.copyWith(
-              recentlyViewerAds: recentlyAds,
-              recentlyAdsState: AppLoadingState.success));
-      log.i("${buildable.banners}");
+      build((buildable) => buildable.copyWith(
+          recentlyViewerAds: recentlyAds,
+          recentlyAdsState: AppLoadingState.success));
+      log.i("recentlyViewerAds=${buildable.recentlyViewerAds}");
     } catch (e, stackTrace) {
       build((buildable) =>
           buildable.copyWith(recentlyAdsState: AppLoadingState.error));
@@ -57,9 +55,8 @@ class DashboardCubit
       build((buildable) =>
           buildable.copyWith(bannersState: AppLoadingState.loading));
       final banners = await commonRepository.getBanner();
-      build((buildable) =>
-          buildable.copyWith(
-              banners: banners, bannersState: AppLoadingState.success));
+      build((buildable) => buildable.copyWith(
+          banners: banners, bannersState: AppLoadingState.success));
       log.i("${buildable.banners}");
     } catch (e, stackTrace) {
       build((buildable) =>
@@ -92,7 +89,7 @@ class DashboardCubit
     log.i(buildable.adsPagingController);
 
     adController.addPageRequestListener(
-          (pageKey) async {
+      (pageKey) async {
         final adsList = await adRepository.getAds(pageKey, _pageSize);
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);

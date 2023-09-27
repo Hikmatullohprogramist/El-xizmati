@@ -1,6 +1,7 @@
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
+import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/app_bar/common_search_bar.dart';
 import 'package:onlinebozor/common/widgets/category/category_widget.dart';
 import 'package:onlinebozor/common/widgets/loading/loader_state_widget.dart';
@@ -17,8 +18,12 @@ class CategoryPage
     return Scaffold(
       appBar: CommonSearchBar(
           onPressedMic: () {},
-          onPressedNotification: () {},
-          onPressedSearch: () {}),
+          onPressedNotification: () {
+            context.router.push(NotificationRoute());
+          },
+          onPressedSearch: () {
+            context.router.push(SearchRoute());
+          }),
       body: LoaderStateWidget(
           isFullScreen: false,
           loadingState: state.categoriesState,

@@ -58,14 +58,15 @@ class AppAdHorizontalWidget extends StatelessWidget {
                         ),
                       ),
                       placeholder: (context, url) =>
-                          CircularProgressIndicator(),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
+                          Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) =>
+                          Center(child: Icon(Icons.error)),
                     ),
                     AppAdStatusWidget(adsStatusType: AdsStatusType.standard),
                     Align(
                         alignment: Alignment.topRight,
                         child: AppFavoriteWidget(
-                          isSelected: true,
+                          isSelected: false,
                           onEvent: () {
                             onClickFavorite(result);
                           },

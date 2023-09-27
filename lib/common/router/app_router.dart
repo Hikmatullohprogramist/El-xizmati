@@ -2,7 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/presentation/home/home_page.dart';
 import 'package:onlinebozor/presentation/verify/verify_page.dart';
+
 import '../../presentation/ad/ad_collection/ad_collection_page.dart';
+import '../../presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
 import '../../presentation/ad/ad_detail/ad_detil_page.dart';
 import '../../presentation/ad/ad_list/ad_list_page.dart';
 import '../../presentation/ad/ad_search/ad_search_page.dart';
@@ -26,6 +28,7 @@ import '../../presentation/home/profile_dashboard/features/profileedit/profile_e
 import '../../presentation/home/profile_dashboard/features/profileviewer/profile_viewer_page.dart';
 import '../../presentation/home/profile_dashboard/profile_dashboard_page.dart';
 import '../../presentation/language/set_language/set_language_page.dart';
+import '../constants.dart';
 
 part 'app_router.gr.dart';
 
@@ -58,8 +61,9 @@ class AppRouter extends _$AppRouter {
 
         // Ads collection
         AutoRoute(page: AdCollectionRoute.page, path: "/ads_collection"),
-        // AutoRoute(page: AdsListRoute.page, path: '/ads_list'),
-        // AutoRoute(page: AdDetailRoute.page, path: '/ads_detail'),
+        AutoRoute(page: AdListRoute.page, path: '/ads_list'),
+        AutoRoute(page: AdDetailRoute.page, path: '/ads_detail'),
+        AutoRoute(page: AdSearchRoute.page, path: '/ad-search'),
 
         //  common page
         AutoRoute(page: SearchRoute.page, path: '/search'),
@@ -69,7 +73,8 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: ProfileViewerRoute.page, path: '/profile_viewer'),
         AutoRoute(page: AddAddressRoute.page, path: '/add_address'),
         AutoRoute(page: MyCardsRoute.page, path: '/my_cards'),
-        AutoRoute(page: PaymentTransactionRoute.page, path: '/payment_transaction'),
+        AutoRoute(
+            page: PaymentTransactionRoute.page, path: '/payment_transaction'),
         AutoRoute(page: ProfileEditRoute.page, path: '/profile_edit'),
         AutoRoute(page: ComparisonDetailRoute.page, path: '/comparison_detail')
       ];

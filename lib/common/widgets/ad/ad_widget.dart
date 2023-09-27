@@ -66,7 +66,7 @@ class AppAdWidget extends StatelessWidget {
                     Align(
                         alignment: Alignment.topRight,
                         child: AppFavoriteWidget(
-                          isSelected: true,
+                          isSelected: false,
                           onEvent: () {
                             onClickFavorite!(result);
                           },
