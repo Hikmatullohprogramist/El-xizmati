@@ -11,15 +11,15 @@ import 'package:onlinebozor/common/widgets/ad/ad_group_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_widget.dart';
 import 'package:onlinebozor/common/widgets/all_view_widget.dart';
 import 'package:onlinebozor/common/widgets/app_banner_widget.dart';
+import 'package:onlinebozor/common/widgets/app_diverder.dart';
+import 'package:onlinebozor/common/widgets/category/popular_category_group.dart';
 import 'package:onlinebozor/common/widgets/loading/loader_state_widget.dart';
+import 'package:onlinebozor/common/widgets/root_commodity_and_service.dart';
 
-import '../../../common/gen/assets/assets.gen.dart';
 import '../../../common/gen/localization/strings.dart';
 import '../../../common/widgets/app_bar/common_search_bar.dart';
-import '../../../common/widgets/commodity_and_service.dart';
 import '../../../common/widgets/common_button.dart';
 import '../../../domain/model/ad/ad_response.dart';
-import '../../ad/ad_collection/cubit/ad_collection_cubit.dart';
 import 'cubit/dashboard_cubit.dart';
 
 @RoutePage()
@@ -32,81 +32,25 @@ class DashboardPage
     return Scaffold(
       appBar: CommonSearchBar(
         onPressedMic: () {},
-        onPressedNotification: () {
-          context.router.push(NotificationRoute());
-        },
-        onPressedSearch: () {
-          context.router.push(SearchRoute());
-        },
+        onPressedNotification: () => context.router.push(NotificationRoute()),
+        onPressedSearch: () => context.router.push(SearchRoute()),
       ),
       backgroundColor: Colors.white,
-      body: SafeArea(
-          child: SingleChildScrollView(
+      body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(children: [
-          Row(
-            children: [
-              Flexible(
-                flex: 1,
-                child: AppCommodityAndService(
-                  onPressed: () {
-                    context.router.push(AdCollectionRoute(
-                      collectiveType: CollectiveType.commodity,
-                    ));
-                  },
-                  color: Color(0xFFB9A0FF),
-                  title: Strings.commodityTitle,
-                  endColorGradient: Color(0xFFAFA2DA),
-                  image: Assets.images.pngImages.commondity.image(),
-                  startColorGradient: Color(0xFF9570FF),
-                ),
-              ),
-              Flexible(
-                flex: 1,
-                child: AppCommodityAndService(
-                  onPressed: () {
-                    context.router.push(AdCollectionRoute(
-                        collectiveType: CollectiveType.service));
-                  },
-                  color: Color(0xFFFFBB79),
-                  title: Strings.serviceTitle,
-                  endColorGradient: Color(0xFFF0C49A),
-                  image: Assets.images.pngImages.service.image(),
-                  startColorGradient: Color(0xFFF7993D),
-                ),
-              )
-            ],
-          ),
-          // AppAllViewWidget(
-          //     onPressed: () {
-          //       // context.router
-          //       //     .push(AdsListRoute(adsListType: AdsListType.hotDiscount));
-          //     },
-          //     title: Strings.popularCategories),
-          // Divider(height: 1.50, color: Color(0xFFE5E9F3)),
-          // SizedBox(
-          //   height: 156,
-          //   child: ListView.separated(
-          //     physics: BouncingScrollPhysics(),
-          //     scrollDirection: Axis.horizontal,
-          //     shrinkWrap: true,
-          //     itemCount: 15,
-          //     padding: EdgeInsets.only(left: 16, bottom: 24, right: 16),
-          //     itemBuilder: (context, index) {
-          //       return AppPopularCategory(
-          //         title: 'Kompyuter',
-          //         image: Assets.images.pc.image(),
-          //       );
-          //     },
-          //     separatorBuilder: (BuildContext context, int index) {
-          //       return SizedBox(width: 16);
-          //     },
-          //   ),
-          // ),
-          // Divider(
-          //   height: 6,
-          //   color: Color(0xFFE5E9F3),
-          // ),
+          AppRootCommodityAndService(),
+          AppAllViewWidget(
+              onPressed: () => context.router.push(PopularCategoriesRoute()),
+              title: Strings.popularCategories),
+          LoaderStateWidget(
+              isFullScreen: false,
+              loadingState: state.popularCategoriesState,
+              child: PopularCategoryGroupWidget(
+                popularCategories: state.popularCategories,
+                onClick: (popularCategories) {},
+              )),
+          AppDivider(),
           AppAllViewWidget(
               onPressed: () {
                 context.router.push(AdListRoute(adType: AdType.list));
@@ -148,6 +92,7 @@ class DashboardPage
                       firstPageErrorIndicatorBuilder: (_) {
                         return SizedBox(
                           height: 100,
+                          width: double.infinity,
                           child: Center(
                             child: Column(
                               children: [
@@ -217,7 +162,7 @@ class DashboardPage
                   ),
                 )
         ]),
-      )),
+      ),
     );
   }
 }

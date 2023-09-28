@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/loading_state.dart';
 import 'package:onlinebozor/domain/model/ad/ad_response.dart';
 import 'package:onlinebozor/domain/model/banner/banner_response.dart';
+import 'package:onlinebozor/domain/model/popular_category/popular_category_response.dart';
 import 'package:onlinebozor/domain/repo/common_repository.dart';
 
 import '../../../../common/core/base_cubit.dart';
@@ -23,6 +24,7 @@ class DashboardCubit
 
   Future<void> getHome() async {
     await Future.wait([
+      getPopularCategories(),
       getRecentlyViewAds(),
       getBanners(),
       getController(),
@@ -33,6 +35,24 @@ class DashboardCubit
 
   final AdRepository adRepository;
   final CommonRepository commonRepository;
+
+  Future<void> getPopularCategories() async {
+    try {
+      log.i("recentlyViewerAds request");
+      final popularCategories =
+          await commonRepository.getPopularCategories(1, 20);
+      build((buildable) => buildable.copyWith(
+            popularCategories: popularCategories,
+            popularCategoriesState: AppLoadingState.success,
+          ));
+      log.i("recentlyViewerAds=${buildable.recentlyViewerAds}");
+    } catch (e, stackTrace) {
+      build((buildable) =>
+          buildable.copyWith(popularCategoriesState: AppLoadingState.error));
+      log.e(e.toString(), error: e, stackTrace: stackTrace);
+      display.error(e.toString());
+    }
+  }
 
   Future<void> getRecentlyViewAds() async {
     try {

@@ -8,6 +8,7 @@ class DashboardBuildable with _$DashboardBuildable {
     @Default(AppLoadingState.loading) AppLoadingState popularCategoriesState,
     @Default(AppLoadingState.loading) AppLoadingState recentlyAdsState,
     @Default(AppLoadingState.loading) AppLoadingState bannersState,
+    @Default(<PopularCategoryResponse>[]) List<PopularCategoryResponse> popularCategories,
     @Default(<AdResponse>[]) List<AdResponse> recentlyViewerAds,
     @Default(<BannerResponse>[]) List<BannerResponse> banners,
     @Default(<AdResponse>[]) List<AdResponse> adsList,

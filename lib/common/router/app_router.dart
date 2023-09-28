@@ -15,6 +15,7 @@ import '../../presentation/auth/set_password/set_password_page.dart';
 import '../../presentation/auth/start/auth_start_page.dart';
 import '../../presentation/auth/verification/verification_page.dart';
 import '../../presentation/common/notification/notification_page.dart';
+import '../../presentation/common/popular_categories/popular_categories_page.dart';
 import '../../presentation/common/search/search_page.dart';
 import '../../presentation/home/card/card_page.dart';
 import '../../presentation/home/category/category_page.dart';
@@ -66,6 +67,8 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: AdSearchRoute.page, path: '/ad-search'),
 
         //  common page
+        AutoRoute(
+            page: PopularCategoriesRoute.page, path: '/popular_categories'),
         AutoRoute(page: SearchRoute.page, path: '/search'),
         AutoRoute(page: NotificationRoute.page, path: '/notification'),
 

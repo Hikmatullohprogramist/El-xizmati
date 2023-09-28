@@ -141,7 +141,6 @@ class $AssetsImagesGen {
   AssetGenImage get pc => const AssetGenImage('assets/images/pc.png');
 
   $AssetsImagesPngImagesGen get pngImages => const $AssetsImagesPngImagesGen();
-
   $AssetsImagesProfileGen get profile => const $AssetsImagesProfileGen();
 
   /// File path: assets/images/simple.jpg

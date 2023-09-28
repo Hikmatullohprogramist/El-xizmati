@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/domain/model/category/category_response.dart';
 
 import '../../gen/assets/assets.gen.dart';
 
 class AppCategoryWidget extends StatelessWidget {
-  const AppCategoryWidget(
-      {super.key, required this.name, this.icon, required this.callback});
+  const AppCategoryWidget({
+    super.key,
+    required this.onClick,
+    required this.categoryResponse,
+  });
 
-  final String name;
-  final Widget? icon;
-  final VoidCallback callback;
+  final Function(CategoryResponse categoryResponse) onClick;
+  final CategoryResponse categoryResponse;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: callback,
+        onTap: () {
+          onClick(categoryResponse);
+        },
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
           color: Colors.white,
@@ -28,7 +33,12 @@ class AppCategoryWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SizedBox(width: 16),
-                    name.w(500).s(14).c(context.colors.textPrimary).copyWith(
+                    categoryResponse.name
+                        .toString()
+                        .w(500)
+                        .s(14)
+                        .c(context.colors.textPrimary)
+                        .copyWith(
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         )

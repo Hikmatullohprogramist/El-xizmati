@@ -16,7 +16,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
     return Center(
       child: Scaffold(
         body: Center(
-          child: AppBar(),
+          child:Center(child: Text("Collection  page")),
         ),
       ),
     );

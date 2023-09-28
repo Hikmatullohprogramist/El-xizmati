@@ -25,12 +25,12 @@ class AdListPage
     return Scaffold(
       appBar: CommonAppBar(() {
         context.router.pop();
-      }),
+      }, "Popular e'lonlar"),
       body: PagedGridView<int, AdResponse>(
         shrinkWrap: true,
         addAutomaticKeepAlives: false,
         physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(horizontal: 16,vertical: 16),
         pagingController: state.adsPagingController!,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: 156 / 285,

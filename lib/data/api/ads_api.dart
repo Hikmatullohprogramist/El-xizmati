@@ -15,4 +15,8 @@ class AdsApi {
   Future<Response> getPopularAds(){
     return _dio.get('v1/popular/ads');
   }
+  
+  Future<Response> getAdDetail(){
+    return _dio.get('v1/ads/detail/?id=4030&lang=uz');
+  }
 }

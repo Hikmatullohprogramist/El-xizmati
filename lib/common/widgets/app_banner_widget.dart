@@ -30,7 +30,7 @@ class AppBannerWidget extends StatelessWidget {
                             Colors.white, BlendMode.colorBurn)),
                   ),
                 ),
-                placeholder: (context, url) => CircularProgressIndicator(),
+                placeholder: (context, url) => Center(child: CircularProgressIndicator()),
                 errorWidget: (context, url, error) => Icon(Icons.error),
               ),
             );
