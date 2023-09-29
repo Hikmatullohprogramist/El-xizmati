@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/constants.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/app_bar/common_search_bar.dart';
@@ -36,7 +37,9 @@ class CategoryPage
             itemBuilder: (context, index) {
               return AppCategoryWidget(
                 onClick: (CategoryResponse categoryResponse) {
-
+                  context.router.push(AdListRoute(
+                      adListType: AdListType.popularCategory,
+                      keyWord: categoryResponse.key_word));
                 },
                 categoryResponse: state.categories[index],
               );

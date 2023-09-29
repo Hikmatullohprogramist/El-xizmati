@@ -8,4 +8,5 @@ enum AdsStatusType { top, standard }
 enum AdListType {
   list,
   popularCategory,
+  category,
 }
