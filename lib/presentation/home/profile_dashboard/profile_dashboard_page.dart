@@ -103,7 +103,7 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
           ProfileItemWidget(
             name: 'Мои карты',
             icon: Assets.images.profile.icCards.svg(width: 18, height: 18),
-            callback: () {},
+            callback: () => context.router.push(MyCardsRoute()),
           ),
           Divider(indent: 46, height: 1),
           ProfileItemWidget(

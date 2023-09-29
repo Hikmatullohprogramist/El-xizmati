@@ -11,8 +11,6 @@ class MyCardsPage
 
   @override
   Widget builder(BuildContext context, MyCardsBuildable state) {
-    return Center(
-      child: Text("Auth Start"),
-    );
+    return Scaffold();
   }
 }

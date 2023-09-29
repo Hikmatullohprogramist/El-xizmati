@@ -1,10 +1,8 @@
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
-import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/router/app_router.dart';
 
-import '../../../common/loading_state.dart';
-import '../../../common/widgets/loading/loader_state_widget.dart';
 import 'cubit/favorites_cubit.dart';
 
 @RoutePage()
@@ -14,9 +12,27 @@ class FavoritesPage
 
   @override
   Widget builder(BuildContext context, FavoritesBuildable state) {
-    return LoaderStateWidget(
-        isFullScreen: true,
-        loadingState: AppLoadingState.loading,
-        child: "misol".w(400));
+    return AutoTabsRouter.tabBar(
+      routes: const [CommodityFavoritesRoute(), ServiceFavoritesRoute()],
+      builder: (context, child, controller) {
+        final tabsRouter = AutoTabsRouter.of(context);
+        return Scaffold(
+          appBar: AppBar(
+            elevation: 0,
+            centerTitle: true,
+            title: Text("Мои желания"),
+            leading: AutoLeadingButton(),
+            bottom: TabBar(
+              controller: controller,
+              tabs: const [
+                Tab(text: 'Товары'),
+                Tab(text: 'Услуги'),
+              ],
+            ),
+          ),
+          body: child,
+        );
+      },
+    );
   }
 }

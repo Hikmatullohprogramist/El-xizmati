@@ -20,6 +20,8 @@ import '../../presentation/common/search/search_page.dart';
 import '../../presentation/home/card/card_page.dart';
 import '../../presentation/home/category/category_page.dart';
 import '../../presentation/home/dashboard/dashboard_page.dart';
+import '../../presentation/home/favorites/favorites/commodity/commodity_favorites_page.dart';
+import '../../presentation/home/favorites/favorites/service/service_favorites_page.dart';
 import '../../presentation/home/favorites/favorites_page.dart';
 import '../../presentation/home/profile_dashboard/features/addaddress/add_address_page.dart';
 import '../../presentation/home/profile_dashboard/features/comparisondetail/comparison_detail_page.dart';
@@ -55,7 +57,14 @@ class AppRouter extends _$AppRouter {
             children: [
               AutoRoute(page: DashboardRoute.page, path: 'dashboard'),
               AutoRoute(page: CategoryRoute.page, path: 'category'),
-              AutoRoute(page: FavoritesRoute.page, path: 'favorite'),
+              AutoRoute(page: FavoritesRoute.page, path: 'favorite', children: [
+                AutoRoute(
+                    page: CommodityFavoritesRoute.page,
+                    path: 'commodity_favorites'),
+                AutoRoute(
+                    page: ServiceFavoritesRoute.page,
+                    path: 'service_favorites')
+              ]),
               AutoRoute(page: CardRoute.page, path: 'card'),
               AutoRoute(page: ProfileDashboardRoute.page, path: 'profile')
             ]),
@@ -79,6 +88,6 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
             page: PaymentTransactionRoute.page, path: '/payment_transaction'),
         AutoRoute(page: ProfileEditRoute.page, path: '/profile_edit'),
-        AutoRoute(page: ComparisonDetailRoute.page, path: '/comparison_detail')
+        AutoRoute(page: ComparisonDetailRoute.page, path: '/comparison_detail'),
       ];
 }
