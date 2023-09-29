@@ -5,6 +5,7 @@ abstract class Constants {
 
 enum AdsStatusType { top, standard }
 
-enum AdType {
+enum AdListType {
   list,
+  popularCategory,
 }

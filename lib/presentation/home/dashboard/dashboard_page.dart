@@ -48,12 +48,17 @@ class DashboardPage
               loadingState: state.popularCategoriesState,
               child: PopularCategoryGroupWidget(
                 popularCategories: state.popularCategories,
-                onClick: (popularCategories) {},
+                onClick: (popularCategories) {
+                  context.router.push(AdListRoute(
+                      adListType: AdListType.popularCategory,
+                      keyWord: popularCategories.key_word));
+                },
               )),
           AppDivider(),
           AppAllViewWidget(
               onPressed: () {
-                context.router.push(AdListRoute(adType: AdType.list));
+                context.router
+                    .push(AdListRoute(adListType: AdListType.list, keyWord: ''));
               },
               title: Strings.hotDiscountsTitle),
           LoaderStateWidget(

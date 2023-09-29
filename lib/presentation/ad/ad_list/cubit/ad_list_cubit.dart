@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/base/base_cubit.dart';
+import 'package:onlinebozor/common/constants.dart';
 import 'package:onlinebozor/common/loading_state.dart';
 import 'package:onlinebozor/domain/repo/ad_repository.dart';
 
@@ -15,6 +16,10 @@ part 'ad_list_state.dart';
 class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
   AdListCubit(this.adRepository) : super(AdListBuildable()) {
     getController();
+  }
+
+  void initiallyDate(String? keyWord, AdListType adListType) {
+    build((buildable) => buildable.copyWith(keyWord: keyWord ?? ""));
   }
 
   static const _pageSize = 20;
@@ -44,7 +49,8 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
 
     adController.addPageRequestListener(
       (pageKey) async {
-        final adsList = await adRepository.getAds(pageKey, _pageSize);
+        final adsList =
+            await adRepository.getAds(pageKey, _pageSize, buildable.keyWord);
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);
           log.i(buildable.adsPagingController);

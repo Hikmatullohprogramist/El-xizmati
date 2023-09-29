@@ -9,6 +9,8 @@ import 'package:onlinebozor/common/widgets/category/popular_category_horizontal.
 import 'package:onlinebozor/domain/model/popular_category/popular_category_response.dart';
 import 'package:onlinebozor/presentation/common/popular_categories/cubit/popular_categories_cubit.dart';
 
+import '../../../common/constants.dart';
+import '../../../common/router/app_router.dart';
 import '../../../common/widgets/common_button.dart';
 
 @RoutePage()
@@ -27,7 +29,7 @@ class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
                   shrinkWrap: true,
                   addAutomaticKeepAlives: false,
                   physics: BouncingScrollPhysics(),
-                  padding: EdgeInsets.symmetric(horizontal: 16,vertical: 16),
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   pagingController: state.categoriesPagingController!,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisSpacing: 16,
@@ -97,7 +99,11 @@ class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
                     itemBuilder: (context, item, index) =>
                         AppPopularCategoryHorizontal(
                       popularCategoryResponse: item,
-                      onClick: (value) {},
+                      onClick: (value) {
+                        context.router.push(AdListRoute(
+                            adListType: AdListType.popularCategory,
+                            keyWord: value.key_word));
+                      },
                     ),
                   ),
                 ),

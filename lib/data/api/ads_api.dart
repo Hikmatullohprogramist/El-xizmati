@@ -7,16 +7,20 @@ class AdsApi {
 
   AdsApi(this._dio);
 
-  Future<Response> getAdsList(int pageIndex, int pageSize) {
-    final queryParameters = {'page': pageIndex, 'page_size': pageSize};
+  Future<Response> getAdsList(int pageIndex, int pageSize, String keyWord) {
+    final queryParameters = {
+      'page': pageIndex,
+      'page_size': pageSize,
+      'key_word': keyWord
+    };
     return _dio.get('v1/home/ads?lang=la', queryParameters: queryParameters);
   }
-  
-  Future<Response> getPopularAds(){
+
+  Future<Response> getPopularAds() {
     return _dio.get('v1/popular/ads');
   }
-  
-  Future<Response> getAdDetail(){
+
+  Future<Response> getAdDetail() {
     return _dio.get('v1/ads/detail/?id=4030&lang=uz');
   }
 }

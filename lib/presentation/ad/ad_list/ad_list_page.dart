@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:logger/logger.dart';
 import 'package:onlinebozor/common/base/base_page.dart';
@@ -16,9 +17,15 @@ import '../../../domain/model/ad/ad_response.dart';
 @RoutePage()
 class AdListPage
     extends BasePage<AdListCubit, AdListBuildable, AdListListenable> {
-  const AdListPage(this.adType, {super.key});
+  const AdListPage(this.adListType, this.keyWord, {super.key});
 
-  final AdType adType;
+  final AdListType adListType;
+  final String? keyWord;
+
+  @override
+  void init(BuildContext context) {
+    context.read<AdListCubit>().initiallyDate(keyWord, adListType);
+  }
 
   @override
   Widget builder(BuildContext context, AdListBuildable state) {
@@ -30,7 +37,7 @@ class AdListPage
         shrinkWrap: true,
         addAutomaticKeepAlives: false,
         physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: 16,vertical: 16),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         pagingController: state.adsPagingController!,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: 156 / 285,
