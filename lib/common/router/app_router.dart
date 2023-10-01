@@ -27,6 +27,7 @@ import '../../presentation/home/profile_dashboard/features/add_address/add_addre
 import '../../presentation/home/profile_dashboard/features/comparison_detail/comparison_detail_page.dart';
 import '../../presentation/home/profile_dashboard/features/my_ads/my_ads_page.dart';
 import '../../presentation/home/profile_dashboard/features/my_cards/my_cards_page.dart';
+import '../../presentation/home/profile_dashboard/features/my_orders/my_orders_page.dart';
 import '../../presentation/home/profile_dashboard/features/payment_transaction/payment_transaction_page.dart';
 import '../../presentation/home/profile_dashboard/features/profile_edit/profile_edit_page.dart';
 import '../../presentation/home/profile_dashboard/features/profile_viewer/profile_viewer_page.dart';
@@ -39,7 +40,8 @@ part 'app_router.gr.dart';
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
 class AppRouter extends _$AppRouter {
   @override
-  List<AutoRoute> get routes => [
+  List<AutoRoute> get routes =>
+      [
         //
         AutoRoute(
             page: SetLanguageRoute.page, path: "/set_language", initial: true),
@@ -86,6 +88,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: AddAddressRoute.page, path: '/add_address'),
         AutoRoute(page: MyAdsRoute.page, path: '/my_ads'),
         AutoRoute(page: MyCardsRoute.page, path: '/my_cards'),
+        AutoRoute(page: MyOrdersRoute.page, path: '/my_orders'),
         AutoRoute(
             page: PaymentTransactionRoute.page, path: '/payment_transaction'),
         AutoRoute(page: ProfileEditRoute.page, path: '/profile_edit'),
