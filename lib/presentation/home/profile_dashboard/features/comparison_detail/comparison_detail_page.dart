@@ -11,8 +11,9 @@ class ComparisonDetailPage extends BasePage<ComparisonDetailCubit,
 
   @override
   Widget builder(BuildContext context, ComparisonDetailBuildable state) {
-    return Center(
-      child: Text("Auth Start"),
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(child: Text("Comparison Detail Page")),
     );
   }
 }

@@ -11,6 +11,11 @@ class MyCardsPage
 
   @override
   Widget builder(BuildContext context, MyCardsBuildable state) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(
+        child: Text("My card"),
+      ),
+    );
   }
 }

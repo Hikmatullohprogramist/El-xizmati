@@ -11,8 +11,9 @@ class PaymentTransactionPage extends BasePage<PaymentTransactionCubit,
 
   @override
   Widget builder(BuildContext context, PaymentTransactionBuildable state) {
-    return Center(
-      child: Text("Auth Start"),
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(child: Text("Payment transactions")),
     );
   }
 }

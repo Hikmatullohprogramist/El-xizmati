@@ -11,8 +11,9 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
 
   @override
   Widget builder(BuildContext context, AddAddressBuildable state) {
-    return Center(
-      child: Text("Auth Start"),
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(child: Text("My address")),
     );
   }
 }
