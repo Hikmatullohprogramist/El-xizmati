@@ -16,7 +16,7 @@ class CommonApi {
   }
 
   Future<Response> getPopularCategories(int pageIndex, int pageSize) {
-    final queryParameters = {'page': pageIndex, 'count': pageSize};
+    final queryParameters = {'page': pageIndex, 'page_size': pageSize};
     return _dio.get("v1/popular/categories", queryParameters: queryParameters);
   }
 }

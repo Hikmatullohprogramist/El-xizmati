@@ -15,7 +15,7 @@ class AppDivider extends StatelessWidget {
       height: height ?? 6,
       indent: indent ?? 0,
       endIndent: endIndent ?? 0,
-      color: color ?? Color(0xFFE5E9F3),
+      color: Color(0xFFE5E9F3),
     );
   }
 }

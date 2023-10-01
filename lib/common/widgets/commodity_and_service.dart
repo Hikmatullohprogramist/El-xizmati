@@ -27,7 +27,7 @@ class AppCommodityAndService extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
           child: Container(
             width: double.infinity,
-            height: 180,
+            height: 200,
             decoration: ShapeDecoration(
               gradient: LinearGradient(
                 begin: Alignment(0.00, 1.00),

@@ -83,9 +83,9 @@ class AppAdHorizontalWidget extends StatelessWidget {
               ),
               SizedBox(height: 22),
               if (result.price == 0)
-                "${result.from_price}-${result.from_price}".w(700).s(10)
+                "${result.from_price}-${result.from_price} so'm".w(700).s(10)
               else
-                result.price.toString().w(700).s(10),
+                "${result.price.toString()} so'm".w(700).s(10),
               SizedBox(height: 14),
               Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 Assets.images.icLocation.svg(width: 12, height: 12),

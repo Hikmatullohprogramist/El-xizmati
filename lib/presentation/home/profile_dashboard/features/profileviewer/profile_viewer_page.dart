@@ -11,8 +11,9 @@ class ProfileViewerPage extends BasePage<ProfileViewerCubit,
 
   @override
   Widget builder(BuildContext context, ProfileViewerBuildable state) {
-    return Center(
-      child: Text("Auth Start"),
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(child: Text("Profile View Screen")),
     );
   }
 }

@@ -33,9 +33,10 @@ class AdListPage
       appBar: CommonAppBar(() {
         context.router.pop();
       }, "Popular e'lonlar"),
+      backgroundColor: Colors.white,
       body: PagedGridView<int, AdResponse>(
         shrinkWrap: true,
-        addAutomaticKeepAlives: false,
+        addAutomaticKeepAlives: true,
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         pagingController: state.adsPagingController!,

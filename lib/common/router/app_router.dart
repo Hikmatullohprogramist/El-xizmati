@@ -25,6 +25,7 @@ import '../../presentation/home/favorites/favorites/service/service_favorites_pa
 import '../../presentation/home/favorites/favorites_page.dart';
 import '../../presentation/home/profile_dashboard/features/addaddress/add_address_page.dart';
 import '../../presentation/home/profile_dashboard/features/comparisondetail/comparison_detail_page.dart';
+import '../../presentation/home/profile_dashboard/features/my_ads/my_ads_page.dart';
 import '../../presentation/home/profile_dashboard/features/mycards/my_cards_page.dart';
 import '../../presentation/home/profile_dashboard/features/paymenttransaction/payment_transaction_page.dart';
 import '../../presentation/home/profile_dashboard/features/profileedit/profile_edit_page.dart';
@@ -62,8 +63,7 @@ class AppRouter extends _$AppRouter {
                     page: CommodityFavoritesRoute.page,
                     path: 'commodity_favorites'),
                 AutoRoute(
-                    page: ServiceFavoritesRoute.page,
-                    path: 'service_favorites')
+                    page: ServiceFavoritesRoute.page, path: 'service_favorites')
               ]),
               AutoRoute(page: CardRoute.page, path: 'card'),
               AutoRoute(page: ProfileDashboardRoute.page, path: 'profile')
@@ -84,6 +84,7 @@ class AppRouter extends _$AppRouter {
         //   profile page
         AutoRoute(page: ProfileViewerRoute.page, path: '/profile_viewer'),
         AutoRoute(page: AddAddressRoute.page, path: '/add_address'),
+        AutoRoute(page: MyAdsRoute.page, path: '/my_ads'),
         AutoRoute(page: MyCardsRoute.page, path: '/my_cards'),
         AutoRoute(
             page: PaymentTransactionRoute.page, path: '/payment_transaction'),

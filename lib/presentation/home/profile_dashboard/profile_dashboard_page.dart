@@ -69,17 +69,13 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
               name: 'Профиль',
               icon:
                   Assets.images.profile.icUserAvatar.svg(width: 18, height: 18),
-              callback: () {
-                context.router.push(ProfileViewerRoute());
-              }),
+              callback: () => context.router.push(ProfileViewerRoute())),
           Divider(indent: 46, height: 1),
           ProfileItemWidget(
-            name: 'Мои Объявления',
-            icon: Assets.images.profile.icMegaPhone.svg(width: 18, height: 18),
-            callback: () {
-              // context.router.push(ProfileViewerRoute());
-            },
-          ),
+              name: 'Мои Объявления',
+              icon:
+                  Assets.images.profile.icMegaPhone.svg(width: 18, height: 18),
+              callback: () => context.router.push(MyAdsRoute())),
           Divider(indent: 46, height: 1),
           ProfileItemWidget(
             name: 'Заказы',
