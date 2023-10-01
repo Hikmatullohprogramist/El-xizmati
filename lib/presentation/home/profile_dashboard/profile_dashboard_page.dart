@@ -86,14 +86,14 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
           ProfileItemWidget(
             name: 'Сообщение',
             icon: Assets.images.profile.icMessage.svg(width: 18, height: 18),
-            callback: () {},
+            callback: () => context.router.push(MessageRoute()),
           ),
           Divider(indent: 46, height: 1),
           ProfileItemWidget(
             name: 'Уведомление',
             icon:
                 Assets.images.profile.icNotification.svg(width: 18, height: 18),
-            callback: () {},
+            callback: () => context.router.push(NotificationRoute()),
           ),
           Divider(indent: 46, height: 1),
           ProfileItemWidget(
