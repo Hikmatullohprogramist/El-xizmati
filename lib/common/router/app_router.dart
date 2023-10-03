@@ -27,9 +27,11 @@ import '../../presentation/home/favorites/favorites_page.dart';
 import '../../presentation/home/profile_dashboard/features/add_address/add_address_page.dart';
 import '../../presentation/home/profile_dashboard/features/comparison_detail/comparison_detail_page.dart';
 import '../../presentation/home/profile_dashboard/features/message/message_screen.dart';
+import '../../presentation/home/profile_dashboard/features/my_active_device/my_active_device_page.dart';
 import '../../presentation/home/profile_dashboard/features/my_ads/my_ads_page.dart';
 import '../../presentation/home/profile_dashboard/features/my_cards/my_cards_page.dart';
 import '../../presentation/home/profile_dashboard/features/my_orders/my_orders_page.dart';
+import '../../presentation/home/profile_dashboard/features/my_social_network/my_social_network_page.dart';
 import '../../presentation/home/profile_dashboard/features/payment_transaction/payment_transaction_page.dart';
 import '../../presentation/home/profile_dashboard/features/profile_edit/profile_edit_page.dart';
 import '../../presentation/home/profile_dashboard/features/profile_viewer/profile_viewer_page.dart';
@@ -97,6 +99,8 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: ProfileEditRoute.page, path: '/profile_edit'),
         AutoRoute(page: ComparisonDetailRoute.page, path: '/comparison_detail'),
         AutoRoute(page: PromotionRoute.page, path: '/promotion'),
-        AutoRoute(page: SettingRoute.page, path: '/setting')
+        AutoRoute(page: SettingRoute.page, path: '/setting'),
+        AutoRoute(page: MyActiveDeviceRoute.page, path: '/my_active_device'),
+        AutoRoute(page: MySocialNetworkRoute.page, path: '/my_social_network'),
       ];
 }
