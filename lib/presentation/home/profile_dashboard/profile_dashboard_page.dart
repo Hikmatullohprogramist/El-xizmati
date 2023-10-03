@@ -124,6 +124,28 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
               name: 'Настройки',
               icon: Assets.images.profile.icSetting.svg(width: 18, height: 18),
               callback: () => context.router.push(SettingRoute())),
+          Divider(indent: 46, height: 1),
+          InkWell(
+              onTap: () {},
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                color: Colors.white,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Assets.images.profileViewer.icLogOut.svg(),
+                        SizedBox(width: 16),
+                        "Выйти".w(500).s(14).c(Color(0xFFF66412))
+                      ],
+                    ),
+                    Assets.images.icArrowRight.svg(height: 16, width: 16)
+                  ],
+                ),
+              )),
         ],
       )),
     );

@@ -142,6 +142,8 @@ class $AssetsImagesGen {
 
   $AssetsImagesPngImagesGen get pngImages => const $AssetsImagesPngImagesGen();
   $AssetsImagesProfileGen get profile => const $AssetsImagesProfileGen();
+  $AssetsImagesProfileViewerGen get profileViewer =>
+      const $AssetsImagesProfileViewerGen();
 
   /// File path: assets/images/simple.jpg
   AssetGenImage get simple => const AssetGenImage('assets/images/simple.jpg');
@@ -345,6 +347,64 @@ class $AssetsImagesProfileGen {
         icPromotion,
         icSetting,
         icUserAvatar
+      ];
+}
+
+class $AssetsImagesProfileViewerGen {
+  const $AssetsImagesProfileViewerGen();
+
+  /// File path: assets/images/profile_viewer/ic_active_device.svg
+  SvgGenImage get icActiveDevice =>
+      const SvgGenImage('assets/images/profile_viewer/ic_active_device.svg');
+
+  /// File path: assets/images/profile_viewer/ic_camera.svg
+  SvgGenImage get icCamera =>
+      const SvgGenImage('assets/images/profile_viewer/ic_camera.svg');
+
+  /// File path: assets/images/profile_viewer/ic_change_password.svg
+  SvgGenImage get icChangePassword =>
+      const SvgGenImage('assets/images/profile_viewer/ic_change_password.svg');
+
+  /// File path: assets/images/profile_viewer/ic_identified.svg
+  SvgGenImage get icIdentified =>
+      const SvgGenImage('assets/images/profile_viewer/ic_identified.svg');
+
+  /// File path: assets/images/profile_viewer/ic_log_out.svg
+  SvgGenImage get icLogOut =>
+      const SvgGenImage('assets/images/profile_viewer/ic_log_out.svg');
+
+  /// File path: assets/images/profile_viewer/ic_network.svg
+  SvgGenImage get icNetwork =>
+      const SvgGenImage('assets/images/profile_viewer/ic_network.svg');
+
+  /// File path: assets/images/profile_viewer/ic_not_identified.svg
+  SvgGenImage get icNotIdentified =>
+      const SvgGenImage('assets/images/profile_viewer/ic_not_identified.svg');
+
+  /// File path: assets/images/profile_viewer/ic_notification.svg
+  SvgGenImage get icNotification =>
+      const SvgGenImage('assets/images/profile_viewer/ic_notification.svg');
+
+  /// File path: assets/images/profile_viewer/ic_radio_button_selected.svg
+  SvgGenImage get icRadioButtonSelected => const SvgGenImage(
+      'assets/images/profile_viewer/ic_radio_button_selected.svg');
+
+  /// File path: assets/images/profile_viewer/ic_radio_button_us_selected.svg
+  SvgGenImage get icRadioButtonUsSelected => const SvgGenImage(
+      'assets/images/profile_viewer/ic_radio_button_us_selected.svg');
+
+  /// List of all assets
+  List<SvgGenImage> get values => [
+        icActiveDevice,
+        icCamera,
+        icChangePassword,
+        icIdentified,
+        icLogOut,
+        icNetwork,
+        icNotIdentified,
+        icNotification,
+        icRadioButtonSelected,
+        icRadioButtonUsSelected
       ];
 }
 

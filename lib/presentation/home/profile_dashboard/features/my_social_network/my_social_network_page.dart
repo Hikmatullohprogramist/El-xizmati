@@ -1,7 +1,11 @@
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/base/base_page.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
+import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/presentation/home/profile_dashboard/features/my_social_network/cubit/my_social_network_cubit.dart';
+
+import '../../../../../common/gen/assets/assets.gen.dart';
 
 @RoutePage()
 class MySocialNetworkPage extends BasePage<MySocialNetworkCubit,
@@ -11,7 +15,16 @@ class MySocialNetworkPage extends BasePage<MySocialNetworkCubit,
   @override
   Widget builder(BuildContext context, MySocialNetworkBuildable state) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: 'Мои соц.сети'.w(500).s(14).c(context.colors.textPrimary),
+        centerTitle: true,
+        elevation: 0.5,
+        leading: IconButton(
+          icon: Assets.images.icArrowLeft.svg(),
+          onPressed: () => context.router.pop(),
+        ),
+      ),
       body: Center(
         child: Text("My Social Network page"),
       ),
