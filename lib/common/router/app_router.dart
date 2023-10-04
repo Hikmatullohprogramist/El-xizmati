@@ -37,6 +37,9 @@ import '../../presentation/home/profile_dashboard/features/my_ads/features/pendi
 import '../../presentation/home/profile_dashboard/features/my_ads/my_ads_page.dart';
 import '../../presentation/home/profile_dashboard/features/my_cards/features /add_card/add_cart_page.dart';
 import '../../presentation/home/profile_dashboard/features/my_cards/my_cards_page.dart';
+import '../../presentation/home/profile_dashboard/features/my_orders/features/my_active_orders/my_active_orders.dart';
+import '../../presentation/home/profile_dashboard/features/my_orders/features/my_pending_orders/my_pending_orders.dart';
+import '../../presentation/home/profile_dashboard/features/my_orders/features/my_saved_orders/my_saved_orders.dart';
 import '../../presentation/home/profile_dashboard/features/my_orders/my_orders_page.dart';
 import '../../presentation/home/profile_dashboard/features/payment_transaction/features/payment_transaction_filter/payment_transaction_filter_page.dart';
 import '../../presentation/home/profile_dashboard/features/payment_transaction/payment_transaction_page.dart';
@@ -109,7 +112,11 @@ class AppRouter extends _$AppRouter {
         ]),
         AutoRoute(page: MyCardsRoute.page, path: '/my_cards'),
         AutoRoute(page: AddCardRoute.page, path: '/add_card'),
-        AutoRoute(page: MyOrdersRoute.page, path: '/my_orders'),
+        AutoRoute(page: MyOrdersRoute.page, path: '/my_orders', children: [
+          AutoRoute(page: MyActiveOrdersRoute.page, path: 'my_active_orders'),
+          AutoRoute(page: MyPendingOrdersRoute.page, path: 'my_pending_orders'),
+          AutoRoute(page: MySavedOrdersRoute.page, path: 'my_saved_orders'),
+        ]),
         AutoRoute(page: ChatListRoute.page, path: '/chat_list', children: [
           AutoRoute(page: SellingChatsRoute.page, path: 'selling'),
           AutoRoute(page: BuyingChatsRoute.page, path: 'buying'),
