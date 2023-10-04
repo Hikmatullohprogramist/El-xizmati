@@ -30,7 +30,7 @@ class MyOrdersPage
             actions: [
               CommonButton(
                   type: ButtonType.text,
-                  onPressed: () {},
+                  onPressed: () => context.router.push(CreateAdRoute()),
                   child: "Создать запрос".w(500).s(12).c(Color(0xFF5C6AC3)))
             ],
             leading: IconButton(

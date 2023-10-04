@@ -9,6 +9,11 @@ import '../../presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
 import '../../presentation/ad/ad_detail/ad_detil_page.dart';
 import '../../presentation/ad/ad_list/ad_list_page.dart';
 import '../../presentation/ad/ad_search/ad_search_page.dart';
+import '../../presentation/ad/create_ad/create_ad_page.dart';
+import '../../presentation/ad/create_ad/features/create_exchange_ad/create_exchange_ad_page.dart';
+import '../../presentation/ad/create_ad/features/create_free_ad/create_free_ad_page.dart';
+import '../../presentation/ad/create_ad/features/create_product_ad/create_product_ad_page.dart';
+import '../../presentation/ad/create_ad/features/create_service_ad/create_service_ad_page.dart';
 import '../../presentation/auth/confirm/confirm_page.dart';
 import '../../presentation/auth/login/login_page.dart';
 import '../../presentation/auth/register/register_page.dart';
@@ -59,7 +64,8 @@ part 'app_router.gr.dart';
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
 class AppRouter extends _$AppRouter {
   @override
-  List<AutoRoute> get routes => [
+  List<AutoRoute> get routes =>
+      [
         //
         AutoRoute(
             page: SetLanguageRoute.page, path: "/set_language", initial: true),
@@ -94,6 +100,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: AdListRoute.page, path: '/ads_list'),
         AutoRoute(page: AdDetailRoute.page, path: '/ads_detail'),
         AutoRoute(page: AdSearchRoute.page, path: '/ad-search'),
+        AutoRoute(page: CreateAdRoute.page, path: '/create_ad'),
 
         //  common page
         AutoRoute(
