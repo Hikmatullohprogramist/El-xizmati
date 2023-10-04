@@ -36,7 +36,7 @@ class SettingPage
               ProfileItemWidget(
                 name: 'Способ получения уведомления',
                 icon: Assets.images.profileViewer.icNotification.svg(),
-                callback: () {},
+                callback: () => context.router.push(NotificationSettingRoute()),
               ),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(

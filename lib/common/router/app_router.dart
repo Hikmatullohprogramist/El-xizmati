@@ -44,6 +44,7 @@ import '../../presentation/home/profile_dashboard/features/profile_viewer/profil
 import '../../presentation/home/profile_dashboard/features/promotion/promotion_page.dart';
 import '../../presentation/home/profile_dashboard/features/setting/features/my_active_device/my_active_device_page.dart';
 import '../../presentation/home/profile_dashboard/features/setting/features/my_social_network/my_social_network_page.dart';
+import '../../presentation/home/profile_dashboard/features/setting/features/notification_settings/notification_setting_page.dart';
 import '../../presentation/home/profile_dashboard/profile_dashboard_page.dart';
 import '../../presentation/language/set_language/set_language_page.dart';
 import '../constants.dart';
@@ -122,5 +123,6 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: SettingRoute.page, path: '/setting'),
         AutoRoute(page: MyActiveDeviceRoute.page, path: '/my_active_device'),
         AutoRoute(page: MySocialNetworkRoute.page, path: '/my_social_network'),
+        AutoRoute(page: NotificationSettingRoute.page, path: '/notification_setting'),
       ];
 }
