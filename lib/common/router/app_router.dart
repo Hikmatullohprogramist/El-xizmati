@@ -46,6 +46,7 @@ import '../../presentation/home/profile_dashboard/features/promotion/promotion_p
 import '../../presentation/home/profile_dashboard/features/setting/features/my_active_device/my_active_device_page.dart';
 import '../../presentation/home/profile_dashboard/features/setting/features/my_social_network/my_social_network_page.dart';
 import '../../presentation/home/profile_dashboard/features/setting/features/notification_settings/notification_setting_page.dart';
+import '../../presentation/home/profile_dashboard/features/wallet_filling/wallet_filling_page.dart';
 import '../../presentation/home/profile_dashboard/profile_dashboard_page.dart';
 import '../../presentation/language/set_language/set_language_page.dart';
 import '../constants.dart';
@@ -98,6 +99,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: NotificationRoute.page, path: '/notification'),
 
         //   profile page
+        AutoRoute(page: WalletFillingRoute.page, path: '/wallet_filling'),
         AutoRoute(page: ProfileViewerRoute.page, path: '/profile_viewer'),
         AutoRoute(page: AddAddressRoute.page, path: '/add_address'),
         AutoRoute(page: MyAdsRoute.page, path: '/my_ads', children: [
