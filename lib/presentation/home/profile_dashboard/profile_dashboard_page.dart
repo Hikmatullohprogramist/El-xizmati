@@ -60,6 +60,7 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
         ],
       ),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
           child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -85,7 +86,7 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
           ProfileItemWidget(
               name: 'Сообщение',
               icon: Assets.images.profile.icMessage.svg(width: 18, height: 18),
-              callback: () => context.router.push(MessageRoute())),
+              callback: () => context.router.push(ChatListRoute())),
           Divider(indent: 46, height: 1),
           ProfileItemWidget(
               name: 'Уведомление',

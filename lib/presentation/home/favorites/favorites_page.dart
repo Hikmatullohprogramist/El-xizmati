@@ -18,7 +18,6 @@ class FavoritesPage
     return AutoTabsRouter.tabBar(
       routes: const [CommodityFavoritesRoute(), ServiceFavoritesRoute()],
       builder: (context, child, controller) {
-        final tabsRouter = AutoTabsRouter.of(context);
         return Scaffold(
           appBar: AppBar(
             elevation: 0.5,
@@ -28,7 +27,7 @@ class FavoritesPage
             title: "Мои желания".w(500).s(16).c(context.colors.textPrimary),
             leading: AutoLeadingButton(),
             bottom: TabBar(
-              isScrollable: false,
+              physics: BouncingScrollPhysics(),
               indicator: MaterialIndicator(
                 height: 6,
                 tabPosition: TabPosition.bottom,

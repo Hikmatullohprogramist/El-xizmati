@@ -17,6 +17,7 @@ class SettingPage
   @override
   Widget builder(BuildContext context, SettingBuildable state) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.white,
           title: 'Настройки'.w(500).s(14).c(context.colors.textPrimary),
@@ -31,31 +32,30 @@ class SettingPage
           physics: BouncingScrollPhysics(),
           child: Column(
             children: [
-              Container(color: Color(0xFFF6F7FC), height: 12),
+              Divider(indent: 46, height: 1),
               ProfileItemWidget(
                 name: 'Способ получения уведомления',
                 icon: Assets.images.profileViewer.icNotification.svg(),
                 callback: () {},
               ),
-              Container(color: Color(0xFFF6F7FC), height: 12),
+              Divider(indent: 46, height: 1),
               ProfileItemWidget(
                 name: 'Мои соц.сети',
                 icon: Assets.images.profileViewer.icNetwork.svg(),
                 callback: () => context.router.push(MySocialNetworkRoute()),
               ),
-              Container(color: Color(0xFFF6F7FC), height: 12),
+              Divider(indent: 46, height: 1),
               ProfileItemWidget(
                 name: 'Активные сеансы',
                 icon: Assets.images.profileViewer.icActiveDevice.svg(),
                 callback: () => context.router.push(MyActiveDeviceRoute()),
               ),
-              Container(color: Color(0xFFF6F7FC), height: 12),
+              Divider(indent: 46, height: 1),
               ProfileItemWidget(
                 name: 'Поменять пароль',
                 icon: Assets.images.profileViewer.icChangePassword.svg(),
                 callback: () {},
-              ),
-              Container(color: Color(0xFFF6F7FC), height: 12)
+              )
             ],
           ),
         ));

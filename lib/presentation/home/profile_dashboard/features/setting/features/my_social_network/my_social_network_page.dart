@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/base/base_page.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/presentation/home/profile_dashboard/features/my_social_network/cubit/my_social_network_cubit.dart';
 
-import '../../../../../common/gen/assets/assets.gen.dart';
+import '../../../../../../../common/gen/assets/assets.gen.dart';
+import 'cubit/my_social_network_cubit.dart';
 
 @RoutePage()
 class MySocialNetworkPage extends BasePage<MySocialNetworkCubit,
