@@ -35,6 +35,7 @@ import '../../presentation/home/profile_dashboard/features/my_ads/features/activ
 import '../../presentation/home/profile_dashboard/features/my_ads/features/inactive_ads/my_inactive_ads.dart';
 import '../../presentation/home/profile_dashboard/features/my_ads/features/pending_ads/my_pending_ads.dart';
 import '../../presentation/home/profile_dashboard/features/my_ads/my_ads_page.dart';
+import '../../presentation/home/profile_dashboard/features/my_cards/features /add_card/add_cart_page.dart';
 import '../../presentation/home/profile_dashboard/features/my_cards/my_cards_page.dart';
 import '../../presentation/home/profile_dashboard/features/my_orders/my_orders_page.dart';
 import '../../presentation/home/profile_dashboard/features/payment_transaction/features/payment_transaction_filter/payment_transaction_filter_page.dart';
@@ -105,6 +106,7 @@ class AppRouter extends _$AppRouter {
           AutoRoute(page: MyInactiveAdsRoute.page, path: 'inactive_ads'),
         ]),
         AutoRoute(page: MyCardsRoute.page, path: '/my_cards'),
+        AutoRoute(page: AddCardRoute.page, path: '/add_card'),
         AutoRoute(page: MyOrdersRoute.page, path: '/my_orders'),
         AutoRoute(page: ChatListRoute.page, path: '/chat_list', children: [
           AutoRoute(page: SellingChatsRoute.page, path: 'selling'),
@@ -123,6 +125,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: SettingRoute.page, path: '/setting'),
         AutoRoute(page: MyActiveDeviceRoute.page, path: '/my_active_device'),
         AutoRoute(page: MySocialNetworkRoute.page, path: '/my_social_network'),
-        AutoRoute(page: NotificationSettingRoute.page, path: '/notification_setting'),
+        AutoRoute(
+            page: NotificationSettingRoute.page, path: '/notification_setting'),
       ];
 }

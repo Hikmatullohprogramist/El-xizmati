@@ -6,6 +6,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/widgets/common_button.dart';
 
+import '../../../../../common/router/app_router.dart';
 import 'cubit/my_cards_cubit.dart';
 
 @RoutePage()
@@ -25,7 +26,7 @@ class MyCardsPage
         actions: [
           CommonButton(
               type: ButtonType.text,
-              onPressed: () {},
+              onPressed: () => context.router.push(AddCardRoute()),
               child: "Добавить".w(500).s(12).c(Color(0xFF5C6AC3)))
         ],
         leading: IconButton(
