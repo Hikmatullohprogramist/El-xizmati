@@ -18,13 +18,13 @@ class AppAdPropertyWidget extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            'Holati:'.w(500).s(8).c(Color(0xFF999CB2)),
+            'Holati:'.w(400).s(12).c(Color(0xFF999CB2)),
             SizedBox(width: 5),
             switch (adsPropertyType) {
               PropertyStatus.NEW =>
-                Strings.adsStatusNew.w(500).s(8).c(Color(0xFF41455E)),
+                Strings.adsStatusNew.w(400).s(12).c(Color(0xFF41455E)),
               PropertyStatus.USED =>
-                Strings.adsStatusOld.w(500).s(8).c(Color(0xFF41455E)),
+                Strings.adsStatusOld.w(400).s(12).c(Color(0xFF41455E)),
             },
           ],
         ));

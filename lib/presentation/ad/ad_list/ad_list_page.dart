@@ -41,9 +41,9 @@ class AdListPage
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         pagingController: state.adsPagingController!,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          childAspectRatio: 156 / 285,
+          childAspectRatio: 156 / 302,
           crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
+          mainAxisSpacing: 24,
           crossAxisCount: 2,
         ),
         builderDelegate: PagedChildBuilderDelegate<AdResponse>(

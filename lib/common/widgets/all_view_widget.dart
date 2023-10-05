@@ -19,14 +19,14 @@ class AppAllViewWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          title.w(600).s(14).c(context.colors.textPrimary),
+          title.w(600).s(16).c(context.colors.textPrimary),
           CommonButton(
             onPressed: onPressed,
             color: context.colors.buttonPrimary,
             type: ButtonType.elevated,
             child: Strings.allTitle
                 .w(600)
-                .s(10)
+                .s(12)
                 .c(context.colors.textPrimaryInverse),
           )
         ],

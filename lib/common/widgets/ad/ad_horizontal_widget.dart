@@ -46,7 +46,7 @@ class AppAdHorizontalWidget extends StatelessWidget {
                   child: Stack(children: [
                     CachedNetworkImage(
                       imageUrl:
-                          "https://api.online-bozor.uz/uploads/images/${result.photos?.first.image ?? ''}",
+                          "${Constants.baseUrlForImage}${result.photos?.first.image ?? ''}",
                       imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6),
@@ -74,18 +74,18 @@ class AppAdHorizontalWidget extends StatelessWidget {
                   ])),
               SizedBox(height: 12),
               SizedBox(
-                height: 25,
+                height: 28,
                 child: (result.name ?? "")
                     .w(400)
-                    .s(10)
+                    .s(13)
                     .c(context.colors.textPrimary)
                     .copyWith(maxLines: 2),
               ),
               SizedBox(height: 22),
               if (result.price == 0)
-                "${result.from_price}-${result.from_price} so'm".w(700).s(10)
+                "${result.from_price}-${result.from_price} so'm".w(700).s(15)
               else
-                "${result.price.toString()} so'm".w(700).s(10),
+                "${result.price.toString()} so'm".w(700).s(15),
               SizedBox(height: 14),
               Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 Assets.images.icLocation.svg(width: 12, height: 12),
@@ -93,7 +93,7 @@ class AppAdHorizontalWidget extends StatelessWidget {
                 Expanded(
                   child: "${result.region} ${result.district}"
                       .w(400)
-                      .s(10)
+                      .s(12)
                       .c(context.colors.textSecondary)
                       .copyWith(
                         overflow: TextOverflow.ellipsis,

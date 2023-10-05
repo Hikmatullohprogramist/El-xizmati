@@ -24,9 +24,9 @@ class AppAdRouterWidget extends StatelessWidget {
             }),
         child: switch (adsRouteType) {
           RouteType.PRIVATE =>
-            Strings.adsPropertyPersonal.w(500).s(8).c(Color(0xFF999CB2)),
+            Strings.adsPropertyPersonal.w(400).s(12).c(Color(0xFF999CB2)),
           RouteType.BUSINESS =>
-            Strings.adsPropertyBiznes.w(500).s(8).c(Color(0xFF6546E7)),
+            Strings.adsPropertyBiznes.w(400).s(12).c(Color(0xFF6546E7)),
         });
   }
 }

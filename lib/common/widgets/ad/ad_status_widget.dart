@@ -26,7 +26,7 @@ class AppAdStatusWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Assets.images.icFire.svg(height: 8, width: 8),
-              'Top'.w(400).s(10).c(context.colors.textPrimaryInverse)
+              'Top'.w(400).s(13).c(context.colors.textPrimaryInverse)
             ],
           ),
         ),
