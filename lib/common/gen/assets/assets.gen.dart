@@ -55,6 +55,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/ic_clear.svg
   SvgGenImage get icClear => const SvgGenImage('assets/images/ic_clear.svg');
 
+  /// File path: assets/images/ic_close.svg
+  SvgGenImage get icClose => const SvgGenImage('assets/images/ic_close.svg');
+
   /// File path: assets/images/ic_delete.svg
   SvgGenImage get icDelete => const SvgGenImage('assets/images/ic_delete.svg');
 
@@ -161,6 +164,7 @@ class $AssetsImagesGen {
         icCheck,
         icCheckFillBox,
         icClear,
+        icClose,
         icDelete,
         icEdit,
         icExit,

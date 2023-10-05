@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/gen/localization/strings.dart';
 
 import '../../gen/assets/assets.gen.dart';
 
@@ -19,45 +18,47 @@ class CommonSearchBar extends AppBar implements PreferredSizeWidget {
             Expanded(
               child: Padding(
                 padding: EdgeInsets.fromLTRB(16, 12, 0, 12),
-                child: Container(
-                  width: double.maxFinite,
-                  decoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      side: const BorderSide(
-                          width: 0.50, color: Color(0xFFE5E9F3)),
-                      borderRadius: BorderRadius.circular(6),
+                child: InkWell(
+                  onTap: onPressedSearch,
+                  child: Container(
+                    width: double.maxFinite,
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    decoration: ShapeDecoration(
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        side: const BorderSide(
+                            width: 0.50, color: Color(0xFFE5E9F3)),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        InkWell(
+                          onTap: onPressedSearch,
+                          child: Assets.images.iconSearch.svg(),
+                        ),
+                        SizedBox(width: 10),
+                        InkWell(
+                          onTap: onPressedSearch,
+                          child: "Искать товары и категории".w(400).s(14).c(
+                                Color(0xFF9EABBE),
+                              ),
+                        ),
+                        Spacer(),
+                        InkWell(
+                            onTap: onPressedMic,
+                            child: Assets.images.icMic.svg()),
+                      ],
                     ),
                   ),
-                  child: Row(children: [
-                    InkWell(
-                        onTap: onPressedSearch,
-                        child: IconButton(
-                            alignment: Alignment.center,
-                            onPressed: null,
-                            icon: Assets.images.iconSearch
-                                .svg(width: 24, height: 24))),
-                    Expanded(
-                        child: InkWell(
-                            onTap: onPressedSearch,
-                            child: Strings.auth.w(400))),
-                    InkWell(
-                        onTap: onPressedMic,
-                        child: IconButton(
-                            alignment: Alignment.centerRight,
-                            onPressed: null,
-                            icon: Assets.images.icMic
-                                .svg(width: 24, height: 24))),
-                  ]),
                 ),
               ),
             ),
-            Padding(
-                padding: const EdgeInsets.fromLTRB(12, 20, 16, 20),
-                child: InkWell(
-                    onTap: onPressedNotification,
-                    child: Assets.images.icNotification
-                        .svg(height: 24, width: 24)))
+            InkWell(
+                onTap: onPressedNotification,
+                child: Padding(
+                    padding: const EdgeInsets.fromLTRB(12, 20, 16, 20),
+                    child: Assets.images.icNotification.svg()))
           ],
           backgroundColor: Colors.white,
           elevation: 0.5,

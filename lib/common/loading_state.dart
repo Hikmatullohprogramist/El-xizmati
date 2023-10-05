@@ -1,1 +1,1 @@
-enum AppLoadingState { loading, error, success }
+enum AppLoadingState { onStart, loading, error, success, empty }

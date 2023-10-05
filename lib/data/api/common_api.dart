@@ -19,4 +19,9 @@ class CommonApi {
     final queryParameters = {'page': pageIndex, 'page_size': pageSize};
     return _dio.get("v1/popular/categories", queryParameters: queryParameters);
   }
+
+  Future<Response> getSearchAd(String query){
+    final queryParameters = {'q': query, };
+    return _dio.get('v1/search', queryParameters: queryParameters);
+  }
 }

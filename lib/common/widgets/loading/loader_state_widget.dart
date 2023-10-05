@@ -10,11 +10,15 @@ class LoaderStateWidget extends StatelessWidget {
       required this.isFullScreen,
       required this.loadingState,
       required this.child,
-      this.onErrorToAgainRequest});
+      this.onErrorToAgainRequest,
+      this.onStartWidget,
+      this.onEmptyWidget});
 
   final bool isFullScreen;
   final AppLoadingState loadingState;
   final Widget child;
+  final Widget? onStartWidget;
+  final Widget? onEmptyWidget;
   final VoidCallback? onErrorToAgainRequest;
 
   @override
@@ -23,6 +27,8 @@ class LoaderStateWidget extends StatelessWidget {
       AppLoadingState.loading => LoadingWidget(isFullScreen: isFullScreen),
       AppLoadingState.error => ErrorWidget(isFullScreen: isFullScreen),
       AppLoadingState.success => child,
+      AppLoadingState.onStart => onStartWidget ?? Center(),
+      AppLoadingState.empty => onEmptyWidget ?? Center(),
     };
   }
 }
@@ -79,9 +85,12 @@ class ErrorWidget extends StatelessWidget {
         : SizedBox(
             height: 160,
             child: Center(
-              child:  Column(
+              child: Column(
                 children: [
-                  "Xatolik yuz berdi?".w(400).s(14).c(context.colors.textPrimary),
+                  "Xatolik yuz berdi?"
+                      .w(400)
+                      .s(14)
+                      .c(context.colors.textPrimary),
                   SizedBox(height: 12),
                   CommonButton(
                       onPressed: onErrorToAgainRequest,
