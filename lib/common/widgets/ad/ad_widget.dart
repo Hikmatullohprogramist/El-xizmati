@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/constants.dart';
+import 'package:onlinebozor/common/extensions/currency_extensions.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_property_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_route_widget.dart';
@@ -25,6 +27,7 @@ class AppAdWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var formatter = NumberFormat('###,000');
     return InkWell(
         onTap: () {
           onClick!(result);
@@ -58,7 +61,7 @@ class AppAdWidget extends StatelessWidget {
                         ),
                       ),
                       placeholder: (context, url) =>
-                          Center(child: CircularProgressIndicator()),
+                          Center(),
                       errorWidget: (context, url, error) =>
                           Center(child: Icon(Icons.error)),
                     ),
@@ -83,12 +86,12 @@ class AppAdWidget extends StatelessWidget {
               ),
               SizedBox(height: 22),
               if (result.price == 0)
-                "${result.from_price}-${result.from_price} so'm"
+                "${formatter.format(result.to_price).replaceAll(',', ' ')}-${formatter.format(result.from_price).replaceAll(',', ' ')} ${Currency.UZB.getName}"
                     .w(700)
                     .s(15)
                     .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis)
               else
-                "${result.price.toString()} so'm"
+                "${formatter.format(result.price).replaceAll(',', ' ')} ${Currency.UZB.getName}"
                     .w(700)
                     .s(15)
                     .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),

@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:logger/logger.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
@@ -35,80 +34,80 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
               onPressedSearch: () => context.router.push(SearchRoute()),
               onPressedNotification: () =>
                   context.router.push(NotificationRoute())),
-          body: SingleChildScrollView(
+          body: CustomScrollView(
             physics: BouncingScrollPhysics(),
-            child: Column(children: [
-              Padding(
-                  padding: EdgeInsets.only(right: 16, left: 16, top: 16),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: switch (collectiveType) {
-                      CollectiveType.commodity =>
-                        'Товары'.w(700).s(16).c(context.colors.textPrimary),
-                      CollectiveType.service =>
-                        'Услуги'.w(700).s(16).c(context.colors.textPrimary),
-                    },
-                  )),
-              AppAllViewWidget(
-                  onPressed: () {
-                    context.router.push(
-                        AdListRoute(adListType: AdListType.list, keyWord: ''));
-                  },
-                  title: "Горячие скидки"),
-              LoaderStateWidget(
-                  isFullScreen: false,
-                  loadingState: state.hotDiscountAdsState,
-                  child: AdGroupWidget(
-                    ads: state.hotDiscountAds,
-                    onClick: (AdResponse result) {
-                      context.router.push(AdDetailRoute());
-                    },
-                    onClickFavorite: (AdResponse result) {},
-                  )),
-              SizedBox(height: 6),
-              AppDivider(height: 3),
-              AppAllViewWidget(
-                  onPressed: () {
-                    context.router.push(
-                        AdListRoute(adListType: AdListType.list, keyWord: ''));
-                  },
-                  title: "Популярные товары"),
-              SizedBox(height: 6),
-              LoaderStateWidget(
-                  isFullScreen: false,
-                  loadingState: state.popularAdsState,
-                  child: AdGroupWidget(
-                    ads: state.popularAds,
-                    onClick: (AdResponse result) {
-                      context.router.push(AdDetailRoute());
-                    },
-                    onClickFavorite: (AdResponse result) {},
-                  )),
-              SizedBox(height: 6),
-              AppDivider(height: 3),
-              SizedBox(height: 24),
+            slivers: [
+              SliverToBoxAdapter(
+                  child: Column(
+                children: [
+                  Padding(
+                      padding: EdgeInsets.only(right: 16, left: 16, top: 16),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: switch (collectiveType) {
+                          CollectiveType.commodity =>
+                            'Товары'.w(700).s(16).c(context.colors.textPrimary),
+                          CollectiveType.service =>
+                            'Услуги'.w(700).s(16).c(context.colors.textPrimary),
+                        },
+                      )),
+                  AppAllViewWidget(
+                      onPressed: () {
+                        context.router.push(AdListRoute(
+                            adListType: AdListType.list, keyWord: ''));
+                      },
+                      title: "Горячие скидки"),
+                  LoaderStateWidget(
+                      isFullScreen: false,
+                      loadingState: state.hotDiscountAdsState,
+                      child: AdGroupWidget(
+                        ads: state.hotDiscountAds,
+                        onClick: (AdResponse result) {
+                          context.router.push(AdDetailRoute());
+                        },
+                        onClickFavorite: (AdResponse result) {},
+                      )),
+                  SizedBox(height: 6),
+                  AppDivider(height: 3),
+                  AppAllViewWidget(
+                      onPressed: () {
+                        context.router.push(AdListRoute(
+                            adListType: AdListType.list, keyWord: ''));
+                      },
+                      title: "Популярные товары"),
+                  SizedBox(height: 6),
+                  LoaderStateWidget(
+                      isFullScreen: false,
+                      loadingState: state.popularAdsState,
+                      child: AdGroupWidget(
+                        ads: state.popularAds,
+                        onClick: (AdResponse result) {
+                          context.router.push(AdDetailRoute());
+                        },
+                        onClickFavorite: (AdResponse result) {},
+                      )),
+                  SizedBox(height: 6),
+                  AppDivider(height: 3),
+                  SizedBox(height: 24)
+                ],
+              )),
               state.adsPagingController == null
                   ? SizedBox()
-                  : PagedGridView<int, AdResponse>(
-                      shrinkWrap: true,
-                      addAutomaticKeepAlives: false,
-                      physics: BouncingScrollPhysics(),
-                      padding: EdgeInsets.symmetric(horizontal: 16),
+                  : PagedSliverGrid<int, AdResponse>(
                       pagingController: state.adsPagingController!,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         childAspectRatio: 156 / 302,
                         crossAxisSpacing: 16,
-                        mainAxisSpacing: 24,
+                        mainAxisSpacing: 16,
                         crossAxisCount: 2,
                       ),
                       builderDelegate: PagedChildBuilderDelegate<AdResponse>(
                         firstPageErrorIndicatorBuilder: (_) {
                           return SizedBox(
-                            height: 100,
-                            width: double.infinity,
-                            child: Center(
-                              child: Column(
+                              height: 60,
+                              width: double.infinity,
+                              child: Center(
+                                  child: Column(
                                 children: [
                                   "Xatolik yuz berdi?"
                                       .w(400)
@@ -120,13 +119,11 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                                       type: ButtonType.elevated,
                                       child: "Qayta urinish".w(400).s(15))
                                 ],
-                              ),
-                            ),
-                          );
+                              )));
                         },
                         firstPageProgressIndicatorBuilder: (_) {
                           return SizedBox(
-                            height: 160,
+                            height: 60,
                             child: Center(
                               child: CircularProgressIndicator(
                                 color: Colors.blue,
@@ -138,12 +135,9 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                           return Center(
                               child: Text("Hech qanday element topilmadi"));
                         },
-                        noMoreItemsIndicatorBuilder: (_) {
-                          return Center(child: Text("Boshqa Item Yo'q"));
-                        },
                         newPageProgressIndicatorBuilder: (_) {
                           return SizedBox(
-                            height: 160,
+                            height: 60,
                             child: Center(
                               child: CircularProgressIndicator(
                                 color: Colors.blue,
@@ -153,7 +147,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                         },
                         newPageErrorIndicatorBuilder: (_) {
                           return SizedBox(
-                            height: 160,
+                            height: 60,
                             child: Center(
                               child: CircularProgressIndicator(
                                 color: Colors.blue,
@@ -162,19 +156,30 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                           );
                         },
                         transitionDuration: Duration(milliseconds: 100),
-                        itemBuilder: (context, item, index) => AppAdWidget(
-                          result: item,
-                          onClickFavorite: (value) {
-                            Logger log = Logger();
-                            log.w(value);
-                          },
-                          onClick: (value) {
-                            context.router.push(AdDetailRoute());
-                          },
-                        ),
-                      ),
-                    )
-            ]),
+                        itemBuilder: (context, item, index) {
+                          if (index % 2 == 1) {
+                            return Padding(
+                              padding: EdgeInsets.only(right: 16),
+                              child: AppAdWidget(
+                                  result: item,
+                                  onClickFavorite: (value) {},
+                                  onClick: (value) =>
+                                      context.router.push(AdDetailRoute())),
+                            );
+                          } else {
+                            return Padding(
+                              padding: EdgeInsets.only(left: 16),
+                              child: AppAdWidget(
+                                result: item,
+                                onClickFavorite: (value) {},
+                                onClick: (value) =>
+                                    context.router.push(AdDetailRoute()),
+                              ),
+                            );
+                          }
+                        },
+                      ))
+            ],
           )),
     );
   }

@@ -40,7 +40,7 @@ class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
                       PagedChildBuilderDelegate<PopularCategoryResponse>(
                     firstPageErrorIndicatorBuilder: (_) {
                       return SizedBox(
-                        height: 100,
+                        height: 60,
                         child: Center(
                           child: Column(
                             children: [
@@ -60,7 +60,7 @@ class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
                     },
                     firstPageProgressIndicatorBuilder: (_) {
                       return SizedBox(
-                        height: 160,
+                        height: 60,
                         child: Center(
                           child: CircularProgressIndicator(
                             color: Colors.blue,
@@ -72,12 +72,9 @@ class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
                       return Center(
                           child: Text("Hech qanday element topilmadi"));
                     },
-                    noMoreItemsIndicatorBuilder: (_) {
-                      return Center(child: Text("Boshqa Item Yo'q"));
-                    },
                     newPageProgressIndicatorBuilder: (_) {
                       return SizedBox(
-                        height: 160,
+                        height: 60,
                         child: Center(
                           child: CircularProgressIndicator(
                             color: Colors.blue,
@@ -87,7 +84,7 @@ class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
                     },
                     newPageErrorIndicatorBuilder: (_) {
                       return SizedBox(
-                        height: 160,
+                        height: 60,
                         child: Center(
                           child: CircularProgressIndicator(
                             color: Colors.blue,

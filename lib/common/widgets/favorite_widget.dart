@@ -33,9 +33,9 @@ class _AppFavoriteWidget extends State<AppFavoriteWidget> {
       },
       child: Container(
         margin: EdgeInsets.all(8),
-        height: 20,
-        width: 20,
-        padding: EdgeInsets.all(5),
+        height: 32,
+        width: 32,
+        padding: EdgeInsets.all(6),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
             color: _isSelected

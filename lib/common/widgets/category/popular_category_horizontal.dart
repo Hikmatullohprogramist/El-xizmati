@@ -50,7 +50,7 @@ class AppPopularCategoryHorizontal extends StatelessWidget {
                   ),
                 ),
                 placeholder: (context, url) =>
-                    Center(child: CircularProgressIndicator()),
+                    Center(),
                 errorWidget: (context, url, error) =>
                     Center(child: Icon(Icons.error)),
               ),

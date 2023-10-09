@@ -77,7 +77,7 @@ class ProfileViewerPage extends BasePage<ProfileViewerCubit,
                                   ),
                                 ),
                                 placeholder: (context, url) =>
-                                    Center(child: CircularProgressIndicator()),
+                                    Center(),
                                 errorWidget: (context, url, error) => Center(
                                   child: Icon(Icons.perm_identity),
                                 ),

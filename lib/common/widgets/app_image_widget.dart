@@ -35,7 +35,7 @@ class AppImageWidget extends StatelessWidget {
                     ),
                   ),
                   placeholder: (context, url) =>
-                      Center(child: CircularProgressIndicator()),
+                      Center(),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
               );
