@@ -35,6 +35,7 @@ class SearchPage
           child: Row(children: [
             Expanded(
                 child: TextField(
+              autofocus: true,
               onSubmitted: (value) {
                 context.read<SearchCubit>().getSearchResult(value);
               },
@@ -78,6 +79,7 @@ class SearchPage
         onStartWidget: Center(child: Text("Qidirishni boshlang")),
         onEmptyWidget: Center(child: Text("Hech nima topilmadi")),
         child: ListView.builder(
+          physics: BouncingScrollPhysics(),
           itemCount: state.searchResult.length,
           itemBuilder: (BuildContext context, int index) {
             return InkWell(

@@ -79,13 +79,19 @@ class AppAdWidget extends StatelessWidget {
                     .w(400)
                     .s(13)
                     .c(context.colors.textPrimary)
-                    .copyWith(maxLines: 2),
+                    .copyWith(maxLines: 2, overflow: TextOverflow.ellipsis),
               ),
               SizedBox(height: 22),
               if (result.price == 0)
-                "${result.from_price}-${result.from_price} so'm".w(700).s(15)
+                "${result.from_price}-${result.from_price} so'm"
+                    .w(700)
+                    .s(15)
+                    .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis)
               else
-                "${result.price.toString()} so'm".w(700).s(15),
+                "${result.price.toString()} so'm"
+                    .w(700)
+                    .s(15)
+                    .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
               SizedBox(height: 14),
               Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 Assets.images.icLocation.svg(width: 12, height: 12),

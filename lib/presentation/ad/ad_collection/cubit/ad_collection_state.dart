@@ -2,7 +2,13 @@ part of 'ad_collection_cubit.dart';
 
 @freezed
 class AdCollectionBuildable with _$AdCollectionBuildable {
-  const factory AdCollectionBuildable() = _AdCollectionBuildable;
+  const factory AdCollectionBuildable({
+    @Default(AppLoadingState.loading) AppLoadingState hotDiscountAdsState,
+    @Default(AppLoadingState.loading) AppLoadingState popularAdsState,
+    PagingController<int, AdResponse>? adsPagingController,
+    @Default(<AdResponse>[]) List<AdResponse> hotDiscountAds,
+    @Default(<AdResponse>[]) List<AdResponse> popularAds,
+  }) = _AdCollectionBuildable;
 }
 
 @freezed

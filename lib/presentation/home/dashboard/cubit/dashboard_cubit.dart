@@ -104,13 +104,12 @@ class DashboardCubit
     required int status,
   }) {
     final adController = PagingController<int, AdResponse>(
-      firstPageKey: 1,
-    );
+        firstPageKey: 1, invisibleItemsThreshold: 100);
     log.i(buildable.adsPagingController);
 
     adController.addPageRequestListener(
       (pageKey) async {
-        final adsList = await adRepository.getAds(pageKey, _pageSize,"");
+        final adsList = await adRepository.getAds(pageKey, _pageSize, "");
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);
           log.i(buildable.adsPagingController);
@@ -122,4 +121,6 @@ class DashboardCubit
     );
     return adController;
   }
+
+  void addPage() {}
 }
