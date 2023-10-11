@@ -9,7 +9,7 @@ import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/display/display_widget.dart';
-import 'package:onlinebozor/domain/repo/auth_repository.dart';
+import 'package:onlinebozor/domain/repo/state_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,8 +19,9 @@ void main() async {
   await configureDependencies();
 
   await EasyLocalization.ensureInitialized();
-  var authRepository = GetIt.instance<AuthRepository>();
-  var isLogin = await authRepository.isLogin();
+  var stateRepository = GetIt.instance<StateRepository>();
+  var isLanguageSelection =
+      await stateRepository.isLanguageSelection() ?? false;
 
   runApp(
     EasyLocalization(
@@ -29,7 +30,7 @@ void main() async {
       fallbackLocale: Strings.supportedLocales.first,
       assetLoader: CsvAssetLoader(),
       child: MyApp(
-        isLogin: isLogin,
+        isLanguageSelection: isLanguageSelection,
       ),
     ),
   );
@@ -40,9 +41,9 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key, required this.isLogin});
+  MyApp({super.key, required this.isLanguageSelection});
 
-  final bool isLogin;
+  final bool isLanguageSelection;
 
   final _appRouter = AppRouter();
 
@@ -52,8 +53,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(fontFamily: 'Inter'),
-        routerConfig: _appRouter.config(
-            initialRoutes: [if (isLogin) HomeRoute() else SetLanguageRoute()]),
+        routerConfig: _appRouter.config(initialRoutes: [
+          if (isLanguageSelection) HomeRoute() else SetLanguageRoute()
+        ]),
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,

@@ -4,31 +4,21 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/constants.dart';
 import 'package:onlinebozor/domain/model/auth_interceptor/auth_interceptor.dart';
+import 'package:onlinebozor/domain/model/intercepter/language_intercepter.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 @module
 abstract class NetworkModule {
   @lazySingleton
-  Dio dio(AuthInterceptor authInterceptor) {
+  Dio dio(AuthInterceptor authInterceptor,
+      LanguageInterceptor languageInterceptor) {
     final options = BaseOptions(baseUrl: Constants.baseUrl, headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json; charset=UTF-8',
-      "Accept-Language": "uz",
-      "App-Version-Code": "122",
-      "App-Version-Name": "1232",
-      "Device-Id": "00000000-0000-0028-ffff-ffff95b0417a",
-      "Device-Name": "Google Pixel 6 Pro",
-      "Device-Manufacturer": "Google",
-      "Device-Model": "Pixel 6 Pro",
-      "Mobile-Os-Version": "33",
-      "Mobile-Os-Type": "android",
-      "User-Agent":
-          "00000000-0000-0028-ffff-ffff95b0417a&&Google Pixel 6 Pro&&Google&&Pixel 6 Pro&&",
-      "Night-Mode": "disabled",
-      "Mobile-Os": "33"
     });
     final dio = Dio(options);
     dio.interceptors.add(authInterceptor);
+    dio.interceptors.add(languageInterceptor);
     dio.interceptors.add(_loggerInterceptor);
     dio.interceptors.add(_headerInterceptor);
     return dio;
@@ -61,22 +51,37 @@ abstract class NetworkModule {
     String basicAuth = 'Basic $encoded';
 
     final headers = <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-      "Accept-Language": "uz",
-      "App-Version-Code": "122",
-      "App-Version-Name": "1232",
-      "Device-Id": "00000000-0000-0028-ffff-ffff95b0417a",
-      "Device-Name": "Google Pixel 6 Pro",
-      "Device-Manufacturer": "Google",
-      "Device-Model": "Pixel 6 Pro",
-      "Mobile-Os-Version": "33",
-      "Mobile-Os-Type": "android",
-      "User-Agent":
-          "00000000-0000-0028-ffff-ffff95b0417a&&Google Pixel 6 Pro&&Google&&Pixel 6 Pro&&",
-      "Night-Mode": "disabled",
-      "Mobile-Os": "33"
     };
 
     return headers;
   }
 }
+//
+// 'Content-Type': 'application/json; charset=UTF-8',
+// "Accept-Language": "uz",
+// "App-Version-Code": "122",
+// "App-Version-Name": "1232",
+// "Device-Id": "00000000-0000-0028-ffff-ffff95b0417a",
+// "Device-Name": "Google Pixel 6 Pro",
+// "Device-Manufacturer": "Google",
+// "Device-Model": "Pixel 6 Pro",
+// "Mobile-Os-Version": "33",
+// "Mobile-Os-Type": "android",
+// "User-Agent":
+// "00000000-0000-0028-ffff-ffff95b0417a&&Google Pixel 6 Pro&&Google&&Pixel 6 Pro&&",
+// "Night-Mode": "disabled",
+// "Mobile-Os": "33"
+
+
+// "App-Version-Code": "122",
+// "App-Version-Name": "1232",
+// "Device-Id": "00000000-0000-0028-ffff-ffff95b0417a",
+// "Device-Name": "Google Pixel 6 Pro",
+// "Device-Manufacturer": "Google",
+// "Device-Model": "Pixel 6 Pro",
+// "Mobile-Os-Version": "33",
+// "Mobile-Os-Type": "android",
+// "User-Agent":
+// "00000000-0000-0028-ffff-ffff95b0417a&&Google Pixel 6 Pro&&Google&&Pixel 6 Pro&&",
+// "Night-Mode": "disabled",
+// "Mobile-Os": "33"

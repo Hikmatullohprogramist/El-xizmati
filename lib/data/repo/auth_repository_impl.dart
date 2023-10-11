@@ -50,7 +50,7 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<bool> isLogin() async {
-    return true;
+    return false;
   }
 
   @override

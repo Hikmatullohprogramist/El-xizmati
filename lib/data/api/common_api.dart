@@ -12,7 +12,7 @@ class CommonApi {
   }
 
   Future<Response> getCategories() {
-    return _dio.get('v1/categories?lang=uz');
+    return _dio.get('v1/categories');
   }
 
   Future<Response> getPopularCategories(int pageIndex, int pageSize) {
