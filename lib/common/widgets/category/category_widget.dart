@@ -28,23 +28,16 @@ class AppCategoryWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(width: 16),
-                    categoryResponse.name
-                        .toString()
-                        .w(500)
-                        .s(14)
-                        .c(context.colors.textPrimary)
-                        .copyWith(
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        )
-                  ],
-                ),
-              ),
+              Flexible(
+                  child: categoryResponse.name
+                      .toString()
+                      .w(500)
+                      .s(14)
+                      .c(context.colors.textPrimary)
+                      .copyWith(
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      )),
               Assets.images.icArrowRight.svg(height: 16, width: 16)
             ],
           ),

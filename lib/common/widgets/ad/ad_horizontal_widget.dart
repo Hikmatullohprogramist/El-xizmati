@@ -60,8 +60,7 @@ class AppAdHorizontalWidget extends StatelessWidget {
                                   Colors.white, BlendMode.colorBurn)),
                         ),
                       ),
-                      placeholder: (context, url) =>
-                          Center(),
+                      placeholder: (context, url) => Center(),
                       errorWidget: (context, url, error) =>
                           Center(child: Icon(Icons.error)),
                     ),
@@ -77,7 +76,7 @@ class AppAdHorizontalWidget extends StatelessWidget {
                   ])),
               SizedBox(height: 12),
               SizedBox(
-                height: 28,
+                height: 32,
                 child: (result.name ?? "")
                     .w(400)
                     .s(13)
@@ -85,7 +84,7 @@ class AppAdHorizontalWidget extends StatelessWidget {
                     .copyWith(maxLines: 2)
                     .copyWith(maxLines: 2, overflow: TextOverflow.ellipsis),
               ),
-              SizedBox(height: 22),
+              SizedBox(height: 6),
               if (result.price == 0)
                 "${formatter.format(result.to_price).replaceAll(',', ' ')}-${formatter.format(result.from_price).replaceAll(',', ' ')} ${Currency.UZB.getName}"
                     .w(700)
@@ -114,9 +113,11 @@ class AppAdHorizontalWidget extends StatelessWidget {
               SizedBox(height: 12),
               Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 AppAdRouterWidget(
+                    isHorizontal: true,
                     adsRouteType: result.route_type ?? RouteType.PRIVATE),
-                SizedBox(width: 5),
+                SizedBox(width: 2),
                 AppAdPropertyWidget(
+                    isHorizontal: true,
                     adsPropertyType:
                         result.property_status ?? PropertyStatus.USED)
               ])

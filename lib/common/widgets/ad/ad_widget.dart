@@ -33,7 +33,7 @@ class AppAdWidget extends StatelessWidget {
           onClick!(result);
         },
         child: SizedBox(
-          height: double.infinity,
+          height: MediaQuery.of(context).size.height,
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,8 +60,7 @@ class AppAdWidget extends StatelessWidget {
                                   Colors.white, BlendMode.colorBurn)),
                         ),
                       ),
-                      placeholder: (context, url) =>
-                          Center(),
+                      placeholder: (context, url) => Center(),
                       errorWidget: (context, url, error) =>
                           Center(child: Icon(Icons.error)),
                     ),
@@ -77,14 +76,14 @@ class AppAdWidget extends StatelessWidget {
                   ])),
               SizedBox(height: 12),
               SizedBox(
-                height: 30,
+                height: 32,
                 child: (result.name ?? "")
                     .w(400)
                     .s(13)
                     .c(context.colors.textPrimary)
                     .copyWith(maxLines: 2, overflow: TextOverflow.ellipsis),
               ),
-              SizedBox(height: 22),
+              SizedBox(height: 6),
               if (result.price == 0)
                 "${formatter.format(result.to_price).replaceAll(',', ' ')}-${formatter.format(result.from_price).replaceAll(',', ' ')} ${Currency.UZB.getName}"
                     .w(700)
@@ -113,9 +112,11 @@ class AppAdWidget extends StatelessWidget {
               SizedBox(height: 12),
               Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 AppAdRouterWidget(
+                    isHorizontal: false,
                     adsRouteType: result.route_type ?? RouteType.PRIVATE),
                 SizedBox(width: 5),
                 AppAdPropertyWidget(
+                    isHorizontal: false,
                     adsPropertyType:
                         result.property_status ?? PropertyStatus.USED)
               ])

@@ -15,3 +15,14 @@ enum AdListType {
 }
 
 enum Currency { USD, UZB }
+
+abstract class DeviceInfo {
+  static String device_name = "";
+  static String device_id = "";
+  static String device_manufacture = "";
+  static String device_model = "";
+  static String user_agent =
+      "$device_id&&$device_model&&$device_name&&APPLICATION";
+  static String app_version_code = "";
+  static String app_version_name = "";
+}

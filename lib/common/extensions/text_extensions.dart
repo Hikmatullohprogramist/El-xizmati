@@ -114,6 +114,9 @@ extension TextExtensions on Text {
   }
 
   Text a(TextAlign textAlign) => copyWith(style: style, textAlign: textAlign);
+
+  Text h(double height) =>
+      copyWith(style: (style ?? TextStyle()).copyWith(height: height));
 }
 
 extension ResponseExtensions on String {}

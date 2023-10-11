@@ -5,12 +5,11 @@ import '../../../domain/model/ad/ad_response.dart';
 import '../../gen/localization/strings.dart';
 
 class AppAdRouterWidget extends StatelessWidget {
-  const AppAdRouterWidget({
-    super.key,
-    required this.adsRouteType,
-  });
+  const AppAdRouterWidget(
+      {super.key, required this.adsRouteType, required this.isHorizontal});
 
   final RouteType adsRouteType;
+  final bool isHorizontal;
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +22,14 @@ class AppAdRouterWidget extends StatelessWidget {
               RouteType.BUSINESS => Color(0x1E6546E7),
             }),
         child: switch (adsRouteType) {
-          RouteType.PRIVATE =>
-            Strings.adsPropertyPersonal.w(400).s(12).c(Color(0xFF999CB2)),
-          RouteType.BUSINESS =>
-            Strings.adsPropertyBiznes.w(400).s(12).c(Color(0xFF6546E7)),
+          RouteType.PRIVATE => Strings.adsPropertyPersonal
+              .w(400)
+              .s(isHorizontal ? 10 : 12)
+              .c(Color(0xFF999CB2)),
+          RouteType.BUSINESS => Strings.adsPropertyBiznes
+              .w(400)
+              .s(isHorizontal ? 10 : 12)
+              .c(Color(0xFF6546E7)),
         });
   }
 }

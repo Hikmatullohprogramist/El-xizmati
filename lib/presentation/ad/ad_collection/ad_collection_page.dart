@@ -96,9 +96,9 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                   : PagedSliverGrid<int, AdResponse>(
                       pagingController: state.adsPagingController!,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio: 156 / 302,
+                        childAspectRatio: 156 / 260,
                         crossAxisSpacing: 16,
-                        mainAxisSpacing: 16,
+                        mainAxisSpacing: 24,
                         crossAxisCount: 2,
                       ),
                       builderDelegate: PagedChildBuilderDelegate<AdResponse>(

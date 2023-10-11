@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:logger/logger.dart';
 import 'package:onlinebozor/common/base/base_page.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
@@ -10,6 +9,7 @@ import 'package:onlinebozor/common/widgets/app_bar/common_app_bar.dart';
 import 'package:onlinebozor/presentation/ad/ad_list/cubit/ad_list_cubit.dart';
 
 import '../../../common/constants.dart';
+import '../../../common/router/app_router.dart';
 import '../../../common/widgets/ad/ad_widget.dart';
 import '../../../common/widgets/common_button.dart';
 import '../../../domain/model/ad/ad_response.dart';
@@ -41,7 +41,7 @@ class AdListPage
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         pagingController: state.adsPagingController!,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          childAspectRatio: 156 / 302,
+          childAspectRatio: 156 / 286,
           crossAxisSpacing: 16,
           mainAxisSpacing: 24,
           crossAxisCount: 2,
@@ -80,9 +80,6 @@ class AdListPage
           noItemsFoundIndicatorBuilder: (_) {
             return Center(child: Text("Hech qanday element topilmadi"));
           },
-          noMoreItemsIndicatorBuilder: (_) {
-            return Center(child: Text("Boshqa Item Yo'q"));
-          },
           newPageProgressIndicatorBuilder: (_) {
             return SizedBox(
               height: 160,
@@ -106,14 +103,9 @@ class AdListPage
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) => AppAdWidget(
             result: item,
-            onClickFavorite: (value) {
-              Logger log = Logger();
-              log.w(value);
-            },
+            onClickFavorite: (value) {},
             onClick: (value) {
-              Logger log = Logger();
-              log.w(value);
-              // context.router.push(AdDetailRoute());
+              context.router.push(AdDetailRoute());
             },
           ),
         ),

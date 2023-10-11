@@ -56,7 +56,7 @@ class DashboardPage
                               keyWord: popularCategories.key_word));
                         },
                       )),
-                  AppDivider(),
+                  AppDivider(height: 3),
                   AppAllViewWidget(
                       onPressed: () {
                         context.router.push(AdListRoute(
@@ -90,9 +90,9 @@ class DashboardPage
                 : PagedSliverGrid<int, AdResponse>(
                     pagingController: state.adsPagingController!,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 156 / 302,
+                      childAspectRatio: 156 / 260,
                       crossAxisSpacing: 16,
-                      mainAxisSpacing: 16,
+                      mainAxisSpacing: 24,
                       crossAxisCount: 2,
                     ),
                     builderDelegate: PagedChildBuilderDelegate<AdResponse>(
