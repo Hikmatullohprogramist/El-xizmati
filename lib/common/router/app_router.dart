@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/presentation/home/home_page.dart';
 import 'package:onlinebozor/presentation/home/profile_dashboard/features/setting/setting_page.dart';
-import 'package:onlinebozor/presentation/verify/verify_page.dart';
 
 import '../../presentation/ad/ad_collection/ad_collection_page.dart';
 import '../../presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
@@ -15,7 +14,6 @@ import '../../presentation/ad/create_ad/features/create_free_ad/create_free_ad_p
 import '../../presentation/ad/create_ad/features/create_product_ad/create_product_ad_page.dart';
 import '../../presentation/ad/create_ad/features/create_service_ad/create_service_ad_page.dart';
 import '../../presentation/auth/confirm/confirm_page.dart';
-import '../../presentation/auth/login/login_page.dart';
 import '../../presentation/auth/register/register_page.dart';
 import '../../presentation/auth/set_password/set_password_page.dart';
 import '../../presentation/auth/start/auth_start_page.dart';
@@ -64,14 +62,13 @@ part 'app_router.gr.dart';
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
 class AppRouter extends _$AppRouter {
   @override
-  List<AutoRoute> get routes =>
-      [
+  List<AutoRoute> get routes => [
         //
         AutoRoute(
             page: SetLanguageRoute.page, path: "/set_language", initial: true),
         AutoRoute(page: AuthStartRoute.page, path: "/auth_start"),
-        AutoRoute(page: LoginRoute.page, path: '/login'),
-        AutoRoute(page: RegisterRoute.page, path: '/register'),
+        AutoRoute(page: ConfirmRoute.page, path: '/confirmation'),
+        AutoRoute(page: VerificationRoute.page, path: '/verification'),
         AutoRoute(page: HomeRoute.page),
         AutoRoute(
             page: SetPasswordRoute.page, path: '/ser_password', initial: false),

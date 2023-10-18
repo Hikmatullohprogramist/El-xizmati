@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
+import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
 import '../../../../domain/repo/auth_repository.dart';
 
@@ -22,18 +23,18 @@ class AuthStartCubit
   }
 
   void validation() async {
-    log.i("call validation  ${buildable.phone}");
     build((buildable) => buildable.copyWith(loading: true));
     try {
-      var authStartResponse = await _repository.authStart(buildable.phone);
+      var authStartResponse =
+          await _repository.authStart(buildable.phone.clearSpaceInPhone());
       if (authStartResponse.data.is_registered) {
-        invoke(AuthStartListenable(AuthStartEffect.navigationRegister,
+        invoke(AuthStartListenable(AuthStartEffect.verification,
             phone: buildable.phone));
       } else {
-        invoke(AuthStartListenable(AuthStartEffect.navigationRegister));
+        invoke(AuthStartListenable(AuthStartEffect.confirmation,
+            phone: buildable.phone));
       }
     } catch (e, stackTrace) {
-      log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
       build((buildable) => buildable.copyWith(loading: false));

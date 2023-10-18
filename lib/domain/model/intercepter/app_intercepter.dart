@@ -10,14 +10,16 @@ class AppInterceptor extends QueuedInterceptor {
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     final headers = {'X-Api-Key': ""};
-    headers['App-Version-Code'] = DeviceInfo.app_version_code;
-    headers['App-Version-Name'] = DeviceInfo.app_version_name;
-    headers['Device_id'] = DeviceInfo.device_id;
-    headers['Device-Name'] = DeviceInfo.device_name;
-    headers['Device-Manufacturer'] = DeviceInfo.device_manufacture;
-    headers['Device-Model'] = DeviceInfo.device_model;
-    headers['User-Agent'] = DeviceInfo.user_agent;
-
+    headers['AppVersionCode'] = DeviceInfo.app_version_code;
+    headers['AppVersionName'] = DeviceInfo.app_version_name;
+    headers['DeviceId'] = DeviceInfo.device_id;
+    headers['DeviceName'] = DeviceInfo.device_name;
+    headers['DeviceManufacturer'] = DeviceInfo.device_manufacture;
+    headers['DeviceModel'] = DeviceInfo.device_model;
+    headers['UserAgent'] =
+        "${DeviceInfo.device_id}&&${DeviceInfo.device_model}&&${DeviceInfo.device_name}&&APPLICATION";
+    headers['MobileOs'] = DeviceInfo.mobile_os;
+    headers['NightMode'] =DeviceInfo.night_mode;
     options.headers.addAll(headers);
     handler.next(options);
   }

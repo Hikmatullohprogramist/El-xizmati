@@ -45,7 +45,9 @@ Future<void> main() async {
             "${androidInfo.manufacturer} ${androidInfo.model}";
         String combinedInfo = '$deviceId-${androidInfo.manufacturer}';
         DeviceInfo.device_id = uuid.v5(Uuid.NAMESPACE_URL, combinedInfo);
+        DeviceInfo.mobile_os ="android";
       } else if (Platform.isIOS) {
+        DeviceInfo.mobile_os="ios";
         IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
         String? deviceId = iosInfo.identifierForVendor;
         DeviceInfo.device_name = iosInfo.name;
@@ -58,6 +60,7 @@ Future<void> main() async {
       print(e.toString());
     }
   }
+
   await getDeviceAndAppInfo();
 
   var stateRepository = GetIt.instance<StateRepository>();
@@ -95,7 +98,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(fontFamily: 'Inter'),
         routerConfig: _appRouter.config(initialRoutes: [
-          if (isLanguageSelection) HomeRoute() else SetLanguageRoute()
+          if (isLanguageSelection) SetLanguageRoute() else SetLanguageRoute()
         ]),
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,

@@ -12,18 +12,33 @@ class AuthApi {
     return _dio.post('v1/auth/phone/verification', data: body);
   }
 
-  Future<Response> login(String phone, String password) {
+  Future<Response> verification(String phone, String password) {
     final body = {"username": phone, "password": password};
-    return _dio.post('v1/auth/login', data: body);
+    return _dio.post('v2/auth/login', data: body);
   }
 
-  Future<Response> register(String phone, String code, String session_token) {
+  Future<Response> forgetPassword(String phone) {
+    final body = {"phone_number": phone};
+    return _dio.post('v1/auth/phone/verification/recovery', data: body);
+  }
+
+  Future<Response> confirm(String phone, String code, String session_token) {
     final body = {
       "phone_number": phone,
       "session_token": session_token,
       "security_code": code
     };
     return _dio.post('v1/auth/phone/verification/register', data: body);
+  }
+
+  Future<Response> recoveryConfirm(
+      String phone, String code, String session_token) {
+    final body = {
+      "phone_number": phone,
+      "session_token": session_token,
+      "security_code": code
+    };
+    return _dio.post('v1/auth/phone/verification/recovery', data: body);
   }
 
   Future<Response> setPassword(String password, String repeatPassword) {

@@ -1,12 +1,14 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/api/auth_api.dart';
 import 'package:onlinebozor/data/storage/storage.dart';
-import 'package:onlinebozor/domain/model/auth_start/auth_start_response.dart';
 import 'package:onlinebozor/domain/model/confirm/confirm_response.dart';
+import 'package:onlinebozor/domain/model/forget_password/forget_password_response.dart';
 import 'package:onlinebozor/domain/model/login%20/login_response.dart';
 import 'package:onlinebozor/domain/model/register/register_response.dart';
 import 'package:onlinebozor/domain/model/token/token.dart';
 import 'package:onlinebozor/domain/repo/auth_repository.dart';
+
+import '../../domain/model/auth/auth_start/auth_start_response.dart';
 
 @LazySingleton(as: AuthRepository)
 class AuthRepositoryImpl extends AuthRepository {
@@ -27,15 +29,24 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<LoginResponse> login(String phone, String password) async {
-    final response = await _api.login(phone = phone, password = password);
+  Future<LoginResponse> verification(String phone, String password) async {
+    final response =
+        await _api.verification(phone = phone, password = password);
     final loginResponse = LoginResponse.fromJson(response.data);
     return loginResponse;
   }
 
   @override
+  Future<ForgetPasswordResponse?> forgetPassword(String phone) async {
+    final response = await _api.forgetPassword(phone);
+    final forgetResponse =
+        ForgetPasswordRootResponse.fromJson(response.data).data;
+    return forgetResponse;
+  }
+
+  @override
   Future<RegisterResponse> register(String phone, String code) async {
-    final response = await _api.register(phone, code, sessionToken);
+    final response = await _api.confirm(phone, code, sessionToken);
     final registerResponse = RegisterResponse.fromJson(response.data);
     return registerResponse;
   }

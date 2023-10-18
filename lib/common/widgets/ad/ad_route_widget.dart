@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
-import '../../../domain/model/ad/ad_response.dart';
+import '../../../domain/model/ads/ad/ad_response.dart';
 import '../../gen/localization/strings.dart';
 
 class AppAdRouterWidget extends StatelessWidget {

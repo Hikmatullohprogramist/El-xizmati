@@ -1,31 +1,43 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
+import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/common_button.dart';
 import 'package:onlinebozor/common/widgets/common_text_field.dart';
+import 'package:onlinebozor/presentation/auth/confirm/confirm_page.dart';
 import 'package:onlinebozor/presentation/auth/start/cubit/auth_start_cubit.dart';
+
+import '../../util.dart';
 
 @RoutePage()
 class AuthStartPage
     extends BasePage<AuthStartCubit, AuthStartBuildable, AuthStartListenable> {
-  const AuthStartPage({super.key});
+  AuthStartPage({super.key});
 
   @override
   void listener(BuildContext context, AuthStartListenable state) {
     switch (state.effect) {
-      case AuthStartEffect.navigationLogin:
-        context.router.push(LoginRoute(phone: state.phone!));
-      case AuthStartEffect.navigationRegister:
-        context.router.push(RegisterRoute(phone: state.phone!));
+      case AuthStartEffect.verification:
+        context.router.push(VerificationRoute(phone: state.phone!));
+      case AuthStartEffect.confirmation:
+        context.router.push(ConfirmRoute(
+            phone: state.phone!, confirmType: ConfirmType.confirm));
     }
   }
+
+  @override
+  void init(BuildContext context) {
+    textEditingController.text = "+998 ";
+  }
+
+  final TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget builder(BuildContext context, AuthStartBuildable state) {
@@ -41,7 +53,11 @@ class AuthStartPage
               color: context.colors.iconGrey,
             ),
             onPressed: () {
-              context.router.pop();
+              if (context.router.stack.length == 1) {
+                exit(0);
+              } else {
+                context.router.pop();
+              }
             }),
       ),
       body: Padding(
@@ -61,14 +77,12 @@ class AuthStartPage
                     .c(context.colors.textPrimary)),
             SizedBox(height: 10),
             CommonTextField(
-              hint: "(+998) ## ### ## ##",
               inputType: TextInputType.phone,
               maxLines: 1,
+              controller: textEditingController,
               inputFormatters: textMaskFormatter,
               onChanged: (value) {
-                context
-                    .read<AuthStartCubit>()
-                    .setPhone(value.clearSpaceInPhone());
+                context.read<AuthStartCubit>().setPhone(value);
               },
             ),
             Spacer(),
@@ -147,8 +161,3 @@ class AuthStartPage
     );
   }
 }
-
-var textMaskFormatter = MaskTextInputFormatter(
-    mask: '(+998) ## ### ## ##',
-    filter: {"#": RegExp(r'[0-9]')},
-    type: MaskAutoCompletionType.lazy);

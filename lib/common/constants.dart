@@ -25,4 +25,6 @@ abstract class DeviceInfo {
       "$device_id&&$device_model&&$device_name&&APPLICATION";
   static String app_version_code = "";
   static String app_version_name = "";
+  static String mobile_os = "";
+  static String night_mode ="false";
 }

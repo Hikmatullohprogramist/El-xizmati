@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:logger/logger.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
@@ -20,11 +19,9 @@ class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageBuildable,
 
   @override
   void listener(BuildContext context, SetLanguageListenable state) {
-    var log = Logger();
-    log.i(state.effect);
     switch (state.effect) {
       case SetLanguageEffect.navigationAuthStart:
-        context.router.push(HomeRoute());
+        context.router.replace(AuthStartRoute());
         break;
     }
   }

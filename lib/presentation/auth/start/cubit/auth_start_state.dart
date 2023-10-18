@@ -15,4 +15,4 @@ class AuthStartListenable with _$AuthStartListenable {
       _AuthStartListenable;
 }
 
-enum AuthStartEffect { navigationLogin, navigationRegister }
+enum AuthStartEffect { verification, confirmation}

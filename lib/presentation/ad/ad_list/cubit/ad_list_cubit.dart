@@ -6,7 +6,8 @@ import 'package:onlinebozor/common/constants.dart';
 import 'package:onlinebozor/common/loading_state.dart';
 import 'package:onlinebozor/domain/repo/ad_repository.dart';
 
-import '../../../../domain/model/ad/ad_response.dart';
+import '../../../../domain/model/ads/ad/ad_response.dart';
+
 
 part 'ad_list_cubit.freezed.dart';
 

@@ -9,8 +9,8 @@ import 'package:onlinebozor/common/widgets/ad/ad_property_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_route_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_status_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite_widget.dart';
-import 'package:onlinebozor/domain/model/ad/ad_response.dart';
 
+import '../../../domain/model/ads/ad/ad_response.dart';
 import '../../gen/assets/assets.gen.dart';
 
 class AppAdWidget extends StatelessWidget {

@@ -18,7 +18,7 @@ import '../../../common/widgets/category/popular_category_group.dart';
 import '../../../common/widgets/common_button.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../common/widgets/root_commodity_and_service.dart';
-import '../../../domain/model/ad/ad_response.dart';
+import '../../../domain/model/ads/ad/ad_response.dart';
 import 'cubit/dashboard_cubit.dart';
 
 @RoutePage()

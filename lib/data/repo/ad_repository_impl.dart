@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/domain/model/ad/ad_response.dart';
 
+import '../../domain/model/ads/ad/ad_response.dart';
 import '../../domain/repo/ad_repository.dart';
 import '../api/ads_api.dart';
 import '../storage/storage.dart';
