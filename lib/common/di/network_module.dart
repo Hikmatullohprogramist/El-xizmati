@@ -1,11 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/constants.dart';
-import 'package:onlinebozor/domain/model/auth_interceptor/auth_interceptor.dart';
-import 'package:onlinebozor/domain/model/intercepter/language_intercepter.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-
-import '../../domain/model/intercepter/app_intercepter.dart';
+import '../intercepter/auth_interceptor/auth_interceptor.dart';
+import '../intercepter/intercepter/app_intercepter.dart';
+import '../intercepter/intercepter/language_intercepter.dart';
 
 @module
 abstract class NetworkModule {

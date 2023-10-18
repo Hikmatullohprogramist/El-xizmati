@@ -1,9 +1,8 @@
-import 'package:onlinebozor/domain/model/confirm/confirm_response.dart';
-import 'package:onlinebozor/domain/model/forget_password/forget_password_response.dart';
-import 'package:onlinebozor/domain/model/login%20/login_response.dart';
-import 'package:onlinebozor/domain/model/register/register_response.dart';
-
 import '../model/auth/auth_start/auth_start_response.dart';
+import '../model/auth/confirm/confirm_response.dart';
+import '../model/auth/forget_password/forget_password_response.dart';
+import '../model/auth/login /login_response.dart';
+import '../model/auth/register/register_response.dart';
 
 abstract class AuthRepository {
   Future<AuthStartResponse> authStart(String phone);

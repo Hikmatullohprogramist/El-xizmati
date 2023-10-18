@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/domain/model/category/category_response.dart';
 
+import '../../../domain/model/categories/category/category_response.dart';
 import '../../gen/assets/assets.gen.dart';
 
 class AppCategoryWidget extends StatelessWidget {

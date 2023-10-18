@@ -14,7 +14,6 @@ import '../../presentation/ad/create_ad/features/create_free_ad/create_free_ad_p
 import '../../presentation/ad/create_ad/features/create_product_ad/create_product_ad_page.dart';
 import '../../presentation/ad/create_ad/features/create_service_ad/create_service_ad_page.dart';
 import '../../presentation/auth/confirm/confirm_page.dart';
-import '../../presentation/auth/register/register_page.dart';
 import '../../presentation/auth/set_password/set_password_page.dart';
 import '../../presentation/auth/start/auth_start_page.dart';
 import '../../presentation/auth/verification/verification_page.dart';

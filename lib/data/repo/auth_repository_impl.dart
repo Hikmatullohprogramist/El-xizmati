@@ -1,14 +1,13 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/api/auth_api.dart';
 import 'package:onlinebozor/data/storage/storage.dart';
-import 'package:onlinebozor/domain/model/confirm/confirm_response.dart';
-import 'package:onlinebozor/domain/model/forget_password/forget_password_response.dart';
-import 'package:onlinebozor/domain/model/login%20/login_response.dart';
-import 'package:onlinebozor/domain/model/register/register_response.dart';
 import 'package:onlinebozor/domain/model/token/token.dart';
 import 'package:onlinebozor/domain/repo/auth_repository.dart';
-
 import '../../domain/model/auth/auth_start/auth_start_response.dart';
+import '../../domain/model/auth/confirm/confirm_response.dart';
+import '../../domain/model/auth/forget_password/forget_password_response.dart';
+import '../../domain/model/auth/login /login_response.dart';
+import '../../domain/model/auth/register/register_response.dart';
 
 @LazySingleton(as: AuthRepository)
 class AuthRepositoryImpl extends AuthRepository {

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/domain/model/popular_category/popular_category_response.dart';
+import '../../../domain/model/categories/popular_category/popular_category_response.dart';
 
 class AppPopularCategoryHorizontal extends StatelessWidget {
   const AppPopularCategoryHorizontal({

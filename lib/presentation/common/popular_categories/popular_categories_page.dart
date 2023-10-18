@@ -6,12 +6,12 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/app_bar/common_app_bar.dart';
 import 'package:onlinebozor/common/widgets/category/popular_category_horizontal.dart';
-import 'package:onlinebozor/domain/model/popular_category/popular_category_response.dart';
 import 'package:onlinebozor/presentation/common/popular_categories/cubit/popular_categories_cubit.dart';
 
 import '../../../common/constants.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/widgets/common_button.dart';
+import '../../../domain/model/categories/popular_category/popular_category_response.dart';
 
 @RoutePage()
 class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,

@@ -1,8 +1,8 @@
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/domain/model/category/category_response.dart';
 
 import '../../common/base/base_storage.dart';
+import '../../domain/model/categories/category/category_response.dart';
 
 @lazySingleton
 class CategoriesStorage {
