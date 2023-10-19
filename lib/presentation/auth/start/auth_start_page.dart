@@ -79,6 +79,7 @@ class AuthStartPage
             CommonTextField(
               inputType: TextInputType.phone,
               maxLines: 1,
+              textInputAction: TextInputAction.done,
               controller: textEditingController,
               inputFormatters: textMaskFormatter,
               onChanged: (value) {

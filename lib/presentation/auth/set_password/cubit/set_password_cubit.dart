@@ -30,14 +30,16 @@ class SetPasswordCubit
         "password= ${buildable.password}, repeatPassword=${buildable.repeatPassword}");
     build((buildable) => buildable.copyWith(
         enabled: ((buildable.password.length >= 8) &&
-            (buildable.repeatPassword.length >= 8))));
+            (buildable.repeatPassword.length >= 8) &&
+            (buildable.password == buildable.repeatPassword))));
   }
 
   Future<void> createPassword() async {
     build((buildable) => buildable.copyWith(loading: true));
     try {
-      _repository.setPassword(buildable.password, buildable.repeatPassword);
-      invoke(SetPasswordListenable(SetPasswordEffect.success));
+     await _repository.registerOrResetPassword(
+          buildable.password, buildable.repeatPassword);
+      invoke(SetPasswordListenable(SetPasswordEffect.navigationToHome));
     } catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());

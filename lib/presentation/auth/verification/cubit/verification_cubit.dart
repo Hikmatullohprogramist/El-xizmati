@@ -7,7 +7,6 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import '../../../../domain/repo/auth_repository.dart';
 
 part 'verification_cubit.freezed.dart';
-
 part 'verification_state.dart';
 
 @injectable
@@ -18,24 +17,27 @@ class VerificationCubit
   final AuthRepository _repository;
 
   void setPhone(String phone) {
-    build((buildable) => buildable.copyWith(phone: phone));
+    build((buildable) => buildable.copyWith(phone: phone, password: ""));
   }
 
-  void setCode(String code) {
+  void setPassword(String password) {
     build((buildable) =>
-        buildable.copyWith(code: code, enable: code.length >= 4));
+        buildable.copyWith(password: password, enable: password.length >= 4));
   }
 
   Future<void> verification() async {
     build((buildable) => buildable.copyWith(loading: true));
     try {
       await _repository.verification(
-          buildable.phone.clearSpaceInPhone(), buildable.code);
-      invoke(VerificationListenable(VerificationEffect.navigationToHome));
+          buildable.phone.clearSpaceInPhone(), buildable.password);
+      invoke(VerificationListenable(VerificationEffect.navigationHome));
     } on DioException catch (e, stackTrace) {
+      log.w("${e.toString()} ${stackTrace.toString()}");
       if (e.response?.statusCode == 401) {
         display.error("Kiritilgan parrol xato", "Xatolik  yuz berdi");
-      } else {}
+      } else {
+        display.error("Qayta urinib ko'ring", "Xatolik  yuz berdi");
+      }
     } finally {
       build((buildable) => buildable.copyWith(loading: false));
     }

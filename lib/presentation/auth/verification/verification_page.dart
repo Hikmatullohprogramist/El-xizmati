@@ -29,7 +29,7 @@ class VerificationPage extends BasePage<VerificationCubit,
   @override
   void listener(BuildContext context, VerificationListenable state) {
     switch (state.effect) {
-      case VerificationEffect.navigationToHome:
+      case VerificationEffect.navigationHome:
         context.router.replace(HomeRoute());
       case VerificationEffect.navigationToConfirm:
         context.router.replace(
@@ -99,11 +99,12 @@ class VerificationPage extends BasePage<VerificationCubit,
             SizedBox(height: 10),
             CommonTextField(
               inputType: TextInputType.visiblePassword,
+              textInputAction: TextInputAction.done,
               readOnly: false,
               maxLines: 1,
               obscureText: true,
               onChanged: (value) {
-                context.read<VerificationCubit>().setCode(value);
+                context.read<VerificationCubit>().setPassword(value);
               },
             ),
             Align(
@@ -142,8 +143,6 @@ class VerificationPage extends BasePage<VerificationCubit,
                       fontSize: 12,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w400,
-                      height: 1.67,
-                      letterSpacing: 0.12,
                     ),
                   ),
                   TextSpan(
@@ -153,8 +152,6 @@ class VerificationPage extends BasePage<VerificationCubit,
                       fontSize: 12,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w400,
-                      height: 1.33,
-                      letterSpacing: 0.12,
                     ),
                   ),
                 ],

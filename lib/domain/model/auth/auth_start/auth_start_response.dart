@@ -23,7 +23,7 @@ class AuthStartResponse with _$AuthStartResponse {
 @freezed
 class Data with _$Data {
   const factory Data({
-    required bool is_registered,
+    bool? is_registered,
     String? session_token,
   }) = _Data;
 

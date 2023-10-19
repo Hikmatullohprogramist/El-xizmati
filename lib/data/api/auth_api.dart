@@ -7,52 +7,49 @@ class AuthApi {
 
   AuthApi(this._dio);
 
-  Future<Response> authStart(String phone) {
+  Future<Response> authStart({required String phone}) {
     final body = {'phone_number': phone};
     return _dio.post('v1/auth/phone/verification', data: body);
   }
 
-  Future<Response> verification(String phone, String password) {
-    final body = {"username": phone, "password": password};
-    return _dio.post('v2/auth/login', data: body);
-  }
-
-  Future<Response> forgetPassword(String phone) {
-    final body = {"phone_number": phone};
-    return _dio.post('v1/auth/phone/verification/recovery', data: body);
-  }
-
-  Future<Response> confirm(String phone, String code, String session_token) {
+  Future<Response> confirm(
+      {required String phone,
+      required String code,
+      required String sessionToken}) {
     final body = {
-      "phone_number": phone,
-      "session_token": session_token,
+      'phone_number': phone,
+      'session_token': sessionToken,
       "security_code": code
     };
     return _dio.post('v1/auth/phone/verification/register', data: body);
   }
 
-  Future<Response> recoveryConfirm(
-      String phone, String code, String session_token) {
-    final body = {
-      "phone_number": phone,
-      "session_token": session_token,
-      "security_code": code
-    };
+  Future<Response> verification(
+      {required String phone, required String password}) {
+    final body = {"username": phone, "password": password};
+    return _dio.post('v2/auth/login', data: body);
+  }
+
+  Future<Response> forgetPassword({required String phone}) {
+    final body = {"phone_number": phone};
     return _dio.post('v1/auth/phone/verification/recovery', data: body);
   }
 
-  Future<Response> setPassword(String password, String repeatPassword) {
-    final body = {"password": password, "repeat_password": repeatPassword};
-    return _dio.post('v1/auth/user/change_password', data: body);
+  Future<Response> recoveryConfirm(
+      {required String phone,
+      required String code,
+      required String sessionToken}) {
+    final body = {
+      "phone_number": phone,
+      "session_token": sessionToken,
+      "security_code": code
+    };
+    return _dio.post('v1/auth/phone/verification/recovery/password', data: body);
   }
 
-  // Future<Response> login(String phone, [String? hash]) {
-  //   final body = {'phone': phone, 'hash': hash};
-  //   return _dio.post('user/login', data: body);
-  // }
-
-  Future<Response> verify(String phone, String code) {
-    final body = {'phone': phone, 'code': code};
-    return _dio.post('/user/login/verify', data: body);
+  Future<Response> registerOrResetPassword(
+      {required String password, required String repeatPassword}) {
+    final body = {"password": password, "repeat_password": repeatPassword};
+    return _dio.post('v1/auth/user/change_password', data: body);
   }
 }

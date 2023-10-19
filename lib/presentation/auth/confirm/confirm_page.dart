@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/presentation/auth/confirm/cubit/confirm_cubit.dart';
 
 import '../../../common/gen/localization/strings.dart';
@@ -23,6 +24,14 @@ class ConfirmPage
   void init(BuildContext context) {
     context.read<ConfirmCubit>().setPhone(phone, confirmType);
     textEditingController.text = phone;
+  }
+
+  @override
+  void listener(BuildContext context, ConfirmListenable state) {
+    switch (state.effect) {
+      case ConfirmEffect.setPassword:
+        context.router.replace(SetPasswordRoute());
+    }
   }
 
   @override
@@ -90,26 +99,34 @@ class ConfirmPage
                     .copyWith(overflow: TextOverflow.ellipsis)),
             SizedBox(height: 10),
             CommonTextField(
-              inputType: TextInputType.visiblePassword,
-              readOnly: false,
+              inputType: TextInputType.number,
               maxLines: 1,
-              obscureText: true,
+              textInputAction: TextInputAction.done,
               onChanged: (value) {
                 context.read<ConfirmCubit>().setCode(value);
               },
             ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: CommonButton(
-                onPressed: () {},
-                type: ButtonType.text,
-                child: Text(Strings.authConfirmAgainSentSmsYourPhone),
-              ),
+            Row(
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: CommonButton(
+                    onPressed: () {},
+                    loading: state.loading,
+                    type: ButtonType.text,
+                    child: Strings.authConfirmAgainSentSmsYourPhone
+                        .w(500)
+                        .s(14)
+                        .c(Color(0xFF5C6AC3)),
+                  ),
+                ),
+                "01:00".w(500).s(14).c(Colors.black)
+              ],
             ),
             Spacer(),
             CommonButton(
                 onPressed: () {
-                  context.read<ConfirmCubit>().register();
+                  context.read<ConfirmCubit>().confirm();
                 },
                 enabled: state.enable,
                 loading: state.loading,

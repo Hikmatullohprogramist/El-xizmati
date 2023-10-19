@@ -4,7 +4,7 @@ part of 'verification_cubit.dart';
 class VerificationBuildable with _$VerificationBuildable {
   const factory VerificationBuildable({
     @Default("") String phone,
-    @Default('') String code,
+    @Default('') String password,
     @Default(false) bool loading,
     @Default(false) bool enable,
   }) = _VerificationBuildable;
@@ -15,4 +15,4 @@ class VerificationListenable with _$VerificationListenable {
   const factory VerificationListenable(VerificationEffect effect, {String? message}) = _VerificationListenable;
 }
 
-enum VerificationEffect { navigationToHome, navigationToConfirm }
+enum VerificationEffect { navigationToConfirm, navigationHome }

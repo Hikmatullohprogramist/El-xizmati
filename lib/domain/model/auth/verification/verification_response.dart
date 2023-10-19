@@ -1,34 +1,44 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'confirm_response.freezed.dart';
-part 'confirm_response.g.dart';
+part 'verification_response.freezed.dart';
+
+part 'verification_response.g.dart';
 
 @freezed
-class ConfirmRootResponse with _$ConfirmRootResponse {
-  const factory ConfirmRootResponse({
+class VerificationResponse with _$VerificationResponse {
+  const factory VerificationResponse({
     dynamic error,
     dynamic message,
     String? timestamp,
     int? status,
     dynamic path,
-    required ConfirmResponse data,
+    Data? data,
     dynamic response,
-  }) = _ConfirmRootResponse;
+  }) = _VerificationResponse;
 
-  factory ConfirmRootResponse.fromJson(Map<String, dynamic> json) =>
-      _$ConfirmRootResponseFromJson(json);
+  factory VerificationResponse.fromJson(Map<String, dynamic> json) =>
+      _$VerificationResponseFromJson(json);
 }
 
 @freezed
-class ConfirmResponse with _$ConfirmResponse {
-  const factory ConfirmResponse({
+class Data with _$Data {
+  const factory Data({
+    VerificationData? data,
+  }) = _Data;
+
+  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
+}
+
+@freezed
+class VerificationData with _$VerificationData {
+  const factory VerificationData({
     String? token,
     int? projectId,
     User? user,
-  }) = _ConfirmResponse;
+  }) = _VerificationData;
 
-  factory ConfirmResponse.fromJson(Map<String, dynamic> json) =>
-      _$ConfirmResponseFromJson(json);
+  factory VerificationData.fromJson(Map<String, dynamic> json) =>
+      _$VerificationDataFromJson(json);
 }
 
 @freezed

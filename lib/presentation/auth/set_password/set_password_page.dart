@@ -1,9 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
+import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/presentation/auth/set_password/cubit/set_password_cubit.dart';
 
 import '../../../common/gen/localization/strings.dart';
@@ -13,7 +14,20 @@ import '../../../common/widgets/common_text_field.dart';
 @RoutePage()
 class SetPasswordPage extends BasePage<SetPasswordCubit, SetPasswordBuildable,
     SetPasswordListenable> {
-  const SetPasswordPage({super.key});
+  SetPasswordPage({super.key});
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final FocusNode _emailFocusNode = FocusNode();
+  final FocusNode _passwordFocusNode = FocusNode();
+
+  @override
+  void listener(BuildContext context, SetPasswordListenable state) {
+    switch (state.effect) {
+      case SetPasswordEffect.navigationToHome:
+        context.router.replace(HomeRoute());
+    }
+  }
 
   @override
   Widget builder(BuildContext context, SetPasswordBuildable state) {
@@ -49,6 +63,7 @@ class SetPasswordPage extends BasePage<SetPasswordCubit, SetPasswordBuildable,
                     .c(context.colors.textPrimary)),
             SizedBox(height: 10),
             CommonTextField(
+              textInputAction: TextInputAction.next,
               obscureText: true,
               inputType: TextInputType.visiblePassword,
               maxLines: 1,
@@ -66,6 +81,7 @@ class SetPasswordPage extends BasePage<SetPasswordCubit, SetPasswordBuildable,
                     .c(context.colors.textPrimary)),
             SizedBox(height: 10),
             CommonTextField(
+              textInputAction: TextInputAction.done,
               readOnly: false,
               maxLines: 1,
               obscureText: true,

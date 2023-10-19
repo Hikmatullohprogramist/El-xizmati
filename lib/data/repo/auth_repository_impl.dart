@@ -1,72 +1,62 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/api/auth_api.dart';
-import 'package:onlinebozor/data/storage/storage.dart';
-import 'package:onlinebozor/domain/model/token/token.dart';
+import 'package:onlinebozor/domain/model/auth/register_password/register_password_response.dart';
 import 'package:onlinebozor/domain/repo/auth_repository.dart';
+
 import '../../domain/model/auth/auth_start/auth_start_response.dart';
 import '../../domain/model/auth/confirm/confirm_response.dart';
-import '../../domain/model/auth/forget_password/forget_password_response.dart';
-import '../../domain/model/auth/login /login_response.dart';
-import '../../domain/model/auth/register/register_response.dart';
 
 @LazySingleton(as: AuthRepository)
 class AuthRepositoryImpl extends AuthRepository {
   final AuthApi _api;
-  final Storage _storage;
   String sessionToken = "";
 
-  AuthRepositoryImpl(this._api, this._storage);
+  AuthRepositoryImpl(this._api);
 
   @override
   Future<AuthStartResponse> authStart(String phone) async {
-    final response = await _api.authStart(phone);
+    final response = await _api.authStart(phone: phone);
     final authStartResponse = AuthStartResponse.fromJson(response.data);
-    if (!authStartResponse.data.is_registered) {
+    if (authStartResponse.data.is_registered==false) {
       sessionToken = authStartResponse.data.session_token!;
     }
     return authStartResponse;
   }
 
   @override
-  Future<LoginResponse> verification(String phone, String password) async {
-    final response =
-        await _api.verification(phone = phone, password = password);
-    final loginResponse = LoginResponse.fromJson(response.data);
-    return loginResponse;
+  Future<void> verification(String phone, String password) async {
+    final response = await _api.verification(phone: phone, password: password);
+    final verificationResponse =
+        ConfirmRootResponse.fromJson(response.data).data;
   }
 
   @override
-  Future<ForgetPasswordResponse?> forgetPassword(String phone) async {
-    final response = await _api.forgetPassword(phone);
-    final forgetResponse =
-        ForgetPasswordRootResponse.fromJson(response.data).data;
-    return forgetResponse;
+  Future<void> confirm(String phone, String code) async {
+    final response = await _api.confirm(
+        phone: phone, code: code, sessionToken: sessionToken);
+    final confirmResponse = ConfirmRootResponse.fromJson(response.data).data;
   }
 
   @override
-  Future<RegisterResponse> register(String phone, String code) async {
-    final response = await _api.confirm(phone, code, sessionToken);
-    final registerResponse = RegisterResponse.fromJson(response.data);
-    return registerResponse;
+  Future<void> forgetPassword(String phone) async {
+    final response = await _api.forgetPassword(phone: phone);
+    final forgetResponse = AuthStartResponse.fromJson(response.data);
+    sessionToken = forgetResponse.data.session_token!;
   }
 
   @override
-  Future<ConfirmResponse> setPassword(
+  Future<void> registerOrResetPassword(
       String password, String repeatPassword) async {
-    final response = await _api.setPassword(password, repeatPassword);
-    final confirmResponse = ConfirmResponse.fromJson(response.data);
-    return confirmResponse;
+    final response = await _api.registerOrResetPassword(
+        password: password, repeatPassword: repeatPassword);
+    final confirmResponse =
+        RegisterPasswordRootResponse.fromJson(response.data);
   }
 
   @override
-  Future<bool> isLogin() async {
-    return false;
-  }
-
-  @override
-  Future<void> verify(String phone, String code) async {
-    final response = await _api.verify(phone, code);
-    final token = Token.fromJson(response.data);
-    await _storage.token.set(token);
+  Future<void> recoveryConfirm(String phone, String code) async {
+    final response = await _api.recoveryConfirm(
+        phone: phone, code: code, sessionToken: sessionToken);
+    final confirmResponse = ConfirmRootResponse.fromJson(response.data).data;
   }
 }

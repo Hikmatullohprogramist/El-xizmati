@@ -15,4 +15,4 @@ class SetPasswordListenable with _$SetPasswordListenable {
       {String? message}) = _SetPasswordListenable;
 }
 
-enum SetPasswordEffect { success }
+enum SetPasswordEffect { navigationToHome }

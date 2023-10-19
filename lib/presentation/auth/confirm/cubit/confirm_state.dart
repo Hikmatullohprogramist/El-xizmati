@@ -13,5 +13,8 @@ class ConfirmBuildable with _$ConfirmBuildable {
 
 @freezed
 class ConfirmListenable with _$ConfirmListenable {
-  const factory ConfirmListenable() = _ConfirmListenable;
+  const factory ConfirmListenable(ConfirmEffect effect, {String? message}) =
+      _ConfirmListenable;
 }
+
+enum ConfirmEffect { setPassword }

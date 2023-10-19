@@ -17,6 +17,7 @@ import '../../presentation/auth/confirm/confirm_page.dart';
 import '../../presentation/auth/set_password/set_password_page.dart';
 import '../../presentation/auth/start/auth_start_page.dart';
 import '../../presentation/auth/verification/verification_page.dart';
+import '../../presentation/common/language/set_language/set_language_page.dart';
 import '../../presentation/common/notification/notification_page.dart';
 import '../../presentation/common/popular_categories/popular_categories_page.dart';
 import '../../presentation/common/search/search_page.dart';
@@ -53,7 +54,6 @@ import '../../presentation/home/profile_dashboard/features/setting/features/my_s
 import '../../presentation/home/profile_dashboard/features/setting/features/notification_settings/notification_setting_page.dart';
 import '../../presentation/home/profile_dashboard/features/wallet_filling/wallet_filling_page.dart';
 import '../../presentation/home/profile_dashboard/profile_dashboard_page.dart';
-import '../../presentation/language/set_language/set_language_page.dart';
 import '../constants.dart';
 
 part 'app_router.gr.dart';
@@ -69,8 +69,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: ConfirmRoute.page, path: '/confirmation'),
         AutoRoute(page: VerificationRoute.page, path: '/verification'),
         AutoRoute(page: HomeRoute.page),
-        AutoRoute(
-            page: SetPasswordRoute.page, path: '/ser_password', initial: false),
+        AutoRoute(page: SetPasswordRoute.page, path: '/set_password'),
 
         //home screen
         AutoRoute(

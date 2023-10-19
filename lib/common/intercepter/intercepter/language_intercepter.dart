@@ -12,11 +12,9 @@ class LanguageInterceptor extends QueuedInterceptor {
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     String languageName = languageStorage.languageName() ?? 'uz';
-    final headers = {'X-Api-Key': ""};
+    final headers = {'lang': languageName};
     final queryParameters = {'lang': languageName};
-    queryParameters['Accept-Language'] = languageName;
-    headers['Accept-Language'] = languageName;
-    headers['lang'] = languageName;
+    headers['AcceptLanguage'] = languageName;
     options.headers.addAll(headers);
     options.queryParameters.addAll(queryParameters);
     handler.next(options);

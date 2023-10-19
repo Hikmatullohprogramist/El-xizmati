@@ -27,7 +27,7 @@ class AuthStartCubit
     try {
       var authStartResponse =
           await _repository.authStart(buildable.phone.clearSpaceInPhone());
-      if (authStartResponse.data.is_registered) {
+      if (authStartResponse.data.is_registered==true) {
         invoke(AuthStartListenable(AuthStartEffect.verification,
             phone: buildable.phone));
       } else {

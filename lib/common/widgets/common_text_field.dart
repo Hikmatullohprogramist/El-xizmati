@@ -17,6 +17,7 @@ class CommonTextField extends StatefulWidget {
     this.label,
     this.onChanged,
     this.inputFormatters,
+    this.textInputAction,
   }) : super(key: key);
 
   final String? hint;
@@ -29,6 +30,7 @@ class CommonTextField extends StatefulWidget {
   final int? maxLines;
   final bool enabled;
   final Color? disabledColor;
+  final TextInputAction? textInputAction;
   final TextInputFormatter? inputFormatters;
   final Function(String text)? onChanged;
 
@@ -54,6 +56,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
       readOnly: widget.readOnly,
       maxLines: widget.maxLines,
       enabled: widget.enabled,
+      textInputAction: widget.textInputAction,
       onChanged: widget.onChanged,
       inputFormatters: [
         if (widget.inputFormatters != null) widget.inputFormatters!

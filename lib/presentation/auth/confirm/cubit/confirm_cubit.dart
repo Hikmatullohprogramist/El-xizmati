@@ -1,12 +1,14 @@
+import 'dart:async';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
+import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/presentation/auth/confirm/confirm_page.dart';
 
 import '../../../../domain/repo/auth_repository.dart';
 
 part 'confirm_cubit.freezed.dart';
-
 part 'confirm_state.dart';
 
 @injectable
@@ -17,7 +19,7 @@ class ConfirmCubit extends BaseCubit<ConfirmBuildable, ConfirmListenable> {
 
   void setPhone(String phone, ConfirmType confirmType) {
     build((buildable) =>
-        buildable.copyWith(phone: phone, confirmType: confirmType));
+        buildable.copyWith(phone: phone, confirmType: confirmType, code: ""));
   }
 
   void setCode(String code) {
@@ -25,12 +27,37 @@ class ConfirmCubit extends BaseCubit<ConfirmBuildable, ConfirmListenable> {
         buildable.copyWith(code: code, enable: code.length >= 4));
   }
 
-  Future<void> register() async {
+  void confirm() {
+    if (ConfirmType.confirm == state.buildable?.confirmType) {
+      confirmation();
+    } else {
+      recoveryConfirmation();
+    }
+  }
+
+  Future<void> confirmation() async {
     build((buildable) => buildable.copyWith(loading: true));
     try {
-      await _repository.register(buildable.phone, buildable.code);
+      await _repository.confirm(
+          buildable.phone.clearSpaceInPhone(), buildable.code);
+      invoke(ConfirmListenable(ConfirmEffect.setPassword));
     } catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
+      display.error(e.toString());
+    } finally {
+      build((buildable) => buildable.copyWith(loading: false));
+    }
+  }
+
+  Future<void> recoveryConfirmation() async {
+    build((buildable) => buildable.copyWith(loading: true));
+    try {
+      await _repository.recoveryConfirm(
+          buildable.phone.clearSpaceInPhone(), buildable.code);
+      invoke(ConfirmListenable(ConfirmEffect.setPassword));
+    } catch (e, stackTrace) {
+      log.e(e.toString(), error: e, stackTrace: stackTrace);
+      invoke(ConfirmListenable(ConfirmEffect.setPassword));
       display.error(e.toString());
     } finally {
       build((buildable) => buildable.copyWith(loading: false));

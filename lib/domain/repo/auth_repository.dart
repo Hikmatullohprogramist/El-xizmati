@@ -1,21 +1,15 @@
 import '../model/auth/auth_start/auth_start_response.dart';
-import '../model/auth/confirm/confirm_response.dart';
-import '../model/auth/forget_password/forget_password_response.dart';
-import '../model/auth/login /login_response.dart';
-import '../model/auth/register/register_response.dart';
 
 abstract class AuthRepository {
   Future<AuthStartResponse> authStart(String phone);
 
-  Future<LoginResponse> verification(String phone, String password);
+  Future<void> confirm(String phone, String code);
 
-  Future<ForgetPasswordResponse?> forgetPassword(String phone);
+  Future<void> verification(String phone, String password);
 
-  Future<RegisterResponse> register(String phone, String code);
+  Future<void> forgetPassword(String phone);
 
-  Future<ConfirmResponse> setPassword(String password, String repeatPassword);
+  Future<void> registerOrResetPassword(String password, String repeatPassword);
 
-  Future<void> verify(String phone, String code);
-
-  Future<bool> isLogin();
+  Future<void> recoveryConfirm(String phone, String code);
 }
