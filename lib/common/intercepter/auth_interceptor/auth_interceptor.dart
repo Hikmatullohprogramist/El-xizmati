@@ -1,24 +1,24 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/storage/storage.dart';
-import 'package:onlinebozor/domain/model/token/token.dart';
+
+import '../../../data/storage/token_storage.dart';
 
 @lazySingleton
 class AuthInterceptor extends QueuedInterceptor {
-  final Storage storage;
+  final TokenStorage tokenStorage;
 
-  AuthInterceptor(this.storage);
+  AuthInterceptor(this.tokenStorage);
 
   @override
   void onRequest(
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    Token? token = storage.token();
+    String? token = tokenStorage.token.call();
     final headers = {'X-Api-Key': ""};
     // final headers = {};
     if (token != null) {
-      headers['Authorization'] = 'Bearer token.access';
+      headers['Authorization'] = 'Bearer $token';
     }
     options.headers.addAll(headers);
     handler.next(options);

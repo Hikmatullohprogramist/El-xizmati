@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
@@ -140,7 +141,7 @@ class ConfirmPage
                       .c(context.colors.textPrimaryInverse),
                 )),
             SizedBox(height: 20),
-            const Text.rich(
+             Text.rich(
               TextSpan(
                 children: [
                   TextSpan(
@@ -153,6 +154,7 @@ class ConfirmPage
                     ),
                   ),
                   TextSpan(
+                    recognizer: TapGestureRecognizer()..onTap=(){},
                     text: 'политикой \nобработки персональных данных ',
                     style: TextStyle(
                       color: Color(0xFF5C6AC3),

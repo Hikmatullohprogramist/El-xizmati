@@ -50,6 +50,6 @@ class AuthApi {
   Future<Response> registerOrResetPassword(
       {required String password, required String repeatPassword}) {
     final body = {"password": password, "repeat_password": repeatPassword};
-    return _dio.post('v1/auth/user/change_password', data: body);
+    return _dio.put('v1/auth/user/change_password', data: body);
   }
 }
