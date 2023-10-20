@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../domain/repo/auth_repository.dart';
 
@@ -23,6 +24,15 @@ class VerificationCubit
   void setPassword(String password) {
     build((buildable) =>
         buildable.copyWith(password: password, enable: password.length >= 4));
+  }
+
+  launchURLApp() async {
+    try {
+      var url = Uri.parse("https://online-bozor.uz/page/privacy");
+      await launchUrl(url);
+    } catch (e) {
+      display.error(e.toString(), "Urlni parse qilishda xatolik yuz berdi");
+    }
   }
 
   Future<void> verification() async {

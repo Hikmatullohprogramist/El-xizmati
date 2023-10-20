@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/presentation/auth/confirm/confirm_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../domain/repo/auth_repository.dart';
 
@@ -32,6 +33,15 @@ class ConfirmCubit extends BaseCubit<ConfirmBuildable, ConfirmListenable> {
       confirmation();
     } else {
       recoveryConfirmation();
+    }
+  }
+
+  launchURLApp() async {
+    try {
+      var url = Uri.parse("https://online-bozor.uz/page/privacy");
+      await launchUrl(url);
+    } catch (e) {
+      display.error(e.toString(), "Urlni parse qilishda xatolik yuz berdi");
     }
   }
 

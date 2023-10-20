@@ -154,7 +154,10 @@ class ConfirmPage
                     ),
                   ),
                   TextSpan(
-                    recognizer: TapGestureRecognizer()..onTap=(){},
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        context.read<ConfirmCubit>().launchURLApp();
+                      },
                     text: 'политикой \nобработки персональных данных ',
                     style: TextStyle(
                       color: Color(0xFF5C6AC3),
