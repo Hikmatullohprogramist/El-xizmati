@@ -8,9 +8,12 @@ class TokenStorage {
   TokenStorage(this._box);
 
   final Box _box;
-  final String accessToken = "key_token_sto";
+  final String accessToken = "key_access_token";
+  final String isLoginKey = "key_login_in";
 
   BaseStorage<String> get token => BaseStorage(_box, key: accessToken);
+
+  BaseStorage<bool> get isLogin => BaseStorage(_box, key: isLoginKey);
 
   @FactoryMethod(preResolve: true)
   static Future<TokenStorage> create() async {

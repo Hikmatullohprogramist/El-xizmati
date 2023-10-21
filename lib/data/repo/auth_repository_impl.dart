@@ -30,8 +30,10 @@ class AuthRepositoryImpl extends AuthRepository {
     final response = await _api.verification(phone: phone, password: password);
     final verificationResponse =
         ConfirmRootResponse.fromJson(response.data).data;
-    verificationResponse.token ??
-        tokenStorage.token.set(verificationResponse.token ?? "");
+    if (verificationResponse.token != null) {
+      tokenStorage.token.set(verificationResponse.token ?? "");
+      tokenStorage.isLogin.set(true);
+    }
   }
 
   @override
@@ -39,8 +41,10 @@ class AuthRepositoryImpl extends AuthRepository {
     final response = await _api.confirm(
         phone: phone, code: code, sessionToken: sessionToken);
     final confirmResponse = ConfirmRootResponse.fromJson(response.data).data;
-    confirmResponse.token ??
-        tokenStorage.token.set(confirmResponse.token ?? "");
+    if (confirmResponse.token != null) {
+      tokenStorage.token.set(confirmResponse.token ?? "");
+      tokenStorage.isLogin.set(true);
+    }
   }
 
   @override
@@ -64,7 +68,9 @@ class AuthRepositoryImpl extends AuthRepository {
     final response = await _api.recoveryConfirm(
         phone: phone, code: code, sessionToken: sessionToken);
     final confirmResponse = ConfirmRootResponse.fromJson(response.data).data;
-    confirmResponse.token ??
-        tokenStorage.token.set(confirmResponse.token ?? "");
+    if (confirmResponse.token != null) {
+      tokenStorage.token.set(confirmResponse.token ?? "");
+      tokenStorage.isLogin.set(true);
+    }
   }
 }

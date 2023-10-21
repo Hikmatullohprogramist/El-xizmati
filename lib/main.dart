@@ -66,6 +66,7 @@ Future<void> main() async {
   var stateRepository = GetIt.instance<StateRepository>();
   var isLanguageSelection =
       await stateRepository.isLanguageSelection() ?? false;
+  var isLogin = await stateRepository.isLogin() ?? false;
 
   runApp(
     EasyLocalization(
@@ -75,6 +76,7 @@ Future<void> main() async {
       assetLoader: CsvAssetLoader(),
       child: MyApp(
         isLanguageSelection: isLanguageSelection,
+        isLogin: isLogin,
       ),
     ),
   );
@@ -85,9 +87,10 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key, required this.isLanguageSelection});
+  MyApp({super.key, required this.isLanguageSelection, required this.isLogin});
 
   final bool isLanguageSelection;
+  final bool isLogin;
 
   final _appRouter = AppRouter();
 
@@ -98,7 +101,10 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(fontFamily: 'Inter'),
         routerConfig: _appRouter.config(initialRoutes: [
-          if (isLanguageSelection) AuthStartRoute() else SetLanguageRoute()
+          if (isLanguageSelection)
+            if (isLogin) HomeRoute() else AuthStartRoute()
+          else
+            SetLanguageRoute()
         ]),
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,

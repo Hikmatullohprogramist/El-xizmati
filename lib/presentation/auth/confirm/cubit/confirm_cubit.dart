@@ -17,15 +17,32 @@ class ConfirmCubit extends BaseCubit<ConfirmBuildable, ConfirmListenable> {
   ConfirmCubit(this._repository) : super(ConfirmBuildable());
 
   final AuthRepository _repository;
+  Timer? _timer;
+
+  void startTimer() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      build((buildable) =>
+          buildable.copyWith(timerTime: buildable.timerTime - 1));
+      if (buildable.timerTime == 0) stopTimer();
+    });
+  }
+
+  void stopTimer() {
+    if (_timer?.isActive == true) {
+      _timer?.cancel();
+    }
+  }
 
   void setPhone(String phone, ConfirmType confirmType) {
-    build((buildable) =>
-        buildable.copyWith(phone: phone, confirmType: confirmType, code: ""));
+    build((buildable) => buildable.copyWith(
+          phone: phone,
+          confirmType: confirmType,
+          code: "",
+        ));
   }
 
   void setCode(String code) {
-    build((buildable) =>
-        buildable.copyWith(code: code, enable: code.length >= 4));
+    build((buildable) => buildable.copyWith(code: code));
   }
 
   void confirm() {
@@ -50,6 +67,7 @@ class ConfirmCubit extends BaseCubit<ConfirmBuildable, ConfirmListenable> {
     try {
       await _repository.confirm(
           buildable.phone.clearSpaceInPhone(), buildable.code);
+      _timer?.cancel();
       invoke(ConfirmListenable(ConfirmEffect.setPassword));
     } catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
@@ -64,6 +82,7 @@ class ConfirmCubit extends BaseCubit<ConfirmBuildable, ConfirmListenable> {
     try {
       await _repository.recoveryConfirm(
           buildable.phone.clearSpaceInPhone(), buildable.code);
+      _timer?.cancel();
       invoke(ConfirmListenable(ConfirmEffect.setPassword));
     } catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);

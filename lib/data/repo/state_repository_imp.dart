@@ -1,12 +1,14 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/storage/language_storage.dart';
+import 'package:onlinebozor/data/storage/token_storage.dart';
 import 'package:onlinebozor/domain/repo/state_repository.dart';
 
 @LazySingleton(as: StateRepository)
 class StateRepositoryImp extends StateRepository {
-  StateRepositoryImp(this.languageStorage);
+  StateRepositoryImp(this.languageStorage, this.tokenStorage);
 
   final LanguageStorage languageStorage;
+  final TokenStorage tokenStorage;
 
   @override
   Future<String?> getLanguageName() async {
@@ -26,5 +28,21 @@ class StateRepositoryImp extends StateRepository {
   @override
   Future<void> setLanguage(String languageName) {
     return languageStorage.languageName.set(languageName);
+  }
+
+  @override
+  Future<void> setLogin(bool isLogin) {
+    return tokenStorage.isLogin.set(isLogin);
+  }
+
+  @override
+  Future<bool?> isLogin() async {
+    return tokenStorage.isLogin.call();
+  }
+
+  @override
+  Future<void> clear() async {
+    await tokenStorage.isLogin.clear();
+    await tokenStorage.token.clear();
   }
 }

@@ -23,7 +23,7 @@ class VerificationCubit
 
   void setPassword(String password) {
     build((buildable) =>
-        buildable.copyWith(password: password, enable: password.length >= 4));
+        buildable.copyWith(password: password, ));
   }
 
   launchURLApp() async {

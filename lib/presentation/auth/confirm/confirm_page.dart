@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,10 +21,12 @@ class ConfirmPage
   final phone;
   final ConfirmType confirmType;
   final textEditingController = TextEditingController();
+  final format = DateFormat("mm:ss");
 
   @override
   void init(BuildContext context) {
     context.read<ConfirmCubit>().setPhone(phone, confirmType);
+    context.read<ConfirmCubit>().startTimer();
     textEditingController.text = phone;
   }
 
@@ -112,8 +115,8 @@ class ConfirmPage
                 Align(
                   alignment: Alignment.centerLeft,
                   child: CommonButton(
-                    onPressed: () {},
-                    loading: state.loading,
+                    enabled: state.againButtonEnable,
+                    onPressed: () => context.read<ConfirmCubit>().confirm(),
                     type: ButtonType.text,
                     child: Strings.authConfirmAgainSentSmsYourPhone
                         .w(500)
@@ -121,7 +124,12 @@ class ConfirmPage
                         .c(Color(0xFF5C6AC3)),
                   ),
                 ),
-                "01:00".w(500).s(14).c(Colors.black)
+                format
+                    .format(DateTime.fromMillisecondsSinceEpoch(
+                        state.timerTime * 1000))
+                    .w(500)
+                    .s(14)
+                    .c(Colors.black)
               ],
             ),
             Spacer(),

@@ -14,4 +14,6 @@ class BaseStorage<T> {
   Future<void> set(T? value) => box.put(_key, value);
 
   Future<void> delete() => box.delete(_key);
+
+  Future<void> clear() => box.clear();
 }

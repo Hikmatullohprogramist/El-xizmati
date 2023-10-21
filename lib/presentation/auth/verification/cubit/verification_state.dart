@@ -2,12 +2,15 @@ part of 'verification_cubit.dart';
 
 @freezed
 class VerificationBuildable with _$VerificationBuildable {
+  const VerificationBuildable._();
+
   const factory VerificationBuildable({
     @Default("") String phone,
     @Default('') String password,
     @Default(false) bool loading,
-    @Default(false) bool enable,
   }) = _VerificationBuildable;
+
+  bool get enable => password.length >= 8;
 }
 
 @freezed
