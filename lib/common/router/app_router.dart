@@ -14,6 +14,8 @@ import '../../presentation/ad/create_ad/features/create_free_ad/create_free_ad_p
 import '../../presentation/ad/create_ad/features/create_product_ad/create_product_ad_page.dart';
 import '../../presentation/ad/create_ad/features/create_service_ad/create_service_ad_page.dart';
 import '../../presentation/auth/confirm/confirm_page.dart';
+import '../../presentation/auth/eds/eds_page.dart';
+import '../../presentation/auth/one_id/login_with_one_id_page.dart';
 import '../../presentation/auth/set_password/set_password_page.dart';
 import '../../presentation/auth/start/auth_start_page.dart';
 import '../../presentation/auth/verification/verification_page.dart';
@@ -70,6 +72,8 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: VerificationRoute.page, path: '/verification'),
         AutoRoute(page: HomeRoute.page),
         AutoRoute(page: SetPasswordRoute.page, path: '/set_password'),
+        AutoRoute(page: EdsRoute.page, path: '/eds'),
+        AutoRoute(page: LoginWithOneIdRoute.page, path: "/login_with_one_id"),
 
         //home screen
         AutoRoute(

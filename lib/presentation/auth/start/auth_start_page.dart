@@ -108,7 +108,7 @@ class AuthStartPage
             CommonButton(
                 color: context.colors.borderColor,
                 type: ButtonType.outlined,
-                onPressed: () {},
+                onPressed: () => context.router.replace(LoginWithOneIdRoute()),
                 child: SizedBox(
                   height: 48,
                   child: Row(
@@ -126,7 +126,7 @@ class AuthStartPage
             CommonButton(
                 color: context.colors.borderColor,
                 type: ButtonType.outlined,
-                onPressed: () {},
+                onPressed: () => context.router.replace(LoginWithOneIdRoute()),
                 child: SizedBox(
                   height: 48,
                   child: Row(

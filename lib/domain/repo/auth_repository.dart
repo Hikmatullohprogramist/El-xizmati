@@ -12,4 +12,6 @@ abstract class AuthRepository {
   Future<void> registerOrResetPassword(String password, String repeatPassword);
 
   Future<void> recoveryConfirm(String phone, String code);
+
+  Future<void> loginWithOneId(String accessCode);
 }

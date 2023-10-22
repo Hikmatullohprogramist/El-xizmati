@@ -44,12 +44,18 @@ class AuthApi {
       "session_token": sessionToken,
       "security_code": code
     };
-    return _dio.post('v1/auth/phone/verification/recovery/password', data: body);
+    return _dio.post('v1/auth/phone/verification/recovery/password',
+        data: body);
   }
 
   Future<Response> registerOrResetPassword(
       {required String password, required String repeatPassword}) {
     final body = {"password": password, "repeat_password": repeatPassword};
     return _dio.put('v1/auth/user/change_password', data: body);
+  }
+
+  Future<Response> loginWithOneId({required String accessCode}) {
+    final body = {"accessToken": accessCode};
+    return _dio.post("v1/auth/one_id/login-validate", data: body);
   }
 }

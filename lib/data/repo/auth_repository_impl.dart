@@ -73,4 +73,9 @@ class AuthRepositoryImpl extends AuthRepository {
       tokenStorage.isLogin.set(true);
     }
   }
+
+  @override
+  Future<void> loginWithOneId(String accessCode) async {
+    final response = await _api.loginWithOneId(accessCode: accessCode);
+  }
 }
