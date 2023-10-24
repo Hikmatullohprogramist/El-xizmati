@@ -20,38 +20,30 @@ class CategoryPage
     return Scaffold(
       appBar: CommonSearchBar(
           onPressedMic: () {},
-          onPressedNotification: () {
-            context.router.push(NotificationRoute());
-          },
-          onPressedSearch: () {
-            context.router.push(SearchRoute());
-          }),
+          onPressedNotification: () => context.router.push(NotificationRoute()),
+          onPressedSearch: () => context.router.push(SearchRoute())),
       body: LoaderStateWidget(
-          isFullScreen: false,
-          loadingState: state.categoriesState,
-          child: ListView.separated(
-            physics: BouncingScrollPhysics(),
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemCount: state.categories.length,
-            itemBuilder: (context, index) {
-              return AppCategoryWidget(
+        isFullScreen: true,
+        loadingState: state.categoriesState,
+        child: ListView.separated(
+          physics: BouncingScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          itemCount: state.categories.length,
+          itemBuilder: (context, index) {
+            return AppCategoryWidget(
                 onClick: (CategoryResponse categoryResponse) {
                   context.router.push(AdListRoute(
                       adListType: AdListType.popularCategory,
                       keyWord: categoryResponse.key_word));
                 },
-                categoryResponse: state.categories[index],
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return Divider(
-                height: 1,
-                indent: 54,
-                color: Color(0xFFE5E9F3),
-              );
-            },
-          )),
+                categoryResponse: state.categories[index]);
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return Divider(height: 1, indent: 54, color: Color(0xFFE5E9F3));
+          },
+        ),
+      ),
     );
   }
 }

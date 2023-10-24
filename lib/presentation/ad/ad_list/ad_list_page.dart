@@ -32,7 +32,7 @@ class AdListPage
     return Scaffold(
       appBar: CommonAppBar(() {
         context.router.pop();
-      }, "Popular e'lonlar"),
+      }, "E'lonlar"),
       backgroundColor: Colors.white,
       body: PagedGridView<int, AdResponse>(
         shrinkWrap: true,

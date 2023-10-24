@@ -41,11 +41,9 @@ class LoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isFullScreen
-        ? Expanded(
-            child: Center(
-              child: CircularProgressIndicator(
-                color: Colors.blue,
-              ),
+        ? Center(
+            child: CircularProgressIndicator(
+              color: Colors.blue,
             ),
           )
         : SizedBox(
@@ -69,35 +67,28 @@ class ErrorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isFullScreen
-        ? Expanded(
-            child: Center(
-                child: Column(
-              children: [
+        ? Center(
+            child: Column(
+            children: [
+              "Xatolik yuz berdi?".w(400).s(14).c(context.colors.textPrimary),
+              SizedBox(height: 12),
+              CommonButton(
+                  onPressed: onErrorToAgainRequest,
+                  type: ButtonType.elevated,
+                  child: "Qayta urinish".w(400).s(15))
+            ],
+          ))
+        : Center(
+            child: SizedBox(
+              height: 160,
+              child: Column(children: [
                 "Xatolik yuz berdi?".w(400).s(14).c(context.colors.textPrimary),
                 SizedBox(height: 12),
                 CommonButton(
                     onPressed: onErrorToAgainRequest,
                     type: ButtonType.elevated,
                     child: "Qayta urinish".w(400).s(15))
-              ],
-            )),
-          )
-        : SizedBox(
-            height: 160,
-            child: Center(
-              child: Column(
-                children: [
-                  "Xatolik yuz berdi?"
-                      .w(400)
-                      .s(14)
-                      .c(context.colors.textPrimary),
-                  SizedBox(height: 12),
-                  CommonButton(
-                      onPressed: onErrorToAgainRequest,
-                      type: ButtonType.elevated,
-                      child: "Qayta urinish".w(400).s(15))
-                ],
-              ),
+            ]),
             ),
           );
   }

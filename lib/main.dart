@@ -102,7 +102,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(fontFamily: 'Inter'),
         routerConfig: _appRouter.config(initialRoutes: [
           if (isLanguageSelection)
-            if (isLogin) HomeRoute() else AuthStartRoute()
+            if (isLogin) HomeRoute() else HomeRoute()
           else
             SetLanguageRoute()
         ]),

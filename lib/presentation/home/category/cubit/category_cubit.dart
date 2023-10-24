@@ -15,15 +15,18 @@ class CategoryCubit extends BaseCubit<CategoryBuildable, CategoryListenable> {
     getCategories();
   }
 
-  CommonRepository _repository;
+  final CommonRepository _repository;
 
   Future<void> getCategories() async {
     try {
       final categories = await _repository.getCategories();
+      final result = categories.where((element) => element.parent_id == 0).toList();
       log.i(categories.toString());
       build((buildable) => buildable.copyWith(
-          categories: categories, categoriesState: AppLoadingState.success));
+          categories: result, categoriesState: AppLoadingState.success));
     } catch (exception) {
+      log.e(exception.toString());
+      display.error(exception.toString());
       build((buildable) =>
           buildable.copyWith(categoriesState: AppLoadingState.error));
     }
