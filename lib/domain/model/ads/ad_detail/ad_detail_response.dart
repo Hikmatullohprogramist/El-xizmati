@@ -1,37 +1,36 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'ad_detail_response.freezed.dart';
-
 part 'ad_detail_response.g.dart';
 
 @freezed
-class AdDetailResponse with _$AdDetailResponse {
-  const factory AdDetailResponse({
+class AdDetailRootResponse with _$AdDetailRootResponse {
+  const factory AdDetailRootResponse({
     dynamic error,
     dynamic message,
     String? timestamp,
     int? status,
     dynamic path,
-    Data? data,
+    required Data data,
     dynamic response,
-  }) = _AdDetailResponse;
+  }) = _AdDetailRootResponse;
 
-  factory AdDetailResponse.fromJson(Map<String, dynamic> json) =>
-      _$AdDetailResponseFromJson(json);
+  factory AdDetailRootResponse.fromJson(Map<String, dynamic> json) =>
+      _$AdDetailRootResponseFromJson(json);
 }
 
 @freezed
 class Data with _$Data {
   const factory Data({
-    Results? results,
+   required AdDetailResponse results,
   }) = _Data;
 
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 }
 
 @freezed
-class Results with _$Results {
-  const factory Results({
+class AdDetailResponse with _$AdDetailResponse {
+  const factory AdDetailResponse({
     int? id,
     String? name,
     String? sale_type,
@@ -45,48 +44,48 @@ class Results with _$Results {
     String? property_status,
     District? region,
     District? district,
-    String? email,
+    dynamic email,
     String? phone_number,
-    bool? is_auto_renew,
-    String? typ_status,
+    bool? is_autoRenew,
+    String? type_status,
     String? begin_date,
-    String? endDate,
+    String? end_date,
     Seller? seller,
-    String? createdAt,
-    dynamic otherName,
-    District? otherCategory,
-    dynamic otherDescription,
-    dynamic otherRouteType,
-    dynamic otherPropertyStatus,
+    String? created_at,
+    dynamic other_name,
+    District? other_category,
+    dynamic other_description,
+    dynamic other_route_type,
+    dynamic other_property_status,
     String? type,
-    bool? showSocial,
+    bool? show_social,
     int? tin,
-    bool? hasFreeShipping,
-    bool? hasShipping,
-    bool? hasWarehouse,
-    int? shippingPrice,
-    int? shippingUnitId,
+    dynamic has_free_shipping,
+    dynamic has_shipping,
+    dynamic has_warehouse,
+    int? shipping_price,
+    dynamic shipping_unitId,
     int? view,
     int? selected,
-    int? phoneView,
-    int? messageNumber,
-    dynamic typeExpireDate,
-    int? unitId,
-    dynamic toPrice,
-    dynamic fromPrice,
-    int? addressId,
-    String? video,
+    int? phone_view,
+    int? message_number,
+    dynamic type_expire_date,
+    int? unit_id,
+    int? to_price,
+    int? from_price,
+    int? address_id,
+    dynamic video,
     List<dynamic>? params,
-    List<SocialMedia>? socialMedias,
-    List<Address>? warehouses,
-    List<Shipping>? shippings,
+    List<dynamic>? social_medias,
+    List<dynamic>? warehouses,
+    List<dynamic>? shippings,
     List<Photo>? photos,
     Address? address,
-    List<District>? paymentTypes,
-  }) = _Results;
+    List<District>? payment_ypes,
+  }) = _AdDetailResponse;
 
-  factory Results.fromJson(Map<String, dynamic> json) =>
-      _$ResultsFromJson(json);
+  factory AdDetailResponse.fromJson(Map<String, dynamic> json) =>
+      _$AdDetailResponseFromJson(json);
 }
 
 @freezed
@@ -97,12 +96,11 @@ class Address with _$Address {
     District? district,
     String? name,
     District? mahalla,
-    String? homeNum,
-    String? streetNum,
+    dynamic home_num,
+    dynamic street_num,
     District? floor,
-    String? apartmentNum,
+    dynamic apartment_num,
     String? geo,
-    String? type,
   }) = _Address;
 
   factory Address.fromJson(Map<String, dynamic> json) =>
@@ -124,9 +122,9 @@ class District with _$District {
 class Category with _$Category {
   const factory Category({
     int? id,
-    bool? isSell,
+    bool? is_sell,
     String? name,
-    String? keyWord,
+    String? key_word,
   }) = _Category;
 
   factory Category.fromJson(Map<String, dynamic> json) =>
@@ -137,7 +135,7 @@ class Category with _$Category {
 class Photo with _$Photo {
   const factory Photo({
     String? image,
-    bool? isMain,
+    bool? is_main,
   }) = _Photo;
 
   factory Photo.fromJson(Map<String, dynamic> json) => _$PhotoFromJson(json);
@@ -146,53 +144,12 @@ class Photo with _$Photo {
 @freezed
 class Seller with _$Seller {
   const factory Seller({
-    String? fullName,
+    String? full_name,
     int? id,
     int? tin,
-    String? lastLoginAt,
+    String? last_login_at,
     dynamic photo,
   }) = _Seller;
 
   factory Seller.fromJson(Map<String, dynamic> json) => _$SellerFromJson(json);
-}
-
-@freezed
-class Shipping with _$Shipping {
-  const factory Shipping({
-    int? id,
-    Type? type,
-    District? district,
-    District? region,
-  }) = _Shipping;
-
-  factory Shipping.fromJson(Map<String, dynamic> json) =>
-      _$ShippingFromJson(json);
-}
-
-enum Type { FREE_SHIPPING, SHIPPING }
-
-final typeValues = EnumValues(
-    {"FREE_SHIPPING": Type.FREE_SHIPPING, "SHIPPING": Type.SHIPPING});
-
-@freezed
-class SocialMedia with _$SocialMedia {
-  const factory SocialMedia({
-    String? type,
-    String? link,
-  }) = _SocialMedia;
-
-  factory SocialMedia.fromJson(Map<String, dynamic> json) =>
-      _$SocialMediaFromJson(json);
-}
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }

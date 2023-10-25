@@ -113,7 +113,7 @@ class AppAdWidget extends StatelessWidget {
               Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 AppAdRouterWidget(
                     isHorizontal: false,
-                    adsRouteType: result.route_type ?? RouteType.PRIVATE),
+                    adRouteType: result.route_type ?? AdRouteType.PRIVATE),
                 SizedBox(width: 5),
                 AppAdPropertyWidget(
                     isHorizontal: false,

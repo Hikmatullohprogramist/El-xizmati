@@ -39,7 +39,7 @@ class AdResponse with _$AdResponse {
     String? currency,
     String? region,
     String? district,
-    RouteType? route_type,
+    AdRouteType? route_type,
     PropertyStatus? property_status,
     Type? type,
     TypeStatus? type_status,
@@ -83,10 +83,10 @@ enum PropertyStatus { NEW, USED }
 final propertyStatusValues =
     EnumValues({"NEW": PropertyStatus.NEW, "USED": PropertyStatus.USED});
 
-enum RouteType { BUSINESS, PRIVATE }
+enum AdRouteType { BUSINESS, PRIVATE }
 
 final routeTypeValues =
-    EnumValues({"BUSINESS": RouteType.BUSINESS, "PRIVATE": RouteType.PRIVATE});
+    EnumValues({"BUSINESS": AdRouteType.BUSINESS, "PRIVATE": AdRouteType.PRIVATE});
 
 enum TypeStatus { SELL, FREE, EXCHANGE, SERVICE, BUY, BUY_SERVICE }
 

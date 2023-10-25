@@ -20,7 +20,10 @@ class AdsApi {
     return _dio.get('v1/popular/ads');
   }
 
-  Future<Response> getAdDetail() {
-    return _dio.get('v1/ads/detail/?id=4030');
+  Future<Response> getAdDetail(int adId) {
+    final queryParameters = {
+      'id': adId,
+    };
+    return _dio.get('v1/ads/detail/', queryParameters: queryParameters);
   }
 }

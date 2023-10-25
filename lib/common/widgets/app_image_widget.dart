@@ -11,8 +11,9 @@ class AppImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 240,
+    return Container(
+      color: Color(0xFFF6F7FC),
+      height: 360,
       child: Stack(
         children: [
           PageView.builder(

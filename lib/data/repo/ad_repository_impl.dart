@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 
 import '../../domain/model/ads/ad/ad_response.dart';
+import '../../domain/model/ads/ad_detail/ad_detail_response.dart';
 import '../../domain/repo/ad_repository.dart';
 import '../api/ads_api.dart';
 import '../storage/storage.dart';
@@ -27,5 +28,12 @@ class AdRepositoryImpl extends AdRepository {
     final adsResponse =
         AdRootResponse.fromJson(response.data).data?.results ?? List.empty();
     return adsResponse;
+  }
+
+  @override
+  Future<AdDetailResponse?> getAdDetail(int adId) async {
+    final response = await _api.getAdDetail(adId);
+    final adDetail = AdDetailRootResponse.fromJson(response.data).data.results;
+    return adDetail;
   }
 }

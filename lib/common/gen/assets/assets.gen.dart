@@ -58,6 +58,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/ic_close.svg
   SvgGenImage get icClose => const SvgGenImage('assets/images/ic_close.svg');
 
+  /// File path: assets/images/ic_complain.svg
+  SvgGenImage get icComplain =>
+      const SvgGenImage('assets/images/ic_complain.svg');
+
   /// File path: assets/images/ic_delete.svg
   SvgGenImage get icDelete => const SvgGenImage('assets/images/ic_delete.svg');
 
@@ -66,6 +70,9 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/ic_exit.svg
   SvgGenImage get icExit => const SvgGenImage('assets/images/ic_exit.svg');
+
+  /// File path: assets/images/ic_eye.svg
+  SvgGenImage get icEye => const SvgGenImage('assets/images/ic_eye.svg');
 
   /// File path: assets/images/ic_face_id.svg
   SvgGenImage get icFaceId => const SvgGenImage('assets/images/ic_face_id.svg');
@@ -165,9 +172,11 @@ class $AssetsImagesGen {
         icCheckFillBox,
         icClear,
         icClose,
+        icComplain,
         icDelete,
         icEdit,
         icExit,
+        icEye,
         icFaceId,
         icFire,
         icHandShake,
