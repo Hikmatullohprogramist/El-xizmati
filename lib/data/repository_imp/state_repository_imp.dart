@@ -1,7 +1,8 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/storage/language_storage.dart';
 import 'package:onlinebozor/data/storage/token_storage.dart';
-import 'package:onlinebozor/domain/repo/state_repository.dart';
+
+import '../../domain/repository/state_repository.dart';
 
 @LazySingleton(as: StateRepository)
 class StateRepositoryImp extends StateRepository {

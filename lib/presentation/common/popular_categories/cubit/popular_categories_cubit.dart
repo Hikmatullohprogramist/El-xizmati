@@ -2,10 +2,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/base/base_cubit.dart';
-import 'package:onlinebozor/domain/repo/common_repository.dart';
-
 import '../../../../common/enum/AdRouteType.dart';
 import '../../../../data/model/categories/popular_category/popular_category_response.dart';
+import '../../../../domain/repository/common_repository.dart';
 
 part 'popular_categories_cubit.freezed.dart';
 part 'popular_categories_state.dart';

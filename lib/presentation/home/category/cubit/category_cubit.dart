@@ -1,10 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/domain/repo/common_repository.dart';
 
 import '../../../../common/core/base_cubit.dart';
 import '../../../../common/enum/AdRouteType.dart';
 import '../../../../data/model/categories/category/category_response.dart';
+import '../../../../domain/repository/common_repository.dart';
 
 part 'category_cubit.freezed.dart';
 part 'category_state.dart';

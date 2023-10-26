@@ -1,7 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/base/base_cubit.dart';
-import 'package:onlinebozor/domain/repo/ad_repository.dart';
+
+import '../../../../domain/repository/ad_repository.dart';
 
 part 'ad_detail_cubit.freezed.dart';
 part 'ad_detail_state.dart';

@@ -1,6 +1,5 @@
-import 'package:onlinebozor/domain/data%20class/AdModel.dart';
-
 import '../../data/model/ads/ad/ad_response.dart';
+import '../model/AdModel.dart';
 
 extension AdExtension on AdResponse {
   AdModel toMap() {

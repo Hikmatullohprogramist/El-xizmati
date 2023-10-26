@@ -7,7 +7,8 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/presentation/auth/confirm/confirm_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../domain/repo/auth_repository.dart';
+import '../../../../domain/repository/auth_repository.dart';
+
 
 part 'confirm_cubit.freezed.dart';
 part 'confirm_state.dart';

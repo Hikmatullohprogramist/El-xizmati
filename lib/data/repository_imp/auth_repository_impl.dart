@@ -1,8 +1,8 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/api/auth_api.dart';
 import 'package:onlinebozor/data/storage/token_storage.dart';
-import 'package:onlinebozor/domain/repo/auth_repository.dart';
 
+import '../../domain/repository/auth_repository.dart';
 import '../model/auth/auth_start/auth_start_response.dart';
 import '../model/auth/confirm/confirm_response.dart';
 import '../model/auth/register_password/register_password_response.dart';

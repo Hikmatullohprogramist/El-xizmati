@@ -1,10 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
-import 'package:onlinebozor/domain/repo/common_repository.dart';
-
 import '../../../../common/enum/AdRouteType.dart';
 import '../../../../data/model/search/search_response.dart';
+import '../../../../domain/repository/common_repository.dart';
 
 part 'search_cubit.freezed.dart';
 

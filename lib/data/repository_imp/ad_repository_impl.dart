@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 
-import '../../domain/repo/ad_repository.dart';
+import '../../domain/repository/ad_repository.dart';
 import '../api/ads_api.dart';
 import '../model/ads/ad/ad_response.dart';
 import '../model/ads/ad_detail/ad_detail_response.dart';
