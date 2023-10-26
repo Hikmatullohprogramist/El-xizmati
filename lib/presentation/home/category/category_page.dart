@@ -7,7 +7,7 @@ import 'package:onlinebozor/common/widgets/category/category_widget.dart';
 import 'package:onlinebozor/common/widgets/loading/loader_state_widget.dart';
 
 import '../../../common/enum/AdRouteType.dart';
-import '../../../domain/model/categories/category/category_response.dart';
+import '../../../data/model/categories/category/category_response.dart';
 import 'cubit/category_cubit.dart';
 
 @RoutePage()

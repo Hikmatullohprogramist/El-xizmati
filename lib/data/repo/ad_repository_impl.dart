@@ -1,9 +1,9 @@
 import 'package:injectable/injectable.dart';
 
-import '../../domain/model/ads/ad/ad_response.dart';
-import '../../domain/model/ads/ad_detail/ad_detail_response.dart';
 import '../../domain/repo/ad_repository.dart';
 import '../api/ads_api.dart';
+import '../model/ads/ad/ad_response.dart';
+import '../model/ads/ad_detail/ad_detail_response.dart';
 import '../storage/storage.dart';
 
 @LazySingleton(as: AdRepository)
@@ -36,4 +36,13 @@ class AdRepositoryImpl extends AdRepository {
     final adDetail = AdDetailRootResponse.fromJson(response.data).data.results;
     return adDetail;
   }
+
+// @override
+// Future<List<AdModel>> getAdModels(
+//     int pageIndex, int pageSize, String keyWord) async {
+//   final response = await _api.getAdsList(pageIndex, pageSize, keyWord);
+//   final adsResponse =
+//       AdRootResponse.fromJson(response.data).data?.results ?? List.empty();
+//   return adsResponse;
+// }
 }

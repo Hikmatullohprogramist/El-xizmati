@@ -14,7 +14,7 @@ import '../../../common/enum/AdRouteType.dart';
 import '../../../common/widgets/ad/ad_widget.dart';
 import '../../../common/widgets/common_button.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
-import '../../../domain/model/ads/ad/ad_response.dart';
+import '../../../data/model/ads/ad/ad_response.dart';
 import 'cubit/ad_collection_cubit.dart';
 
 @RoutePage()

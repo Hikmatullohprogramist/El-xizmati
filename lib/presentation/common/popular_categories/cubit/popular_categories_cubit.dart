@@ -5,7 +5,7 @@ import 'package:onlinebozor/common/base/base_cubit.dart';
 import 'package:onlinebozor/domain/repo/common_repository.dart';
 
 import '../../../../common/enum/AdRouteType.dart';
-import '../../../../domain/model/categories/popular_category/popular_category_response.dart';
+import '../../../../data/model/categories/popular_category/popular_category_response.dart';
 
 part 'popular_categories_cubit.freezed.dart';
 part 'popular_categories_state.dart';

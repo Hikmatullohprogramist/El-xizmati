@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import '../../../domain/model/ads/ad/ad_response.dart';
+import '../../../data/model/ads/ad/ad_response.dart';
 import 'ad_horizontal_widget.dart';
 
 class AdGroupWidget extends StatelessWidget {

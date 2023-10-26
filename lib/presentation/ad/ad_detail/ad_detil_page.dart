@@ -6,7 +6,6 @@ import 'package:onlinebozor/common/base/base_page.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/constants.dart';
 import 'package:onlinebozor/common/enum/AdRouteType.dart';
-import 'package:onlinebozor/common/extensions/currency_extensions.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/favorite_widget.dart';
 import 'package:onlinebozor/presentation/ad/ad_detail/cubit/ad_detail_cubit.dart';
@@ -86,9 +85,9 @@ class AdDetailPage
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
             children: [
-              if (state.adDetailResponse?.photos != null)
+              if (false)
                 AppImageWidget(
-                    images: state.adDetailResponse!.photos!
+                    images: List.empty()
                         .map((e) =>
                             "${Constants.baseUrlForImage}${e.image}" ?? "")
                         .toList())
@@ -109,27 +108,23 @@ class AdDetailPage
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 16),
-                      (state.adDetailResponse?.name ?? "")
-                          .w(600)
-                          .s(16)
-                          .c(Color(0xFF41455E))
-                          .copyWith(
-                              maxLines: 2, overflow: TextOverflow.ellipsis),
+                      "500 000 so'm".w(600).s(16).c(Color(0xFF41455E)).copyWith(
+                          maxLines: 2, overflow: TextOverflow.ellipsis),
                       SizedBox(height: 21),
-                      if (state.adDetailResponse?.price == 0)
-                        "${formatter.format(state.adDetailResponse?.to_price).replaceAll(',', ' ')}-${formatter.format(state.adDetailResponse?.from_price).replaceAll(',', ' ')} ${Currency.UZB.getName}"
-                            .w(700)
-                            .s(20)
-                            .c(Color(0xFFFF0098))
-                            .copyWith(
-                                maxLines: 1, overflow: TextOverflow.ellipsis)
-                      else
-                        "${formatter.format(state.adDetailResponse?.price).replaceAll(',', ' ')} ${Currency.UZB.getName}"
-                            .w(700)
-                            .s(20)
-                            .c(Color(0xFFFF0098))
-                            .copyWith(
-                                maxLines: 1, overflow: TextOverflow.ellipsis),
+                      // if (state.adDetailResponse?.price == 0)
+                      //   "${formatter.format(state.adDetailResponse?.to_price).replaceAll(',', ' ')}-${formatter.format(state.adDetailResponse?.from_price).replaceAll(',', ' ')} ${Currency.UZB.getName}"
+                      //       .w(700)
+                      //       .s(20)
+                      //       .c(Color(0xFFFF0098))
+                      //       .copyWith(
+                      //           maxLines: 1, overflow: TextOverflow.ellipsis)
+                      // else
+                      //   "${formatter.format(state.adDetailResponse?.price).replaceAll(',', ' ')} ${Currency.UZB.getName}"
+                      //       .w(700)
+                      //       .s(20)
+                      //       .c(Color(0xFFFF0098))
+                      //       .copyWith(
+                      //           maxLines: 1, overflow: TextOverflow.ellipsis),
                       SizedBox(height: 24),
                       AppDivider(),
                       SizedBox(height: 12),

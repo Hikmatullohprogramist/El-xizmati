@@ -12,7 +12,7 @@ import '../../../common/enum/AdRouteType.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/widgets/ad/ad_widget.dart';
 import '../../../common/widgets/common_button.dart';
-import '../../../domain/model/ads/ad/ad_response.dart';
+import '../../../data/model/ads/ad/ad_response.dart';
 
 @RoutePage()
 class AdListPage

@@ -1,11 +1,11 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/api/common_api.dart';
-import 'package:onlinebozor/domain/model/banner/banner_response.dart';
-import 'package:onlinebozor/domain/model/search/search_response.dart';
 import 'package:onlinebozor/domain/repo/common_repository.dart';
 
-import '../../domain/model/categories/category/category_response.dart';
-import '../../domain/model/categories/popular_category/popular_category_response.dart';
+import '../model/banner/banner_response.dart';
+import '../model/categories/category/category_response.dart';
+import '../model/categories/popular_category/popular_category_response.dart';
+import '../model/search/search_response.dart';
 import '../storage/categories_storage.dart';
 
 @LazySingleton(as: CommonRepository)

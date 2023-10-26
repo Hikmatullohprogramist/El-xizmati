@@ -11,7 +11,7 @@ import 'package:onlinebozor/common/widgets/ad/ad_route_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_status_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite_widget.dart';
 
-import '../../../domain/model/ads/ad/ad_response.dart';
+import '../../../data/model/ads/ad/ad_response.dart';
 import '../../gen/assets/assets.gen.dart';
 
 class AppAdHorizontalWidget extends StatelessWidget {

@@ -5,7 +5,7 @@ import 'package:onlinebozor/common/base/base_cubit.dart';
 import 'package:onlinebozor/domain/repo/ad_repository.dart';
 
 import '../../../../common/enum/AdRouteType.dart';
-import '../../../../domain/model/ads/ad/ad_response.dart';
+import '../../../../data/model/ads/ad/ad_response.dart';
 
 part 'ad_list_cubit.freezed.dart';
 part 'ad_list_state.dart';

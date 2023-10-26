@@ -1,4 +1,4 @@
-import '../model/auth/auth_start/auth_start_response.dart';
+import '../../data/model/auth/auth_start/auth_start_response.dart';
 
 abstract class AuthRepository {
   Future<AuthStartResponse> authStart(String phone);

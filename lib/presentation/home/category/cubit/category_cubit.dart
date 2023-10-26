@@ -4,7 +4,7 @@ import 'package:onlinebozor/domain/repo/common_repository.dart';
 
 import '../../../../common/core/base_cubit.dart';
 import '../../../../common/enum/AdRouteType.dart';
-import '../../../../domain/model/categories/category/category_response.dart';
+import '../../../../data/model/categories/category/category_response.dart';
 
 part 'category_cubit.freezed.dart';
 part 'category_state.dart';

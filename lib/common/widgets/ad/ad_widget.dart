@@ -9,7 +9,7 @@ import 'package:onlinebozor/common/widgets/ad/ad_property_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_status_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite_widget.dart';
 
-import '../../../domain/model/ads/ad/ad_response.dart';
+import '../../../data/model/ads/ad/ad_response.dart';
 import '../../enum/AdRouteType.dart';
 import '../../gen/assets/assets.gen.dart';
 import 'ad_route_widget.dart';

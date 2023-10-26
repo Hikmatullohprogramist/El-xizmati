@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/domain/model/banner/banner_response.dart';
+
+import '../../data/model/banner/banner_response.dart';
 
 class AppBannerWidget extends StatelessWidget {
   const AppBannerWidget({super.key, required this.list});

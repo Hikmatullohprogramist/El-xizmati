@@ -2,8 +2,7 @@ part of 'ad_detail_cubit.dart';
 
 @freezed
 class AdDetailBuildable with _$AdDetailBuildable {
-  const factory AdDetailBuildable(
-      {int? adId, AdDetailResponse? adDetailResponse}) = _AdDetailBuildable;
+  const factory AdDetailBuildable({int? adId}) = _AdDetailBuildable;
 }
 
 @freezed

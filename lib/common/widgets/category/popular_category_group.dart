@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:onlinebozor/common/widgets/category/popular_category.dart';
 
-import '../../../domain/model/categories/popular_category/popular_category_response.dart';
+import '../../../data/model/categories/popular_category/popular_category_response.dart';
 
 class PopularCategoryGroupWidget extends StatelessWidget {
   const PopularCategoryGroupWidget(

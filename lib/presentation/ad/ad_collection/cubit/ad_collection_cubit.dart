@@ -6,7 +6,7 @@ import 'package:onlinebozor/domain/repo/common_repository.dart';
 
 import '../../../../common/core/base_cubit.dart';
 import '../../../../common/enum/AdRouteType.dart';
-import '../../../../domain/model/ads/ad/ad_response.dart';
+import '../../../../data/model/ads/ad/ad_response.dart';
 
 part 'ad_collection_cubit.freezed.dart';
 
