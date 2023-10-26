@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
-import 'package:onlinebozor/common/enum/AdRouteType.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/common_button.dart';
+
+import '../../enum/loading_enum.dart';
 
 class LoaderStateWidget extends StatelessWidget {
   const LoaderStateWidget(

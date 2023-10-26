@@ -2,18 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
-import '../../enum/AdRouteType.dart';
+import '../../enum/ad_enum.dart';
 import '../../gen/assets/assets.gen.dart';
 
 class AppAdStatusWidget extends StatelessWidget {
   const AppAdStatusWidget({super.key, required this.adsStatusType});
 
-  final AdsStatusType adsStatusType;
+  final AdStatusType adsStatusType;
 
   @override
   Widget build(BuildContext context) {
     return switch (adsStatusType) {
-      AdsStatusType.top => Container(
+      AdStatusType.top => Container(
           height: 20,
           width: 44,
           margin: EdgeInsets.all(8),
@@ -30,7 +30,7 @@ class AppAdStatusWidget extends StatelessWidget {
             ],
           ),
         ),
-      AdsStatusType.standard => Center()
+      AdStatusType.standard => Center()
     };
   }
 }

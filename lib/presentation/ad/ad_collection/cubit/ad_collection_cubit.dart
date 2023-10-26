@@ -3,13 +3,12 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../common/core/base_cubit.dart';
-import '../../../../common/enum/AdRouteType.dart';
+import '../../../../common/enum/loading_enum.dart';
 import '../../../../data/model/ads/ad/ad_response.dart';
 import '../../../../domain/repository/ad_repository.dart';
 import '../../../../domain/repository/common_repository.dart';
 
 part 'ad_collection_cubit.freezed.dart';
-
 part 'ad_collection_state.dart';
 
 @injectable

@@ -10,7 +10,7 @@ import 'package:onlinebozor/common/widgets/ad/ad_status_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite_widget.dart';
 
 import '../../../data/model/ads/ad/ad_response.dart';
-import '../../enum/AdRouteType.dart';
+import '../../enum/ad_enum.dart';
 import '../../gen/assets/assets.gen.dart';
 import 'ad_route_widget.dart';
 
@@ -65,7 +65,7 @@ class AppAdWidget extends StatelessWidget {
                       errorWidget: (context, url, error) =>
                           Center(child: Icon(Icons.error)),
                     ),
-                    AppAdStatusWidget(adsStatusType: AdsStatusType.standard),
+                    AppAdStatusWidget(adsStatusType: AdStatusType.standard),
                     Align(
                         alignment: Alignment.topRight,
                         child: AppFavoriteWidget(
@@ -119,7 +119,7 @@ class AppAdWidget extends StatelessWidget {
                 AppAdPropertyWidget(
                     isHorizontal: false,
                     adsPropertyType:
-                       PropertyStatuses.used)
+                       AdPropertyStatuses.used)
               ])
             ],
           ),

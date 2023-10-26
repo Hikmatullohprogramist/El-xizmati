@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../common/core/base_cubit.dart';
-import '../../../../common/enum/AdRouteType.dart';
+import '../../../../common/enum/loading_enum.dart';
 import '../../../../data/model/categories/category/category_response.dart';
 import '../../../../domain/repository/common_repository.dart';
 
