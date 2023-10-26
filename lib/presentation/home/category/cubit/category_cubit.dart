@@ -1,9 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/common/loading_state.dart';
 import 'package:onlinebozor/domain/repo/common_repository.dart';
 
 import '../../../../common/core/base_cubit.dart';
+import '../../../../common/enum/AdRouteType.dart';
 import '../../../../domain/model/categories/category/category_response.dart';
 
 part 'category_cubit.freezed.dart';
@@ -23,12 +23,12 @@ class CategoryCubit extends BaseCubit<CategoryBuildable, CategoryListenable> {
       final result = categories.where((element) => element.parent_id == 0).toList();
       log.i(categories.toString());
       build((buildable) => buildable.copyWith(
-          categories: result, categoriesState: AppLoadingState.success));
+          categories: result, categoriesState: AppLoadingState.SUCCESS));
     } catch (exception) {
       log.e(exception.toString());
       display.error(exception.toString());
       build((buildable) =>
-          buildable.copyWith(categoriesState: AppLoadingState.error));
+          buildable.copyWith(categoriesState: AppLoadingState.ERROR));
     }
   }
 }

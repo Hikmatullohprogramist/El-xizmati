@@ -4,8 +4,8 @@ part of 'ad_list_cubit.dart';
 class AdListBuildable with _$AdListBuildable {
   const factory AdListBuildable({
     @Default("") String keyWord,
-    @Default(AdListType.list) AdListType adListType,
-    @Default(AppLoadingState.loading) AppLoadingState adsState,
+    @Default(AdListType.LIST) AdListType adListType,
+    @Default(AppLoadingState.LOADING) AppLoadingState adsState,
     PagingController<int, AdResponse>? adsPagingController,
   }) = _AdListBuildable;
 }

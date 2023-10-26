@@ -5,7 +5,7 @@ import 'package:onlinebozor/domain/repo/ad_repository.dart';
 import 'package:onlinebozor/domain/repo/common_repository.dart';
 
 import '../../../../common/core/base_cubit.dart';
-import '../../../../common/loading_state.dart';
+import '../../../../common/enum/AdRouteType.dart';
 import '../../../../domain/model/ads/ad/ad_response.dart';
 
 part 'ad_collection_cubit.freezed.dart';
@@ -39,11 +39,11 @@ class AdCollectionCubit
       final hotDiscountAds = await adRepository.getRecentlyViewAds();
       build((buildable) => buildable.copyWith(
           hotDiscountAds: hotDiscountAds,
-          hotDiscountAdsState: AppLoadingState.success));
+          hotDiscountAdsState: AppLoadingState.SUCCESS));
       log.i("recentlyViewerAds=${buildable.hotDiscountAds}");
     } catch (e, stackTrace) {
       build((buildable) =>
-          buildable.copyWith(hotDiscountAdsState: AppLoadingState.error));
+          buildable.copyWith(hotDiscountAdsState: AppLoadingState.ERROR));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
@@ -54,11 +54,11 @@ class AdCollectionCubit
       log.i("recentlyViewerAds request");
       final popularAds = await adRepository.getRecentlyViewAds();
       build((buildable) => buildable.copyWith(
-          popularAds: popularAds, popularAdsState: AppLoadingState.success));
+          popularAds: popularAds, popularAdsState: AppLoadingState.SUCCESS));
       log.i("recentlyViewerAds=${buildable.hotDiscountAds}");
     } catch (e, stackTrace) {
       build((buildable) =>
-          buildable.copyWith(popularAdsState: AppLoadingState.error));
+          buildable.copyWith(popularAdsState: AppLoadingState.ERROR));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }

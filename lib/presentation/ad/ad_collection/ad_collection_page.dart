@@ -9,8 +9,8 @@ import 'package:onlinebozor/common/widgets/all_view_widget.dart';
 import 'package:onlinebozor/common/widgets/app_bar/common_active_search_bar.dart';
 import 'package:onlinebozor/common/widgets/app_diverder.dart';
 
-import '../../../common/constants.dart';
 import '../../../common/core/base_page.dart';
+import '../../../common/enum/AdRouteType.dart';
 import '../../../common/widgets/ad/ad_widget.dart';
 import '../../../common/widgets/common_button.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
@@ -54,7 +54,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                   AppAllViewWidget(
                       onPressed: () {
                         context.router.push(AdListRoute(
-                            adListType: AdListType.list, keyWord: ''));
+                            adListType: AdListType.LIST, keyWord: ''));
                       },
                       title: "Горячие скидки"),
                   LoaderStateWidget(
@@ -63,7 +63,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                       child: AdGroupWidget(
                         ads: state.hotDiscountAds,
                         onClick: (AdResponse result) {
-                          context.router.push(AdDetailRoute());
+                          context.router.push(AdDetailRoute(adId: result.id!));
                         },
                         onClickFavorite: (AdResponse result) {},
                       )),
@@ -72,7 +72,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                   AppAllViewWidget(
                       onPressed: () {
                         context.router.push(AdListRoute(
-                            adListType: AdListType.list, keyWord: ''));
+                            adListType: AdListType.LIST, keyWord: ''));
                       },
                       title: "Популярные товары"),
                   SizedBox(height: 6),
@@ -82,7 +82,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                       child: AdGroupWidget(
                         ads: state.popularAds,
                         onClick: (AdResponse result) {
-                          context.router.push(AdDetailRoute());
+                          context.router.push(AdDetailRoute(adId: result.id!));
                         },
                         onClickFavorite: (AdResponse result) {},
                       )),
@@ -163,8 +163,8 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                               child: AppAdWidget(
                                   result: item,
                                   onClickFavorite: (value) {},
-                                  onClick: (value) =>
-                                      context.router.push(AdDetailRoute())),
+                                  onClick: (value) => context.router
+                                      .push(AdDetailRoute(adId: value.id!))),
                             );
                           } else {
                             return Padding(
@@ -172,8 +172,8 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                               child: AppAdWidget(
                                 result: item,
                                 onClickFavorite: (value) {},
-                                onClick: (value) =>
-                                    context.router.push(AdDetailRoute()),
+                                onClick: (value) => context.router
+                                    .push(AdDetailRoute(adId: value.id!)),
                               ),
                             );
                           }

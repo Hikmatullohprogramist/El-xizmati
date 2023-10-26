@@ -4,7 +4,7 @@ part of 'category_cubit.dart';
 class CategoryBuildable with _$CategoryBuildable {
   const factory CategoryBuildable({
     @Default(<CategoryResponse>[]) List<CategoryResponse> categories,
-    @Default(AppLoadingState.loading) AppLoadingState categoriesState
+    @Default(AppLoadingState.LOADING) AppLoadingState categoriesState
 }) = _CategoryBuildable;
 }
 

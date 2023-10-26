@@ -6,7 +6,7 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 
-import '../../../common/constants.dart';
+import '../../../common/enum/AdRouteType.dart';
 import '../../../common/gen/localization/strings.dart';
 import '../../../common/widgets/ad/ad_group_widget.dart';
 import '../../../common/widgets/ad/ad_widget.dart';
@@ -52,7 +52,7 @@ class DashboardPage
                         popularCategories: state.popularCategories,
                         onClick: (popularCategories) {
                           context.router.push(AdListRoute(
-                              adListType: AdListType.popularCategory,
+                              adListType: AdListType.POPULAR_CATEGORY,
                               keyWord: popularCategories.key_word));
                         },
                       )),
@@ -60,7 +60,7 @@ class DashboardPage
                   AppAllViewWidget(
                       onPressed: () {
                         context.router.push(AdListRoute(
-                            adListType: AdListType.list, keyWord: ''));
+                            adListType: AdListType.LIST, keyWord: ''));
                       },
                       title: Strings.hotDiscountsTitle),
                   LoaderStateWidget(
@@ -69,7 +69,7 @@ class DashboardPage
                       child: AdGroupWidget(
                         ads: state.recentlyViewerAds,
                         onClick: (AdResponse result) {
-                          context.router.push(AdDetailRoute());
+                          context.router.push(AdDetailRoute(adId: result.id!));
                         },
                         onClickFavorite: (AdResponse result) {},
                       )),
@@ -157,8 +157,8 @@ class DashboardPage
                             child: AppAdWidget(
                                 result: item,
                                 onClickFavorite: (value) {},
-                                onClick: (value) =>
-                                    context.router.push(AdDetailRoute())),
+                                onClick: (value) => context.router
+                                    .push(AdDetailRoute(adId: value.id!))),
                           );
                         } else {
                           return Padding(
@@ -166,8 +166,8 @@ class DashboardPage
                             child: AppAdWidget(
                               result: item,
                               onClickFavorite: (value) {},
-                              onClick: (value) =>
-                                  context.router.push(AdDetailRoute()),
+                              onClick: (value) => context.router
+                                  .push(AdDetailRoute(adId: value.id!)),
                             ),
                           );
                         }

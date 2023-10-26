@@ -8,7 +8,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/app_bar/common_app_bar.dart';
 import 'package:onlinebozor/presentation/ad/ad_list/cubit/ad_list_cubit.dart';
 
-import '../../../common/constants.dart';
+import '../../../common/enum/AdRouteType.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/widgets/ad/ad_widget.dart';
 import '../../../common/widgets/common_button.dart';
@@ -105,7 +105,7 @@ class AdListPage
             result: item,
             onClickFavorite: (value) {},
             onClick: (value) {
-              context.router.push(AdDetailRoute());
+              context.router.push(AdDetailRoute(adId: value.id!));
             },
           ),
         ),

@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-
-import '../../../domain/model/ads/ad/ad_response.dart';
+import '../../enum/AdRouteType.dart';
 import '../../gen/localization/strings.dart';
 
 class AppAdRouterWidget extends StatelessWidget {
   const AppAdRouterWidget(
       {super.key, required this.adRouteType, required this.isHorizontal});
 
-  final AdRouteType adRouteType;
+  final AdRouteTypeses adRouteType;
   final bool isHorizontal;
 
   @override
@@ -18,15 +17,15 @@ class AppAdRouterWidget extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             color: switch (adRouteType) {
-              AdRouteType.PRIVATE => Color(0x28AEB2CD),
-              AdRouteType.BUSINESS => Color(0x1E6546E7),
+              AdRouteTypeses.PRIVATE => Color(0x28AEB2CD),
+              AdRouteTypeses.BUSINESS => Color(0x1E6546E7),
             }),
         child: switch (adRouteType) {
-          AdRouteType.PRIVATE => Strings.adsPropertyPersonal
+          AdRouteTypeses.PRIVATE => Strings.adsPropertyPersonal
               .w(400)
               .s(isHorizontal ? 10 : 12)
               .c(Color(0xFF999CB2)),
-          AdRouteType.BUSINESS => Strings.adsPropertyBiznes
+          AdRouteTypeses.BUSINESS => Strings.adsPropertyBiznes
               .w(400)
               .s(isHorizontal ? 10 : 12)
               .c(Color(0xFF6546E7)),

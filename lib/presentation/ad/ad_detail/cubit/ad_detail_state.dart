@@ -2,7 +2,8 @@ part of 'ad_detail_cubit.dart';
 
 @freezed
 class AdDetailBuildable with _$AdDetailBuildable {
-  const factory AdDetailBuildable() = _AdDetailBuildable;
+  const factory AdDetailBuildable(
+      {int? adId, AdDetailResponse? adDetailResponse}) = _AdDetailBuildable;
 }
 
 @freezed
@@ -11,4 +12,7 @@ class AdDetailListenable with _$AdDetailListenable {
       _AdDetailListenable;
 }
 
-enum AdDetailEffect { success }
+enum AdDetailEffect {
+  phoneCall,
+  smsWrite,
+}

@@ -8,7 +8,7 @@ import 'package:onlinebozor/common/widgets/app_bar/common_app_bar.dart';
 import 'package:onlinebozor/common/widgets/category/popular_category_horizontal.dart';
 import 'package:onlinebozor/presentation/common/popular_categories/cubit/popular_categories_cubit.dart';
 
-import '../../../common/constants.dart';
+import '../../../common/enum/AdRouteType.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/widgets/common_button.dart';
 import '../../../domain/model/categories/popular_category/popular_category_response.dart';
@@ -98,7 +98,7 @@ class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
                       popularCategoryResponse: item,
                       onClick: (value) {
                         context.router.push(AdListRoute(
-                            adListType: AdListType.popularCategory,
+                            adListType: AdListType.POPULAR_CATEGORY,
                             keyWord: value.key_word));
                       },
                     ),

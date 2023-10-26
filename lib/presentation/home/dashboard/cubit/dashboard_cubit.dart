@@ -1,11 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/common/loading_state.dart';
 import 'package:onlinebozor/domain/model/banner/banner_response.dart';
 import 'package:onlinebozor/domain/repo/common_repository.dart';
 
 import '../../../../common/core/base_cubit.dart';
+import '../../../../common/enum/AdRouteType.dart';
 import '../../../../domain/model/ads/ad/ad_response.dart';
 import '../../../../domain/model/categories/popular_category/popular_category_response.dart';
 import '../../../../domain/repo/ad_repository.dart';
@@ -42,12 +42,12 @@ class DashboardCubit
           await commonRepository.getPopularCategories(1, 20);
       build((buildable) => buildable.copyWith(
             popularCategories: popularCategories,
-            popularCategoriesState: AppLoadingState.success,
+            popularCategoriesState: AppLoadingState.SUCCESS,
           ));
       log.i("recentlyViewerAds=${buildable.recentlyViewerAds}");
     } catch (e, stackTrace) {
       build((buildable) =>
-          buildable.copyWith(popularCategoriesState: AppLoadingState.error));
+          buildable.copyWith(popularCategoriesState: AppLoadingState.ERROR));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
@@ -59,11 +59,11 @@ class DashboardCubit
       final recentlyAds = await adRepository.getRecentlyViewAds();
       build((buildable) => buildable.copyWith(
           recentlyViewerAds: recentlyAds,
-          recentlyAdsState: AppLoadingState.success));
+          recentlyAdsState: AppLoadingState.SUCCESS));
       log.i("recentlyViewerAds=${buildable.recentlyViewerAds}");
     } catch (e, stackTrace) {
       build((buildable) =>
-          buildable.copyWith(recentlyAdsState: AppLoadingState.error));
+          buildable.copyWith(recentlyAdsState: AppLoadingState.ERROR));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
@@ -72,14 +72,14 @@ class DashboardCubit
   Future<void> getBanners() async {
     try {
       build((buildable) =>
-          buildable.copyWith(bannersState: AppLoadingState.loading));
+          buildable.copyWith(bannersState: AppLoadingState.LOADING));
       final banners = await commonRepository.getBanner();
       build((buildable) => buildable.copyWith(
-          banners: banners, bannersState: AppLoadingState.success));
+          banners: banners, bannersState: AppLoadingState.SUCCESS));
       log.i("${buildable.banners}");
     } catch (e, stackTrace) {
       build((buildable) =>
-          buildable.copyWith(bannersState: AppLoadingState.error));
+          buildable.copyWith(bannersState: AppLoadingState.ERROR));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }

@@ -84,7 +84,8 @@ class SearchPage
           itemBuilder: (BuildContext context, int index) {
             return InkWell(
               onTap: () {
-                context.router.push(AdDetailRoute());
+                context.router
+                    .push(AdDetailRoute(adId: state.searchResult[index].id!));
               },
               child: Padding(
                 padding:

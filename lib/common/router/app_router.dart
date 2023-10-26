@@ -55,7 +55,7 @@ import '../../presentation/home/profile_dashboard/features/setting/features/my_s
 import '../../presentation/home/profile_dashboard/features/setting/features/notification_settings/notification_setting_page.dart';
 import '../../presentation/home/profile_dashboard/features/wallet_filling/wallet_filling_page.dart';
 import '../../presentation/home/profile_dashboard/profile_dashboard_page.dart';
-import '../constants.dart';
+import '../enum/AdRouteType.dart';
 
 part 'app_router.gr.dart';
 

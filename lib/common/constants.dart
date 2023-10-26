@@ -6,14 +6,6 @@ abstract class Constants {
   static var formatter = NumberFormat('###,000');
 }
 
-enum AdsStatusType { top, standard }
-
-enum AdListType {
-  list,
-  popularCategory,
-  category,
-}
-
 enum Currency { USD, UZB }
 
 abstract class DeviceInfo {

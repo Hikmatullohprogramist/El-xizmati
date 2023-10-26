@@ -120,3 +120,6 @@ extension TextExtensions on Text {
 }
 
 extension ResponseExtensions on String {}
+
+extension AdResponseExtensions on String{
+}

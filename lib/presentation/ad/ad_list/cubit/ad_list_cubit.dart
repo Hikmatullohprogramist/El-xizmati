@@ -2,15 +2,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/base/base_cubit.dart';
-import 'package:onlinebozor/common/constants.dart';
-import 'package:onlinebozor/common/loading_state.dart';
 import 'package:onlinebozor/domain/repo/ad_repository.dart';
 
+import '../../../../common/enum/AdRouteType.dart';
 import '../../../../domain/model/ads/ad/ad_response.dart';
 
-
 part 'ad_list_cubit.freezed.dart';
-
 part 'ad_list_state.dart';
 
 @injectable

@@ -6,12 +6,13 @@ import 'package:onlinebozor/common/constants.dart';
 import 'package:onlinebozor/common/extensions/currency_extensions.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_property_widget.dart';
-import 'package:onlinebozor/common/widgets/ad/ad_route_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_status_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite_widget.dart';
 
 import '../../../domain/model/ads/ad/ad_response.dart';
+import '../../enum/AdRouteType.dart';
 import '../../gen/assets/assets.gen.dart';
+import 'ad_route_widget.dart';
 
 class AppAdWidget extends StatelessWidget {
   const AppAdWidget({
@@ -110,15 +111,15 @@ class AppAdWidget extends StatelessWidget {
                 )
               ]),
               SizedBox(height: 12),
-              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: const [
                 AppAdRouterWidget(
                     isHorizontal: false,
-                    adRouteType: result.route_type ?? AdRouteType.PRIVATE),
+                    adRouteType:AdRouteTypeses.BUSINESS),
                 SizedBox(width: 5),
                 AppAdPropertyWidget(
                     isHorizontal: false,
                     adsPropertyType:
-                        result.property_status ?? PropertyStatus.USED)
+                       PropertyStatus.USED)
               ])
             ],
           ),

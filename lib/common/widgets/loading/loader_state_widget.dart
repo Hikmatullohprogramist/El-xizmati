@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
+import 'package:onlinebozor/common/enum/AdRouteType.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/loading_state.dart';
 import 'package:onlinebozor/common/widgets/common_button.dart';
 
 class LoaderStateWidget extends StatelessWidget {
@@ -24,11 +24,11 @@ class LoaderStateWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return switch (loadingState) {
-      AppLoadingState.loading => LoadingWidget(isFullScreen: isFullScreen),
-      AppLoadingState.error => ErrorWidget(isFullScreen: isFullScreen),
-      AppLoadingState.success => child,
-      AppLoadingState.onStart => onStartWidget ?? Center(),
-      AppLoadingState.empty => onEmptyWidget ?? Center(),
+      AppLoadingState.LOADING => LoadingWidget(isFullScreen: isFullScreen),
+      AppLoadingState.ERROR => ErrorWidget(isFullScreen: isFullScreen),
+      AppLoadingState.SUCCESS => child,
+      AppLoadingState.ON_START => onStartWidget ?? Center(),
+      AppLoadingState.EMPTY => onEmptyWidget ?? Center(),
     };
   }
 }
