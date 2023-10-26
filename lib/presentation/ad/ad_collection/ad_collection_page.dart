@@ -54,7 +54,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                   AppAllViewWidget(
                       onPressed: () {
                         context.router.push(AdListRoute(
-                            adListType: AdListType.LIST, keyWord: ''));
+                            adListType: AdListType.list, keyWord: ''));
                       },
                       title: "Горячие скидки"),
                   LoaderStateWidget(
@@ -72,7 +72,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                   AppAllViewWidget(
                       onPressed: () {
                         context.router.push(AdListRoute(
-                            adListType: AdListType.LIST, keyWord: ''));
+                            adListType: AdListType.list, keyWord: ''));
                       },
                       title: "Популярные товары"),
                   SizedBox(height: 6),

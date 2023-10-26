@@ -7,7 +7,7 @@ class AppAdRouterWidget extends StatelessWidget {
   const AppAdRouterWidget(
       {super.key, required this.adRouteType, required this.isHorizontal});
 
-  final AdRouteTypeses adRouteType;
+  final AdRouteType adRouteType;
   final bool isHorizontal;
 
   @override
@@ -17,15 +17,15 @@ class AppAdRouterWidget extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             color: switch (adRouteType) {
-              AdRouteTypeses.PRIVATE => Color(0x28AEB2CD),
-              AdRouteTypeses.BUSINESS => Color(0x1E6546E7),
+              AdRouteType.private => Color(0x28AEB2CD),
+              AdRouteType.business => Color(0x1E6546E7),
             }),
         child: switch (adRouteType) {
-          AdRouteTypeses.PRIVATE => Strings.adsPropertyPersonal
+          AdRouteType.private => Strings.adsPropertyPersonal
               .w(400)
               .s(isHorizontal ? 10 : 12)
               .c(Color(0xFF999CB2)),
-          AdRouteTypeses.BUSINESS => Strings.adsPropertyBiznes
+          AdRouteType.business => Strings.adsPropertyBiznes
               .w(400)
               .s(isHorizontal ? 10 : 12)
               .c(Color(0xFF6546E7)),

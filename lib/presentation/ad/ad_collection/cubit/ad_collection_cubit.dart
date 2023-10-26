@@ -39,11 +39,11 @@ class AdCollectionCubit
       final hotDiscountAds = await adRepository.getRecentlyViewAds();
       build((buildable) => buildable.copyWith(
           hotDiscountAds: hotDiscountAds,
-          hotDiscountAdsState: AppLoadingState.SUCCESS));
+          hotDiscountAdsState: AppLoadingState.success));
       log.i("recentlyViewerAds=${buildable.hotDiscountAds}");
     } catch (e, stackTrace) {
       build((buildable) =>
-          buildable.copyWith(hotDiscountAdsState: AppLoadingState.ERROR));
+          buildable.copyWith(hotDiscountAdsState: AppLoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
@@ -54,11 +54,11 @@ class AdCollectionCubit
       log.i("recentlyViewerAds request");
       final popularAds = await adRepository.getRecentlyViewAds();
       build((buildable) => buildable.copyWith(
-          popularAds: popularAds, popularAdsState: AppLoadingState.SUCCESS));
+          popularAds: popularAds, popularAdsState: AppLoadingState.success));
       log.i("recentlyViewerAds=${buildable.hotDiscountAds}");
     } catch (e, stackTrace) {
       build((buildable) =>
-          buildable.copyWith(popularAdsState: AppLoadingState.ERROR));
+          buildable.copyWith(popularAdsState: AppLoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }

@@ -34,7 +34,7 @@ class CategoryPage
             return AppCategoryWidget(
                 onClick: (CategoryResponse categoryResponse) {
                   context.router.push(AdListRoute(
-                      adListType: AdListType.POPULAR_CATEGORY,
+                      adListType: AdListType.popularCategory,
                       keyWord: categoryResponse.key_word));
                 },
                 categoryResponse: state.categories[index]);

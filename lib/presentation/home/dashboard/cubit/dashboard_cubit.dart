@@ -42,12 +42,12 @@ class DashboardCubit
           await commonRepository.getPopularCategories(1, 20);
       build((buildable) => buildable.copyWith(
             popularCategories: popularCategories,
-            popularCategoriesState: AppLoadingState.SUCCESS,
+            popularCategoriesState: AppLoadingState.success,
           ));
       log.i("recentlyViewerAds=${buildable.recentlyViewerAds}");
     } catch (e, stackTrace) {
       build((buildable) =>
-          buildable.copyWith(popularCategoriesState: AppLoadingState.ERROR));
+          buildable.copyWith(popularCategoriesState: AppLoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
@@ -59,11 +59,11 @@ class DashboardCubit
       final recentlyAds = await adRepository.getRecentlyViewAds();
       build((buildable) => buildable.copyWith(
           recentlyViewerAds: recentlyAds,
-          recentlyAdsState: AppLoadingState.SUCCESS));
+          recentlyAdsState: AppLoadingState.success));
       log.i("recentlyViewerAds=${buildable.recentlyViewerAds}");
     } catch (e, stackTrace) {
       build((buildable) =>
-          buildable.copyWith(recentlyAdsState: AppLoadingState.ERROR));
+          buildable.copyWith(recentlyAdsState: AppLoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
@@ -72,14 +72,14 @@ class DashboardCubit
   Future<void> getBanners() async {
     try {
       build((buildable) =>
-          buildable.copyWith(bannersState: AppLoadingState.LOADING));
+          buildable.copyWith(bannersState: AppLoadingState.loading));
       final banners = await commonRepository.getBanner();
       build((buildable) => buildable.copyWith(
-          banners: banners, bannersState: AppLoadingState.SUCCESS));
+          banners: banners, bannersState: AppLoadingState.success));
       log.i("${buildable.banners}");
     } catch (e, stackTrace) {
       build((buildable) =>
-          buildable.copyWith(bannersState: AppLoadingState.ERROR));
+          buildable.copyWith(bannersState: AppLoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }

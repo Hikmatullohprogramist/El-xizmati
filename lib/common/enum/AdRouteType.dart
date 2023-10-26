@@ -1,17 +1,16 @@
-enum AppLoadingState { ON_START, LOADING, ERROR, SUCCESS, EMPTY }
 
-enum PropertyStatuses { NEW, USED }
+enum AppLoadingState { onStart, loading, error, success, empty }
 
-enum AdRouteTypeses { BUSINESS, PRIVATE }
+enum PropertyStatuses { fresh, used }
 
-enum TypeStatus { SELL, FREE, EXCHANGE, SERVICE, BUY, BUY_SERVICE }
+enum AdRouteType { business, private }
 
-enum Type { STANDART, TOP }
+enum TypeStatus { sell, free, exchange, service, buy, buyService }
 
 enum AdsStatusType { top, standard }
 
 enum AdListType {
-  LIST,
-  POPULAR_CATEGORY,
-  CATEGORY,
+  list,
+  popularCategory,
+  category,
 }

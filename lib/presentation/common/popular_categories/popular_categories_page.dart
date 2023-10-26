@@ -98,7 +98,7 @@ class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
                       popularCategoryResponse: item,
                       onClick: (value) {
                         context.router.push(AdListRoute(
-                            adListType: AdListType.POPULAR_CATEGORY,
+                            adListType: AdListType.popularCategory,
                             keyWord: value.key_word));
                       },
                     ),

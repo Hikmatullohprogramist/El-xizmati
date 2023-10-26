@@ -23,12 +23,12 @@ class CategoryCubit extends BaseCubit<CategoryBuildable, CategoryListenable> {
       final result = categories.where((element) => element.parent_id == 0).toList();
       log.i(categories.toString());
       build((buildable) => buildable.copyWith(
-          categories: result, categoriesState: AppLoadingState.SUCCESS));
+          categories: result, categoriesState: AppLoadingState.success));
     } catch (exception) {
       log.e(exception.toString());
       display.error(exception.toString());
       build((buildable) =>
-          buildable.copyWith(categoriesState: AppLoadingState.ERROR));
+          buildable.copyWith(categoriesState: AppLoadingState.error));
     }
   }
 }

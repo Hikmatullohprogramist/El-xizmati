@@ -4,7 +4,7 @@ part of 'popular_categories_cubit.dart';
 class PopularCategoriesBuildable with _$PopularCategoriesBuildable {
   const factory PopularCategoriesBuildable({
     PagingController<int, PopularCategoryResponse>? categoriesPagingController,
-    @Default(AppLoadingState.LOADING) AppLoadingState popularCategoriesState,
+    @Default(AppLoadingState.loading) AppLoadingState popularCategoriesState,
   }) = _PopularCategoriesBuildable;
 }
 

@@ -18,7 +18,6 @@ import '../../../common/widgets/ad/ad_route_widget.dart';
 import '../../../common/widgets/app_diverder.dart';
 import '../../../common/widgets/app_image_widget.dart';
 import '../../../common/widgets/common_button.dart';
-import '../../../domain/model/ads/ad/ad_response.dart';
 
 @RoutePage()
 class AdDetailPage
@@ -139,11 +138,11 @@ class AdDetailPage
                         children: const [
                           AppAdRouterWidget(
                               isHorizontal: false,
-                              adRouteType: AdRouteTypeses.BUSINESS),
+                              adRouteType: AdRouteType.business),
                           SizedBox(width: 5),
                           AppAdPropertyWidget(
                               isHorizontal: false,
-                              adsPropertyType: PropertyStatuses.USED)
+                              adsPropertyType: PropertyStatuses.used)
                         ],
                       ),
                       AppDivider(height: 16),

@@ -52,7 +52,7 @@ class DashboardPage
                         popularCategories: state.popularCategories,
                         onClick: (popularCategories) {
                           context.router.push(AdListRoute(
-                              adListType: AdListType.POPULAR_CATEGORY,
+                              adListType: AdListType.popularCategory,
                               keyWord: popularCategories.key_word));
                         },
                       )),
@@ -60,7 +60,7 @@ class DashboardPage
                   AppAllViewWidget(
                       onPressed: () {
                         context.router.push(AdListRoute(
-                            adListType: AdListType.LIST, keyWord: ''));
+                            adListType: AdListType.list, keyWord: ''));
                       },
                       title: Strings.hotDiscountsTitle),
                   LoaderStateWidget(
