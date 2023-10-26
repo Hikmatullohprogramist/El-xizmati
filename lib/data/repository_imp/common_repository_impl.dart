@@ -51,4 +51,10 @@ class CommonRepositoryImpl extends CommonRepository {
     final searchAd = SearchResponse.fromJson(response.data).data;
     return searchAd?.ads ?? List.empty();
   }
+
+  @override
+  Future<void> getCurrency() async {
+    final  response =await _api.getCurrency();
+    
+  }
 }

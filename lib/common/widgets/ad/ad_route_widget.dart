@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+
 import '../../../domain/model/ad_enum.dart';
 import '../../gen/localization/strings.dart';
 

@@ -19,6 +19,7 @@ import '../../../common/widgets/common_button.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../common/widgets/root_commodity_and_service.dart';
 import '../../../data/model/ads/ad/ad_response.dart';
+import '../../../domain/model/ad_model.dart';
 import 'cubit/dashboard_cubit.dart';
 
 @RoutePage()
@@ -68,10 +69,10 @@ class DashboardPage
                       loadingState: state.recentlyAdsState,
                       child: AdGroupWidget(
                         ads: state.recentlyViewerAds,
-                        onClick: (AdResponse result) {
-                          context.router.push(AdDetailRoute(adId: result.id!));
+                        onClick: (AdModel result) {
+                          context.router.push(AdDetailRoute(adId: result.id));
                         },
-                        onClickFavorite: (AdResponse result) {},
+                        onClickFavorite: (AdModel result) {},
                       )),
                   LoaderStateWidget(
                       isFullScreen: false,
@@ -87,7 +88,7 @@ class DashboardPage
             )),
             state.adsPagingController == null
                 ? SizedBox()
-                : PagedSliverGrid<int, AdResponse>(
+                : PagedSliverGrid<int, AdModel>(
                     pagingController: state.adsPagingController!,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       childAspectRatio: 156 / 260,
@@ -95,7 +96,7 @@ class DashboardPage
                       mainAxisSpacing: 24,
                       crossAxisCount: 2,
                     ),
-                    builderDelegate: PagedChildBuilderDelegate<AdResponse>(
+                    builderDelegate: PagedChildBuilderDelegate<AdModel>(
                       firstPageErrorIndicatorBuilder: (_) {
                         return SizedBox(
                             height: 60,
@@ -158,7 +159,7 @@ class DashboardPage
                                 result: item,
                                 onClickFavorite: (value) {},
                                 onClick: (value) => context.router
-                                    .push(AdDetailRoute(adId: value.id!))),
+                                    .push(AdDetailRoute(adId: value.id))),
                           );
                         } else {
                           return Padding(
@@ -167,7 +168,7 @@ class DashboardPage
                               result: item,
                               onClickFavorite: (value) {},
                               onClick: (value) => context.router
-                                  .push(AdDetailRoute(adId: value.id!)),
+                                  .push(AdDetailRoute(adId: value.id)),
                             ),
                           );
                         }

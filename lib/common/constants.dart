@@ -6,8 +6,6 @@ abstract class Constants {
   static var formatter = NumberFormat('###,000');
 }
 
-enum Currency { USD, UZB }
-
 abstract class DeviceInfo {
   static String device_name = "";
   static String device_id = "";

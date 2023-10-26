@@ -2,16 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
-import 'package:onlinebozor/common/constants.dart';
-import 'package:onlinebozor/domain/model/ad_enum.dart';
 import 'package:onlinebozor/common/extensions/currency_extensions.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_property_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_route_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_status_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite_widget.dart';
+import 'package:onlinebozor/domain/model/ad_enum.dart';
+import 'package:onlinebozor/domain/model/ad_model.dart';
 
-import '../../../data/model/ads/ad/ad_response.dart';
 import '../../gen/assets/assets.gen.dart';
 
 class AppAdHorizontalWidget extends StatelessWidget {
@@ -22,9 +21,9 @@ class AppAdHorizontalWidget extends StatelessWidget {
     required this.result,
   });
 
-  final AdResponse result;
-  final Function(AdResponse result) onClick;
-  final Function(AdResponse result) onClickFavorite;
+  final AdModel result;
+  final Function(AdModel result) onClick;
+  final Function(AdModel result) onClickFavorite;
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +48,7 @@ class AppAdHorizontalWidget extends StatelessWidget {
                   ),
                   child: Stack(children: [
                     CachedNetworkImage(
-                      imageUrl:
-                          "${Constants.baseUrlForImage}${result.photos?.first.image ?? ''}",
+                      imageUrl: "",
                       imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6),
@@ -78,7 +76,7 @@ class AppAdHorizontalWidget extends StatelessWidget {
               SizedBox(height: 12),
               SizedBox(
                 height: 32,
-                child: (result.name ?? "")
+                child: (result.name)
                     .w(400)
                     .s(13)
                     .c(context.colors.textPrimary)
@@ -87,12 +85,12 @@ class AppAdHorizontalWidget extends StatelessWidget {
               ),
               SizedBox(height: 6),
               if (result.price == 0)
-                "${formatter.format(result.to_price).replaceAll(',', ' ')}-${formatter.format(result.from_price).replaceAll(',', ' ')} ${Currency.UZB.getName}"
+                "${formatter.format(result.toPrice).replaceAll(',', ' ')}-${formatter.format(result.fromPrice).replaceAll(',', ' ')} ${Currency.uzb.getName}"
                     .w(700)
                     .s(15)
                     .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis)
               else
-                "${formatter.format(result.price).replaceAll(',', ' ')} ${Currency.UZB.getName}"
+                "${formatter.format(result.price).replaceAll(',', ' ')} ${Currency.uzb.getName}"
                     .w(700)
                     .s(15)
                     .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
@@ -112,12 +110,12 @@ class AppAdHorizontalWidget extends StatelessWidget {
                 )
               ]),
               SizedBox(height: 12),
-              Row(mainAxisAlignment: MainAxisAlignment.start, children: const [
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 AppAdRouterWidget(
-                    isHorizontal: true, adRouteType: AdRouteType.private),
+                    isHorizontal: true, adRouteType: result.adRouteType),
                 SizedBox(width: 2),
                 AppAdPropertyWidget(
-                    isHorizontal: true, adsPropertyType: AdPropertyStatus.used)
+                    isHorizontal: true, adPropertyType: result.adPropertyStatus)
               ])
             ],
           ),

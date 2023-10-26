@@ -16,20 +16,22 @@ class AdRepositoryImpl extends AdRepository {
   AdRepositoryImpl(this._api, this._storage);
 
   @override
-  Future<List<AdResponse>> getAds(
+  Future<List<AdModel>> getAds(
       int pageIndex, int pageSize, String keyWord) async {
     final response = await _api.getAdsList(pageIndex, pageSize, keyWord);
     final adsResponse =
         AdRootResponse.fromJson(response.data).data?.results ?? List.empty();
-    return adsResponse;
+    final result = adsResponse.map((e) => e.toMap()).toList(growable: true);
+    return result;
   }
 
   @override
-  Future<List<AdResponse>> getRecentlyViewAds() async {
+  Future<List<AdModel>> getRecentlyViewAds() async {
     final response = await _api.getPopularAds();
     final adsResponse =
         AdRootResponse.fromJson(response.data).data?.results ?? List.empty();
-    return adsResponse;
+    final result = adsResponse.map((e) => e.toMap()).toList(growable: true);
+    return result;
   }
 
   @override

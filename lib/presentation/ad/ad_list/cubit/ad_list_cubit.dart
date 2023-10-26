@@ -2,10 +2,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/base/base_cubit.dart';
+import 'package:onlinebozor/domain/model/ad_model.dart';
 
-import '../../../../domain/model/ad_enum.dart';
 import '../../../../common/enum/loading_enum.dart';
-import '../../../../data/model/ads/ad/ad_response.dart';
+import '../../../../domain/model/ad_enum.dart';
 import '../../../../domain/repository/ad_repository.dart';
 
 part 'ad_list_cubit.freezed.dart';
@@ -38,10 +38,10 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
     }
   }
 
-  PagingController<int, AdResponse> getAdsController({
+  PagingController<int, AdModel> getAdsController({
     required int status,
   }) {
-    final adController = PagingController<int, AdResponse>(
+    final adController = PagingController<int, AdModel>(
       firstPageKey: 1,
     );
     log.i(buildable.adsPagingController);

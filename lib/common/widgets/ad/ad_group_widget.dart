@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import '../../../data/model/ads/ad/ad_response.dart';
+import 'package:onlinebozor/domain/model/ad_model.dart';
+
 import 'ad_horizontal_widget.dart';
 
 class AdGroupWidget extends StatelessWidget {
@@ -9,9 +10,9 @@ class AdGroupWidget extends StatelessWidget {
       required this.onClick,
       required this.onClickFavorite});
 
-  final List<AdResponse> ads;
-  final Function(AdResponse result) onClick;
-  final Function(AdResponse result) onClickFavorite;
+  final List<AdModel> ads;
+  final Function(AdModel result) onClick;
+  final Function(AdModel result) onClickFavorite;
 
   @override
   Widget build(BuildContext context) {

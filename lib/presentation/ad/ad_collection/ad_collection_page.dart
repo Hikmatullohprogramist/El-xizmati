@@ -8,13 +8,13 @@ import 'package:onlinebozor/common/widgets/ad/ad_group_widget.dart';
 import 'package:onlinebozor/common/widgets/all_view_widget.dart';
 import 'package:onlinebozor/common/widgets/app_bar/common_active_search_bar.dart';
 import 'package:onlinebozor/common/widgets/app_diverder.dart';
+import 'package:onlinebozor/domain/model/ad_model.dart';
 
 import '../../../common/core/base_page.dart';
-import '../../../domain/model/ad_enum.dart';
 import '../../../common/widgets/ad/ad_widget.dart';
 import '../../../common/widgets/common_button.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
-import '../../../data/model/ads/ad/ad_response.dart';
+import '../../../domain/model/ad_enum.dart';
 import 'cubit/ad_collection_cubit.dart';
 
 @RoutePage()
@@ -62,10 +62,10 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                       loadingState: state.hotDiscountAdsState,
                       child: AdGroupWidget(
                         ads: state.hotDiscountAds,
-                        onClick: (AdResponse result) {
-                          context.router.push(AdDetailRoute(adId: result.id!));
+                        onClick: (AdModel result) {
+                          context.router.push(AdDetailRoute(adId: result.id));
                         },
-                        onClickFavorite: (AdResponse result) {},
+                        onClickFavorite: (AdModel result) {},
                       )),
                   SizedBox(height: 6),
                   AppDivider(height: 3),
@@ -81,10 +81,10 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                       loadingState: state.popularAdsState,
                       child: AdGroupWidget(
                         ads: state.popularAds,
-                        onClick: (AdResponse result) {
-                          context.router.push(AdDetailRoute(adId: result.id!));
+                        onClick: (AdModel result) {
+                          context.router.push(AdDetailRoute(adId: result.id));
                         },
-                        onClickFavorite: (AdResponse result) {},
+                        onClickFavorite: (AdModel result) {},
                       )),
                   SizedBox(height: 6),
                   AppDivider(height: 3),
@@ -93,7 +93,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
               )),
               state.adsPagingController == null
                   ? SizedBox()
-                  : PagedSliverGrid<int, AdResponse>(
+                  : PagedSliverGrid<int, AdModel>(
                       pagingController: state.adsPagingController!,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         childAspectRatio: 156 / 260,
@@ -101,7 +101,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                         mainAxisSpacing: 24,
                         crossAxisCount: 2,
                       ),
-                      builderDelegate: PagedChildBuilderDelegate<AdResponse>(
+                      builderDelegate: PagedChildBuilderDelegate<AdModel>(
                         firstPageErrorIndicatorBuilder: (_) {
                           return SizedBox(
                               height: 60,

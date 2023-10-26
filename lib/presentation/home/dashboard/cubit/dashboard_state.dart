@@ -4,15 +4,16 @@ part of 'dashboard_cubit.dart';
 class DashboardBuildable with _$DashboardBuildable {
   const DashboardBuildable._();
 
+  @freezed
   const factory DashboardBuildable({
     @Default(AppLoadingState.loading) AppLoadingState popularCategoriesState,
     @Default(AppLoadingState.loading) AppLoadingState recentlyAdsState,
     @Default(AppLoadingState.loading) AppLoadingState bannersState,
     @Default(<PopularCategoryResponse>[]) List<PopularCategoryResponse> popularCategories,
-    @Default(<AdResponse>[]) List<AdResponse> recentlyViewerAds,
+    @Default(<AdModel>[]) List<AdModel> recentlyViewerAds,
     @Default(<BannerResponse>[]) List<BannerResponse> banners,
-    @Default(<AdResponse>[]) List<AdResponse> adsList,
-    PagingController<int, AdResponse>? adsPagingController,
+    @Default(<AdModel>[]) List<AdModel> adsList,
+    PagingController<int, AdModel>? adsPagingController,
   }) = _DashboardBuildable;
 }
 

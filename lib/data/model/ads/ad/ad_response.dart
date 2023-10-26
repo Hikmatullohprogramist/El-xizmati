@@ -49,7 +49,7 @@ class AdResponse with _$AdResponse {
     bool? is_sell,
     int? max_amount,
     Seller? seller,
-    List<Photo>? photos,
+    List<AdPhotoResponse>? photos,
   }) = _AdResponse;
 
   factory AdResponse.fromJson(Map<String, dynamic> json) => _$AdResponseFromJson(json);
@@ -67,14 +67,14 @@ class Category with _$Category {
 }
 
 @freezed
-class Photo with _$Photo {
-  const factory Photo({
+class AdPhotoResponse with _$AdPhotoResponse {
+  const factory AdPhotoResponse({
     String? image,
     bool? is_main,
     int? id,
-  }) = _Photo;
+  }) = _AdPhotoResponse;
 
-  factory Photo.fromJson(Map<String, dynamic> json) => _$PhotoFromJson(json);
+  factory AdPhotoResponse.fromJson(Map<String, dynamic> json) => _$AdPhotoResponseFromJson(json);
 }
 
 @freezed

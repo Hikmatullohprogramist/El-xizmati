@@ -26,7 +26,7 @@ class AdModel {
   final int id;
   final String name;
   final int price;
-  final String currency;
+  final Currency currency;
   final String region;
   final String district;
   final AdRouteType adRouteType;
@@ -42,11 +42,11 @@ class AdModel {
   final int maxAmount;
   final String sellerName;
   final int sellerId;
-  final List<AdPhoneModel> photos;
+  final List<AdPhotoModel> photos;
 }
 
-class AdPhoneModel {
-  AdPhoneModel(this.image, this.isMain, this.id);
+class AdPhotoModel {
+  AdPhotoModel({required this.image, required this.isMain, required this.id});
 
   final String image;
   final bool isMain;

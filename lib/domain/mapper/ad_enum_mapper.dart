@@ -53,4 +53,19 @@ extension AdEnumMapper on String? {
         return AdStatusType.standard;
     }
   }
+
+  Currency toCurrency() {
+    switch (this) {
+      case "860":
+        return Currency.uzb;
+      case "643":
+        return Currency.rub;
+      case "840":
+        return Currency.usd;
+      case "978":
+        return Currency.eur;
+      default:
+        return Currency.uzb;
+    }
+  }
 }

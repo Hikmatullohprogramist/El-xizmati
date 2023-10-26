@@ -6,9 +6,9 @@ import '../../gen/localization/strings.dart';
 
 class AppAdPropertyWidget extends StatelessWidget {
   const AppAdPropertyWidget(
-      {super.key, required this.adsPropertyType, required this.isHorizontal});
+      {super.key, required this.adPropertyType, required this.isHorizontal});
 
-  final AdPropertyStatus adsPropertyType;
+  final AdPropertyStatus adPropertyType;
   final bool isHorizontal;
 
   @override
@@ -20,9 +20,9 @@ class AppAdPropertyWidget extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            'статус:'.w(400).s(isHorizontal ? 10 : 12).c(Color(0xFF999CB2)),
+            'Holati:'.w(400).s(isHorizontal ? 10 : 12).c(Color(0xFF999CB2)),
             SizedBox(width: 5),
-            switch (adsPropertyType) {
+            switch (adPropertyType) {
               AdPropertyStatus.fresh => Strings.adsStatusNew
                   .w(400)
                   .s(isHorizontal ? 10 : 12)

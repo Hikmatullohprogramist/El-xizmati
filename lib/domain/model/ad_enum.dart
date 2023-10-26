@@ -11,3 +11,5 @@ enum AdListType {
   popularCategory,
   category,
 }
+
+enum Currency { eur, usd, rub, uzb }

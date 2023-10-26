@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/domain/model/ad_model.dart';
 
 import '../../../../common/core/base_cubit.dart';
 import '../../../../common/enum/loading_enum.dart';
@@ -99,10 +100,10 @@ class DashboardCubit
     }
   }
 
-  PagingController<int, AdResponse> getAdsController({
+  PagingController<int, AdModel> getAdsController({
     required int status,
   }) {
-    final adController = PagingController<int, AdResponse>(
+    final adController = PagingController<int, AdModel>(
         firstPageKey: 1, invisibleItemsThreshold: 100);
     log.i(buildable.adsPagingController);
 

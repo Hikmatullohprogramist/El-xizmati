@@ -5,9 +5,9 @@ class AdCollectionBuildable with _$AdCollectionBuildable {
   const factory AdCollectionBuildable({
     @Default(AppLoadingState.loading) AppLoadingState hotDiscountAdsState,
     @Default(AppLoadingState.loading) AppLoadingState popularAdsState,
-    PagingController<int, AdResponse>? adsPagingController,
-    @Default(<AdResponse>[]) List<AdResponse> hotDiscountAds,
-    @Default(<AdResponse>[]) List<AdResponse> popularAds,
+    PagingController<int, AdModel>? adsPagingController,
+    @Default(<AdModel>[]) List<AdModel> hotDiscountAds,
+    @Default(<AdModel>[]) List<AdModel> popularAds,
   }) = _AdCollectionBuildable;
 }
 

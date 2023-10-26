@@ -12,4 +12,6 @@ abstract class CommonRepository {
       int pageIndex, int pageSize);
 
   Future<List<Ad>> getSearch(String query);
+
+  Future<void> getCurrency();
 }

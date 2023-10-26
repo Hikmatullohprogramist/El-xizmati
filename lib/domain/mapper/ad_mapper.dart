@@ -9,7 +9,7 @@ extension AdExtension on AdResponse {
       id: id ?? -1,
       name: name ?? "",
       price: price ?? 0,
-      currency: currency ?? "",
+      currency: currency.toCurrency(),
       region: region ?? "",
       district: district ?? "",
       adRouteType: route_type.toAdRouteType(),
@@ -27,5 +27,12 @@ extension AdExtension on AdResponse {
       isSell: is_sell ?? false,
       maxAmount: max_amount ?? 0,
     );
+  }
+}
+
+extension AdPhoneExtension on AdPhotoResponse {
+  AdPhotoModel toMap() {
+    return AdPhotoModel(
+        id: id ?? 0, image: image ?? "", isMain: is_main ?? false);
   }
 }

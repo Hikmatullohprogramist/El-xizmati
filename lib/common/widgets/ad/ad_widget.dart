@@ -2,14 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
-import 'package:onlinebozor/common/constants.dart';
 import 'package:onlinebozor/common/extensions/currency_extensions.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_property_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_status_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite_widget.dart';
+import 'package:onlinebozor/domain/model/ad_model.dart';
 
-import '../../../data/model/ads/ad/ad_response.dart';
 import '../../../domain/model/ad_enum.dart';
 import '../../gen/assets/assets.gen.dart';
 import 'ad_route_widget.dart';
@@ -17,22 +16,20 @@ import 'ad_route_widget.dart';
 class AppAdWidget extends StatelessWidget {
   const AppAdWidget({
     super.key,
-    this.onClickFavorite,
-    this.onClick,
+    required this.onClickFavorite,
+    required this.onClick,
     required this.result,
   });
 
-  final AdResponse result;
-  final Function(AdResponse result)? onClick;
-  final Function(AdResponse result)? onClickFavorite;
+  final AdModel result;
+  final Function(AdModel result) onClick;
+  final Function(AdModel result) onClickFavorite;
 
   @override
   Widget build(BuildContext context) {
     var formatter = NumberFormat('###,000');
     return InkWell(
-        onTap: () {
-          onClick!(result);
-        },
+        onTap: () => onClick(result),
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
           width: double.infinity,
@@ -49,8 +46,7 @@ class AppAdWidget extends StatelessWidget {
                   ),
                   child: Stack(children: [
                     CachedNetworkImage(
-                      imageUrl:
-                          "${Constants.baseUrlForImage}${result.photos?.first.image ?? ''}",
+                      imageUrl: "",
                       imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6),
@@ -65,20 +61,18 @@ class AppAdWidget extends StatelessWidget {
                       errorWidget: (context, url, error) =>
                           Center(child: Icon(Icons.error)),
                     ),
-                    AppAdStatusWidget(adsStatusType: AdStatusType.standard),
+                    AppAdStatusWidget(adsStatusType: result.adStatusType),
                     Align(
                         alignment: Alignment.topRight,
                         child: AppFavoriteWidget(
                           isSelected: false,
-                          onEvent: () {
-                            onClickFavorite!(result);
-                          },
+                          onEvent: () => onClickFavorite(result),
                         ))
                   ])),
               SizedBox(height: 12),
               SizedBox(
                 height: 32,
-                child: (result.name ?? "")
+                child: (result.name)
                     .w(400)
                     .s(13)
                     .c(context.colors.textPrimary)
@@ -86,12 +80,12 @@ class AppAdWidget extends StatelessWidget {
               ),
               SizedBox(height: 6),
               if (result.price == 0)
-                "${formatter.format(result.to_price).replaceAll(',', ' ')}-${formatter.format(result.from_price).replaceAll(',', ' ')} ${Currency.UZB.getName}"
+                "${formatter.format(result.toPrice).replaceAll(',', ' ')}-${formatter.format(result.fromPrice).replaceAll(',', ' ')} ${Currency.uzb.getName}"
                     .w(700)
                     .s(15)
                     .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis)
               else
-                "${formatter.format(result.price).replaceAll(',', ' ')} ${Currency.UZB.getName}"
+                "${formatter.format(result.price).replaceAll(',', ' ')} ${Currency.uzb.getName}"
                     .w(700)
                     .s(15)
                     .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
@@ -111,15 +105,13 @@ class AppAdWidget extends StatelessWidget {
                 )
               ]),
               SizedBox(height: 12),
-              Row(mainAxisAlignment: MainAxisAlignment.start, children: const [
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 AppAdRouterWidget(
-                    isHorizontal: false,
-                    adRouteType:AdRouteType.business),
+                    isHorizontal: false, adRouteType: result.adRouteType),
                 SizedBox(width: 5),
                 AppAdPropertyWidget(
                     isHorizontal: false,
-                    adsPropertyType:
-                       AdPropertyStatus.used)
+                    adPropertyType: result.adPropertyStatus)
               ])
             ],
           ),
