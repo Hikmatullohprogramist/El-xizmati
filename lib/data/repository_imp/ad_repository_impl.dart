@@ -1,5 +1,7 @@
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/domain/mapper/ad_mapper.dart';
 
+import '../../domain/model/ad_model.dart';
 import '../../domain/repository/ad_repository.dart';
 import '../api/ads_api.dart';
 import '../model/ads/ad/ad_response.dart';
@@ -37,12 +39,13 @@ class AdRepositoryImpl extends AdRepository {
     return adDetail;
   }
 
-// @override
-// Future<List<AdModel>> getAdModels(
-//     int pageIndex, int pageSize, String keyWord) async {
-//   final response = await _api.getAdsList(pageIndex, pageSize, keyWord);
-//   final adsResponse =
-//       AdRootResponse.fromJson(response.data).data?.results ?? List.empty();
-//   return adsResponse;
-// }
+  @override
+  Future<List<AdModel>> getAdModels(
+      int pageIndex, int pageSize, String keyWord) async {
+    final response = await _api.getAdsList(pageIndex, pageSize, keyWord);
+    final adsResponse =
+        AdRootResponse.fromJson(response.data).data?.results ?? List.empty();
+    final result = adsResponse.map((e) => e.toMap()).toList(growable: true);
+    return result;
+  }
 }

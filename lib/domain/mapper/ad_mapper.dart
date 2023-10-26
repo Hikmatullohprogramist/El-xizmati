@@ -1,19 +1,21 @@
+import 'package:onlinebozor/domain/mapper/ad_enum_mapper.dart';
+
 import '../../data/model/ads/ad/ad_response.dart';
-import '../model/AdModel.dart';
+import '../model/ad_model.dart';
 
 extension AdExtension on AdResponse {
   AdModel toMap() {
     return AdModel(
       id: id ?? -1,
       name: name ?? "",
-      price: price ?? -1,
+      price: price ?? 0,
       currency: currency ?? "",
       region: region ?? "",
       district: district ?? "",
-      routeType: route_type.toString(),
-      propertyStatus: property_status.toString(),
-      type: type.toString(),
-      typeStatus: type_status.toString(),
+      adRouteType: route_type.toAdRouteType(),
+      adPropertyStatus: property_status.toAdPropertyStatusMap(),
+      adStatusType: type_status.toAdStatusType(),
+      adTypeStatus: type.toAdTypeStatus(),
       fromPrice: from_price ?? 0,
       toPrice: to_price ?? 0,
       categoryId: category?.id ?? -1,

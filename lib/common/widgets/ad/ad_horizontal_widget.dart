@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/constants.dart';
-import 'package:onlinebozor/common/enum/ad_enum.dart';
+import 'package:onlinebozor/domain/model/ad_enum.dart';
 import 'package:onlinebozor/common/extensions/currency_extensions.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_property_widget.dart';
@@ -117,7 +117,7 @@ class AppAdHorizontalWidget extends StatelessWidget {
                     isHorizontal: true, adRouteType: AdRouteType.private),
                 SizedBox(width: 2),
                 AppAdPropertyWidget(
-                    isHorizontal: true, adsPropertyType: AdPropertyStatuses.used)
+                    isHorizontal: true, adsPropertyType: AdPropertyStatus.used)
               ])
             ],
           ),

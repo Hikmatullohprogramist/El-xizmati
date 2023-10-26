@@ -10,7 +10,7 @@ import 'package:onlinebozor/common/widgets/ad/ad_status_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite_widget.dart';
 
 import '../../../data/model/ads/ad/ad_response.dart';
-import '../../enum/ad_enum.dart';
+import '../../../domain/model/ad_enum.dart';
 import '../../gen/assets/assets.gen.dart';
 import 'ad_route_widget.dart';
 
@@ -119,7 +119,7 @@ class AppAdWidget extends StatelessWidget {
                 AppAdPropertyWidget(
                     isHorizontal: false,
                     adsPropertyType:
-                       AdPropertyStatuses.used)
+                       AdPropertyStatus.used)
               ])
             ],
           ),

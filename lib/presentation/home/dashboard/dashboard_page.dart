@@ -6,7 +6,7 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 
-import '../../../common/enum/ad_enum.dart';
+import '../../../domain/model/ad_enum.dart';
 import '../../../common/gen/localization/strings.dart';
 import '../../../common/widgets/ad/ad_group_widget.dart';
 import '../../../common/widgets/ad/ad_widget.dart';

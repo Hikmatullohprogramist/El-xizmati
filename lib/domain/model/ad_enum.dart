@@ -1,4 +1,4 @@
-enum AdPropertyStatuses { fresh, used }
+enum AdPropertyStatus { fresh, used }
 
 enum AdRouteType { business, private }
 

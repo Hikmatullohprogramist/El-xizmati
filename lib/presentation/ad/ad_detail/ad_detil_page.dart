@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/base/base_page.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/constants.dart';
-import 'package:onlinebozor/common/enum/ad_enum.dart';
+import 'package:onlinebozor/domain/model/ad_enum.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/favorite_widget.dart';
 import 'package:onlinebozor/presentation/ad/ad_detail/cubit/ad_detail_cubit.dart';
@@ -137,7 +137,7 @@ class AdDetailPage
                           SizedBox(width: 5),
                           AppAdPropertyWidget(
                               isHorizontal: false,
-                              adsPropertyType: AdPropertyStatuses.used)
+                              adsPropertyType: AdPropertyStatus.used)
                         ],
                       ),
                       AppDivider(height: 16),

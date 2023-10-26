@@ -1,3 +1,5 @@
+import 'package:onlinebozor/domain/model/ad_enum.dart';
+
 class AdModel {
   AdModel(
       {required this.id,
@@ -6,10 +8,10 @@ class AdModel {
       required this.currency,
       required this.region,
       required this.district,
-      required this.routeType,
-      required this.propertyStatus,
-      required this.type,
-      required this.typeStatus,
+      required this.adRouteType,
+      required this.adPropertyStatus,
+      required this.adStatusType,
+      required this.adTypeStatus,
       required this.fromPrice,
       required this.toPrice,
       required this.categoryId,
@@ -27,10 +29,10 @@ class AdModel {
   final String currency;
   final String region;
   final String district;
-  final String routeType;
-  final String propertyStatus;
-  final String type;
-  final String typeStatus;
+  final AdRouteType adRouteType;
+  final AdPropertyStatus adPropertyStatus;
+  final AdStatusType adStatusType;
+  final AdTypeStatus adTypeStatus;
   final int fromPrice;
   final int toPrice;
   final int categoryId;
