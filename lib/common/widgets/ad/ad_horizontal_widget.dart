@@ -112,15 +112,12 @@ class AppAdHorizontalWidget extends StatelessWidget {
                 )
               ]),
               SizedBox(height: 12),
-              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: const [
                 AppAdRouterWidget(
-                    isHorizontal: true,
-                    adRouteType:  AdRouteTypeses.PRIVATE),
+                    isHorizontal: true, adRouteType: AdRouteTypeses.PRIVATE),
                 SizedBox(width: 2),
                 AppAdPropertyWidget(
-                    isHorizontal: true,
-                    adsPropertyType:
-                        result.property_status ?? PropertyStatus.USED)
+                    isHorizontal: true, adsPropertyType: PropertyStatuses.USED)
               ])
             ],
           ),

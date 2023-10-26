@@ -143,7 +143,7 @@ class AdDetailPage
                           SizedBox(width: 5),
                           AppAdPropertyWidget(
                               isHorizontal: false,
-                              adsPropertyType: PropertyStatus.USED)
+                              adsPropertyType: PropertyStatuses.USED)
                         ],
                       ),
                       AppDivider(height: 16),

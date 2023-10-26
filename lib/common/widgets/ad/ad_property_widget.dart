@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:onlinebozor/common/enum/AdRouteType.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
 import '../../../domain/model/ads/ad/ad_response.dart';
@@ -8,7 +9,7 @@ class AppAdPropertyWidget extends StatelessWidget {
   const AppAdPropertyWidget(
       {super.key, required this.adsPropertyType, required this.isHorizontal});
 
-  final PropertyStatus adsPropertyType;
+  final PropertyStatuses adsPropertyType;
   final bool isHorizontal;
 
   @override
@@ -23,9 +24,9 @@ class AppAdPropertyWidget extends StatelessWidget {
             'статус:'.w(400).s(isHorizontal ? 10 : 12).c(Color(0xFF999CB2)),
             SizedBox(width: 5),
             switch (adsPropertyType) {
-              PropertyStatus.NEW =>
+              PropertyStatuses.NEW =>
                 Strings.adsStatusNew.w(400).s(isHorizontal ? 10 : 12).c(Color(0xFF41455E)),
-              PropertyStatus.USED =>
+              PropertyStatuses.USED =>
                 Strings.adsStatusOld.w(400).s(isHorizontal ? 10 : 12).c(Color(0xFF41455E)),
             },
           ],

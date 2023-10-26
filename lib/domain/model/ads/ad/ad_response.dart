@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'ad_response.freezed.dart';
-
 part 'ad_response.g.dart';
 
 @freezed
@@ -39,10 +38,10 @@ class AdResponse with _$AdResponse {
     String? currency,
     String? region,
     String? district,
-    AdRouteType? route_type,
-    PropertyStatus? property_status,
-    Type? type,
-    TypeStatus? type_status,
+    String? route_type,
+    String? property_status,
+    String? type,
+    String? type_status,
     int? from_price,
     int? to_price,
     Category? category,
@@ -78,27 +77,6 @@ class Photo with _$Photo {
   factory Photo.fromJson(Map<String, dynamic> json) => _$PhotoFromJson(json);
 }
 
-enum PropertyStatus { NEW, USED }
-
-final propertyStatusValues =
-    EnumValues({"NEW": PropertyStatus.NEW, "USED": PropertyStatus.USED});
-
-enum AdRouteType { BUSINESS, PRIVATE }
-
-final routeTypeValues =
-    EnumValues({"BUSINESS": AdRouteType.BUSINESS, "PRIVATE": AdRouteType.PRIVATE});
-
-enum TypeStatus { SELL, FREE, EXCHANGE, SERVICE, BUY, BUY_SERVICE }
-
-final TypeStatusValues = EnumValues({
-  "SELL": TypeStatus.SELL,
-  "FREE": TypeStatus.FREE,
-  "EXCHNGE": TypeStatus.EXCHANGE,
-  "SERVCE": TypeStatus.SERVICE,
-  "BUY": TypeStatus.BUY,
-  "BUY_ERVICE": TypeStatus.SELL
-});
-
 @freezed
 class Seller with _$Seller {
   const factory Seller({
@@ -107,20 +85,4 @@ class Seller with _$Seller {
   }) = _Seller;
 
   factory Seller.fromJson(Map<String, dynamic> json) => _$SellerFromJson(json);
-}
-
-enum Type { STANDART, TOP }
-
-final typeValues = EnumValues({"STANDART": Type.STANDART, "TOP": Type.TOP});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }

@@ -119,7 +119,7 @@ class AppAdWidget extends StatelessWidget {
                 AppAdPropertyWidget(
                     isHorizontal: false,
                     adsPropertyType:
-                       PropertyStatus.USED)
+                       PropertyStatuses.USED)
               ])
             ],
           ),
