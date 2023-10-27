@@ -5,7 +5,6 @@ import 'package:onlinebozor/domain/model/ad_model.dart';
 
 import '../../../../common/core/base_cubit.dart';
 import '../../../../common/enum/loading_enum.dart';
-import '../../../../data/model/ads/ad/ad_response.dart';
 import '../../../../data/model/banner/banner_response.dart';
 import '../../../../data/model/categories/popular_category/popular_category_response.dart';
 import '../../../../domain/repository/ad_repository.dart';

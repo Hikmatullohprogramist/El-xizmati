@@ -11,6 +11,7 @@ import 'package:onlinebozor/common/widgets/favorite_widget.dart';
 import 'package:onlinebozor/domain/model/ad_enum.dart';
 import 'package:onlinebozor/domain/model/ad_model.dart';
 
+import '../../constants.dart';
 import '../../gen/assets/assets.gen.dart';
 
 class AppAdHorizontalWidget extends StatelessWidget {
@@ -48,7 +49,8 @@ class AppAdHorizontalWidget extends StatelessWidget {
                   ),
                   child: Stack(children: [
                     CachedNetworkImage(
-                      imageUrl: "",
+                      imageUrl:
+                          "${Constants.baseUrlForImage}${result.photos?.first.image ?? ''}",
                       imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6),

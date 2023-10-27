@@ -22,8 +22,8 @@ extension AdExtension on AdResponse {
       categoryName: category?.name ?? "",
       sellerName: seller?.name ?? "",
       sellerId: seller?.tin ?? -1,
-      photos: [],
       isSort: is_sort ?? 0,
+      photos: photos,
       isSell: is_sell ?? false,
       maxAmount: max_amount ?? 0,
     );

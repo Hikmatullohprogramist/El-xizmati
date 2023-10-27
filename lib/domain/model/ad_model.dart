@@ -1,3 +1,4 @@
+import 'package:onlinebozor/data/model/ads/ad/ad_response.dart';
 import 'package:onlinebozor/domain/model/ad_enum.dart';
 
 class AdModel {
@@ -42,7 +43,7 @@ class AdModel {
   final int maxAmount;
   final String sellerName;
   final int sellerId;
-  final List<AdPhotoModel> photos;
+  final List<AdPhotoResponse>? photos;
 }
 
 class AdPhotoModel {
