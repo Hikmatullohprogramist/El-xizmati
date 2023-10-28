@@ -19,6 +19,10 @@ class AdCollectionCubit
     getHome();
   }
 
+  void setCollectionType(CollectiveType collectiveType) {
+    build((buildable) => buildable.copyWith(collectiveType: collectiveType));
+  }
+
   Future<void> getHome() async {
     await Future.wait([
       getHotDiscountAds(),
@@ -87,7 +91,7 @@ class AdCollectionCubit
 
     adController.addPageRequestListener(
       (pageKey) async {
-        final adsList = await adRepository.getAds(pageKey, _pageSize, "");
+        final adsList = await adRepository.getHomeAds(pageKey, _pageSize, "");
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);
           log.i(buildable.adsPagingController);

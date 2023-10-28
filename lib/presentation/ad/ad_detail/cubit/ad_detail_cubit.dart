@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/base/base_cubit.dart';
+import 'package:onlinebozor/domain/model/ad_detail.dart';
 
 import '../../../../domain/repository/ad_repository.dart';
 
@@ -15,15 +16,16 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
 
   void setAdId(int adId) {
     build((buildable) => buildable.copyWith(adId: adId));
-    // getDetailResponse();
+    getDetailResponse();
   }
 
-// Future<void> getDetailResponse() async {
-//   try {
-//     var response = await _adRepository.getAdDetail(buildable.adId!);
-//     build((buildable) => buildable.copyWith(adDetailResponse: response));
-//   } catch (e) {
-//     display.error(e.toString());
-//   }
-// }
+  Future<void> getDetailResponse() async {
+    try {
+      var response = await _adRepository.getAdDetail(buildable.adId!);
+      build((buildable) => buildable.copyWith(adDetail: response));
+    } catch (e) {
+      log.e(e.toString());
+      display.error(e.toString());
+    }
+  }
 }

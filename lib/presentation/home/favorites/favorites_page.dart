@@ -42,9 +42,7 @@ class FavoritesPage
               indicatorColor: context.colors.textPrimary,
               controller: controller,
               tabs: const [
-                Tab(
-                  text: 'Товары',
-                ),
+                Tab(text: 'Товары'),
                 Tab(text: 'Услуги'),
               ],
             ),
@@ -55,26 +53,3 @@ class FavoritesPage
     );
   }
 }
-//
-// TabBar(
-// isScrollable: false,
-// indicator: MaterialIndicator(
-// height: 10,
-// tabPosition: TabPosition.bottom,
-// topLeftRadius: 100,
-// topRightRadius: 100,
-// color: Color(0xFF5C6AC3),
-// paintingStyle: PaintingStyle.fill,
-// ),
-// indicatorSize: TabBarIndicatorSize.label,
-// labelColor: Color(0xFF5C6AC3),
-// unselectedLabelColor: Color(0xFF9EABBE),
-// indicatorColor: context.colors.textPrimary,
-// controller: controller,
-// tabs: const [
-// Tab(
-// text: 'Товары',
-// ),
-// Tab(text: 'Услуги'),
-// ],
-// ),

@@ -1,10 +1,10 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/api/common_api.dart';
+
 import '../../domain/repository/common_repository.dart';
 import '../model/banner/banner_response.dart';
 import '../model/categories/category/category_response.dart';
 import '../model/categories/popular_category/popular_category_response.dart';
-import '../model/search/search_response.dart';
 import '../storage/categories_storage.dart';
 
 @LazySingleton(as: CommonRepository)
@@ -46,15 +46,7 @@ class CommonRepositoryImpl extends CommonRepository {
   }
 
   @override
-  Future<List<Ad>> getSearch(String query) async {
-    final response = await _api.getSearchAd(query);
-    final searchAd = SearchResponse.fromJson(response.data).data;
-    return searchAd?.ads ?? List.empty();
-  }
-
-  @override
   Future<void> getCurrency() async {
     final  response =await _api.getCurrency();
-    
   }
 }

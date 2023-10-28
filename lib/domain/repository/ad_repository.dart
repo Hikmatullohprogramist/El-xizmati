@@ -1,12 +1,22 @@
-import '../../data/model/ads/ad_detail/ad_detail_response.dart';
+import 'package:onlinebozor/data/model/search/search_response.dart';
+import 'package:onlinebozor/domain/model/ad_detail.dart';
+import 'package:onlinebozor/presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
+
 import '../model/ad_model.dart';
 
 abstract class AdRepository {
-  Future<List<AdModel>> getAds(int pageIndex, int pageSize, String keyWord);
+  Future<List<AdModel>> getHomeAds(int pageIndex, int pageSize, String keyWord);
 
   Future<List<AdModel>> getRecentlyViewAds();
 
-  Future<AdDetailResponse?> getAdDetail(int adId);
+  Future<List<AdModel>> getPopularAds(CollectiveType collectiveType);
 
-Future<List<AdModel>> getAdModels(int pageIndex, int pageSize, String keyWord);
+  Future<AdDetail?> getAdDetail(int adId);
+
+  Future<List<AdModel>> getCollectiveAds(int pageIndex, int pageSize,
+      String keyWord, CollectiveType collectiveType);
+
+  Future<List<AdModel>> getHotDiscountAds(CollectiveType collectiveType);
+
+  Future<List<AdSearchResponse>> getSearch(String query);
 }

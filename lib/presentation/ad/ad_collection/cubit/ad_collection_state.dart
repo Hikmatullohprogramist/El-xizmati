@@ -3,6 +3,7 @@ part of 'ad_collection_cubit.dart';
 @freezed
 class AdCollectionBuildable with _$AdCollectionBuildable {
   const factory AdCollectionBuildable({
+    @Default(CollectiveType.commodity) CollectiveType collectiveType,
     @Default(AppLoadingState.loading) AppLoadingState hotDiscountAdsState,
     @Default(AppLoadingState.loading) AppLoadingState popularAdsState,
     PagingController<int, AdModel>? adsPagingController,

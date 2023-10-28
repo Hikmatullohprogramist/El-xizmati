@@ -1,7 +1,7 @@
 import 'package:onlinebozor/domain/model/ad_enum.dart';
 
 extension AdEnumMapper on String? {
-  AdPropertyStatus toAdPropertyStatusMap() {
+  AdPropertyStatus toAdPropertyStatus() {
     switch (this) {
       case "NEW":
         return AdPropertyStatus.fresh;

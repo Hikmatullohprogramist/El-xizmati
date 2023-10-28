@@ -23,22 +23,22 @@ class SearchResponse with _$SearchResponse {
 @freezed
 class Data with _$Data {
   const factory Data({
-    List<Ad>? ads,
+    List<AdSearchResponse>? ads,
   }) = _Data;
 
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 }
 
 @freezed
-class Ad with _$Ad {
-  const factory Ad({
+class AdSearchResponse with _$AdSearchResponse {
+  const factory AdSearchResponse({
     int? id,
     String? name,
     int? categoryId,
     String? mainPhoto,
     int? price,
     String? type,
-  }) = _Ad;
+  }) = _AdSearchResponse;
 
-  factory Ad.fromJson(Map<String, dynamic> json) => _$AdFromJson(json);
+  factory AdSearchResponse.fromJson(Map<String, dynamic> json) => _$AdSearchResponseFromJson(json);
 }

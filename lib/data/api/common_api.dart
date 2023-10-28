@@ -20,13 +20,6 @@ class CommonApi {
     return _dio.get("v1/popular/categories", queryParameters: queryParameters);
   }
 
-  Future<Response> getSearchAd(String query) {
-    final queryParameters = {
-      'q': query,
-    };
-    return _dio.get('v1/search', queryParameters: queryParameters);
-  }
-
   Future<Response> getCurrency() {
     return _dio.get('v1/currencies');
   }

@@ -19,7 +19,7 @@ class AdModel {
       required this.categoryName,
       required this.sellerName,
       required this.sellerId,
-      required this.photos,
+      this.photos,
       required this.isSort,
       required this.isSell,
       required this.maxAmount});
@@ -43,7 +43,7 @@ class AdModel {
   final int maxAmount;
   final String sellerName;
   final int sellerId;
-  final List<AdPhotoResponse>? photos;
+  List<AdPhotoResponse>? photos;
 }
 
 class AdPhotoModel {

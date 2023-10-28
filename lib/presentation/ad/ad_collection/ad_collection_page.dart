@@ -22,6 +22,9 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
     AdCollectionBuildable, AdCollectionListenable> {
   const AdCollectionPage(this.collectiveType, {super.key});
 
+  @override
+  void init(BuildContext context) {}
+
   final CollectiveType collectiveType;
 
   @override

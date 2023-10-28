@@ -143,6 +143,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/ic_watch.svg
   SvgGenImage get icWatch => const SvgGenImage('assets/images/ic_watch.svg');
 
+  /// File path: assets/images/ic_wishlist_shopping.svg
+  SvgGenImage get icWishlistShopping =>
+      const SvgGenImage('assets/images/ic_wishlist_shopping.svg');
+
   /// File path: assets/images/icon_search.svg
   SvgGenImage get iconSearch =>
       const SvgGenImage('assets/images/icon_search.svg');
@@ -198,6 +202,7 @@ class $AssetsImagesGen {
         icVector,
         icVisibility,
         icWatch,
+        icWishlistShopping,
         iconSearch,
         pc,
         simple
@@ -295,9 +300,13 @@ class $AssetsImagesPngImagesGen {
   AssetGenImage get service =>
       const AssetGenImage('assets/images/png_images/service.png');
 
+  /// File path: assets/images/png_images/wish_list_shopping.png
+  AssetGenImage get wishListShopping =>
+      const AssetGenImage('assets/images/png_images/wish_list_shopping.png');
+
   /// List of all assets
   List<AssetGenImage> get values =>
-      [appLogo, commondity, flagRu, flagUz, service];
+      [appLogo, commondity, flagRu, flagUz, service, wishListShopping];
 }
 
 class $AssetsImagesProfileGen {

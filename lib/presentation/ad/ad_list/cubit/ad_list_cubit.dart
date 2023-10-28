@@ -49,7 +49,7 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
     adController.addPageRequestListener(
       (pageKey) async {
         final adsList =
-            await adRepository.getAds(pageKey, _pageSize, buildable.keyWord);
+            await adRepository.getHomeAds(pageKey, _pageSize, buildable.keyWord);
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);
           log.i(buildable.adsPagingController);

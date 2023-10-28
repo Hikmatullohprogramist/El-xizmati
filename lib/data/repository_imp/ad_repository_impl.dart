@@ -1,6 +1,9 @@
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/data/model/search/search_response.dart';
 import 'package:onlinebozor/domain/mapper/ad_mapper.dart';
+import 'package:onlinebozor/presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
 
+import '../../domain/model/ad_detail.dart';
 import '../../domain/model/ad_model.dart';
 import '../../domain/repository/ad_repository.dart';
 import '../api/ads_api.dart';
@@ -16,9 +19,9 @@ class AdRepositoryImpl extends AdRepository {
   AdRepositoryImpl(this._api, this._storage);
 
   @override
-  Future<List<AdModel>> getAds(
+  Future<List<AdModel>> getHomeAds(
       int pageIndex, int pageSize, String keyWord) async {
-    final response = await _api.getAdsList(pageIndex, pageSize, keyWord);
+    final response = await _api.getHomeAds(pageIndex, pageSize, keyWord);
     final adsResponse =
         AdRootResponse.fromJson(response.data).data?.results ?? List.empty();
     final result = adsResponse.map((e) => e.toMap()).toList(growable: true);
@@ -27,7 +30,7 @@ class AdRepositoryImpl extends AdRepository {
 
   @override
   Future<List<AdModel>> getRecentlyViewAds() async {
-    final response = await _api.getPopularAds();
+    final response = await _api.getHomePopularAds();
     final adsResponse =
         AdRootResponse.fromJson(response.data).data?.results ?? List.empty();
     final result = adsResponse.map((e) => e.toMap()).toList(growable: true);
@@ -35,19 +38,50 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<AdDetailResponse?> getAdDetail(int adId) async {
+  Future<AdDetail?> getAdDetail(int adId) async {
     final response = await _api.getAdDetail(adId);
     final adDetail = AdDetailRootResponse.fromJson(response.data).data.results;
-    return adDetail;
+    final result = adDetail.toMap();
+    return result;
   }
 
   @override
   Future<List<AdModel>> getAdModels(
       int pageIndex, int pageSize, String keyWord) async {
-    final response = await _api.getAdsList(pageIndex, pageSize, keyWord);
+    final response = await _api.getHomeAds(pageIndex, pageSize, keyWord);
     final adsResponse =
         AdRootResponse.fromJson(response.data).data?.results ?? List.empty();
     final result = adsResponse.map((e) => e.toMap()).toList(growable: true);
     return result;
+  }
+
+  @override
+  Future<List<AdModel>> getHotDiscountAds(CollectiveType collectiveType) {
+    // TODO: implement getHotDiscountAds
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<AdModel>> getPopularAds(CollectiveType collectiveType) {
+    // TODO: implement getPopularAds
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<AdModel>> getCollectiveAds(int pageIndex, int pageSize,
+      String keyWord, CollectiveType collectiveType) async {
+    final response = await _api.getCollectiveAds(
+        collectiveType, pageIndex, pageSize, keyWord);
+    final adsResponse =
+        AdRootResponse.fromJson(response.data).data?.results ?? List.empty();
+    final result = adsResponse.map((e) => e.toMap()).toList(growable: true);
+    return result;
+  }
+
+  @override
+  Future<List<AdSearchResponse>> getSearch(String query) async {
+    final response = await _api.getSearchAd(query);
+    final searchAd = SearchResponse.fromJson(response.data).data;
+    return searchAd?.ads ?? List.empty();
   }
 }
