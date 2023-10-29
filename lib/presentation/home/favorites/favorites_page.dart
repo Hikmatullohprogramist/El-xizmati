@@ -16,6 +16,7 @@ class FavoritesPage
   @override
   Widget builder(BuildContext context, FavoritesBuildable state) {
     return AutoTabsRouter.tabBar(
+      physics: BouncingScrollPhysics(),
       routes: const [CommodityFavoritesRoute(), ServiceFavoritesRoute()],
       builder: (context, child, controller) {
         return Scaffold(

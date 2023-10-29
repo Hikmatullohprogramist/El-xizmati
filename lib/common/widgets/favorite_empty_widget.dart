@@ -5,7 +5,9 @@ import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/widgets/common_button.dart';
 
 class FavoriteEmptyWidget extends StatelessWidget {
-  const FavoriteEmptyWidget({super.key});
+  const FavoriteEmptyWidget({super.key, required this.callBack});
+
+  final VoidCallback callBack;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class FavoriteEmptyWidget extends StatelessWidget {
         CommonButton(
             type: ButtonType.elevated,
             color: context.colors.buttonPrimary,
-            onPressed: () {},
+            onPressed: callBack,
             child: "На главную".w(500).s(14).c(Colors.white))
       ]),
     );

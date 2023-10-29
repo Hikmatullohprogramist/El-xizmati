@@ -56,15 +56,21 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<List<AdModel>> getHotDiscountAds(CollectiveType collectiveType) {
-    // TODO: implement getHotDiscountAds
-    throw UnimplementedError();
+  Future<List<AdModel>> getHotDiscountAds(CollectiveType collectiveType) async {
+    final response = await _api.getHomePopularAds();
+    final adsResponse =
+        AdRootResponse.fromJson(response.data).data?.results ?? List.empty();
+    final result = adsResponse.map((e) => e.toMap()).toList(growable: true);
+    return result;
   }
 
   @override
-  Future<List<AdModel>> getPopularAds(CollectiveType collectiveType) {
-    // TODO: implement getPopularAds
-    throw UnimplementedError();
+  Future<List<AdModel>> getPopularAds(CollectiveType collectiveType) async {
+    final response = await _api.getHomePopularAds();
+    final adsResponse =
+        AdRootResponse.fromJson(response.data).data?.results ?? List.empty();
+    final result = adsResponse.map((e) => e.toMap()).toList(growable: true);
+    return result;
   }
 
   @override
