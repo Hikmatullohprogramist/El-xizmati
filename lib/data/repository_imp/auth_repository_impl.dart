@@ -35,6 +35,7 @@ class AuthRepositoryImpl extends AuthRepository {
       tokenStorage.token.set(verificationResponse.token ?? "");
       tokenStorage.isLogin.set(true);
     }
+    return;
   }
 
   @override
@@ -53,6 +54,7 @@ class AuthRepositoryImpl extends AuthRepository {
     final response = await _api.forgetPassword(phone: phone);
     final forgetResponse = AuthStartResponse.fromJson(response.data);
     sessionToken = forgetResponse.data.session_token!;
+    return;
   }
 
   @override
@@ -62,6 +64,7 @@ class AuthRepositoryImpl extends AuthRepository {
         password: password, repeatPassword: repeatPassword);
     final confirmResponse =
         RegisterPasswordRootResponse.fromJson(response.data);
+    return;
   }
 
   @override
@@ -73,11 +76,13 @@ class AuthRepositoryImpl extends AuthRepository {
       tokenStorage.token.set(confirmResponse.token ?? "");
       tokenStorage.isLogin.set(true);
     }
+    return;
   }
 
   @override
   Future<void> loginWithOneId(String accessCode) async {
     final response = await _api.loginWithOneId(accessCode: accessCode);
-    tokenStorage.isLogin.set(true);
+    await tokenStorage.isLogin.set(true);
+    return;
   }
 }

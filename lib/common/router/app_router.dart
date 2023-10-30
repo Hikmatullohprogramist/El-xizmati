@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/presentation/home/home_page.dart';
 import 'package:onlinebozor/presentation/home/profile_dashboard/features/setting/setting_page.dart';
 
+import '../../domain/model/ad_enum.dart';
 import '../../presentation/ad/ad_collection/ad_collection_page.dart';
 import '../../presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
 import '../../presentation/ad/ad_detail/ad_detil_page.dart';
@@ -55,7 +56,6 @@ import '../../presentation/home/profile_dashboard/features/setting/features/my_s
 import '../../presentation/home/profile_dashboard/features/setting/features/notification_settings/notification_setting_page.dart';
 import '../../presentation/home/profile_dashboard/features/wallet_filling/wallet_filling_page.dart';
 import '../../presentation/home/profile_dashboard/profile_dashboard_page.dart';
-import '../../domain/model/ad_enum.dart';
 
 part 'app_router.gr.dart';
 
@@ -90,7 +90,8 @@ class AppRouter extends _$AppRouter {
                     page: ServiceFavoritesRoute.page, path: 'service_favorites')
               ]),
               AutoRoute(page: CardRoute.page, path: 'card'),
-              AutoRoute(page: ProfileDashboardRoute.page, path: 'profile')
+              AutoRoute(page: ProfileDashboardRoute.page, path: 'profile'),
+              AutoRoute(page: AuthStartRoute.page, path: "auth_start"),
             ]),
 
         // Ads collection
