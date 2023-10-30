@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
@@ -71,7 +72,9 @@ class DashboardPage
                         onClick: (AdModel result) {
                           context.router.push(AdDetailRoute(adId: result.id));
                         },
-                        onClickFavorite: (AdModel result) {},
+                        onClickFavorite: (AdModel result) {
+                          context.read<DashboardCubit>().deleteItem(result);
+                        },
                       )),
                   LoaderStateWidget(
                       isFullScreen: false,
@@ -103,7 +106,7 @@ class DashboardPage
                             child: Center(
                                 child: Column(
                               children: [
-                                "Xatolik yuz berdi?"
+                                Strings.loadingStateError
                                     .w(400)
                                     .s(14)
                                     .c(context.colors.textPrimary),
@@ -111,7 +114,7 @@ class DashboardPage
                                 CommonButton(
                                     onPressed: () {},
                                     type: ButtonType.elevated,
-                                    child: "Qayta urinish".w(400).s(15))
+                                    child: Strings.loadingStateRetrybutton.w(400).s(15))
                               ],
                             )));
                       },
@@ -127,7 +130,7 @@ class DashboardPage
                       },
                       noItemsFoundIndicatorBuilder: (_) {
                         return Center(
-                            child: Text("Hech qanday element topilmadi"));
+                            child: Text(Strings.loadingStateNotitemfound));
                       },
                       newPageProgressIndicatorBuilder: (_) {
                         return SizedBox(
@@ -156,7 +159,11 @@ class DashboardPage
                             padding: EdgeInsets.only(right: 16),
                             child: AppAdWidget(
                                 result: item,
-                                onClickFavorite: (value) {},
+                                onClickFavorite: (value) {
+                                  context
+                                      .read<DashboardCubit>()
+                                      .deleteItem(value);
+                                },
                                 onClick: (value) => context.router
                                     .push(AdDetailRoute(adId: value.id))),
                           );
@@ -165,7 +172,11 @@ class DashboardPage
                             padding: EdgeInsets.only(left: 16),
                             child: AppAdWidget(
                               result: item,
-                              onClickFavorite: (value) {},
+                              onClickFavorite: (value) {
+                                context
+                                    .read<DashboardCubit>()
+                                    .deleteItem(value);
+                              },
                               onClick: (value) => context.router
                                   .push(AdDetailRoute(adId: value.id)),
                             ),

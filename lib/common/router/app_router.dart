@@ -23,7 +23,7 @@ import '../../presentation/common/language/set_language/set_language_page.dart';
 import '../../presentation/common/notification/notification_page.dart';
 import '../../presentation/common/popular_categories/popular_categories_page.dart';
 import '../../presentation/common/search/search_page.dart';
-import '../../presentation/home/card/card_page.dart';
+import '../../presentation/home/cart/cart_page.dart';
 import '../../presentation/home/category/category_page.dart';
 import '../../presentation/home/dashboard/dashboard_page.dart';
 import '../../presentation/home/favorites/favorites/commodity/commodity_favorites_page.dart';
@@ -89,7 +89,7 @@ class AppRouter extends _$AppRouter {
                 AutoRoute(
                     page: ServiceFavoritesRoute.page, path: 'service_favorites')
               ]),
-              AutoRoute(page: CardRoute.page, path: 'card'),
+              AutoRoute(page: CartRoute.page, path: 'cart'),
               AutoRoute(page: ProfileDashboardRoute.page, path: 'profile'),
               AutoRoute(page: AuthStartRoute.page, path: "auth_start"),
             ]),

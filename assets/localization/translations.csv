@@ -33,4 +33,32 @@ ads.property.personal,Shaxsiy,Частное
 ads.property.biznes,Biznes,Бизнес
 ads.status.new,Yangi,Новый
 ads.status.old,Б/У,Б/У
+ad.status.title,Holati:,Состояние:
 search.commodity_and_service,Mahsulotlar va toifalarni qidiring,Искать товары и категории
+bottombar.dashboard,Dashboard,Главная
+bottombar.catalog,Katalog,Каталог
+bottombar.favorite,Sevimlilar,Желания
+bottombar.card,Savat,Корзина
+bottom.more,Ko'proq,Больше
+favorite.commodity.title,Tovarlar,Товары
+favorite.service.title,xizmatlar,Услуги
+favorite.title,Sevimlilar,Мои желания
+loading.state.error,Xatolik yuz berdi,Произошла ошибка
+loading.state.retrybutton,Qayta urinish,Повторить попытку
+loading.state.notitemfound,Hech qanday element topilmadi,No items found
+ad.detail.published.title,Nashr etilgan:,Опубликовано: 
+ad.detail.view.count.title,Ko'rishlar:,Просмотров:
+ad.detail.complain,Shikoyat qiling,Пожаловаться
+ad.detail.description,Tavsif,Описание
+ad.detail.showmore,Ko'proq ko'rsatish,Показать больше
+ad.detail.characteristics,Xususiyatlari,Характеристики
+ad.detail.Saller,Sotuvchi,Продавец
+ad.detail.price,narxi:,Цена:
+ad.detail.addtocart,Savatchaga qo'shish,В корзину
+ad.detail.onOnlineBozor,OnlineBozor-da,на OnlineBozor с
+ad.detail.location,Manzil,Местоположение
+ad.detail.towritemessge,Xabar yozish uchun ,Написать сообщение
+ad.detail.feedback,Sharhlar,Отзывы
+ad.collective.popular,Ommaboplar,Популярные
+ad.collective.discounts,Chegirmalar,Скидки
+ad.det,,

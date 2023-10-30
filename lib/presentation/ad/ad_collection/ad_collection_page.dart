@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_group_widget.dart';
 import 'package:onlinebozor/common/widgets/all_view_widget.dart';
@@ -48,10 +49,15 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: switch (collectiveType) {
-                          CollectiveType.commodity =>
-                            'Товары'.w(700).s(16).c(context.colors.textPrimary),
-                          CollectiveType.service =>
-                            'Услуги'.w(700).s(16).c(context.colors.textPrimary),
+                          CollectiveType.commodity => Strings
+                              .favoriteCommodityTitle
+                              .w(700)
+                              .s(16)
+                              .c(context.colors.textPrimary),
+                          CollectiveType.service => Strings.favoriteServiceTitle
+                              .w(700)
+                              .s(16)
+                              .c(context.colors.textPrimary),
                         },
                       )),
                   AppAllViewWidget(
@@ -59,7 +65,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                         context.router.push(AdListRoute(
                             adListType: AdListType.list, keyWord: ''));
                       },
-                      title: "Горячие скидки"),
+                      title: Strings.adCollectiveDiscounts),
                   LoaderStateWidget(
                       isFullScreen: false,
                       loadingState: state.hotDiscountAdsState,
@@ -77,7 +83,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                         context.router.push(AdListRoute(
                             adListType: AdListType.list, keyWord: ''));
                       },
-                      title: "Популярные товары"),
+                      title: Strings.adCollectivePopular),
                   SizedBox(height: 6),
                   LoaderStateWidget(
                       isFullScreen: false,
@@ -112,7 +118,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                               child: Center(
                                   child: Column(
                                 children: [
-                                  "Xatolik yuz berdi?"
+                                  Strings.loadingStateError
                                       .w(400)
                                       .s(14)
                                       .c(context.colors.textPrimary),
@@ -120,7 +126,9 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                                   CommonButton(
                                       onPressed: () {},
                                       type: ButtonType.elevated,
-                                      child: "Qayta urinish".w(400).s(15))
+                                      child: Strings.loadingStateRetrybutton
+                                          .w(400)
+                                          .s(15))
                                 ],
                               )));
                         },
@@ -136,7 +144,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                         },
                         noItemsFoundIndicatorBuilder: (_) {
                           return Center(
-                              child: Text("Hech qanday element topilmadi"));
+                              child: Text(Strings.loadingStateNotitemfound));
                         },
                         newPageProgressIndicatorBuilder: (_) {
                           return SizedBox(
@@ -167,7 +175,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                                   result: item,
                                   onClickFavorite: (value) {},
                                   onClick: (value) => context.router
-                                      .push(AdDetailRoute(adId: value.id!))),
+                                      .push(AdDetailRoute(adId: value.id))),
                             );
                           } else {
                             return Padding(
@@ -176,7 +184,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                                 result: item,
                                 onClickFavorite: (value) {},
                                 onClick: (value) => context.router
-                                    .push(AdDetailRoute(adId: value.id!)),
+                                    .push(AdDetailRoute(adId: value.id)),
                               ),
                             );
                           }

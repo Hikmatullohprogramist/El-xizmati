@@ -20,8 +20,7 @@ class CategoriesStorage {
     Hive
       ..init(appDocumentDir.path)
       ..registerAdapter(CategoryResponseAdapter());
-    final box =
-    await Hive.openBox<List>('categories_storage');
+    final box = await Hive.openBox<List>('categories_storage');
     return CategoriesStorage(box);
   }
 }

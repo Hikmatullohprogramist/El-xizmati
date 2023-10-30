@@ -121,5 +121,8 @@ class DashboardCubit
     return adController;
   }
 
-  void addPage() {}
+  void deleteItem(AdModel adModel) {
+    // buildable.adsPagingController?.itemList?.remove(adModel);
+    // buildable.adsPagingController?.notifyListeners();
+  }
 }

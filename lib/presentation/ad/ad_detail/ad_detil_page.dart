@@ -7,6 +7,7 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/constants.dart';
 import 'package:onlinebozor/common/extensions/currency_extensions.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/favorite_widget.dart';
 import 'package:onlinebozor/presentation/ad/ad_detail/cubit/ad_detail_cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -58,7 +59,7 @@ class AdDetailPage
                 padding: EdgeInsets.symmetric(vertical: 12),
                 child: Row(children: [
                   SizedBox(width: 16),
-                  "Цена:".w(400).s(12).c(Color(0xFF9EABBE)),
+                  Strings.adDetailPrice.w(400).s(12).c(Color(0xFF9EABBE)),
                   SizedBox(width: 8),
                   if (state.adDetail!.price == 0)
                     "${formatter.format(state.adDetail!.toPrice).replaceAll(',', ' ')}-"
@@ -79,7 +80,10 @@ class AdDetailPage
                       color: context.colors.buttonPrimary,
                       type: ButtonType.elevated,
                       onPressed: () {},
-                      child: "В корзину".s(13).c(Colors.white).w(500)),
+                      child: Strings.adDetailAddtocart
+                          .s(13)
+                          .c(Colors.white)
+                          .w(500)),
                   SizedBox(width: 16)
                 ]),
               )),
@@ -164,7 +168,7 @@ class AdDetailPage
                                 child: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      "Опубликовано: "
+                                      Strings.adDetailPublishedTitle
                                           .w(400)
                                           .s(14)
                                           .c(Color(0xFF9EABBE)),
@@ -187,7 +191,7 @@ class AdDetailPage
                                     children: [
                                       Assets.images.icEye.svg(),
                                       SizedBox(width: 8),
-                                      "Просмотров: "
+                                      Strings.adDetailViewCountTitle
                                           .w(400)
                                           .s(14)
                                           .c(Color(0xFF9EABBE)),
@@ -209,7 +213,7 @@ class AdDetailPage
                                     children: [
                                       Assets.images.icComplain.svg(),
                                       SizedBox(width: 8),
-                                      "Пожаловаться"
+                                      Strings.adDetailComplain
                                           .w(400)
                                           .s(14)
                                           .c(Color(0xFFF66412))
@@ -237,7 +241,7 @@ class AdDetailPage
                                     ]))),
                         SizedBox(height: 16),
                         AppDivider(height: 1),
-                        getWatch("Описание", () {}),
+                        getWatch(Strings.adDetailDescription, () {}),
                         (state.adDetail!.description ?? "")
                             .w(400)
                             .s(14)
@@ -246,18 +250,21 @@ class AdDetailPage
                         SizedBox(height: 16),
                         Align(
                             alignment: Alignment.centerLeft,
-                            child: "Показать больше"
+                            child: Strings.adDetailShowmore
                                 .w(500)
                                 .s(14)
                                 .c(Color(0xFF5C6AC3))),
                         SizedBox(height: 24),
                         AppDivider(),
-                        getWatch("Характеристики", () {}),
+                        getWatch(Strings.adDetailCharacteristics, () {}),
                         AppDivider(),
                         SizedBox(height: 16),
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: "Продавец".w(500).s(16).c(Color(0xFF41455E)),
+                          child: Strings.adDetailSaller
+                              .w(500)
+                              .s(16)
+                              .c(Color(0xFF41455E)),
                         ),
                         SizedBox(height: 12),
                         Row(
@@ -286,7 +293,7 @@ class AdDetailPage
                                 SizedBox(height: 10),
                                 Row(
                                   children: [
-                                    "на OnlineBozor с"
+                                    Strings.adDetailOnOnlineBozor
                                         .w(500)
                                         .s(14)
                                         .c(Color(0xFF9EABBE)),
@@ -308,7 +315,7 @@ class AdDetailPage
                         SizedBox(height: 24),
                         Align(
                             alignment: Alignment.centerLeft,
-                            child: "Местоположение"
+                            child: Strings.adDetailLocation
                                 .w(500)
                                 .s(16)
                                 .c(Color(0xFF41455E))),
@@ -357,7 +364,7 @@ class AdDetailPage
                                   Assets.images.icSms
                                       .svg(height: 24, width: 24),
                                   SizedBox(width: 16),
-                                  "Написать сообщение"
+                                  Strings.adDetailTowritemessge
                                       .w(500)
                                       .s(16)
                                       .c(Color(0xFF41455E))
@@ -384,7 +391,7 @@ class AdDetailPage
                                   Assets.images.icCall
                                       .svg(height: 24, width: 24),
                                   SizedBox(width: 16),
-                                  "Написать сообщение"
+                                  "Показать телефон"
                                       .w(500)
                                       .s(16)
                                       .c(Colors.white)
@@ -393,12 +400,12 @@ class AdDetailPage
                             ),
                             onTap: () {
                               try {
-                                launch("sms://${state.adDetail!.phoneNumber}");
+                                launch("tel://${state.adDetail!.phoneNumber}");
                               } catch (e) {}
                             }),
                         SizedBox(height: 12),
                         AppDivider(),
-                        getWatch("Отзывы ", () {}),
+                        getWatch(Strings.adDetailFeedback, () {}),
                       ]),
                 )
               ],

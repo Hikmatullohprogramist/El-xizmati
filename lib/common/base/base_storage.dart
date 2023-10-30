@@ -18,4 +18,8 @@ class BaseStorage<T> {
   Future<void> delete() => box.delete(_key);
 
   Future<void> clear() => box.clear();
+
+  Future<void> add(T value) => box.add(value);
+
+  Future<void> addAll(List<T> values) => box.addAll(values);
 }

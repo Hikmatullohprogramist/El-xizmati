@@ -5,6 +5,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/base/base_page.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/app_bar/common_app_bar.dart';
 import 'package:onlinebozor/domain/model/ad_model.dart';
 import 'package:onlinebozor/presentation/ad/ad_list/cubit/ad_list_cubit.dart';
@@ -53,7 +54,7 @@ class AdListPage
               child: Center(
                 child: Column(
                   children: [
-                    "Xatolik yuz berdi?"
+                    Strings.loadingStateError
                         .w(400)
                         .s(14)
                         .c(context.colors.textPrimary),
@@ -61,7 +62,7 @@ class AdListPage
                     CommonButton(
                         onPressed: () {},
                         type: ButtonType.elevated,
-                        child: "Qayta urinish".w(400).s(15))
+                        child: Strings.loadingStateRetrybutton.w(400).s(15))
                   ],
                 ),
               ),
@@ -78,7 +79,7 @@ class AdListPage
             );
           },
           noItemsFoundIndicatorBuilder: (_) {
-            return Center(child: Text("Hech qanday element topilmadi"));
+            return Center(child: Text(Strings.loadingStateNotitemfound));
           },
           newPageProgressIndicatorBuilder: (_) {
             return SizedBox(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
@@ -25,7 +26,10 @@ class FavoritesPage
             backgroundColor: Colors.white,
             centerTitle: true,
             bottomOpacity: 1,
-            title: "Мои желания".w(500).s(16).c(context.colors.textPrimary),
+            title: Strings.favoriteTitle
+                .w(500)
+                .s(16)
+                .c(context.colors.textPrimary),
             leading: AutoLeadingButton(),
             bottom: TabBar(
               physics: BouncingScrollPhysics(),
@@ -42,9 +46,9 @@ class FavoritesPage
               unselectedLabelColor: Color(0xFF9EABBE),
               indicatorColor: context.colors.textPrimary,
               controller: controller,
-              tabs: const [
-                Tab(text: 'Товары'),
-                Tab(text: 'Услуги'),
+              tabs: [
+                Tab(text: Strings.favoriteCommodityTitle),
+                Tab(text: Strings.favoriteServiceTitle),
               ],
             ),
           ),
