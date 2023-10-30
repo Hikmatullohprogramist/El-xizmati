@@ -1,38 +1,37 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onlinebozor/common/base/base_page.dart';
+import 'package:onlinebozor/presentation/home/cubit/home_cubit.dart';
 
 import '../../common/gen/assets/assets.gen.dart';
 import '../../common/router/app_router.dart';
 
 @RoutePage()
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
+  const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  void init(BuildContext context) {
+  context.read<HomeCubit>().isLogin();
+  }
+
+  @override
+  Widget builder(BuildContext context, HomeBuildable state) {
     return AutoTabsRouter(
-      // list of your tab routes
-      // routes used here must be declared as children
-      // routes of /dashboard
-      routes: const [
+      routes: [
         DashboardRoute(),
         CategoryRoute(),
         FavoritesRoute(),
         CardRoute(),
-        ProfileDashboardRoute(),
+        if (state.isLogin) ProfileDashboardRoute() else AuthStartRoute()
       ],
       transitionBuilder: (context, child, animation) => FadeTransition(
         opacity: animation,
-        // the passed child is technically our animated selected-tab page
         child: child,
       ),
       builder: (context, child) {
-        // obtain the scoped TabsRouter controller using context
         final tabsRouter = AutoTabsRouter.of(context);
-        // Here we're building our Scaffold inside of AutoTabsRouter
-        // to access the tabsRouter controller provided in this context
-        //
-        //alterntivly you could use a global key
         return Scaffold(
             body: child,
             bottomNavigationBar: Container(

@@ -6,7 +6,6 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 
-import '../../../domain/model/ad_enum.dart';
 import '../../../common/gen/localization/strings.dart';
 import '../../../common/widgets/ad/ad_group_widget.dart';
 import '../../../common/widgets/ad/ad_widget.dart';
@@ -18,7 +17,7 @@ import '../../../common/widgets/category/popular_category_group.dart';
 import '../../../common/widgets/common_button.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../common/widgets/root_commodity_and_service.dart';
-import '../../../data/model/ads/ad/ad_response.dart';
+import '../../../domain/model/ad_enum.dart';
 import '../../../domain/model/ad_model.dart';
 import 'cubit/dashboard_cubit.dart';
 

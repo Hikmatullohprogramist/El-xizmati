@@ -39,7 +39,8 @@ class AdCollectionCubit
   Future<void> getHotDiscountAds() async {
     try {
       log.i("recentlyViewerAds request");
-      final hotDiscountAds = await adRepository.getRecentlyViewAds();
+      final hotDiscountAds =
+          await adRepository.getPopularAds(buildable.collectiveType);
       build((buildable) => buildable.copyWith(
           hotDiscountAds: hotDiscountAds,
           hotDiscountAdsState: AppLoadingState.success));
@@ -55,7 +56,8 @@ class AdCollectionCubit
   Future<void> getPopularAds() async {
     try {
       log.i("recentlyViewerAds request");
-      final popularAds = await adRepository.getRecentlyViewAds();
+      final popularAds =
+          await adRepository.getPopularAds(buildable.collectiveType);
       build((buildable) => buildable.copyWith(
           popularAds: popularAds, popularAdsState: AppLoadingState.success));
       log.i("recentlyViewerAds=${buildable.hotDiscountAds}");
@@ -91,7 +93,7 @@ class AdCollectionCubit
 
     adController.addPageRequestListener(
       (pageKey) async {
-        final adsList = await adRepository.getHomeAds(pageKey, _pageSize, "");
+        final adsList = await adRepository.getCollectiveAds(pageKey, _pageSize, "", buildable.collectiveType);
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);
           log.i(buildable.adsPagingController);
