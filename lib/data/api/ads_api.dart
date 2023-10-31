@@ -40,7 +40,7 @@ class AdsApi {
       'page': pageIndex,
       'page_size': pageSize,
       'key_word': keyWord,
-      'param': param
+      'type_ads': param
     };
     return _dio.get("v1/home/ads?", queryParameters: queryParameters);
   }
@@ -52,7 +52,7 @@ class AdsApi {
     } else {
       param = "SERVICE";
     }
-    final queryParameters = {'param': param};
+    final queryParameters = {'type_ads': param};
     return _dio.get("v1/home/ads?", queryParameters: queryParameters);
   }
 
@@ -63,7 +63,7 @@ class AdsApi {
     } else {
       param = "SERVICE";
     }
-    final queryParameters = {'param': param};
+    final queryParameters = {'type_ads': param};
     return _dio.get("v1/home/ads?", queryParameters: queryParameters);
   }
 

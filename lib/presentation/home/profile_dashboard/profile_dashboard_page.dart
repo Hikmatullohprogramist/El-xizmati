@@ -121,7 +121,7 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
                   name: 'Мои адреса',
                   icon: Assets.images.profile.icLocation
                       .svg(width: 18, height: 18),
-                  callback: () => context.router.push(AddAddressRoute())),
+                  callback: () => context.router.push(MyAddressesRoute())),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(
                   name: 'Продвижения',

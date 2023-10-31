@@ -16,7 +16,7 @@ class AppInterceptor extends QueuedInterceptor {
     headers['DeviceName'] = DeviceInfo.device_name;
     headers['DeviceManufacturer'] = DeviceInfo.device_manufacture;
     headers['DeviceModel'] = DeviceInfo.device_model;
-    headers['UserAgent'] =
+    headers['User-Agent'] =
         "${DeviceInfo.device_id}&&${DeviceInfo.device_model}&&${DeviceInfo.device_name}&&APPLICATION";
     headers['MobileOs'] = DeviceInfo.mobile_os;
     headers['NightMode'] = DeviceInfo.night_mode;

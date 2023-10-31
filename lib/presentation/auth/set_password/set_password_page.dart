@@ -53,7 +53,10 @@ class SetPasswordPage extends BasePage<SetPasswordCubit, SetPasswordBuildable,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 42),
-            Strings.authRegister.w(500).s(24).c(context.colors.textPrimary),
+            Strings.authRegisterRegister
+                .w(500)
+                .s(24)
+                .c(context.colors.textPrimary),
             SizedBox(height: 42),
             Align(
                 alignment: Alignment.centerLeft,
@@ -119,6 +122,5 @@ class SetPasswordPage extends BasePage<SetPasswordCubit, SetPasswordBuildable,
         ),
       ),
     );
-    ;
   }
 }

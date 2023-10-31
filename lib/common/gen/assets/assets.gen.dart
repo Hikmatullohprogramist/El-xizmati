@@ -103,6 +103,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/ic_mic.svg
   SvgGenImage get icMic => const SvgGenImage('assets/images/ic_mic.svg');
 
+  /// File path: assets/images/ic_more_vert.svg
+  SvgGenImage get icMoreVert =>
+      const SvgGenImage('assets/images/ic_more_vert.svg');
+
   /// File path: assets/images/ic_notification.svg
   SvgGenImage get icNotification =>
       const SvgGenImage('assets/images/ic_notification.svg');
@@ -190,6 +194,7 @@ class $AssetsImagesGen {
         icLocation,
         icLock,
         icMic,
+        icMoreVert,
         icNotification,
         icOneId,
         icPhone,
@@ -300,13 +305,24 @@ class $AssetsImagesPngImagesGen {
   AssetGenImage get service =>
       const AssetGenImage('assets/images/png_images/service.png');
 
+  /// File path: assets/images/png_images/user_addresses.png
+  AssetGenImage get userAddresses =>
+      const AssetGenImage('assets/images/png_images/user_addresses.png');
+
   /// File path: assets/images/png_images/wish_list_shopping.png
   AssetGenImage get wishListShopping =>
       const AssetGenImage('assets/images/png_images/wish_list_shopping.png');
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [appLogo, commondity, flagRu, flagUz, service, wishListShopping];
+  List<AssetGenImage> get values => [
+        appLogo,
+        commondity,
+        flagRu,
+        flagUz,
+        service,
+        userAddresses,
+        wishListShopping
+      ];
 }
 
 class $AssetsImagesProfileGen {

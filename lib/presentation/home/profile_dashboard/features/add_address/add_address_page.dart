@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
@@ -18,7 +17,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: 'Мои адреса'.w(500).s(14).c(context.colors.textPrimary),
+        title: 'Добавить новый адрес'.w(500).s(14).c(context.colors.textPrimary),
         centerTitle: true,
         elevation: 0.5,
         leading: IconButton(
@@ -26,7 +25,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
           onPressed: () => context.router.pop(),
         ),
       ),
-      body: Center(child: Text("My address")),
+      body: Column(children: []),
     );
   }
 }

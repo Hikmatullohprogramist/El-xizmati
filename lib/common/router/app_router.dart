@@ -36,6 +36,7 @@ import '../../presentation/home/profile_dashboard/features/chat_list/features/ch
 import '../../presentation/home/profile_dashboard/features/chat_list/features/saved_chats/saved_chats_page.dart';
 import '../../presentation/home/profile_dashboard/features/chat_list/features/selling_chats/selling_chats_page.dart';
 import '../../presentation/home/profile_dashboard/features/comparison_detail/comparison_detail_page.dart';
+import '../../presentation/home/profile_dashboard/features/my_address/my_addresses_page.dart';
 import '../../presentation/home/profile_dashboard/features/my_ads/features/active_ads/my_active_ads.dart';
 import '../../presentation/home/profile_dashboard/features/my_ads/features/inactive_ads/my_inactive_ads.dart';
 import '../../presentation/home/profile_dashboard/features/my_ads/features/pending_ads/my_pending_ads.dart';
@@ -110,6 +111,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: WalletFillingRoute.page, path: '/wallet_filling'),
         AutoRoute(page: ProfileViewerRoute.page, path: '/profile_viewer'),
         AutoRoute(page: AddAddressRoute.page, path: '/add_address'),
+        AutoRoute(page: MyAddressesRoute.page, path: '/my_addresses'),
         AutoRoute(page: MyAdsRoute.page, path: '/my_ads', children: [
           AutoRoute(page: MyActiveAdsRoute.page, path: 'active_ads'),
           AutoRoute(page: MyPendingAdsRoute.page, path: 'pending_ads'),
