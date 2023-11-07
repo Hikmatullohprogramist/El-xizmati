@@ -8,7 +8,6 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/presentation/auth/confirm/confirm_page.dart';
 import 'package:onlinebozor/presentation/auth/verification/cubit/verification_cubit.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../common/gen/localization/strings.dart';
 import '../../../common/widgets/common_button.dart';
@@ -120,6 +119,7 @@ class VerificationPage extends BasePage<VerificationCubit,
             ),
             Spacer(),
             CommonButton(
+                color: context.colors.buttonPrimary,
                 onPressed: () {
                   context.read<VerificationCubit>().verification();
                 },

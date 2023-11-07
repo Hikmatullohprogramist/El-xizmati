@@ -23,9 +23,9 @@ class OneIdRootResponse with _$OneIdRootResponse {
 @freezed
 class OneIdResponse with _$OneIdResponse {
   const factory OneIdResponse({
-    String? accessToken,
-    String? passwordPolicy,
-    bool? hasUsername,
+    String? access_token,
+    String? password_policy,
+    bool? has_username,
     Profile? profile,
     bool? hasProfile,
     bool? hasPassword,

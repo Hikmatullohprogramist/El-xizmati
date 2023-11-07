@@ -1,11 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/data/storage/token_storage.dart';
 
 @lazySingleton
 class AuthApi {
   final Dio _dio;
+  final TokenStorage tokenStorage;
 
-  AuthApi(this._dio);
+  AuthApi(this._dio, this.tokenStorage);
 
   Future<Response> authStart({required String phone}) {
     final body = {'phone_number': phone};
@@ -49,9 +51,11 @@ class AuthApi {
   }
 
   Future<Response> registerOrResetPassword(
-      {required String password, required String repeatPassword}) {
+      {required String password, required String repeatPassword}) async {
+    final headers = {"Authorization": "Bearer ${tokenStorage.token.call()}"};
     final body = {"password": password, "repeat_password": repeatPassword};
-    return _dio.put('v1/auth/user/change_password', data: body);
+    return _dio.put('v1/auth/user/change_password',
+        data: body, options: Options(headers: headers));
   }
 
   Future<Response> loginWithOneId({required String accessCode}) {

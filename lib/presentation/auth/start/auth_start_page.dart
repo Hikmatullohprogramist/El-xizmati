@@ -81,7 +81,7 @@ class AuthStartPage
               maxLines: 1,
               textInputAction: TextInputAction.done,
               controller: textEditingController,
-              inputFormatters: textMaskFormatter,
+              inputFormatters: phoneMaskFormatter,
               onChanged: (value) {
                 context.read<AuthStartCubit>().setPhone(value);
               },
@@ -142,6 +142,7 @@ class AuthStartPage
                 )),
             SizedBox(height: 24),
             CommonButton(
+                color: context.colors.buttonPrimary,
                 onPressed: () {
                   context.read<AuthStartCubit>().validation();
                 },

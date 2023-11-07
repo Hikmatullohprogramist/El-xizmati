@@ -61,4 +61,20 @@ ad.detail.towritemessge,Xabar yozish uchun ,Написать сообщение
 ad.detail.feedback,Sharhlar,Отзывы
 ad.collective.popular,Ommaboplar,Популярные
 ad.collective.discounts,Chegirmalar,Скидки
-ad.det,,
+profile.view.titlle,Profil,Профиль
+profile.view.personal.data,Shaxsiy ma'lumotlar,Личные данные
+profile.view.private.person,Jismoniy shaxs,Частное лицо
+profile.view.changetobusiness,Biznesga o'tish,Поменять на бизнес
+profile.view.not.identified,Aniqlanmagan,Не идентифицирован 
+profile.view.identified,Aniqlangan,Идентифицирован
+profile.user.name,Foydalanuvchi nomi,Имя пользователя
+profile.user.brithdate,Tug'ilgan kuni,Дата рождения
+profile.user.biometricdate,Passport details,Паспортные данные
+profile.user.gender,Jins,Пол
+profile.user.email,Emial,email
+profile.user.region,Viloyat,Регион
+profile.user.district,Tuman ,Район
+profile.user.neighborhood,Turar joy,Махалля
+profile.user.phone,Telefon,Телефон
+profile.user.gender.boy,Erkak,Муж.
+profile.user.gender.women,Ayollar,Жен.

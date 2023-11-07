@@ -16,9 +16,8 @@ class AuthInterceptor extends QueuedInterceptor {
   ) async {
     String? token = tokenStorage.token.call();
     final headers = {'X-Api-Key': ""};
-    // final headers = {};
     if (token != null) {
-      headers['Authorization'] = 'Bearer $token';
+      // headers['Authorization'] = 'Bearer $token';
     }
     options.headers.addAll(headers);
     handler.next(options);

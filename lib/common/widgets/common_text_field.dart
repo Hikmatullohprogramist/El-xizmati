@@ -18,6 +18,8 @@ class CommonTextField extends StatefulWidget {
     this.onChanged,
     this.inputFormatters,
     this.textInputAction,
+    this.maxLength = 1000,
+    this.textAlign = TextAlign.start,
   }) : super(key: key);
 
   final String? hint;
@@ -29,6 +31,8 @@ class CommonTextField extends StatefulWidget {
   final int? minLines;
   final int? maxLines;
   final bool enabled;
+  final int maxLength;
+  final TextAlign textAlign;
   final Color? disabledColor;
   final TextInputAction? textInputAction;
   final TextInputFormatter? inputFormatters;
@@ -50,6 +54,10 @@ class _CommonTextFieldState extends State<CommonTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      textAlign: widget.textAlign,
+      textAlignVertical: TextAlignVertical.center,
+      maxLength: widget.maxLength,
+      style: TextStyle(),
       controller: widget.controller,
       keyboardType: widget.inputType,
       minLines: widget.minLines,
@@ -62,10 +70,24 @@ class _CommonTextFieldState extends State<CommonTextField> {
         if (widget.inputFormatters != null) widget.inputFormatters!
       ],
       decoration: InputDecoration(
+        filled: true,
+        focusColor: Colors.white,
+        fillColor: Color(0xFFFAF9FF),
         hintText: widget.hint,
+        isDense: false,
+        counter: Offstage(),
+        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         labelText: widget.label,
         border: OutlineInputBorder(
           borderSide: BorderSide(color: context.colors.primary),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: context.colors.primary),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: context.colors.buttonPrimary),
           borderRadius: BorderRadius.circular(8),
         ),
         suffixIcon: !widget.obscureText
@@ -78,9 +100,9 @@ class _CommonTextFieldState extends State<CommonTextField> {
                 onPressed: () {
                   setState(() {
                     _passwordVisible = !_passwordVisible;
-                  });
-                },
-              ),
+            });
+          },
+        ),
       ),
       obscureText: _passwordVisible,
     );

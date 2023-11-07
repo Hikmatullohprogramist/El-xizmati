@@ -46,7 +46,8 @@ class CommonButton extends StatelessWidget {
       case ButtonType.elevated:
         return ElevatedButton(
           onPressed: onButtonPressed,
-          style: ElevatedButton.styleFrom(backgroundColor: color),
+          style: ElevatedButton.styleFrom(
+              backgroundColor: color ?? context.colors.buttonPrimary),
           child: _buildChild(context),
         );
       case ButtonType.outlined:
@@ -82,7 +83,7 @@ class CommonButton extends StatelessWidget {
             child: CircularProgressIndicator.adaptive(
               strokeWidth: 3,
               backgroundColor: type == ButtonType.elevated
-                  ? context.colors.onPrimary
+                  ? context.colors.buttonPrimary
                   : context.colors.primary,
             ),
           )

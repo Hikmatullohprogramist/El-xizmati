@@ -134,6 +134,7 @@ class ConfirmPage
             ),
             Spacer(),
             CommonButton(
+              color: context.colors.buttonPrimary,
                 onPressed: () {
                   context.read<ConfirmCubit>().confirm();
                 },

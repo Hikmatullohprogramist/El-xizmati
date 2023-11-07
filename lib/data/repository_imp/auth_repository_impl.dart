@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/api/auth_api.dart';
+import 'package:onlinebozor/data/model/auth/one_id/one_id_response.dart';
 import 'package:onlinebozor/data/storage/token_storage.dart';
 
 import '../../domain/repository/auth_repository.dart';
@@ -32,8 +33,8 @@ class AuthRepositoryImpl extends AuthRepository {
     final verificationResponse =
         ConfirmRootResponse.fromJson(response.data).data;
     if (verificationResponse.token != null) {
-      tokenStorage.token.set(verificationResponse.token ?? "");
-      tokenStorage.isLogin.set(true);
+      await tokenStorage.token.set(verificationResponse.token ?? "");
+      await tokenStorage.isLogin.set(true);
     }
     return;
   }
@@ -44,8 +45,8 @@ class AuthRepositoryImpl extends AuthRepository {
         phone: phone, code: code, sessionToken: sessionToken);
     final confirmResponse = ConfirmRootResponse.fromJson(response.data).data;
     if (confirmResponse.token != null) {
-      tokenStorage.token.set(confirmResponse.token ?? "");
-      tokenStorage.isLogin.set(true);
+      await tokenStorage.token.set(confirmResponse.token ?? "");
+      await tokenStorage.isLogin.set(true);
     }
   }
 
@@ -73,8 +74,8 @@ class AuthRepositoryImpl extends AuthRepository {
         phone: phone, code: code, sessionToken: sessionToken);
     final confirmResponse = ConfirmRootResponse.fromJson(response.data).data;
     if (confirmResponse.token != null) {
-      tokenStorage.token.set(confirmResponse.token ?? "");
-      tokenStorage.isLogin.set(true);
+      await tokenStorage.token.set(confirmResponse.token ?? "");
+      await tokenStorage.isLogin.set(true);
     }
     return;
   }
@@ -82,7 +83,11 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<void> loginWithOneId(String accessCode) async {
     final response = await _api.loginWithOneId(accessCode: accessCode);
-    await tokenStorage.isLogin.set(true);
+    final oneIdResponse = OneIdRootResponse.fromJson(response.data).data;
+    if (oneIdResponse?.access_token != null) {
+      await tokenStorage.isLogin.set(true);
+      await tokenStorage.token.set(oneIdResponse?.access_token ?? "");
+    }
     return;
   }
 }
