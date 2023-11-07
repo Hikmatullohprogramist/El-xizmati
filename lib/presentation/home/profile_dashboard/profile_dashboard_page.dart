@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
@@ -41,22 +42,23 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
                     ]),
               ),
               InkWell(
-                onTap: ()=> context.router.push(WalletFillingRoute()),
+                  onTap: () => context.router.push(WalletFillingRoute()),
                   child: Container(
-                margin: EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-                padding: EdgeInsets.all(8),
-                decoration: ShapeDecoration(
-                  color: Color(0xFFFAF9FE),
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(width: 0.50, color: Color(0xFFDFE2E9)),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                child: Center(
-                  child:
-                      'Пополнить кашелек'.w(500).c(context.colors.textPrimary),
-                ),
-              )),
+                    margin: EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+                    padding: EdgeInsets.all(8),
+                    decoration: ShapeDecoration(
+                      color: Color(0xFFFAF9FE),
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(width: 0.50, color: Color(0xFFDFE2E9)),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: Center(
+                      child: 'Пополнить кашелек'
+                          .w(500)
+                          .c(context.colors.textPrimary),
+                    ),
+                  )),
             ],
           ))
         ],
@@ -136,7 +138,32 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
                   callback: () => context.router.push(SettingRoute())),
               Divider(indent: 46, height: 1),
               InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext dialogContext) {
+                        return AlertDialog(
+                          content: Text('Tizimdan chiqishni hohlaysizmi.'),
+                          actions: [
+                            TextButton(
+                              child: Text('Yo\'q'),
+                              onPressed: () {
+                                Navigator.of(dialogContext).pop();
+                              },
+                            ),
+                            TextButton(
+                              child: Text('Ha'),
+                              onPressed: () {
+                                context.read<ProfileDashboardCubit>().logOut();
+                                Navigator.of(dialogContext).pop();
+                                context.router.push(SetLanguageRoute());
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                     color: Colors.white,

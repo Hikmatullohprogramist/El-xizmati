@@ -14,4 +14,6 @@ abstract class AuthRepository {
   Future<void> recoveryConfirm(String phone, String code);
 
   Future<void> loginWithOneId(String accessCode);
+
+  Future<void> logOut();
 }

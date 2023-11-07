@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/api/auth_api.dart';
 import 'package:onlinebozor/data/model/auth/one_id/one_id_response.dart';
+import 'package:onlinebozor/data/storage/language_storage.dart';
 import 'package:onlinebozor/data/storage/token_storage.dart';
 
 import '../../domain/repository/auth_repository.dart';
@@ -13,9 +14,10 @@ import '../model/auth/register_password/register_password_response.dart';
 class AuthRepositoryImpl extends AuthRepository {
   final AuthApi _api;
   final TokenStorage tokenStorage;
+  final LanguageStorage languageStorage;
   String sessionToken = "";
 
-  AuthRepositoryImpl(this._api, this.tokenStorage);
+  AuthRepositoryImpl(this._api, this.tokenStorage, this.languageStorage);
 
   @override
   Future<AuthStartResponse> authStart(String phone) async {
@@ -88,6 +90,13 @@ class AuthRepositoryImpl extends AuthRepository {
       await tokenStorage.isLogin.set(true);
       await tokenStorage.token.set(oneIdResponse?.access_token ?? "");
     }
+    return;
+  }
+
+  @override
+  Future<void> logOut() async {
+    await tokenStorage.isLogin.clear();
+    await languageStorage.isLanguageSelection.clear();
     return;
   }
 }

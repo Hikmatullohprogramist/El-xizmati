@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'register_password_response.freezed.dart';
-
 part 'register_password_response.g.dart';
 
 @freezed
@@ -43,7 +42,7 @@ class IsPassword with _$IsPassword {
 class Password with _$Password {
   const factory Password({
     bool? newPassword,
-    int? username,
+    dynamic username,
   }) = _Password;
 
   factory Password.fromJson(Map<String, dynamic> json) =>
