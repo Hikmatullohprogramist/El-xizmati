@@ -83,3 +83,17 @@ bottom.navigation.catolog,Katalog,Каталог
 bottom.navigation.favorite,Istaklar,Желания
 bottom.navigation.cart,Savat,Корзина
 bottom.navigation.more,Ko'proq,Больше
+profile.dashboard.my.balans,Mening balansim:,Мой баланс:
+profile.dashboard.fill.wallet,Hamyonni to'ldiring,Наполните кошелек
+profile.dahboard.profile,Profil,Профиль
+profile.dashboard.myAds,Mening e'lonlarim,Мои Объявления
+profile.dashboard.orders,Buyurtmalar,Заказы
+profile.dahboard.message,Xabar,Сообщение
+profile.dashboard.notification,Bildirishnoma,Уведомление
+profile.dashboard.my.card,Mening kartalarim,Мои карты
+profile.dashboard.payment,To'lovlar,Платежи
+profile.dashboard.comparison,Taqqoslash ro'yxati,Список сравнения
+profile.dashboard.my.address,Mening manzillarim,Мои адреса
+profile.dashboard.promotions,Aktsiyalar,Продвижения
+profile.dashboard.setting,Sozlamalar,Настройки
+profile.dashboard.exit,Chiqish,Выйти

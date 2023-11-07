@@ -5,6 +5,7 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/presentation/home/profile_dashboard/cubit/profile_dashboard_cubit.dart';
 
@@ -34,11 +35,14 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      'Мой баланс:'.w(400).s(12).c(context.colors.textPrimary),
+                      Strings.profileDashboardMyBalans
+                          .w(400)
+                          .s(12)
+                          .c(context.colors.textPrimary),
                       SizedBox(
                         height: 8,
                       ),
-                      '250 000 сум'.w(700).s(16).c(context.colors.textPrimary),
+                      '*'.w(700).s(16).c(context.colors.textPrimary),
                     ]),
               ),
               InkWell(
@@ -54,7 +58,7 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
                       ),
                     ),
                     child: Center(
-                      child: 'Пополнить кашелек'
+                      child: Strings.profileDashboardFillWallet
                           .w(500)
                           .c(context.colors.textPrimary),
                     ),
@@ -71,68 +75,68 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
             children: [
               SizedBox(height: 10),
               ProfileItemWidget(
-                  name: 'Профиль',
+                  name: Strings.profileDahboardProfile,
                   icon: Assets.images.profile.icUserAvatar
                       .svg(width: 18, height: 18),
                   callback: () => context.router.push(ProfileViewerRoute())),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(
-                  name: 'Мои Объявления',
+                  name: Strings.profileDashboardMyAds,
                   icon: Assets.images.profile.icMegaPhone
                       .svg(width: 18, height: 18),
                   callback: () => context.router.push(MyAdsRoute())),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(
-                  name: 'Заказы',
+                  name: Strings.profileDashboardOrders,
                   icon:
                       Assets.images.profile.icOrder.svg(width: 18, height: 18),
                   callback: () => context.router.push(MyOrdersRoute())),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(
-                  name: 'Сообщение',
+                  name: Strings.profileDahboardMessage,
                   icon: Assets.images.profile.icMessage
                       .svg(width: 18, height: 18),
                   callback: () => context.router.push(ChatListRoute())),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(
-                  name: 'Уведомление',
+                  name: Strings.profileDashboardNotification,
                   icon: Assets.images.profile.icNotification
                       .svg(width: 18, height: 18),
                   callback: () => context.router.push(NotificationRoute())),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(
-                  name: 'Мои карты',
+                  name: Strings.profileDashboardMyCard,
                   icon:
                       Assets.images.profile.icCards.svg(width: 18, height: 18),
                   callback: () => context.router.push(MyCardsRoute())),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(
-                  name: 'Платежи',
+                  name: Strings.profileDashboardPayment,
                   icon: Assets.images.profile.icPayment
                       .svg(width: 18, height: 18),
                   callback: () =>
                       context.router.push(PaymentTransactionRoute())),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(
-                  name: 'Список сравнения',
+                  name: Strings.profileDashboardComparison,
                   icon: Assets.images.profile.icComparisonProduct
                       .svg(width: 18, height: 18),
                   callback: () => context.router.push(ComparisonDetailRoute())),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(
-                  name: 'Мои адреса',
+                  name: Strings.profileDashboardMyAddress,
                   icon: Assets.images.profile.icLocation
                       .svg(width: 18, height: 18),
                   callback: () => context.router.push(MyAddressesRoute())),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(
-                  name: 'Продвижения',
+                  name: Strings.profileDashboardPromotions,
                   icon: Assets.images.profile.icPromotion
                       .svg(width: 18, height: 18),
                   callback: () => context.router.push(PromotionRoute())),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(
-                  name: 'Настройки',
+                  name: Strings.profileDashboardSetting,
                   icon: Assets.images.profile.icSetting
                       .svg(width: 18, height: 18),
                   callback: () => context.router.push(SettingRoute())),
@@ -176,7 +180,10 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
                           children: [
                             Assets.images.profileViewer.icLogOut.svg(),
                             SizedBox(width: 16),
-                            "Выйти".w(500).s(14).c(Color(0xFFF66412))
+                            Strings.profileDashboardExit
+                                .w(500)
+                                .s(14)
+                                .c(Color(0xFFF66412))
                           ],
                         ),
                         Assets.images.icArrowRight.svg(height: 16, width: 16)
