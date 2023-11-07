@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/base/base_page.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/home/cubit/home_cubit.dart';
 
 import '../../common/gen/assets/assets.gen.dart';
@@ -54,8 +55,8 @@ class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
                 },
                 items: [
                   BottomNavigationBarItem(
-                      label: 'Главная',
-                      tooltip: 'Главная',
+                      label: Strings.bottomNavigationHome,
+                      tooltip: Strings.bottomNavigationHome,
                       icon: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Assets.images.bottomBar.dashboard.svg()),
@@ -64,7 +65,7 @@ class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
                         child: Assets.images.bottomBar.dashboardActive.svg(),
                       )),
                   BottomNavigationBarItem(
-                      label: 'Каталог',
+                      label: Strings.bottomNavigationCatolog,
                       icon: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Assets.images.bottomBar.category.svg()),
@@ -73,7 +74,7 @@ class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
                         child: Assets.images.bottomBar.categoryActive.svg(),
                       )),
                   BottomNavigationBarItem(
-                      label: 'Желания',
+                      label: Strings.bottomNavigationFavorite,
                       icon: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Assets.images.bottomBar.favorite.svg(),
@@ -83,7 +84,7 @@ class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
                         child: Assets.images.bottomBar.favoriteActive.svg(),
                       )),
                   BottomNavigationBarItem(
-                      label: 'Корзина',
+                      label: Strings.bottomNavigationCart,
                       icon: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Assets.images.bottomBar.cart.svg(),
@@ -93,7 +94,7 @@ class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
                         child: Assets.images.bottomBar.cartActive.svg(),
                       )),
                   BottomNavigationBarItem(
-                      label: 'Больше',
+                      label: Strings.bottomNavigationMore,
                       icon: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Assets.images.bottomBar.profile.svg(),

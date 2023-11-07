@@ -69,7 +69,7 @@ profile.view.not.identified,Aniqlanmagan,Не идентифицирован
 profile.view.identified,Aniqlangan,Идентифицирован
 profile.user.name,Foydalanuvchi nomi,Имя пользователя
 profile.user.brithdate,Tug'ilgan kuni,Дата рождения
-profile.user.biometricdate,Passport details,Паспортные данные
+profile.user.biometricdate,Pasport tafsilotlari,Паспортные данные
 profile.user.gender,Jins,Пол
 profile.user.email,Emial,email
 profile.user.region,Viloyat,Регион
@@ -78,3 +78,8 @@ profile.user.neighborhood,Turar joy,Махалля
 profile.user.phone,Telefon,Телефон
 profile.user.gender.boy,Erkak,Муж.
 profile.user.gender.women,Ayollar,Жен.
+bottom.navigation.home,Uy,Главная
+bottom.navigation.catolog,Katalog,Каталог
+bottom.navigation.favorite,Istaklar,Желания
+bottom.navigation.cart,Savat,Корзина
+bottom.navigation.more,Ko'proq,Больше
