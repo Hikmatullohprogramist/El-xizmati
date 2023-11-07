@@ -28,8 +28,23 @@ class NotificationSettingPage extends BasePage<NotificationSettingCubit,
           onPressed: () => context.router.pop(),
         ),
       ),
-      body: Center(
-        child: Text("Notification setting screen"),
+      body: Column(
+        children: [
+          Container(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Color(0xFF5C6AC3)),
+                  )
+                ],
+              )),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+          )
+        ],
       ),
     );
   }
