@@ -114,7 +114,7 @@ class AuthStartPage
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Strings.authStartLoginWithEds
+                      Strings.authStartLoginWithOneId
                           .w(400)
                           .s(14)
                           .c(context.colors.textPrimary),

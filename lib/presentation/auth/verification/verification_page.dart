@@ -139,11 +139,10 @@ class VerificationPage extends BasePage<VerificationCubit,
               TextSpan(
                 children: [
                   TextSpan(
-                    text: 'Авторизуясь, вы соглашаетесь с ',
+                      text: Strings.authPolicyAgree,
                     style: TextStyle(
                       color: Color(0xFF9EABBE),
                       fontSize: 12,
-                      fontFamily: 'Roboto',
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -152,11 +151,10 @@ class VerificationPage extends BasePage<VerificationCubit,
                       ..onTap = () {
                         context.read<VerificationCubit>().launchURLApp();
                       },
-                    text: 'политикой \nобработки персональных данных ',
+                    text: Strings.authPersonPolicy,
                     style: TextStyle(
                       color: Color(0xFF5C6AC3),
                       fontSize: 12,
-                      fontFamily: 'Roboto',
                       fontWeight: FontWeight.w400,
                     ),
                   ),

@@ -45,7 +45,9 @@ class LoginWithOneIdPage extends BasePage<LoginWithOneIdCubit,
           ..setNavigationDelegate(
             NavigationDelegate(
               onProgress: (int progress) {},
-              onPageStarted: (String url) {},
+              onPageStarted: (String url) => CircularProgressIndicator(
+                color: Colors.blueAccent,
+              ),
               onPageFinished: (String url) {},
               onWebResourceError: (WebResourceError error) {},
               onNavigationRequest: (NavigationRequest request) {

@@ -6,14 +6,16 @@ language.uzb,O’zbekcha,O’zbekcha
 auth.start.singin,Tizimga kirish,Войти в систему
 auth.start.login_with_face_id,FaceID bilan tizimga kiring,Войти с помощью FaceID
 auth.start.login_with_eds,E-Imzo yordamida tizimga kiring,Войти с помощью ЭЦП
-auth.start.login_with_mobile_id,Mobile-ID yordamida tizimga kiring,Войти с помощью Mobile-ID
+auth.start.login_with_mobile_id,Mobile-ID bilan kirish,Войти с помощью Mobile-ID
+auth.start.login_with_id_card,ID-Card bilan kirish ,Войти с помощью ID-Card
+auth.start.login_with_one_id,One-ID bilan kirish ,Войти с помощью one-ID
 auth.common.password,Parol,пароль
 auth.verification.forget_password,Parolni unutdingizmi?,Забыли пароль?
 auth.confirm.corfimation_code ,Tasdiqlash kodi,КОД подтверждения
 auth.confirm.sent_sms_your_phone,Biz sizga {phone} raqamiga kod bilan SMS yubordik,Мы отправили вам СМС с кодом на номер {phone}
 auth.confirm.again_sent_sms_your_phone,Yana yuboring,Отправить еще раз
-auth.common.you_agree_in,Tizimga kirish orqali siz rozilik bildirasiz,"Авторизуясь, вы соглашаетесь с "
-auth.common.your_processing_policy,shaxsiy ma'lumotlarni qayta ishlash siyosati, политикой обработки персональных данных 
+auth.common.you_agree_in,Tizimga kirish orqali siz rozilik bildirasiz  ,"Авторизуясь, вы соглашаетесь с "
+auth.common.your_processing_policy,shaxsiy \nma'lumotlarni qayta ishlash siyosati, политикой \nобработки персональных данных 
 auth.register.register,Roʻyxatdan oʻtish,Зарегистрироваться
 auth.register.create_password,Kirish uchun parol yarating,Придумайте пароль для входа
 auth.register.repeat_password,Parolni qayta kiriting,Повторить пароль
