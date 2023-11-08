@@ -21,4 +21,4 @@ class ProfileViewerListenable with _$ProfileViewerListenable {
       {String? message}) = _ProfileViewerListenable;
 }
 
-enum ProfileViewerEffect { success }
+enum ProfileViewerEffect { success, navigationAuthStart}

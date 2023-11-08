@@ -23,6 +23,16 @@ class ProfileViewerPage extends BasePage<ProfileViewerCubit,
   }
 
   @override
+  void listener(BuildContext context, ProfileViewerListenable state) {
+    switch (state.effect) {
+      case ProfileViewerEffect.success:
+        {}
+      case ProfileViewerEffect.navigationAuthStart:
+        context.router.push(AuthStartRoute());
+    }
+  }
+
+  @override
   Widget builder(BuildContext context, ProfileViewerBuildable state) {
     return Scaffold(
       backgroundColor: Colors.white,
