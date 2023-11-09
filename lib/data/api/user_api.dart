@@ -15,4 +15,23 @@ class UserApi {
         _dio.get("v1/user/profile", options: Options(headers: headers));
     return response;
   }
+
+  Future<Response> getRegions() async {
+    final response =await _dio.get("v1/regions");
+    return response;
+  }
+
+  Future<Response> getDistricts(int regionId) async {
+    final queryParameters = {'region_id': regionId};
+    final response =await
+        _dio.get("v1/districts/list", queryParameters: queryParameters);
+    return response;
+  }
+
+  Future<Response> getStreets(int districtId) async {
+    final queryParameters = {'district_id': districtId};
+    final response =await
+        _dio.get('v1/street/list', queryParameters: queryParameters);
+    return response;
+  }
 }

@@ -124,109 +124,130 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
                     .c(Color(0xFF9EABBE)),
               ),
               AppDivider(),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: "Имя".w(500).s(12).c(Color(0xFF41455E)),
-              ),
-              Padding(
-                padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                child: CommonTextField(
-                    hint: "Имя", textInputAction: TextInputAction.next),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: "User name".w(500).s(12).c(Color(0xFF41455E)),
-              ),
-              Padding(
-                padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                child: CommonTextField(
-                    hint: "User name",
-                    textInputAction: TextInputAction.next,
-                    inputType: TextInputType.text),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: "Эл. почта".w(500).s(12).c(Color(0xFF41455E)),
-              ),
-              Padding(
-                padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                child: CommonTextField(
-                  hint: "example@gmail.com",
-                  textInputAction: TextInputAction.next,
-                  inputType: TextInputType.emailAddress,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: "Регион".w(500).s(12).c(Color(0xFF41455E)),
-              ),
-              Padding(
-                padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                child: CommonTextField(
-                  hint: "Регион",
-                  inputType: TextInputType.text,
-                  textInputAction: TextInputAction.next,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: "Район".w(500).s(12).c(Color(0xFF41455E)),
-              ),
-              Padding(
-                padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                child: CommonTextField(
-                    hint: "Район",
-                    inputType: TextInputType.text,
-                    textInputAction: TextInputAction.next),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: "Махалля".w(500).s(12).c(Color(0xFF41455E)),
-              ),
-              Padding(
-                padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                child: CommonTextField(
-                  hint: "Махалля",
-                  textInputAction: TextInputAction.next,
-                  inputType: TextInputType.text,
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Flexible(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+              Visibility(
+                  visible: false,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        child: "Имя".w(500).s(12).c(Color(0xFF41455E)),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsets.only(right: 16, left: 16, bottom: 12),
+                        child: CommonTextField(
+                            hint: "Имя", textInputAction: TextInputAction.next),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        child: "User name".w(500).s(12).c(Color(0xFF41455E)),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsets.only(right: 16, left: 16, bottom: 12),
+                        child: CommonTextField(
+                            hint: "User name",
+                            textInputAction: TextInputAction.next,
+                            inputType: TextInputType.text),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        child: "Эл. почта".w(500).s(12).c(Color(0xFF41455E)),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsets.only(right: 16, left: 16, bottom: 12),
+                        child: CommonTextField(
+                          hint: "example@gmail.com",
+                          textInputAction: TextInputAction.next,
+                          inputType: TextInputType.emailAddress,
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        child: "Регион".w(500).s(12).c(Color(0xFF41455E)),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsets.only(right: 16, left: 16, bottom: 12),
+                        child: CommonTextField(
+                          hint: "Регион",
+                          inputType: TextInputType.text,
+                          textInputAction: TextInputAction.next,
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        child: "Район".w(500).s(12).c(Color(0xFF41455E)),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsets.only(right: 16, left: 16, bottom: 12),
+                        child: CommonTextField(
+                            hint: "Район",
+                            inputType: TextInputType.text,
+                            textInputAction: TextInputAction.next),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        child: "Махалля".w(500).s(12).c(Color(0xFF41455E)),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsets.only(right: 16, left: 16, bottom: 12),
+                        child: CommonTextField(
+                          hint: "Махалля",
+                          textInputAction: TextInputAction.next,
+                          inputType: TextInputType.text,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 12),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
                           children: [
-                            "Дом".w(500).s(12).c(Color(0xFF41455E)),
-                            SizedBox(height: 12),
-                            CommonTextField(
-                              textInputAction: TextInputAction.next,
-                              inputType: TextInputType.number,
-                            ),
+                            Flexible(
+                                flex: 1,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    "Дом".w(500).s(12).c(Color(0xFF41455E)),
+                                    SizedBox(height: 12),
+                                    CommonTextField(
+                                      textInputAction: TextInputAction.next,
+                                      inputType: TextInputType.number,
+                                    ),
+                                  ],
+                                )),
+                            SizedBox(width: 16),
+                            Flexible(
+                                flex: 1,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    "Квартира"
+                                        .w(500)
+                                        .s(12)
+                                        .c(Color(0xFF41455E)),
+                                    SizedBox(height: 12),
+                                    CommonTextField(
+                                      textInputAction: TextInputAction.done,
+                                      inputType: TextInputType.number,
+                                    ),
+                                  ],
+                                ))
                           ],
-                        )),
-                    SizedBox(width: 16),
-                    Flexible(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            "Квартира".w(500).s(12).c(Color(0xFF41455E)),
-                            SizedBox(height: 12),
-                            CommonTextField(
-                              textInputAction: TextInputAction.done,
-                              inputType: TextInputType.number,
-                            ),
-                          ],
-                        ))
-                  ],
-                ),
-              )
+                        ),
+                      )
+                    ],
+                  )),
             ],
           )),
     );

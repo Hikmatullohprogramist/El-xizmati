@@ -2,7 +2,8 @@ part of 'profile_edit_cubit.dart';
 
 @freezed
 class ProfileEditBuildable with _$ProfileEditBuildable {
-  const factory ProfileEditBuildable({
+  const factory ProfileEditBuildable(
+      {
     @Default("") String biometricSerial,
     @Default("") String biometricNumber,
     @Default("") String brithDate,
@@ -15,7 +16,8 @@ class ProfileEditBuildable with _$ProfileEditBuildable {
     @Default("") String neighborhood,
     @Default("") String homeNumber, 
     @Default("") String apartmentNumber
-}) = _ProfileEditBuildable;
+}
+) = _ProfileEditBuildable;
 }
 
 @freezed

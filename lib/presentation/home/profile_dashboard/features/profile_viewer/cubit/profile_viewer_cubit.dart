@@ -18,27 +18,76 @@ class ProfileViewerCubit
   final UserRepository _userRepository;
   final AuthRepository _authRepository;
 
+  Future<void> getUser() async {
+    await Future.wait([
+      getRegions(),
+      getDistrict(),
+      getStreets(),
+    ]);
+  }
+
   Future<void> getUserInformation() async {
     try {
+      build((buildable) => buildable.copyWith(isLoading: true));
       final response = await _userRepository.getUserInformation();
       build((buildable) => buildable.copyWith(
-          fullName: response.fullName ?? "*",
-          phoneNumber: response.mobilePhone ?? "*",
+          userName: response.username ?? "*",
+          fullName: response.full_name ?? "*",
+          phoneNumber: response.mobile_phone ?? "*",
           email: response.email ?? "*",
           biometricInformation:
-              "${response.passportSerial ?? ""} ${response.passportNumber ?? ""}",
-          brithDate: response.birthDate ?? "*",
-          districtName: response.districtId ?? "*",
-          regionName: response.regionId ?? "*",
-          userName: response.username ?? "*",
-          identified: response.isRegistered ?? false,
-          streetName:
-              "${response.mahallaId ?? ""}  ${response.homeName ?? ""}"));
+              "${response.passport_serial ?? ""} ${response.passport_number ?? ""}",
+          brithDate: response.birth_date ?? "*",
+          districtName: (response.district_id ?? "*").toString(),
+          identified: response.is_registered ?? false,
+          regionId: response.region_id,
+          districtId: response.district_id,
+          streetId: response.mahalla_id));
+      await getUser();
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
         logOut();
       }
       display.error(e.toString());
+    }
+  }
+
+  Future<void> getRegions() async {
+    final response = await _userRepository.getRegions();
+    final regionList =
+        response.where((element) => element.id == buildable.regionId);
+    if (regionList.isNotEmpty) {
+      build((buildable) => buildable.copyWith(
+          regionName: regionList.first.name, isLoading: false));
+    } else {
+      build((buildable) =>
+          buildable.copyWith(regionName: "topilmadi", isLoading: false));
+    }
+  }
+
+  Future<void> getDistrict() async {
+    final regionId = buildable.regionId;
+    final response = await _userRepository.getDistricts(regionId ?? 14);
+    build((buildable) => buildable.copyWith(
+        districtName: response
+            .where((element) => element.id == buildable.districtId)
+            .first
+            .name));
+  }
+
+  Future<void> getStreets() async {
+    try {
+      final districtId = buildable.districtId;
+      final response = await _userRepository.getStreets(districtId ?? 1419);
+      build((buildable) => buildable.copyWith(
+          streetName: response
+              .where((element) => element.id == buildable.streetId)
+              .first
+              .name,
+          isLoading: false));
+    } catch (e) {
+      display.error("street error ${e}");
+      build((buildable) => buildable.copyWith(isLoading: false));
     }
   }
 
