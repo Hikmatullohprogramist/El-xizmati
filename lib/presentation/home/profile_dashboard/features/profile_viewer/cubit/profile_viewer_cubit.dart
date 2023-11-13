@@ -42,6 +42,7 @@ class ProfileViewerCubit
           identified: response.is_registered ?? false,
           regionId: response.region_id,
           districtId: response.district_id,
+          gender: response.gender ?? "*",
           streetId: response.mahalla_id));
       await getUser();
     } on DioException catch (e) {

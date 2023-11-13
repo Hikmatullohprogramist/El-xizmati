@@ -258,18 +258,28 @@ class ProfileViewerPage extends BasePage<ProfileViewerCubit,
                                 SizedBox(height: 6),
                                 Row(
                                   children: [
-                                    Assets.images.profileViewer
-                                        .icRadioButtonSelected
-                                        .svg(),
+                                    if (state.gender == "MALE")
+                                      Assets.images.profileViewer
+                                          .icRadioButtonSelected
+                                          .svg()
+                                    else
+                                      Assets.images.profileViewer
+                                          .icRadioButtonUsSelected
+                                          .svg(),
                                     SizedBox(width: 8),
                                     Strings.profileUserGenderBoy
                                         .w(400)
                                         .s(14)
                                         .c(Color(0xFF9EABBE)),
                                     SizedBox(width: 24),
-                                    Assets.images.profileViewer
-                                        .icRadioButtonUsSelected
-                                        .svg(),
+                                    if (state.gender == "FEMALE")
+                                      Assets.images.profileViewer
+                                          .icRadioButtonSelected
+                                          .svg()
+                                    else
+                                      Assets.images.profileViewer
+                                          .icRadioButtonUsSelected
+                                          .svg(),
                                     SizedBox(width: 8),
                                     Strings.profileUserGenderWomen
                                         .w(400)

@@ -14,6 +14,7 @@ class ProfileViewerBuildable with _$ProfileViewerBuildable {
     @Default("*") String regionName,
     @Default("*") String districtName,
     @Default("*") String streetName,
+    @Default("*") String gender,
     int? regionId,
     int? districtId,
     int? streetId,
