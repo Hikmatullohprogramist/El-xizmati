@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
@@ -25,6 +26,16 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
 
   @override
   void init(BuildContext context) {}
+
+  @override
+  void listener(BuildContext context, AdCollectionListenable state) {
+    switch (state.effect) {
+      case AdsCollectionEffect.success:
+        () {};
+      case AdsCollectionEffect.navigationToAuthStart:
+        context.router.push(AuthStartRoute());
+    }
+  }
 
   final CollectiveType collectiveType;
 
@@ -74,7 +85,9 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                         onClick: (AdModel result) {
                           context.router.push(AdDetailRoute(adId: result.id));
                         },
-                        onClickFavorite: (AdModel result) {},
+                        onClickFavorite: (AdModel result) => context
+                            .read<AdCollectionCubit>()
+                            .addFavorite(result),
                       )),
                   SizedBox(height: 6),
                   AppDivider(height: 3),
@@ -93,7 +106,9 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                         onClick: (AdModel result) {
                           context.router.push(AdDetailRoute(adId: result.id));
                         },
-                        onClickFavorite: (AdModel result) {},
+                        onClickFavorite: (AdModel result) => context
+                            .read<AdCollectionCubit>()
+                            .addFavorite(result),
                       )),
                   SizedBox(height: 6),
                   AppDivider(height: 3),
@@ -173,7 +188,9 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                               padding: EdgeInsets.only(right: 16),
                               child: AppAdWidget(
                                   result: item,
-                                  onClickFavorite: (value) {},
+                                  onClickFavorite: (value)=> context
+                                      .read<AdCollectionCubit>()
+                                      .addFavorite(value),
                                   onClick: (value) => context.router
                                       .push(AdDetailRoute(adId: value.id))),
                             );
@@ -182,7 +199,9 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                               padding: EdgeInsets.only(left: 16),
                               child: AppAdWidget(
                                 result: item,
-                                onClickFavorite: (value) {},
+                                onClickFavorite: (value) => context
+                                    .read<AdCollectionCubit>()
+                                    .addFavorite(value),
                                 onClick: (value) => context.router
                                     .push(AdDetailRoute(adId: value.id)),
                               ),

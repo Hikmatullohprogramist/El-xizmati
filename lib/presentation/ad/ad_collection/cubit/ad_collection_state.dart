@@ -18,7 +18,7 @@ class AdCollectionListenable with _$AdCollectionListenable {
       {String? message}) = _AdCollectionListenable;
 }
 
-enum AdsCollectionEffect { success }
+enum AdsCollectionEffect { success, navigationToAuthStart }
 
 enum CollectiveType {
   commodity,

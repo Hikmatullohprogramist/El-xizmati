@@ -2,7 +2,7 @@ part of 'cart_cubit.dart';
 
 @freezed
 class CartBuildable with _$CartBuildable {
-  const factory CartBuildable() = _CartBuildable;
+  const factory CartBuildable({@Default(false) bool checkBox}) = _CartBuildable;
 }
 
 @freezed

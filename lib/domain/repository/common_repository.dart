@@ -10,5 +10,7 @@ abstract class CommonRepository {
   Future<List<PopularCategoryResponse>> getPopularCategories(
       int pageIndex, int pageSize);
 
-   Future<void> getCurrency();
+  Future<void> getCurrency();
+
+  Future<void> addFavorite({required String adType, required int id});
 }

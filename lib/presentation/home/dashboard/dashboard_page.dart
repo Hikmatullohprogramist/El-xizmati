@@ -28,6 +28,14 @@ class DashboardPage
   const DashboardPage({super.key});
 
   @override
+  void listener(BuildContext context, DashboardListenable state) {
+  switch(state.effect){
+    case DashboardEffect.success:(){};
+    case DashboardEffect.navigationToAuthStart:context.router.push(AuthStartRoute());
+  }
+  }
+
+  @override
   Widget builder(BuildContext context, DashboardBuildable state) {
     return Scaffold(
         appBar: CommonSearchBar(
@@ -73,7 +81,7 @@ class DashboardPage
                           context.router.push(AdDetailRoute(adId: result.id));
                         },
                         onClickFavorite: (AdModel result) {
-                          context.read<DashboardCubit>().deleteItem(result);
+                          context.read<DashboardCubit>().addFavorite(result);
                         },
                       )),
                   LoaderStateWidget(
@@ -162,7 +170,7 @@ class DashboardPage
                                 onClickFavorite: (value) {
                                   context
                                       .read<DashboardCubit>()
-                                      .deleteItem(value);
+                                      .addFavorite(value);
                                 },
                                 onClick: (value) => context.router
                                     .push(AdDetailRoute(adId: value.id))),
@@ -175,7 +183,7 @@ class DashboardPage
                               onClickFavorite: (value) {
                                 context
                                     .read<DashboardCubit>()
-                                    .deleteItem(value);
+                                    .addFavorite(value);
                               },
                               onClick: (value) => context.router
                                   .push(AdDetailRoute(adId: value.id)),

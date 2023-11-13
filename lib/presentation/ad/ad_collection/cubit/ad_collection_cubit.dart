@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
@@ -12,8 +13,7 @@ part 'ad_collection_cubit.freezed.dart';
 part 'ad_collection_state.dart';
 
 @injectable
-class AdCollectionCubit
-    extends BaseCubit<AdCollectionBuildable, AdCollectionListenable> {
+class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionListenable> {
   AdCollectionCubit(this.adRepository, this.commonRepository)
       : super(AdCollectionBuildable()) {
     getHome();
@@ -40,7 +40,7 @@ class AdCollectionCubit
     try {
       log.i("recentlyViewerAds request");
       final hotDiscountAds =
-          await adRepository.getPopularAds(buildable.collectiveType);
+      await adRepository.getPopularAds(buildable.collectiveType);
       build((buildable) => buildable.copyWith(
           hotDiscountAds: hotDiscountAds,
           hotDiscountAdsState: AppLoadingState.success));
@@ -57,7 +57,7 @@ class AdCollectionCubit
     try {
       log.i("recentlyViewerAds request");
       final popularAds =
-          await adRepository.getPopularAds(buildable.collectiveType);
+      await adRepository.getPopularAds(buildable.collectiveType);
       build((buildable) => buildable.copyWith(
           popularAds: popularAds, popularAdsState: AppLoadingState.success));
       log.i("recentlyViewerAds=${buildable.hotDiscountAds}");
@@ -92,7 +92,7 @@ class AdCollectionCubit
     log.i(buildable.adsPagingController);
 
     adController.addPageRequestListener(
-      (pageKey) async {
+          (pageKey) async {
         final adsList = await adRepository.getCollectiveAds(pageKey, _pageSize, "", buildable.collectiveType);
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);
@@ -104,5 +104,17 @@ class AdCollectionCubit
       },
     );
     return adController;
+  }
+
+  Future<void> addFavorite(AdModel adModel) async {
+    try {
+      await commonRepository.addFavorite(
+          adType: adModel.adRouteType.name, id: adModel.id);
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401 || e.response?.statusCode == 404) {
+        invoke(
+            AdCollectionListenable(AdsCollectionEffect.navigationToAuthStart));
+      }
+    }
   }
 }

@@ -23,4 +23,4 @@ class DashboardListenable with _$DashboardListenable {
       _DashboardListenable;
 }
 
-enum DashboardEffect { success }
+enum DashboardEffect { success, navigationToAuthStart }

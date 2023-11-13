@@ -29,6 +29,16 @@ class AdListPage
   }
 
   @override
+  void listener(BuildContext context, AdListListenable state) {
+    switch (state.effect) {
+      case AdListEffect.success:
+        () {};
+      case AdListEffect.navigationToAuthStart:
+        context.router.push(AuthStartRoute());
+    }
+  }
+
+  @override
   Widget builder(BuildContext context, AdListBuildable state) {
     return Scaffold(
       appBar: CommonAppBar(() {
@@ -104,7 +114,8 @@ class AdListPage
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) => AppAdWidget(
             result: item,
-            onClickFavorite: (value) {},
+            onClickFavorite: (value) =>
+                context.read<AdListCubit>().addFavorite(value),
             onClick: (value) {
               context.router.push(AdDetailRoute(adId: value.id));
             },

@@ -1,8 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/base/base_cubit.dart';
 import 'package:onlinebozor/domain/model/ad_model.dart';
+import 'package:onlinebozor/domain/repository/common_repository.dart';
 
 import '../../../../common/enum/loading_enum.dart';
 import '../../../../domain/model/ad_enum.dart';
@@ -13,7 +15,8 @@ part 'ad_list_state.dart';
 
 @injectable
 class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
-  AdListCubit(this.adRepository) : super(AdListBuildable()) {
+  AdListCubit(this.adRepository, this.commonRepository)
+      : super(AdListBuildable()) {
     getController();
   }
 
@@ -23,6 +26,7 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
 
   static const _pageSize = 20;
   final AdRepository adRepository;
+  final CommonRepository commonRepository;
 
   Future<void> getController() async {
     try {
@@ -47,9 +51,9 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
     log.i(buildable.adsPagingController);
 
     adController.addPageRequestListener(
-      (pageKey) async {
+          (pageKey) async {
         final adsList =
-            await adRepository.getHomeAds(pageKey, _pageSize, buildable.keyWord);
+        await adRepository.getHomeAds(pageKey, _pageSize, buildable.keyWord);
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);
           log.i(buildable.adsPagingController);
@@ -60,5 +64,16 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
       },
     );
     return adController;
+  }
+
+  Future<void> addFavorite(AdModel adModel) async {
+    try {
+      await commonRepository.addFavorite(
+          adType: adModel.adRouteType.name, id: adModel.id);
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401 || e.response?.statusCode == 404) {
+        invoke(AdListListenable(AdListEffect.navigationToAuthStart));
+      }
+    }
   }
 }

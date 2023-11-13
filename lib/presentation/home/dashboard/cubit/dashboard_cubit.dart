@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
@@ -107,7 +108,7 @@ class DashboardCubit
     log.i(buildable.adsPagingController);
 
     adController.addPageRequestListener(
-      (pageKey) async {
+          (pageKey) async {
         final adsList = await adRepository.getHomeAds(pageKey, _pageSize, "");
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);
@@ -119,6 +120,17 @@ class DashboardCubit
       },
     );
     return adController;
+  }
+
+  Future<void> addFavorite(AdModel adModel) async {
+    try {
+      await commonRepository.addFavorite(
+          adType: adModel.adRouteType.name, id: adModel.id);
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401 || e.response?.statusCode == 404) {
+        invoke(DashboardListenable(DashboardEffect.navigationToAuthStart));
+      }
+    }
   }
 
   void deleteItem(AdModel adModel) {

@@ -16,4 +16,4 @@ class AdListListenable with _$AdListListenable {
       _AdListListenable;
 }
 
-enum AdListEffect { success }
+enum AdListEffect { success, navigationToAuthStart }

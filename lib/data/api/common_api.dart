@@ -23,4 +23,14 @@ class CommonApi {
   Future<Response> getCurrency() {
     return _dio.get('v1/currencies');
   }
+
+  Future<Response> addFavorite({required String adType, required int id}) {
+    final queryParameters = {
+      'product_type': "ADS",
+      'product_id': id,
+      'num': 1,
+      "type": "SELECTED"
+    };
+    return _dio.post("v1/buyer/product", queryParameters: queryParameters);
+  }
 }
