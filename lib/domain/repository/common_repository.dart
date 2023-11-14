@@ -12,5 +12,5 @@ abstract class CommonRepository {
 
   Future<void> getCurrency();
 
-  Future<void> addFavorite({required String adType, required int id});
+  // Future<void> addFavorite({required String adType, required int id});
 }

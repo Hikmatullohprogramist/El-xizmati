@@ -96,6 +96,7 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<void> logOut() async {
     await tokenStorage.isLogin.clear();
+    await tokenStorage.token.clear();
     await languageStorage.isLanguageSelection.clear();
     return;
   }

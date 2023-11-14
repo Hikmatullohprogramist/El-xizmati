@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/domain/model/ad_model.dart';
+import 'package:onlinebozor/domain/repository/favorite_repository.dart';
 
 import '../../../../common/core/base_cubit.dart';
 import '../../../../common/enum/loading_enum.dart';
@@ -17,7 +18,8 @@ part 'dashboard_state.dart';
 @injectable
 class DashboardCubit
     extends BaseCubit<DashboardBuildable, DashboardListenable> {
-  DashboardCubit(this.adRepository, this.commonRepository)
+  DashboardCubit(
+      this.adRepository, this.commonRepository, this.favoriteRepository)
       : super(DashboardBuildable()) {
     getHome();
   }
@@ -35,6 +37,7 @@ class DashboardCubit
 
   final AdRepository adRepository;
   final CommonRepository commonRepository;
+  final FavoriteRepository favoriteRepository;
 
   Future<void> getPopularCategories() async {
     try {
@@ -124,8 +127,7 @@ class DashboardCubit
 
   Future<void> addFavorite(AdModel adModel) async {
     try {
-      await commonRepository.addFavorite(
-          adType: adModel.adRouteType.name, id: adModel.id);
+      await favoriteRepository.addFavorite(adModel);
     } on DioException catch (e) {
       if (e.response?.statusCode == 401 || e.response?.statusCode == 404) {
         invoke(DashboardListenable(DashboardEffect.navigationToAuthStart));

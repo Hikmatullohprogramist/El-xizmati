@@ -28,7 +28,7 @@ class _AppFavoriteWidget extends State<AppFavoriteWidget> {
       onTap: () {
         widget.onEvent();
         setState(() {
-          _isSelected = !_isSelected;
+        //   _isSelected = !_isSelected;
         });
       },
       child: Container(

@@ -69,7 +69,7 @@ class AppAdHorizontalWidget extends StatelessWidget {
                     Align(
                         alignment: Alignment.topRight,
                         child: AppFavoriteWidget(
-                          isSelected: false,
+                          isSelected: result.favorite,
                           onEvent: () {
                             onClickFavorite(result);
                           },

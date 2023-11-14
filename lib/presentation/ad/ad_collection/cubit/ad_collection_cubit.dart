@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/domain/model/ad_model.dart';
+import 'package:onlinebozor/domain/repository/favorite_repository.dart';
 
 import '../../../../common/core/base_cubit.dart';
 import '../../../../common/enum/loading_enum.dart';
@@ -14,7 +15,8 @@ part 'ad_collection_state.dart';
 
 @injectable
 class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionListenable> {
-  AdCollectionCubit(this.adRepository, this.commonRepository)
+  AdCollectionCubit(
+      this.adRepository, this.commonRepository, this.favoriteRepository)
       : super(AdCollectionBuildable()) {
     getHome();
   }
@@ -35,12 +37,13 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
 
   final AdRepository adRepository;
   final CommonRepository commonRepository;
+  final FavoriteRepository favoriteRepository;
 
   Future<void> getHotDiscountAds() async {
     try {
       log.i("recentlyViewerAds request");
       final hotDiscountAds =
-      await adRepository.getPopularAds(buildable.collectiveType);
+          await adRepository.getPopularAds(buildable.collectiveType);
       build((buildable) => buildable.copyWith(
           hotDiscountAds: hotDiscountAds,
           hotDiscountAdsState: AppLoadingState.success));
@@ -108,8 +111,7 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
 
   Future<void> addFavorite(AdModel adModel) async {
     try {
-      await commonRepository.addFavorite(
-          adType: adModel.adRouteType.name, id: adModel.id);
+      await favoriteRepository.addFavorite(adModel);
     } on DioException catch (e) {
       if (e.response?.statusCode == 401 || e.response?.statusCode == 404) {
         invoke(

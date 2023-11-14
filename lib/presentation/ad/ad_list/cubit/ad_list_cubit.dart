@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/base/base_cubit.dart';
 import 'package:onlinebozor/domain/model/ad_model.dart';
 import 'package:onlinebozor/domain/repository/common_repository.dart';
+import 'package:onlinebozor/domain/repository/favorite_repository.dart';
 
 import '../../../../common/enum/loading_enum.dart';
 import '../../../../domain/model/ad_enum.dart';
@@ -15,7 +16,7 @@ part 'ad_list_state.dart';
 
 @injectable
 class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
-  AdListCubit(this.adRepository, this.commonRepository)
+  AdListCubit(this.adRepository, this.commonRepository, this.favoriteRepository)
       : super(AdListBuildable()) {
     getController();
   }
@@ -27,6 +28,7 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
   static const _pageSize = 20;
   final AdRepository adRepository;
   final CommonRepository commonRepository;
+  final FavoriteRepository favoriteRepository;
 
   Future<void> getController() async {
     try {
@@ -68,8 +70,7 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
 
   Future<void> addFavorite(AdModel adModel) async {
     try {
-      await commonRepository.addFavorite(
-          adType: adModel.adRouteType.name, id: adModel.id);
+      await favoriteRepository.addFavorite(adModel);
     } on DioException catch (e) {
       if (e.response?.statusCode == 401 || e.response?.statusCode == 404) {
         invoke(AdListListenable(AdListEffect.navigationToAuthStart));

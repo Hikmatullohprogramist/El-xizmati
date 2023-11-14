@@ -50,9 +50,9 @@ class CommonRepositoryImpl extends CommonRepository {
     final response = await _api.getCurrency();
   }
 
-  @override
-  Future<void> addFavorite({required String adType, required int id}) async {
-    await _api.addFavorite(adType: adType, id: id);
-    return;
-  }
+  // @override
+  // Future<void> addFavorite({required String adType, required int id}) async {
+  //   await _api.addFavorite(adType: adType, id: id);
+  //   return;
+  // }
 }
