@@ -96,6 +96,9 @@ class AppRouter extends _$AppRouter {
               AutoRoute(page: AuthStartRoute.page, path: "auth_start"),
             ]),
 
+        // order create
+        AutoRoute(page: OrderCreateRoute.page, path: '/order_create'),
+
         // Ads collection
         AutoRoute(page: AdCollectionRoute.page, path: "/ads_collection"),
         AutoRoute(page: AdListRoute.page, path: '/ads_list'),

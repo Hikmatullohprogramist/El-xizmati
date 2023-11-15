@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/app_diverder.dart';
 import 'package:onlinebozor/common/widgets/cart/cart_widget.dart';
 import 'package:onlinebozor/common/widgets/common_button.dart';
@@ -95,7 +96,9 @@ class CartPage extends BasePage<CartCubit, CartBuildable, CartListenable> {
               "Товары не выбраны".w(400).s(12).c(Color(0xFF41455E)),
               Spacer(),
               CommonButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.router.push(OrderCreateRoute());
+                  },
                   child: "Оформить".w(500).s(13).c(Color(0xFFDFE2E9)))
             ],
           ),
