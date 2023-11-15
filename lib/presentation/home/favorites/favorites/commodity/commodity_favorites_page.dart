@@ -10,6 +10,7 @@ import 'package:onlinebozor/presentation/home/favorites/favorites/commodity/cubi
 import '../../../../../common/gen/localization/strings.dart';
 import '../../../../../common/widgets/ad/ad_widget.dart';
 import '../../../../../common/widgets/common_button.dart';
+import '../../../../../common/widgets/favorite_empty_widget.dart';
 import '../../../../../domain/model/ad_model.dart';
 
 @RoutePage()
@@ -65,7 +66,9 @@ class CommodityFavoritesPage extends BasePage<CommodityFavoritesCubit,
             );
           },
           noItemsFoundIndicatorBuilder: (_) {
-            return Center(child: Text(Strings.loadingStateNotitemfound));
+            return FavoriteEmptyWidget(callBack: () {
+              context.router.push(DashboardRoute());
+            });
           },
           newPageProgressIndicatorBuilder: (_) {
             return SizedBox(
@@ -100,7 +103,3 @@ class CommodityFavoritesPage extends BasePage<CommodityFavoritesCubit,
     );
   }
 }
-
-// FavoriteEmptyWidget(callBack: () {
-// context.router.push(DashboardRoute());
-// })

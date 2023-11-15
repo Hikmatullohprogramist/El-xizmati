@@ -1,5 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/api/favorite_api.dart';
+import 'package:onlinebozor/data/model/ads/ad/ad_response.dart';
+import 'package:onlinebozor/domain/mapper/ad_mapper.dart';
 import 'package:onlinebozor/domain/model/ad_model.dart';
 import 'package:onlinebozor/domain/repository/favorite_repository.dart';
 
@@ -35,7 +37,13 @@ class FavoriteRepositoryImp extends FavoriteRepository {
   Future<List<AdModel>> getFavoriteAds() async {
     final isLogin = tokenStorage.isLogin.call() ?? false;
     if (isLogin) {
-      return List.empty();
+      final response = await _api.getFavoriteAds();
+      final adsResponse =
+          AdRootResponse.fromJson(response.data).data?.results ?? List.empty();
+      final result = adsResponse
+          .map((e) => e.toMap(favorite: true))
+          .toList(growable: true);
+      return result;
     } else {
       return List.empty();
     }

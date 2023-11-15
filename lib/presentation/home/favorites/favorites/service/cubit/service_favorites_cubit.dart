@@ -10,7 +10,6 @@ import '../../../../../../domain/repository/ad_repository.dart';
 import '../../../../../../domain/repository/favorite_repository.dart';
 
 part 'service_favorites_cubit.freezed.dart';
-
 part 'service_favorites_state.dart';
 
 @injectable
@@ -48,7 +47,7 @@ class ServiceFavoritesCubit
 
     adController.addPageRequestListener(
       (pageKey) async {
-        final adsList = await _adRepository.getHomeAds(pageKey, _pageSize, "");
+        final adsList = await _favoriteRepository.getFavoriteAds();
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);
           log.i(buildable.adsPagingController);

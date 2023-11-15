@@ -6,18 +6,18 @@ import '../../data/model/ads/ad/ad_response.dart';
 import '../model/ad_model.dart';
 
 extension AdExtension on AdResponse {
-  AdModel toMap() {
+  AdModel toMap({bool favorite = false}) {
     return AdModel(
-      id: id ?? -1,
-      name: name ?? "",
-      price: price ?? 0,
-      currency: currency.toCurrency(),
-      region: region ?? "",
-      district: district ?? "",
-      adRouteType: route_type.toAdRouteType(),
-      adPropertyStatus: property_status.toAdPropertyStatus(),
-      adStatusType: type_status.toAdStatusType(),
-      adTypeStatus: type.toAdTypeStatus(),
+        id: id ?? -1,
+        name: name ?? "",
+        price: price ?? 0,
+        currency: currency.toCurrency(),
+        region: region ?? "",
+        district: district ?? "",
+        adRouteType: route_type.toAdRouteType(),
+        adPropertyStatus: property_status.toAdPropertyStatus(),
+        adStatusType: type_status.toAdStatusType(),
+        adTypeStatus: type.toAdTypeStatus(),
       fromPrice: from_price ?? 0,
       toPrice: to_price ?? 0,
       categoryId: category?.id ?? -1,
@@ -28,7 +28,7 @@ extension AdExtension on AdResponse {
       photos: photos,
       isSell: is_sell ?? false,
       maxAmount: max_amount ?? 0,
-    );
+        favorite: favorite);
   }
 }
 

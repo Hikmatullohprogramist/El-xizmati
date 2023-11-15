@@ -20,6 +20,7 @@ class AdModel {
       required this.sellerName,
       required this.sellerId,
       this.photos,
+      this.isCheck = false,
       this.favorite = false,
       required this.isSort,
       required this.isSell,
@@ -44,7 +45,8 @@ class AdModel {
   final int maxAmount;
   final String sellerName;
   final int sellerId;
-  final bool favorite;
+  bool favorite;
+  bool isCheck;
   List<AdPhotoResponse>? photos;
 }
 

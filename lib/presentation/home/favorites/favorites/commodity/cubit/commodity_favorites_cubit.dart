@@ -48,7 +48,7 @@ class CommodityFavoritesCubit extends BaseCubit<CommodityFavoritesBuildable,
 
     adController.addPageRequestListener(
       (pageKey) async {
-        final adsList = await _adRepository.getHomeAds(pageKey, _pageSize, "");
+        final adsList = await _favoriteRepository.getFavoriteAds();
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);
           log.i(buildable.adsPagingController);
