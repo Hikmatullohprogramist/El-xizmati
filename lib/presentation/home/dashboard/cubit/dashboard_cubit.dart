@@ -128,9 +128,12 @@ class DashboardCubit
   Future<void> addFavorite(AdModel adModel) async {
     try {
       await favoriteRepository.addFavorite(adModel);
+      display.success("success");
     } on DioException catch (e) {
       if (e.response?.statusCode == 401 || e.response?.statusCode == 404) {
         invoke(DashboardListenable(DashboardEffect.navigationToAuthStart));
+      } else {
+        display.error(e.toString());
       }
     }
   }

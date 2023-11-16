@@ -47,7 +47,7 @@ class AppAdWidget extends StatelessWidget {
                   ),
                   child: Stack(children: [
                     CachedNetworkImage(
-                      imageUrl: "${Constants.baseUrlForImage}${result.photos?.first.image ?? ''}",
+                      imageUrl: "${Constants.baseUrlForImage}${result.photo}",
                       imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6),

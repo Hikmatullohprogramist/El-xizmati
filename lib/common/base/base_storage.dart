@@ -13,6 +13,8 @@ class BaseStorage<T> {
 
   T callList() => box.get(_key, defaultValue: []);
 
+  List<dynamic> allItems() => box.values.toList();
+
   Future<void> set(T? value) => box.put(_key, value);
 
   Future<void> delete() => box.delete(_key);

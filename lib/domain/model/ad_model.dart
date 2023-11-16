@@ -1,4 +1,3 @@
-import 'package:onlinebozor/data/model/ads/ad/ad_response.dart';
 import 'package:onlinebozor/domain/model/ad_enum.dart';
 
 class AdModel {
@@ -19,7 +18,7 @@ class AdModel {
       required this.categoryName,
       required this.sellerName,
       required this.sellerId,
-      this.photos,
+      required this.photo,
       this.isCheck = false,
       this.favorite = false,
       required this.isSort,
@@ -47,7 +46,7 @@ class AdModel {
   final int sellerId;
   bool favorite;
   bool isCheck;
-  List<AdPhotoResponse>? photos;
+  String photo;
 }
 
 class AdPhotoModel {

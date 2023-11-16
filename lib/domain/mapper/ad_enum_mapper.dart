@@ -69,3 +69,70 @@ extension AdEnumMapper on String? {
     }
   }
 }
+
+extension AdPropertStatusToStringExtension on AdPropertyStatus {
+  String adPropertyStatusToString() {
+    switch (this) {
+      case AdPropertyStatus.fresh:
+        return "NEW";
+      case AdPropertyStatus.used:
+        return "USED";
+    }
+  }
+}
+
+extension AdRouteTypeToStringExtension on AdRouteType {
+  String adRouteTypeToString() {
+    switch (this) {
+      case AdRouteType.business:
+        return "PRIVATE";
+      case AdRouteType.private:
+        return "BUSINESS";
+    }
+  }
+}
+
+extension AdTypeStatusToStringExtension on AdTypeStatus {
+  String adTypeStatusToString() {
+    switch (this) {
+      case AdTypeStatus.sell:
+        return "SELL";
+      case AdTypeStatus.free:
+        return "FREE";
+      case AdTypeStatus.exchange:
+        return "EXCHANGE";
+      case AdTypeStatus.service:
+        return "SERVICE";
+      case AdTypeStatus.buy:
+        return "BUY";
+      case AdTypeStatus.buyService:
+        return "BUY_SERVICE";
+    }
+  }
+}
+
+extension AdStatusTypeToStringExtension on AdStatusType {
+  String adStatusTypeToString() {
+    switch (this) {
+      case AdStatusType.top:
+        return "TOP";
+      case AdStatusType.standard:
+        return "STANDARD";
+    }
+  }
+}
+
+extension CurrencyToStringExtension on Currency {
+  String currencyToString() {
+    switch (this) {
+      case Currency.eur:
+        return "978";
+      case Currency.usd:
+        return "840";
+      case Currency.rub:
+        return "643";
+      case Currency.uzb:
+        return "860";
+    }
+  }
+}

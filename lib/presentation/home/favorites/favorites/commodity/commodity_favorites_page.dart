@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/base/base_page.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
@@ -17,6 +18,12 @@ import '../../../../../domain/model/ad_model.dart';
 class CommodityFavoritesPage extends BasePage<CommodityFavoritesCubit,
     CommodityFavoritesBuildable, CommodityFavoritesListenable> {
   const CommodityFavoritesPage({super.key});
+
+  @override
+  void init(BuildContext context) {
+  context.read<CommodityFavoritesCubit>().getController();
+  context.read<CommodityFavoritesCubit>().close();
+  }
 
   @override
   Widget builder(BuildContext context, CommodityFavoritesBuildable state) {

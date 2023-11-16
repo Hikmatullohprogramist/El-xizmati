@@ -2,7 +2,7 @@ part of 'order_create_cubit.dart';
 
 @freezed
 class OrderCreateBuildable with _$OrderCreateBuildable {
-  const factory OrderCreateBuildable() = _OrderCreateBuildable;
+  const factory OrderCreateBuildable({int? adId, AdDetail? adDetail}) = _OrderCreateBuildable;
 }
 
 @freezed

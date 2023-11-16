@@ -1,3 +1,4 @@
+import 'package:onlinebozor/data/hive_object/ad_hive_object.dart';
 import 'package:onlinebozor/data/model/ads/ad_detail/ad_detail_response.dart';
 import 'package:onlinebozor/domain/mapper/ad_enum_mapper.dart';
 import 'package:onlinebozor/domain/model/ad_detail.dart';
@@ -18,16 +19,16 @@ extension AdExtension on AdResponse {
         adPropertyStatus: property_status.toAdPropertyStatus(),
         adStatusType: type_status.toAdStatusType(),
         adTypeStatus: type.toAdTypeStatus(),
-      fromPrice: from_price ?? 0,
-      toPrice: to_price ?? 0,
-      categoryId: category?.id ?? -1,
-      categoryName: category?.name ?? "",
-      sellerName: seller?.name ?? "",
-      sellerId: seller?.tin ?? -1,
-      isSort: is_sort ?? 0,
-      photos: photos,
-      isSell: is_sell ?? false,
-      maxAmount: max_amount ?? 0,
+        fromPrice: from_price ?? 0,
+        toPrice: to_price ?? 0,
+        categoryId: category?.id ?? -1,
+        categoryName: category?.name ?? "",
+        sellerName: seller?.name ?? "",
+        sellerId: seller?.tin ?? -1,
+        isSort: is_sort ?? 0,
+        photo: photos?.first.image ?? "",
+        isSell: is_sell ?? false,
+        maxAmount: max_amount ?? 0,
         favorite: favorite);
   }
 }
@@ -96,5 +97,32 @@ extension AdDetailExtension on AdDetailResponse {
         unitId: unit_id,
         video: video,
         warehouses: warehouses);
+  }
+}
+
+extension AdHiveObjectExtension on AdHiveObject {
+  AdModel toMap() {
+    return AdModel(
+        id: id,
+        name: name,
+        price: price,
+        currency: currency.toCurrency(),
+        region: region,
+        district: district,
+        adRouteType: adRouteType.toAdRouteType(),
+        adPropertyStatus: adPropertyStatus.toAdPropertyStatus(),
+        adStatusType: adStatusType.toAdStatusType(),
+        adTypeStatus: adTypeStatus.toAdTypeStatus(),
+        fromPrice: fromPrice,
+        toPrice: toPrice,
+        categoryId: categoryId,
+        categoryName: categoryName,
+        sellerName: sellerName,
+        sellerId: sellerId,
+        isSort: isSort,
+        photo: photo,
+        isSell: isSell,
+        maxAmount: maxAmount,
+        favorite: true);
   }
 }
