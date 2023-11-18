@@ -10,14 +10,13 @@ import '../api/ads_api.dart';
 import '../model/ads/ad/ad_response.dart';
 import '../model/ads/ad_detail/ad_detail_response.dart';
 import '../storage/favorite_storage.dart';
-import '../storage/storage.dart';
 
 @LazySingleton(as: AdRepository)
 class AdRepositoryImpl extends AdRepository {
   final AdsApi _api;
   final FavoriteStorage favoriteStorage;
 
-  AdRepositoryImpl(this._api, this._storage, this.favoriteStorage);
+  AdRepositoryImpl(this._api, this.favoriteStorage);
 
   @override
   Future<List<AdModel>> getHomeAds(

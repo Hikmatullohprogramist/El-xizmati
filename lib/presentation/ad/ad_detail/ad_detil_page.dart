@@ -112,7 +112,7 @@ class AdDetailPage
                     images:
                         (state.adDetail?.photos ?? List.empty(growable: true))
                             .map((e) =>
-                                "${Constants.baseUrlForImage}${e.image}" ??)
+                                "${Constants.baseUrlForImage}${e.image}" ??"")
                             .toList()),
                 AppDivider(height: 1),
                 Container(
