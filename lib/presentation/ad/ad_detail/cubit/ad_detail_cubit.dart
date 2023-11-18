@@ -2,17 +2,23 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/base/base_cubit.dart';
 import 'package:onlinebozor/domain/model/ad_detail.dart';
+import 'package:onlinebozor/domain/model/ad_enum.dart';
+import 'package:onlinebozor/domain/repository/favorite_repository.dart';
 
+import '../../../../domain/model/ad_model.dart';
 import '../../../../domain/repository/ad_repository.dart';
 
 part 'ad_detail_cubit.freezed.dart';
+
 part 'ad_detail_state.dart';
 
 @injectable
 class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
-  AdDetailCubit(this._adRepository) : super(AdDetailBuildable());
+  AdDetailCubit(this._adRepository, this.favoriteRepository)
+      : super(AdDetailBuildable());
 
   final AdRepository _adRepository;
+  final FavoriteRepository favoriteRepository;
 
   void setAdId(int adId) {
     build((buildable) => buildable.copyWith(adId: adId));
@@ -27,5 +33,37 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
       log.e(e.toString());
       display.error(e.toString());
     }
+  }
+
+  Future<void> addFavorite() async {
+    try {
+      final adModel = buildable.adDetail;
+      if (!(adModel?.favorite ?? false)) {
+        await favoriteRepository.addFavorite(AdModel(
+            id: adModel?.adId ?? -1,
+            name: adModel?.adName ?? "",
+            price: adModel?.price ?? 0,
+            currency: adModel?.currency ?? Currency.uzb,
+            region: adModel?.address?.region?.name ?? "",
+            district: adModel?.address?.district?.name ?? "",
+            adRouteType: adModel?.adRouteType ?? AdRouteType.private,
+            adPropertyStatus: adModel?.propertyStatus ?? AdPropertyStatus.fresh,
+            adStatusType: adModel?.adStatusType ?? AdStatusType.standard,
+            adTypeStatus: adModel?.adTypeStatus ?? AdTypeStatus.buy,
+            fromPrice: adModel?.fromPrice ?? 0,
+            toPrice: adModel?.toPrice ?? 0,
+            categoryId: adModel?.categoryId ?? -1,
+            categoryName: adModel?.categoryName ?? "",
+            sellerName: adModel?.sellerFullName ?? "",
+            sellerId: adModel?.sellerId ?? -1,
+            photo: "",
+            isSort: -1,
+            isSell: false,
+            maxAmount: -1,
+            favorite: true));
+      } else {
+        await favoriteRepository.removeFavorite(adModel?.adId ?? -1);
+      }
+    } catch (e) {}
   }
 }

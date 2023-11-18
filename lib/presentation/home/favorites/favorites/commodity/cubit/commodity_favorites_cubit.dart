@@ -10,7 +10,6 @@ import '../../../../../../domain/model/ad_enum.dart';
 import '../../../../../../domain/model/ad_model.dart';
 
 part 'commodity_favorites_cubit.freezed.dart';
-
 part 'commodity_favorites_state.dart';
 
 @injectable
@@ -49,7 +48,7 @@ class CommodityFavoritesCubit extends BaseCubit<CommodityFavoritesBuildable,
     adController.addPageRequestListener(
       (pageKey) async {
         final adsList = await _favoriteRepository.getFavoriteAds();
-        if (adsList.length <= 19) {
+        if (adsList.length <= 1000) {
           adController.appendLastPage(adsList);
           log.i(buildable.adsPagingController);
           return;
@@ -59,5 +58,13 @@ class CommodityFavoritesCubit extends BaseCubit<CommodityFavoritesBuildable,
       },
     );
     return adController;
+  }
+
+  Future<void> removeFavorite(AdModel adModel) async {
+    try {
+      await _favoriteRepository.removeFavorite(adModel.id);
+      buildable.adsPagingController?.itemList?.remove(adModel);
+      buildable.adsPagingController?.notifyListeners();
+    } catch (e) {}
   }
 }

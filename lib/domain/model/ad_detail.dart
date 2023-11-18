@@ -57,6 +57,7 @@ class AdDetail {
     this.paymentTypes,
     this.otherRouteType,
     this.otherPropertyStatus,
+    required this.favorite
   });
 
   final int adId;
@@ -113,4 +114,5 @@ class AdDetail {
   List<Photo>? photos;
   Address? address;
   List<District>? paymentTypes;
+  bool favorite;
 }

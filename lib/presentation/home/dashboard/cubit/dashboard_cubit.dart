@@ -127,7 +127,11 @@ class DashboardCubit
 
   Future<void> addFavorite(AdModel adModel) async {
     try {
-      await favoriteRepository.addFavorite(adModel);
+      if (!adModel.favorite) {
+        await favoriteRepository.addFavorite(adModel);
+      } else {
+        await favoriteRepository.removeFavorite(adModel.id);
+      }
       display.success("success");
     } on DioException catch (e) {
       if (e.response?.statusCode == 401 || e.response?.statusCode == 404) {
@@ -136,10 +140,5 @@ class DashboardCubit
         display.error(e.toString());
       }
     }
-  }
-
-  void deleteItem(AdModel adModel) {
-    // buildable.adsPagingController?.itemList?.remove(adModel);
-    // buildable.adsPagingController?.notifyListeners();
   }
 }

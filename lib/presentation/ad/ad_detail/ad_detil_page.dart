@@ -97,7 +97,10 @@ class AdDetailPage
               actions: [
                 Padding(
                     padding: EdgeInsets.all(4),
-                    child: AppFavoriteWidget(isSelected: false, onEvent: () {}))
+                    child: AppFavoriteWidget(
+                        isSelected: state.adDetail?.favorite ?? false,
+                        onEvent: () =>
+                            context.read<AdDetailCubit>().addFavorite()))
               ]),
           body: SafeArea(
             bottom: true,
@@ -109,7 +112,7 @@ class AdDetailPage
                     images:
                         (state.adDetail?.photos ?? List.empty(growable: true))
                             .map((e) =>
-                                "${Constants.baseUrlForImage}${e.image}" ?? "")
+                                "${Constants.baseUrlForImage}${e.image}" ??)
                             .toList()),
                 AppDivider(height: 1),
                 Container(
@@ -418,12 +421,7 @@ class AdDetailPage
             elevation: 1,
             leading: IconButton(
                 onPressed: () => context.router.pop(),
-                icon: Assets.images.icArrowLeft.svg(height: 24, width: 24)),
-            actions: [
-              Padding(
-                  padding: EdgeInsets.all(4),
-                  child: AppFavoriteWidget(isSelected: false, onEvent: () {}))
-            ]),
+                icon: Assets.images.icArrowLeft.svg(height: 24, width: 24))),
         body: Center(
             child: CircularProgressIndicator(
           backgroundColor: Colors.red,

@@ -20,7 +20,7 @@ class AdModel {
       required this.sellerId,
       required this.photo,
       this.isCheck = false,
-      this.favorite = false,
+      required this.favorite,
       required this.isSort,
       required this.isSell,
       required this.maxAmount});

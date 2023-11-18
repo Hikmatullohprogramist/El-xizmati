@@ -26,7 +26,7 @@ class FavoriteStorage {
 
   List<AdHiveObject> get allItems => _box.values.toList().cast<AdHiveObject>();
 
-  Future<void> delete(int adId) async {
+  Future<void> removeFavorite(int adId) async {
     final allItem = _box.values.toList().cast<AdHiveObject>();
     final index = allItem.indexWhere((element) => element.id == adId);
     _box.deleteAt(index);

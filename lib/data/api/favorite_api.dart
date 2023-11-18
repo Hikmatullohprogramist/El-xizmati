@@ -22,12 +22,8 @@ class FavoriteApi {
         queryParameters: queryParameters, options: Options(headers: headers));
   }
 
-  Future<Response> addFavorites() {
-    return _dio.post("v1/buyer/products");
-  }
-
   Future<Response> deleteFavorite() {
-    return _dio.post("v1/buyer/products");
+    return _dio.delete("v1/buyer/products");
   }
 
   Future<Response> getFavoriteAds() {

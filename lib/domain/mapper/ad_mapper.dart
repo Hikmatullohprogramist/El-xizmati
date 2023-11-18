@@ -41,7 +41,7 @@ extension AdPhoneExtension on AdPhotoResponse {
 }
 
 extension AdDetailExtension on AdDetailResponse {
-  AdDetail toMap() {
+  AdDetail toMap({bool favorite = false}) {
     return AdDetail(
         adId: id ?? -1,
         adName: name ?? "",
@@ -96,7 +96,8 @@ extension AdDetailExtension on AdDetailResponse {
         typeExpireDate: type_expire_date,
         unitId: unit_id,
         video: video,
-        warehouses: warehouses);
+        warehouses: warehouses,
+        favorite: favorite);
   }
 }
 

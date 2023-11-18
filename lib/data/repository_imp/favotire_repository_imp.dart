@@ -24,46 +24,47 @@ class FavoriteRepositoryImp extends FavoriteRepository {
 
   @override
   Future<void> addFavorite(AdModel adModel) async {
-    favoriteStorage.categoriesStorage.add(AdHiveObject(
-        id: adModel.id,
-        name: adModel.name,
-        price: adModel.price,
-        currency: adModel.currency.currencyToString(),
-        region: adModel.region,
-        district: adModel.district,
-        adRouteType: adModel.adRouteType.adRouteTypeToString(),
-        adPropertyStatus: adModel.adPropertyStatus.adPropertyStatusToString(),
-        adStatusType: adModel.adStatusType.adStatusTypeToString(),
-        adTypeStatus: adModel.adTypeStatus.adTypeStatusToString(),
-        fromPrice: adModel.fromPrice,
-        toPrice: adModel.toPrice,
-        categoryId: adModel.categoryId,
-        categoryName: adModel.categoryName,
-        isSort: adModel.isSort,
-        isSell: adModel.isSell,
-        isCheck: adModel.isCheck,
-        sellerId: adModel.sellerId,
-        maxAmount: adModel.maxAmount,
-        favorite: true,
-        photo: adModel.photo,
-        sellerName: adModel.sellerName));
-    // final isLogin = tokenStorage.isLogin.call() ?? false;
-    // // if (isLogin) {
-    // await _api.addFavorite(adType: adModel.adStatusType.name, id: adModel.id);
-    // // } else {
-    // //     add local storage;
-    // // }
+    final isLogin = tokenStorage.isLogin.call() ?? false;
+    if (isLogin) {
+      await _api.addFavorite(adType: adModel.adStatusType.name, id: adModel.id);
+    }
+    final allItem = favoriteStorage.allItems.map((e) => e.toMap()).toList();
+    if (allItem.where((element) => element.id == adModel.id).isEmpty) {
+      favoriteStorage.categoriesStorage.add(AdHiveObject(
+          id: adModel.id,
+          name: adModel.name,
+          price: adModel.price,
+          currency: adModel.currency.currencyToString(),
+          region: adModel.region,
+          district: adModel.district,
+          adRouteType: adModel.adRouteType.adRouteTypeToString(),
+          adPropertyStatus: adModel.adPropertyStatus.adPropertyStatusToString(),
+          adStatusType: adModel.adStatusType.adStatusTypeToString(),
+          adTypeStatus: adModel.adTypeStatus.adTypeStatusToString(),
+          fromPrice: adModel.fromPrice,
+          toPrice: adModel.toPrice,
+          categoryId: adModel.categoryId,
+          categoryName: adModel.categoryName,
+          isSort: adModel.isSort,
+          isSell: adModel.isSell,
+          isCheck: adModel.isCheck,
+          sellerId: adModel.sellerId,
+          maxAmount: adModel.maxAmount,
+          favorite: true,
+          photo: adModel.photo,
+          sellerName: adModel.sellerName));
+    }
     return;
   }
 
   @override
-  Future<void> deleteFavorite(int adId) async {
-    favoriteStorage.delete(adId);
-    // final isLogin = tokenStorage.isLogin.call() ?? false;
-    // favoriteStorage.categoriesStorage.delete();
-    // if (isLogin) {
-    //   await _api.deleteFavorite();
-    // } else {}
+  Future<void> removeFavorite(int adId) async {
+    favoriteStorage.removeFavorite(adId);
+    final isLogin = tokenStorage.isLogin.call() ?? false;
+    favoriteStorage.categoriesStorage.delete();
+    if (isLogin) {
+      await _api.deleteFavorite();
+    } else {}
   }
 
   @override

@@ -111,7 +111,11 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
 
   Future<void> addFavorite(AdModel adModel) async {
     try {
-      await favoriteRepository.addFavorite(adModel);
+      if (!adModel.favorite) {
+        await favoriteRepository.addFavorite(adModel);
+      } else {
+        await favoriteRepository.removeFavorite(adModel.id);
+      }
     } on DioException catch (e) {
       if (e.response?.statusCode == 401 || e.response?.statusCode == 404) {
         invoke(

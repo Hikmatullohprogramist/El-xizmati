@@ -100,7 +100,9 @@ class CommodityFavoritesPage extends BasePage<CommodityFavoritesCubit,
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) => AppAdWidget(
             result: item,
-            onClickFavorite: (value) {},
+            onClickFavorite: (value) => context
+                .read<CommodityFavoritesCubit>()
+                .removeFavorite(value),
             onClick: (value) {
               context.router.push(AdDetailRoute(adId: value.id));
             },

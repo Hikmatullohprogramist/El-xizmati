@@ -9,39 +9,52 @@ import '../../domain/repository/ad_repository.dart';
 import '../api/ads_api.dart';
 import '../model/ads/ad/ad_response.dart';
 import '../model/ads/ad_detail/ad_detail_response.dart';
+import '../storage/favorite_storage.dart';
 import '../storage/storage.dart';
 
 @LazySingleton(as: AdRepository)
 class AdRepositoryImpl extends AdRepository {
   final AdsApi _api;
-  final Storage _storage;
+  final FavoriteStorage favoriteStorage;
 
-  AdRepositoryImpl(this._api, this._storage);
+  AdRepositoryImpl(this._api, this._storage, this.favoriteStorage);
 
   @override
   Future<List<AdModel>> getHomeAds(
       int pageIndex, int pageSize, String keyWord) async {
+    final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
     final response = await _api.getHomeAds(pageIndex, pageSize, keyWord);
     final adsResponse =
         AdRootResponse.fromJson(response.data).data?.results ?? List.empty();
-    final result = adsResponse.map((e) => e.toMap()).toList(growable: true);
+    final result = adsResponse
+        .map((item) => item.toMap(
+            favorite:
+                allItems.where((element) => element.id == item.id).isNotEmpty))
+        .toList(growable: true);
     return result;
   }
 
   @override
   Future<List<AdModel>> getRecentlyViewAds() async {
+    final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
     final response = await _api.getHomePopularAds();
     final adsResponse =
         AdRootResponse.fromJson(response.data).data?.results ?? List.empty();
-    final result = adsResponse.map((e) => e.toMap()).toList(growable: true);
+    final result = adsResponse
+        .map((item) => item.toMap(
+            favorite:
+                allItems.where((element) => element.id == item.id).isNotEmpty))
+        .toList(growable: true);
     return result;
   }
 
   @override
   Future<AdDetail?> getAdDetail(int adId) async {
+    final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
     final response = await _api.getAdDetail(adId);
     final adDetail = AdDetailRootResponse.fromJson(response.data).data.results;
-    final result = adDetail.toMap();
+    final result = adDetail.toMap(favorite:
+    allItems.where((element) => element.id == adId).isNotEmpty);
     return result;
   }
 
@@ -57,30 +70,45 @@ class AdRepositoryImpl extends AdRepository {
 
   @override
   Future<List<AdModel>> getHotDiscountAds(CollectiveType collectiveType) async {
+    final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
     final response = await _api.getHomePopularAds();
     final adsResponse =
         AdRootResponse.fromJson(response.data).data?.results ?? List.empty();
-    final result = adsResponse.map((e) => e.toMap()).toList(growable: true);
+    final result = adsResponse
+        .map((item) => item.toMap(
+            favorite:
+                allItems.where((element) => element.id == item.id).isNotEmpty))
+        .toList(growable: true);
     return result;
   }
 
   @override
   Future<List<AdModel>> getPopularAds(CollectiveType collectiveType) async {
+    final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
     final response = await _api.getHomePopularAds();
     final adsResponse =
         AdRootResponse.fromJson(response.data).data?.results ?? List.empty();
-    final result = adsResponse.map((e) => e.toMap()).toList(growable: true);
+    final result = adsResponse
+        .map((item) => item.toMap(
+        favorite:
+        allItems.where((element) => element.id == item.id).isNotEmpty))
+        .toList(growable: true);
     return result;
   }
 
   @override
   Future<List<AdModel>> getCollectiveAds(int pageIndex, int pageSize,
       String keyWord, CollectiveType collectiveType) async {
+    final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
     final response = await _api.getCollectiveAds(
         collectiveType, pageIndex, pageSize, keyWord);
     final adsResponse =
         AdRootResponse.fromJson(response.data).data?.results ?? List.empty();
-    final result = adsResponse.map((e) => e.toMap()).toList(growable: true);
+    final result = adsResponse
+        .map((item) => item.toMap(
+        favorite:
+        allItems.where((element) => element.id == item.id).isNotEmpty))
+        .toList(growable: true);
     return result;
   }
 
