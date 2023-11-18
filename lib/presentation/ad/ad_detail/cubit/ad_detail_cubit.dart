@@ -7,18 +7,20 @@ import 'package:onlinebozor/domain/repository/favorite_repository.dart';
 
 import '../../../../domain/model/ad_model.dart';
 import '../../../../domain/repository/ad_repository.dart';
+import '../../../../domain/repository/cart_repository.dart';
 
 part 'ad_detail_cubit.freezed.dart';
-
 part 'ad_detail_state.dart';
 
 @injectable
 class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
-  AdDetailCubit(this._adRepository, this.favoriteRepository)
+  AdDetailCubit(
+      this._adRepository, this.favoriteRepository, this.cartRepository)
       : super(AdDetailBuildable());
 
   final AdRepository _adRepository;
   final FavoriteRepository favoriteRepository;
+  final CartRepository cartRepository;
 
   void setAdId(int adId) {
     build((buildable) => buildable.copyWith(adId: adId));
@@ -60,10 +62,40 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
             isSort: -1,
             isSell: false,
             maxAmount: -1,
-            favorite: true));
+            favorite: true,
+            isCheck: false));
       } else {
         await favoriteRepository.removeFavorite(adModel?.adId ?? -1);
       }
+    } catch (e) {}
+  }
+
+  Future<void> addCart() async {
+    try {
+      final adModel = buildable.adDetail;
+      await cartRepository.addCart(AdModel(
+          id: adModel?.adId ?? -1,
+          name: adModel?.adName ?? "",
+          price: adModel?.price ?? 0,
+          currency: adModel?.currency ?? Currency.uzb,
+          region: adModel?.address?.region?.name ?? "",
+          district: adModel?.address?.district?.name ?? "",
+          adRouteType: adModel?.adRouteType ?? AdRouteType.private,
+          adPropertyStatus: adModel?.propertyStatus ?? AdPropertyStatus.fresh,
+          adStatusType: adModel?.adStatusType ?? AdStatusType.standard,
+          adTypeStatus: adModel?.adTypeStatus ?? AdTypeStatus.buy,
+          fromPrice: adModel?.fromPrice ?? 0,
+          toPrice: adModel?.toPrice ?? 0,
+          categoryId: adModel?.categoryId ?? -1,
+          categoryName: adModel?.categoryName ?? "",
+          sellerName: adModel?.sellerFullName ?? "",
+          sellerId: adModel?.sellerId ?? -1,
+          photo: "",
+          isSort: -1,
+          isSell: false,
+          maxAmount: -1,
+          favorite: true,
+          isCheck: false));
     } catch (e) {}
   }
 }

@@ -61,7 +61,6 @@ class FavoriteRepositoryImp extends FavoriteRepository {
   Future<void> removeFavorite(int adId) async {
     favoriteStorage.removeFavorite(adId);
     final isLogin = tokenStorage.isLogin.call() ?? false;
-    favoriteStorage.categoriesStorage.delete();
     if (isLogin) {
       await _api.deleteFavorite();
     } else {}
@@ -73,7 +72,7 @@ class FavoriteRepositoryImp extends FavoriteRepository {
     logger.w("getFavorites Ads");
     try {
       final result = favoriteStorage.allItems;
-      return result.map((e) => e.toMap()).toList();
+      return result.map((e) => e.toMap(favorite: true)).toList();
     } catch (e) {
       logger.e(e.toString());
       return List.empty();

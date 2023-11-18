@@ -79,7 +79,9 @@ class AdDetailPage
                   CommonButton(
                       color: context.colors.buttonPrimary,
                       type: ButtonType.elevated,
-                      onPressed: () {},
+                      onPressed: () {
+                        context.read<AdDetailCubit>().addCart();
+                      },
                       child: Strings.adDetailAddtocart
                           .s(13)
                           .c(Colors.white)

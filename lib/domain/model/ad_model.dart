@@ -19,7 +19,7 @@ class AdModel {
       required this.sellerName,
       required this.sellerId,
       required this.photo,
-      this.isCheck = false,
+      required this.isCheck,
       required this.favorite,
       required this.isSort,
       required this.isSell,

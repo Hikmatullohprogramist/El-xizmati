@@ -29,7 +29,8 @@ extension AdExtension on AdResponse {
         photo: photos?.first.image ?? "",
         isSell: is_sell ?? false,
         maxAmount: max_amount ?? 0,
-        favorite: favorite);
+        favorite: favorite,
+        isCheck: false);
   }
 }
 
@@ -102,7 +103,7 @@ extension AdDetailExtension on AdDetailResponse {
 }
 
 extension AdHiveObjectExtension on AdHiveObject {
-  AdModel toMap() {
+  AdModel toMap({bool favorite = false}) {
     return AdModel(
         id: id,
         name: name,
@@ -124,6 +125,7 @@ extension AdHiveObjectExtension on AdHiveObject {
         photo: photo,
         isSell: isSell,
         maxAmount: maxAmount,
-        favorite: true);
+        favorite: favorite,
+        isCheck: false);
   }
 }

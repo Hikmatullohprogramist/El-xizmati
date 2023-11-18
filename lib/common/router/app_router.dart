@@ -94,7 +94,7 @@ class AppRouter extends _$AppRouter {
                     path: 'service_favorites',
                     maintainState: false)
               ]),
-              AutoRoute(page: CartRoute.page, path: 'cart'),
+              AutoRoute(page: CartRoute.page, path: 'cart', maintainState: false),
               AutoRoute(page: ProfileDashboardRoute.page, path: 'profile'),
               AutoRoute(page: AuthStartRoute.page, path: "auth_start"),
             ]),

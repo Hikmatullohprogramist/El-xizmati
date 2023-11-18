@@ -1,15 +1,18 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/common/widgets/app_diverder.dart';
-import 'package:onlinebozor/common/widgets/cart/cart_widget.dart';
-import 'package:onlinebozor/common/widgets/common_button.dart';
 import 'package:onlinebozor/domain/model/ad_model.dart';
 
+import '../../../common/gen/localization/strings.dart';
+import '../../../common/router/app_router.dart';
+import '../../../common/widgets/cart/cart_widget.dart';
+import '../../../common/widgets/common_button.dart';
+import '../../../common/widgets/favorite_empty_widget.dart';
 import 'cubit/cart_cubit.dart';
 
 @RoutePage()
@@ -19,8 +22,8 @@ class CartPage extends BasePage<CartCubit, CartBuildable, CartListenable> {
   @override
   Widget builder(BuildContext context, CartBuildable state) {
     var formatter = NumberFormat('###,000');
+    double cardWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: "Корзина".w(500).s(14).c(context.colors.textPrimary),
@@ -34,76 +37,96 @@ class CartPage extends BasePage<CartCubit, CartBuildable, CartListenable> {
         //         child: "Выбрать все".w(500).s(12).c(Color(0xFF5C6AC3)))
         // ],
       ),
-      body: Column(children: [
-        Expanded(
-          child: ListView(
-            physics: BouncingScrollPhysics(),
-            shrinkWrap: false,
-            children: [
-              CartWidget(
-                  addItem: (AdModel result) {},
-                  minusItem: (AdModel result) {},
-                  deleteItem: (AdModel result) {},
-                  addFavorite: (AdModel result) {}),
-              CartWidget(
-                  addItem: (AdModel result) {},
-                  minusItem: (AdModel result) {},
-                  deleteItem: (AdModel result) {},
-                  addFavorite: (AdModel result) {}),
-              CartWidget(
-                  addItem: (AdModel result) {},
-                  minusItem: (AdModel result) {},
-                  deleteItem: (AdModel result) {},
-                  addFavorite: (AdModel result) {}),
-              CartWidget(
-                  addItem: (AdModel result) {},
-                  minusItem: (AdModel result) {},
-                  deleteItem: (AdModel result) {},
-                  addFavorite: (AdModel result) {}),
-              CartWidget(
-                  addItem: (AdModel result) {},
-                  minusItem: (AdModel result) {},
-                  deleteItem: (AdModel result) {},
-                  addFavorite: (AdModel result) {}),
-              CartWidget(
-                  addItem: (AdModel result) {},
-                  minusItem: (AdModel result) {},
-                  deleteItem: (AdModel result) {},
-                  addFavorite: (AdModel result) {}),
-              CartWidget(
-                  addItem: (AdModel result) {},
-                  minusItem: (AdModel result) {},
-                  deleteItem: (AdModel result) {},
-                  addFavorite: (AdModel result) {}),
-              CartWidget(
-                  addItem: (AdModel result) {},
-                  minusItem: (AdModel result) {},
-                  deleteItem: (AdModel result) {},
-                  addFavorite: (AdModel result) {}),
-              CartWidget(
-                  addItem: (AdModel result) {},
-                  minusItem: (AdModel result) {},
-                  deleteItem: (AdModel result) {},
-                  addFavorite: (AdModel result) {}),
-            ],
-          ),
+      backgroundColor: Colors.white,
+      body: PagedGridView<int, AdModel>(
+        shrinkWrap: true,
+        addAutomaticKeepAlives: true,
+        physics: BouncingScrollPhysics(),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        pagingController: state.adsPagingController!,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          childAspectRatio: 360 / 142,
+          // mainAxisSpacing: 24,
+          crossAxisCount: 1,
         ),
-        AppDivider(height: 2,),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          child: Row(
-            children: [
-              "Товары не выбраны".w(400).s(12).c(Color(0xFF41455E)),
-              Spacer(),
-              CommonButton(
-                  onPressed: () {
-                    context.router.push(OrderCreateRoute());
-                  },
-                  child: "Оформить".w(500).s(13).c(Color(0xFFDFE2E9)))
-            ],
-          ),
-        ),
-      ]),
+        builderDelegate: PagedChildBuilderDelegate<AdModel>(
+            firstPageErrorIndicatorBuilder: (_) {
+              return SizedBox(
+                height: 100,
+                child: Center(
+                  child: Column(
+                    children: [
+                      Strings.loadingStateError
+                          .w(400)
+                          .s(14)
+                          .c(context.colors.textPrimary),
+                      SizedBox(height: 12),
+                      CommonButton(
+                          onPressed: () {},
+                          type: ButtonType.elevated,
+                          child: Strings.loadingStateRetrybutton.w(400).s(15))
+                    ],
+                  ),
+                ),
+              );
+            },
+            firstPageProgressIndicatorBuilder: (_) {
+              return SizedBox(
+                height: 160,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.blue,
+                  ),
+                ),
+              );
+            },
+            noItemsFoundIndicatorBuilder: (_) {
+              return FavoriteEmptyWidget(callBack: () {
+                context.router.push(DashboardRoute());
+              });
+            },
+            newPageProgressIndicatorBuilder: (_) {
+              return SizedBox(
+                height: 160,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.blue,
+                  ),
+                ),
+              );
+            },
+            newPageErrorIndicatorBuilder: (_) {
+              return SizedBox(
+                height: 160,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.blue,
+                  ),
+                ),
+              );
+            },
+            transitionDuration: Duration(milliseconds: 100),
+            itemBuilder: (context, item, index) {
+              return CartWidget(
+                addItem: (AdModel adModel) {},
+                minusItem: (AdModel adModel) {},
+                deleteItem: (AdModel adModel) =>
+                    context.read<CartCubit>().removeCart(adModel),
+                addFavorite: (AdModel adModel) {
+                  context.read<CartCubit>().addFavorite(adModel);
+                },
+                adModel: item,
+              );
+
+              //   AppAdWidget(
+              //   result: item,
+              //   onClickFavorite: (value) {},
+              //   onClick: (value) {
+              //     context.router.push(AdDetailRoute(adId: value.id));
+              //   },
+              // )
+            }),
+      ),
     );
   }
 }

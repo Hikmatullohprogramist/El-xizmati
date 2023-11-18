@@ -6,29 +6,28 @@ import 'package:path_provider/path_provider.dart';
 import '../../common/base/base_storage.dart';
 
 @lazySingleton
-class FavoriteStorage {
-  FavoriteStorage(this._box);
+class CartStorage {
+  CartStorage(this._box);
 
   final Box _box;
 
-  BaseStorage get categoriesStorage =>
-      BaseStorage(_box, key: "key_favorites_storage");
+  BaseStorage get cartStorage => BaseStorage(_box, key: "key_cart_storage");
 
   @FactoryMethod(preResolve: true)
-  static Future<FavoriteStorage> create() async {
+  static Future<CartStorage> create() async {
     final appDocumentDir = await getApplicationDocumentsDirectory();
     if (!Hive.isAdapterRegistered(3)) {
       Hive
         ..init(appDocumentDir.path)
         ..registerAdapter(AdHiveObjectAdapter());
     }
-    final box = await Hive.openBox('favorites_storage');
-    return FavoriteStorage(box);
+    final box = await Hive.openBox('cart_storage');
+    return CartStorage(box);
   }
 
   List<AdHiveObject> get allItems => _box.values.toList().cast<AdHiveObject>();
 
-  Future<void> removeFavorite(int adId) async {
+  Future<void> removeCart(int adId) async {
     final allItem = _box.values.toList().cast<AdHiveObject>();
     final index = allItem.indexWhere((element) => element.id == adId);
     _box.deleteAt(index);
