@@ -7,6 +7,7 @@ import 'package:onlinebozor/common/widgets/common_button.dart';
 
 import '../../../domain/model/ad_enum.dart';
 import '../../../domain/model/ad_model.dart';
+import '../../constants.dart';
 import '../../gen/assets/assets.gen.dart';
 
 class CartWidget extends StatelessWidget {
@@ -38,6 +39,14 @@ class CartWidget extends StatelessWidget {
         return Assets.images.icLike.svg();
       }
     }
+
+    // String url(String url) {
+    //   if (url.isNotEmpty) {
+    //     return url;
+    //   } else {
+    //     return "ff8081817f0675606837d571";
+    //   }
+    // }
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -71,7 +80,7 @@ class CartWidget extends StatelessWidget {
                 color: Color(0xFFF6F7FC),
               ),
               child: CachedNetworkImage(
-                imageUrl: "",
+                imageUrl: "${Constants.baseUrlForImage}${adModel.photo}",
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),

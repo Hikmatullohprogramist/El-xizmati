@@ -10,7 +10,6 @@ import '../../../../domain/repository/ad_repository.dart';
 import '../../../../domain/repository/cart_repository.dart';
 
 part 'cart_cubit.freezed.dart';
-
 part 'cart_state.dart';
 
 @injectable
@@ -49,7 +48,7 @@ class CartCubit extends BaseCubit<CartBuildable, CartListenable> {
     adController.addPageRequestListener(
       (pageKey) async {
         final adsList = await _cartRepository.getCartAds();
-        if (adsList.length <= 19) {
+        if (adsList.length <= 1000) {
           adController.appendLastPage(adsList);
           log.i(buildable.adsPagingController);
           return;
@@ -80,13 +79,10 @@ class CartCubit extends BaseCubit<CartBuildable, CartListenable> {
       }
       final index = buildable.adsPagingController?.itemList?.indexOf(adModel);
       if (index != null) {
-        display.success("update");
         final newAdModel = adModel..favorite = !adModel.favorite;
         buildable.adsPagingController?.itemList?.remove(adModel);
         buildable.adsPagingController?.itemList?.insert(index, newAdModel);
         buildable.adsPagingController?.notifyListeners();
-      } else {
-        display.success(" not update");
       }
       display.success("success");
     } on DioException catch (e) {

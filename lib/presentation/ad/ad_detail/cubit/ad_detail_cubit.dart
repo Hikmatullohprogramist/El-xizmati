@@ -58,16 +58,18 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
             categoryName: adModel?.categoryName ?? "",
             sellerName: adModel?.sellerFullName ?? "",
             sellerId: adModel?.sellerId ?? -1,
-            photo: "",
+            photo: adModel?.photos?.first.image ?? 'xatolik ',
             isSort: -1,
             isSell: false,
             maxAmount: -1,
-            favorite: true,
+            favorite: false,
             isCheck: false));
       } else {
         await favoriteRepository.removeFavorite(adModel?.adId ?? -1);
       }
-    } catch (e) {}
+    } catch (e) {
+      display.error(e.toString());
+    }
   }
 
   Future<void> addCart() async {
@@ -90,7 +92,7 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
           categoryName: adModel?.categoryName ?? "",
           sellerName: adModel?.sellerFullName ?? "",
           sellerId: adModel?.sellerId ?? -1,
-          photo: "",
+          photo: adModel?.photos?.first.image ?? "",
           isSort: -1,
           isSell: false,
           maxAmount: -1,

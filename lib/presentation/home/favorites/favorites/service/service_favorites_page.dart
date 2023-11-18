@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/base/base_page.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
@@ -93,7 +94,8 @@ class ServiceFavoritesPage extends BasePage<ServiceFavoritesCubit,
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) => AppAdWidget(
             result: item,
-            onClickFavorite: (value) {},
+            onClickFavorite: (value) =>
+                context.read<ServiceFavoritesCubit>().removeFavorite(value),
             onClick: (value) {
               context.router.push(AdDetailRoute(adId: value.id));
             },

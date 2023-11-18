@@ -46,9 +46,9 @@ class ServiceFavoritesCubit
     log.i(buildable.adsPagingController);
 
     adController.addPageRequestListener(
-      (pageKey) async {
+          (pageKey) async {
         final adsList = await _favoriteRepository.getFavoriteAds();
-        if (adsList.length <= 19) {
+        if (adsList.length <= 1000) {
           adController.appendLastPage(adsList);
           log.i(buildable.adsPagingController);
           return;
@@ -58,5 +58,13 @@ class ServiceFavoritesCubit
       },
     );
     return adController;
+  }
+
+  Future<void> removeFavorite(AdModel adModel) async {
+    try {
+      await _favoriteRepository.removeFavorite(adModel.id);
+      buildable.adsPagingController?.itemList?.remove(adModel);
+      buildable.adsPagingController?.notifyListeners();
+    } catch (e) {}
   }
 }

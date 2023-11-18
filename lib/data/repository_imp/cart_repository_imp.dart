@@ -77,6 +77,7 @@ class CartRepositoryImp extends CartRepository {
     try {
       final favoriteAds = favoriteStorage.allItems;
       final result = cartStorage.allItems;
+      logger.e("  ${result.toString()}");
       return result
           .map((item) => item.toMap(
               favorite: favoriteAds
