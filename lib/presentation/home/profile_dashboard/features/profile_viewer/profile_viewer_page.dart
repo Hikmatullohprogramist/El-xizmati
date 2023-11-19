@@ -171,7 +171,7 @@ class ProfileViewerPage extends BasePage<ProfileViewerCubit,
                                     backgroundColor:
                                         context.colors.buttonPrimary),
                                 onPressed: () =>
-                                    context.router.replace(ProfileEditRoute()),
+                                    context.router.replace(IdentifiedRoute()),
                                 child: Strings.profileViewIdentified
                                     .w(500)
                                     .s(12)

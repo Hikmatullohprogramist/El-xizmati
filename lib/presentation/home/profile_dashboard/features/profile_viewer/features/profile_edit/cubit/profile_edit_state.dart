@@ -3,21 +3,25 @@ part of 'profile_edit_cubit.dart';
 @freezed
 class ProfileEditBuildable with _$ProfileEditBuildable {
   const factory ProfileEditBuildable(
-      {
-    @Default("") String biometricSerial,
-    @Default("") String biometricNumber,
-    @Default("") String brithDate,
-    @Default("") String phoneNumber,
-    @Default("") String fullName, 
-    @Default("") String userName, 
-    @Default("") String email, 
-    @Default("") String region, 
-    @Default("") String district, 
-    @Default("") String neighborhood,
-    @Default("") String homeNumber, 
-    @Default("") String apartmentNumber
-}
-) = _ProfileEditBuildable;
+      {@Default(false) bool isLoading,
+      @Default("") String biometricSerial,
+      @Default("") String biometricNumber,
+      @Default("") String brithDate,
+      @Default("") String phoneNumber,
+      @Default("") String fullName,
+      @Default("") String userName,
+      @Default("") String email,
+      @Default("") String regionName,
+      @Default("") String districtName,
+      @Default("") String streetName,
+      @Default("") String homeNumber,
+      @Default(<RegionResponse>[]) List<RegionResponse> regions,
+      @Default(<RegionResponse>[]) List<RegionResponse> districts,
+      @Default(<RegionResponse>[]) List<RegionResponse> streets,
+      int? regionId,
+      int? districtId,
+      int? streetId,
+      @Default("") String apartmentNumber}) = _ProfileEditBuildable;
 }
 
 @freezed

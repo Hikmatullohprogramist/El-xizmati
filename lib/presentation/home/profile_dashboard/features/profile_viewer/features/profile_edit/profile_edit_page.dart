@@ -54,7 +54,11 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
               Padding(
                 padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
                 child: CommonTextField(
-                    hint: "Имя", textInputAction: TextInputAction.next),
+                    controller: TextEditingController(text: state.fullName),
+                    hint: "Имя",
+                    enabled: false,
+                    readOnly: true,
+                    textInputAction: TextInputAction.next),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -64,6 +68,7 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
                 padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
                 child: CommonTextField(
                   hint: "example@gmail.com",
+                  controller: TextEditingController(text: state.email),
                   textInputAction: TextInputAction.next,
                   inputType: TextInputType.emailAddress,
                 ),
@@ -76,7 +81,9 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
                 padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
                 child: CommonTextField(
                     hint: "+998",
-                    controller: TextEditingController(text: "+998"),
+                    readOnly: true,
+                    enabled: false,
+                    controller: TextEditingController(text: state.phoneNumber),
                     inputFormatters: phoneMaskFormatter,
                     inputType: TextInputType.phone,
                     textInputAction: TextInputAction.next),
@@ -89,6 +96,7 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
                 padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
                 child: CommonTextField(
                     hint: "User name",
+                    controller: TextEditingController(text: state.userName),
                     textInputAction: TextInputAction.next,
                     inputType: TextInputType.text),
               ),
@@ -102,10 +110,13 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
                   onChanged: (value) {
                     context.read<ProfileEditCubit>().setBrithDate(value);
                   },
+                  readOnly: true,
+                  enabled: false,
                   inputType: TextInputType.number,
                   textInputAction: TextInputAction.next,
                   inputFormatters: brithMaskFormatter,
                   maxLength: 12,
+                  controller: TextEditingController(text: state.brithDate),
                   hint: "2004-11-28",
                 ),
               ),
@@ -121,6 +132,7 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
                     width: 60,
                     child: CommonTextField(
                         readOnly: true,
+                        enabled: false,
                         onChanged: (value) {
                           context
                               .read<ProfileEditCubit>()
@@ -128,6 +140,8 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
                         },
                         inputType: TextInputType.text,
                         maxLength: 2,
+                        controller:
+                            TextEditingController(text: state.biometricSerial),
                         textInputAction: TextInputAction.next),
                   ),
                   SizedBox(width: 12),
@@ -135,11 +149,14 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
                     child: CommonTextField(
                       maxLength: 9,
                       readOnly: true,
+                      enabled: false,
                       onChanged: (value) {
                         context
                             .read<ProfileEditCubit>()
                             .setBiometricNumber(value);
                       },
+                      controller:
+                          TextEditingController(text: state.biometricNumber),
                       inputFormatters: biometricNumberMaskFormatter,
                       textInputAction: TextInputAction.next,
                       inputType: TextInputType.number,
@@ -153,13 +170,55 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
                 child: "Регион".w(500).s(12).c(Color(0xFF41455E)),
               ),
               Padding(
-                padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                child: CommonTextField(
-                  hint: "Регион",
-                  inputType: TextInputType.text,
-                  textInputAction: TextInputAction.next,
-                ),
-              ),
+                  padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
+                  child: InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          backgroundColor: Colors.white,
+                          context: context,
+                          builder: (BuildContext buildContext) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20.0),
+                                  topRight: Radius.circular(20.0),
+                                ),
+                              ),
+                              height: double.infinity,
+                              child: ListView.builder(
+                                  physics: BouncingScrollPhysics(),
+                                  itemCount: state.regions.length,
+                                  itemBuilder:
+                                      (BuildContext buildContext, int index) {
+                                    return InkWell(
+                                        onTap: () {
+                                          context
+                                              .read<ProfileEditCubit>()
+                                              .setRegion(state.regions[index]);
+                                          Navigator.pop(buildContext);
+                                        },
+                                        child: Padding(
+                                          padding: EdgeInsets.all(16),
+                                          child:
+                                              state.regions[index].name.w(500),
+                                        ));
+                                  }),
+                            );
+                          });
+                    },
+                    child: CommonTextField(
+                      hint: "Регион",
+                      readOnly: true,
+                      enabled: false,
+                      controller: TextEditingController(text: state.regionName),
+                      inputType: TextInputType.text,
+                      textInputAction: TextInputAction.next,
+                    ),
+                  )),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 child: "Район".w(500).s(12).c(Color(0xFF41455E)),
@@ -169,21 +228,49 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
                   child: InkWell(
                     onTap: () {
                       showModalBottomSheet(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Container(
-                            height: 200,
-                            child: Center(
-                              child: Text('This is a bottom sheet'),
-                            ),
-                          );
-                        },
-                      );
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          backgroundColor: Colors.white,
+                          context: context,
+                          builder: (BuildContext buildContext) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20.0),
+                                  topRight: Radius.circular(20.0),
+                                ),
+                              ),
+                              height: double.infinity,
+                              child: ListView.builder(
+                                  physics: BouncingScrollPhysics(),
+                                  itemCount: state.districts.length,
+                                  itemBuilder:
+                                      (BuildContext buildContext, int index) {
+                                    return InkWell(
+                                        onTap: () {
+                                          context
+                                              .read<ProfileEditCubit>()
+                                              .setDistrict(
+                                                  state.districts[index]);
+                                          Navigator.pop(buildContext);
+                                        },
+                                        child: Padding(
+                                          padding: EdgeInsets.all(16),
+                                          child: state.districts[index].name
+                                              .w(500),
+                                        ));
+                                  }),
+                            );
+                          });
                     },
                     child: CommonTextField(
                         hint: "Район",
-                        enabled: true,
                         readOnly: true,
+                        enabled: false,
+                        controller:
+                            TextEditingController(text: state.districtName),
                         inputType: TextInputType.text,
                         textInputAction: TextInputAction.next),
                   )),
@@ -193,48 +280,91 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
               ),
               Padding(
                 padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                child: CommonTextField(
-                  hint: "Махалля",
-                  textInputAction: TextInputAction.next,
-                  inputType: TextInputType.text,
-                ),
+                child: InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          backgroundColor: Colors.white,
+                          context: context,
+                          builder: (BuildContext buildContext) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20.0),
+                                  topRight: Radius.circular(20.0),
+                                ),
+                              ),
+                              height: double.infinity,
+                              child: ListView.builder(
+                                  physics: BouncingScrollPhysics(),
+                                  itemCount: state.streets.length,
+                                  itemBuilder:
+                                      (BuildContext buildContext, int index) {
+                                    return InkWell(
+                                        onTap: () {
+                                          context
+                                              .read<ProfileEditCubit>()
+                                              .setStreet(state.streets[index]);
+                                          Navigator.pop(buildContext);
+                                        },
+                                        child: Padding(
+                                          padding: EdgeInsets.all(16),
+                                          child:
+                                              state.streets[index].name.w(500),
+                                        ));
+                                  }),
+                            );
+                          });
+                    },
+                    child: CommonTextField(
+                      hint: "Махалля",
+                      readOnly: true,
+                      controller: TextEditingController(text: state.streetName),
+                      enabled: false,
+                      textInputAction: TextInputAction.next,
+                      inputType: TextInputType.text,
+                    )),
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Flexible(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            "Дом".w(500).s(12).c(Color(0xFF41455E)),
-                            SizedBox(height: 12),
-                            CommonTextField(
-                              textInputAction: TextInputAction.next,
-                              inputType: TextInputType.number,
-                            ),
-                          ],
-                        )),
-                    SizedBox(width: 16),
-                    Flexible(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            "Квартира".w(500).s(12).c(Color(0xFF41455E)),
-                            SizedBox(height: 12),
-                            CommonTextField(
-                              textInputAction: TextInputAction.done,
-                              inputType: TextInputType.number,
-                            ),
-                          ],
-                        ))
-                  ],
-                ),
-              ),
+              SizedBox(height: 24),
+              // Padding(
+              //   padding:
+              //       const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              //   child: Row(
+              //     mainAxisSize: MainAxisSize.max,
+              //     children: [
+              //       Flexible(
+              //           flex: 1,
+              //           child: Column(
+              //             crossAxisAlignment: CrossAxisAlignment.start,
+              //             children: [
+              //               "Дом".w(500).s(12).c(Color(0xFF41455E)),
+              //               SizedBox(height: 12),
+              //               CommonTextField(
+              //                 textInputAction: TextInputAction.next,
+              //                 inputType: TextInputType.number,
+              //               ),
+              //             ],
+              //           )),
+              //       SizedBox(width: 16),
+              //       Flexible(
+              //           flex: 1,
+              //           child: Column(
+              //             crossAxisAlignment: CrossAxisAlignment.start,
+              //             children: [
+              //               "Квартира".w(500).s(12).c(Color(0xFF41455E)),
+              //               SizedBox(height: 12),
+              //               CommonTextField(
+              //                 textInputAction: TextInputAction.done,
+              //                 inputType: TextInputType.number,
+              //               ),
+              //             ],
+              //           ))
+              //     ],
+              //   ),
+              // ),
             ],
           )),
     );

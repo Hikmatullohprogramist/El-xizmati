@@ -50,6 +50,7 @@ import '../../presentation/home/profile_dashboard/features/my_orders/features/my
 import '../../presentation/home/profile_dashboard/features/my_orders/my_orders_page.dart';
 import '../../presentation/home/profile_dashboard/features/payment_transaction/features/payment_transaction_filter/payment_transaction_filter_page.dart';
 import '../../presentation/home/profile_dashboard/features/payment_transaction/payment_transaction_page.dart';
+import '../../presentation/home/profile_dashboard/features/profile_viewer/features/identified_page/identified_page.dart';
 import '../../presentation/home/profile_dashboard/features/profile_viewer/features/profile_edit/profile_edit_page.dart';
 import '../../presentation/home/profile_dashboard/features/profile_viewer/profile_viewer_page.dart';
 import '../../presentation/home/profile_dashboard/features/promotion/promotion_page.dart';
@@ -143,6 +144,7 @@ class AppRouter extends _$AppRouter {
             page: PaymentTransactionFilterRoute.page,
             path: '/payment_transaction_filter'),
         AutoRoute(page: ProfileEditRoute.page, path: '/profile_edit'),
+        AutoRoute(page: IdentifiedRoute.page, path: '/identified'),
         AutoRoute(page: ComparisonDetailRoute.page, path: '/comparison_detail'),
         AutoRoute(page: PromotionRoute.page, path: '/promotion'),
         AutoRoute(page: SettingRoute.page, path: '/setting'),

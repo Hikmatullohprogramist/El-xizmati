@@ -83,7 +83,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
           borderRadius: BorderRadius.circular(8),
         ),
         disabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: context.colors.primary),
+          borderSide: BorderSide(color: context.colors.iconGrey),
           borderRadius: BorderRadius.circular(8),
         ),
         focusedBorder: OutlineInputBorder(

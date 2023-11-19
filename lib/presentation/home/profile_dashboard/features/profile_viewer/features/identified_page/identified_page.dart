@@ -12,6 +12,7 @@ import '../../../../../../../common/widgets/common_button.dart';
 import '../../../../../../../common/widgets/common_text_field.dart';
 import '../../../../../../util.dart';
 
+@RoutePage()
 class IdentifiedPage extends BasePage<IdentifiedCubit, IdentifiedBuildable,
     IdentifiedListenable> {
   const IdentifiedPage({super.key});
@@ -45,11 +46,11 @@ class IdentifiedPage extends BasePage<IdentifiedCubit, IdentifiedBuildable,
                 padding: const EdgeInsets.only(
                     left: 16, top: 20, right: 16, bottom: 12),
                 child:
-                    "Изменить личные данные".w(700).s(16).c(Color(0xFF41455E)),
+                "Изменить личные данные".w(700).s(16).c(Color(0xFF41455E)),
               ),
               Padding(
                   padding:
-                      EdgeInsets.only(left: 16, top: 12, right: 16, bottom: 6),
+                  EdgeInsets.only(left: 16, top: 12, right: 16, bottom: 6),
                   child: "Паспортные данные".w(500).s(12).c(Color(0xFF41455E))),
               Padding(
                 padding: const EdgeInsets.only(
@@ -116,7 +117,7 @@ class IdentifiedPage extends BasePage<IdentifiedCubit, IdentifiedBuildable,
               ),
               Padding(
                 padding:
-                    EdgeInsets.only(left: 16, right: 16, top: 12, bottom: 24),
+                EdgeInsets.only(left: 16, right: 16, top: 12, bottom: 24),
                 child: "Укажите номер и серия паспорта, дата рождения"
                     .w(400)
                     .s(12)
@@ -124,8 +125,9 @@ class IdentifiedPage extends BasePage<IdentifiedCubit, IdentifiedBuildable,
               ),
               AppDivider(),
               Visibility(
-                  visible: false,
+                  visible: true,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
                         padding:
@@ -140,12 +142,12 @@ class IdentifiedPage extends BasePage<IdentifiedCubit, IdentifiedBuildable,
                       ),
                       Padding(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         child: "User name".w(500).s(12).c(Color(0xFF41455E)),
                       ),
                       Padding(
                         padding:
-                            EdgeInsets.only(right: 16, left: 16, bottom: 12),
+                        EdgeInsets.only(right: 16, left: 16, bottom: 12),
                         child: CommonTextField(
                             hint: "User name",
                             textInputAction: TextInputAction.next,
@@ -153,12 +155,12 @@ class IdentifiedPage extends BasePage<IdentifiedCubit, IdentifiedBuildable,
                       ),
                       Padding(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         child: "Эл. почта".w(500).s(12).c(Color(0xFF41455E)),
                       ),
                       Padding(
                         padding:
-                            EdgeInsets.only(right: 16, left: 16, bottom: 12),
+                        EdgeInsets.only(right: 16, left: 16, bottom: 12),
                         child: CommonTextField(
                           hint: "example@gmail.com",
                           textInputAction: TextInputAction.next,
@@ -167,12 +169,12 @@ class IdentifiedPage extends BasePage<IdentifiedCubit, IdentifiedBuildable,
                       ),
                       Padding(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         child: "Регион".w(500).s(12).c(Color(0xFF41455E)),
                       ),
                       Padding(
                         padding:
-                            EdgeInsets.only(right: 16, left: 16, bottom: 12),
+                        EdgeInsets.only(right: 16, left: 16, bottom: 12),
                         child: CommonTextField(
                           hint: "Регион",
                           inputType: TextInputType.text,
@@ -181,12 +183,12 @@ class IdentifiedPage extends BasePage<IdentifiedCubit, IdentifiedBuildable,
                       ),
                       Padding(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         child: "Район".w(500).s(12).c(Color(0xFF41455E)),
                       ),
                       Padding(
                         padding:
-                            EdgeInsets.only(right: 16, left: 16, bottom: 12),
+                        EdgeInsets.only(right: 16, left: 16, bottom: 12),
                         child: CommonTextField(
                             hint: "Район",
                             inputType: TextInputType.text,
@@ -194,12 +196,12 @@ class IdentifiedPage extends BasePage<IdentifiedCubit, IdentifiedBuildable,
                       ),
                       Padding(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         child: "Махалля".w(500).s(12).c(Color(0xFF41455E)),
                       ),
                       Padding(
                         padding:
-                            EdgeInsets.only(right: 16, left: 16, bottom: 12),
+                        EdgeInsets.only(right: 16, left: 16, bottom: 12),
                         child: CommonTextField(
                           hint: "Махалля",
                           textInputAction: TextInputAction.next,

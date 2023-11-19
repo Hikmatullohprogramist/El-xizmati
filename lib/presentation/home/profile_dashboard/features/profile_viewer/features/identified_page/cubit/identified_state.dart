@@ -10,9 +10,9 @@ class IdentifiedBuildable with _$IdentifiedBuildable {
       @Default("") String fullName,
       @Default("") String userName,
       @Default("") String email,
-      @Default("") String region,
-      @Default("") String district,
-      @Default("") String neighborhood,
+      @Default("") String regionName,
+      @Default("") String districtName,
+      @Default("") String streetName,
       @Default("") String homeNumber,
       @Default("") String apartmentNumber}) = _IdentifiedBuildable;
 }
