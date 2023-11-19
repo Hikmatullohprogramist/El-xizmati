@@ -13,18 +13,19 @@ import '../../gen/assets/assets.gen.dart';
 class CartWidget extends StatelessWidget {
   const CartWidget({
     super.key,
-    // required this.result,
     required this.addItem,
     required this.minusItem,
     required this.deleteItem,
     required this.addFavorite,
     required this.adModel,
-    // required this.adModel
+    required this.onClick,
   });
 
   //
   final AdModel adModel;
   final Function(AdModel adModel) addItem;
+  final Function(AdModel adModel) onClick;
+
   final Function(AdModel adModel) minusItem;
   final Function(AdModel adModel) deleteItem;
   final Function(AdModel adModel) addFavorite;
@@ -154,7 +155,9 @@ class CartWidget extends StatelessWidget {
                             child: Assets.images.icDelete.svg())),
                     Spacer(),
                     CommonButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          onClick(adModel);
+                        },
                         child: "Оформить".w(500).s(13).c(Color(0xFFDFE2E9))),
                     // Spacer(),
                     // Container(

@@ -79,7 +79,7 @@ extension AdDetailExtension on AdDetailResponse {
         otherDescription: other_description,
         otherName: other_name,
         params: params,
-        paymentTypes: payment_ypes,
+        paymentTypes: payment_types,
         phoneNumber: phone_number,
         phoneView: phone_view,
         photos: photos,

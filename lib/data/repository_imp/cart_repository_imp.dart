@@ -89,4 +89,14 @@ class CartRepositoryImp extends CartRepository {
       return List.empty();
     }
   }
+
+  @override
+  Future<void> orderCreate(
+      {required int productId,
+      required int amount,
+      required int paymentTypeId}) async {
+    _api.orderCreate(
+        productId: productId, amount: amount, paymentTypeId: paymentTypeId);
+    return;
+  }
 }

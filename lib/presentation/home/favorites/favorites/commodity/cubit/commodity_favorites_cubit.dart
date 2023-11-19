@@ -65,6 +65,8 @@ class CommodityFavoritesCubit extends BaseCubit<CommodityFavoritesBuildable,
       await _favoriteRepository.removeFavorite(adModel.id);
       buildable.adsPagingController?.itemList?.remove(adModel);
       buildable.adsPagingController?.notifyListeners();
-    } catch (e) {}
+    } catch (e) {
+      display.error("xatolik yuz berdi");
+    }
   }
 }

@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -21,8 +20,6 @@ class CartPage extends BasePage<CartCubit, CartBuildable, CartListenable> {
 
   @override
   Widget builder(BuildContext context, CartBuildable state) {
-    var formatter = NumberFormat('###,000');
-    double cardWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -116,6 +113,9 @@ class CartPage extends BasePage<CartCubit, CartBuildable, CartListenable> {
                   context.read<CartCubit>().addFavorite(adModel);
                 },
                 adModel: item,
+                onClick: (AdModel adModel) {
+                  context.router.push(OrderCreateRoute(adId: adModel.id));
+                },
               );
 
               //   AppAdWidget(

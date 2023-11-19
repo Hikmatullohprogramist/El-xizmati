@@ -91,18 +91,18 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
                   icon:
                       Assets.images.profile.icOrder.svg(width: 18, height: 18),
                   callback: () => context.router.push(MyOrdersRoute())),
-              Divider(indent: 46, height: 1),
-              ProfileItemWidget(
-                  name: Strings.profileDahboardMessage,
-                  icon: Assets.images.profile.icMessage
-                      .svg(width: 18, height: 18),
-                  callback: () => context.router.push(ChatListRoute())),
-              Divider(indent: 46, height: 1),
-              ProfileItemWidget(
-                  name: Strings.profileDashboardNotification,
-                  icon: Assets.images.profile.icNotification
-                      .svg(width: 18, height: 18),
-                  callback: () => context.router.push(NotificationRoute())),
+              // Divider(indent: 46, height: 1),
+              // ProfileItemWidget(
+              //     name: Strings.profileDahboardMessage,
+              //     icon: Assets.images.profile.icMessage
+              //         .svg(width: 18, height: 18),
+              //     callback: () => context.router.push(ChatListRoute())),
+              // Divider(indent: 46, height: 1),
+              // ProfileItemWidget(
+              //     name: Strings.profileDashboardNotification,
+              //     icon: Assets.images.profile.icNotification
+              //         .svg(width: 18, height: 18),
+              //     callback: () => context.router.push(NotificationRoute())),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(
                   name: Strings.profileDashboardMyCard,
@@ -116,30 +116,30 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
                       .svg(width: 18, height: 18),
                   callback: () =>
                       context.router.push(PaymentTransactionRoute())),
-              Divider(indent: 46, height: 1),
-              ProfileItemWidget(
-                  name: Strings.profileDashboardComparison,
-                  icon: Assets.images.profile.icComparisonProduct
-                      .svg(width: 18, height: 18),
-                  callback: () => context.router.push(ComparisonDetailRoute())),
+              // Divider(indent: 46, height: 1),
+              // ProfileItemWidget(
+              //     name: Strings.profileDashboardComparison,
+              //     icon: Assets.images.profile.icComparisonProduct
+              //         .svg(width: 18, height: 18),
+              //     callback: () => context.router.push(ComparisonDetailRoute())),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(
                   name: Strings.profileDashboardMyAddress,
                   icon: Assets.images.profile.icLocation
                       .svg(width: 18, height: 18),
                   callback: () => context.router.push(MyAddressesRoute())),
-              Divider(indent: 46, height: 1),
-              ProfileItemWidget(
-                  name: Strings.profileDashboardPromotions,
-                  icon: Assets.images.profile.icPromotion
-                      .svg(width: 18, height: 18),
-                  callback: () => context.router.push(PromotionRoute())),
-              Divider(indent: 46, height: 1),
-              ProfileItemWidget(
-                  name: Strings.profileDashboardSetting,
-                  icon: Assets.images.profile.icSetting
-                      .svg(width: 18, height: 18),
-                  callback: () => context.router.push(SettingRoute())),
+              // Divider(indent: 46, height: 1),
+              // ProfileItemWidget(
+              //     name: Strings.profileDashboardPromotions,
+              //     icon: Assets.images.profile.icPromotion
+              //         .svg(width: 18, height: 18),
+              //     callback: () => context.router.push(PromotionRoute())),
+              // Divider(indent: 46, height: 1),
+              // ProfileItemWidget(
+              //     name: Strings.profileDashboardSetting,
+              //     icon: Assets.images.profile.icSetting
+              //         .svg(width: 18, height: 18),
+              //     callback: () => context.router.push(SettingRoute())),
               Divider(indent: 46, height: 1),
               InkWell(
                   onTap: () {

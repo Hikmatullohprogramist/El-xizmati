@@ -114,7 +114,7 @@ class AdDetailPage
                     images:
                         (state.adDetail?.photos ?? List.empty(growable: true))
                             .map((e) =>
-                                "${Constants.baseUrlForImage}${e.image}" ??"")
+                                "${Constants.baseUrlForImage}${e.image}")
                             .toList()),
                 AppDivider(height: 1),
                 Container(
@@ -246,31 +246,31 @@ class AdDetailPage
                                     ]))),
                         SizedBox(height: 16),
                         AppDivider(height: 1),
-                        getWatch(Strings.adDetailDescription, () {}),
-                        (state.adDetail!.description ?? "")
-                            .w(400)
-                            .s(14)
-                            .c(Color(0xFF41455E))
-                            .copyWith(maxLines: 6),
-                        SizedBox(height: 16),
-                        Align(
-                            alignment: Alignment.centerLeft,
-                            child: Strings.adDetailShowmore
-                                .w(500)
-                                .s(14)
-                                .c(Color(0xFF5C6AC3))),
-                        SizedBox(height: 24),
-                        AppDivider(),
-                        getWatch(Strings.adDetailCharacteristics, () {}),
-                        AppDivider(),
-                        SizedBox(height: 16),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Strings.adDetailSaller
-                              .w(500)
-                              .s(16)
-                              .c(Color(0xFF41455E)),
-                        ),
+                        // getWatch(Strings.adDetailDescription, () {}),
+                        // (state.adDetail!.description ?? "")
+                        //     .w(400)
+                        //     .s(14)
+                        //     .c(Color(0xFF41455E))
+                        //     .copyWith(maxLines: 6),
+                        // SizedBox(height: 16),
+                        // Align(
+                        //     alignment: Alignment.centerLeft,
+                        //     child: Strings.adDetailShowmore
+                        //         .w(500)
+                        //         .s(14)
+                        //         .c(Color(0xFF5C6AC3))),
+                        // SizedBox(height: 24),
+                        // AppDivider(),
+                        // getWatch(Strings.adDetailCharacteristics, () {}),
+                        // AppDivider(),
+                        // SizedBox(height: 16),
+                        // Align(
+                        //   alignment: Alignment.centerLeft,
+                        //   child: Strings.adDetailSaller
+                        //       .w(500)
+                        //       .s(16)
+                        //       .c(Color(0xFF41455E)),
+                        // ),
                         SizedBox(height: 12),
                         Row(
                           children: [
@@ -338,11 +338,10 @@ class AdDetailPage
                                     );
                                   } catch (e) {}
                                 },
-                                child:
-                                    ("${state.adDetail!.address?.region?.name}  ${state.adDetail!.address?.district?.name}")
-                                        .w(700)
-                                        .s(12)
-                                        .c(Color(0xFF5C6AC3)))
+                                child: ("${state.adDetail!.address?.name}")
+                                    .w(700)
+                                    .s(12)
+                                    .c(Color(0xFF5C6AC3)))
                           ],
                         ),
                         Row(
@@ -365,15 +364,17 @@ class AdDetailPage
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
                                     vertical: 14, horizontal: 24),
-                                child: Row(children: [
-                                  Assets.images.icSms
-                                      .svg(height: 24, width: 24),
-                                  SizedBox(width: 16),
-                                  Strings.adDetailTowritemessge
-                                      .w(500)
-                                      .s(16)
-                                      .c(Color(0xFF41455E))
-                                ]),
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Assets.images.icSms
+                                          .svg(height: 24, width: 24),
+                                      SizedBox(width: 16),
+                                      Strings.adDetailTowritemessge
+                                          .w(500)
+                                          .s(16)
+                                          .c(Color(0xFF41455E))
+                                    ]),
                               ),
                             ),
                             onTap: () {
@@ -392,15 +393,17 @@ class AdDetailPage
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
                                     vertical: 14, horizontal: 24),
-                                child: Row(children: [
-                                  Assets.images.icCall
-                                      .svg(height: 24, width: 24),
-                                  SizedBox(width: 16),
-                                  "Показать телефон"
-                                      .w(500)
-                                      .s(16)
-                                      .c(Colors.white)
-                                ]),
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Assets.images.icCall
+                                          .svg(height: 24, width: 24),
+                                      SizedBox(width: 16),
+                                      "Показать телефон"
+                                          .w(500)
+                                          .s(16)
+                                          .c(Colors.white)
+                                    ]),
                               ),
                             ),
                             onTap: () {
@@ -409,8 +412,8 @@ class AdDetailPage
                               } catch (e) {}
                             }),
                         SizedBox(height: 12),
-                        AppDivider(),
-                        getWatch(Strings.adDetailFeedback, () {}),
+                        // AppDivider(),
+                        // getWatch(Strings.adDetailFeedback, () {}),
                       ]),
                 )
               ],

@@ -81,7 +81,7 @@ class AdDetailResponse with _$AdDetailResponse {
     List<dynamic>? shippings,
     List<Photo>? photos,
     Address? address,
-    List<District>? payment_ypes,
+    List<District>? payment_types,
   }) = _AdDetailResponse;
 
   factory AdDetailResponse.fromJson(Map<String, dynamic> json) =>
