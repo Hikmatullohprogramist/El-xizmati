@@ -14,7 +14,8 @@ class IdentifiedBuildable with _$IdentifiedBuildable {
       @Default("") String districtName,
       @Default("") String streetName,
       @Default("") String homeNumber,
-      @Default("") String apartmentNumber}) = _IdentifiedBuildable;
+      @Default("") String apartmentNumber,
+      @Default(false) bool identified}) = _IdentifiedBuildable;
 }
 
 @freezed

@@ -110,14 +110,16 @@ class IdentifiedPage extends BasePage<IdentifiedCubit, IdentifiedBuildable,
                 padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
                 child: CommonTextField(
                     hint: "+998",
-                    controller: TextEditingController(text: "+998"),
+                    onChanged: (value) {
+                      context.read<IdentifiedCubit>().setPhoneNumber(value);
+                    },
                     inputFormatters: phoneMaskFormatter,
                     inputType: TextInputType.phone,
                     textInputAction: TextInputAction.next),
               ),
               Padding(
                 padding:
-                EdgeInsets.only(left: 16, right: 16, top: 12, bottom: 24),
+                    EdgeInsets.only(left: 16, right: 16, top: 12, bottom: 24),
                 child: "Укажите номер и серия паспорта, дата рождения"
                     .w(400)
                     .s(12)
@@ -125,7 +127,19 @@ class IdentifiedPage extends BasePage<IdentifiedCubit, IdentifiedBuildable,
               ),
               AppDivider(),
               Visibility(
-                  visible: true,
+                  visible: !state.identified,
+                  child: Container(
+                      height: 40,
+                      margin: EdgeInsets.all(16),
+                      width: double.infinity,
+                      child: CommonButton(
+                        onPressed: () {
+                          context.read<IdentifiedCubit>().identified();
+                        },
+                        child: "Davom etish".w(500),
+                      ))),
+              Visibility(
+                  visible: state.identified,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

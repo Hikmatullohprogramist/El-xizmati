@@ -23,15 +23,31 @@ class UserApi {
 
   Future<Response> getDistricts(int regionId) async {
     final queryParameters = {'region_id': regionId};
-    final response =await
-        _dio.get("v1/districts/list", queryParameters: queryParameters);
+    final response =
+        await _dio.get("v1/districts/list", queryParameters: queryParameters);
     return response;
   }
 
   Future<Response> getStreets(int districtId) async {
     final queryParameters = {'district_id': districtId};
-    final response =await
-        _dio.get('v1/street/list', queryParameters: queryParameters);
+    final response =
+        await _dio.get('v1/street/list', queryParameters: queryParameters);
     return response;
+  }
+
+  Future<Response> identified(
+      {required String phoneNumber,
+      required String biometricSerial,
+      required String biometricNumber,
+      required String brithDate}) {
+    final headers = {"Authorization": "Bearer ${tokenStorage.token.call()}"};
+    final queryParameters = {
+      'phone_number': phoneNumber,
+      "passport_serial": biometricSerial,
+      "passport_number": biometricNumber,
+      "birth_date": brithDate
+    };
+    return _dio.post('v1/user/profile',
+        queryParameters: queryParameters, options: Options(headers: headers));
   }
 }

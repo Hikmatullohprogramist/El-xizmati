@@ -37,4 +37,19 @@ class UserRepositoryImp extends UserRepository {
     final result = RegionRootResponse.fromJson(response.data).data;
     return result;
   }
+
+  @override
+  Future<UserInformationResponse> userIdentified(
+      {required String phoneNumber,
+      required String biometricSerial,
+      required String biometricNumber,
+      required String brithDate}) async {
+    final response = await _api.identified(
+        phoneNumber: phoneNumber,
+        biometricSerial: biometricSerial,
+        biometricNumber: biometricNumber,
+        brithDate: brithDate);
+    final result = UserInformationRootResponse.fromJson(response.data).data;
+    return result;
+  }
 }

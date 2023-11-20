@@ -10,4 +10,10 @@ abstract class UserRepository {
   Future<List<RegionResponse>> getDistricts(int regionId);
 
   Future<List<RegionResponse>> getStreets(int streetId);
+
+  Future<UserInformationResponse> userIdentified(
+      {required String phoneNumber,
+      required String biometricSerial,
+      required String biometricNumber,
+      required String brithDate});
 }
