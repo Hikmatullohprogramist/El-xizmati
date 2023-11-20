@@ -13,6 +13,7 @@ import '../../presentation/ad/create_ad/features/create_exchange_ad/create_excha
 import '../../presentation/ad/create_ad/features/create_free_ad/create_free_ad_page.dart';
 import '../../presentation/ad/create_ad/features/create_product_ad/create_product_ad_page.dart';
 import '../../presentation/ad/create_ad/features/create_service_ad/create_service_ad_page.dart';
+import '../../presentation/ad/user_ad_detail/user_ad_detail.dart';
 import '../../presentation/auth/confirm/confirm_page.dart';
 import '../../presentation/auth/eds/eds_page.dart';
 import '../../presentation/auth/one_id/login_with_one_id_page.dart';
@@ -37,26 +38,26 @@ import '../../presentation/home/profile_dashboard/features/chat_list/features/ch
 import '../../presentation/home/profile_dashboard/features/chat_list/features/saved_chats/saved_chats_page.dart';
 import '../../presentation/home/profile_dashboard/features/chat_list/features/selling_chats/selling_chats_page.dart';
 import '../../presentation/home/profile_dashboard/features/comparison_detail/comparison_detail_page.dart';
-import '../../presentation/home/profile_dashboard/features/my_address/my_addresses_page.dart';
-import '../../presentation/home/profile_dashboard/features/my_ads/features/active_ads/my_active_ads.dart';
-import '../../presentation/home/profile_dashboard/features/my_ads/features/inactive_ads/my_inactive_ads.dart';
-import '../../presentation/home/profile_dashboard/features/my_ads/features/pending_ads/my_pending_ads.dart';
-import '../../presentation/home/profile_dashboard/features/my_ads/my_ads_page.dart';
-import '../../presentation/home/profile_dashboard/features/my_cards/features /add_card/add_cart_page.dart';
-import '../../presentation/home/profile_dashboard/features/my_cards/my_cards_page.dart';
-import '../../presentation/home/profile_dashboard/features/my_orders/features/my_active_orders/my_active_orders.dart';
-import '../../presentation/home/profile_dashboard/features/my_orders/features/my_pending_orders/my_pending_orders.dart';
-import '../../presentation/home/profile_dashboard/features/my_orders/features/my_saved_orders/my_saved_orders.dart';
-import '../../presentation/home/profile_dashboard/features/my_orders/my_orders_page.dart';
 import '../../presentation/home/profile_dashboard/features/payment_transaction/features/payment_transaction_filter/payment_transaction_filter_page.dart';
 import '../../presentation/home/profile_dashboard/features/payment_transaction/payment_transaction_page.dart';
 import '../../presentation/home/profile_dashboard/features/profile_viewer/features/identified_page/identified_page.dart';
 import '../../presentation/home/profile_dashboard/features/profile_viewer/features/profile_edit/profile_edit_page.dart';
 import '../../presentation/home/profile_dashboard/features/profile_viewer/profile_viewer_page.dart';
 import '../../presentation/home/profile_dashboard/features/promotion/promotion_page.dart';
-import '../../presentation/home/profile_dashboard/features/setting/features/my_active_device/my_active_device_page.dart';
-import '../../presentation/home/profile_dashboard/features/setting/features/my_social_network/my_social_network_page.dart';
 import '../../presentation/home/profile_dashboard/features/setting/features/notification_settings/notification_setting_page.dart';
+import '../../presentation/home/profile_dashboard/features/setting/features/user_active_device/user_active_device_page.dart';
+import '../../presentation/home/profile_dashboard/features/setting/features/user_social_network/user_social_network_page.dart';
+import '../../presentation/home/profile_dashboard/features/user_address/user_addresses_page.dart';
+import '../../presentation/home/profile_dashboard/features/user_ads/features/active_ads/user_active_ads.dart';
+import '../../presentation/home/profile_dashboard/features/user_ads/features/inactive_ads/user_inactive_ads.dart';
+import '../../presentation/home/profile_dashboard/features/user_ads/features/pending_ads/user_pending_ads.dart';
+import '../../presentation/home/profile_dashboard/features/user_ads/user_ads_page.dart';
+import '../../presentation/home/profile_dashboard/features/user_cards/features /add_card/add_cart_page.dart';
+import '../../presentation/home/profile_dashboard/features/user_cards/my_cards_page.dart';
+import '../../presentation/home/profile_dashboard/features/user_orders/features/user_active_orders/user_active_orders.dart';
+import '../../presentation/home/profile_dashboard/features/user_orders/features/user_pending_orders/user_pending_orders.dart';
+import '../../presentation/home/profile_dashboard/features/user_orders/features/user_saved_orders/user_saved_orders.dart';
+import '../../presentation/home/profile_dashboard/features/user_orders/user_orders_page.dart';
 import '../../presentation/home/profile_dashboard/features/wallet_filling/wallet_filling_page.dart';
 import '../../presentation/home/profile_dashboard/profile_dashboard_page.dart';
 
@@ -119,18 +120,19 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: WalletFillingRoute.page, path: '/wallet_filling'),
         AutoRoute(page: ProfileViewerRoute.page, path: '/profile_viewer'),
         AutoRoute(page: AddAddressRoute.page, path: '/add_address'),
-        AutoRoute(page: MyAddressesRoute.page, path: '/my_addresses'),
-        AutoRoute(page: MyAdsRoute.page, path: '/my_ads', children: [
-          AutoRoute(page: MyActiveAdsRoute.page, path: 'active_ads'),
-          AutoRoute(page: MyPendingAdsRoute.page, path: 'pending_ads'),
-          AutoRoute(page: MyInactiveAdsRoute.page, path: 'inactive_ads'),
+        AutoRoute(page: UserAddressesRoute.page, path: '/my_addresses'),
+        AutoRoute(page: UserAdsRoute.page, path: '/my_ads', children: [
+          AutoRoute(page: UserActiveAdsRoute.page, path: 'active_ads'),
+          AutoRoute(page: UserPendingAdsRoute.page, path: 'pending_ads'),
+          AutoRoute(page: UserInactiveAdsRoute.page, path: 'inactive_ads'),
         ]),
-        AutoRoute(page: MyCardsRoute.page, path: '/my_cards'),
+        AutoRoute(page: UserCardsRoute.page, path: '/my_cards'),
         AutoRoute(page: AddCardRoute.page, path: '/add_card'),
-        AutoRoute(page: MyOrdersRoute.page, path: '/my_orders', children: [
-          AutoRoute(page: MyActiveOrdersRoute.page, path: 'my_active_orders'),
-          AutoRoute(page: MyPendingOrdersRoute.page, path: 'my_pending_orders'),
-          AutoRoute(page: MySavedOrdersRoute.page, path: 'my_saved_orders'),
+        AutoRoute(page: UserOrdersRoute.page, path: '/my_orders', children: [
+          AutoRoute(page: UserActiveOrdersRoute.page, path: 'my_active_orders'),
+          AutoRoute(
+              page: UserPendingOrdersRoute.page, path: 'my_pending_orders'),
+          AutoRoute(page: UserSavedOrdersRoute.page, path: 'my_saved_orders'),
         ]),
         AutoRoute(page: ChatListRoute.page, path: '/chat_list', children: [
           AutoRoute(page: SellingChatsRoute.page, path: 'selling'),
@@ -148,9 +150,11 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: ComparisonDetailRoute.page, path: '/comparison_detail'),
         AutoRoute(page: PromotionRoute.page, path: '/promotion'),
         AutoRoute(page: SettingRoute.page, path: '/setting'),
-        AutoRoute(page: MyActiveDeviceRoute.page, path: '/my_active_device'),
-        AutoRoute(page: MySocialNetworkRoute.page, path: '/my_social_network'),
+        AutoRoute(page: UserActiveDeviceRoute.page, path: '/my_active_device'),
+        AutoRoute(
+            page: UserSocialNetworkRoute.page, path: '/my_social_network'),
         AutoRoute(
             page: NotificationSettingRoute.page, path: '/notification_setting'),
+        AutoRoute(page: UserAdDetailRoute.page, path: "/user_ad_detail"),
       ];
 }

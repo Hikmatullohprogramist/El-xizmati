@@ -10,13 +10,16 @@ class UserAd extends StatelessWidget {
   const UserAd({
     super.key,
     required this.editClick,
+    required this.onClick,
   });
 
   final Function() editClick;
+  final VoidCallback onClick;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return InkWell(
+        child: Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
@@ -156,6 +159,6 @@ class UserAd extends StatelessWidget {
           )
         ],
       ),
-    );
+    ));
   }
 }

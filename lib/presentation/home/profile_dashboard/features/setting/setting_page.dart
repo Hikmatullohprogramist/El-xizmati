@@ -42,13 +42,13 @@ class SettingPage
               ProfileItemWidget(
                 name: 'Мои соц.сети',
                 icon: Assets.images.profileViewer.icNetwork.svg(),
-                callback: () => context.router.push(MySocialNetworkRoute()),
+                callback: () => context.router.push(UserSocialNetworkRoute()),
               ),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(
                 name: 'Активные сеансы',
                 icon: Assets.images.profileViewer.icActiveDevice.svg(),
-                callback: () => context.router.push(MyActiveDeviceRoute()),
+                callback: () => context.router.push(UserActiveDeviceRoute()),
               ),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(

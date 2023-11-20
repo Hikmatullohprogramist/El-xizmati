@@ -84,13 +84,13 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
                   name: Strings.profileDashboardMyAds,
                   icon: Assets.images.profile.icMegaPhone
                       .svg(width: 18, height: 18),
-                  callback: () => context.router.push(MyAdsRoute())),
+                  callback: () => context.router.push(UserAdsRoute())),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(
                   name: Strings.profileDashboardOrders,
                   icon:
                       Assets.images.profile.icOrder.svg(width: 18, height: 18),
-                  callback: () => context.router.push(MyOrdersRoute())),
+                  callback: () => context.router.push(UserOrdersRoute())),
               // Divider(indent: 46, height: 1),
               // ProfileItemWidget(
               //     name: Strings.profileDahboardMessage,
@@ -108,7 +108,7 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
                   name: Strings.profileDashboardMyCard,
                   icon:
                       Assets.images.profile.icCards.svg(width: 18, height: 18),
-                  callback: () => context.router.push(MyCardsRoute())),
+                  callback: () => context.router.push(UserCardsRoute())),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(
                   name: Strings.profileDashboardPayment,
@@ -127,7 +127,7 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
                   name: Strings.profileDashboardMyAddress,
                   icon: Assets.images.profile.icLocation
                       .svg(width: 18, height: 18),
-                  callback: () => context.router.push(MyAddressesRoute())),
+                  callback: () => context.router.push(UserAddressesRoute())),
               // Divider(indent: 46, height: 1),
               // ProfileItemWidget(
               //     name: Strings.profileDashboardPromotions,
