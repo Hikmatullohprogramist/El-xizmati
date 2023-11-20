@@ -114,6 +114,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/ic_one_id.svg
   SvgGenImage get icOneId => const SvgGenImage('assets/images/ic_one_id.svg');
 
+  /// File path: assets/images/ic_pen.svg
+  SvgGenImage get icPen => const SvgGenImage('assets/images/ic_pen.svg');
+
   /// File path: assets/images/ic_phone.svg
   SvgGenImage get icPhone => const SvgGenImage('assets/images/ic_phone.svg');
 
@@ -155,19 +158,13 @@ class $AssetsImagesGen {
   SvgGenImage get iconSearch =>
       const SvgGenImage('assets/images/icon_search.svg');
 
-  /// File path: assets/images/pc.png
-  AssetGenImage get pc => const AssetGenImage('assets/images/pc.png');
-
   $AssetsImagesPngImagesGen get pngImages => const $AssetsImagesPngImagesGen();
   $AssetsImagesProfileGen get profile => const $AssetsImagesProfileGen();
   $AssetsImagesProfileViewerGen get profileViewer =>
       const $AssetsImagesProfileViewerGen();
 
-  /// File path: assets/images/simple.jpg
-  AssetGenImage get simple => const AssetGenImage('assets/images/simple.jpg');
-
   /// List of all assets
-  List<dynamic> get values => [
+  List<SvgGenImage> get values => [
         icArrowLeft,
         icArrowRight,
         icAvatarBoy,
@@ -197,6 +194,7 @@ class $AssetsImagesGen {
         icMoreVert,
         icNotification,
         icOneId,
+        icPen,
         icPhone,
         icReport,
         icRight,
@@ -208,9 +206,7 @@ class $AssetsImagesGen {
         icVisibility,
         icWatch,
         icWishlistShopping,
-        iconSearch,
-        pc,
-        simple
+        iconSearch
       ];
 }
 
@@ -285,6 +281,10 @@ class $AssetsImagesBottomBarGen {
 class $AssetsImagesPngImagesGen {
   const $AssetsImagesPngImagesGen();
 
+  /// File path: assets/images/png_images/ad_empty.png
+  AssetGenImage get adEmpty =>
+      const AssetGenImage('assets/images/png_images/ad_empty.png');
+
   /// File path: assets/images/png_images/app_logo.png
   AssetGenImage get appLogo =>
       const AssetGenImage('assets/images/png_images/app_logo.png');
@@ -315,6 +315,7 @@ class $AssetsImagesPngImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
+        adEmpty,
         appLogo,
         commondity,
         flagRu,

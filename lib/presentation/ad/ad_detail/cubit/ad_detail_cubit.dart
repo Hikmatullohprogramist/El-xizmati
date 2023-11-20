@@ -98,6 +98,9 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
           maxAmount: -1,
           favorite: true,
           isCheck: false));
-    } catch (e) {}
+      display.success("mahsulot savatchaga qo'shilfi");
+    } catch (e) {
+      display.error("xatlik yuz berdi");
+    }
   }
 }
