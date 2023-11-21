@@ -58,7 +58,7 @@ class UserActiveOrdersPage extends BasePage<UserActiveOrdersCubit,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Assets.images.icPen.svg(width: 24, height: 24),
+                            Assets.images.icEdit.svg(width: 24, height: 24),
                             SizedBox(width: 10),
                             "Редактировать".w(500).s(14).c(Color(0xFF5C6AC3))
                           ],
@@ -71,7 +71,7 @@ class UserActiveOrdersPage extends BasePage<UserActiveOrdersCubit,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Assets.images.icPen.svg(width: 24, height: 24),
+                            Assets.images.icEdit.svg(width: 24, height: 24),
                             SizedBox(width: 10),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,7 +97,7 @@ class UserActiveOrdersPage extends BasePage<UserActiveOrdersCubit,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Assets.images.icPen.svg(width: 24, height: 24),
+                            Assets.images.icEdit.svg(width: 24, height: 24),
                             SizedBox(width: 10),
                             "Рекламировать".w(500).s(14).c(Color(0xFF5C6AC3))
                           ],

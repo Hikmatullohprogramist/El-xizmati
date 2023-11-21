@@ -10,8 +10,17 @@ var brithMaskFormatter = MaskTextInputFormatter(
     filter: {"_": RegExp(r'[0-9]')},
     type: MaskAutoCompletionType.lazy);
 
-
 var biometricNumberMaskFormatter = MaskTextInputFormatter(
     mask: '___ __ __',
+    filter: {"_": RegExp(r'[0-9]')},
+    type: MaskAutoCompletionType.lazy);
+
+var cardNumberMaskFormatter = MaskTextInputFormatter(
+    mask: '____ ____ ____ ____',
+    filter: {"_": RegExp(r'[0-9]')},
+    type: MaskAutoCompletionType.lazy);
+
+var cardExpiredMaskFormatter = MaskTextInputFormatter(
+    mask: '--/--',
     filter: {"_": RegExp(r'[0-9]')},
     type: MaskAutoCompletionType.lazy);

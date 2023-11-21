@@ -16,7 +16,7 @@ class AdEmptyWidget extends StatelessWidget {
         child: Container(
       margin: EdgeInsets.symmetric(horizontal: 36),
       child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-        SizedBox(height: 64),
+        SizedBox(height: 100),
         Assets.images.pngImages.adEmpty.image(),
         SizedBox(height: 48),
         "У вас пока нету активных объявлений!"

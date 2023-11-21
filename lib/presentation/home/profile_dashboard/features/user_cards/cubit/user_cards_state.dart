@@ -2,7 +2,9 @@ part of 'user_cards_cubit.dart';
 
 @freezed
 class UserCardsBuildable with _$UserCardsBuildable {
-  const factory UserCardsBuildable() = _UserCardsBuildable;
+  const factory UserCardsBuildable({@Default(false) bool isEmpty}) =
+      _UserCardsBuildable;
+
 }
 
 @freezed

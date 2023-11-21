@@ -63,7 +63,7 @@ class SearchPage
             SizedBox(width: 8),
             InkWell(
               onTap: () => textController.clear(),
-              child: Assets.images.icClear.svg(width: 24, height: 24),
+              child: Assets.images.icClose.svg(width: 24, height: 24),
             )
           ]),
         ),

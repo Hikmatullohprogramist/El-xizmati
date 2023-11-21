@@ -53,7 +53,7 @@ import '../../presentation/home/profile_dashboard/features/user_ads/features/ina
 import '../../presentation/home/profile_dashboard/features/user_ads/features/pending_ads/user_pending_ads.dart';
 import '../../presentation/home/profile_dashboard/features/user_ads/user_ads_page.dart';
 import '../../presentation/home/profile_dashboard/features/user_cards/features /add_card/add_cart_page.dart';
-import '../../presentation/home/profile_dashboard/features/user_cards/my_cards_page.dart';
+import '../../presentation/home/profile_dashboard/features/user_cards/user_cards_page.dart';
 import '../../presentation/home/profile_dashboard/features/user_orders/features/user_active_orders/user_active_orders.dart';
 import '../../presentation/home/profile_dashboard/features/user_orders/features/user_pending_orders/user_pending_orders.dart';
 import '../../presentation/home/profile_dashboard/features/user_orders/features/user_saved_orders/user_saved_orders.dart';
