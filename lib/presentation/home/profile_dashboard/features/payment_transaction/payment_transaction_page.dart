@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
@@ -27,7 +26,8 @@ class PaymentTransactionPage extends BasePage<PaymentTransactionCubit,
         actions: [
           CommonButton(
               type: ButtonType.text,
-              onPressed: () => context.router.push(PaymentTransactionFilterRoute()),
+              onPressed: () =>
+                  context.router.push(PaymentTransactionFilterRoute()),
               child: "Фильтр".w(500).s(12).c(Color(0xFF5C6AC3)))
         ],
         leading: IconButton(
@@ -35,7 +35,9 @@ class PaymentTransactionPage extends BasePage<PaymentTransactionCubit,
           onPressed: () => context.router.pop(),
         ),
       ),
-      body: Center(child: Text("Payment transactions")),
+      body: ListView(
+        children: [],
+      ),
     );
   }
 }
