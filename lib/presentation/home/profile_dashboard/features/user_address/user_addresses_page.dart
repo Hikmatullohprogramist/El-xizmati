@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/base/base_page.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/address/address_widget.dart';
 import 'package:onlinebozor/common/widgets/app_diverder.dart';
 import 'package:onlinebozor/presentation/home/profile_dashboard/features/user_address/cubit/user_addresses_cubit.dart';
@@ -19,7 +18,7 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
   @override
   Widget builder(BuildContext context, UserAddressesBuildable state) {
     Widget stateWidget() {
-      if (10 / 5 != 2) {
+      if (10 / 5 == 2) {
         return Center(
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Assets.images.pngImages.userAddresses.image(),
@@ -36,7 +35,7 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
                         borderRadius: BorderRadius.circular(10)),
                     backgroundColor: context.colors.buttonPrimary),
                 onPressed: () {
-                  context.router.push(AddAddressRoute());
+                  // context.router.push(AddAddressRoute());
                 },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -180,12 +179,12 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          actions: [
-            CommonButton(
-                type: ButtonType.text,
-                onPressed: () => context.router.push(AddAddressRoute()),
-                child: "Добавить".w(500).s(12).c(Color(0xFF5C6AC3)))
-          ],
+          // actions: [
+          //   CommonButton(
+          //       type: ButtonType.text,
+          //       onPressed: () => context.router.push(AddAddressRoute()),
+          //       child: "Добавить".w(500).s(12).c(Color(0xFF5C6AC3)))
+          // ],
           backgroundColor: Colors.white,
           title: 'Мои адреса'.w(500).s(14).c(context.colors.textPrimary),
           centerTitle: true,

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/base/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/common/widgets/ad/user_ad.dart';
 import 'package:onlinebozor/common/widgets/common_button.dart';
 import 'package:onlinebozor/presentation/home/profile_dashboard/features/user_orders/features/user_active_orders/cubit/user_active_orders_cubit.dart';
+
+import '../../../../../../../common/widgets/ad_empty_widget.dart';
 
 @RoutePage()
 class UserActiveOrdersPage extends BasePage<UserActiveOrdersCubit,
@@ -211,14 +211,22 @@ class UserActiveOrdersPage extends BasePage<UserActiveOrdersCubit,
     }
 
     return Scaffold(
-      body: UserAd(
-        editClick: () {
-          _edit();
-        },
-        onClick: () {
-          context.router.push(UserAdDetailRoute());
-        },
+      body: Center(
+        child: AdEmptyWidget(
+          callBack: () {},
+        ),
       ),
     );
+
+    // return Scaffold(
+    //   body: UserAd(
+    //     editClick: () {
+    //       _edit();
+    //     },
+    //     onClick: () {
+    //       context.router.push(UserAdDetailRoute());
+    //     },
+    //   ),
+    // );
   }
 }

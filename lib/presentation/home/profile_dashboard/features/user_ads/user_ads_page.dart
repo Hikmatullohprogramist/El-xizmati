@@ -8,7 +8,6 @@ import 'package:onlinebozor/presentation/home/profile_dashboard/features/user_ad
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
 import '../../../../../common/gen/assets/assets.gen.dart';
-import '../../../../../common/widgets/common_button.dart';
 
 @RoutePage()
 class UserAdsPage extends BasePage<UserAdsCubit, UserAdsBuildable, UserAdsListenable> {
@@ -26,12 +25,12 @@ class UserAdsPage extends BasePage<UserAdsCubit, UserAdsBuildable, UserAdsListen
       builder: (context, child, controller) {
         return Scaffold(
           appBar: AppBar(
-            actions: [
-              CommonButton(
-                  type: ButtonType.text,
-                  onPressed: () => context.router.push(CreateAdRoute()),
-                  child: "Добавить товар".w(500).s(12).c(Color(0xFF5C6AC3)))
-            ],
+            // actions: [
+            //   CommonButton(
+            //       type: ButtonType.text,
+            //       onPressed: () => context.router.push(CreateAdRoute()),
+            //       child: "Добавить товар".w(500).s(12).c(Color(0xFF5C6AC3)))
+            // ],
             leading: IconButton(
               icon: Assets.images.icArrowLeft.svg(),
               onPressed: () => context.router.pop(),
