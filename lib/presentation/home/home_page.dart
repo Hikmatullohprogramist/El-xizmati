@@ -25,7 +25,10 @@ class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
         CategoryRoute(),
         FavoritesRoute(),
         CartRoute(),
-        if (state.isLogin) ProfileDashboardRoute() else AuthStartRoute()
+        if (state.isLogin)
+          ProfileDashboardRoute()
+        else
+          AuthStartRoute(backButtonVisible: false)
       ],
       transitionBuilder: (context, child, animation) => FadeTransition(
         opacity: animation,

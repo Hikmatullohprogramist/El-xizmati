@@ -50,7 +50,9 @@ class IdentifiedCubit
             email: response.email,
             brithDate: response.birth_date,
             identified: true));
-      } catch (e) {}
+      } catch (e) {
+        display.error("xatolik yuz berdi");
+      }
       return;
     } else {
       log.w(

@@ -22,12 +22,16 @@ class AuthStartCubit
         buildable.copyWith(phone: phone, validation: phone.length >= 12));
   }
 
+  void setBackButtonVisible(bool visible) {
+    build((buildable) => buildable.copyWith(backButtonVisible: visible));
+  }
+
   void validation() async {
     build((buildable) => buildable.copyWith(loading: true));
     try {
       var authStartResponse =
-          await _repository.authStart(buildable.phone.clearSpaceInPhone());
-      if (authStartResponse.data.is_registered==true) {
+      await _repository.authStart(buildable.phone.clearSpaceInPhone());
+      if (authStartResponse.data.is_registered == true) {
         invoke(AuthStartListenable(AuthStartEffect.verification,
             phone: buildable.phone));
       } else {

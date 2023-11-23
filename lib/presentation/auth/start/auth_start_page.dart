@@ -19,7 +19,12 @@ import '../../util.dart';
 @RoutePage()
 class AuthStartPage
     extends BasePage<AuthStartCubit, AuthStartBuildable, AuthStartListenable> {
-  AuthStartPage({super.key});
+  AuthStartPage({
+    this.backButtonVisible = false,
+    super.key,
+  });
+
+  final bool backButtonVisible;
 
   @override
   void listener(BuildContext context, AuthStartListenable state) {
@@ -35,19 +40,16 @@ class AuthStartPage
   @override
   void init(BuildContext context) {
     textEditingController.text = "+998 ";
+    context.read<AuthStartCubit>().setBackButtonVisible(backButtonVisible);
   }
 
   final TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget builder(BuildContext context, AuthStartBuildable state) {
-    return Scaffold(
-      backgroundColor: context.colors.colorBackgroundPrimary,
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
+    Widget backButtonVisible(bool value) {
+      if (value) {
+        return IconButton(
             icon: Icon(
               Icons.arrow_back_ios,
               color: context.colors.iconGrey,
@@ -58,7 +60,19 @@ class AuthStartPage
               } else {
                 context.router.pop();
               }
-            }),
+            });
+      } else {
+        return SizedBox();
+      }
+    }
+
+    return Scaffold(
+      backgroundColor: context.colors.colorBackgroundPrimary,
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: backButtonVisible(state.backButtonVisible),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

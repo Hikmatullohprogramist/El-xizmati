@@ -6,6 +6,7 @@ class AuthStartBuildable with _$AuthStartBuildable {
     @Default("") String phone,
     @Default(false) bool validation,
     @Default(false) bool loading,
+    @Default(true) backButtonVisible,
   }) = _AuthStartBuildable;
 }
 

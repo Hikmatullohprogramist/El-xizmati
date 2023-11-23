@@ -4,6 +4,8 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/app_diverder.dart';
+import 'package:onlinebozor/common/widgets/transaction_widget.dart';
 
 import '../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../common/widgets/common_button.dart';
@@ -20,7 +22,7 @@ class PaymentTransactionPage extends BasePage<PaymentTransactionCubit,
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: 'Профиль'.w(500).s(14).c(context.colors.textPrimary),
+        title: 'Платежи'.w(500).s(14).c(context.colors.textPrimary),
         centerTitle: true,
         elevation: 0.5,
         actions: [
@@ -35,8 +37,15 @@ class PaymentTransactionPage extends BasePage<PaymentTransactionCubit,
           onPressed: () => context.router.pop(),
         ),
       ),
-      body: ListView(
-        children: [],
+      body: ListView.separated(
+        physics: BouncingScrollPhysics(),
+        itemBuilder: (BuildContext context, int index) {
+          return TransactionWidget();
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return AppDivider();
+        },
+        itemCount: 10,
       ),
     );
   }
