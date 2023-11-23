@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -24,7 +25,7 @@ class CategoryCubit extends BaseCubit<CategoryBuildable, CategoryListenable> {
       log.i(categories.toString());
       build((buildable) => buildable.copyWith(
           categories: result, categoriesState: AppLoadingState.success));
-    } catch (exception) {
+    }on DioException  catch (exception) {
       log.e(exception.toString());
       display.error(exception.toString());
       build((buildable) =>

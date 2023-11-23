@@ -49,7 +49,7 @@ class DashboardCubit
             popularCategoriesState: AppLoadingState.success,
           ));
       log.i("recentlyViewerAds=${buildable.recentlyViewerAds}");
-    } catch (e, stackTrace) {
+    }on DioException  catch (e, stackTrace) {
       build((buildable) =>
           buildable.copyWith(popularCategoriesState: AppLoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
@@ -65,7 +65,7 @@ class DashboardCubit
           recentlyViewerAds: recentlyAds,
           recentlyAdsState: AppLoadingState.success));
       log.i("recentlyViewerAds=${buildable.recentlyViewerAds}");
-    } catch (e, stackTrace) {
+    }on DioException  catch (e, stackTrace) {
       build((buildable) =>
           buildable.copyWith(recentlyAdsState: AppLoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
@@ -81,7 +81,7 @@ class DashboardCubit
       build((buildable) => buildable.copyWith(
           banners: banners, bannersState: AppLoadingState.success));
       log.i("${buildable.banners}");
-    } catch (e, stackTrace) {
+    }on DioException  catch (e, stackTrace) {
       build((buildable) =>
           buildable.copyWith(bannersState: AppLoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
@@ -94,7 +94,7 @@ class DashboardCubit
       final controller =
           buildable.adsPagingController ?? getAdsController(status: 1);
       build((buildable) => buildable.copyWith(adsPagingController: controller));
-    } catch (e, stackTrace) {
+    }on DioException  catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {

@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
@@ -8,12 +9,10 @@ import '../../../../data/model/categories/popular_category/popular_category_resp
 import '../../../../domain/repository/common_repository.dart';
 
 part 'popular_categories_cubit.freezed.dart';
-
 part 'popular_categories_state.dart';
 
 @injectable
-class PopularCategoriesCubit
-    extends BaseCubit<PopularCategoriesBuildable, PopularCategoriesListenable> {
+class PopularCategoriesCubit extends BaseCubit<PopularCategoriesBuildable, PopularCategoriesListenable> {
   PopularCategoriesCubit(this._repository)
       : super(const PopularCategoriesBuildable()) {
     getController();
@@ -27,7 +26,7 @@ class PopularCategoriesCubit
           buildable.categoriesPagingController ?? getAdsController(status: 1);
       build((buildable) =>
           buildable.copyWith(categoriesPagingController: controller));
-    } catch (e, stackTrace) {
+    } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
@@ -45,7 +44,7 @@ class PopularCategoriesCubit
     log.i(buildable.categoriesPagingController);
 
     adController.addPageRequestListener(
-      (pageKey) async {
+          (pageKey) async {
         final adsList = await _repository.getPopularCategories(pageKey, 20);
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);

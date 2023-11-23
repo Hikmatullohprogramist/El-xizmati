@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/base/base_cubit.dart';
@@ -14,8 +15,7 @@ part 'ad_detail_state.dart';
 
 @injectable
 class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
-  AdDetailCubit(
-      this._adRepository, this.favoriteRepository, this.cartRepository)
+  AdDetailCubit(this._adRepository, this.favoriteRepository, this.cartRepository)
       : super(AdDetailBuildable());
 
   final AdRepository _adRepository;
@@ -31,7 +31,7 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
     try {
       var response = await _adRepository.getAdDetail(buildable.adId!);
       build((buildable) => buildable.copyWith(adDetail: response));
-    } catch (e) {
+    } on DioException catch (e) {
       log.e(e.toString());
       display.error(e.toString());
     }
@@ -67,7 +67,7 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
       } else {
         await favoriteRepository.removeFavorite(adModel?.adId ?? -1);
       }
-    } catch (e) {
+    } on DioException catch (e) {
       display.error(e.toString());
     }
   }
@@ -99,7 +99,7 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
           favorite: true,
           isCheck: false));
       display.success("mahsulot savatchaga qo'shilfi");
-    } catch (e) {
+    } on DioException catch (e) {
       display.error("xatlik yuz berdi");
     }
   }

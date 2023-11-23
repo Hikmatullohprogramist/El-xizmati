@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
@@ -27,7 +28,7 @@ class SearchCubit extends BaseCubit<SearchBuildable, SearchListenable> {
         build((buildable) =>
             buildable.copyWith(appLoadingState: AppLoadingState.empty));
       }
-    } catch (e, stackTrace) {
+    } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }

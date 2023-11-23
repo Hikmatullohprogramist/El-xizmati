@@ -48,7 +48,7 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
           hotDiscountAds: hotDiscountAds,
           hotDiscountAdsState: AppLoadingState.success));
       log.i("recentlyViewerAds=${buildable.hotDiscountAds}");
-    } catch (e, stackTrace) {
+    }on DioException  catch (e, stackTrace) {
       build((buildable) =>
           buildable.copyWith(hotDiscountAdsState: AppLoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
@@ -64,7 +64,7 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
       build((buildable) => buildable.copyWith(
           popularAds: popularAds, popularAdsState: AppLoadingState.success));
       log.i("recentlyViewerAds=${buildable.hotDiscountAds}");
-    } catch (e, stackTrace) {
+    }on DioException catch (e, stackTrace) {
       build((buildable) =>
           buildable.copyWith(popularAdsState: AppLoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
@@ -77,7 +77,7 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
       final controller =
           buildable.adsPagingController ?? getAdsController(status: 1);
       build((buildable) => buildable.copyWith(adsPagingController: controller));
-    } catch (e, stackTrace) {
+    }on DioException  catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {

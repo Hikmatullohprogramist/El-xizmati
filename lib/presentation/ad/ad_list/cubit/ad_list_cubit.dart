@@ -35,7 +35,7 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
       final controller =
           buildable.adsPagingController ?? getAdsController(status: 1);
       build((buildable) => buildable.copyWith(adsPagingController: controller));
-    } catch (e, stackTrace) {
+    }on DioException  catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {

@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/base/base_cubit.dart';
@@ -5,7 +6,6 @@ import 'package:onlinebozor/common/base/base_cubit.dart';
 import '../../../../domain/repository/auth_repository.dart';
 
 part 'login_with_one_id_cubit.freezed.dart';
-
 part 'login_with_one_id_state.dart';
 
 @Injectable()
@@ -21,7 +21,7 @@ class LoginWithOneIdCubit
       final uri = Uri.parse(url);
       await _repository.loginWithOneId(uri.queryParameters['code'] ?? "");
       invoke(LoginWithOneIdListenable(LoginWithOneIdEffect.navigationHome));
-    } catch (e) {
+    } on DioException catch (e) {
       display.error(e.toString());
     }
   }

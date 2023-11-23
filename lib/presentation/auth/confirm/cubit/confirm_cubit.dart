@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
@@ -8,7 +9,6 @@ import 'package:onlinebozor/presentation/auth/confirm/confirm_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../domain/repository/auth_repository.dart';
-
 
 part 'confirm_cubit.freezed.dart';
 part 'confirm_state.dart';
@@ -58,7 +58,7 @@ class ConfirmCubit extends BaseCubit<ConfirmBuildable, ConfirmListenable> {
     try {
       var url = Uri.parse("https://online-bozor.uz/page/privacy");
       await launchUrl(url);
-    } catch (e) {
+    } on DioException catch (e) {
       display.error(e.toString(), "Urlni parse qilishda xatolik yuz berdi");
     }
   }
@@ -70,7 +70,7 @@ class ConfirmCubit extends BaseCubit<ConfirmBuildable, ConfirmListenable> {
           buildable.phone.clearSpaceInPhone(), buildable.code);
       _timer?.cancel();
       invoke(ConfirmListenable(ConfirmEffect.setPassword));
-    } catch (e, stackTrace) {
+    } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
@@ -85,7 +85,7 @@ class ConfirmCubit extends BaseCubit<ConfirmBuildable, ConfirmListenable> {
           buildable.phone.clearSpaceInPhone(), buildable.code);
       _timer?.cancel();
       invoke(ConfirmListenable(ConfirmEffect.setPassword));
-    } catch (e, stackTrace) {
+    } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       invoke(ConfirmListenable(ConfirmEffect.setPassword));
       display.error(e.toString());

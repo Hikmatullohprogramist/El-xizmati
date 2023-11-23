@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/base/base_cubit.dart';
@@ -17,7 +18,7 @@ class HomeCubit extends BaseCubit<HomeBuildable, HomeListenable> {
     try {
       final isLogin = await _stateRepository.isLogin();
       build((buildable) => buildable.copyWith(isLogin: isLogin ?? false));
-    } catch (e) {
+    }on DioException  catch (e) {
       display.error(e.toString());
     }
   }

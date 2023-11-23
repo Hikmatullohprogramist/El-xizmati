@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
@@ -33,6 +34,6 @@ class EdsCubit extends BaseCubit<EdsBuildable, EdsListenable> {
   }
 
   Future<void> loginWithEds(String url) async {
-    try {} catch (e) {}
+    try {} on DioException catch (e) {}
   }
 }

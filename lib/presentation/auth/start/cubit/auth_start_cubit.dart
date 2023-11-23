@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
@@ -6,12 +7,10 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import '../../../../domain/repository/auth_repository.dart';
 
 part 'auth_start_cubit.freezed.dart';
-
 part 'auth_start_state.dart';
 
 @injectable
-class AuthStartCubit
-    extends BaseCubit<AuthStartBuildable, AuthStartListenable> {
+class AuthStartCubit extends BaseCubit<AuthStartBuildable, AuthStartListenable> {
   AuthStartCubit(this._repository) : super(AuthStartBuildable());
 
   final AuthRepository _repository;
@@ -30,7 +29,7 @@ class AuthStartCubit
     build((buildable) => buildable.copyWith(loading: true));
     try {
       var authStartResponse =
-      await _repository.authStart(buildable.phone.clearSpaceInPhone());
+          await _repository.authStart(buildable.phone.clearSpaceInPhone());
       if (authStartResponse.data.is_registered == true) {
         invoke(AuthStartListenable(AuthStartEffect.verification,
             phone: buildable.phone));
@@ -38,7 +37,7 @@ class AuthStartCubit
         invoke(AuthStartListenable(AuthStartEffect.confirmation,
             phone: buildable.phone));
       }
-    } catch (e, stackTrace) {
+    } on DioException catch (e, stackTrace) {
       display.error(e.toString());
     } finally {
       build((buildable) => buildable.copyWith(loading: false));
