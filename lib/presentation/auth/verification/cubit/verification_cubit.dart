@@ -44,9 +44,12 @@ class VerificationCubit
     } on DioException catch (e, stackTrace) {
       log.w("${e.toString()} ${stackTrace.toString()}");
       if (e.response?.statusCode == 401) {
-        display.error("Kiritilgan parrol xato", "Xatolik  yuz berdi");
+        display.error(
+            "Kiritilgan parrol xato (${e.response?.statusCode ?? ""})",
+            "Xatolik  yuz berdi");
       } else {
-        display.error("Qayta urinib ko'ring", "Xatolik  yuz berdi");
+        display.error("Qayta urinib ko'ring (${e.response?.statusCode ?? ""})",
+            "Xatolik  yuz berdi");
       }
     } finally {
       build((buildable) => buildable.copyWith(loading: false));
