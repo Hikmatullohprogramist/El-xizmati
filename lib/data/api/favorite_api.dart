@@ -22,8 +22,9 @@ class FavoriteApi {
         queryParameters: queryParameters, options: Options(headers: headers));
   }
 
-  Future<Response> deleteFavorite() {
-    return _dio.delete("v1/buyer/products");
+  Future<Response> deleteFavorite(int adId) {
+    final queryParameters = {'product_id': adId, "type": "SELECTED"};
+    return _dio.delete("v1/buyer/products", queryParameters: queryParameters);
   }
 
   Future<Response> getFavoriteAds() {

@@ -62,8 +62,8 @@ class FavoriteRepositoryImp extends FavoriteRepository {
     favoriteStorage.removeFavorite(adId);
     final isLogin = tokenStorage.isLogin.call() ?? false;
     // if (isLogin) {
-    //   await _api.deleteFavorite();
-    // } else {}
+    //   await _api.deleteFavorite(adId);
+    // }
   }
 
   @override

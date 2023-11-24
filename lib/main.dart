@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:android_id/android_id.dart';
+import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization_loader/easy_localization_loader.dart';
@@ -15,12 +16,19 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/display/display_widget.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:uuid/uuid.dart';
 
 import 'domain/repository/state_repository.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Permission.notification.isDenied.then((value) {
+    if (value) {
+      Permission.notification.request();
+    }
+  });
 
   await Hive.initFlutter();
 
@@ -46,7 +54,7 @@ Future<void> main() async {
             "${androidInfo.manufacturer} ${androidInfo.model}";
         String combinedInfo = '$deviceId-${androidInfo.manufacturer}';
         DeviceInfo.device_id = uuid.v5(Uuid.NAMESPACE_URL, combinedInfo);
-        DeviceInfo.mobile_os_type ="android";
+        DeviceInfo.mobile_os_type = "android";
       } else if (Platform.isIOS) {
         DeviceInfo.mobile_os_type="ios";
         IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
@@ -106,7 +114,7 @@ class MyApp extends StatelessWidget {
             if (isLogin) HomeRoute() else HomeRoute()
           else
             SetLanguageRoute()
-        ]),
+        ], navigatorObservers: () => [ChuckerFlutter.navigatorObserver]),
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
