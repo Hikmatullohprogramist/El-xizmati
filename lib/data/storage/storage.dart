@@ -14,7 +14,7 @@ class Storage {
 
   @FactoryMethod(preResolve: true)
   static Future<Storage> create() async {
-    Hive.registerAdapter(TokenAdapter());
+    Hive.registerAdapter(TokenImplAdapter());
     final box = await Hive.openBox('storage');
     return Storage(box);
   }

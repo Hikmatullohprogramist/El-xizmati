@@ -19,7 +19,7 @@ class CategoriesStorage {
     final appDocumentDir = await getApplicationDocumentsDirectory();
     Hive
       ..init(appDocumentDir.path)
-      ..registerAdapter(CategoryResponseAdapter());
+      ..registerAdapter(CategoryResponseImplAdapter());
     final box =
     await Hive.openBox<List>('categories_storage');
     return CategoriesStorage(box);
