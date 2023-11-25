@@ -37,6 +37,10 @@ class DashboardPage
 
   @override
   Widget builder(BuildContext context, DashboardBuildable state) {
+    double width;
+    double height;
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: CommonSearchBar(
           onPressedMic: () {},
@@ -99,20 +103,21 @@ class DashboardPage
             state.adsPagingController == null
                 ? SizedBox()
                 : PagedSliverGrid<int, AdModel>(
-                    pagingController: state.adsPagingController!,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 156 / 260,
+                pagingController: state.adsPagingController!,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: width / height,
                       crossAxisSpacing: 16,
                       mainAxisSpacing: 24,
+                      mainAxisExtent: 315,
                       crossAxisCount: 2,
                     ),
-                    builderDelegate: PagedChildBuilderDelegate<AdModel>(
-                      firstPageErrorIndicatorBuilder: (_) {
-                        return SizedBox(
-                            height: 60,
-                            width: double.infinity,
-                            child: Center(
-                                child: Column(
+                builderDelegate: PagedChildBuilderDelegate<AdModel>(
+                  firstPageErrorIndicatorBuilder: (_) {
+                    return SizedBox(
+                        height: 60,
+                        width: double.infinity,
+                        child: Center(
+                            child: Column(
                               children: [
                                 Strings.loadingStateError
                                     .w(400)
@@ -122,76 +127,78 @@ class DashboardPage
                                 CommonButton(
                                     onPressed: () {},
                                     type: ButtonType.elevated,
-                                    child: Strings.loadingStateRetrybutton.w(400).s(15))
+                                    child: Strings.loadingStateRetrybutton
+                                        .w(400)
+                                        .s(15))
                               ],
                             )));
-                      },
-                      firstPageProgressIndicatorBuilder: (_) {
-                        return SizedBox(
-                          height: 60,
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              color: Colors.blue,
-                            ),
-                          ),
-                        );
-                      },
-                      noItemsFoundIndicatorBuilder: (_) {
-                        return Center(
-                            child: Text(Strings.loadingStateNotitemfound));
-                      },
-                      newPageProgressIndicatorBuilder: (_) {
-                        return SizedBox(
-                          height: 60,
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              color: Colors.blue,
-                            ),
-                          ),
-                        );
-                      },
-                      newPageErrorIndicatorBuilder: (_) {
-                        return SizedBox(
-                          height: 60,
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              color: Colors.blue,
-                            ),
-                          ),
-                        );
-                      },
-                      transitionDuration: Duration(milliseconds: 100),
-                      itemBuilder: (context, item, index) {
-                        if (index % 2 == 1) {
-                          return Padding(
-                            padding: EdgeInsets.only(right: 16),
-                            child: AppAdWidget(
-                                result: item,
-                                onClickFavorite: (value) {
-                                  context
-                                      .read<DashboardCubit>()
-                                      .addFavorite(value);
-                                },
-                                onClick: (value) => context.router
-                                    .push(AdDetailRoute(adId: value.id))),
-                          );
-                        } else {
-                          return Padding(
-                            padding: EdgeInsets.only(left: 16),
-                            child: AppAdWidget(
-                              result: item,
-                              onClickFavorite: (value) {
-                                context
-                                    .read<DashboardCubit>()
-                                    .addFavorite(value);
-                              },
-                              onClick: (value) => context.router
-                                  .push(AdDetailRoute(adId: value.id)),
-                            ),
-                          );
-                        }
-                      },
-                    ))
+                  },
+                  firstPageProgressIndicatorBuilder: (_) {
+                    return SizedBox(
+                      height: 60,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.blue,
+                        ),
+                      ),
+                    );
+                  },
+                  noItemsFoundIndicatorBuilder: (_) {
+                    return Center(
+                        child: Text(Strings.loadingStateNotitemfound));
+                  },
+                  newPageProgressIndicatorBuilder: (_) {
+                    return SizedBox(
+                      height: 60,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.blue,
+                        ),
+                      ),
+                    );
+                  },
+                  newPageErrorIndicatorBuilder: (_) {
+                    return SizedBox(
+                      height: 60,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.blue,
+                        ),
+                      ),
+                    );
+                  },
+                  transitionDuration: Duration(milliseconds: 100),
+                  itemBuilder: (context, item, index) {
+                    if (index % 2 == 1) {
+                      return Padding(
+                        padding: EdgeInsets.only(right: 16),
+                        child: AppAdWidget(
+                            result: item,
+                            onClickFavorite: (value) {
+                              context
+                                  .read<DashboardCubit>()
+                                  .addFavorite(value);
+                            },
+                            onClick: (value) => context.router
+                                .push(AdDetailRoute(adId: value.id))),
+                      );
+                    } else {
+                      return Padding(
+                        padding: EdgeInsets.only(left: 16),
+                        child: AppAdWidget(
+                          result: item,
+                          onClickFavorite: (value) {
+                            context
+                                .read<DashboardCubit>()
+                                .addFavorite(value);
+                          },
+                          onClick: (value) => context.router
+                              .push(AdDetailRoute(adId: value.id)),
+                        ),
+                      );
+                    }
+                  },
+                ))
           ],
         ));
   }

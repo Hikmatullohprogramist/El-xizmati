@@ -140,31 +140,30 @@ class VerificationPage extends BasePage<VerificationCubit,
                 children: [
                   TextSpan(
                       text: Strings.authPolicyAgree,
-                    style: TextStyle(
-                      color: Color(0xFF9EABBE),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
+                      style: TextStyle(
+                        color: Color(0xFF9EABBE),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
-                  ),
-                  TextSpan(
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        context.read<VerificationCubit>().launchURLApp();
-                      },
-                    text: Strings.authPersonPolicy,
-                    style: TextStyle(
-                      color: Color(0xFF5C6AC3),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
+                    TextSpan(
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          context.read<VerificationCubit>().launchURLApp();
+                        },
+                      text: Strings.authPersonPolicy,
+                      style: TextStyle(
+                        color: Color(0xFF5C6AC3),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ),
-    );
+            ],
+          ),
+        ));
   }
 }

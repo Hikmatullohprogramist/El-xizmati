@@ -40,6 +40,10 @@ class AdListPage
 
   @override
   Widget builder(BuildContext context, AdListBuildable state) {
+    double width;
+    double height;
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: CommonAppBar(() {
         context.router.pop();
@@ -51,12 +55,12 @@ class AdListPage
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         pagingController: state.adsPagingController!,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          childAspectRatio: 156 / 286,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 24,
-          crossAxisCount: 2,
-        ),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            childAspectRatio: width / height,
+            crossAxisSpacing: 16,
+            mainAxisSpacing: 24,
+            crossAxisCount: 2,
+            mainAxisExtent: 315),
         builderDelegate: PagedChildBuilderDelegate<AdModel>(
           firstPageErrorIndicatorBuilder: (_) {
             return SizedBox(

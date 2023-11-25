@@ -41,6 +41,10 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
 
   @override
   Widget builder(BuildContext context, AdCollectionBuildable state) {
+    double width;
+    double height;
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
     return Center(
       child: Scaffold(
           backgroundColor: Colors.white,
@@ -54,75 +58,76 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
             slivers: [
               SliverToBoxAdapter(
                   child: Column(
-                children: [
-                  Padding(
-                      padding: EdgeInsets.only(right: 16, left: 16, top: 16),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: switch (collectiveType) {
-                          CollectiveType.commodity => Strings
-                              .favoriteCommodityTitle
-                              .w(700)
-                              .s(16)
-                              .c(context.colors.textPrimary),
-                          CollectiveType.service => Strings.favoriteServiceTitle
-                              .w(700)
-                              .s(16)
-                              .c(context.colors.textPrimary),
-                        },
-                      )),
-                  AppAllViewWidget(
-                      onPressed: () {
-                        context.router.push(AdListRoute(
-                            adListType: AdListType.list, keyWord: ''));
-                      },
-                      title: Strings.adCollectiveDiscounts),
-                  LoaderStateWidget(
-                      isFullScreen: false,
-                      loadingState: state.hotDiscountAdsState,
-                      child: AdGroupWidget(
-                        ads: state.hotDiscountAds,
-                        onClick: (AdModel result) {
-                          context.router.push(AdDetailRoute(adId: result.id));
-                        },
-                        onClickFavorite: (AdModel result) => context
-                            .read<AdCollectionCubit>()
-                            .addFavorite(result),
-                      )),
-                  SizedBox(height: 6),
-                  AppDivider(height: 3),
-                  AppAllViewWidget(
-                      onPressed: () {
-                        context.router.push(AdListRoute(
-                            adListType: AdListType.list, keyWord: ''));
-                      },
-                      title: Strings.adCollectivePopular),
-                  SizedBox(height: 6),
-                  LoaderStateWidget(
-                      isFullScreen: false,
-                      loadingState: state.popularAdsState,
-                      child: AdGroupWidget(
-                        ads: state.popularAds,
-                        onClick: (AdModel result) {
-                          context.router.push(AdDetailRoute(adId: result.id));
-                        },
-                        onClickFavorite: (AdModel result) => context
-                            .read<AdCollectionCubit>()
-                            .addFavorite(result),
-                      )),
-                  SizedBox(height: 6),
-                  AppDivider(height: 3),
-                  SizedBox(height: 24)
-                ],
-              )),
+                    children: [
+                      Padding(
+                          padding: EdgeInsets.only(right: 16, left: 16, top: 16),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: switch (collectiveType) {
+                              CollectiveType.commodity => Strings
+                                  .favoriteCommodityTitle
+                                  .w(700)
+                                  .s(16)
+                                  .c(context.colors.textPrimary),
+                              CollectiveType.service => Strings.favoriteServiceTitle
+                                  .w(700)
+                                  .s(16)
+                                  .c(context.colors.textPrimary),
+                            },
+                          )),
+                      AppAllViewWidget(
+                          onPressed: () {
+                            context.router.push(AdListRoute(
+                                adListType: AdListType.list, keyWord: ''));
+                          },
+                          title: Strings.adCollectiveDiscounts),
+                      LoaderStateWidget(
+                          isFullScreen: false,
+                          loadingState: state.hotDiscountAdsState,
+                          child: AdGroupWidget(
+                            ads: state.hotDiscountAds,
+                            onClick: (AdModel result) {
+                              context.router.push(AdDetailRoute(adId: result.id));
+                            },
+                            onClickFavorite: (AdModel result) => context
+                                .read<AdCollectionCubit>()
+                                .addFavorite(result),
+                          )),
+                      SizedBox(height: 6),
+                      AppDivider(height: 3),
+                      AppAllViewWidget(
+                          onPressed: () {
+                            context.router.push(AdListRoute(
+                                adListType: AdListType.list, keyWord: ''));
+                          },
+                          title: Strings.adCollectivePopular),
+                      SizedBox(height: 6),
+                      LoaderStateWidget(
+                          isFullScreen: false,
+                          loadingState: state.popularAdsState,
+                          child: AdGroupWidget(
+                            ads: state.popularAds,
+                            onClick: (AdModel result) {
+                              context.router.push(AdDetailRoute(adId: result.id));
+                            },
+                            onClickFavorite: (AdModel result) => context
+                                .read<AdCollectionCubit>()
+                                .addFavorite(result),
+                          )),
+                      SizedBox(height: 6),
+                      AppDivider(height: 3),
+                      SizedBox(height: 24)
+                    ],
+                  )),
               state.adsPagingController == null
                   ? SizedBox()
                   : PagedSliverGrid<int, AdModel>(
-                      pagingController: state.adsPagingController!,
+                  pagingController: state.adsPagingController!,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio: 156 / 260,
+                        childAspectRatio: width / height,
                         crossAxisSpacing: 16,
                         mainAxisSpacing: 24,
+                        mainAxisExtent: 315,
                         crossAxisCount: 2,
                       ),
                       builderDelegate: PagedChildBuilderDelegate<AdModel>(
@@ -146,69 +151,69 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                                           .s(15))
                                 ],
                               )));
-                        },
-                        firstPageProgressIndicatorBuilder: (_) {
-                          return SizedBox(
-                            height: 60,
-                            child: Center(
-                              child: CircularProgressIndicator(
-                                color: Colors.blue,
-                              ),
-                            ),
-                          );
-                        },
-                        noItemsFoundIndicatorBuilder: (_) {
-                          return Center(
-                              child: Text(Strings.loadingStateNotitemfound));
-                        },
-                        newPageProgressIndicatorBuilder: (_) {
-                          return SizedBox(
-                            height: 60,
-                            child: Center(
-                              child: CircularProgressIndicator(
-                                color: Colors.blue,
-                              ),
-                            ),
-                          );
-                        },
-                        newPageErrorIndicatorBuilder: (_) {
-                          return SizedBox(
-                            height: 60,
-                            child: Center(
-                              child: CircularProgressIndicator(
-                                color: Colors.blue,
-                              ),
-                            ),
-                          );
-                        },
-                        transitionDuration: Duration(milliseconds: 100),
-                        itemBuilder: (context, item, index) {
-                          if (index % 2 == 1) {
-                            return Padding(
-                              padding: EdgeInsets.only(right: 16),
-                              child: AppAdWidget(
-                                  result: item,
-                                  onClickFavorite: (value)=> context
-                                      .read<AdCollectionCubit>()
-                                      .addFavorite(value),
-                                  onClick: (value) => context.router
-                                      .push(AdDetailRoute(adId: value.id))),
-                            );
-                          } else {
-                            return Padding(
-                              padding: EdgeInsets.only(left: 16),
-                              child: AppAdWidget(
-                                result: item,
-                                onClickFavorite: (value) => context
-                                    .read<AdCollectionCubit>()
-                                    .addFavorite(value),
-                                onClick: (value) => context.router
-                                    .push(AdDetailRoute(adId: value.id)),
-                              ),
-                            );
-                          }
-                        },
-                      ))
+                    },
+                    firstPageProgressIndicatorBuilder: (_) {
+                      return SizedBox(
+                        height: 60,
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.blue,
+                          ),
+                        ),
+                      );
+                    },
+                    noItemsFoundIndicatorBuilder: (_) {
+                      return Center(
+                          child: Text(Strings.loadingStateNotitemfound));
+                    },
+                    newPageProgressIndicatorBuilder: (_) {
+                      return SizedBox(
+                        height: 60,
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.blue,
+                          ),
+                        ),
+                      );
+                    },
+                    newPageErrorIndicatorBuilder: (_) {
+                      return SizedBox(
+                        height: 60,
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.blue,
+                          ),
+                        ),
+                      );
+                    },
+                    transitionDuration: Duration(milliseconds: 100),
+                    itemBuilder: (context, item, index) {
+                      if (index % 2 == 1) {
+                        return Padding(
+                          padding: EdgeInsets.only(right: 16),
+                          child: AppAdWidget(
+                              result: item,
+                              onClickFavorite: (value)=> context
+                                  .read<AdCollectionCubit>()
+                                  .addFavorite(value),
+                              onClick: (value) => context.router
+                                  .push(AdDetailRoute(adId: value.id))),
+                        );
+                      } else {
+                        return Padding(
+                          padding: EdgeInsets.only(left: 16),
+                          child: AppAdWidget(
+                            result: item,
+                            onClickFavorite: (value) => context
+                                .read<AdCollectionCubit>()
+                                .addFavorite(value),
+                            onClick: (value) => context.router
+                                .push(AdDetailRoute(adId: value.id)),
+                          ),
+                        );
+                      }
+                    },
+                  ))
             ],
           )),
     );

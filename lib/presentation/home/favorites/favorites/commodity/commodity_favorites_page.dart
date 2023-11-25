@@ -27,6 +27,10 @@ class CommodityFavoritesPage extends BasePage<CommodityFavoritesCubit,
 
   @override
   Widget builder(BuildContext context, CommodityFavoritesBuildable state) {
+    double width;
+    double height;
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
       body: PagedGridView<int, AdModel>(
@@ -35,10 +39,11 @@ class CommodityFavoritesPage extends BasePage<CommodityFavoritesCubit,
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         pagingController: state.adsPagingController!,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          childAspectRatio: 156 / 286,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          childAspectRatio: width / height,
           crossAxisSpacing: 16,
           mainAxisSpacing: 24,
+          mainAxisExtent: 315,
           crossAxisCount: 2,
         ),
         builderDelegate: PagedChildBuilderDelegate<AdModel>(

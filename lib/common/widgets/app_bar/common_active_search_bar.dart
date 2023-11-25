@@ -50,8 +50,7 @@ class CommonActiveSearchBar extends AppBar implements PreferredSizeWidget {
                         InkWell(
                           onTap: onPressedSearch,
                           child: "Искать товары и категории".w(400).s(14).c(
-                                Color(0xFF9EABBE),
-                              ),
+                                Color(0xFF9EABBE)).copyWith(overflow: TextOverflow.ellipsis),
                         ),
                         Spacer(),
                         InkWell(

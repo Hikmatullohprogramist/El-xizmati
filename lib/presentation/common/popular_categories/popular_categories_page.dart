@@ -20,6 +20,10 @@ class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
 
   @override
   Widget builder(BuildContext context, PopularCategoriesBuildable state) {
+    double width;
+    double height;
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: CommonAppBar(() => context.router.pop(), "Ommobop Category"),
         body: state.categoriesPagingController == null
@@ -31,7 +35,7 @@ class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
                   physics: BouncingScrollPhysics(),
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   pagingController: state.categoriesPagingController!,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisSpacing: 16,
                     mainAxisSpacing: 16,
                     crossAxisCount: 2,

@@ -37,6 +37,7 @@ class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);
         return Scaffold(
+            resizeToAvoidBottomInset: false,
             body: child,
             bottomNavigationBar: Container(
               height: 80,
