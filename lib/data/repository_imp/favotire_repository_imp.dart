@@ -1,6 +1,9 @@
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
 import 'package:onlinebozor/data/api/favorite_api.dart';
 import 'package:onlinebozor/data/hive_object/ad_hive_object.dart';
+import 'package:onlinebozor/data/model/ads/ad/ad_response.dart';
+import 'package:onlinebozor/data/storage/sync_storage.dart';
 import 'package:onlinebozor/domain/mapper/ad_enum_mapper.dart';
 import 'package:onlinebozor/domain/mapper/ad_mapper.dart';
 import 'package:onlinebozor/domain/model/ad_model.dart';
@@ -14,11 +17,13 @@ class FavoriteRepositoryImp extends FavoriteRepository {
   final FavoriteApi _api;
   final TokenStorage tokenStorage;
   final FavoriteStorage favoriteStorage;
+  final SyncStorage syncStorage;
 
   FavoriteRepositoryImp(
     this._api,
     this.tokenStorage,
     this.favoriteStorage,
+    this.syncStorage,
   );
 
   @override
@@ -26,6 +31,8 @@ class FavoriteRepositoryImp extends FavoriteRepository {
     final isLogin = tokenStorage.isLogin.call() ?? false;
     if (isLogin) {
       await _api.addFavorite(adType: adModel.adStatusType.name, id: adModel.id);
+    } else {
+      await syncStorage.isFavoriteSync.set(false);
     }
     final allItem = favoriteStorage.allItems.map((e) => e.toMap()).toList();
     if (allItem.where((element) => element.id == adModel.id).isEmpty) {
@@ -62,6 +69,8 @@ class FavoriteRepositoryImp extends FavoriteRepository {
     final isLogin = tokenStorage.isLogin.call() ?? false;
     if (isLogin) {
       await _api.deleteFavorite(adId);
+    } else {
+      await syncStorage.isFavoriteSync.set(false);
     }
   }
 
@@ -70,24 +79,58 @@ class FavoriteRepositoryImp extends FavoriteRepository {
     try {
       final isLogin = tokenStorage.isLogin.call() ?? false;
       if (isLogin) {
-        final allRemoteAds = _api.getFavoriteAds();
+        final response = await _api.getFavoriteAds();
+        final allRemoteAds =
+            (AdRootResponse.fromJson(response.data).data?.results ??
+                    List.empty())
+                .map((e) => e.toMap(favorite: true));
+        final allItem = favoriteStorage.allItems.map((e) => e.toMap()).toList();
+        for (var item in allRemoteAds) {
+          if (allItem.where((element) => element.id == item.id).isEmpty) {
+            favoriteStorage.categoriesStorage.add(AdHiveObject(
+                id: item.id,
+                name: item.name,
+                price: item.price,
+                currency: item.currency.currencyToString(),
+                region: item.region,
+                district: item.district,
+                adRouteType: item.adRouteType.adRouteTypeToString(),
+                adPropertyStatus:
+                    item.adPropertyStatus.adPropertyStatusToString(),
+                adStatusType: item.adStatusType.adStatusTypeToString(),
+                adTypeStatus: item.adTypeStatus.adTypeStatusToString(),
+                fromPrice: item.fromPrice,
+                toPrice: item.toPrice,
+                categoryId: item.categoryId,
+                categoryName: item.categoryName,
+                isSort: item.isSort,
+                isSell: item.isSell,
+                isCheck: item.isCheck,
+                sellerId: item.sellerId,
+                maxAmount: item.maxAmount,
+                favorite: true,
+                photo: item.photo,
+                sellerName: item.sellerName));
+          }
+        }
       }
       final result = favoriteStorage.allItems;
       return result.map((e) => e.toMap(favorite: true)).toList();
     } catch (e) {
       return List.empty();
     }
-    // final isLogin = tokenStorage.isLogin.call() ?? false;
-    // if (isLogin) {
-    //   final response = await _api.getFavoriteAds();
-    //   final adsResponse =
-    //       AdRootResponse.fromJson(response.data).data?.results ?? List.empty();
-    //   final result = adsResponse
-    //       .map((e) => e.toMap(favorite: true))
-    //       .toList(growable: true);
-    //   return result;
-    // } else {
-    //   return List.empty();
-    // }
+  }
+
+  @override
+  Future<void> pushAllFavoriteAds() async {
+    try {
+      final log=Logger();
+      final allItem = favoriteStorage.allItems.map((e) => e.toMap()).toList();
+      log.e(allItem.toString());
+      await _api.sendAllFavoriteAds(allItem);
+      await syncStorage.isFavoriteSync.set(true);
+    } catch (e) {
+      rethrow;
+    }
   }
 }

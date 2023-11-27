@@ -109,6 +109,23 @@ extension AdTypeStatusToStringExtension on AdTypeStatus {
         return "BUY_SERVICE";
     }
   }
+
+  AdType adType() {
+    switch (this) {
+      case AdTypeStatus.sell:
+        return AdType.ads;
+      case AdTypeStatus.free:
+        return AdType.ads;
+      case AdTypeStatus.exchange:
+        return AdType.ads;
+      case AdTypeStatus.service:
+        return AdType.service;
+      case AdTypeStatus.buy:
+        return AdType.ads;
+      case AdTypeStatus.buyService:
+        return AdType.service;
+    }
+  }
 }
 
 extension AdStatusTypeToStringExtension on AdStatusType {
@@ -133,6 +150,17 @@ extension CurrencyToStringExtension on Currency {
         return "643";
       case Currency.uzb:
         return "860";
+    }
+  }
+}
+
+extension AdTypeExtension on AdType {
+  String name() {
+    switch (this) {
+      case AdType.ads:
+        return "ADS";
+      case AdType.service:
+        return "SERVICE";
     }
   }
 }

@@ -7,7 +7,9 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_property_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_route_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_status_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/ad_type_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite_widget.dart';
+import 'package:onlinebozor/domain/mapper/ad_enum_mapper.dart';
 import 'package:onlinebozor/domain/model/ad_enum.dart';
 import 'package:onlinebozor/domain/model/ad_model.dart';
 
@@ -72,7 +74,11 @@ class AppAdHorizontalWidget extends StatelessWidget {
                           onEvent: () {
                             onClickFavorite(result);
                           },
-                        ))
+                        )),
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: AppAdTypeWidget(adType: result.adTypeStatus.adType()),
+                    )
                   ])),
               SizedBox(height: 12),
               SizedBox(

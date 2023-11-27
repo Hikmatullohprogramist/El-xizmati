@@ -3,6 +3,7 @@ import 'package:onlinebozor/data/api/auth_api.dart';
 import 'package:onlinebozor/data/model/auth/one_id/one_id_response.dart';
 import 'package:onlinebozor/data/storage/language_storage.dart';
 import 'package:onlinebozor/data/storage/token_storage.dart';
+import 'package:onlinebozor/domain/repository/favorite_repository.dart';
 
 import '../../domain/repository/auth_repository.dart';
 import '../model/auth/auth_start/auth_start_response.dart';
@@ -16,8 +17,10 @@ class AuthRepositoryImpl extends AuthRepository {
   final TokenStorage tokenStorage;
   final LanguageStorage languageStorage;
   String sessionToken = "";
+  final FavoriteRepository favoriteRepository;
 
-  AuthRepositoryImpl(this._api, this.tokenStorage, this.languageStorage);
+  AuthRepositoryImpl(this._api, this.tokenStorage, this.languageStorage,
+      this.favoriteRepository);
 
   @override
   Future<AuthStartResponse> authStart(String phone) async {
@@ -37,6 +40,7 @@ class AuthRepositoryImpl extends AuthRepository {
     if (verificationResponse.token != null) {
       await tokenStorage.token.set(verificationResponse.token ?? "");
       await tokenStorage.isLogin.set(true);
+      await favoriteRepository.pushAllFavoriteAds();
     }
     return;
   }
@@ -49,6 +53,7 @@ class AuthRepositoryImpl extends AuthRepository {
     if (confirmResponse.token != null) {
       await tokenStorage.token.set(confirmResponse.token ?? "");
       await tokenStorage.isLogin.set(true);
+      await favoriteRepository.pushAllFavoriteAds();
     }
   }
 
@@ -78,6 +83,7 @@ class AuthRepositoryImpl extends AuthRepository {
     if (confirmResponse.token != null) {
       await tokenStorage.token.set(confirmResponse.token ?? "");
       await tokenStorage.isLogin.set(true);
+      await favoriteRepository.pushAllFavoriteAds();
     }
     return;
   }
@@ -89,6 +95,7 @@ class AuthRepositoryImpl extends AuthRepository {
     if (oneIdResponse?.access_token != null) {
       await tokenStorage.isLogin.set(true);
       await tokenStorage.token.set(oneIdResponse?.access_token ?? "");
+      await favoriteRepository.pushAllFavoriteAds();
     }
     return;
   }
