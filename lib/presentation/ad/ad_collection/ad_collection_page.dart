@@ -86,13 +86,13 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                           loadingState: state.hotDiscountAdsState,
                           child: AdGroupWidget(
                             ads: state.hotDiscountAds,
-                            onClick: (AdModel result) {
-                              context.router.push(AdDetailRoute(adId: result.id));
-                            },
-                            onClickFavorite: (AdModel result) => context
-                                .read<AdCollectionCubit>()
-                                .addFavorite(result),
-                          )),
+                        onClick: (AdModel result) {
+                          context.router.push(AdDetailRoute(adId: result.id));
+                        },
+                        onClickFavorite: (AdModel result) => context
+                            .read<AdCollectionCubit>()
+                            .discountAdsAddFavorite(result),
+                      )),
                       SizedBox(height: 6),
                       AppDivider(height: 3),
                       AppAllViewWidget(
@@ -107,13 +107,13 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                           loadingState: state.popularAdsState,
                           child: AdGroupWidget(
                             ads: state.popularAds,
-                            onClick: (AdModel result) {
-                              context.router.push(AdDetailRoute(adId: result.id));
-                            },
-                            onClickFavorite: (AdModel result) => context
-                                .read<AdCollectionCubit>()
-                                .addFavorite(result),
-                          )),
+                        onClick: (AdModel result) {
+                          context.router.push(AdDetailRoute(adId: result.id));
+                        },
+                        onClickFavorite: (AdModel result) => context
+                            .read<AdCollectionCubit>()
+                            .popularAdsAddFavorite(result),
+                      )),
                       SizedBox(height: 6),
                       AppDivider(height: 3),
                       SizedBox(height: 24)

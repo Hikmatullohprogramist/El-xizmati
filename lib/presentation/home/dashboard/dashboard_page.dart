@@ -85,7 +85,9 @@ class DashboardPage
                           context.router.push(AdDetailRoute(adId: result.id));
                         },
                         onClickFavorite: (AdModel result) {
-                          context.read<DashboardCubit>().addFavorite(result);
+                          context
+                              .read<DashboardCubit>()
+                              .recentlyAdsAddFavorite(result);
                         },
                       )),
                   LoaderStateWidget(

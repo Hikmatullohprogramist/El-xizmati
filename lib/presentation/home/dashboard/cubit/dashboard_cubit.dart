@@ -125,20 +125,51 @@ class DashboardCubit
     return adController;
   }
 
+  Future<void> recentlyAdsAddFavorite(AdModel adModel) async {
+    try {
+      if (!adModel.favorite) {
+        await favoriteRepository.addFavorite(adModel);
+        final index = buildable.recentlyViewerAds.indexOf(adModel);
+        final item = buildable.recentlyViewerAds.elementAt(index);
+        buildable.recentlyViewerAds.insert(index, item..favorite = true);
+      } else {
+        await favoriteRepository.removeFavorite(adModel.id);
+        final index = buildable.recentlyViewerAds.indexOf(adModel);
+        final item = buildable.recentlyViewerAds.elementAt(index);
+        buildable.recentlyViewerAds.insert(index, item..favorite = false);
+      }
+    } on DioException catch (e) {
+      display.error("xatolik yuz  berdi");
+    }
+  }
+
   Future<void> addFavorite(AdModel adModel) async {
     try {
       if (!adModel.favorite) {
         await favoriteRepository.addFavorite(adModel);
+        final index =
+            buildable.adsPagingController?.itemList?.indexOf(adModel) ?? 0;
+        final item = buildable.adsPagingController?.itemList?.elementAt(index);
+        if (item != null) {
+          buildable.adsPagingController?.itemList
+              ?.insert(index, item..favorite = true);
+          buildable.adsPagingController?.itemList?.removeAt(index);
+          buildable.adsPagingController?.notifyListeners();
+        }
       } else {
         await favoriteRepository.removeFavorite(adModel.id);
+        final index =
+            buildable.adsPagingController?.itemList?.indexOf(adModel) ?? 0;
+        final item = buildable.adsPagingController?.itemList?.elementAt(index);
+        if (item != null) {
+          buildable.adsPagingController?.itemList
+              ?.insert(index, item..favorite = false);
+          buildable.adsPagingController?.itemList?.removeAt(index);
+          buildable.adsPagingController?.notifyListeners();
+        }
       }
-      display.success("success");
     } on DioException catch (e) {
-      if (e.response?.statusCode == 401 || e.response?.statusCode == 404) {
-        invoke(DashboardListenable(DashboardEffect.navigationToAuthStart));
-      } else {
-        display.error(e.toString());
-      }
+      display.error("xatolik yuz  berdi");
     }
   }
 }
