@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/hive_object/ad_hive_object.dart';
+import 'package:onlinebozor/data/hive_object/ad/ad_hive_object.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../common/base/base_storage.dart';

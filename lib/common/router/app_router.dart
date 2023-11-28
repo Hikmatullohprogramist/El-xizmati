@@ -32,6 +32,7 @@ import '../../presentation/home/favorites/favorites/commodity/commodity_favorite
 import '../../presentation/home/favorites/favorites/service/service_favorites_page.dart';
 import '../../presentation/home/favorites/favorites_page.dart';
 import '../../presentation/home/profile_dashboard/features/add_address/add_address_page.dart';
+import '../../presentation/home/profile_dashboard/features/change_language/change_language_page.dart';
 import '../../presentation/home/profile_dashboard/features/chat_list/chats_list.dart';
 import '../../presentation/home/profile_dashboard/features/chat_list/features/buying_chats/buying_chats_page.dart';
 import '../../presentation/home/profile_dashboard/features/chat_list/features/chat/chat_page.dart';
@@ -156,5 +157,6 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
             page: NotificationSettingRoute.page, path: '/notification_setting'),
         AutoRoute(page: UserAdDetailRoute.page, path: "/user_ad_detail"),
+    AutoRoute(page: ChangeLanguageRoute.page, path: '/change_language'),
       ];
 }

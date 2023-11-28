@@ -141,6 +141,15 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
               //         .svg(width: 18, height: 18),
               //     callback: () => context.router.push(SettingRoute())),
               Divider(indent: 46, height: 1),
+              ProfileItemWidget(
+                  name: "Tilni o'zgartirish",
+                  icon: Icon(
+                    Icons.language,
+                    color: context.colors.iconGrey,
+                    size: 18,
+                  ),
+                  callback: () => context.router.push(ChangeLanguageRoute())),
+              Divider(indent: 46, height: 1),
               InkWell(
                   onTap: () {
                     showDialog(

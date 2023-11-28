@@ -1,4 +1,4 @@
-import 'package:onlinebozor/data/hive_object/ad_hive_object.dart';
+import 'package:onlinebozor/data/hive_object/ad/ad_hive_object.dart';
 import 'package:onlinebozor/data/model/ads/ad_detail/ad_detail_response.dart';
 import 'package:onlinebozor/domain/mapper/ad_enum_mapper.dart';
 import 'package:onlinebozor/domain/model/ad_detail.dart';
