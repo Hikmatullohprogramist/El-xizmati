@@ -77,6 +77,7 @@ class AdDetailPage
                   SizedBox(width: 8),
                   Spacer(),
                   CommonButton(
+                      enabled: !state.isAddCart,
                       color: context.colors.buttonPrimary,
                       type: ButtonType.elevated,
                       onPressed: () {

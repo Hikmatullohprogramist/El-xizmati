@@ -2,8 +2,10 @@ part of 'ad_detail_cubit.dart';
 
 @freezed
 class AdDetailBuildable with _$AdDetailBuildable {
-  const factory AdDetailBuildable({int? adId, AdDetail? adDetail}) =
-      _AdDetailBuildable;
+  const factory AdDetailBuildable(
+      {int? adId,
+      AdDetail? adDetail,
+      @Default(false) bool isAddCart}) = _AdDetailBuildable;
 }
 
 @freezed

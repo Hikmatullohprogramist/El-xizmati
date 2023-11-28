@@ -64,8 +64,8 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
             maxAmount: -1,
             favorite: false,
             isCheck: false));
-        build((buildable) =>
-            buildable.copyWith(adDetail: buildable.adDetail?..favorite = true));
+        build((buildable) => buildable.copyWith(
+            adDetail: buildable.adDetail?..favorite = true, isAddCart: false));
       } else {
         await favoriteRepository.removeFavorite(adModel?.adId ?? -1);
         build((buildable) => buildable.copyWith(
@@ -102,6 +102,7 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
           maxAmount: -1,
           favorite: true,
           isCheck: false));
+      build((buildable) => buildable.copyWith(isAddCart: true));
       display.success("mahsulot savatchaga qo'shildi");
     } on DioException catch (e) {
       display.error("xatlik yuz berdi");
