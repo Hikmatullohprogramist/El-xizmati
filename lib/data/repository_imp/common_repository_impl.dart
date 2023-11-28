@@ -23,13 +23,13 @@ class CommonRepositoryImpl extends CommonRepository {
 
   @override
   Future<List<CategoryResponse>> getCategories() async {
-    final localCategories = _categoriesStorage.categoriesStorage
+    final localCategories = _categoriesStorage.categories
         .callList()
         .cast<CategoryResponse>();
     if (localCategories.isEmpty) {
       final response = await _api.getCategories();
       final categories = CategoryRootResponse.fromJson(response.data).data;
-      await _categoriesStorage.categoriesStorage.set(categories);
+      await _categoriesStorage.categories.set(categories);
       return categories;
     } else {
       return localCategories;

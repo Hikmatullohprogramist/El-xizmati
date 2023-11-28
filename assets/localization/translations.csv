@@ -79,7 +79,7 @@ profile.user.district,Tuman ,Район
 profile.user.neighborhood,Turar joy,Махалля
 profile.user.phone,Telefon,Телефон
 profile.user.gender.boy,Erkak,Муж.
-profile.user.gender.women,Ayollar,Жен.
+profile.user.gender.women,Ayol,Жен.
 bottom.navigation.home,Uy,Главная
 bottom.navigation.catolog,Katalog,Каталог
 bottom.navigation.favorite,Istaklar,Желания
@@ -99,3 +99,5 @@ profile.dashboard.my.address,Mening manzillarim,Мои адреса
 profile.dashboard.promotions,Aktsiyalar,Продвижения
 profile.dashboard.setting,Sozlamalar,Настройки
 profile.dashboard.exit,Chiqish,Выйти
+profile.dashboard.change.language,Tilni o'zgartirish,Изменить язык
+button.title.save,saqlash,сохранять

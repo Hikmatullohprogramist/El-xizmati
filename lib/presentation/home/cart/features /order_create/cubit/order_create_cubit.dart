@@ -10,7 +10,6 @@ import '../../../../../../domain/repository/ad_repository.dart';
 import '../../../../../../domain/repository/cart_repository.dart';
 
 part 'order_create_cubit.freezed.dart';
-
 part 'order_create_state.dart';
 
 @Injectable()
@@ -45,7 +44,7 @@ class OrderCreateCubit
       final paymentList =
           response?.paymentTypes?.map((e) => e.id ?? -1).toList() ??
               List.empty();
-      display.success("list length ${paymentList.length}");
+      // display.success("list length ${paymentList.length}");
       build((buildable) => buildable.copyWith(
           adDetail: response,
           favorite: response?.favorite ?? false,
@@ -81,8 +80,8 @@ class OrderCreateCubit
             currency: adDetail.currency,
             region: adDetail.address?.region?.name ?? "",
             district: adDetail.address?.district?.name ?? "",
-            adRouteType: adDetail.adRouteType ?? AdRouteType.private,
-            adPropertyStatus: adDetail.propertyStatus ?? AdPropertyStatus.fresh,
+            adRouteType: adDetail.adRouteType,
+            adPropertyStatus: adDetail.propertyStatus ,
             adStatusType: adDetail.adStatusType ?? AdStatusType.standard,
             adTypeStatus: adDetail.adTypeStatus ?? AdTypeStatus.buy,
             fromPrice: adDetail.fromPrice ?? 0,

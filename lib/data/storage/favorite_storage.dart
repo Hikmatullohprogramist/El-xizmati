@@ -11,7 +11,7 @@ class FavoriteStorage {
 
   final Box _box;
 
-  BaseStorage get categoriesStorage =>
+  BaseStorage get favoriteAds =>
       BaseStorage(_box, key: "key_favorites_storage");
 
   @FactoryMethod(preResolve: true)

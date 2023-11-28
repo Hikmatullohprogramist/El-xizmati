@@ -4,7 +4,6 @@ import 'package:onlinebozor/common/base/base_cubit.dart';
 import 'package:onlinebozor/domain/repository/state_repository.dart';
 
 part 'change_language_cubit.freezed.dart';
-
 part 'change_language_state.dart';
 
 @Injectable()
@@ -18,6 +17,7 @@ class ChangeLanguageCubit
 
   Future<void> selectLanguage(Language language) async {
     build((buildable) => buildable.copyWith(language: language));
+    await stateRepository.setLanguage(buildable.language!.name);
   }
 
   Future<void> getLanguage() async {
@@ -33,14 +33,13 @@ class ChangeLanguageCubit
     } catch (e) {}
   }
 
-  Future<void> saveSelectedLanguage() async {
-    try {
-      if (buildable.language != null) {
-        await stateRepository.setLanguage(buildable.language!.name);
-        invoke(ChangeLanguageListenable(ChangeLanguageEffect.backTo));
-      }
-    } catch (e) {}
-  }
+  // Future<void> saveSelectedLanguage() async {
+  //   try {
+  //     if (buildable.language != null) {
+  //       // invoke(ChangeLanguageListenable(ChangeLanguageEffect.backTo));
+  //     }
+  //   } catch (e) {}
+  // }
 }
 
 enum Language { uz, ru }

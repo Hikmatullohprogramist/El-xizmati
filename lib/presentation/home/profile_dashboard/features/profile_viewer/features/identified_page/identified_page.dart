@@ -66,6 +66,7 @@ class IdentifiedPage extends BasePage<IdentifiedCubit, IdentifiedBuildable,
                         },
                         inputType: TextInputType.text,
                         maxLength: 2,
+
                         textInputAction: TextInputAction.next),
                   ),
                   SizedBox(width: 12),

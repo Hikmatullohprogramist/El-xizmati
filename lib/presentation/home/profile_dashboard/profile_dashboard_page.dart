@@ -142,7 +142,7 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
               //     callback: () => context.router.push(SettingRoute())),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(
-                  name: "Tilni o'zgartirish",
+                  name: Strings.profileDashboardChangeLanguage,
                   icon: Icon(
                     Icons.language,
                     color: context.colors.iconGrey,

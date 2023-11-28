@@ -50,7 +50,7 @@ class ProfileViewerCubit
       if (e.response?.statusCode == 401) {
         logOut();
       }
-      display.error(e.toString());
+      // display.error(e.toString());
     }
   }
 
@@ -88,7 +88,7 @@ class ProfileViewerCubit
               .name,
           isLoading: false));
     } catch (e) {
-      display.error("street error ${e}");
+      // display.error("street error ${e}");
       build((buildable) => buildable.copyWith(isLoading: false));
     }
   }

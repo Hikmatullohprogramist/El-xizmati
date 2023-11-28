@@ -41,13 +41,13 @@ class UserApi {
       required String biometricNumber,
       required String brithDate}) {
     final headers = {"Authorization": "Bearer ${tokenStorage.token.call()}"};
-    final queryParameters = {
+    final data = {
       'phone_number': phoneNumber,
       "passport_serial": biometricSerial,
       "passport_number": biometricNumber,
       "birth_date": brithDate
     };
     return _dio.post('v1/user/profile',
-        queryParameters: queryParameters, options: Options(headers: headers));
+        data: data, options: Options(headers: headers));
   }
 }

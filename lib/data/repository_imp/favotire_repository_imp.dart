@@ -36,7 +36,7 @@ class FavoriteRepositoryImp extends FavoriteRepository {
     }
     final allItem = favoriteStorage.allItems.map((e) => e.toMap()).toList();
     if (allItem.where((element) => element.id == adModel.id).isEmpty) {
-      favoriteStorage.categoriesStorage.add(AdHiveObject(
+      favoriteStorage.favoriteAds.add(AdHiveObject(
           id: adModel.id,
           name: adModel.name,
           price: adModel.price,
@@ -87,7 +87,7 @@ class FavoriteRepositoryImp extends FavoriteRepository {
         final allItem = favoriteStorage.allItems.map((e) => e.toMap()).toList();
         for (var item in allRemoteAds) {
           if (allItem.where((element) => element.id == item.id).isEmpty) {
-            favoriteStorage.categoriesStorage.add(AdHiveObject(
+            favoriteStorage.favoriteAds.add(AdHiveObject(
                 id: item.id,
                 name: item.name,
                 price: item.price,

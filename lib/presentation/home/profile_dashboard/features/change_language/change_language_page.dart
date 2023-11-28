@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/base/base_page.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/presentation/home/profile_dashboard/features/change_language/cubit/change_language_cubit.dart';
 
 import '../../../../../common/gen/assets/assets.gen.dart';
@@ -29,14 +30,18 @@ class ChangeLanguagePage extends BasePage<ChangeLanguageCubit,
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: 'Tilni o\'zgartirish'.w(500).s(14).c(context.colors.textPrimary),
+        title: Strings.profileDashboardChangeLanguage
+            .w(500)
+            .s(14)
+            .c(context.colors.textPrimary),
         centerTitle: true,
         elevation: 0.5,
         leading: IconButton(
           icon: Assets.images.icArrowLeft.svg(),
-          onPressed: () => context.router.pop(),
+          onPressed: () => context.router.push(ProfileDashboardRoute()),
         ),
       ),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -86,13 +91,17 @@ class ChangeLanguagePage extends BasePage<ChangeLanguageCubit,
                     ],
                   ),
                 )),
-            Spacer(),
-            SizedBox(
-                height: 48,
-                width: double.infinity,
-                child: CommonButton(onPressed: () {
-                  context.read<ChangeLanguageCubit>().saveSelectedLanguage();
-                }, child: "Saqlash".w(500)))
+            // Spacer(),
+            // SizedBox(
+            //     height: 48,
+            //     width: double.infinity,
+            //     child: CommonButton(
+            //         onPressed: () {
+            //           context
+            //               .read<ChangeLanguageCubit>()
+            //               .saveSelectedLanguage();
+            //         },
+            //         child: Strings.buttonTitleSave.w(500)))
           ],
         ),
       ),

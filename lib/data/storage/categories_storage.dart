@@ -11,7 +11,7 @@ class CategoriesStorage {
 
   final Box _box;
 
-  BaseStorage<List> get categoriesStorage =>
+  BaseStorage<List> get categories =>
       BaseStorage(_box, key: "key_categories_storage");
 
   @FactoryMethod(preResolve: true)
