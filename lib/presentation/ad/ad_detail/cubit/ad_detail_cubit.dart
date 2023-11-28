@@ -64,8 +64,12 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
             maxAmount: -1,
             favorite: false,
             isCheck: false));
+        build((buildable) =>
+            buildable.copyWith(adDetail: buildable.adDetail?..favorite = true));
       } else {
         await favoriteRepository.removeFavorite(adModel?.adId ?? -1);
+        build((buildable) => buildable.copyWith(
+            adDetail: buildable.adDetail?..favorite = false));
       }
     } on DioException catch (e) {
       display.error(e.toString());
@@ -98,7 +102,7 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
           maxAmount: -1,
           favorite: true,
           isCheck: false));
-      display.success("mahsulot savatchaga qo'shilfi");
+      display.success("mahsulot savatchaga qo'shildi");
     } on DioException catch (e) {
       display.error("xatlik yuz berdi");
     }

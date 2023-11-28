@@ -25,7 +25,7 @@ class CartRepositoryImp extends CartRepository {
   Future<void> addCart(AdModel adModel) async {
     final isLogin = tokenStorage.isLogin.call() ?? false;
     if (isLogin) {
-      // await _api.addFavorite(adType: adModel.adStatusType.name, id: adModel.id);
+      await _api.addCart(adType: adModel.adStatusType.name, id: adModel.id);
     }
     final allItem = cartStorage.allItems.map((e) => e.toMap()).toList();
     if (allItem.where((element) => element.id == adModel.id).isEmpty) {
@@ -55,15 +55,6 @@ class CartRepositoryImp extends CartRepository {
     }
     return;
   }
-
-  // @override
-  // Future<void> removeCart(int adId) async {
-  //   cartStorage.removeCart(adId);
-  //   // final isLogin = tokenStorage.isLogin.call() ?? false;
-  //   // if (isLogin) {
-  //   //   await _api.deleteFavorite();
-  //   // } else {}
-  // }
 
   @override
   Future<void> removeCart(int adId) async {

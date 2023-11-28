@@ -84,14 +84,8 @@ class CartCubit extends BaseCubit<CartBuildable, CartListenable> {
         buildable.adsPagingController?.itemList?.insert(index, newAdModel);
         buildable.adsPagingController?.notifyListeners();
       }
-      display.success("success");
     } on DioException catch (e) {
       display.error(e.toString());
-      // if (e.response?.statusCode == 401 || e.response?.statusCode == 404) {
-      //   invoke(DashboardListenable(DashboardEffect.navigationToAuthStart));
-      // } else {
-      //   display.error(e.toString());
-      // }
     }
   }
 }

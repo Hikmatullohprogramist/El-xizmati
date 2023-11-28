@@ -90,12 +90,18 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<void> loginWithOneId(String accessCode) async {
-    final response = await _api.loginWithOneId(accessCode: accessCode);
-    final oneIdResponse = OneIdRootResponse.fromJson(response.data).data;
+    final responseValidate = await _api.loginValidate(accessCode: accessCode);
+    final oneIdResponse =
+        OneIdRootResponse.fromJson(responseValidate.data).data;
     if (oneIdResponse?.access_token != null) {
-      await tokenStorage.isLogin.set(true);
-      await tokenStorage.token.set(oneIdResponse?.access_token ?? "");
-      await favoriteRepository.pushAllFavoriteAds();
+      final response = await _api.loginWithOneId(
+          accessCode: oneIdResponse?.access_token ?? "");
+      final loginResponse = ConfirmRootResponse.fromJson(response.data).data;
+      if (loginResponse.token != null) {
+        await tokenStorage.token.set(loginResponse.token ?? "");
+        await tokenStorage.isLogin.set(true);
+        await favoriteRepository.pushAllFavoriteAds();
+      }
     }
     return;
   }

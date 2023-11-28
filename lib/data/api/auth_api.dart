@@ -58,8 +58,13 @@ class AuthApi {
         data: body, options: Options(headers: headers));
   }
 
-  Future<Response> loginWithOneId({required String accessCode}) {
+  Future<Response> loginValidate({required String accessCode}) {
     final body = {"accessToken": accessCode};
     return _dio.post("v1/auth/one_id/login-validate", data: body);
+  }
+
+  Future<Response> loginWithOneId({required String accessCode}) {
+    final body = {"accessToken": accessCode};
+    return _dio.post("v1/auth/one_id/login", data: body);
   }
 }
