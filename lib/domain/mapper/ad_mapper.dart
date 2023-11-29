@@ -1,9 +1,9 @@
 import 'package:onlinebozor/data/hive_object/ad/ad_object.dart';
-import 'package:onlinebozor/data/model/ads/ad_detail/ad_detail_response.dart';
+import 'package:onlinebozor/data/model/ad/ad/ad_response.dart';
 import 'package:onlinebozor/domain/mapper/ad_enum_mapper.dart';
 import 'package:onlinebozor/domain/model/ad_detail.dart';
 
-import '../../data/model/ads/ad/ad_response.dart';
+import '../../data/model/ad/ad_detail/ad_detail_response.dart';
 import '../model/ad.dart';
 
 extension AdExtension on AdResponse {

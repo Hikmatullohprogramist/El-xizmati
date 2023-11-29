@@ -1,14 +1,14 @@
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/data/model/ad/ad_detail/ad_detail_response.dart';
 import 'package:onlinebozor/data/model/search/search_response.dart';
 import 'package:onlinebozor/domain/mapper/ad_mapper.dart';
 import 'package:onlinebozor/presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
 
-import '../../domain/model/ad_detail.dart';
 import '../../domain/model/ad.dart';
+import '../../domain/model/ad_detail.dart';
 import '../../domain/repository/ad_repository.dart';
 import '../api/ad_api.dart';
-import '../model/ads/ad/ad_response.dart';
-import '../model/ads/ad_detail/ad_detail_response.dart';
+import '../model/ad/ad/ad_response.dart';
 import '../storage/favorite_storage.dart';
 
 @LazySingleton(as: AdRepository)
@@ -54,16 +54,6 @@ class AdRepositoryImpl extends AdRepository {
     final adDetail = AdDetailRootResponse.fromJson(response.data).data.results;
     final result = adDetail.toMap(favorite:
     allItems.where((element) => element.id == adId).isNotEmpty);
-    return result;
-  }
-
-  @override
-  Future<List<Ad>> getAdModels(
-      int pageIndex, int pageSize, String keyWord) async {
-    final response = await _api.getHomeAds(pageIndex, pageSize, keyWord);
-    final adsResponse =
-        AdRootResponse.fromJson(response.data).data?.results ?? List.empty();
-    final result = adsResponse.map((e) => e.toMap()).toList(growable: true);
     return result;
   }
 

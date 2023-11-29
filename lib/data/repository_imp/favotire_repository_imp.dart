@@ -2,7 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:onlinebozor/data/api/favorite_api.dart';
 import 'package:onlinebozor/data/hive_object/ad/ad_object.dart';
-import 'package:onlinebozor/data/model/ads/ad/ad_response.dart';
+import 'package:onlinebozor/data/model/ad/ad/ad_response.dart';
 import 'package:onlinebozor/data/storage/sync_storage.dart';
 import 'package:onlinebozor/domain/mapper/ad_enum_mapper.dart';
 import 'package:onlinebozor/domain/mapper/ad_mapper.dart';

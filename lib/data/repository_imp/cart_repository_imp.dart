@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
+import 'package:onlinebozor/data/model/ad/ad/ad_response.dart';
 import 'package:onlinebozor/domain/mapper/ad_enum_mapper.dart';
 import 'package:onlinebozor/domain/mapper/ad_mapper.dart';
 import 'package:onlinebozor/domain/repository/cart_repository.dart';
@@ -7,7 +8,6 @@ import 'package:onlinebozor/domain/repository/cart_repository.dart';
 import '../../domain/model/ad.dart';
 import '../api/cart_api.dart';
 import '../hive_object/ad/ad_object.dart';
-import '../model/ads/ad/ad_response.dart';
 import '../storage/cart_storage.dart';
 import '../storage/favorite_storage.dart';
 import '../storage/sync_storage.dart';

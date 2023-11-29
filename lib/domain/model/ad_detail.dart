@@ -1,5 +1,5 @@
-import 'package:onlinebozor/data/model/ads/ad_detail/ad_detail_response.dart';
 import 'package:onlinebozor/common/enum/enums.dart';
+import 'package:onlinebozor/data/model/ad/ad_detail/ad_detail_response.dart';
 
 class AdDetail {
   AdDetail({
