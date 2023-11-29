@@ -9,7 +9,8 @@ import '../model/ad_model.dart';
 extension AdExtension on AdResponse {
   AdModel toMap({bool favorite = false}) {
     return AdModel(
-        id: id ?? -1,
+        id: -1,
+        productId: id ?? -1,
         name: name ?? "",
         price: price ?? 0,
         currency: currency.toCurrency(),
@@ -105,6 +106,7 @@ extension AdDetailExtension on AdDetailResponse {
 extension AdHiveObjectExtension on AdHiveObject {
   AdModel toMap({bool favorite = false}) {
     return AdModel(
+        productId: -1,
         id: id,
         name: name,
         price: price,

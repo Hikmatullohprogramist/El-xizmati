@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/base/base_page.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/presentation/home/profile_dashboard/features/profile_viewer/features/identified_page/cubit/identified_cubit.dart';
+import 'package:onlinebozor/presentation/home/profile_dashboard/features/profile_viewer/features/registration/cubit/registration_cubit.dart';
 
 import '../../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../../common/widgets/app_diverder.dart';
@@ -13,12 +13,12 @@ import '../../../../../../../common/widgets/common_text_field.dart';
 import '../../../../../../util.dart';
 
 @RoutePage()
-class IdentifiedPage extends BasePage<IdentifiedCubit, IdentifiedBuildable,
-    IdentifiedListenable> {
-  const IdentifiedPage({super.key});
+class RegistrationPage extends BasePage<RegistrationCubit,
+    RegistrationBuildable, RegistrationListenable> {
+  const RegistrationPage({super.key});
 
   @override
-  Widget builder(BuildContext context, IdentifiedBuildable state) {
+  Widget builder(BuildContext context, RegistrationBuildable state) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -28,8 +28,11 @@ class IdentifiedPage extends BasePage<IdentifiedCubit, IdentifiedBuildable,
         elevation: 0.5,
         actions: [
           CommonButton(
+              enabled: state.isRegistration,
               type: ButtonType.text,
-              onPressed: () {},
+              onPressed: () {
+                context.read<RegistrationCubit>().sendUserInfo();
+              },
               child: "Сохранить".w(500).s(12).c(Color(0xFF5C6AC3)))
         ],
         leading: IconButton(
@@ -61,12 +64,12 @@ class IdentifiedPage extends BasePage<IdentifiedCubit, IdentifiedBuildable,
                     child: CommonTextField(
                         onChanged: (value) {
                           context
-                              .read<IdentifiedCubit>()
+                              .read<RegistrationCubit>()
                               .setBiometricSerial(value);
                         },
                         inputType: TextInputType.text,
                         maxLength: 2,
-
+                        hint: "AA",
                         textInputAction: TextInputAction.next),
                   ),
                   SizedBox(width: 12),
@@ -75,7 +78,7 @@ class IdentifiedPage extends BasePage<IdentifiedCubit, IdentifiedBuildable,
                       maxLength: 9,
                       onChanged: (value) {
                         context
-                            .read<IdentifiedCubit>()
+                            .read<RegistrationCubit>()
                             .setBiometricNumber(value);
                       },
                       inputFormatters: biometricNumberMaskFormatter,
@@ -88,13 +91,16 @@ class IdentifiedPage extends BasePage<IdentifiedCubit, IdentifiedBuildable,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: "Дата рождения".w(500).s(12).c(Color(0xFF41455E)),
+                child: "Дата рождения (2004-11-28)"
+                    .w(500)
+                    .s(12)
+                    .c(Color(0xFF41455E)),
               ),
               Padding(
                 padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
                 child: CommonTextField(
                   onChanged: (value) {
-                    context.read<IdentifiedCubit>().setBrithDate(value);
+                    context.read<RegistrationCubit>().setBrithDate(value);
                   },
                   inputType: TextInputType.number,
                   textInputAction: TextInputAction.next,
@@ -105,14 +111,17 @@ class IdentifiedPage extends BasePage<IdentifiedCubit, IdentifiedBuildable,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: "Номер телефона".w(500).s(12).c(Color(0xFF41455E)),
+                child: "Номер телефона (+998 __ ___ __ __)"
+                    .w(500)
+                    .s(12)
+                    .c(Color(0xFF41455E)),
               ),
               Padding(
                 padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
                 child: CommonTextField(
                     hint: "+998",
                     onChanged: (value) {
-                      context.read<IdentifiedCubit>().setPhoneNumber(value);
+                      context.read<RegistrationCubit>().setPhoneNumber(value);
                     },
                     inputFormatters: phoneMaskFormatter,
                     inputType: TextInputType.phone,
@@ -128,19 +137,21 @@ class IdentifiedPage extends BasePage<IdentifiedCubit, IdentifiedBuildable,
               ),
               AppDivider(),
               Visibility(
-                  visible: !state.identified,
+                  visible: !state.isRegistration,
                   child: Container(
                       height: 40,
                       margin: EdgeInsets.all(16),
                       width: double.infinity,
                       child: CommonButton(
                         onPressed: () {
-                          context.read<IdentifiedCubit>().identified();
+                          context
+                              .read<RegistrationCubit>()
+                              .getUserInformation();
                         },
                         child: "Davom etish".w(500),
                       ))),
               Visibility(
-                  visible: state.identified,
+                  visible: state.isRegistration,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -153,7 +164,12 @@ class IdentifiedPage extends BasePage<IdentifiedCubit, IdentifiedBuildable,
                         padding:
                             EdgeInsets.only(right: 16, left: 16, bottom: 12),
                         child: CommonTextField(
-                            hint: "Имя", textInputAction: TextInputAction.next),
+                            readOnly: true,
+                            enabled: false,
+                            controller:
+                                TextEditingController(text: state.fullName),
+                            hint: "Имя",
+                            textInputAction: TextInputAction.next),
                       ),
                       Padding(
                         padding:
@@ -165,6 +181,10 @@ class IdentifiedPage extends BasePage<IdentifiedCubit, IdentifiedBuildable,
                         EdgeInsets.only(right: 16, left: 16, bottom: 12),
                         child: CommonTextField(
                             hint: "User name",
+                            readOnly: true,
+                            enabled: false,
+                            controller:
+                                TextEditingController(text: state.fullName),
                             textInputAction: TextInputAction.next,
                             inputType: TextInputType.text),
                       ),
@@ -192,6 +212,10 @@ class IdentifiedPage extends BasePage<IdentifiedCubit, IdentifiedBuildable,
                         EdgeInsets.only(right: 16, left: 16, bottom: 12),
                         child: CommonTextField(
                           hint: "Регион",
+                          readOnly: true,
+                          enabled: false,
+                          controller:
+                              TextEditingController(text: state.regionName),
                           inputType: TextInputType.text,
                           textInputAction: TextInputAction.next,
                         ),
@@ -203,65 +227,69 @@ class IdentifiedPage extends BasePage<IdentifiedCubit, IdentifiedBuildable,
                       ),
                       Padding(
                         padding:
-                        EdgeInsets.only(right: 16, left: 16, bottom: 12),
+                            EdgeInsets.only(right: 16, left: 16, bottom: 12),
                         child: CommonTextField(
                             hint: "Район",
+                            readOnly: true,
+                            enabled: false,
+                            controller:
+                                TextEditingController(text: state.districtName),
                             inputType: TextInputType.text,
                             textInputAction: TextInputAction.next),
                       ),
-                      Padding(
-                        padding:
-                        EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                        child: "Махалля".w(500).s(12).c(Color(0xFF41455E)),
-                      ),
-                      Padding(
-                        padding:
-                        EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                        child: CommonTextField(
-                          hint: "Махалля",
-                          textInputAction: TextInputAction.next,
-                          inputType: TextInputType.text,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 12),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Flexible(
-                                flex: 1,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    "Дом".w(500).s(12).c(Color(0xFF41455E)),
-                                    SizedBox(height: 12),
-                                    CommonTextField(
-                                      textInputAction: TextInputAction.next,
-                                      inputType: TextInputType.number,
-                                    ),
-                                  ],
-                                )),
-                            SizedBox(width: 16),
-                            Flexible(
-                                flex: 1,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    "Квартира"
-                                        .w(500)
-                                        .s(12)
-                                        .c(Color(0xFF41455E)),
-                                    SizedBox(height: 12),
-                                    CommonTextField(
-                                      textInputAction: TextInputAction.done,
-                                      inputType: TextInputType.number,
-                                    ),
-                                  ],
-                                ))
-                          ],
-                        ),
-                      )
+                      // Padding(
+                      //   padding:
+                      //   EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      //   child: "Махалля".w(500).s(12).c(Color(0xFF41455E)),
+                      // ),
+                      // Padding(
+                      //   padding:
+                      //   EdgeInsets.only(right: 16, left: 16, bottom: 12),
+                      //   child: CommonTextField(
+                      //     hint: "Махалля",
+                      //     textInputAction: TextInputAction.next,
+                      //     inputType: TextInputType.text,
+                      //   ),
+                      // ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(
+                      //       horizontal: 16, vertical: 12),
+                      //   child: Row(
+                      //     mainAxisSize: MainAxisSize.max,
+                      //     children: [
+                      //       Flexible(
+                      //           flex: 1,
+                      //           child: Column(
+                      //             crossAxisAlignment: CrossAxisAlignment.start,
+                      //             children: [
+                      //               "Дом".w(500).s(12).c(Color(0xFF41455E)),
+                      //               SizedBox(height: 12),
+                      //               CommonTextField(
+                      //                 textInputAction: TextInputAction.next,
+                      //                 inputType: TextInputType.number,
+                      //               ),
+                      //             ],
+                      //           )),
+                      //       SizedBox(width: 16),
+                      //       Flexible(
+                      //           flex: 1,
+                      //           child: Column(
+                      //             crossAxisAlignment: CrossAxisAlignment.start,
+                      //             children: [
+                      //               "Квартира"
+                      //                   .w(500)
+                      //                   .s(12)
+                      //                   .c(Color(0xFF41455E)),
+                      //               SizedBox(height: 12),
+                      //               CommonTextField(
+                      //                 textInputAction: TextInputAction.done,
+                      //                 inputType: TextInputType.number,
+                      //               ),
+                      //             ],
+                      //           ))
+                      //     ],
+                      //   ),
+                      // )
                     ],
                   )),
             ],

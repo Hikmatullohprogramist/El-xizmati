@@ -42,6 +42,7 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
       final adModel = buildable.adDetail;
       if (!(adModel?.favorite ?? false)) {
         await favoriteRepository.addFavorite(AdModel(
+            productId: -1,
             id: adModel?.adId ?? -1,
             name: adModel?.adName ?? "",
             price: adModel?.price ?? 0,
@@ -80,6 +81,7 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
     try {
       final adModel = buildable.adDetail;
       await cartRepository.addCart(AdModel(
+          productId: -1,
           id: adModel?.adId ?? -1,
           name: adModel?.adName ?? "",
           price: adModel?.price ?? 0,
@@ -106,6 +108,7 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
       display.success("mahsulot savatchaga qo'shildi");
     } on DioException catch (e) {
       display.error("xatlik yuz berdi");
+      log.e(e.toString());
     }
   }
 }

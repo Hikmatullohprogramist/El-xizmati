@@ -1,28 +1,30 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'user_information_response.freezed.dart';
 
-part 'user_information_response.g.dart';
+part 'user_full_info_response.freezed.dart';
+part 'user_full_info_response.g.dart';
 
 @freezed
-class UserInformationRootResponse with _$UserInformationRootResponse {
-  const factory UserInformationRootResponse({
+class UserFullInfoRootResponse with _$UserFullInfoRootResponse {
+  const factory UserFullInfoRootResponse({
     dynamic error,
     dynamic message,
     String? timestamp,
     int? status,
     dynamic path,
-   required UserInformationResponse data,
+    required UserFullInfoResponse data,
     dynamic response,
-  }) = _UserInformationRootResponse;
+  }) = _UserFullInfoRootResponse;
 
-  factory UserInformationRootResponse.fromJson(Map<String, dynamic> json) =>
-      _$UserInformationRootResponseFromJson(json);
+  factory UserFullInfoRootResponse.fromJson(Map<String, dynamic> json) =>
+      _$UserFullInfoRootResponseFromJson(json);
 }
 
 @freezed
-class UserInformationResponse with _$UserInformationResponse {
-  const factory UserInformationResponse({
+class UserFullInfoResponse with _$UserFullInfoResponse {
+  const factory UserFullInfoResponse({
+    String? secret_key,
+    String? status,
     int? id,
     dynamic photo,
     String? username,
@@ -47,10 +49,10 @@ class UserInformationResponse with _$UserInformationResponse {
     List<Active>? actives,
     List<dynamic>? socials,
     UserDo? userDo,
-  }) = _UserInformationResponse;
+  }) = _UserFullInfoResponse;
 
-  factory UserInformationResponse.fromJson(Map<String, dynamic> json) =>
-      _$UserInformationResponseFromJson(json);
+  factory UserFullInfoResponse.fromJson(Map<String, dynamic> json) =>
+      _$UserFullInfoResponseFromJson(json);
 }
 
 @freezed

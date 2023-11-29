@@ -29,7 +29,7 @@ class ProfileViewerCubit
   Future<void> getUserInformation() async {
     try {
       build((buildable) => buildable.copyWith(isLoading: true));
-      final response = await _userRepository.getUserInformation();
+      final response = await _userRepository.getFullUserInfo();
       build((buildable) => buildable.copyWith(
           userName: response.username ?? "*",
           fullName: response.full_name ?? "*",

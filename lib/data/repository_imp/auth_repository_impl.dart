@@ -8,7 +8,6 @@ import 'package:onlinebozor/domain/repository/favorite_repository.dart';
 import '../../domain/repository/auth_repository.dart';
 import '../model/auth/auth_start/auth_start_response.dart';
 import '../model/auth/confirm/confirm_response.dart';
-import '../model/auth/register_password/register_password_response.dart';
 
 
 @LazySingleton(as: AuthRepository)
@@ -68,10 +67,8 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<void> registerOrResetPassword(
       String password, String repeatPassword) async {
-    final response = await _api.registerOrResetPassword(
+    await _api.registerOrResetPassword(
         password: password, repeatPassword: repeatPassword);
-    final confirmResponse =
-        RegisterPasswordRootResponse.fromJson(response.data);
     return;
   }
 

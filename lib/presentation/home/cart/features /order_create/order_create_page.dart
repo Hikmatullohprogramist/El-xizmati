@@ -9,7 +9,6 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/common_button.dart';
 import 'package:onlinebozor/presentation/home/cart/features%20/order_create/cubit/order_create_cubit.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../common/constants.dart';
 import '../../../../../common/gen/assets/assets.gen.dart';
@@ -31,6 +30,8 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
         context.router.push(CartRoute());
       case OrderCreateEffect.back:
         context.router.push(CartRoute());
+      case OrderCreateEffect.navigationAuthStart:
+        context.router.push(AuthStartRoute(backButtonVisible: true));
     }
   }
 
@@ -103,9 +104,8 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                 AppImageWidget(
                     images:
                         (state.adDetail?.photos ?? List.empty(growable: true))
-                            .map((e) =>
-                                "${Constants.baseUrlForImage}${e.image}" ?? "")
-                            .toList()),
+                            .map((e) => "${Constants.baseUrlForImage}${e.image}")
+                        .toList()),
                 AppDivider(height: 1),
                 Container(
                     padding: EdgeInsets.symmetric(horizontal: 16),
@@ -431,34 +431,6 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                                     ))
                                   ]),
                                 ))),
-                        SizedBox(height: 8),
-                        // Container(
-                        //   padding: EdgeInsets.all(16),
-                        //   decoration: BoxDecoration(
-                        //       borderRadius: BorderRadius.circular(10),
-                        //       border: Border.all(
-                        //           width: 1, color: Color(0xFFDEE1E8))),
-                        //   child: Row(children: [
-                        //     Assets.images.profileViewer.icRadioButtonSelected
-                        //         .svg(),
-                        //     SizedBox(width: 16),
-                        //     Expanded(
-                        //         child: Column(
-                        //       crossAxisAlignment: CrossAxisAlignment.start,
-                        //       children: [
-                        //         "Наличними".w(600).c(Color(0xFF41455E)).s(14),
-                        //         SizedBox(height: 4),
-                        //         "Оплата принимается в узбекских сумах при получении товара."
-                        //             .w(400)
-                        //             .s(12)
-                        //             .c(Color(0xFF9EABBE))
-                        //             .copyWith(
-                        //                 maxLines: 2,
-                        //                 overflow: TextOverflow.ellipsis)
-                        //       ],
-                        //     ))
-                        //   ]),
-                        // ),
                         // SizedBox(height: 8),
                         // Container(
                         //   padding: EdgeInsets.all(16),
@@ -516,116 +488,144 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                         //   ]),
                         // ),
                         // SizedBox(height: 8),
-                        SizedBox(height: 24),
-                        "Тип доставки".w(700).s(20).c(Color(0xFF41455E)),
-                        SizedBox(height: 16),
-                        "Самовывоз".w(600).s(16).c(Color(0xFF41455E)),
-                        SizedBox(height: 12),
-                        "Адрес склада: ".w(500).s(14).c(Color(0xFF9EABBE)),
-                        SizedBox(height: 8),
-                        (state.adDetail?.address?.name ?? "")
-                            .w(500)
-                            .s(14)
-                            .c(Color(0xFF41455E)),
-                        SizedBox(height: 32),
-                        SizedBox(
-                          height: 42,
-                          width: double.infinity,
-                          child: CommonButton(
-                            type: ButtonType.elevated,
-                            onPressed: () {
-                              try {
-                                launchUrl(
-                                  Uri.parse(state.adDetail?.address?.geo ?? ""),
-                                  mode: LaunchMode.externalApplication,
-                                );
-                              } catch (e) {}
-                            },
-                            child: "Показать на карте"
-                                .w(500)
-                                .s(14)
-                                .c(Colors.white),
-                          ),
-                        ),
-                        SizedBox(height: 16),
-                        SizedBox(
-                          height: 42,
-                          width: double.infinity,
-                          child: CommonButton(
-                              type: ButtonType.outlined,
-                              onPressed: () {},
-                              child: "Отправить локацию на телеграм"
-                                  .w(500)
-                                  .c(Color(0xFF5C6AC3))
-                                  .s(14)),
-                        )
+                        // Container(
+                        //   padding: EdgeInsets.all(16),
+                        //   decoration: BoxDecoration(
+                        //       borderRadius: BorderRadius.circular(10),
+                        //       border: Border.all(
+                        //           width: 1, color: Color(0xFFDEE1E8))),
+                        //   child: Row(children: [
+                        //     Assets.images.profileViewer.icRadioButtonSelected
+                        //         .svg(),
+                        //     SizedBox(width: 16),
+                        //     Expanded(
+                        //         child: Column(
+                        //       crossAxisAlignment: CrossAxisAlignment.start,
+                        //       children: [
+                        //         "Наличними".w(600).c(Color(0xFF41455E)).s(14),
+                        //         SizedBox(height: 4),
+                        //         "Оплата принимается в узбекских сумах при получении товара."
+                        //             .w(400)
+                        //             .s(12)
+                        //             .c(Color(0xFF9EABBE))
+                        //             .copyWith(
+                        //                 maxLines: 2,
+                        //                 overflow: TextOverflow.ellipsis)
+                        //       ],
+                        //     ))
+                        //   ]),
+                        // ),
+                        // SizedBox(height: 8),
+                        // SizedBox(height: 24),
+                        // "Тип доставки".w(700).s(20).c(Color(0xFF41455E)),
+                        // SizedBox(height: 16),
+                        // "Самовывоз".w(600).s(16).c(Color(0xFF41455E)),
+                        // SizedBox(height: 12),
+                        // "Адрес склада: ".w(500).s(14).c(Color(0xFF9EABBE)),
+                        // SizedBox(height: 8),
+                        // (state.adDetail?.address?.name ?? "")
+                        //     .w(500)
+                        //     .s(14)
+                        //     .c(Color(0xFF41455E)),
+                        // SizedBox(height: 32),
+                        // SizedBox(
+                        //   height: 42,
+                        //   width: double.infinity,
+                        //   child: CommonButton(
+                        //     type: ButtonType.elevated,
+                        //     onPressed: () {
+                        //       try {
+                        //         launchUrl(
+                        //           Uri.parse(state.adDetail?.address?.geo ?? ""),
+                        //           mode: LaunchMode.externalApplication,
+                        //         );
+                        //       } catch (e) {}
+                        //     },
+                        //     child: "Показать на карте"
+                        //         .w(500)
+                        //         .s(14)
+                        //         .c(Colors.white),
+                        //   ),
+                        // ),
+                        // SizedBox(height: 16),
+                        // SizedBox(
+                        //   height: 42,
+                        //   width: double.infinity,
+                        //   child: CommonButton(
+                        //       type: ButtonType.outlined,
+                        //       onPressed: () {},
+                        //       child: "Отправить локацию на телеграм"
+                        //           .w(500)
+                        //           .c(Color(0xFF5C6AC3))
+                        //           .s(14)),
+                        // )
                       ],
                     )),
-                SizedBox(height: 8),
-                AppDivider(height: 5, color: Color(0xFFF2F3FA)),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        "Доставка".w(600).s(14).c(Color(0xFF41455E)),
-                        SizedBox(height: 14),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            "Своя".w(400).s(14).c(Color(0xFF9EABBE)),
-                            "Бесплатно".w(700).s(12).c(Color(0xFF32B88B))
-                          ],
-                        ),
-                        SizedBox(height: 10),
-                        "Только по городу: Ташкент"
-                            .w(400)
-                            .s(14)
-                            .c(Color(0xFF41455E)),
-                        SizedBox(height: 24),
-                        "Ваши заказы".w(600).s(14).c(Color(0xFF41455E)),
-                        SizedBox(height: 14),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            "Товары: (${state.count})"
-                                .w(400)
-                                .s(12)
-                                .c(Color(0xFF41455E)),
-                            "${formatter.format(state.adDetail!.price * state.count).replaceAll(',', ' ')} ${state.adDetail!.currency.getName}"
-                                .w(800)
-                                .s(16)
-                                .c(Color(0xFF5C6AC3))
-                                .copyWith(
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis),
-                          ],
-                        ),
-                        SizedBox(height: 5),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            "Итого:".w(400).s(12).c(Color(0xFF41455E)),
-                            "${formatter.format(state.adDetail!.price * state.count).replaceAll(',', ' ')} ${state.adDetail!.currency.getName}"
-                                .w(800)
-                                .s(16)
-                                .c(Color(0xFF5C6AC3))
-                                .copyWith(
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis),
-                          ],
-                        ),
-                        SizedBox(height: 24),
-                        "*Окончательная стоимость будет рассчитана после выбора способа доставки при оформлении заказа."
-                            .w(400)
-                            .c(Color(0xFF9EABBE))
-                            .s(10)
-                            .copyWith(
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.center)
-                      ]),
-                )
+                // SizedBox(height: 8),
+                // AppDivider(height: 5, color: Color(0xFFF2F3FA)),
+                // Padding(
+                //   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+                //   child: Column(
+                //       crossAxisAlignment: CrossAxisAlignment.start,
+                //       children: [
+                //         "Доставка".w(600).s(14).c(Color(0xFF41455E)),
+                //         SizedBox(height: 14),
+                //         Row(
+                //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //           children: [
+                //             "Своя".w(400).s(14).c(Color(0xFF9EABBE)),
+                //             "Бесплатно".w(700).s(12).c(Color(0xFF32B88B))
+                //           ],
+                //         ),
+                //         SizedBox(height: 10),
+                //         "Только по городу: Ташкент"
+                //             .w(400)
+                //             .s(14)
+                //             .c(Color(0xFF41455E)),
+                //         SizedBox(height: 24),
+                //         "Ваши заказы".w(600).s(14).c(Color(0xFF41455E)),
+                //         SizedBox(height: 14),
+                //         Row(
+                //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //           children: [
+                //             "Товары: (${state.count})"
+                //                 .w(400)
+                //                 .s(12)
+                //                 .c(Color(0xFF41455E)),
+                //             "${formatter.format(state.adDetail!.price * state.count).replaceAll(',', ' ')} ${state.adDetail!.currency.getName}"
+                //                 .w(800)
+                //                 .s(16)
+                //                 .c(Color(0xFF5C6AC3))
+                //                 .copyWith(
+                //                     maxLines: 1,
+                //                     overflow: TextOverflow.ellipsis),
+                //           ],
+                //         ),
+                //         SizedBox(height: 5),
+                //         Row(
+                //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //           children: [
+                //             "Итого:".w(400).s(12).c(Color(0xFF41455E)),
+                //             "${formatter.format(state.adDetail!.price * state.count).replaceAll(',', ' ')} ${state.adDetail!.currency.getName}"
+                //                 .w(800)
+                //                 .s(16)
+                //                 .c(Color(0xFF5C6AC3))
+                //                 .copyWith(
+                //                     maxLines: 1,
+                //                     overflow: TextOverflow.ellipsis),
+                //           ],
+                //         ),
+                //         SizedBox(height: 24),
+                //         "*Окончательная стоимость будет рассчитана после выбора способа доставки при оформлении заказа."
+                //             .w(400)
+                //             .c(Color(0xFF9EABBE))
+                //             .s(10)
+                //             .copyWith(
+                //                 maxLines: 2,
+                //                 overflow: TextOverflow.ellipsis,
+                //                 textAlign: TextAlign.center)
+                //       ]),
+                // )
               ],
             ),
           ));

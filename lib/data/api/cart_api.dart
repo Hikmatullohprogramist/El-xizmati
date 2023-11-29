@@ -44,14 +44,20 @@ class CartApi {
   Future<Response> orderCreate(
       {required int productId,
       required int amount,
-      required int paymentTypeId}) async {
+      required int paymentTypeId,
+      required int tin}) async {
     final headers = {"Authorization": "Bearer ${tokenStorage.token.call()}"};
     final data = {
-      'product_id': productId,
-      'amount': amount,
-      "payment_type_id": paymentTypeId,
-      "delivery_address_id": 0,
-      "shipping_id": 0
+      'tin': tin,
+      'products': [
+        {
+          'product_id': productId,
+          'amount': amount,
+          "payment_type_id": paymentTypeId,
+          "delivery_address_id": 0,
+          "shipping_id": 0
+        }
+      ]
     };
     return _dio.post('v1/buyer/order',
         data: data, options: Options(headers: headers));

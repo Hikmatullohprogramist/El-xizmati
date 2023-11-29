@@ -10,5 +10,6 @@ abstract class CartRepository {
   Future<void> orderCreate(
       {required int productId,
       required int amount,
-      required int paymentTypeId});
+      required int paymentTypeId,
+      required int tin});
 }

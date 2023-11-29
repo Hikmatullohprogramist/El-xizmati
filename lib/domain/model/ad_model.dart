@@ -2,7 +2,8 @@ import 'package:onlinebozor/domain/model/ad_enum.dart';
 
 class AdModel {
   AdModel(
-      {required this.id,
+      {required this.productId,
+      required this.id,
       required this.name,
       required this.price,
       required this.currency,
@@ -25,6 +26,7 @@ class AdModel {
       required this.isSell,
       required this.maxAmount});
 
+  final int productId;
   final int id;
   final String name;
   final int price;

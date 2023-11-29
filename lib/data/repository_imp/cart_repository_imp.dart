@@ -131,9 +131,13 @@ class CartRepositoryImp extends CartRepository {
   Future<void> orderCreate(
       {required int productId,
       required int amount,
-      required int paymentTypeId}) async {
+      required int paymentTypeId,
+      required int tin}) async {
     _api.orderCreate(
-        productId: productId, amount: amount, paymentTypeId: paymentTypeId);
+        productId: productId,
+        amount: amount,
+        paymentTypeId: paymentTypeId,
+        tin: tin);
     return;
   }
 }

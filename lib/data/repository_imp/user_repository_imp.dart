@@ -1,7 +1,9 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/api/user_api.dart';
+import 'package:onlinebozor/data/model/profile/biometric_info/biometric_info_response.dart';
+import 'package:onlinebozor/data/model/profile/user/user_info_response.dart';
+import 'package:onlinebozor/data/model/profile/user_full/user_full_info_response.dart';
 import 'package:onlinebozor/data/model/region%20/region_response.dart';
-import 'package:onlinebozor/data/model/user/user_information_response.dart';
 import 'package:onlinebozor/domain/repository/user_repository.dart';
 
 @LazySingleton(as: UserRepository)
@@ -11,10 +13,34 @@ class UserRepositoryImp extends UserRepository {
   UserRepositoryImp(this._api);
 
   @override
-  Future<UserInformationResponse> getUserInformation() async {
-    final response = await _api.getUserInformation();
-    final result = UserInformationRootResponse.fromJson(response.data).data;
+  Future<UserFullInfoResponse> getFullUserInfo() async {
+    final response = await _api.getFullUserInfo();
+    final result = UserFullInfoRootResponse.fromJson(response.data).data;
     return result;
+  }
+
+  @override
+  Future<BiometricInfoResponse> getBiometricInfo(
+      {required String phoneNumber,
+      required String biometricSerial,
+      required String biometricNumber,
+      required String brithDate}) async {
+    final response = await _api.getBiometricInfo(
+        phoneNumber: phoneNumber,
+        biometricSerial: biometricSerial,
+        biometricNumber: biometricNumber,
+        brithDate: brithDate);
+    final result = BiometricInfoRootResponse.fromJson(response.data).data;
+    return result;
+  }
+
+  @override
+  Future<UserInfoResponse> getUserInfo(
+      {required String phoneNumber, required String secretKey}) async {
+    final response =
+        await _api.getUserInfo(secretKey: secretKey, phoneNumber: phoneNumber);
+    final responseResult = UserInfoRootResponse.fromJson(response.data).data;
+    return responseResult;
   }
 
   @override
@@ -39,17 +65,27 @@ class UserRepositoryImp extends UserRepository {
   }
 
   @override
-  Future<UserInformationResponse> userIdentified(
-      {required String phoneNumber,
-      required String biometricSerial,
-      required String biometricNumber,
-      required String brithDate}) async {
-    final response = await _api.identified(
-        phoneNumber: phoneNumber,
-        biometricSerial: biometricSerial,
-        biometricNumber: biometricNumber,
-        brithDate: brithDate);
-    final result = UserInformationRootResponse.fromJson(response.data).data;
-    return result;
+  Future<void> sendUserInformation(
+      { required String email,
+        required String gender,
+        required String homeName,
+        required int id,
+        required int mahallaId,
+        required String mobilePhone,
+        required String photo,
+        required int pinfl,
+        required String postName,
+        required String phoneNumber,}) async {
+    await _api.sendUserInformation(
+        email: email,
+        gender: gender,
+        homeName: homeName,
+        id: id,
+        mahallaId: mahallaId,
+        mobilePhone: mobilePhone,
+        photo: photo,
+        pinfl: pinfl,
+        postName: postName,
+        phoneNumber: phoneNumber);
   }
 }

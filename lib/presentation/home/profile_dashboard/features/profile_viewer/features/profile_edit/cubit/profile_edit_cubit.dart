@@ -4,23 +4,19 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/model/region%20/region_response.dart';
 
 import '../../../../../../../../common/base/base_cubit.dart';
-import '../../../../../../../../domain/repository/auth_repository.dart';
 import '../../../../../../../../domain/repository/user_repository.dart';
 
 part 'profile_edit_cubit.freezed.dart';
-
 part 'profile_edit_state.dart';
 
 @injectable
 class ProfileEditCubit
     extends BaseCubit<ProfileEditBuildable, ProfileEditListenable> {
-  ProfileEditCubit(this._userRepository, this._authRepository)
-      : super(ProfileEditBuildable()) {
-    getUserInformation();
+  ProfileEditCubit(this._userRepository) : super(ProfileEditBuildable()) {
+    getFullUserInfo();
   }
 
   final UserRepository _userRepository;
-  final AuthRepository _authRepository;
 
   Future<void> getUser() async {
     await Future.wait([
@@ -30,9 +26,9 @@ class ProfileEditCubit
     ]);
   }
 
-  Future<void> getUserInformation() async {
+  Future<void> getFullUserInfo() async {
     try {
-      final response = await _userRepository.getUserInformation();
+      final response = await _userRepository.getFullUserInfo();
       build((buildable) => buildable.copyWith(
             userName: response.username ?? "",
             fullName: response.full_name ?? "",

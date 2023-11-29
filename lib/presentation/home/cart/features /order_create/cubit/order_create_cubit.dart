@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/base/base_cubit.dart';
 import 'package:onlinebozor/domain/repository/favorite_repository.dart';
+import 'package:onlinebozor/domain/repository/state_repository.dart';
 
 import '../../../../../../domain/model/ad_detail.dart';
 import '../../../../../../domain/model/ad_enum.dart';
@@ -15,13 +16,14 @@ part 'order_create_state.dart';
 @Injectable()
 class OrderCreateCubit
     extends BaseCubit<OrderCreateBuildable, OrderCreateListenable> {
-  OrderCreateCubit(
-      this._adRepository, this._cartRepository, this.favoriteRepository)
+  OrderCreateCubit(this._adRepository, this._cartRepository,
+      this.favoriteRepository, this.stateRepository)
       : super(const OrderCreateBuildable());
 
   final AdRepository _adRepository;
   final CartRepository _cartRepository;
   final FavoriteRepository favoriteRepository;
+  final StateRepository stateRepository;
 
   Future<void> setAdId(int adId) async {
     build((buildable) => buildable.copyWith(adId: adId));
@@ -74,6 +76,7 @@ class OrderCreateCubit
     try {
       if (!adDetail.favorite) {
         await favoriteRepository.addFavorite(AdModel(
+            productId: -1,
             id: adDetail.adId,
             name: adDetail.adName ?? "",
             price: adDetail.price,
@@ -81,7 +84,7 @@ class OrderCreateCubit
             region: adDetail.address?.region?.name ?? "",
             district: adDetail.address?.district?.name ?? "",
             adRouteType: adDetail.adRouteType,
-            adPropertyStatus: adDetail.propertyStatus ,
+            adPropertyStatus: adDetail.propertyStatus,
             adStatusType: adDetail.adStatusType ?? AdStatusType.standard,
             adTypeStatus: adDetail.adTypeStatus ?? AdTypeStatus.buy,
             fromPrice: adDetail.fromPrice ?? 0,
@@ -110,12 +113,21 @@ class OrderCreateCubit
 
   Future<void> orderCreate() async {
     try {
-      await _cartRepository.orderCreate(
-          productId: buildable.adId ?? -1,
-          amount: buildable.count,
-          paymentTypeId: buildable.paymentId);
-      display.success("success");
-      invoke(OrderCreateListenable(OrderCreateEffect.back));
+      final isLogin = await stateRepository.isLogin() ?? false;
+      if (isLogin) {
+        if (buildable.paymentId > 0) {
+          await _cartRepository.orderCreate(
+              productId: buildable.adId ?? -1,
+              amount: buildable.count,
+              paymentTypeId: buildable.paymentId,
+              tin: buildable.adDetail?.sellerTin ?? -1);
+          display.success("success");
+        } else {
+          display.error("to'lov turi tanlanmagan");
+        }
+      } else {
+        invoke(OrderCreateListenable(OrderCreateEffect.navigationAuthStart));
+      }
     } catch (e) {
       display.error("error");
     }

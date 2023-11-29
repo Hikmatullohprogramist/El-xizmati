@@ -33,6 +33,7 @@ class Data with _$Data {
 class AdResponse with _$AdResponse {
   const factory AdResponse({
     int? id,
+    int? product_id,
     String? name,
     int? price,
     String? currency,

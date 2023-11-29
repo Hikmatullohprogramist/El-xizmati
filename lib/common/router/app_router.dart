@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/presentation/home/home_page.dart';
+import 'package:onlinebozor/presentation/home/profile_dashboard/features/profile_viewer/features/registration/registration_page.dart';
 import 'package:onlinebozor/presentation/home/profile_dashboard/features/setting/setting_page.dart';
 
 import '../../domain/model/ad_enum.dart';
@@ -41,7 +42,6 @@ import '../../presentation/home/profile_dashboard/features/chat_list/features/se
 import '../../presentation/home/profile_dashboard/features/comparison_detail/comparison_detail_page.dart';
 import '../../presentation/home/profile_dashboard/features/payment_transaction/features/payment_transaction_filter/payment_transaction_filter_page.dart';
 import '../../presentation/home/profile_dashboard/features/payment_transaction/payment_transaction_page.dart';
-import '../../presentation/home/profile_dashboard/features/profile_viewer/features/identified_page/identified_page.dart';
 import '../../presentation/home/profile_dashboard/features/profile_viewer/features/profile_edit/profile_edit_page.dart';
 import '../../presentation/home/profile_dashboard/features/profile_viewer/profile_viewer_page.dart';
 import '../../presentation/home/profile_dashboard/features/promotion/promotion_page.dart';
@@ -147,7 +147,7 @@ class AppRouter extends _$AppRouter {
             page: PaymentTransactionFilterRoute.page,
             path: '/payment_transaction_filter'),
         AutoRoute(page: ProfileEditRoute.page, path: '/profile_edit'),
-        AutoRoute(page: IdentifiedRoute.page, path: '/identified'),
+        AutoRoute(page: RegistrationRoute.page, path: '/identified'),
         AutoRoute(page: ComparisonDetailRoute.page, path: '/comparison_detail'),
         AutoRoute(page: PromotionRoute.page, path: '/promotion'),
         AutoRoute(page: SettingRoute.page, path: '/setting'),
@@ -157,6 +157,6 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
             page: NotificationSettingRoute.page, path: '/notification_setting'),
         AutoRoute(page: UserAdDetailRoute.page, path: "/user_ad_detail"),
-    AutoRoute(page: ChangeLanguageRoute.page, path: '/change_language'),
+        AutoRoute(page: ChangeLanguageRoute.page, path: '/change_language'),
       ];
 }

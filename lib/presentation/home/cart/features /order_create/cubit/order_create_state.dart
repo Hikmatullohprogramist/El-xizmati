@@ -6,7 +6,7 @@ class OrderCreateBuildable with _$OrderCreateBuildable {
       {int? adId,
       AdDetail? adDetail,
       @Default(false) bool favorite,
-      @Default(0) int paymentId,
+      @Default(-1) int paymentId,
       @Default(<int>[]) List<int> paymentType,
       @Default(1) int count}) = _OrderCreateBuildable;
 }
@@ -17,4 +17,4 @@ class OrderCreateListenable with _$OrderCreateListenable {
       {String? message}) = _OrderCreateListenable;
 }
 
-enum OrderCreateEffect { delete, back }
+enum OrderCreateEffect { delete, back, navigationAuthStart }
