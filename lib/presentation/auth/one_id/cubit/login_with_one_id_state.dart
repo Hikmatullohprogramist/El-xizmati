@@ -2,7 +2,8 @@ part of 'login_with_one_id_cubit.dart';
 
 @freezed
 class LoginWithOneIdBuildable with _$LoginWithOneIdBuildable {
-  const factory LoginWithOneIdBuildable() = _LoginWithOneIdBuildable;
+  const factory LoginWithOneIdBuildable({@Default(true) bool isLoading}) =
+      _LoginWithOneIdBuildable;
 }
 
 @freezed
