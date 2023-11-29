@@ -5,7 +5,7 @@ import 'package:onlinebozor/domain/repository/favorite_repository.dart';
 import 'package:onlinebozor/domain/repository/state_repository.dart';
 
 import '../../../../../../domain/model/ad_detail.dart';
-import '../../../../../../domain/model/ad_enum.dart';
+import '../../../../../../common/enum/ad_enum.dart';
 import '../../../../../../domain/model/ad_model.dart';
 import '../../../../../../domain/repository/ad_repository.dart';
 import '../../../../../../domain/repository/cart_repository.dart';

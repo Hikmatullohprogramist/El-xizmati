@@ -1,4 +1,4 @@
-import 'package:onlinebozor/domain/model/ad_enum.dart';
+import 'package:onlinebozor/common/enum/ad_enum.dart';
 
 class AdModel {
   AdModel(

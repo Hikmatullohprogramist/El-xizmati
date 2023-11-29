@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../common/base/base_storage.dart';
+import '../../common/core/base_storage.dart';
 import '../model/categories/category/category_response.dart';
 
 @lazySingleton

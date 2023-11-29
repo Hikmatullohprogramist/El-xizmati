@@ -8,7 +8,7 @@ import 'package:onlinebozor/domain/repository/common_repository.dart';
 import 'package:onlinebozor/domain/repository/favorite_repository.dart';
 
 import '../../../../common/enum/loading_enum.dart';
-import '../../../../domain/model/ad_enum.dart';
+import '../../../../common/enum/ad_enum.dart';
 import '../../../../domain/repository/ad_repository.dart';
 
 part 'ad_list_cubit.freezed.dart';

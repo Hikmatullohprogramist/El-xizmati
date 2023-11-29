@@ -5,7 +5,7 @@ import 'package:onlinebozor/common/extensions/currency_extensions.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/common_button.dart';
 
-import '../../../domain/model/ad_enum.dart';
+import '../../enum/ad_enum.dart';
 import '../../../domain/model/ad_model.dart';
 import '../../constants.dart';
 import '../../gen/assets/assets.gen.dart';

@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/hive_object/ad/ad_hive_object.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../common/base/base_storage.dart';
+import '../../common/core/base_storage.dart';
 
 @lazySingleton
 class FavoriteStorage {
@@ -11,8 +11,10 @@ class FavoriteStorage {
 
   final Box _box;
 
-  BaseStorage get favoriteAds =>
-      BaseStorage(_box, key: "key_favorites_storage");
+  BaseStorage get favoriteAds => BaseStorage(
+        _box,
+        key: "key_favorites_storage",
+      );
 
   @FactoryMethod(preResolve: true)
   static Future<FavoriteStorage> create() async {

@@ -13,7 +13,7 @@ import 'package:onlinebozor/presentation/ad/ad_list/cubit/ad_list_cubit.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/widgets/ad/ad_widget.dart';
 import '../../../common/widgets/common_button.dart';
-import '../../../domain/model/ad_enum.dart';
+import '../../../common/enum/ad_enum.dart';
 
 @RoutePage()
 class AdListPage

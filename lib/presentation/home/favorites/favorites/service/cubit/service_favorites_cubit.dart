@@ -4,10 +4,9 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/base/base_cubit.dart';
 
+import '../../../../../../common/enum/ad_enum.dart';
 import '../../../../../../common/enum/loading_enum.dart';
-import '../../../../../../domain/model/ad_enum.dart';
 import '../../../../../../domain/model/ad_model.dart';
-import '../../../../../../domain/repository/ad_repository.dart';
 import '../../../../../../domain/repository/favorite_repository.dart';
 
 part 'service_favorites_cubit.freezed.dart';
@@ -15,14 +14,12 @@ part 'service_favorites_state.dart';
 
 @injectable
 class ServiceFavoritesCubit extends BaseCubit<ServiceFavoritesBuildable, ServiceFavoritesListenable> {
-  ServiceFavoritesCubit(this._favoriteRepository, this._adRepository)
+  ServiceFavoritesCubit(this._favoriteRepository)
       : super(const ServiceFavoritesBuildable()) {
     getController();
   }
 
   final FavoriteRepository _favoriteRepository;
-  final AdRepository _adRepository;
-  static const _pageSize = 20;
 
   Future<void> getController() async {
     try {

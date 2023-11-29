@@ -10,7 +10,7 @@ import 'package:onlinebozor/common/widgets/ad/ad_status_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_type_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite_widget.dart';
 import 'package:onlinebozor/domain/mapper/ad_enum_mapper.dart';
-import 'package:onlinebozor/domain/model/ad_enum.dart';
+import 'package:onlinebozor/common/enum/ad_enum.dart';
 import 'package:onlinebozor/domain/model/ad_model.dart';
 
 import '../../constants.dart';

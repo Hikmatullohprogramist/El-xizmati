@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/base/base_cubit.dart';
 import 'package:onlinebozor/domain/model/ad_detail.dart';
-import 'package:onlinebozor/domain/model/ad_enum.dart';
+import 'package:onlinebozor/common/enum/ad_enum.dart';
 import 'package:onlinebozor/domain/repository/favorite_repository.dart';
 
 import '../../../../domain/model/ad_model.dart';

@@ -8,7 +8,7 @@ import 'package:onlinebozor/common/widgets/app_bar/common_app_bar.dart';
 import 'package:onlinebozor/common/widgets/category/popular_category_horizontal.dart';
 import 'package:onlinebozor/presentation/common/popular_categories/cubit/popular_categories_cubit.dart';
 
-import '../../../domain/model/ad_enum.dart';
+import '../../../common/enum/ad_enum.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/widgets/common_button.dart';
 import '../../../data/model/categories/popular_category/popular_category_response.dart';
@@ -20,10 +20,6 @@ class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
 
   @override
   Widget builder(BuildContext context, PopularCategoriesBuildable state) {
-    double width;
-    double height;
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: CommonAppBar(() => context.router.pop(), "Ommobop Category"),
         body: state.categoriesPagingController == null

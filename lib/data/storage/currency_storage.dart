@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../common/base/base_storage.dart';
+import '../../common/core/base_storage.dart';
 
 @lazySingleton
 class CurrencyStorage {

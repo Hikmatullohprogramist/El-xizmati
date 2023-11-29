@@ -14,12 +14,7 @@ import '../../../common/widgets/common_text_field.dart';
 @RoutePage()
 class SetPasswordPage extends BasePage<SetPasswordCubit, SetPasswordBuildable,
     SetPasswordListenable> {
-  SetPasswordPage({super.key});
-
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final FocusNode _emailFocusNode = FocusNode();
-  final FocusNode _passwordFocusNode = FocusNode();
+  const SetPasswordPage({super.key});
 
   @override
   void listener(BuildContext context, SetPasswordListenable state) {
