@@ -1,11 +1,9 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/presentation/home/profile_dashboard/features/chat_list/features/saved_chats/cubit/saved_chats_cubit.dart';
 
-import '../../../../../../../common/base/base_page.dart';
+import '../../../../../../../common/core/base_page.dart';
 import '../../../../../../../common/widgets/app_diverder.dart';
 import '../../../../../../../common/widgets/chat/chat_item.dart';
 

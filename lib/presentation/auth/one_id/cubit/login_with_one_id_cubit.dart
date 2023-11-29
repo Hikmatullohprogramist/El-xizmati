@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/common/base/base_cubit.dart';
 
+import '../../../../common/core/base_cubit.dart';
 import '../../../../domain/repository/auth_repository.dart';
 
 part 'login_with_one_id_cubit.freezed.dart';

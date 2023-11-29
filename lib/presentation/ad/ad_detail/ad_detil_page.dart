@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onlinebozor/common/base/base_page.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/constants.dart';
 import 'package:onlinebozor/common/extensions/currency_extensions.dart';
@@ -12,6 +11,7 @@ import 'package:onlinebozor/common/widgets/favorite_widget.dart';
 import 'package:onlinebozor/presentation/ad/ad_detail/cubit/ad_detail_cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../common/core/base_page.dart';
 import '../../../common/gen/assets/assets.gen.dart';
 import '../../../common/widgets/ad/ad_property_widget.dart';
 import '../../../common/widgets/ad/ad_route_widget.dart';

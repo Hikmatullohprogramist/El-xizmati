@@ -1,7 +1,8 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/common/base/base_page.dart';
 import 'package:onlinebozor/presentation/ad/create_ad/features/create_free_ad/cubit/create_free_ad_cubit.dart';
+
+import '../../../../../common/core/base_page.dart';
 
 @RoutePage()
 class CreateFreeAdPage extends BasePage<CreateFreeAdCubit,

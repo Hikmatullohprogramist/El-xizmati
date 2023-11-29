@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/common/base/base_cubit.dart';
 
+import '../../../../common/core/base_cubit.dart';
 import '../../../../common/enum/loading_enum.dart';
 import '../../../../data/model/categories/popular_category/popular_category_response.dart';
 import '../../../../domain/repository/common_repository.dart';

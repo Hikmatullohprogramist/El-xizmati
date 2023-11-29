@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onlinebozor/common/base/base_page.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/home/cubit/home_cubit.dart';
 
+import '../../common/core/base_page.dart';
 import '../../common/gen/assets/assets.gen.dart';
 import '../../common/router/app_router.dart';
 

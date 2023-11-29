@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/common/base/base_page.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
@@ -9,6 +8,7 @@ import 'package:onlinebozor/common/widgets/common_button.dart';
 import 'package:onlinebozor/presentation/ad/user_ad_detail/cubit/user_ad_detail_cubit.dart';
 
 import '../../../common/constants.dart';
+import '../../../common/core/base_page.dart';
 import '../../../common/widgets/app_image_widget.dart';
 
 @RoutePage()

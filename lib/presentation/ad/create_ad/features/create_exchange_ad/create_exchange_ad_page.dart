@@ -2,7 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/presentation/ad/create_ad/features/create_exchange_ad/cubit/create_exchange_ad_cubit.dart';
 
-import '../../../../../common/base/base_page.dart';
+import '../../../../../common/core/base_page.dart';
 
 @RoutePage()
 class CreateExchangeAdPage extends BasePage<CreateExchangeAdCubit,

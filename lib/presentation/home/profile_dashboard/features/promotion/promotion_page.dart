@@ -1,7 +1,8 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/common/base/base_page.dart';
 import 'package:onlinebozor/presentation/home/profile_dashboard/features/promotion/cubit/promotion_cubit.dart';
+
+import '../../../../../common/core/base_page.dart';
 
 @RoutePage()
 class PromotionPage

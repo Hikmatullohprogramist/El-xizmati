@@ -1,11 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/common/base/base_cubit.dart';
 import 'package:onlinebozor/domain/repository/favorite_repository.dart';
 import 'package:onlinebozor/domain/repository/state_repository.dart';
 
-import '../../../../../../domain/model/ad_detail.dart';
+import '../../../../../../common/core/base_cubit.dart';
 import '../../../../../../common/enum/ad_enum.dart';
+import '../../../../../../domain/model/ad_detail.dart';
 import '../../../../../../domain/model/ad_model.dart';
 import '../../../../../../domain/repository/ad_repository.dart';
 import '../../../../../../domain/repository/cart_repository.dart';

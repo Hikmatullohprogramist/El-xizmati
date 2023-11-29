@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onlinebozor/common/base/base_page.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/presentation/auth/one_id/cubit/login_with_one_id_cubit.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../../common/core/base_page.dart';
 import '../../../common/router/app_router.dart';
 
 @RoutePage()
