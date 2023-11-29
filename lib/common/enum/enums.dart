@@ -15,3 +15,5 @@ enum AdListType {
 enum AdType { ads, service }
 
 enum Currency { eur, usd, rub, uzb }
+
+enum AppLoadingState { onStart, loading, error, success, empty }

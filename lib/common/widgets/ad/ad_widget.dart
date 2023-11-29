@@ -7,11 +7,11 @@ import 'package:onlinebozor/common/extensions/currency_extensions.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_property_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_status_widget.dart';
-import 'package:onlinebozor/common/widgets/favorite_widget.dart';
+import 'package:onlinebozor/common/widgets/favorite/favorite_widget.dart';
 import 'package:onlinebozor/domain/mapper/ad_enum_mapper.dart';
-import 'package:onlinebozor/domain/model/ad_model.dart';
+import 'package:onlinebozor/domain/model/ad.dart';
 
-import '../../enum/ad_enum.dart';
+import '../../enum/enums.dart';
 import '../../gen/assets/assets.gen.dart';
 import 'ad_route_widget.dart';
 import 'ad_type_widget.dart';
@@ -24,9 +24,9 @@ class AppAdWidget extends StatelessWidget {
     required this.result,
   });
 
-  final AdModel result;
-  final Function(AdModel result) onClick;
-  final Function(AdModel result) onClickFavorite;
+  final Ad result;
+  final Function(Ad result) onClick;
+  final Function(Ad result) onClickFavorite;
 
   @override
   Widget build(BuildContext context) {

@@ -1,10 +1,10 @@
 import 'package:hive/hive.dart';
 
-part 'profile_hive_object.g.dart';
+part 'profile_object.g.dart';
 
 @HiveType(typeId: 4)
-class ProfileHiveObject extends HiveObject {
-  ProfileHiveObject(
+class ProfileObject extends HiveObject {
+  ProfileObject(
       {required this.id,
       required this.photo,
       required this.username,

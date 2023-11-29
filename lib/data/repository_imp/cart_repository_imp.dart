@@ -4,9 +4,9 @@ import 'package:onlinebozor/domain/mapper/ad_enum_mapper.dart';
 import 'package:onlinebozor/domain/mapper/ad_mapper.dart';
 import 'package:onlinebozor/domain/repository/cart_repository.dart';
 
-import '../../domain/model/ad_model.dart';
+import '../../domain/model/ad.dart';
 import '../api/cart_api.dart';
-import '../hive_object/ad/ad_hive_object.dart';
+import '../hive_object/ad/ad_object.dart';
 import '../model/ads/ad/ad_response.dart';
 import '../storage/cart_storage.dart';
 import '../storage/favorite_storage.dart';
@@ -25,14 +25,14 @@ class CartRepositoryImp extends CartRepository {
       this.favoriteStorage, this.syncStorage);
 
   @override
-  Future<void> addCart(AdModel adModel) async {
+  Future<void> addCart(Ad adModel) async {
     final isLogin = tokenStorage.isLogin.call() ?? false;
     if (isLogin) {
       await _api.addCart(adType: adModel.adStatusType.name, id: adModel.id);
     }
     final allItem = cartStorage.allItems.map((e) => e.toMap()).toList();
     if (allItem.where((element) => element.id == adModel.id).isEmpty) {
-      cartStorage.cartStorage.add(AdHiveObject(
+      cartStorage.cartStorage.add(AdObject(
           id: adModel.id,
           name: adModel.name,
           price: adModel.price,
@@ -72,7 +72,7 @@ class CartRepositoryImp extends CartRepository {
   }
 
   @override
-  Future<List<AdModel>> getCartAds() async {
+  Future<List<Ad>> getCartAds() async {
     final logger = Logger();
     logger.w("getFavorites Ads");
     try {
@@ -85,7 +85,7 @@ class CartRepositoryImp extends CartRepository {
         final allItem = cartStorage.allItems.map((e) => e.toMap()).toList();
         for (var item in cartAds) {
           if (allItem.where((element) => element.id == item.id).isEmpty) {
-            favoriteStorage.favoriteAds.add(AdHiveObject(
+            favoriteStorage.favoriteAds.add(AdObject(
                 id: item.id,
                 name: item.name,
                 price: item.price,

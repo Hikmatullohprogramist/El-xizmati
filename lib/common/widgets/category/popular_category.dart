@@ -1,8 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-
-import '../../../data/model/categories/popular_category/popular_category_response.dart';
+import 'package:onlinebozor/data/model/category/popular_category/popular_category_response.dart';
 
 class AppPopularCategory extends StatelessWidget {
   const AppPopularCategory({

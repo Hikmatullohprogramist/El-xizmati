@@ -1,4 +1,4 @@
-import 'package:onlinebozor/common/enum/ad_enum.dart';
+import 'package:onlinebozor/common/enum/enums.dart';
 
 extension AdEnumMapper on String? {
   AdPropertyStatus toAdPropertyStatus() {

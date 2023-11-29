@@ -6,7 +6,7 @@ class AdListBuildable with _$AdListBuildable {
     @Default("") String keyWord,
     @Default(AdListType.list) AdListType adListType,
     @Default(AppLoadingState.loading) AppLoadingState adsState,
-    PagingController<int, AdModel>? adsPagingController,
+    PagingController<int, Ad>? adsPagingController,
   }) = _AdListBuildable;
 }
 

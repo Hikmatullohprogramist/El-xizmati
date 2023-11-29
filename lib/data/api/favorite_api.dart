@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
-import 'package:onlinebozor/domain/model/ad_model.dart';
+import 'package:onlinebozor/domain/model/ad.dart';
 
 import '../storage/token_storage.dart';
 
@@ -42,7 +42,7 @@ class FavoriteApi {
         queryParameters: queryParameters, options: Options(headers: headers));
   }
 
-  Future<Response> sendAllFavoriteAds(List<AdModel> ads) {
+  Future<Response> sendAllFavoriteAds(List<Ad> ads) {
     final log = Logger();
     log.w(ads.toString());
 

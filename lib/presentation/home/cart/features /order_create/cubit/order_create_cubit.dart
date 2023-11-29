@@ -4,9 +4,9 @@ import 'package:onlinebozor/domain/repository/favorite_repository.dart';
 import 'package:onlinebozor/domain/repository/state_repository.dart';
 
 import '../../../../../../common/core/base_cubit.dart';
-import '../../../../../../common/enum/ad_enum.dart';
+import '../../../../../../common/enum/enums.dart';
 import '../../../../../../domain/model/ad_detail.dart';
-import '../../../../../../domain/model/ad_model.dart';
+import '../../../../../../domain/model/ad.dart';
 import '../../../../../../domain/repository/ad_repository.dart';
 import '../../../../../../domain/repository/cart_repository.dart';
 
@@ -75,7 +75,7 @@ class OrderCreateCubit
   Future<void> addFavorite(AdDetail adDetail) async {
     try {
       if (!adDetail.favorite) {
-        await favoriteRepository.addFavorite(AdModel(
+        await favoriteRepository.addFavorite(Ad(
             productId: -1,
             id: adDetail.adId,
             name: adDetail.adName ?? "",

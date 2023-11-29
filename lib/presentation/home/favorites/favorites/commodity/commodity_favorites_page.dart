@@ -11,8 +11,8 @@ import '../../../../../common/core/base_page.dart';
 import '../../../../../common/gen/localization/strings.dart';
 import '../../../../../common/widgets/ad/ad_widget.dart';
 import '../../../../../common/widgets/common_button.dart';
-import '../../../../../common/widgets/favorite_empty_widget.dart';
-import '../../../../../domain/model/ad_model.dart';
+import '../../../../../common/widgets/favorite/favorite_empty_widget.dart';
+import '../../../../../domain/model/ad.dart';
 
 @RoutePage()
 class CommodityFavoritesPage extends BasePage<CommodityFavoritesCubit,
@@ -33,7 +33,7 @@ class CommodityFavoritesPage extends BasePage<CommodityFavoritesCubit,
     height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: PagedGridView<int, AdModel>(
+      body: PagedGridView<int, Ad>(
         shrinkWrap: true,
         addAutomaticKeepAlives: true,
         physics: BouncingScrollPhysics(),
@@ -46,7 +46,7 @@ class CommodityFavoritesPage extends BasePage<CommodityFavoritesCubit,
           mainAxisExtent: 315,
           crossAxisCount: 2,
         ),
-        builderDelegate: PagedChildBuilderDelegate<AdModel>(
+        builderDelegate: PagedChildBuilderDelegate<Ad>(
           firstPageErrorIndicatorBuilder: (_) {
             return SizedBox(
               height: 100,

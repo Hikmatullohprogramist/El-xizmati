@@ -4,8 +4,8 @@ part of 'cart_cubit.dart';
 class CartBuildable with _$CartBuildable {
   const factory CartBuildable({
     @Default(false) bool checkBox,
-    @Default(<AdModel>[]) List<AdModel> cartItems,
-    PagingController<int, AdModel>? adsPagingController,
+    @Default(<Ad>[]) List<Ad> cartItems,
+    PagingController<int, Ad>? adsPagingController,
   }) = _CartBuildable;
 }
 

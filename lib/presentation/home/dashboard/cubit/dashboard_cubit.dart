@@ -2,13 +2,13 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/domain/model/ad_model.dart';
+import 'package:onlinebozor/common/enum/enums.dart';
+import 'package:onlinebozor/data/model/category/popular_category/popular_category_response.dart';
+import 'package:onlinebozor/domain/model/ad.dart';
 import 'package:onlinebozor/domain/repository/favorite_repository.dart';
 
 import '../../../../common/core/base_cubit.dart';
-import '../../../../common/enum/loading_enum.dart';
 import '../../../../data/model/banner/banner_response.dart';
-import '../../../../data/model/categories/popular_category/popular_category_response.dart';
 import '../../../../domain/repository/ad_repository.dart';
 import '../../../../domain/repository/common_repository.dart';
 
@@ -103,10 +103,10 @@ class DashboardCubit
     }
   }
 
-  PagingController<int, AdModel> getAdsController({
+  PagingController<int, Ad> getAdsController({
     required int status,
   }) {
-    final adController = PagingController<int, AdModel>(
+    final adController = PagingController<int, Ad>(
         firstPageKey: 1, invisibleItemsThreshold: 100);
     log.i(buildable.adsPagingController);
 
@@ -125,7 +125,7 @@ class DashboardCubit
     return adController;
   }
 
-  Future<void> recentlyAdsAddFavorite(AdModel adModel) async {
+  Future<void> recentlyAdsAddFavorite(Ad adModel) async {
     try {
       if (!adModel.favorite) {
         await favoriteRepository.addFavorite(adModel);
@@ -143,7 +143,7 @@ class DashboardCubit
     }
   }
 
-  Future<void> addFavorite(AdModel adModel) async {
+  Future<void> addFavorite(Ad adModel) async {
     try {
       if (!adModel.favorite) {
         await favoriteRepository.addFavorite(adModel);

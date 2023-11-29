@@ -10,13 +10,13 @@ import 'package:onlinebozor/common/widgets/ad/ad_group_widget.dart';
 import 'package:onlinebozor/common/widgets/all_view_widget.dart';
 import 'package:onlinebozor/common/widgets/app_bar/common_active_search_bar.dart';
 import 'package:onlinebozor/common/widgets/app_diverder.dart';
-import 'package:onlinebozor/domain/model/ad_model.dart';
+import 'package:onlinebozor/domain/model/ad.dart';
 
 import '../../../common/core/base_page.dart';
 import '../../../common/widgets/ad/ad_widget.dart';
 import '../../../common/widgets/common_button.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
-import '../../../common/enum/ad_enum.dart';
+import '../../../common/enum/enums.dart';
 import 'cubit/ad_collection_cubit.dart';
 
 @RoutePage()
@@ -86,10 +86,10 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                           loadingState: state.hotDiscountAdsState,
                           child: AdGroupWidget(
                             ads: state.hotDiscountAds,
-                        onClick: (AdModel result) {
+                        onClick: (Ad result) {
                           context.router.push(AdDetailRoute(adId: result.id));
                         },
-                        onClickFavorite: (AdModel result) => context
+                        onClickFavorite: (Ad result) => context
                             .read<AdCollectionCubit>()
                             .discountAdsAddFavorite(result),
                       )),
@@ -107,10 +107,10 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                           loadingState: state.popularAdsState,
                           child: AdGroupWidget(
                             ads: state.popularAds,
-                        onClick: (AdModel result) {
+                        onClick: (Ad result) {
                           context.router.push(AdDetailRoute(adId: result.id));
                         },
-                        onClickFavorite: (AdModel result) => context
+                        onClickFavorite: (Ad result) => context
                             .read<AdCollectionCubit>()
                             .popularAdsAddFavorite(result),
                       )),
@@ -121,7 +121,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                   )),
               state.adsPagingController == null
                   ? SizedBox()
-                  : PagedSliverGrid<int, AdModel>(
+                  : PagedSliverGrid<int, Ad>(
                   pagingController: state.adsPagingController!,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         childAspectRatio: width / height,
@@ -130,7 +130,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                         mainAxisExtent: 315,
                         crossAxisCount: 2,
                       ),
-                      builderDelegate: PagedChildBuilderDelegate<AdModel>(
+                      builderDelegate: PagedChildBuilderDelegate<Ad>(
                         firstPageErrorIndicatorBuilder: (_) {
                           return SizedBox(
                               height: 60,

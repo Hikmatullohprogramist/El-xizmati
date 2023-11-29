@@ -5,8 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/domain/repository/favorite_repository.dart';
 
 import '../../../../common/core/base_cubit.dart';
-import '../../../../domain/model/ad_model.dart';
-import '../../../../domain/repository/ad_repository.dart';
+import '../../../../domain/model/ad.dart';
 import '../../../../domain/repository/cart_repository.dart';
 
 part 'cart_cubit.freezed.dart';
@@ -14,15 +13,13 @@ part 'cart_state.dart';
 
 @injectable
 class CartCubit extends BaseCubit<CartBuildable, CartListenable> {
-  CartCubit(this._adRepository, this._cartRepository, this.favoriteRepository)
+  CartCubit(this._cartRepository, this.favoriteRepository)
       : super(CartBuildable()) {
     getController();
   }
 
   final CartRepository _cartRepository;
   final FavoriteRepository favoriteRepository;
-  final AdRepository _adRepository;
-  static const _pageSize = 20;
 
   Future<void> getController() async {
     try {
@@ -38,10 +35,10 @@ class CartCubit extends BaseCubit<CartBuildable, CartListenable> {
     }
   }
 
-  PagingController<int, AdModel> getAdsController({
+  PagingController<int, Ad> getAdsController({
     required int status,
   }) {
-    final adController = PagingController<int, AdModel>(
+    final adController = PagingController<int, Ad>(
         firstPageKey: 1, invisibleItemsThreshold: 100);
     log.i(buildable.adsPagingController);
 
@@ -60,17 +57,17 @@ class CartCubit extends BaseCubit<CartBuildable, CartListenable> {
     return adController;
   }
 
-  Future<void> removeCart(AdModel adModel) async {
+  Future<void> removeCart(Ad adModel) async {
     try {
       await _cartRepository.removeCart(adModel.id);
       buildable.adsPagingController?.itemList?.remove(adModel);
       buildable.adsPagingController?.notifyListeners();
-    }on DioException  catch (e) {
+    } on DioException catch (e) {
       display.error(e.toString());
     }
   }
 
-  Future<void> addFavorite(AdModel adModel) async {
+  Future<void> addFavorite(Ad adModel) async {
     try {
       if (!adModel.favorite) {
         await favoriteRepository.addFavorite(adModel);

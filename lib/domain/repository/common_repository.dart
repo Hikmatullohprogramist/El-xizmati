@@ -1,6 +1,7 @@
+import 'package:onlinebozor/data/model/category/category/category_response.dart';
+
 import '../../data/model/banner/banner_response.dart';
-import '../../data/model/categories/category/category_response.dart';
-import '../../data/model/categories/popular_category/popular_category_response.dart';
+import '../../data/model/category/popular_category/popular_category_response.dart';
 
 abstract class CommonRepository {
   Future<List<BannerResponse>> getBanner();
@@ -9,8 +10,4 @@ abstract class CommonRepository {
 
   Future<List<PopularCategoryResponse>> getPopularCategories(
       int pageIndex, int pageSize);
-
-  Future<void> getCurrency();
-
-  // Future<void> addFavorite({required String adType, required int id});
 }

@@ -1,14 +1,14 @@
-import 'package:onlinebozor/data/hive_object/ad/ad_hive_object.dart';
+import 'package:onlinebozor/data/hive_object/ad/ad_object.dart';
 import 'package:onlinebozor/data/model/ads/ad_detail/ad_detail_response.dart';
 import 'package:onlinebozor/domain/mapper/ad_enum_mapper.dart';
 import 'package:onlinebozor/domain/model/ad_detail.dart';
 
 import '../../data/model/ads/ad/ad_response.dart';
-import '../model/ad_model.dart';
+import '../model/ad.dart';
 
 extension AdExtension on AdResponse {
-  AdModel toMap({bool favorite = false}) {
-    return AdModel(
+  Ad toMap({bool favorite = false}) {
+    return Ad(
         id: id ?? -1,
         productId: -1,
         name: name ?? "",
@@ -103,9 +103,9 @@ extension AdDetailExtension on AdDetailResponse {
   }
 }
 
-extension AdHiveObjectExtension on AdHiveObject {
-  AdModel toMap({bool favorite = false}) {
-    return AdModel(
+extension AdObjectExtension on AdObject {
+  Ad toMap({bool favorite = false}) {
+    return Ad(
         productId: -1,
         id: id,
         name: name,

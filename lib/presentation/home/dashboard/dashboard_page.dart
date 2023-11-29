@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
+import 'package:onlinebozor/common/enum/enums.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 
@@ -18,8 +19,7 @@ import '../../../common/widgets/category/popular_category_group.dart';
 import '../../../common/widgets/common_button.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../common/widgets/root_commodity_and_service.dart';
-import '../../../common/enum/ad_enum.dart';
-import '../../../domain/model/ad_model.dart';
+import '../../../domain/model/ad.dart';
 import 'cubit/dashboard_cubit.dart';
 
 @RoutePage()
@@ -81,10 +81,10 @@ class DashboardPage
                       loadingState: state.recentlyAdsState,
                       child: AdGroupWidget(
                         ads: state.recentlyViewerAds,
-                        onClick: (AdModel result) {
+                        onClick: (Ad result) {
                           context.router.push(AdDetailRoute(adId: result.id));
                         },
-                        onClickFavorite: (AdModel result) {
+                        onClickFavorite: (Ad result) {
                           context
                               .read<DashboardCubit>()
                               .recentlyAdsAddFavorite(result);
@@ -104,7 +104,7 @@ class DashboardPage
             )),
             state.adsPagingController == null
                 ? SizedBox()
-                : PagedSliverGrid<int, AdModel>(
+                : PagedSliverGrid<int, Ad>(
                 pagingController: state.adsPagingController!,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   childAspectRatio: width / height,
@@ -113,7 +113,7 @@ class DashboardPage
                       mainAxisExtent: 315,
                       crossAxisCount: 2,
                     ),
-                builderDelegate: PagedChildBuilderDelegate<AdModel>(
+                builderDelegate: PagedChildBuilderDelegate<Ad>(
                   firstPageErrorIndicatorBuilder: (_) {
                     return SizedBox(
                         height: 60,

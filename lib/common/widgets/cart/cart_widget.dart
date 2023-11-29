@@ -5,8 +5,8 @@ import 'package:onlinebozor/common/extensions/currency_extensions.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/common_button.dart';
 
-import '../../enum/ad_enum.dart';
-import '../../../domain/model/ad_model.dart';
+import '../../enum/enums.dart';
+import '../../../domain/model/ad.dart';
 import '../../constants.dart';
 import '../../gen/assets/assets.gen.dart';
 
@@ -22,13 +22,13 @@ class CartWidget extends StatelessWidget {
   });
 
   //
-  final AdModel adModel;
-  final Function(AdModel adModel) addItem;
-  final Function(AdModel adModel) onClick;
+  final Ad adModel;
+  final Function(Ad adModel) addItem;
+  final Function(Ad adModel) onClick;
 
-  final Function(AdModel adModel) minusItem;
-  final Function(AdModel adModel) deleteItem;
-  final Function(AdModel adModel) addFavorite;
+  final Function(Ad adModel) minusItem;
+  final Function(Ad adModel) deleteItem;
+  final Function(Ad adModel) addFavorite;
 
   @override
   Widget build(BuildContext context) {

@@ -2,12 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/common/enum/enums.dart';
 import 'package:onlinebozor/domain/repository/favorite_repository.dart';
 
 import '../../../../../../common/core/base_cubit.dart';
-import '../../../../../../common/enum/ad_enum.dart';
-import '../../../../../../common/enum/loading_enum.dart';
-import '../../../../../../domain/model/ad_model.dart';
+import '../../../../../../domain/model/ad.dart';
 
 part 'commodity_favorites_cubit.freezed.dart';
 part 'commodity_favorites_state.dart';
@@ -36,10 +35,10 @@ class CommodityFavoritesCubit extends BaseCubit<CommodityFavoritesBuildable,
     }
   }
 
-  PagingController<int, AdModel> getAdsController({
+  PagingController<int, Ad> getAdsController({
     required int status,
   }) {
-    final adController = PagingController<int, AdModel>(
+    final adController = PagingController<int, Ad>(
         firstPageKey: 1, invisibleItemsThreshold: 100);
     log.i(buildable.adsPagingController);
 
@@ -58,7 +57,7 @@ class CommodityFavoritesCubit extends BaseCubit<CommodityFavoritesBuildable,
     return adController;
   }
 
-  Future<void> removeFavorite(AdModel adModel) async {
+  Future<void> removeFavorite(Ad adModel) async {
     try {
       await _favoriteRepository.removeFavorite(adModel.id);
       buildable.adsPagingController?.itemList?.remove(adModel);

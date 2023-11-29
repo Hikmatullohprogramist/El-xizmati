@@ -6,9 +6,9 @@ class AdCollectionBuildable with _$AdCollectionBuildable {
     @Default(CollectiveType.commodity) CollectiveType collectiveType,
     @Default(AppLoadingState.loading) AppLoadingState hotDiscountAdsState,
     @Default(AppLoadingState.loading) AppLoadingState popularAdsState,
-    PagingController<int, AdModel>? adsPagingController,
-    @Default(<AdModel>[]) List<AdModel> hotDiscountAds,
-    @Default(<AdModel>[]) List<AdModel> popularAds,
+    PagingController<int, Ad>? adsPagingController,
+    @Default(<Ad>[]) List<Ad> hotDiscountAds,
+    @Default(<Ad>[]) List<Ad> popularAds,
   }) = _AdCollectionBuildable;
 }
 

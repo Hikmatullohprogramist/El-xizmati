@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/presentation/home/profile_dashboard/features/user_ads/features/pending_ads/cubit/user_pending_ads_cubit.dart';
 
-import '../../../../../../../common/widgets/ad_empty_widget.dart';
+import '../../../../../../../common/widgets/ad/ad_empty_widget.dart';
 
 @RoutePage()
 class UserPendingAdsPage extends BasePage<UserPendingAdsCubit,

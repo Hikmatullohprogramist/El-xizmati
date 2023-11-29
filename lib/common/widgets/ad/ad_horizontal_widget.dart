@@ -8,10 +8,10 @@ import 'package:onlinebozor/common/widgets/ad/ad_property_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_route_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_status_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_type_widget.dart';
-import 'package:onlinebozor/common/widgets/favorite_widget.dart';
+import 'package:onlinebozor/common/widgets/favorite/favorite_widget.dart';
 import 'package:onlinebozor/domain/mapper/ad_enum_mapper.dart';
-import 'package:onlinebozor/common/enum/ad_enum.dart';
-import 'package:onlinebozor/domain/model/ad_model.dart';
+import 'package:onlinebozor/common/enum/enums.dart';
+import 'package:onlinebozor/domain/model/ad.dart';
 
 import '../../constants.dart';
 import '../../gen/assets/assets.gen.dart';
@@ -24,9 +24,9 @@ class AppAdHorizontalWidget extends StatelessWidget {
     required this.result,
   });
 
-  final AdModel result;
-  final Function(AdModel result) onClick;
-  final Function(AdModel result) onClickFavorite;
+  final Ad result;
+  final Function(Ad result) onClick;
+  final Function(Ad result) onClickFavorite;
 
   @override
   Widget build(BuildContext context) {

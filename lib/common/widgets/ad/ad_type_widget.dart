@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
-import '../../enum/ad_enum.dart';
+import '../../enum/enums.dart';
 
 class AppAdTypeWidget extends StatelessWidget {
   const AppAdTypeWidget({super.key, required this.adType});

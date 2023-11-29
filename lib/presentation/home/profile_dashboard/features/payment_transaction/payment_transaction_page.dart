@@ -5,7 +5,7 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
 import '../../../../../common/gen/assets/assets.gen.dart';
-import '../../../../../common/widgets/card_empty_widget.dart';
+import '../../../../../common/widgets/card/card_empty_widget.dart';
 import 'cubit/payment_transaction_cubit.dart';
 
 @RoutePage()

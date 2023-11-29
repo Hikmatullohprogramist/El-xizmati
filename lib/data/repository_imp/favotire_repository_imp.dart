@@ -1,12 +1,12 @@
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:onlinebozor/data/api/favorite_api.dart';
-import 'package:onlinebozor/data/hive_object/ad/ad_hive_object.dart';
+import 'package:onlinebozor/data/hive_object/ad/ad_object.dart';
 import 'package:onlinebozor/data/model/ads/ad/ad_response.dart';
 import 'package:onlinebozor/data/storage/sync_storage.dart';
 import 'package:onlinebozor/domain/mapper/ad_enum_mapper.dart';
 import 'package:onlinebozor/domain/mapper/ad_mapper.dart';
-import 'package:onlinebozor/domain/model/ad_model.dart';
+import 'package:onlinebozor/domain/model/ad.dart';
 import 'package:onlinebozor/domain/repository/favorite_repository.dart';
 
 import '../storage/favorite_storage.dart';
@@ -27,7 +27,7 @@ class FavoriteRepositoryImp extends FavoriteRepository {
   );
 
   @override
-  Future<void> addFavorite(AdModel adModel) async {
+  Future<void> addFavorite(Ad adModel) async {
     final isLogin = tokenStorage.isLogin.call() ?? false;
     if (isLogin) {
       await _api.addFavorite(adType: adModel.adStatusType.name, id: adModel.id);
@@ -36,7 +36,7 @@ class FavoriteRepositoryImp extends FavoriteRepository {
     }
     final allItem = favoriteStorage.allItems.map((e) => e.toMap()).toList();
     if (allItem.where((element) => element.id == adModel.id).isEmpty) {
-      favoriteStorage.favoriteAds.add(AdHiveObject(
+      favoriteStorage.favoriteAds.add(AdObject(
           id: adModel.id,
           name: adModel.name,
           price: adModel.price,
@@ -75,7 +75,7 @@ class FavoriteRepositoryImp extends FavoriteRepository {
   }
 
   @override
-  Future<List<AdModel>> getFavoriteAds() async {
+  Future<List<Ad>> getFavoriteAds() async {
     try {
       final isLogin = tokenStorage.isLogin.call() ?? false;
       if (isLogin) {
@@ -87,7 +87,7 @@ class FavoriteRepositoryImp extends FavoriteRepository {
         final allItem = favoriteStorage.allItems.map((e) => e.toMap()).toList();
         for (var item in allRemoteAds) {
           if (allItem.where((element) => element.id == item.id).isEmpty) {
-            favoriteStorage.favoriteAds.add(AdHiveObject(
+            favoriteStorage.favoriteAds.add(AdObject(
                 id: item.id,
                 name: item.name,
                 price: item.price,

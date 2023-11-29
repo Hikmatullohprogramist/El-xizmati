@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/hive_object/ad/ad_hive_object.dart';
+import 'package:onlinebozor/data/hive_object/ad/ad_object.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../common/core/base_storage.dart';
@@ -19,16 +19,16 @@ class CartStorage {
     if (!Hive.isAdapterRegistered(3)) {
       Hive
         ..init(appDocumentDir.path)
-        ..registerAdapter(AdHiveObjectAdapter());
+        ..registerAdapter(AdObjectAdapter());
     }
     final box = await Hive.openBox('cart_storage');
     return CartStorage(box);
   }
 
-  List<AdHiveObject> get allItems => _box.values.toList().cast<AdHiveObject>();
+  List<AdObject> get allItems => _box.values.toList().cast<AdObject>();
 
   Future<void> removeCart(int adId) async {
-    final allItem = _box.values.toList().cast<AdHiveObject>();
+    final allItem = _box.values.toList().cast<AdObject>();
     final index = allItem.indexWhere((element) => element.id == adId);
     _box.deleteAt(index);
   }

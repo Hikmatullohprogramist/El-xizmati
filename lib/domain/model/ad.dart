@@ -1,7 +1,7 @@
-import 'package:onlinebozor/common/enum/ad_enum.dart';
+import 'package:onlinebozor/common/enum/enums.dart';
 
-class AdModel {
-  AdModel(
+class Ad {
+  Ad(
       {required this.productId,
       required this.id,
       required this.name,

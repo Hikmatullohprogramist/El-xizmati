@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
-import '../gen/assets/assets.gen.dart';
-import 'common_button.dart';
+import '../../gen/assets/assets.gen.dart';
+import '../common_button.dart';
 
 class CardEmptyWidget extends StatelessWidget {
   const CardEmptyWidget({super.key, required this.callBack});

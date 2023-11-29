@@ -1,10 +1,10 @@
 import 'package:hive/hive.dart';
 
-part 'ad_hive_object.g.dart';
+part 'ad_object.g.dart';
 
 @HiveType(typeId: 3)
-class AdHiveObject extends HiveObject {
-  AdHiveObject(
+class AdObject extends HiveObject {
+  AdObject(
       {required this.id,
       required this.name,
       required this.price,

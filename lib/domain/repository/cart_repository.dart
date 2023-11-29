@@ -1,11 +1,11 @@
-import '../model/ad_model.dart';
+import '../model/ad.dart';
 
 abstract class CartRepository {
-  Future<void> addCart(AdModel adModel);
+  Future<void> addCart(Ad adModel);
 
   Future<void> removeCart(int adId);
 
-  Future<List<AdModel>> getCartAds();
+  Future<List<Ad>> getCartAds();
 
   Future<void> orderCreate(
       {required int productId,

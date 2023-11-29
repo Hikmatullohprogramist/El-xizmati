@@ -6,7 +6,7 @@ import 'package:onlinebozor/common/widgets/common_button.dart';
 import 'package:onlinebozor/presentation/home/profile_dashboard/features/user_orders/features/user_active_orders/cubit/user_active_orders_cubit.dart';
 
 import '../../../../../../../common/core/base_page.dart';
-import '../../../../../../../common/widgets/ad_empty_widget.dart';
+import '../../../../../../../common/widgets/ad/ad_empty_widget.dart';
 
 @RoutePage()
 class UserActiveOrdersPage extends BasePage<UserActiveOrdersCubit,

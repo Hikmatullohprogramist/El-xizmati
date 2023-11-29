@@ -11,8 +11,8 @@ import '../../../../../common/core/base_page.dart';
 import '../../../../../common/gen/localization/strings.dart';
 import '../../../../../common/widgets/ad/ad_widget.dart';
 import '../../../../../common/widgets/common_button.dart';
-import '../../../../../common/widgets/favorite_empty_widget.dart';
-import '../../../../../domain/model/ad_model.dart';
+import '../../../../../common/widgets/favorite/favorite_empty_widget.dart';
+import '../../../../../domain/model/ad.dart';
 
 @RoutePage()
 class ServiceFavoritesPage extends BasePage<ServiceFavoritesCubit,
@@ -23,7 +23,7 @@ class ServiceFavoritesPage extends BasePage<ServiceFavoritesCubit,
   Widget builder(BuildContext context, ServiceFavoritesBuildable state) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: PagedGridView<int, AdModel>(
+      body: PagedGridView<int, Ad>(
         shrinkWrap: true,
         addAutomaticKeepAlives: true,
         physics: BouncingScrollPhysics(),
@@ -35,7 +35,7 @@ class ServiceFavoritesPage extends BasePage<ServiceFavoritesCubit,
           mainAxisSpacing: 24,
           crossAxisCount: 2,
         ),
-        builderDelegate: PagedChildBuilderDelegate<AdModel>(
+        builderDelegate: PagedChildBuilderDelegate<Ad>(
           firstPageErrorIndicatorBuilder: (_) {
             return SizedBox(
               height: 100,

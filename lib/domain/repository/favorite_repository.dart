@@ -1,11 +1,11 @@
-import 'package:onlinebozor/domain/model/ad_model.dart';
+import 'package:onlinebozor/domain/model/ad.dart';
 
 abstract class FavoriteRepository {
-  Future<void> addFavorite(AdModel adModel);
+  Future<void> addFavorite(Ad adModel);
 
   Future<void> removeFavorite(int adId);
 
-  Future<List<AdModel>> getFavoriteAds();
+  Future<List<Ad>> getFavoriteAds();
 
   Future<void> pushAllFavoriteAds();
 }

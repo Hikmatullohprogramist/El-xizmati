@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 
-import '../gen/assets/assets.gen.dart';
+import '../../gen/assets/assets.gen.dart';
 
 class AppFavoriteWidget extends StatefulWidget {
   const AppFavoriteWidget(

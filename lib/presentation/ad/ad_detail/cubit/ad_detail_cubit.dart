@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/common/enum/ad_enum.dart';
+import 'package:onlinebozor/common/enum/enums.dart';
 import 'package:onlinebozor/domain/model/ad_detail.dart';
 import 'package:onlinebozor/domain/repository/favorite_repository.dart';
 
 import '../../../../common/core/base_cubit.dart';
-import '../../../../domain/model/ad_model.dart';
+import '../../../../domain/model/ad.dart';
 import '../../../../domain/repository/ad_repository.dart';
 import '../../../../domain/repository/cart_repository.dart';
 
@@ -41,7 +41,7 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
     try {
       final adModel = buildable.adDetail;
       if (!(adModel?.favorite ?? false)) {
-        await favoriteRepository.addFavorite(AdModel(
+        await favoriteRepository.addFavorite(Ad(
             productId: -1,
             id: adModel?.adId ?? -1,
             name: adModel?.adName ?? "",
@@ -80,7 +80,7 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
   Future<void> addCart() async {
     try {
       final adModel = buildable.adDetail;
-      await cartRepository.addCart(AdModel(
+      await cartRepository.addCart(Ad(
           productId: -1,
           id: adModel?.adId ?? -1,
           name: adModel?.adName ?? "",

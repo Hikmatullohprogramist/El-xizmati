@@ -6,7 +6,7 @@ class CommodityFavoritesBuildable with _$CommodityFavoritesBuildable {
     @Default("") String keyWord,
     @Default(AdListType.list) AdListType adListType,
     @Default(AppLoadingState.loading) AppLoadingState adsState,
-    PagingController<int, AdModel>? adsPagingController,
+    PagingController<int, Ad>? adsPagingController,
   }) = _CommodityFavoritesBuildable;
 }
 

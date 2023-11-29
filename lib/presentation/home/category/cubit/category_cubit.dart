@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/common/enum/enums.dart';
+import 'package:onlinebozor/data/model/category/category/category_response.dart';
 
 import '../../../../common/core/base_cubit.dart';
-import '../../../../common/enum/loading_enum.dart';
-import '../../../../data/model/categories/category/category_response.dart';
 import '../../../../domain/repository/common_repository.dart';
 
 part 'category_cubit.freezed.dart';

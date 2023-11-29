@@ -4,9 +4,9 @@ import 'package:onlinebozor/domain/mapper/ad_mapper.dart';
 import 'package:onlinebozor/presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
 
 import '../../domain/model/ad_detail.dart';
-import '../../domain/model/ad_model.dart';
+import '../../domain/model/ad.dart';
 import '../../domain/repository/ad_repository.dart';
-import '../api/ads_api.dart';
+import '../api/ad_api.dart';
 import '../model/ads/ad/ad_response.dart';
 import '../model/ads/ad_detail/ad_detail_response.dart';
 import '../storage/favorite_storage.dart';
@@ -19,7 +19,7 @@ class AdRepositoryImpl extends AdRepository {
   AdRepositoryImpl(this._api, this.favoriteStorage);
 
   @override
-  Future<List<AdModel>> getHomeAds(
+  Future<List<Ad>> getHomeAds(
       int pageIndex, int pageSize, String keyWord) async {
     final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
     final response = await _api.getHomeAds(pageIndex, pageSize, keyWord);
@@ -34,7 +34,7 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<List<AdModel>> getRecentlyViewAds() async {
+  Future<List<Ad>> getRecentlyViewAds() async {
     final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
     final response = await _api.getHomePopularAds();
     final adsResponse =
@@ -58,7 +58,7 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<List<AdModel>> getAdModels(
+  Future<List<Ad>> getAdModels(
       int pageIndex, int pageSize, String keyWord) async {
     final response = await _api.getHomeAds(pageIndex, pageSize, keyWord);
     final adsResponse =
@@ -68,7 +68,7 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<List<AdModel>> getHotDiscountAds(CollectiveType collectiveType) async {
+  Future<List<Ad>> getHotDiscountAds(CollectiveType collectiveType) async {
     final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
     final response = await _api.getHomePopularAds();
     final adsResponse =
@@ -82,7 +82,7 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<List<AdModel>> getPopularAds(CollectiveType collectiveType) async {
+  Future<List<Ad>> getPopularAds(CollectiveType collectiveType) async {
     final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
     final response = await _api.getHomePopularAds();
     final adsResponse =
@@ -96,7 +96,7 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<List<AdModel>> getCollectiveAds(int pageIndex, int pageSize,
+  Future<List<Ad>> getCollectiveAds(int pageIndex, int pageSize,
       String keyWord, CollectiveType collectiveType) async {
     final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
     final response = await _api.getCollectiveAds(

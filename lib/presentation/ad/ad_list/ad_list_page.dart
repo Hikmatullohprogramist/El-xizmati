@@ -6,11 +6,11 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/app_bar/common_app_bar.dart';
-import 'package:onlinebozor/domain/model/ad_model.dart';
+import 'package:onlinebozor/domain/model/ad.dart';
 import 'package:onlinebozor/presentation/ad/ad_list/cubit/ad_list_cubit.dart';
 
 import '../../../common/core/base_page.dart';
-import '../../../common/enum/ad_enum.dart';
+import '../../../common/enum/enums.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/widgets/ad/ad_widget.dart';
 import '../../../common/widgets/common_button.dart';
@@ -49,7 +49,7 @@ class AdListPage
         context.router.pop();
       }, "E'lonlar"),
       backgroundColor: Colors.white,
-      body: PagedGridView<int, AdModel>(
+      body: PagedGridView<int, Ad>(
         shrinkWrap: true,
         addAutomaticKeepAlives: true,
         physics: BouncingScrollPhysics(),
@@ -61,7 +61,7 @@ class AdListPage
             mainAxisSpacing: 24,
             crossAxisCount: 2,
             mainAxisExtent: 315),
-        builderDelegate: PagedChildBuilderDelegate<AdModel>(
+        builderDelegate: PagedChildBuilderDelegate<Ad>(
           firstPageErrorIndicatorBuilder: (_) {
             return SizedBox(
               height: 100,

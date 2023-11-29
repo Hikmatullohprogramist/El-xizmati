@@ -5,13 +5,13 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/domain/model/ad_model.dart';
+import 'package:onlinebozor/domain/model/ad.dart';
 
 import '../../../common/gen/localization/strings.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/widgets/cart/cart_widget.dart';
 import '../../../common/widgets/common_button.dart';
-import '../../../common/widgets/favorite_empty_widget.dart';
+import '../../../common/widgets/favorite/favorite_empty_widget.dart';
 import 'cubit/cart_cubit.dart';
 
 @RoutePage()
@@ -35,7 +35,7 @@ class CartPage extends BasePage<CartCubit, CartBuildable, CartListenable> {
         // ],
       ),
       backgroundColor: Colors.white,
-      body: PagedGridView<int, AdModel>(
+      body: PagedGridView<int, Ad>(
         shrinkWrap: true,
         addAutomaticKeepAlives: true,
         physics: BouncingScrollPhysics(),
@@ -46,7 +46,7 @@ class CartPage extends BasePage<CartCubit, CartBuildable, CartListenable> {
           // mainAxisSpacing: 24,
           crossAxisCount: 1,
         ),
-        builderDelegate: PagedChildBuilderDelegate<AdModel>(
+        builderDelegate: PagedChildBuilderDelegate<Ad>(
             firstPageErrorIndicatorBuilder: (_) {
               return SizedBox(
                 height: 100,
@@ -105,15 +105,15 @@ class CartPage extends BasePage<CartCubit, CartBuildable, CartListenable> {
             transitionDuration: Duration(milliseconds: 100),
             itemBuilder: (context, item, index) {
               return CartWidget(
-                addItem: (AdModel adModel) {},
-                minusItem: (AdModel adModel) {},
-                deleteItem: (AdModel adModel) =>
+                addItem: (Ad adModel) {},
+                minusItem: (Ad adModel) {},
+                deleteItem: (Ad adModel) =>
                     context.read<CartCubit>().removeCart(adModel),
-                addFavorite: (AdModel adModel) {
+                addFavorite: (Ad adModel) {
                   context.read<CartCubit>().addFavorite(adModel);
                 },
                 adModel: item,
-                onClick: (AdModel adModel) {
+                onClick: (Ad adModel) {
                   context.router.push(OrderCreateRoute(adId: adModel.id));
                 },
               );

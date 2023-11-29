@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
-import '../gen/assets/assets.gen.dart';
+import '../../constants.dart';
+import '../../gen/assets/assets.gen.dart';
 
 class CardWidget extends StatelessWidget {
   const CardWidget(

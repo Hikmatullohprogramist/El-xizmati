@@ -1,10 +1,10 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/api/common_api.dart';
+import 'package:onlinebozor/data/model/category/category/category_response.dart';
 
 import '../../domain/repository/common_repository.dart';
 import '../model/banner/banner_response.dart';
-import '../model/categories/category/category_response.dart';
-import '../model/categories/popular_category/popular_category_response.dart';
+import '../model/category/popular_category/popular_category_response.dart';
 import '../storage/categories_storage.dart';
 
 @LazySingleton(as: CommonRepository)
@@ -45,14 +45,4 @@ class CommonRepositoryImpl extends CommonRepository {
     return popularCategories ?? List.empty();
   }
 
-  @override
-  Future<void> getCurrency() async {
-    final response = await _api.getCurrency();
-  }
-
-  // @override
-  // Future<void> addFavorite({required String adType, required int id}) async {
-  //   await _api.addFavorite(adType: adType, id: id);
-  //   return;
-  // }
 }

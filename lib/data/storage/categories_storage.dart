@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../common/core/base_storage.dart';
-import '../model/categories/category/category_response.dart';
+import '../model/category/category/category_response.dart';
 
 @lazySingleton
 class CategoriesStorage {
