@@ -58,7 +58,8 @@ class FavoriteRepositoryImp extends FavoriteRepository {
           maxAmount: adModel.maxAmount,
           favorite: true,
           photo: adModel.photo,
-          sellerName: adModel.sellerName));
+          sellerName: adModel.sellerName,
+          backendId: adModel.backendId));
     }
     return;
   }
@@ -110,7 +111,8 @@ class FavoriteRepositoryImp extends FavoriteRepository {
                 maxAmount: item.maxAmount,
                 favorite: true,
                 photo: item.photo,
-                sellerName: item.sellerName));
+                sellerName: item.sellerName,
+                backendId: item.backendId));
           }
         }
       }

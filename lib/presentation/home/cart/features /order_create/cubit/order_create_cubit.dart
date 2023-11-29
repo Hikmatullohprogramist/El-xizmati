@@ -76,7 +76,7 @@ class OrderCreateCubit
     try {
       if (!adDetail.favorite) {
         await favoriteRepository.addFavorite(Ad(
-            productId: -1,
+            backendId: -1,
             id: adDetail.adId,
             name: adDetail.adName ?? "",
             price: adDetail.price,

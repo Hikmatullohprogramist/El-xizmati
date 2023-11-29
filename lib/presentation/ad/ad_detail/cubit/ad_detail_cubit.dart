@@ -42,7 +42,7 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
       final adModel = buildable.adDetail;
       if (!(adModel?.favorite ?? false)) {
         await favoriteRepository.addFavorite(Ad(
-            productId: -1,
+            backendId: -1,
             id: adModel?.adId ?? -1,
             name: adModel?.adName ?? "",
             price: adModel?.price ?? 0,
@@ -81,7 +81,7 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
     try {
       final adModel = buildable.adDetail;
       await cartRepository.addCart(Ad(
-          productId: -1,
+          backendId: -1,
           id: adModel?.adId ?? -1,
           name: adModel?.adName ?? "",
           price: adModel?.price ?? 0,

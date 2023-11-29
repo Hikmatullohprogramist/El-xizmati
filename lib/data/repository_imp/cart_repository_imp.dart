@@ -54,7 +54,8 @@ class CartRepositoryImp extends CartRepository {
           maxAmount: adModel.maxAmount,
           favorite: true,
           photo: adModel.photo,
-          sellerName: adModel.sellerName));
+          sellerName: adModel.sellerName,
+          backendId: adModel.backendId));
     }
     return;
   }
@@ -108,7 +109,8 @@ class CartRepositoryImp extends CartRepository {
                 maxAmount: item.maxAmount,
                 favorite: true,
                 photo: item.photo,
-                sellerName: item.sellerName));
+                sellerName: item.sellerName,
+                backendId: item.backendId));
           }
         }
       }

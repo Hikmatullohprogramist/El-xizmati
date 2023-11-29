@@ -2,7 +2,7 @@ import 'package:onlinebozor/common/enum/enums.dart';
 
 class Ad {
   Ad(
-      {required this.productId,
+      {this.backendId,
       required this.id,
       required this.name,
       required this.price,
@@ -26,7 +26,7 @@ class Ad {
       required this.isSell,
       required this.maxAmount});
 
-  final int productId;
+  int? backendId;
   final int id;
   final String name;
   final int price;

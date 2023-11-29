@@ -10,7 +10,7 @@ extension AdExtension on AdResponse {
   Ad toMap({bool favorite = false}) {
     return Ad(
         id: id ?? -1,
-        productId: -1,
+        backendId: backend_id ?? -1,
         name: name ?? "",
         price: price ?? 0,
         currency: currency.toCurrency(),
@@ -106,7 +106,7 @@ extension AdDetailExtension on AdDetailResponse {
 extension AdObjectExtension on AdObject {
   Ad toMap({bool favorite = false}) {
     return Ad(
-        productId: -1,
+        backendId: backendId,
         id: id,
         name: name,
         price: price,

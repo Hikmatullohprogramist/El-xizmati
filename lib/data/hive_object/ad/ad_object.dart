@@ -26,7 +26,8 @@ class AdObject extends HiveObject {
       required this.maxAmount,
       required this.favorite,
       required this.photo,
-      required this.sellerName});
+      required this.sellerName,
+      this.backendId});
 
   @HiveField(0)
   int id;
@@ -93,4 +94,7 @@ class AdObject extends HiveObject {
 
   @HiveField(21)
   String photo;
+
+  @HiveField(22)
+  int? backendId;
 }
