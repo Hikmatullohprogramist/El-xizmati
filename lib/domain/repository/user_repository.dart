@@ -33,4 +33,6 @@ abstract class UserRepository {
     required String postName,
     required String phoneNumber,
   });
+
+  Future<bool> isFullRegister();
 }

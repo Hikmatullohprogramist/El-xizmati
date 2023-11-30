@@ -170,8 +170,10 @@ class ProfileViewerPage extends BasePage<ProfileViewerCubit,
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor:
                                         context.colors.buttonPrimary),
-                                onPressed: () =>
-                                    context.router.replace(RegistrationRoute()),
+                                onPressed: state.isRegistration
+                                    ? null
+                                    : () => context.router
+                                        .replace(RegistrationRoute()),
                                 child: Strings.profileViewIdentified
                                     .w(500)
                                     .s(12)

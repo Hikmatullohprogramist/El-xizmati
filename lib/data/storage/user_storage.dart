@@ -24,4 +24,13 @@ class UserInfoStorage {
     final box = await Hive.openBox('user_info_storage');
     return UserInfoStorage(box);
   }
+
+  Future<void> update(UserInfoObject userInfoObject) async {
+    UserInfoObject? userInfo = _box.get("key_user_info_storage");
+    if (userInfo != null) {
+      _box.put("key_user_info_storage", userInfoObject);
+    } else {
+      _box.put("key_user_info_storage", userInfoObject);
+    }
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/api/user_api.dart';
+import 'package:onlinebozor/data/hive_object/user/user_info_object.dart';
 import 'package:onlinebozor/data/model/profile/biometric_info/biometric_info_response.dart';
 import 'package:onlinebozor/data/model/profile/user/user_info_response.dart';
 import 'package:onlinebozor/data/model/profile/user_full/user_full_info_response.dart';
@@ -18,6 +19,36 @@ class UserRepositoryImp extends UserRepository {
   Future<UserFullInfoResponse> getFullUserInfo() async {
     final response = await _api.getFullUserInfo();
     final result = UserFullInfoRootResponse.fromJson(response.data).data;
+    final userInfo = userInfoStorage.userInformation.call();
+    userInfoStorage.update(UserInfoObject(
+        gender: result.gender ?? userInfo?.gender,
+        postName: result.post_name ?? userInfo?.gender,
+        tin: result.tin ?? userInfo?.tin,
+        pinfl: result.pinfl ?? userInfo?.pinfl,
+        isRegistered: result.is_registered ?? userInfo?.isRegistered,
+        state: userInfo?.state,
+        registeredWithEimzo: userInfo?.registeredWithEimzo,
+        photo: result.photo ?? userInfo?.photo,
+        passportSerial: result.passport_serial ?? userInfo?.passportSerial,
+        passportNumber: result.passport_number ?? userInfo?.passportNumber,
+        oblId: result.mahalla_id ?? userInfo?.oblId,
+        mobilePhone: result.mobile_phone ?? userInfo?.mobilePhone,
+        isPassword: userInfo?.isPassword,
+        homeName: result.home_name ?? userInfo?.homeName,
+        eimzoAllowToLogin: userInfo?.eimzoAllowToLogin,
+        birthDate: result.birth_date ?? userInfo?.birthDate,
+        username: result.username ?? userInfo?.username,
+        areaId: userInfo?.areaId,
+        apartmentName: userInfo?.apartmentName,
+        id: result.id ?? userInfo?.id,
+        email: result.email ?? userInfo?.email,
+        fullName: result.full_name ?? userInfo?.fullName,
+        districtId: result.district_id ?? userInfo?.districtId,
+        regionId: result.region_id ?? userInfo?.regionId,
+        districtName: userInfo?.districtName,
+        regionName: userInfo?.regionName,
+        areaName: userInfo?.areaName,
+        oblName: userInfo?.oblName));
     return result;
   }
 
@@ -90,5 +121,12 @@ class UserRepositoryImp extends UserRepository {
         pinfl: pinfl,
         postName: postName,
         phoneNumber: phoneNumber);
+  }
+
+  @override
+  Future<bool> isFullRegister() async {
+    final isRegister =
+        userInfoStorage.userInformation.call()?.isRegistered ?? false;
+    return isRegister;
   }
 }

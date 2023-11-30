@@ -160,6 +160,7 @@ class ProfileEditCubit
           pinfl: buildable.pinfl ?? -1,
           postName: buildable.postName ?? "",
           phoneNumber: buildable.phoneNumber);
+      display.success("Muvaffaqiyatli saqlandi");
     } catch (e) {
       display.error("Xatolik yuz berdi");
     }

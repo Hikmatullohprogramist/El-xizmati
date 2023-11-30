@@ -73,7 +73,7 @@ profile.user.name,Foydalanuvchi nomi,Имя пользователя
 profile.user.brithdate,Tug'ilgan kuni,Дата рождения
 profile.user.biometricdate,Pasport tafsilotlari,Паспортные данные
 profile.user.gender,Jins,Пол
-profile.user.email,Emial,email
+profile.user.email,Email,email
 profile.user.region,Viloyat,Регион
 profile.user.district,Tuman ,Район
 profile.user.neighborhood,Turar joy,Махалля
