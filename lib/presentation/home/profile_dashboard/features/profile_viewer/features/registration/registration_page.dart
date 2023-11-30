@@ -18,6 +18,16 @@ class RegistrationPage extends BasePage<RegistrationCubit,
   const RegistrationPage({super.key});
 
   @override
+  void listener(BuildContext context, RegistrationListenable state) {
+    switch (state.effect) {
+      case RegistrationEffect.success:
+        () {};
+      case RegistrationEffect.backToProfileDashboard:
+        () => context.router.pop();
+    }
+  }
+
+  @override
   Widget builder(BuildContext context, RegistrationBuildable state) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -125,7 +135,7 @@ class RegistrationPage extends BasePage<RegistrationCubit,
                     },
                     inputFormatters: phoneMaskFormatter,
                     inputType: TextInputType.phone,
-                    textInputAction: TextInputAction.next),
+                    textInputAction: TextInputAction.done),
               ),
               Padding(
                 padding:
@@ -184,7 +194,7 @@ class RegistrationPage extends BasePage<RegistrationCubit,
                             readOnly: true,
                             enabled: false,
                             controller:
-                                TextEditingController(text: state.fullName),
+                                TextEditingController(text: state.userName),
                             textInputAction: TextInputAction.next,
                             inputType: TextInputType.text),
                       ),
@@ -200,96 +210,230 @@ class RegistrationPage extends BasePage<RegistrationCubit,
                           hint: "example@gmail.com",
                           textInputAction: TextInputAction.next,
                           inputType: TextInputType.emailAddress,
+                          onChanged: (value) {},
+                          controller: TextEditingController(text: state.email),
                         ),
                       ),
                       Padding(
                         padding:
-                        EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         child: "Регион".w(500).s(12).c(Color(0xFF41455E)),
                       ),
                       Padding(
-                        padding:
-                        EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                        child: CommonTextField(
-                          hint: "Регион",
-                          readOnly: true,
-                          enabled: false,
-                          controller:
-                              TextEditingController(text: state.regionName),
-                          inputType: TextInputType.text,
-                          textInputAction: TextInputAction.next,
-                        ),
-                      ),
+                          padding:
+                              EdgeInsets.only(right: 16, left: 16, bottom: 12),
+                          child: InkWell(
+                            onTap: () {
+                              showModalBottomSheet(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  backgroundColor: Colors.white,
+                                  context: context,
+                                  builder: (BuildContext buildContext) {
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20.0),
+                                          topRight: Radius.circular(20.0),
+                                        ),
+                                      ),
+                                      height: double.infinity,
+                                      child: ListView.builder(
+                                          physics: BouncingScrollPhysics(),
+                                          itemCount: state.regions.length,
+                                          itemBuilder:
+                                              (BuildContext buildContext,
+                                                  int index) {
+                                            return InkWell(
+                                                onTap: () {
+                                                  context
+                                                      .read<RegistrationCubit>()
+                                                      .setRegion(
+                                                          state.regions[index]);
+                                                  Navigator.pop(buildContext);
+                                                },
+                                                child: Padding(
+                                                  padding: EdgeInsets.all(16),
+                                                  child: state
+                                                      .regions[index].name
+                                                      .w(500),
+                                                ));
+                                          }),
+                                    );
+                                  });
+                            },
+                            child: CommonTextField(
+                              hint: "Регион",
+                              readOnly: true,
+                              enabled: false,
+                              controller:
+                                  TextEditingController(text: state.regionName),
+                              inputType: TextInputType.text,
+                              textInputAction: TextInputAction.next,
+                            ),
+                          )),
                       Padding(
                         padding:
-                        EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         child: "Район".w(500).s(12).c(Color(0xFF41455E)),
+                      ),
+                      Padding(
+                          padding:
+                              EdgeInsets.only(right: 16, left: 16, bottom: 12),
+                          child: InkWell(
+                            onTap: () {
+                              showModalBottomSheet(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  backgroundColor: Colors.white,
+                                  context: context,
+                                  builder: (BuildContext buildContext) {
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20.0),
+                                          topRight: Radius.circular(20.0),
+                                        ),
+                                      ),
+                                      height: double.infinity,
+                                      child: ListView.builder(
+                                          physics: BouncingScrollPhysics(),
+                                          itemCount: state.districts.length,
+                                          itemBuilder:
+                                              (BuildContext buildContext,
+                                                  int index) {
+                                            return InkWell(
+                                                onTap: () {
+                                                  context
+                                                      .read<RegistrationCubit>()
+                                                      .setDistrict(state
+                                                          .districts[index]);
+                                                  Navigator.pop(buildContext);
+                                                },
+                                                child: Padding(
+                                                  padding: EdgeInsets.all(16),
+                                                  child: state
+                                                      .districts[index].name
+                                                      .w(500),
+                                                ));
+                                          }),
+                                    );
+                                  });
+                            },
+                            child: CommonTextField(
+                                hint: "Район",
+                                readOnly: true,
+                                enabled: false,
+                                controller: TextEditingController(
+                                    text: state.districtName),
+                                inputType: TextInputType.text,
+                                textInputAction: TextInputAction.next),
+                          )),
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        child: "Махалля".w(500).s(12).c(Color(0xFF41455E)),
                       ),
                       Padding(
                         padding:
                             EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                        child: CommonTextField(
-                            hint: "Район",
-                            readOnly: true,
-                            enabled: false,
-                            controller:
-                                TextEditingController(text: state.districtName),
-                            inputType: TextInputType.text,
-                            textInputAction: TextInputAction.next),
+                        child: InkWell(
+                            onTap: () {
+                              showModalBottomSheet(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  backgroundColor: Colors.white,
+                                  context: context,
+                                  builder: (BuildContext buildContext) {
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20.0),
+                                          topRight: Radius.circular(20.0),
+                                        ),
+                                      ),
+                                      height: double.infinity,
+                                      child: ListView.builder(
+                                          physics: BouncingScrollPhysics(),
+                                          itemCount: state.streets.length,
+                                          itemBuilder:
+                                              (BuildContext buildContext,
+                                                  int index) {
+                                            return InkWell(
+                                                onTap: () {
+                                                  context
+                                                      .read<RegistrationCubit>()
+                                                      .setStreet(
+                                                          state.streets[index]);
+                                                  Navigator.pop(buildContext);
+                                                },
+                                                child: Padding(
+                                                  padding: EdgeInsets.all(16),
+                                                  child: state
+                                                      .streets[index].name
+                                                      .w(500),
+                                                ));
+                                          }),
+                                    );
+                                  });
+                            },
+                            child: CommonTextField(
+                              hint: "Махалля",
+                              readOnly: true,
+                              controller:
+                                  TextEditingController(text: state.streetName),
+                              enabled: false,
+                              textInputAction: TextInputAction.next,
+                              inputType: TextInputType.text,
+                            )),
                       ),
-                      // Padding(
-                      //   padding:
-                      //   EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                      //   child: "Махалля".w(500).s(12).c(Color(0xFF41455E)),
-                      // ),
-                      // Padding(
-                      //   padding:
-                      //   EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                      //   child: CommonTextField(
-                      //     hint: "Махалля",
-                      //     textInputAction: TextInputAction.next,
-                      //     inputType: TextInputType.text,
-                      //   ),
-                      // ),
-                      // Padding(
-                      //   padding: const EdgeInsets.symmetric(
-                      //       horizontal: 16, vertical: 12),
-                      //   child: Row(
-                      //     mainAxisSize: MainAxisSize.max,
-                      //     children: [
-                      //       Flexible(
-                      //           flex: 1,
-                      //           child: Column(
-                      //             crossAxisAlignment: CrossAxisAlignment.start,
-                      //             children: [
-                      //               "Дом".w(500).s(12).c(Color(0xFF41455E)),
-                      //               SizedBox(height: 12),
-                      //               CommonTextField(
-                      //                 textInputAction: TextInputAction.next,
-                      //                 inputType: TextInputType.number,
-                      //               ),
-                      //             ],
-                      //           )),
-                      //       SizedBox(width: 16),
-                      //       Flexible(
-                      //           flex: 1,
-                      //           child: Column(
-                      //             crossAxisAlignment: CrossAxisAlignment.start,
-                      //             children: [
-                      //               "Квартира"
-                      //                   .w(500)
-                      //                   .s(12)
-                      //                   .c(Color(0xFF41455E)),
-                      //               SizedBox(height: 12),
-                      //               CommonTextField(
-                      //                 textInputAction: TextInputAction.done,
-                      //                 inputType: TextInputType.number,
-                      //               ),
-                      //             ],
-                      //           ))
-                      //     ],
-                      //   ),
-                      // )
+                      SizedBox(height: 24),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 12),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Flexible(
+                                flex: 1,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    "Дом".w(500).s(12).c(Color(0xFF41455E)),
+                                    SizedBox(height: 12),
+                                    CommonTextField(
+                                      textInputAction: TextInputAction.next,
+                                      inputType: TextInputType.number,
+                                    ),
+                                  ],
+                                )),
+                            SizedBox(width: 16),
+                            Flexible(
+                                flex: 1,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    "Квартира"
+                                        .w(500)
+                                        .s(12)
+                                        .c(Color(0xFF41455E)),
+                                    SizedBox(height: 12),
+                                    CommonTextField(
+                                      textInputAction: TextInputAction.done,
+                                      inputType: TextInputType.number,
+                                      onChanged: (value) {},
+                                    ),
+                                  ],
+                                ))
+                          ],
+                        ),
+                      ),
                     ],
                   )),
             ],

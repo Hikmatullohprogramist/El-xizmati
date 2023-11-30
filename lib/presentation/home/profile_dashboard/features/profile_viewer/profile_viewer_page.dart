@@ -45,7 +45,7 @@ class ProfileViewerPage extends BasePage<ProfileViewerCubit,
           centerTitle: true,
           elevation: 0.5,
           actions: [
-            if (state.identified)
+            if (state.isRegistration)
               CommonButton(
                   type: ButtonType.text,
                   onPressed: () => context.router.replace(ProfileEditRoute()),
@@ -95,7 +95,7 @@ class ProfileViewerPage extends BasePage<ProfileViewerCubit,
                                   children: [
                                     state.userName.w(600).s(20).c(Colors.black),
                                     SizedBox(width: 8),
-                                    if (state.identified)
+                                    if (state.isRegistration)
                                       Assets.images.profileViewer.icIdentified
                                           .svg()
                                     else
@@ -132,7 +132,7 @@ class ProfileViewerPage extends BasePage<ProfileViewerCubit,
                         SizedBox(height: 15),
                         AppDivider(indent: 16),
                         SizedBox(height: 16),
-                        if (!state.identified)
+                        if (!state.isRegistration)
                           Row(children: [
                             Flexible(
                                 child: Container(

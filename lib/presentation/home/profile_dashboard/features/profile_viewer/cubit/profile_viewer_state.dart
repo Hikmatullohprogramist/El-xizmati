@@ -3,7 +3,7 @@ part of 'profile_viewer_cubit.dart';
 @freezed
 class ProfileViewerBuildable with _$ProfileViewerBuildable {
   const factory ProfileViewerBuildable({
-    @Default(false) bool identified,
+    @Default(false) bool isRegistration,
     @Default(false) bool isLoading,
     @Default("*") String userName,
     @Default("*") String fullName,

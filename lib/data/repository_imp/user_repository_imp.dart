@@ -4,13 +4,15 @@ import 'package:onlinebozor/data/model/profile/biometric_info/biometric_info_res
 import 'package:onlinebozor/data/model/profile/user/user_info_response.dart';
 import 'package:onlinebozor/data/model/profile/user_full/user_full_info_response.dart';
 import 'package:onlinebozor/data/model/region%20/region_response.dart';
+import 'package:onlinebozor/data/storage/user_storage.dart';
 import 'package:onlinebozor/domain/repository/user_repository.dart';
 
 @LazySingleton(as: UserRepository)
 class UserRepositoryImp extends UserRepository {
   final UserApi _api;
+  final UserInfoStorage userInfoStorage;
 
-  UserRepositoryImp(this._api);
+  UserRepositoryImp(this._api, this.userInfoStorage);
 
   @override
   Future<UserFullInfoResponse> getFullUserInfo() async {
@@ -69,18 +71,19 @@ class UserRepositoryImp extends UserRepository {
       { required String email,
         required String gender,
         required String homeName,
-        required int id,
         required int mahallaId,
         required String mobilePhone,
         required String photo,
         required int pinfl,
         required String postName,
         required String phoneNumber,}) async {
+    final userInfo = userInfoStorage.userInformation.call();
+
     await _api.sendUserInformation(
         email: email,
         gender: gender,
         homeName: homeName,
-        id: id,
+        id: userInfo?.id ?? -1,
         mahallaId: mahallaId,
         mobilePhone: mobilePhone,
         photo: photo,

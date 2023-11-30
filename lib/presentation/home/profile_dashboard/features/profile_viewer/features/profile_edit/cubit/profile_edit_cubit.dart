@@ -42,6 +42,10 @@ class ProfileEditCubit
             regionId: response.region_id,
             streetId: response.mahalla_id,
             homeNumber: response.home_name.toString(),
+            pinfl: response.pinfl,
+            tin: response.tin,
+            gender: response.gender,
+            postName: response.post_name,
           ));
       await getUser();
     } on DioException catch (e) {
@@ -103,24 +107,20 @@ class ProfileEditCubit
 
   void setBiometricSerial(String serial) {
     build((buildable) => buildable.copyWith(biometricSerial: serial));
-    profileEdit();
   }
 
   void setBiometricNumber(String number) {
     build((buildable) =>
         buildable.copyWith(biometricNumber: number.replaceAll(" ", "")));
-    profileEdit();
   }
 
   void setBrithDate(String brithDate) {
     build((buildable) => buildable.copyWith(brithDate: brithDate));
-    profileEdit();
   }
 
   void setPhoneNumber(String phone) {
     build((buildable) => buildable.copyWith(
         phoneNumber: phone.replaceAll(" ", "").replaceAll("+", "")));
-    profileEdit();
   }
 
   void setRegion(RegionResponse region) {
@@ -148,13 +148,20 @@ class ProfileEditCubit
         buildable.copyWith(streetId: street.id, streetName: street.name));
   }
 
-  Future<void> profileEdit() async {
-    if (buildable.phoneNumber.length >= 12 &&
-        buildable.biometricSerial.length >= 2 &&
-        buildable.biometricNumber.length >= 7 &&
-        buildable.brithDate.length >= 10) {
-      try {} catch (e) {}
-      return;
+  Future<void> sendUserInfo() async {
+    try {
+      await _userRepository.sendUserInformation(
+          email: buildable.email,
+          gender: buildable.gender ?? "",
+          homeName: buildable.streetName,
+          mahallaId: buildable.streetId ?? -1,
+          mobilePhone: buildable.mobileNumber ?? "",
+          photo: buildable.photo ?? "",
+          pinfl: buildable.pinfl ?? -1,
+          postName: buildable.postName ?? "",
+          phoneNumber: buildable.phoneNumber);
+    } catch (e) {
+      display.error("Xatolik yuz berdi");
     }
   }
 }

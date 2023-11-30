@@ -21,6 +21,13 @@ class ProfileEditBuildable with _$ProfileEditBuildable {
       int? regionId,
       int? districtId,
       int? streetId,
+      String? gender,
+      int? id,
+      int? tin,
+      int? pinfl,
+      String? postName,
+      String? mobileNumber,
+      String? photo,
       @Default("") String apartmentNumber}) = _ProfileEditBuildable;
 }
 
@@ -30,4 +37,4 @@ class ProfileEditListenable with _$ProfileEditListenable {
       {String? message}) = _ProfileEditListenable;
 }
 
-enum ProfileEditEffect { success }
+enum ProfileEditEffect { success, backToProfileDashboard }

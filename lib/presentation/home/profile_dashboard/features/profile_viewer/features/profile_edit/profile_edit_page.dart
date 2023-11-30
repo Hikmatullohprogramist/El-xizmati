@@ -17,6 +17,16 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
   const ProfileEditPage({super.key});
 
   @override
+  void listener(BuildContext context, ProfileEditListenable state) {
+    switch (state.effect) {
+      case ProfileEditEffect.success:
+        () {};
+      case ProfileEditEffect.backToProfileDashboard:
+        () => context.router.pop();
+    }
+  }
+
+  @override
   Widget builder(BuildContext context, ProfileEditBuildable state) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -28,7 +38,9 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
         actions: [
           CommonButton(
               type: ButtonType.text,
-              onPressed: () {},
+              onPressed: () {
+                context.read<ProfileEditCubit>().sendUserInfo();
+              },
               child: "Сохранить".w(500).s(12).c(Color(0xFF5C6AC3)))
         ],
         leading: IconButton(
@@ -329,42 +341,43 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
                     )),
               ),
               SizedBox(height: 24),
-              // Padding(
-              //   padding:
-              //       const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              //   child: Row(
-              //     mainAxisSize: MainAxisSize.max,
-              //     children: [
-              //       Flexible(
-              //           flex: 1,
-              //           child: Column(
-              //             crossAxisAlignment: CrossAxisAlignment.start,
-              //             children: [
-              //               "Дом".w(500).s(12).c(Color(0xFF41455E)),
-              //               SizedBox(height: 12),
-              //               CommonTextField(
-              //                 textInputAction: TextInputAction.next,
-              //                 inputType: TextInputType.number,
-              //               ),
-              //             ],
-              //           )),
-              //       SizedBox(width: 16),
-              //       Flexible(
-              //           flex: 1,
-              //           child: Column(
-              //             crossAxisAlignment: CrossAxisAlignment.start,
-              //             children: [
-              //               "Квартира".w(500).s(12).c(Color(0xFF41455E)),
-              //               SizedBox(height: 12),
-              //               CommonTextField(
-              //                 textInputAction: TextInputAction.done,
-              //                 inputType: TextInputType.number,
-              //               ),
-              //             ],
-              //           ))
-              //     ],
-              //   ),
-              // ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Flexible(
+                        flex: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            "Дом".w(500).s(12).c(Color(0xFF41455E)),
+                            SizedBox(height: 12),
+                            CommonTextField(
+                              textInputAction: TextInputAction.next,
+                              inputType: TextInputType.number,
+                            ),
+                          ],
+                        )),
+                    SizedBox(width: 16),
+                    Flexible(
+                        flex: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            "Квартира".w(500).s(12).c(Color(0xFF41455E)),
+                            SizedBox(height: 12),
+                            CommonTextField(
+                              textInputAction: TextInputAction.done,
+                              inputType: TextInputType.number,
+                              onChanged: (value) {},
+                            ),
+                          ],
+                        ))
+                  ],
+                ),
+              ),
             ],
           )),
     );

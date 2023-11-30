@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_info_response.freezed.dart';
-
 part 'user_info_response.g.dart';
 
 @freezed
@@ -38,7 +37,7 @@ class UserInfo with _$UserInfo {
     String? pass_serial,
     String? pass_number,
     String? full_name,
-    DateTime? birth_date,
+    String? birth_date,
     int? region_id,
     int? district_id,
     String? gender,

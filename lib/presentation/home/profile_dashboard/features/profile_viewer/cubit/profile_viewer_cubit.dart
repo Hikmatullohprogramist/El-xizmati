@@ -40,7 +40,7 @@ class ProfileViewerCubit
           brithDate: response.birth_date ?? "*",
           districtName: (response.district_id ?? "*").toString(),
           // identified: response.is_registered ?? false,
-          identified: false,
+          isRegistration: true,
           regionId: response.region_id,
           districtId: response.district_id,
           gender: response.gender ?? "*",

@@ -1,8 +1,10 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/api/auth_api.dart';
+import 'package:onlinebozor/data/hive_object/user/user_info_object.dart';
 import 'package:onlinebozor/data/model/auth/one_id/one_id_response.dart';
 import 'package:onlinebozor/data/storage/language_storage.dart';
 import 'package:onlinebozor/data/storage/token_storage.dart';
+import 'package:onlinebozor/data/storage/user_storage.dart';
 import 'package:onlinebozor/domain/repository/favorite_repository.dart';
 
 import '../../domain/repository/auth_repository.dart';
@@ -15,11 +17,12 @@ class AuthRepositoryImpl extends AuthRepository {
   final AuthApi _api;
   final TokenStorage tokenStorage;
   final LanguageStorage languageStorage;
+  final UserInfoStorage userInfoStorage;
   String sessionToken = "";
   final FavoriteRepository favoriteRepository;
 
   AuthRepositoryImpl(this._api, this.tokenStorage, this.languageStorage,
-      this.favoriteRepository);
+      this.favoriteRepository, this.userInfoStorage);
 
   @override
   Future<AuthStartResponse> authStart(String phone) async {
@@ -39,6 +42,31 @@ class AuthRepositoryImpl extends AuthRepository {
     if (verificationResponse.token != null) {
       await tokenStorage.token.set(verificationResponse.token ?? "");
       await tokenStorage.isLogin.set(true);
+      final user = verificationResponse.user;
+      userInfoStorage.userInformation.set(UserInfoObject(
+          districtId: user?.districtId,
+          fullName: user?.fullName,
+          email: user?.email,
+          tin: user?.tin,
+          id: user?.id,
+          apartmentName: user?.apartmentName,
+          areaId: user?.areaId,
+          username: user?.username,
+          birthDate: user?.birthDate,
+          eimzoAllowToLogin: user?.eimzoAllowToLogin,
+          gender: user?.gender,
+          homeName: user?.homeName,
+          isPassword: user?.isPassword,
+          isRegistered: user?.isRegistered,
+          mobilePhone: user?.mobilePhone,
+          oblId: user?.oblId,
+          passportNumber: user?.passportNumber,
+          passportSerial: user?.passportSerial,
+          photo: user?.photo,
+          pinfl: user?.pinfl,
+          postName: user?.username,
+          registeredWithEimzo: user?.registeredWithEimzo,
+          state: user?.state));
       await favoriteRepository.pushAllFavoriteAds();
     }
     return;
@@ -52,7 +80,33 @@ class AuthRepositoryImpl extends AuthRepository {
     if (confirmResponse.token != null) {
       await tokenStorage.token.set(confirmResponse.token ?? "");
       await tokenStorage.isLogin.set(true);
+      final user = confirmResponse.user;
+      userInfoStorage.userInformation.set(UserInfoObject(
+          districtId: user?.districtId,
+          fullName: user?.fullName,
+          email: user?.email,
+          tin: user?.tin,
+          id: user?.id,
+          apartmentName: user?.apartmentName,
+          areaId: user?.areaId,
+          username: user?.username,
+          birthDate: user?.birthDate,
+          eimzoAllowToLogin: user?.eimzoAllowToLogin,
+          gender: user?.gender,
+          homeName: user?.homeName,
+          isPassword: user?.isPassword,
+          isRegistered: user?.isRegistered,
+          mobilePhone: user?.mobilePhone,
+          oblId: user?.oblId,
+          passportNumber: user?.passportNumber,
+          passportSerial: user?.passportSerial,
+          photo: user?.photo,
+          pinfl: user?.pinfl,
+          postName: user?.username,
+          registeredWithEimzo: user?.registeredWithEimzo,
+          state: user?.state));
       await favoriteRepository.pushAllFavoriteAds();
+      return;
     }
   }
 
@@ -80,7 +134,33 @@ class AuthRepositoryImpl extends AuthRepository {
     if (confirmResponse.token != null) {
       await tokenStorage.token.set(confirmResponse.token ?? "");
       await tokenStorage.isLogin.set(true);
+      final user = confirmResponse.user;
+      userInfoStorage.userInformation.set(UserInfoObject(
+          districtId: user?.districtId,
+          fullName: user?.fullName,
+          email: user?.email,
+          tin: user?.tin,
+          id: user?.id,
+          apartmentName: user?.apartmentName,
+          areaId: user?.areaId,
+          username: user?.username,
+          birthDate: user?.birthDate,
+          eimzoAllowToLogin: user?.eimzoAllowToLogin,
+          gender: user?.gender,
+          homeName: user?.homeName,
+          isPassword: user?.isPassword,
+          isRegistered: user?.isRegistered,
+          mobilePhone: user?.mobilePhone,
+          oblId: user?.oblId,
+          passportNumber: user?.passportNumber,
+          passportSerial: user?.passportSerial,
+          photo: user?.photo,
+          pinfl: user?.pinfl,
+          postName: user?.username,
+          registeredWithEimzo: user?.registeredWithEimzo,
+          state: user?.state));
       await favoriteRepository.pushAllFavoriteAds();
+      return;
     }
     return;
   }
@@ -97,8 +177,34 @@ class AuthRepositoryImpl extends AuthRepository {
       if (loginResponse.token != null) {
         await tokenStorage.token.set(loginResponse.token ?? "");
         await tokenStorage.isLogin.set(true);
+        final user = loginResponse.user;
+        userInfoStorage.userInformation.set(UserInfoObject(
+            districtId: user?.districtId,
+            fullName: user?.fullName,
+            email: user?.email,
+            tin: user?.tin,
+            id: user?.id,
+            apartmentName: user?.apartmentName,
+            areaId: user?.areaId,
+            username: user?.username,
+            birthDate: user?.birthDate,
+            eimzoAllowToLogin: user?.eimzoAllowToLogin,
+            gender: user?.gender,
+            homeName: user?.homeName,
+            isPassword: user?.isPassword,
+            isRegistered: user?.isRegistered,
+            mobilePhone: user?.mobilePhone,
+            oblId: user?.oblId,
+            passportNumber: user?.passportNumber,
+            passportSerial: user?.passportSerial,
+            photo: user?.photo,
+            pinfl: user?.pinfl,
+            postName: user?.username,
+            registeredWithEimzo: user?.registeredWithEimzo,
+            state: user?.state));
         await favoriteRepository.pushAllFavoriteAds();
       }
+      return;
     }
     return;
   }
@@ -107,6 +213,7 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<void> logOut() async {
     await tokenStorage.isLogin.clear();
     await tokenStorage.token.clear();
+    await userInfoStorage.userInformation.clear();
     await languageStorage.isLanguageSelection.clear();
     return;
   }

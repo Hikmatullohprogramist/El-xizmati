@@ -15,6 +15,10 @@ class RegistrationBuildable with _$RegistrationBuildable {
       @Default("") String streetName,
       @Default("") String homeNumber,
       @Default("") String apartmentNumber,
+      @Default(<RegionResponse>[]) List<RegionResponse> regions,
+      @Default(<RegionResponse>[]) List<RegionResponse> districts,
+      @Default(<RegionResponse>[]) List<RegionResponse> streets,
+      @Default(false) bool isLoading,
       String? gender,
       int? id,
       int? tin,
@@ -33,4 +37,4 @@ class RegistrationListenable with _$RegistrationListenable {
       {String? message}) = _RegistrationListenable;
 }
 
-enum RegistrationEffect { success }
+enum RegistrationEffect { success, backToProfileDashboard }

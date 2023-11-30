@@ -26,7 +26,6 @@ abstract class UserRepository {
     required String email,
     required String gender,
     required String homeName,
-    required int id,
     required int mahallaId,
     required String mobilePhone,
     required String photo,
