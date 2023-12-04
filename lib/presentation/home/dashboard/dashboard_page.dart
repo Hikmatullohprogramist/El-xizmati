@@ -59,6 +59,9 @@ class DashboardPage
                           context.router.push(PopularCategoriesRoute()),
                       title: Strings.popularCategories),
                   LoaderStateWidget(
+                      onErrorToAgainRequest: () {
+                        context.read<DashboardCubit>().getPopularCategories();
+                      },
                       isFullScreen: false,
                       loadingState: state.popularCategoriesState,
                       child: PopularCategoryGroupWidget(
@@ -78,6 +81,9 @@ class DashboardPage
                       title: Strings.hotDiscountsTitle),
                   LoaderStateWidget(
                       isFullScreen: false,
+                      onErrorToAgainRequest: (){
+                        context.read<DashboardCubit>().getRecentlyViewAds();
+                      },
                       loadingState: state.recentlyAdsState,
                       child: AdGroupWidget(
                         ads: state.recentlyViewerAds,
@@ -91,6 +97,9 @@ class DashboardPage
                         },
                       )),
                   LoaderStateWidget(
+                      onErrorToAgainRequest: (){
+                        context.read<DashboardCubit>().getBanners();
+                      },
                       isFullScreen: false,
                       loadingState: state.bannersState,
                       child: AppBannerWidget(list: state.banners)),
