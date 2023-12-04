@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/widgets/common_button.dart';
+import 'package:onlinebozor/common/widgets/common/common_button.dart';
 
-import '../gen/localization/strings.dart';
+import '../../gen/localization/strings.dart';
 
 class AppAllViewWidget extends StatelessWidget {
   final String title;

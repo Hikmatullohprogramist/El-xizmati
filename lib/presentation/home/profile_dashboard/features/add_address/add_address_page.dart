@@ -7,8 +7,8 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/data/model/address/user_address_response.dart';
 
 import '../../../../../common/gen/assets/assets.gen.dart';
-import '../../../../../common/widgets/common_button.dart';
-import '../../../../../common/widgets/common_text_field.dart';
+import '../../../../../common/widgets/common/common_button.dart';
+import '../../../../../common/widgets/common/common_text_field.dart';
 import 'cubit/add_address_cubit.dart';
 
 @RoutePage()

@@ -3,7 +3,7 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
-import 'package:onlinebozor/common/widgets/common_button.dart';
+import 'package:onlinebozor/common/widgets/common/common_button.dart';
 
 class FavoriteEmptyWidget extends StatelessWidget {
   const FavoriteEmptyWidget({super.key, required this.callBack});

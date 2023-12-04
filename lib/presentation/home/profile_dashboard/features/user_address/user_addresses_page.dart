@@ -13,7 +13,7 @@ import 'package:onlinebozor/presentation/home/profile_dashboard/features/user_ad
 
 import '../../../../../common/core/base_page.dart';
 import '../../../../../common/gen/assets/assets.gen.dart';
-import '../../../../../common/widgets/common_button.dart';
+import '../../../../../common/widgets/common/common_button.dart';
 
 @RoutePage()
 class UserAddressesPage extends BasePage<UserAddressesCubit,

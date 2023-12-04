@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
-import '../gen/assets/assets.gen.dart';
-import '../gen/localization/strings.dart';
-import '../router/app_router.dart';
+import '../../../presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
+import '../../gen/assets/assets.gen.dart';
+import '../../gen/localization/strings.dart';
+import '../../router/app_router.dart';
 import 'commodity_and_service.dart';
 
 class AppRootCommodityAndService extends StatelessWidget {

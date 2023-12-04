@@ -10,8 +10,8 @@ import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/presentation/auth/confirm/cubit/confirm_cubit.dart';
 
 import '../../../common/gen/localization/strings.dart';
-import '../../../common/widgets/common_button.dart';
-import '../../../common/widgets/common_text_field.dart';
+import '../../../common/widgets/common/common_button.dart';
+import '../../../common/widgets/common/common_text_field.dart';
 
 @RoutePage()
 class ConfirmPage

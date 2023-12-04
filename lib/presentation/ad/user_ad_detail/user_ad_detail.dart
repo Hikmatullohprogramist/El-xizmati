@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/common/widgets/app_diverder.dart';
-import 'package:onlinebozor/common/widgets/common_button.dart';
+import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
+import 'package:onlinebozor/common/widgets/common/common_button.dart';
 import 'package:onlinebozor/presentation/ad/user_ad_detail/cubit/user_ad_detail_cubit.dart';
 
 import '../../../common/constants.dart';
 import '../../../common/core/base_page.dart';
-import '../../../common/widgets/app_image_widget.dart';
+import '../../../common/widgets/dashboard/app_image_widget.dart';
 
 @RoutePage()
 class UserAdDetailPage extends BasePage<UserAdDetailCubit,

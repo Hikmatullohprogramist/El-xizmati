@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
-import '../constants.dart';
+import '../../constants.dart';
 
 class TransactionWidget extends StatelessWidget {
   const TransactionWidget({super.key});

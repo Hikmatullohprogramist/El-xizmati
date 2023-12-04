@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/widgets/common_text_field.dart';
+import 'package:onlinebozor/common/widgets/common/common_text_field.dart';
 import 'package:onlinebozor/presentation/home/profile_dashboard/features/profile_viewer/features/profile_edit/cubit/profile_edit_cubit.dart';
 
 import '../../../../../../../common/core/base_page.dart';
 import '../../../../../../../common/gen/assets/assets.gen.dart';
-import '../../../../../../../common/widgets/common_button.dart';
+import '../../../../../../../common/widgets/common/common_button.dart';
 import '../../../../../../util.dart';
 
 @RoutePage()

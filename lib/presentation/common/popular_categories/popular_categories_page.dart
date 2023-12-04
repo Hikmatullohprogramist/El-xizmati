@@ -11,7 +11,7 @@ import 'package:onlinebozor/presentation/common/popular_categories/cubit/popular
 import '../../../common/core/base_page.dart';
 import '../../../common/enum/enums.dart';
 import '../../../common/router/app_router.dart';
-import '../../../common/widgets/common_button.dart';
+import '../../../common/widgets/common/common_button.dart';
 
 @RoutePage()
 class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,

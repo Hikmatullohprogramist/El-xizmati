@@ -7,14 +7,14 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_group_widget.dart';
-import 'package:onlinebozor/common/widgets/all_view_widget.dart';
+import 'package:onlinebozor/common/widgets/dashboard/all_view_widget.dart';
 import 'package:onlinebozor/common/widgets/app_bar/common_active_search_bar.dart';
-import 'package:onlinebozor/common/widgets/app_diverder.dart';
+import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
 import 'package:onlinebozor/domain/model/ad.dart';
 
 import '../../../common/core/base_page.dart';
 import '../../../common/widgets/ad/ad_widget.dart';
-import '../../../common/widgets/common_button.dart';
+import '../../../common/widgets/common/common_button.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../common/enum/enums.dart';
 import 'cubit/ad_collection_cubit.dart';

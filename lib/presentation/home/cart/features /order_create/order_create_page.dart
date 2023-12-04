@@ -6,15 +6,15 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/currency_extensions.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/common/widgets/common_button.dart';
+import 'package:onlinebozor/common/widgets/common/common_button.dart';
 import 'package:onlinebozor/presentation/home/cart/features%20/order_create/cubit/order_create_cubit.dart';
 
 import '../../../../../common/constants.dart';
 import '../../../../../common/core/base_page.dart';
 import '../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../common/gen/localization/strings.dart';
-import '../../../../../common/widgets/app_diverder.dart';
-import '../../../../../common/widgets/app_image_widget.dart';
+import '../../../../../common/widgets/dashboard/app_diverder.dart';
+import '../../../../../common/widgets/dashboard/app_image_widget.dart';
 
 @RoutePage()
 class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,

@@ -10,7 +10,7 @@ import 'package:onlinebozor/presentation/home/profile_dashboard/features/change_
 import '../../../../../common/core/base_page.dart';
 import '../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../common/gen/localization/strings.dart';
-import '../../../../../common/widgets/common_button.dart';
+import '../../../../../common/widgets/common/common_button.dart';
 
 @RoutePage()
 class ChangeLanguagePage extends BasePage<ChangeLanguageCubit,

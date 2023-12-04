@@ -113,5 +113,5 @@ card.add.title,Karta qo'shish,Добавить карту
 address.empty.title,"Siz hali manzil qo'shmagansiz, qo'shmoqchimisiz?","Вы ещё не добавили адрес, хотите добавить?"
 address.add.title,Manzil qo'shish,Добавить адрес
 favorite.empty.title,O'zingiz yoqtirgan narsani qo'shing,"Добавьте то, что понравилось"
-favorite.empty.description,Asosiy sahifaga o'ting va ustiga bosing,Перейдите на главную страницу и нажмите
-favorite.empty.to.main,Asosiyga,На главную
+favorite.empty.description,Asosiy sahifaga o'tish,Перейдите на главную страницу и нажмите
+favorite.empty.to.main,Asosiy  oynaga,На главную

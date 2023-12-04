@@ -7,9 +7,9 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/presentation/home/profile_dashboard/features/profile_viewer/features/registration/cubit/registration_cubit.dart';
 
 import '../../../../../../../common/gen/assets/assets.gen.dart';
-import '../../../../../../../common/widgets/app_diverder.dart';
-import '../../../../../../../common/widgets/common_button.dart';
-import '../../../../../../../common/widgets/common_text_field.dart';
+import '../../../../../../../common/widgets/dashboard/app_diverder.dart';
+import '../../../../../../../common/widgets/common/common_button.dart';
+import '../../../../../../../common/widgets/common/common_text_field.dart';
 import '../../../../../../util.dart';
 
 @RoutePage()

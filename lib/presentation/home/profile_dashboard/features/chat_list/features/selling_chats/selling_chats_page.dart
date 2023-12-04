@@ -4,7 +4,7 @@ import 'package:onlinebozor/presentation/home/profile_dashboard/features/chat_li
 
 import '../../../../../../../common/core/base_page.dart';
 import '../../../../../../../common/router/app_router.dart';
-import '../../../../../../../common/widgets/app_diverder.dart';
+import '../../../../../../../common/widgets/dashboard/app_diverder.dart';
 import '../../../../../../../common/widgets/chat/chat_item.dart';
 
 @RoutePage()

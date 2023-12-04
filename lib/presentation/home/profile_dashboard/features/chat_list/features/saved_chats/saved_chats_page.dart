@@ -4,7 +4,7 @@ import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/presentation/home/profile_dashboard/features/chat_list/features/saved_chats/cubit/saved_chats_cubit.dart';
 
 import '../../../../../../../common/core/base_page.dart';
-import '../../../../../../../common/widgets/app_diverder.dart';
+import '../../../../../../../common/widgets/dashboard/app_diverder.dart';
 import '../../../../../../../common/widgets/chat/chat_item.dart';
 
 @RoutePage()

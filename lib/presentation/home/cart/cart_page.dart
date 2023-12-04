@@ -10,7 +10,7 @@ import 'package:onlinebozor/domain/model/ad.dart';
 import '../../../common/gen/localization/strings.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/widgets/cart/cart_widget.dart';
-import '../../../common/widgets/common_button.dart';
+import '../../../common/widgets/common/common_button.dart';
 import '../../../common/widgets/favorite/favorite_empty_widget.dart';
 import 'cubit/cart_cubit.dart';
 

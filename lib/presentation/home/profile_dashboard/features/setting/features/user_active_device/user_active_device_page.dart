@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/widgets/active_device_widgets.dart';
-import 'package:onlinebozor/common/widgets/app_diverder.dart';
-import 'package:onlinebozor/common/widgets/common_button.dart';
+import 'package:onlinebozor/common/widgets/device/active_device_widgets.dart';
+import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
+import 'package:onlinebozor/common/widgets/common/common_button.dart';
 import 'package:onlinebozor/presentation/home/profile_dashboard/features/setting/features/user_active_device/cubit/user_active_device_cubit.dart';
 
 import '../../../../../../../common/gen/assets/assets.gen.dart';

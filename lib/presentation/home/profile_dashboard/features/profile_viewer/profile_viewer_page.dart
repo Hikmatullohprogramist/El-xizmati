@@ -8,8 +8,8 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 
 import '../../../../../common/gen/assets/assets.gen.dart';
-import '../../../../../common/widgets/app_diverder.dart';
-import '../../../../../common/widgets/common_button.dart';
+import '../../../../../common/widgets/dashboard/app_diverder.dart';
+import '../../../../../common/widgets/common/common_button.dart';
 import 'cubit/profile_viewer_cubit.dart';
 
 @RoutePage()

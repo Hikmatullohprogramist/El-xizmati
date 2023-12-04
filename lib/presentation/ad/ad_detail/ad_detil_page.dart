@@ -15,9 +15,9 @@ import '../../../common/core/base_page.dart';
 import '../../../common/gen/assets/assets.gen.dart';
 import '../../../common/widgets/ad/ad_property_widget.dart';
 import '../../../common/widgets/ad/ad_route_widget.dart';
-import '../../../common/widgets/app_diverder.dart';
-import '../../../common/widgets/app_image_widget.dart';
-import '../../../common/widgets/common_button.dart';
+import '../../../common/widgets/dashboard/app_diverder.dart';
+import '../../../common/widgets/dashboard/app_image_widget.dart';
+import '../../../common/widgets/common/common_button.dart';
 
 @RoutePage()
 class AdDetailPage

@@ -10,7 +10,7 @@ import 'package:onlinebozor/presentation/home/favorites/favorites/service/cubit/
 import '../../../../../common/core/base_page.dart';
 import '../../../../../common/gen/localization/strings.dart';
 import '../../../../../common/widgets/ad/ad_widget.dart';
-import '../../../../../common/widgets/common_button.dart';
+import '../../../../../common/widgets/common/common_button.dart';
 import '../../../../../common/widgets/favorite/favorite_empty_widget.dart';
 import '../../../../../domain/model/ad.dart';
 
