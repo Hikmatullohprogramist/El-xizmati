@@ -115,3 +115,24 @@ address.add.title,Manzil qo'shish,Добавить адрес
 favorite.empty.title,O'zingiz yoqtirgan narsani qo'shing,"Добавьте то, что понравилось"
 favorite.empty.description,Asosiy sahifaga o'tish,Перейдите на главную страницу и нажмите
 favorite.empty.to.main,Asosiy  oynaga,На главную
+profile.logout.description,Tizimdan chiqishni hohlaysizmi?,Вы хотите выйти из системы?
+common.yes,Ha,Да
+common.no,Yo'q,No
+common.unfind,topilmadi,не найдено
+profile.edit.unfull.information,Ma'lumotlarni to'liq kiriting,Введите данные полностью
+profile.edit.title,Tahrirlash ,Изменить
+common.save.title,Saqlash ,Сохранить
+profile.edit.change.personal.data,Shaxsiy ma'lumotlarni o'zgartiring,Изменить личные данные
+profile.edit.biometric.information,Biometric ma'lumotlar,Паспортные данные
+profile.edit.biometric.serial,Biometric raqami,Номер паспорта
+profile.edit.brith.date,Tug'ilgan yil (2004-11-28),Дата рождения (2004-11-28)
+profile.edit.phone,Telefon raqami (+998 __ ___ __ __),Номер телефона (+998 __ ___ __ __)
+profile.edit.full.biometric,"Pasport raqami va seriyasini, tug'ilgan sanasini ko'rsating","Укажите номер и серия паспорта, дата рождения"
+profile.edit.user.name,Name,Имя
+profile.edit.user.username,foydalanuvchi nomi,имя пользователя
+profile.edit.user.email,elektron pochta,электронная почта
+profile.edit.region,Viloyat,Регион
+profile.edit.district,Tuman ,Район
+profile.edit.neighborhood,Mahalla,Махалля
+profile.edit.apartment,Kvartira,Квартира
+profile.edit.house,Uy,Дом

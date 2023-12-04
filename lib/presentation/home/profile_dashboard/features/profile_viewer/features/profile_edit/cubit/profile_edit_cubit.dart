@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/data/model/region%20/region_response.dart';
 
 import '../../../../../../../../common/core/base_cubit.dart';
@@ -162,7 +163,7 @@ class ProfileEditCubit
           phoneNumber: buildable.phoneNumber);
       display.success("Muvaffaqiyatli saqlandi");
     } catch (e) {
-      display.error("Xatolik yuz berdi");
+      display.error(Strings.loadingStateError);
     }
   }
 }

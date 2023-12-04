@@ -156,16 +156,16 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
                       context: context,
                       builder: (BuildContext dialogContext) {
                         return AlertDialog(
-                          content: Text('Tizimdan chiqishni hohlaysizmi.'),
+                          content: Text(Strings.profileLogoutDescription),
                           actions: [
                             TextButton(
-                              child: Text('Yo\'q'),
+                              child: Text(Strings.commonNo),
                               onPressed: () {
                                 Navigator.of(dialogContext).pop();
                               },
                             ),
                             TextButton(
-                              child: Text('Ha'),
+                              child: Text(Strings.commonYes),
                               onPressed: () {
                                 context.read<ProfileDashboardCubit>().logOut();
                                 Navigator.of(dialogContext).pop();

@@ -4,12 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/home/profile_dashboard/features/profile_viewer/features/registration/cubit/registration_cubit.dart';
 
 import '../../../../../../../common/gen/assets/assets.gen.dart';
-import '../../../../../../../common/widgets/dashboard/app_diverder.dart';
 import '../../../../../../../common/widgets/common/common_button.dart';
 import '../../../../../../../common/widgets/common/common_text_field.dart';
+import '../../../../../../../common/widgets/dashboard/app_diverder.dart';
 import '../../../../../../util.dart';
 
 @RoutePage()
@@ -33,7 +34,8 @@ class RegistrationPage extends BasePage<RegistrationCubit,
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: 'Изменить'.w(500).s(14).c(context.colors.textPrimary),
+        title:
+            Strings.profileEditTitle.w(500).s(14).c(context.colors.textPrimary),
         centerTitle: true,
         elevation: 0.5,
         actions: [
@@ -43,7 +45,7 @@ class RegistrationPage extends BasePage<RegistrationCubit,
               onPressed: () {
                 context.read<RegistrationCubit>().sendUserInfo();
               },
-              child: "Сохранить".w(500).s(12).c(Color(0xFF5C6AC3)))
+              child: Strings.commonSaveTitle.w(500).s(12).c(Color(0xFF5C6AC3)))
         ],
         leading: IconButton(
           icon: Assets.images.icArrowLeft.svg(),
@@ -58,13 +60,18 @@ class RegistrationPage extends BasePage<RegistrationCubit,
               Padding(
                 padding: const EdgeInsets.only(
                     left: 16, top: 20, right: 16, bottom: 12),
-                child:
-                "Изменить личные данные".w(700).s(16).c(Color(0xFF41455E)),
+                child: Strings.profileEditChangePersonalData
+                    .w(700)
+                    .s(16)
+                    .c(Color(0xFF41455E)),
               ),
               Padding(
                   padding:
-                  EdgeInsets.only(left: 16, top: 12, right: 16, bottom: 6),
-                  child: "Паспортные данные".w(500).s(12).c(Color(0xFF41455E))),
+                      EdgeInsets.only(left: 16, top: 12, right: 16, bottom: 6),
+                  child: Strings.profileEditBiometricInformation
+                      .w(500)
+                      .s(12)
+                      .c(Color(0xFF41455E))),
               Padding(
                 padding: const EdgeInsets.only(
                     right: 16, left: 16, bottom: 12, top: 6),
@@ -94,14 +101,14 @@ class RegistrationPage extends BasePage<RegistrationCubit,
                       inputFormatters: biometricNumberMaskFormatter,
                       textInputAction: TextInputAction.next,
                       inputType: TextInputType.number,
-                      hint: "Номер паспорта",
+                      hint: Strings.profileEditBiometricInformation,
                     ),
                   ),
                 ]),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: "Дата рождения (2004-11-28)"
+                child: Strings.profileEditBrithDate
                     .w(500)
                     .s(12)
                     .c(Color(0xFF41455E)),
@@ -121,10 +128,8 @@ class RegistrationPage extends BasePage<RegistrationCubit,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: "Номер телефона (+998 __ ___ __ __)"
-                    .w(500)
-                    .s(12)
-                    .c(Color(0xFF41455E)),
+                child:
+                    Strings.profileEditPhone.w(500).s(12).c(Color(0xFF41455E)),
               ),
               Padding(
                 padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
@@ -140,7 +145,7 @@ class RegistrationPage extends BasePage<RegistrationCubit,
               Padding(
                 padding:
                     EdgeInsets.only(left: 16, right: 16, top: 12, bottom: 24),
-                child: "Укажите номер и серия паспорта, дата рождения"
+                child: Strings.profileEditFullBiometric
                     .w(400)
                     .s(12)
                     .c(Color(0xFF9EABBE)),
@@ -158,7 +163,7 @@ class RegistrationPage extends BasePage<RegistrationCubit,
                               .read<RegistrationCubit>()
                               .getUserInformation();
                         },
-                        child: "Davom etish".w(500),
+                        child: Strings.commonContinueTitle.w(500),
                       ))),
               Visibility(
                   visible: state.isRegistration,
@@ -168,7 +173,10 @@ class RegistrationPage extends BasePage<RegistrationCubit,
                       Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                        child: "Имя".w(500).s(12).c(Color(0xFF41455E)),
+                        child: Strings.profileEditUserName
+                            .w(500)
+                            .s(12)
+                            .c(Color(0xFF41455E)),
                       ),
                       Padding(
                         padding:
@@ -178,19 +186,22 @@ class RegistrationPage extends BasePage<RegistrationCubit,
                             enabled: false,
                             controller:
                                 TextEditingController(text: state.fullName),
-                            hint: "Имя",
+                            hint: Strings.profileEditUserName,
                             textInputAction: TextInputAction.next),
                       ),
                       Padding(
                         padding:
-                        EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                        child: "User name".w(500).s(12).c(Color(0xFF41455E)),
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        child: Strings.profileEditUserUsername
+                            .w(500)
+                            .s(12)
+                            .c(Color(0xFF41455E)),
                       ),
                       Padding(
                         padding:
                         EdgeInsets.only(right: 16, left: 16, bottom: 12),
                         child: CommonTextField(
-                            hint: "User name",
+                            hint: Strings.profileEditUserUsername,
                             readOnly: true,
                             enabled: false,
                             controller:
@@ -200,8 +211,11 @@ class RegistrationPage extends BasePage<RegistrationCubit,
                       ),
                       Padding(
                         padding:
-                        EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                        child: "Эл. почта".w(500).s(12).c(Color(0xFF41455E)),
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        child: Strings.profileEditUserEmail
+                            .w(500)
+                            .s(12)
+                            .c(Color(0xFF41455E)),
                       ),
                       Padding(
                         padding:
@@ -217,7 +231,10 @@ class RegistrationPage extends BasePage<RegistrationCubit,
                       Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                        child: "Регион".w(500).s(12).c(Color(0xFF41455E)),
+                        child: Strings.profileEditRegion
+                            .w(500)
+                            .s(12)
+                            .c(Color(0xFF41455E)),
                       ),
                       Padding(
                           padding:
@@ -265,7 +282,7 @@ class RegistrationPage extends BasePage<RegistrationCubit,
                                   });
                             },
                             child: CommonTextField(
-                              hint: "Регион",
+                              hint: Strings.profileEditDistrict,
                               readOnly: true,
                               enabled: false,
                               controller:
@@ -277,7 +294,10 @@ class RegistrationPage extends BasePage<RegistrationCubit,
                       Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                        child: "Район".w(500).s(12).c(Color(0xFF41455E)),
+                        child: Strings.profileEditDistrict
+                            .w(500)
+                            .s(12)
+                            .c(Color(0xFF41455E)),
                       ),
                       Padding(
                           padding:
@@ -325,7 +345,7 @@ class RegistrationPage extends BasePage<RegistrationCubit,
                                   });
                             },
                             child: CommonTextField(
-                                hint: "Район",
+                                hint: Strings.profileEditDistrict,
                                 readOnly: true,
                                 enabled: false,
                                 controller: TextEditingController(
@@ -336,7 +356,10 @@ class RegistrationPage extends BasePage<RegistrationCubit,
                       Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                        child: "Махалля".w(500).s(12).c(Color(0xFF41455E)),
+                        child: Strings.profileEditNeighborhood
+                            .w(500)
+                            .s(12)
+                            .c(Color(0xFF41455E)),
                       ),
                       Padding(
                         padding:
@@ -384,7 +407,7 @@ class RegistrationPage extends BasePage<RegistrationCubit,
                                   });
                             },
                             child: CommonTextField(
-                              hint: "Махалля",
+                              hint: Strings.profileEditNeighborhood,
                               readOnly: true,
                               controller:
                                   TextEditingController(text: state.streetName),
@@ -405,7 +428,10 @@ class RegistrationPage extends BasePage<RegistrationCubit,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    "Дом".w(500).s(12).c(Color(0xFF41455E)),
+                                    Strings.profileEditHouse
+                                        .w(500)
+                                        .s(12)
+                                        .c(Color(0xFF41455E)),
                                     SizedBox(height: 12),
                                     CommonTextField(
                                       textInputAction: TextInputAction.next,
@@ -419,7 +445,7 @@ class RegistrationPage extends BasePage<RegistrationCubit,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    "Квартира"
+                                    Strings.profileEditApartment
                                         .w(500)
                                         .s(12)
                                         .c(Color(0xFF41455E)),

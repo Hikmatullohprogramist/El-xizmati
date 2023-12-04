@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/common/common_text_field.dart';
 import 'package:onlinebozor/presentation/home/profile_dashboard/features/profile_viewer/features/profile_edit/cubit/profile_edit_cubit.dart';
 
@@ -32,7 +33,8 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: 'Изменить'.w(500).s(14).c(context.colors.textPrimary),
+        title:
+            Strings.profileEditTitle.w(500).s(14).c(context.colors.textPrimary),
         centerTitle: true,
         elevation: 0.5,
         actions: [
@@ -41,7 +43,7 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
               onPressed: () {
                 context.read<ProfileEditCubit>().sendUserInfo();
               },
-              child: "Сохранить".w(500).s(12).c(Color(0xFF5C6AC3)))
+              child: Strings.commonSaveTitle.w(500).s(12).c(Color(0xFF5C6AC3)))
         ],
         leading: IconButton(
           icon: Assets.images.icArrowLeft.svg(),
@@ -56,25 +58,29 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
               Padding(
                 padding: const EdgeInsets.only(
                     left: 16, top: 20, right: 16, bottom: 12),
-                child:
-                    "Изменить личные данные".w(700).s(16).c(Color(0xFF41455E)),
+                child: Strings.profileEditChangePersonalData
+                    .w(700)
+                    .s(16)
+                    .c(Color(0xFF41455E)),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: "Имя".w(500).s(12).c(Color(0xFF41455E)),
+                child:
+                    Strings.profileUserName.w(500).s(12).c(Color(0xFF41455E)),
               ),
               Padding(
                 padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
                 child: CommonTextField(
                     controller: TextEditingController(text: state.fullName),
-                    hint: "Имя",
+                    hint: Strings.profileUserName,
                     enabled: false,
                     readOnly: true,
                     textInputAction: TextInputAction.next),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: "Эл. почта".w(500).s(12).c(Color(0xFF41455E)),
+                child:
+                    Strings.profileUserEmail.w(500).s(12).c(Color(0xFF41455E)),
               ),
               Padding(
                 padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
@@ -87,7 +93,8 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: "Номер телефона".w(500).s(12).c(Color(0xFF41455E)),
+                child:
+                    Strings.profileEditPhone.w(500).s(12).c(Color(0xFF41455E)),
               ),
               Padding(
                 padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
@@ -102,19 +109,25 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: "User name".w(500).s(12).c(Color(0xFF41455E)),
+                child: Strings.profileEditUserUsername
+                    .w(500)
+                    .s(12)
+                    .c(Color(0xFF41455E)),
               ),
               Padding(
                 padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
                 child: CommonTextField(
-                    hint: "User name",
+                    hint: Strings.profileEditUserUsername,
                     controller: TextEditingController(text: state.userName),
                     textInputAction: TextInputAction.next,
                     inputType: TextInputType.text),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: "Дата рождения".w(500).s(12).c(Color(0xFF41455E)),
+                child: Strings.profileEditBrithDate
+                    .w(500)
+                    .s(12)
+                    .c(Color(0xFF41455E)),
               ),
               Padding(
                 padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
@@ -135,7 +148,10 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
               Padding(
                   padding:
                       EdgeInsets.only(left: 16, top: 12, right: 16, bottom: 6),
-                  child: "Паспортные данные".w(500).s(12).c(Color(0xFF41455E))),
+                  child: Strings.profileEditBiometricInformation
+                      .w(500)
+                      .s(12)
+                      .c(Color(0xFF41455E))),
               Padding(
                 padding: const EdgeInsets.only(
                     right: 16, left: 16, bottom: 12, top: 6),
@@ -172,14 +188,15 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
                       inputFormatters: biometricNumberMaskFormatter,
                       textInputAction: TextInputAction.next,
                       inputType: TextInputType.number,
-                      hint: "Номер паспорта",
+                      hint: Strings.profileEditBiometricSerial,
                     ),
                   ),
                 ]),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: "Регион".w(500).s(12).c(Color(0xFF41455E)),
+                child:
+                    Strings.profileEditRegion.w(500).s(12).c(Color(0xFF41455E)),
               ),
               Padding(
                   padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
@@ -223,7 +240,7 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
                           });
                     },
                     child: CommonTextField(
-                      hint: "Регион",
+                      hint: Strings.profileEditRegion,
                       readOnly: true,
                       enabled: false,
                       controller: TextEditingController(text: state.regionName),
@@ -233,7 +250,10 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
                   )),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: "Район".w(500).s(12).c(Color(0xFF41455E)),
+                child: Strings.profileEditDistrict
+                    .w(500)
+                    .s(12)
+                    .c(Color(0xFF41455E)),
               ),
               Padding(
                   padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
@@ -278,7 +298,7 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
                           });
                     },
                     child: CommonTextField(
-                        hint: "Район",
+                        hint: Strings.profileEditDistrict,
                         readOnly: true,
                         enabled: false,
                         controller:
@@ -288,7 +308,10 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
                   )),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: "Махалля".w(500).s(12).c(Color(0xFF41455E)),
+                child: Strings.profileEditNeighborhood
+                    .w(500)
+                    .s(12)
+                    .c(Color(0xFF41455E)),
               ),
               Padding(
                 padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
@@ -332,7 +355,7 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
                           });
                     },
                     child: CommonTextField(
-                      hint: "Махалля",
+                      hint: Strings.profileEditNeighborhood,
                       readOnly: true,
                       controller: TextEditingController(text: state.streetName),
                       enabled: false,
@@ -352,7 +375,10 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            "Дом".w(500).s(12).c(Color(0xFF41455E)),
+                            Strings.profileEditHouse
+                                .w(500)
+                                .s(12)
+                                .c(Color(0xFF41455E)),
                             SizedBox(height: 12),
                             CommonTextField(
                               textInputAction: TextInputAction.next,
@@ -366,7 +392,10 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            "Квартира".w(500).s(12).c(Color(0xFF41455E)),
+                            Strings.profileEditApartment
+                                .w(500)
+                                .s(12)
+                                .c(Color(0xFF41455E)),
                             SizedBox(height: 12),
                             CommonTextField(
                               textInputAction: TextInputAction.done,

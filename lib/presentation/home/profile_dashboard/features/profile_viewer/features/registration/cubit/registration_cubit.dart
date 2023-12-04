@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/repository/user_repository.dart';
 
 import '../../../../../../../../common/core/base_cubit_new.dart';
@@ -42,7 +43,7 @@ class RegistrationCubit
         buildable.brithDate.length >= 10) {
       getUserInformation();
     } else {
-      display.error("ma'lumotlarni to'liq kiriting");
+      display.error(Strings.profileEditUnfullInformation);
     }
   }
 
@@ -100,7 +101,7 @@ class RegistrationCubit
             regionId: response.userInfo.region_id,
           ));
     } catch (e) {
-      display.error("Xatolik yuz berdi qayta urinib ko'ring");
+      display.error(Strings.loadingStateError);
     }
   }
 
@@ -118,7 +119,7 @@ class RegistrationCubit
           phoneNumber: buildable.phoneNumber);
       display.success("Muvaffaqiyatli saqlandi");
     } catch (e) {
-      display.error("Xatolik yuz berdi");
+      display.error(Strings.loadingStateError);
     }
   }
 

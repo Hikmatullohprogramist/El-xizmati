@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/repository/auth_repository.dart';
 
 import '../../../../common/core/base_cubit.dart';
@@ -21,7 +22,7 @@ class ProfileDashboardCubit
       log.w("logOut call");
       await authRepository.logOut();
     }on DioException  catch (e) {
-      display.error("xatolik yuz berdi qayta urinib ko'ring ", "Xatolik");
+      display.error(Strings.loadingStateError);
     }
   }
 }
