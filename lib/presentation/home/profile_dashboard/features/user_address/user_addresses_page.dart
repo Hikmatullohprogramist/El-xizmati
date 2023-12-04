@@ -1,9 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
+import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/address/address_empty_widget.dart';
 import 'package:onlinebozor/common/widgets/address/address_widget.dart';
-import 'package:onlinebozor/common/widgets/app_diverder.dart';
+import 'package:onlinebozor/data/model/address/user_address_response.dart';
 import 'package:onlinebozor/presentation/home/profile_dashboard/features/user_address/cubit/user_addresses_cubit.dart';
 
 import '../../../../../common/core/base_page.dart';
@@ -16,74 +21,18 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
   const UserAddressesPage({super.key});
 
   @override
-  Widget builder(BuildContext context, UserAddressesBuildable state) {
-    Widget stateWidget() {
-      if (10 / 5 == 2) {
-        return Center(
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Assets.images.pngImages.userAddresses.image(),
-            SizedBox(height: 36),
-            "Вы ещё не добавили адрес,\n хотите добавить?"
-                .w(600)
-                .s(16)
-                .c(Color(0xFF41455E))
-                .copyWith(textAlign: TextAlign.center),
-            SizedBox(height: 36),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    backgroundColor: context.colors.buttonPrimary),
-                onPressed: () {
-                  // context.router.push(AddAddressRoute());
-                },
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.add),
-                    SizedBox(width: 10),
-                    "Добавить карту".w(600).s(14).c(Colors.white)
-                  ],
-                ))
-          ]),
-        );
-      } else {
-        return ListView.separated(
-          physics: BouncingScrollPhysics(),
-          itemBuilder: (BuildContext context, int index) {
-            return AppAddressWidgets(
-              callback: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text('Alert'),
-                      content: Text('This is an alert dialog.'),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            // Perform action
-                            Navigator.of(context).pop();
-                          },
-                          child: Text('OK'),
-                        ),
-                      ],
-                    );
-                  },
-                );
-              },
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return AppDivider();
-          },
-          itemCount: 10,
-        );
-      }
+  void listener(BuildContext context, UserAddressesListenable state) {
+    switch (state.effect) {
+      case UserAddressesEffect.success:
+        () {};
+      case UserAddressesEffect.editUserAddress:
+        context.router.replace(AddAddressRoute(address: null));
     }
+  }
 
-    void _edit() {
+  @override
+  Widget builder(BuildContext context, UserAddressesBuildable state) {
+    void _edit(UserAddressResponse address) {
       showModalBottomSheet(
           isScrollControlled: true,
           shape: RoundedRectangleBorder(
@@ -113,14 +62,21 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
                                   .s(16)
                                   .c(Color(0xFF41455E)))),
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(buildContext).pop();
+                          },
                           icon:
-                          Assets.images.icClose.svg(width: 24, height: 24))
+                              Assets.images.icClose.svg(width: 24, height: 24))
                     ],
                   ),
                   SizedBox(width: 32),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      context
+                          .read<UserAddressesCubit>()
+                          .editUserAddress(address);
+                      Navigator.of(buildContext).pop();
+                    },
                     child: Container(
                         padding: EdgeInsets.symmetric(vertical: 16),
                         child: Row(
@@ -133,7 +89,12 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
                         )),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      context
+                          .read<UserAddressesCubit>()
+                          .updateMainAddress(address);
+                      Navigator.of(buildContext).pop();
+                    },
                     child: Container(
                         padding: EdgeInsets.symmetric(vertical: 16),
                         child: Row(
@@ -149,7 +110,12 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
                         )),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      context
+                          .read<UserAddressesCubit>()
+                          .deleteUserAddress(address);
+                      Navigator.of(buildContext).pop();
+                    },
                     child: Container(
                         padding: EdgeInsets.symmetric(vertical: 16),
                         child: Row(
@@ -166,7 +132,9 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
                     height: 42,
                     width: double.infinity,
                     child: CommonButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(buildContext).pop();
+                      },
                       child: "Закрыть".w(600).s(14).c(Colors.white),
                     ),
                   )
@@ -176,24 +144,106 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
           });
     }
 
+    double width;
+    double height;
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          CommonButton(
+              type: ButtonType.text,
+              onPressed: () =>
+                  context.router.push(AddAddressRoute(address: null)),
+              child: "Добавить".w(500).s(12).c(Color(0xFF5C6AC3)))
+        ],
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          // actions: [
-          //   CommonButton(
-          //       type: ButtonType.text,
-          //       onPressed: () => context.router.push(AddAddressRoute()),
-          //       child: "Добавить".w(500).s(12).c(Color(0xFF5C6AC3)))
-          // ],
-          backgroundColor: Colors.white,
-          title: 'Мои адреса'.w(500).s(14).c(context.colors.textPrimary),
-          centerTitle: true,
-          elevation: 0.5,
-          leading: IconButton(
-            icon: Assets.images.icArrowLeft.svg(),
-            onPressed: () => context.router.pop(),
+        title: 'Мои адреса'.w(500).s(14).c(context.colors.textPrimary),
+        centerTitle: true,
+        elevation: 0.5,
+        leading: IconButton(
+          icon: Assets.images.icArrowLeft.svg(),
+          onPressed: () => context.router.pop(),
+        ),
+      ),
+      backgroundColor: Colors.white,
+      body: PagedGridView<int, UserAddressResponse>(
+        shrinkWrap: true,
+        addAutomaticKeepAlives: true,
+        physics: BouncingScrollPhysics(),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        pagingController: state.adsPagingController!,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          childAspectRatio: width / height,
+          crossAxisSpacing: 16,
+          mainAxisExtent: 156,
+          crossAxisCount: 1,
+        ),
+        builderDelegate: PagedChildBuilderDelegate<UserAddressResponse>(
+          firstPageErrorIndicatorBuilder: (_) {
+            return SizedBox(
+              height: 100,
+              child: Center(
+                child: Column(
+                  children: [
+                    Strings.loadingStateError
+                        .w(400)
+                        .s(14)
+                        .c(context.colors.textPrimary),
+                    SizedBox(height: 12),
+                    CommonButton(
+                        onPressed: () {},
+                        type: ButtonType.elevated,
+                        child: Strings.loadingStateRetrybutton.w(400).s(15))
+                  ],
+                ),
+              ),
+            );
+          },
+          firstPageProgressIndicatorBuilder: (_) {
+            return SizedBox(
+              height: 160,
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: Colors.blue,
+                ),
+              ),
+            );
+          },
+          noItemsFoundIndicatorBuilder: (_) {
+            return AddressEmptyWidget(callBack: () {
+              context.router.push(DashboardRoute());
+            });
+          },
+          newPageProgressIndicatorBuilder: (_) {
+            return SizedBox(
+              height: 160,
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: Colors.blue,
+                ),
+              ),
+            );
+          },
+          newPageErrorIndicatorBuilder: (_) {
+            return SizedBox(
+              height: 160,
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: Colors.blue,
+                ),
+              ),
+            );
+          },
+          transitionDuration: Duration(milliseconds: 100),
+          itemBuilder: (context, item, index) => AppAddressWidgets(
+            callback: () {
+              _edit(item);
+            },
+            address: item,
           ),
         ),
-        body: stateWidget());
+      ),
+    );
   }
 }

@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/data/model/address/user_address_response.dart';
 
 import '../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../common/widgets/common_button.dart';
@@ -12,7 +14,14 @@ import 'cubit/add_address_cubit.dart';
 @RoutePage()
 class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
     AddAddressListenable> {
-  const AddAddressPage({super.key});
+  AddAddressPage({super.key, required this.address});
+
+  UserAddressResponse? address;
+
+  @override
+  void init(BuildContext context) {
+    context.read<AddAddressCubit>();
+  }
 
   @override
   Widget builder(BuildContext context, AddAddressBuildable state) {
@@ -21,7 +30,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
         appBar: AppBar(
           backgroundColor: Colors.white,
           title:
-              'Добавить новый адрес'.w(500).s(14).c(context.colors.textPrimary),
+          'Добавить новый адрес'.w(500).s(14).c(context.colors.textPrimary),
           centerTitle: true,
           elevation: 0.5,
           actions: [
@@ -40,25 +49,26 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
           child: ListView(
             physics: BouncingScrollPhysics(),
             children: [
-              "Название адреса".w(500).s(12).c(Color(0xFF41455E)),
+              "Название адреса *".w(500).s(12).c(Color(0xFF41455E)),
               SizedBox(height: 12),
               CommonTextField(
                   hint: "Qora qo’chqor", textInputAction: TextInputAction.next),
               SizedBox(height: 24),
-              "Регион".w(500).s(12).c(Color(0xFF41455E)),
+              "Регион *".w(500).s(12).c(Color(0xFF41455E)),
               SizedBox(height: 12),
               CommonTextField(
                 hint: "Животноводство",
                 textInputAction: TextInputAction.next,
                 inputType: TextInputType.emailAddress,
+                controller: TextEditingController(text:""),
               ),
               SizedBox(height: 24),
-              "Район".w(500).s(12).c(Color(0xFF41455E)),
+              "Район *".w(500).s(12).c(Color(0xFF41455E)),
               SizedBox(height: 12),
               CommonTextField(
                   hint: "Выбрать", textInputAction: TextInputAction.next),
               SizedBox(height: 24),
-              "Улица".w(500).s(12).c(Color(0xFF41455E)),
+              "Улица *".w(500).s(12).c(Color(0xFF41455E)),
               SizedBox(height: 12),
               CommonTextField(hint: "-", inputType: TextInputType.text),
               SizedBox(height: 24),

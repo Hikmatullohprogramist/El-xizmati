@@ -5,8 +5,8 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import '../../gen/assets/assets.gen.dart';
 import '../common_button.dart';
 
-class AdEmptyWidget extends StatelessWidget {
-  const AdEmptyWidget({super.key, required this.callBack});
+class AddressEmptyWidget extends StatelessWidget {
+  const AddressEmptyWidget({super.key, required this.callBack});
 
   final VoidCallback callBack;
 
