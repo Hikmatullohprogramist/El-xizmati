@@ -23,7 +23,10 @@ class CartPage extends BasePage<CartCubit, CartBuildable, CartListenable> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: "Корзина".w(500).s(14).c(context.colors.textPrimary),
+        title: Strings.bottomNavigationCart
+            .w(500)
+            .s(14)
+            .c(context.colors.textPrimary),
         centerTitle: true,
         elevation: 0.5,
         // actions: [

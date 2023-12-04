@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 
 import '../../gen/assets/assets.gen.dart';
 import '../common_button.dart';
@@ -19,8 +20,7 @@ class AddressEmptyWidget extends StatelessWidget {
         SizedBox(height: 100),
         Assets.images.pngImages.userAddresses.image(),
         SizedBox(height: 48),
-        "Вы ещё не добавили адрес, хотите добавить?"
-            .w(500)
+        Strings.addressEmptyTitle.w(500)
             .s(16)
             .c(Color(0xFF41455E))
             .copyWith(
@@ -40,7 +40,7 @@ class AddressEmptyWidget extends StatelessWidget {
                   children: [
                     Icon(Icons.add),
                     SizedBox(width: 10),
-                    "Добавить".w(500).s(14).c(Colors.white)
+                    Strings.addressAddTitle.w(500).s(14).c(Colors.white)
                   ]),
             ))
       ]),

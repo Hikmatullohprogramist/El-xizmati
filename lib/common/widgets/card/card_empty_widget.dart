@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 
 import '../../gen/assets/assets.gen.dart';
 import '../common_button.dart';
@@ -19,7 +20,7 @@ class CardEmptyWidget extends StatelessWidget {
         SizedBox(height: 120),
         Assets.images.pngImages.cardEmpty.image(),
         SizedBox(height: 48),
-        "Вы еще не добавили карту для оплаты"
+       Strings.cardEmptyTitle
             .w(500)
             .s(16)
             .c(Color(0xFF41455E))
@@ -28,7 +29,7 @@ class CardEmptyWidget extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.start),
         SizedBox(height: 12),
-        "С помощью этих карт вы можете оплатит за товар или услугу"
+       Strings.cardEmptyDescripton
             .w(400)
             .s(12)
             .c(Color(0xFF41455E))

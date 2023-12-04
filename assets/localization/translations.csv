@@ -106,3 +106,12 @@ ad.empty.description,Bu reklamalar hamma uchun ko'rinadi. Ularning amal qilish m
 ad.create.title,E'lon yaratish,Создать объявление
 ad.type.product.title,Mahsulot,Продукт
 ad.type.service.title,Xizmat,Услуга
+ad.search.hint,Mahsulotlar va toifalarni qidiring,Искать товары и категории
+card.empty.title,Siz hali toʻlov kartasini qoʻshmagansiz,Вы еще не добавили карту для оплаты
+card.empty.descripton,Ushbu kartalar bilan siz mahsulot yoki xizmat uchun to'lashingiz mumkin,С помощью этих карт вы можете оплатит за товар или услугу
+card.add.title,Karta qo'shish,Добавить карту
+address.empty.title,"Siz hali manzil qo'shmagansiz, qo'shmoqchimisiz?","Вы ещё не добавили адрес, хотите добавить?"
+address.add.title,Manzil qo'shish,Добавить адрес
+favorite.empty.title,O'zingiz yoqtirgan narsani qo'shing,"Добавьте то, что понравилось"
+favorite.empty.description,Asosiy sahifaga o'ting va ustiga bosing,Перейдите на главную страницу и нажмите
+favorite.empty.to.main,Asosiyga,На главную
