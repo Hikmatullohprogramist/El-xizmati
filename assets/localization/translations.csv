@@ -35,7 +35,7 @@ ads.property.personal,Shaxsiy,Частное
 ads.property.biznes,Biznes,Бизнес
 ads.status.new,Yangi,Новый
 ads.status.old,Б/У,Б/У
-ad.status.title,Holati:,Состояние:
+ad.status.title,holati:,статус:
 search.commodity_and_service,Mahsulotlar va toifalarni qidiring,Искать товары и категории
 bottombar.dashboard,Dashboard,Главная
 bottombar.catalog,Katalog,Каталог
@@ -101,3 +101,8 @@ profile.dashboard.setting,Sozlamalar,Настройки
 profile.dashboard.exit,Chiqish,Выйти
 profile.dashboard.change.language,Tilni o'zgartirish,Изменить язык
 button.title.save,saqlash,сохранять
+ad.empty.title,Sizda hali hech qanday faol reklama yo'q!,У вас пока нету активных объявлений!
+ad.empty.description,Bu reklamalar hamma uchun ko'rinadi. Ularning amal qilish muddati faollashtirilgan kundan boshlab 30 kun.,Эти объявления видны всем. Срок их действия - 30 дней с момента активации.
+ad.create.title,E'lon yaratish,Создать объявление
+ad.type.product.title,Mahsulot,Продукт
+ad.type.service.title,Xizmat,Услуга

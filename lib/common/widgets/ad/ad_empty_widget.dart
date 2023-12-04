@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 
 import '../../gen/assets/assets.gen.dart';
 import '../common_button.dart';
@@ -19,8 +20,7 @@ class AdEmptyWidget extends StatelessWidget {
         SizedBox(height: 100),
         Assets.images.pngImages.adEmpty.image(),
         SizedBox(height: 48),
-        "У вас пока нету активных объявлений!"
-            .w(500)
+        Strings.adEmptyTitle.w(500)
             .s(16)
             .c(Color(0xFF41455E))
             .copyWith(
@@ -28,8 +28,7 @@ class AdEmptyWidget extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.start),
         SizedBox(height: 12),
-        "Эти объявления видны всем. Срок их действия - 30 дней с момента активации."
-            .w(400)
+        Strings.adEmptyDescription.w(400)
             .s(12)
             .c(Color(0xFF41455E))
             .copyWith(
@@ -49,7 +48,7 @@ class AdEmptyWidget extends StatelessWidget {
                   children: [
                     Icon(Icons.add),
                     SizedBox(width: 10),
-                    "Создать объявление".w(500).s(14).c(Colors.white)
+                    Strings.adCreateTitle.w(500).s(14).c(Colors.white)
                   ]),
             ))
       ]),

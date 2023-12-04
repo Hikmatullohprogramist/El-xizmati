@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 
 import '../../enum/enums.dart';
 
@@ -13,8 +14,8 @@ class AppAdTypeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return switch (adType) {
       AdType.ads => Container(
-          height: 20,
-          width: 70,
+        height: 20,
+          width: 75,
           margin: EdgeInsets.all(8),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
@@ -23,7 +24,13 @@ class AppAdTypeWidget extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: ['Mahsulot'.w(400).s(13).c(context.colors.textPrimaryInverse)],
+            children: [
+              Strings.adTypeProductTitle
+                  .w(400)
+                  .s(13)
+                  .c(context.colors.textPrimaryInverse)
+                  .copyWith(overflow: TextOverflow.ellipsis)
+            ],
           ),
         ),
       AdType.service => Container(
@@ -37,7 +44,13 @@ class AppAdTypeWidget extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: ['Xizmat'.w(400).s(13).c(context.colors.textPrimaryInverse)],
+            children: [
+              Strings.adTypeServiceTitle
+                  .w(400)
+                  .s(13)
+                  .c(context.colors.textPrimaryInverse)
+                  .copyWith(overflow: TextOverflow.ellipsis)
+            ],
           ),
         ),
     };
