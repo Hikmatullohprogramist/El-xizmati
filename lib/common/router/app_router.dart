@@ -5,8 +5,6 @@ import 'package:onlinebozor/presentation/home/profile_dashboard/features/profile
 import 'package:onlinebozor/presentation/home/profile_dashboard/features/setting/setting_page.dart';
 
 import '../../data/model/address/user_address_response.dart';
-import '../../presentation/home/profile_dashboard/features/user_address/features/add_address/add_address_page.dart';
-import '../enum/enums.dart';
 import '../../presentation/ad/ad_collection/ad_collection_page.dart';
 import '../../presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
 import '../../presentation/ad/ad_detail/ad_detil_page.dart';
@@ -25,6 +23,7 @@ import '../../presentation/auth/start/auth_start_page.dart';
 import '../../presentation/auth/verification/verification_page.dart';
 import '../../presentation/common/language/set_language/set_language_page.dart';
 import '../../presentation/common/notification/notification_page.dart';
+import '../../presentation/common/photo_view/photo_view_page.dart';
 import '../../presentation/common/popular_categories/popular_categories_page.dart';
 import '../../presentation/common/search/search_page.dart';
 import '../../presentation/home/cart/cart_page.dart';
@@ -49,6 +48,7 @@ import '../../presentation/home/profile_dashboard/features/promotion/promotion_p
 import '../../presentation/home/profile_dashboard/features/setting/features/notification_settings/notification_setting_page.dart';
 import '../../presentation/home/profile_dashboard/features/setting/features/user_active_device/user_active_device_page.dart';
 import '../../presentation/home/profile_dashboard/features/setting/features/user_social_network/user_social_network_page.dart';
+import '../../presentation/home/profile_dashboard/features/user_address/features/add_address/add_address_page.dart';
 import '../../presentation/home/profile_dashboard/features/user_address/user_addresses_page.dart';
 import '../../presentation/home/profile_dashboard/features/user_ads/features/active_ads/user_active_ads.dart';
 import '../../presentation/home/profile_dashboard/features/user_ads/features/inactive_ads/user_inactive_ads.dart';
@@ -62,6 +62,7 @@ import '../../presentation/home/profile_dashboard/features/user_orders/features/
 import '../../presentation/home/profile_dashboard/features/user_orders/user_orders_page.dart';
 import '../../presentation/home/profile_dashboard/features/wallet_filling/wallet_filling_page.dart';
 import '../../presentation/home/profile_dashboard/profile_dashboard_page.dart';
+import '../enum/enums.dart';
 
 part 'app_router.gr.dart';
 
@@ -117,6 +118,7 @@ class AppRouter extends _$AppRouter {
             page: PopularCategoriesRoute.page, path: '/popular_categories'),
         AutoRoute(page: SearchRoute.page, path: '/search'),
         AutoRoute(page: NotificationRoute.page, path: '/notification'),
+        AutoRoute(page: PhotoViewRoute.page, path: '/photo_view'),
 
         //   profile page
         AutoRoute(page: WalletFillingRoute.page, path: '/wallet_filling'),

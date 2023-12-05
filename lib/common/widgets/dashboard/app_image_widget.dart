@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class AppImageWidget extends StatelessWidget {
-  AppImageWidget({super.key, required this.images});
+  AppImageWidget({super.key, required this.images, required this.onClick});
 
   final List<String> images;
+  final Function(String image) onClick;
 
   final controller = PageController(viewportFraction: 1, keepPage: true);
 
@@ -21,25 +22,28 @@ class AppImageWidget extends StatelessWidget {
             physics: BouncingScrollPhysics(),
             itemCount: images.length,
             itemBuilder: (context, index) {
-              return Container(
-                margin: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                child: CachedNetworkImage(
-                  imageUrl: images[index],
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.fill,
-                          colorFilter: ColorFilter.mode(
-                              Colors.grey, BlendMode.colorBurn)),
+              return InkWell(
+                  onTap: () {
+                    onClick("");
+                  },
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    child: CachedNetworkImage(
+                      imageUrl: images[index],
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.fill,
+                              colorFilter: ColorFilter.mode(
+                                  Colors.grey, BlendMode.colorBurn)),
+                        ),
+                      ),
+                      placeholder: (context, url) => Center(),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
-                  ),
-                  placeholder: (context, url) =>
-                      Center(),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
-                ),
-              );
+                  ));
             },
           ),
           Align(

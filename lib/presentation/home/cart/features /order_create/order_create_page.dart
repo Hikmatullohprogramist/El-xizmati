@@ -102,10 +102,18 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
               physics: BouncingScrollPhysics(),
               children: [
                 AppImageWidget(
-                    images:
-                        (state.adDetail?.photos ?? List.empty(growable: true))
-                            .map((e) => "${Constants.baseUrlForImage}${e.image}")
-                        .toList()),
+                  images: (state.adDetail?.photos ?? List.empty(growable: true))
+                      .map((e) => "${Constants.baseUrlForImage}${e.image}")
+                      .toList(),
+                  onClick: (String image) {
+                    context.router.push(PhotoViewRoute(
+                      lists: (state.adDetail?.photos ??
+                              List.empty(growable: true))
+                          .map((e) => "${Constants.baseUrlForImage}${e.image}")
+                          .toList(),
+                    ));
+                  },
+                ),
                 AppDivider(height: 1),
                 Container(
                     padding: EdgeInsets.symmetric(horizontal: 16),

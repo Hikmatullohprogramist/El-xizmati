@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
+import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/common/common_button.dart';
+import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
 import 'package:onlinebozor/presentation/ad/user_ad_detail/cubit/user_ad_detail_cubit.dart';
 
 import '../../../common/constants.dart';
@@ -40,9 +41,17 @@ class UserAdDetailPage extends BasePage<UserAdDetailCubit,
           physics: BouncingScrollPhysics(),
           children: [
             AppImageWidget(
-                images: (List.empty(growable: true))
-                    .map((e) => "${Constants.baseUrlForImage}${e.image}")
-                    .toList()),
+              images: (List.empty(growable: true))
+                  .map((e) => "${Constants.baseUrlForImage}${e.image}")
+                  .toList(),
+              onClick: (String image) {
+                context.router.push(PhotoViewRoute(
+                  lists: (List.empty(growable: true))
+                      .map((e) => "${Constants.baseUrlForImage}${e.image}")
+                      .toList(),
+                ));
+              },
+            ),
             SizedBox(height: 24),
             Padding(
               padding: EdgeInsets.symmetric(
