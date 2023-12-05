@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 
 import '../../gen/assets/assets.gen.dart';
 
@@ -49,8 +50,11 @@ class CommonActiveSearchBar extends AppBar implements PreferredSizeWidget {
                         SizedBox(width: 10),
                         InkWell(
                           onTap: onPressedSearch,
-                          child: "Искать товары и категории".w(400).s(14).c(
-                                Color(0xFF9EABBE)).copyWith(overflow: TextOverflow.ellipsis),
+                          child: Strings.adSearchHint
+                              .w(400)
+                              .s(14)
+                              .c(Color(0xFF9EABBE))
+                              .copyWith(overflow: TextOverflow.ellipsis),
                         ),
                         Spacer(),
                         InkWell(

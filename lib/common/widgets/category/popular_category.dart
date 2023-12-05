@@ -62,7 +62,7 @@ class AppPopularCategory extends StatelessWidget {
                   color: Color(0x28AEB2CD),
                   borderRadius: BorderRadius.circular(6)),
               child: Center(
-                  child: (popularCategoryResponse.key_word ?? "")
+                  child: (popularCategoryResponse.lang ?? "")
                       .w(400)
                       .s(12)
                       .copyWith(
