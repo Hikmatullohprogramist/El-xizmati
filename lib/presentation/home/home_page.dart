@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/home/cubit/home_cubit.dart';
 
@@ -80,22 +82,70 @@ class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
                   BottomNavigationBarItem(
                       label: Strings.bottomNavigationFavorite,
                       icon: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Assets.images.bottomBar.favorite.svg(),
+                        padding: const EdgeInsets.all(8),
+                        child: ValueListenableBuilder(
+                          valueListenable: Hive.box('favorites_storage').listenable(),
+                          builder: (BuildContext context, value, Widget? child) {
+                            int cartNumber = Hive.box("favorites_storage").length;
+                            return Badge(
+                              textStyle: TextStyle(fontSize: 8),
+                              alignment: Alignment.topRight,
+                              isLabelVisible: cartNumber > 0,
+                              label: cartNumber.toString().w(500),
+                              child: Assets.images.bottomBar.favorite.svg(),
+                            );
+                          },
+                        ),
                       ),
                       activeIcon: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Assets.images.bottomBar.favoriteActive.svg(),
-                      )),
+                        padding: const EdgeInsets.all(8),
+                        child: ValueListenableBuilder(
+                          valueListenable: Hive.box('favorites_storage').listenable(),
+                          builder: (BuildContext context, value, Widget? child) {
+                            int cartNumber = Hive.box("favorites_storage").length;
+                            return Badge(
+                              textStyle: TextStyle(fontSize: 8),
+                              alignment: Alignment.topRight,
+                              isLabelVisible: cartNumber > 0,
+                              label: cartNumber.toString().w(500),
+                              child: Assets.images.bottomBar.favoriteActive.svg(),
+                            );
+                          },
+                        ),
+                      ),),
                   BottomNavigationBarItem(
                       label: Strings.bottomNavigationCart,
                       icon: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Assets.images.bottomBar.cart.svg(),
+                        padding: const EdgeInsets.all(8),
+                        child: ValueListenableBuilder(
+                          valueListenable: Hive.box('cart_storage').listenable(),
+                          builder: (BuildContext context, value, Widget? child) {
+                            int cartNumber = Hive.box("cart_storage").length;
+                            return Badge(
+                              textStyle: TextStyle(fontSize: 8),
+                              alignment: Alignment.topRight,
+                              isLabelVisible: cartNumber > 0,
+                              label: cartNumber.toString().w(500),
+                              child: Assets.images.bottomBar.cart.svg(),
+                            );
+                          },
+                        ),
                       ),
                       activeIcon: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Assets.images.bottomBar.cartActive.svg(),
+                        padding: const EdgeInsets.all(8),
+                        child: ValueListenableBuilder(
+                          valueListenable: Hive.box('cart_storage').listenable(),
+                          builder: (BuildContext context, value, Widget? child) {
+                            int cartNumber = Hive.box("cart_storage").length;
+                            return Badge(
+                              textStyle: TextStyle(fontSize: 8),
+                              alignment: Alignment.topRight,
+                              isLabelVisible: cartNumber > 0,
+                              label: cartNumber.toString().w(500),
+                              child: Assets.images.bottomBar.cart.svg(),
+                            );
+                          },
+                        ),
                       )),
                   BottomNavigationBarItem(
                       label: Strings.bottomNavigationMore,
@@ -114,3 +164,7 @@ class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
     );
   }
 }
+
+// ValueListenableBuilder(
+// valueListenable: Hive.box('favorites_storage').listenable(),
+// builder: (BuildContext context, value, Widget? child) {
