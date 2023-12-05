@@ -117,7 +117,7 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
         final item = buildable.popularAds.elementAt(index);
         buildable.popularAds.insert(index, item..favorite = true);
       } else {
-        await favoriteRepository.removeFavorite(adModel.id);
+        await favoriteRepository.removeFavorite(adModel);
         final index = buildable.popularAds.indexOf(adModel);
         final item = buildable.popularAds.elementAt(index);
         buildable.popularAds.insert(index, item..favorite = false);
@@ -135,7 +135,7 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
         final item = buildable.hotDiscountAds.elementAt(index);
         buildable.hotDiscountAds.insert(index, item..favorite = true);
       } else {
-        await favoriteRepository.removeFavorite(adModel.id);
+        await favoriteRepository.removeFavorite(adModel);
         final index = buildable.hotDiscountAds.indexOf(adModel);
         final item = buildable.hotDiscountAds.elementAt(index);
         buildable.hotDiscountAds.insert(index, item..favorite = false);
@@ -159,7 +159,7 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
           buildable.adsPagingController?.notifyListeners();
         }
       } else {
-        await favoriteRepository.removeFavorite(adModel.id);
+        await favoriteRepository.removeFavorite(adModel);
         final index =
             buildable.adsPagingController?.itemList?.indexOf(adModel) ?? 0;
         final item = buildable.adsPagingController?.itemList?.elementAt(index);

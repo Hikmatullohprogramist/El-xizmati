@@ -133,7 +133,7 @@ class DashboardCubit
         final item = buildable.recentlyViewerAds.elementAt(index);
         buildable.recentlyViewerAds.insert(index, item..favorite = true);
       } else {
-        await favoriteRepository.removeFavorite(adModel.id);
+        await favoriteRepository.removeFavorite(adModel);
         final index = buildable.recentlyViewerAds.indexOf(adModel);
         final item = buildable.recentlyViewerAds.elementAt(index);
         buildable.recentlyViewerAds.insert(index, item..favorite = false);
@@ -157,7 +157,7 @@ class DashboardCubit
           buildable.adsPagingController?.notifyListeners();
         }
       } else {
-        await favoriteRepository.removeFavorite(adModel.id);
+        await favoriteRepository.removeFavorite(adModel);
         final index =
             buildable.adsPagingController?.itemList?.indexOf(adModel) ?? 0;
         final item = buildable.adsPagingController?.itemList?.elementAt(index);

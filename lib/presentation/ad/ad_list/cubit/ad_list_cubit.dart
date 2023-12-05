@@ -80,7 +80,7 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
           buildable.adsPagingController?.notifyListeners();
         }
       } else {
-        await favoriteRepository.removeFavorite(adModel.id);
+        await favoriteRepository.removeFavorite(adModel);
         final index =
             buildable.adsPagingController?.itemList?.indexOf(adModel) ?? 0;
         final item = buildable.adsPagingController?.itemList?.elementAt(index);

@@ -59,7 +59,7 @@ class CartCubit extends BaseCubit<CartBuildable, CartListenable> {
 
   Future<void> removeCart(Ad adModel) async {
     try {
-      await _cartRepository.removeCart(adModel.id);
+      await _cartRepository.removeCart(adModel.backendId ?? adModel.id);
       buildable.adsPagingController?.itemList?.remove(adModel);
       buildable.adsPagingController?.notifyListeners();
     } on DioException catch (e) {
@@ -72,7 +72,7 @@ class CartCubit extends BaseCubit<CartBuildable, CartListenable> {
       if (!adModel.favorite) {
         await favoriteRepository.addFavorite(adModel);
       } else {
-        await favoriteRepository.removeFavorite(adModel.id);
+        await favoriteRepository.removeFavorite(adModel);
       }
       final index = buildable.adsPagingController?.itemList?.indexOf(adModel);
       if (index != null) {

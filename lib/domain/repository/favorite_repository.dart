@@ -3,7 +3,7 @@ import 'package:onlinebozor/domain/model/ad.dart';
 abstract class FavoriteRepository {
   Future<void> addFavorite(Ad adModel);
 
-  Future<void> removeFavorite(int adId);
+  Future<void> removeFavorite(Ad adModel);
 
   Future<List<Ad>> getFavoriteAds();
 

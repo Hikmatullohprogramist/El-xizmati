@@ -58,7 +58,7 @@ class ServiceFavoritesCubit extends BaseCubit<ServiceFavoritesBuildable, Service
 
   Future<void> removeFavorite(Ad adModel) async {
     try {
-      await _favoriteRepository.removeFavorite(adModel.id);
+      await _favoriteRepository.removeFavorite(adModel);
       buildable.adsPagingController?.itemList?.remove(adModel);
       buildable.adsPagingController?.notifyListeners();
     } on DioException catch (e) {

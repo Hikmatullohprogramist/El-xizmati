@@ -103,7 +103,30 @@ class OrderCreateCubit
             isCheck: false));
         display.success("Success");
       } else {
-        await favoriteRepository.removeFavorite(adDetail.adId);
+        await favoriteRepository.removeFavorite(Ad(
+            backendId: -1,
+            id: adDetail.adId,
+            name: adDetail.adName ?? "",
+            price: adDetail.price,
+            currency: adDetail.currency,
+            region: adDetail.address?.region?.name ?? "",
+            district: adDetail.address?.district?.name ?? "",
+            adRouteType: adDetail.adRouteType,
+            adPropertyStatus: adDetail.propertyStatus,
+            adStatusType: adDetail.adStatusType ?? AdStatusType.standard,
+            adTypeStatus: adDetail.adTypeStatus ?? AdTypeStatus.buy,
+            fromPrice: adDetail.fromPrice ?? 0,
+            toPrice: adDetail.toPrice ?? 0,
+            categoryId: adDetail.categoryId ?? -1,
+            categoryName: adDetail.categoryName ?? "",
+            sellerName: adDetail.sellerFullName ?? "",
+            sellerId: adDetail.sellerId ?? -1,
+            photo: adDetail.photos?.first.image ?? 'xatolik ',
+            isSort: -1,
+            isSell: false,
+            maxAmount: -1,
+            favorite: true,
+            isCheck: false));
       }
       final favorite = !buildable.favorite;
       build((buildable) => buildable.copyWith(favorite: favorite));

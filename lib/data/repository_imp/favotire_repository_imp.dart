@@ -65,11 +65,11 @@ class FavoriteRepositoryImp extends FavoriteRepository {
   }
 
   @override
-  Future<void> removeFavorite(int adId) async {
-    favoriteStorage.removeFavorite(adId);
+  Future<void> removeFavorite(Ad adModel) async {
+    favoriteStorage.removeFavorite(adModel.id);
     final isLogin = tokenStorage.isLogin.call() ?? false;
     if (isLogin) {
-      await _api.deleteFavorite(adId);
+      await _api.deleteFavorite(adModel.backendId ?? adModel.id);
     } else {
       await syncStorage.isFavoriteSync.set(false);
     }

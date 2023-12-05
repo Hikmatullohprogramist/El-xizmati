@@ -68,7 +68,30 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
         build((buildable) => buildable.copyWith(
             adDetail: buildable.adDetail?..favorite = true, isAddCart: false));
       } else {
-        await favoriteRepository.removeFavorite(adModel?.adId ?? -1);
+        await favoriteRepository.removeFavorite(Ad(
+            backendId: -1,
+            id: adModel?.adId ?? -1,
+            name: adModel?.adName ?? "",
+            price: adModel?.price ?? 0,
+            currency: adModel?.currency ?? Currency.uzb,
+            region: adModel?.address?.region?.name ?? "",
+            district: adModel?.address?.district?.name ?? "",
+            adRouteType: adModel?.adRouteType ?? AdRouteType.private,
+            adPropertyStatus: adModel?.propertyStatus ?? AdPropertyStatus.fresh,
+            adStatusType: adModel?.adStatusType ?? AdStatusType.standard,
+            adTypeStatus: adModel?.adTypeStatus ?? AdTypeStatus.buy,
+            fromPrice: adModel?.fromPrice ?? 0,
+            toPrice: adModel?.toPrice ?? 0,
+            categoryId: adModel?.categoryId ?? -1,
+            categoryName: adModel?.categoryName ?? "",
+            sellerName: adModel?.sellerFullName ?? "",
+            sellerId: adModel?.sellerId ?? -1,
+            photo: adModel?.photos?.first.image ?? 'xatolik ',
+            isSort: -1,
+            isSell: false,
+            maxAmount: -1,
+            favorite: false,
+            isCheck: false));
         build((buildable) => buildable.copyWith(
             adDetail: buildable.adDetail?..favorite = false));
       }
