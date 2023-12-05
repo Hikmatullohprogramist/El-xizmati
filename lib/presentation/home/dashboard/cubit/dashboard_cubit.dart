@@ -28,7 +28,7 @@ class DashboardCubit
     await Future.wait([
       getPopularCategories(),
       getRecentlyViewAds(),
-      getBanners(),
+      // getBanners(),
       getController(),
     ]);
   }

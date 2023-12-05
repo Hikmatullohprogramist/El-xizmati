@@ -11,14 +11,13 @@ import 'package:onlinebozor/common/router/app_router.dart';
 import '../../../common/gen/localization/strings.dart';
 import '../../../common/widgets/ad/ad_group_widget.dart';
 import '../../../common/widgets/ad/ad_widget.dart';
-import '../../../common/widgets/dashboard/all_view_widget.dart';
-import '../../../common/widgets/dashboard/app_banner_widget.dart';
 import '../../../common/widgets/app_bar/common_search_bar.dart';
-import '../../../common/widgets/dashboard/app_diverder.dart';
 import '../../../common/widgets/category/popular_category_group.dart';
 import '../../../common/widgets/common/common_button.dart';
-import '../../../common/widgets/loading/loader_state_widget.dart';
+import '../../../common/widgets/dashboard/all_view_widget.dart';
+import '../../../common/widgets/dashboard/app_diverder.dart';
 import '../../../common/widgets/dashboard/root_commodity_and_service.dart';
+import '../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../domain/model/ad.dart';
 import 'cubit/dashboard_cubit.dart';
 
@@ -96,13 +95,13 @@ class DashboardPage
                               .recentlyAdsAddFavorite(result);
                         },
                       )),
-                  LoaderStateWidget(
-                      onErrorToAgainRequest: (){
-                        context.read<DashboardCubit>().getBanners();
-                      },
-                      isFullScreen: false,
-                      loadingState: state.bannersState,
-                      child: AppBannerWidget(list: state.banners)),
+                  // LoaderStateWidget(
+                  //     onErrorToAgainRequest: (){
+                  //       context.read<DashboardCubit>().getBanners();
+                  //     },
+                  //     isFullScreen: false,
+                  //     loadingState: state.bannersState,
+                  //     child: AppBannerWidget(list: state.banners)),
                   SizedBox(height: 24)
                 ],
               ),
