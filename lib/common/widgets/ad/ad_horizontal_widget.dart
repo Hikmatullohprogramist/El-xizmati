@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
+import 'package:onlinebozor/common/enum/enums.dart';
 import 'package:onlinebozor/common/extensions/currency_extensions.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_property_widget.dart';
@@ -10,7 +11,6 @@ import 'package:onlinebozor/common/widgets/ad/ad_status_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_type_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite/favorite_widget.dart';
 import 'package:onlinebozor/domain/mapper/ad_enum_mapper.dart';
-import 'package:onlinebozor/common/enum/enums.dart';
 import 'package:onlinebozor/domain/model/ad.dart';
 
 import '../../constants.dart';
@@ -77,8 +77,39 @@ class AppAdHorizontalWidget extends StatelessWidget {
                         )),
                     Align(
                       alignment: Alignment.bottomLeft,
-                      child: AppAdTypeWidget(adType: result.adTypeStatus.adType()),
-                    )
+                      child:
+                          AppAdTypeWidget(adType: result.adTypeStatus.adType()),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: Container(
+                        width: 50,
+                        margin:
+                            EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+                        padding: EdgeInsets.symmetric(horizontal: 4),
+                        decoration: BoxDecoration(
+                            color: context.colors.iconGrey,
+                            border: Border.all(
+                                width: 1, color: context.colors.iconGrey),
+                            borderRadius: BorderRadius.circular(4)),
+                        child: Row(
+                          children: [
+                            Assets.images.icEye.svg(),
+                            SizedBox(width: 2),
+                            if ((result.id / 100) < 0)
+                              result.id
+                                  .toString()
+                                  .w(400)
+                                  .s(8)
+                                  .c(context.colors.textPrimary)
+                            else if ((result.id / 100000) < 0)
+                              "100K".w(400).s(8).c(context.colors.textPrimary)
+                            else
+                              "100M".w(400).s(8).c(context.colors.textPrimary)
+                          ],
+                        ),
+                      ),
+                    ),
                   ])),
               SizedBox(height: 12),
               SizedBox(

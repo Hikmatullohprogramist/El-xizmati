@@ -73,8 +73,38 @@ class AppAdWidget extends StatelessWidget {
                         )),
                     Align(
                       alignment: Alignment.bottomLeft,
-                      child: AppAdTypeWidget(adType: result.adTypeStatus.adType()),
-                    )
+                      child:
+                          AppAdTypeWidget(adType: result.adTypeStatus.adType()),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: Container(
+                        width: 60,
+                        margin: EdgeInsets.all(8),
+                        padding: EdgeInsets.symmetric(horizontal: 4),
+                        decoration: BoxDecoration(
+                            color: context.colors.iconGrey,
+                            border: Border.all(
+                                width: 1, color: context.colors.iconGrey),
+                            borderRadius: BorderRadius.circular(4)),
+                        child: Row(
+                          children: [
+                            Assets.images.icEye.svg(),
+                            SizedBox(width: 2),
+                            if ((result.id / 100)< 0)
+                              result.id
+                                  .toString()
+                                  .w(400)
+                                  .s(12)
+                                  .c(context.colors.textPrimary)
+                            else if ((result.id / 100000 )< 0)
+                              "100K".w(400).s(12).c(context.colors.textPrimary)
+                            else
+                              "100M".w(400).s(12).c(context.colors.textPrimary)
+                          ],
+                        ),
+                      ),
+                    ),
                   ])),
               SizedBox(height: 12),
               SizedBox(
