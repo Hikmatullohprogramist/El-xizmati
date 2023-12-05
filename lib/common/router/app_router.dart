@@ -5,6 +5,7 @@ import 'package:onlinebozor/presentation/home/profile_dashboard/features/profile
 import 'package:onlinebozor/presentation/home/profile_dashboard/features/setting/setting_page.dart';
 
 import '../../data/model/address/user_address_response.dart';
+import '../../presentation/home/profile_dashboard/features/user_address/features/add_address/add_address_page.dart';
 import '../enum/enums.dart';
 import '../../presentation/ad/ad_collection/ad_collection_page.dart';
 import '../../presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
@@ -33,7 +34,6 @@ import '../../presentation/home/dashboard/dashboard_page.dart';
 import '../../presentation/home/favorites/favorites/commodity/commodity_favorites_page.dart';
 import '../../presentation/home/favorites/favorites/service/service_favorites_page.dart';
 import '../../presentation/home/favorites/favorites_page.dart';
-import '../../presentation/home/profile_dashboard/features/add_address/add_address_page.dart';
 import '../../presentation/home/profile_dashboard/features/change_language/change_language_page.dart';
 import '../../presentation/home/profile_dashboard/features/chat_list/chats_list.dart';
 import '../../presentation/home/profile_dashboard/features/chat_list/features/buying_chats/buying_chats_page.dart';

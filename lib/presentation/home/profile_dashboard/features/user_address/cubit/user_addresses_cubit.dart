@@ -9,7 +9,6 @@ import '../../../../../../common/core/base_cubit.dart';
 import '../../../../../../common/enum/enums.dart';
 
 part 'user_addresses_cubit.freezed.dart';
-
 part 'user_addresses_state.dart';
 
 @Injectable()
@@ -74,6 +73,9 @@ class UserAddressesCubit
   Future<void> deleteUserAddress(UserAddressResponse address) async {
     try {
       await userAddressRepository.deleteAddress(id: address.id ?? -1);
+      buildable.adsPagingController?.itemList?.remove(address);
+      buildable.adsPagingController?.notifyListeners();
+      await getController();
     } catch (e) {
       display.error(e.toString());
       log.e(e.toString());

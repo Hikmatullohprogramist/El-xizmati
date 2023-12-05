@@ -54,6 +54,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+
       textAlign: widget.textAlign,
       textAlignVertical: TextAlignVertical.center,
       maxLength: widget.maxLength,

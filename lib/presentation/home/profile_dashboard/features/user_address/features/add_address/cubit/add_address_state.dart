@@ -7,14 +7,16 @@ class AddAddressBuildable with _$AddAddressBuildable {
       int? regionId,
       String? regionName,
       int? districtId,
-      UserAddressResponse? address,
       String? districtName,
       int? streetId,
       String? streetName,
+      String? homeNumber,
+      String? apartmentNum,
+      String? neighborhoodNum,
+      UserAddressResponse? address,
       @Default(<RegionResponse>[]) List<RegionResponse> regions,
       @Default(<RegionResponse>[]) List<RegionResponse> districts,
       @Default(<RegionResponse>[]) List<RegionResponse> streets,
-      int? homeNumber,
       String? flat}) = _AddAddressBuildable;
 }
 
