@@ -29,7 +29,11 @@ class ChangeLanguageCubit
       if (languageName == 'uz') {
         language = Language.uz;
       } else {
-        language = Language.ru;
+        if(languageName =='ru') {
+          language = Language.ru;
+        }else{
+          language =Language.uzk;
+        }
       }
       build((buildable) => buildable.copyWith(language: language));
     } catch (e) {}
@@ -44,4 +48,4 @@ class ChangeLanguageCubit
   // }
 }
 
-enum Language { uz, ru }
+enum Language { uz, ru, uzk }

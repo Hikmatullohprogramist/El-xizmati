@@ -27,7 +27,7 @@ class AppAdTypeWidget extends StatelessWidget {
             children: [
               Strings.adTypeProductTitle
                   .w(400)
-                  .s(13)
+                  .s(12)
                   .c(context.colors.textPrimaryInverse)
                   .copyWith(overflow: TextOverflow.ellipsis)
             ],

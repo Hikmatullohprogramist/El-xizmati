@@ -24,4 +24,4 @@ class SetLanguageCubit
   }
 }
 
-enum Language { uz, ru }
+enum Language { uz, ru, uzk }

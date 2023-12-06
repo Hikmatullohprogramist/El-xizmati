@@ -61,8 +61,7 @@ class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageBuildable,
                     color: Color(0xFFE5E9F3),
                     onPressed: () {
                       EasyLocalization.of(context)?.setLocale(
-                        Locale('ru', 'RU'),
-                      );
+                        Locale('ru', 'RU'));
                       context.read<SetLanguageCubit>().setLanguage(Language.ru);
                     },
                     type: ButtonType.outlined,
@@ -76,9 +75,7 @@ class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageBuildable,
                         ],
                       ),
                     )),
-                SizedBox(
-                  height: 6,
-                ),
+                SizedBox(height: 6),
                 CommonButton(
                     onPressed: () {
                       EasyLocalization.of(context)
@@ -93,6 +90,25 @@ class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageBuildable,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Strings.languageUzb.w(400).s(14).c(Color(0xFF41455F)),
+                          Assets.images.pngImages.flagUz.image()
+                        ],
+                      ),
+                    )),
+                SizedBox(height: 6),
+                CommonButton(
+                    onPressed: () {
+                      EasyLocalization.of(context)
+                          ?.setLocale(Locale('uz', 'UZK'));
+                      context.read<SetLanguageCubit>().setLanguage(Language.uzk);
+                    },
+                    color: Color(0xFFE5E9F3),
+                    type: ButtonType.outlined,
+                    child: SizedBox(
+                      height: 48,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          "O'zbekcha (krill)".w(400).s(14).c(Color(0xFF41455F)),
                           Assets.images.pngImages.flagUz.image()
                         ],
                       ),

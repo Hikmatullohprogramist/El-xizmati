@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/presentation/home/profile_dashboard/features/change_language/cubit/change_language_cubit.dart';
+import 'package:onlinebozor/presentation/common/language/change_language/cubit/change_language_cubit.dart';
 
 import '../../../../../common/core/base_page.dart';
 import '../../../../../common/gen/assets/assets.gen.dart';
@@ -68,14 +68,13 @@ class ChangeLanguagePage extends BasePage<ChangeLanguageCubit,
                     ],
                   ),
                 )),
-            SizedBox(
-              height: 6,
-            ),
+            SizedBox(height: 6),
             CommonButton(
                 onPressed: () {
                   EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZ'));
-                  context.read<ChangeLanguageCubit>().selectLanguage(
-                      Language.uz);
+                  context
+                      .read<ChangeLanguageCubit>()
+                      .selectLanguage(Language.uz);
                 },
                 color: state.language == Language.uz
                     ? context.colors.primary
@@ -87,6 +86,28 @@ class ChangeLanguagePage extends BasePage<ChangeLanguageCubit,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Strings.languageUzb.w(400).s(14).c(Color(0xFF41455F)),
+                      Assets.images.pngImages.flagUz.image()
+                    ],
+                  ),
+                )),
+            SizedBox(height: 6),
+            CommonButton(
+                onPressed: () {
+                  EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZK'));
+                  context
+                      .read<ChangeLanguageCubit>()
+                      .selectLanguage(Language.uzk);
+                },
+                color: state.language == Language.uzk
+                    ? context.colors.primary
+                    : Color(0xFFE5E9F3),
+                type: ButtonType.outlined,
+                child: SizedBox(
+                  height: 48,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      "O'zbekcha (krill)".w(400).s(14).c(Color(0xFF41455F)),
                       Assets.images.pngImages.flagUz.image()
                     ],
                   ),

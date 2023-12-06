@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/presentation/common/language/change_language/change_language_page.dart';
 import 'package:onlinebozor/presentation/home/home_page.dart';
 import 'package:onlinebozor/presentation/home/profile_dashboard/features/profile_viewer/features/registration/registration_page.dart';
 import 'package:onlinebozor/presentation/home/profile_dashboard/features/setting/setting_page.dart';
@@ -33,7 +34,6 @@ import '../../presentation/home/dashboard/dashboard_page.dart';
 import '../../presentation/home/favorites/favorites/commodity/commodity_favorites_page.dart';
 import '../../presentation/home/favorites/favorites/service/service_favorites_page.dart';
 import '../../presentation/home/favorites/favorites_page.dart';
-import '../../presentation/home/profile_dashboard/features/change_language/change_language_page.dart';
 import '../../presentation/home/profile_dashboard/features/chat_list/chats_list.dart';
 import '../../presentation/home/profile_dashboard/features/chat_list/features/buying_chats/buying_chats_page.dart';
 import '../../presentation/home/profile_dashboard/features/chat_list/features/chat/chat_page.dart';
