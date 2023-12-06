@@ -29,11 +29,11 @@ class UserAddressResponse with _$UserAddressResponse {
     int? state,
     String? name,
     District? mahalla,
-    String? streetNum,
-    String? homeNum,
-    String? apartmentNum,
+    String? street_num,
+    String? home_num,
+    String? apartment_num,
     String? geo,
-    bool? isMain,
+    bool? is_main,
   }) = _UserAddressResponse;
 
   factory UserAddressResponse.fromJson(Map<String, dynamic> json) =>

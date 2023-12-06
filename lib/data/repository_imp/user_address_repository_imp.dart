@@ -17,18 +17,17 @@ class UserAddressRepositoryImp extends UserAddressRepository {
   }
 
   @override
-  Future<void> addUserAddress(
-      {required String name,
-      required int regionId,
-      required int districtId,
-      required int mahallaId,
-      required String homeNum,
-      required String apartmentNum,
-      required String streetNum,
-      required bool isMain,
-      required String? geo,
-      required int id,
-      required String state}) async {
+  Future<void> addUserAddress({
+    required String name,
+    required int regionId,
+    required int districtId,
+    required int mahallaId,
+    required String homeNum,
+    required String apartmentNum,
+    required String streetNum,
+    required bool isMain,
+    required String? geo,
+  }) async {
     await _api.addUserAddress(
         name: name,
         regionId: regionId,
@@ -39,8 +38,7 @@ class UserAddressRepositoryImp extends UserAddressRepository {
         streetNum: streetNum,
         isMain: isMain,
         geo: geo,
-        id: id,
-        state: state);
+    );
     return;
   }
 
@@ -51,8 +49,8 @@ class UserAddressRepositoryImp extends UserAddressRepository {
   }
 
   @override
-  Future<void> updateMainAddress({required int id}) async {
-    await _api.updateMainAddress(userAddressId: id);
+  Future<void> updateMainAddress({required int id, required bool isMain}) async {
+    await _api.updateMainAddress(userAddressId: id, isMain: isMain);
     return;
   }
 

@@ -57,13 +57,14 @@ class UserAddressesCubit
   }
 
   Future<void> editUserAddress(UserAddressResponse address) async {
-    invoke(UserAddressesListenable(UserAddressesEffect.editUserAddress,
+   await invoke(UserAddressesListenable(UserAddressesEffect.editUserAddress,
         address: address));
   }
 
   Future<void> updateMainAddress(UserAddressResponse address) async {
     try {
-      await userAddressRepository.updateMainAddress(id: address.id ?? -1);
+      await userAddressRepository.updateMainAddress(
+          id: address.id ?? -1, isMain: address.is_main ?? false);
     } catch (e) {
       display.error(e.toString());
       log.e(e.toString());

@@ -12,9 +12,7 @@ abstract class UserAddressRepository {
       required String apartmentNum,
       required String streetNum,
       required bool isMain,
-      required String? geo,
-      required int id,
-      required String state});
+      required String? geo});
 
   Future<void> updateUserAddress(
       {required String name,
@@ -29,7 +27,7 @@ abstract class UserAddressRepository {
       required int id,
       required String state});
 
-  Future<void> updateMainAddress({required int id});
+  Future<void> updateMainAddress({required int id, required bool isMain});
 
   Future<void> deleteAddress({required int id});
 }

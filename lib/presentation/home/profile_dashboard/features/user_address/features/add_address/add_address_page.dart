@@ -14,24 +14,37 @@ import 'cubit/add_address_cubit.dart';
 @RoutePage()
 class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
     AddAddressListenable> {
-  AddAddressPage({super.key, required this.address});
+  AddAddressPage({super.key, this.address});
 
   UserAddressResponse? address;
 
   @override
   void init(BuildContext context) {
-    context.read<AddAddressCubit>();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<AddAddressCubit>().setAddress(address);
+    });
   }
+
+  TextEditingController addressController = TextEditingController();
+  TextEditingController houseController = TextEditingController();
+  TextEditingController apartmentController = TextEditingController();
+  TextEditingController neighborhoodController = TextEditingController();
 
   @override
   Widget builder(BuildContext context, AddAddressBuildable state) {
-    TextEditingController addressController = TextEditingController();
-    if (addressController.text != state.addressName) {
-      addressController.text = state.addressName ?? "";
-    }
+    addressController.text != state.addressName
+        ? addressController.text = state.addressName ?? ""
+        : addressController.text = addressController.text;
+    houseController.text != state.homeNumber
+        ? houseController.text = state.homeNumber ?? ""
+        : houseController.text = state.homeNumber ?? "";
+    apartmentController.text != state.apartmentNum
+        ? apartmentController.text = state.apartmentNum ?? ""
+        : apartmentController.text = state.apartmentNum ?? "";
+    neighborhoodController.text != state.neighborhoodNum
+        ? neighborhoodController.text = state.neighborhoodNum ?? ""
+        : neighborhoodController.text = state.neighborhoodNum ?? "";
 
-    TextEditingController  houseController =TextEditingController();
-    // if(houseController.text =state.)
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -52,7 +65,9 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
           ),
         ),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+          padding: EdgeInsets.symmetric(
+            horizontal: 16,
+          ),
           child: ListView(
             physics: BouncingScrollPhysics(),
             children: [
@@ -65,6 +80,9 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
               CommonTextField(
                   controller: addressController,
                   hint: "Название адреса*",
+                  onChanged: (value) {
+                    context.read<AddAddressCubit>().setAddressName(value);
+                  },
                   textInputAction: TextInputAction.next),
               SizedBox(height: 24),
               Row(
@@ -120,7 +138,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
                   enabled: false,
                   textInputAction: TextInputAction.next,
                   inputType: TextInputType.emailAddress,
-                  controller: TextEditingController(text: ""),
+                  controller: TextEditingController(text: state.regionName),
                 ),
               ),
               SizedBox(height: 24),
@@ -153,19 +171,21 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
                             height: double.infinity,
                             child: ListView.builder(
                                 physics: BouncingScrollPhysics(),
-                                itemCount: state.regions.length,
+                                itemCount: state.districts.length,
                                 itemBuilder:
                                     (BuildContext buildContext, int index) {
                                   return InkWell(
                                       onTap: () {
                                         context
                                             .read<AddAddressCubit>()
-                                            .setRegion(state.districts[index]);
+                                            .setDistrict(
+                                                state.districts[index]);
                                         Navigator.pop(buildContext);
                                       },
                                       child: Padding(
                                         padding: EdgeInsets.all(16),
-                                        child: state.regions[index].name.w(500),
+                                        child:
+                                            state.districts[index].name.w(500),
                                       ));
                                 }),
                           );
@@ -175,6 +195,8 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
                       readOnly: true,
                       enabled: false,
                       hint: "Район*",
+                      controller:
+                          TextEditingController(text: state.districtName),
                       textInputAction: TextInputAction.next)),
               SizedBox(height: 24),
               Row(
@@ -206,19 +228,19 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
                             height: double.infinity,
                             child: ListView.builder(
                                 physics: BouncingScrollPhysics(),
-                                itemCount: state.regions.length,
+                                itemCount: state.streets.length,
                                 itemBuilder:
                                     (BuildContext buildContext, int index) {
                                   return InkWell(
                                       onTap: () {
                                         context
                                             .read<AddAddressCubit>()
-                                            .setRegion(state.districts[index]);
+                                            .setStreet(state.streets[index]);
                                         Navigator.pop(buildContext);
                                       },
                                       child: Padding(
                                         padding: EdgeInsets.all(16),
-                                        child: state.regions[index].name.w(500),
+                                        child: state.streets[index].name.w(500),
                                       ));
                                 }),
                           );
@@ -228,6 +250,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
                       readOnly: true,
                       enabled: false,
                       hint: "Улица*",
+                      controller: TextEditingController(text: state.streetName),
                       inputType: TextInputType.text)),
               SizedBox(height: 24),
               "Номер дома".w(500).s(12).c(Color(0xFF41455E)),
@@ -240,21 +263,30 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
               "Квартира".w(500).s(12).c(Color(0xFF41455E)),
               SizedBox(height: 12),
               CommonTextField(
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context.read<AddAddressCubit>().setHomeNum(value);
+                },
+                controller: houseController,
                 textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 24),
               "Подъезд".w(500).s(12).c(Color(0xFF41455E)),
               SizedBox(height: 12),
               CommonTextField(
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context.read<AddAddressCubit>().setApartmentNum(value);
+                },
+                controller: apartmentController,
                 textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 24),
               "Этаж".w(500).s(12).c(Color(0xFF41455E)),
               SizedBox(height: 12),
               CommonTextField(
-                onChanged: (value) {},
+                controller: neighborhoodController,
+                onChanged: (value) {
+                  context.read<AddAddressCubit>().setNeighborhoodNum(value);
+                },
                 textInputAction: TextInputAction.next,
               ),
               SizedBox(width: 16),
@@ -262,11 +294,9 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Checkbox(
-                      value: false,
+                      value: state.isMain ?? false,
                       onChanged: (bool? value) {
-                        // context
-                        //     .read<AddCardCubit>()
-                        //     .setMainCard(value ?? false);
+                        context.read<AddAddressCubit>().setMainCard(value);
                       }),
                   SizedBox(width: 12),
                   "Сделать основным".s(14).w(500).c(Color(0xFF41455E))
@@ -277,7 +307,20 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
                   width: double.infinity,
                   height: 42,
                   child: CommonButton(
-                    onPressed: () {},
+                    type: ButtonType.outlined,
+                    onPressed: () {
+                      context.read<AddAddressCubit>().getCurrentLocation();
+                    },
+                    child: "Выберите локацию".w(600).s(14).c(Colors.black),
+                  )),
+              SizedBox(height: 16),
+              SizedBox(
+                  width: double.infinity,
+                  height: 42,
+                  child: CommonButton(
+                    onPressed: () {
+                      context.read<AddAddressCubit>().validationDate();
+                    },
                     child: "Добавить".w(600).s(14).c(Colors.white),
                   )),
             ],

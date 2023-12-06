@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
 import 'package:onlinebozor/data/model/address/user_address_response.dart';
 
 class AppAddressWidgets extends StatelessWidget {
@@ -23,7 +24,7 @@ class AppAddressWidgets extends StatelessWidget {
               Row(
                 children: [
                   Visibility(
-                    visible: address.isMain ?? false,
+                    visible: address.is_main ?? false,
                     child: Container(
                       padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                       decoration: BoxDecoration(
@@ -44,7 +45,10 @@ class AppAddressWidgets extends StatelessWidget {
           SizedBox(
             height: 5,
           ),
-          (address.name ?? "").w(500).s(12).c(Color(0xFF41455E)),
+          ("${address.region?.name ?? ""} ${address.district?.name ?? ""} ${address.mahalla?.name ?? ""}")
+              .w(500)
+              .s(12)
+              .c(Color(0xFF41455E)),
           SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,7 +65,7 @@ class AppAddressWidgets extends StatelessWidget {
                   width: 5,
                 )),
                 TextSpan(
-                    text: address.apartmentNum,
+                    text: address.street_num ?? "-",
                     style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 12,
@@ -79,7 +83,7 @@ class AppAddressWidgets extends StatelessWidget {
                   width: 5,
                 )),
                 TextSpan(
-                    text: address.streetNum,
+                    text: address.home_num ?? "-",
                     style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 12,
@@ -97,14 +101,15 @@ class AppAddressWidgets extends StatelessWidget {
                   width: 5,
                 )),
                 TextSpan(
-                    text: address.homeNum,
+                    text: address.apartment_num ?? "-",
                     style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 12,
                         color: Color(0xFF41455E)))
               ])),
             ],
-          )
+          ),
+          AppDivider(),
         ]);
   }
 }

@@ -26,7 +26,7 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
       case UserAddressesEffect.success:
         () {};
       case UserAddressesEffect.editUserAddress:
-        context.router.replace(AddAddressRoute(address: null));
+        context.router.replace(AddAddressRoute(address: state.address));
     }
   }
 
@@ -72,10 +72,10 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
                   SizedBox(width: 32),
                   InkWell(
                     onTap: () {
+                      Navigator.of(buildContext).pop();
                       context
                           .read<UserAddressesCubit>()
                           .editUserAddress(address);
-                      Navigator.of(buildContext).pop();
                     },
                     child: Container(
                         padding: EdgeInsets.symmetric(vertical: 16),
