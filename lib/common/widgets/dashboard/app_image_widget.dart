@@ -6,7 +6,7 @@ class AppImageWidget extends StatelessWidget {
   AppImageWidget({super.key, required this.images, required this.onClick});
 
   final List<String> images;
-  final Function(String image) onClick;
+  final Function(int position) onClick;
 
   final controller = PageController(viewportFraction: 1, keepPage: true);
 
@@ -24,7 +24,7 @@ class AppImageWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               return InkWell(
                   onTap: () {
-                    onClick("");
+                    onClick(index);
                   },
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 10, vertical: 4),

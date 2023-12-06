@@ -7,16 +7,16 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_group_widget.dart';
-import 'package:onlinebozor/common/widgets/dashboard/all_view_widget.dart';
 import 'package:onlinebozor/common/widgets/app_bar/common_active_search_bar.dart';
+import 'package:onlinebozor/common/widgets/dashboard/all_view_widget.dart';
 import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
 import 'package:onlinebozor/domain/model/ad.dart';
 
 import '../../../common/core/base_page.dart';
+import '../../../common/enum/enums.dart';
 import '../../../common/widgets/ad/ad_widget.dart';
 import '../../../common/widgets/common/common_button.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
-import '../../../common/enum/enums.dart';
 import 'cubit/ad_collection_cubit.dart';
 
 @RoutePage()
@@ -77,10 +77,12 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                           )),
                       AppAllViewWidget(
                           onPressed: () {
-                            context.router.push(AdListRoute(
-                                adListType: AdListType.list, keyWord: ''));
-                          },
-                          title: Strings.adCollectiveDiscounts),
+                        context.router.push(AdListRoute(
+                            adListType: AdListType.list,
+                            keyWord: '',
+                            title: Strings.adCollectiveDiscounts));
+                      },
+                      title: Strings.adCollectiveDiscounts),
                       LoaderStateWidget(
                           isFullScreen: false,
                           loadingState: state.hotDiscountAdsState,
@@ -98,8 +100,10 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                       AppAllViewWidget(
                           onPressed: () {
                             context.router.push(AdListRoute(
-                                adListType: AdListType.list, keyWord: ''));
-                          },
+                            adListType: AdListType.list,
+                            keyWord: '',
+                            title: Strings.adCollectivePopular));
+                      },
                           title: Strings.adCollectivePopular),
                       SizedBox(height: 6),
                       LoaderStateWidget(

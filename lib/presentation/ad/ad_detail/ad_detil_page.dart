@@ -116,12 +116,12 @@ class AdDetailPage
                   images: (state.adDetail?.photos ?? List.empty(growable: true))
                       .map((e) => "${Constants.baseUrlForImage}${e.image}")
                       .toList(),
-                  onClick: (String image) {
+                  onClick: (int position) {
                     context.router.push(PhotoViewRoute(
                       lists: (state.adDetail?.photos ??
                               List.empty(growable: true))
                           .map((e) => "${Constants.baseUrlForImage}${e.image}")
-                          .toList(),
+                          .toList(), position: position,
                     ));
                   },
                 ),

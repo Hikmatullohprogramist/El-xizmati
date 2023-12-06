@@ -54,8 +54,9 @@ class DashboardPage
                 children: [
                   AppRootCommodityAndService(),
                   AppAllViewWidget(
-                      onPressed: () =>
-                          context.router.push(PopularCategoriesRoute()),
+                      onPressed: () => context.router.push(
+                          PopularCategoriesRoute(
+                              title: Strings.popularCategories)),
                       title: Strings.popularCategories),
                   LoaderStateWidget(
                       onErrorToAgainRequest: () {
@@ -68,14 +69,17 @@ class DashboardPage
                         onClick: (popularCategories) {
                           context.router.push(AdListRoute(
                               adListType: AdListType.popularCategory,
-                              keyWord: popularCategories.key_word));
+                              keyWord: popularCategories.key_word,
+                              title: popularCategories.lang));
                         },
                       )),
                   AppDivider(height: 3),
                   AppAllViewWidget(
                       onPressed: () {
                         context.router.push(AdListRoute(
-                            adListType: AdListType.list, keyWord: ''));
+                            adListType: AdListType.list,
+                            keyWord: '',
+                            title: Strings.hotDiscountsTitle));
                       },
                       title: Strings.hotDiscountsTitle),
                   LoaderStateWidget(

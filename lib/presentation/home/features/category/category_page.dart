@@ -35,7 +35,8 @@ class CategoryPage
                 onClick: (CategoryResponse categoryResponse) {
                   context.router.push(AdListRoute(
                       adListType: AdListType.popularCategory,
-                      keyWord: categoryResponse.key_word));
+                      keyWord: categoryResponse.key_word,
+                      title: categoryResponse.name));
                 },
                 categoryResponse: state.categories[index]);
           },

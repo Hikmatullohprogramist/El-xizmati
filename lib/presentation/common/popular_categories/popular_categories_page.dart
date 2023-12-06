@@ -16,12 +16,14 @@ import '../../../common/widgets/common/common_button.dart';
 @RoutePage()
 class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
     PopularCategoriesBuildable, PopularCategoriesListenable> {
-  const PopularCategoriesPage({super.key});
+  const PopularCategoriesPage(this.title, {super.key});
+
+  final String? title;
 
   @override
   Widget builder(BuildContext context, PopularCategoriesBuildable state) {
     return Scaffold(
-        appBar: CommonAppBar(() => context.router.pop(), "Ommobop Category"),
+        appBar: CommonAppBar(() => context.router.pop(), title ?? ""),
         body: state.categoriesPagingController == null
             ? SizedBox()
             : SizedBox(
@@ -31,7 +33,7 @@ class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
                   physics: BouncingScrollPhysics(),
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   pagingController: state.categoriesPagingController!,
-                  gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisSpacing: 16,
                     mainAxisSpacing: 16,
                     crossAxisCount: 2,
@@ -99,7 +101,8 @@ class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
                       onClick: (value) {
                         context.router.push(AdListRoute(
                             adListType: AdListType.popularCategory,
-                            keyWord: value.key_word));
+                            keyWord: value.key_word,
+                            title: value.lang));
                       },
                     ),
                   ),

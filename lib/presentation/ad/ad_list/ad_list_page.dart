@@ -18,10 +18,11 @@ import '../../../common/widgets/common/common_button.dart';
 @RoutePage()
 class AdListPage
     extends BasePage<AdListCubit, AdListBuildable, AdListListenable> {
-  const AdListPage(this.adListType, this.keyWord, {super.key});
+  const AdListPage(this.adListType, this.keyWord, this.title, {super.key});
 
   final AdListType adListType;
   final String? keyWord;
+  final String? title;
 
   @override
   void init(BuildContext context) {
@@ -47,7 +48,7 @@ class AdListPage
     return Scaffold(
       appBar: CommonAppBar(() {
         context.router.pop();
-      }, "E'lonlar"),
+      }, title ?? ""),
       backgroundColor: Colors.white,
       body: PagedGridView<int, Ad>(
         shrinkWrap: true,
