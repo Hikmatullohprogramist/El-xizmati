@@ -2,8 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/presentation/common/language/change_language/change_language_page.dart';
 import 'package:onlinebozor/presentation/home/home_page.dart';
-import 'package:onlinebozor/presentation/home/profile_dashboard/features/profile_viewer/features/registration/registration_page.dart';
-import 'package:onlinebozor/presentation/home/profile_dashboard/features/setting/setting_page.dart';
 
 import '../../data/model/address/user_address_response.dart';
 import '../../presentation/ad/ad_collection/ad_collection_page.dart';
@@ -27,41 +25,43 @@ import '../../presentation/common/notification/notification_page.dart';
 import '../../presentation/common/photo_view/photo_view_page.dart';
 import '../../presentation/common/popular_categories/popular_categories_page.dart';
 import '../../presentation/common/search/search_page.dart';
-import '../../presentation/home/cart/cart_page.dart';
-import '../../presentation/home/cart/features /order_create/order_create_page.dart';
-import '../../presentation/home/category/category_page.dart';
-import '../../presentation/home/dashboard/dashboard_page.dart';
-import '../../presentation/home/favorites/favorites/commodity/commodity_favorites_page.dart';
-import '../../presentation/home/favorites/favorites/service/service_favorites_page.dart';
-import '../../presentation/home/favorites/favorites_page.dart';
-import '../../presentation/home/profile_dashboard/features/chat_list/chats_list.dart';
-import '../../presentation/home/profile_dashboard/features/chat_list/features/buying_chats/buying_chats_page.dart';
-import '../../presentation/home/profile_dashboard/features/chat_list/features/chat/chat_page.dart';
-import '../../presentation/home/profile_dashboard/features/chat_list/features/saved_chats/saved_chats_page.dart';
-import '../../presentation/home/profile_dashboard/features/chat_list/features/selling_chats/selling_chats_page.dart';
-import '../../presentation/home/profile_dashboard/features/comparison_detail/comparison_detail_page.dart';
-import '../../presentation/home/profile_dashboard/features/payment_transaction/features/payment_transaction_filter/payment_transaction_filter_page.dart';
-import '../../presentation/home/profile_dashboard/features/payment_transaction/payment_transaction_page.dart';
-import '../../presentation/home/profile_dashboard/features/profile_viewer/features/profile_edit/profile_edit_page.dart';
-import '../../presentation/home/profile_dashboard/features/profile_viewer/profile_viewer_page.dart';
-import '../../presentation/home/profile_dashboard/features/promotion/promotion_page.dart';
-import '../../presentation/home/profile_dashboard/features/setting/features/notification_settings/notification_setting_page.dart';
-import '../../presentation/home/profile_dashboard/features/setting/features/user_active_device/user_active_device_page.dart';
-import '../../presentation/home/profile_dashboard/features/setting/features/user_social_network/user_social_network_page.dart';
-import '../../presentation/home/profile_dashboard/features/user_address/features/add_address/add_address_page.dart';
-import '../../presentation/home/profile_dashboard/features/user_address/user_addresses_page.dart';
-import '../../presentation/home/profile_dashboard/features/user_ads/features/active_ads/user_active_ads.dart';
-import '../../presentation/home/profile_dashboard/features/user_ads/features/inactive_ads/user_inactive_ads.dart';
-import '../../presentation/home/profile_dashboard/features/user_ads/features/pending_ads/user_pending_ads.dart';
-import '../../presentation/home/profile_dashboard/features/user_ads/user_ads_page.dart';
-import '../../presentation/home/profile_dashboard/features/user_cards/features /add_card/add_cart_page.dart';
-import '../../presentation/home/profile_dashboard/features/user_cards/user_cards_page.dart';
-import '../../presentation/home/profile_dashboard/features/user_orders/features/user_active_orders/user_active_orders.dart';
-import '../../presentation/home/profile_dashboard/features/user_orders/features/user_pending_orders/user_pending_orders.dart';
-import '../../presentation/home/profile_dashboard/features/user_orders/features/user_saved_orders/user_saved_orders.dart';
-import '../../presentation/home/profile_dashboard/features/user_orders/user_orders_page.dart';
-import '../../presentation/home/profile_dashboard/features/wallet_filling/wallet_filling_page.dart';
-import '../../presentation/home/profile_dashboard/profile_dashboard_page.dart';
+import '../../presentation/home/features/cart/cart_page.dart';
+import '../../presentation/home/features/cart/features /order_create/order_create_page.dart';
+import '../../presentation/home/features/category/category_page.dart';
+import '../../presentation/home/features/dashboard/dashboard_page.dart';
+import '../../presentation/home/features/favorites/favorites/commodity/commodity_favorites_page.dart';
+import '../../presentation/home/features/favorites/favorites/service/service_favorites_page.dart';
+import '../../presentation/home/features/favorites/favorites_page.dart';
+import '../../presentation/home/features/profile_dashboard/features/chat_list/chats_list.dart';
+import '../../presentation/home/features/profile_dashboard/features/chat_list/features/buying_chats/buying_chats_page.dart';
+import '../../presentation/home/features/profile_dashboard/features/chat_list/features/chat/chat_page.dart';
+import '../../presentation/home/features/profile_dashboard/features/chat_list/features/saved_chats/saved_chats_page.dart';
+import '../../presentation/home/features/profile_dashboard/features/chat_list/features/selling_chats/selling_chats_page.dart';
+import '../../presentation/home/features/profile_dashboard/features/comparison_detail/comparison_detail_page.dart';
+import '../../presentation/home/features/profile_dashboard/features/payment_transaction/features/payment_transaction_filter/payment_transaction_filter_page.dart';
+import '../../presentation/home/features/profile_dashboard/features/payment_transaction/payment_transaction_page.dart';
+import '../../presentation/home/features/profile_dashboard/features/profile_viewer/features/profile_edit/profile_edit_page.dart';
+import '../../presentation/home/features/profile_dashboard/features/profile_viewer/features/registration/registration_page.dart';
+import '../../presentation/home/features/profile_dashboard/features/profile_viewer/profile_viewer_page.dart';
+import '../../presentation/home/features/profile_dashboard/features/promotion/promotion_page.dart';
+import '../../presentation/home/features/profile_dashboard/features/setting/features/notification_settings/notification_setting_page.dart';
+import '../../presentation/home/features/profile_dashboard/features/setting/features/user_active_device/user_active_device_page.dart';
+import '../../presentation/home/features/profile_dashboard/features/setting/features/user_social_network/user_social_network_page.dart';
+import '../../presentation/home/features/profile_dashboard/features/setting/setting_page.dart';
+import '../../presentation/home/features/profile_dashboard/features/user_address/features/add_address/add_address_page.dart';
+import '../../presentation/home/features/profile_dashboard/features/user_address/user_addresses_page.dart';
+import '../../presentation/home/features/profile_dashboard/features/user_ads/features/active_ads/user_active_ads.dart';
+import '../../presentation/home/features/profile_dashboard/features/user_ads/features/inactive_ads/user_inactive_ads.dart';
+import '../../presentation/home/features/profile_dashboard/features/user_ads/features/pending_ads/user_pending_ads.dart';
+import '../../presentation/home/features/profile_dashboard/features/user_ads/user_ads_page.dart';
+import '../../presentation/home/features/profile_dashboard/features/user_cards/features /add_card/add_cart_page.dart';
+import '../../presentation/home/features/profile_dashboard/features/user_cards/user_cards_page.dart';
+import '../../presentation/home/features/profile_dashboard/features/user_orders/features/user_active_orders/user_active_orders.dart';
+import '../../presentation/home/features/profile_dashboard/features/user_orders/features/user_pending_orders/user_pending_orders.dart';
+import '../../presentation/home/features/profile_dashboard/features/user_orders/features/user_saved_orders/user_saved_orders.dart';
+import '../../presentation/home/features/profile_dashboard/features/user_orders/user_orders_page.dart';
+import '../../presentation/home/features/profile_dashboard/features/wallet_filling/wallet_filling_page.dart';
+import '../../presentation/home/features/profile_dashboard/profile_dashboard_page.dart';
 import '../enum/enums.dart';
 
 part 'app_router.gr.dart';
@@ -100,8 +100,7 @@ class AppRouter extends _$AppRouter {
                     maintainState: false)
               ]),
               AutoRoute(page: CartRoute.page, path: 'cart', maintainState: false),
-              AutoRoute(page: ProfileDashboardRoute.page, path: 'profile'),
-              AutoRoute(page: AuthStartRoute.page, path: "auth_start"),
+              AutoRoute(page: ProfileDashboardRoute.page, path: 'profile')
             ]),
 
         // order create

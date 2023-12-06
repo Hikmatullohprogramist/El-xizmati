@@ -5,8 +5,7 @@ class AuthStartBuildable with _$AuthStartBuildable {
   const factory AuthStartBuildable({
     @Default("") String phone,
     @Default(false) bool validation,
-    @Default(false) bool loading,
-    @Default(true) backButtonVisible,
+    @Default(false) bool loading
   }) = _AuthStartBuildable;
 }
 

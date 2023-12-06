@@ -19,12 +19,7 @@ import '../../util.dart';
 @RoutePage()
 class AuthStartPage
     extends BasePage<AuthStartCubit, AuthStartBuildable, AuthStartListenable> {
-  AuthStartPage({
-    this.backButtonVisible = false,
-    super.key,
-  });
-
-  final bool backButtonVisible;
+  AuthStartPage({super.key});
 
   @override
   void listener(BuildContext context, AuthStartListenable state) {
@@ -40,39 +35,27 @@ class AuthStartPage
   @override
   void init(BuildContext context) {
     textEditingController.text = "+998 ";
-    context.read<AuthStartCubit>().setBackButtonVisible(backButtonVisible);
   }
 
   final TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget builder(BuildContext context, AuthStartBuildable state) {
-    Widget backButtonVisible(bool value) {
-      if (value) {
-        return IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: context.colors.iconGrey,
-            ),
-            onPressed: () {
-              if (context.router.stack.length == 1) {
-                exit(0);
-              } else {
-                context.router.pop();
-              }
-            });
-      } else {
-        return SizedBox();
-      }
-    }
-
     return Scaffold(
       backgroundColor: context.colors.colorBackgroundPrimary,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: backButtonVisible(state.backButtonVisible),
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios, color: context.colors.iconGrey),
+            onPressed: () {
+              if (context.router.stack.length == 1) {
+                exit(0);
+              } else {
+                context.router.pop();
+              }
+            }),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

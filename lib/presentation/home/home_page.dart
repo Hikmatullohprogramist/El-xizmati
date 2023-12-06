@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
@@ -15,22 +14,14 @@ class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
   const HomePage({super.key});
 
   @override
-  void init(BuildContext context) {
-  context.read<HomeCubit>().isLogin();
-  }
-
-  @override
   Widget builder(BuildContext context, HomeBuildable state) {
     return AutoTabsRouter(
-      routes: [
+      routes: const [
         DashboardRoute(),
         CategoryRoute(),
         FavoritesRoute(),
         CartRoute(),
-        if (state.isLogin)
-          ProfileDashboardRoute()
-        else
-          AuthStartRoute(backButtonVisible: false)
+        ProfileDashboardRoute()
       ],
       transitionBuilder: (context, child, animation) => FadeTransition(
         opacity: animation,

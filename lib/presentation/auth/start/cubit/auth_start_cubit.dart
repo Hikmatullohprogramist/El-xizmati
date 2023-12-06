@@ -21,10 +21,6 @@ class AuthStartCubit extends BaseCubit<AuthStartBuildable, AuthStartListenable> 
         buildable.copyWith(phone: phone, validation: phone.length >= 12));
   }
 
-  void setBackButtonVisible(bool visible) {
-    build((buildable) => buildable.copyWith(backButtonVisible: visible));
-  }
-
   void validation() async {
     build((buildable) => buildable.copyWith(loading: true));
     try {
