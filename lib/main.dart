@@ -42,28 +42,28 @@ Future<void> main() async {
       var uuid = Uuid();
       PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
-      DeviceInfo.app_version_name = packageInfo.version;
-      DeviceInfo.app_version_code = packageInfo.buildNumber;
+      DeviceInfo.appVersionName = packageInfo.version;
+      DeviceInfo.appVersionCode = packageInfo.buildNumber;
       if (Platform.isAndroid) {
         AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
         const androidId = AndroidId();
         String? deviceId = await androidId.getId();
-        DeviceInfo.device_model = androidInfo.model;
-        DeviceInfo.device_manufacture = androidInfo.manufacturer;
-        DeviceInfo.device_name =
+        DeviceInfo.deviceModel = androidInfo.model;
+        DeviceInfo.deviceManufacture = androidInfo.manufacturer;
+        DeviceInfo.deviceName =
             "${androidInfo.manufacturer} ${androidInfo.model}";
         String combinedInfo = '$deviceId-${androidInfo.manufacturer}';
-        DeviceInfo.device_id = uuid.v5(Uuid.NAMESPACE_URL, combinedInfo);
-        DeviceInfo.mobile_os_type = "android";
+        DeviceInfo.deviceId = uuid.v5(Uuid.NAMESPACE_URL, combinedInfo);
+        DeviceInfo.mobileOsType = "android";
       } else if (Platform.isIOS) {
-        DeviceInfo.mobile_os_type="ios";
+        DeviceInfo.mobileOsType="ios";
         IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
         String? deviceId = iosInfo.identifierForVendor;
-        DeviceInfo.device_name = iosInfo.name;
-        DeviceInfo.device_manufacture = iosInfo.systemName;
-        DeviceInfo.device_model = iosInfo.model;
-        String combinedInfo = '$deviceId-${DeviceInfo.device_name}';
-        DeviceInfo.device_id = uuid.v5(Uuid.NAMESPACE_URL, combinedInfo);
+        DeviceInfo.deviceName = iosInfo.name;
+        DeviceInfo.deviceManufacture = iosInfo.systemName;
+        DeviceInfo.deviceModel = iosInfo.model;
+        String combinedInfo = '$deviceId-${DeviceInfo.deviceName}';
+        DeviceInfo.deviceId = uuid.v5(Uuid.NAMESPACE_URL, combinedInfo);
       }
     } catch (e) {
       print(e.toString());

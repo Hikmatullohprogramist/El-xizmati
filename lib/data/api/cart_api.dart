@@ -1,42 +1,45 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/data/constants/rest_header_keys.dart';
+import 'package:onlinebozor/data/constants/rest_query_keys.dart';
 
 import '../storage/token_storage.dart';
 
 @lazySingleton
 class CartApi {
-  Dio _dio;
+  final Dio _dio;
   final TokenStorage tokenStorage;
 
   CartApi(this._dio, this.tokenStorage);
 
   Future<Response> addCart({required String adType, required int id}) {
-    final headers = {"Authorization": "Bearer ${tokenStorage.token.call()}"};
-
+    final headers = {
+      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
+    };
     final queryParameters = {
-      'product_type': "ADS",
-      'product_id': id,
-      'num': 1,
-      "type": "BASKET"
+      RestQueryKeys.queryProductType: "ADS",
+      RestQueryKeys.queryProductId: id,
+      RestQueryKeys.queryNum: 1,
+      RestQueryKeys.queryType: "BASKET"
     };
     return _dio.post("v1/buyer/product",
         queryParameters: queryParameters, options: Options(headers: headers));
   }
 
   Future<Response> removeCart({required int adId}) {
-    final headers = {"Authorization": "Bearer ${tokenStorage.token.call()}"};
-    final queryParameters = {
-      'id': adId,
+    final headers = {
+      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
     };
+    final queryParameters = {RestQueryKeys.queryId: adId};
     return _dio.delete("v1/buyer/product",
         queryParameters: queryParameters, options: Options(headers: headers));
   }
 
   Future<Response> getCartAllAds() {
-    final headers = {"Authorization": "Bearer ${tokenStorage.token.call()}"};
-    final queryParameters = {
-      'type': 'BASKET',
+    final headers = {
+      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
     };
+    final queryParameters = {RestQueryKeys.queryType: 'BASKET'};
     return _dio.get("v1/buyer/products",
         queryParameters: queryParameters, options: Options(headers: headers));
   }
@@ -46,16 +49,18 @@ class CartApi {
       required int amount,
       required int paymentTypeId,
       required int tin}) async {
-    final headers = {"Authorization": "Bearer ${tokenStorage.token.call()}"};
+    final headers = {
+      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
+    };
     final data = {
-      'tin': tin,
-      'products': [
+      RestQueryKeys.queryTin: tin,
+      RestQueryKeys.queryProducts: [
         {
-          'product_id': productId,
-          'amount': amount,
-          "payment_type_id": paymentTypeId,
-          "delivery_address_id": 0,
-          "shipping_id": 0
+          RestQueryKeys.queryProductId: productId,
+          RestQueryKeys.queryAmount: amount,
+          RestQueryKeys.queryPaymentTypeId: paymentTypeId,
+          RestQueryKeys.queryDeliveryAddressId: 0,
+          RestQueryKeys.queryShippingId: 0
         }
       ]
     };

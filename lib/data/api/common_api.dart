@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/data/constants/rest_query_keys.dart';
 
 @lazySingleton
 class CommonApi {
@@ -16,7 +17,10 @@ class CommonApi {
   }
 
   Future<Response> getPopularCategories(int pageIndex, int pageSize) {
-    final queryParameters = {'page': pageIndex, 'page_size': pageSize};
+    final queryParameters = {
+      RestQueryKeys.queryPageIndex: pageIndex,
+      RestQueryKeys.queryPageSize: pageSize
+    };
     return _dio.get("v1/popular/categories", queryParameters: queryParameters);
   }
 

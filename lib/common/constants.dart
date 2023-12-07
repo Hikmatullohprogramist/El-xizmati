@@ -7,15 +7,14 @@ abstract class Constants {
 }
 
 abstract class DeviceInfo {
-  static String device_name = "";
-  static String device_id = "";
-  static String device_manufacture = "";
-  static String device_model = "";
-  static String user_agent =
-      "$device_id&&$device_model&&$device_name&&APPLICATION";
-  static String app_version_code = "";
-  static String app_version_name = "";
-  static String mobile_os = "33";
-  static String night_mode = "DISABLED";
-  static String mobile_os_type = "android";
+  static String deviceName = "";
+  static String deviceId = "";
+  static String deviceManufacture = "";
+  static String deviceModel = "";
+  static String userAgent = "$deviceId&&$deviceModel&&$deviceName&&APPLICATION";
+  static String appVersionCode = "";
+  static String appVersionName = "";
+  static String mobileOs = "33";
+  static String nightMode = "DISABLED";
+  static String mobileOsType = "android";
 }

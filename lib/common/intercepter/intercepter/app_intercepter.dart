@@ -10,17 +10,17 @@ class AppInterceptor extends QueuedInterceptor {
   @override
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
-    final headers = {'AppVersionCode': DeviceInfo.app_version_code};
-    headers['AppVersionName'] = DeviceInfo.app_version_name;
-    headers['DeviceId'] = DeviceInfo.device_id;
-    headers['DeviceName'] = DeviceInfo.device_name;
-    headers['DeviceManufacturer'] = DeviceInfo.device_manufacture;
-    headers['DeviceModel'] = DeviceInfo.device_model;
+    final headers = {'AppVersionCode': DeviceInfo.appVersionCode};
+    headers['AppVersionName'] = DeviceInfo.appVersionName;
+    headers['DeviceId'] = DeviceInfo.deviceId;
+    headers['DeviceName'] = DeviceInfo.deviceName;
+    headers['DeviceManufacturer'] = DeviceInfo.deviceManufacture;
+    headers['DeviceModel'] = DeviceInfo.deviceModel;
     headers['User-Agent'] =
-        "${DeviceInfo.device_id}&&${DeviceInfo.device_model}&&${DeviceInfo.device_name}&&APPLICATION";
-    headers['MobileOs'] = DeviceInfo.mobile_os;
-    headers['NightMode'] = DeviceInfo.night_mode;
-    headers['MobileOsType'] = DeviceInfo.mobile_os_type;
+        "${DeviceInfo.deviceId}&&${DeviceInfo.deviceModel}&&${DeviceInfo.deviceName}&&APPLICATION";
+    headers['MobileOs'] = DeviceInfo.mobileOs;
+    headers['NightMode'] = DeviceInfo.nightMode;
+    headers['MobileOsType'] = DeviceInfo.mobileOsType;
     headers['MobileOsVersion']="33";
     options.headers.addAll(headers);
     handler.next(options);

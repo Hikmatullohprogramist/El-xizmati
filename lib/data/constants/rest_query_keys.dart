@@ -1,0 +1,47 @@
+class RestQueryKeys {
+  static String queryPageIndex = "page";
+  static String queryPageSize = "page_size";
+  static String queryKeyWord = "key_word";
+  static String queryId = "id";
+  static String queryCollectiveTypeAds = "type_ads";
+  static String querySearchQuery = "q";
+
+  static String queryPhoneNumber = "phone_number";
+  static String querySessionToken = "session_token";
+  static String querySecurityCode = "security_code";
+  static String queryUserName = "username";
+  static String queryPassword = "password";
+  static String queryRepeatPassword = "repeat_password";
+  static String queryAccessToken = "accessToken";
+  static String queryProductType = "product_type";
+  static String queryProductId = "product_id";
+  static String queryNum = "num";
+  static String queryType = "type";
+  static String queryTin = "tin";
+  static String queryProducts = "products";
+  static String queryAmount = "amount";
+  static String queryPaymentTypeId = "payment_type_id";
+  static String queryDeliveryAddressId = "delivery_address_id";
+  static String queryShippingId = "shipping_id";
+  static String queryName = "name";
+  static String queryRegionId = "region_id";
+  static String queryDistrictId = "district_id";
+  static String queryMahallaId = "mahalla_id";
+  static String queryHomeNumber = "home_num";
+  static String queryApartmentNumber = "apartment_num";
+  static String queryStreetNumber = "street_num";
+  static String queryIsMain = "is_main";
+  static String queryGeo = "geo";
+  static String queryState = "state";
+  static String queryPassportSerial = "passport_serial";
+  static String queryPassportNumber = "passport_number";
+  static String queryBrithDate = "birth_date";
+  static String querySecretKey = "secret_key";
+  static String queryEmail = "email";
+  static String queryGender = "gender";
+  static String queryHomeName = "home_name";
+  static String queryMobilePhone = "mobile_number";
+  static String queryPhoto = "photo";
+  static String queryPnifl ="pinfl";
+  static String queryPostName="post_name";
+}

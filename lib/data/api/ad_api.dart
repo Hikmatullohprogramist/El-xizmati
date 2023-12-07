@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/data/constants/rest_query_keys.dart';
 import 'package:onlinebozor/presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
 
 @lazySingleton
@@ -10,9 +11,9 @@ class AdsApi {
 
   Future<Response> getHomeAds(int pageIndex, int pageSize, String keyWord) {
     final queryParameters = {
-      'page': pageIndex,
-      'page_size': pageSize,
-      'key_word': keyWord
+      RestQueryKeys.queryPageIndex: pageIndex,
+      RestQueryKeys.queryPageSize: pageSize,
+      RestQueryKeys.queryKeyWord: keyWord
     };
     return _dio.get('v1/home/ads?', queryParameters: queryParameters);
   }
@@ -22,55 +23,39 @@ class AdsApi {
   }
 
   Future<Response> getAdDetail(int adId) {
-    final queryParameters = {
-      'id': adId,
-    };
+    final queryParameters = {RestQueryKeys.queryId: adId};
     return _dio.get('v1/ads/detail/', queryParameters: queryParameters);
   }
 
   Future<Response> getCollectiveAds(CollectiveType collectiveType,
       int pageIndex, int pageSize, String keyWord) {
-    String param;
-    if (CollectiveType.commodity == collectiveType) {
-      param = "ADS";
-    } else {
-      param = "SERVICE";
-    }
+    String param =
+        CollectiveType.commodity == collectiveType ? "ADS" : "SERVICE";
     final queryParameters = {
-      'page': pageIndex,
-      'page_size': pageSize,
-      'key_word': keyWord,
-      'type_ads': param
+      RestQueryKeys.queryPageIndex: pageIndex,
+      RestQueryKeys.queryPageSize: pageSize,
+      RestQueryKeys.queryKeyWord: keyWord,
+      RestQueryKeys.queryCollectiveTypeAds: param
     };
     return _dio.get("v1/home/ads?", queryParameters: queryParameters);
   }
 
   Future<Response> getCollectivePopularAds(CollectiveType collectiveType) {
     String param;
-    if (CollectiveType.commodity == collectiveType) {
-      param = "ADS";
-    } else {
-      param = "SERVICE";
-    }
-    final queryParameters = {'type_ads': param};
+    param = CollectiveType.commodity == collectiveType ? "ADA" : "SERVICE";
+    final queryParameters = {RestQueryKeys.queryCollectiveTypeAds: param};
     return _dio.get("v1/home/ads?", queryParameters: queryParameters);
   }
 
   Future<Response> getCollectiveHotDiscountAds(CollectiveType collectiveType) {
     String param;
-    if (CollectiveType.commodity == collectiveType) {
-      param = "ADS";
-    } else {
-      param = "SERVICE";
-    }
-    final queryParameters = {'type_ads': param};
+    param = CollectiveType.commodity == collectiveType ? "ADA" : "SERVICE";
+    final queryParameters = {RestQueryKeys.queryCollectiveTypeAds: param};
     return _dio.get("v1/home/ads?", queryParameters: queryParameters);
   }
 
   Future<Response> getSearchAd(String query) {
-    final queryParameters = {
-      'q': query,
-    };
+    final queryParameters = {RestQueryKeys.querySearchQuery: query};
     return _dio.get('v1/search', queryParameters: queryParameters);
   }
 
