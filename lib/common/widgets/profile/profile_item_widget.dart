@@ -8,16 +8,16 @@ class ProfileItemWidget extends StatelessWidget {
       {super.key,
       required this.name,
       required this.icon,
-      required this.callback});
+      required this.invoke});
 
   final String name;
   final Widget icon;
-  final VoidCallback callback;
+  final VoidCallback invoke;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: callback,
+        onTap: invoke,
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
           color: Colors.white,

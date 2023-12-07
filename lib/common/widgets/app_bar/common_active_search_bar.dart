@@ -5,21 +5,21 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import '../../gen/assets/assets.gen.dart';
 
 class CommonActiveSearchBar extends AppBar implements PreferredSizeWidget {
-  final VoidCallback? onPressedMic;
-  final VoidCallback? onBack;
-  final VoidCallback? onPressedSearch;
-  final VoidCallback? onPressedNotification;
+  final VoidCallback? listenerMic;
+  final VoidCallback? listener;
+  final VoidCallback? listenerSearch;
+  final VoidCallback? listenerNotification;
 
   CommonActiveSearchBar({
     super.key,
-    this.onPressedMic,
-    this.onPressedSearch,
-    this.onPressedNotification,
-    this.onBack,
+    this.listenerMic,
+    this.listenerSearch,
+    this.listenerNotification,
+    this.listener,
   }) : super(
           actions: [
             InkWell(
-                onTap: onBack,
+                onTap: listener,
                 child: Padding(
                   padding: const EdgeInsets.only(
                       left: 16, top: 8, bottom: 8, right: 12),
@@ -29,7 +29,7 @@ class CommonActiveSearchBar extends AppBar implements PreferredSizeWidget {
               child: Padding(
                 padding: EdgeInsets.fromLTRB(16, 12, 0, 12),
                 child: InkWell(
-                  onTap: onPressedSearch,
+                  onTap: listenerSearch,
                   child: Container(
                     width: double.maxFinite,
                     padding: EdgeInsets.symmetric(horizontal: 10),
@@ -44,21 +44,21 @@ class CommonActiveSearchBar extends AppBar implements PreferredSizeWidget {
                     child: Row(
                       children: [
                         InkWell(
-                          onTap: onPressedSearch,
+                          onTap: listenerSearch,
                           child: Assets.images.iconSearch.svg(),
                         ),
                         SizedBox(width: 10),
-                        InkWell(
-                          onTap: onPressedSearch,
+                        Expanded(
+                            child: InkWell(
+                          onTap: listenerSearch,
                           child: Strings.adSearchHint
                               .w(400)
                               .s(14)
                               .c(Color(0xFF9EABBE))
                               .copyWith(overflow: TextOverflow.ellipsis),
-                        ),
-                        Spacer(),
+                        )),
                         InkWell(
-                            onTap: onPressedMic,
+                            onTap: listenerMic,
                             child: Assets.images.icMic.svg()),
                       ],
                     ),
@@ -67,7 +67,7 @@ class CommonActiveSearchBar extends AppBar implements PreferredSizeWidget {
               ),
             ),
             InkWell(
-                onTap: onPressedNotification,
+                onTap: listenerNotification,
                 child: Padding(
                     padding: const EdgeInsets.fromLTRB(12, 20, 16, 20),
                     child: Assets.images.icNotification.svg()))

@@ -7,9 +7,9 @@ import '../../gen/assets/assets.gen.dart';
 import '../common/common_button.dart';
 
 class CardEmptyWidget extends StatelessWidget {
-  const CardEmptyWidget({super.key, required this.callBack});
+  const CardEmptyWidget({super.key, required this.listener});
 
-  final VoidCallback callBack;
+  final VoidCallback listener;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class CardEmptyWidget extends StatelessWidget {
             child: CommonButton(
               type: ButtonType.elevated,
               color: context.colors.buttonPrimary,
-              onPressed: callBack,
+              onPressed: listener,
               child: Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,

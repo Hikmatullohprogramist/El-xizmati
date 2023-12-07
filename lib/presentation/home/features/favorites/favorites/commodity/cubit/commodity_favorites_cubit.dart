@@ -3,10 +3,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/enum/enums.dart';
-import 'package:onlinebozor/domain/repository/favorite_repository.dart';
-
 import '../../../../../../../common/core/base_cubit_new.dart';
-import '../../../../../../../domain/model/ad.dart';
+import '../../../../../../../domain/models/ad.dart';
+import '../../../../../../../domain/repositories/favorite_repository.dart';
+import '../../../../../../../domain/util.dart';
 
 
 part 'commodity_favorites_cubit.freezed.dart';
@@ -58,10 +58,10 @@ class CommodityFavoritesCubit extends BaseCubit<CommodityFavoritesBuildable,
     return adController;
   }
 
-  Future<void> removeFavorite(Ad adModel) async {
+  Future<void> removeFavorite(Ad ad) async {
     try {
-      await _favoriteRepository.removeFavorite(adModel);
-      buildable.adsPagingController?.itemList?.remove(adModel);
+      await _favoriteRepository.removeFavorite(ad);
+      buildable.adsPagingController?.itemList?.remove(ad);
       buildable.adsPagingController?.notifyListeners();
     } on DioException catch (e) {
       display.error("xatolik yuz berdi");

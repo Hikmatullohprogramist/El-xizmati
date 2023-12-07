@@ -15,11 +15,10 @@ import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/display/display_widget.dart';
+import 'package:onlinebozor/domain/repositories/state_repository.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:uuid/uuid.dart';
-
-import 'domain/repository/state_repository.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

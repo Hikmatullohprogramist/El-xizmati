@@ -13,7 +13,7 @@ class UserInactiveAdsPage extends BasePage<UserInactiveAdsCubit,
   @override
   Widget builder(BuildContext context, UserInactiveAdsBuildable state) {
     return Scaffold(body: AdEmptyWidget(
-      callBack: () {
+      listener: () {
         showModalBottomSheet(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),

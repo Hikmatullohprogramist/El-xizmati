@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/storage/language_storage.dart';
+
+import '../../../data/storages/language_storage.dart';
 
 @lazySingleton
 class LanguageInterceptor extends QueuedInterceptor {

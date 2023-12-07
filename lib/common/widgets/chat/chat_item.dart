@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
 class ChatItem extends StatelessWidget {
-  const ChatItem({super.key, required this.onPressed});
+  const ChatItem({super.key, required this.listener});
 
-  final VoidCallback onPressed;
+  final VoidCallback listener;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onPressed,
+      onTap: listener,
       child: Padding(
         padding: EdgeInsets.all(16),
         child: Row(

@@ -3,9 +3,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
 import 'package:onlinebozor/common/enum/enums.dart';
-import 'package:onlinebozor/domain/repository/ad_repository.dart';
-
-import '../../../../data/model/search/search_response.dart';
+import '../../../../data/responses/search/search_response.dart';
+import '../../../../domain/repositories/ad_repository.dart';
 
 part 'search_cubit.freezed.dart';
 part 'search_state.dart';

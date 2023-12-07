@@ -15,7 +15,7 @@ class UserSavedOrdersPage extends BasePage<UserSavedOrdersCubit,
     return Scaffold(
       body: Center(
           child: AdEmptyWidget(
-        callBack: () {},
+        listener: () {},
       )),
     );
   }

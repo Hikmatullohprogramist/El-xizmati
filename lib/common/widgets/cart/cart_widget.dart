@@ -5,30 +5,30 @@ import 'package:onlinebozor/common/extensions/currency_extensions.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/common/common_button.dart';
 
-import '../../enum/enums.dart';
-import '../../../domain/model/ad.dart';
+import '../../../domain/models/ad.dart';
+import '../../../domain/util.dart';
 import '../../constants.dart';
 import '../../gen/assets/assets.gen.dart';
 
 class CartWidget extends StatelessWidget {
   const CartWidget({
     super.key,
-    required this.addItem,
-    required this.minusItem,
-    required this.deleteItem,
-    required this.addFavorite,
-    required this.adModel,
-    required this.onClick,
+    required this.invokeAdd,
+    required this.invokeMinus,
+    required this.invokeDelete,
+    required this.invokeFavoriteDelete,
+    required this.ad,
+    required this.invoke,
   });
 
   //
-  final Ad adModel;
-  final Function(Ad adModel) addItem;
-  final Function(Ad adModel) onClick;
+  final Ad ad;
+  final Function(Ad ad) invokeAdd;
+  final Function(Ad ad) invoke;
 
-  final Function(Ad adModel) minusItem;
-  final Function(Ad adModel) deleteItem;
-  final Function(Ad adModel) addFavorite;
+  final Function(Ad ad) invokeMinus;
+  final Function(Ad ad) invokeDelete;
+  final Function(Ad ad) invokeFavoriteDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -40,15 +40,6 @@ class CartWidget extends StatelessWidget {
         return Assets.images.icLike.svg();
       }
     }
-
-    // String url(String url) {
-    //   if (url.isNotEmpty) {
-    //     return url;
-    //   } else {
-    //     return "ff8081817f0675606837d571";
-    //   }
-    // }
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
@@ -81,7 +72,7 @@ class CartWidget extends StatelessWidget {
                 color: Color(0xFFF6F7FC),
               ),
               child: CachedNetworkImage(
-                imageUrl: "${Constants.baseUrlForImage}${adModel.photo}",
+                imageUrl: "${Constants.baseUrlForImage}${ad.photo}",
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),
@@ -102,20 +93,20 @@ class CartWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                adModel.name
+                ad.name
                     .w(500)
                     .s(14)
                     .c(Color(0xFF41455E))
                     .copyWith(overflow: TextOverflow.ellipsis, maxLines: 2),
                 SizedBox(height: 15),
-                if (adModel.price == 0)
-                  "${formatter.format(adModel.fromPrice).replaceAll(',', ' ')}-${formatter.format(adModel.toPrice).replaceAll(',', ' ')} ${Currency.uzb.getName}"
+                if (ad.price == 0)
+                  "${formatter.format(ad.fromPrice).replaceAll(',', ' ')}-${formatter.format(ad.toPrice).replaceAll(',', ' ')} ${Currency.uzb.getName}"
                       .w(700)
                       .s(15)
                       .c(Color(0xFF5C6AC3))
                       .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis)
                 else
-                  "${formatter.format(adModel.price).replaceAll(',', ' ')} ${Currency.uzb.getName}"
+                  "${formatter.format(ad.price).replaceAll(',', ' ')} ${Currency.uzb.getName}"
                       .w(700)
                       .s(15)
                       .c(Color(0xFF5C6AC3))
@@ -127,7 +118,7 @@ class CartWidget extends StatelessWidget {
                     InkWell(
                         borderRadius: BorderRadius.circular(6),
                         onTap: () {
-                          addFavorite(adModel);
+                          invokeFavoriteDelete(ad);
                         },
                         child: Container(
                             padding: EdgeInsets.all(5),
@@ -137,11 +128,11 @@ class CartWidget extends StatelessWidget {
                                     width: 1, color: Color(0xFFDFE2E9))),
                             height: 28,
                             width: 28,
-                            child: liked(adModel.favorite))),
+                            child: liked(ad.favorite))),
                     SizedBox(width: 8),
                     InkWell(
                         onTap: () {
-                          deleteItem(adModel);
+                          invokeDelete(ad);
                         },
                         borderRadius: BorderRadius.circular(6),
                         child: Container(
@@ -156,7 +147,7 @@ class CartWidget extends StatelessWidget {
                     Spacer(),
                     CommonButton(
                         onPressed: () {
-                          onClick(adModel);
+                          invoke(ad);
                         },
                         child: "Оформить".w(500).s(13).c(Color(0xFFDFE2E9))),
                     // Spacer(),

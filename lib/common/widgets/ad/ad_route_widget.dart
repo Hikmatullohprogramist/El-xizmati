@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
-import '../../enum/enums.dart';
+import '../../../domain/util.dart';
 import '../../gen/localization/strings.dart';
 
 class AppAdRouterWidget extends StatelessWidget {

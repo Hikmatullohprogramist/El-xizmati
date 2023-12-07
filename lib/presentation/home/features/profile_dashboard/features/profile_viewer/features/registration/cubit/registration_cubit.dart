@@ -1,10 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
-import 'package:onlinebozor/domain/repository/user_repository.dart';
 
 import '../../../../../../../../../common/core/base_cubit_new.dart';
-import '../../../../../../../../../data/model/region /region_response.dart';
+import '../../../../../../../../../data/responses/region /region_response.dart';
+import '../../../../../../../../../domain/repositories/user_repository.dart';
 
 part 'registration_cubit.freezed.dart';
 part 'registration_state.dart';

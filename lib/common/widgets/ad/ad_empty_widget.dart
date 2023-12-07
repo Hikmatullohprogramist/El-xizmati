@@ -7,9 +7,9 @@ import '../../gen/assets/assets.gen.dart';
 import '../common/common_button.dart';
 
 class AdEmptyWidget extends StatelessWidget {
-  const AdEmptyWidget({super.key, required this.callBack});
+  const AdEmptyWidget({super.key, required this.listener});
 
-  final VoidCallback callBack;
+  final VoidCallback listener;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class AdEmptyWidget extends StatelessWidget {
             child: CommonButton(
               type: ButtonType.elevated,
               color: context.colors.buttonPrimary,
-              onPressed: callBack,
+              onPressed: listener,
               child: Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,

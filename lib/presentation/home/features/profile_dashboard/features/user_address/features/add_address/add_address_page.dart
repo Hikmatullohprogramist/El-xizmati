@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/data/model/address/user_address_response.dart';
 
 import '../../../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../../../common/widgets/common/common_button.dart';
 import '../../../../../../../../common/widgets/common/common_text_field.dart';
+import '../../../../../../../../data/responses/address/user_address_response.dart';
 import 'cubit/add_address_cubit.dart';
 
 @RoutePage()

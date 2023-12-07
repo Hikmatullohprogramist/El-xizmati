@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/presentation/common/language/change_language/change_language_page.dart';
 import 'package:onlinebozor/presentation/home/home_page.dart';
 
-import '../../data/model/address/user_address_response.dart';
+import '../../data/responses/address/user_address_response.dart';
+import '../../domain/util.dart';
 import '../../presentation/ad/ad_collection/ad_collection_page.dart';
 import '../../presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
 import '../../presentation/ad/ad_detail/ad_detil_page.dart';
@@ -62,7 +63,6 @@ import '../../presentation/home/features/profile_dashboard/features/user_orders/
 import '../../presentation/home/features/profile_dashboard/features/user_orders/user_orders_page.dart';
 import '../../presentation/home/features/profile_dashboard/features/wallet_filling/wallet_filling_page.dart';
 import '../../presentation/home/features/profile_dashboard/profile_dashboard_page.dart';
-import '../enum/enums.dart';
 
 part 'app_router.gr.dart';
 

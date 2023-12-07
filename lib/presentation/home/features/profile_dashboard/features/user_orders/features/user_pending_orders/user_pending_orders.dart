@@ -14,7 +14,7 @@ class UserPendingOrdersPage extends BasePage<UserPendingOrdersCubit,
     return Scaffold(
       body: Center(
         child: AdEmptyWidget(
-          callBack: () {},
+          listener: () {},
         ),
       ),
     );

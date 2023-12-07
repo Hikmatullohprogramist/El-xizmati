@@ -5,10 +5,10 @@ import '../../gen/assets/assets.gen.dart';
 
 class AppFavoriteWidget extends StatefulWidget {
   const AppFavoriteWidget(
-      {super.key, required this.isSelected, required this.onEvent});
+      {super.key, required this.isSelected, required this.invoke});
 
   final bool isSelected;
-  final VoidCallback onEvent;
+  final VoidCallback invoke;
 
   @override
   State<StatefulWidget> createState() => _AppFavoriteWidget();
@@ -19,6 +19,7 @@ class _AppFavoriteWidget extends State<AppFavoriteWidget> {
 
   @override
   void initState() {
+    super.initState();
     _isSelected = widget.isSelected;
   }
 
@@ -26,7 +27,7 @@ class _AppFavoriteWidget extends State<AppFavoriteWidget> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        widget.onEvent();
+        widget.invoke();
         setState(() {
           _isSelected = !_isSelected;
         });

@@ -1,13 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
-import 'package:onlinebozor/common/enum/enums.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/app_bar/common_search_bar.dart';
 import 'package:onlinebozor/common/widgets/category/category_widget.dart';
 import 'package:onlinebozor/common/widgets/loading/loader_state_widget.dart';
-import 'package:onlinebozor/data/model/category/category/category_response.dart';
 
+import '../../../../data/responses/category/category/category_response.dart';
+import '../../../../domain/util.dart';
 import 'cubit/category_cubit.dart';
 
 @RoutePage()
@@ -19,9 +19,9 @@ class CategoryPage
   Widget builder(BuildContext context, CategoryBuildable state) {
     return Scaffold(
       appBar: CommonSearchBar(
-          onPressedMic: () {},
-          onPressedNotification: () => context.router.push(NotificationRoute()),
-          onPressedSearch: () => context.router.push(SearchRoute())),
+          listenerMic: () {},
+          listenerNotification: () => context.router.push(NotificationRoute()),
+          listenerSearch: () => context.router.push(SearchRoute())),
       body: LoaderStateWidget(
         isFullScreen: true,
         loadingState: state.categoriesState,
@@ -32,13 +32,13 @@ class CategoryPage
           itemCount: state.categories.length,
           itemBuilder: (context, index) {
             return AppCategoryWidget(
-                onClick: (CategoryResponse categoryResponse) {
+                invoke: (CategoryResponse categoryResponse) {
                   context.router.push(AdListRoute(
                       adListType: AdListType.popularCategory,
                       keyWord: categoryResponse.key_word,
                       title: categoryResponse.name));
                 },
-                categoryResponse: state.categories[index]);
+                category: state.categories[index]);
           },
           separatorBuilder: (BuildContext context, int index) {
             return Divider(height: 1, indent: 54, color: Color(0xFFE5E9F3));

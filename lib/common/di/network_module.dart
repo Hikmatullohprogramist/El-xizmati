@@ -4,21 +4,19 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/constants.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-import '../intercepter/auth_interceptor/auth_interceptor.dart';
 import '../intercepter/intercepter/app_intercepter.dart';
 import '../intercepter/intercepter/language_intercepter.dart';
 
 @module
 abstract class NetworkModule {
   @lazySingleton
-  Dio dio(AuthInterceptor authInterceptor,
+  Dio dio(
       LanguageInterceptor languageInterceptor, AppInterceptor appInterceptor) {
     final options = BaseOptions(baseUrl: Constants.baseUrl, headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json; charset=UTF-8',
     });
     final dio = Dio(options);
-    dio.interceptors.add(authInterceptor);
     dio.interceptors.add(languageInterceptor);
     dio.interceptors.add(appInterceptor);
     dio.interceptors.add(_loggerInterceptor);

@@ -2,13 +2,13 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/domain/model/ad.dart';
-import 'package:onlinebozor/domain/repository/common_repository.dart';
-import 'package:onlinebozor/domain/repository/favorite_repository.dart';
-
+import 'package:onlinebozor/domain/util.dart';
 import '../../../../common/core/base_cubit.dart';
 import '../../../../common/enum/enums.dart';
-import '../../../../domain/repository/ad_repository.dart';
+import '../../../../domain/models/ad.dart';
+import '../../../../domain/repositories/ad_repository.dart';
+import '../../../../domain/repositories/common_repository.dart';
+import '../../../../domain/repositories/favorite_repository.dart';
 
 part 'ad_list_cubit.freezed.dart';
 part 'ad_list_state.dart';

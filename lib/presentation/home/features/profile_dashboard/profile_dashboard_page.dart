@@ -40,7 +40,7 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
                       : "Sign in ",
                   icon: Assets.images.profile.icUserAvatar
                       .svg(width: 18, height: 18),
-                  callback: () {
+                  invoke: () {
                     state.isLogin
                         ? context.router.push(ProfileViewerRoute())
                         : context.router.push(AuthStartRoute());
@@ -54,7 +54,7 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
                       name: Strings.profileDashboardMyAds,
                       icon: Assets.images.profile.icMegaPhone
                           .svg(width: 18, height: 18),
-                      callback: () => context.router.push(UserAdsRoute()))),
+                      invoke: () => context.router.push(UserAdsRoute()))),
               Visibility(
                   visible: state.isLogin,
                   child: Divider(indent: 46, height: 1)),
@@ -64,7 +64,7 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
                       name: Strings.profileDashboardOrders,
                       icon: Assets.images.profile.icOrder
                           .svg(width: 18, height: 18),
-                      callback: () => context.router.push(UserOrdersRoute()))),
+                      invoke: () => context.router.push(UserOrdersRoute()))),
               // Divider(indent: 46, height: 1),
               // ProfileItemWidget(
               //     name: Strings.profileDahboardMessage,
@@ -86,7 +86,7 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
                       name: Strings.profileDashboardMyCard,
                       icon: Assets.images.profile.icCards
                           .svg(width: 18, height: 18),
-                      callback: () => context.router.push(UserCardsRoute()))),
+                      invoke: () => context.router.push(UserCardsRoute()))),
               Visibility(
                   visible: state.isLogin,
                   child: Divider(indent: 46, height: 1)),
@@ -96,7 +96,7 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
                       name: Strings.profileDashboardPayment,
                       icon: Assets.images.profile.icPayment
                           .svg(width: 18, height: 18),
-                      callback: () =>
+                      invoke: () =>
                           context.router.push(PaymentTransactionRoute()))),
               // Divider(indent: 46, height: 1),
               // ProfileItemWidget(
@@ -113,7 +113,7 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
                       name: Strings.profileDashboardMyAddress,
                       icon: Assets.images.profile.icLocation
                           .svg(width: 18, height: 18),
-                      callback: () =>
+                      invoke: () =>
                           context.router.push(UserAddressesRoute()))),
               // Divider(indent: 46, height: 1),
               // ProfileItemWidget(
@@ -138,7 +138,7 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
                     color: context.colors.iconGrey,
                     size: 18,
                   ),
-                  callback: () => context.router.push(ChangeLanguageRoute())),
+                  invoke: () => context.router.push(ChangeLanguageRoute())),
               Divider(indent: 46, height: 1),
               Visibility(
                   visible: state.isLogin,

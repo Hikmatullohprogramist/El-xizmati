@@ -44,7 +44,7 @@ class UserAdDetailPage extends BasePage<UserAdDetailCubit,
               images: (List.empty(growable: true))
                   .map((e) => "${Constants.baseUrlForImage}${e.image}")
                   .toList(),
-              onClick: (int position) {
+              invoke: (int position) {
                 context.router.push(PhotoViewRoute(
                   lists: (List.empty(growable: true))
                       .map((e) => "${Constants.baseUrlForImage}${e.image}")

@@ -7,18 +7,18 @@ import '../../gen/assets/assets.gen.dart';
 class CardWidget extends StatelessWidget {
   const CardWidget(
       {super.key,
-      required this.onClick,
+      required this.listener,
       required this.image,
-      required this.onClickSetting});
+      required this.listenerEdit});
 
-  final VoidCallback onClick;
-  final VoidCallback onClickSetting;
+  final VoidCallback listener;
+  final VoidCallback listenerEdit;
   final String image;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap:onClick,
+        onTap:listener,
         child: Stack(
           children: [
             Container(
@@ -46,7 +46,7 @@ class CardWidget extends StatelessWidget {
                 margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                 child: IconButton(
                   icon: Assets.images.icSetting.svg(height: 24, width: 24),
-                  onPressed:onClickSetting,
+                  onPressed:listenerEdit,
                 ),
               ),
             ),

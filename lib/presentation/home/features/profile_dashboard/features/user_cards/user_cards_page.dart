@@ -130,7 +130,7 @@ class UserCardsPage
       body: Column(children: [
         // if (state.isEmpty)
         CardEmptyWidget(
-          callBack: () {
+          listener: () {
             // context.router.push(AddCardRoute());
           },
         )

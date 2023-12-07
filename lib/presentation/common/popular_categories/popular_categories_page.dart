@@ -5,13 +5,13 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/app_bar/common_app_bar.dart';
 import 'package:onlinebozor/common/widgets/category/popular_category_horizontal.dart';
-import 'package:onlinebozor/data/model/category/popular_category/popular_category_response.dart';
 import 'package:onlinebozor/presentation/common/popular_categories/cubit/popular_categories_cubit.dart';
 
 import '../../../common/core/base_page.dart';
-import '../../../common/enum/enums.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/widgets/common/common_button.dart';
+import '../../../data/responses/category/popular_category/popular_category_response.dart';
+import '../../../domain/util.dart';
 
 @RoutePage()
 class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
@@ -97,8 +97,8 @@ class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
                     transitionDuration: Duration(milliseconds: 100),
                     itemBuilder: (context, item, index) =>
                         AppPopularCategoryHorizontal(
-                      popularCategoryResponse: item,
-                      onClick: (value) {
+                      category: item,
+                      invoke: (value) {
                         context.router.push(AdListRoute(
                             adListType: AdListType.popularCategory,
                             keyWord: value.key_word,

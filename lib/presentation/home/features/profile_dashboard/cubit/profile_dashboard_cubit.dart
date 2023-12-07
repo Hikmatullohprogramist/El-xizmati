@@ -2,10 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
-import 'package:onlinebozor/domain/repository/auth_repository.dart';
 
 import '../../../../../common/core/base_cubit.dart';
-import '../../../../../domain/repository/state_repository.dart';
+import '../../../../../domain/repositories/auth_repository.dart';
+import '../../../../../domain/repositories/state_repository.dart';
 
 part 'profile_dashboard_cubit.freezed.dart';
 

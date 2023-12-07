@@ -3,12 +3,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/enum/enums.dart';
-import 'package:onlinebozor/domain/model/ad.dart';
-import 'package:onlinebozor/domain/repository/favorite_repository.dart';
 
 import '../../../../common/core/base_cubit.dart';
-import '../../../../domain/repository/ad_repository.dart';
-import '../../../../domain/repository/common_repository.dart';
+import '../../../../domain/models/ad.dart';
+import '../../../../domain/repositories/ad_repository.dart';
+import '../../../../domain/repositories/common_repository.dart';
+import '../../../../domain/repositories/favorite_repository.dart';
 
 part 'ad_collection_cubit.freezed.dart';
 part 'ad_collection_state.dart';
@@ -58,7 +58,6 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
 
   Future<void> getPopularAds() async {
     try {
-      log.i("recentlyViewerAds request");
       final popularAds =
       await adRepository.getPopularAds(buildable.collectiveType);
       build((buildable) => buildable.copyWith(

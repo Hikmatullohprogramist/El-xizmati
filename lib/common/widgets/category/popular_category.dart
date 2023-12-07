@@ -1,23 +1,24 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/data/model/category/popular_category/popular_category_response.dart';
+
+import '../../../data/responses/category/popular_category/popular_category_response.dart';
 
 class AppPopularCategory extends StatelessWidget {
   const AppPopularCategory({
     super.key,
-    required this.popularCategoryResponse,
-    this.onClick,
+    required this.category,
+    this.invoke,
   });
 
-  final PopularCategoryResponse popularCategoryResponse;
-  final Function(PopularCategoryResponse result)? onClick;
+  final PopularCategoryResponse category;
+  final Function(PopularCategoryResponse category)? invoke;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        onClick!(popularCategoryResponse);
+        invoke!(category);
       },
       child: Container(
         width: 129,
@@ -38,7 +39,7 @@ class AppPopularCategory extends StatelessWidget {
               ),
               child: CachedNetworkImage(
                 imageUrl:
-                    "https://api.online-bozor.uz/uploads/images/${popularCategoryResponse.icon}",
+                    "https://api.online-bozor.uz/uploads/images/${category.icon}",
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),
@@ -62,10 +63,7 @@ class AppPopularCategory extends StatelessWidget {
                   color: Color(0x28AEB2CD),
                   borderRadius: BorderRadius.circular(6)),
               child: Center(
-                  child: (popularCategoryResponse.lang ?? "")
-                      .w(400)
-                      .s(12)
-                      .copyWith(
+                  child: (category.lang ?? "").w(400).s(12).copyWith(
                         textAlign: TextAlign.center,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

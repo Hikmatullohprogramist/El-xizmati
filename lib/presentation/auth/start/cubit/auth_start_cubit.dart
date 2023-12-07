@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
-import '../../../../domain/repository/auth_repository.dart';
+import '../../../../domain/repositories/auth_repository.dart';
 
 part 'auth_start_cubit.freezed.dart';
 part 'auth_start_state.dart';

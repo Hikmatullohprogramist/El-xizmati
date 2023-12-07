@@ -104,7 +104,7 @@ class AdDetailPage
                       padding: EdgeInsets.all(4),
                       child: AppFavoriteWidget(
                           isSelected: state.adDetail?.favorite ?? false,
-                          onEvent: () =>
+                          invoke: () =>
                               context.read<AdDetailCubit>().addFavorite()))
                 ]),
             body: SafeArea(
@@ -118,7 +118,7 @@ class AdDetailPage
                             List.empty(growable: true))
                         .map((e) => "${Constants.baseUrlForImage}${e.image}")
                         .toList(),
-                    onClick: (int position) {
+                    invoke: (int position) {
                       context.router.push(PhotoViewRoute(
                         lists: (state.adDetail?.photos ??
                                 List.empty(growable: true))

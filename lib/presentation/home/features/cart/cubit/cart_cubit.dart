@@ -2,11 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/domain/repository/favorite_repository.dart';
 
 import '../../../../../common/core/base_cubit.dart';
-import '../../../../../domain/model/ad.dart';
-import '../../../../../domain/repository/cart_repository.dart';
+import '../../../../../domain/models/ad.dart';
+import '../../../../../domain/repositories/cart_repository.dart';
+import '../../../../../domain/repositories/favorite_repository.dart';
 
 part 'cart_cubit.freezed.dart';
 
@@ -57,27 +57,27 @@ class CartCubit extends BaseCubit<CartBuildable, CartListenable> {
     return adController;
   }
 
-  Future<void> removeCart(Ad adModel) async {
+  Future<void> removeCart(Ad ad) async {
     try {
-      await _cartRepository.removeCart(adModel.backendId ?? adModel.id);
-      buildable.adsPagingController?.itemList?.remove(adModel);
+      await _cartRepository.removeCart(ad.backendId ?? ad.id);
+      buildable.adsPagingController?.itemList?.remove(ad);
       buildable.adsPagingController?.notifyListeners();
     } on DioException catch (e) {
       display.error(e.toString());
     }
   }
 
-  Future<void> addFavorite(Ad adModel) async {
+  Future<void> addFavorite(Ad ad) async {
     try {
-      if (!adModel.favorite) {
-        await favoriteRepository.addFavorite(adModel);
+      if (!ad.favorite) {
+        await favoriteRepository.addFavorite(ad);
       } else {
-        await favoriteRepository.removeFavorite(adModel);
+        await favoriteRepository.removeFavorite(ad);
       }
-      final index = buildable.adsPagingController?.itemList?.indexOf(adModel);
+      final index = buildable.adsPagingController?.itemList?.indexOf(ad);
       if (index != null) {
-        final newAdModel = adModel..favorite = !adModel.favorite;
-        buildable.adsPagingController?.itemList?.remove(adModel);
+        final newAdModel = ad..favorite = !ad.favorite;
+        buildable.adsPagingController?.itemList?.remove(ad);
         buildable.adsPagingController?.itemList?.insert(index, newAdModel);
         buildable.adsPagingController?.notifyListeners();
       }

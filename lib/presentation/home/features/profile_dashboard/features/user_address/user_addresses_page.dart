@@ -10,10 +10,10 @@ import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/address/address_empty_widget.dart';
 import 'package:onlinebozor/common/widgets/address/address_widget.dart';
 import 'package:onlinebozor/common/widgets/common/common_button.dart';
-import 'package:onlinebozor/data/model/address/user_address_response.dart';
 import 'package:onlinebozor/presentation/home/features/profile_dashboard/features/user_address/cubit/user_addresses_cubit.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
+import '../../../../../../data/responses/address/user_address_response.dart';
 
 @RoutePage()
 class UserAddressesPage extends BasePage<UserAddressesCubit,
@@ -237,7 +237,7 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
           },
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) => AppAddressWidgets(
-            callback: () {
+            listener: () {
               _edit(item);
             },
             address: item,

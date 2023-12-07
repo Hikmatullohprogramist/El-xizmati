@@ -7,12 +7,12 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/favorite/favorite_empty_widget.dart';
-import 'package:onlinebozor/domain/model/ad.dart';
 import 'package:onlinebozor/presentation/home/features/favorites/favorites/commodity/cubit/commodity_favorites_cubit.dart';
 
 import '../../../../../../common/gen/localization/strings.dart';
 import '../../../../../../common/widgets/ad/ad_widget.dart';
 import '../../../../../../common/widgets/common/common_button.dart';
+import '../../../../../../domain/models/ad.dart';
 
 @RoutePage()
 class CommodityFavoritesPage extends BasePage<CommodityFavoritesCubit,
@@ -78,7 +78,7 @@ class CommodityFavoritesPage extends BasePage<CommodityFavoritesCubit,
             );
           },
           noItemsFoundIndicatorBuilder: (_) {
-            return FavoriteEmptyWidget(callBack: () {
+            return FavoriteEmptyWidget(invoke: () {
               context.router.push(DashboardRoute());
             });
           },
@@ -104,11 +104,10 @@ class CommodityFavoritesPage extends BasePage<CommodityFavoritesCubit,
           },
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) => AppAdWidget(
-            result: item,
-            onClickFavorite: (value) => context
-                .read<CommodityFavoritesCubit>()
-                .removeFavorite(value),
-            onClick: (value) {
+            ad: item,
+            invokeFavorite: (value) =>
+                context.read<CommodityFavoritesCubit>().removeFavorite(value),
+            invoke: (value) {
               context.router.push(AdDetailRoute(adId: value.id));
             },
           ),

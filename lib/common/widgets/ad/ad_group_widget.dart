@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
-import 'package:onlinebozor/domain/model/ad.dart';
 
+import '../../../domain/models/ad.dart';
 import 'ad_horizontal_widget.dart';
 
 class AdGroupWidget extends StatelessWidget {
   const AdGroupWidget(
       {super.key,
       required this.ads,
-      required this.onClick,
-      required this.onClickFavorite});
+      required this.invoke,
+      required this.invokeFavorite});
 
   final List<Ad> ads;
-  final Function(Ad result) onClick;
-  final Function(Ad result) onClickFavorite;
+  final Function(Ad ad) invoke;
+  final Function(Ad ad) invokeFavorite;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +26,9 @@ class AdGroupWidget extends StatelessWidget {
         padding: EdgeInsets.only(left: 16, bottom: 24, right: 16),
         itemBuilder: (context, index) {
           return AppAdHorizontalWidget(
-            onClickFavorite: onClickFavorite,
-            onClick: onClick,
-            result: ads[index],
+            invokeFavorite: invokeFavorite,
+            invoke: invoke,
+            ad: ads[index],
           );
         },
         separatorBuilder: (BuildContext context, int index) {

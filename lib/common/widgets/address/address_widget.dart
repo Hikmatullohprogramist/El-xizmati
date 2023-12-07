@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
-import 'package:onlinebozor/data/model/address/user_address_response.dart';
+
+import '../../../data/responses/address/user_address_response.dart';
 
 class AppAddressWidgets extends StatelessWidget {
   const AppAddressWidgets(
-      {super.key, required this.callback, required this.address});
+      {super.key, required this.listener, required this.address});
 
-  final VoidCallback callback;
+  final VoidCallback listener;
   final UserAddressResponse address;
 
   @override
@@ -35,7 +36,7 @@ class AppAddressWidgets extends StatelessWidget {
                   ),
                   SizedBox(width: 12),
                   IconButton(
-                      onPressed: callback, icon: Assets.images.icMoreVert.svg())
+                      onPressed: listener, icon: Assets.images.icMoreVert.svg())
                 ],
               )
             ],

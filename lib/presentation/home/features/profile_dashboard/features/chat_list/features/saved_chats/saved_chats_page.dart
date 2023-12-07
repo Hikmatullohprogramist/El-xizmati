@@ -18,7 +18,7 @@ class SavedChatsPage extends BasePage<SavedChatsCubit, SavedChatsBuildable,
         body: ListView.separated(
           physics: BouncingScrollPhysics(),
           itemBuilder: (context, index) {
-            return ChatItem(onPressed: () => context.router.push(ChatRoute()));
+            return ChatItem(listener: () => context.router.push(ChatRoute()));
           },
           itemCount: 20, separatorBuilder: (BuildContext context, int index) {
           return AppDivider();

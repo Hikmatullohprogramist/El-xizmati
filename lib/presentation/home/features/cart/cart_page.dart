@@ -9,9 +9,9 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/common/common_button.dart';
 import 'package:onlinebozor/common/widgets/favorite/favorite_empty_widget.dart';
-import 'package:onlinebozor/domain/model/ad.dart';
 
 import '../../../../common/widgets/cart/cart_widget.dart';
+import '../../../../domain/models/ad.dart';
 import 'cubit/cart_cubit.dart';
 
 @RoutePage()
@@ -81,7 +81,7 @@ class CartPage extends BasePage<CartCubit, CartBuildable, CartListenable> {
               );
             },
             noItemsFoundIndicatorBuilder: (_) {
-              return FavoriteEmptyWidget(callBack: () {
+              return FavoriteEmptyWidget(invoke: () {
                 context.router.push(DashboardRoute());
               });
             },
@@ -108,15 +108,15 @@ class CartPage extends BasePage<CartCubit, CartBuildable, CartListenable> {
             transitionDuration: Duration(milliseconds: 100),
             itemBuilder: (context, item, index) {
               return CartWidget(
-                addItem: (Ad adModel) {},
-                minusItem: (Ad adModel) {},
-                deleteItem: (Ad adModel) =>
+                invokeAdd: (Ad adModel) {},
+                invokeMinus: (Ad adModel) {},
+                invokeDelete: (Ad adModel) =>
                     context.read<CartCubit>().removeCart(adModel),
-                addFavorite: (Ad adModel) {
+                invokeFavoriteDelete: (Ad adModel) {
                   context.read<CartCubit>().addFavorite(adModel);
                 },
-                adModel: item,
-                onClick: (Ad adModel) {
+                ad: item,
+                invoke: (Ad adModel) {
                   context.router.push(OrderCreateRoute(adId: adModel.id));
                 },
               );

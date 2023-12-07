@@ -10,13 +10,13 @@ import 'package:onlinebozor/common/widgets/ad/ad_group_widget.dart';
 import 'package:onlinebozor/common/widgets/app_bar/common_active_search_bar.dart';
 import 'package:onlinebozor/common/widgets/dashboard/all_view_widget.dart';
 import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
-import 'package:onlinebozor/domain/model/ad.dart';
 
 import '../../../common/core/base_page.dart';
-import '../../../common/enum/enums.dart';
 import '../../../common/widgets/ad/ad_widget.dart';
 import '../../../common/widgets/common/common_button.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
+import '../../../domain/models/ad.dart';
+import '../../../domain/util.dart';
 import 'cubit/ad_collection_cubit.dart';
 
 @RoutePage()
@@ -24,8 +24,12 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
     AdCollectionBuildable, AdCollectionListenable> {
   const AdCollectionPage(this.collectiveType, {super.key});
 
+  final CollectiveType collectiveType;
+
   @override
-  void init(BuildContext context) {}
+  void init(BuildContext context) {
+    context.read<AdCollectionCubit>().setCollectionType(collectiveType);
+  }
 
   @override
   void listener(BuildContext context, AdCollectionListenable state) {
@@ -37,8 +41,6 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
     }
   }
 
-  final CollectiveType collectiveType;
-
   @override
   Widget builder(BuildContext context, AdCollectionBuildable state) {
     double width;
@@ -49,10 +51,10 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
       child: Scaffold(
           backgroundColor: Colors.white,
           appBar: CommonActiveSearchBar(
-              onBack: () => context.router.pop(),
-              onPressedSearch: () => context.router.push(SearchRoute()),
-              onPressedNotification: () =>
-                  context.router.push(NotificationRoute())),
+                listener: () => context.router.pop(),
+                listenerSearch: () => context.router.push(SearchRoute()),
+                listenerNotification: () =>
+                    context.router.push(NotificationRoute())),
           body: CustomScrollView(
             physics: BouncingScrollPhysics(),
             slivers: [
@@ -63,47 +65,48 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                           padding: EdgeInsets.only(right: 16, left: 16, top: 16),
                           child: Align(
                             alignment: Alignment.centerLeft,
-                            child: switch (collectiveType) {
-                              CollectiveType.commodity => Strings
-                                  .favoriteCommodityTitle
-                                  .w(700)
-                                  .s(16)
-                                  .c(context.colors.textPrimary),
-                              CollectiveType.service => Strings.favoriteServiceTitle
-                                  .w(700)
-                                  .s(16)
-                                  .c(context.colors.textPrimary),
-                            },
-                          )),
+                          child: switch (collectiveType) {
+                            CollectiveType.product => Strings
+                                .favoriteCommodityTitle
+                                .w(700)
+                                .s(16)
+                                .c(context.colors.textPrimary),
+                            CollectiveType.service => Strings
+                                .favoriteServiceTitle
+                                .w(700)
+                                .s(16)
+                                .c(context.colors.textPrimary),
+                          },
+                        )),
                       AppAllViewWidget(
-                          onPressed: () {
-                        context.router.push(AdListRoute(
-                            adListType: AdListType.list,
-                            keyWord: '',
-                            title: Strings.adCollectiveDiscounts));
-                      },
+                          listener: () {
+                          context.router.push(AdListRoute(
+                              adListType: AdListType.list,
+                              keyWord: '',
+                              title: Strings.adCollectiveDiscounts));
+                        },
                       title: Strings.adCollectiveDiscounts),
                       LoaderStateWidget(
                           isFullScreen: false,
                           loadingState: state.hotDiscountAdsState,
                           child: AdGroupWidget(
                             ads: state.hotDiscountAds,
-                        onClick: (Ad result) {
-                          context.router.push(AdDetailRoute(adId: result.id));
-                        },
-                        onClickFavorite: (Ad result) => context
-                            .read<AdCollectionCubit>()
-                            .discountAdsAddFavorite(result),
+                            invoke: (Ad result) {
+                            context.router.push(AdDetailRoute(adId: result.id));
+                          },
+                            invokeFavorite: (Ad result) => context
+                              .read<AdCollectionCubit>()
+                              .discountAdsAddFavorite(result),
                       )),
                       SizedBox(height: 6),
                       AppDivider(height: 3),
                       AppAllViewWidget(
-                          onPressed: () {
-                            context.router.push(AdListRoute(
-                            adListType: AdListType.list,
-                            keyWord: '',
-                            title: Strings.adCollectivePopular));
-                      },
+                          listener: () {
+                          context.router.push(AdListRoute(
+                              adListType: AdListType.list,
+                              keyWord: '',
+                              title: Strings.adCollectivePopular));
+                        },
                           title: Strings.adCollectivePopular),
                       SizedBox(height: 6),
                       LoaderStateWidget(
@@ -111,12 +114,12 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                           loadingState: state.popularAdsState,
                           child: AdGroupWidget(
                             ads: state.popularAds,
-                        onClick: (Ad result) {
-                          context.router.push(AdDetailRoute(adId: result.id));
-                        },
-                        onClickFavorite: (Ad result) => context
-                            .read<AdCollectionCubit>()
-                            .popularAdsAddFavorite(result),
+                            invoke: (Ad result) {
+                            context.router.push(AdDetailRoute(adId: result.id));
+                          },
+                            invokeFavorite: (Ad result) => context
+                              .read<AdCollectionCubit>()
+                              .popularAdsAddFavorite(result),
                       )),
                       SizedBox(height: 6),
                       AppDivider(height: 3),
@@ -195,23 +198,24 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                       if (index % 2 == 1) {
                         return Padding(
                           padding: EdgeInsets.only(right: 16),
-                          child: AppAdWidget(
-                              result: item,
-                              onClickFavorite: (value)=> context
-                                  .read<AdCollectionCubit>()
-                                  .addFavorite(value),
-                              onClick: (value) => context.router
-                                  .push(AdDetailRoute(adId: value.id))),
-                        );
+                                child: AppAdWidget(
+                                  ad: item,
+                                  invokeFavorite: (value) => context
+                                      .read<AdCollectionCubit>()
+                                      .addFavorite(value),
+                                  invoke: (value) => context.router
+                                      .push(AdDetailRoute(adId: value.id)),
+                                ),
+                              );
                       } else {
                         return Padding(
                           padding: EdgeInsets.only(left: 16),
                           child: AppAdWidget(
-                            result: item,
-                            onClickFavorite: (value) => context
+                                  ad: item,
+                                  invokeFavorite: (value) => context
                                       .read<AdCollectionCubit>()
                                       .addFavorite(value),
-                                  onClick: (value) => context.router
+                                  invoke: (value) => context.router
                                       .push(AdDetailRoute(adId: value.id)),
                                 ),
                               );

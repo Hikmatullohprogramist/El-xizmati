@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
-import 'package:onlinebozor/common/enum/enums.dart';
 import 'package:onlinebozor/common/extensions/currency_extensions.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_property_widget.dart';
@@ -10,30 +9,31 @@ import 'package:onlinebozor/common/widgets/ad/ad_route_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_status_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_type_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite/favorite_widget.dart';
-import 'package:onlinebozor/domain/mapper/ad_enum_mapper.dart';
-import 'package:onlinebozor/domain/model/ad.dart';
+import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
 
+import '../../../domain/models/ad.dart';
+import '../../../domain/util.dart';
 import '../../constants.dart';
 import '../../gen/assets/assets.gen.dart';
 
 class AppAdHorizontalWidget extends StatelessWidget {
   const AppAdHorizontalWidget({
     super.key,
-    required this.onClickFavorite,
-    required this.onClick,
-    required this.result,
+    required this.invokeFavorite,
+    required this.invoke,
+    required this.ad,
   });
 
-  final Ad result;
-  final Function(Ad result) onClick;
-  final Function(Ad result) onClickFavorite;
+  final Ad ad;
+  final Function(Ad ad) invoke;
+  final Function(Ad ad) invokeFavorite;
 
   @override
   Widget build(BuildContext context) {
     var formatter = NumberFormat('###,000');
     return InkWell(
         onTap: () {
-          onClick(result);
+          invoke(ad);
         },
         child: SizedBox(
           height: 342,
@@ -51,7 +51,7 @@ class AppAdHorizontalWidget extends StatelessWidget {
                   ),
                   child: Stack(children: [
                     CachedNetworkImage(
-                      imageUrl: "${Constants.baseUrlForImage}${result.photo}",
+                      imageUrl: "${Constants.baseUrlForImage}${ad.photo}",
                       imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6),
@@ -70,15 +70,14 @@ class AppAdHorizontalWidget extends StatelessWidget {
                     Align(
                         alignment: Alignment.topRight,
                         child: AppFavoriteWidget(
-                          isSelected: result.favorite,
-                          onEvent: () {
-                            onClickFavorite(result);
+                          isSelected: ad.favorite,
+                          invoke: () {
+                            invokeFavorite(ad);
                           },
                         )),
                     Align(
                       alignment: Alignment.bottomLeft,
-                      child:
-                          AppAdTypeWidget(adType: result.adTypeStatus.adType()),
+                      child: AppAdTypeWidget(adType: ad.adTypeStatus.adType()),
                     ),
                     Align(
                       alignment: Alignment.bottomRight,
@@ -96,13 +95,13 @@ class AppAdHorizontalWidget extends StatelessWidget {
                           children: [
                             Assets.images.icEye.svg(),
                             SizedBox(width: 2),
-                            if ((result.id / 100) < 0)
-                              result.id
+                            if ((ad.id / 100) < 0)
+                              ad.id
                                   .toString()
                                   .w(400)
                                   .s(8)
                                   .c(context.colors.textPrimary)
-                            else if ((result.id / 100000) < 0)
+                            else if ((ad.id / 100000) < 0)
                               "100K".w(400).s(8).c(context.colors.textPrimary)
                             else
                               "100M".w(400).s(8).c(context.colors.textPrimary)
@@ -114,7 +113,7 @@ class AppAdHorizontalWidget extends StatelessWidget {
               SizedBox(height: 12),
               SizedBox(
                 height: 32,
-                child: (result.name)
+                child: (ad.name)
                     .w(400)
                     .s(13)
                     .c(context.colors.textPrimary)
@@ -122,13 +121,13 @@ class AppAdHorizontalWidget extends StatelessWidget {
                     .copyWith(maxLines: 2, overflow: TextOverflow.ellipsis),
               ),
               SizedBox(height: 6),
-              if (result.price == 0)
-                "${formatter.format(result.toPrice).replaceAll(',', ' ')}-${formatter.format(result.fromPrice).replaceAll(',', ' ')} ${Currency.uzb.getName}"
+              if (ad.price == 0)
+                "${formatter.format(ad.toPrice).replaceAll(',', ' ')}-${formatter.format(ad.fromPrice).replaceAll(',', ' ')} ${Currency.uzb.getName}"
                     .w(700)
                     .s(15)
                     .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis)
               else
-                "${formatter.format(result.price).replaceAll(',', ' ')} ${Currency.uzb.getName}"
+                "${formatter.format(ad.price).replaceAll(',', ' ')} ${Currency.uzb.getName}"
                     .w(700)
                     .s(15)
                     .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
@@ -137,7 +136,7 @@ class AppAdHorizontalWidget extends StatelessWidget {
                 Assets.images.icLocation.svg(width: 12, height: 12),
                 SizedBox(width: 4),
                 Expanded(
-                  child: "${result.region} ${result.district}"
+                  child: "${ad.region} ${ad.district}"
                       .w(400)
                       .s(12)
                       .c(context.colors.textSecondary)
@@ -150,10 +149,10 @@ class AppAdHorizontalWidget extends StatelessWidget {
               SizedBox(height: 12),
               Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 AppAdRouterWidget(
-                    isHorizontal: true, adRouteType: result.adRouteType),
+                    isHorizontal: true, adRouteType: ad.adRouteType),
                 SizedBox(width: 2),
                 AppAdPropertyWidget(
-                    isHorizontal: true, adPropertyType: result.adPropertyStatus)
+                    isHorizontal: true, adPropertyType: ad.adPropertyStatus)
               ])
             ],
           ),

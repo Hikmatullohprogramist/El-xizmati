@@ -2,10 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
-import 'package:onlinebozor/data/model/region%20/region_response.dart';
-import 'package:onlinebozor/domain/repository/user_repository.dart';
 
 import '../../../../../../../../../common/core/base_cubit_new.dart';
+import '../../../../../../../../../data/responses/region /region_response.dart';
+import '../../../../../../../../../domain/repositories/user_repository.dart';
 
 
 part 'profile_edit_cubit.freezed.dart';

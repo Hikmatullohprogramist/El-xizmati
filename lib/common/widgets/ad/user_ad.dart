@@ -9,17 +9,17 @@ import '../../constants.dart';
 class UserAd extends StatelessWidget {
   const UserAd({
     super.key,
-    required this.editClick,
-    required this.onClick,
+    required this.listenerAddressEdit,
+    required this.listener,
   });
 
-  final Function() editClick;
-  final VoidCallback onClick;
+  final VoidCallback listenerAddressEdit;
+  final VoidCallback listener;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: onClick,
+        onTap: listener,
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -69,11 +69,9 @@ class UserAd extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis),
                               ),
                               IconButton(
-                                  onPressed: () {
-                                    editClick();
-                                  },
-                                  icon: Assets.images.icMoreVert
-                                      .svg(width: 24, height: 24)),
+                              onPressed: listenerAddressEdit,
+                              icon: Assets.images.icMoreVert
+                                  .svg(width: 24, height: 24)),
                             ],
                           ),
                           SizedBox(height: 27),

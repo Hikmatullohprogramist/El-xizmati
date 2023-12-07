@@ -6,14 +6,14 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/app_bar/common_app_bar.dart';
-import 'package:onlinebozor/domain/model/ad.dart';
 import 'package:onlinebozor/presentation/ad/ad_list/cubit/ad_list_cubit.dart';
 
 import '../../../common/core/base_page.dart';
-import '../../../common/enum/enums.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/widgets/ad/ad_widget.dart';
 import '../../../common/widgets/common/common_button.dart';
+import '../../../domain/models/ad.dart';
+import '../../../domain/util.dart';
 
 @RoutePage()
 class AdListPage
@@ -118,10 +118,10 @@ class AdListPage
           },
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) => AppAdWidget(
-            result: item,
-            onClickFavorite: (value) =>
+            ad: item,
+            invokeFavorite: (value) =>
                 context.read<AdListCubit>().addFavorite(value),
-            onClick: (value) {
+            invoke: (value) {
               context.router.push(AdDetailRoute(adId: value.id));
             },
           ),

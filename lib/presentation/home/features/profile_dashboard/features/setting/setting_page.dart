@@ -36,25 +36,25 @@ class SettingPage
               ProfileItemWidget(
                 name: 'Способ получения уведомления',
                 icon: Assets.images.profileViewer.icNotification.svg(),
-                callback: () => context.router.push(NotificationSettingRoute()),
+                invoke: () => context.router.push(NotificationSettingRoute()),
               ),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(
                 name: 'Мои соц.сети',
                 icon: Assets.images.profileViewer.icNetwork.svg(),
-                callback: () => context.router.push(UserSocialNetworkRoute()),
+                invoke: () => context.router.push(UserSocialNetworkRoute()),
               ),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(
                 name: 'Активные сеансы',
                 icon: Assets.images.profileViewer.icActiveDevice.svg(),
-                callback: () => context.router.push(UserActiveDeviceRoute()),
+                invoke: () => context.router.push(UserActiveDeviceRoute()),
               ),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(
                 name: 'Поменять пароль',
                 icon: Assets.images.profileViewer.icChangePassword.svg(),
-                callback: () {},
+                invoke: () {},
               )
             ],
           ),

@@ -5,22 +5,22 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import '../../gen/assets/assets.gen.dart';
 
 class CommonSearchBar extends AppBar implements PreferredSizeWidget {
-  final VoidCallback? onPressedMic;
-  final VoidCallback? onPressedSearch;
-  final VoidCallback? onPressedNotification;
+  final VoidCallback? listenerMic;
+  final VoidCallback? listenerSearch;
+  final VoidCallback? listenerNotification;
 
   CommonSearchBar(
       {super.key,
-      this.onPressedMic,
-      this.onPressedSearch,
-      this.onPressedNotification})
+      this.listenerMic,
+      this.listenerSearch,
+      this.listenerNotification})
       : super(
           actions: [
             Expanded(
               child: Padding(
                 padding: EdgeInsets.fromLTRB(16, 12, 0, 12),
                 child: InkWell(
-                  onTap: onPressedSearch,
+                  onTap: listenerSearch,
                   child: Container(
                     width: double.maxFinite,
                     padding: EdgeInsets.symmetric(horizontal: 10),
@@ -35,13 +35,13 @@ class CommonSearchBar extends AppBar implements PreferredSizeWidget {
                     child: Row(
                       children: [
                         InkWell(
-                          onTap: onPressedSearch,
+                          onTap: listenerSearch,
                           child: Assets.images.iconSearch.svg(),
                         ),
                         SizedBox(width: 10),
                         Expanded(
                           child: InkWell(
-                            onTap: onPressedSearch,
+                            onTap: listenerSearch,
                             child: Strings.adSearchHint
                                 .w(400)
                                 .s(14)
@@ -50,7 +50,7 @@ class CommonSearchBar extends AppBar implements PreferredSizeWidget {
                           ),
                         ),
                         InkWell(
-                            onTap: onPressedMic,
+                            onTap: listenerMic,
                             child: Assets.images.icMic.svg()),
                       ],
                     ),
@@ -59,7 +59,7 @@ class CommonSearchBar extends AppBar implements PreferredSizeWidget {
               ),
             ),
             InkWell(
-                onTap: onPressedNotification,
+                onTap: listenerNotification,
                 child: Padding(
                     padding: const EdgeInsets.fromLTRB(12, 20, 16, 20),
                     child: Assets.images.icNotification.svg()))

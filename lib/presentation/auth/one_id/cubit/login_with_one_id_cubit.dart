@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../common/core/base_cubit.dart';
-import '../../../../domain/repository/auth_repository.dart';
+import '../../../../domain/repositories/auth_repository.dart';
 
 part 'login_with_one_id_cubit.freezed.dart';
 part 'login_with_one_id_state.dart';

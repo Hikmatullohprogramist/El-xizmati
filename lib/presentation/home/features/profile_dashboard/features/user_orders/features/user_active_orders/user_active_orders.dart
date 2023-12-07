@@ -212,7 +212,7 @@ class UserActiveOrdersPage extends BasePage<UserActiveOrdersCubit,
     return Scaffold(
       body: Center(
         child: AdEmptyWidget(
-          callBack: () {},
+          listener: () {},
         ),
       ),
     );

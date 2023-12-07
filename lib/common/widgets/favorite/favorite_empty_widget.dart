@@ -6,9 +6,9 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/common/common_button.dart';
 
 class FavoriteEmptyWidget extends StatelessWidget {
-  const FavoriteEmptyWidget({super.key, required this.callBack});
+  const FavoriteEmptyWidget({super.key, required this.invoke});
 
-  final VoidCallback callBack;
+  final VoidCallback invoke;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class FavoriteEmptyWidget extends StatelessWidget {
         CommonButton(
             type: ButtonType.elevated,
             color: context.colors.buttonPrimary,
-            onPressed: callBack,
+            onPressed: invoke,
             child: Strings.favoriteEmptyToMain.w(500).s(14).c(Colors.white))
       ]),
     );

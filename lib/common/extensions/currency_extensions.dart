@@ -1,4 +1,4 @@
-import 'package:onlinebozor/common/enum/enums.dart';
+import '../../domain/util.dart';
 
 extension CurrencyExtension on Currency {
   String get getName => getCurrencyName(this);

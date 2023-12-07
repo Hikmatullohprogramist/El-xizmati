@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
-import 'package:onlinebozor/common/enum/enums.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 
@@ -16,9 +15,10 @@ import '../../../../common/widgets/category/popular_category_group.dart';
 import '../../../../common/widgets/common/common_button.dart';
 import '../../../../common/widgets/dashboard/all_view_widget.dart';
 import '../../../../common/widgets/dashboard/app_diverder.dart';
-import '../../../../common/widgets/dashboard/root_commodity_and_service.dart';
+import '../../../../common/widgets/dashboard/root_product_and_service.dart';
 import '../../../../common/widgets/loading/loader_state_widget.dart';
-import '../../../../domain/model/ad.dart';
+import '../../../../domain/models/ad.dart';
+import '../../../../domain/util.dart';
 import 'cubit/dashboard_cubit.dart';
 
 @RoutePage()
@@ -28,8 +28,8 @@ class DashboardPage
 
   @override
   void listener(BuildContext context, DashboardListenable state) {
-  switch(state.effect){
-    case DashboardEffect.success:(){};
+    switch (state.effect) {
+      case DashboardEffect.success:(){};
     case DashboardEffect.navigationToAuthStart:context.router.push(AuthStartRoute());
   }
   }
@@ -42,9 +42,9 @@ class DashboardPage
     height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: CommonSearchBar(
-          onPressedMic: () {},
-          onPressedNotification: () => context.router.push(NotificationRoute()),
-          onPressedSearch: () => context.router.push(SearchRoute()),
+          listenerMic: () {},
+          listenerNotification: () => context.router.push(NotificationRoute()),
+          listenerSearch: () => context.router.push(SearchRoute()),
         ),
         body: CustomScrollView(
           physics: BouncingScrollPhysics(),
@@ -52,9 +52,9 @@ class DashboardPage
             SliverToBoxAdapter(
               child: Column(
                 children: [
-                  AppRootCommodityAndService(),
+                  AppRootProductAndService(),
                   AppAllViewWidget(
-                      onPressed: () => context.router.push(
+                      listener: () => context.router.push(
                           PopularCategoriesRoute(
                               title: Strings.popularCategories)),
                       title: Strings.popularCategories),
@@ -65,8 +65,8 @@ class DashboardPage
                       isFullScreen: false,
                       loadingState: state.popularCategoriesState,
                       child: PopularCategoryGroupWidget(
-                        popularCategories: state.popularCategories,
-                        onClick: (popularCategories) {
+                        categories: state.popularCategories,
+                        invoke: (popularCategories) {
                           context.router.push(AdListRoute(
                               adListType: AdListType.popularCategory,
                               keyWord: popularCategories.key_word,
@@ -75,7 +75,7 @@ class DashboardPage
                       )),
                   AppDivider(height: 3),
                   AppAllViewWidget(
-                      onPressed: () {
+                      listener: () {
                         context.router.push(AdListRoute(
                             adListType: AdListType.list,
                             keyWord: '',
@@ -90,10 +90,10 @@ class DashboardPage
                       loadingState: state.recentlyAdsState,
                       child: AdGroupWidget(
                         ads: state.recentlyViewerAds,
-                        onClick: (Ad result) {
+                        invoke: (Ad result) {
                           context.router.push(AdDetailRoute(adId: result.id));
                         },
-                        onClickFavorite: (Ad result) {
+                        invokeFavorite: (Ad result) {
                           context
                               .read<DashboardCubit>()
                               .recentlyAdsAddFavorite(result);
@@ -187,28 +187,28 @@ class DashboardPage
                       return Padding(
                         padding: EdgeInsets.only(right: 16),
                         child: AppAdWidget(
-                            result: item,
-                            onClickFavorite: (value) {
-                              context
-                                  .read<DashboardCubit>()
-                                  .addFavorite(value);
-                            },
-                            onClick: (value) => context.router
-                                .push(AdDetailRoute(adId: value.id))),
+                            ad: item,
+                            invokeFavorite: (value) {
+                                  context
+                                      .read<DashboardCubit>()
+                                      .addFavorite(value);
+                                },
+                            invoke: (value) => context.router
+                                    .push(AdDetailRoute(adId: value.id))),
                       );
                     } else {
                       return Padding(
                         padding: EdgeInsets.only(left: 16),
                         child: AppAdWidget(
-                          result: item,
-                          onClickFavorite: (value) {
-                            context
-                                .read<DashboardCubit>()
-                                .addFavorite(value);
-                          },
-                          onClick: (value) => context.router
-                              .push(AdDetailRoute(adId: value.id)),
-                        ),
+                              ad: item,
+                              invokeFavorite: (value) {
+                                context
+                                    .read<DashboardCubit>()
+                                    .addFavorite(value);
+                              },
+                              invoke: (value) => context.router
+                                  .push(AdDetailRoute(adId: value.id)),
+                            ),
                       );
                     }
                   },

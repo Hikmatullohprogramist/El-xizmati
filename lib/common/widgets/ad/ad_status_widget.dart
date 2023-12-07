@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
-import 'package:onlinebozor/common/enum/enums.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
+import '../../../domain/util.dart';
 import '../../gen/assets/assets.gen.dart';
 
 class AppAdStatusWidget extends StatelessWidget {

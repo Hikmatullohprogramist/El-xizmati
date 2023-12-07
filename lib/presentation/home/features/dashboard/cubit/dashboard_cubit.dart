@@ -3,14 +3,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/enum/enums.dart';
-import 'package:onlinebozor/data/model/banner/banner_response.dart';
-import 'package:onlinebozor/data/model/category/popular_category/popular_category_response.dart';
-import 'package:onlinebozor/domain/model/ad.dart';
-import 'package:onlinebozor/domain/repository/ad_repository.dart';
-import 'package:onlinebozor/domain/repository/common_repository.dart';
-import 'package:onlinebozor/domain/repository/favorite_repository.dart';
 
 import '../../../../../common/core/base_cubit.dart';
+import '../../../../../data/responses/banner/banner_response.dart';
+import '../../../../../data/responses/category/popular_category/popular_category_response.dart';
+import '../../../../../domain/models/ad.dart';
+import '../../../../../domain/repositories/ad_repository.dart';
+import '../../../../../domain/repositories/common_repository.dart';
+import '../../../../../domain/repositories/favorite_repository.dart';
 
 part 'dashboard_cubit.freezed.dart';
 part 'dashboard_state.dart';

@@ -7,10 +7,10 @@ import '../../gen/localization/strings.dart';
 
 class AppAllViewWidget extends StatelessWidget {
   final String title;
-  final VoidCallback onPressed;
+  final VoidCallback listener;
 
   const AppAllViewWidget(
-      {super.key, required this.onPressed, required this.title});
+      {super.key, required this.listener, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class AppAllViewWidget extends StatelessWidget {
         children: [
           title.w(600).s(16).c(context.colors.textPrimary),
           CommonButton(
-            onPressed: onPressed,
+            onPressed: listener,
             color: context.colors.buttonPrimary,
             type: ButtonType.elevated,
             child: Strings.allTitle

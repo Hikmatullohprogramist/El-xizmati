@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class AppImageWidget extends StatelessWidget {
-  AppImageWidget({super.key, required this.images, required this.onClick});
+  AppImageWidget({super.key, required this.images, required this.invoke});
 
   final List<String> images;
-  final Function(int position) onClick;
+  final Function(int position) invoke;
 
   final controller = PageController(viewportFraction: 1, keepPage: true);
 
@@ -24,7 +24,7 @@ class AppImageWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               return InkWell(
                   onTap: () {
-                    onClick(index);
+                    invoke(index);
                   },
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
