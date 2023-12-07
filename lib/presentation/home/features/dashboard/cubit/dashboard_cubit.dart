@@ -39,6 +39,18 @@ class DashboardCubit
   final CommonRepository commonRepository;
   final FavoriteRepository favoriteRepository;
 
+  // Future<void> getCategories() async {
+  //   commonRepository
+  //       .getPopularCategories(1, 20)
+  //       .catchError((error, stackTrace) {
+  //     build((buildable) =>
+  //         buildable.copyWith(popularCategoriesState: AppLoadingState.error));
+  //     log.e(error.toString(), error: error, stackTrace: stackTrace);
+  //     display.error(error.toString());
+  //     return this;
+  //   });
+  // }
+
   Future<void> getPopularCategories() async {
     try {
       log.i("recentlyViewerAds request");

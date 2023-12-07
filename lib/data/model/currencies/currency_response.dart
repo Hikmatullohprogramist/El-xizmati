@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'currency_response.freezed.dart';
-
 part 'currency_response.g.dart';
 
 @freezed
@@ -9,10 +8,10 @@ class CurrencyRootResponse with _$CurrencyRootResponse {
   const factory CurrencyRootResponse({
     dynamic error,
     dynamic message,
-    String? timestamp,
+    dynamic timestamp,
     int? status,
     dynamic path,
-    List<CurrencyResponse>? data,
+    required List<CurrencyResponse> data,
     dynamic response,
   }) = _CurrencyRootResponse;
 
@@ -23,7 +22,7 @@ class CurrencyRootResponse with _$CurrencyRootResponse {
 @freezed
 class CurrencyResponse with _$CurrencyResponse {
   const factory CurrencyResponse({
-    String? id,
+    required String id,
     String? name,
   }) = _CurrencyResponse;
 

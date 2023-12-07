@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_address_response.freezed.dart';
-
 part 'user_address_response.g.dart';
 
 @freezed
@@ -9,10 +8,10 @@ class UserAddressRootResponse with _$UserAddressRootResponse {
   const factory UserAddressRootResponse({
     dynamic error,
     dynamic message,
-    String? timestamp,
+    dynamic timestamp,
     int? status,
     dynamic path,
-    List<UserAddressResponse>? data,
+    required List<UserAddressResponse> data,
     dynamic response,
   }) = _UserAddressRootResponse;
 
@@ -23,7 +22,7 @@ class UserAddressRootResponse with _$UserAddressRootResponse {
 @freezed
 class UserAddressResponse with _$UserAddressResponse {
   const factory UserAddressResponse({
-    int? id,
+    required int id,
     District? region,
     District? district,
     int? state,

@@ -8,10 +8,10 @@ class AdRootResponse with _$AdRootResponse {
   const factory AdRootResponse({
     dynamic error,
     dynamic message,
-    String? timestamp,
+    dynamic timestamp,
     int? status,
     dynamic path,
-    Data? data,
+    required Data data,
     dynamic response,
   }) = _AdRootResponse;
 
@@ -23,7 +23,7 @@ class AdRootResponse with _$AdRootResponse {
 class Data with _$Data {
   const factory Data({
     int? count,
-    List<AdResponse>? results,
+    required List<AdResponse> results,
   }) = _Data;
 
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
@@ -32,7 +32,7 @@ class Data with _$Data {
 @freezed
 class AdResponse with _$AdResponse {
   const factory AdResponse({
-    int? id,
+    required int id,
     int? backet_id,
     String? name,
     int? price,

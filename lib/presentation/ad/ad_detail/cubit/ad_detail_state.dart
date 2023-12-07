@@ -5,7 +5,8 @@ class AdDetailBuildable with _$AdDetailBuildable {
   const factory AdDetailBuildable(
       {int? adId,
       AdDetail? adDetail,
-      @Default(false) bool isAddCart}) = _AdDetailBuildable;
+      @Default(false) bool isAddCart,
+      @Default(false) bool isPhoneVisible}) = _AdDetailBuildable;
 }
 
 @freezed
@@ -14,7 +15,4 @@ class AdDetailListenable with _$AdDetailListenable {
       _AdDetailListenable;
 }
 
-enum AdDetailEffect {
-  phoneCall,
-  smsWrite,
-}
+enum AdDetailEffect { phoneCall, smsWrite }

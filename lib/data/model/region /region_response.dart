@@ -9,7 +9,7 @@ class RegionRootResponse with _$RegionRootResponse {
   const factory RegionRootResponse({
     dynamic error,
     dynamic message,
-    String? timestamp,
+    dynamic timestamp,
     int? status,
     dynamic path,
     required List<RegionResponse> data,

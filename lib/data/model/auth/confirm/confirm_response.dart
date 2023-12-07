@@ -8,7 +8,7 @@ class ConfirmRootResponse with _$ConfirmRootResponse {
   const factory ConfirmRootResponse({
     dynamic error,
     dynamic message,
-    String? timestamp,
+    dynamic timestamp,
     int? status,
     dynamic path,
     required ConfirmResponse data,

@@ -34,111 +34,115 @@ class AdDetailPage
 
   Widget getWatch(String title, VoidCallback onPressed) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          title.w(500).s(14).c(Color(0xFF41455E)),
-          IconButton(
-              onPressed: onPressed,
-              icon: Assets.images.icArrowRight.svg(height: 24, width: 24))
-        ],
-      ),
-    );
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            title.w(500).s(14).c(Color(0xFF41455E)),
+            IconButton(
+                onPressed: onPressed,
+                icon: Assets.images.icArrowRight.svg(height: 24, width: 24))
+          ],
+        ));
   }
 
   @override
   Widget builder(BuildContext context, AdDetailBuildable state) {
     var formatter = NumberFormat('###,000');
-    if (state.adDetail != null) {
-      return Scaffold(
-          bottomNavigationBar: Visibility(
-              visible: (state.adDetail!.mainTypeStatus == "SELL" ||
-                  state.adDetail!.mainTypeStatus == "FREE" ||
-                  state.adDetail!.mainTypeStatus == "EXCHANGE"),
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 12),
-                child: Row(children: [
-                  SizedBox(width: 16),
-                  Strings.adDetailPrice.w(400).s(12).c(Color(0xFF9EABBE)),
-                  SizedBox(width: 8),
-                  if (state.adDetail!.price == 0)
-                    "${formatter.format(state.adDetail!.toPrice).replaceAll(',', ' ')}-"
-                            "${formatter.format(state.adDetail!.fromPrice).replaceAll(',', ' ')} ${state.adDetail!.currency.getName}"
-                        .w(800)
-                        .s(16)
-                        .c(Color(0xFF5C6AC3))
-                        .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis)
-                  else
-                    "${formatter.format(state.adDetail!.price).replaceAll(',', ' ')} ${state.adDetail!.currency.getName}"
-                        .w(800)
-                        .s(16)
-                        .c(Color(0xFF5C6AC3))
-                        .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
-                  SizedBox(width: 8),
-                  Spacer(),
-                  CommonButton(
-                      enabled: !state.isAddCart,
-                      color: context.colors.buttonPrimary,
-                      type: ButtonType.elevated,
-                      onPressed: () {
-                        context.read<AdDetailCubit>().addCart();
-                      },
-                      child: Strings.adDetailAddtocart
-                          .s(13)
-                          .c(Colors.white)
-                          .w(500)),
-                  SizedBox(width: 16)
+    return state.adDetail != null
+        ? Scaffold(
+            bottomNavigationBar: Visibility(
+                visible: (state.adDetail!.mainTypeStatus == "SELL" ||
+                    state.adDetail!.mainTypeStatus == "FREE" ||
+                    state.adDetail!.mainTypeStatus == "EXCHANGE"),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 12),
+                  child: Row(children: [
+                    SizedBox(width: 16),
+                    Strings.adDetailPrice.w(400).s(12).c(Color(0xFF9EABBE)),
+                    SizedBox(width: 8),
+                    if (state.adDetail!.price == 0)
+                      "${formatter.format(state.adDetail!.toPrice).replaceAll(',', ' ')}-"
+                              "${formatter.format(state.adDetail!.fromPrice).replaceAll(',', ' ')} ${state.adDetail!.currency.getName}"
+                          .w(800)
+                          .s(16)
+                          .c(Color(0xFF5C6AC3))
+                          .copyWith(
+                              maxLines: 1, overflow: TextOverflow.ellipsis)
+                    else
+                      "${formatter.format(state.adDetail!.price).replaceAll(',', ' ')} ${state.adDetail!.currency.getName}"
+                          .w(800)
+                          .s(16)
+                          .c(Color(0xFF5C6AC3))
+                          .copyWith(
+                              maxLines: 1, overflow: TextOverflow.ellipsis),
+                    SizedBox(width: 8),
+                    Spacer(),
+                    CommonButton(
+                        enabled: !state.isAddCart,
+                        color: context.colors.buttonPrimary,
+                        type: ButtonType.elevated,
+                        onPressed: () {
+                          context.read<AdDetailCubit>().addCart();
+                        },
+                        child: Strings.adDetailAddtocart
+                            .s(13)
+                            .c(Colors.white)
+                            .w(500)),
+                    SizedBox(width: 16)
+                  ]),
+                )),
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+                backgroundColor: Colors.white,
+                elevation: 1,
+                leading: IconButton(
+                    onPressed: () => context.router.pop(),
+                    icon: Assets.images.icArrowLeft.svg(height: 24, width: 24)),
+                actions: [
+                  Padding(
+                      padding: EdgeInsets.all(4),
+                      child: AppFavoriteWidget(
+                          isSelected: state.adDetail?.favorite ?? false,
+                          onEvent: () =>
+                              context.read<AdDetailCubit>().addFavorite()))
                 ]),
-              )),
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-              backgroundColor: Colors.white,
-              elevation: 1,
-              leading: IconButton(
-                  onPressed: () => context.router.pop(),
-                  icon: Assets.images.icArrowLeft.svg(height: 24, width: 24)),
-              actions: [
-                Padding(
-                    padding: EdgeInsets.all(4),
-                    child: AppFavoriteWidget(
-                        isSelected: state.adDetail?.favorite ?? false,
-                        onEvent: () =>
-                            context.read<AdDetailCubit>().addFavorite()))
-              ]),
-          body: SafeArea(
-            bottom: true,
-            child: ListView(
-              shrinkWrap: true,
-              physics: BouncingScrollPhysics(),
-              children: [
-                AppImageWidget(
-                  images: (state.adDetail?.photos ?? List.empty(growable: true))
-                      .map((e) => "${Constants.baseUrlForImage}${e.image}")
-                      .toList(),
-                  onClick: (int position) {
-                    context.router.push(PhotoViewRoute(
-                      lists: (state.adDetail?.photos ??
-                              List.empty(growable: true))
-                          .map((e) => "${Constants.baseUrlForImage}${e.image}")
-                          .toList(), position: position,
-                    ));
-                  },
-                ),
-                AppDivider(height: 1),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 16),
-                        (state.adDetail!.adName ?? "")
-                            .w(600)
-                            .s(16)
-                            .c(Color(0xFF41455E))
-                            .copyWith(
-                                maxLines: 2, overflow: TextOverflow.ellipsis),
-                        SizedBox(height: 16),
+            body: SafeArea(
+              bottom: true,
+              child: ListView(
+                shrinkWrap: true,
+                physics: BouncingScrollPhysics(),
+                children: [
+                  AppImageWidget(
+                    images: (state.adDetail?.photos ??
+                            List.empty(growable: true))
+                        .map((e) => "${Constants.baseUrlForImage}${e.image}")
+                        .toList(),
+                    onClick: (int position) {
+                      context.router.push(PhotoViewRoute(
+                        lists: (state.adDetail?.photos ??
+                                List.empty(growable: true))
+                            .map(
+                                (e) => "${Constants.baseUrlForImage}${e.image}")
+                            .toList(),
+                        position: position,
+                      ));
+                    },
+                  ),
+                  AppDivider(height: 1),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 16),
+                          (state.adDetail!.adName ?? "")
+                              .w(600)
+                              .s(16)
+                              .c(Color(0xFF41455E))
+                              .copyWith(
+                                  maxLines: 2, overflow: TextOverflow.ellipsis),
+                          SizedBox(height: 16),
                         if (state.adDetail!.price == 0)
                           "${formatter.format(state.adDetail!.toPrice).replaceAll(',', ' ')}-"
                                   "${formatter.format(state.adDetail!.fromPrice).replaceAll(',', ' ')} ${state.adDetail!.currency.getName}"
@@ -161,180 +165,140 @@ class AdDetailPage
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             AppAdRouterWidget(
-                                isHorizontal: false,
-                                adRouteType: state.adDetail!.adRouteType),
-                            SizedBox(width: 5),
-                            AppAdPropertyWidget(
-                                isHorizontal: false,
-                                adPropertyType: state.adDetail!.propertyStatus)
-                          ],
-                        ),
-                        AppDivider(height: 16),
-                        SizedBox(height: 16),
-                        Align(
-                            alignment: Alignment.centerLeft,
-                            child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 5, vertical: 4),
+                                  isHorizontal: false,
+                                  adRouteType: state.adDetail!.adRouteType),
+                              SizedBox(width: 5),
+                              AppAdPropertyWidget(
+                                  isHorizontal: false,
+                                  adPropertyType:
+                                      state.adDetail!.propertyStatus)
+                            ],
+                          ),
+                          AppDivider(height: 16),
+                          SizedBox(height: 16),
+                          Align(
+                              alignment: Alignment.centerLeft,
+                              child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 5, vertical: 4),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: Color(0x28AEB2CD)),
+                                  child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Strings.adDetailPublishedTitle
+                                            .w(400)
+                                            .s(14)
+                                            .c(Color(0xFF9EABBE)),
+                                        (state.adDetail!.createdAt ?? "")
+                                            .w(500)
+                                            .s(14)
+                                            .c(Color(0xFF41455E))
+                                      ]))),
+                          SizedBox(height: 8),
+                          Align(
+                            child: Row(children: [
+                              Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 5, vertical: 4),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: Color(0x28AEB2CD)),
+                                  child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Assets.images.icEye.svg(),
+                                        SizedBox(width: 8),
+                                        Strings.adDetailViewCountTitle
+                                            .w(400)
+                                            .s(14)
+                                            .c(Color(0xFF9EABBE)),
+                                        state.adDetail!.view
+                                            .toString()
+                                            .w(500)
+                                            .s(14)
+                                            .c(Color(0xFF41455E))
+                                      ])),
+                              SizedBox(width: 8),
+                              Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 5, vertical: 4),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: Color(0x28AEB2CD)),
+                                  child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        "ID: "
+                                            .w(400)
+                                            .s(14)
+                                            .c(Color(0xFF9EABBE)),
+                                        state.adDetail!.adId
+                                            .toString()
+                                            .w(500)
+                                            .s(14)
+                                            .c(Color(0xFF41455E))
+                                      ]))
+                            ]),
+                          ),
+                          SizedBox(height: 16),
+                          AppDivider(height: 1),
+                          SizedBox(height: 12),
+                          Row(
+                            children: [
+                              Container(
+                                height: 52,
+                                width: 52,
+                                padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: Color(0x28AEB2CD)),
-                                child: Row(
-                                    mainAxisSize: MainAxisSize.min,
+                                    color: Color(0xFFE0E0ED),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Assets.images.icAvatarBoy.svg(),
+                              ),
+                              SizedBox(width: 14),
+                              Flexible(
+                                  child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  (state.adDetail!.sellerFullName ?? "")
+                                      .w(600)
+                                      .s(16)
+                                      .c(Color(0xFF41455E))
+                                      .copyWith(
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis),
+                                  SizedBox(height: 10),
+                                  Row(
                                     children: [
-                                      Strings.adDetailPublishedTitle
-                                          .w(400)
+                                      Strings.adDetailOnOnlineBozor
+                                          .w(500)
                                           .s(14)
                                           .c(Color(0xFF9EABBE)),
-                                      (state.adDetail!.createdAt ?? "")
-                                          .w(500)
-                                          .s(14)
-                                          .c(Color(0xFF41455E))
-                                    ]))),
-                        SizedBox(height: 8),
-                        Align(
-                          child: Row(children: [
-                            Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 5, vertical: 4),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: Color(0x28AEB2CD)),
-                                child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Assets.images.icEye.svg(),
                                       SizedBox(width: 8),
-                                      Strings.adDetailViewCountTitle
+                                      (state.adDetail!.beginDate ?? "")
                                           .w(400)
                                           .s(14)
-                                          .c(Color(0xFF9EABBE)),
-                                      state.adDetail!.view
-                                          .toString()
-                                          .w(500)
-                                          .s(14)
                                           .c(Color(0xFF41455E))
-                                    ])),
-                            SizedBox(width: 8),
-                            Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 5, vertical: 4),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: Color(0x28AEB2CD)),
-                                child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Assets.images.icComplain.svg(),
-                                      SizedBox(width: 8),
-                                      Strings.adDetailComplain
-                                          .w(400)
-                                          .s(14)
-                                          .c(Color(0xFFF66412))
-                                    ])),
-                          ]),
-                        ),
-                        SizedBox(height: 8),
-                        Align(
-                            alignment: Alignment.centerLeft,
-                            child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 5, vertical: 4),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: Color(0x28AEB2CD)),
-                                child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      "ID: ".w(400).s(14).c(Color(0xFF9EABBE)),
-                                      state.adDetail!.adId
-                                          .toString()
-                                          .w(500)
-                                          .s(14)
-                                          .c(Color(0xFF41455E))
-                                    ]))),
-                        SizedBox(height: 16),
-                        AppDivider(height: 1),
-                        // getWatch(Strings.adDetailDescription, () {}),
-                        // (state.adDetail!.description ?? "")
-                        //     .w(400)
-                        //     .s(14)
-                        //     .c(Color(0xFF41455E))
-                        //     .copyWith(maxLines: 6),
-                        // SizedBox(height: 16),
-                        // Align(
-                        //     alignment: Alignment.centerLeft,
-                        //     child: Strings.adDetailShowmore
-                        //         .w(500)
-                        //         .s(14)
-                        //         .c(Color(0xFF5C6AC3))),
-                        // SizedBox(height: 24),
-                        // AppDivider(),
-                        // getWatch(Strings.adDetailCharacteristics, () {}),
-                        // AppDivider(),
-                        // SizedBox(height: 16),
-                        // Align(
-                        //   alignment: Alignment.centerLeft,
-                        //   child: Strings.adDetailSaller
-                        //       .w(500)
-                        //       .s(16)
-                        //       .c(Color(0xFF41455E)),
-                        // ),
-                        SizedBox(height: 12),
-                        Row(
-                          children: [
-                            Container(
-                              height: 52,
-                              width: 52,
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  color: Color(0xFFE0E0ED),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Assets.images.icAvatarBoy.svg(),
-                            ),
-                            SizedBox(width: 14),
-                            Flexible(
-                                child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                (state.adDetail!.sellerFullName ?? "")
-                                    .w(600)
-                                    .s(16)
-                                    .c(Color(0xFF41455E))
-                                    .copyWith(
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis),
-                                SizedBox(height: 10),
-                                Row(
-                                  children: [
-                                    Strings.adDetailOnOnlineBozor
-                                        .w(500)
-                                        .s(14)
-                                        .c(Color(0xFF9EABBE)),
-                                    SizedBox(width: 8),
-                                    (state.adDetail!.beginDate ?? "")
-                                        .w(400)
-                                        .s(14)
-                                        .c(Color(0xFF41455E))
-                                  ],
-                                )
-                              ],
-                            )),
-                            IconButton(
-                                onPressed: () {},
-                                icon: Assets.images.icArrowRight
-                                    .svg(width: 24, height: 24)),
-                          ],
-                        ),
-                        SizedBox(height: 24),
-                        Align(
-                            alignment: Alignment.centerLeft,
-                            child: Strings.adDetailLocation
-                                .w(500)
-                                .s(16)
-                                .c(Color(0xFF41455E))),
-                        Row(
-                          children: [
+                                    ],
+                                  )
+                                ],
+                              )),
+                              IconButton(
+                                  onPressed: () {},
+                                  icon: Assets.images.icArrowRight
+                                      .svg(width: 24, height: 24)),
+                            ],
+                          ),
+                          SizedBox(height: 24),
+                          Align(
+                              alignment: Alignment.centerLeft,
+                              child: Strings.adDetailLocation
+                                  .w(500)
+                                  .s(16)
+                                  .c(Color(0xFF41455E))),
+                          Row(
+                            children: [
                             Assets.images.icLocation.svg(width: 16, height: 16),
                             SizedBox(width: 4),
                             TextButton(
@@ -357,91 +321,110 @@ class AdDetailPage
                           children: [
                             SizedBox(width: 28),
                             "${state.adDetail!.address?.region?.name}  ${state.adDetail!.address?.district?.name}"
-                                .w(500)
-                                .s(12)
-                                .c(Color(0xFF9EABBE))
-                          ],
-                        ),
-                        SizedBox(height: 16),
-                        InkWell(
-                            child: Card(
-                              color: Color(0xFFFAF9FF),
-                              elevation: 5,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              shadowColor: Color(0x196B7194),
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 14, horizontal: 24),
-                                child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Assets.images.icSms
-                                          .svg(height: 24, width: 24),
-                                      SizedBox(width: 16),
-                                      Strings.adDetailTowritemessge
-                                          .w(500)
-                                          .s(16)
-                                          .c(Color(0xFF41455E))
-                                    ]),
+                                  .w(500)
+                                  .s(12)
+                                  .c(Color(0xFF9EABBE))
+                            ],
+                          ),
+                          SizedBox(height: 16),
+                          InkWell(
+                              child: Card(
+                                color: Color(0xFFFAF9FF),
+                                elevation: 5,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                shadowColor: Color(0x196B7194),
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 14, horizontal: 24),
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Assets.images.icSms
+                                            .svg(height: 24, width: 24),
+                                        SizedBox(width: 16),
+                                        Strings.adDetailTowritemessge
+                                            .w(500)
+                                            .s(16)
+                                            .c(Color(0xFF41455E))
+                                      ]),
+                                ),
                               ),
-                            ),
-                            onTap: () {
-                              try {
-                                launch("sms://${state.adDetail!.phoneNumber}");
-                              } catch (e) {}
-                            }),
-                        SizedBox(height: 16),
-                        InkWell(
-                            child: Card(
-                              color: Color(0xFF32B88B),
-                              elevation: 5,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              shadowColor: Color(0xFF32B88B),
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 14, horizontal: 24),
-                                child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Assets.images.icCall
-                                          .svg(height: 24, width: 24),
-                                      SizedBox(width: 16),
-                                      "Показать телефон"
-                                          .w(500)
-                                          .s(16)
-                                          .c(Colors.white)
-                                    ]),
+                              onTap: () {
+                                try {
+                                  launch(
+                                      "sms://${state.adDetail!.phoneNumber}");
+                                } catch (e) {}
+                              }),
+                          SizedBox(height: 16),
+                          InkWell(
+                              child: Card(
+                                color: Color(0xFF32B88B),
+                                elevation: 5,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                shadowColor: Color(0xFF32B88B),
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 14, horizontal: 24),
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Assets.images.icCall
+                                            .svg(height: 24, width: 24),
+                                        SizedBox(width: 16),
+                                        state.isPhoneVisible
+                                            ? (state.adDetail?.phoneNumber ??
+                                                    "")
+                                                .w(500)
+                                                .s(16)
+                                                .c(Colors.white)
+                                            : "Показать телефон"
+                                                .w(500)
+                                                .s(16)
+                                                .c(Colors.white)
+                                      ]),
+                                ),
                               ),
-                            ),
-                            onTap: () {
-                              try {
-                                launch("tel://${state.adDetail!.phoneNumber}");
-                              } catch (e) {}
-                            }),
-                        SizedBox(height: 12),
-                        // AppDivider(),
-                        // getWatch(Strings.adDetailFeedback, () {}),
-                      ]),
-                )
-              ],
-            ),
-          ));
-    } else {
-      return Scaffold(
-        appBar: AppBar(
-            backgroundColor: Colors.white,
-            elevation: 1,
-            leading: IconButton(
-                onPressed: () => context.router.pop(),
-                icon: Assets.images.icArrowLeft.svg(height: 24, width: 24))),
-        body: Center(
-            child: CircularProgressIndicator(
-          backgroundColor: Colors.red,
-          strokeWidth: 8,
-        )),
-      );
-    }
+                              onDoubleTap: () {
+                                try {
+                                  launch(
+                                      "tel://${state.adDetail!.phoneNumber}");
+                                } catch (e) {}
+                              },
+                              onTap: () {
+                                if(state.isPhoneVisible) {
+                                  try {
+                                  launch(
+                                      "tel://${state.adDetail!.phoneNumber}");
+                                } catch (e) {}
+                                }else{
+                                  context.read<AdDetailCubit>().setPhotoView();
+                                }
+                              }),
+                          SizedBox(height: 12),
+                          // AppDivider(),
+                          // getWatch(Strings.adDetailFeedback, () {}),
+                        ]),
+                  )
+                ],
+              ),
+            ))
+        : Scaffold(
+            appBar: AppBar(
+                backgroundColor: Colors.white,
+                elevation: 1,
+                leading: IconButton(
+                    onPressed: () => context.router.pop(),
+                    icon:
+                        Assets.images.icArrowLeft.svg(height: 24, width: 24))),
+            body: Center(
+                child: CircularProgressIndicator(
+              backgroundColor: Colors.red,
+              strokeWidth: 8,
+            )),
+          );
   }
 }

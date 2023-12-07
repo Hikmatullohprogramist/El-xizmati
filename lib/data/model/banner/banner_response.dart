@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'banner_response.freezed.dart';
-
 part 'banner_response.g.dart';
 
 @freezed
@@ -9,10 +8,10 @@ class BannerRootResponse with _$BannerRootResponse {
   const factory BannerRootResponse({
     dynamic error,
     dynamic message,
-    String? timestamp,
+    dynamic timestamp,
     int? status,
     dynamic path,
-    List<BannerResponse>? data,
+    required List<BannerResponse> data,
     dynamic response,
   }) = _BannerRootResponse;
 
@@ -23,7 +22,7 @@ class BannerRootResponse with _$BannerRootResponse {
 @freezed
 class BannerResponse with _$BannerResponse {
   const factory BannerResponse({
-    int? id,
+    required int id,
     String? actionType,
     String? actionData,
     String? image,

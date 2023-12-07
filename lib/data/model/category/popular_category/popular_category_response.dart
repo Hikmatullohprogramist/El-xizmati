@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'popular_category_response.freezed.dart';
-
 part 'popular_category_response.g.dart';
 
 @freezed
@@ -9,10 +8,10 @@ class PopularRootCategoryResponse with _$PopularRootCategoryResponse {
   const factory PopularRootCategoryResponse({
     dynamic error,
     dynamic message,
-    String? timestamp,
+    dynamic timestamp,
     int? status,
     dynamic path,
-    List<PopularCategoryResponse>? data,
+    required List<PopularCategoryResponse> data,
     dynamic response,
   }) = _PopularRootCategoryResponse;
 
@@ -24,7 +23,7 @@ class PopularRootCategoryResponse with _$PopularRootCategoryResponse {
 class PopularCategoryResponse with _$PopularCategoryResponse {
   const factory PopularCategoryResponse({
     int? total,
-    int? id,
+    required int id,
     String? lang,
     String? icon,
     String? key,

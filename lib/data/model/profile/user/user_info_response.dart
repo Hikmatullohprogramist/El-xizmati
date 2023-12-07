@@ -8,7 +8,7 @@ class UserInfoRootResponse with _$UserInfoRootResponse {
   const factory UserInfoRootResponse({
     dynamic error,
     dynamic message,
-    String? timestamp,
+    dynamic timestamp,
     int? status,
     dynamic path,
     required UserInfoResponse data,

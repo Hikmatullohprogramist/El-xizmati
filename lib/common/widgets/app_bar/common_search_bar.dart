@@ -39,7 +39,7 @@ class CommonSearchBar extends AppBar implements PreferredSizeWidget {
                           child: Assets.images.iconSearch.svg(),
                         ),
                         SizedBox(width: 10),
-                        Flexible(
+                        Expanded(
                           child: InkWell(
                             onTap: onPressedSearch,
                             child: Strings.adSearchHint

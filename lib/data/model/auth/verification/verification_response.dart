@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'verification_response.freezed.dart';
-
 part 'verification_response.g.dart';
 
 @freezed
@@ -9,10 +8,10 @@ class VerificationResponse with _$VerificationResponse {
   const factory VerificationResponse({
     dynamic error,
     dynamic message,
-    String? timestamp,
+    dynamic timestamp,
     int? status,
     dynamic path,
-    Data? data,
+    required Data data,
     dynamic response,
   }) = _VerificationResponse;
 
@@ -23,7 +22,7 @@ class VerificationResponse with _$VerificationResponse {
 @freezed
 class Data with _$Data {
   const factory Data({
-    VerificationData? data,
+    required VerificationData data,
   }) = _Data;
 
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);

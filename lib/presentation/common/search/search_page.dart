@@ -5,6 +5,7 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/loading/loader_state_widget.dart';
 import 'package:onlinebozor/presentation/common/search/cubit/search_cubit.dart';
@@ -44,7 +45,7 @@ class SearchPage
                 fontSize: 14,
               ),
               decoration: InputDecoration.collapsed(
-                  hintText: 'Искать товары и категории',
+                  hintText: Strings.adSearchHint,
                   hintStyle: TextStyle(
                     color: context.colors.textSecondary,
                     fontSize: 12,
@@ -77,7 +78,7 @@ class SearchPage
         isFullScreen: false,
         loadingState: state.appLoadingState,
         onStartWidget: Center(child: Text("Qidirishni boshlang")),
-        onEmptyWidget: Center(child: Text("Hech nima topilmadi")),
+        onEmptyWidget: Center(child: Text(Strings.loadingStateNotitemfound)),
         child: ListView.builder(
           physics: BouncingScrollPhysics(),
           itemCount: state.searchResult.length,

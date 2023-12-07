@@ -209,17 +209,16 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                           child: AppAdWidget(
                             result: item,
                             onClickFavorite: (value) => context
-                                .read<AdCollectionCubit>()
-                                .addFavorite(value),
-                            onClick: (value) => context.router
-                                .push(AdDetailRoute(adId: value.id)),
-                          ),
-                        );
-                      }
-                    },
-                  ))
-            ],
-          )),
-    );
+                                      .read<AdCollectionCubit>()
+                                      .addFavorite(value),
+                                  onClick: (value) => context.router
+                                      .push(AdDetailRoute(adId: value.id)),
+                                ),
+                              );
+                            }
+                          },
+                        ))
+              ],
+            )));
   }
 }

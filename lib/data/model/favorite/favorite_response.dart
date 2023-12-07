@@ -8,10 +8,10 @@ class FavoriteResponse with _$FavoriteResponse {
   const factory FavoriteResponse({
     dynamic error,
     dynamic message,
-    String? timestamp,
+    dynamic timestamp,
     int? status,
     dynamic path,
-    Data? data,
+    required Data data,
     dynamic response,
   }) = _FavoriteResponse;
 
@@ -22,7 +22,7 @@ class FavoriteResponse with _$FavoriteResponse {
 class Data with _$Data {
   const factory Data({
     int? count,
-    List<Result>? results,
+    required List<Result> results,
   }) = _Data;
 
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
@@ -31,7 +31,7 @@ class Data with _$Data {
 @freezed
 class Result with _$Result {
   const factory Result({
-    int? id,
+    required int id,
     int? num,
     String? type,
     int? product_Id,

@@ -32,7 +32,6 @@ class CartCubit extends BaseCubit<CartBuildable, CartListenable> {
       display.error(e.toString());
     } finally {
       log.i(buildable.adsPagingController);
-      // build((buildable) => buildable.copyWith(loading: false));
     }
   }
 

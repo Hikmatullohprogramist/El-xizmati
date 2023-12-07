@@ -9,7 +9,7 @@ class UserFullInfoRootResponse with _$UserFullInfoRootResponse {
   const factory UserFullInfoRootResponse({
     dynamic error,
     dynamic message,
-    String? timestamp,
+    dynamic timestamp,
     int? status,
     dynamic path,
     required UserFullInfoResponse data,

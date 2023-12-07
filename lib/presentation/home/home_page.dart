@@ -155,7 +155,3 @@ class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
     );
   }
 }
-
-// ValueListenableBuilder(
-// valueListenable: Hive.box('favorites_storage').listenable(),
-// builder: (BuildContext context, value, Widget? child) {

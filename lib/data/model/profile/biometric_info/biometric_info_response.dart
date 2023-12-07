@@ -9,7 +9,7 @@ class BiometricInfoRootResponse with _$BiometricInfoRootResponse {
   const factory BiometricInfoRootResponse({
     dynamic error,
     dynamic message,
-    String? timestamp,
+    dynamic timestamp,
     int? status,
     dynamic path,
     required BiometricInfoResponse data,

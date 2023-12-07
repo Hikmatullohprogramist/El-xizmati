@@ -9,7 +9,7 @@ class AuthStartResponse with _$AuthStartResponse {
   const factory AuthStartResponse({
     dynamic error,
     dynamic message,
-    String? timestamp,
+    dynamic timestamp,
     int? status,
     dynamic path,
     required Data data,

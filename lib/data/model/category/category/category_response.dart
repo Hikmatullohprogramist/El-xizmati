@@ -9,7 +9,7 @@ class CategoryRootResponse with _$CategoryRootResponse {
   const factory CategoryRootResponse({
     dynamic error,
     dynamic message,
-    String? timestamp,
+    dynamic timestamp,
     int? status,
     dynamic path,
     required List<CategoryResponse> data,
@@ -23,7 +23,7 @@ class CategoryRootResponse with _$CategoryRootResponse {
 class CategoryResponse with _$CategoryResponse {
   @HiveType(typeId: 1)
   const factory CategoryResponse({
-    @HiveField(1) int? id,
+    @HiveField(1) required int id,
     @HiveField(2) dynamic name,
     @HiveField(3) String? key_word,
     @HiveField(4) int? parent_id,

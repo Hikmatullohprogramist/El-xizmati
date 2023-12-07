@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'one_id_response.freezed.dart';
-
 part 'one_id_response.g.dart';
 
 @freezed
@@ -9,10 +8,10 @@ class OneIdRootResponse with _$OneIdRootResponse {
   const factory OneIdRootResponse({
     dynamic error,
     dynamic message,
-    String? timestamp,
+    dynamic timestamp,
     int? status,
     dynamic path,
-    OneIdResponse? data,
+    required OneIdResponse data,
     dynamic response,
   }) = _OneIdRootResponse;
 

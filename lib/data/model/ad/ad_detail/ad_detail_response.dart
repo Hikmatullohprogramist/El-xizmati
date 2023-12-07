@@ -8,7 +8,7 @@ class AdDetailRootResponse with _$AdDetailRootResponse {
   const factory AdDetailRootResponse({
     dynamic error,
     dynamic message,
-    String? timestamp,
+    dynamic timestamp,
     int? status,
     dynamic path,
     required Data data,
@@ -31,7 +31,7 @@ class Data with _$Data {
 @freezed
 class AdDetailResponse with _$AdDetailResponse {
   const factory AdDetailResponse({
-    int? id,
+    required int id,
     String? name,
     String? sale_type,
     String? main_type_status,
