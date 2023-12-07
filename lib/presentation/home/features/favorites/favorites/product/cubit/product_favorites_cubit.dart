@@ -2,21 +2,22 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/common/enum/enums.dart';
-import '../../../../../../../common/core/base_cubit_new.dart';
-import '../../../../../../../domain/models/ad.dart';
-import '../../../../../../../domain/repositories/favorite_repository.dart';
+import 'package:onlinebozor/domain/models/ad.dart';
+import 'package:onlinebozor/domain/repositories/favorite_repository.dart';
+
+import '../../../../../../../common/core/base_cubit.dart';
+import '../../../../../../../common/enum/enums.dart';
 import '../../../../../../../domain/util.dart';
 
+part 'product_favorites_cubit.freezed.dart';
 
-part 'commodity_favorites_cubit.freezed.dart';
-part 'commodity_favorites_state.dart';
+part 'product_favorites_state.dart';
 
 @injectable
-class CommodityFavoritesCubit extends BaseCubit<CommodityFavoritesBuildable,
-    CommodityFavoritesListenable> {
-  CommodityFavoritesCubit(this._favoriteRepository)
-      : super(const CommodityFavoritesBuildable()) {
+class ProductFavoritesCubit
+    extends BaseCubit<ProductFavoritesBuildable, ProductFavoritesListenable> {
+  ProductFavoritesCubit(this._favoriteRepository)
+      : super(const ProductFavoritesBuildable()) {
     getController();
   }
 
@@ -44,7 +45,7 @@ class CommodityFavoritesCubit extends BaseCubit<CommodityFavoritesBuildable,
     log.i(buildable.adsPagingController);
 
     adController.addPageRequestListener(
-          (pageKey) async {
+      (pageKey) async {
         final adsList = await _favoriteRepository.getFavoriteAds();
         if (adsList.length <= 1000) {
           adController.appendLastPage(adsList);

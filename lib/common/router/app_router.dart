@@ -30,7 +30,7 @@ import '../../presentation/home/features/cart/cart_page.dart';
 import '../../presentation/home/features/cart/features /order_create/order_create_page.dart';
 import '../../presentation/home/features/category/category_page.dart';
 import '../../presentation/home/features/dashboard/dashboard_page.dart';
-import '../../presentation/home/features/favorites/favorites/commodity/commodity_favorites_page.dart';
+import '../../presentation/home/features/favorites/favorites/product/product_favorites_page.dart';
 import '../../presentation/home/features/favorites/favorites/service/service_favorites_page.dart';
 import '../../presentation/home/features/favorites/favorites_page.dart';
 import '../../presentation/home/features/profile_dashboard/features/chat_list/chats_list.dart';
@@ -91,8 +91,8 @@ class AppRouter extends _$AppRouter {
               AutoRoute(page: CategoryRoute.page, path: 'category'),
               AutoRoute(page: FavoritesRoute.page, path: 'favorite',maintainState: false, children: [
                 AutoRoute(
-                    page: CommodityFavoritesRoute.page,
-                    path: 'commodity_favorites',
+                    page: ProductFavoritesRoute.page,
+                    path: 'product_favorites',
                     maintainState: false),
                 AutoRoute(
                     page: ServiceFavoritesRoute.page,

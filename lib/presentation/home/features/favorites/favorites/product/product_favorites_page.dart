@@ -5,28 +5,28 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/common/widgets/favorite/favorite_empty_widget.dart';
-import 'package:onlinebozor/presentation/home/features/favorites/favorites/commodity/cubit/commodity_favorites_cubit.dart';
+import 'package:onlinebozor/presentation/home/features/favorites/favorites/product/cubit/product_favorites_cubit.dart';
 
 import '../../../../../../common/gen/localization/strings.dart';
+import '../../../../../../common/router/app_router.dart';
 import '../../../../../../common/widgets/ad/ad_widget.dart';
 import '../../../../../../common/widgets/common/common_button.dart';
+import '../../../../../../common/widgets/favorite/favorite_empty_widget.dart';
 import '../../../../../../domain/models/ad.dart';
 
 @RoutePage()
-class CommodityFavoritesPage extends BasePage<CommodityFavoritesCubit,
-    CommodityFavoritesBuildable, CommodityFavoritesListenable> {
-  const CommodityFavoritesPage({super.key});
+class ProductFavoritesPage extends BasePage<ProductFavoritesCubit,
+    ProductFavoritesBuildable, ProductFavoritesListenable> {
+  const ProductFavoritesPage({super.key});
 
   @override
   void init(BuildContext context) {
-    context.read<CommodityFavoritesCubit>().getController();
-    context.read<CommodityFavoritesCubit>().close();
+    // context.read<ProductFavoritesCubit>().getController();
+    context.read<ProductFavoritesCubit>().close();
   }
 
   @override
-  Widget builder(BuildContext context, CommodityFavoritesBuildable state) {
+  Widget builder(BuildContext context, ProductFavoritesBuildable state) {
     double width;
     double height;
     width = MediaQuery.of(context).size.width;
@@ -106,7 +106,7 @@ class CommodityFavoritesPage extends BasePage<CommodityFavoritesCubit,
           itemBuilder: (context, item, index) => AppAdWidget(
             ad: item,
             invokeFavorite: (value) =>
-                context.read<CommodityFavoritesCubit>().removeFavorite(value),
+                context.read<ProductFavoritesCubit>().removeFavorite(value),
             invoke: (value) {
               context.router.push(AdDetailRoute(adId: value.id));
             },
