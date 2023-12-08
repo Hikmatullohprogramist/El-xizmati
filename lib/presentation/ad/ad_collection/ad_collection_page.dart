@@ -67,7 +67,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                             alignment: Alignment.centerLeft,
                           child: switch (collectiveType) {
                             CollectiveType.product => Strings
-                                .favoriteCommodityTitle
+                                .favoriteProductTitle
                                 .w(700)
                                 .s(16)
                                 .c(context.colors.textPrimary),
@@ -78,23 +78,23 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                                 .c(context.colors.textPrimary),
                           },
                         )),
-                      AppAllViewWidget(
-                          listener: () {
+                    AppAllViewWidget(
+                        listener: () {
                           context.router.push(AdListRoute(
                               adListType: AdListType.list,
                               keyWord: '',
-                              title: Strings.adCollectiveDiscounts));
+                              title: Strings.recentlyViewedTitle));
                         },
-                      title: Strings.adCollectiveDiscounts),
-                      LoaderStateWidget(
-                          isFullScreen: false,
-                          loadingState: state.hotDiscountAdsState,
-                          child: AdGroupWidget(
-                            ads: state.hotDiscountAds,
-                            invoke: (Ad result) {
+                        title: Strings.recentlyViewedTitle),
+                    LoaderStateWidget(
+                        isFullScreen: false,
+                        loadingState: state.hotDiscountAdsState,
+                        child: AdGroupWidget(
+                          ads: state.hotDiscountAds,
+                          invoke: (Ad result) {
                             context.router.push(AdDetailRoute(adId: result.id));
                           },
-                            invokeFavorite: (Ad result) => context
+                          invokeFavorite: (Ad result) => context
                               .read<AdCollectionCubit>()
                               .discountAdsAddFavorite(result),
                       )),

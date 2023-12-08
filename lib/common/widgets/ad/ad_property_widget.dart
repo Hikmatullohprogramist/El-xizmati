@@ -26,11 +26,11 @@ class AppAdPropertyWidget extends StatelessWidget {
                 .c(Color(0xFF999CB2)),
             SizedBox(width: 2),
             switch (adPropertyType) {
-              AdPropertyStatus.fresh => Strings.adsStatusNew
+              AdPropertyStatus.fresh => Strings.adStatusNew
                   .w(400)
                   .s(isHorizontal ? 10 : 12)
                   .c(Color(0xFF41455E)),
-              AdPropertyStatus.used => Strings.adsStatusOld
+              AdPropertyStatus.used => Strings.adStatusOld
                   .w(400)
                   .s(isHorizontal ? 10 : 12)
                   .c(Color(0xFF41455E)),

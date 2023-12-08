@@ -1,8 +1,15 @@
-str,uz_UZ,ru_RU,uz_UZK
+string,uz_UZ,ru_RU,uz_UZK
+bottom.navigation.home,Asosiy,Главная,Асосий
+bottom.navigation.catolog,Kategoriyalar,Категории,Категориялар
+bottom.navigation.favorite,Tanlanganlar,Избранные,Танланганлар
+bottom.navigation.cart,Savat,Корзина,Сават
+bottom.navigation.profile,Profil,Профиль,Профил
+bottom.navigation.more,Ko'proq,Больше,Кўпроқ
 language.welcome,xush kelibsiz,Добро пожаловать,хуш келибсиз
 language.setlanguage,Ilova tilini tanlang,Выберите язык приложения,Илова тилини танланг
 language.rus,Русский,Русский,Русский
-language.uzb,O’zbekcha,O’zbekcha,Ўзбекча
+language.uzb,O’zbekcha,O’zbekcha,O’zbekcha
+language.uzbk,Ўзбекча,Ўзбекча,Ўзбекча
 auth.start.singin,Tizimga kirish,Войти в систему,Тизимга кириш
 auth.start.login_with_face_id,FaceID bilan tizimga kiring,Войти с помощью FaceID,FaceId билан тизимга киринг
 auth.start.login_with_eds,E-Imzo yordamida tizimga kiring,Войти с помощью ЭЦП,E-imzo ёрдамида тизимга киринг
@@ -24,25 +31,19 @@ common.continue_title,Davom etish ,Продолжить,Давом этиш
 common.phone_number,Telefon raqami,Номер телефона,Телефон рақами
 auth.policy_agree,Tizimga kirish orqali siz rozilik bildirasiz,"Авторизуясь, вы соглашаетесь с ",Тизимга кириш орқали сиз розилик билдирасиз
 auth.person_policy,siyosat shaxsiy ma'lumotlarni qayta ishlash,политикой nобработки персональных данных ,сиёсат шахсий маълумотларни қайта ишлаш
-commodity_title,Mahsulot,Продукт,Маҳсулот
-service_title,Xizmatlar,Услуги,Хизматлар
-popular_categories,Mashhur kategoriyalar,Основные категории,Машҳур тоифалар
-all_title,Barchasi,Все,Барчаси
-recently_viewed_title,Yaqinda ko'rilgan,Недавно посмотренные,Яқинда кўрилган
-hot_discounts_title,Issiq chegirmalar,Горячие скидки,Иссиқ чегирмалар
-popular_commodity_title,Ommabop mahsulot,Популярный продукт,Оммабоп маҳсулот
-ads.property.personal,Shaxsiy,Частное,Шахсий
-ads.property.biznes,Biznes,Бизнес,Бизнес
-ads.status.new,Yangi,Новый,Янги
-ads.status.old,Б/У,Б/У,Б/У
+products.title,Mahsulotlar,Продукт,Маҳсулот
+services.title,Xizmatlar,Услуги,Хизматлар
+categories.title,Kategoriyalar,Основные категории,Машҳур Kategoriyalar
+all.title,Barchasi,Все,Барчаси
+recently.viewed.title,Yaqinda ko'rilgan,Недавно посмотренные,Яқинда кўрилган
+hot.discounts.title,Issiq chegirmalar,Горячие скидки,Иссиқ чегирмалар
+popular.product.title,Ommabop mahsulot,Популярный продукт,Оммабоп маҳсулот
+ad.property.personal,Shaxsiy,Частное,Шахсий
+ad.property.biznes,Biznes,Бизнес,Бизнес
+ad.status.new,Yangi,Новый,Янги
+ad.status.old,Б/У,Б/У,Б/У
 ad.status.title,holati:,статус:,ҳолати:
-search.commodity_and_service,Mahsulotlar va kategoriyani qidiring,Искать товары и категории,Маҳсулотлар ва категорияни қидиринг
-bottombar.dashboard,Dashboard,Главная,Дашбоард
-bottombar.catalog,Katalog,Каталог,Каталог
-bottombar.favorite,Sevimlilar,Желания,Севимлилар
-bottombar.card,Savat,Корзина,Сават
-bottom.more,Ko'proq,Больше,Кўпроқ
-favorite.commodity.title,Mahsulotlar,Продукты,Маҳсулотлар
+favorite.product.title,Mahsulotlar,Продукты,Маҳсулотлар
 favorite.service.title,Xizmatlar,Услуги,Хизматлар
 favorite.title,Sevimlilar,Мои желания,Севимлилар
 loading.state.error,Xatolik yuz berdi,Произошла ошибка,Хатолик юз берди
@@ -80,11 +81,6 @@ profile.user.neighborhood,Turar joy,Махалля,Турар жой
 profile.user.phone,Telefon,Телефон,Телефон
 profile.user.gender.boy,Erkak,Муж.,Эркак
 profile.user.gender.women,Ayol,Жен.,Аёл
-bottom.navigation.home,Uy,Главная,Уй
-bottom.navigation.catolog,Katalog,Каталог,Каталог
-bottom.navigation.favorite,Istaklar,Желания,Истаклар
-bottom.navigation.cart,Savat,Корзина,Сават
-bottom.navigation.more,Ko'proq,Больше,Кўпроқ
 profile.dashboard.my.balans,Mening balansim:,Мой баланс:,Менинг балансим:
 profile.dashboard.fill.wallet,Hamyonni to'ldiring,Наполните кошелек,Ҳамённи тўлдиринг
 profile.dahboard.profile,Profil,Профиль,Профил
@@ -106,7 +102,7 @@ ad.empty.description,Bu e'lonlar hamma uchun ko'rinadi. Ularning amal qilish mud
 ad.create.title,E'lon yaratish,Создать объявление,Эълон яратиш
 ad.type.product.title,Mahsulot,Продукт,Маҳсулот
 ad.type.service.title,Xizmat,Услуга,Хизмат
-ad.search.hint,Mahsulotlar va toifalarni qidiring,Искать товары и категории,Маҳсулотлар ва тоифаларни қидиринг
+ad.search.hint,Mahsulotlar va kategoriyalar qidiring,Искать товары и категории,Маҳсулотлар ва категорийлар қидиринг
 card.empty.title,Siz hali toʻlov kartasini qoʻshmagansiz,Вы еще не добавили карту для оплаты,Сиз ҳали тўлов картасини қўшмагансиз
 card.empty.descripton,Ushbu kartalar bilan siz mahsulot yoki xizmat uchun to'lashingiz mumkin,С помощью этих карт вы можете оплатит за товар или услугу,Ушбу карталар билан сиз маҳсулот ёки хизмат учун тўлашингиз мумкин
 card.add.title,Karta qo'shish,Добавить карту,Карта қўшиш

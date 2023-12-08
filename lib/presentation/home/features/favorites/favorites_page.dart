@@ -47,7 +47,7 @@ class FavoritesPage
               indicatorColor: context.colors.textPrimary,
               controller: controller,
               tabs: [
-                Tab(text: Strings.favoriteCommodityTitle),
+                Tab(text: Strings.favoriteProductTitle),
                 Tab(text: Strings.favoriteServiceTitle),
               ],
             ),

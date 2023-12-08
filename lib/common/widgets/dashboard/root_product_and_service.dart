@@ -27,7 +27,7 @@ class AppRootProductAndService extends StatelessWidget {
                 ));
               },
               color: Color(0xFFB9A0FF),
-              title: Strings.commodityTitle,
+              title: Strings.productsTitle,
               endColorGradient: Color(0xFFAFA2DA),
               image: Assets.images.pngImages.commondity.image(),
               startColorGradient: Color(0xFF9570FF),
@@ -41,7 +41,7 @@ class AppRootProductAndService extends StatelessWidget {
                     AdCollectionRoute(collectiveType: CollectiveType.service));
               },
               color: Color(0xFFFFBB79),
-              title: Strings.serviceTitle,
+              title: Strings.servicesTitle,
               endColorGradient: Color(0xFFF0C49A),
               image: Assets.images.pngImages.service.image(),
               startColorGradient: Color(0xFFF7993D),

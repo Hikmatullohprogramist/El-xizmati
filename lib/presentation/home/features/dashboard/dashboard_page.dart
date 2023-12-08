@@ -56,8 +56,8 @@ class DashboardPage
                   AppAllViewWidget(
                       listener: () => context.router.push(
                           PopularCategoriesRoute(
-                              title: Strings.popularCategories)),
-                      title: Strings.popularCategories),
+                              title: Strings.categoriesTitle)),
+                      title: Strings.categoriesTitle),
                   LoaderStateWidget(
                       onErrorToAgainRequest: () {
                         context.read<DashboardCubit>().getPopularCategories();
@@ -81,7 +81,7 @@ class DashboardPage
                             keyWord: '',
                             title: Strings.hotDiscountsTitle));
                       },
-                      title: Strings.popularCommodityTitle),
+                      title: Strings.popularProductTitle),
                   LoaderStateWidget(
                       isFullScreen: false,
                       onErrorToAgainRequest: (){

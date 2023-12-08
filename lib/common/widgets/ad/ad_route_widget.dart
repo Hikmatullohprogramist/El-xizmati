@@ -22,11 +22,11 @@ class AppAdRouterWidget extends StatelessWidget {
               AdRouteType.business => Color(0x1E6546E7),
             }),
         child: switch (adRouteType) {
-          AdRouteType.private => Strings.adsPropertyPersonal
+          AdRouteType.private => Strings.adPropertyPersonal
               .w(400)
               .s(isHorizontal ? 10 : 12)
               .c(Color(0xFF999CB2)),
-          AdRouteType.business => Strings.adsPropertyBiznes
+          AdRouteType.business => Strings.adPropertyBiznes
               .w(400)
               .s(isHorizontal ? 10 : 12)
               .c(Color(0xFF6546E7)),
