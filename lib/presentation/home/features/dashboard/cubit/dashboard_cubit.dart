@@ -28,7 +28,6 @@ class DashboardCubit
     await Future.wait([
       getPopularCategories(),
       getRecentlyViewAds(),
-      // getBanners(),
       getController(),
     ]);
   }
@@ -38,18 +37,6 @@ class DashboardCubit
   final AdRepository adRepository;
   final CommonRepository commonRepository;
   final FavoriteRepository favoriteRepository;
-
-  // Future<void> getCategories() async {
-  //   commonRepository
-  //       .getPopularCategories(1, 20)
-  //       .catchError((error, stackTrace) {
-  //     build((buildable) =>
-  //         buildable.copyWith(popularCategoriesState: AppLoadingState.error));
-  //     log.e(error.toString(), error: error, stackTrace: stackTrace);
-  //     display.error(error.toString());
-  //     return this;
-  //   });
-  // }
 
   Future<void> getPopularCategories() async {
     try {
@@ -77,13 +64,17 @@ class DashboardCubit
           recentlyViewerAds: recentlyAds,
           recentlyAdsState: AppLoadingState.success));
       log.i("recentlyViewerAds=${buildable.recentlyViewerAds}");
-    }on DioException  catch (e, stackTrace) {
+    } on DioException catch (e, stackTrace) {
       build((buildable) =>
           buildable.copyWith(recentlyAdsState: AppLoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
   }
+
+  /**
+   * bannerlarni  ko'rsatish vaqtinchalik to'xtatildi
+   * */
 
   Future<void> getBanners() async {
     try {
@@ -93,7 +84,7 @@ class DashboardCubit
       build((buildable) => buildable.copyWith(
           banners: banners, bannersState: AppLoadingState.success));
       log.i("${buildable.banners}");
-    }on DioException  catch (e, stackTrace) {
+    } on DioException catch (e, stackTrace) {
       build((buildable) =>
           buildable.copyWith(bannersState: AppLoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);

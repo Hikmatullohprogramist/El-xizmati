@@ -30,6 +30,7 @@ extension AdExtension on AdResponse {
         photo: photos?.first.image ?? "",
         isSell: is_sell ?? false,
         maxAmount: max_amount ?? 0,
+        view: view ?? 0,
         favorite: favorite,
         isCheck: false);
   }
@@ -128,6 +129,7 @@ extension AdObjectExtension on AdObject {
         isSell: isSell,
         maxAmount: maxAmount,
         favorite: favorite,
+        view: 0,
         isCheck: false);
   }
 }

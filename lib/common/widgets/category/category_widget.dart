@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
@@ -25,10 +26,29 @@ class AppCategoryWidget extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
           color: Colors.white,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Flexible(
+              CachedNetworkImage(
+                width: 16,
+                imageUrl:
+                    'https://api.online-bozor.uz/uploads/images/8a818006fe30134f570fc587',
+                imageBuilder: (context, imageProvider) => Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: imageProvider,
+                        colorFilter: ColorFilter.mode(
+                            Colors.black, BlendMode.colorBurn)),
+                  ),
+                ),
+                placeholder: (context, url) =>
+                    Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) =>
+                    Center(child: Icon(Icons.error)),
+              ),
+              // Assets.images.icArrowRight.svg(height: 16, width: 16),
+              SizedBox(width: 16),
+              Expanded(
                   child: category.name
                       .toString()
                       .w(500)

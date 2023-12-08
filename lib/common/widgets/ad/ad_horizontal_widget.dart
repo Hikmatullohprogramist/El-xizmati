@@ -95,13 +95,13 @@ class AppAdHorizontalWidget extends StatelessWidget {
                           children: [
                             Assets.images.icEye.svg(),
                             SizedBox(width: 2),
-                            if ((ad.id / 100) < 0)
-                              ad.id
+                            if (ad.view < 100)
+                              ad.view
                                   .toString()
                                   .w(400)
                                   .s(8)
                                   .c(context.colors.textPrimary)
-                            else if ((ad.id / 100000) < 0)
+                            else if (ad.view < 100000)
                               "100K".w(400).s(8).c(context.colors.textPrimary)
                             else
                               "100M".w(400).s(8).c(context.colors.textPrimary)

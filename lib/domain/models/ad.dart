@@ -24,7 +24,8 @@ class Ad {
       required this.favorite,
       required this.isSort,
       required this.isSell,
-      required this.maxAmount});
+      required this.maxAmount,
+      required this.view});
 
   int? backendId;
   final int id;
@@ -46,6 +47,7 @@ class Ad {
   final int maxAmount;
   final String sellerName;
   final int sellerId;
+  final int view;
   bool favorite;
   bool isCheck;
   String photo;

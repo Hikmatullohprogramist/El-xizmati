@@ -29,6 +29,7 @@ import '../../presentation/common/search/search_page.dart';
 import '../../presentation/home/features/cart/cart_page.dart';
 import '../../presentation/home/features/cart/features /order_create/order_create_page.dart';
 import '../../presentation/home/features/category/category_page.dart';
+import '../../presentation/home/features/category/features/sub_category_page.dart';
 import '../../presentation/home/features/dashboard/dashboard_page.dart';
 import '../../presentation/home/features/favorites/favorites/product/product_favorites_page.dart';
 import '../../presentation/home/features/favorites/favorites/service/service_favorites_page.dart';
@@ -89,19 +90,27 @@ class AppRouter extends _$AppRouter {
             children: [
               AutoRoute(page: DashboardRoute.page, path: 'dashboard', maintainState: false),
               AutoRoute(page: CategoryRoute.page, path: 'category'),
-              AutoRoute(page: FavoritesRoute.page, path: 'favorite',maintainState: false, children: [
-                AutoRoute(
-                    page: ProductFavoritesRoute.page,
-                    path: 'product_favorites',
-                    maintainState: false),
-                AutoRoute(
-                    page: ServiceFavoritesRoute.page,
-                    path: 'service_favorites',
-                    maintainState: false)
-              ]),
-              AutoRoute(page: CartRoute.page, path: 'cart', maintainState: false),
+              AutoRoute(
+                  page: FavoritesRoute.page,
+                  path: 'favorite',
+                  maintainState: false,
+                  children: [
+                    AutoRoute(
+                        page: ProductFavoritesRoute.page,
+                        path: 'product_favorites',
+                        maintainState: false),
+                    AutoRoute(
+                        page: ServiceFavoritesRoute.page,
+                        path: 'service_favorites',
+                        maintainState: false)
+                  ]),
+              AutoRoute(
+                  page: CartRoute.page, path: 'cart', maintainState: false),
               AutoRoute(page: ProfileDashboardRoute.page, path: 'profile')
             ]),
+
+        //  sub category
+        AutoRoute(page: SubCategoryRoute.page, path: "/sub_category"),
 
         // order create
         AutoRoute(page: OrderCreateRoute.page, path: '/order_create'),

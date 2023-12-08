@@ -39,7 +39,6 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
       display.error(e.toString());
     } finally {
       log.i(buildable.adsPagingController);
-      // build((buildable) => buildable.copyWith(loading: false));
     }
   }
 

@@ -208,9 +208,9 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                                 ),
                               );
                       } else {
-                        return Padding(
-                          padding: EdgeInsets.only(left: 16),
-                          child: AppAdWidget(
+                              return Padding(
+                                padding: EdgeInsets.only(left: 16),
+                                child: AppAdWidget(
                                   ad: item,
                                   invokeFavorite: (value) => context
                                       .read<AdCollectionCubit>()

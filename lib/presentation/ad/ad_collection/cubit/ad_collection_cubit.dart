@@ -17,12 +17,11 @@ part 'ad_collection_state.dart';
 class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionListenable> {
   AdCollectionCubit(
       this.adRepository, this.commonRepository, this.favoriteRepository)
-      : super(AdCollectionBuildable()) {
-    getHome();
-  }
+      : super(AdCollectionBuildable());
 
-  void setCollectionType(CollectiveType collectiveType) {
+  Future<void> setCollectionType(CollectiveType collectiveType) async {
     build((buildable) => buildable.copyWith(collectiveType: collectiveType));
+    getHome();
   }
 
   Future<void> getHome() async {
@@ -43,11 +42,10 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
     try {
       log.i("recentlyViewerAds request");
       final hotDiscountAds =
-          await adRepository.getPopularAds(buildable.collectiveType);
+          await adRepository.getCollectivePopularAds(buildable.collectiveType);
       build((buildable) => buildable.copyWith(
           hotDiscountAds: hotDiscountAds,
           hotDiscountAdsState: AppLoadingState.success));
-      log.i("recentlyViewerAds=${buildable.hotDiscountAds}");
     }on DioException  catch (e, stackTrace) {
       build((buildable) =>
           buildable.copyWith(hotDiscountAdsState: AppLoadingState.error));
@@ -59,10 +57,9 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
   Future<void> getPopularAds() async {
     try {
       final popularAds =
-      await adRepository.getPopularAds(buildable.collectiveType);
+          await adRepository.getCollectivePopularAds(buildable.collectiveType);
       build((buildable) => buildable.copyWith(
           popularAds: popularAds, popularAdsState: AppLoadingState.success));
-      log.i("recentlyViewerAds=${buildable.hotDiscountAds}");
     }on DioException catch (e, stackTrace) {
       build((buildable) =>
           buildable.copyWith(popularAdsState: AppLoadingState.error));
@@ -81,7 +78,6 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
       display.error(e.toString());
     } finally {
       log.i(buildable.adsPagingController);
-      // build((buildable) => buildable.copyWith(loading: false));
     }
   }
 
@@ -169,8 +165,9 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
           buildable.adsPagingController?.notifyListeners();
         }
       }
-    } on DioException catch (e) {
+    } on DioException catch (error) {
       display.error("xatolik yuz  berdi");
+      log.e(error.toString());
     }
   }
 }

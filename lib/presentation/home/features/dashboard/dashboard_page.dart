@@ -81,7 +81,7 @@ class DashboardPage
                             keyWord: '',
                             title: Strings.hotDiscountsTitle));
                       },
-                      title: Strings.hotDiscountsTitle),
+                      title: Strings.popularCommodityTitle),
                   LoaderStateWidget(
                       isFullScreen: false,
                       onErrorToAgainRequest: (){

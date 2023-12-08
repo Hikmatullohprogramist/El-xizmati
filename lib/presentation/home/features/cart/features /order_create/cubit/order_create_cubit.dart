@@ -12,7 +12,6 @@ import '../../../../../../../domain/repositories/user_repository.dart';
 import '../../../../../../../domain/util.dart';
 
 part 'order_create_cubit.freezed.dart';
-
 part 'order_create_state.dart';
 
 @Injectable()
@@ -101,7 +100,8 @@ class OrderCreateCubit
             isSell: false,
             maxAmount: -1,
             favorite: true,
-            isCheck: false));
+            isCheck: false,
+            view: 0));
         display.success("Success");
       } else {
         await favoriteRepository.removeFavorite(Ad(
@@ -127,7 +127,8 @@ class OrderCreateCubit
             isSell: false,
             maxAmount: -1,
             favorite: true,
-            isCheck: false));
+            isCheck: false,
+            view: 0));
       }
       final favorite = !buildable.favorite;
       build((buildable) => buildable.copyWith(favorite: favorite));

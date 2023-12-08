@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+
 import '../../../../common/core/base_cubit.dart';
 import '../../../../domain/models/ad.dart';
 import '../../../../domain/models/ad_detail.dart';
@@ -68,7 +69,8 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
             isSell: false,
             maxAmount: -1,
             favorite: false,
-            isCheck: false));
+            isCheck: false,
+            view: 0));
         build((buildable) => buildable.copyWith(
             adDetail: buildable.adDetail?..favorite = true, isAddCart: false));
       } else {
@@ -95,7 +97,8 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
             isSell: false,
             maxAmount: -1,
             favorite: false,
-            isCheck: false));
+            isCheck: false,
+            view: 0));
         build((buildable) => buildable.copyWith(
             adDetail: buildable.adDetail?..favorite = false));
       }
@@ -130,7 +133,8 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
           isSell: false,
           maxAmount: -1,
           favorite: true,
-          isCheck: false));
+          isCheck: false,
+          view: 0));
       build((buildable) => buildable.copyWith(isAddCart: true));
       display.success("mahsulot savatchaga qo'shildi");
     } on DioException catch (e) {

@@ -7,7 +7,6 @@ import 'package:onlinebozor/common/widgets/category/category_widget.dart';
 import 'package:onlinebozor/common/widgets/loading/loader_state_widget.dart';
 
 import '../../../../data/responses/category/category/category_response.dart';
-import '../../../../domain/util.dart';
 import 'cubit/category_cubit.dart';
 
 @RoutePage()
@@ -33,9 +32,8 @@ class CategoryPage
           itemBuilder: (context, index) {
             return AppCategoryWidget(
                 invoke: (CategoryResponse categoryResponse) {
-                  context.router.push(AdListRoute(
-                      adListType: AdListType.popularCategory,
-                      keyWord: categoryResponse.key_word,
+                  context.router.push(SubCategoryRoute(
+                      subCategoryId: categoryResponse.id,
                       title: categoryResponse.name));
                 },
                 category: state.categories[index]);

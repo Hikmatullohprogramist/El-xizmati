@@ -46,18 +46,7 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<AdDetail?> getAdDetail(int adId) async {
-    final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
-    final response = await _adsService.getAdDetail(adId);
-    final adDetailResponse =
-        AdDetailRootResponse.fromJson(response.data).data.results;
-    final adDetail = adDetailResponse.toMap(
-        favorite: allItems.where((element) => element.id == adId).isNotEmpty);
-    return adDetail;
-  }
-
-  @override
-  Future<List<Ad>> getHotDiscountAds(CollectiveType collectiveType) async {
+  Future<List<Ad>> getCollectivePopularAds(CollectiveType collectiveType) async {
     final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
     final response = await _adsService.getHomePopularAds();
     final adsResponse = AdRootResponse.fromJson(response.data).data.results;
@@ -70,7 +59,32 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<List<Ad>> getPopularAds(CollectiveType collectiveType) async {
+  Future<List<Ad>> getCollectiveRecentlyAds(
+      CollectiveType collectiveType) async {
+    final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
+    final response = await _adsService.getCollectiveRecentlyAds(collectiveType);
+    final adsResponse = AdRootResponse.fromJson(response.data).data.results;
+    final ads = adsResponse
+        .map((ad) => ad.toMap(
+            favorite:
+                allItems.where((element) => element.id == ad.id).isNotEmpty))
+        .toList(growable: true);
+    return ads;
+  }
+
+  @override
+  Future<AdDetail?> getAdDetail(int adId) async {
+    final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
+    final response = await _adsService.getAdDetail(adId);
+    final adDetailResponse =
+        AdDetailRootResponse.fromJson(response.data).data.results;
+    final adDetail = adDetailResponse.toMap(
+        favorite: allItems.where((element) => element.id == adId).isNotEmpty);
+    return adDetail;
+  }
+
+  @override
+  Future<List<Ad>> getHotDiscountAds(CollectiveType collectiveType) async {
     final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
     final response = await _adsService.getHomePopularAds();
     final adsResponse = AdRootResponse.fromJson(response.data).data.results;

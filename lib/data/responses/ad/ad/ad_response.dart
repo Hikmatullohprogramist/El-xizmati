@@ -51,6 +51,7 @@ class AdResponse with _$AdResponse {
     int? max_amount,
     Seller? seller,
     List<AdPhotoResponse>? photos,
+    int? view,
   }) = _AdResponse;
 
   factory AdResponse.fromJson(Map<String, dynamic> json) => _$AdResponseFromJson(json);
