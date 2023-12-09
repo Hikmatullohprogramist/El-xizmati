@@ -108,7 +108,10 @@ class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageBuildable,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          "O'zbekcha (krill)".w(400).s(14).c(Color(0xFF41455F)),
+                          Strings.languageUzbk
+                              .w(400)
+                              .s(14)
+                              .c(Color(0xFF41455F)),
                           Assets.images.pngImages.flagUz.image()
                         ],
                       ),

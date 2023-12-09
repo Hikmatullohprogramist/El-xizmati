@@ -107,22 +107,11 @@ class ChangeLanguagePage extends BasePage<ChangeLanguageCubit,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      "O'zbekcha (krill)".w(400).s(14).c(Color(0xFF41455F)),
+                      Strings.languageUzbk.w(400).s(14).c(Color(0xFF41455F)),
                       Assets.images.pngImages.flagUz.image()
                     ],
                   ),
                 )),
-            // Spacer(),
-            // SizedBox(
-            //     height: 48,
-            //     width: double.infinity,
-            //     child: CommonButton(
-            //         onPressed: () {
-            //           context
-            //               .read<ChangeLanguageCubit>()
-            //               .saveSelectedLanguage();
-            //         },
-            //         child: Strings.buttonTitleSave.w(500)))
           ],
         ),
       ),
