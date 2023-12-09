@@ -117,7 +117,8 @@ class AppRouter extends _$AppRouter {
 
         // Ads collection
         AutoRoute(page: AdCollectionRoute.page, path: "/ads_collection"),
-        AutoRoute(page: AdListRoute.page, path: '/ads_list'),
+        AutoRoute(
+            page: AdListRoute.page, path: '/ads_list', maintainState: false, ),
         AutoRoute(page: AdDetailRoute.page, path: '/ads_detail'),
         AutoRoute(page: CreateAdRoute.page, path: '/create_ad'),
 

@@ -66,12 +66,8 @@ class AdsService {
     return _dio.get('v1/search', queryParameters: queryParameters);
   }
 
-  Future<Response> getAds(
-    CollectiveType collectiveType,
-    int pageIndex,
-    int pageSize,
-    String keyWord,
-  ) {
-    return _dio.get("");
+  Future<Response> getSellerAds(int sellerTin){
+    final queryParameters = {RestQueryKeys.queryTin: sellerTin};
+    return _dio.get('v1/seller/ads',queryParameters: queryParameters);
   }
 }

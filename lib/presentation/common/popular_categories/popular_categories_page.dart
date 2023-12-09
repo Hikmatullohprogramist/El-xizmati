@@ -100,9 +100,10 @@ class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
                       category: item,
                       invoke: (value) {
                         context.router.push(AdListRoute(
-                            adListType: AdListType.popularCategory,
+                            adListType: AdListType.popularCategoryProduct,
                             keyWord: value.key_word,
-                            title: value.lang));
+                            title: value.lang,
+                            sellerTin: null));
                       },
                     ),
                   ),

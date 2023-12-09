@@ -9,6 +9,7 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/ad/price_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite/favorite_widget.dart';
+import 'package:onlinebozor/domain/util.dart';
 import 'package:onlinebozor/presentation/ad/ad_detail/cubit/ad_detail_cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -319,7 +320,13 @@ class AdDetailPage
                                         .svg(width: 24, height: 24)),
                               ],
                             ),
-                            onTap: () {}),
+                            onTap: () {
+                              context.router.push(AdListRoute(
+                                  adListType: AdListType.seller,
+                                  keyWord: "",
+                                  title: state.adDetail?.sellerFullName,
+                                  sellerTin: state.adDetail?.sellerTin));
+                            }),
                         SizedBox(height: 8)
                       ],
                     ),

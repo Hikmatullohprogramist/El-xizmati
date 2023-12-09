@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/domain/util.dart';
+
 import '../../../../common/core/base_cubit.dart';
 import '../../../../common/enum/enums.dart';
 import '../../../../domain/models/ad.dart';
@@ -16,12 +17,15 @@ part 'ad_list_state.dart';
 @injectable
 class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
   AdListCubit(this.adRepository, this.commonRepository, this.favoriteRepository)
-      : super(AdListBuildable()) {
-    getController();
-  }
+      : super(AdListBuildable());
 
-  void initiallyDate(String? keyWord, AdListType adListType) {
-    build((buildable) => buildable.copyWith(keyWord: keyWord ?? ""));
+  void setInitiallyDate(String? keyWord, AdListType adListType, int? sellerTin) {
+    build((buildable) => buildable.copyWith(
+        adsPagingController: null,
+        keyWord: keyWord ?? "",
+        sellerTin: sellerTin,
+        adListType: adListType));
+    getController();
   }
 
   static const _pageSize = 20;
@@ -52,7 +56,21 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
 
     adController.addPageRequestListener(
       (pageKey) async {
-        final adsList = await adRepository.getHomeAds(pageKey, _pageSize, buildable.keyWord);
+        List<Ad> adsList;
+        switch (buildable.adListType) {
+          case AdListType.list:
+            adsList = await adRepository.getHomeAds(
+                pageKey, _pageSize, buildable.keyWord);
+          case AdListType.seller:
+            adsList =
+                await adRepository.getSellerAds(buildable.sellerTin ?? -1);
+          case AdListType.similar:
+            adsList = await adRepository.getHomeAds(
+                pageKey, _pageSize, buildable.keyWord);
+          case AdListType.popularCategoryProduct:
+            adsList = await adRepository.getHomeAds(
+                pageKey, _pageSize, buildable.keyWord);
+        }
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);
           log.i(buildable.adsPagingController);

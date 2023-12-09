@@ -18,15 +18,17 @@ import '../../../domain/util.dart';
 @RoutePage()
 class AdListPage
     extends BasePage<AdListCubit, AdListBuildable, AdListListenable> {
-  const AdListPage(this.adListType, this.keyWord, this.title, {super.key});
+  const AdListPage(this.adListType, this.keyWord, this.title,
+      {super.key, this.sellerTin});
 
   final AdListType adListType;
   final String? keyWord;
   final String? title;
+  final int? sellerTin;
 
   @override
   void init(BuildContext context) {
-    context.read<AdListCubit>().initiallyDate(keyWord, adListType);
+    context.read<AdListCubit>().setInitiallyDate(keyWord, adListType, sellerTin);
   }
 
   @override

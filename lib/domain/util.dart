@@ -6,11 +6,7 @@ enum AdTypeStatus { sell, free, exchange, service, buy, buyService }
 
 enum AdStatusType { top, standard }
 
-enum AdListType {
-  list,
-  popularCategory,
-  category,
-}
+enum AdListType { list, seller, similar, popularCategoryProduct,  }
 
 enum AdType { ads, service }
 

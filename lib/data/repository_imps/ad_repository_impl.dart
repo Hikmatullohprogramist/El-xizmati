@@ -117,4 +117,17 @@ class AdRepositoryImpl extends AdRepository {
     final searchAd = SearchResponse.fromJson(response.data).data;
     return searchAd.ads;
   }
+
+  @override
+  Future<List<Ad>> getSellerAds(int sellerTin) async {
+    final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
+    final response = await _adsService.getSellerAds(sellerTin);
+    final adsResponse = AdRootResponse.fromJson(response.data).data.results;
+    final ads = adsResponse
+        .map((ad) => ad.toMap(
+            favorite:
+                allItems.where((element) => element.id == ad.id).isNotEmpty))
+        .toList(growable: true);
+    return ads;
+  }
 }

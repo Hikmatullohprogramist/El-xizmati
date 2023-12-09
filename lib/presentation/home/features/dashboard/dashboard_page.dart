@@ -68,9 +68,10 @@ class DashboardPage
                         categories: state.popularCategories,
                         invoke: (popularCategories) {
                           context.router.push(AdListRoute(
-                              adListType: AdListType.popularCategory,
+                              adListType: AdListType.popularCategoryProduct,
                               keyWord: popularCategories.key_word,
-                              title: popularCategories.lang));
+                              title: popularCategories.lang,
+                              sellerTin: null));
                         },
                       )),
                   AppDivider(height: 3),
@@ -79,7 +80,8 @@ class DashboardPage
                         context.router.push(AdListRoute(
                             adListType: AdListType.list,
                             keyWord: '',
-                            title: Strings.hotDiscountsTitle));
+                            title: Strings.hotDiscountsTitle,
+                            sellerTin: null));
                       },
                       title: Strings.popularProductTitle),
                   LoaderStateWidget(

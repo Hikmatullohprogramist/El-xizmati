@@ -21,4 +21,6 @@ abstract class AdRepository {
   Future<List<Ad>> getHotDiscountAds(CollectiveType collectiveType);
 
   Future<List<AdSearchResponse>> getSearch(String query);
+
+  Future<List<Ad>> getSellerAds(int sellerTin);
 }
