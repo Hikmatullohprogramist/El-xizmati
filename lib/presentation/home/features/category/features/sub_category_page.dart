@@ -32,7 +32,8 @@ class SubCategoryPage extends BasePage<SubCategoryCubit, SubCategoryBuildable,
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: title.w(500).s(12).c(context.colors.textPrimary),
+        elevation: 0.5,
+        title: title.w(500).s(16).c(context.colors.textPrimary),
         leading: IconButton(
           onPressed: () => context.router.pop(),
           icon: Assets.images.icArrowLeft.svg(),

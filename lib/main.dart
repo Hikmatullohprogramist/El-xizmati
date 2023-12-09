@@ -108,7 +108,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(fontFamily: 'Inter'),
-        routerConfig: _appRouter.config(initialRoutes: [
+        routerConfig: _appRouter.config(
+            initialRoutes: [
           if (isLanguageSelection)
             if (isLogin) HomeRoute() else HomeRoute()
           else

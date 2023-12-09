@@ -1,13 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
-import 'package:onlinebozor/common/extensions/currency_extensions.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_property_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_route_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_status_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_type_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/price_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite/favorite_widget.dart';
 import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
 
@@ -30,11 +29,8 @@ class AppAdHorizontalWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var formatter = NumberFormat('###,000');
     return InkWell(
-        onTap: () {
-          invoke(ad);
-        },
+        onTap: () => invoke(ad),
         child: SizedBox(
           height: 342,
           width: 140,
@@ -70,11 +66,8 @@ class AppAdHorizontalWidget extends StatelessWidget {
                     Align(
                         alignment: Alignment.topRight,
                         child: AppFavoriteWidget(
-                          isSelected: ad.favorite,
-                          invoke: () {
-                            invokeFavorite(ad);
-                          },
-                        )),
+                            isSelected: ad.favorite,
+                            invoke: () => invokeFavorite(ad))),
                     Align(
                       alignment: Alignment.bottomLeft,
                       child: AppAdTypeWidget(adType: ad.adTypeStatus.adType()),
@@ -92,6 +85,7 @@ class AppAdHorizontalWidget extends StatelessWidget {
                                 width: 1, color: context.colors.iconGrey),
                             borderRadius: BorderRadius.circular(4)),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Assets.images.icEye.svg(),
                             SizedBox(width: 2),
@@ -121,16 +115,11 @@ class AppAdHorizontalWidget extends StatelessWidget {
                     .copyWith(maxLines: 2, overflow: TextOverflow.ellipsis),
               ),
               SizedBox(height: 6),
-              if (ad.price == 0)
-                "${formatter.format(ad.toPrice).replaceAll(',', ' ')}-${formatter.format(ad.fromPrice).replaceAll(',', ' ')} ${Currency.uzb.getName}"
-                    .w(700)
-                    .s(15)
-                    .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis)
-              else
-                "${formatter.format(ad.price).replaceAll(',', ' ')} ${Currency.uzb.getName}"
-                    .w(700)
-                    .s(15)
-                    .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
+              AppPriceWidget(
+                  price: ad.price,
+                  toPrice: ad.toPrice,
+                  fromPrice: ad.fromPrice,
+                  currency: ad.currency),
               SizedBox(height: 14),
               Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 Assets.images.icLocation.svg(width: 12, height: 12),

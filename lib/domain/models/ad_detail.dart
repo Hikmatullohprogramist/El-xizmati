@@ -34,34 +34,34 @@ class AdDetail {
     required this.adStatusType,
     required this.showSocial,
     this.hasFreeShipping,
-    this.hasShipping,
-    this.hasWarehouse,
-    this.shippingPrice,
-    this.shippingUnitId,
-    required this.view,
-    this.selected,
-    this.phoneView,
-    this.messageNumber,
-    this.typeExpireDate,
-    this.unitId,
-    this.toPrice,
-    this.fromPrice,
-    this.addressId,
-    this.video,
-    this.params,
-    this.socialMedias,
-    this.warehouses,
-    this.shippings,
-    this.photos,
-    this.address,
-    this.paymentTypes,
-    this.otherRouteType,
-    this.otherPropertyStatus,
+      this.hasShipping,
+      this.hasWarehouse,
+      this.shippingPrice,
+      this.shippingUnitId,
+      required this.view,
+      this.selected,
+      this.phoneView,
+      this.messageNumber,
+      this.typeExpireDate,
+      this.unitId,
+      required this.toPrice,
+      required this.fromPrice,
+      this.addressId,
+      this.video,
+      this.params,
+      this.socialMedias,
+      this.warehouses,
+      this.shippings,
+      this.photos,
+      this.address,
+      this.paymentTypes,
+      this.otherRouteType,
+      this.otherPropertyStatus,
     required this.favorite
   });
 
   final int adId;
-  String? adName;
+  String adName;
   final String saleType;
   String? mainTypeStatus;
   int? categoryId;
@@ -103,8 +103,8 @@ class AdDetail {
   int? messageNumber;
   dynamic typeExpireDate;
   int? unitId;
-  int? toPrice;
-  int? fromPrice;
+  final int toPrice;
+  final int fromPrice;
   int? addressId;
   dynamic video;
   List<dynamic>? params;

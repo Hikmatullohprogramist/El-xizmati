@@ -23,16 +23,15 @@ class AppImageWidget extends StatelessWidget {
             itemCount: images.length,
             itemBuilder: (context, index) {
               return InkWell(
-                  onTap: () {
-                    invoke(index);
-                  },
+                  onTap: () => invoke(index),
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    // margin: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     child: CachedNetworkImage(
+
                       imageUrl: images[index],
                       imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
+                          // borderRadius: BorderRadius.circular(6),
                           image: DecorationImage(
                               image: imageProvider,
                               fit: BoxFit.fill,
@@ -56,7 +55,7 @@ class AppImageWidget extends StatelessWidget {
                 effect: const WormEffect(
                   dotHeight: 8,
                   dotWidth: 8,
-                  type: WormType.thin,
+                  type: WormType.normal,
                 ),
               ),
             ),

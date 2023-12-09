@@ -50,7 +50,11 @@ extension AdDetailExtension on AdDetailResponse {
         adName: name ?? "",
         saleType: sale_type ?? "",
         mainTypeStatus: main_type_status ?? "",
-        description: description ?? "",
+        description: (description ?? "")
+            .replaceAll("<p>", "")
+            .replaceAll("</p>", "")
+            .replaceAll("<br>", "")
+            .replaceAll("</br>", ""),
         price: price ?? 0,
         currency: currency.toCurrency(),
         isContract: is_contract ?? false,
@@ -73,7 +77,7 @@ extension AdDetailExtension on AdDetailResponse {
         categoryName: category?.name,
         createdAt: created_at,
         email: email,
-        fromPrice: from_price,
+        fromPrice: from_price ?? 0,
         hasFreeShipping: has_free_shipping,
         hasShipping: has_shipping,
         hasWarehouse: has_warehouse,
@@ -95,7 +99,7 @@ extension AdDetailExtension on AdDetailResponse {
         shippings: shippings,
         shippingUnitId: shipping_unitId,
         socialMedias: social_medias,
-        toPrice: to_price,
+        toPrice: to_price ?? 0,
         typeExpireDate: type_expire_date,
         unitId: unit_id,
         video: video,
