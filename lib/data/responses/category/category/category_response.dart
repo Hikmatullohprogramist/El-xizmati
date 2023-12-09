@@ -24,7 +24,7 @@ class CategoryResponse with _$CategoryResponse {
   @HiveType(typeId: 1)
   const factory CategoryResponse({
     @HiveField(1) required int id,
-    @HiveField(2) dynamic name,
+    @HiveField(2) required String name,
     @HiveField(3) String? key_word,
     @HiveField(4) int? parent_id,
     @HiveField(5) dynamic icon,
