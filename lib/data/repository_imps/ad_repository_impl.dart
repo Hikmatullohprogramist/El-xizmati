@@ -130,4 +130,18 @@ class AdRepositoryImpl extends AdRepository {
         .toList(growable: true);
     return ads;
   }
+
+  @override
+  Future<List<Ad>> getSimilarAds(int adId) async{
+    final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
+    final response = await _adsService.getSimilarAds(adId);
+    final adsResponse = AdRootResponse.fromJson(response.data).data.results;
+    final ads = adsResponse
+        .map((ad) => ad.toMap(
+        favorite:
+        allItems.where((element) => element.id == ad.id).isNotEmpty))
+        .toList(growable: true);
+    return ads;
+  }
+
 }

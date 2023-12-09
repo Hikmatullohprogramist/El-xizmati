@@ -66,8 +66,22 @@ class AdsService {
     return _dio.get('v1/search', queryParameters: queryParameters);
   }
 
-  Future<Response> getSellerAds(int sellerTin){
-    final queryParameters = {RestQueryKeys.queryTin: sellerTin};
-    return _dio.get('v1/seller/ads',queryParameters: queryParameters);
+  Future<Response> getSellerAds(int sellerTin) {
+    final queryParameters = {
+      RestQueryKeys.queryTin: sellerTin,
+      RestQueryKeys.queryPageSize: 150
+    };
+    return _dio.get(
+      'v1/seller/ads',
+      queryParameters: queryParameters,
+    );
+  }
+
+  Future<Response> getSimilarAds(int adId) {
+    final queryParameters = {
+      RestQueryKeys.queryAdsId: adId,
+      RestQueryKeys.queryPageSize: 150
+    };
+    return _dio.get('v1/ads/details/similar', queryParameters: queryParameters);
   }
 }

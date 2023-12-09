@@ -19,16 +19,19 @@ import '../../../domain/util.dart';
 class AdListPage
     extends BasePage<AdListCubit, AdListBuildable, AdListListenable> {
   const AdListPage(this.adListType, this.keyWord, this.title,
-      {super.key, this.sellerTin});
+      {super.key, this.sellerTin, this.adId});
 
   final AdListType adListType;
   final String? keyWord;
   final String? title;
   final int? sellerTin;
+  final int? adId;
 
   @override
   void init(BuildContext context) {
-    context.read<AdListCubit>().setInitiallyDate(keyWord, adListType, sellerTin);
+    context
+        .read<AdListCubit>()
+        .setInitiallyDate(keyWord, adListType, sellerTin, adId);
   }
 
   @override
@@ -70,6 +73,7 @@ class AdListPage
               height: 100,
               child: Center(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Strings.loadingStateError
                         .w(400)
@@ -88,6 +92,7 @@ class AdListPage
           firstPageProgressIndicatorBuilder: (_) {
             return SizedBox(
               height: 160,
+              width: double.infinity,
               child: Center(
                 child: CircularProgressIndicator(
                   color: Colors.blue,
@@ -96,11 +101,15 @@ class AdListPage
             );
           },
           noItemsFoundIndicatorBuilder: (_) {
-            return Center(child: Text(Strings.loadingStateNotitemfound));
+            return SizedBox(
+                height: 200,
+                width: double.infinity,
+                child: Center(child: Text(Strings.loadingStateNotitemfound)));
           },
           newPageProgressIndicatorBuilder: (_) {
             return SizedBox(
               height: 160,
+              width: double.infinity,
               child: Center(
                 child: CircularProgressIndicator(
                   color: Colors.blue,

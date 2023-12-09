@@ -23,4 +23,6 @@ abstract class AdRepository {
   Future<List<AdSearchResponse>> getSearch(String query);
 
   Future<List<Ad>> getSellerAds(int sellerTin);
+
+  Future<List<Ad>> getSimilarAds(int adId);
 }

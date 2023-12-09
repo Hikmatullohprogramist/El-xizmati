@@ -8,6 +8,7 @@ class AdListBuildable with _$AdListBuildable {
     @Default(AppLoadingState.loading) AppLoadingState adsState,
     PagingController<int, Ad>? adsPagingController,
     int? sellerTin,
+    int? adId,
   }) = _AdListBuildable;
 }
 

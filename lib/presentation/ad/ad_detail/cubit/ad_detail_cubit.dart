@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/common/enum/enums.dart';
 
 import '../../../../common/core/base_cubit.dart';
 import '../../../../domain/models/ad.dart';
@@ -36,6 +37,7 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
       log.e(e.toString());
       display.error(e.toString());
     }
+    getSimilarAds();
   }
 
   Future<void> setPhotoView() async{
@@ -107,6 +109,24 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
     }
   }
 
+  Future<void> similarAdsAddFavorite(Ad adModel) async {
+    try {
+      if (!adModel.favorite) {
+        await favoriteRepository.addFavorite(adModel);
+        final index = buildable.similarAds.indexOf(adModel);
+        final item = buildable.similarAds.elementAt(index);
+        buildable.similarAds.insert(index, item..favorite = true);
+      } else {
+        await favoriteRepository.removeFavorite(adModel);
+        final index = buildable.similarAds.indexOf(adModel);
+        final item = buildable.similarAds.elementAt(index);
+        buildable.similarAds.insert(index, item..favorite = false);
+      }
+    } on DioException catch (e) {
+      display.error("xatolik yuz  berdi");
+    }
+  }
+
   Future<void> addCart() async {
     try {
       final adModel = buildable.adDetail;
@@ -140,6 +160,19 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
     } on DioException catch (e) {
       display.error("xatlik yuz berdi");
       log.e(e.toString());
+    }
+  }
+
+  Future<void> getSimilarAds() async {
+    try {
+      final similarAds = await _adRepository.getSimilarAds(buildable.adId ?? 0);
+      build((buildable) => buildable.copyWith(
+          similarAds: similarAds, similarAdsState: AppLoadingState.success));
+    } on DioException catch (e, stackTrace) {
+      build((buildable) =>
+          buildable.copyWith(similarAdsState: AppLoadingState.error));
+      log.e(e.toString(), error: e, stackTrace: stackTrace);
+      display.error(e.toString());
     }
   }
 }

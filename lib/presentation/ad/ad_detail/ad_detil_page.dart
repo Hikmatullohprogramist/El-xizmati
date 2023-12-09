@@ -8,6 +8,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/ad/price_widget.dart';
+import 'package:onlinebozor/common/widgets/dashboard/all_view_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite/favorite_widget.dart';
 import 'package:onlinebozor/domain/util.dart';
 import 'package:onlinebozor/presentation/ad/ad_detail/cubit/ad_detail_cubit.dart';
@@ -15,11 +16,14 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../common/core/base_page.dart';
 import '../../../common/gen/assets/assets.gen.dart';
+import '../../../common/widgets/ad/ad_group_widget.dart';
 import '../../../common/widgets/ad/ad_property_widget.dart';
 import '../../../common/widgets/ad/ad_route_widget.dart';
 import '../../../common/widgets/common/common_button.dart';
 import '../../../common/widgets/dashboard/app_diverder.dart';
 import '../../../common/widgets/dashboard/app_image_widget.dart';
+import '../../../common/widgets/loading/loader_state_widget.dart';
+import '../../../domain/models/ad.dart';
 
 @RoutePage()
 class AdDetailPage
@@ -481,11 +485,32 @@ class AdDetailPage
                   ),
                   AppDivider(),
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 16,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Column(children: [getWatch("Отзывы ", () {})]),
-                  )
+                  ),
+                  AppAllViewWidget(
+                      listener: () {
+                        context.router.push(AdListRoute(
+                            adListType: AdListType.similar,
+                            keyWord: null,
+                            title: "O'xshash mahsulotlar",
+                            adId: state.adId));
+                      },
+                      title: "O'xshash mahsulotlar"),
+                  LoaderStateWidget(
+                      isFullScreen: false,
+                      onErrorToAgainRequest: () {
+                        context.read<AdDetailCubit>().getSimilarAds();
+                      },
+                      loadingState: state.similarAdsState,
+                      child: AdGroupWidget(
+                        ads: state.similarAds,
+                        invoke: (Ad ad) =>
+                            context.router.push(AdDetailRoute(adId: ad.id)),
+                        invokeFavorite: (Ad ad) => context
+                            .read<AdDetailCubit>()
+                            .similarAdsAddFavorite(ad),
+                      )),
                 ],
               ),
             ))
@@ -499,7 +524,7 @@ class AdDetailPage
                         Assets.images.icArrowLeft.svg(height: 24, width: 24))),
             body: Center(
               child: CircularProgressIndicator(
-                  backgroundColor: Colors.red, strokeWidth: 8),
+                  backgroundColor: Colors.blue, strokeWidth: 8),
             ));
   }
 }

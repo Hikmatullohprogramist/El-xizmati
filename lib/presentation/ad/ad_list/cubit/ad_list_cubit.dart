@@ -19,12 +19,14 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
   AdListCubit(this.adRepository, this.commonRepository, this.favoriteRepository)
       : super(AdListBuildable());
 
-  void setInitiallyDate(String? keyWord, AdListType adListType, int? sellerTin) {
+  void setInitiallyDate(
+      String? keyWord, AdListType adListType, int? sellerTin, int? adId) {
     build((buildable) => buildable.copyWith(
         adsPagingController: null,
         keyWord: keyWord ?? "",
         sellerTin: sellerTin,
-        adListType: adListType));
+        adListType: adListType,
+        adId: adId));
     getController();
   }
 
@@ -65,19 +67,26 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
             adsList =
                 await adRepository.getSellerAds(buildable.sellerTin ?? -1);
           case AdListType.similar:
-            adsList = await adRepository.getHomeAds(
-                pageKey, _pageSize, buildable.keyWord);
+            adsList = await adRepository.getSimilarAds(buildable.adId ?? 0);
           case AdListType.popularCategoryProduct:
             adsList = await adRepository.getHomeAds(
                 pageKey, _pageSize, buildable.keyWord);
         }
-        if (adsList.length <= 19) {
+        if (buildable.adListType == AdListType.similar ||
+            buildable.adListType == AdListType.popularCategoryProduct ||
+            buildable.adListType == AdListType.seller) {
           adController.appendLastPage(adsList);
           log.i(buildable.adsPagingController);
           return;
+        } else {
+          if (adsList.length <= 19) {
+            adController.appendLastPage(adsList);
+            log.i(buildable.adsPagingController);
+            return;
+          }
+          adController.appendPage(adsList, pageKey + 1);
+          log.i(buildable.adsPagingController);
         }
-        adController.appendPage(adsList, pageKey + 1);
-        log.i(buildable.adsPagingController);
       },
     );
     return adController;
