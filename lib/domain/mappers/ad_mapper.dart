@@ -1,12 +1,13 @@
 import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
 import 'package:onlinebozor/domain/models/ad.dart';
+import 'package:onlinebozor/domain/util.dart';
 
 import '../../data/hive_objects/ad/ad_object.dart';
 import '../../data/responses/ad/ad/ad_response.dart';
 import '../../data/responses/ad/ad_detail/ad_detail_response.dart';
 import '../models/ad_detail.dart';
 
-extension AdExtension on AdResponse {
+extension AdResponseExtension on AdResponse {
   Ad toMap({bool favorite = false}) {
     return Ad(
         id: id,
@@ -43,7 +44,7 @@ extension AdPhoneExtension on AdPhotoResponse {
   }
 }
 
-extension AdDetailExtension on AdDetailResponse {
+extension AdDetailResponseExtension on AdDetailResponse {
   AdDetail toMap({bool favorite = false}) {
     return AdDetail(
         adId: id,
@@ -54,7 +55,11 @@ extension AdDetailExtension on AdDetailResponse {
             .replaceAll("<p>", "")
             .replaceAll("</p>", "")
             .replaceAll("<br>", "")
-            .replaceAll("</br>", ""),
+            .replaceAll("</br>", "")
+            .replaceAll("<ul>", "")
+            .replaceAll("</ul>", "")
+            .replaceAll("</li>", "")
+            .replaceAll("<li>", ""),
         price: price ?? 0,
         currency: currency.toCurrency(),
         isContract: is_contract ?? false,
@@ -135,5 +140,35 @@ extension AdObjectExtension on AdObject {
         favorite: favorite,
         view: 0,
         isCheck: false);
+  }
+}
+
+extension AdDetailExtension on AdDetail {
+  Ad toMap() {
+    return Ad(
+        id: adId,
+        photo: photos?.first.image ?? "",
+        favorite: favorite,
+        region: address?.region?.name ?? "",
+        district: address?.district?.name ?? "",
+        toPrice: toPrice,
+        sellerId: sellerId ?? -1,
+        fromPrice: fromPrice,
+        categoryName: categoryName ?? "",
+        categoryId: categoryId ?? -1,
+        adPropertyStatus: AdPropertyStatus.fresh,
+        adRouteType: adRouteType,
+        adStatusType: adStatusType ?? AdStatusType.standard,
+        adTypeStatus: adTypeStatus ?? AdTypeStatus.sell,
+        currency: currency,
+        isCheck: false,
+        isSell: true,
+        isSort: 0,
+        maxAmount: 0,
+        name: adName,
+        price: price,
+        sellerName: sellerFullName ?? "",
+        view: view,
+        backendId: 0);
   }
 }

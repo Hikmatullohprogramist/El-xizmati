@@ -1,15 +1,14 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 
 import '../../../../../../../common/core/base_cubit.dart';
-import '../../../../../../../domain/models/ad.dart';
 import '../../../../../../../domain/models/ad_detail.dart';
 import '../../../../../../../domain/repositories/ad_repository.dart';
 import '../../../../../../../domain/repositories/cart_repository.dart';
 import '../../../../../../../domain/repositories/favorite_repository.dart';
 import '../../../../../../../domain/repositories/state_repository.dart';
 import '../../../../../../../domain/repositories/user_repository.dart';
-import '../../../../../../../domain/util.dart';
 
 part 'order_create_cubit.freezed.dart';
 part 'order_create_state.dart';
@@ -48,7 +47,6 @@ class OrderCreateCubit
       final paymentList =
           response?.paymentTypes?.map((e) => e.id ?? -1).toList() ??
               List.empty();
-      // display.success("list length ${paymentList.length}");
       build((buildable) => buildable.copyWith(
           adDetail: response,
           favorite: response?.favorite ?? false,
@@ -66,7 +64,7 @@ class OrderCreateCubit
   Future<void> removeCart() async {
     try {
       if (buildable.adId != null) {
-        await _cartRepository.removeCart(buildable.adId!);
+        await _cartRepository.removeCart(buildable.adDetail!.toMap());
         invoke(OrderCreateListenable(OrderCreateEffect.delete));
       }
     } catch (e) {
@@ -74,61 +72,13 @@ class OrderCreateCubit
     }
   }
 
-  Future<void> addFavorite(AdDetail adDetail) async {
+  Future<void> addFavorite() async {
     try {
-      if (!adDetail.favorite) {
-        await favoriteRepository.addFavorite(Ad(
-            backendId: -1,
-            id: adDetail.adId,
-            name: adDetail.adName ?? "",
-            price: adDetail.price,
-            currency: adDetail.currency,
-            region: adDetail.address?.region?.name ?? "",
-            district: adDetail.address?.district?.name ?? "",
-            adRouteType: adDetail.adRouteType,
-            adPropertyStatus: adDetail.propertyStatus,
-            adStatusType: adDetail.adStatusType ?? AdStatusType.standard,
-            adTypeStatus: adDetail.adTypeStatus ?? AdTypeStatus.buy,
-            fromPrice: adDetail.fromPrice ?? 0,
-            toPrice: adDetail.toPrice ?? 0,
-            categoryId: adDetail.categoryId ?? -1,
-            categoryName: adDetail.categoryName ?? "",
-            sellerName: adDetail.sellerFullName ?? "",
-            sellerId: adDetail.sellerId ?? -1,
-            photo: adDetail.photos?.first.image ?? 'xatolik ',
-            isSort: -1,
-            isSell: false,
-            maxAmount: -1,
-            favorite: true,
-            isCheck: false,
-            view: 0));
+      if (!buildable.adDetail!.favorite) {
+        await favoriteRepository.addFavorite(buildable.adDetail!.toMap());
         display.success("Success");
       } else {
-        await favoriteRepository.removeFavorite(Ad(
-            backendId: -1,
-            id: adDetail.adId,
-            name: adDetail.adName ?? "",
-            price: adDetail.price,
-            currency: adDetail.currency,
-            region: adDetail.address?.region?.name ?? "",
-            district: adDetail.address?.district?.name ?? "",
-            adRouteType: adDetail.adRouteType,
-            adPropertyStatus: adDetail.propertyStatus,
-            adStatusType: adDetail.adStatusType ?? AdStatusType.standard,
-            adTypeStatus: adDetail.adTypeStatus ?? AdTypeStatus.buy,
-            fromPrice: adDetail.fromPrice ?? 0,
-            toPrice: adDetail.toPrice ?? 0,
-            categoryId: adDetail.categoryId ?? -1,
-            categoryName: adDetail.categoryName ?? "",
-            sellerName: adDetail.sellerFullName ?? "",
-            sellerId: adDetail.sellerId ?? -1,
-            photo: adDetail.photos?.first.image ?? 'xatolik ',
-            isSort: -1,
-            isSell: false,
-            maxAmount: -1,
-            favorite: true,
-            isCheck: false,
-            view: 0));
+        await favoriteRepository.removeFavorite(buildable.adDetail!.toMap());
       }
       final favorite = !buildable.favorite;
       build((buildable) => buildable.copyWith(favorite: favorite));

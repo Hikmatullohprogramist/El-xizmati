@@ -34,7 +34,7 @@ class CategoryPage
                 invoke: (CategoryResponse categoryResponse) {
                   context.router.push(SubCategoryRoute(
                       subCategoryId: categoryResponse.id,
-                      title: categoryResponse.name));
+                      title: categoryResponse.name??""));
                 },
                 category: state.categories[index]);
           },

@@ -9,7 +9,6 @@ import '../../../../../domain/repositories/cart_repository.dart';
 import '../../../../../domain/repositories/favorite_repository.dart';
 
 part 'cart_cubit.freezed.dart';
-
 part 'cart_state.dart';
 
 @injectable
@@ -59,7 +58,7 @@ class CartCubit extends BaseCubit<CartBuildable, CartListenable> {
 
   Future<void> removeCart(Ad ad) async {
     try {
-      await _cartRepository.removeCart(ad.backendId ?? ad.id);
+      await _cartRepository.removeCart(ad);
       buildable.adsPagingController?.itemList?.remove(ad);
       buildable.adsPagingController?.notifyListeners();
     } on DioException catch (e) {

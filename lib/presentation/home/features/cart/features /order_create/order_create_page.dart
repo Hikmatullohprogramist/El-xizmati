@@ -185,7 +185,7 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                                 onTap: () {
                                   context
                                       .read<OrderCreateCubit>()
-                                      .addFavorite(state.adDetail!);
+                                      .addFavorite();
                                 },
                                 child: Container(
                                     padding: EdgeInsets.all(5),

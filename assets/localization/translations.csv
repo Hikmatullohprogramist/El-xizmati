@@ -27,6 +27,7 @@ auth.register.register,Roʻyxatdan oʻtish,Зарегистрироваться,
 auth.register.create_password,Kirish uchun parol yarating,Придумайте пароль для входа,Кириш учун парол яратинг
 auth.register.repeat_password,Parolni qayta kiriting,Повторить пароль,Паролни қайта киритинг
 auth.register.password_contain_least_characters,Parol kamida 8 ta belgidan iborat bo'lishi kerak.,Пароль должен содержать минимум 8 символов.,Парол камида 8 та белгидан иборат бўлиши керак.
+auth.singin.title,Tizimga kirish ,Войти,Тизимга кириш
 common.continue_title,Davom etish ,Продолжить,Давом этиш
 common.phone_number,Telefon raqami,Номер телефона,Телефон рақами
 auth.policy_agree,Tizimga kirish orqali siz rozilik bildirasiz,"Авторизуясь, вы соглашаетесь с ",Тизимга кириш орқали сиз розилик билдирасиз
@@ -38,6 +39,7 @@ all.title,Barchasi,Все,Барчаси
 recently.viewed.title,Yaqinda ko'rilgan,Недавно посмотренные,Яқинда кўрилган
 hot.discounts.title,Issiq chegirmalar,Горячие скидки,Иссиқ чегирмалар
 popular.product.title,Ommabop mahsulot,Популярный продукт,Оммабоп маҳсулот
+similar.product.title,O'xshash mahsulotlar,Похожие продукты,Ўхшаш маҳсулотлар
 ad.property.personal,Shaxsiy,Частное,Шахсий
 ad.property.biznes,Biznes,Бизнес,Бизнес
 ad.status.new,Yangi,Новый,Янги

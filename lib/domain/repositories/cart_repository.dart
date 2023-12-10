@@ -3,7 +3,7 @@ import '../models/ad.dart';
 abstract class CartRepository {
   Future<void> addCart(Ad ad);
 
-  Future<void> removeCart(int adId);
+  Future<void> removeCart(Ad ad);
 
   Future<List<Ad>> getCartAds();
 

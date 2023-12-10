@@ -61,13 +61,13 @@ class CartRepositoryImp extends CartRepository {
   }
 
   @override
-  Future<void> removeCart(int adId) async {
+  Future<void> removeCart(Ad ad) async {
     final isLogin = tokenStorage.isLogin.call() ?? false;
     if (isLogin) {
-      await _cartService.removeCart(adId: adId);
-      cartStorage.removeCart(adId);
+      await _cartService.removeCart(adId: ad.backendId ?? ad.id);
+      cartStorage.removeCart(ad.id);
     } else {
-      cartStorage.removeCart(adId);
+      cartStorage.removeCart(ad.id);
       await syncStorage.isFavoriteSync.set(false);
     }
   }

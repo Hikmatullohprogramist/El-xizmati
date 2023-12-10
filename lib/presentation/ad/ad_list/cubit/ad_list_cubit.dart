@@ -117,8 +117,9 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
           buildable.adsPagingController?.notifyListeners();
         }
       }
-    } on DioException catch (e) {
+    } on DioException catch (error) {
       display.error("xatolik yuz  berdi");
+      log.w(error.toString());
     }
   }
 }

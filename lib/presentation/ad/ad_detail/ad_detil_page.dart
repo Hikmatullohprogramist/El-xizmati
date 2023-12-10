@@ -212,28 +212,6 @@ class AdDetailPage
                                                 .s(14)
                                                 .c(Color(0xFF41455E))
                                           ])),
-                                  // SizedBox(width: 8),
-                                  // Container(
-                                  //     padding: EdgeInsets.symmetric(
-                                  //         horizontal: 5, vertical: 4),
-                                  //     decoration: BoxDecoration(
-                                  //         borderRadius:
-                                  //             BorderRadius.circular(5),
-                                  //         color: Color(0x28AEB2CD)),
-                                  //     child: Row(
-                                  //         mainAxisSize: MainAxisSize.min,
-                                  //         children: [
-                                  //           "ID:"
-                                  //               .w(400)
-                                  //               .s(14)
-                                  //               .c(Color(0xFF9EABBE)),
-                                  //           SizedBox(width: 4),
-                                  //           state.adDetail!.adId
-                                  //               .toString()
-                                  //               .w(500)
-                                  //               .s(14)
-                                  //               .c(Color(0xFF41455E))
-                                  //         ])),
                                 ]),
                           ),
                           SizedBox(height: 16),
@@ -253,7 +231,7 @@ class AdDetailPage
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              getWatch("Описание", () {}),
+                              getWatch(Strings.adDetailDescription, () {}),
                               (state.adDetail?.description ?? "")
                                   .w(400)
                                   .s(14)
@@ -262,7 +240,7 @@ class AdDetailPage
                               SizedBox(height: 16),
                               InkWell(
                                   onTap: () {},
-                                  child: "Показать больше"
+                                  child: Strings.adDetailShowmore
                                       .w(500)
                                       .s(16)
                                       .c(Color(0xFF5C6AC3))),
@@ -276,7 +254,10 @@ class AdDetailPage
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        "Продавец".w(500).s(16).c(Color(0xFF41455E)),
+                        Strings.adDetailSaller
+                            .w(500)
+                            .s(16)
+                            .c(Color(0xFF41455E)),
                         SizedBox(height: 16),
                         InkWell(
                             child: Row(
@@ -486,17 +467,18 @@ class AdDetailPage
                   AppDivider(),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: Column(children: [getWatch("Отзывы ", () {})]),
+                    child: Column(
+                        children: [getWatch(Strings.adDetailFeedback, () {})]),
                   ),
                   AppAllViewWidget(
                       listener: () {
                         context.router.push(AdListRoute(
                             adListType: AdListType.similar,
                             keyWord: null,
-                            title: "O'xshash mahsulotlar",
+                            title: Strings.similarProductTitle,
                             adId: state.adId));
                       },
-                      title: "O'xshash mahsulotlar"),
+                      title: Strings.similarProductTitle),
                   LoaderStateWidget(
                       isFullScreen: false,
                       onErrorToAgainRequest: () {

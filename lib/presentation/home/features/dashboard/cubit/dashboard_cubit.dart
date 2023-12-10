@@ -157,7 +157,7 @@ class DashboardCubit
           buildable.adsPagingController?.itemList
               ?.insert(index, item..favorite = true);
           buildable.adsPagingController?.itemList?.removeAt(index);
-          buildable.adsPagingController?.notifyListeners();
+          // buildable.adsPagingController?.notifyListeners();
         }
       } else {
         await favoriteRepository.removeFavorite(adModel);
@@ -168,7 +168,7 @@ class DashboardCubit
           buildable.adsPagingController?.itemList
               ?.insert(index, item..favorite = false);
           buildable.adsPagingController?.itemList?.removeAt(index);
-          buildable.adsPagingController?.notifyListeners();
+          // buildable.adsPagingController?.notifyListeners();
         }
       }
     } on DioException catch (e) {

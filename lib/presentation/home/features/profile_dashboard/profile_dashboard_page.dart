@@ -37,7 +37,7 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
               ProfileItemWidget(
                   name: state.isLogin
                       ? Strings.profileDahboardProfile
-                      : "Sign in ",
+                      : Strings.authSinginTitle,
                   icon: Assets.images.profile.icUserAvatar
                       .svg(width: 18, height: 18),
                   invoke: () {
