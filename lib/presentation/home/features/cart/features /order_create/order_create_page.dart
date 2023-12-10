@@ -71,14 +71,15 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                   onPressed: () {
                     context.read<OrderCreateCubit>().orderCreate();
                   },
-                  child: "Оформить".s(13).c(Colors.white).w(500)),
+                  child:
+                      Strings.orderCreateRegister.s(13).c(Colors.white).w(500)),
               SizedBox(width: 16)
             ]),
           ),
           appBar: AppBar(
             backgroundColor: Colors.white,
             title: state.adDetail?.adName
-                ?.w(500)
+                .w(500)
                 .s(14)
                 .c(context.colors.textPrimary),
             centerTitle: true,
@@ -87,13 +88,6 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
               onPressed: () => context.router.pop(),
             ),
             elevation: 0.5,
-            // actions: [
-            //   if (true)
-            //     CommonButton(
-            //         type: ButtonType.text,
-            //         onPressed: () {},
-            //         child: "Выбрать все".w(500).s(12).c(Color(0xFF5C6AC3)))
-            // ],
           ),
           body: SafeArea(
             bottom: true,
@@ -130,7 +124,10 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                         SizedBox(height: 24),
                         Row(
                           children: [
-                            "Manzil:".w(500).s(14).c(Color(0xFF9EABBE)),
+                            Strings.orderCreateAddress
+                                .w(500)
+                                .s(14)
+                                .c(Color(0xFF9EABBE)),
                             SizedBox(width: 4),
                             Expanded(
                                 child: (state.adDetail?.address?.name ?? "")
@@ -143,7 +140,10 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                         SizedBox(height: 8),
                         Row(
                           children: [
-                            "Kategory:".w(500).s(14).c(Color(0xFF9EABBE)),
+                            Strings.orderCreateCategory
+                                .w(500)
+                                .s(14)
+                                .c(Color(0xFF9EABBE)),
                             SizedBox(width: 4),
                             Expanded(
                                 child: (state.adDetail?.categoryName ?? "")
@@ -156,7 +156,10 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                         SizedBox(height: 8),
                         Row(
                           children: [
-                            "Цена:".w(500).s(14).c(Color(0xFF9EABBE)),
+                            Strings.orderCreatePrice
+                                .w(500)
+                                .s(14)
+                                .c(Color(0xFF9EABBE)),
                             SizedBox(width: 4),
                             if (state.adDetail?.price == 0)
                               "${formatter.format(state.adDetail?.toPrice).replaceAll(',', ' ')}-"
@@ -255,7 +258,10 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        "Способ оплаты".w(700).s(16).c(Color(0xFF41455E)),
+                        Strings.orderCreatePaymentMethod
+                            .w(700)
+                            .s(16)
+                            .c(Color(0xFF41455E)),
                         SizedBox(height: 20),
                         Visibility(
                             visible: state.paymentType.isNotEmpty,
@@ -286,12 +292,12 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        "Онлайн оплата"
+                                        Strings.orderCreateOnlinePayment
                                             .w(600)
                                             .c(Color(0xFF41455E))
                                             .s(14),
                                         SizedBox(height: 4),
-                                        "Онлайн оплата через RealPay"
+                                        Strings.orderCreateOnlineDescription
                                             .w(400)
                                             .s(12)
                                             .c(Color(0xFF9EABBE))
@@ -332,12 +338,12 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        "Наличними"
+                                        Strings.orderCreateCash
                                             .w(600)
                                             .c(Color(0xFF41455E))
                                             .s(14),
                                         SizedBox(height: 4),
-                                        "Оплата принимается в узбекских сумах при получении товара."
+                                        Strings.orderCreateCashDescription
                                             .w(400)
                                             .s(12)
                                             .c(Color(0xFF9EABBE))
@@ -378,12 +384,12 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        "Оплата по терминалу"
+                                        Strings.orderCreateTerminalPayment
                                             .w(600)
                                             .c(Color(0xFF41455E))
                                             .s(14),
                                         SizedBox(height: 4),
-                                        "Оплата принимается через банковские карты UzCard и Humo"
+                                        Strings.orderCreateTerminalDescription
                                             .w(400)
                                             .s(12)
                                             .c(Color(0xFF9EABBE))
@@ -424,12 +430,12 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        "Перечисления"
+                                        Strings.orderCreateTransferPayment
                                             .w(600)
                                             .c(Color(0xFF41455E))
                                             .s(14),
                                         SizedBox(height: 5),
-                                        "Оплата принимается через банковские расчеты"
+                                        Strings.orderCreateTransferDiscription
                                             .w(400)
                                             .s(12)
                                             .c(Color(0xFF9EABBE))

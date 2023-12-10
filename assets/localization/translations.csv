@@ -134,3 +134,19 @@ profile.edit.district,Tuman ,Район,Туман
 profile.edit.neighborhood,Mahalla,Махалля,Маҳалла
 profile.edit.apartment,Kvartira,Квартира,Квартира
 profile.edit.house,Uy,Дом,Уй
+cart.product.clearance,Rasmiylashtirish,оформление,Расмийлаштириш
+order.create.register,Rasmiylashtirish,оформление,Расмийлаштириш
+order.create.address,Manzil,Адрес,Манзил
+order.create.category,Kategorya,Категория,Категоря
+order.create.price,narxi:,Цена:,нархи:
+order.create.payment.method,To'lov usuli,Способ оплаты,Тўлов усули
+order.create.online.payment,Onlayn to'lov,Онлайн оплата,Онлайн тўлов
+order.create.online.description,RealPay orqali onlayn to'lov,Онлайн оплата через RealPay,RealPay орқали онлайн тўлов
+order.create.cash.payment,Naqt pul,Наличними,Нақт пул
+order.create.cash.description,To'lov o'zbek so'mida tovarni olgandan keyin qabul qilinadi,Оплата принимается в узбекских сумах при получении товара,Тўлов ўзбек сўмида товарни олгандан кейин қабул қилинади
+order.create.terminal.payment,Terminal orqali to'lov,Оплата по терминалу,Терминал орқали тўлов
+order.create.terminal.description,Toʻlov UzCard va Humo bank kartalari orqali qabul qilinadi,Оплата принимается через банковские карты UzCard и Humo,Тўлов УзCард ва Ҳумо банк карталари орқали қабул қилинади
+order.create.transfer.payment,Transfer,Перечисления,Трансфер
+order.create.transfer.discription,To'lov bank o'tkazmalari orqali qabul qilinadi,Оплата принимается через банковские расчеты,Тўлов банк ўтказмалари орқали қабул қилинади
+ad.detail.number.views,Ko'rishlar soni,Количество просмотров,Кўришлар сони
+ad.detail.show.phone,Telefonni ko'rsatish,Показать телефон,Телефонни кўрсатиш

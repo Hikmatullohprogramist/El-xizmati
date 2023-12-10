@@ -300,7 +300,14 @@ class AdDetailPage
                                   ],
                                 )),
                                 IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      context.router.push(AdListRoute(
+                                          adListType: AdListType.seller,
+                                          keyWord: "",
+                                          title: state.adDetail?.sellerFullName,
+                                          sellerTin:
+                                              state.adDetail?.sellerTin));
+                                    },
                                     icon: Assets.images.icArrowRight
                                         .svg(width: 24, height: 24)),
                               ],
@@ -368,7 +375,7 @@ class AdDetailPage
                                         child: InkWell(
                                             onTap: () {},
                                             child: Align(
-                                              child: "Посмотреть"
+                                              child: Strings.adDetailNumberViews
                                                   .w(600)
                                                   .s(14)
                                                   .c(Color(0xFF41455E))
@@ -439,7 +446,7 @@ class AdDetailPage
                                               .w(500)
                                               .s(16)
                                               .c(Colors.white)
-                                          : "Показать телефон"
+                                          : Strings.adDetailShowPhone
                                               .w(500)
                                               .s(16)
                                               .c(Colors.white)

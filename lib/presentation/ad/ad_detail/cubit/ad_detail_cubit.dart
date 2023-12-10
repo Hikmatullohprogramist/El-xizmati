@@ -31,8 +31,10 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
   Future<void> getDetailResponse() async {
     try {
       var response = await _adRepository.getAdDetail(buildable.adId!);
-      build((buildable) =>
-          buildable.copyWith(adDetail: response, isPhoneVisible: false));
+      build((buildable) => buildable.copyWith(
+          adDetail: response,
+          isPhoneVisible: false,
+          isAddCart: response?.isAddCart ?? false));
     } on DioException catch (e) {
       log.e(e.toString());
       display.error(e.toString());

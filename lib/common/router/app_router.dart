@@ -7,7 +7,7 @@ import '../../data/responses/address/user_address_response.dart';
 import '../../domain/util.dart';
 import '../../presentation/ad/ad_collection/ad_collection_page.dart';
 import '../../presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
-import '../../presentation/ad/ad_detail/ad_detil_page.dart';
+import '../../presentation/ad/ad_detail/ad_detail_page.dart';
 import '../../presentation/ad/ad_list/ad_list_page.dart';
 import '../../presentation/ad/create_ad/create_ad_page.dart';
 import '../../presentation/ad/create_ad/features/create_exchange_ad/create_exchange_ad_page.dart';

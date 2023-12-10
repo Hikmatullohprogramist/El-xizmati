@@ -45,7 +45,7 @@ extension AdPhoneExtension on AdPhotoResponse {
 }
 
 extension AdDetailResponseExtension on AdDetailResponse {
-  AdDetail toMap({bool favorite = false}) {
+  AdDetail toMap({bool favorite = false, bool isAddCart = false}) {
     return AdDetail(
         adId: id,
         adName: name ?? "",
@@ -109,7 +109,8 @@ extension AdDetailResponseExtension on AdDetailResponse {
         unitId: unit_id,
         video: video,
         warehouses: warehouses,
-        favorite: favorite);
+        favorite: favorite,
+        isAddCart: isAddCart);
   }
 }
 

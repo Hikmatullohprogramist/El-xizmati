@@ -58,8 +58,8 @@ class AdDetail {
       this.paymentTypes,
       this.otherRouteType,
       this.otherPropertyStatus,
-    required this.favorite
-  });
+      required this.favorite,
+      required this.isAddCart});
 
   final int adId;
   int? backendId;
@@ -117,4 +117,5 @@ class AdDetail {
   Address? address;
   List<District>? paymentTypes;
   bool favorite;
+  bool isAddCart;
 }

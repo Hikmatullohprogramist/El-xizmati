@@ -9,14 +9,16 @@ import '../responses/ad/ad/ad_response.dart';
 import '../responses/ad/ad_detail/ad_detail_response.dart';
 import '../responses/search/search_response.dart';
 import '../services/ad_service.dart';
+import '../storages/cart_storage.dart';
 import '../storages/favorite_storage.dart';
 
 @LazySingleton(as: AdRepository)
 class AdRepositoryImpl extends AdRepository {
   final AdsService _adsService;
   final FavoriteStorage favoriteStorage;
+  final CartStorage cartStorage;
 
-  AdRepositoryImpl(this._adsService, this.favoriteStorage);
+  AdRepositoryImpl(this._adsService, this.favoriteStorage, this.cartStorage);
 
   @override
   Future<List<Ad>> getHomeAds(
@@ -74,12 +76,17 @@ class AdRepositoryImpl extends AdRepository {
 
   @override
   Future<AdDetail?> getAdDetail(int adId) async {
-    final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
+    final allItems =
+        favoriteStorage.allItems.map((item) => item.toMap()).toList();
+    final allCartItems =
+        cartStorage.allItems.map((item) => item.toMap()).toList();
     final response = await _adsService.getAdDetail(adId);
     final adDetailResponse =
         AdDetailRootResponse.fromJson(response.data).data.results;
     final adDetail = adDetailResponse.toMap(
-        favorite: allItems.where((element) => element.id == adId).isNotEmpty);
+        favorite: allItems.where((element) => element.id == adId).isNotEmpty,
+        isAddCart:
+            allCartItems.where((element) => element.id == adId).isNotEmpty);
     return adDetail;
   }
 
