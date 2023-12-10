@@ -108,16 +108,16 @@ class CartPage extends BasePage<CartCubit, CartBuildable, CartListenable> {
             transitionDuration: Duration(milliseconds: 100),
             itemBuilder: (context, item, index) {
               return CartWidget(
-                invokeAdd: (Ad adModel) {},
-                invokeMinus: (Ad adModel) {},
-                invokeDelete: (Ad adModel) =>
-                    context.read<CartCubit>().removeCart(adModel),
-                invokeFavoriteDelete: (Ad adModel) {
-                  context.read<CartCubit>().addFavorite(adModel);
+                invokeAdd: (Ad ad) {},
+                invokeMinus: (Ad ad) {},
+                invokeDelete: (Ad ad) =>
+                    context.read<CartCubit>().removeCart(ad),
+                invokeFavoriteDelete: (Ad ad) {
+                  context.read<CartCubit>().addFavorite(ad);
                 },
                 ad: item,
-                invoke: (Ad adModel) {
-                  context.router.push(OrderCreateRoute(adId: adModel.id));
+                invoke: (Ad ad) {
+                  context.router.push(OrderCreateRoute(adId: ad.id));
                 },
               );
 

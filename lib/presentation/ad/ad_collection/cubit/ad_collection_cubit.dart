@@ -104,16 +104,21 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
     return adController;
   }
 
-  Future<void> popularAdsAddFavorite(Ad adModel) async {
+  Future<void> popularAdsAddFavorite(Ad ad) async {
     try {
-      if (!adModel.favorite) {
-        await favoriteRepository.addFavorite(adModel);
-        final index = buildable.popularAds.indexOf(adModel);
+      if (!ad.favorite) {
+      final backendId = await favoriteRepository.addFavorite(ad);
+        final index = buildable.popularAds.indexOf(ad);
         final item = buildable.popularAds.elementAt(index);
-        buildable.popularAds.insert(index, item..favorite = true);
+        buildable.popularAds.insert(
+          index,
+          item
+            ..favorite = true
+            ..backendId = backendId,
+        );
       } else {
-        await favoriteRepository.removeFavorite(adModel);
-        final index = buildable.popularAds.indexOf(adModel);
+        await favoriteRepository.removeFavorite(ad);
+        final index = buildable.popularAds.indexOf(ad);
         final item = buildable.popularAds.elementAt(index);
         buildable.popularAds.insert(index, item..favorite = false);
       }
@@ -122,16 +127,20 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
     }
   }
 
-  Future<void> discountAdsAddFavorite(Ad adModel) async {
+  Future<void> discountAdsAddFavorite(Ad ad) async {
     try {
-      if (!adModel.favorite) {
-        await favoriteRepository.addFavorite(adModel);
-        final index = buildable.hotDiscountAds.indexOf(adModel);
+      if (!ad.favorite) {
+        final backendId = await favoriteRepository.addFavorite(ad);
+        final index = buildable.hotDiscountAds.indexOf(ad);
         final item = buildable.hotDiscountAds.elementAt(index);
-        buildable.hotDiscountAds.insert(index, item..favorite = true);
+        buildable.hotDiscountAds.insert(
+            index,
+            item
+              ..favorite = true
+              ..backendId = backendId);
       } else {
-        await favoriteRepository.removeFavorite(adModel);
-        final index = buildable.hotDiscountAds.indexOf(adModel);
+        await favoriteRepository.removeFavorite(ad);
+        final index = buildable.hotDiscountAds.indexOf(ad);
         final item = buildable.hotDiscountAds.elementAt(index);
         buildable.hotDiscountAds.insert(index, item..favorite = false);
       }
@@ -140,23 +149,26 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
     }
   }
 
-  Future<void> addFavorite(Ad adModel) async {
+  Future<void> addFavorite(Ad ad) async {
     try {
-      if (!adModel.favorite) {
-        await favoriteRepository.addFavorite(adModel);
+      if (!ad.favorite) {
+        final backendId = await favoriteRepository.addFavorite(ad);
         final index =
-            buildable.adsPagingController?.itemList?.indexOf(adModel) ?? 0;
+            buildable.adsPagingController?.itemList?.indexOf(ad) ?? 0;
         final item = buildable.adsPagingController?.itemList?.elementAt(index);
         if (item != null) {
-          buildable.adsPagingController?.itemList
-              ?.insert(index, item..favorite = true);
+          buildable.adsPagingController?.itemList?.insert(
+              index,
+              item
+                ..favorite = true
+                ..backendId = backendId);
           buildable.adsPagingController?.itemList?.removeAt(index);
           buildable.adsPagingController?.notifyListeners();
         }
       } else {
-        await favoriteRepository.removeFavorite(adModel);
+        await favoriteRepository.removeFavorite(ad);
         final index =
-            buildable.adsPagingController?.itemList?.indexOf(adModel) ?? 0;
+            buildable.adsPagingController?.itemList?.indexOf(ad) ?? 0;
         final item = buildable.adsPagingController?.itemList?.elementAt(index);
         if (item != null) {
           buildable.adsPagingController?.itemList

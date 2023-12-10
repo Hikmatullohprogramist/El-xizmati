@@ -1,7 +1,7 @@
 import '../models/ad.dart';
 
 abstract class FavoriteRepository {
-  Future<void> addFavorite(Ad ad);
+  Future<int> addFavorite(Ad ad);
 
   Future<void> removeFavorite(Ad ad);
 

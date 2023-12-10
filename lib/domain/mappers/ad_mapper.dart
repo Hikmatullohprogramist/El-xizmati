@@ -172,3 +172,32 @@ extension AdDetailExtension on AdDetail {
         backendId: 0);
   }
 }
+
+extension AdExtension on Ad {
+  AdObject toMap({int? backendId, bool? favorite}) {
+    return AdObject(
+        id: id,
+        name: name,
+        price: price,
+        currency: currency.currencyToString(),
+        region: region,
+        district: district,
+        adRouteType: adRouteType.adRouteTypeToString(),
+        adPropertyStatus: adPropertyStatus.adPropertyStatusToString(),
+        adStatusType: adStatusType.adStatusTypeToString(),
+        adTypeStatus: adTypeStatus.adTypeStatusToString(),
+        fromPrice: fromPrice,
+        toPrice: toPrice,
+        categoryId: categoryId,
+        categoryName: categoryName,
+        isSort: isSort,
+        isSell: isSell,
+        isCheck: isCheck,
+        sellerId: sellerId,
+        maxAmount: maxAmount,
+        favorite: favorite ?? this.favorite,
+        photo: photo,
+        sellerName: sellerName,
+        backendId: backendId);
+  }
+}

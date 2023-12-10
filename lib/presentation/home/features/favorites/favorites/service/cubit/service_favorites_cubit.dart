@@ -57,10 +57,10 @@ class ServiceFavoritesCubit extends BaseCubit<ServiceFavoritesBuildable, Service
     return adController;
   }
 
-  Future<void> removeFavorite(Ad adModel) async {
+  Future<void> removeFavorite(Ad ad) async {
     try {
-      await _favoriteRepository.removeFavorite(adModel);
-      buildable.adsPagingController?.itemList?.remove(adModel);
+      await _favoriteRepository.removeFavorite(ad);
+      buildable.adsPagingController?.itemList?.remove(ad);
       buildable.adsPagingController?.notifyListeners();
     } on DioException catch (e) {
       display.error("xatolik yuz berdi");

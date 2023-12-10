@@ -1,11 +1,10 @@
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
-import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
+import 'package:onlinebozor/data/responses/add_result/add_result_response.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 import 'package:onlinebozor/domain/repositories/favorite_repository.dart';
 
 import '../../domain/models/ad.dart';
-import '../hive_objects/ad/ad_object.dart';
 import '../responses/ad/ad/ad_response.dart';
 import '../services/favorite_service.dart';
 import '../storages/favorite_storage.dart';
@@ -27,42 +26,28 @@ class FavoriteRepositoryImp extends FavoriteRepository {
   );
 
   @override
-  Future<void> addFavorite(Ad ad) async {
+  Future<int> addFavorite(Ad ad) async {
     final isLogin = tokenStorage.isLogin.call() ?? false;
+    int resultId = ad.id;
     if (isLogin) {
-      await _favoriteService.addFavorite(
+      final response = await _favoriteService.addFavorite(
           adType: ad.adStatusType.name, id: ad.id);
+      final addResultId =
+          AddResultRootResponse.fromJson(response.data).data?.products?.id;
+      resultId = addResultId ?? ad.id;
     } else {
       await syncStorage.isFavoriteSync.set(false);
     }
     final allItem = favoriteStorage.allItems.map((e) => e.toMap()).toList();
     if (allItem.where((element) => element.id == ad.id).isEmpty) {
-      favoriteStorage.favoriteAds.add(AdObject(
-          id: ad.id,
-          name: ad.name,
-          price: ad.price,
-          currency: ad.currency.currencyToString(),
-          region: ad.region,
-          district: ad.district,
-          adRouteType: ad.adRouteType.adRouteTypeToString(),
-          adPropertyStatus: ad.adPropertyStatus.adPropertyStatusToString(),
-          adStatusType: ad.adStatusType.adStatusTypeToString(),
-          adTypeStatus: ad.adTypeStatus.adTypeStatusToString(),
-          fromPrice: ad.fromPrice,
-          toPrice: ad.toPrice,
-          categoryId: ad.categoryId,
-          categoryName: ad.categoryName,
-          isSort: ad.isSort,
-          isSell: ad.isSell,
-          isCheck: ad.isCheck,
-          sellerId: ad.sellerId,
-          maxAmount: ad.maxAmount,
-          favorite: true,
-          photo: ad.photo,
-          sellerName: ad.sellerName,
-          backendId: ad.backendId));
+      favoriteStorage.favoriteAds
+          .add(ad.toMap(favorite: true, backendId: resultId));
+    } else {
+      final index = allItem.indexOf(ad);
+      favoriteStorage.update(
+          index, ad.toMap(favorite: true, backendId: resultId));
     }
-    return;
+    return resultId;
   }
 
   @override
@@ -89,31 +74,7 @@ class FavoriteRepositoryImp extends FavoriteRepository {
         final allItem = favoriteStorage.allItems.map((e) => e.toMap()).toList();
         for (var item in allRemoteAds) {
           if (allItem.where((element) => element.id == item.id).isEmpty) {
-            favoriteStorage.favoriteAds.add(AdObject(
-                id: item.id,
-                name: item.name,
-                price: item.price,
-                currency: item.currency.currencyToString(),
-                region: item.region,
-                district: item.district,
-                adRouteType: item.adRouteType.adRouteTypeToString(),
-                adPropertyStatus:
-                    item.adPropertyStatus.adPropertyStatusToString(),
-                adStatusType: item.adStatusType.adStatusTypeToString(),
-                adTypeStatus: item.adTypeStatus.adTypeStatusToString(),
-                fromPrice: item.fromPrice,
-                toPrice: item.toPrice,
-                categoryId: item.categoryId,
-                categoryName: item.categoryName,
-                isSort: item.isSort,
-                isSell: item.isSell,
-                isCheck: item.isCheck,
-                sellerId: item.sellerId,
-                maxAmount: item.maxAmount,
-                favorite: true,
-                photo: item.photo,
-                sellerName: item.sellerName,
-                backendId: item.backendId));
+            favoriteStorage.favoriteAds.add(item.toMap(favorite: true));
           }
         }
       }

@@ -128,51 +128,58 @@ class DashboardCubit
     return adController;
   }
 
-  Future<void> recentlyAdsAddFavorite(Ad adModel) async {
+  Future<void> recentlyAdsAddFavorite(Ad ad) async {
     try {
-      if (!adModel.favorite) {
-        await favoriteRepository.addFavorite(adModel);
-        final index = buildable.recentlyViewerAds.indexOf(adModel);
+      if (!ad.favorite) {
+        final backendId = await favoriteRepository.addFavorite(ad);
+        final index = buildable.recentlyViewerAds.indexOf(ad);
         final item = buildable.recentlyViewerAds.elementAt(index);
-        buildable.recentlyViewerAds.insert(index, item..favorite = true);
+        buildable.recentlyViewerAds.insert(
+            index,
+            item
+              ..favorite = true
+              ..backendId = backendId);
       } else {
-        await favoriteRepository.removeFavorite(adModel);
-        final index = buildable.recentlyViewerAds.indexOf(adModel);
+        await favoriteRepository.removeFavorite(ad);
+        final index = buildable.recentlyViewerAds.indexOf(ad);
         final item = buildable.recentlyViewerAds.elementAt(index);
         buildable.recentlyViewerAds.insert(index, item..favorite = false);
       }
-    } on DioException catch (e) {
+    } on DioException catch (error) {
       display.error("xatolik yuz  berdi");
+      log.e(error.toString());
     }
   }
 
-  Future<void> addFavorite(Ad adModel) async {
+  Future<void> addFavorite(Ad ad) async {
     try {
-      if (!adModel.favorite) {
-        await favoriteRepository.addFavorite(adModel);
-        final index =
-            buildable.adsPagingController?.itemList?.indexOf(adModel) ?? 0;
+      if (!ad.favorite) {
+        final backendId = await favoriteRepository.addFavorite(ad);
+        final index = buildable.adsPagingController?.itemList?.indexOf(ad) ?? 0;
         final item = buildable.adsPagingController?.itemList?.elementAt(index);
         if (item != null) {
-          buildable.adsPagingController?.itemList
-              ?.insert(index, item..favorite = true);
+          buildable.adsPagingController?.itemList?.insert(
+              index,
+              item
+                ..favorite = true
+                ..backendId = backendId);
           buildable.adsPagingController?.itemList?.removeAt(index);
-          // buildable.adsPagingController?.notifyListeners();
+          buildable.adsPagingController?.notifyListeners();
         }
       } else {
-        await favoriteRepository.removeFavorite(adModel);
-        final index =
-            buildable.adsPagingController?.itemList?.indexOf(adModel) ?? 0;
+        await favoriteRepository.removeFavorite(ad);
+        final index = buildable.adsPagingController?.itemList?.indexOf(ad) ?? 0;
         final item = buildable.adsPagingController?.itemList?.elementAt(index);
         if (item != null) {
           buildable.adsPagingController?.itemList
               ?.insert(index, item..favorite = false);
           buildable.adsPagingController?.itemList?.removeAt(index);
-          // buildable.adsPagingController?.notifyListeners();
+          buildable.adsPagingController?.notifyListeners();
         }
       }
-    } on DioException catch (e) {
+    } on DioException catch (error) {
       display.error("xatolik yuz  berdi");
+      log.e(error.toString());
     }
   }
 }

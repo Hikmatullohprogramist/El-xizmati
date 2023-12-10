@@ -46,11 +46,15 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
 
   Future<void> addFavorite() async {
     try {
-      final adModel = buildable.adDetail;
-      if (!(adModel?.favorite ?? false)) {
-        await favoriteRepository.addFavorite(buildable.adDetail!.toMap());
+      final ad = buildable.adDetail;
+      if (!(ad?.favorite ?? false)) {
+        final backendId =
+            await favoriteRepository.addFavorite(buildable.adDetail!.toMap());
         build((buildable) => buildable.copyWith(
-            adDetail: buildable.adDetail?..favorite = true, isAddCart: false));
+            adDetail: buildable.adDetail
+              ?..favorite = true
+              ..backendId = backendId,
+            isAddCart: false));
       } else {
         await favoriteRepository.removeFavorite(buildable.adDetail!.toMap());
         build((buildable) => buildable.copyWith(
@@ -61,16 +65,20 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
     }
   }
 
-  Future<void> similarAdsAddFavorite(Ad adModel) async {
+  Future<void> similarAdsAddFavorite(Ad ad) async {
     try {
-      if (!adModel.favorite) {
-        await favoriteRepository.addFavorite(adModel);
-        final index = buildable.similarAds.indexOf(adModel);
+      if (!ad.favorite) {
+        final backendId = await favoriteRepository.addFavorite(ad);
+        final index = buildable.similarAds.indexOf(ad);
         final item = buildable.similarAds.elementAt(index);
-        buildable.similarAds.insert(index, item..favorite = true);
+        buildable.similarAds.insert(
+            index,
+            item
+              ..favorite = true
+              ..backendId = backendId);
       } else {
-        await favoriteRepository.removeFavorite(adModel);
-        final index = buildable.similarAds.indexOf(adModel);
+        await favoriteRepository.removeFavorite(ad);
+        final index = buildable.similarAds.indexOf(ad);
         final item = buildable.similarAds.elementAt(index);
         buildable.similarAds.insert(index, item..favorite = false);
       }
@@ -81,7 +89,8 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
 
   Future<void> addCart() async {
     try {
-      await cartRepository.addCart(buildable.adDetail!.toMap());
+      final resultId =
+          await cartRepository.addCart(buildable.adDetail!.toMap());
       build((buildable) => buildable.copyWith(isAddCart: true));
       display.success("mahsulot savatchaga qo'shildi");
     } on DioException catch (e) {

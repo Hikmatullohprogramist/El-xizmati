@@ -92,23 +92,26 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
     return adController;
   }
 
-  Future<void> addFavorite(Ad adModel) async {
+  Future<void> addFavorite(Ad ad) async {
     try {
-      if (!adModel.favorite) {
-        await favoriteRepository.addFavorite(adModel);
+      if (!ad.favorite) {
+      final backendId = await favoriteRepository.addFavorite(ad);
         final index =
-            buildable.adsPagingController?.itemList?.indexOf(adModel) ?? 0;
+            buildable.adsPagingController?.itemList?.indexOf(ad) ?? 0;
         final item = buildable.adsPagingController?.itemList?.elementAt(index);
         if (item != null) {
-          buildable.adsPagingController?.itemList
-              ?.insert(index, item..favorite = true);
+          buildable.adsPagingController?.itemList?.insert(
+              index,
+              item
+                ..favorite = true
+                ..backendId = backendId);
           buildable.adsPagingController?.itemList?.removeAt(index);
           buildable.adsPagingController?.notifyListeners();
         }
       } else {
-        await favoriteRepository.removeFavorite(adModel);
+        await favoriteRepository.removeFavorite(ad);
         final index =
-            buildable.adsPagingController?.itemList?.indexOf(adModel) ?? 0;
+            buildable.adsPagingController?.itemList?.indexOf(ad) ?? 0;
         final item = buildable.adsPagingController?.itemList?.elementAt(index);
         if (item != null) {
           buildable.adsPagingController?.itemList

@@ -1,12 +1,11 @@
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
+import 'package:onlinebozor/data/responses/add_result/add_result_response.dart';
 import 'package:onlinebozor/data/services/cart_service.dart';
-import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 
 import '../../domain/models/ad.dart';
 import '../../domain/repositories/cart_repository.dart';
-import '../hive_objects/ad/ad_object.dart';
 import '../responses/ad/ad/ad_response.dart';
 import '../storages/cart_storage.dart';
 import '../storages/favorite_storage.dart';
@@ -25,39 +24,24 @@ class CartRepositoryImp extends CartRepository {
       this.favoriteStorage, this.syncStorage);
 
   @override
-  Future<void> addCart(Ad ad) async {
+  Future<int> addCart(Ad ad) async {
     final isLogin = tokenStorage.isLogin.call() ?? false;
+    int resultId = ad.id;
     if (isLogin) {
-      await _cartService.addCart(adType: ad.adStatusType.name, id: ad.id);
+      final response =
+          await _cartService.addCart(adType: ad.adStatusType.name, id: ad.id);
+      final addResultId =
+          AddResultRootResponse.fromJson(response.data).data?.products?.id;
+      resultId = addResultId ?? ad.id;
     }
     final allItem = cartStorage.allItems.map((e) => e.toMap()).toList();
     if (allItem.where((element) => element.id == ad.id).isEmpty) {
-      cartStorage.cartStorage.add(AdObject(
-          id: ad.id,
-          name: ad.name,
-          price: ad.price,
-          currency: ad.currency.currencyToString(),
-          region: ad.region,
-          district: ad.district,
-          adRouteType: ad.adRouteType.adRouteTypeToString(),
-          adPropertyStatus: ad.adPropertyStatus.adPropertyStatusToString(),
-          adStatusType: ad.adStatusType.adStatusTypeToString(),
-          adTypeStatus: ad.adTypeStatus.adTypeStatusToString(),
-          fromPrice: ad.fromPrice,
-          toPrice: ad.toPrice,
-          categoryId: ad.categoryId,
-          categoryName: ad.categoryName,
-          isSort: ad.isSort,
-          isSell: ad.isSell,
-          isCheck: ad.isCheck,
-          sellerId: ad.sellerId,
-          maxAmount: ad.maxAmount,
-          favorite: true,
-          photo: ad.photo,
-          sellerName: ad.sellerName,
-          backendId: ad.backendId));
+      cartStorage.cartStorage.add(ad.toMap(backendId: resultId));
+    } else {
+      final index = allItem.indexOf(ad);
+      cartStorage.update(index, ad.toMap(backendId: resultId));
     }
-    return;
+    return resultId;
   }
 
   @override
@@ -87,31 +71,7 @@ class CartRepositoryImp extends CartRepository {
         final allItem = cartStorage.allItems.map((e) => e.toMap()).toList();
         for (var item in cartAds) {
           if (allItem.where((element) => element.id == item.id).isEmpty) {
-            cartStorage.cartStorage.add(AdObject(
-                id: item.id,
-                name: item.name,
-                price: item.price,
-                currency: item.currency.currencyToString(),
-                region: item.region,
-                district: item.district,
-                adRouteType: item.adRouteType.adRouteTypeToString(),
-                adPropertyStatus:
-                    item.adPropertyStatus.adPropertyStatusToString(),
-                adStatusType: item.adStatusType.adStatusTypeToString(),
-                adTypeStatus: item.adTypeStatus.adTypeStatusToString(),
-                fromPrice: item.fromPrice,
-                toPrice: item.toPrice,
-                categoryId: item.categoryId,
-                categoryName: item.categoryName,
-                isSort: item.isSort,
-                isSell: item.isSell,
-                isCheck: item.isCheck,
-                sellerId: item.sellerId,
-                maxAmount: item.maxAmount,
-                favorite: true,
-                photo: item.photo,
-                sellerName: item.sellerName,
-                backendId: item.backendId));
+            cartStorage.cartStorage.add(item.toMap(favorite: true));
           }
         }
       }

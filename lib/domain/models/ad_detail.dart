@@ -4,6 +4,7 @@ import '../util.dart';
 class AdDetail {
   AdDetail({
     required this.adId,
+    this.backendId,
     required this.adName,
     required this.saleType,
     required this.mainTypeStatus,
@@ -61,6 +62,7 @@ class AdDetail {
   });
 
   final int adId;
+  int? backendId;
   String adName;
   final String saleType;
   String? mainTypeStatus;

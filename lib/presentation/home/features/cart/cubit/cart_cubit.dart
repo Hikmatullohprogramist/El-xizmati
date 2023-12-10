@@ -75,9 +75,9 @@ class CartCubit extends BaseCubit<CartBuildable, CartListenable> {
       }
       final index = buildable.adsPagingController?.itemList?.indexOf(ad);
       if (index != null) {
-        final newAdModel = ad..favorite = !ad.favorite;
+        final newAd = ad..favorite = !ad.favorite;
         buildable.adsPagingController?.itemList?.remove(ad);
-        buildable.adsPagingController?.itemList?.insert(index, newAdModel);
+        buildable.adsPagingController?.itemList?.insert(index, newAd);
         buildable.adsPagingController?.notifyListeners();
       }
     } on DioException catch (e) {

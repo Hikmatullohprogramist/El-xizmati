@@ -35,4 +35,8 @@ class FavoriteStorage {
     final index = allItem.indexWhere((element) => element.id == adId);
     _box.deleteAt(index);
   }
+
+  Future<void> update(int index, AdObject adObject) async {
+    _box.putAt(index, adObject);
+  }
 }
