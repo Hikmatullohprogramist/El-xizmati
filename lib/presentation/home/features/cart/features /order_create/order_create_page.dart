@@ -338,7 +338,7 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Strings.orderCreateCash
+                                        Strings.orderCreateCashPayment
                                             .w(600)
                                             .c(Color(0xFF41455E))
                                             .s(14),
