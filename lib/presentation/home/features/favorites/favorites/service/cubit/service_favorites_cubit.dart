@@ -44,7 +44,7 @@ class ServiceFavoritesCubit extends BaseCubit<ServiceFavoritesBuildable, Service
 
     adController.addPageRequestListener(
           (pageKey) async {
-        final adsList = await _favoriteRepository.getFavoriteAds();
+        final adsList = await _favoriteRepository.getServiceFavoriteAds();
         if (adsList.length <= 1000) {
           adController.appendLastPage(adsList);
           log.i(buildable.adsPagingController);

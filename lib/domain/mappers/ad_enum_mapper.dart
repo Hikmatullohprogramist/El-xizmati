@@ -39,18 +39,18 @@ extension AdEnumMapper on String? {
       case "BUY_SERVICE":
         return AdTypeStatus.buyService;
       default:
-        return AdTypeStatus.buy;
+        return AdTypeStatus.sell;
     }
   }
 
-  AdStatusType toAdStatusType() {
+  AdStatus toAdStatus() {
     switch (this) {
       case "TOP":
-        return AdStatusType.top;
+        return AdStatus.top;
       case "STANDARD":
-        return AdStatusType.standard;
+        return AdStatus.standard;
       default:
-        return AdStatusType.standard;
+        return AdStatus.standard;
     }
   }
 
@@ -113,27 +113,27 @@ extension AdTypeStatusToStringExtension on AdTypeStatus {
   AdType adType() {
     switch (this) {
       case AdTypeStatus.sell:
-        return AdType.ads;
+        return AdType.product;
       case AdTypeStatus.free:
-        return AdType.ads;
+        return AdType.product;
       case AdTypeStatus.exchange:
-        return AdType.ads;
+        return AdType.product;
       case AdTypeStatus.service:
         return AdType.service;
       case AdTypeStatus.buy:
-        return AdType.ads;
+        return AdType.product;
       case AdTypeStatus.buyService:
         return AdType.service;
     }
   }
 }
 
-extension AdStatusTypeToStringExtension on AdStatusType {
-  String adStatusTypeToString() {
+extension AdStatusTypeToStringExtension on AdStatus {
+  String adStatusToString() {
     switch (this) {
-      case AdStatusType.top:
+      case AdStatus.top:
         return "TOP";
-      case AdStatusType.standard:
+      case AdStatus.standard:
         return "STANDARD";
     }
   }
@@ -157,7 +157,7 @@ extension CurrencyToStringExtension on Currency {
 extension AdTypeExtension on AdType {
   String name() {
     switch (this) {
-      case AdType.ads:
+      case AdType.product:
         return "ADS";
       case AdType.service:
         return "SERVICE";

@@ -5,7 +5,9 @@ abstract class FavoriteRepository {
 
   Future<void> removeFavorite(Ad ad);
 
-  Future<List<Ad>> getFavoriteAds();
+  Future<List<Ad>> getProductFavoriteAds();
+
+  Future<List<Ad>> getServiceFavoriteAds();
 
   Future<void> pushAllFavoriteAds();
 }

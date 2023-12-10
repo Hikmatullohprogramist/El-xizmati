@@ -13,7 +13,7 @@ class AppAdTypeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return switch (adType) {
-      AdType.ads => Container(
+      AdType.product => Container(
         height: 20,
           width: 75,
           margin: EdgeInsets.all(8),

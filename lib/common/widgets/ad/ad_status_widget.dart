@@ -6,14 +6,14 @@ import '../../../domain/util.dart';
 import '../../gen/assets/assets.gen.dart';
 
 class AppAdStatusWidget extends StatelessWidget {
-  const AppAdStatusWidget({super.key, required this.adsStatusType});
+  const AppAdStatusWidget({super.key, required this.adStatus});
 
-  final AdStatusType adsStatusType;
+  final AdStatus adStatus;
 
   @override
   Widget build(BuildContext context) {
-    return switch (adsStatusType) {
-      AdStatusType.top => Container(
+    return switch (adStatus) {
+      AdStatus.top => Container(
           height: 20,
           width: 44,
           margin: EdgeInsets.all(8),
@@ -30,7 +30,7 @@ class AppAdStatusWidget extends StatelessWidget {
             ],
           ),
         ),
-      AdStatusType.standard => Center()
+      AdStatus.standard => Center()
     };
   }
 }

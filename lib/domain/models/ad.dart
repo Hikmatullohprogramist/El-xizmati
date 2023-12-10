@@ -11,7 +11,7 @@ class Ad {
       required this.district,
       required this.adRouteType,
       required this.adPropertyStatus,
-      required this.adStatusType,
+      required this.adStatus,
       required this.adTypeStatus,
       required this.fromPrice,
       required this.toPrice,
@@ -36,7 +36,7 @@ class Ad {
   final String district;
   final AdRouteType adRouteType;
   final AdPropertyStatus adPropertyStatus;
-  final AdStatusType adStatusType;
+  final AdStatus adStatus;
   final AdTypeStatus adTypeStatus;
   final int fromPrice;
   final int toPrice;

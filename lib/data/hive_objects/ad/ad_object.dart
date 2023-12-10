@@ -13,7 +13,7 @@ class AdObject extends HiveObject {
       required this.district,
       required this.adRouteType,
       required this.adPropertyStatus,
-      required this.adStatusType,
+      required this.adStatus,
       required this.adTypeStatus,
       required this.fromPrice,
       required this.toPrice,
@@ -27,7 +27,8 @@ class AdObject extends HiveObject {
       required this.favorite,
       required this.photo,
       required this.sellerName,
-      this.backendId});
+      this.backendId,
+      required this.view});
 
   @HiveField(0)
   int id;
@@ -54,7 +55,7 @@ class AdObject extends HiveObject {
   String adPropertyStatus;
 
   @HiveField(8)
-  String adStatusType;
+  String adStatus;
 
   @HiveField(9)
   String adTypeStatus;
@@ -97,4 +98,7 @@ class AdObject extends HiveObject {
 
   @HiveField(22)
   int? backendId;
+
+  @HiveField(23)
+  int? view;
 }

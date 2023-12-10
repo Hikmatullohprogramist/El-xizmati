@@ -10,7 +10,6 @@ import '../../../../../../../common/enum/enums.dart';
 import '../../../../../../../domain/util.dart';
 
 part 'product_favorites_cubit.freezed.dart';
-
 part 'product_favorites_state.dart';
 
 @injectable
@@ -46,7 +45,7 @@ class ProductFavoritesCubit
 
     adController.addPageRequestListener(
       (pageKey) async {
-        final adsList = await _favoriteRepository.getFavoriteAds();
+        final adsList = await _favoriteRepository.getProductFavoriteAds();
         if (adsList.length <= 1000) {
           adController.appendLastPage(adsList);
           log.i(buildable.adsPagingController);

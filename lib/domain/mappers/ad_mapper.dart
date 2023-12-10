@@ -19,8 +19,8 @@ extension AdResponseExtension on AdResponse {
         district: district ?? "",
         adRouteType: route_type.toAdRouteType(),
         adPropertyStatus: property_status.toAdPropertyStatus(),
-        adStatusType: type_status.toAdStatusType(),
-        adTypeStatus: type.toAdTypeStatus(),
+        adStatus: type.toAdStatus(),
+        adTypeStatus: type_status.toAdTypeStatus(),
         fromPrice: from_price ?? 0,
         toPrice: to_price ?? 0,
         categoryId: category?.id ?? -1,
@@ -67,7 +67,7 @@ extension AdDetailResponseExtension on AdDetailResponse {
         propertyStatus: property_status.toAdPropertyStatus(),
         isAutoRenew: is_autoRenew ?? false,
         adTypeStatus: type_status.toAdTypeStatus(),
-        adStatusType: type.toAdStatusType(),
+        adStatus: type.toAdStatus(),
         showSocial: show_social ?? false,
         view: view ?? 0,
         addressId: address?.id,
@@ -125,7 +125,7 @@ extension AdObjectExtension on AdObject {
         district: district,
         adRouteType: adRouteType.toAdRouteType(),
         adPropertyStatus: adPropertyStatus.toAdPropertyStatus(),
-        adStatusType: adStatusType.toAdStatusType(),
+        adStatus: adStatus.toAdStatus(),
         adTypeStatus: adTypeStatus.toAdTypeStatus(),
         fromPrice: fromPrice,
         toPrice: toPrice,
@@ -138,7 +138,7 @@ extension AdObjectExtension on AdObject {
         isSell: isSell,
         maxAmount: maxAmount,
         favorite: favorite,
-        view: 0,
+        view: view ?? 0,
         isCheck: false);
   }
 }
@@ -158,7 +158,7 @@ extension AdDetailExtension on AdDetail {
         categoryId: categoryId ?? -1,
         adPropertyStatus: AdPropertyStatus.fresh,
         adRouteType: adRouteType,
-        adStatusType: adStatusType ?? AdStatusType.standard,
+        adStatus: adStatus ?? AdStatus.standard,
         adTypeStatus: adTypeStatus ?? AdTypeStatus.sell,
         currency: currency,
         isCheck: false,
@@ -184,7 +184,7 @@ extension AdExtension on Ad {
         district: district,
         adRouteType: adRouteType.adRouteTypeToString(),
         adPropertyStatus: adPropertyStatus.adPropertyStatusToString(),
-        adStatusType: adStatusType.adStatusTypeToString(),
+        adStatus: adStatus.adStatusToString(),
         adTypeStatus: adTypeStatus.adTypeStatusToString(),
         fromPrice: fromPrice,
         toPrice: toPrice,
@@ -198,6 +198,7 @@ extension AdExtension on Ad {
         favorite: favorite ?? this.favorite,
         photo: photo,
         sellerName: sellerName,
-        backendId: backendId);
+        backendId: backendId,
+        view: view);
   }
 }

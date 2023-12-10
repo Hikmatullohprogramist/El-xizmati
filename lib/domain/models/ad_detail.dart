@@ -32,7 +32,7 @@ class AdDetail {
     this.sellerPhone,
     this.otherName,
     this.otherDescription,
-    required this.adStatusType,
+    required this.adStatus,
     required this.showSocial,
     this.hasFreeShipping,
       this.hasShipping,
@@ -92,7 +92,7 @@ class AdDetail {
   String? otherDescription;
   AdRouteType? otherRouteType;
   AdPropertyStatus? otherPropertyStatus;
-  AdStatusType? adStatusType;
+  AdStatus? adStatus;
   final bool showSocial;
   dynamic hasFreeShipping;
   dynamic hasShipping;

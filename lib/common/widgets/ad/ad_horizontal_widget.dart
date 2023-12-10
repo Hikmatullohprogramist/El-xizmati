@@ -62,7 +62,7 @@ class AppAdHorizontalWidget extends StatelessWidget {
                       errorWidget: (context, url, error) =>
                           Center(child: Icon(Icons.error)),
                     ),
-                    AppAdStatusWidget(adsStatusType: AdStatusType.standard),
+                    AppAdStatusWidget(adStatus: AdStatus.standard),
                     Align(
                         alignment: Alignment.topRight,
                         child: AppFavoriteWidget(

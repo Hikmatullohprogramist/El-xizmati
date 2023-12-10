@@ -29,7 +29,7 @@ class CartRepositoryImp extends CartRepository {
     int resultId = ad.id;
     if (isLogin) {
       final response =
-          await _cartService.addCart(adType: ad.adStatusType.name, id: ad.id);
+          await _cartService.addCart(adType: ad.adStatus.name, id: ad.id);
       final addResultId =
           AddResultRootResponse.fromJson(response.data).data?.products?.id;
       resultId = addResultId ?? ad.id;
