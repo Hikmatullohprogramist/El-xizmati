@@ -87,7 +87,7 @@ class CartRepositoryImp extends CartRepository {
         final allItem = cartStorage.allItems.map((e) => e.toMap()).toList();
         for (var item in cartAds) {
           if (allItem.where((element) => element.id == item.id).isEmpty) {
-            favoriteStorage.favoriteAds.add(AdObject(
+            cartStorage.cartStorage.add(AdObject(
                 id: item.id,
                 name: item.name,
                 price: item.price,
