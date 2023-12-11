@@ -60,7 +60,7 @@ ad.detail.characteristics,Xususiyatlari,Характеристики,Хусус�
 ad.detail.Saller,Sotuvchi,Продавец,Сотувчи
 ad.detail.price,narxi:,Цена:,нархи:
 ad.detail.addtocart,Savatchaga qo'shish,В корзину,Саватчага қўшиш
-ad.detail.onOnlineBozor,OnlineBozor-da,на OnlineBozor с,ОнлайнБозор-да
+ad.detail.onOnlineBozor,OnlineBozorda,на OnlineBozor с,OnlineBozorда
 ad.detail.location,Manzil,Местоположение,Манзил
 ad.detail.towritemessge,Xabar yozish uchun ,Написать сообщение,Хабар ёзиш учун
 ad.detail.feedback,Sharhlar,Отзывы,Шарҳлар
@@ -170,3 +170,4 @@ user.address.district,Tuman ,Район,Туман
 user.address.street,Mahalla,Махалля,Маҳалла
 user.address.home.number,Uy raqami,Номер дома,Uy raqami
 user.address.selection.location,Joylashuvni tanlang,Выберите локацию,Жойлашувни танланг
+currency.uzb,so'm,сўм,сўм

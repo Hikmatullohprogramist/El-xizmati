@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/domain/repositories/user_address_response.dart';
+import 'package:onlinebozor/domain/repositories/user_address_respository.dart';
 
 import '../responses/address/user_address_response.dart';
 import '../services/user_address_service.dart';

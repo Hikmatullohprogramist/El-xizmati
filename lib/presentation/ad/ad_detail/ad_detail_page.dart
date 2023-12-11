@@ -352,7 +352,7 @@ class AdDetailPage
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   SizedBox(width: 28),
-                                  "${state.adDetail!.address?.region?.name}  ${state.adDetail!.address?.district?.name}"
+                                  "${state.adDetail!.address?.region?.name ?? ""}  ${state.adDetail!.address?.district?.name ?? ""}"
                                       .w(500)
                                       .s(12)
                                       .c(Color(0xFF9EABBE))

@@ -7,6 +7,7 @@ import 'package:onlinebozor/common/widgets/ad/ad_route_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_status_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_type_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/price_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/view_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite/favorite_widget.dart';
 import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
 
@@ -74,34 +75,7 @@ class AppAdHorizontalWidget extends StatelessWidget {
                     ),
                     Align(
                       alignment: Alignment.bottomRight,
-                      child: Container(
-                        width: 50,
-                        margin:
-                            EdgeInsets.symmetric(vertical: 8, horizontal: 4),
-                        padding: EdgeInsets.symmetric(horizontal: 4),
-                        decoration: BoxDecoration(
-                            color: context.colors.iconGrey,
-                            border: Border.all(
-                                width: 1, color: context.colors.iconGrey),
-                            borderRadius: BorderRadius.circular(4)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Assets.images.icEye.svg(),
-                            SizedBox(width: 2),
-                            if (ad.view < 100)
-                              ad.view
-                                  .toString()
-                                  .w(400)
-                                  .s(8)
-                                  .c(context.colors.textPrimary)
-                            else if (ad.view < 100000)
-                              "100K".w(400).s(8).c(context.colors.textPrimary)
-                            else
-                              "100M".w(400).s(8).c(context.colors.textPrimary)
-                          ],
-                        ),
-                      ),
+                      child: AdViewWidget(viewCount: ad.view),
                     ),
                   ])),
               SizedBox(height: 12),

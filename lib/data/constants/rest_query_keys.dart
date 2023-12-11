@@ -45,4 +45,5 @@ class RestQueryKeys {
   static String queryPhoto = "photo";
   static String queryPnifl ="pinfl";
   static String queryPostName="post_name";
+  static String queryAdsList ="adsList";
 }

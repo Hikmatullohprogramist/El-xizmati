@@ -100,7 +100,7 @@ class OrderCreateCubit
                 amount: buildable.count,
                 paymentTypeId: buildable.paymentId,
                 tin: buildable.adDetail?.sellerTin ?? -1);
-            display.success("success");
+            invoke(OrderCreateListenable(OrderCreateEffect.delete));
           } else {
             display.error("to'lov turi tanlanmagan");
           }

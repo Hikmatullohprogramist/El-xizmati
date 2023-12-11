@@ -80,7 +80,7 @@ class DashboardPage
                         context.router.push(AdListRoute(
                             adListType: AdListType.list,
                             keyWord: '',
-                            title: Strings.hotDiscountsTitle,
+                            title: Strings.popularProductTitle,
                             sellerTin: null));
                       },
                       title: Strings.popularProductTitle),

@@ -1,3 +1,5 @@
+import 'package:onlinebozor/common/gen/localization/strings.dart';
+
 import '../../domain/util.dart';
 
 extension CurrencyExtension on Currency {
@@ -6,7 +8,7 @@ extension CurrencyExtension on Currency {
   String getCurrencyName(Currency currency) {
     switch (currency) {
       case Currency.uzb:
-        return "so'm";
+        return Strings.currencyUzb;
       case Currency.usd:
         return "usd";
       case Currency.eur:
