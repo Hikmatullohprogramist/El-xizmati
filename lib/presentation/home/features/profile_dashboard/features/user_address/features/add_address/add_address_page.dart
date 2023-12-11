@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 
 import '../../../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../../../common/widgets/common/common_button.dart';
@@ -49,15 +50,18 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.white,
-          title:
-              'Добавить новый адрес'.w(500).s(14).c(context.colors.textPrimary),
+          title: Strings.userAddressAddNewAddress
+              .w(500)
+              .s(14)
+              .c(context.colors.textPrimary),
           centerTitle: true,
           elevation: 0.5,
           actions: [
             CommonButton(
                 type: ButtonType.text,
                 onPressed: () {},
-                child: "Сохранить".w(500).s(12).c(Color(0xFF5C6AC3)))
+                child:
+                    Strings.userAddressSave.w(500).s(12).c(Color(0xFF5C6AC3)))
           ],
           leading: IconButton(
             icon: Assets.images.icArrowLeft.svg(),
@@ -72,14 +76,14 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
             physics: BouncingScrollPhysics(),
             children: [
               Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                "Название адреса".w(500).s(12).c(Color(0xFF41455E)),
+                Strings.userAddressAddNew.w(500).s(12).c(Color(0xFF41455E)),
                 SizedBox(width: 5),
                 Assets.images.icRedStart.svg(height: 8, width: 8),
               ]),
               SizedBox(height: 12),
               CommonTextField(
                   controller: addressController,
-                  hint: "Название адреса*",
+                  hint: Strings.userAddressAddNew,
                   onChanged: (value) {
                     context.read<AddAddressCubit>().setAddressName(value);
                   },
@@ -88,7 +92,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  "Регион".w(500).s(12).c(Color(0xFF41455E)),
+                  Strings.userAddressRegion.w(500).s(12).c(Color(0xFF41455E)),
                   SizedBox(width: 5),
                   Assets.images.icRedStart.svg(height: 8, width: 8),
                 ],
@@ -133,7 +137,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
                       });
                 },
                 child: CommonTextField(
-                  hint: "Регион*",
+                  hint: Strings.userAddressRegion,
                   readOnly: true,
                   enabled: false,
                   textInputAction: TextInputAction.next,
@@ -145,7 +149,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  "Район".w(500).s(12).c(Color(0xFF41455E)),
+                  Strings.userAddressDistrict.w(500).s(12).c(Color(0xFF41455E)),
                   SizedBox(width: 5),
                   Assets.images.icRedStart.svg(height: 8, width: 8),
                 ],
@@ -194,7 +198,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
                   child: CommonTextField(
                       readOnly: true,
                       enabled: false,
-                      hint: "Район*",
+                      hint: Strings.userAddressDistrict,
                       controller:
                           TextEditingController(text: state.districtName),
                       textInputAction: TextInputAction.next)),
@@ -202,7 +206,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  "Улица".w(500).s(12).c(Color(0xFF41455E)),
+                  Strings.userAddressStreet.w(500).s(12).c(Color(0xFF41455E)),
                   SizedBox(width: 5),
                   Assets.images.icRedStart.svg(height: 8, width: 8),
                 ],
@@ -249,18 +253,18 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
                   child: CommonTextField(
                       readOnly: true,
                       enabled: false,
-                      hint: "Улица*",
+                      hint: Strings.userAddressStreet,
                       controller: TextEditingController(text: state.streetName),
                       inputType: TextInputType.text)),
               SizedBox(height: 24),
-              "Номер дома".w(500).s(12).c(Color(0xFF41455E)),
+              Strings.userAddressHomeNumber.w(500).s(12).c(Color(0xFF41455E)),
               SizedBox(height: 12),
               CommonTextField(
                 onChanged: (value) {},
                 textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 24),
-              "Квартира".w(500).s(12).c(Color(0xFF41455E)),
+              Strings.userAddressApartment.w(500).s(12).c(Color(0xFF41455E)),
               SizedBox(height: 12),
               CommonTextField(
                 onChanged: (value) {
@@ -270,7 +274,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
                 textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 24),
-              "Подъезд".w(500).s(12).c(Color(0xFF41455E)),
+              Strings.userAddressEntrance.w(500).s(12).c(Color(0xFF41455E)),
               SizedBox(height: 12),
               CommonTextField(
                 onChanged: (value) {
@@ -280,7 +284,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
                 textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 24),
-              "Этаж".w(500).s(12).c(Color(0xFF41455E)),
+              Strings.userAddressFloor.w(500).s(12).c(Color(0xFF41455E)),
               SizedBox(height: 12),
               CommonTextField(
                 controller: neighborhoodController,
@@ -299,7 +303,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
                         context.read<AddAddressCubit>().setMainCard(value);
                       }),
                   SizedBox(width: 12),
-                  "Сделать основным".s(14).w(500).c(Color(0xFF41455E))
+                  Strings.userAddressSetAsMain.s(14).w(500).c(Color(0xFF41455E))
                 ],
               ),
               SizedBox(height: 45),
@@ -311,7 +315,10 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
                     onPressed: () {
                       context.read<AddAddressCubit>().getCurrentLocation();
                     },
-                    child: "Выберите локацию".w(600).s(14).c(Colors.black),
+                    child: Strings.userAddressSelectionLocation
+                        .w(600)
+                        .s(14)
+                        .c(Colors.black),
                   )),
               SizedBox(height: 16),
               SizedBox(
@@ -321,7 +328,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
                     onPressed: () {
                       context.read<AddAddressCubit>().validationDate();
                     },
-                    child: "Добавить".w(600).s(14).c(Colors.white),
+                    child: Strings.userAddressAdd.w(600).s(14).c(Colors.white),
                   )),
             ],
           ),

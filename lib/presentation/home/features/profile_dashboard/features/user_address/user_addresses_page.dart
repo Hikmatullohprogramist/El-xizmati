@@ -57,7 +57,7 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
                     children: [
                       Expanded(
                           child: Center(
-                              child: "Действие"
+                              child: Strings.userAddressAction
                                   .w(500)
                                   .s(16)
                                   .c(Color(0xFF41455E)))),
@@ -84,7 +84,7 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
                           children: [
                             Assets.images.icEdit.svg(width: 24, height: 24),
                             SizedBox(width: 10),
-                            "Редактировать".w(500).s(14).c(Color(0xFF5C6AC3))
+                            Strings.userAddressEdit.s(14).c(Color(0xFF5C6AC3))
                           ],
                         )),
                   ),
@@ -105,7 +105,10 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
                                 height: 24,
                                 color: context.colors.iconGrey),
                             SizedBox(width: 10),
-                            "Сделать основным".w(500).s(14).c(Color(0xFF41455E))
+                            Strings.userAddressSetAsMain
+                                .w(500)
+                                .s(14)
+                                .c(Color(0xFF41455E))
                           ],
                         )),
                   ),
@@ -123,7 +126,10 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
                           children: [
                             Assets.images.icDelete.svg(width: 24, height: 24),
                             SizedBox(width: 10),
-                            "Удалить карту".w(500).s(14).c(Color(0xFF5C6AC3))
+                            Strings.userAddressRemove
+                                .w(500)
+                                .s(14)
+                                .c(Color(0xFF5C6AC3))
                           ],
                         )),
                   ),
@@ -135,7 +141,8 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
                       onPressed: () {
                         Navigator.of(buildContext).pop();
                       },
-                      child: "Закрыть".w(600).s(14).c(Colors.white),
+                      child:
+                          Strings.userAddressClose.w(600).s(14).c(Colors.white),
                     ),
                   )
                 ]),
@@ -155,10 +162,13 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
               type: ButtonType.text,
               onPressed: () =>
                   context.router.push(AddAddressRoute(address: null)),
-              child: "Добавить".w(500).s(12).c(Color(0xFF5C6AC3)))
+              child: Strings.userAddressAdd.w(500).s(12).c(Color(0xFF5C6AC3)))
         ],
         backgroundColor: Colors.white,
-        title: 'Мои адреса'.w(500).s(14).c(context.colors.textPrimary),
+        title: Strings.userAddressMyAddress
+            .w(500)
+            .s(14)
+            .c(context.colors.textPrimary),
         centerTitle: true,
         elevation: 0.5,
         leading: IconButton(
@@ -219,9 +229,7 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
             return SizedBox(
               height: 160,
               child: Center(
-                child: CircularProgressIndicator(
-                  color: Colors.blue,
-                ),
+                child: CircularProgressIndicator(color: Colors.blue),
               ),
             );
           },
@@ -229,9 +237,7 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
             return SizedBox(
               height: 160,
               child: Center(
-                child: CircularProgressIndicator(
-                  color: Colors.blue,
-                ),
+                child: CircularProgressIndicator(color: Colors.blue),
               ),
             );
           },

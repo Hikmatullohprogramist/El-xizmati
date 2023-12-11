@@ -150,3 +150,23 @@ order.create.transfer.payment,Transfer,Перечисления,Трансфер
 order.create.transfer.discription,To'lov bank o'tkazmalari orqali qabul qilinadi,Оплата принимается через банковские расчеты,Тўлов банк ўтказмалари орқали қабул қилинади
 ad.detail.number.views,Ko'rishlar soni,Количество просмотров,Кўришлар сони
 ad.detail.show.phone,Telefonni ko'rsatish,Показать телефон,Телефонни кўрсатиш
+user.address.my.address,Mening manzillarim,Мои адреса,Менинг манзилларим
+user.address.add,Qo'shish,Добавить,Қўшиш
+user.address.action,Harakat,Действие,Ҳаракат
+user.address.edit,Tahrirlash,Редактировать,Таҳрирлаш
+user.address.set.as.main,Asosiy qilib belgilang,Сделать основным,Асосий қилиб белгиланг
+user.address.remove,Manzilni olib tashlang,Удалить адрес,Манзилни олиб ташланг
+user.address.close,Yopish,Закрыть,Ёпиш
+user.address.main ,Asosiy,Основной,Асосий
+user.address.address,Manzil:,Адрес:,Манзил:
+user.address.floor,Qavat:,Этаж:,Қават:
+user.address.entrance,Kirish:,Подъезд:,Кириш:
+user.address.apartment,Kvartira:,Квартира:,Квартира:
+user.address.add.new.address,Yangi manzil qo'shing,Добавить новый адрес,Янги манзил қўшинг
+user.address.save,Saqlash,Сақлаш,Сақлаш
+user.address.name,Manzil nomi,Название адреса,Манзил номи
+user.address.region,Viloyat,Регион,Вилоят
+user.address.district,Tuman ,Район,Туман
+user.address.street,Mahalla,Махалля,Маҳалла
+user.address.home.number,Uy raqami,Номер дома,Uy raqami
+user.address.selection.location,Joylashuvni tanlang,Выберите локацию,Жойлашувни танланг

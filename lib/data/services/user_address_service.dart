@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/constants/rest_header_keys.dart';
 import 'package:onlinebozor/data/constants/rest_query_keys.dart';
+
 import '../storages/token_storage.dart';
 
 @lazySingleton
@@ -41,7 +42,7 @@ class UserAddressService {
       RestQueryKeys.queryApartmentNumber: apartmentNum,
       RestQueryKeys.queryStreetNumber: streetNum,
       RestQueryKeys.queryIsMain: isMain,
-      RestQueryKeys.queryIsMain: geo,
+      RestQueryKeys.queryGeo: geo,
     };
     return _dio.post('v1/user/address',
         data: data, options: Options(headers: headers));
