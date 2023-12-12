@@ -1,4 +1,6 @@
 
+import 'package:onlinebozor/data/responses/device/active_device_response.dart';
+
 import '../../data/responses/profile/biometric_info/biometric_info_response.dart';
 import '../../data/responses/profile/user/user_info_response.dart';
 import '../../data/responses/profile/user_full/user_full_info_response.dart';
@@ -35,4 +37,8 @@ abstract class UserRepository {
   });
 
   Future<bool> isFullRegister();
+
+  Future<List<ActiveDeviceResponse>> getActiveDevice();
+
+  Future<void> removeActiveResponse(ActiveDeviceResponse response);
 }

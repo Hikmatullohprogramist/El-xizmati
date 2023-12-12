@@ -1,6 +1,8 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/domain/repositories/user_repository.dart';
+
 import '../hive_objects/user/user_info_object.dart';
+import '../responses/device/active_device_response.dart';
 import '../responses/profile/biometric_info/biometric_info_response.dart';
 import '../responses/profile/user/user_info_response.dart';
 import '../responses/profile/user_full/user_full_info_response.dart';
@@ -128,5 +130,19 @@ class UserRepositoryImp extends UserRepository {
     final isRegister =
         userInfoStorage.userInformation.call()?.isRegistered ?? false;
     return isRegister;
+  }
+
+  @override
+  Future<List<ActiveDeviceResponse>> getActiveDevice() async {
+    final deviceResponse = await _userService.getActiveDevices();
+    final response =
+        ActiveDeviceRootResponse.fromJson(deviceResponse.data).data;
+    return response;
+  }
+
+  @override
+  Future<void> removeActiveResponse(ActiveDeviceResponse response)async {
+   await _userService.removeActiveDevice(response);
+   return;
   }
 }

@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/constants/rest_header_keys.dart';
 import 'package:onlinebozor/data/constants/rest_query_keys.dart';
 
+import '../responses/device/active_device_response.dart';
 import '../storages/token_storage.dart';
 
 @lazySingleton
@@ -103,5 +104,24 @@ class UserService {
     final response =
         await _dio.get('v1/street/list', queryParameters: queryParameters);
     return response;
+  }
+
+  Future<Response> getActiveDevices() async {
+    final headers = {
+      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
+    };
+    final response =
+        await _dio.get("v1/profile/active", options: Options(headers: headers));
+    return response;
+  }
+
+  Future<void> removeActiveDevice(ActiveDeviceResponse response) async {
+    final headers = {
+      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
+    };
+    final queryParameters = { RestQueryKeys.queryId:response.id};
+    await _dio.get("v1/user/active?id= ",
+        options: Options(headers: headers), queryParameters: queryParameters);
+    return;
   }
 }

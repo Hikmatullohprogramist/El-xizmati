@@ -171,3 +171,10 @@ user.address.street,Mahalla,Махалля,Маҳалла
 user.address.home.number,Uy raqami,Номер дома,Uy raqami
 user.address.selection.location,Joylashuvni tanlang,Выберите локацию,Жойлашувни танланг
 currency.uzb,so'm,сўм,сўм
+settings.title,Sozlamalar,Настройки,Созламалар
+settings.receive.notification,Bildirishnomani qanday olish mumkin,Способ получения уведомления,Билдиришномани қандай олиш мумкин
+settings.social.network,Mening ijtimoiy tarmoqlarim,Мои соц.сети,Менинг ижтимоий тармоқларим
+settings.active.devices,Faol device,Фаол девиcе,Faol device
+settings.change.password,Parolni o'zgartirish,Поменять пароль,Паролни ўзгартириш
+active.device.current.device,Joriy device,Текущий сеанс,Joriy device
+active.device.remove.device,Device tugatish,Завершить сеанс,Девиcе тугатиш

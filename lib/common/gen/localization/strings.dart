@@ -11,7 +11,7 @@ part 'strings.g.dart';
 // ignore: unused_element
 @SheetLocalization(
   docId: '1Dqdash1R4Mlhvh1uuwNKzL3t_OnnHC6YyTwJCokJyE0',
-  version: 72,
+  version: 76,
   outDir: 'assets/localization',
   outName: 'translations.csv',
   preservedKeywords: [

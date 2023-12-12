@@ -113,20 +113,24 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
                       name: Strings.profileDashboardMyAddress,
                       icon: Assets.images.profile.icLocation
                           .svg(width: 18, height: 18),
-                      invoke: () =>
-                          context.router.push(UserAddressesRoute()))),
+                      invoke: () => context.router.push(UserAddressesRoute()))),
               // Divider(indent: 46, height: 1),
               // ProfileItemWidget(
               //     name: Strings.profileDashboardPromotions,
               //     icon: Assets.images.profile.icPromotion
               //         .svg(width: 18, height: 18),
               //     callback: () => context.router.push(PromotionRoute())),
-              // Divider(indent: 46, height: 1),
-              // ProfileItemWidget(
-              //     name: Strings.profileDashboardSetting,
-              //     icon: Assets.images.profile.icSetting
-              //         .svg(width: 18, height: 18),
-              //     callback: () => context.router.push(SettingRoute())),
+              Visibility(
+                  visible: state.isLogin,
+                  child: Divider(indent: 46, height: 1)),
+              Visibility(
+                  visible: state.isLogin,
+                  child: ProfileItemWidget(
+                    name: Strings.profileDashboardSetting,
+                    icon: Assets.images.profile.icSetting
+                        .svg(width: 18, height: 18),
+                    invoke: () => context.router.push(SettingRoute()),
+                  )),
               Visibility(
                 visible: state.isLogin,
                 child: Divider(indent: 46, height: 1),
