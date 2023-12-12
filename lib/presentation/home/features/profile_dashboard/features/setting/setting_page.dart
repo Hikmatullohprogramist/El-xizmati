@@ -44,7 +44,9 @@ class SettingPage
               ProfileItemWidget(
                 name: Strings.settingsSocialNetwork,
                 icon: Assets.images.profileViewer.icNetwork.svg(),
-                invoke: () => context.router.push(UserSocialNetworkRoute()),
+                invoke: () {
+                  // context.router.push(UserSocialNetworkRoute())
+                },
               ),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(

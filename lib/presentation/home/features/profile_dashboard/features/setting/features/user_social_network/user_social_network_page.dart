@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 
 import '../../../../../../../../common/core/base_page.dart';
 import '../../../../../../../../common/gen/assets/assets.gen.dart';
@@ -15,9 +16,13 @@ class UserSocialNetworkPage extends BasePage<UserSocialNetworkCubit,
   @override
   Widget builder(BuildContext context, UserSocialNetworkBuildable state) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: 'Мои соц.сети'.w(500).s(14).c(context.colors.textPrimary),
+        title: Strings.settingsSocialNetwork
+            .w(500)
+            .s(14)
+            .c(context.colors.textPrimary),
         centerTitle: true,
         elevation: 0.5,
         leading: IconButton(
