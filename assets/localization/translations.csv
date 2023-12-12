@@ -178,3 +178,8 @@ settings.active.devices,Faol device,Фаол девиcе,Faol device
 settings.change.password,Parolni o'zgartirish,Поменять пароль,Паролни ўзгартириш
 active.device.current.device,Joriy device,Текущий сеанс,Joriy device
 active.device.remove.device,Device tugatish,Завершить сеанс,Девиcе тугатиш
+notification.receive.sms,SMS xabar,СМС собщение,СМС хабар
+notification.receive.telegram,Telegram boti,Телеграм бот,Телеграм боти
+notification.receive.email,Elektron pochta orqali,Через Эл. почту,Электрон почта орқали 
+telegram.bot.description,Бот орқали билдиришномаларни олиш учун сизга уланган бўлиши керак.,"Вы должны быть подключены, чтобы получать уведомления от ботов.",Бот орқали билдиришномаларни олиш учун сизга уланган бўлиши керак.
+link.title,link,связь,линк

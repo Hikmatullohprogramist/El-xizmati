@@ -1,8 +1,11 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/common/common_button.dart';
 import 'package:onlinebozor/presentation/home/features/profile_dashboard/features/setting/features/notification_settings/cubit/notification_setting_cubit.dart';
 
@@ -19,7 +22,7 @@ class NotificationSettingPage extends BasePage<NotificationSettingCubit,
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: 'Способ получения уведомления'
+        title: Strings.settingsReceiveNotification
             .w(500)
             .s(14)
             .c(context.colors.textPrimary),
@@ -42,10 +45,13 @@ class NotificationSettingPage extends BasePage<NotificationSettingCubit,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 side: BorderSide(
-                  color: Color(0xFFDFE2E9),
-                ),
+                    color: state.smsNotification
+                        ? context.colors.primary
+                        : context.colors.iconGrey),
               ),
-              onPressed: () {},
+              onPressed: () {
+                context.read<NotificationSettingCubit>().setSmsNotification();
+              },
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 child: Row(children: [
@@ -55,10 +61,13 @@ class NotificationSettingPage extends BasePage<NotificationSettingCubit,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Color(0xFF5C6AC3)),
-                    child: Center(child: Assets.images.icSms.svg()),
+                    child: Center(child: Assets.images.icMessage.svg()),
                   ),
                   SizedBox(width: 16),
-                  "СМС собщение".w(600).s(14).c(Color(0xFF41455E))
+                  Strings.notificationReceiveSms
+                      .w(600)
+                      .s(14)
+                      .c(Color(0xFF41455E))
                 ]),
               ),
             ),
@@ -70,10 +79,13 @@ class NotificationSettingPage extends BasePage<NotificationSettingCubit,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 side: BorderSide(
-                  color: Color(0xFFDFE2E9),
-                ),
+                    color: state.emailNotification
+                        ? context.colors.primary
+                        : context.colors.iconGrey),
               ),
-              onPressed: () {},
+              onPressed: () {
+                context.read<NotificationSettingCubit>().setEmailNotification();
+              },
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 child: Row(children: [
@@ -81,50 +93,87 @@ class NotificationSettingPage extends BasePage<NotificationSettingCubit,
                     width: 32,
                     height: 32,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color(0xFF00A4DD)),
-                    child: Center(child: Assets.images.icSms.svg()),
-                  ),
-                  SizedBox(width: 16),
-                  "Телеграм бот".w(600).s(14).c(Color(0xFF41455E))
-                ]),
-              ),
-            ),
-            SizedBox(height: 10),
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                side: BorderSide(
-                  color: Color(0xFFDFE2E9),
-                ),
-              ),
-              onPressed: () {},
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Row(children: [
-                  Container(
-                    width: 32,
-                    height: 32,
-                    decoration: BoxDecoration(
-                      border:Border.all(color: Color(0xFFDFE2E9), width: 1) ,
+                        border: Border.all(color: Color(0xFFDFE2E9), width: 1),
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.white),
                     child: Center(child: Assets.images.icSms.svg()),
                   ),
                   SizedBox(width: 16),
-                  "Через Эл. почту".w(600).s(14).c(Color(0xFF41455E))
+                  Strings.notificationReceiveEmail
+                      .w(600)
+                      .s(14)
+                      .c(Color(0xFF41455E))
                 ]),
               ),
             ),
+            SizedBox(height: 10),
+            OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                side: BorderSide(
+                    color: state.telegramNotification
+                        ? context.colors.primary
+                        : context.colors.iconGrey),
+              ),
+              onPressed: () {
+                context
+                    .read<NotificationSettingCubit>()
+                    .setTelegramNotification();
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Row(children: [
+                  Assets.images.icTelegram.svg(height: 32, width: 32),
+                  // Container(
+                  //   width: 32,
+                  //   height: 32,
+                  //   decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.circular(10),
+                  //       color: Color(0xFF00A4DD)),
+                  //   child: Center(child: Assets.images.icSms.svg()),
+                  // ),
+                  SizedBox(width: 16),
+                  Strings.notificationReceiveTelegram
+                      .w(600)
+                      .s(14)
+                      .c(Color(0xFF41455E))
+                ]),
+              ),
+            ),
+            SizedBox(height: 12),
+            Text.rich(TextSpan(children: [
+              TextSpan(
+                  text: Strings.telegramBotDescription,
+                  style: TextStyle(
+                      overflow: TextOverflow.ellipsis,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12,
+                      color: Color(0xFF9EABBE))),
+              WidgetSpan(
+                  child: SizedBox(
+                width: 5,
+              )),
+              TextSpan(
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      context.read<NotificationSettingCubit>().openTelegram();
+                    },
+                  text: Strings.linkTitle,
+                  style: TextStyle(
+                      overflow: TextOverflow.ellipsis,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12,
+                      color: Color(0xFF5C6AC3)))
+            ])),
             Spacer(),
             SizedBox(
               width: double.infinity,
               child: CommonButton(
                   onPressed: () {},
-                  child: "Сохранить".w(600).s(14).c(Colors.white)),
+                  child: Strings.commonSaveTitle.w(600).s(14).c(Colors.white)),
             ),
             SizedBox(height: 16)
           ],
