@@ -50,7 +50,7 @@ class AppCategoryWidget extends StatelessWidget {
               Expanded(
                   child: Row(
                 children: [
-                  category.name
+                  (category.name ?? "*")
                       .toString()
                       .w(500)
                       .s(14)

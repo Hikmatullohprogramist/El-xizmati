@@ -98,7 +98,7 @@ class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageBuildable,
                 CommonButton(
                     onPressed: () {
                       EasyLocalization.of(context)
-                          ?.setLocale(Locale('kr', 'KR'));
+                          ?.setLocale(Locale('uz', 'UZK'));
                       context.read<SetLanguageCubit>().setLanguage(Language.kr);
                     },
                     color: Color(0xFFE5E9F3),
