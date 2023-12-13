@@ -30,26 +30,27 @@ class AppCategoryWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CachedNetworkImage(
-                width: 16,
+                width: 20,
+                height: 20,
                 imageUrl:
-                    'https://api.online-bozor.uz/uploads/images/8a818006fe30134f570fc587',
+                    "https://api.online-bozor.uz/uploads/images/${category.icon}",
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
                         image: imageProvider,
                         colorFilter: ColorFilter.mode(
-                            Colors.black, BlendMode.colorBurn)),
+                            Color(0xFFF6F7FC), BlendMode.colorBurn)),
                   ),
                 ),
-                placeholder: (context, url) =>
-                    Center(child: CircularProgressIndicator()),
-                errorWidget: (context, url, error) =>
-                    Center(child: Icon(Icons.error)),
+                placeholder: (context, url) => Center(),
+                errorWidget: (context, url, error) => Center(),
               ),
               // Assets.images.icArrowRight.svg(height: 16, width: 16),
               SizedBox(width: 16),
               Expanded(
-                  child: category.name
+                  child: Row(
+                children: [
+                  category.name
                       .toString()
                       .w(500)
                       .s(14)
@@ -57,7 +58,16 @@ class AppCategoryWidget extends StatelessWidget {
                       .copyWith(
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                      )),
+                      ),
+                  category.amount != null && category.amount != 0
+                      ? '(${category.amount})'
+                          .w(600)
+                          .s(14)
+                          .c(Colors.black)
+                          .copyWith(overflow: TextOverflow.ellipsis)
+                      : SizedBox()
+                ],
+              )),
               Assets.images.icArrowRight.svg(height: 16, width: 16)
             ],
           ),
