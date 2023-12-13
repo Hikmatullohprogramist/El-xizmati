@@ -63,7 +63,7 @@ class AppPopularCategory extends StatelessWidget {
                   color: Color(0x28AEB2CD),
                   borderRadius: BorderRadius.circular(6)),
               child: Center(
-                  child: (category.lang ?? "").w(400).s(12).copyWith(
+                  child: (category.name ?? "*").w(400).s(12).copyWith(
                         textAlign: TextAlign.center,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

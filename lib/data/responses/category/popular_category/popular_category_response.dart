@@ -24,7 +24,7 @@ class PopularCategoryResponse with _$PopularCategoryResponse {
   const factory PopularCategoryResponse({
     int? total,
     required int id,
-    String? lang,
+    String? name,
     String? icon,
     String? key,
     String? key_word,

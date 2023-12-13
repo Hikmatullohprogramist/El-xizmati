@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+
 import '../../../data/responses/category/popular_category/popular_category_response.dart';
 
 class AppPopularCategoryHorizontal extends StatelessWidget {
@@ -49,8 +50,7 @@ class AppPopularCategoryHorizontal extends StatelessWidget {
                             Color(0xFFF6F7FC), BlendMode.colorBurn)),
                   ),
                 ),
-                placeholder: (context, url) =>
-                    Center(),
+                placeholder: (context, url) => Center(),
                 errorWidget: (context, url, error) =>
                     Center(child: Icon(Icons.error)),
               ),
@@ -62,10 +62,7 @@ class AppPopularCategoryHorizontal extends StatelessWidget {
                   color: Color(0x28AEB2CD),
                   borderRadius: BorderRadius.circular(6)),
               child: Center(
-                  child: (category.lang ?? "")
-                      .w(400)
-                      .s(12)
-                      .copyWith(
+                  child: (category.name ?? "*").w(400).s(12).copyWith(
                         textAlign: TextAlign.center,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

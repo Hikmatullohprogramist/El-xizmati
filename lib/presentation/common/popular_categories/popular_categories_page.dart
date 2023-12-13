@@ -102,7 +102,7 @@ class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
                         context.router.push(AdListRoute(
                             adListType: AdListType.popularCategoryProduct,
                             keyWord: value.key_word,
-                            title: value.lang,
+                            title: value.name,
                             sellerTin: null));
                       },
                     ),

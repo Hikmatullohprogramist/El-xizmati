@@ -119,9 +119,18 @@ class UserService {
     final headers = {
       RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
     };
-    final queryParameters = { RestQueryKeys.queryId:response.id};
+    final queryParameters = {RestQueryKeys.queryId: response.id};
     await _dio.get("v1/user/active?id= ",
         options: Options(headers: headers), queryParameters: queryParameters);
     return;
+  }
+
+  Future<Response> getSocialNetwork() async {
+    final headers = {
+      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
+    };
+    final response = await _dio.get("v1/profile/social_medias",
+        options: Options(headers: headers));
+    return response;
   }
 }

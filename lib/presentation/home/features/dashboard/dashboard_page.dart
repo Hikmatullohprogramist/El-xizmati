@@ -70,7 +70,7 @@ class DashboardPage
                           context.router.push(AdListRoute(
                               adListType: AdListType.popularCategoryProduct,
                               keyWord: popularCategories.key_word,
-                              title: popularCategories.lang,
+                              title: popularCategories.name,
                               sellerTin: null));
                         },
                       )),
