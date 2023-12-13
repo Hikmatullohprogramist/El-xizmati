@@ -88,15 +88,15 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                         title: Strings.recentlyViewedTitle),
                     LoaderStateWidget(
                         isFullScreen: false,
-                        loadingState: state.hotDiscountAdsState,
+                        loadingState: state.cheapAdsState,
                         child: AdGroupWidget(
-                          ads: state.hotDiscountAds,
+                          ads: state.cheapAds,
                           invoke: (Ad result) {
                             context.router.push(AdDetailRoute(adId: result.id));
                           },
                           invokeFavorite: (Ad result) => context
                               .read<AdCollectionCubit>()
-                              .discountAdsAddFavorite(result),
+                              .cheapAdsAddFavorite(result),
                       )),
                       SizedBox(height: 6),
                       AppDivider(height: 3),

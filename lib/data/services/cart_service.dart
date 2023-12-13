@@ -30,7 +30,10 @@ class CartService {
     final headers = {
       RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
     };
-    final queryParameters = {RestQueryKeys.queryId: adId};
+    final queryParameters = {
+      RestQueryKeys.queryProductId: adId,
+      RestQueryKeys.queryType: "BASKET"
+    };
     return _dio.delete("v1/buyer/product",
         queryParameters: queryParameters, options: Options(headers: headers));
   }

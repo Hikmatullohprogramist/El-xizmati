@@ -37,21 +37,28 @@ class AdsService {
       RestQueryKeys.queryKeyWord: keyWord,
       RestQueryKeys.queryCollectiveTypeAds: param
     };
-    return _dio.get("v1/home/ads?", queryParameters: queryParameters);
+    return _dio.get("v1/home/ads", queryParameters: queryParameters);
   }
 
   Future<Response> getCollectivePopularAds(CollectiveType collectiveType) {
     String param;
     param = CollectiveType.product == collectiveType ? "ADA" : "SERVICE";
     final queryParameters = {RestQueryKeys.queryCollectiveTypeAds: param};
-    return _dio.get("v1/home/ads?", queryParameters: queryParameters);
+    return _dio.get("v1/home/ads", queryParameters: queryParameters);
   }
 
   Future<Response> getCollectiveRecentlyAds(CollectiveType collectiveType) {
     String param;
     param = CollectiveType.product == collectiveType ? "ADA" : "SERVICE";
     final queryParameters = {RestQueryKeys.queryCollectiveTypeAds: param};
-    return _dio.get("v1/home/ads?", queryParameters: queryParameters);
+    return _dio.get("v1/home/ads", queryParameters: queryParameters);
+  }
+
+  Future<Response> getCollectiveCheapAds(CollectiveType collectiveType) {
+    String param;
+    param = CollectiveType.product == collectiveType ? "ADA" : "SERVICE";
+    final queryParameters = {RestQueryKeys.queryCollectiveTypeAds: param};
+    return _dio.get("v1/home/cheap/ads", queryParameters: queryParameters);
   }
 
   Future<Response> getCollectiveHotDiscountAds(CollectiveType collectiveType) {

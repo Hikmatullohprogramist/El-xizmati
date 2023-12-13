@@ -13,7 +13,7 @@ abstract class AdRepository {
 
   Future<AdDetail?> getAdDetail(int adId);
 
-  Future<List<Ad>> getCollectiveRecentlyAds(CollectiveType collectiveType);
+  Future<List<Ad>> getCollectiveCheapAds(CollectiveType collectiveType);
 
   Future<List<Ad>> getCollectiveAds(int pageIndex, int pageSize, String keyWord,
       CollectiveType collectiveType);

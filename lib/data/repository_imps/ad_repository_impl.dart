@@ -50,7 +50,7 @@ class AdRepositoryImpl extends AdRepository {
   @override
   Future<List<Ad>> getCollectivePopularAds(CollectiveType collectiveType) async {
     final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
-    final response = await _adsService.getHomePopularAds();
+    final response = await _adsService.getCollectivePopularAds(collectiveType);
     final adsResponse = AdRootResponse.fromJson(response.data).data.results;
     final ads = adsResponse
         .map((ad) => ad.toMap(
@@ -61,10 +61,10 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<List<Ad>> getCollectiveRecentlyAds(
+  Future<List<Ad>> getCollectiveCheapAds(
       CollectiveType collectiveType) async {
     final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
-    final response = await _adsService.getCollectiveRecentlyAds(collectiveType);
+    final response = await _adsService.getCollectiveCheapAds(collectiveType);
     final adsResponse = AdRootResponse.fromJson(response.data).data.results;
     final ads = adsResponse
         .map((ad) => ad.toMap(

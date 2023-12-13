@@ -26,8 +26,8 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
 
   Future<void> getHome() async {
     await Future.wait([
-      getHotDiscountAds(),
-      getPopularAds(),
+      getCollectiveCheapAds(),
+      getCollectivePopularAds(),
       getController(),
     ]);
   }
@@ -38,29 +38,31 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
   final CommonRepository commonRepository;
   final FavoriteRepository favoriteRepository;
 
-  Future<void> getHotDiscountAds() async {
+  Future<void> getCollectiveCheapAds() async {
     try {
-      log.i("recentlyViewerAds request");
-      final hotDiscountAds =
-          await adRepository.getCollectivePopularAds(buildable.collectiveType);
-      build((buildable) => buildable.copyWith(
-          hotDiscountAds: hotDiscountAds,
-          hotDiscountAdsState: AppLoadingState.success));
-    }on DioException  catch (e, stackTrace) {
+      final cheapAds =
+      await adRepository.getCollectiveCheapAds(buildable.collectiveType);
       build((buildable) =>
-          buildable.copyWith(hotDiscountAdsState: AppLoadingState.error));
+          buildable.copyWith(
+              cheapAds: cheapAds,
+              cheapAdsState: AppLoadingState.success));
+    } on DioException catch (e, stackTrace) {
+      build((buildable) =>
+          buildable.copyWith(cheapAdsState: AppLoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
   }
 
-  Future<void> getPopularAds() async {
+  Future<void> getCollectivePopularAds() async {
     try {
       final popularAds =
-          await adRepository.getCollectivePopularAds(buildable.collectiveType);
-      build((buildable) => buildable.copyWith(
-          popularAds: popularAds, popularAdsState: AppLoadingState.success));
-    }on DioException catch (e, stackTrace) {
+      await adRepository.getCollectivePopularAds(buildable.collectiveType);
+      build((buildable) =>
+          buildable.copyWith(
+              popularAds: popularAds,
+              popularAdsState: AppLoadingState.success));
+    } on DioException catch (e, stackTrace) {
       build((buildable) =>
           buildable.copyWith(popularAdsState: AppLoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
@@ -122,30 +124,32 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
         final item = buildable.popularAds.elementAt(index);
         buildable.popularAds.insert(index, item..favorite = false);
       }
-    } on DioException catch (e) {
+    } on DioException catch (error) {
       display.error("xatolik yuz  berdi");
+      log.e(error.toString());
     }
   }
 
-  Future<void> discountAdsAddFavorite(Ad ad) async {
+  Future<void> cheapAdsAddFavorite(Ad ad) async {
     try {
       if (!ad.favorite) {
         final backendId = await favoriteRepository.addFavorite(ad);
-        final index = buildable.hotDiscountAds.indexOf(ad);
-        final item = buildable.hotDiscountAds.elementAt(index);
-        buildable.hotDiscountAds.insert(
+        final index = buildable.cheapAds.indexOf(ad);
+        final item = buildable.cheapAds.elementAt(index);
+        buildable.cheapAds.insert(
             index,
             item
               ..favorite = true
               ..backendId = backendId);
       } else {
         await favoriteRepository.removeFavorite(ad);
-        final index = buildable.hotDiscountAds.indexOf(ad);
-        final item = buildable.hotDiscountAds.elementAt(index);
-        buildable.hotDiscountAds.insert(index, item..favorite = false);
+        final index = buildable.cheapAds.indexOf(ad);
+        final item = buildable.cheapAds.elementAt(index);
+        buildable.cheapAds.insert(index, item..favorite = false);
       }
-    } on DioException catch (e) {
+    } on DioException catch (error) {
       display.error("xatolik yuz  berdi");
+      log.e(error.toString());
     }
   }
 

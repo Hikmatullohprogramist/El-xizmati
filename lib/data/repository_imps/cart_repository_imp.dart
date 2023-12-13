@@ -48,7 +48,7 @@ class CartRepositoryImp extends CartRepository {
   Future<void> removeCart(Ad ad) async {
     final isLogin = tokenStorage.isLogin.call() ?? false;
     if (isLogin) {
-      await _cartService.removeCart(adId: ad.backendId ?? ad.id);
+      await _cartService.removeCart(adId: ad.id);
       cartStorage.removeCart(ad.id);
     } else {
       cartStorage.removeCart(ad.id);

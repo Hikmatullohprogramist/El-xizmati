@@ -28,11 +28,14 @@ class FavoriteService {
         queryParameters: queryParameters, options: Options(headers: headers));
   }
 
-  Future<Response> deleteFavorite(int adId) {
+  Future<Response> deleteFavorite(int backedId) {
     final headers = {
       RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
     };
-    final queryParameters = {RestQueryKeys.queryId: adId};
+    final queryParameters = {
+      RestQueryKeys.queryProductId: backedId,
+      RestQueryKeys.queryType: "SELECTED"
+    };
     return _dio.delete("v1/buyer/product",
         queryParameters: queryParameters, options: Options(headers: headers));
   }

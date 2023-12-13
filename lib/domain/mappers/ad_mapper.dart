@@ -117,7 +117,7 @@ extension AdDetailResponseExtension on AdDetailResponse {
 extension AdObjectExtension on AdObject {
   Ad toMap({bool favorite = false}) {
     return Ad(
-        backendId: backendId,
+        backendId: backendId ?? -1,
         id: id,
         name: name,
         price: price,
@@ -199,7 +199,7 @@ extension AdExtension on Ad {
         favorite: favorite ?? this.favorite,
         photo: photo,
         sellerName: sellerName,
-        backendId: backendId,
+        backendId: this.backendId ?? backendId,
         view: view);
   }
 }

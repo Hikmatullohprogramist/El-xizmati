@@ -4,10 +4,10 @@ part of 'ad_collection_cubit.dart';
 class AdCollectionBuildable with _$AdCollectionBuildable {
   const factory AdCollectionBuildable({
     @Default(CollectiveType.product) CollectiveType collectiveType,
-    @Default(AppLoadingState.loading) AppLoadingState hotDiscountAdsState,
+    @Default(AppLoadingState.loading) AppLoadingState cheapAdsState,
     @Default(AppLoadingState.loading) AppLoadingState popularAdsState,
     PagingController<int, Ad>? adsPagingController,
-    @Default(<Ad>[]) List<Ad> hotDiscountAds,
+    @Default(<Ad>[]) List<Ad> cheapAds,
     @Default(<Ad>[]) List<Ad> popularAds,
   }) = _AdCollectionBuildable;
 }

@@ -120,7 +120,7 @@ class UserService {
       RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
     };
     final queryParameters = {RestQueryKeys.queryId: response.id};
-    await _dio.get("v1/user/active?id= ",
+    await _dio.delete("v1/user/active?id= ",
         options: Options(headers: headers), queryParameters: queryParameters);
     return;
   }
