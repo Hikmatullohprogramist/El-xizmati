@@ -13,7 +13,8 @@ class LanguageInterceptor extends QueuedInterceptor {
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     String languageName = languageStorage.languageName() ?? 'uz';
-    if (languageName == 'uzk') languageName = "kr";
+    if (languageName == 'uzk') languageName = "uz";
+    if (languageName == 'uz') languageName = "la";
     final headers = {'lang': languageName};
     final queryParameters = {'lang': languageName};
     headers['AcceptLanguage'] = languageName;
