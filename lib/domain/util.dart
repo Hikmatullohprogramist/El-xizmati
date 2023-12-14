@@ -19,3 +19,5 @@ enum AdListType {
 enum AdType { product, service }
 
 enum Currency { eur, usd, rub, uzb }
+
+enum ViewType { view, selected, phone, message }

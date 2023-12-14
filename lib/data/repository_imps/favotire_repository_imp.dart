@@ -7,6 +7,7 @@ import 'package:onlinebozor/domain/util.dart';
 
 import '../../domain/models/ad.dart';
 import '../responses/ad/ad/ad_response.dart';
+import '../services/ad_service.dart';
 import '../services/favorite_service.dart';
 import '../storages/favorite_storage.dart';
 import '../storages/sync_storage.dart';
@@ -18,18 +19,21 @@ class FavoriteRepositoryImp extends FavoriteRepository {
   final TokenStorage tokenStorage;
   final FavoriteStorage favoriteStorage;
   final SyncStorage syncStorage;
+  final AdsService adService;
 
   FavoriteRepositoryImp(
     this._favoriteService,
     this.tokenStorage,
     this.favoriteStorage,
     this.syncStorage,
+    this.adService,
   );
 
   @override
   Future<int> addFavorite(Ad ad) async {
     final isLogin = tokenStorage.isLogin.call() ?? false;
     int resultId = ad.id;
+    await adService.setViewAd(type: ViewType.selected, adId: ad.id);
     if (isLogin) {
       final response = await _favoriteService.addFavorite(
           adType: ad.adStatus.name, id: ad.id);

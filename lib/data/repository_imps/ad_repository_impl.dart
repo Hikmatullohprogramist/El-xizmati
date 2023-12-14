@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
+import 'package:onlinebozor/domain/util.dart';
 
 import '../../domain/models/ad.dart';
 import '../../domain/models/ad_detail.dart';
@@ -173,5 +174,11 @@ class AdRepositoryImpl extends AdRepository {
                 allItems.where((element) => element.id == ad.id).isNotEmpty))
         .toList(growable: true);
     return ads;
+  }
+
+  @override
+  Future<void> setViewAd({required ViewType type, required int adId}) async {
+    await _adsService.setViewAd(type: type, adId: adId);
+    return;
   }
 }

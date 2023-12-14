@@ -12,4 +12,6 @@ abstract class CartRepository {
       required int amount,
       required int paymentTypeId,
       required int tin});
+
+  Future<void> removeOrder({required int tin});
 }

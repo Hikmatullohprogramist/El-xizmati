@@ -103,4 +103,10 @@ class CartRepositoryImp extends CartRepository {
         tin: tin);
     return;
   }
+
+  @override
+  Future<void> removeOrder({required int tin}) async {
+    _cartService.removeOrder(tin: tin);
+    return;
+  }
 }

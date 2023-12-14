@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/enum/enums.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
+import 'package:onlinebozor/domain/util.dart';
 
 import '../../../../common/core/base_cubit.dart';
 import '../../../../domain/models/ad.dart';
@@ -16,12 +17,14 @@ part 'ad_detail_state.dart';
 
 @injectable
 class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
-  AdDetailCubit(this._adRepository, this.favoriteRepository, this.cartRepository)
+  AdDetailCubit(this._adRepository, this.favoriteRepository,
+      this.cartRepository, this.adRepository)
       : super(AdDetailBuildable());
 
   final AdRepository _adRepository;
   final FavoriteRepository favoriteRepository;
   final CartRepository cartRepository;
+  final AdRepository adRepository;
 
   void setAdId(int adId) {
     build((buildable) => buildable.copyWith(adId: adId));
@@ -35,6 +38,7 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
           adDetail: response,
           isPhoneVisible: false,
           isAddCart: response?.isAddCart ?? false));
+      await setViewAd(ViewType.view);
     } on DioException catch (e) {
       log.e(e.toString());
       display.error(e.toString());
@@ -43,6 +47,7 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
   }
 
   Future<void> setPhotoView() async{
+    await setViewAd(ViewType.phone);
     build((buildable) => buildable.copyWith(isPhoneVisible: true));
   }
 
@@ -112,6 +117,14 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
           buildable.copyWith(similarAdsState: AppLoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
+    }
+  }
+
+  Future<void> setViewAd(ViewType type) async {
+    try {
+      await adRepository.setViewAd(type: type, adId: buildable.adId ?? 0);
+    } catch (error) {
+      log.e(error.toString());
     }
   }
 }

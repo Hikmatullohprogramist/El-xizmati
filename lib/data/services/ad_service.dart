@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/constants/rest_query_keys.dart';
+import 'package:onlinebozor/domain/util.dart';
 import 'package:onlinebozor/presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
 
 @lazySingleton
@@ -116,5 +117,14 @@ class AdsService {
       RestQueryKeys.queryPageSize: pageSize
     };
     return _dio.get('v1/ads/details/similar', queryParameters: queryParameters);
+  }
+
+  Future<Response> setViewAd(
+      {required ViewType type, required int adId}) async {
+    final queryParameters = {
+      RestQueryKeys.queryAdsId: adId,
+      RestQueryKeys.queryType: type
+    };
+    return _dio.put('v1/ads/details', queryParameters: queryParameters);
   }
 }

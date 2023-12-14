@@ -70,4 +70,10 @@ class CartService {
     return _dio.post('v1/buyer/order',
         data: data, options: Options(headers: headers));
   }
+
+  Future<Response> removeOrder({required int tin}) {
+    final queryParameters = {RestQueryKeys.queryTin: tin};
+    return _dio.delete("v1/buyer/products_seller",
+        queryParameters: queryParameters);
+  }
 }

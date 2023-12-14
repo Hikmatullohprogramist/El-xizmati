@@ -1,3 +1,4 @@
+import 'package:onlinebozor/domain/util.dart';
 import 'package:onlinebozor/presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
 
 import '../../data/responses/search/search_response.dart';
@@ -21,10 +22,9 @@ abstract class AdRepository {
     required int pageSize,
   });
 
-  Future<List<Ad>> getCollectiveAds(
-      {required CollectiveType collectiveType,
-      required int pageIndex,
-      required int pageSize});
+  Future<List<Ad>> getCollectiveAds({required CollectiveType collectiveType,
+    required int pageIndex,
+    required int pageSize});
 
   Future<List<Ad>> getSellerAds({
     required int sellerTin,
@@ -47,4 +47,6 @@ abstract class AdRepository {
   Future<List<AdSearchResponse>> getSearch(String query);
 
   Future<AdDetail?> getAdDetail(int adId);
+
+  Future<void> setViewAd({required ViewType type, required int adId});
 }
