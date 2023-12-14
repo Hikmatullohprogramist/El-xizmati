@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+
 import '../../../../../../../common/core/base_cubit_new.dart';
 import '../../../../../../../domain/repositories/auth_repository.dart';
 import '../../../../../../../domain/repositories/user_repository.dart';
@@ -30,7 +31,7 @@ class ProfileViewerCubit
       build((buildable) => buildable.copyWith(isLoading: true));
       final response = await _userRepository.getFullUserInfo();
       build((buildable) => buildable.copyWith(
-          userName: response.username ?? "*",
+          userName: (response.full_name ?? "*").toString().substring(0, 40),
           fullName: response.full_name ?? "*",
           phoneNumber: response.mobile_phone ?? "*",
           email: response.email ?? "*",
@@ -38,8 +39,7 @@ class ProfileViewerCubit
               "${response.passport_serial ?? ""} ${response.passport_number ?? ""}",
           brithDate: response.birth_date ?? "*",
           districtName: (response.district_id ?? "*").toString(),
-          // identified: response.is_registered ?? false,
-          isRegistration: true,
+          isRegistration: false,
           regionId: response.region_id,
           districtId: response.district_id,
           gender: response.gender ?? "*",

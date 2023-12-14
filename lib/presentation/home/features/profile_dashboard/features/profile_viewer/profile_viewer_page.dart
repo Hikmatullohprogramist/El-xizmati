@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
@@ -77,15 +78,39 @@ class ProfileViewerPage extends BasePage<ProfileViewerCubit,
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              height: 56,
+                            CachedNetworkImage(
                               width: 56,
-                              margin: EdgeInsets.only(top: 6),
-                              padding: EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                  color: Color(0xFFE0E0ED),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Assets.images.icAvatarBoy.svg(),
+                              height: 56,
+                              imageUrl:
+                              "https://api.online-bozor.uz/uploads/images/${state.photo}",
+                              imageBuilder: (context, imageProvider) => Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: imageProvider,
+                                      colorFilter: ColorFilter.mode(
+                                          Color(0xFFF6F7FC), BlendMode.colorBurn)),
+                                ),
+                              ),
+                              placeholder: (context, url) => Container(
+                                height: 56,
+                                width: 56,
+                                margin: EdgeInsets.only(top: 6),
+                                padding: EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                    color: Color(0xFFE0E0ED),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Assets.images.icAvatarBoy.svg(),
+                              ),
+                              errorWidget: (context, url, error) => Container(
+                                height: 56,
+                                width: 56,
+                                margin: EdgeInsets.only(top: 6),
+                                padding: EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                    color: Color(0xFFE0E0ED),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Assets.images.icAvatarBoy.svg(),
+                              ),
                             ),
                             SizedBox(width: 16),
                             Column(
@@ -93,15 +118,20 @@ class ProfileViewerPage extends BasePage<ProfileViewerCubit,
                               children: [
                                 Row(
                                   children: [
-                                    state.userName.w(600).s(20).c(Colors.black),
-                                    SizedBox(width: 8),
-                                    if (state.isRegistration)
-                                      Assets.images.profileViewer.icIdentified
-                                          .svg()
-                                    else
-                                      Assets
-                                          .images.profileViewer.icNotIdentified
-                                          .svg()
+                                    state.fullName
+                                        .w(600)
+                                        .s(12)
+                                        .c(Colors.black)
+                                        .copyWith(
+                                            overflow: TextOverflow.ellipsis),
+                                    // SizedBox(width: 8),
+                                    // if (state.isRegistration)
+                                    //   Assets.images.profileViewer.icIdentified
+                                    //       .svg()
+                                    // else
+                                    //   Assets
+                                    //       .images.profileViewer.icNotIdentified
+                                    //       .svg()
                                   ],
                                 ),
                                 Row(
