@@ -4,7 +4,7 @@ part of 'service_favorites_cubit.dart';
 class ServiceFavoritesBuildable with _$ServiceFavoritesBuildable {
   const factory ServiceFavoritesBuildable({
     @Default("") String keyWord,
-    @Default(AdListType.list) AdListType adListType,
+    @Default(AdListType.homePopularAds) AdListType adListType,
     @Default(AppLoadingState.loading) AppLoadingState adsState,
     PagingController<int, Ad>? adsPagingController,
   }) = _ServiceFavoritesBuildable;

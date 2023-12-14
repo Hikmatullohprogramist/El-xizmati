@@ -27,7 +27,7 @@ class DashboardCubit
   Future<void> getHome() async {
     await Future.wait([
       getPopularCategories(),
-      getRecentlyViewAds(),
+      getPopularAds(),
       getController(),
     ]);
   }
@@ -40,14 +40,12 @@ class DashboardCubit
 
   Future<void> getPopularCategories() async {
     try {
-      log.i("recentlyViewerAds request");
       final popularCategories =
           await commonRepository.getPopularCategories(1, 20);
       build((buildable) => buildable.copyWith(
             popularCategories: popularCategories,
             popularCategoriesState: AppLoadingState.success,
           ));
-      log.i("recentlyViewerAds=${buildable.recentlyViewerAds}");
     }on DioException  catch (e, stackTrace) {
       build((buildable) =>
           buildable.copyWith(popularCategoriesState: AppLoadingState.error));
@@ -56,17 +54,14 @@ class DashboardCubit
     }
   }
 
-  Future<void> getRecentlyViewAds() async {
+  Future<void> getPopularAds() async {
     try {
-      log.i("recentlyViewerAds request");
-      final recentlyAds = await adRepository.getRecentlyViewAds();
+      final recentlyAds = await adRepository.getHomePopularAds(1, 10);
       build((buildable) => buildable.copyWith(
-          recentlyViewerAds: recentlyAds,
-          recentlyAdsState: AppLoadingState.success));
-      log.i("recentlyViewerAds=${buildable.recentlyViewerAds}");
+          popularAds: recentlyAds, popularAdsState: AppLoadingState.success));
     } on DioException catch (e, stackTrace) {
       build((buildable) =>
-          buildable.copyWith(recentlyAdsState: AppLoadingState.error));
+          buildable.copyWith(popularAdsState: AppLoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
@@ -128,22 +123,22 @@ class DashboardCubit
     return adController;
   }
 
-  Future<void> recentlyAdsAddFavorite(Ad ad) async {
+  Future<void> popularAdsAddFavorite(Ad ad) async {
     try {
       if (!ad.favorite) {
         final backendId = await favoriteRepository.addFavorite(ad);
-        final index = buildable.recentlyViewerAds.indexOf(ad);
-        final item = buildable.recentlyViewerAds.elementAt(index);
-        buildable.recentlyViewerAds.insert(
+        final index = buildable.popularAds.indexOf(ad);
+        final item = buildable.popularAds.elementAt(index);
+        buildable.popularAds.insert(
             index,
             item
               ..favorite = true
               ..backendId = backendId);
       } else {
         await favoriteRepository.removeFavorite(ad);
-        final index = buildable.recentlyViewerAds.indexOf(ad);
-        final item = buildable.recentlyViewerAds.elementAt(index);
-        buildable.recentlyViewerAds.insert(index, item..favorite = false);
+        final index = buildable.popularAds.indexOf(ad);
+        final item = buildable.popularAds.elementAt(index);
+        buildable.popularAds.insert(index, item..favorite = false);
       }
     } on DioException catch (error) {
       display.error("xatolik yuz  berdi");

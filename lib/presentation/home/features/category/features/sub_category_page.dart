@@ -51,7 +51,7 @@ class SubCategoryPage extends BasePage<SubCategoryCubit, SubCategoryBuildable,
             return AppCategoryWidget(
                 invoke: (CategoryResponse categoryResponse) {
                   context.router.push(AdListRoute(
-                      adListType: AdListType.popularCategoryProduct,
+                      adListType: AdListType.popularCategoryAds,
                       keyWord: categoryResponse.key_word,
                       title: categoryResponse.name,
                       sellerTin: null));

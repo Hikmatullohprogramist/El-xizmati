@@ -86,12 +86,12 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
       }
     } on DioException catch (error) {
       display.error("xatolik yuz  berdi");
+      log.e(error.toString());
     }
   }
 
   Future<void> addCart() async {
     try {
-      final resultId =
           await cartRepository.addCart(buildable.adDetail!.toMap());
       build((buildable) => buildable.copyWith(isAddCart: true));
       display.success("mahsulot savatchaga qo'shildi");
@@ -103,7 +103,8 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
 
   Future<void> getSimilarAds() async {
     try {
-      final similarAds = await _adRepository.getSimilarAds(buildable.adId ?? 0);
+      final similarAds = await _adRepository.getSimilarAds(
+          adId: buildable.adId ?? 0, pageIndex: 1, pageSize: 10);
       build((buildable) => buildable.copyWith(
           similarAds: similarAds, similarAdsState: AppLoadingState.success));
     } on DioException catch (e, stackTrace) {

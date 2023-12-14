@@ -10,6 +10,7 @@ import '../../../../domain/models/ad.dart';
 import '../../../../domain/repositories/ad_repository.dart';
 import '../../../../domain/repositories/common_repository.dart';
 import '../../../../domain/repositories/favorite_repository.dart';
+import '../../ad_collection/cubit/ad_collection_cubit.dart';
 
 part 'ad_list_cubit.freezed.dart';
 part 'ad_list_state.dart';
@@ -19,14 +20,15 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
   AdListCubit(this.adRepository, this.commonRepository, this.favoriteRepository)
       : super(AdListBuildable());
 
-  void setInitiallyDate(
-      String? keyWord, AdListType adListType, int? sellerTin, int? adId) {
+  void setInitiallyDate(String? keyWord, AdListType adListType, int? sellerTin,
+      int? adId, CollectiveType? collectiveType) {
     build((buildable) => buildable.copyWith(
         adsPagingController: null,
         keyWord: keyWord ?? "",
         sellerTin: sellerTin,
         adListType: adListType,
-        adId: adId));
+        adId: adId,
+        collectiveType: collectiveType));
     getController();
   }
 
@@ -60,21 +62,42 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
       (pageKey) async {
         List<Ad> adsList;
         switch (buildable.adListType) {
-          case AdListType.list:
+          case AdListType.homeList:
             adsList = await adRepository.getHomeAds(
                 pageKey, _pageSize, buildable.keyWord);
-          case AdListType.seller:
-            adsList =
-                await adRepository.getSellerAds(buildable.sellerTin ?? -1);
-          case AdListType.similar:
-            adsList = await adRepository.getSimilarAds(buildable.adId ?? 0);
-          case AdListType.popularCategoryProduct:
+          case AdListType.homePopularAds:
+            adsList = await adRepository.getHomePopularAds(pageKey, _pageSize);
+          case AdListType.sellerProductAds:
+            adsList = await adRepository.getSellerAds(
+                sellerTin: buildable.sellerTin ?? -1,
+                pageIndex: pageKey,
+                pageSize: 20);
+          case AdListType.similarAds:
+            adsList = await adRepository.getSimilarAds(
+                adId: buildable.adId ?? 0, pageIndex: pageKey, pageSize: 20);
+          case AdListType.popularCategoryAds:
             adsList = await adRepository.getHomeAds(
                 pageKey, _pageSize, buildable.keyWord);
+          case AdListType.collectionCheapAds:
+            adsList = await adRepository.getCollectiveCheapAds(
+                collectiveType:
+                    buildable.collectiveType ?? CollectiveType.product,
+                pageIndex: pageKey,
+                pageSize: 20);
+          case AdListType.collectionPopularAds:
+            adsList = await adRepository.getCollectivePopularAds(
+                collectiveType:
+                    buildable.collectiveType ?? CollectiveType.product,
+                pageIndex: pageKey,
+                pageSize: 20);
         }
-        if (buildable.adListType == AdListType.similar ||
-            buildable.adListType == AdListType.popularCategoryProduct ||
-            buildable.adListType == AdListType.seller) {
+
+        if (buildable.adListType == AdListType.homePopularAds ||
+            buildable.adListType == AdListType.collectionCheapAds ||
+            buildable.adListType == AdListType.collectionPopularAds ||
+            buildable.adListType == AdListType.popularCategoryAds ||
+            buildable.adListType == AdListType.sellerProductAds ||
+            buildable.adListType == AdListType.similarAds) {
           adController.appendLastPage(adsList);
           log.i(buildable.adsPagingController);
           return;

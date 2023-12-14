@@ -68,7 +68,7 @@ class DashboardPage
                         categories: state.popularCategories,
                         invoke: (popularCategories) {
                           context.router.push(AdListRoute(
-                              adListType: AdListType.popularCategoryProduct,
+                              adListType: AdListType.homeList,
                               keyWord: popularCategories.key_word,
                               title: popularCategories.name,
                               sellerTin: null));
@@ -78,7 +78,7 @@ class DashboardPage
                   AppAllViewWidget(
                       listener: () {
                         context.router.push(AdListRoute(
-                            adListType: AdListType.list,
+                            adListType: AdListType.homePopularAds,
                             keyWord: '',
                             title: Strings.popularProductTitle,
                             sellerTin: null));
@@ -87,18 +87,18 @@ class DashboardPage
                   LoaderStateWidget(
                       isFullScreen: false,
                       onErrorToAgainRequest: (){
-                        context.read<DashboardCubit>().getRecentlyViewAds();
+                        context.read<DashboardCubit>().getPopularAds();
                       },
-                      loadingState: state.recentlyAdsState,
+                      loadingState: state.popularAdsState,
                       child: AdGroupWidget(
-                        ads: state.recentlyViewerAds,
+                        ads: state.popularAds,
                         invoke: (Ad result) {
                           context.router.push(AdDetailRoute(adId: result.id));
                         },
                         invokeFavorite: (Ad result) {
                           context
                               .read<DashboardCubit>()
-                              .recentlyAdsAddFavorite(result);
+                              .popularAdsAddFavorite(result);
                         },
                       )),
                   // LoaderStateWidget(

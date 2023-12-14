@@ -81,11 +81,12 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                     AppAllViewWidget(
                         listener: () {
                           context.router.push(AdListRoute(
-                              adListType: AdListType.list,
+                              collectiveType: state.collectiveType,
+                              adListType: AdListType.collectionCheapAds,
                               keyWord: '',
-                              title: Strings.recentlyViewedTitle));
+                              title: "eng arzonlari"));
                         },
-                        title: Strings.recentlyViewedTitle),
+                        title: "eng arzonlari"),
                     LoaderStateWidget(
                         isFullScreen: false,
                         loadingState: state.cheapAdsState,
@@ -103,7 +104,8 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                       AppAllViewWidget(
                           listener: () {
                           context.router.push(AdListRoute(
-                              adListType: AdListType.list,
+                              collectiveType: state.collectiveType,
+                              adListType: AdListType.collectionPopularAds,
                               keyWord: '',
                               title: Strings.adCollectivePopular));
                         },

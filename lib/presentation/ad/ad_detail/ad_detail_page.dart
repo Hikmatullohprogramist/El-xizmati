@@ -302,7 +302,7 @@ class AdDetailPage
                                 IconButton(
                                     onPressed: () {
                                       context.router.push(AdListRoute(
-                                          adListType: AdListType.seller,
+                                          adListType: AdListType.sellerProductAds,
                                           keyWord: "",
                                           title: state.adDetail?.sellerFullName,
                                           sellerTin:
@@ -314,7 +314,7 @@ class AdDetailPage
                             ),
                             onTap: () {
                               context.router.push(AdListRoute(
-                                  adListType: AdListType.seller,
+                                  adListType: AdListType.sellerProductAds,
                                   keyWord: "",
                                   title: state.adDetail?.sellerFullName,
                                   sellerTin: state.adDetail?.sellerTin));
@@ -480,7 +480,7 @@ class AdDetailPage
                   AppAllViewWidget(
                       listener: () {
                         context.router.push(AdListRoute(
-                            adListType: AdListType.similar,
+                            adListType: AdListType.similarAds,
                             keyWord: null,
                             title: Strings.similarProductTitle,
                             adId: state.adId));

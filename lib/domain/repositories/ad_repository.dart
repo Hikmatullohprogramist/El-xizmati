@@ -7,22 +7,44 @@ import '../models/ad_detail.dart';
 abstract class AdRepository {
   Future<List<Ad>> getHomeAds(int pageIndex, int pageSize, String keyWord);
 
-  Future<List<Ad>> getRecentlyViewAds();
+  Future<List<Ad>> getHomePopularAds(int pageIndex, int pageSize);
 
-  Future<List<Ad>> getCollectivePopularAds(CollectiveType collectiveType);
+  Future<List<Ad>> getCollectivePopularAds({
+    required CollectiveType collectiveType,
+    required int pageIndex,
+    required int pageSize,
+  });
 
-  Future<AdDetail?> getAdDetail(int adId);
+  Future<List<Ad>> getCollectiveCheapAds({
+    required CollectiveType collectiveType,
+    required int pageIndex,
+    required int pageSize,
+  });
 
-  Future<List<Ad>> getCollectiveCheapAds(CollectiveType collectiveType);
+  Future<List<Ad>> getCollectiveAds(
+      {required CollectiveType collectiveType,
+      required int pageIndex,
+      required int pageSize});
 
-  Future<List<Ad>> getCollectiveAds(int pageIndex, int pageSize, String keyWord,
-      CollectiveType collectiveType);
+  Future<List<Ad>> getSellerAds({
+    required int sellerTin,
+    required int pageIndex,
+    required int pageSize,
+  });
 
-  Future<List<Ad>> getHotDiscountAds(CollectiveType collectiveType);
+  Future<List<Ad>> getSimilarAds({
+    required int adId,
+    required int pageIndex,
+    required int pageSize,
+  });
+
+  Future<List<Ad>> getHotDiscountAds(
+    CollectiveType collectiveType,
+    int pageIndex,
+    int pageSize,
+  );
 
   Future<List<AdSearchResponse>> getSearch(String query);
 
-  Future<List<Ad>> getSellerAds(int sellerTin);
-
-  Future<List<Ad>> getSimilarAds(int adId);
+  Future<AdDetail?> getAdDetail(int adId);
 }

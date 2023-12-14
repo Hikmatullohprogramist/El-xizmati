@@ -6,6 +6,7 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/app_bar/common_app_bar.dart';
+import 'package:onlinebozor/presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
 import 'package:onlinebozor/presentation/ad/ad_list/cubit/ad_list_cubit.dart';
 
 import '../../../common/core/base_page.dart';
@@ -19,19 +20,20 @@ import '../../../domain/util.dart';
 class AdListPage
     extends BasePage<AdListCubit, AdListBuildable, AdListListenable> {
   const AdListPage(this.adListType, this.keyWord, this.title,
-      {super.key, this.sellerTin, this.adId});
+      {super.key, this.sellerTin, this.adId, this.collectiveType});
 
   final AdListType adListType;
   final String? keyWord;
   final String? title;
   final int? sellerTin;
   final int? adId;
+  final CollectiveType? collectiveType;
 
   @override
   void init(BuildContext context) {
     context
         .read<AdListCubit>()
-        .setInitiallyDate(keyWord, adListType, sellerTin, adId);
+        .setInitiallyDate(keyWord, adListType, sellerTin, adId, collectiveType);
   }
 
   @override
@@ -93,11 +95,8 @@ class AdListPage
             return SizedBox(
               height: 160,
               width: double.infinity,
-              child: Center(
-                child: CircularProgressIndicator(
-                  color: Colors.blue,
-                ),
-              ),
+              child:
+                  Center(child: CircularProgressIndicator(color: Colors.blue)),
             );
           },
           noItemsFoundIndicatorBuilder: (_) {
@@ -110,22 +109,15 @@ class AdListPage
             return SizedBox(
               height: 160,
               width: double.infinity,
-              child: Center(
-                child: CircularProgressIndicator(
-                  color: Colors.blue,
-                ),
-              ),
+              child:
+                  Center(child: CircularProgressIndicator(color: Colors.blue)),
             );
           },
           newPageErrorIndicatorBuilder: (_) {
             return SizedBox(
-              height: 160,
-              child: Center(
-                child: CircularProgressIndicator(
-                  color: Colors.blue,
-                ),
-              ),
-            );
+                height: 160,
+                child: Center(
+                    child: CircularProgressIndicator(color: Colors.blue)));
           },
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) => AppAdWidget(

@@ -40,12 +40,12 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
 
   Future<void> getCollectiveCheapAds() async {
     try {
-      final cheapAds =
-      await adRepository.getCollectiveCheapAds(buildable.collectiveType);
-      build((buildable) =>
-          buildable.copyWith(
-              cheapAds: cheapAds,
-              cheapAdsState: AppLoadingState.success));
+      final cheapAds = await adRepository.getCollectiveCheapAds(
+          collectiveType: buildable.collectiveType,
+          pageIndex: 1,
+          pageSize: 10);
+      build((buildable) => buildable.copyWith(
+          cheapAds: cheapAds, cheapAdsState: AppLoadingState.success));
     } on DioException catch (e, stackTrace) {
       build((buildable) =>
           buildable.copyWith(cheapAdsState: AppLoadingState.error));
@@ -56,12 +56,10 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
 
   Future<void> getCollectivePopularAds() async {
     try {
-      final popularAds =
-      await adRepository.getCollectivePopularAds(buildable.collectiveType);
-      build((buildable) =>
-          buildable.copyWith(
-              popularAds: popularAds,
-              popularAdsState: AppLoadingState.success));
+      final popularAds = await adRepository.getCollectivePopularAds(
+          collectiveType: buildable.collectiveType, pageIndex: 1, pageSize: 10);
+      build((buildable) => buildable.copyWith(
+          popularAds: popularAds, popularAdsState: AppLoadingState.success));
     } on DioException catch (e, stackTrace) {
       build((buildable) =>
           buildable.copyWith(popularAdsState: AppLoadingState.error));
@@ -93,7 +91,10 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
 
     adController.addPageRequestListener(
           (pageKey) async {
-        final adsList = await adRepository.getCollectiveAds(pageKey, _pageSize, "", buildable.collectiveType);
+        final adsList = await adRepository.getCollectiveAds(
+            collectiveType: buildable.collectiveType,
+            pageIndex: pageKey,
+            pageSize: _pageSize);
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);
           log.i(buildable.adsPagingController);
