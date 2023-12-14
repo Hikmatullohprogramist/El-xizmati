@@ -148,7 +148,8 @@ class AdRepositoryImpl extends AdRepository {
     required int pageSize,
   }) async {
     final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
-    final response = await _adsService.getSellerAds(sellerTin);
+    final response = await _adsService.getSellerAds(
+        sellerTin: sellerTin, pageIndex: pageIndex, pageSize: pageSize);
     final adsResponse = AdRootResponse.fromJson(response.data).data.results;
     final ads = adsResponse
         .map((ad) => ad.toMap(

@@ -72,8 +72,11 @@ class CartService {
   }
 
   Future<Response> removeOrder({required int tin}) {
+    final headers = {
+      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
+    };
     final queryParameters = {RestQueryKeys.queryTin: tin};
     return _dio.delete("v1/buyer/products_seller",
-        queryParameters: queryParameters);
+        queryParameters: queryParameters, options: Options(headers: headers));
   }
 }

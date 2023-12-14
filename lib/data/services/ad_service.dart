@@ -95,10 +95,15 @@ class AdsService {
     return _dio.get('v1/search', queryParameters: queryParameters);
   }
 
-  Future<Response> getSellerAds(int sellerTin) {
+  Future<Response> getSellerAds({
+    required int sellerTin,
+    required int pageIndex,
+    required int pageSize,
+  }) {
     final queryParameters = {
       RestQueryKeys.queryTin: sellerTin,
-      RestQueryKeys.queryPageSize: 150
+      RestQueryKeys.queryPageIndex: pageIndex,
+      RestQueryKeys.queryPageSize: pageSize
     };
     return _dio.get(
       'v1/seller/ads',
