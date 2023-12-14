@@ -133,7 +133,7 @@ class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
                               alignment: Alignment.topRight,
                               isLabelVisible: cartNumber > 0,
                               label: cartNumber.toString().w(500),
-                              child: Assets.images.bottomBar.cart.svg(),
+                              child: Assets.images.bottomBar.cartActive.svg(),
                             );
                           },
                         ),
