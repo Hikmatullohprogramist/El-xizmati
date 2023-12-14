@@ -39,7 +39,7 @@ class ProfileViewerCubit
               "${response.passport_serial ?? ""} ${response.passport_number ?? ""}",
           brithDate: response.birth_date ?? "*",
           districtName: (response.district_id ?? "*").toString(),
-          isRegistration: false,
+          isRegistration: response.is_registered ?? false,
           regionId: response.region_id,
           districtId: response.district_id,
           gender: response.gender ?? "*",
