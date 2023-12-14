@@ -31,7 +31,7 @@ class ProfileViewerCubit
       build((buildable) => buildable.copyWith(isLoading: true));
       final response = await _userRepository.getFullUserInfo();
       build((buildable) => buildable.copyWith(
-          userName: (response.full_name ?? "*").toString().substring(0, 40),
+          userName: (response.full_name ?? "*"),
           fullName: response.full_name ?? "*",
           phoneNumber: response.mobile_phone ?? "*",
           email: response.email ?? "*",
@@ -87,7 +87,6 @@ class ProfileViewerCubit
               .name,
           isLoading: false));
     } catch (e) {
-      // display.error("street error ${e}");
       build((buildable) => buildable.copyWith(isLoading: false));
     }
   }
