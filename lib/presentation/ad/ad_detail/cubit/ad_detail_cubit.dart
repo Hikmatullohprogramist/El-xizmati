@@ -6,6 +6,7 @@ import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 import 'package:onlinebozor/domain/util.dart';
 
 import '../../../../common/core/base_cubit.dart';
+import '../../../../data/storages/token_storage.dart';
 import '../../../../domain/models/ad.dart';
 import '../../../../domain/models/ad_detail.dart';
 import '../../../../domain/repositories/ad_repository.dart';
@@ -18,13 +19,14 @@ part 'ad_detail_state.dart';
 @injectable
 class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
   AdDetailCubit(this._adRepository, this.favoriteRepository,
-      this.cartRepository, this.adRepository)
+      this.cartRepository, this.adRepository, this.tokenStorage)
       : super(AdDetailBuildable());
 
   final AdRepository _adRepository;
   final FavoriteRepository favoriteRepository;
   final CartRepository cartRepository;
   final AdRepository adRepository;
+  final TokenStorage tokenStorage;
 
   void setAdId(int adId) {
     build((buildable) => buildable.copyWith(adId: adId));
@@ -122,7 +124,9 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
 
   Future<void> setViewAd(ViewType type) async {
     try {
-      await adRepository.setViewAd(type: type, adId: buildable.adId ?? 0);
+      if (tokenStorage.isLogin.call() ?? false) {
+        await adRepository.setViewAd(type: type, adId: buildable.adId ?? 0);
+      }
     } catch (error) {
       log.e(error.toString());
     }

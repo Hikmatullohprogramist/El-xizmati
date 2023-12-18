@@ -4,7 +4,6 @@ import 'package:injectable/injectable.dart';
 import '../../../../../../../common/core/base_cubit.dart';
 
 part 'user_ads_cubit.freezed.dart';
-
 part 'user_ads_state.dart';
 
 @injectable

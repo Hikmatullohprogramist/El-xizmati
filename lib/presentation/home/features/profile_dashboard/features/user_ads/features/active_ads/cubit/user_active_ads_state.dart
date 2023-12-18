@@ -2,7 +2,11 @@ part of 'user_active_ads_cubit.dart';
 
 @freezed
 class UserActiveAdsBuildable with _$UserActiveAdsBuildable {
-  const factory UserActiveAdsBuildable() = _UserActiveAdsBuildable;
+  const factory UserActiveAdsBuildable({
+    @Default("") String keyWord,
+    @Default(AppLoadingState.loading) AppLoadingState userAdsState,
+    PagingController<int, UserAdResponse>? userAdsPagingController,
+  }) = _UserActiveAdsBuildable;
 }
 
 @freezed

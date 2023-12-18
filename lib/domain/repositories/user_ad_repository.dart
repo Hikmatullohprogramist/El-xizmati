@@ -1,3 +1,5 @@
+import 'package:onlinebozor/data/responses/user_ad/user_ad_response.dart';
+
 abstract class UserAdRepository {
-  Future<void> getUserAds(int pageSiz, int pageIndex);
+  Future<List<UserAdResponse>> getUserAds(int pageSiz, int pageIndex);
 }
