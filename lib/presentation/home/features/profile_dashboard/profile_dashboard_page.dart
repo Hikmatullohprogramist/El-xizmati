@@ -125,7 +125,7 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
                   visible: state.isLogin,
                   child: Divider(indent: 46, height: 1)),
               Visibility(
-                  visible: state.isLogin,
+                  visible: false,
                   child: ProfileItemWidget(
                     name: Strings.profileDashboardSetting,
                     icon: Assets.images.profile.icSetting
