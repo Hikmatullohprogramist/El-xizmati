@@ -130,14 +130,13 @@ class FavoriteRepositoryImp extends FavoriteRepository {
 
   @override
   Future<void> pushAllFavoriteAds() async {
+    final log = Logger();
     try {
-      final log = Logger();
       final allItem = favoriteStorage.allItems.map((e) => e.toMap()).toList();
       log.e(allItem.toString());
       await _favoriteService.sendAllFavoriteAds(allItem);
       await syncStorage.isFavoriteSync.set(true);
     } catch (e) {
-      rethrow;
-    }
+      log.e(e.toString());}
   }
 }

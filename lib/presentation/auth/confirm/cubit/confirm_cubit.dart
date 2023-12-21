@@ -5,6 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/domain/repositories/favorite_repository.dart';
 import 'package:onlinebozor/presentation/auth/confirm/confirm_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -15,9 +16,11 @@ part 'confirm_state.dart';
 
 @injectable
 class ConfirmCubit extends BaseCubit<ConfirmBuildable, ConfirmListenable> {
-  ConfirmCubit(this._repository) : super(ConfirmBuildable());
+  ConfirmCubit(this._repository, this._favoriteRepository)
+      : super(ConfirmBuildable());
 
   final AuthRepository _repository;
+  final FavoriteRepository _favoriteRepository;
   Timer? _timer;
 
   void startTimer() {
@@ -69,6 +72,7 @@ class ConfirmCubit extends BaseCubit<ConfirmBuildable, ConfirmListenable> {
       await _repository.confirm(
           buildable.phone.clearSpaceInPhone(), buildable.code);
       _timer?.cancel();
+      sendAllFavoriteAds();
       invoke(ConfirmListenable(ConfirmEffect.setPassword));
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
@@ -84,6 +88,7 @@ class ConfirmCubit extends BaseCubit<ConfirmBuildable, ConfirmListenable> {
       await _repository.recoveryConfirm(
           buildable.phone.clearSpaceInPhone(), buildable.code);
       _timer?.cancel();
+      await sendAllFavoriteAds();
       invoke(ConfirmListenable(ConfirmEffect.setPassword));
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
@@ -91,6 +96,15 @@ class ConfirmCubit extends BaseCubit<ConfirmBuildable, ConfirmListenable> {
       display.error(e.toString());
     } finally {
       build((buildable) => buildable.copyWith(loading: false));
+    }
+  }
+
+  Future<void> sendAllFavoriteAds() async {
+    try {
+      await _favoriteRepository.pushAllFavoriteAds();
+    } catch (error) {
+      display.error("Xatolik yuz berdi");
+      invoke(ConfirmListenable(ConfirmEffect.setPassword));
     }
   }
 }

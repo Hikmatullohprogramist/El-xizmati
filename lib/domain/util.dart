@@ -33,13 +33,15 @@ enum UserAdStatus {
 }
 
 enum UserOrderStatus {
+  accept,
   all,
   active,
   wait,
   inactive,
   rejected,
   canceled,
-  sysCanceled
+  sysCanceled,
+  review
 }
 
 enum OrderType { buy, sell }

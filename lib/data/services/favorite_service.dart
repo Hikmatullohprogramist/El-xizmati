@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
@@ -53,33 +55,17 @@ class FavoriteService {
     final log = Logger();
     log.w(ads.toString());
 
+   final adsRequest= ads.map((element) {
+      return {
+        RestQueryKeys.queryProductType: "ADS",
+        RestQueryKeys.queryProductId: element.id,
+        RestQueryKeys.queryNum: 1,
+        RestQueryKeys.queryType: "SELECTED"
+      };
+    });
+
     final data = {
-      RestQueryKeys.queryProducts: [
-        {
-          RestQueryKeys.queryProductType: "ADS",
-          RestQueryKeys.queryProductId: 372,
-          RestQueryKeys.queryNum: 1,
-          RestQueryKeys.queryType: "SELECTED"
-        },
-        {
-          RestQueryKeys.queryProductType: "ADS",
-          RestQueryKeys.queryProductId: 361,
-          RestQueryKeys.queryNum: 1,
-          RestQueryKeys.queryType: "SELECTED"
-        },
-        {
-          RestQueryKeys.queryProductType: "ADS",
-          RestQueryKeys.queryProductId: 871,
-          RestQueryKeys.queryNum: 1,
-          RestQueryKeys.queryType: "SELECTED"
-        },
-        {
-          RestQueryKeys.queryProductType: "ADS",
-          RestQueryKeys.queryProductId: 316,
-          RestQueryKeys.queryNum: 1,
-          RestQueryKeys.queryType: "SELECTED"
-        },
-      ]
+      RestQueryKeys.queryProducts: jsonEncode(adsRequest)
     };
     final headers = {
       RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"

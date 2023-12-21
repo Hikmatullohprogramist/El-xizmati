@@ -5,7 +5,7 @@ class UserCancelOrderBuildable with _$UserCancelOrderBuildable {
   const factory UserCancelOrderBuildable(
       {@Default("") String keyWord,
       @Default(AppLoadingState.loading) AppLoadingState userOrderState,
-      PagingController<int, UserOrderProductResponse>?
+      PagingController<int, UserOrderResponse>?
           userOrderPagingController,
       @Default(OrderType.buy) OrderType orderType}) = _UserCancelOrderBuildable;
 }

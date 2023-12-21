@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/domain/repositories/auth_repository.dart';
-import '../../domain/repositories/favorite_repository.dart';
+
 import '../hive_objects/user/user_info_object.dart';
 import '../responses/auth/auth_start/auth_start_response.dart';
 import '../responses/auth/confirm/confirm_response.dart';
@@ -17,10 +17,9 @@ class AuthRepositoryImpl extends AuthRepository {
   final LanguageStorage languageStorage;
   final UserInfoStorage userInfoStorage;
   String sessionToken = "";
-  final FavoriteRepository favoriteRepository;
 
   AuthRepositoryImpl(this._authService, this.tokenStorage, this.languageStorage,
-      this.favoriteRepository, this.userInfoStorage);
+      this.userInfoStorage);
 
   @override
   Future<AuthStartResponse> authStart(String phone) async {
@@ -66,7 +65,7 @@ class AuthRepositoryImpl extends AuthRepository {
           postName: user?.username,
           registeredWithEimzo: user?.registeredWithEimzo,
           state: user?.state));
-      await favoriteRepository.pushAllFavoriteAds();
+      // await favoriteRepository.pushAllFavoriteAds();
     }
     return;
   }
@@ -104,7 +103,6 @@ class AuthRepositoryImpl extends AuthRepository {
           postName: user?.username,
           registeredWithEimzo: user?.registeredWithEimzo,
           state: user?.state));
-      await favoriteRepository.pushAllFavoriteAds();
       return;
     }
   }
@@ -158,7 +156,6 @@ class AuthRepositoryImpl extends AuthRepository {
           postName: user?.username,
           registeredWithEimzo: user?.registeredWithEimzo,
           state: user?.state));
-      await favoriteRepository.pushAllFavoriteAds();
       return;
     }
     return;
@@ -202,7 +199,6 @@ class AuthRepositoryImpl extends AuthRepository {
             postName: user?.username,
             registeredWithEimzo: user?.registeredWithEimzo,
             state: user?.state));
-        await favoriteRepository.pushAllFavoriteAds();
       }
       return;
     }

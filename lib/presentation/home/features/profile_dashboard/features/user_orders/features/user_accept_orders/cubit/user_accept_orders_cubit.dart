@@ -51,7 +51,7 @@ class UserAcceptOrdersCubit
       (pageKey) async {
         final orderList = await userOrderRepository.getUserOrders(
             pageSiz: 20,
-            userOrderStatus: UserOrderStatus.all,
+            userOrderStatus: UserOrderStatus.accept,
             pageIndex: pageKey,
             orderType: buildable.orderType);
         if (orderList.length <= 19) {

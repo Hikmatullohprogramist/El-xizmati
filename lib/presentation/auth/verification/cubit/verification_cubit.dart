@@ -6,6 +6,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../domain/repositories/auth_repository.dart';
+import '../../../../domain/repositories/favorite_repository.dart';
 
 part 'verification_cubit.freezed.dart';
 part 'verification_state.dart';
@@ -13,17 +14,20 @@ part 'verification_state.dart';
 @injectable
 class VerificationCubit
     extends BaseCubit<VerificationBuildable, VerificationListenable> {
-  VerificationCubit(this._repository) : super(const VerificationBuildable());
+  VerificationCubit(this._repository, this._favoriteRepository)
+      : super(const VerificationBuildable());
 
   final AuthRepository _repository;
+  final FavoriteRepository _favoriteRepository;
 
   void setPhone(String phone) {
     build((buildable) => buildable.copyWith(phone: phone, password: ""));
   }
 
   void setPassword(String password) {
-    build((buildable) =>
-        buildable.copyWith(password: password, ));
+    build((buildable) => buildable.copyWith(
+          password: password,
+        ));
   }
 
   launchURLApp() async {
@@ -40,6 +44,7 @@ class VerificationCubit
     try {
       await _repository.verification(
           buildable.phone.clearSpaceInPhone(), buildable.password);
+      sendAllFavoriteAds();
       invoke(VerificationListenable(VerificationEffect.navigationHome));
     } on DioException catch (e, stackTrace) {
       log.w("${e.toString()} ${stackTrace.toString()}");
@@ -63,6 +68,15 @@ class VerificationCubit
     } on DioException catch (e, stackTrace) {
       display.error(
           "xatolik yuz berdi qayta urinib ko'ring", "Xatolik  yuz berdi");
+    }
+  }
+
+  Future<void> sendAllFavoriteAds() async {
+    try {
+      await _favoriteRepository.pushAllFavoriteAds();
+    } catch (error) {
+      display.error("Xatolik yuz berdi");
+      invoke(VerificationListenable(VerificationEffect.navigationHome));
     }
   }
 }

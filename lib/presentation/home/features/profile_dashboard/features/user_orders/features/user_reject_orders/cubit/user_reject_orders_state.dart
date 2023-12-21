@@ -5,7 +5,7 @@ class UserRejectOrdersBuildable with _$UserRejectOrdersBuildable {
   const factory UserRejectOrdersBuildable(
           {@Default("") String keyWord,
           @Default(AppLoadingState.loading) AppLoadingState userOrderState,
-          PagingController<int, UserOrderProductResponse>?
+          PagingController<int, UserOrderResponse>?
               userOrderPagingController,
           @Default(OrderType.buy) OrderType orderType}) =
       _UserRejectOrdersBuildable;

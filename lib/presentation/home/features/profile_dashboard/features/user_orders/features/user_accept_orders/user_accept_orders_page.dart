@@ -5,6 +5,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/widgets/order/user_order.dart';
 import 'package:onlinebozor/data/responses/user_order/user_order_response.dart';
 import 'package:onlinebozor/presentation/home/features/profile_dashboard/features/user_orders/features/user_accept_orders/cubit/user_accept_orders_cubit.dart';
 
@@ -97,9 +98,7 @@ class UserAcceptOrdersPage extends BasePage<UserAcceptOrdersCubit,
             },
             transitionDuration: Duration(milliseconds: 100),
             itemBuilder: (context, item, index) {
-              return SizedBox(
-                child: "kitib ".w(500).s(16),
-              );
+              return UserOrderWidget(listenerAddressEdit: (){}, listener: (){}, response: item);
             }),
       ),
     );

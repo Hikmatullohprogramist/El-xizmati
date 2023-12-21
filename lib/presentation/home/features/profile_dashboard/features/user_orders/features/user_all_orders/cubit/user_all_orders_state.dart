@@ -5,7 +5,7 @@ class UserAllOrdersBuildable with _$UserAllOrdersBuildable {
   const factory UserAllOrdersBuildable(
       {@Default("") String keyWord,
       @Default(AppLoadingState.loading) AppLoadingState userOrderState,
-      PagingController<int, UserOrderProductResponse>?
+      PagingController<int, UserOrderResponse>?
           userOrderPagingController,
       @Default(OrderType.buy) OrderType orderType}) = _UserAllOrdersBuildable;
 }

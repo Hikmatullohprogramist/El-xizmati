@@ -5,7 +5,7 @@ class UserPendingOrdersBuildable with _$UserPendingOrdersBuildable {
   const factory UserPendingOrdersBuildable(
           {@Default("") String keyWord,
           @Default(AppLoadingState.loading) AppLoadingState userOrderState,
-          PagingController<int, UserOrderProductResponse>?
+          PagingController<int, UserOrderResponse>?
               userOrderPagingController,
           @Default(OrderType.buy) OrderType orderType}) =
       _UserPendingOrdersBuildable;

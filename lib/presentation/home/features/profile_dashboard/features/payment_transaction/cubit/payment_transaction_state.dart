@@ -2,7 +2,10 @@ part of 'payment_transaction_cubit.dart';
 
 @freezed
 class PaymentTransactionBuildable with _$PaymentTransactionBuildable {
-  const factory PaymentTransactionBuildable() = _PaymentTransactionBuildable;
+  const factory PaymentTransactionBuildable({
+    @Default(AppLoadingState.loading) AppLoadingState transactionState,
+    PagingController<int, dynamic>? transactionPagingController,
+  }) = _PaymentTransactionBuildable;
 }
 
 @freezed
