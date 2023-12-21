@@ -41,7 +41,7 @@ class UserAdWidget extends StatelessWidget {
                       ),
                       child: CachedNetworkImage(
                         imageUrl:
-                            "${Constants.baseUrlForImage}${response.mainPhoto ?? ""}",
+                            "${Constants.baseUrlForImage}${response.main_photo ?? ""}",
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(6),
@@ -82,20 +82,23 @@ class UserAdWidget extends StatelessWidget {
                       SizedBox(height: 27),
                       Row(
                         children: [
-                          "Остаток:".w(400).s(12).c(Color(0xFF9EABBE)),
+                          "Miqdori:".w(400).s(12).c(Color(0xFF9EABBE)),
                           SizedBox(width: 2),
-                          "2".w(500).s(12).c(Color(0xFF41455E)),
-                          Spacer(),
-                          AppPriceWidget(
-                              price: response.price ?? 0,
-                              toPrice: response.toPrice ?? 0,
-                              fromPrice: response.fromPrice ?? 0,
-                              currency: response.currency.toCurrency())
+                          "1".w(500).s(12).c(Color(0xFF41455E)),
+                          Flexible(
+                              child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: AppPriceWidget(
+                                      price: response.price ?? 0,
+                                      toPrice: response.to_price ?? 0,
+                                      fromPrice: response.from_price ?? 0,
+                                      currency:
+                                          response.currency.toCurrency())))
                           // "473 769 560 сум".w(700).s(12).c(Color(0xFF5C6AC3))
                         ],
                       ),
                       SizedBox(height: 8),
-                      "Транспорт - Легковые автомобили"
+                          (response.name ?? "*")
                           .w(400)
                           .s(12)
                           .c(Color(0xFF9EABBE))
@@ -115,13 +118,20 @@ class UserAdWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(6),
                       border: Border.all(width: 1, color: Color(0xFFDADDE5)),
                     ),
-                    child:
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      Assets.images.icEye.svg(
-                          height: 12, width: 12, color: context.colors.iconGrey),
-                      SizedBox(width: 8),
-                      "136".w(600).s(10).c(Color(0xFF41455E))
-                    ]),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Assets.images.icEye.svg(
+                              height: 12,
+                              width: 12,
+                              color: context.colors.iconGrey),
+                          SizedBox(width: 8),
+                          (response.view ?? 0)
+                              .toString()
+                              .w(600)
+                              .s(10)
+                              .c(Color(0xFF41455E))
+                        ]),
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
@@ -129,13 +139,20 @@ class UserAdWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(6),
                       border: Border.all(width: 1, color: Color(0xFFDADDE5)),
                     ),
-                    child:
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      Assets.images.icLiked.svg(
-                          height: 12, width: 12, color: context.colors.iconGrey),
-                      SizedBox(width: 8),
-                      "136".w(600).s(10).c(Color(0xFF41455E))
-                    ]),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Assets.images.icLiked.svg(
+                              height: 12,
+                              width: 12,
+                              color: context.colors.iconGrey),
+                          SizedBox(width: 8),
+                          (response.selected ?? 0)
+                              .toString()
+                              .w(600)
+                              .s(10)
+                              .c(Color(0xFF41455E))
+                        ]),
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
@@ -143,13 +160,20 @@ class UserAdWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(6),
                       border: Border.all(width: 1, color: Color(0xFFDADDE5)),
                     ),
-                    child:
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      Assets.images.icCall.svg(
-                          height: 12, width: 12, color: context.colors.iconGrey),
-                      SizedBox(width: 8),
-                      "136".w(600).s(10).c(Color(0xFF41455E))
-                    ]),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Assets.images.icCall.svg(
+                              height: 12,
+                              width: 12,
+                              color: context.colors.iconGrey),
+                          SizedBox(width: 8),
+                          (response.phone_view ?? 0)
+                              .toString()
+                              .w(600)
+                              .s(10)
+                              .c(Color(0xFF41455E))
+                        ]),
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
@@ -157,13 +181,20 @@ class UserAdWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(6),
                       border: Border.all(width: 1, color: Color(0xFFDADDE5)),
                     ),
-                    child:
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      Assets.images.icSms.svg(
-                          height: 12, width: 12, color: context.colors.iconGrey),
-                      SizedBox(width: 8),
-                      "136".w(600).s(10).c(Color(0xFF41455E))
-                    ]),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Assets.images.icSms.svg(
+                              height: 12,
+                              width: 12,
+                              color: context.colors.iconGrey),
+                          SizedBox(width: 8),
+                          (response.message_number ?? 0)
+                              .toString()
+                              .w(600)
+                              .s(10)
+                              .c(Color(0xFF41455E))
+                        ]),
                   )
                 ],
               )

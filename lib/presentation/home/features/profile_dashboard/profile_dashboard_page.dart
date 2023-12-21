@@ -64,7 +64,8 @@ class ProfileDashboardPage extends BasePage<ProfileDashboardCubit,
                       name: Strings.profileDashboardOrders,
                       icon: Assets.images.profile.icOrder
                           .svg(width: 18, height: 18),
-                      invoke: () => context.router.push(UserOrdersRoute()))),
+                      invoke: () =>
+                          context.router.push(UserOrderStartRoute()))),
               // Divider(indent: 46, height: 1),
               // ProfileItemWidget(
               //     name: Strings.profileDahboardMessage,

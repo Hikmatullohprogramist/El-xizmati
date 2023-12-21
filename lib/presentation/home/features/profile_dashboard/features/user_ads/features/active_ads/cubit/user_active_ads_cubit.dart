@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/domain/util.dart';
 
 import '../../../../../../../../../common/core/base_cubit.dart';
 import '../../../../../../../../../common/enum/enums.dart';
@@ -9,7 +10,6 @@ import '../../../../../../../../../data/responses/user_ad/user_ad_response.dart'
 import '../../../../../../../../../domain/repositories/user_ad_repository.dart';
 
 part 'user_active_ads_cubit.freezed.dart';
-
 part 'user_active_ads_state.dart';
 
 @Injectable()
@@ -45,7 +45,8 @@ class UserActiveAdsCubit
 
     adController.addPageRequestListener(
       (pageKey) async {
-        final adsList = await userAdRepository.getUserAds(20, pageKey);
+        final adsList = await userAdRepository.getUserAds(
+            pageSize: 20, pageIndex: pageKey, userAdType: UserAdStatus.active);
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);
           log.i(buildable.userAdsPagingController);

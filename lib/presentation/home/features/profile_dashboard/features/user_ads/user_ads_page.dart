@@ -18,9 +18,11 @@ class UserAdsPage extends BasePage<UserAdsCubit, UserAdsBuildable, UserAdsListen
     return AutoTabsRouter.tabBar(
       physics: BouncingScrollPhysics(),
       routes: const [
+        UserAllAdsRoute(),
         UserActiveAdsRoute(),
         UserPendingAdsRoute(),
-        UserInactiveAdsRoute()
+        UserInactiveAdsRoute(),
+        UserCancelAdsRoute()
       ],
       builder: (context, child, controller) {
         return Scaffold(
@@ -41,6 +43,7 @@ class UserAdsPage extends BasePage<UserAdsCubit, UserAdsBuildable, UserAdsListen
             bottomOpacity: 1,
             title: "Объявления".w(500).s(16).c(context.colors.textPrimary),
             bottom: TabBar(
+              isScrollable: true,
               physics: BouncingScrollPhysics(),
               indicator: MaterialIndicator(
                 height: 6,
@@ -56,9 +59,11 @@ class UserAdsPage extends BasePage<UserAdsCubit, UserAdsBuildable, UserAdsListen
               indicatorColor: context.colors.textPrimary,
               controller: controller,
               tabs: const [
-                Tab(text: 'Активные'),
-                Tab(text: 'Ожидающие'),
-                Tab(text: 'Нет в наличии'),
+                Tab(text: 'Barchasi'),
+                Tab(text: 'Faol'),
+                Tab(text: "Kutulmoqda"),
+                Tab(text: "Faol emas"),
+                Tab(text: "Bekor qilingan")
               ],
             ),
           ),

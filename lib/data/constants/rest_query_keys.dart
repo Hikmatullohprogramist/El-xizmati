@@ -43,7 +43,9 @@ class RestQueryKeys {
   static String queryHomeName = "home_name";
   static String queryMobilePhone = "mobile_number";
   static String queryPhoto = "photo";
-  static String queryPnifl ="pinfl";
-  static String queryPostName="post_name";
-  static String queryAdsList ="adsList";
+  static String queryPnifl = "pinfl";
+  static String queryPostName = "post_name";
+  static String queryAdsList = "adsList";
+  static String queryStatus = "status";
+  static String queryCancelNote = "cancel_note";
 }

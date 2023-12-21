@@ -4,13 +4,12 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/ad/user_ad.dart';
+import 'package:onlinebozor/common/widgets/ad/user_ad_empty_widget.dart';
 import 'package:onlinebozor/data/responses/user_ad/user_ad_response.dart';
 import 'package:onlinebozor/presentation/home/features/profile_dashboard/features/user_ads/features/active_ads/cubit/user_active_ads_cubit.dart';
 
 import '../../../../../../../../common/core/base_page.dart';
 import '../../../../../../../../common/gen/localization/strings.dart';
-import '../../../../../../../../common/router/app_router.dart';
-import '../../../../../../../../common/widgets/address/address_empty_widget.dart';
 import '../../../../../../../../common/widgets/common/common_button.dart';
 
 @RoutePage()
@@ -34,10 +33,10 @@ class UserActiveAdsPage extends BasePage<UserActiveAdsCubit,
         pagingController: state.userAdsPagingController!,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: width / height,
-            crossAxisSpacing: 16,
+            crossAxisSpacing: 8,
             mainAxisExtent: 185,
             crossAxisCount: 1,
-            mainAxisSpacing: 185),
+            mainAxisSpacing: 0),
         builderDelegate: PagedChildBuilderDelegate<UserAdResponse>(
           firstPageErrorIndicatorBuilder: (_) {
             return SizedBox(
@@ -70,9 +69,7 @@ class UserActiveAdsPage extends BasePage<UserActiveAdsCubit,
             );
           },
           noItemsFoundIndicatorBuilder: (_) {
-            return AddressEmptyWidget(callBack: () {
-              context.router.push(DashboardRoute());
-            });
+            return UserAdEmptyWidget(listener: () {});
           },
           newPageProgressIndicatorBuilder: (_) {
             return SizedBox(

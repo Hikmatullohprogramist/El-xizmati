@@ -21,3 +21,25 @@ enum AdType { product, service }
 enum Currency { eur, usd, rub, uzb }
 
 enum ViewType { view, selected, phone, message }
+
+enum UserAdStatus {
+  all,
+  active,
+  wait,
+  inactive,
+  rejected,
+  canceled,
+  sysCanceled
+}
+
+enum UserOrderStatus {
+  all,
+  active,
+  wait,
+  inactive,
+  rejected,
+  canceled,
+  sysCanceled
+}
+
+enum OrderType { buy, sell }

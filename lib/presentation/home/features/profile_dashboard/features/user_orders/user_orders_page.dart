@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/domain/util.dart';
 import 'package:onlinebozor/presentation/home/features/profile_dashboard/features/user_orders/cubit/user_orders_cubit.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
@@ -12,16 +13,21 @@ import '../../../../../../common/gen/assets/assets.gen.dart';
 @RoutePage()
 class UserOrdersPage extends BasePage<UserOrdersCubit, UserOrdersBuildable,
     UserOrdersListenable> {
-  const UserOrdersPage({super.key});
+  const UserOrdersPage(this.orderType, {super.key});
+
+  final OrderType orderType;
 
   @override
   Widget builder(BuildContext context, UserOrdersBuildable state) {
     return AutoTabsRouter.tabBar(
       physics: BouncingScrollPhysics(),
-      routes: const [
-        UserActiveOrdersRoute(),
-        UserPendingOrdersRoute(),
-        UserSavedOrdersRoute()
+      routes: [
+        UserAllOrdersRoute(orderType: orderType),
+        UserPendingOrdersRoute(orderType: orderType),
+        UserRejectOrdersRoute(orderType: orderType),
+        UserCancelOrderRoute(orderType: orderType),
+        UserReviewOrdersRoute(orderType: orderType),
+        UserAcceptOrdersRoute(orderType: orderType)
       ],
       builder: (context, child, controller) {
         return Scaffold(
@@ -42,6 +48,7 @@ class UserOrdersPage extends BasePage<UserOrdersCubit, UserOrdersBuildable,
             bottomOpacity: 1,
             title: "Мои запросы".w(500).s(16).c(context.colors.textPrimary),
             bottom: TabBar(
+              isScrollable: true,
               physics: BouncingScrollPhysics(),
               indicator: MaterialIndicator(
                 height: 6,
@@ -57,9 +64,12 @@ class UserOrdersPage extends BasePage<UserOrdersCubit, UserOrdersBuildable,
               indicatorColor: context.colors.textPrimary,
               controller: controller,
               tabs: const [
-                Tab(text: 'Активные'),
-                Tab(text: 'Ожидающие'),
-                Tab(text: 'История'),
+                Tab(text: 'Barchasi'),
+                Tab(text: 'Kutilmoqda'),
+                Tab(text: 'Rad edilgan'),
+                Tab(text: 'Bekor qilingan'),
+                Tab(text: "Ko'rib chiqilmoqda"),
+                Tab(text: 'Qabul qilingan')
               ],
             ),
           ),
