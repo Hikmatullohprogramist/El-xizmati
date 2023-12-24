@@ -197,3 +197,13 @@ card.name.title,Karta nomi,Название карты,Карта номи
 card.expiry.date.title,Kartaning amal qilish muddati,Срок действия карты,Картанинг амал қилиш муддати
 card.name.hint,Masalan: Asosiy,Например: Основная,Масалан: Асосий
 card.number.title,Karta raqami,Номер карты,Карта рақами
+user.ads.title,E'lonlar,Объявления,Эълонлар
+user.ads.all.title,Barchasi,Все,Барчаси
+user.ads.active.title,Faol,Активный,Фаол
+user.ads.pending.title,Kutulmoqda,Ожидающий,Кутулмоқда
+user.ads.inactive.title,Faol emas,Не активен,Фаол эмас
+user.ads.canceled.title,Bekor qilingan ,Отменено,Бекор қилинган
+ad.create.product.title,Mahsulot,Продукт,Маҳсулот
+ad.create.service.title,Xizmat,Услуга,Хизмат
+ad.create.free.title,Bepul,Бесплатно,Бепул
+ad.create.exchange.title,Almashish ,обмен,Алмашиш

@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/presentation/home/features/profile_dashboard/features/user_ads/cubit/user_ads_cubit.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
+import '../../../../../../common/widgets/common/common_button.dart';
 
 @RoutePage()
 class UserAdsPage extends BasePage<UserAdsCubit, UserAdsBuildable, UserAdsListenable> {
@@ -27,12 +29,12 @@ class UserAdsPage extends BasePage<UserAdsCubit, UserAdsBuildable, UserAdsListen
       builder: (context, child, controller) {
         return Scaffold(
           appBar: AppBar(
-            // actions: [
-            //   CommonButton(
-            //       type: ButtonType.text,
-            //       onPressed: () => context.router.push(CreateAdRoute()),
-            //       child: "Добавить товар".w(500).s(12).c(Color(0xFF5C6AC3)))
-            // ],
+            actions: [
+              CommonButton(
+                  type: ButtonType.text,
+                  onPressed: () => context.router.push(CreateAdRoute()),
+                  child: "Добавить товар".w(500).s(12).c(Color(0xFF5C6AC3)))
+            ],
             leading: IconButton(
               icon: Assets.images.icArrowLeft.svg(),
               onPressed: () => context.router.pop(),
@@ -41,7 +43,7 @@ class UserAdsPage extends BasePage<UserAdsCubit, UserAdsBuildable, UserAdsListen
             backgroundColor: Colors.white,
             centerTitle: true,
             bottomOpacity: 1,
-            title: "Объявления".w(500).s(16).c(context.colors.textPrimary),
+            title: Strings.userAdsTitle.w(500).s(16).c(context.colors.textPrimary),
             bottom: TabBar(
               isScrollable: true,
               physics: BouncingScrollPhysics(),
@@ -58,12 +60,12 @@ class UserAdsPage extends BasePage<UserAdsCubit, UserAdsBuildable, UserAdsListen
               unselectedLabelColor: Color(0xFF9EABBE),
               indicatorColor: context.colors.textPrimary,
               controller: controller,
-              tabs: const [
-                Tab(text: 'Barchasi'),
-                Tab(text: 'Faol'),
-                Tab(text: "Kutulmoqda"),
-                Tab(text: "Faol emas"),
-                Tab(text: "Bekor qilingan")
+              tabs:  [
+                Tab(text: Strings.userAdsAllTitle),
+                Tab(text: Strings.userAdsActiveTitle),
+                Tab(text: Strings.userAdsPendingTitle),
+                Tab(text:Strings.userAdsInactiveTitle),
+                Tab(text: Strings.userAdsCanceledTitle)
               ],
             ),
           ),

@@ -119,6 +119,14 @@ class AppRouter extends _$AppRouter {
                   page: CartRoute.page, path: 'cart', maintainState: false),
               AutoRoute(page: ProfileDashboardRoute.page, path: 'profile')
             ]),
+    
+    AutoRoute(page: CreateAdRoute.page, path: '/create_ad',
+        children: [
+          AutoRoute(page: CreateProductAdRoute.page, path: 'create_product_ad'), 
+          AutoRoute(page: CreateServiceAdRoute.page, path: 'create_service_ad'),
+          AutoRoute(page: CreateFreeAdRoute.page,path: 'create_free_ad' ), 
+          AutoRoute(page: CreateExchangeAdRoute.page, path: 'create_exchange_ad')
+        ]),
 
         //  sub category
         AutoRoute(page: SubCategoryRoute.page, path: "/sub_category"),
@@ -131,8 +139,6 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
             page: AdListRoute.page, path: '/ads_list', maintainState: false, ),
         AutoRoute(page: AdDetailRoute.page, path: '/ads_detail'),
-        AutoRoute(page: CreateAdRoute.page, path: '/create_ad'),
-
         //  common page
         AutoRoute(
             page: PopularCategoriesRoute.page, path: '/popular_categories'),
