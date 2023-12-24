@@ -5,6 +5,7 @@ import 'package:onlinebozor/presentation/home/home_page.dart';
 
 import '../../alfa/page/a_page.dart';
 import '../../data/responses/address/user_address_response.dart';
+import '../../data/responses/user_ad/user_ad_response.dart';
 import '../../domain/util.dart';
 import '../../presentation/ad/ad_collection/ad_collection_page.dart';
 import '../../presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';

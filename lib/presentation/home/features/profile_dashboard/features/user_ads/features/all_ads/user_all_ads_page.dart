@@ -4,6 +4,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/presentation/home/features/profile_dashboard/features/user_ads/features/all_ads/cubit/user_all_ads_cubit.dart';
 
 import '../../../../../../../../common/gen/localization/strings.dart';
@@ -89,7 +90,9 @@ class UserAllAdsPage extends BasePage<UserAllAdsCubit, UserAllAdsBuildable,
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) => UserAdWidget(
             listenerAddressEdit: () {},
-            listener: () {},
+            listener: () {
+              context.router.push(UserAdDetailRoute(userAdResponse: item));
+            },
             response: item,
           ),
         ),
