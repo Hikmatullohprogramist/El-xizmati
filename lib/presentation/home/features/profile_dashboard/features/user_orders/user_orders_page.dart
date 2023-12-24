@@ -9,6 +9,7 @@ import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
 import '../../../../../../common/core/base_page.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
+import '../../../../../../common/widgets/common/common_button.dart';
 
 @RoutePage()
 class UserOrdersPage extends BasePage<UserOrdersCubit, UserOrdersBuildable,
@@ -32,12 +33,12 @@ class UserOrdersPage extends BasePage<UserOrdersCubit, UserOrdersBuildable,
       builder: (context, child, controller) {
         return Scaffold(
           appBar: AppBar(
-            // actions: [
-            //   CommonButton(
-            //       type: ButtonType.text,
-            //       onPressed: () => context.router.push(CreateAdRoute()),
-            //       child: "Создать запрос".w(500).s(12).c(Color(0xFF5C6AC3)))
-            // ],
+            actions: [
+              CommonButton(
+                  type: ButtonType.text,
+                  onPressed: () => context.router.push(OrderCreationRoute()),
+                  child: "Создать запрос".w(500).s(12).c(Color(0xFF5C6AC3)))
+            ],
             leading: IconButton(
               icon: Assets.images.icArrowLeft.svg(),
               onPressed: () => context.router.pop(),

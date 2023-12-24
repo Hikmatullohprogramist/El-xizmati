@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 
 import '../../../common/gen/assets/assets.gen.dart';
 import 'cubit/notification_cubit.dart';
@@ -17,7 +18,7 @@ class NotificationPage extends BasePage<NotificationCubit,
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: 'Уведомление'.w(500).s(14).c(context.colors.textPrimary),
+        title: Strings.notificationTitle.w(500).s(14).c(context.colors.textPrimary),
         centerTitle: true,
         elevation: 0.5,
         leading: IconButton(
@@ -26,7 +27,7 @@ class NotificationPage extends BasePage<NotificationCubit,
         ),
       ),
       body: Center(
-        child: Text("У вас нет уведомлений"),
+        child: Text(Strings.noHaveNotification),
       ),
     );
   }

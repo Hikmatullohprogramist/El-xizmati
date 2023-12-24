@@ -80,7 +80,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
         contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         labelText: widget.label,
         border: OutlineInputBorder(
-          borderSide: BorderSide(color: context.colors.primary),
+          borderSide: BorderSide(color: Color(0xFFDFE2E9)),
           borderRadius: BorderRadius.circular(8),
         ),
         disabledBorder: OutlineInputBorder(

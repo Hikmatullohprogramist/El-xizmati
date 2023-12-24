@@ -16,16 +16,18 @@ import 'ad_route_widget.dart';
 import 'ad_type_widget.dart';
 
 class AppAdWidget extends StatelessWidget {
-  const AppAdWidget({
+   AppAdWidget({
     super.key,
     required this.invokeFavorite,
     required this.invoke,
     required this.ad,
+    this.favoriteBeChange = true
   });
 
   final Ad ad;
   final Function(Ad ad) invoke;
   final Function(Ad ad) invokeFavorite;
+   bool  favoriteBeChange ;
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +68,7 @@ class AppAdWidget extends StatelessWidget {
                     Align(
                         alignment: Alignment.topRight,
                         child: AppFavoriteWidget(
+                          beChange: favoriteBeChange,
                           isSelected: ad.favorite,
                           invoke: () => invokeFavorite(ad),
                         )),

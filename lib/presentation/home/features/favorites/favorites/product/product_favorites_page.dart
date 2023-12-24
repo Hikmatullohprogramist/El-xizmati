@@ -104,6 +104,7 @@ class ProductFavoritesPage extends BasePage<ProductFavoritesCubit,
           },
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) => AppAdWidget(
+            favoriteBeChange: false,
             ad: item,
             invokeFavorite: (value) =>
                 context.read<ProductFavoritesCubit>().removeFavorite(value),

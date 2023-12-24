@@ -33,10 +33,8 @@ class FavoriteRepositoryImp extends FavoriteRepository {
   Future<int> addFavorite(Ad ad) async {
     final isLogin = tokenStorage.isLogin.call() ?? false;
     int resultId = ad.id;
-    if (tokenStorage.isLogin.call() ?? false) {
-      await adService.setViewAd(type: ViewType.selected, adId: ad.id);
-    }
     if (isLogin) {
+      // await adService.setViewAd(type: ViewType.selected, adId: ad.id);
       final response = await _favoriteService.addFavorite(
           adType: ad.adStatus.name, id: ad.id);
       final addResultId =

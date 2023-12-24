@@ -93,6 +93,7 @@ class ServiceFavoritesPage extends BasePage<ServiceFavoritesCubit,
           },
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) => AppAdWidget(
+            favoriteBeChange: false,
             ad: item,
             invokeFavorite: (value) =>
                 context.read<ServiceFavoritesCubit>().removeFavorite(value),

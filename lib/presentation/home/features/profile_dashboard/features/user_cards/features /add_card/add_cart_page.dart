@@ -120,7 +120,7 @@ class AddCardPage
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: 'добавить карту'.w(500).s(14).c(context.colors.textPrimary),
+        title: Strings.cardAddCardTitle.w(500).s(14).c(context.colors.textPrimary),
         centerTitle: true,
         elevation: 0,
         leading: IconButton(
@@ -188,38 +188,38 @@ class AddCardPage
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              "Название карты".w(500).s(14).c(Color(0xFF41455E)),
+              Strings.cardNameTitle.w(500).s(14).c(Color(0xFF41455E)),
               SizedBox(height: 10),
               CommonTextField(
                 inputType: TextInputType.text,
                 textInputAction: TextInputAction.next,
                 maxLength: 25,
-                hint: "Например: Основная",
+                hint:Strings.cardNameHint,
                 onChanged: (value) {
                   context.read<AddCardCubit>().setCardName(value);
                 },
               ),
               SizedBox(height: 20),
-              "Номер карты".w(500).s(14).c(Color(0xFF41455E)),
+             Strings.cardNumberTitle.w(500).s(14).c(Color(0xFF41455E)),
               SizedBox(height: 10),
               CommonTextField(
                 maxLength: 19,
                 textInputAction: TextInputAction.next,
                 inputType: TextInputType.number,
                 inputFormatters: cardNumberMaskFormatter,
-                hint: "Номер карты",
+                hint: "____ ____ ____ ____",
                 onChanged: (value) {
                   context.read<AddCardCubit>().setCardNumber(value);
                 },
               ),
               SizedBox(height: 20),
-              "Срок действия карты".w(500).s(14).c(Color(0xFF41455E)),
+              Strings.cardExpiryDateTitle.w(500).s(14).c(Color(0xFF41455E)),
               SizedBox(height: 10),
               CommonTextField(
                 textInputAction: TextInputAction.done,
                 // inputFormatters: cardExpiredMaskFormatter,
                 maxLength: 5,
-                hint: "Номер карты",
+                hint: "__/__",
                 onChanged: (value) {
                   context.read<AddCardCubit>().setCardNumber(value);
                 },
@@ -236,7 +236,7 @@ class AddCardPage
                             .setMainCard(value ?? false);
                       }),
                   SizedBox(width: 12),
-                  "Сделать основным".s(14).w(500).c(Color(0xFF41455E))
+                  Strings.cardSetAsMain.s(14).w(500).c(Color(0xFF41455E))
                 ],
               ),
               SizedBox(height: 64),
@@ -255,7 +255,7 @@ class AddCardPage
                     children: [
                       Icon(Icons.add),
                       SizedBox(width: 10),
-                      "Добавить карту".w(600).s(14)
+                      Strings.cardAddCardTitle.w(600).s(14)
                     ],
                   ),
                 ),

@@ -183,3 +183,17 @@ notification.receive.telegram,Telegram boti,Телеграм бот,Телегр
 notification.receive.email,Elektron pochta orqali,Через Эл. почту,Электрон почта орқали 
 telegram.bot.description,Бот орқали билдиришномаларни олиш учун сизга уланган бўлиши керак.,"Вы должны быть подключены, чтобы получать уведомления от ботов.",Бот орқали билдиришномаларни олиш учун сизга уланган бўлиши керак.
 link.title,link,связь,линк
+notification.title,Bildirishnoma,Уведомление,Билдиришнома
+no.have.notification,Sizda hech qanday bildirishnoma yoʻq,У вас нет уведомлений,Сизда ҳеч қандай билдиришнома йўқ
+my.card.title,Mening kartalarim,Мои карты,Менинг карталарим
+card.add.title,Qo'shish,Добавить,Қўшиш
+no.you.have.card.title,Siz hali toʻlov kartasini qoʻshmagansiz,Вы еще не добавили карту для оплаты,Сиз ҳали тўлов картасини қўшмагансиз
+no.you.have.card.description,Ushbu kartalar bilan siz mahsulot yoki xizmat uchun to'lashingiz mumkin,С помощью этих карт вы можете оплатит за товар или услугу,Ушбу карталар билан сиз маҳсулот ёки хизмат учун тўлашингиз мумкин
+card.confirmation.code,Tasdiqlash kodi,Код подтверждения,Тасдиқлаш коди
+card.close,Yopish,Закрыть,Ёпиш
+card.add.card.title,karta qo'shing,добавить карту,карта қўшиш
+card.set.as.main,Asosiy qilib belgilang,Сделать основным,Асосий қилиб белгиланг
+card.name.title,Karta nomi,Название карты,Карта номи
+card.expiry.date.title,Kartaning amal qilish muddati,Срок действия карты,Картанинг амал қилиш муддати
+card.name.hint,Masalan: Asosiy,Например: Основная,Масалан: Асосий
+card.number.title,Karta raqami,Номер карты,Карта рақами

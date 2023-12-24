@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/presentation/common/language/change_language/change_language_page.dart';
 import 'package:onlinebozor/presentation/home/home_page.dart';
 
+import '../../alfa/page/a_page.dart';
 import '../../data/responses/address/user_address_response.dart';
 import '../../domain/util.dart';
 import '../../presentation/ad/ad_collection/ad_collection_page.dart';
@@ -71,6 +72,9 @@ import '../../presentation/home/features/profile_dashboard/features/user_orders/
 import '../../presentation/home/features/profile_dashboard/features/user_orders/user_orders_page.dart';
 import '../../presentation/home/features/profile_dashboard/features/wallet_filling/wallet_filling_page.dart';
 import '../../presentation/home/features/profile_dashboard/profile_dashboard_page.dart';
+import '../../presentation/order/order_creation/features/product_order/product_order_create_page.dart';
+import '../../presentation/order/order_creation/features/service_order/service_order_create_page.dart';
+import '../../presentation/order/order_creation/order_creation_page.dart';
 
 part 'app_router.gr.dart';
 
@@ -185,6 +189,17 @@ class AppRouter extends _$AppRouter {
             page: NotificationSettingRoute.page, path: '/notification_setting'),
         AutoRoute(page: UserAdDetailRoute.page, path: "/user_ad_detail"),
         AutoRoute(page: ChangeLanguageRoute.page, path: '/change_language'),
-        AutoRoute(page: UserOrderStartRoute.page, path: "/user_order_start")
+        AutoRoute(page: UserOrderStartRoute.page, path: "/user_order_start"),
+        AutoRoute(
+            page: OrderCreationRoute.page,
+            path: '/order_creation',
+            children: [
+              AutoRoute(
+                  page: ProductOrderCreateRoute.page,
+                  path: "product_order_create"),
+              AutoRoute(
+                  page: ServiceOrderCreateRoute.page,
+                  path: 'service_order_create')
+            ])
       ];
 }

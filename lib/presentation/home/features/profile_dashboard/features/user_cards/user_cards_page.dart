@@ -4,9 +4,12 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/common/common_button.dart';
 
+import '../../../../../../common/router/app_router.dart';
 import '../../../../../../common/widgets/card/card_empty_widget.dart';
+import '../../../../../../common/widgets/card/card_widget.dart';
 import 'cubit/user_cards_cubit.dart';
 
 @RoutePage()
@@ -77,7 +80,7 @@ class UserCardsPage
                                 height: 24,
                                 color: context.colors.iconGrey),
                             SizedBox(width: 10),
-                            "Сделать основным".w(500).s(14).c(Color(0xFF41455E))
+                           Strings.cardSetAsMain.w(500).s(14).c(Color(0xFF41455E))
                           ],
                         )),
                   ),
@@ -100,7 +103,7 @@ class UserCardsPage
                     width: double.infinity,
                     child: CommonButton(
                       onPressed: () {},
-                      child: "Закрыть".w(600).s(14).c(Colors.white),
+                      child: Strings.cardClose.w(600).s(14).c(Colors.white),
                     ),
                   )
                 ]),
@@ -113,34 +116,33 @@ class UserCardsPage
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: 'Мои карты'.w(500).s(14).c(context.colors.textPrimary),
+        title: Strings.myCardTitle.w(500).s(14).c(context.colors.textPrimary),
         centerTitle: true,
         elevation: 0,
-        // actions: [
-        //   CommonButton(
-        //       type: ButtonType.text,
-        //       onPressed: () => context.router.push(AddCardRoute()),
-        //       child: "Добавить".w(500).s(12).c(Color(0xFF5C6AC3)))
-        // ],
+        actions: [
+          CommonButton(
+              type: ButtonType.text,
+              onPressed: () => context.router.push(AddCardRoute()),
+              child: Strings.cardAddTitle.w(500).s(12).c(Color(0xFF5C6AC3)))
+        ],
         leading: IconButton(
           icon: Assets.images.icArrowLeft.svg(),
           onPressed: () => context.router.pop(),
         ),
       ),
       body: Column(children: [
-        // if (state.isEmpty)
-        CardEmptyWidget(
-          listener: () {
-            // context.router.push(AddCardRoute());
-          },
-        )
-        // else
-        //   CardWidget(
-        //       onClick: () {},
-        //       image: "8a818006f6ddda2c7af7dbf4",
-        //       onClickSetting: () {
-        //         _edit();
-        //       })
+        if (state.isEmpty)
+          CardEmptyWidget(
+            listener: () {
+              // context.router.push(AddCardRoute());
+            },
+          )
+        else
+          CardWidget(
+            image: "8a818006f6ddda2c7af7dbf4",
+            listener: () {},
+            listenerEdit: () {},
+          )
       ]),
     );
   }

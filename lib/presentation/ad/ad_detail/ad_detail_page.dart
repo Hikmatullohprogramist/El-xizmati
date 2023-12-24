@@ -44,9 +44,9 @@ class AdDetailPage
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             title.w(500).s(14).c(Color(0xFF41455E)),
-            IconButton(
-                onPressed: onPressed,
-                icon: Assets.images.icArrowRight.svg(height: 24, width: 24))
+            // IconButton(
+            //     onPressed: onPressed,
+            //     icon: Assets.images.icArrowRight.svg(height: 24, width: 24))
           ],
         ));
   }
@@ -238,12 +238,12 @@ class AdDetailPage
                                   .c(Color(0xFF41455E))
                                   .copyWith(maxLines: 7),
                               SizedBox(height: 16),
-                              InkWell(
-                                  onTap: () {},
-                                  child: Strings.adDetailShowmore
-                                      .w(500)
-                                      .s(16)
-                                      .c(Color(0xFF5C6AC3))),
+                              // InkWell(
+                              //     onTap: () {},
+                              //     child: Strings.adDetailShowmore
+                              //         .w(500)
+                              //         .s(16)
+                              //         .c(Color(0xFF5C6AC3))),
                               SizedBox(height: 16),
                             ]),
                       )),

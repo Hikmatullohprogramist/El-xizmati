@@ -49,9 +49,9 @@ class CommonSearchBar extends AppBar implements PreferredSizeWidget {
                                 .copyWith(overflow: TextOverflow.ellipsis),
                           ),
                         ),
-                        InkWell(
-                            onTap: listenerMic,
-                            child: Assets.images.icMic.svg()),
+                        // InkWell(
+                        //     onTap: listenerMic,
+                        //     child: Assets.images.icMic.svg()),
                       ],
                     ),
                   ),

@@ -141,7 +141,7 @@ class DashboardCubit
         buildable.popularAds.insert(index, item..favorite = false);
       }
     } on DioException catch (error) {
-      display.error("xatolik yuz  berdi");
+      display.error("serverda xatolik yuz  berdi");
       log.e(error.toString());
     }
   }
@@ -173,7 +173,7 @@ class DashboardCubit
         }
       }
     } on DioException catch (error) {
-      display.error("xatolik yuz  berdi");
+      display.error("serverda xatolik yuz  berdi");
       log.e(error.toString());
     }
   }

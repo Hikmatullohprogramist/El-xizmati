@@ -1,36 +1,45 @@
+import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
-import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/gen/localization/strings.dart';
-import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
-import 'cubit/favorites_cubit.dart';
+import '../../../common/core/base_page.dart';
+import '../../../common/gen/assets/assets.gen.dart';
+import '../../../common/router/app_router.dart';
+import 'cubit/order_creation_cubit.dart';
 
 @RoutePage()
-class FavoritesPage
-    extends BasePage<FavoritesCubit, FavoritesBuildable, FavoritesListenable> {
-  const FavoritesPage({super.key});
+class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationBuildable, OrderCreationListenable> {
+  const OrderCreationPage({super.key});
 
   @override
-  Widget builder(BuildContext context, FavoritesBuildable state) {
+  Widget builder(BuildContext context, OrderCreationBuildable state) {
     return AutoTabsRouter.tabBar(
       physics: BouncingScrollPhysics(),
-      routes: const [ProductFavoritesRoute(), ServiceFavoritesRoute()],
+      routes: const [
+        ProductOrderCreateRoute(),
+        ServiceOrderCreateRoute()
+      ],
       builder: (context, child, controller) {
         return Scaffold(
           appBar: AppBar(
+            // actions: [
+            //   CommonButton(
+            //       type: ButtonType.text,
+            //       onPressed: () => context.router.push(CreateAdRoute()),
+            //       child: "Создать запрос".w(500).s(12).c(Color(0xFF5C6AC3)))
+            // ],
+            leading: IconButton(
+              icon: Assets.images.icArrowLeft.svg(),
+              onPressed: () => context.router.pop(),
+            ),
             elevation: 0.5,
             backgroundColor: Colors.white,
             centerTitle: true,
             bottomOpacity: 1,
-            title: Strings.bottomNavigationFavorite
-                .w(500)
-                .s(16)
-                .c(context.colors.textPrimary),
-            leading: AutoLeadingButton(),
+            title: "запросы".w(500).s(16).c(context.colors.textPrimary),
             bottom: TabBar(
               physics: BouncingScrollPhysics(),
               indicator: MaterialIndicator(
@@ -46,9 +55,9 @@ class FavoritesPage
               unselectedLabelColor: Color(0xFF9EABBE),
               indicatorColor: context.colors.textPrimary,
               controller: controller,
-              tabs: [
-                Tab(text: Strings.favoriteProductTitle),
-                Tab(text: Strings.favoriteServiceTitle),
+              tabs: const [
+                Tab(text: 'Нужен товар'),
+                Tab(text: 'Нужна услуга')
               ],
             ),
           ),
