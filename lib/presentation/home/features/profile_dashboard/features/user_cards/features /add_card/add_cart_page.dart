@@ -217,7 +217,8 @@ class AddCardPage
               SizedBox(height: 10),
               CommonTextField(
                 textInputAction: TextInputAction.done,
-                // inputFormatters: cardExpiredMaskFormatter,
+                inputType: TextInputType.number,
+                inputFormatters: cardExpiredMaskFormatter,
                 maxLength: 5,
                 hint: "__/__",
                 onChanged: (value) {

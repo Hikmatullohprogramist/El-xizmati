@@ -22,7 +22,8 @@ class AppAddressWidgets extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              (address.name ?? "").w(600).s(16).c(Color(0xFF41455E)),
+              Expanded(child:
+              (address.name ?? "").w(600).s(16).c(Color(0xFF41455E)).copyWith(overflow: TextOverflow.ellipsis)),
               Row(
                 children: [
                   Visibility(

@@ -43,14 +43,15 @@ class CardEmptyWidget extends StatelessWidget {
             child: CommonButton(
               type: ButtonType.elevated,
               color: context.colors.buttonPrimary,
-              onPressed: listener,
+              onPressed: (){listener();
+              print("Card Empty  call");},
               child: Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.add),
                     SizedBox(width: 10),
-                    "Добавить карту".w(500).s(14).c(Colors.white)
+                   Strings.cardAddCardTitle.w(500).s(14).c(Colors.white)
                   ]),
             ))
       ]),

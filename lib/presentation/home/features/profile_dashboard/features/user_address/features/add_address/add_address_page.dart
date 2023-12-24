@@ -5,6 +5,7 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
+import 'package:onlinebozor/common/router/app_router.dart';
 
 import '../../../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../../../common/widgets/common/common_button.dart';
@@ -24,6 +25,13 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<AddAddressCubit>().setAddress(address);
     });
+  }
+
+  @override
+  void listener(BuildContext context, AddAddressListenable state) {
+    switch(state.effect){
+      case AddAddressEffect.navigationToHome:context.router.push(UserAddressesRoute());
+    }
   }
 
   TextEditingController addressController = TextEditingController();
@@ -70,20 +78,20 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
         ),
         body: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: 16,
+            horizontal: 16,vertical: 16
           ),
           child: ListView(
             physics: BouncingScrollPhysics(),
             children: [
               Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                Strings.userAddressAddNew.w(500).s(12).c(Color(0xFF41455E)),
+                Strings.userAddressAddNewAddress.w(500).s(12).c(Color(0xFF41455E)),
                 SizedBox(width: 5),
                 Assets.images.icRedStart.svg(height: 8, width: 8),
               ]),
               SizedBox(height: 12),
               CommonTextField(
                   controller: addressController,
-                  hint: Strings.userAddressAddNew,
+                  hint: Strings.userAddressAddNewAddress,
                   onChanged: (value) {
                     context.read<AddAddressCubit>().setAddressName(value);
                   },

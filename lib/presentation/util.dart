@@ -21,6 +21,6 @@ var cardNumberMaskFormatter = MaskTextInputFormatter(
     type: MaskAutoCompletionType.lazy);
 
 var cardExpiredMaskFormatter = MaskTextInputFormatter(
-    mask: '--/--',
-    filter: {"_": RegExp(r'[0-9]')},
+    mask: '__/__',
+    filter: {"_": RegExp(r'[0-9]'),},
     type: MaskAutoCompletionType.lazy);

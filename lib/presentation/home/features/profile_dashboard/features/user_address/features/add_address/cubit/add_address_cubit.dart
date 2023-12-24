@@ -24,9 +24,7 @@ class AddAddressCubit
   final UserAddressRepository userAddressRepository;
 
   void setAddress(UserAddressResponse? address) {
-    display.success("set address call");
     if (address != null) {
-      display.success("set address call address!=null");
       build((buildable) => buildable.copyWith(
           address: address,
           isMain: address.is_main,
@@ -43,7 +41,6 @@ class AddAddressCubit
           apartmentNum: address.apartment_num,
           addressId: address.id));
     } else {
-      display.success("set address call address==null");
       build((buildable) => buildable.copyWith(addressId: null));
     }
   }
@@ -102,9 +99,9 @@ class AddAddressCubit
         regionId: region.id,
         regionName: region.name,
         districtId: null,
-        districtName: "Район*",
+        districtName: Strings.userAddressDistrict,
         streetId: null,
-        streetName: "Улица*"));
+        streetName: Strings.userAddressStreet));
     getDistrict();
   }
 
@@ -113,7 +110,7 @@ class AddAddressCubit
         districtId: district.id,
         districtName: district.name,
         streetId: null,
-        streetName: "Улица*"));
+        streetName:Strings.userAddressStreet));
     getStreets();
   }
 
@@ -169,6 +166,7 @@ class AddAddressCubit
           streetNum: buildable.streetName ?? "",
           isMain: buildable.isMain ?? false,
           geo: "${buildable.latitude},${buildable.longitude}");
+      invoke(AddAddressListenable(AddAddressEffect.navigationToHome));
       display.success("mazil qo'shildi");
     } catch (e) {
       display.error(Strings.loadingStateError);

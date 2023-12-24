@@ -32,4 +32,4 @@ class AddAddressListenable with _$AddAddressListenable {
       {String? message}) = _AddAddressListenable;
 }
 
-enum AddAddressEffect { success }
+enum AddAddressEffect { navigationToHome }
