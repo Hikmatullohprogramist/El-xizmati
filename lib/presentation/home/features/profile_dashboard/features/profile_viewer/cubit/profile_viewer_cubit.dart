@@ -35,6 +35,7 @@ class ProfileViewerCubit
           fullName: response.full_name ?? "*",
           phoneNumber: response.mobile_phone ?? "*",
           email: response.email ?? "*",
+          photo: response.photo,
           biometricInformation:
               "${response.passport_serial ?? ""} ${response.passport_number ?? ""}",
           brithDate: response.birth_date ?? "*",

@@ -8,6 +8,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 
+import '../../../../../../common/constants.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../common/widgets/common/common_button.dart';
 import '../../../../../../common/widgets/dashboard/app_diverder.dart';
@@ -82,9 +83,10 @@ class ProfileViewerPage extends BasePage<ProfileViewerCubit,
                               width: 56,
                               height: 56,
                               imageUrl:
-                              "https://api.online-bozor.uz/uploads/images/${state.photo}",
+                              "${Constants.baseUrlForImage}${state.photo}",
                               imageBuilder: (context, imageProvider) => Container(
                                 decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
                                   image: DecorationImage(
                                       image: imageProvider,
                                       colorFilter: ColorFilter.mode(
@@ -99,7 +101,7 @@ class ProfileViewerPage extends BasePage<ProfileViewerCubit,
                                 decoration: BoxDecoration(
                                     color: Color(0xFFE0E0ED),
                                     borderRadius: BorderRadius.circular(10)),
-                                child: Assets.images.icAvatarBoy.svg(),
+                                child: Assets.images.icLaptop.svg(),
                               ),
                               errorWidget: (context, url, error) => Container(
                                 height: 56,
@@ -109,7 +111,7 @@ class ProfileViewerPage extends BasePage<ProfileViewerCubit,
                                 decoration: BoxDecoration(
                                     color: Color(0xFFE0E0ED),
                                     borderRadius: BorderRadius.circular(10)),
-                                child: Assets.images.icAvatarBoy.svg(),
+                                child: Assets.images.icSnow.svg(),
                               ),
                             ),
                             SizedBox(width: 16),
@@ -145,14 +147,14 @@ class ProfileViewerPage extends BasePage<ProfileViewerCubit,
                                           .c(Color(0xFF999CB2)),
                                     ),
                                     SizedBox(width: 12),
-                                    CommonButton(
-                                        type: ButtonType.text,
-                                        onPressed: () {},
-                                        child: Strings
-                                            .profileViewChangetobusiness
-                                            .w(400)
-                                            .c(Color(0xFF5C6AC3))
-                                            .s(12))
+                                    // CommonButton(
+                                    //     type: ButtonType.text,
+                                    //     onPressed: () {},
+                                    //     child: Strings
+                                    //         .profileViewChangetobusiness
+                                    //         .w(400)
+                                    //         .c(Color(0xFF5C6AC3))
+                                    //         .s(12))
                                   ],
                                 )
                               ],
