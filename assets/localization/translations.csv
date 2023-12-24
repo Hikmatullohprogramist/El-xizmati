@@ -207,3 +207,17 @@ ad.create.product.title,Mahsulot,Продукт,Маҳсулот
 ad.create.service.title,Xizmat,Услуга,Хизмат
 ad.create.free.title,Bepul,Бесплатно,Бепул
 ad.create.exchange.title,Almashish ,обмен,Алмашиш
+payment.title,To'lovlar,Платежи,Тўловлар
+payment.filter.title,Filtr,Фильтр,Фильтр
+order.need.product,Mahsulot kerak,Нужен товар,Маҳсулот керак
+order.need.service,Xizmat kerak,Нужна услуга,Хизмат керак
+request.title,So'rovlar,Запросы,Сўровлар
+payment.filter.from.title,dan:,От:,дан:
+payment.filter.to.title,gacha:,До:,гача:
+payment.filter.payment.type.title,To'lov turi,Тип оплаты,Тўлов тури
+payment.filter.all.title,Hammasi,Все,Ҳаммаси
+payment.filter.method.title,To'lov usuli,Способ оплаты,Тўлов усули
+payment.filter.type.title,Turi,Тип,Тури
+payment.filter.status.title,Holat,Статус,Ҳолат
+payment.filter.cleaning.title,Tozalash,уборка,Тозалаш
+payment.filter.apply.title,Qo'llash ,Применять,Қўллаш

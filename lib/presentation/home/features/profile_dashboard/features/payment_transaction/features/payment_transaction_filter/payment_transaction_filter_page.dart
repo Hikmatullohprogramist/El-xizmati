@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
 import 'package:onlinebozor/common/widgets/common/common_button.dart';
 import 'package:onlinebozor/presentation/home/features/profile_dashboard/features/payment_transaction/features/payment_transaction_filter/cubit/payment_transaction_filter_cubit.dart';
@@ -23,7 +24,7 @@ class PaymentTransactionFilterPage extends BasePage<
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: 'Фильтр'.w(500).s(14).c(context.colors.textPrimary),
+        title: Strings.paymentFilterTitle.w(500).s(14).c(context.colors.textPrimary),
         centerTitle: true,
         elevation: 0.5,
         leading: IconButton(
@@ -38,6 +39,7 @@ class PaymentTransactionFilterPage extends BasePage<
           child: Row(
             children: [
               Flexible(
+                  flex: 1,
                   child: InkWell(
                       child: Container(
                           decoration: BoxDecoration(
@@ -52,14 +54,14 @@ class PaymentTransactionFilterPage extends BasePage<
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              "От:".w(600).s(14).c(Color(0xFF9EABBE)),
+                             Strings.paymentFilterFromTitle.w(600).s(14).c(Color(0xFF9EABBE)),
                               Assets.images.icCalendar
                                   .svg(height: 24, width: 24)
                             ],
-                          ))),
-                  flex: 1),
+                          )))),
               SizedBox(width: 16),
               Flexible(
+                flex: 1,
                 child: InkWell(
                     child: Container(
                         decoration: BoxDecoration(
@@ -74,11 +76,10 @@ class PaymentTransactionFilterPage extends BasePage<
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            "От:".w(600).s(14).c(Color(0xFF9EABBE)),
+                            Strings.paymentFilterToTitle.w(600).s(14).c(Color(0xFF9EABBE)),
                             Assets.images.icCalendar.svg(height: 24, width: 24)
                           ],
                         ))),
-                flex: 1,
               ),
             ],
           ),
@@ -90,9 +91,9 @@ class PaymentTransactionFilterPage extends BasePage<
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  "Тип оплаты".w(400).c(Colors.black).s(12),
+                  Strings.paymentFilterPaymentTypeTitle.w(400).c(Colors.black).s(12),
                   Spacer(),
-                  "Все".w(400).s(12).c(Color(0xFF9EABBE)),
+                  Strings.paymentFilterAllTitle.w(400).s(12).c(Color(0xFF9EABBE)),
                   SizedBox(width: 16),
                   Assets.images.icArrowRight.svg(width: 24, height: 24)
                 ],
@@ -106,9 +107,9 @@ class PaymentTransactionFilterPage extends BasePage<
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  "Способ оплаты".w(400).c(Colors.black).s(12),
+                  Strings.paymentFilterMethodTitle.w(400).c(Colors.black).s(12),
                   Spacer(),
-                  "Все".w(400).s(12).c(Color(0xFF9EABBE)),
+                 Strings.paymentFilterAllTitle.w(400).s(12).c(Color(0xFF9EABBE)),
                   SizedBox(width: 16),
                   Assets.images.icArrowRight.svg(width: 24, height: 24),
                 ],
@@ -122,9 +123,9 @@ class PaymentTransactionFilterPage extends BasePage<
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  "Тип".w(400).c(Colors.black).s(12),
+                  Strings.paymentFilterTypeTitle.w(400).c(Colors.black).s(12),
                   Spacer(),
-                  "Все".w(400).s(12).c(Color(0xFF9EABBE)),
+                  Strings.paymentFilterAllTitle.w(400).s(12).c(Color(0xFF9EABBE)),
                   SizedBox(width: 16),
                   Assets.images.icArrowRight.svg(width: 24, height: 24)
                 ],
@@ -138,9 +139,9 @@ class PaymentTransactionFilterPage extends BasePage<
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  "Статус".w(400).c(Colors.black).s(12),
+                 Strings.paymentFilterStatusTitle.w(400).c(Colors.black).s(12),
                   Spacer(),
-                  "Все".w(400).s(12).c(Color(0xFF9EABBE)),
+                  Strings.paymentFilterAllTitle.w(400).s(12).c(Color(0xFF9EABBE)),
                   SizedBox(width: 16),
                   Assets.images.icArrowRight.svg(width: 24, height: 24)
                 ],
@@ -152,25 +153,25 @@ class PaymentTransactionFilterPage extends BasePage<
               const EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 16),
           child: Row(
             children: [
-              Flexible(
+              Expanded(
+                  flex: 1,
                   child: InkWell(
                       child: SizedBox(
                     child: CommonButton(
                       onPressed: () {},
-                      child: "Сбросить".s(14).w(600),
+                      child: Strings.paymentFilterCleaningTitle.s(14).w(600),
                     ),
-                  )),
-                  flex: 1),
+                  ))),
               SizedBox(width: 16),
-              Flexible(
+              Expanded(
+                flex: 1,
                 child: InkWell(
                     child: SizedBox(
                   child: CommonButton(
                     onPressed: () {},
-                    child: "Сбросить".s(14).w(600),
+                    child: Strings.paymentFilterApplyTitle.s(14).w(600),
                   ),
                 )),
-                flex: 1,
               ),
             ],
           ),

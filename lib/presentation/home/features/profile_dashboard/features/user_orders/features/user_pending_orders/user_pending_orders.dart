@@ -5,7 +5,6 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/widgets/ad/ad_empty_widget.dart';
 import 'package:onlinebozor/presentation/home/features/profile_dashboard/features/user_orders/features/user_pending_orders/cubit/user_pending_orders_cubit.dart';
 
 import '../../../../../../../../common/gen/localization/strings.dart';
@@ -39,7 +38,6 @@ class UserPendingOrdersPage extends BasePage<UserPendingOrdersCubit,
         shrinkWrap: true,
         addAutomaticKeepAlives: true,
         physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         pagingController: state.userOrderPagingController!,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: width / height,

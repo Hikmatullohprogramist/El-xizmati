@@ -5,6 +5,7 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/card/card_empty_widget.dart';
+import 'package:onlinebozor/common/widgets/transaction/transaction_widget.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../common/gen/localization/strings.dart';
@@ -26,7 +27,7 @@ class PaymentTransactionPage extends BasePage<PaymentTransactionCubit,
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: 'Платежи'.w(500).s(14).c(context.colors.textPrimary),
+        title: Strings.paymentTitle.w(500).s(14).c(context.colors.textPrimary),
         centerTitle: true,
         elevation: 0.5,
         actions: [
@@ -34,7 +35,7 @@ class PaymentTransactionPage extends BasePage<PaymentTransactionCubit,
               type: ButtonType.text,
               onPressed: () =>
                   context.router.push(PaymentTransactionFilterRoute()),
-              child: "Фильтр".w(500).s(12).c(Color(0xFF5C6AC3)))
+              child: Strings.paymentFilterTitle.w(500).s(12).c(Color(0xFF5C6AC3)))
         ],
         leading: IconButton(
           icon: Assets.images.icArrowLeft.svg(),
@@ -106,7 +107,7 @@ class PaymentTransactionPage extends BasePage<PaymentTransactionCubit,
           },
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) {
-            return SizedBox();
+            return TransactionWidget();
           }
         ),
       ),

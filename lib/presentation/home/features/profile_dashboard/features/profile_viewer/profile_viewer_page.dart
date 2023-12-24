@@ -101,7 +101,7 @@ class ProfileViewerPage extends BasePage<ProfileViewerCubit,
                                 decoration: BoxDecoration(
                                     color: Color(0xFFE0E0ED),
                                     borderRadius: BorderRadius.circular(10)),
-                                child: Assets.images.icLaptop.svg(),
+                                child: Assets.images.icAvatarBoy.svg(),
                               ),
                               errorWidget: (context, url, error) => Container(
                                 height: 56,
@@ -111,7 +111,7 @@ class ProfileViewerPage extends BasePage<ProfileViewerCubit,
                                 decoration: BoxDecoration(
                                     color: Color(0xFFE0E0ED),
                                     borderRadius: BorderRadius.circular(10)),
-                                child: Assets.images.icSnow.svg(),
+                                child: Assets.images.icAvatarBoy.svg(),
                               ),
                             ),
                             SizedBox(width: 16),

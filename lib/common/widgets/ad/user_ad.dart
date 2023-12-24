@@ -4,6 +4,7 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/widgets/ad/price_widget.dart';
+import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
 import 'package:onlinebozor/data/responses/user_ad/user_ad_response.dart';
 import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
 
@@ -25,11 +26,11 @@ class UserAdWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: listener,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              Row(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
+              child: Row(
                 children: [
                   Container(
                       width: 80,
@@ -108,8 +109,11 @@ class UserAdWidget extends StatelessWidget {
                   ))
                 ],
               ),
-              SizedBox(height: 12),
-              Row(
+            ),
+            SizedBox(height: 12),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
@@ -197,9 +201,11 @@ class UserAdWidget extends StatelessWidget {
                         ]),
                   )
                 ],
-              )
-            ],
-          ),
+              ),
+            ),
+            SizedBox(height: 16),
+            AppDivider(color: context.colors.iconGrey,height: 2)
+          ],
         ));
   }
 }

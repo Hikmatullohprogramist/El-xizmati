@@ -38,7 +38,6 @@ class UserAllOrdersPage extends BasePage<UserAllOrdersCubit,
         shrinkWrap: true,
         addAutomaticKeepAlives: true,
         physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         pagingController: state.userOrderPagingController!,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: width / height,

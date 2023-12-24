@@ -38,7 +38,6 @@ class UserCancelOrderPage extends BasePage<UserCancelOrderCubit,
         shrinkWrap: true,
         addAutomaticKeepAlives: true,
         physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         pagingController: state.userOrderPagingController!,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: width / height,

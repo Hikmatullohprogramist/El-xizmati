@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/domain/util.dart';
 
@@ -19,7 +20,7 @@ class UserOrderStartPage extends BasePage<UserOrderStartCubit,
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: 'Мои запросы'.w(500).s(14).c(context.colors.textPrimary),
+        // title: 'Мои запросы'.w(500).s(14).c(context.colors.textPrimary),
         centerTitle: true,
         elevation: 0,
         leading: IconButton(
@@ -53,7 +54,7 @@ class UserOrderStartPage extends BasePage<UserOrderStartCubit,
                         children: [
                           Assets.images.pngImages.sell.image(),
                           SizedBox(height: 16),
-                          "Sotaman".w(500).s(16).c(context.colors.textPrimary)
+                          Strings.favoriteProductTitle.w(500).s(16).c(context.colors.textPrimary)
                         ]),
                   ),
                 ),
@@ -81,7 +82,7 @@ class UserOrderStartPage extends BasePage<UserOrderStartCubit,
                         children: [
                           Assets.images.pngImages.buy.image(),
                           SizedBox(height: 16),
-                          "Solib olaman"
+                         Strings.favoriteServiceTitle
                               .w(500)
                               .s(16)
                               .c(context.colors.textPrimary)
