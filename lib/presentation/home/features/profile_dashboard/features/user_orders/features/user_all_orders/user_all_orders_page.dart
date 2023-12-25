@@ -42,7 +42,7 @@ class UserAllOrdersPage extends BasePage<UserAllOrdersCubit,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: width / height,
             crossAxisSpacing: 16,
-            mainAxisExtent: 185,
+            mainAxisExtent: 165,
             crossAxisCount: 1,
             mainAxisSpacing: 0),
         builderDelegate: PagedChildBuilderDelegate<UserOrderResponse>(

@@ -7,6 +7,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/presentation/home/features/profile_dashboard/features/user_ads/features/all_ads/cubit/user_all_ads_cubit.dart';
 
+import '../../../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../../../common/gen/localization/strings.dart';
 import '../../../../../../../../common/widgets/ad/user_ad.dart';
 import '../../../../../../../../common/widgets/ad/user_ad_empty_widget.dart';
@@ -20,6 +21,97 @@ class UserAllAdsPage extends BasePage<UserAllAdsCubit, UserAllAdsBuildable,
 
   @override
   Widget builder(BuildContext context, UserAllAdsBuildable state) {
+    void _edit() {
+      showModalBottomSheet(
+          isScrollControlled: true,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          backgroundColor: Colors.white,
+          context: context,
+          builder: (BuildContext buildContext) {
+            return Container(
+              height: 320,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.0),
+                  topRight: Radius.circular(20.0),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(children: [
+                  Row(
+                    children: [
+                      Expanded(
+                          child: Center(
+                              child: Strings.actionTitle
+                                  .w(500)
+                                  .s(16)
+                                  .c(Color(0xFF41455E)))),
+                      IconButton(
+                          onPressed: () {Navigator.of(buildContext).pop();},
+                          icon:
+                              Assets.images.icClose.svg(width: 24, height: 24))
+                    ],
+                  ),
+                  SizedBox(width: 32),
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Assets.images.icEdit.svg(width: 24, height: 24),
+                            SizedBox(width: 10),
+                            Strings.editTitle.w(500).s(14).c(Color(0xFF5C6AC3))
+                          ],
+                        )),
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Assets.images.icAdvertise
+                                .svg(width: 24, height: 24),
+                            SizedBox(width: 10),
+                           Strings.advertiseTitle.w(500).s(14).c(Color(0xFF41455E))
+                          ],
+                        )),
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Assets.images.icDelete.svg(width: 24, height: 24),
+                            SizedBox(width: 10),
+                            Strings.deactivateTilte.w(500).s(14).c(Color(0xFF5C6AC3))
+                          ],
+                        )),
+                  ),
+                  SizedBox(height: 24),
+                  SizedBox(
+                    height: 42,
+                    width: double.infinity,
+                    child: CommonButton(
+                      onPressed: () {Navigator.of(buildContext).pop();},
+                      child: Strings.cardClose.w(600).s(14).c(Colors.white),
+                    ),
+                  )
+                ]),
+              ),
+            );
+          });
+    }
+
     double width;
     double height;
     width = MediaQuery.of(context).size.width;
@@ -89,7 +181,9 @@ class UserAllAdsPage extends BasePage<UserAllAdsCubit, UserAllAdsBuildable,
           },
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) => UserAdWidget(
-            listenerAddressEdit: () {},
+            listenerAddressEdit: () {
+              _edit();
+            },
             listener: () {
               context.router.push(UserAdDetailRoute(userAdResponse: item));
             },

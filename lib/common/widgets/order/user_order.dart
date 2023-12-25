@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/data/responses/user_order/user_order_response.dart';
 
@@ -37,7 +38,7 @@ class UserOrderWidget extends StatelessWidget {
         child: Row(
           children: [
             Container(
-                width: 80,
+                width: 100,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6),
                   border: Border.all(width: 0.50, color: Color(0xFFE5E9F3)),
@@ -63,21 +64,84 @@ class UserOrderWidget extends StatelessWidget {
             SizedBox(width: 12),
             Expanded(
                 child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                  response.order_id.toString().w(500).s(14),
-                  SizedBox(height: 12),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      "Product name".w(400).s(12).c(context.colors.textPrimary),
+                      SizedBox(width: 8),
+                      (response.products.first.product?.name ?? "")
+                          .toString()
+                          .w(500)
+                          .s(12),
+                    ],
+                  ),
+                  SizedBox(height: 3),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      "Time".w(400).s(12).c(context.colors.textPrimary),
+                      SizedBox(width: 8),
+                      (response.created_at ?? "")
+                          .toString()
+                          .w(500)
+                          .s(12),
+                    ],
+                  ),
+                  SizedBox(height: 3),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.start,
+                  //   children: [
+                  //     "Amount".w(400).s(12).c(context.colors.textPrimary),
+                  //     SizedBox(width: 8),
+                  //     (response.final_sum ?? "")
+                  //         .toString()
+                  //         .w(500)
+                  //         .s(12),
+                  //   ],
+                  // ),
+                  // SizedBox(height: 3),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.start,
+                  //   children: [
+                  //     "Price".w(400).s(12).c(context.colors.textPrimary),
+                  //     SizedBox(width: 8),
+                  //     (response.products.first.product?.name ?? "")
+                  //         .toString()
+                  //         .w(500)
+                  //         .s(12),
+                  //   ],
+                  // ),
+                  // SizedBox(height: 3),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      "Total cost".w(400).s(12).c(context.colors.textPrimary),
+                      SizedBox(width: 6),
+                      (response.final_sum ?? "")
+                          .toString()
+                          .w(500)
+                          .s(12),
+                    ],
+                  ),
+                  SizedBox(height: 6),
                   Spacer(),
                   Row(
                     children: [
-                      CommonButton(
-                          onPressed: () {},
-                          child: "o'chirish".w(500).s(13).c(Color(0xFFDFE2E9))),
+                      Expanded(
+                          child: CommonButton(
+                              onPressed: () {},
+                              child: "o'chirish"
+                                  .w(500)
+                                  .s(13)
+                                  .c(Color(0xFFDFE2E9)))),
                       SizedBox(width: 8),
-                      CommonButton(
-                          onPressed: () {},
-                          child: "More".w(500).s(13).c(Color(0xFFDFE2E9))),
+                      Expanded(
+                          child: CommonButton(
+                              onPressed: () {},
+                              child: "More".w(500).s(13).c(Color(0xFFDFE2E9)))),
                     ],
                   )
                 ])),
