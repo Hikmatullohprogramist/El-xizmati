@@ -163,7 +163,7 @@ class UserInactiveAdsPage extends BasePage<UserInactiveAdsCubit,
             );
           },
           noItemsFoundIndicatorBuilder: (_) {
-            return UserAdEmptyWidget(listener: () {});
+            return UserAdEmptyWidget(listener: () {context.router.push(CreateAdRoute());});
           },
           newPageProgressIndicatorBuilder: (_) {
             return SizedBox(

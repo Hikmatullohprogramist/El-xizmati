@@ -4,7 +4,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/widgets/card/card_empty_widget.dart';
+import 'package:onlinebozor/common/widgets/transaction/transaction_empty_widget.dart';
 import 'package:onlinebozor/common/widgets/transaction/transaction_widget.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
@@ -35,7 +35,8 @@ class PaymentTransactionPage extends BasePage<PaymentTransactionCubit,
               type: ButtonType.text,
               onPressed: () =>
                   context.router.push(PaymentTransactionFilterRoute()),
-              child: Strings.paymentFilterTitle.w(500).s(12).c(Color(0xFF5C6AC3)))
+              child:
+                  Strings.paymentFilterTitle.w(500).s(12).c(Color(0xFF5C6AC3)))
         ],
         leading: IconButton(
           icon: Assets.images.icArrowLeft.svg(),
@@ -56,61 +57,60 @@ class PaymentTransactionPage extends BasePage<PaymentTransactionCubit,
             crossAxisCount: 1,
             mainAxisSpacing: 0),
         builderDelegate: PagedChildBuilderDelegate<dynamic>(
-          firstPageErrorIndicatorBuilder: (_) {
-            return SizedBox(
-              height: 100,
-              child: Center(
-                child: Column(
-                  children: [
-                    Strings.loadingStateError
-                        .w(400)
-                        .s(14)
-                        .c(context.colors.textPrimary),
-                    SizedBox(height: 12),
-                    CommonButton(
-                        onPressed: () {},
-                        type: ButtonType.elevated,
-                        child: Strings.loadingStateRetrybutton.w(400).s(15))
-                  ],
+            firstPageErrorIndicatorBuilder: (_) {
+              return SizedBox(
+                height: 100,
+                child: Center(
+                  child: Column(
+                    children: [
+                      Strings.loadingStateError
+                          .w(400)
+                          .s(14)
+                          .c(context.colors.textPrimary),
+                      SizedBox(height: 12),
+                      CommonButton(
+                          onPressed: () {},
+                          type: ButtonType.elevated,
+                          child: Strings.loadingStateRetrybutton.w(400).s(15))
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
-          firstPageProgressIndicatorBuilder: (_) {
-            return SizedBox(
-              height: 160,
-              child: Center(
-                child: CircularProgressIndicator(
-                  color: Colors.blue,
+              );
+            },
+            firstPageProgressIndicatorBuilder: (_) {
+              return SizedBox(
+                height: 160,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.blue,
+                  ),
                 ),
-              ),
-            );
-          },
-          noItemsFoundIndicatorBuilder: (_) {
-            return CardEmptyWidget(listener: () {});
-          },
-          newPageProgressIndicatorBuilder: (_) {
-            return SizedBox(
-              height: 160,
-              child: Center(
-                child: CircularProgressIndicator(color: Colors.blue),
-              ),
-            );
-          },
-          newPageErrorIndicatorBuilder: (_) {
-            return SizedBox(
-              height: 160,
-              child: Center(
-                child: CircularProgressIndicator(color: Colors.blue),
-              ),
-            );
-          },
-          transitionDuration: Duration(milliseconds: 100),
-          itemBuilder: (context, item, index) {
-            return TransactionWidget();
-          }
-        ),
+              );
+            },
+            noItemsFoundIndicatorBuilder: (_) {
+              return TransactionEmptyWidget(listener: () {});
+            },
+            newPageProgressIndicatorBuilder: (_) {
+              return SizedBox(
+                height: 160,
+                child: Center(
+                  child: CircularProgressIndicator(color: Colors.blue),
+                ),
+              );
+            },
+            newPageErrorIndicatorBuilder: (_) {
+              return SizedBox(
+                height: 160,
+                child: Center(
+                  child: CircularProgressIndicator(color: Colors.blue),
+                ),
+              );
+            },
+            transitionDuration: Duration(milliseconds: 100),
+            itemBuilder: (context, item, index) {
+              return TransactionWidget();
+            }),
       ),
     );
   }
-  }
+}

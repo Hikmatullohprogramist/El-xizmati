@@ -162,7 +162,7 @@ class UserPendingAdsPage extends BasePage<UserPendingAdsCubit,
             );
           },
           noItemsFoundIndicatorBuilder: (_) {
-            return UserAdEmptyWidget(listener: () {});
+            return UserAdEmptyWidget(listener: () {context.router.push(CreateAdRoute());});
           },
           newPageProgressIndicatorBuilder: (_) {
             return SizedBox(

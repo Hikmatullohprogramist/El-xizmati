@@ -141,7 +141,7 @@ class UserOrderWidget extends StatelessWidget {
                       Expanded(
                           child: CommonButton(
                               onPressed: () {},
-                              child: "More".w(500).s(13).c(Color(0xFFDFE2E9)))),
+                              child: "Ko'proq".w(500).s(13).c(Color(0xFFDFE2E9)))),
                     ],
                   )
                 ])),

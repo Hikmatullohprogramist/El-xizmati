@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/domain/util.dart';
 import 'package:onlinebozor/presentation/home/features/profile_dashboard/features/user_orders/cubit/user_orders_cubit.dart';
@@ -37,7 +38,7 @@ class UserOrdersPage extends BasePage<UserOrdersCubit, UserOrdersBuildable,
               CommonButton(
                   type: ButtonType.text,
                   onPressed: () => context.router.push(OrderCreationRoute()),
-                  child: "Создать запрос".w(500).s(12).c(Color(0xFF5C6AC3)))
+                  child: Strings.createRequestTitle.w(500).s(12).c(Color(0xFF5C6AC3)))
             ],
             leading: IconButton(
               icon: Assets.images.icArrowLeft.svg(),
@@ -47,7 +48,7 @@ class UserOrdersPage extends BasePage<UserOrdersCubit, UserOrdersBuildable,
             backgroundColor: Colors.white,
             centerTitle: true,
             bottomOpacity: 1,
-            title: "Мои запросы".w(500).s(16).c(context.colors.textPrimary),
+            title: Strings.myRequestsTitle.w(500).s(16).c(context.colors.textPrimary),
             bottom: TabBar(
               isScrollable: true,
               physics: BouncingScrollPhysics(),
@@ -64,13 +65,13 @@ class UserOrdersPage extends BasePage<UserOrdersCubit, UserOrdersBuildable,
               unselectedLabelColor: Color(0xFF9EABBE),
               indicatorColor: context.colors.textPrimary,
               controller: controller,
-              tabs: const [
-                Tab(text: 'Barchasi'),
-                Tab(text: 'Kutilmoqda'),
-                Tab(text: 'Rad edilgan'),
-                Tab(text: 'Bekor qilingan'),
-                Tab(text: "Ko'rib chiqilmoqda"),
-                Tab(text: 'Qabul qilingan')
+              tabs:  [
+                Tab(text: Strings.userRequestAllTitle),
+                Tab(text: Strings.userRequestPendingTitle),
+                Tab(text: Strings.userRequestRejactionTitle),
+                Tab(text: Strings.userRequestCanceledTitle),
+                Tab(text: Strings.userRequestReviewTitle),
+                Tab(text: Strings.userRequestAcceptTitle)
               ],
             ),
           ),

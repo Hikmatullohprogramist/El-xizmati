@@ -1,4 +1,5 @@
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -10,6 +11,7 @@ import 'package:onlinebozor/data/responses/user_order/user_order_response.dart';
 import 'package:onlinebozor/presentation/home/features/profile_dashboard/features/user_orders/features/user_accept_orders/cubit/user_accept_orders_cubit.dart';
 
 import '../../../../../../../../common/gen/localization/strings.dart';
+import '../../../../../../../../common/router/app_router.dart';
 import '../../../../../../../../common/widgets/ad/user_ad_empty_widget.dart';
 import '../../../../../../../../common/widgets/common/common_button.dart';
 import '../../../../../../../../domain/util.dart';
@@ -77,7 +79,7 @@ class UserAcceptOrdersPage extends BasePage<UserAcceptOrdersCubit,
               );
             },
             noItemsFoundIndicatorBuilder: (_) {
-              return UserAdEmptyWidget(listener: () {});
+              return UserAdEmptyWidget(listener: () {context.router.push(OrderCreationRoute());});
             },
             newPageProgressIndicatorBuilder: (_) {
               return SizedBox(

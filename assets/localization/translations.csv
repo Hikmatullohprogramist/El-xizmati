@@ -227,3 +227,11 @@ edit.title,Tahrirlash,Редактировать,Таҳрирлаш
 advertise.title,Reklama qilish uchun,Рекламировать,Reklama qilish uchun
 deactivate.tilte,Faolsizlantirish,Деактивировать,Фаолсизлантириш
 close.title,Yopish,Закрыть,Ёпиш
+my.requests.title,Mening so'rovlarim,Мои Запросы,Менинг сўровларим
+create.request.title,So'rov yaratish,Создать запрос,Сўров яратиш
+user.request.all.title,Barchasi,Все,Барчаси
+user.request.pending.title,Kutulmoqda,Ожидающий,Кутулмоқда
+user.request.rejaction.title,Rad etilgan,Отклоненный,Рад этилган
+user.request.canceled.title,Bekor qilingan ,Отменено,Бекор қилинган
+user.request.review.title,Ko'rib chiqilmoqda,На рассмотрении,Кўриб чиқилмоқда
+user.request.accept.title,Qabul qilingan,Принял,Қабул қилинган

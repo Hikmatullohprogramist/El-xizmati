@@ -162,7 +162,7 @@ class UserCancelAdsPage extends BasePage<UserCancelAdsCubit,
             );
           },
           noItemsFoundIndicatorBuilder: (_) {
-            return UserAdEmptyWidget(listener: () {});
+            return UserAdEmptyWidget(listener: () {context.router.push(CreateAdRoute());});
           },
           newPageProgressIndicatorBuilder: (_) {
             return SizedBox(
