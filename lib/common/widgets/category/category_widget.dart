@@ -11,10 +11,12 @@ class AppCategoryWidget extends StatelessWidget {
     super.key,
     required this.invoke,
     required this.category,
+    this.isDisableAmount = false,
   });
 
   final Function(CategoryResponse category) invoke;
   final CategoryResponse category;
+  final bool isDisableAmount;
 
   @override
   Widget build(BuildContext context) {
@@ -59,13 +61,15 @@ class AppCategoryWidget extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                  category.amount != null && category.amount != 0
-                      ? '(${category.amount})'
-                          .w(600)
-                          .s(14)
-                          .c(Colors.black)
-                          .copyWith(overflow: TextOverflow.ellipsis)
-                      : SizedBox()
+                  Expanded(
+                      child: category.amount != null && category.amount != 0
+                          ? '(${category.amount})'
+                              .w(600)
+                              .s(14)
+                              .c(Colors.black)
+                              .copyWith(
+                                  overflow: TextOverflow.ellipsis, maxLines: 1)
+                          : SizedBox())
                 ],
               )),
               Assets.images.icArrowRight.svg(height: 16, width: 16)

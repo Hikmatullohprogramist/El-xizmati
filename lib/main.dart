@@ -55,7 +55,7 @@ Future<void> main() async {
         DeviceInfo.deviceId = uuid.v5(Uuid.NAMESPACE_URL, combinedInfo);
         DeviceInfo.mobileOsType = "android";
       } else if (Platform.isIOS) {
-        DeviceInfo.mobileOsType="ios";
+        DeviceInfo.mobileOsType = "ios";
         IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
         String? deviceId = iosInfo.identifierForVendor;
         DeviceInfo.deviceName = iosInfo.name;

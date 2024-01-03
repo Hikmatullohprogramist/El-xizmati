@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/presentation/common/language/change_language/change_language_page.dart';
 import 'package:onlinebozor/presentation/home/home_page.dart';
 
-import '../../alfa/page/a_page.dart';
 import '../../data/responses/address/user_address_response.dart';
+import '../../data/responses/category/category/category_response.dart';
 import '../../data/responses/user_ad/user_ad_response.dart';
 import '../../domain/util.dart';
 import '../../presentation/ad/ad_collection/ad_collection_page.dart';
@@ -74,6 +74,9 @@ import '../../presentation/home/features/profile_dashboard/features/user_orders/
 import '../../presentation/home/features/profile_dashboard/features/wallet_filling/wallet_filling_page.dart';
 import '../../presentation/home/features/profile_dashboard/profile_dashboard_page.dart';
 import '../../presentation/order/order_creation/features/product_order/product_order_create_page.dart';
+import '../../presentation/order/order_creation/features/selection_address/selection_address_page.dart';
+import '../../presentation/order/order_creation/features/selection_category/selection_category_page.dart';
+import '../../presentation/order/order_creation/features/selection_user_address/selection_user_address.dart';
 import '../../presentation/order/order_creation/features/service_order/service_order_create_page.dart';
 import '../../presentation/order/order_creation/order_creation_page.dart';
 
@@ -100,7 +103,10 @@ class AppRouter extends _$AppRouter {
             path: '/home',
             initial: false,
             children: [
-              AutoRoute(page: DashboardRoute.page, path: 'dashboard', maintainState: false),
+              AutoRoute(
+                  page: DashboardRoute.page,
+                  path: 'dashboard',
+                  maintainState: false),
               AutoRoute(page: CategoryRoute.page, path: 'category'),
               AutoRoute(
                   page: FavoritesRoute.page,
@@ -120,13 +126,13 @@ class AppRouter extends _$AppRouter {
                   page: CartRoute.page, path: 'cart', maintainState: false),
               AutoRoute(page: ProfileDashboardRoute.page, path: 'profile')
             ]),
-    
-    AutoRoute(page: CreateAdRoute.page, path: '/create_ad',
-        children: [
-          AutoRoute(page: CreateProductAdRoute.page, path: 'create_product_ad'), 
+
+        AutoRoute(page: CreateAdRoute.page, path: '/create_ad', children: [
+          AutoRoute(page: CreateProductAdRoute.page, path: 'create_product_ad'),
           AutoRoute(page: CreateServiceAdRoute.page, path: 'create_service_ad'),
-          AutoRoute(page: CreateFreeAdRoute.page,path: 'create_free_ad' ), 
-          AutoRoute(page: CreateExchangeAdRoute.page, path: 'create_exchange_ad')
+          AutoRoute(page: CreateFreeAdRoute.page, path: 'create_free_ad'),
+          AutoRoute(
+              page: CreateExchangeAdRoute.page, path: 'create_exchange_ad')
         ]),
 
         //  sub category
@@ -138,7 +144,10 @@ class AppRouter extends _$AppRouter {
         // Ads collection
         AutoRoute(page: AdCollectionRoute.page, path: "/ads_collection"),
         AutoRoute(
-            page: AdListRoute.page, path: '/ads_list', maintainState: false, ),
+          page: AdListRoute.page,
+          path: '/ads_list',
+          maintainState: false,
+        ),
         AutoRoute(page: AdDetailRoute.page, path: '/ads_detail'),
         //  common page
         AutoRoute(
@@ -207,6 +216,12 @@ class AppRouter extends _$AppRouter {
               AutoRoute(
                   page: ServiceOrderCreateRoute.page,
                   path: 'service_order_create')
-            ])
+            ]),
+        AutoRoute(
+            page: SelectionCategoryRoute.page, path: '/selection_category'),
+        AutoRoute(
+            page: SelectionUserAddressRoute.page,
+            path: '/selection_user_address'),
+        AutoRoute(page: SelectionAddressRoute.page, path: '/selection_address')
       ];
 }

@@ -1,12 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/data/responses/user_order/user_order_response.dart';
 
 import '../../constants.dart';
-import '../../gen/assets/assets.gen.dart';
 import '../common/common_button.dart';
 
 class UserOrderWidget extends StatelessWidget {
@@ -23,15 +21,6 @@ class UserOrderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var formatter = NumberFormat('###,000');
-    Widget liked(bool isLiked) {
-      if (isLiked) {
-        return Assets.images.icLike.svg(color: Colors.red);
-      } else {
-        return Assets.images.icLike.svg();
-      }
-    }
-
     return InkWell(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -72,10 +61,13 @@ class UserOrderWidget extends StatelessWidget {
                     children: [
                       "Product name".w(400).s(12).c(context.colors.textPrimary),
                       SizedBox(width: 8),
-                      (response.products.first.product?.name ?? "")
-                          .toString()
-                          .w(500)
-                          .s(12),
+                      Expanded(
+                        child: (response.products.first.product?.name ?? "")
+                            .toString()
+                            .w(500)
+                            .s(12)
+                            .copyWith(overflow: TextOverflow.ellipsis),
+                      )
                     ],
                   ),
                   SizedBox(height: 3),
@@ -84,10 +76,7 @@ class UserOrderWidget extends StatelessWidget {
                     children: [
                       "Time".w(400).s(12).c(context.colors.textPrimary),
                       SizedBox(width: 8),
-                      (response.created_at ?? "")
-                          .toString()
-                          .w(500)
-                          .s(12),
+                      (response.created_at ?? "").toString().w(500).s(12),
                     ],
                   ),
                   SizedBox(height: 3),
@@ -120,10 +109,7 @@ class UserOrderWidget extends StatelessWidget {
                     children: [
                       "Total cost".w(400).s(12).c(context.colors.textPrimary),
                       SizedBox(width: 6),
-                      (response.final_sum ?? "")
-                          .toString()
-                          .w(500)
-                          .s(12),
+                      (response.final_sum ?? "").toString().w(500).s(12),
                     ],
                   ),
                   SizedBox(height: 6),
@@ -141,7 +127,8 @@ class UserOrderWidget extends StatelessWidget {
                       Expanded(
                           child: CommonButton(
                               onPressed: () {},
-                              child: "Ko'proq".w(500).s(13).c(Color(0xFFDFE2E9)))),
+                              child:
+                                  "Ko'proq".w(500).s(13).c(Color(0xFFDFE2E9)))),
                     ],
                   )
                 ])),

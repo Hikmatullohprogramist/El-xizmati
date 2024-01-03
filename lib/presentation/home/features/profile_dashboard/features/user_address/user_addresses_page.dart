@@ -243,10 +243,11 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
           },
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) => AppAddressWidgets(
-            listener: () {
+            listener: () {},
+            address: item,
+            listenerEdit: () {
               _edit(item);
             },
-            address: item,
           ),
         ),
       ),

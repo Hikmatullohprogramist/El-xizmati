@@ -63,7 +63,6 @@ class _CommonTextFieldState extends State<CommonTextField> {
       keyboardType: widget.inputType,
       minLines: widget.minLines,
       readOnly: widget.readOnly,
-      maxLines: widget.maxLines,
       enabled: widget.enabled,
       textInputAction: widget.textInputAction,
       onChanged: widget.onChanged,
@@ -84,7 +83,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
           borderRadius: BorderRadius.circular(8),
         ),
         disabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: context.colors.iconGrey),
+          borderSide: BorderSide(color:Color(0xFFDFE2E9)),
           borderRadius: BorderRadius.circular(8),
         ),
         focusedBorder: OutlineInputBorder(

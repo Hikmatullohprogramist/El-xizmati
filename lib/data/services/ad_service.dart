@@ -58,7 +58,7 @@ class AdsService {
       RestQueryKeys.queryPageIndex: pageIndex,
       RestQueryKeys.queryPageSize: pageSize,
     };
-    return _dio.get("v1/home/ads", queryParameters: queryParameters);
+    return _dio.get("v1/popular/ads", queryParameters: queryParameters);
   }
 
   Future<Response> getCollectiveRecentlyAds(CollectiveType collectiveType) {

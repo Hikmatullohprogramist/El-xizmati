@@ -51,7 +51,7 @@ class UserAddressRepositoryImp extends UserAddressRepository {
 
   @override
   Future<void> updateMainAddress({required int id, required bool isMain}) async {
-    await _userAddressService.updateMainAddress(userAddressId: id, isMain: isMain);
+    await _userAddressService.updateMainAddress(userAddressId: id, isMain:true );
     return;
   }
 

@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
@@ -11,17 +10,15 @@ import '../../../common/router/app_router.dart';
 import 'cubit/order_creation_cubit.dart';
 
 @RoutePage()
-class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationBuildable, OrderCreationListenable> {
+class OrderCreationPage extends BasePage<OrderCreationCubit,
+    OrderCreationBuildable, OrderCreationListenable> {
   const OrderCreationPage({super.key});
 
   @override
   Widget builder(BuildContext context, OrderCreationBuildable state) {
     return AutoTabsRouter.tabBar(
       physics: BouncingScrollPhysics(),
-      routes: const [
-        ProductOrderCreateRoute(),
-        ServiceOrderCreateRoute()
-      ],
+      routes: [ProductOrderCreateRoute(), ServiceOrderCreateRoute()],
       builder: (context, child, controller) {
         return Scaffold(
           appBar: AppBar(
@@ -55,10 +52,7 @@ class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationBuilda
               unselectedLabelColor: Color(0xFF9EABBE),
               indicatorColor: context.colors.textPrimary,
               controller: controller,
-              tabs: const [
-                Tab(text: 'Нужен товар'),
-                Tab(text: 'Нужна услуга')
-              ],
+              tabs: const [Tab(text: 'Нужен товар'), Tab(text: 'Нужна услуга')],
             ),
           ),
           body: child,
