@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../../domain/models/ad.dart';
-import 'ad_horizontal_widget.dart';
+import 'horizontal_ad_widget.dart';
 
-class AdGroupWidget extends StatelessWidget {
-  const AdGroupWidget(
+class HorizontalAdListWidget extends StatelessWidget {
+  const HorizontalAdListWidget(
       {super.key,
       required this.ads,
       required this.invoke,
@@ -17,22 +17,22 @@ class AdGroupWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 347,
+      height: 285,
       child: ListView.separated(
         physics: BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
         itemCount: ads.length,
-        padding: EdgeInsets.only(left: 16, bottom: 24, right: 16),
+        padding: EdgeInsets.only(left: 16, right: 16),
         itemBuilder: (context, index) {
-          return AppAdHorizontalWidget(
+          return HorizontalAdWidget(
             invokeFavorite: invokeFavorite,
             invoke: invoke,
             ad: ads[index],
           );
         },
         separatorBuilder: (BuildContext context, int index) {
-          return SizedBox(width: 16);
+          return SizedBox(width: 8);
         },
       ),
     );

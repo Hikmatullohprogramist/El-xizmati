@@ -7,8 +7,8 @@ import 'package:onlinebozor/common/constants.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/common/widgets/ad/price_widget.dart';
-import 'package:onlinebozor/common/widgets/dashboard/all_view_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/price_text_widget.dart';
+import 'package:onlinebozor/common/widgets/dashboard/see_all_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite/favorite_widget.dart';
 import 'package:onlinebozor/domain/util.dart';
 import 'package:onlinebozor/presentation/ad/ad_detail/cubit/ad_detail_cubit.dart';
@@ -16,7 +16,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../common/core/base_page.dart';
 import '../../../common/gen/assets/assets.gen.dart';
-import '../../../common/widgets/ad/ad_group_widget.dart';
+import '../../../common/widgets/ad/horizontal_ad_list_widget.dart';
 import '../../../common/widgets/ad/ad_property_widget.dart';
 import '../../../common/widgets/ad/ad_route_widget.dart';
 import '../../../common/widgets/common/common_button.dart';
@@ -65,7 +65,7 @@ class AdDetailPage
                     SizedBox(width: 16),
                     Strings.adDetailPrice.w(400).s(12).c(Color(0xFF9EABBE)),
                     SizedBox(width: 8),
-                    AppPriceWidget(
+                    PriceTextWidget(
                         price: state.adDetail!.price,
                         toPrice: state.adDetail!.toPrice,
                         fromPrice: state.adDetail!.fromPrice,
@@ -138,7 +138,7 @@ class AdDetailPage
                               .copyWith(
                                   maxLines: 2, overflow: TextOverflow.ellipsis),
                           SizedBox(height: 16),
-                          AppPriceWidget(
+                          PriceTextWidget(
                               price: state.adDetail!.price,
                               toPrice: state.adDetail!.toPrice,
                               fromPrice: state.adDetail!.fromPrice,
@@ -480,7 +480,7 @@ class AdDetailPage
                     child: Column(
                         children: [getWatch(Strings.adDetailFeedback, () {})]),
                   ),
-                  AppAllViewWidget(
+                  SeeAllWidget(
                       listener: () {
                         context.router.push(AdListRoute(
                             adListType: AdListType.similarAds,
@@ -495,7 +495,7 @@ class AdDetailPage
                         context.read<AdDetailCubit>().getSimilarAds();
                       },
                       loadingState: state.similarAdsState,
-                      child: AdGroupWidget(
+                      child: HorizontalAdListWidget(
                         ads: state.similarAds,
                         invoke: (Ad ad) =>
                             context.router.push(AdDetailRoute(adId: ad.id)),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/common/widgets/ad/price_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
 import 'package:onlinebozor/data/responses/user_ad/user_ad_response.dart';
 import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
@@ -89,7 +89,7 @@ class UserAdWidget extends StatelessWidget {
                           Flexible(
                               child: Align(
                                   alignment: Alignment.centerRight,
-                                  child: AppPriceWidget(
+                                  child: PriceTextWidget(
                                       price: response.price ?? 0,
                                       toPrice: response.to_price ?? 0,
                                       fromPrice: response.from_price ?? 0,

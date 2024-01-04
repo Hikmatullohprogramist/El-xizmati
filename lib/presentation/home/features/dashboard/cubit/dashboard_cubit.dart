@@ -13,6 +13,7 @@ import '../../../../../domain/repositories/common_repository.dart';
 import '../../../../../domain/repositories/favorite_repository.dart';
 
 part 'dashboard_cubit.freezed.dart';
+
 part 'dashboard_state.dart';
 
 @injectable
@@ -29,6 +30,7 @@ class DashboardCubit
       getPopularCategories(),
       getPopularAds(),
       getController(),
+      getBanners()
     ]);
   }
 
@@ -42,13 +44,15 @@ class DashboardCubit
     try {
       final popularCategories =
           await commonRepository.getPopularCategories(1, 20);
+
       build((buildable) => buildable.copyWith(
             popularCategories: popularCategories,
             popularCategoriesState: AppLoadingState.success,
           ));
-    }on DioException  catch (e, stackTrace) {
+    } on DioException catch (e, stackTrace) {
       build((buildable) =>
           buildable.copyWith(popularCategoriesState: AppLoadingState.error));
+
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
@@ -57,8 +61,10 @@ class DashboardCubit
   Future<void> getPopularAds() async {
     try {
       final recentlyAds = await adRepository.getHomePopularAds(1, 10);
+
       build((buildable) => buildable.copyWith(
           popularAds: recentlyAds, popularAdsState: AppLoadingState.success));
+
     } on DioException catch (e, stackTrace) {
       build((buildable) =>
           buildable.copyWith(popularAdsState: AppLoadingState.error));
@@ -67,22 +73,18 @@ class DashboardCubit
     }
   }
 
-  /**
-   * bannerlarni  ko'rsatish vaqtinchalik to'xtatildi
-   * */
-
   Future<void> getBanners() async {
     try {
-      build((buildable) =>
-          buildable.copyWith(bannersState: AppLoadingState.loading));
       final banners = await commonRepository.getBanner();
+
       build((buildable) => buildable.copyWith(
           banners: banners, bannersState: AppLoadingState.success));
-      log.i("${buildable.banners}");
+
+      log.i("getBanners success = ${buildable.banners}");
     } on DioException catch (e, stackTrace) {
       build((buildable) =>
           buildable.copyWith(bannersState: AppLoadingState.error));
-      log.e(e.toString(), error: e, stackTrace: stackTrace);
+      log.e("getBanners error = ${e.toString()}", error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
   }
@@ -92,7 +94,7 @@ class DashboardCubit
       final controller =
           buildable.adsPagingController ?? getAdsController(status: 1);
       build((buildable) => buildable.copyWith(adsPagingController: controller));
-    }on DioException  catch (e, stackTrace) {
+    } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
@@ -109,7 +111,7 @@ class DashboardCubit
     log.i(buildable.adsPagingController);
 
     adController.addPageRequestListener(
-          (pageKey) async {
+      (pageKey) async {
         final adsList = await adRepository.getHomeAds(pageKey, _pageSize, "");
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);

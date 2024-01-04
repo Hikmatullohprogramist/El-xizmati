@@ -4,8 +4,8 @@ import 'package:onlinebozor/common/extensions/currency_extensions.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/domain/util.dart';
 
-class AppPriceWidget extends StatelessWidget {
-  AppPriceWidget(
+class PriceTextWidget extends StatelessWidget {
+  PriceTextWidget(
       {super.key,
       required this.price,
       required this.toPrice,
@@ -27,12 +27,12 @@ class AppPriceWidget extends StatelessWidget {
         ? "${formatter.format(toPrice).replaceAll(',', ' ')}-"
                 "${formatter.format(fromPrice).replaceAll(',', ' ')} ${currency.getName}"
             .w(800)
-            .s(16)
+            .s(14)
             .c(color != null ? color! : Color(0xFF5C6AC3))
             .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis)
         : "${formatter.format(price).replaceAll(',', ' ')} ${currency.getName}"
             .w(800)
-            .s(16)
+            .s(14)
             .c(color != null ? color! : Color(0xFF5C6AC3))
             .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis);
   }

@@ -6,8 +6,8 @@ import 'package:onlinebozor/common/widgets/ad/ad_property_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_route_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_status_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_type_widget.dart';
-import 'package:onlinebozor/common/widgets/ad/price_widget.dart';
-import 'package:onlinebozor/common/widgets/ad/view_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/price_text_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/view_count_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite/favorite_widget.dart';
 import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
 
@@ -16,8 +16,8 @@ import '../../../domain/util.dart';
 import '../../constants.dart';
 import '../../gen/assets/assets.gen.dart';
 
-class AppAdHorizontalWidget extends StatelessWidget {
-  const AppAdHorizontalWidget({
+class HorizontalAdWidget extends StatelessWidget {
+  const HorizontalAdWidget({
     super.key,
     required this.invokeFavorite,
     required this.invoke,
@@ -40,10 +40,10 @@ class AppAdHorizontalWidget extends StatelessWidget {
             children: [
               Container(
                   width: 140,
-                  height: 180,
+                  height: 140,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
-                    border: Border.all(width: 0.50, color: Color(0xFFE5E9F3)),
+                    // borderRadius: BorderRadius.circular(6),
+                    // border: Border.all(width: 0.50, color: Color(0xFFE5E9F3)),
                     color: Color(0xFFF6F7FC),
                   ),
                   child: Stack(children: [
@@ -69,13 +69,13 @@ class AppAdHorizontalWidget extends StatelessWidget {
                         child: AppFavoriteWidget(
                             isSelected: ad.favorite,
                             invoke: () => invokeFavorite(ad))),
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: AppAdTypeWidget(adType: ad.adTypeStatus.adType()),
-                    ),
+                    // Align(
+                    //   alignment: Alignment.bottomLeft,
+                    //   child: AppAdTypeWidget(adType: ad.adTypeStatus.adType()),
+                    // ),
                     Align(
                       alignment: Alignment.bottomRight,
-                      child: AdViewWidget(viewCount: ad.view),
+                      child: ViewCountWidget(viewCount: ad.view),
                     ),
                   ])),
               SizedBox(height: 12),
@@ -89,7 +89,7 @@ class AppAdHorizontalWidget extends StatelessWidget {
                     .copyWith(maxLines: 2, overflow: TextOverflow.ellipsis),
               ),
               SizedBox(height: 6),
-              AppPriceWidget(
+              PriceTextWidget(
                   price: ad.price,
                   toPrice: ad.toPrice,
                   fromPrice: ad.fromPrice,

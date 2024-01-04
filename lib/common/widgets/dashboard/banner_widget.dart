@@ -4,26 +4,26 @@ import 'package:flutter/material.dart';
 
 import '../../../data/responses/banner/banner_response.dart';
 
-class AppBannerWidget extends StatelessWidget {
-  const AppBannerWidget({super.key, required this.list});
+class BannerWidget extends StatelessWidget {
+  const BannerWidget({super.key, required this.list});
 
   final List<BannerResponse> list;
 
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
-      options: CarouselOptions(autoPlay: true, aspectRatio: 2 / 1),
+      options: CarouselOptions(autoPlay: true, height: 180, viewportFraction: 0.98),
       items: list.map((i) {
         return Builder(
           builder: (BuildContext context) {
             return Container(
-              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              margin: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
               child: CachedNetworkImage(
                 imageUrl:
                     "https://api.online-bozor.uz/uploads/images/${i.image ?? ""}",
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
+                    borderRadius: BorderRadius.circular(0),
                     image: DecorationImage(
                         image: imageProvider,
                         fit: BoxFit.fill,

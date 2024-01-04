@@ -6,9 +6,9 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/common/widgets/ad/ad_group_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/horizontal_ad_list_widget.dart';
 import 'package:onlinebozor/common/widgets/app_bar/common_active_search_bar.dart';
-import 'package:onlinebozor/common/widgets/dashboard/all_view_widget.dart';
+import 'package:onlinebozor/common/widgets/dashboard/see_all_widget.dart';
 import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
 
 import '../../../common/core/base_page.dart';
@@ -78,7 +78,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                                 .c(context.colors.textPrimary),
                           },
                         )),
-                    AppAllViewWidget(
+                    SeeAllWidget(
                         listener: () {
                           context.router.push(AdListRoute(
                               collectiveType: state.collectiveType,
@@ -90,7 +90,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                     LoaderStateWidget(
                         isFullScreen: false,
                         loadingState: state.cheapAdsState,
-                        child: AdGroupWidget(
+                        child: HorizontalAdListWidget(
                           ads: state.cheapAds,
                           invoke: (Ad result) {
                             context.router.push(AdDetailRoute(adId: result.id));
@@ -101,7 +101,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                       )),
                       SizedBox(height: 6),
                       AppDivider(height: 3),
-                      AppAllViewWidget(
+                      SeeAllWidget(
                           listener: () {
                           context.router.push(AdListRoute(
                               collectiveType: state.collectiveType,
@@ -114,7 +114,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                       LoaderStateWidget(
                           isFullScreen: false,
                           loadingState: state.popularAdsState,
-                          child: AdGroupWidget(
+                          child: HorizontalAdListWidget(
                             ads: state.popularAds,
                             invoke: (Ad result) {
                             context.router.push(AdDetailRoute(adId: result.id));

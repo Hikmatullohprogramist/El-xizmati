@@ -12,6 +12,8 @@ class ThemeColors {
 
   Color get textPrimary => StaticColors.americanBlue;
 
+  Color get textAccent => StaticColors.dodgerBlue;
+
   Color get textSecondary => StaticColors.cadetBlue;
 
   Color get textTertiary => StaticColors.cadetBlue;

@@ -5,7 +5,7 @@ import '../../../presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
 import '../../gen/assets/assets.gen.dart';
 import '../../gen/localization/strings.dart';
 import '../../router/app_router.dart';
-import 'product_and_service.dart';
+import 'product_or_service.dart';
 
 class AppRootProductAndService extends StatelessWidget {
   const AppRootProductAndService({
@@ -20,11 +20,11 @@ class AppRootProductAndService extends StatelessWidget {
         children: [
           Flexible(
             flex: 1,
-            child: AppProductAndService(
+            child: ProductOrService(
               invoke: () {
-                context.router.push(AdCollectionRoute(
-                  collectiveType: CollectiveType.product,
-                ));
+                context.router.push(
+                  AdCollectionRoute(collectiveType: CollectiveType.product),
+                );
               },
               color: Color(0xFFB9A0FF),
               title: Strings.productsTitle,
@@ -35,10 +35,11 @@ class AppRootProductAndService extends StatelessWidget {
           ),
           Flexible(
             flex: 1,
-            child: AppProductAndService(
+            child: ProductOrService(
               invoke: () {
                 context.router.push(
-                    AdCollectionRoute(collectiveType: CollectiveType.service));
+                  AdCollectionRoute(collectiveType: CollectiveType.service),
+                );
               },
               color: Color(0xFFFFBB79),
               title: Strings.servicesTitle,

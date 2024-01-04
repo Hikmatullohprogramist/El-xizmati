@@ -5,7 +5,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/common/widgets/ad/price_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
 import 'package:onlinebozor/data/responses/user_ad/user_ad_response.dart';
 import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
@@ -96,7 +96,7 @@ class UserAdDetailPage extends BasePage<UserAdDetailCubit,
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 22),
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  AppPriceWidget(
+                  PriceTextWidget(
                       price: userAdResponse.price ?? 0,
                       toPrice: userAdResponse.to_price ?? 0,
                       fromPrice: userAdResponse.from_price??0,
