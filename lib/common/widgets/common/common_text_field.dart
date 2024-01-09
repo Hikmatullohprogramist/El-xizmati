@@ -6,6 +6,7 @@ class CommonTextField extends StatefulWidget {
   const CommonTextField({
     Key? key,
     this.autofillHints,
+    this.enableSuggestions,
     this.hint,
     this.controller,
     this.inputType,
@@ -24,6 +25,7 @@ class CommonTextField extends StatefulWidget {
     this.textAlign = TextAlign.start,
   }) : super(key: key);
   final Iterable<String>? autofillHints;
+  final bool? enableSuggestions;
   final String? hint;
   final String? label;
   final TextInputType? inputType;
@@ -67,6 +69,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
       minLines: widget.minLines,
       readOnly: widget.readOnly,
       enabled: widget.enabled,
+      enableSuggestions: widget.enableSuggestions ?? true,
       textInputAction: widget.textInputAction,
       onChanged: widget.onChanged,
       inputFormatters: [
@@ -86,7 +89,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
           borderRadius: BorderRadius.circular(8),
         ),
         disabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color:Color(0xFFDFE2E9)),
+          borderSide: BorderSide(color: Color(0xFFDFE2E9)),
           borderRadius: BorderRadius.circular(8),
         ),
         focusedBorder: OutlineInputBorder(
@@ -103,9 +106,9 @@ class _CommonTextFieldState extends State<CommonTextField> {
                 onPressed: () {
                   setState(() {
                     _passwordVisible = !_passwordVisible;
-            });
-          },
-        ),
+                  });
+                },
+              ),
       ),
       obscureText: _passwordVisible,
     );

@@ -96,6 +96,7 @@ class VerificationPage extends BasePage<VerificationCubit,
                 SizedBox(height: 10),
                 CommonTextField(
                   autofillHints: const [AutofillHints.password],
+                  enableSuggestions: true,
                   inputType: TextInputType.visiblePassword,
                   keyboardType: TextInputType.visiblePassword,
                   textInputAction: TextInputAction.done,
