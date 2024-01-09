@@ -20,6 +20,14 @@ class ProfileDashboardPage
   const ProfileDashboardPage({super.key});
 
   @override
+  void listener(BuildContext context, ProfileListenable state) {
+    switch (state.effect) {
+      case ProfileEffect.onLogOut:
+        context.router.push(ProfileRoute());
+    }
+  }
+
+  @override
   Widget builder(BuildContext context, ProfileBuildable state) {
     return Scaffold(
       appBar: AppBar(
@@ -286,7 +294,6 @@ class ProfileDashboardPage
                       onPressed: () {
                         context.read<ProfileCubit>().logOut();
 
-                        context.router.push(ProfileRoute());
                         Navigator.pop(context);
                       },
                     ),

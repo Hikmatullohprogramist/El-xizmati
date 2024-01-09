@@ -12,8 +12,7 @@ part 'profile_dashboard_cubit.freezed.dart';
 part 'profile_state.dart';
 
 @injectable
-class ProfileCubit
-    extends BaseCubit<ProfileBuildable, ProfileListenable> {
+class ProfileCubit extends BaseCubit<ProfileBuildable, ProfileListenable> {
   ProfileCubit(
     this.authRepository,
     this.stateRepository,
@@ -51,6 +50,8 @@ class ProfileCubit
     try {
       log.w("logOut call");
       await authRepository.logOut();
+      build((buildable) => buildable.copyWith(isLogin: false));
+      invoke(ProfileListenable(ProfileEffect.onLogOut));
     } on DioException {
       display.error(Strings.loadingStateError);
     }

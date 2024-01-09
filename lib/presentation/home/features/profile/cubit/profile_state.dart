@@ -1,21 +1,19 @@
 part of 'profile_cubit.dart';
 
 @freezed
-class ProfileBuildable with _$ProfileDashboardBuildable {
+class ProfileBuildable with _$ProfileBuildable {
   const factory ProfileBuildable({
     @Default(false) bool isLogin,
     Language? language,
-  }) = _ProfileDashboardBuildable;
+  }) = _ProfileBuildable;
 }
 
 @freezed
-class ProfileListenable with _$ProfileDashboardListenable {
+class ProfileListenable with _$ProfileListenable {
   const factory ProfileListenable(
-    ProfileDashboardEffect effect, {
+    ProfileEffect effect, {
     String? message,
-  }) = _ProfileDashboardListenable;
+  }) = _ProfileListenable;
 }
 
-enum ProfileDashboardEffect {
-  success,
-}
+enum ProfileEffect { onLogOut }
