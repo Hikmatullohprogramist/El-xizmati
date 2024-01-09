@@ -12,7 +12,8 @@ class BannerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
-      options: CarouselOptions(autoPlay: true, height: 180, viewportFraction: 0.98),
+      options:
+          CarouselOptions(autoPlay: true, height: 150, viewportFraction: 1),
       items: list.map((i) {
         return Builder(
           builder: (BuildContext context) {
@@ -25,10 +26,11 @@ class BannerWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(0),
                     image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.fill,
-                        colorFilter: ColorFilter.mode(
-                            Colors.white, BlendMode.colorBurn)),
+                      image: imageProvider,
+                      fit: BoxFit.fill,
+                      colorFilter:
+                          ColorFilter.mode(Colors.white, BlendMode.colorBurn),
+                    ),
                   ),
                 ),
                 placeholder: (context, url) => Center(),
