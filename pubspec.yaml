@@ -85,10 +85,8 @@ flutter:
   assets:
     - assets/localization/
     - assets/images/
-    - assets/images/profile/
     - assets/images/png_images/
     - assets/images/bottom_bar/
-    - assets/images/profile_viewer/
 
 flutter_gen:
   output: lib/common/gen/assets/
