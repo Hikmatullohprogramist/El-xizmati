@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import '../../data/responses/ad/ad_detail/ad_detail_response.dart';
 import '../util.dart';
 
@@ -16,7 +18,7 @@ class AdDetail {
     required this.price,
     required this.currency,
     required this.isContract,
-    required this.adRouteType,
+    required this.adAuthorType,
     required this.propertyStatus,
     this.email,
     this.phoneNumber,
@@ -35,31 +37,32 @@ class AdDetail {
     required this.adStatus,
     required this.showSocial,
     this.hasFreeShipping,
-      this.hasShipping,
-      this.hasWarehouse,
-      this.shippingPrice,
-      this.shippingUnitId,
-      required this.view,
-      this.selected,
-      this.phoneView,
-      this.messageNumber,
-      this.typeExpireDate,
-      this.unitId,
-      required this.toPrice,
-      required this.fromPrice,
-      this.addressId,
-      this.video,
-      this.params,
-      this.socialMedias,
-      this.warehouses,
-      this.shippings,
-      this.photos,
-      this.address,
-      this.paymentTypes,
-      this.otherRouteType,
-      this.otherPropertyStatus,
-      required this.favorite,
-      required this.isAddCart});
+    this.hasShipping,
+    this.hasWarehouse,
+    this.shippingPrice,
+    this.shippingUnitId,
+    required this.view,
+    this.selected,
+    this.phoneView,
+    this.messageNumber,
+    this.typeExpireDate,
+    this.unitId,
+    required this.toPrice,
+    required this.fromPrice,
+    this.addressId,
+    this.video,
+    this.params,
+    this.socialMedias,
+    this.warehouses,
+    this.shippings,
+    this.photos,
+    this.address,
+    this.paymentTypes,
+    this.otherRouteType,
+    this.otherPropertyStatus,
+    required this.favorite,
+    required this.isAddCart,
+  });
 
   final int adId;
   int? backendId;
@@ -74,7 +77,7 @@ class AdDetail {
   final int price;
   final Currency currency;
   bool? isContract;
-  final AdRouteType adRouteType;
+  final AdAuthorType adAuthorType;
   final AdPropertyStatus propertyStatus;
   String? email;
   String? phoneNumber;
@@ -90,7 +93,7 @@ class AdDetail {
   String? sellerPhone;
   String? otherName;
   String? otherDescription;
-  AdRouteType? otherRouteType;
+  AdAuthorType? otherRouteType;
   AdPropertyStatus? otherPropertyStatus;
   AdStatus? adStatus;
   final bool showSocial;
@@ -118,4 +121,8 @@ class AdDetail {
   List<District>? paymentTypes;
   bool favorite;
   bool isAddCart;
+
+  bool hasDescription(){
+    return description != null && description != "";
+  }
 }

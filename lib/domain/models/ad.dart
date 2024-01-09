@@ -34,7 +34,7 @@ class Ad {
   final Currency currency;
   final String region;
   final String district;
-  final AdRouteType adRouteType;
+  final AdAuthorType adRouteType;
   final AdPropertyStatus adPropertyStatus;
   final AdStatus adStatus;
   final AdTypeStatus adTypeStatus;

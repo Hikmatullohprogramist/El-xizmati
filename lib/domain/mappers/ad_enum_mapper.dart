@@ -13,14 +13,14 @@ extension AdEnumMapper on String? {
     }
   }
 
-  AdRouteType toAdRouteType() {
+  AdAuthorType toAdRouteType() {
     switch (this) {
       case "PRIVATE":
-        return AdRouteType.private;
+        return AdAuthorType.private;
       case "BUSINESS":
-        return AdRouteType.business;
+        return AdAuthorType.business;
       default:
-        return AdRouteType.private;
+        return AdAuthorType.private;
     }
   }
 
@@ -81,12 +81,12 @@ extension AdPropertStatusToStringExtension on AdPropertyStatus {
   }
 }
 
-extension AdRouteTypeToStringExtension on AdRouteType {
+extension AdRouteTypeToStringExtension on AdAuthorType {
   String adRouteTypeToString() {
     switch (this) {
-      case AdRouteType.business:
+      case AdAuthorType.business:
         return "PRIVATE";
-      case AdRouteType.private:
+      case AdAuthorType.private:
         return "BUSINESS";
     }
   }

@@ -1,6 +1,6 @@
 enum AdPropertyStatus { fresh, used }
 
-enum AdRouteType { business, private }
+enum AdAuthorType { business, private }
 
 enum AdTypeStatus { sell, free, exchange, service, buy, buyService }
 
