@@ -21,7 +21,7 @@ class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
         CategoryRoute(),
         FavoritesRoute(),
         CartRoute(),
-        ProfileDashboardRoute()
+        ProfileRoute()
       ],
       transitionBuilder: (context, child, animation) => FadeTransition(
         opacity: animation,

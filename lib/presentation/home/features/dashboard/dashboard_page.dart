@@ -6,9 +6,10 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/dashboard/product_and_service.dart';
 
 import '../../../../common/gen/localization/strings.dart';
-import '../../../../common/widgets/ad/ad_widget.dart';
+import '../../../../common/widgets/ad/vertical_ad_widget.dart';
 import '../../../../common/widgets/ad/horizontal_ad_list_widget.dart';
 import '../../../../common/widgets/app_bar/common_search_bar.dart';
 import '../../../../common/widgets/category/popular_category_list_widget.dart';
@@ -43,9 +44,9 @@ class DashboardPage
     height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: CommonSearchBar(
-          listenerMic: () {},
-          listenerNotification: () => context.router.push(NotificationRoute()),
-          listenerSearch: () => context.router.push(SearchRoute()),
+          onMicrophoneClicked: () {},
+          onNotificationClicked: () => context.router.push(NotificationRoute()),
+          onSearchClicked: () => context.router.push(SearchRoute()),
         ),
         body: CustomScrollView(
           physics: BouncingScrollPhysics(),
@@ -94,7 +95,7 @@ class DashboardPage
                       ],
                     ),
                   ),
-                  SizedBox(height: 12),
+                  ProductAndService(),
                   Container(
                     color: Colors.white,
                     child: Column(
@@ -119,10 +120,10 @@ class DashboardPage
                             loadingState: state.popularAdsState,
                             child: HorizontalAdListWidget(
                               ads: state.popularAds,
-                              invoke: (Ad ad) {
+                              onItemClicked: (Ad ad) {
                                 context.router.push(AdDetailRoute(adId: ad.id));
                               },
-                              invokeFavorite: (Ad ad) {
+                              onFavoriteClicked: (Ad ad) {
                                 context
                                     .read<DashboardCubit>()
                                     .popularAdsAddFavorite(ad);
@@ -212,7 +213,7 @@ class DashboardPage
                         if (index % 2 == 1) {
                           return Padding(
                             padding: EdgeInsets.only(right: 16),
-                            child: AppAdWidget(
+                            child: VerticalAdWidget(
                                 ad: item,
                                 invokeFavorite: (value) {
                                   context
@@ -225,7 +226,7 @@ class DashboardPage
                         } else {
                           return Padding(
                             padding: EdgeInsets.only(left: 16),
-                            child: AppAdWidget(
+                            child: VerticalAdWidget(
                               ad: item,
                               invokeFavorite: (value) {
                                 context

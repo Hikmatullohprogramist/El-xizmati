@@ -9,7 +9,7 @@ import 'package:onlinebozor/presentation/home/features/favorites/favorites/produ
 
 import '../../../../../../common/gen/localization/strings.dart';
 import '../../../../../../common/router/app_router.dart';
-import '../../../../../../common/widgets/ad/ad_widget.dart';
+import '../../../../../../common/widgets/ad/vertical_ad_widget.dart';
 import '../../../../../../common/widgets/common/common_button.dart';
 import '../../../../../../common/widgets/favorite/favorite_empty_widget.dart';
 import '../../../../../../domain/models/ad.dart';
@@ -103,7 +103,7 @@ class ProductFavoritesPage extends BasePage<ProductFavoritesCubit,
             );
           },
           transitionDuration: Duration(milliseconds: 100),
-          itemBuilder: (context, item, index) => AppAdWidget(
+          itemBuilder: (context, item, index) => VerticalAdWidget(
             favoriteBeChange: false,
             ad: item,
             invokeFavorite: (value) =>

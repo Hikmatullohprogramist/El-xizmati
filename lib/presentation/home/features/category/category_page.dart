@@ -18,9 +18,9 @@ class CategoryPage
   Widget builder(BuildContext context, CategoryBuildable state) {
     return Scaffold(
       appBar: CommonSearchBar(
-          listenerMic: () {},
-          listenerNotification: () => context.router.push(NotificationRoute()),
-          listenerSearch: () => context.router.push(SearchRoute())),
+          onMicrophoneClicked: () {},
+          onNotificationClicked: () => context.router.push(NotificationRoute()),
+          onSearchClicked: () => context.router.push(SearchRoute())),
       body: LoaderStateWidget(
         isFullScreen: true,
         loadingState: state.categoriesState,

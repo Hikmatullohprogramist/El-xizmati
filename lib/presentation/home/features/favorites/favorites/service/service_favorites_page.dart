@@ -9,7 +9,7 @@ import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/presentation/home/features/favorites/favorites/service/cubit/service_favorites_cubit.dart';
 
 import '../../../../../../common/gen/localization/strings.dart';
-import '../../../../../../common/widgets/ad/ad_widget.dart';
+import '../../../../../../common/widgets/ad/vertical_ad_widget.dart';
 import '../../../../../../common/widgets/common/common_button.dart';
 import '../../../../../../common/widgets/favorite/favorite_empty_widget.dart';
 import '../../../../../../domain/models/ad.dart';
@@ -92,7 +92,7 @@ class ServiceFavoritesPage extends BasePage<ServiceFavoritesCubit,
             );
           },
           transitionDuration: Duration(milliseconds: 100),
-          itemBuilder: (context, item, index) => AppAdWidget(
+          itemBuilder: (context, item, index) => VerticalAdWidget(
             favoriteBeChange: false,
             ad: item,
             invokeFavorite: (value) =>

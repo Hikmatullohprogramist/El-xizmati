@@ -45,9 +45,9 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
     var formatter = NumberFormat('###,000');
     Widget liked(bool isLiked) {
       if (isLiked) {
-        return Assets.images.icLike.svg(color: Colors.red);
+        return Assets.images.icAddToFavorite.svg(color: Colors.red);
       } else {
-        return Assets.images.icLike.svg();
+        return Assets.images.icAddToFavorite.svg();
       }
     }
 
@@ -279,12 +279,12 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                                           width: 1, color: Color(0xFFDEE1E8))),
                                   child: Row(children: [
                                     if (state.paymentId == 6)
-                                      Assets.images.profileViewer
+                                      Assets.images
                                           .icRadioButtonSelected
                                           .svg()
                                     else
-                                      Assets.images.profileViewer
-                                          .icRadioButtonUsSelected
+                                      Assets.images
+                                          .icRadioButtonUnSelected
                                           .svg(),
                                     SizedBox(width: 16),
                                     Expanded(
@@ -325,12 +325,12 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                                           width: 1, color: Color(0xFFDEE1E8))),
                                   child: Row(children: [
                                     if (state.paymentId == 1)
-                                      Assets.images.profileViewer
+                                      Assets.images
                                           .icRadioButtonSelected
                                           .svg()
                                     else
-                                      Assets.images.profileViewer
-                                          .icRadioButtonUsSelected
+                                      Assets.images
+                                          .icRadioButtonUnSelected
                                           .svg(),
                                     SizedBox(width: 16),
                                     Expanded(
@@ -371,12 +371,12 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                                           width: 1, color: Color(0xFFDEE1E8))),
                                   child: Row(children: [
                                     if (state.paymentId == 4)
-                                      Assets.images.profileViewer
+                                      Assets.images
                                           .icRadioButtonSelected
                                           .svg()
                                     else
-                                      Assets.images.profileViewer
-                                          .icRadioButtonUsSelected
+                                      Assets.images
+                                          .icRadioButtonUnSelected
                                           .svg(),
                                     SizedBox(width: 16),
                                     Expanded(
@@ -417,12 +417,12 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                                           width: 1, color: Color(0xFFDEE1E8))),
                                   child: Row(children: [
                                     if (state.paymentId == 5)
-                                      Assets.images.profileViewer
+                                      Assets.images
                                           .icRadioButtonSelected
                                           .svg()
                                     else
-                                      Assets.images.profileViewer
-                                          .icRadioButtonUsSelected
+                                      Assets.images
+                                          .icRadioButtonUnSelected
                                           .svg(),
                                     SizedBox(width: 16),
                                     Expanded(
@@ -454,7 +454,7 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                         //       border: Border.all(
                         //           width: 1, color: Color(0xFFDEE1E8))),
                         //   child: Row(children: [
-                        //     Assets.images.profileViewer.icRadioButtonSelected
+                        //     Assets.images.icRadioButtonSelected
                         //         .svg(),
                         //     SizedBox(width: 16),
                         //     Expanded(
@@ -482,7 +482,7 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                         //       border: Border.all(
                         //           width: 1, color: Color(0xFFDEE1E8))),
                         //   child: Row(children: [
-                        //     Assets.images.profileViewer.icRadioButtonSelected
+                        //     Assets.images.icRadioButtonSelected
                         //         .svg(),
                         //     SizedBox(width: 16),
                         //     Expanded(
@@ -510,7 +510,7 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                         //       border: Border.all(
                         //           width: 1, color: Color(0xFFDEE1E8))),
                         //   child: Row(children: [
-                        //     Assets.images.profileViewer.icRadioButtonSelected
+                        //     Assets.images.icRadioButtonSelected
                         //         .svg(),
                         //     SizedBox(width: 16),
                         //     Expanded(
