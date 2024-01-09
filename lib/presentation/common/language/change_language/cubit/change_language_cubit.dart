@@ -26,12 +26,12 @@ class ChangeLanguageCubit
       final languageName = await stateRepository.getLanguageName();
       late Language language;
       if (languageName == 'uz') {
-        language = Language.uz;
+        language = Language.uzbekLatin;
       } else {
         if(languageName =='ru') {
-          language = Language.ru;
+          language = Language.russian;
         }else{
-          language =Language.uzk;
+          language =Language.uzbekCyrill;
         }
       }
       build((buildable) => buildable.copyWith(language: language));
@@ -47,4 +47,4 @@ class ChangeLanguageCubit
   // }
 }
 
-enum Language { uz, ru, uzk }
+enum Language { uzbekLatin, russian, uzbekCyrill }

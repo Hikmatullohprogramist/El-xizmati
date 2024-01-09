@@ -89,7 +89,7 @@ class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageBuildable,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Strings.languageUzb.w(400).s(14).c(Color(0xFF41455F)),
+                          Strings.languageUzLat.w(400).s(14).c(Color(0xFF41455F)),
                           Assets.images.pngImages.flagUz.image()
                         ],
                       ),
@@ -108,7 +108,7 @@ class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageBuildable,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Strings.languageUzbk
+                          Strings.languageUzCyr
                               .w(400)
                               .s(14)
                               .c(Color(0xFF41455F)),

@@ -30,7 +30,7 @@ class ChangeLanguagePage extends BasePage<ChangeLanguageCubit,
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Strings.profileDashboardChangeLanguage
+        title: Strings.profileChangeLanguage
             .w(500)
             .s(14)
             .c(context.colors.textPrimary),
@@ -38,7 +38,7 @@ class ChangeLanguagePage extends BasePage<ChangeLanguageCubit,
         elevation: 0.5,
         leading: IconButton(
           icon: Assets.images.icArrowLeft.svg(),
-          onPressed: () => context.router.push(ProfileDashboardRoute()),
+          onPressed: () => context.router.push(ProfileRoute()),
         ),
       ),
       backgroundColor: Colors.white,
@@ -49,13 +49,13 @@ class ChangeLanguagePage extends BasePage<ChangeLanguageCubit,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CommonButton(
-                color: state.language == Language.ru
+                color: state.language == Language.russian
                     ? context.colors.primary
                     : Color(0xFFE5E9F3),
                 onPressed: () {
                   EasyLocalization.of(context)?.setLocale(Locale('ru', 'RU'));
                   context.read<ChangeLanguageCubit>().selectLanguage(
-                      Language.ru);
+                      Language.russian);
                 },
                 type: ButtonType.outlined,
                 child: SizedBox(
@@ -74,9 +74,9 @@ class ChangeLanguagePage extends BasePage<ChangeLanguageCubit,
                   EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZ'));
                   context
                       .read<ChangeLanguageCubit>()
-                      .selectLanguage(Language.uz);
+                      .selectLanguage(Language.uzbekLatin);
                 },
-                color: state.language == Language.uz
+                color: state.language == Language.uzbekLatin
                     ? context.colors.primary
                     : Color(0xFFE5E9F3),
                 type: ButtonType.outlined,
@@ -85,7 +85,7 @@ class ChangeLanguagePage extends BasePage<ChangeLanguageCubit,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Strings.languageUzb.w(400).s(14).c(Color(0xFF41455F)),
+                      Strings.languageUzLat.w(400).s(14).c(Color(0xFF41455F)),
                       Assets.images.pngImages.flagUz.image()
                     ],
                   ),
@@ -96,9 +96,9 @@ class ChangeLanguagePage extends BasePage<ChangeLanguageCubit,
                   EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZK'));
                   context
                       .read<ChangeLanguageCubit>()
-                      .selectLanguage(Language.uzk);
+                      .selectLanguage(Language.uzbekCyrill);
                 },
-                color: state.language == Language.uzk
+                color: state.language == Language.uzbekCyrill
                     ? context.colors.primary
                     : Color(0xFFE5E9F3),
                 type: ButtonType.outlined,
@@ -107,7 +107,7 @@ class ChangeLanguagePage extends BasePage<ChangeLanguageCubit,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Strings.languageUzbk.w(400).s(14).c(Color(0xFF41455F)),
+                      Strings.languageUzCyr.w(400).s(14).c(Color(0xFF41455F)),
                       Assets.images.pngImages.flagUz.image()
                     ],
                   ),
