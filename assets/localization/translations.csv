@@ -83,21 +83,21 @@ profile.user.neighborhood,Turar joy,Махалля,Турар жой
 profile.user.phone,Telefon,Телефон,Телефон
 profile.user.gender.boy,Erkak,Муж.,Эркак
 profile.user.gender.women,Ayol,Жен.,Аёл
-profile.dashboard.my.balans,Mening balansim:,Мой баланс:,Менинг балансим:
-profile.dashboard.fill.wallet,Hamyonni to'ldiring,Наполните кошелек,Ҳамённи тўлдиринг
+profile.my.balans,Mening balansim:,Мой баланс:,Менинг балансим:
+profile.fill.wallet,Hamyonni to'ldiring,Наполните кошелек,Ҳамённи тўлдиринг
 profile.dahboard.profile,Profil,Профиль,Профил
-profile.dashboard.myAds,Mening e'lonlarim,Мои Объявления,Менинг эълонларим
-profile.dashboard.orders,Buyurtmalar,Заказы,Буюртмалар
+profile.myAds,Mening e'lonlarim,Мои Объявления,Менинг эълонларим
+profile.orders,Buyurtmalar,Заказы,Буюртмалар
 profile.dahboard.message,Xabar,Сообщение,Хабар
-profile.dashboard.notification,Bildirishnoma,Уведомление,Билдиришнома
-profile.dashboard.my.card,Mening kartalarim,Мои карты,Менинг карталарим
-profile.dashboard.payment,To'lovlar,Платежи,Тўловлар
-profile.dashboard.comparison,Taqqoslash ro'yxati,Список сравнения,Таққослаш рўйхати
-profile.dashboard.my.address,Mening manzillarim,Мои адреса,Менинг манзилларим
-profile.dashboard.promotions,Aktsiyalar,Продвижения,Акциялар
-profile.dashboard.setting,Sozlamalar,Настройки,Созламалар
-profile.dashboard.exit,Chiqish,Выйти,Чиқиш
-profile.dashboard.change.language,Tilni o'zgartirish,Изменить язык,Тилни ўзгартириш
+profile.notification,Bildirishnoma,Уведомление,Билдиришнома
+profile.my.card,Mening kartalarim,Мои карты,Менинг карталарим
+profile.payment,To'lovlar,Платежи,Тўловлар
+profile.comparison,Taqqoslash ro'yxati,Список сравнения,Таққослаш рўйхати
+profile.my.address,Mening manzillarim,Мои адреса,Менинг манзилларим
+profile.promotions,Aktsiyalar,Продвижения,Акциялар
+profile.setting,Sozlamalar,Настройки,Созламалар
+profile.exit,Chiqish,Выйти,Чиқиш
+profile.change.language,Tilni o'zgartirish,Изменить язык,Тилни ўзгартириш
 button.title.save,saqlash,сохранять,сақлаш
 ad.empty.title,Sizda hali hech qanday faol e'lon yo'q!,У вас пока нету активных объявлений!,Сизда ҳали ҳеч қандай фаол эълон йўқ!
 ad.empty.description,Bu e'lonlar hamma uchun ko'rinadi. Ularning amal qilish muddati faollashtirilgan kundan boshlab 30 kun.,Эти объявления видны всем. Срок их действия - 30 дней с момента активации.,Бу эълонлар ҳамма учун кўринади. Уларнинг амал қилиш муддати фаоллаштирилган кундан бошлаб 30 кун.
@@ -113,6 +113,7 @@ address.add.title,Manzil qo'shish,Добавить адрес,Манзил қў�
 favorite.empty.title,O'zingiz yoqtirgan narsani qo'shing,"Добавьте то, что понравилось",Ўзингиз ёқтирган нарсани қўшинг
 favorite.empty.description,Asosiy sahifaga o'tish,Перейдите на главную страницу и нажмите,Асосий саҳифага ўтиш
 favorite.empty.to.main,Asosiy  oynaga,На главную,Асосий  ойнага
+profile.logout.title,Tizimdan chiqish,Выйти,Тизимдан чиқиш
 profile.logout.description,Tizimdan chiqishni hohlaysizmi?,Вы хотите выйти из системы?,Тизимдан чиқишни ҳоҳлайсизми?
 common.yes,Ha,Да,Ҳа
 common.no,Yo'q,No,Йўқ
