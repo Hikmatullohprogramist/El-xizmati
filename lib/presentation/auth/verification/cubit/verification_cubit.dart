@@ -65,7 +65,7 @@ class VerificationCubit
     try {
       await _repository.forgetPassword(buildable.phone.clearSpaceInPhone());
       invoke(VerificationListenable(VerificationEffect.navigationToConfirm));
-    } on DioException catch (e, stackTrace) {
+    } on DioException {
       display.error(
           "xatolik yuz berdi qayta urinib ko'ring", "Xatolik  yuz berdi");
     }

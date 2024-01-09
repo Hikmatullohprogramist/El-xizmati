@@ -33,7 +33,7 @@ class AuthStartCubit extends BaseCubit<AuthStartBuildable, AuthStartListenable> 
         invoke(AuthStartListenable(AuthStartEffect.confirmation,
             phone: buildable.phone));
       }
-    } on DioException catch (e, stackTrace) {
+    } on DioException catch (e) {
       display.error(e.toString());
     } finally {
       build((buildable) => buildable.copyWith(loading: false));

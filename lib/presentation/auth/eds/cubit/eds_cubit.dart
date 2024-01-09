@@ -34,6 +34,6 @@ class EdsCubit extends BaseCubit<EdsBuildable, EdsListenable> {
   }
 
   Future<void> loginWithEds(String url) async {
-    try {} on DioException catch (e) {}
+    try {} on DioException {}
   }
 }
