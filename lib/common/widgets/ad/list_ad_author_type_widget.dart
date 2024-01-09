@@ -4,11 +4,11 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import '../../../domain/util.dart';
 import '../../gen/localization/strings.dart';
 
-class AppAdRouterWidget extends StatelessWidget {
-  const AppAdRouterWidget(
-      {super.key, required this.adRouteType, required this.isHorizontal});
+class ListAdAuthorTypeChipWidget extends StatelessWidget {
+  const ListAdAuthorTypeChipWidget(
+      {super.key, required this.adAuthorType, required this.isHorizontal});
 
-  final AdRouteType adRouteType;
+  final AdAuthorType adAuthorType;
   final bool isHorizontal;
 
   @override
@@ -17,16 +17,16 @@ class AppAdRouterWidget extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 5, vertical: 4),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
-            color: switch (adRouteType) {
-              AdRouteType.private => Color(0x28AEB2CD),
-              AdRouteType.business => Color(0x1E6546E7),
+            color: switch (adAuthorType) {
+              AdAuthorType.private => Color(0x28AEB2CD),
+              AdAuthorType.business => Color(0x1E6546E7),
             }),
-        child: switch (adRouteType) {
-          AdRouteType.private => Strings.adPropertyPersonal
+        child: switch (adAuthorType) {
+          AdAuthorType.private => Strings.adPropertyPersonal
               .w(400)
               .s(isHorizontal ? 10 : 12)
               .c(Color(0xFF999CB2)),
-          AdRouteType.business => Strings.adPropertyBiznes
+          AdAuthorType.business => Strings.adPropertyBiznes
               .w(400)
               .s(isHorizontal ? 10 : 12)
               .c(Color(0xFF6546E7)),

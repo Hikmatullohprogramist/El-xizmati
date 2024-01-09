@@ -36,9 +36,9 @@ class CartWidget extends StatelessWidget {
     var formatter = NumberFormat('###,000');
     Widget liked(bool isLiked) {
       if (isLiked) {
-        return Assets.images.icLike.svg(color: Colors.red);
+        return Assets.images.icAddToFavorite.svg(color: Colors.red);
       } else {
-        return Assets.images.icLike.svg();
+        return Assets.images.icAddToFavorite.svg();
       }
     }
 

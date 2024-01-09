@@ -2,13 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/widgets/ad/ad_property_widget.dart';
-import 'package:onlinebozor/common/widgets/ad/ad_route_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/list_ad_property_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/list_ad_author_type_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_status_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_type_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/view_count_widget.dart';
-import 'package:onlinebozor/common/widgets/favorite/favorite_widget.dart';
+import 'package:onlinebozor/common/widgets/favorite/ad_favorite_widget.dart';
 import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
 
 import '../../../domain/models/ad.dart';
@@ -19,19 +19,19 @@ import '../../gen/assets/assets.gen.dart';
 class HorizontalAdWidget extends StatelessWidget {
   const HorizontalAdWidget({
     super.key,
-    required this.invokeFavorite,
-    required this.invoke,
+    required this.onFavoriteClicked,
+    required this.onItemClicked,
     required this.ad,
   });
 
   final Ad ad;
-  final Function(Ad ad) invoke;
-  final Function(Ad ad) invokeFavorite;
+  final Function(Ad ad) onItemClicked;
+  final Function(Ad ad) onFavoriteClicked;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () => invoke(ad),
+        onTap: () => onItemClicked(ad),
         child: SizedBox(
           height: 342,
           width: 140,
@@ -60,19 +60,18 @@ class HorizontalAdWidget extends StatelessWidget {
                         ),
                       ),
                       placeholder: (context, url) => Center(),
-                      errorWidget: (context, url, error) =>
-                          Center(child: Icon(Icons.error)),
+                      errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
                     ),
                     AppAdStatusWidget(adStatus: AdStatus.standard),
                     Align(
                         alignment: Alignment.topRight,
-                        child: AppFavoriteWidget(
+                        child: AdFavoriteWidget(
                             isSelected: ad.favorite,
-                            invoke: () => invokeFavorite(ad))),
-                    // Align(
-                    //   alignment: Alignment.bottomLeft,
-                    //   child: AppAdTypeWidget(adType: ad.adTypeStatus.adType()),
-                    // ),
+                            invoke: () => onFavoriteClicked(ad))),
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: AdTypeWidget(adType: ad.adTypeStatus.adType()),
+                    ),
                     Align(
                       alignment: Alignment.bottomRight,
                       child: ViewCountWidget(viewCount: ad.view),
@@ -111,10 +110,10 @@ class HorizontalAdWidget extends StatelessWidget {
               ]),
               SizedBox(height: 12),
               Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                AppAdRouterWidget(
-                    isHorizontal: true, adRouteType: ad.adRouteType),
+                ListAdAuthorTypeChipWidget(
+                    isHorizontal: true, adAuthorType: ad.adRouteType),
                 SizedBox(width: 2),
-                AppAdPropertyWidget(
+                ListAdPropertyWidget(
                     isHorizontal: true, adPropertyType: ad.adPropertyStatus)
               ])
             ],

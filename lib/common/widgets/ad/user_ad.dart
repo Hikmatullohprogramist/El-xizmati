@@ -146,7 +146,7 @@ class UserAdWidget extends StatelessWidget {
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Assets.images.icLiked.svg(
+                          Assets.images.icRemoveFromFavorite.svg(
                               height: 12,
                               width: 12,
                               color: context.colors.iconGrey),

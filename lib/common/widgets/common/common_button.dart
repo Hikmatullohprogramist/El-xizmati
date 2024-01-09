@@ -47,10 +47,12 @@ class CommonButton extends StatelessWidget {
         return ElevatedButton(
           onPressed: onButtonPressed,
           style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10), // <-- Radius
-              ),
-              backgroundColor: color ?? context.colors.buttonPrimary),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(6),
+            ),
+            backgroundColor: color ?? context.colors.buttonPrimary,
+            elevation: 0,
+          ),
           child: _buildChild(context),
         );
       case ButtonType.outlined:
@@ -59,7 +61,7 @@ class CommonButton extends StatelessWidget {
           style: OutlinedButton.styleFrom(
             foregroundColor: color,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10), // <-- Radius
+              borderRadius: BorderRadius.circular(6),
             ),
             side: BorderSide(
               color: color ?? context.colors.primary,

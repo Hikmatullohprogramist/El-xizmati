@@ -25,7 +25,7 @@ class CardWidget extends StatelessWidget {
               height: 160,
               margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
               child: CachedNetworkImage(
-                imageUrl: "${Constants.baseUrlForImage}${image}",
+                imageUrl: "${Constants.baseUrlForImage}$image",
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),

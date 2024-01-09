@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../../presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
 import '../../gen/assets/assets.gen.dart';
@@ -7,19 +7,19 @@ import '../../gen/localization/strings.dart';
 import '../../router/app_router.dart';
 import 'product_or_service.dart';
 
-class AppRootProductAndService extends StatelessWidget {
-  const AppRootProductAndService({
+class ProductAndService extends StatelessWidget {
+  const ProductAndService({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+    return Container(
+      color: Colors.white,
       child: Row(
         children: [
-          Flexible(
-            flex: 1,
+          SizedBox(width: 16),
+          Expanded(
             child: ProductOrService(
               invoke: () {
                 context.router.push(
@@ -33,8 +33,8 @@ class AppRootProductAndService extends StatelessWidget {
               startColorGradient: Color(0xFF9570FF),
             ),
           ),
-          Flexible(
-            flex: 1,
+          SizedBox(width: 8),
+          Expanded(
             child: ProductOrService(
               invoke: () {
                 context.router.push(
@@ -47,7 +47,8 @@ class AppRootProductAndService extends StatelessWidget {
               image: Assets.images.pngImages.service.image(),
               startColorGradient: Color(0xFFF7993D),
             ),
-          )
+          ),
+          SizedBox(width: 16)
         ],
       ),
     );

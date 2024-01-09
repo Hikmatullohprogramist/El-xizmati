@@ -13,51 +13,49 @@ class AppImageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFFF6F7FC),
-      height: 360,
-      child: Stack(
+      color: Colors.white,
+      height: 440,
+      child: Column(
         children: [
-          PageView.builder(
-            controller: controller,
-            physics: BouncingScrollPhysics(),
-            itemCount: images.length,
-            itemBuilder: (context, index) {
-              return InkWell(
-                  onTap: () => invoke(index),
-                  child: Container(
-                    // margin: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                    child: CachedNetworkImage(
-
-                      imageUrl: images[index],
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          // borderRadius: BorderRadius.circular(6),
-                          image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.fill,
-                              colorFilter: ColorFilter.mode(
-                                  Colors.grey, BlendMode.colorBurn)),
-                        ),
-                      ),
-                      placeholder: (context, url) => Center(),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                    ),
-                  ));
-            },
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SmoothPageIndicator(
+          Container(
+            color: Color(0xFFF6F7FC),
+            child: SizedBox(
+              height: 420,
+              child: PageView.builder(
                 controller: controller,
-                count: images.length,
-                effect: const WormEffect(
-                  dotHeight: 8,
-                  dotWidth: 8,
-                  type: WormType.normal,
-                ),
+                physics: BouncingScrollPhysics(),
+                itemCount: images.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                      onTap: () => invoke(index),
+                      child: CachedNetworkImage(
+                        imageUrl: images[index],
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            // borderRadius: BorderRadius.circular(6),
+                            image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.fill,
+                                colorFilter: ColorFilter.mode(
+                                    Colors.grey, BlendMode.colorBurn)),
+                          ),
+                        ),
+                        placeholder: (context, url) => Center(),
+                        errorWidget: (context, url, error) =>
+                            Icon(Icons.error),
+                      ));
+                },
               ),
+            ),
+          ),
+          SizedBox(height: 12),
+          SmoothPageIndicator(
+            controller: controller,
+            count: images.length,
+            effect: const WormEffect(
+              dotHeight: 8,
+              dotWidth: 8,
+              type: WormType.normal,
             ),
           ),
         ],

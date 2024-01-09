@@ -16,6 +16,10 @@ class DisplayWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: 'Inter',
+        // scaffoldBackgroundColor: Colors.white,
+      ),
       home: Stack(
         children: [
           child,

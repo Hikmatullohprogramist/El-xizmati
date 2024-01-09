@@ -5,54 +5,31 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 
 import '../../../domain/util.dart';
 
-class AppAdTypeWidget extends StatelessWidget {
-  const AppAdTypeWidget({super.key, required this.adType});
+class AdTypeWidget extends StatelessWidget {
+  const AdTypeWidget({super.key, required this.adType});
 
   final AdType adType;
 
   @override
   Widget build(BuildContext context) {
-    return switch (adType) {
-      AdType.product => Container(
+    return Container(
         height: 20,
-          width: 75,
-          margin: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4),
-            color: Color(0xFF0096B2),
-          ),
-          padding: EdgeInsets.symmetric(horizontal: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Strings.adTypeProductTitle
-                  .w(400)
-                  .s(12)
-                  .c(context.colors.textPrimaryInverse)
-                  .copyWith(overflow: TextOverflow.ellipsis)
-            ],
-          ),
+        margin: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4),
+          color: Color(0xFF0096B2).withAlpha(200),
         ),
-      AdType.service => Container(
-          height: 20,
-          width: 64,
-          margin: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4),
-            color: Color(0xFF0096B2),
-          ),
-          padding: EdgeInsets.symmetric(horizontal: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Strings.adTypeServiceTitle
-                  .w(400)
-                  .s(13)
-                  .c(context.colors.textPrimaryInverse)
-                  .copyWith(overflow: TextOverflow.ellipsis)
-            ],
-          ),
-        ),
-    };
+        padding: EdgeInsets.symmetric(horizontal: 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Strings.adTypeProductTitle
+                .w(400)
+                .s(12)
+                .c(context.colors.textPrimaryInverse)
+                .copyWith(overflow: TextOverflow.ellipsis)
+          ],
+        ));
   }
 }

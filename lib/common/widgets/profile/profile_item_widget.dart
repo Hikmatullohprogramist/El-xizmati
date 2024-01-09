@@ -11,7 +11,7 @@ class ProfileItemWidget extends StatelessWidget {
       required this.invoke});
 
   final String name;
-  final Widget icon;
+  final SvgGenImage icon;
   final VoidCallback invoke;
 
   @override
@@ -28,7 +28,7 @@ class ProfileItemWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  icon,
+                  icon.svg(width: 18, height: 18),
                   SizedBox(width: 16),
                   name.w(500).s(14).c(context.colors.textPrimary)
                 ],

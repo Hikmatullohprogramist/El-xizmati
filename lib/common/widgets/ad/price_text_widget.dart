@@ -27,12 +27,12 @@ class PriceTextWidget extends StatelessWidget {
         ? "${formatter.format(toPrice).replaceAll(',', ' ')}-"
                 "${formatter.format(fromPrice).replaceAll(',', ' ')} ${currency.getName}"
             .w(800)
-            .s(14)
+            .s(16)
             .c(color != null ? color! : Color(0xFF5C6AC3))
             .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis)
         : "${formatter.format(price).replaceAll(',', ' ')} ${currency.getName}"
             .w(800)
-            .s(14)
+            .s(16)
             .c(color != null ? color! : Color(0xFF5C6AC3))
             .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis);
   }

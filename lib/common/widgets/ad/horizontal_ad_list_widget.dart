@@ -4,15 +4,16 @@ import '../../../domain/models/ad.dart';
 import 'horizontal_ad_widget.dart';
 
 class HorizontalAdListWidget extends StatelessWidget {
-  const HorizontalAdListWidget(
-      {super.key,
-      required this.ads,
-      required this.invoke,
-      required this.invokeFavorite});
+  const HorizontalAdListWidget({
+    super.key,
+    required this.ads,
+    required this.onItemClicked,
+    required this.onFavoriteClicked,
+  });
 
   final List<Ad> ads;
-  final Function(Ad ad) invoke;
-  final Function(Ad ad) invokeFavorite;
+  final Function(Ad ad) onItemClicked;
+  final Function(Ad ad) onFavoriteClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +27,9 @@ class HorizontalAdListWidget extends StatelessWidget {
         padding: EdgeInsets.only(left: 16, right: 16),
         itemBuilder: (context, index) {
           return HorizontalAdWidget(
-            invokeFavorite: invokeFavorite,
-            invoke: invoke,
             ad: ads[index],
+            onItemClicked: onItemClicked,
+            onFavoriteClicked: onFavoriteClicked,
           );
         },
         separatorBuilder: (BuildContext context, int index) {

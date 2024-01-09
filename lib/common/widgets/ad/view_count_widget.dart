@@ -11,132 +11,26 @@ class ViewCountWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (viewCount < 10) {
-      return Container(
-        width: 35,
-        margin: EdgeInsets.all(8),
-        padding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
-        decoration: BoxDecoration(
-            color: context.colors.onPrimary,
-            borderRadius: BorderRadius.circular(4)),
-        child: Row(
-          children: [
-            Assets.images.icEye.svg(),
-            SizedBox(width: 2),
-            viewCount.toString().w(400).s(12).c(context.colors.textPrimary)
-          ],
-        ),
-      );
-    } else {
-      if (viewCount < 100) {
-        return Container(
-          width: 42,
-          margin: EdgeInsets.all(8),
-          padding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
-          decoration: BoxDecoration(
-              color: context.colors.onPrimary,
-              borderRadius: BorderRadius.circular(4)),
-          child: Row(
-            children: [
-              Assets.images.icEye.svg(),
-              SizedBox(width: 2),
-              viewCount.toString().w(400).s(12).c(context.colors.textPrimary)
-            ],
-          ),
-        );
-      } else {
-        if (viewCount < 1000) {
-          return Container(
-            width: 52,
-            margin: EdgeInsets.all(8),
-            padding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
-            decoration: BoxDecoration(
-                color: context.colors.onPrimary,
-                borderRadius: BorderRadius.circular(4)),
-            child: Row(
-              children: [
-                Assets.images.icEye.svg(),
-                SizedBox(width: 4),
-                viewCount.toString().w(400).s(12).c(context.colors.textPrimary)
-              ],
-            ),
-          );
-        } else {
-          if (viewCount < 10000) {
-            int kCount = viewCount ~/ 1000;
-            return Container(
-              width: 44,
-              margin: EdgeInsets.all(8),
-              padding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
-              decoration: BoxDecoration(
-                  color: context.colors.onPrimary,
-                  borderRadius: BorderRadius.circular(4)),
-              child: Row(
-                children: [
-                  Assets.images.icEye.svg(),
-                  SizedBox(width: 2),
-                  "${kCount}K".w(400).s(12).c(context.colors.textPrimary)
-                ],
-              ),
-            );
-          } else {
-            if (viewCount < 100000) {
-              int kCount = viewCount ~/ 1000;
-              return Container(
-                width: 52,
-                margin: EdgeInsets.all(8),
-                padding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
-                decoration: BoxDecoration(
-                    color: context.colors.onPrimary,
-                    borderRadius: BorderRadius.circular(4)),
-                child: Row(
-                  children: [
-                    Assets.images.icEye.svg(),
-                    SizedBox(width: 2),
-                    "${kCount}K".w(400).s(12).c(context.colors.textPrimary)
-                  ],
-                ),
-              );
-            } else {
-              if (viewCount < 1000000) {
-                int kCount = viewCount ~/ 1000;
-                return Container(
-                  width: 60,
-                  margin: EdgeInsets.all(8),
-                  padding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
-                  decoration: BoxDecoration(
-                      color: context.colors.onPrimary,
-                      borderRadius: BorderRadius.circular(4)),
-                  child: Row(
-                    children: [
-                      Assets.images.icEye.svg(),
-                      SizedBox(width: 2),
-                      "${kCount}K".w(400).s(12).c(context.colors.textPrimary)
-                    ],
-                  ),
-                );
-              } else {
-                int mCount = viewCount ~/ 1000000;
-                return Container(
-                  width: 52,
-                  margin: EdgeInsets.all(8),
-                  padding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
-                  decoration: BoxDecoration(
-                      color: context.colors.onPrimary,
-                      borderRadius: BorderRadius.circular(4)),
-                  child: Row(
-                    children: [
-                      Assets.images.icEye.svg(),
-                      SizedBox(width: 2),
-                      "${mCount}M".w(400).s(12).c(context.colors.textPrimary)
-                    ],
-                  ),
-                );
-              }
-            }
-          }
-        }
-      }
-    }
+    return Container(
+      margin: EdgeInsets.all(8),
+      padding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
+      decoration: BoxDecoration(
+          color: context.colors.onPrimary.withAlpha(200),
+          borderRadius: BorderRadius.circular(4)),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Assets.images.icEye.svg(),
+          SizedBox(width: 2),
+          _formattedViewCount().w(400).s(12).c(context.colors.textPrimary)
+        ],
+      ),
+    );
+  }
+
+  String _formattedViewCount() {
+    if (viewCount < 1000) return viewCount.toString();
+    if (viewCount < 1000000) return '${viewCount ~/ 1000}K';
+    return '${viewCount ~/ 1000000}M';
   }
 }

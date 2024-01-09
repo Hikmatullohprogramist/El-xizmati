@@ -4,8 +4,8 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import '../../../domain/util.dart';
 import '../../gen/localization/strings.dart';
 
-class AppAdPropertyWidget extends StatelessWidget {
-  const AppAdPropertyWidget(
+class ListAdPropertyWidget extends StatelessWidget {
+  const ListAdPropertyWidget(
       {super.key, required this.adPropertyType, required this.isHorizontal});
 
   final AdPropertyStatus adPropertyType;
