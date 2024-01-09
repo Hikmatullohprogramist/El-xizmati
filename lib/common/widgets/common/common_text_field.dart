@@ -5,9 +5,11 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 class CommonTextField extends StatefulWidget {
   const CommonTextField({
     Key? key,
+    this.autofillHints,
     this.hint,
     this.controller,
     this.inputType,
+    this.keyboardType,
     this.obscureText = false,
     this.readOnly = false,
     this.minLines,
@@ -21,10 +23,11 @@ class CommonTextField extends StatefulWidget {
     this.maxLength = 1000,
     this.textAlign = TextAlign.start,
   }) : super(key: key);
-
+  final Iterable<String>? autofillHints;
   final String? hint;
   final String? label;
   final TextInputType? inputType;
+  final TextInputType? keyboardType;
   final TextEditingController? controller;
   final bool obscureText;
   final bool readOnly;
@@ -54,7 +57,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-
+      autofillHints: widget.autofillHints,
       textAlign: widget.textAlign,
       textAlignVertical: TextAlignVertical.center,
       maxLength: widget.maxLength,

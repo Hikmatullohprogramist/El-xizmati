@@ -141,7 +141,7 @@ class ConfirmPage
                 enabled: state.enable,
                 loading: state.loading,
                 child: Container(
-                  height: 42,
+                  height: 52,
                   alignment: Alignment.center,
                   width: double.infinity,
                   child: Strings.commonContinueTitle

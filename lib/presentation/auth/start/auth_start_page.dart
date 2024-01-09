@@ -59,102 +59,111 @@ class AuthStartPage
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Spacer(),
-            Strings.authStartSingin.w(500).s(24).c(context.colors.textPrimary),
-            Spacer(),
-            Align(
-                alignment: Alignment.centerLeft,
-                child: Strings.commonPhoneNumber
-                    .w(500)
-                    .s(14)
-                    .c(context.colors.textPrimary)),
-            SizedBox(height: 10),
-            CommonTextField(
-              inputType: TextInputType.phone,
-              maxLines: 1,
-              textInputAction: TextInputAction.done,
-              controller: textEditingController,
-              inputFormatters: phoneMaskFormatter,
-              onChanged: (value) {
-                context.read<AuthStartCubit>().setPhone(value);
-              },
-            ),
-            Spacer(),
-            CommonButton(
-                color: context.colors.borderColor,
-                type: ButtonType.outlined,
-                onPressed: () {},
-                child: SizedBox(
-                  height: 48,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Strings.authStartLoginWithFaceId
-                          .w(400)
-                          .s(14)
-                          .c(context.colors.textPrimary),
-                      Assets.images.icFaceId.svg()
-                    ],
-                  ),
-                )),
-            SizedBox(height: 10),
-            CommonButton(
-                color: context.colors.borderColor,
-                type: ButtonType.outlined,
-                onPressed: () => context.router.replace(LoginWithOneIdRoute()),
-                child: SizedBox(
-                  height: 48,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Strings.authStartLoginWithOneId
-                          .w(400)
-                          .s(14)
-                          .c(context.colors.textPrimary),
-                      Assets.images.icOneId.svg()
-                    ],
-                  ),
-                )),
-            SizedBox(height: 10),
-            CommonButton(
-                color: context.colors.borderColor,
-                type: ButtonType.outlined,
-                onPressed: () => context.router.replace(LoginWithOneIdRoute()),
-                child: SizedBox(
-                  height: 48,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Strings.authStartLoginWithMobileId
-                          .w(400)
-                          .s(14)
-                          .c(context.colors.textPrimary),
-                      Assets.images.icOneId.svg()
-                    ],
-                  ),
-                )),
-            SizedBox(height: 24),
-            CommonButton(
-                color: context.colors.buttonPrimary,
-                onPressed: () {
-                  context.read<AuthStartCubit>().validation();
-                },
-                enabled: state.validation,
-                loading: state.loading,
-                child: Container(
-                  height: 42,
-                  alignment: Alignment.center,
-                  width: double.infinity,
-                  child: Strings.commonContinueTitle
+        child: AutofillGroup(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Spacer(),
+              Strings.authStartSingin
+                  .w(500)
+                  .s(24)
+                  .c(context.colors.textPrimary),
+              Spacer(),
+              Align(
+                  alignment: Alignment.centerLeft,
+                  child: Strings.commonPhoneNumber
                       .w(500)
                       .s(14)
-                      .c(context.colors.textPrimaryInverse),
-                ))
-          ],
+                      .c(context.colors.textPrimary)),
+              SizedBox(height: 10),
+              CommonTextField(
+                autofillHints: const [AutofillHints.telephoneNumber],
+                inputType: TextInputType.phone,
+                keyboardType: TextInputType.phone,
+                maxLines: 1,
+                textInputAction: TextInputAction.done,
+                controller: textEditingController,
+                inputFormatters: phoneMaskFormatter,
+                onChanged: (value) {
+                  context.read<AuthStartCubit>().setPhone(value);
+                },
+              ),
+              Spacer(),
+              CommonButton(
+                  color: context.colors.borderColor,
+                  type: ButtonType.outlined,
+                  onPressed: () {},
+                  child: SizedBox(
+                    height: 48,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Strings.authStartLoginWithFaceId
+                            .w(400)
+                            .s(14)
+                            .c(context.colors.textPrimary),
+                        Assets.images.icFaceId.svg()
+                      ],
+                    ),
+                  )),
+              SizedBox(height: 10),
+              CommonButton(
+                  color: context.colors.borderColor,
+                  type: ButtonType.outlined,
+                  onPressed: () =>
+                      context.router.replace(LoginWithOneIdRoute()),
+                  child: SizedBox(
+                    height: 48,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Strings.authStartLoginWithOneId
+                            .w(400)
+                            .s(14)
+                            .c(context.colors.textPrimary),
+                        Assets.images.icOneId.svg()
+                      ],
+                    ),
+                  )),
+              SizedBox(height: 10),
+              CommonButton(
+                  color: context.colors.borderColor,
+                  type: ButtonType.outlined,
+                  onPressed: () =>
+                      context.router.replace(LoginWithOneIdRoute()),
+                  child: SizedBox(
+                    height: 48,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Strings.authStartLoginWithMobileId
+                            .w(400)
+                            .s(14)
+                            .c(context.colors.textPrimary),
+                        Assets.images.icOneId.svg()
+                      ],
+                    ),
+                  )),
+              SizedBox(height: 24),
+              CommonButton(
+                  color: context.colors.buttonPrimary,
+                  onPressed: () {
+                    context.read<AuthStartCubit>().validation();
+                  },
+                  enabled: state.validation,
+                  loading: state.loading,
+                  child: Container(
+                    height: 52,
+                    alignment: Alignment.center,
+                    width: double.infinity,
+                    child: Strings.commonContinueTitle
+                        .w(500)
+                        .s(14)
+                        .c(context.colors.textPrimaryInverse),
+                  ))
+            ],
+          ),
         ),
       ),
     );
