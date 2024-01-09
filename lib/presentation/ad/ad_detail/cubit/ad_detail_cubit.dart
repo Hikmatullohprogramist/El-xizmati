@@ -14,6 +14,7 @@ import '../../../../domain/repositories/cart_repository.dart';
 import '../../../../domain/repositories/favorite_repository.dart';
 
 part 'ad_detail_cubit.freezed.dart';
+
 part 'ad_detail_state.dart';
 
 @injectable
@@ -33,6 +34,10 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
     getDetailResponse();
   }
 
+  bool hasAdDetailDescription() {
+    return buildable.adDetail?.hasDescription() ?? false;
+  }
+
   Future<void> getDetailResponse() async {
     try {
       var response = await _adRepository.getAdDetail(buildable.adId!);
@@ -48,7 +53,7 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
     getSimilarAds();
   }
 
-  Future<void> setPhotoView() async{
+  Future<void> setPhotoView() async {
     await setViewAd(ViewType.phone);
     build((buildable) => buildable.copyWith(isPhoneVisible: true));
   }
@@ -99,7 +104,7 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
 
   Future<void> addCart() async {
     try {
-          await cartRepository.addCart(buildable.adDetail!.toMap());
+      await cartRepository.addCart(buildable.adDetail!.toMap());
       build((buildable) => buildable.copyWith(isAddCart: true));
       display.success("mahsulot savatchaga qo'shildi");
     } on DioException catch (e) {

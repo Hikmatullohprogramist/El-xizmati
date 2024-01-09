@@ -12,7 +12,7 @@ import 'package:onlinebozor/common/widgets/dashboard/see_all_widget.dart';
 import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
 
 import '../../../common/core/base_page.dart';
-import '../../../common/widgets/ad/ad_widget.dart';
+import '../../../common/widgets/ad/vertical_ad_widget.dart';
 import '../../../common/widgets/common/common_button.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../domain/models/ad.dart';
@@ -92,10 +92,10 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                         loadingState: state.cheapAdsState,
                         child: HorizontalAdListWidget(
                           ads: state.cheapAds,
-                          invoke: (Ad result) {
+                          onItemClicked: (Ad result) {
                             context.router.push(AdDetailRoute(adId: result.id));
                           },
-                          invokeFavorite: (Ad result) => context
+                          onFavoriteClicked: (Ad result) => context
                               .read<AdCollectionCubit>()
                               .cheapAdsAddFavorite(result),
                       )),
@@ -116,10 +116,10 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                           loadingState: state.popularAdsState,
                           child: HorizontalAdListWidget(
                             ads: state.popularAds,
-                            invoke: (Ad result) {
+                            onItemClicked: (Ad result) {
                             context.router.push(AdDetailRoute(adId: result.id));
                           },
-                            invokeFavorite: (Ad result) => context
+                            onFavoriteClicked: (Ad result) => context
                               .read<AdCollectionCubit>()
                               .popularAdsAddFavorite(result),
                       )),
@@ -200,7 +200,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                       if (index % 2 == 1) {
                         return Padding(
                           padding: EdgeInsets.only(right: 16),
-                                child: AppAdWidget(
+                                child: VerticalAdWidget(
                                   ad: item,
                                   invokeFavorite: (value) => context
                                       .read<AdCollectionCubit>()
@@ -212,7 +212,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                       } else {
                               return Padding(
                                 padding: EdgeInsets.only(left: 16),
-                                child: AppAdWidget(
+                                child: VerticalAdWidget(
                                   ad: item,
                                   invokeFavorite: (value) => context
                                       .read<AdCollectionCubit>()

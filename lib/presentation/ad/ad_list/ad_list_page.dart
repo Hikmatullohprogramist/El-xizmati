@@ -11,7 +11,7 @@ import 'package:onlinebozor/presentation/ad/ad_list/cubit/ad_list_cubit.dart';
 
 import '../../../common/core/base_page.dart';
 import '../../../common/router/app_router.dart';
-import '../../../common/widgets/ad/ad_widget.dart';
+import '../../../common/widgets/ad/vertical_ad_widget.dart';
 import '../../../common/widgets/common/common_button.dart';
 import '../../../domain/models/ad.dart';
 import '../../../domain/util.dart';
@@ -120,7 +120,7 @@ class AdListPage
                     child: CircularProgressIndicator(color: Colors.blue)));
           },
           transitionDuration: Duration(milliseconds: 100),
-          itemBuilder: (context, item, index) => AppAdWidget(
+          itemBuilder: (context, item, index) => VerticalAdWidget(
             ad: item,
             invokeFavorite: (value) =>
                 context.read<AdListCubit>().addFavorite(value),

@@ -9,7 +9,7 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/ad/price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/dashboard/see_all_widget.dart';
-import 'package:onlinebozor/common/widgets/favorite/favorite_widget.dart';
+import 'package:onlinebozor/common/widgets/favorite/ad_favorite_widget.dart';
 import 'package:onlinebozor/domain/util.dart';
 import 'package:onlinebozor/presentation/ad/ad_detail/cubit/ad_detail_cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -17,8 +17,6 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../common/core/base_page.dart';
 import '../../../common/gen/assets/assets.gen.dart';
 import '../../../common/widgets/ad/horizontal_ad_list_widget.dart';
-import '../../../common/widgets/ad/ad_property_widget.dart';
-import '../../../common/widgets/ad/ad_route_widget.dart';
 import '../../../common/widgets/common/common_button.dart';
 import '../../../common/widgets/dashboard/app_diverder.dart';
 import '../../../common/widgets/dashboard/app_image_widget.dart';
@@ -37,20 +35,6 @@ class AdDetailPage
     context.read<AdDetailCubit>().setAdId(adId);
   }
 
-  Widget getWatch(String title, VoidCallback onPressed) {
-    return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            title.w(500).s(14).c(Color(0xFF41455E)),
-            // IconButton(
-            //     onPressed: onPressed,
-            //     icon: Assets.images.icArrowRight.svg(height: 24, width: 24))
-          ],
-        ));
-  }
-
   @override
   Widget builder(BuildContext context, AdDetailBuildable state) {
     return state.adDetail != null
@@ -63,27 +47,29 @@ class AdDetailPage
                   padding: EdgeInsets.symmetric(vertical: 12),
                   child: Row(children: [
                     SizedBox(width: 16),
-                    Strings.adDetailPrice.w(400).s(12).c(Color(0xFF9EABBE)),
+                    Strings.adDetailPrice.w(400).s(14).c(Color(0xFF9EABBE)),
                     SizedBox(width: 8),
                     PriceTextWidget(
-                        price: state.adDetail!.price,
-                        toPrice: state.adDetail!.toPrice,
-                        fromPrice: state.adDetail!.fromPrice,
-                        currency: state.adDetail!.currency),
+                      price: state.adDetail!.price,
+                      toPrice: state.adDetail!.toPrice,
+                      fromPrice: state.adDetail!.fromPrice,
+                      currency: state.adDetail!.currency,
+                    ),
                     SizedBox(width: 8),
                     Spacer(),
                     SizedBox(
-                        height: 36,
-                        child: CommonButton(
-                            enabled: !state.isAddCart,
-                            color: context.colors.buttonPrimary,
-                            type: ButtonType.elevated,
-                            onPressed: () =>
-                                context.read<AdDetailCubit>().addCart(),
-                            child: Strings.adDetailAddtocart
-                                .s(13)
-                                .c(Colors.white)
-                                .w(500))),
+                      height: 36,
+                      child: CommonButton(
+                          enabled: !state.isAddCart,
+                          color: context.colors.buttonPrimary,
+                          type: ButtonType.elevated,
+                          onPressed: () =>
+                              context.read<AdDetailCubit>().addCart(),
+                          child: Strings.adDetailAddtocart
+                              .s(13)
+                              .c(Colors.white)
+                              .w(500)),
+                    ),
                     SizedBox(width: 16)
                   ]),
                 )),
@@ -97,7 +83,7 @@ class AdDetailPage
                 actions: [
                   Padding(
                       padding: EdgeInsets.all(4),
-                      child: AppFavoriteWidget(
+                      child: AdFavoriteWidget(
                           isSelected: state.adDetail!.favorite,
                           invoke: () =>
                               context.read<AdDetailCubit>().addFavorite()))
@@ -124,9 +110,8 @@ class AdDetailPage
                       ));
                     },
                   ),
-                  AppDivider(height: 1),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -136,96 +121,44 @@ class AdDetailPage
                               .s(16)
                               .c(Color(0xFF41455E))
                               .copyWith(
-                                  maxLines: 2, overflow: TextOverflow.ellipsis),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                           SizedBox(height: 16),
                           PriceTextWidget(
-                              price: state.adDetail!.price,
-                              toPrice: state.adDetail!.toPrice,
-                              fromPrice: state.adDetail!.fromPrice,
-                              currency: state.adDetail!.currency,
-                              color: Color(0xFFFF0098)),
-                          SizedBox(height: 24),
+                            price: state.adDetail!.price,
+                            toPrice: state.adDetail!.toPrice,
+                            fromPrice: state.adDetail!.fromPrice,
+                            currency: state.adDetail!.currency,
+                            color: Color(0xFFFF0098),
+                          ),
+                          SizedBox(height: 12),
                           AppDivider(),
                           SizedBox(height: 12),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              AppAdRouterWidget(
-                                  isHorizontal: false,
-                                  adRouteType: state.adDetail!.adRouteType),
-                              SizedBox(width: 5),
-                              AppAdPropertyWidget(
-                                  isHorizontal: false,
-                                  adPropertyType:
-                                      state.adDetail!.propertyStatus)
+                              _getAdAuthorTypeChip(state),
+                              SizedBox(width: 8),
+                              _getAuthorPropertyChip(state),
                             ],
                           ),
                           SizedBox(height: 12),
                           AppDivider(),
                           SizedBox(height: 12),
-                          Align(
-                              alignment: Alignment.centerLeft,
-                              child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 5, vertical: 4),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      color: Color(0x28AEB2CD)),
-                                  child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Strings.adDetailPublishedTitle
-                                            .w(400)
-                                            .s(14)
-                                            .c(Color(0xFF9EABBE)),
-                                        SizedBox(width: 5),
-                                        (state.adDetail!.createdAt ?? "")
-                                            .w(500)
-                                            .s(14)
-                                            .c(Color(0xFF41455E))
-                                      ]))),
+                          _getPublishDateChip(state),
                           SizedBox(height: 8),
-                          Align(
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 5, vertical: 4),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          color: Color(0x28AEB2CD)),
-                                      child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Assets.images.icEye.svg(),
-                                            SizedBox(width: 8),
-                                            Strings.adDetailViewCountTitle
-                                                .w(400)
-                                                .s(14)
-                                                .c(Color(0xFF9EABBE)),
-                                            SizedBox(width: 4),
-                                            state.adDetail!.view
-                                                .toString()
-                                                .w(500)
-                                                .s(14)
-                                                .c(Color(0xFF41455E))
-                                          ])),
-                                ]),
-                          ),
-                          SizedBox(height: 16),
+                          _getViewCountChip(state),
                           // AppDivider(),
                           // getWatch(Strings.adDetailFeedback, () {}),
                         ]),
                   ),
                   Visibility(
-                      visible: (state.adDetail?.description != null &&
-                          state.adDetail?.description != ""),
-                      child: AppDivider()),
+                    visible: (state.adDetail?.hasDescription() ?? false),
+                    child: AppDivider(indent: 16, endIndent: 16),
+                  ),
                   Visibility(
-                      visible: (state.adDetail?.description != null &&
-                          state.adDetail?.description != ""),
+                      visible: (state.adDetail?.hasDescription() ?? false),
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 16),
                         child: Column(
@@ -244,12 +177,12 @@ class AdDetailPage
                               //         .w(500)
                               //         .s(16)
                               //         .c(Color(0xFF5C6AC3))),
-                              SizedBox(height: 16),
+                              // SizedBox(height: 16),
                             ]),
                       )),
-                  AppDivider(),
+                  AppDivider(indent: 16, endIndent: 16),
                   Container(
-                    padding: EdgeInsets.all(16),
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -302,7 +235,8 @@ class AdDetailPage
                                 IconButton(
                                     onPressed: () {
                                       context.router.push(AdListRoute(
-                                          adListType: AdListType.sellerProductAds,
+                                          adListType:
+                                              AdListType.sellerProductAds,
                                           keyWord: "",
                                           title: state.adDetail?.sellerFullName,
                                           sellerTin:
@@ -335,7 +269,7 @@ class AdDetailPage
                                   .w(500)
                                   .s(16)
                                   .c(Color(0xFF41455E)),
-                              SizedBox(height: 16),
+                              SizedBox(height: 12),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
@@ -481,42 +415,147 @@ class AdDetailPage
                         children: [getWatch(Strings.adDetailFeedback, () {})]),
                   ),
                   SeeAllWidget(
-                      listener: () {
-                        context.router.push(AdListRoute(
-                            adListType: AdListType.similarAds,
-                            keyWord: null,
-                            title: Strings.similarProductTitle,
-                            adId: state.adId));
-                      },
-                      title: Strings.similarProductTitle),
+                    listener: () {
+                      context.router.push(AdListRoute(
+                          adListType: AdListType.similarAds,
+                          keyWord: null,
+                          title: Strings.similarProductTitle,
+                          adId: state.adId));
+                    },
+                    title: Strings.similarProductTitle,
+                  ),
                   LoaderStateWidget(
-                      isFullScreen: false,
-                      onErrorToAgainRequest: () {
-                        context.read<AdDetailCubit>().getSimilarAds();
-                      },
-                      loadingState: state.similarAdsState,
-                      child: HorizontalAdListWidget(
-                        ads: state.similarAds,
-                        invoke: (Ad ad) =>
-                            context.router.push(AdDetailRoute(adId: ad.id)),
-                        invokeFavorite: (Ad ad) => context
-                            .read<AdDetailCubit>()
-                            .similarAdsAddFavorite(ad),
-                      )),
+                    isFullScreen: false,
+                    onErrorToAgainRequest: () {
+                      context.read<AdDetailCubit>().getSimilarAds();
+                    },
+                    loadingState: state.similarAdsState,
+                    child: HorizontalAdListWidget(
+                      ads: state.similarAds,
+                      onItemClicked: (Ad ad) =>
+                          context.router.push(AdDetailRoute(adId: ad.id)),
+                      onFavoriteClicked: (Ad ad) => context
+                          .read<AdDetailCubit>()
+                          .similarAdsAddFavorite(ad),
+                    ),
+                  ),
                 ],
               ),
-            ))
+            ),
+          )
         : Scaffold(
             appBar: AppBar(
-                backgroundColor: Colors.white,
-                elevation: 1,
-                leading: IconButton(
-                    onPressed: () => context.router.pop(),
-                    icon:
-                        Assets.images.icArrowLeft.svg(height: 24, width: 24))),
+              backgroundColor: Colors.white,
+              elevation: 1,
+              leading: IconButton(
+                  onPressed: () => context.router.pop(),
+                  icon: Assets.images.icArrowLeft.svg(height: 24, width: 24)),
+            ),
             body: Center(
               child: CircularProgressIndicator(
                   backgroundColor: Colors.blue, strokeWidth: 8),
-            ));
+            ),
+          );
+  }
+
+  Widget getWatch(String title, VoidCallback onPressed) {
+    return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            title.w(500).s(14).c(Color(0xFF41455E)),
+            // IconButton(
+            //     onPressed: onPressed,
+            //     icon: Assets.images.icArrowRight.svg(height: 24, width: 24))
+          ],
+        ));
+  }
+
+  Widget _getAdAuthorTypeChip(AdDetailBuildable state) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 8,
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        color: switch (state.adDetail!.adAuthorType) {
+          AdAuthorType.private => Color(0x28AEB2CD),
+          AdAuthorType.business => Color(0x1E6546E7),
+        },
+      ),
+      child: switch (state.adDetail!.adAuthorType) {
+        AdAuthorType.private =>
+          Strings.adPropertyPersonal.w(400).s(14).c(Color(0xFF999CB2)),
+        AdAuthorType.business =>
+          Strings.adPropertyBiznes.w(400).s(14).c(Color(0xFF6546E7)),
+      },
+    );
+  }
+
+  Widget _getAuthorPropertyChip(AdDetailBuildable state) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 8,
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        color: Color(0x28AEB2CD),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Strings.adStatusTitle.w(400).s(12).c(Color(0xFF999CB2)),
+          SizedBox(width: 2),
+          switch (state.adDetail!.propertyStatus) {
+            AdPropertyStatus.fresh =>
+              Strings.adStatusNew.w(400).s(14).c(Color(0xFF41455E)),
+            AdPropertyStatus.used =>
+              Strings.adStatusOld.w(400).s(14).c(Color(0xFF41455E)),
+          },
+        ],
+      ),
+    );
+  }
+
+  Widget _getPublishDateChip(AdDetailBuildable state) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          color: Color(0x28AEB2CD),
+        ),
+        child: Row(mainAxisSize: MainAxisSize.min, children: [
+          Strings.adDetailPublishedTitle.w(400).s(14).c(Color(0xFF9EABBE)),
+          SizedBox(width: 5),
+          (state.adDetail!.createdAt ?? "").w(500).s(14).c(Color(0xFF41455E))
+        ]),
+      ),
+    );
+  }
+
+  Widget _getViewCountChip(AdDetailBuildable state) {
+    return Align(
+      child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: Color(0x28AEB2CD),
+          ),
+          child: Row(mainAxisSize: MainAxisSize.min, children: [
+            Assets.images.icEye.svg(),
+            SizedBox(width: 8),
+            Strings.adDetailViewCountTitle.w(400).s(14).c(Color(0xFF9EABBE)),
+            SizedBox(width: 4),
+            state.adDetail!.view.toString().w(500).s(14).c(Color(0xFF41455E))
+          ]),
+        ),
+      ]),
+    );
   }
 }
