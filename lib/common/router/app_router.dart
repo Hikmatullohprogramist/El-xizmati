@@ -47,7 +47,7 @@ import '../../presentation/home/features/profile/features/payment_transaction/fe
 import '../../presentation/home/features/profile/features/payment_transaction/payment_transaction_page.dart';
 import '../../presentation/home/features/profile/features/profile_viewer/features/profile_edit/profile_edit_page.dart';
 import '../../presentation/home/features/profile/features/profile_viewer/features/registration/registration_page.dart';
-import '../../presentation/home/features/profile/features/profile_viewer/profile_viewer_page.dart';
+import '../../presentation/home/features/profile/features/profile_viewer/profile_view_page.dart';
 import '../../presentation/home/features/profile/features/promotion/promotion_page.dart';
 import '../../presentation/home/features/profile/features/settings/features/notification_settings/notification_setting_page.dart';
 import '../../presentation/home/features/profile/features/settings/features/user_active_device/user_active_device_page.dart';

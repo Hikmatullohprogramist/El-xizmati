@@ -14,24 +14,24 @@ auth.start.singin,Tizimga kirish,Войти в систему,Тизимга к�
 auth.start.login_with_face_id,FaceID bilan tizimga kiring,Войти с помощью FaceID,FaceId билан тизимга киринг
 auth.start.login_with_eds,E-Imzo yordamida tizimga kiring,Войти с помощью ЭЦП,E-imzo ёрдамида тизимга киринг
 auth.start.login_with_mobile_id,Mobile-ID bilan kirish,Войти с помощью Mobile-ID,Mobile-ID билан кириш
-auth.start.login_with_id_card,ID-Card bilan kirish ,Войти с помощью ID-Card,ID-Card билан кириш
-auth.start.login_with_one_id,One-ID bilan kirish ,Войти с помощью one-ID,One-ID билан кириш
+auth.start.login_with_id_card,ID-Card bilan kirish,Войти с помощью ID-Card,ID-Card билан кириш
+auth.start.login_with_one_id,One-ID bilan kirish,Войти с помощью one-ID,One-ID билан кириш
 auth.common.password,Parol,пароль,Парол
 auth.verification.forget_password,Parolni unutdingizmi?,Забыли пароль?,Паролни унутдингизми?
-auth.confirm.corfimation_code ,Tasdiqlash kodi,КОД подтверждения,Тасдиқлаш коди
+auth.confirm.corfimation_code,Tasdiqlash kodi,КОД подтверждения,Тасдиқлаш коди
 auth.confirm.sent_sms_your_phone,Biz sizga {phone} raqamiga kod bilan SMS yubordik,Мы отправили вам СМС с кодом на номер {phone},Биз сизга {пҳоне} рақамига код билан СМС юбордик
 auth.confirm.again_sent_sms_your_phone,Yana yuboring,Отправить еще раз,Яна юборинг
-auth.common.you_agree_in,Tizimga kirish orqali siz rozilik bildirasiz  ,"Авторизуясь, вы соглашаетесь с ",Тизимга кириш орқали сиз розилик билдирасиз
-auth.common.your_processing_policy,shaxsiy \nma'lumotlarni qayta ishlash siyosati, политикой \nобработки персональных данных ,шахсий \нмаълумотларни қайта ишлаш сиёсати
+auth.common.you_agree_in,Tizimga kirish orqali siz rozilik bildirasiz,"Авторизуясь, вы соглашаетесь с ",Тизимга кириш орқали сиз розилик билдирасиз
+auth.common.your_processing_policy,shaxsiy \nma'lumotlarni qayta ishlash siyosati,политикой \nобработки персональных данных,шахсий \нмаълумотларни қайта ишлаш сиёсати
 auth.register.register,Roʻyxatdan oʻtish,Зарегистрироваться,Рўйхатдан ўтиш
 auth.register.create_password,Kirish uchun parol yarating,Придумайте пароль для входа,Кириш учун парол яратинг
 auth.register.repeat_password,Parolni qayta kiriting,Повторить пароль,Паролни қайта киритинг
 auth.register.password_contain_least_characters,Parol kamida 8 ta belgidan iborat bo'lishi kerak.,Пароль должен содержать минимум 8 символов.,Парол камида 8 та белгидан иборат бўлиши керак.
-auth.singin.title,Tizimga kirish ,Войти,Тизимга кириш
-common.continue_title,Davom etish ,Продолжить,Давом этиш
+auth.singin.title,Tizimga kirish,Войти,Тизимга кириш
+common.continue_title,Davom etish,Продолжить,Давом этиш
 common.phone_number,Telefon raqami,Номер телефона,Телефон рақами
 auth.policy_agree,Tizimga kirish orqali siz rozilik bildirasiz,"Авторизуясь, вы соглашаетесь с ",Тизимга кириш орқали сиз розилик билдирасиз
-auth.person_policy,siyosat shaxsiy ma'lumotlarni qayta ishlash,политикой nобработки персональных данных ,сиёсат шахсий маълумотларни қайта ишлаш
+auth.person_policy,siyosat shaxsiy ma'lumotlarni qayta ishlash,политикой nобработки персональных данных,сиёсат шахсий маълумотларни қайта ишлаш
 products.title,Mahsulotlar,Продукт,Маҳсулот
 services.title,Xizmatlar,Услуги,Хизматлар
 categories.title,Kategoriyalar,Основные категории,Машҳур Kategoriyalar
@@ -51,7 +51,7 @@ favorite.title,Sevimlilar,Мои желания,Севимлилар
 loading.state.error,Xatolik yuz berdi,Произошла ошибка,Хатолик юз берди
 loading.state.retrybutton,Qayta urinish,Повторить попытку,Қайта уриниш
 loading.state.notitemfound,Hech qanday element topilmadi,No items found,Ҳеч қандай элемент топилмади
-ad.detail.published.title,Nashr etilgan:,Опубликовано: ,Нашр этилган:
+ad.detail.published.title,Nashr etilgan:,Опубликовано:,Нашр этилган:
 ad.detail.view.count.title,Ko'rishlar:,Просмотров:,Кўришлар:
 ad.detail.complain,Shikoyat qiling,Пожаловаться,Шикоят қилинг
 ad.detail.description,Tavsif,Описание,Тавсиф
@@ -62,7 +62,7 @@ ad.detail.price,narxi:,Цена:,нархи:
 ad.detail.addtocart,Savatchaga qo'shish,В корзину,Саватчага қўшиш
 ad.detail.onOnlineBozor,OnlineBozorda,на OnlineBozor с,OnlineBozorда
 ad.detail.location,Manzil,Местоположение,Манзил
-ad.detail.towritemessge,Xabar yozish uchun ,Написать сообщение,Хабар ёзиш учун
+ad.detail.towritemessge,Xabar yozish uchun,Написать сообщение,Хабар ёзиш учун
 ad.detail.feedback,Sharhlar,Отзывы,Шарҳлар
 ad.collective.popular,Ommaboplar,Популярные,Оммабоплар
 ad.collective.discounts,Chegirmalar,Скидки,Чегирмалар
@@ -70,15 +70,16 @@ profile.view.titlle,Profil,Профиль,Профил
 profile.view.personal.data,Shaxsiy ma'lumotlar,Личные данные,Шахсий маълумотлар
 profile.view.private.person,Jismoniy shaxs,Частное лицо,Жисмоний шахс
 profile.view.changetobusiness,Biznesga o'tish,Поменять на бизнес,Бизнесга ўтиш
-profile.view.not.identified,Aniqlanmagan,Не идентифицирован ,Аниқланмаган
-profile.view.identified,Identified,Идентифицирован,Идентифиед
+profile.view.not.identified,Shaxsingiz tasdiqlanmagan,Не идентифицирован,Шахсингиз тасдиқланмаган
+profile.view.identified,Shaxsingiz tasdiqlangan,Идентифицирован,Шахсингиз тасдиқланган
+profile.view.identify,Shaxsni tasdiqlash,Идентифицировать,Шахсни тасдиқлаш
 profile.user.name,Foydalanuvchi nomi,Имя пользователя,Фойдаланувчи номи
 profile.user.brithdate,Tug'ilgan kuni,Дата рождения,Туғилган куни
 profile.user.biometricdate,Pasport ma'lumoti,Паспортные данные,Паспорт маълумоти
 profile.user.gender,Jins,Пол,Жинс
 profile.user.email,Email,email,Эмаил
 profile.user.region,Viloyat,Регион,Вилоят
-profile.user.district,Tuman ,Район,Туман
+profile.user.district,Tuman,Район,Туман
 profile.user.neighborhood,Turar joy,Махалля,Турар жой
 profile.user.phone,Telefon,Телефон,Телефон
 profile.user.gender.boy,Erkak,Муж.,Эркак
@@ -119,19 +120,19 @@ common.yes,Ha,Да,Ҳа
 common.no,Yo'q,No,Йўқ
 common.unfind,topilmadi,не найдено,топилмади
 profile.edit.unfull.information,Ma'lumotlarni to'liq kiriting,Введите данные полностью,Маълумотларни тўлиқ киритинг
-profile.edit.title,Tahrirlash ,Изменить,Таҳрирлаш
-common.save.title,Saqlash ,Сохранить,Сақлаш
+profile.edit.title,Tahrirlash,Изменить,Таҳрирлаш
+common.save.title,Saqlash,Сохранить,Сақлаш
 profile.edit.change.personal.data,Shaxsiy ma'lumotlarni o'zgartiring,Изменить личные данные,Шахсий маълумотларни ўзгартиринг
 profile.edit.biometric.information,Biometric ma'lumotlar,Паспортные данные,Биометриc маълумотлар
 profile.edit.biometric.serial,Biometric raqami,Номер паспорта,Биометриc рақами
 profile.edit.brith.date,Tug'ilgan yil (2004-11-28),Дата рождения (2004-11-28),Туғилган йил (2004-11-28)
 profile.edit.phone,Telefon raqami (+998 __ ___ __ __),Номер телефона (+998 __ ___ __ __),Телефон рақами (+998 __ ___ __ __)
 profile.edit.full.biometric,"Pasport raqami va seriyasini, tug'ilgan sanasini ko'rsating","Укажите номер и серия паспорта, дата рождения","Паспорт рақами ва сериясини, туғилган санасини кўрсатинг"
-profile.edit.user.name,Ism ,Имя,Исм
+profile.edit.user.name,Ism,Имя,Исм
 profile.edit.user.username,foydalanuvchi nomi,имя пользователя,фойдаланувчи номи
 profile.edit.user.email,elektron pochta,электронная почта,электрон почта
 profile.edit.region,Viloyat,Регион,Вилоят
-profile.edit.district,Tuman ,Район,Туман
+profile.edit.district,Tuman,Район,Туман
 profile.edit.neighborhood,Mahalla,Махалля,Маҳалла
 profile.edit.apartment,Kvartira,Квартира,Квартира
 profile.edit.house,Uy,Дом,Уй
@@ -158,7 +159,7 @@ user.address.edit,Tahrirlash,Редактировать,Таҳрирлаш
 user.address.set.as.main,Asosiy qilib belgilang,Сделать основным,Асосий қилиб белгиланг
 user.address.remove,Manzilni olib tashlang,Удалить адрес,Манзилни олиб ташланг
 user.address.close,Yopish,Закрыть,Ёпиш
-user.address.main ,Asosiy,Основной,Асосий
+user.address.main,Asosiy,Основной,Асосий
 user.address.address,Manzil:,Адрес:,Манзил:
 user.address.floor,Qavat:,Этаж:,Қават:
 user.address.entrance,Kirish:,Подъезд:,Кириш:
@@ -167,7 +168,7 @@ user.address.add.new.address,Yangi manzil qo'shing,Добавить новый �
 user.address.save,Saqlash,Сақлаш,Сақлаш
 user.address.name,Manzil nomi,Название адреса,Манзил номи
 user.address.region,Viloyat,Регион,Вилоят
-user.address.district,Tuman ,Район,Туман
+user.address.district,Tuman,Район,Туман
 user.address.street,Mahalla,Махалля,Маҳалла
 user.address.home.number,Uy raqami,Номер дома,Uy raqami
 user.address.selection.location,Joylashuvni tanlang,Выберите локацию,Жойлашувни танланг
@@ -181,7 +182,7 @@ active.device.current.device,Joriy device,Текущий сеанс,Joriy device
 active.device.remove.device,Device tugatish,Завершить сеанс,Девиcе тугатиш
 notification.receive.sms,SMS xabar,СМС собщение,СМС хабар
 notification.receive.telegram,Telegram boti,Телеграм бот,Телеграм боти
-notification.receive.email,Elektron pochta orqali,Через Эл. почту,Электрон почта орқали 
+notification.receive.email,Elektron pochta orqali,Через Эл. почту,Электрон почта орқали
 telegram.bot.description,Бот орқали билдиришномаларни олиш учун сизга уланган бўлиши керак.,"Вы должны быть подключены, чтобы получать уведомления от ботов.",Бот орқали билдиришномаларни олиш учун сизга уланган бўлиши керак.
 link.title,link,связь,линк
 notification.title,Bildirishnoma,Уведомление,Билдиришнома
@@ -203,11 +204,11 @@ user.ads.all.title,Barchasi,Все,Барчаси
 user.ads.active.title,Faol,Активный,Фаол
 user.ads.pending.title,Kutulmoqda,Ожидающий,Кутулмоқда
 user.ads.inactive.title,Faol emas,Не активен,Фаол эмас
-user.ads.canceled.title,Bekor qilingan ,Отменено,Бекор қилинган
+user.ads.canceled.title,Bekor qilingan,Отменено,Бекор қилинган
 ad.create.product.title,Mahsulot,Продукт,Маҳсулот
 ad.create.service.title,Xizmat,Услуга,Хизмат
 ad.create.free.title,Bepul,Бесплатно,Бепул
-ad.create.exchange.title,Almashish ,обмен,Алмашиш
+ad.create.exchange.title,Almashish,обмен,Алмашиш
 payment.title,To'lovlar,Платежи,Тўловлар
 payment.filter.title,Filtr,Фильтр,Фильтр
 order.need.product,Mahsulot kerak,Нужен товар,Маҳсулот керак
@@ -221,7 +222,7 @@ payment.filter.method.title,To'lov usuli,Способ оплаты,Тўлов у
 payment.filter.type.title,Turi,Тип,Тури
 payment.filter.status.title,Holat,Статус,Ҳолат
 payment.filter.cleaning.title,Tozalash,уборка,Тозалаш
-payment.filter.apply.title,Qo'llash ,Применять,Қўллаш
+payment.filter.apply.title,Qo'llash,Применять,Қўллаш
 user.ad.detail.remainder,Qolgan,Остаток,Қолган
 action.title,Harakat,Действие,Ҳаракат
 edit.title,Tahrirlash,Редактировать,Таҳрирлаш
@@ -233,6 +234,6 @@ create.request.title,So'rov yaratish,Создать запрос,Сўров яр
 user.request.all.title,Barchasi,Все,Барчаси
 user.request.pending.title,Kutulmoqda,Ожидающий,Кутулмоқда
 user.request.rejaction.title,Rad etilgan,Отклоненный,Рад этилган
-user.request.canceled.title,Bekor qilingan ,Отменено,Бекор қилинган
+user.request.canceled.title,Bekor qilingan,Отменено,Бекор қилинган
 user.request.review.title,Ko'rib chiqilmoqda,На рассмотрении,Кўриб чиқилмоқда
 user.request.accept.title,Qabul qilingan,Принял,Қабул қилинган

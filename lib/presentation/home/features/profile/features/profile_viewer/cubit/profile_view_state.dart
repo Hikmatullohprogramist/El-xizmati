@@ -1,9 +1,9 @@
-part of 'profile_viewer_cubit.dart';
+part of 'profile_view_cubit.dart';
 
 @freezed
 class ProfileViewerBuildable with _$ProfileViewerBuildable {
   const factory ProfileViewerBuildable({
-    @Default(false) bool isRegistration,
+    @Default(false) bool isRegistered,
     @Default(false) bool isLoading,
     @Default("*") String userName,
     @Default("*") String fullName,
@@ -23,9 +23,13 @@ class ProfileViewerBuildable with _$ProfileViewerBuildable {
 }
 
 @freezed
-class ProfileViewerListenable with _$ProfileViewerListenable {
-  const factory ProfileViewerListenable(ProfileViewerEffect effect,
+class ProfileViewListenable with _$ProfileViewerListenable {
+  const factory ProfileViewListenable(ProfileViewEffect effect,
       {String? message}) = _ProfileViewerListenable;
 }
 
-enum ProfileViewerEffect { success, navigationAuthStart}
+enum ProfileViewEffect {
+  // onLoadingUserInfo, onSuccessUserInfo, onFailureUserInfo,
+
+  navigationAuthStart
+}

@@ -6,47 +6,69 @@ import '../../../../../../../common/core/base_cubit_new.dart';
 import '../../../../../../../domain/repositories/auth_repository.dart';
 import '../../../../../../../domain/repositories/user_repository.dart';
 
-part 'profile_viewer_cubit.freezed.dart';
-part 'profile_viewer_state.dart';
+part 'profile_view_cubit.freezed.dart';
+
+part 'profile_view_state.dart';
 
 @injectable
-class ProfileViewerCubit
-    extends BaseCubit<ProfileViewerBuildable, ProfileViewerListenable> {
-  ProfileViewerCubit(this._userRepository, this._authRepository)
+class ProfileViewCubit
+    extends BaseCubit<ProfileViewerBuildable, ProfileViewListenable> {
+  ProfileViewCubit(this._userRepository, this._authRepository)
       : super(ProfileViewerBuildable());
 
   final UserRepository _userRepository;
   final AuthRepository _authRepository;
 
   Future<void> getUser() async {
-    await Future.wait([
-      getRegions(),
-      getDistrict(),
-      getStreets(),
-    ]);
+    try {
+      build((buildable) => buildable.copyWith(isLoading: true));
+
+      await Future.wait([
+        getRegions(),
+        getDistrict(),
+        getStreets(),
+      ]);
+
+      build((buildable) => buildable.copyWith(isLoading: false));
+    } catch (e) {
+      log.e(e.toString());
+
+      build((buildable) => buildable.copyWith(isLoading: false));
+    }
   }
 
   Future<void> getUserInformation() async {
     try {
       build((buildable) => buildable.copyWith(isLoading: true));
+
+      log.e("getUserInformation onLoading");
+
       final response = await _userRepository.getFullUserInfo();
       build((buildable) => buildable.copyWith(
+          isLoading: false,
           userName: (response.full_name ?? "*"),
           fullName: response.full_name ?? "*",
           phoneNumber: response.mobile_phone ?? "*",
           email: response.email ?? "*",
-          photo: response.photo,
+          photo: response.photo ?? "",
           biometricInformation:
               "${response.passport_serial ?? ""} ${response.passport_number ?? ""}",
           brithDate: response.birth_date ?? "*",
           districtName: (response.district_id ?? "*").toString(),
-          isRegistration: response.is_registered ?? false,
+          isRegistered: response.is_registered ?? false,
           regionId: response.region_id,
           districtId: response.district_id,
           gender: response.gender ?? "*",
           streetId: response.mahalla_id));
+
+      log.e("getUserInformation onSuccess");
+
       await getUser();
     } on DioException catch (e) {
+      log.e("getUserInformation onFailure error = ${e.toString()}");
+
+      build((buildable) => buildable.copyWith(isLoading: false));
+
       if (e.response?.statusCode == 401) {
         logOut();
       }
@@ -94,6 +116,6 @@ class ProfileViewerCubit
 
   Future<void> logOut() async {
     await _authRepository.logOut();
-    invoke(ProfileViewerListenable(ProfileViewerEffect.navigationAuthStart));
+    invoke(ProfileViewListenable(ProfileViewEffect.navigationAuthStart));
   }
 }
