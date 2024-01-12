@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../../../common/core/base_cubit_new.dart';
 import '../../../../../../../domain/repositories/auth_repository.dart';
@@ -117,5 +118,29 @@ class ProfileViewCubit
   Future<void> logOut() async {
     await _authRepository.logOut();
     invoke(ProfileViewListenable(ProfileViewEffect.navigationAuthStart));
+  }
+
+  setSmsNotification() {
+    build((buildable) =>
+        buildable.copyWith(smsNotification: !buildable.smsNotification));
+  }
+
+  setTelegramNotification() {
+    build((buildable) => buildable.copyWith(
+        telegramNotification: !buildable.telegramNotification));
+  }
+
+  setEmailNotification() {
+    build((buildable) =>
+        buildable.copyWith(emailNotification: !buildable.emailNotification));
+  }
+
+  Future<void> openTelegram() async {
+    try {
+      var url = Uri.parse("https://t.me/online_bozor_rs_bot");
+      await launchUrl(url);
+    } catch (error) {
+      log.e(error.toString());
+    }
   }
 }

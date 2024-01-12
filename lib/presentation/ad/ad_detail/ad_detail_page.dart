@@ -187,7 +187,7 @@ class AdDetailPage
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Strings.adDetailSaller
+                        Strings.adDetailSeller
                             .w(500)
                             .s(16)
                             .c(Color(0xFF41455E)),
@@ -530,7 +530,7 @@ class AdDetailPage
           color: Color(0x28AEB2CD),
         ),
         child: Row(mainAxisSize: MainAxisSize.min, children: [
-          Strings.adDetailPublishedTitle.w(400).s(14).c(Color(0xFF9EABBE)),
+          Strings.adDetailPublishedDate.w(400).s(14).c(Color(0xFF9EABBE)),
           SizedBox(width: 5),
           (state.adDetail!.createdAt ?? "").w(500).s(14).c(Color(0xFF41455E))
         ]),

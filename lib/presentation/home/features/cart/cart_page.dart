@@ -64,7 +64,7 @@ class CartPage extends BasePage<CartCubit, CartBuildable, CartListenable> {
                       CommonButton(
                           onPressed: () {},
                           type: ButtonType.elevated,
-                          child: Strings.loadingStateRetrybutton.w(400).s(15))
+                          child: Strings.loadingStateRetry.w(400).s(15))
                     ],
                   ),
                 ),

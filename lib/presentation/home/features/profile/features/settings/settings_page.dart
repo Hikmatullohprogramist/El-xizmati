@@ -43,7 +43,7 @@ class SettingPage
               Divider(indent: 46, height: 1),
               ProfileItemWidget(
                 name: Strings.settingsSocialNetwork,
-                icon: Assets.images.icSettingsSocialNetwork,
+                icon: Assets.images.icSocialNetwork,
                 invoke: () {
                   // context.router.push(UserSocialNetworkRoute())
                 },
@@ -51,13 +51,13 @@ class SettingPage
               Divider(indent: 46, height: 1),
               ProfileItemWidget(
                 name: Strings.settingsActiveDevices,
-                icon: Assets.images.icProfileActiveDevice,
+                icon: Assets.images.icActiveDevice,
                 invoke: () => context.router.push(UserActiveDeviceRoute()),
               ),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(
                 name: Strings.settingsChangePassword,
-                icon: Assets.images.icSettingsChangePassword,
+                icon: Assets.images.icChangePassword,
                 invoke: () {},
               )
             ],

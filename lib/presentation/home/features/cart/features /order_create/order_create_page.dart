@@ -45,9 +45,9 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
     var formatter = NumberFormat('###,000');
     Widget liked(bool isLiked) {
       if (isLiked) {
-        return Assets.images.icAddToFavorite.svg(color: Colors.red);
+        return Assets.images.icFavoriteRemove.svg(color: Colors.red);
       } else {
-        return Assets.images.icAddToFavorite.svg();
+        return Assets.images.icFavoriteAdd.svg();
       }
     }
 

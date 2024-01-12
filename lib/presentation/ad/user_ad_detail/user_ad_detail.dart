@@ -176,7 +176,7 @@ class UserAdDetailPage extends BasePage<UserAdDetailCubit,
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Assets.images.icRemoveFromFavorite.svg(
+                            Assets.images.icFavoriteRemove.svg(
                                 height: 12,
                                 width: 12,
                                 color: context.colors.iconGrey),

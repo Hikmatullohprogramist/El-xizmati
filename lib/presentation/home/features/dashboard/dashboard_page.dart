@@ -9,8 +9,8 @@ import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/dashboard/product_and_service.dart';
 
 import '../../../../common/gen/localization/strings.dart';
-import '../../../../common/widgets/ad/vertical_ad_widget.dart';
 import '../../../../common/widgets/ad/horizontal_ad_list_widget.dart';
+import '../../../../common/widgets/ad/vertical_ad_widget.dart';
 import '../../../../common/widgets/app_bar/common_search_bar.dart';
 import '../../../../common/widgets/category/popular_category_list_widget.dart';
 import '../../../../common/widgets/common/common_button.dart';
@@ -168,9 +168,8 @@ class DashboardPage
                                 CommonButton(
                                     onPressed: () {},
                                     type: ButtonType.elevated,
-                                    child: Strings.loadingStateRetrybutton
-                                        .w(400)
-                                        .s(15))
+                                    child:
+                                        Strings.loadingStateRetry.w(400).s(15))
                               ],
                             )));
                       },
@@ -186,7 +185,7 @@ class DashboardPage
                       },
                       noItemsFoundIndicatorBuilder: (_) {
                         return Center(
-                            child: Text(Strings.loadingStateNotitemfound));
+                            child: Text(Strings.loadingStateNoItemFound));
                       },
                       newPageProgressIndicatorBuilder: (_) {
                         return SizedBox(

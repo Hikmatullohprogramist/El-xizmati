@@ -51,7 +51,9 @@ class UserAllAdsPage extends BasePage<UserAllAdsCubit, UserAllAdsBuildable,
                                   .s(16)
                                   .c(Color(0xFF41455E)))),
                       IconButton(
-                          onPressed: () {Navigator.of(buildContext).pop();},
+                          onPressed: () {
+                            Navigator.of(buildContext).pop();
+                          },
                           icon:
                               Assets.images.icClose.svg(width: 24, height: 24))
                     ],
@@ -80,7 +82,10 @@ class UserAllAdsPage extends BasePage<UserAllAdsCubit, UserAllAdsBuildable,
                             Assets.images.icAdvertise
                                 .svg(width: 24, height: 24),
                             SizedBox(width: 10),
-                           Strings.advertiseTitle.w(500).s(14).c(Color(0xFF41455E))
+                            Strings.advertiseTitle
+                                .w(500)
+                                .s(14)
+                                .c(Color(0xFF41455E))
                           ],
                         )),
                   ),
@@ -93,7 +98,10 @@ class UserAllAdsPage extends BasePage<UserAllAdsCubit, UserAllAdsBuildable,
                           children: [
                             Assets.images.icDelete.svg(width: 24, height: 24),
                             SizedBox(width: 10),
-                            Strings.deactivateTilte.w(500).s(14).c(Color(0xFF5C6AC3))
+                            Strings.deactivateTilte
+                                .w(500)
+                                .s(14)
+                                .c(Color(0xFF5C6AC3))
                           ],
                         )),
                   ),
@@ -102,7 +110,9 @@ class UserAllAdsPage extends BasePage<UserAllAdsCubit, UserAllAdsBuildable,
                     height: 42,
                     width: double.infinity,
                     child: CommonButton(
-                      onPressed: () {Navigator.of(buildContext).pop();},
+                      onPressed: () {
+                        Navigator.of(buildContext).pop();
+                      },
                       child: Strings.cardClose.w(600).s(14).c(Colors.white),
                     ),
                   )
@@ -144,7 +154,7 @@ class UserAllAdsPage extends BasePage<UserAllAdsCubit, UserAllAdsBuildable,
                     CommonButton(
                         onPressed: () {},
                         type: ButtonType.elevated,
-                        child: Strings.loadingStateRetrybutton.w(400).s(15))
+                        child: Strings.loadingStateRetry.w(400).s(15))
                   ],
                 ),
               ),
@@ -161,7 +171,9 @@ class UserAllAdsPage extends BasePage<UserAllAdsCubit, UserAllAdsBuildable,
             );
           },
           noItemsFoundIndicatorBuilder: (_) {
-            return UserAdEmptyWidget(listener: () {context.router.push(CreateAdRoute());});
+            return UserAdEmptyWidget(listener: () {
+              context.router.push(CreateAdRoute());
+            });
           },
           newPageProgressIndicatorBuilder: (_) {
             return SizedBox(

@@ -21,7 +21,7 @@ class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
         CategoryRoute(),
         FavoritesRoute(),
         CartRoute(),
-        ProfileRoute()
+        ProfileDashboardRoute()
       ],
       transitionBuilder: (context, child, animation) => FadeTransition(
         opacity: animation,
@@ -62,7 +62,7 @@ class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
                         child: Assets.images.bottomBar.dashboardActive.svg(),
                       )),
                   BottomNavigationBarItem(
-                      label: Strings.bottomNavigationCatolog,
+                      label: Strings.bottomNavigationCatalog,
                       icon: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Assets.images.bottomBar.category.svg()),

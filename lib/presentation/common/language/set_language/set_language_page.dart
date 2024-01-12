@@ -52,7 +52,7 @@ class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageBuildable,
                 ),
                 Spacer(),
                 Text(Strings.languageWelcome).w(500).s(24).c(Color(0xFF41455F)),
-                Text(Strings.languageSetlanguage)
+                Text(Strings.languageSetTitle)
                     .w(400)
                     .s(12)
                     .c(Color(0xFF9EABBE)),

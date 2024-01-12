@@ -61,7 +61,7 @@ class UserAllOrdersPage extends BasePage<UserAllOrdersCubit,
                       CommonButton(
                           onPressed: () {},
                           type: ButtonType.elevated,
-                          child: Strings.loadingStateRetrybutton.w(400).s(15))
+                          child: Strings.loadingStateRetry.w(400).s(15))
                     ],
                   ),
                 ),
@@ -78,7 +78,9 @@ class UserAllOrdersPage extends BasePage<UserAllOrdersCubit,
               );
             },
             noItemsFoundIndicatorBuilder: (_) {
-              return UserAdEmptyWidget(listener: () {context.router.push(OrderCreationRoute());});
+              return UserAdEmptyWidget(listener: () {
+                context.router.push(OrderCreationRoute());
+              });
             },
             newPageProgressIndicatorBuilder: (_) {
               return SizedBox(
@@ -98,7 +100,8 @@ class UserAllOrdersPage extends BasePage<UserAllOrdersCubit,
             },
             transitionDuration: Duration(milliseconds: 100),
             itemBuilder: (context, item, index) {
-              return UserOrderWidget(listenerAddressEdit: (){}, listener: (){}, response: item);
+              return UserOrderWidget(
+                  listenerAddressEdit: () {}, listener: () {}, response: item);
             }),
       ),
     );

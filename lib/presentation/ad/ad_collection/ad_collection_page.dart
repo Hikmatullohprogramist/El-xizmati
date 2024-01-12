@@ -8,8 +8,8 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/ad/horizontal_ad_list_widget.dart';
 import 'package:onlinebozor/common/widgets/app_bar/common_active_search_bar.dart';
-import 'package:onlinebozor/common/widgets/dashboard/see_all_widget.dart';
 import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
+import 'package:onlinebozor/common/widgets/dashboard/see_all_widget.dart';
 
 import '../../../common/core/base_page.dart';
 import '../../../common/widgets/ad/vertical_ad_widget.dart';
@@ -48,23 +48,23 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return Center(
-      child: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: CommonActiveSearchBar(
+        child: Scaffold(
+            backgroundColor: Colors.white,
+            appBar: CommonActiveSearchBar(
                 listener: () => context.router.pop(),
                 listenerSearch: () => context.router.push(SearchRoute()),
                 listenerNotification: () =>
                     context.router.push(NotificationRoute())),
-          body: CustomScrollView(
-            physics: BouncingScrollPhysics(),
-            slivers: [
-              SliverToBoxAdapter(
-                  child: Column(
-                    children: [
-                      Padding(
-                          padding: EdgeInsets.only(right: 16, left: 16, top: 16),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
+            body: CustomScrollView(
+              physics: BouncingScrollPhysics(),
+              slivers: [
+                SliverToBoxAdapter(
+                    child: Column(
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.only(right: 16, left: 16, top: 16),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
                           child: switch (collectiveType) {
                             CollectiveType.product => Strings
                                 .favoriteProductTitle
@@ -98,108 +98,108 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                           onFavoriteClicked: (Ad result) => context
                               .read<AdCollectionCubit>()
                               .cheapAdsAddFavorite(result),
-                      )),
-                      SizedBox(height: 6),
-                      AppDivider(height: 3),
-                      SeeAllWidget(
-                          listener: () {
+                        )),
+                    SizedBox(height: 6),
+                    AppDivider(height: 3),
+                    SeeAllWidget(
+                        listener: () {
                           context.router.push(AdListRoute(
                               collectiveType: state.collectiveType,
                               adListType: AdListType.collectionPopularAds,
                               keyWord: '',
                               title: Strings.adCollectivePopular));
                         },
-                          title: Strings.adCollectivePopular),
-                      SizedBox(height: 6),
-                      LoaderStateWidget(
-                          isFullScreen: false,
-                          loadingState: state.popularAdsState,
-                          child: HorizontalAdListWidget(
-                            ads: state.popularAds,
-                            onItemClicked: (Ad result) {
+                        title: Strings.adCollectivePopular),
+                    SizedBox(height: 6),
+                    LoaderStateWidget(
+                        isFullScreen: false,
+                        loadingState: state.popularAdsState,
+                        child: HorizontalAdListWidget(
+                          ads: state.popularAds,
+                          onItemClicked: (Ad result) {
                             context.router.push(AdDetailRoute(adId: result.id));
                           },
-                            onFavoriteClicked: (Ad result) => context
+                          onFavoriteClicked: (Ad result) => context
                               .read<AdCollectionCubit>()
                               .popularAdsAddFavorite(result),
-                      )),
-                      SizedBox(height: 6),
-                      AppDivider(height: 3),
-                      SizedBox(height: 24)
-                    ],
-                  )),
-              state.adsPagingController == null
-                  ? SizedBox()
-                  : PagedSliverGrid<int, Ad>(
-                  pagingController: state.adsPagingController!,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio: width / height,
-                        crossAxisSpacing: 16,
-                        mainAxisSpacing: 24,
-                        mainAxisExtent: 315,
-                        crossAxisCount: 2,
-                      ),
-                      builderDelegate: PagedChildBuilderDelegate<Ad>(
-                        firstPageErrorIndicatorBuilder: (_) {
-                          return SizedBox(
+                        )),
+                    SizedBox(height: 6),
+                    AppDivider(height: 3),
+                    SizedBox(height: 24)
+                  ],
+                )),
+                state.adsPagingController == null
+                    ? SizedBox()
+                    : PagedSliverGrid<int, Ad>(
+                        pagingController: state.adsPagingController!,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          childAspectRatio: width / height,
+                          crossAxisSpacing: 16,
+                          mainAxisSpacing: 24,
+                          mainAxisExtent: 315,
+                          crossAxisCount: 2,
+                        ),
+                        builderDelegate: PagedChildBuilderDelegate<Ad>(
+                          firstPageErrorIndicatorBuilder: (_) {
+                            return SizedBox(
+                                height: 60,
+                                width: double.infinity,
+                                child: Center(
+                                    child: Column(
+                                  children: [
+                                    Strings.loadingStateError
+                                        .w(400)
+                                        .s(14)
+                                        .c(context.colors.textPrimary),
+                                    SizedBox(height: 12),
+                                    CommonButton(
+                                        onPressed: () {},
+                                        type: ButtonType.elevated,
+                                        child: Strings.loadingStateRetry
+                                            .w(400)
+                                            .s(15))
+                                  ],
+                                )));
+                          },
+                          firstPageProgressIndicatorBuilder: (_) {
+                            return SizedBox(
                               height: 60,
-                              width: double.infinity,
                               child: Center(
-                                  child: Column(
-                                children: [
-                                  Strings.loadingStateError
-                                      .w(400)
-                                      .s(14)
-                                      .c(context.colors.textPrimary),
-                                  SizedBox(height: 12),
-                                  CommonButton(
-                                      onPressed: () {},
-                                      type: ButtonType.elevated,
-                                      child: Strings.loadingStateRetrybutton
-                                          .w(400)
-                                          .s(15))
-                                ],
-                              )));
-                    },
-                    firstPageProgressIndicatorBuilder: (_) {
-                      return SizedBox(
-                        height: 60,
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.blue,
-                          ),
-                        ),
-                      );
-                    },
-                    noItemsFoundIndicatorBuilder: (_) {
-                      return Center(
-                          child: Text(Strings.loadingStateNotitemfound));
-                    },
-                    newPageProgressIndicatorBuilder: (_) {
-                      return SizedBox(
-                        height: 60,
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.blue,
-                          ),
-                        ),
-                      );
-                    },
-                    newPageErrorIndicatorBuilder: (_) {
-                      return SizedBox(
-                        height: 60,
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.blue,
-                          ),
-                        ),
-                      );
-                    },
-                    transitionDuration: Duration(milliseconds: 100),
-                    itemBuilder: (context, item, index) {
-                      if (index % 2 == 1) {
-                        return Padding(
-                          padding: EdgeInsets.only(right: 16),
+                                child: CircularProgressIndicator(
+                                  color: Colors.blue,
+                                ),
+                              ),
+                            );
+                          },
+                          noItemsFoundIndicatorBuilder: (_) {
+                            return Center(
+                                child: Text(Strings.loadingStateNoItemFound));
+                          },
+                          newPageProgressIndicatorBuilder: (_) {
+                            return SizedBox(
+                              height: 60,
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  color: Colors.blue,
+                                ),
+                              ),
+                            );
+                          },
+                          newPageErrorIndicatorBuilder: (_) {
+                            return SizedBox(
+                              height: 60,
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  color: Colors.blue,
+                                ),
+                              ),
+                            );
+                          },
+                          transitionDuration: Duration(milliseconds: 100),
+                          itemBuilder: (context, item, index) {
+                            if (index % 2 == 1) {
+                              return Padding(
+                                padding: EdgeInsets.only(right: 16),
                                 child: VerticalAdWidget(
                                   ad: item,
                                   invokeFavorite: (value) => context
@@ -209,7 +209,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                                       .push(AdDetailRoute(adId: value.id)),
                                 ),
                               );
-                      } else {
+                            } else {
                               return Padding(
                                 padding: EdgeInsets.only(left: 16),
                                 child: VerticalAdWidget(

@@ -124,7 +124,7 @@ class AppRouter extends _$AppRouter {
                   ]),
               AutoRoute(
                   page: CartRoute.page, path: 'cart', maintainState: false),
-              AutoRoute(page: ProfileRoute.page, path: 'profile')
+              AutoRoute(page: ProfileDashboardRoute.page, path: 'profile')
             ]),
 
         AutoRoute(page: CreateAdRoute.page, path: '/create_ad', children: [
@@ -158,7 +158,7 @@ class AppRouter extends _$AppRouter {
 
         //   profile page
         AutoRoute(page: WalletFillingRoute.page, path: '/wallet_filling'),
-        AutoRoute(page: ProfileViewerRoute.page, path: '/profile_viewer'),
+        AutoRoute(page: ProfileViewRoute.page, path: '/profile_viewer'),
         AutoRoute(page: AddAddressRoute.page, path: '/add_address'),
         AutoRoute(page: UserAddressesRoute.page, path: '/my_addresses'),
         AutoRoute(page: UserAdsRoute.page, path: '/my_ads', children: [

@@ -71,7 +71,7 @@ class PaymentTransactionPage extends BasePage<PaymentTransactionCubit,
                       CommonButton(
                           onPressed: () {},
                           type: ButtonType.elevated,
-                          child: Strings.loadingStateRetrybutton.w(400).s(15))
+                          child: Strings.loadingStateRetry.w(400).s(15))
                     ],
                   ),
                 ),

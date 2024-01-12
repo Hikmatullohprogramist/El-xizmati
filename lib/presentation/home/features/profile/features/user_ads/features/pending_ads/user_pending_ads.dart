@@ -21,7 +21,6 @@ class UserPendingAdsPage extends BasePage<UserPendingAdsCubit,
 
   @override
   Widget builder(BuildContext context, UserPendingAdsBuildable state) {
-
     void edit() {
       showModalBottomSheet(
           isScrollControlled: true,
@@ -52,9 +51,11 @@ class UserPendingAdsPage extends BasePage<UserPendingAdsCubit,
                                   .s(16)
                                   .c(Color(0xFF41455E)))),
                       IconButton(
-                          onPressed: () {Navigator.of(buildContext).pop();},
+                          onPressed: () {
+                            Navigator.of(buildContext).pop();
+                          },
                           icon:
-                          Assets.images.icClose.svg(width: 24, height: 24))
+                              Assets.images.icClose.svg(width: 24, height: 24))
                     ],
                   ),
                   SizedBox(width: 32),
@@ -81,7 +82,10 @@ class UserPendingAdsPage extends BasePage<UserPendingAdsCubit,
                             Assets.images.icAdvertise
                                 .svg(width: 24, height: 24),
                             SizedBox(width: 10),
-                            Strings.advertiseTitle.w(500).s(14).c(Color(0xFF41455E))
+                            Strings.advertiseTitle
+                                .w(500)
+                                .s(14)
+                                .c(Color(0xFF41455E))
                           ],
                         )),
                   ),
@@ -94,7 +98,10 @@ class UserPendingAdsPage extends BasePage<UserPendingAdsCubit,
                           children: [
                             Assets.images.icDelete.svg(width: 24, height: 24),
                             SizedBox(width: 10),
-                            Strings.deactivateTilte.w(500).s(14).c(Color(0xFF5C6AC3))
+                            Strings.deactivateTilte
+                                .w(500)
+                                .s(14)
+                                .c(Color(0xFF5C6AC3))
                           ],
                         )),
                   ),
@@ -103,7 +110,9 @@ class UserPendingAdsPage extends BasePage<UserPendingAdsCubit,
                     height: 42,
                     width: double.infinity,
                     child: CommonButton(
-                      onPressed: () {Navigator.of(buildContext).pop();},
+                      onPressed: () {
+                        Navigator.of(buildContext).pop();
+                      },
                       child: Strings.cardClose.w(600).s(14).c(Colors.white),
                     ),
                   )
@@ -145,7 +154,7 @@ class UserPendingAdsPage extends BasePage<UserPendingAdsCubit,
                     CommonButton(
                         onPressed: () {},
                         type: ButtonType.elevated,
-                        child: Strings.loadingStateRetrybutton.w(400).s(15))
+                        child: Strings.loadingStateRetry.w(400).s(15))
                   ],
                 ),
               ),
@@ -162,7 +171,9 @@ class UserPendingAdsPage extends BasePage<UserPendingAdsCubit,
             );
           },
           noItemsFoundIndicatorBuilder: (_) {
-            return UserAdEmptyWidget(listener: () {context.router.push(CreateAdRoute());});
+            return UserAdEmptyWidget(listener: () {
+              context.router.push(CreateAdRoute());
+            });
           },
           newPageProgressIndicatorBuilder: (_) {
             return SizedBox(
@@ -182,8 +193,12 @@ class UserPendingAdsPage extends BasePage<UserPendingAdsCubit,
           },
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) => UserAdWidget(
-            listenerAddressEdit: () {edit();},
-            listener: () { context.router.push(UserAdDetailRoute(userAdResponse: item));},
+            listenerAddressEdit: () {
+              edit();
+            },
+            listener: () {
+              context.router.push(UserAdDetailRoute(userAdResponse: item));
+            },
             response: item,
           ),
         ),

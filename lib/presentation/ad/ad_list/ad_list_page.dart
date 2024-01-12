@@ -85,7 +85,7 @@ class AdListPage
                     CommonButton(
                         onPressed: () {},
                         type: ButtonType.elevated,
-                        child: Strings.loadingStateRetrybutton.w(400).s(15))
+                        child: Strings.loadingStateRetry.w(400).s(15))
                   ],
                 ),
               ),
@@ -103,7 +103,7 @@ class AdListPage
             return SizedBox(
                 height: 200,
                 width: double.infinity,
-                child: Center(child: Text(Strings.loadingStateNotitemfound)));
+                child: Center(child: Text(Strings.loadingStateNoItemFound)));
           },
           newPageProgressIndicatorBuilder: (_) {
             return SizedBox(

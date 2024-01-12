@@ -386,7 +386,7 @@ packages:
     source: hosted
     version: "3.0.3"
   easy_localization_generator:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: easy_localization_generator
       sha256: f9294f8cd183b71c4039d5f9841a1086ebaa2dd8b2813b73b017ee8d6198e12e

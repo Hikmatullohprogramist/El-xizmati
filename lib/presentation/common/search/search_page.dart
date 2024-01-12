@@ -78,7 +78,7 @@ class SearchPage
         isFullScreen: false,
         loadingState: state.appLoadingState,
         onStartWidget: Center(child: Text("Qidirishni boshlang")),
-        onEmptyWidget: Center(child: Text(Strings.loadingStateNotitemfound)),
+        onEmptyWidget: Center(child: Text(Strings.loadingStateNoItemFound)),
         child: ListView.builder(
           physics: BouncingScrollPhysics(),
           itemCount: state.searchResult.length,

@@ -4,8 +4,8 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
-import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
 import 'package:onlinebozor/common/widgets/common/common_button.dart';
+import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/payment_transaction/features/payment_transaction_filter/cubit/payment_transaction_filter_cubit.dart';
 
 import '../../../../../../../../common/core/base_page.dart';
@@ -24,7 +24,10 @@ class PaymentTransactionFilterPage extends BasePage<
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Strings.paymentFilterTitle.w(500).s(14).c(context.colors.textPrimary),
+        title: Strings.paymentFilterTitle
+            .w(500)
+            .s(14)
+            .c(context.colors.textPrimary),
         centerTitle: true,
         elevation: 0.5,
         leading: IconButton(
@@ -54,7 +57,10 @@ class PaymentTransactionFilterPage extends BasePage<
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                             Strings.paymentFilterFromTitle.w(600).s(14).c(Color(0xFF9EABBE)),
+                              Strings.paymentFilterFromDate
+                                  .w(600)
+                                  .s(14)
+                                  .c(Color(0xFF9EABBE)),
                               Assets.images.icCalendar
                                   .svg(height: 24, width: 24)
                             ],
@@ -76,7 +82,10 @@ class PaymentTransactionFilterPage extends BasePage<
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Strings.paymentFilterToTitle.w(600).s(14).c(Color(0xFF9EABBE)),
+                            Strings.paymentFilterToDate
+                                .w(600)
+                                .s(14)
+                                .c(Color(0xFF9EABBE)),
                             Assets.images.icCalendar.svg(height: 24, width: 24)
                           ],
                         ))),
@@ -91,9 +100,9 @@ class PaymentTransactionFilterPage extends BasePage<
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Strings.paymentFilterPaymentTypeTitle.w(400).c(Colors.black).s(12),
+                  Strings.paymentFilterPaymentType.w(400).c(Colors.black).s(12),
                   Spacer(),
-                  Strings.paymentFilterAllTitle.w(400).s(12).c(Color(0xFF9EABBE)),
+                  Strings.paymentFilterAll.w(400).s(12).c(Color(0xFF9EABBE)),
                   SizedBox(width: 16),
                   Assets.images.icArrowRight.svg(width: 24, height: 24)
                 ],
@@ -107,9 +116,12 @@ class PaymentTransactionFilterPage extends BasePage<
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Strings.paymentFilterMethodTitle.w(400).c(Colors.black).s(12),
+                  Strings.paymentFilterPaymentMethod
+                      .w(400)
+                      .c(Colors.black)
+                      .s(12),
                   Spacer(),
-                 Strings.paymentFilterAllTitle.w(400).s(12).c(Color(0xFF9EABBE)),
+                  Strings.paymentFilterAll.w(400).s(12).c(Color(0xFF9EABBE)),
                   SizedBox(width: 16),
                   Assets.images.icArrowRight.svg(width: 24, height: 24),
                 ],
@@ -123,9 +135,9 @@ class PaymentTransactionFilterPage extends BasePage<
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Strings.paymentFilterTypeTitle.w(400).c(Colors.black).s(12),
+                  Strings.paymentFilterType.w(400).c(Colors.black).s(12),
                   Spacer(),
-                  Strings.paymentFilterAllTitle.w(400).s(12).c(Color(0xFF9EABBE)),
+                  Strings.paymentFilterAll.w(400).s(12).c(Color(0xFF9EABBE)),
                   SizedBox(width: 16),
                   Assets.images.icArrowRight.svg(width: 24, height: 24)
                 ],
@@ -139,9 +151,9 @@ class PaymentTransactionFilterPage extends BasePage<
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                 Strings.paymentFilterStatusTitle.w(400).c(Colors.black).s(12),
+                  Strings.paymentFilterStatus.w(400).c(Colors.black).s(12),
                   Spacer(),
-                  Strings.paymentFilterAllTitle.w(400).s(12).c(Color(0xFF9EABBE)),
+                  Strings.paymentFilterAll.w(400).s(12).c(Color(0xFF9EABBE)),
                   SizedBox(width: 16),
                   Assets.images.icArrowRight.svg(width: 24, height: 24)
                 ],
@@ -159,7 +171,7 @@ class PaymentTransactionFilterPage extends BasePage<
                       child: SizedBox(
                     child: CommonButton(
                       onPressed: () {},
-                      child: Strings.paymentFilterCleaningTitle.s(14).w(600),
+                      child: Strings.paymentFilterReset.s(14).w(600),
                     ),
                   ))),
               SizedBox(width: 16),
@@ -169,7 +181,7 @@ class PaymentTransactionFilterPage extends BasePage<
                     child: SizedBox(
                   child: CommonButton(
                     onPressed: () {},
-                    child: Strings.paymentFilterApplyTitle.s(14).w(600),
+                    child: Strings.paymentFilterApply.s(14).w(600),
                   ),
                 )),
               ),

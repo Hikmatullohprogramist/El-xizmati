@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
@@ -15,7 +16,8 @@ import '../../../../../../common/widgets/dashboard/app_diverder.dart';
 import 'cubit/profile_view_cubit.dart';
 
 @RoutePage()
-class ProfileViewPage extends BasePage<ProfileViewCubit, ProfileViewerBuildable,
+class ProfileViewPage extends BasePage<ProfileViewCubit,
+    ProfileViewerBuildable,
     ProfileViewListenable> {
   const ProfileViewPage({super.key});
 
@@ -62,7 +64,9 @@ class ProfileViewPage extends BasePage<ProfileViewCubit, ProfileViewerBuildable,
                       AppDivider(),
                       _getHeaderBlock(context, state),
                       SizedBox(height: 12),
-                      _getBioBlock(context, state)
+                      _getBioBlock(context, state),
+                      SizedBox(height: 12),
+                      _getNotificationBlock(context, state)
                     ],
                   ),
                 ],
@@ -71,14 +75,14 @@ class ProfileViewPage extends BasePage<ProfileViewCubit, ProfileViewerBuildable,
             Visibility(
               visible: state.isLoading,
               child:
-                  Center(child: CircularProgressIndicator(color: Colors.blue)),
+              Center(child: CircularProgressIndicator(color: Colors.blue)),
             )
           ],
         ));
   }
 
-  List<Widget> _getAppBarActions(
-      BuildContext context, ProfileViewerBuildable state) {
+  List<Widget> _getAppBarActions(BuildContext context,
+      ProfileViewerBuildable state) {
     return [
       if (state.isRegistered)
         CommonButton(
@@ -95,7 +99,7 @@ class ProfileViewPage extends BasePage<ProfileViewCubit, ProfileViewerBuildable,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Strings.profileViewPersonalData.w(700).c(Color(0xFF41455E)).s(16),
+          Strings.profilePersonalData.w(700).c(Color(0xFF41455E)).s(16),
           SizedBox(height: 16),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,35 +108,38 @@ class ProfileViewPage extends BasePage<ProfileViewCubit, ProfileViewerBuildable,
                 width: 64,
                 height: 64,
                 imageUrl: "${Constants.baseUrlForImage}${state.photo}",
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                        image: imageProvider,
-                        colorFilter: ColorFilter.mode(
-                            Color(0xFFF6F7FC), BlendMode.colorBurn)),
-                  ),
-                ),
-                placeholder: (context, url) => Container(
-                  height: 64,
-                  width: 64,
-                  margin: EdgeInsets.only(top: 6),
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                      color: Color(0xFFE0E0ED),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Assets.images.icAvatarBoy.svg(),
-                ),
-                errorWidget: (context, url, error) => Container(
-                  height: 64,
-                  width: 64,
-                  margin: EdgeInsets.only(top: 6),
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                      color: Color(0xFFE0E0ED),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Assets.images.icAvatarBoy.svg(),
-                ),
+                imageBuilder: (context, imageProvider) =>
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                            image: imageProvider,
+                            colorFilter: ColorFilter.mode(
+                                Color(0xFFF6F7FC), BlendMode.colorBurn)),
+                      ),
+                    ),
+                placeholder: (context, url) =>
+                    Container(
+                      height: 64,
+                      width: 64,
+                      margin: EdgeInsets.only(top: 6),
+                      padding: EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                          color: Color(0xFFE0E0ED),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Assets.images.icAvatarBoy.svg(),
+                    ),
+                errorWidget: (context, url, error) =>
+                    Container(
+                      height: 64,
+                      width: 64,
+                      margin: EdgeInsets.only(top: 6),
+                      padding: EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                          color: Color(0xFFE0E0ED),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Assets.images.icAvatarBoy.svg(),
+                    ),
               ),
               SizedBox(width: 16),
               Column(
@@ -148,23 +155,23 @@ class ProfileViewPage extends BasePage<ProfileViewCubit, ProfileViewerBuildable,
                           .copyWith(overflow: TextOverflow.ellipsis),
                       SizedBox(width: 8),
                       if (state.isRegistered)
-                        Assets.images.icProfileIdentified.svg()
+                        Assets.images.icIdentified.svg()
                       else
-                        Assets.images.icProfileNotIdentified.svg()
+                        Assets.images.icNotIdentified.svg()
                     ],
                   ),
                   Row(
                     children: [
                       Container(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                        EdgeInsets.symmetric(horizontal: 12, vertical: 5),
                         decoration: ShapeDecoration(
                           color: Color(0xFFAEB2CD).withAlpha(40),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(6),
                           ),
                         ),
-                        child: Strings.profileViewPrivatePerson
+                        child: Strings.profilePrivatePerson
                             .w(500)
                             .s(12)
                             .c(Color(0xFF999CB2)),
@@ -203,7 +210,7 @@ class ProfileViewPage extends BasePage<ProfileViewCubit, ProfileViewerBuildable,
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Assets.images.icProfileNotIdentified.svg(),
+                        Assets.images.icNotIdentified.svg(),
                         SizedBox(width: 10),
                         Strings.profileNotIdentified
                             .w(400)
@@ -223,7 +230,7 @@ class ProfileViewPage extends BasePage<ProfileViewCubit, ProfileViewerBuildable,
                     height: 42,
                     child: Center(
                       child:
-                          Strings.profileIdentify.w(500).s(12).c(Colors.white),
+                      Strings.profileIdentify.w(500).s(12).c(Colors.white),
                     ),
                   ),
                 )
@@ -247,7 +254,7 @@ class ProfileViewPage extends BasePage<ProfileViewCubit, ProfileViewerBuildable,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Assets.images.icProfileIdentified.svg(),
+                      Assets.images.icIdentified.svg(),
                       SizedBox(width: 10),
                       Strings.profileIdentified
                           .w(400)
@@ -275,13 +282,13 @@ class ProfileViewPage extends BasePage<ProfileViewCubit, ProfileViewerBuildable,
         SizedBox(height: 8),
         AppDivider(),
         SizedBox(height: 8),
-        Strings.profileUserBrithdate.w(400).s(14).c(Color(0xFF9EABBE)),
+        Strings.profileUserDateOfBirth.w(400).s(14).c(Color(0xFF9EABBE)),
         SizedBox(height: 6),
         state.brithDate.w(500).s(16).c(Color(0xFF41455E)),
         SizedBox(height: 8),
         AppDivider(),
         SizedBox(height: 8),
-        Strings.profileUserBiometricdate.w(400).s(14).c(Color(0xFF9EABBE)),
+        Strings.profileUserDateOfDocValidity.w(400).s(14).c(Color(0xFF9EABBE)),
         SizedBox(height: 6),
         state.biometricInformation.w(500).s(16).c(Color(0xFF41455E)),
         SizedBox(height: 8),
@@ -339,6 +346,157 @@ class ProfileViewPage extends BasePage<ProfileViewCubit, ProfileViewerBuildable,
         state.streetName.w(500).s(16).c(Color(0xFF41455E)),
         SizedBox(height: 16),
       ]),
+    );
+  }
+
+  Widget _getNotificationBlock(BuildContext context,
+      ProfileViewerBuildable state) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      color: Colors.white,
+      child: Column(
+        children: [
+          SizedBox(height: 16),
+          OutlinedButton(
+            style: OutlinedButton.styleFrom(
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              side: BorderSide(
+                  color: state.smsNotification
+                      ? context.colors.primary
+                      : context.colors.iconGrey),
+            ),
+            onPressed: () {
+              context.read<ProfileViewCubit>().setSmsNotification();
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Row(children: [
+                Container(
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color(0xFF5C6AC3)),
+                  child: Center(child: Assets.images.icMessage.svg()),
+                ),
+                SizedBox(width: 16),
+                Strings.notificationReceiveSms
+                    .w(600)
+                    .s(14)
+                    .c(Color(0xFF41455E))
+              ]),
+            ),
+          ),
+          SizedBox(height: 10),
+          OutlinedButton(
+            style: OutlinedButton.styleFrom(
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              side: BorderSide(
+                  color: state.emailNotification
+                      ? context.colors.primary
+                      : context.colors.iconGrey),
+            ),
+            onPressed: () {
+              context.read<ProfileViewCubit>().setEmailNotification();
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Row(children: [
+                Container(
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Color(0xFFDFE2E9), width: 1),
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white),
+                  child: Center(child: Assets.images.icSms.svg()),
+                ),
+                SizedBox(width: 16),
+                Strings.notificationReceiveEmail
+                    .w(600)
+                    .s(14)
+                    .c(Color(0xFF41455E))
+              ]),
+            ),
+          ),
+          SizedBox(height: 10),
+          OutlinedButton(
+            style: OutlinedButton.styleFrom(
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              side: BorderSide(
+                  color: state.telegramNotification
+                      ? context.colors.primary
+                      : context.colors.iconGrey),
+            ),
+            onPressed: () {
+              context
+                  .read<ProfileViewCubit>()
+                  .setTelegramNotification();
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Row(children: [
+                Assets.images.icTelegram.svg(height: 32, width: 32),
+                // Container(
+                //   width: 32,
+                //   height: 32,
+                //   decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(10),
+                //       color: Color(0xFF00A4DD)),
+                //   child: Center(child: Assets.images.icSms.svg()),
+                // ),
+                SizedBox(width: 16),
+                Strings.notificationReceiveTelegram
+                    .w(600)
+                    .s(14)
+                    .c(Color(0xFF41455E))
+              ]),
+            ),
+          ),
+          SizedBox(height: 12),
+          Text.rich(TextSpan(children: [
+            TextSpan(
+                text: Strings.telegramBotDescription,
+                style: TextStyle(
+                    overflow: TextOverflow.ellipsis,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                    color: Color(0xFF9EABBE))),
+            WidgetSpan(
+                child: SizedBox(
+                  width: 5,
+                )),
+            TextSpan(
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    context.read<ProfileViewCubit>().openTelegram();
+                  },
+                text: Strings.linkTitle,
+                style: TextStyle(
+                    overflow: TextOverflow.ellipsis,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 12,
+                    color: Color(0xFF5C6AC3)))
+          ])),
+          Spacer(),
+          SizedBox(
+            width: double.infinity,
+            child: CommonButton(
+                onPressed: () {},
+                child: Strings.commonSaveTitle.w(600).s(14).c(Colors.white)),
+          ),
+          SizedBox(height: 16)
+        ],
+      ),
     );
   }
 }

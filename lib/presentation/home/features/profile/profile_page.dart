@@ -23,7 +23,7 @@ class ProfileDashboardPage
   void listener(BuildContext context, ProfileListenable state) {
     switch (state.effect) {
       case ProfileEffect.onLogOut:
-        context.router.push(ProfileRoute());
+        context.router.push(ProfileDashboardRoute());
     }
   }
 
@@ -48,12 +48,12 @@ class ProfileDashboardPage
               SizedBox(height: 10),
               ProfileItemWidget(
                 name: state.isLogin
-                    ? Strings.profileDahboardProfile
+                    ? Strings.profileTitle
                     : Strings.authSinginTitle,
-                icon: Assets.images.icProfileUserAvatar,
+                icon: Assets.images.icUserAvatar,
                 invoke: () {
                   state.isLogin
-                      ? context.router.push(ProfileViewerRoute())
+                      ? context.router.push(ProfileDashboardRoute())
                       : context.router.push(AuthStartRoute());
                 },
               ),
@@ -61,7 +61,7 @@ class ProfileDashboardPage
               Visibility(
                 visible: state.isLogin,
                 child: ProfileItemWidget(
-                    name: Strings.profileDashboardMyAds,
+                    name: Strings.profileMyAds,
                     icon: Assets.images.icProfileMyAds,
                     invoke: () => context.router.push(UserAdsRoute())),
               ),
@@ -72,7 +72,7 @@ class ProfileDashboardPage
               Visibility(
                 visible: state.isLogin,
                 child: ProfileItemWidget(
-                    name: Strings.profileDashboardOrders,
+                    name: Strings.profileOrders,
                     icon: Assets.images.icProfileOrder,
                     invoke: () => context.router.push(UserOrderStartRoute())),
               ),
@@ -80,7 +80,7 @@ class ProfileDashboardPage
               Visibility(
                 visible: state.isLogin,
                 child: ProfileItemWidget(
-                    name: Strings.profileDashboardMyCard,
+                    name: Strings.profileMyCard,
                     icon: Assets.images.icCard,
                     invoke: () => context.router.push(UserCardsRoute())),
               ),
@@ -91,7 +91,7 @@ class ProfileDashboardPage
               Visibility(
                 visible: state.isLogin,
                 child: ProfileItemWidget(
-                    name: Strings.profileDashboardPayment,
+                    name: Strings.profilePayment,
                     icon: Assets.images.icProfilePayment,
                     invoke: () =>
                         context.router.push(PaymentTransactionRoute())),
@@ -103,7 +103,7 @@ class ProfileDashboardPage
               Visibility(
                 visible: state.isLogin,
                 child: ProfileItemWidget(
-                    name: Strings.profileAddress,
+                    name: Strings.address,
                     icon: Assets.images.icProfileLocation,
                     invoke: () => context.router.push(UserAddressesRoute())),
               ),
@@ -111,7 +111,7 @@ class ProfileDashboardPage
               Visibility(
                   visible: state.isLogin,
                   child: ProfileItemWidget(
-                    name: Strings.profileSettings,
+                    name: Strings.settings,
                     icon: Assets.images.icProfileSettings,
                     invoke: () => context.router.push(SettingRoute()),
                   )),
@@ -183,7 +183,7 @@ class ProfileDashboardPage
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               SizedBox(height: 32),
-              Center(child: Strings.languageSetlanguage.s(20).w(600)),
+              Center(child: Strings.languageSetTitle.s(20).w(600)),
               SizedBox(height: 24),
               InkWell(
                   onTap: () {
@@ -264,9 +264,9 @@ class ProfileDashboardPage
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(height: 32),
-              Center(child: Strings.logoutTitle.s(22).w(600)),
+              Center(child: Strings.profileLogoutTitle.s(22).w(600)),
               SizedBox(height: 24),
-              Center(child: Strings.logoutDescription.s(16)),
+              Center(child: Strings.profileLogoutDescription.s(16)),
               SizedBox(height: 32),
               Row(
                 children: <Widget>[

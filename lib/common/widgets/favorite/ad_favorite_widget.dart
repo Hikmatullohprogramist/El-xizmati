@@ -55,8 +55,8 @@ class _AdFavoriteWidget extends State<AdFavoriteWidget> {
               : context.colors.textPrimaryInverse,
         ),
         child: _isSelected
-            ? Assets.images.icRemoveFromFavorite.svg()
-            : Assets.images.icAddToFavorite.svg(),
+            ? Assets.images.icFavoriteRemove.svg()
+            : Assets.images.icFavoriteAdd.svg(),
       ),
     );
   }

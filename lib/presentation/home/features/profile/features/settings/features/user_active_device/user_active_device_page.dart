@@ -64,7 +64,7 @@ class UserActiveDevicePage extends BasePage<UserActiveDeviceCubit,
                         CommonButton(
                             onPressed: () {},
                             type: ButtonType.elevated,
-                            child: Strings.loadingStateRetrybutton.w(400).s(15))
+                            child: Strings.loadingStateRetry.w(400).s(15))
                       ],
                     )));
               },
@@ -79,7 +79,7 @@ class UserActiveDevicePage extends BasePage<UserActiveDeviceCubit,
                 );
               },
               noItemsFoundIndicatorBuilder: (_) {
-                return Center(child: Text(Strings.loadingStateNotitemfound));
+                return Center(child: Text(Strings.loadingStateNoItemFound));
               },
               newPageProgressIndicatorBuilder: (_) {
                 return SizedBox(
