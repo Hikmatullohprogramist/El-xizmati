@@ -149,7 +149,7 @@ class AdsService {
 
     final queryParameters = {
       RestQueryKeys.queryProductId: adId,
-      RestQueryKeys.queryType: type.name
+      RestQueryKeys.queryType: type.name.toUpperCase()
     };
     return _dio.post(
       'v1/user/view/ads',
