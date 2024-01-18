@@ -4,10 +4,11 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/app_bar/common_app_bar.dart';
-import 'package:onlinebozor/common/widgets/category/popular_category_horizontal.dart';
+import 'package:onlinebozor/common/widgets/category/popular_category_vertical.dart';
 import 'package:onlinebozor/presentation/common/popular_categories/cubit/popular_categories_cubit.dart';
 
 import '../../../common/core/base_page.dart';
+import '../../../common/gen/localization/strings.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/widgets/common/common_button.dart';
 import '../../../data/responses/category/popular_category/popular_category_response.dart';
@@ -15,7 +16,8 @@ import '../../../domain/util.dart';
 
 @RoutePage()
 class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
-    PopularCategoriesBuildable, PopularCategoriesListenable> {
+    PopularCategoriesBuildable,
+    PopularCategoriesListenable> {
   const PopularCategoriesPage(this.title, {super.key});
 
   final String? title;
@@ -27,87 +29,87 @@ class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
         body: state.categoriesPagingController == null
             ? SizedBox()
             : SizedBox(
-                child: PagedGridView<int, PopularCategoryResponse>(
-                  shrinkWrap: true,
-                  addAutomaticKeepAlives: false,
-                  physics: BouncingScrollPhysics(),
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                  pagingController: state.categoriesPagingController!,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                    crossAxisCount: 2,
+          child: PagedListView<int, PopularCategoryResponse>(
+            shrinkWrap: true,
+            addAutomaticKeepAlives: false,
+            physics: BouncingScrollPhysics(),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            pagingController: state.categoriesPagingController!,
+            builderDelegate:
+            PagedChildBuilderDelegate<PopularCategoryResponse>(
+              firstPageErrorIndicatorBuilder: (_) {
+                return SizedBox(
+                  height: 60,
+                  child: Center(
+                    child: Column(
+                      children: [
+                        Strings.loadingStateError
+                            .w(400)
+                            .s(14)
+                            .c(context.colors.textPrimary),
+                        SizedBox(height: 12),
+                        CommonButton(
+                            onPressed: () {},
+                            type: ButtonType.elevated,
+                            child: Strings.loadingStateRetry.w(400).s(15))
+                      ],
+                    ),
                   ),
-                  builderDelegate:
-                      PagedChildBuilderDelegate<PopularCategoryResponse>(
-                    firstPageErrorIndicatorBuilder: (_) {
-                      return SizedBox(
-                        height: 60,
-                        child: Center(
-                          child: Column(
-                            children: [
-                              "Xatolik yuz berdi?"
-                                  .w(400)
-                                  .s(14)
-                                  .c(context.colors.textPrimary),
-                              SizedBox(height: 12),
-                              CommonButton(
-                                  onPressed: () {},
-                                  type: ButtonType.elevated,
-                                  child: "Qayta urinish".w(400).s(15))
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                    firstPageProgressIndicatorBuilder: (_) {
-                      return SizedBox(
-                        height: 60,
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.blue,
-                          ),
-                        ),
-                      );
-                    },
-                    noItemsFoundIndicatorBuilder: (_) {
-                      return Center(
-                          child: Text("Hech qanday element topilmadi"));
-                    },
-                    newPageProgressIndicatorBuilder: (_) {
-                      return SizedBox(
-                        height: 60,
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.blue,
-                          ),
-                        ),
-                      );
-                    },
-                    newPageErrorIndicatorBuilder: (_) {
-                      return SizedBox(
-                        height: 60,
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.blue,
-                          ),
-                        ),
-                      );
-                    },
-                    transitionDuration: Duration(milliseconds: 100),
-                    itemBuilder: (context, item, index) =>
-                        AppPopularCategoryHorizontal(
+                );
+              },
+              firstPageProgressIndicatorBuilder: (_) {
+                return SizedBox(
+                  height: 60,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.blue,
+                    ),
+                  ),
+                );
+              },
+              noItemsFoundIndicatorBuilder: (_) {
+                return Center(child: Strings.loadingStateNoItem.w(400));
+              },
+              newPageProgressIndicatorBuilder: (_) {
+                return SizedBox(
+                  height: 60,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.blue,
+                    ),
+                  ),
+                );
+              },
+              newPageErrorIndicatorBuilder: (_) {
+                return SizedBox(
+                  height: 60,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.blue,
+                    ),
+                  ),
+                );
+              },
+              transitionDuration: Duration(milliseconds: 100),
+              itemBuilder: (context, item, index) =>
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 6),
+                    child: PopularCategoryVertical(
                       category: item,
-                      invoke: (value) {
-                        context.router.push(AdListRoute(
-                            adListType: AdListType.homeList     ,
+                      onItemClicked: (value) {
+                        context.router.push(
+                          AdListRoute(
+                            adListType: AdListType.homeList,
                             keyWord: value.key_word,
                             title: value.name,
-                            sellerTin: null));
+                            sellerTin: null,
+                          ),
+                        );
                       },
                     ),
                   ),
-                ),
-              ));
+            ),
+          ),
+        ));
   }
 }

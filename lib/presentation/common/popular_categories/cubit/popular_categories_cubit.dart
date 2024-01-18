@@ -23,7 +23,7 @@ class PopularCategoriesCubit extends BaseCubit<PopularCategoriesBuildable, Popul
   Future<void> getController() async {
     try {
       final controller =
-          buildable.categoriesPagingController ?? getAdsController(status: 1);
+          buildable.categoriesPagingController ?? getPagingController(status: 1);
       build((buildable) =>
           buildable.copyWith(categoriesPagingController: controller));
     } on DioException catch (e, stackTrace) {
@@ -35,7 +35,7 @@ class PopularCategoriesCubit extends BaseCubit<PopularCategoriesBuildable, Popul
     }
   }
 
-  PagingController<int, PopularCategoryResponse> getAdsController({
+  PagingController<int, PopularCategoryResponse> getPagingController({
     required int status,
   }) {
     final adController = PagingController<int, PopularCategoryResponse>(
