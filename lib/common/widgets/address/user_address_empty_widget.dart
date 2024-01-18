@@ -6,8 +6,8 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import '../../gen/assets/assets.gen.dart';
 import '../common/common_button.dart';
 
-class AddressEmptyWidget extends StatelessWidget {
-  const AddressEmptyWidget({super.key, required this.callBack});
+class UserAddressEmptyWidget extends StatelessWidget {
+  const UserAddressEmptyWidget({super.key, required this.callBack});
 
   final VoidCallback callBack;
 

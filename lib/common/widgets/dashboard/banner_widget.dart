@@ -13,7 +13,7 @@ class BannerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
       options:
-          CarouselOptions(autoPlay: true, height: 150, viewportFraction: 1),
+          CarouselOptions(autoPlay: true, height: 140, viewportFraction: 1),
       items: list.map((i) {
         return Builder(
           builder: (BuildContext context) {

@@ -5,8 +5,8 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 
 import '../../../data/responses/address/user_address_response.dart';
 
-class AppAddressWidgets extends StatelessWidget {
-  const AppAddressWidgets(
+class UserAddressWidgets extends StatelessWidget {
+  const UserAddressWidgets(
       {super.key,
       required this.listener,
       required this.address,
@@ -36,7 +36,7 @@ class AppAddressWidgets extends StatelessWidget {
                   Row(
                     children: [
                       Visibility(
-                        visible: address.is_main ?? false,
+                        visible: true,
                         child: Container(
                           padding:
                               EdgeInsets.symmetric(vertical: 4, horizontal: 8),

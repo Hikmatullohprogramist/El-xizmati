@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/widgets/address/address_widget.dart';
+import 'package:onlinebozor/common/widgets/address/user_address_widget.dart';
 import 'package:onlinebozor/presentation/order/order_creation/features/selection_user_address/cubit/selection_user_address_cubit.dart';
 
 import '../../../../../common/gen/assets/assets.gen.dart';
@@ -53,7 +53,7 @@ class SelectionUserAddressPage extends BasePage<SelectionUserAddressCubit,
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: AppAddressWidgets(
+              child: UserAddressWidgets(
                 listener: () {
                   context
                       .read<SelectionUserAddressCubit>()

@@ -38,7 +38,7 @@ class ChangeLanguagePage extends BasePage<ChangeLanguageCubit,
         elevation: 0.5,
         leading: IconButton(
           icon: Assets.images.icArrowLeft.svg(),
-          onPressed: () => context.router.push(ProfileDashboardRoute()),
+          onPressed: () => context.router.push(ProfileRoute()),
         ),
       ),
       backgroundColor: Colors.white,

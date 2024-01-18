@@ -45,9 +45,9 @@ import '../../presentation/home/features/profile/features/chat_list/features/sel
 import '../../presentation/home/features/profile/features/comparison_detail/comparison_detail_page.dart';
 import '../../presentation/home/features/profile/features/payment_transaction/features/payment_transaction_filter/payment_transaction_filter_page.dart';
 import '../../presentation/home/features/profile/features/payment_transaction/payment_transaction_page.dart';
-import '../../presentation/home/features/profile/features/profile_viewer/features/profile_edit/profile_edit_page.dart';
-import '../../presentation/home/features/profile/features/profile_viewer/features/registration/registration_page.dart';
-import '../../presentation/home/features/profile/features/profile_viewer/profile_view_page.dart';
+import '../../presentation/home/features/profile/features/profile_view/features/profile_edit/profile_edit_page.dart';
+import '../../presentation/home/features/profile/features/profile_view/features/registration/registration_page.dart';
+import '../../presentation/home/features/profile/features/profile_view/profile_view_page.dart';
 import '../../presentation/home/features/profile/features/promotion/promotion_page.dart';
 import '../../presentation/home/features/profile/features/settings/features/notification_settings/notification_setting_page.dart';
 import '../../presentation/home/features/profile/features/settings/features/user_active_device/user_active_device_page.dart';
@@ -124,7 +124,7 @@ class AppRouter extends _$AppRouter {
                   ]),
               AutoRoute(
                   page: CartRoute.page, path: 'cart', maintainState: false),
-              AutoRoute(page: ProfileDashboardRoute.page, path: 'profile')
+              AutoRoute(page: ProfileRoute.page, path: 'profile')
             ]),
 
         AutoRoute(page: CreateAdRoute.page, path: '/create_ad', children: [
