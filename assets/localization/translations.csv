@@ -8,24 +8,24 @@ ad.create.exchange.title,Almashish,обмен,Алмашиш
 ad.create.free.title,Bepul,Бесплатно,Бепул
 ad.create.product.title,Mahsulot,Продукт,Маҳсулот
 ad.create.service.title,Xizmat,Услуга,Хизмат
-ad.create.title,E'lon yaratish,Создать объявление,Эълон яратиш
-ad.detail.addtocart,Savatchaga qo'shish,В корзину,Саватчага қўшиш
+ad.create.title,E‘lon yaratish,Создать объявление,Эълон яратиш
+ad.detail.addtocart,Savatchaga qo‘shish,В корзину,Саватчага қўшиш
 ad.detail.characteristics,Xususiyatlari,Характеристики,Хусусиятлари
 ad.detail.complain,Shikoyat qiling,Пожаловаться,Шикоят қилинг
 ad.detail.description,Tavsif,Описание,Тавсиф
 ad.detail.feedback,Sharhlar,Отзывы,Шарҳлар
 ad.detail.location,Manzil,Местоположение,Манзил
-ad.detail.number.views,Ko'rishlar soni,Количество просмотров,Кўришлар сони
+ad.detail.number.views,Ko‘rishlar soni,Количество просмотров,Кўришлар сони
 ad.detail.on.online.bozor,OnlineBozorda,на OnlineBozor с,OnlineBozorда
 ad.detail.price,narxi:,Цена:,нархи:
 ad.detail.published.date,Nashr etilgan:,Опубликовано:,Нашр этилган:
 ad.detail.seller,Sotuvchi,Продавец,Сотувчи
-ad.detail.show.more,Ko'proq ko'rsatish,Показать больше,Кўпроқ кўрсатиш
-ad.detail.show.phone,Telefonni ko'rsatish,Показать телефон,Телефонни кўрсатиш
+ad.detail.show.more,Ko‘proq ko‘rsatish,Показать больше,Кўпроқ кўрсатиш
+ad.detail.show.phone,Telefonni ko‘rsatish,Показать телефон,Телефонни кўрсатиш
 ad.detail.towritemessge,Xabar yozish uchun,Написать сообщение,Хабар ёзиш учун
-ad.detail.view.count.title,Ko'rishlar:,Просмотров:,Кўришлар:
-ad.empty.description,Bu e'lonlar hamma uchun ko'rinadi. Ularning amal qilish muddati faollashtirilgan kundan boshlab 30 kun.,Эти объявления видны всем. Срок их действия - 30 дней с момента активации.,Бу эълонлар ҳамма учун кўринади. Уларнинг амал қилиш муддати фаоллаштирилган кундан бошлаб 30 кун.
-ad.empty.title,Sizda hali hech qanday faol e'lon yo'q!,У вас пока нету активных объявлений!,Сизда ҳали ҳеч қандай фаол эълон йўқ!
+ad.detail.view.count.title,Ko‘rishlar:,Просмотров:,Кўришлар:
+ad.empty.description,Bu e‘lonlar hamma uchun ko‘rinadi. Ularning amal qilish muddati faollashtirilgan kundan boshlab 30 kun.,Эти объявления видны всем. Срок их действия - 30 дней с момента активации.,Бу эълонлар ҳамма учун кўринади. Уларнинг амал қилиш муддати фаоллаштирилган кундан бошлаб 30 кун.
+ad.empty.title,Sizda hali hech qanday faol e‘lon yo‘q!,У вас пока нету активных объявлений!,Сизда ҳали ҳеч қандай фаол эълон йўқ!
 ad.property.biznes,Biznes,Бизнес,Бизнес
 ad.property.personal,Shaxsiy,Частное,Шахсий
 ad.search.hint,Mahsulotlar va kategoriyalar qidiring,Искать товары и категории,Маҳсулотлар ва категорийлар қидиринг
@@ -34,20 +34,20 @@ ad.status.old,I/B,Б/У,И/Б
 ad.status.title,Holati:,Cтатус:,Ҳолати:
 ad.type.product.title,Mahsulot,Продукт,Маҳсулот
 ad.type.service.title,Xizmat,Услуга,Хизмат
-address.add.title,Manzil qo'shish,Добавить адрес,Манзил қўшиш
-address.empty.title,"Siz hali manzil qo'shmagansiz, qo'shmoqchimisiz?","Вы ещё не добавили адрес, хотите добавить?","Сиз ҳали манзил қўшмагансиз, қўшмоқчимисиз?"
+address.add.title,Manzil qo‘shish,Добавить адрес,Манзил қўшиш
+address.empty.title,"Siz hali manzil qo‘shmagansiz, qo‘shmoqchimisiz?","Вы ещё не добавили адрес, хотите добавить?","Сиз ҳали манзил қўшмагансиз, қўшмоқчимисиз?"
 advertise.title,Reklama qilish,Рекламировать,Реклама қилиш
 all.title,Barchasi,Все,Барчаси
 auth.common.password,Parol,пароль,Парол
 auth.common.you.agree.in,Tizimga kirish orqali siz rozilik bildirasiz,"Авторизуясь, вы соглашаетесь с ",Тизимга кириш орқали сиз розилик билдирасиз
-auth.common.your.processing.policy,shaxsiy \nma'lumotlarni qayta ishlash siyosati,политикой \nобработки персональных данных,шахсий \nмаълумотларни қайта ишлаш сиёсати
+auth.common.your.processing.policy,shaxsiy \nma‘lumotlarni qayta ishlash siyosati,политикой \nобработки персональных данных,шахсий \nмаълумотларни қайта ишлаш сиёсати
 auth.confirm.again.sent.sms.your.phone,Yana yuboring,Отправить еще раз,Яна юборинг
 auth.confirm.corfimation.code,Tasdiqlash kodi,КОД подтверждения,Тасдиқлаш коди
 auth.confirm.sent.sms.your.phone,Biz sizga {phone} raqamiga kod bilan SMS yubordik,Мы отправили вам СМС с кодом на номер {phone},Биз сизга {phone} рақамига код билан СМС юбордик
-auth.person.policy,siyosat shaxsiy ma'lumotlarni qayta ishlash,политикой nобработки персональных данных,сиёсат шахсий маълумотларни қайта ишлаш
+auth.person.policy,siyosat shaxsiy ma‘lumotlarni qayta ishlash,политикой nобработки персональных данных,сиёсат шахсий маълумотларни қайта ишлаш
 auth.policy.agree,Tizimga kirish orqali siz rozilik bildirasiz,"Авторизуясь, вы соглашаетесь с ",Тизимга кириш орқали сиз розилик билдирасиз
 auth.register.create.password,Kirish uchun parol yarating,Придумайте пароль для входа,Кириш учун парол яратинг
-auth.register.password.contain.least.characters,Parol kamida 8 ta belgidan iborat bo'lishi kerak.,Пароль должен содержать минимум 8 символов.,Парол камида 8 та белгидан иборат бўлиши керак.
+auth.register.password.contain.least.characters,Parol kamida 8 ta belgidan iborat bo‘lishi kerak.,Пароль должен содержать минимум 8 символов.,Парол камида 8 та белгидан иборат бўлиши керак.
 auth.register.register,Roʻyxatdan oʻtish,Зарегистрироваться,Рўйхатдан ўтиш
 auth.register.repeat.password,Parolni qayta kiriting,Повторить пароль,Паролни қайта киритинг
 auth.singin.title,Tizimga kirish,Войти,Тизимга кириш
@@ -62,15 +62,15 @@ bottom.navigation.cart,Savat,Корзина,Сават
 bottom.navigation.catalog,Kategoriyalar,Категории,Категориялар
 bottom.navigation.favorite,Tanlanganlar,Избранные,Танланганлар
 bottom.navigation.home,Asosiy,Главная,Асосий
-bottom.navigation.more,Ko'proq,Больше,Кўпроқ
+bottom.navigation.more,Ko‘proq,Больше,Кўпроқ
 bottom.navigation.profile,Profil,Профиль,Профил
 button.title.save,saqlash,сохранять,сақлаш
-card.add.card.title,Karta qo'shish,добавить карту,Карта қўшиш
-card.add.title,Karta qo'shish,Добавить карту,Карта қўшиш
-card.add.title,Qo'shish,Добавить,Қўшиш
+card.add.card.title,Karta qo‘shish,добавить карту,Карта қўшиш
+card.add.title,Karta qo‘shish,Добавить карту,Карта қўшиш
+card.add.title,Qo‘shish,Добавить,Қўшиш
 card.close,Yopish,Закрыть,Ёпиш
 card.confirmation.code,Tasdiqlash kodi,Код подтверждения,Тасдиқлаш коди
-card.empty.descripton,Ushbu kartalar bilan siz mahsulot yoki xizmat uchun to'lashingiz mumkin,С помощью этих карт вы можете оплатит за товар или услугу,Ушбу карталар билан сиз маҳсулот ёки хизмат учун тўлашингиз мумкин
+card.empty.descripton,Ushbu kartalar bilan siz mahsulot yoki xizmat uchun to‘lashingiz mumkin,С помощью этих карт вы можете оплатит за товар или услугу,Ушбу карталар билан сиз маҳсулот ёки хизмат учун тўлашингиз мумкин
 card.empty.title,Siz hali toʻlov kartasini qoʻshmagansiz,Вы еще не добавили карту для оплаты,Сиз ҳали тўлов картасини қўшмагансиз
 card.expiry.date.title,Kartaning amal qilish muddati,Срок действия карты,Картанинг амал қилиш муддати
 card.name.hint,Masalan: Asosiy,Например: Основная,Масалан: Асосий
@@ -79,19 +79,20 @@ card.number.title,Karta raqami,Номер карты,Карта рақами
 card.set.as.main,Asosiy qilib belgilang,Сделать основным,Асосий қилиб белгиланг
 cart.product.clearance,Rasmiylashtirish,оформление,Расмийлаштириш
 categories.title,Kategoriyalar,Основные категории,Машҳур Kategoriyalar
+category.ads.count,ta e‘lonlar mavjud,объявлений,та эълонлар мавжуд
 close.title,Yopish,Закрыть,Ёпиш
 common.continue.title,Davom etish,Продолжить,Давом этиш
-common.no,Yo'q,No,Йўқ
+common.no,Yo‘q,No,Йўқ
 common.phone.number,Telefon raqami,Номер телефона,Телефон рақами
 common.save.title,Saqlash,Сохранить,Сақлаш
 common.unfind,topilmadi,не найдено,топилмади
 common.yes,Ha,Да,Ҳа
-create.request.title,So'rov yaratish,Создать запрос,Сўров яратиш
-currency.uzb,so'm,сўм,сўм
+create.request.title,So‘rov yaratish,Создать запрос,Сўров яратиш
+currency.uzb,so‘m,сўм,сўм
 deactivate.tilte,Faolsizlantirish,Деактивировать,Фаолсизлантириш
 edit.title,Tahrirlash,Редактировать,Таҳрирлаш
-favorite.empty.description,Asosiy sahifaga o'tish,Перейдите на главную страницу и нажмите,Асосий саҳифага ўтиш
-favorite.empty.title,O'zingiz yoqtirgan narsani qo'shing,"Добавьте то, что понравилось",Ўзингиз ёқтирган нарсани қўшинг
+favorite.empty.description,Asosiy sahifaga o‘tish,Перейдите на главную страницу и нажмите,Асосий саҳифага ўтиш
+favorite.empty.title,O‘zingiz yoqtirgan narsani qo‘shing,"Добавьте то, что понравилось",Ўзингиз ёқтирган нарсани қўшинг
 favorite.empty.to.main,Asosiy  oynaga,На главную,Асосий  ойнага
 favorite.product.title,Mahsulotlar,Продукты,Маҳсулотлар
 favorite.service.title,Xizmatlar,Услуги,Хизматлар
@@ -107,62 +108,62 @@ loading.state.error,Xatolik yuz berdi,Произошла ошибка,Хатол
 loading.state.no.item.found,Hech qanday element topilmadi,No items found,Ҳеч қандай элемент топилмади
 loading.state.retry,Qayta urinish,Повторить попытку,Қайта уриниш
 my.card.title,Mening kartalarim,Мои карты,Менинг карталарим
-my.requests.title,Mening so'rovlarim,Мои Запросы,Менинг сўровларим
+my.requests.title,Mening so‘rovlarim,Мои Запросы,Менинг сўровларим
 no.have.notification,Sizda hech qanday bildirishnoma yoʻq,У вас нет уведомлений,Сизда ҳеч қандай билдиришнома йўқ
-no.you.have.card.description,Ushbu kartalar bilan siz mahsulot yoki xizmat uchun to'lashingiz mumkin,С помощью этих карт вы можете оплатит за товар или услугу,Ушбу карталар билан сиз маҳсулот ёки хизмат учун тўлашингиз мумкин
+no.you.have.card.description,Ushbu kartalar bilan siz mahsulot yoki xizmat uchun to‘lashingiz mumkin,С помощью этих карт вы можете оплатит за товар или услугу,Ушбу карталар билан сиз маҳсулот ёки хизмат учун тўлашингиз мумкин
 no.you.have.card.title,Siz hali toʻlov kartasini qoʻshmagansiz,Вы еще не добавили карту для оплаты,Сиз ҳали тўлов картасини қўшмагансиз
 notification.receive.email,Elektron pochta orqali,Через Эл. почту,Электрон почта орқали
 notification.receive.sms,SMS xabar,СМС собщение,СМС хабар
 notification.receive.telegram,Telegram boti,Телеграм бот,Телеграм боти
 notification.title,Bildirishnoma,Уведомление,Билдиришнома
 order.create.address,Manzil,Адрес,Манзил
-order.create.cash.description,To'lov o'zbek so'mida tovarni olgandan keyin qabul qilinadi,Оплата принимается в узбекских сумах при получении товара,Тўлов ўзбек сўмида товарни олгандан кейин қабул қилинади
+order.create.cash.description,To‘lov o‘zbek so‘mida tovarni olgandan keyin qabul qilinadi,Оплата принимается в узбекских сумах при получении товара,Тўлов ўзбек сўмида товарни олгандан кейин қабул қилинади
 order.create.cash.payment,Naqt pul,Наличними,Нақт пул
 order.create.category,Kategorya,Категория,Категоря
-order.create.online.description,RealPay orqali onlayn to'lov,Онлайн оплата через RealPay,RealPay орқали онлайн тўлов
-order.create.online.payment,Onlayn to'lov,Онлайн оплата,Онлайн тўлов
-order.create.payment.method,To'lov usuli,Способ оплаты,Тўлов усули
+order.create.online.description,RealPay orqali onlayn to‘lov,Онлайн оплата через RealPay,RealPay орқали онлайн тўлов
+order.create.online.payment,Onlayn to‘lov,Онлайн оплата,Онлайн тўлов
+order.create.payment.method,To‘lov usuli,Способ оплаты,Тўлов усули
 order.create.price,narxi:,Цена:,нархи:
 order.create.register,Rasmiylashtirish,оформление,Расмийлаштириш
 order.create.terminal.description,Toʻlov UzCard va Humo bank kartalari orqali qabul qilinadi,Оплата принимается через банковские карты UzCard и Humo,Тўлов УзCард ва Ҳумо банк карталари орқали қабул қилинади
-order.create.terminal.payment,Terminal orqali to'lov,Оплата по терминалу,Терминал орқали тўлов
-order.create.transfer.discription,To'lov bank o'tkazmalari orqali qabul qilinadi,Оплата принимается через банковские расчеты,Тўлов банк ўтказмалари орқали қабул қилинади
+order.create.terminal.payment,Terminal orqali to‘lov,Оплата по терминалу,Терминал орқали тўлов
+order.create.transfer.discription,To‘lov bank o‘tkazmalari orqali qabul qilinadi,Оплата принимается через банковские расчеты,Тўлов банк ўтказмалари орқали қабул қилинади
 order.create.transfer.payment,Transfer,Перечисления,Трансфер
 order.need.product,Mahsulot kerak,Нужен товар,Маҳсулот керак
 order.need.service,Xizmat kerak,Нужна услуга,Хизмат керак
 payment.filter.all,Hammasi,Все,Ҳаммаси
-payment.filter.apply,Qo'llash,Применять,Қўллаш
+payment.filter.apply,Qo‘llash,Применять,Қўллаш
 payment.filter.from.date,dan:,От:,дан:
-payment.filter.payment.method,To'lov usuli,Способ оплаты,Тўлов усули
-payment.filter.payment.type,To'lov turi,Тип оплаты,Тўлов тури
+payment.filter.payment.method,To‘lov usuli,Способ оплаты,Тўлов усули
+payment.filter.payment.type,To‘lov turi,Тип оплаты,Тўлов тури
 payment.filter.reset,Tozalash,Сброс,Тозалаш
 payment.filter.status,Holat,Статус,Ҳолат
 payment.filter.title,Filtr,Фильтр,Фильтр
 payment.filter.to.date,gacha:,До:,гача:
 payment.filter.type,Turi,Тип,Тури
-payment.title,To'lovlar,Платежи,Тўловлар
+payment.title,To‘lovlar,Платежи,Тўловлар
 popular.product.title,Ommabop mahsulot,Популярный продукт,Оммабоп маҳсулот
 products.title,Mahsulotlar,Продукт,Маҳсулот
-profile.change.language,Tilni o'zgartirish,Изменить язык,Тилни ўзгартириш
-profile.change.to.business,Biznesga o'tish,Поменять на бизнес,Бизнесга ўтиш
-profile.comparison,Taqqoslash ro'yxati,Список сравнения,Таққослаш рўйхати
+profile.change.language,Tilni o‘zgartirish,Изменить язык,Тилни ўзгартириш
+profile.change.to.business,Biznesga o‘tish,Поменять на бизнес,Бизнесга ўтиш
+profile.comparison,Taqqoslash ro‘yxati,Список сравнения,Таққослаш рўйхати
 profile.edit.apartment,Kvartira,Квартира,Квартира
-profile.edit.biometric.information,Biometric ma'lumotlar,Паспортные данные,Биометриc маълумотлар
+profile.edit.biometric.information,Biometric ma‘lumotlar,Паспортные данные,Биометриc маълумотлар
 profile.edit.biometric.serial,Biometric raqami,Номер паспорта,Биометриc рақами
-profile.edit.brith.date,Tug'ilgan yil (2004-11-28),Дата рождения (2004-11-28),Туғилган йил (2004-11-28)
-profile.edit.change.personal.data,Shaxsiy ma'lumotlarni o'zgartiring,Изменить личные данные,Шахсий маълумотларни ўзгартиринг
+profile.edit.brith.date,Tug‘ilgan yil (2004-11-28),Дата рождения (2004-11-28),Туғилган йил (2004-11-28)
+profile.edit.change.personal.data,Shaxsiy ma‘lumotlarni o‘zgartiring,Изменить личные данные,Шахсий маълумотларни ўзгартиринг
 profile.edit.district,Tuman,Район,Туман
-profile.edit.full.biometric,"Pasport raqami va seriyasini, tug'ilgan sanasini ko'rsating","Укажите номер и серия паспорта, дата рождения","Паспорт рақами ва сериясини, туғилган санасини кўрсатинг"
+profile.edit.full.biometric,"Pasport raqami va seriyasini, tug‘ilgan sanasini ko‘rsating","Укажите номер и серия паспорта, дата рождения","Паспорт рақами ва сериясини, туғилган санасини кўрсатинг"
 profile.edit.house,Uy,Дом,Уй
 profile.edit.neighborhood,Mahalla,Махалля,Маҳалла
 profile.edit.phone,Telefon raqami (+998 __ ___ __ __),Номер телефона (+998 __ ___ __ __),Телефон рақами (+998 __ ___ __ __)
 profile.edit.region,Viloyat,Регион,Вилоят
 profile.edit.title,Tahrirlash,Изменить,Таҳрирлаш
-profile.edit.unfull.information,Ma'lumotlarni to'liq kiriting,Введите данные полностью,Маълумотларни тўлиқ киритинг
+profile.edit.unfull.information,Ma‘lumotlarni to‘liq kiriting,Введите данные полностью,Маълумотларни тўлиқ киритинг
 profile.edit.user.email,elektron pochta,электронная почта,электрон почта
 profile.edit.user.name,Ism,Имя,Исм
 profile.edit.user.username,foydalanuvchi nomi,имя пользователя,фойдаланувчи номи
-profile.fill.wallet,Hamyonni to'ldiring,Наполните кошелек,Ҳамённи тўлдиринг
+profile.fill.wallet,Hamyonni to‘ldiring,Наполните кошелек,Ҳамённи тўлдиринг
 profile.identified,Shaxsingiz tasdiqlangan,Идентифицирован,Шахсингиз тасдиқланган
 profile.identify,Shaxsni tasdiqlash,Идентифицировать,Шахсни тасдиқлаш
 profile.logout,Chiqish,Выйти,Чиқиш
@@ -170,20 +171,20 @@ profile.logout.description,Tizimdan chiqishni hohlaysizmi?,Вы хотите в�
 profile.logout.title,Tizimdan chiqish,Выйти,Тизимдан чиқиш
 profile.message,Xabar,Сообщение,Хабар
 profile.my.address,Mening manzillarim,Мои адреса,Менинг манзилларим
-profile.my.ads,Mening e'lonlarim,Мои Объявления,Менинг эълонларим
+profile.my.ads,Mening e‘lonlarim,Мои Объявления,Менинг эълонларим
 profile.my.balans,Mening balansim:,Мой баланс:,Менинг балансим:
 profile.my.card,Mening kartalarim,Мои карты,Менинг карталарим
 profile.not.identified,Shaxsingiz tasdiqlanmagan,Не идентифицирован,Шахсингиз тасдиқланмаган
 profile.notification,Bildirishnoma,Уведомление,Билдиришнома
 profile.orders,Buyurtmalar,Заказы,Буюртмалар
-profile.payment,To'lovlar,Платежи,Тўловлар
-profile.personal.data,Shaxsiy ma'lumotlar,Личные данные,Шахсий маълумотлар
+profile.payment,To‘lovlar,Платежи,Тўловлар
+profile.personal.data,Shaxsiy ma‘lumotlar,Личные данные,Шахсий маълумотлар
 profile.private.person,Jismoniy shaxs,Частное лицо,Жисмоний шахс
 profile.promotions,Aktsiyalar,Продвижения,Акциялар
 profile.settings,Sozlamalar,Настройки,Созламалар
 profile.title,Profil,Профиль,Профил
-profile.user.date.of.birth,Tug'ilgan kuni,Дата рождения,Туғилган куни
-profile.user.date.of.doc.validity,Pasport ma'lumoti,Паспортные данные,Паспорт маълумоти
+profile.user.date.of.birth,Tug‘ilgan kuni,Дата рождения,Туғилган куни
+profile.user.date.of.doc.validity,Pasport ma‘lumoti,Паспортные данные,Паспорт маълумоти
 profile.user.district,Tuman,Район,Туман
 profile.user.email,Email,email,Эмаил
 profile.user.gender,Jins,Пол,Жинс
@@ -194,20 +195,20 @@ profile.user.neighborhood,Turar joy,Махалля,Турар жой
 profile.user.phone,Telefon,Телефон,Телефон
 profile.user.region,Viloyat,Регион,Вилоят
 profile.view.titlle,Profil,Профиль,Профил
-recently.viewed.title,Yaqinda ko'rilgan,Недавно посмотренные,Яқинда кўрилган
-request.title,So'rovlar,Запросы,Сўровлар
+recently.viewed.title,Yaqinda ko‘rilgan,Недавно посмотренные,Яқинда кўрилган
+request.title,So‘rovlar,Запросы,Сўровлар
 services.title,Xizmatlar,Услуги,Хизматлар
 settings.active.devices,Faol qurilmalar,Активные устройства,Фаол қурилмалар
-settings.change.password,Parolni o'zgartirish,Поменять пароль,Паролни ўзгартириш
+settings.change.password,Parolni o‘zgartirish,Поменять пароль,Паролни ўзгартириш
 settings.receive.notification,Bildirishnomani qanday olish mumkin,Способ получения уведомления,Билдиришномани қандай олиш мумкин
 settings.social.network,Mening ijtimoiy tarmoqlarim,Мои соц.сети,Менинг ижтимоий тармоқларим
 settings.title,Sozlamalar,Настройки,Созламалар
-similar.product.title,O'xshash mahsulotlar,Похожие продукты,Ўхшаш маҳсулотлар
+similar.product.title,O‘xshash mahsulotlar,Похожие продукты,Ўхшаш маҳсулотлар
 telegram.bot.description,Bot orqali bildirishnomalarni olish uchun siz botga ulangan bo‘lishingiz kerak,"Вы должны быть подключены, чтобы получать уведомления от ботов.",Бот орқали билдиришномаларни олиш учун сиз ботга уланган бўлишингиз керак
 user.ad.detail.remainder,Qolgan,Остаток,Қолган
 user.address.action,Harakat,Действие,Ҳаракат
-user.address.add,Qo'shish,Добавить,Қўшиш
-user.address.add.new.address,Yangi manzil qo'shing,Добавить новый адрес,Янги манзил қўшинг
+user.address.add,Qo‘shish,Добавить,Қўшиш
+user.address.add.new.address,Yangi manzil qo‘shing,Добавить новый адрес,Янги манзил қўшинг
 user.address.address,Manzil:,Адрес:,Манзил:
 user.address.apartment,Kvartira:,Квартира:,Квартира:
 user.address.close,Yopish,Закрыть,Ёпиш
@@ -230,10 +231,10 @@ user.ads.all.title,Barchasi,Все,Барчаси
 user.ads.canceled.title,Bekor qilingan,Отменено,Бекор қилинган
 user.ads.inactive.title,Faol emas,Не активен,Фаол эмас
 user.ads.pending.title,Kutulmoqda,Ожидающий,Кутулмоқда
-user.ads.title,E'lonlar,Объявления,Эълонлар
+user.ads.title,E‘lonlar,Объявления,Эълонлар
 user.request.accept.title,Qabul qilingan,Принял,Қабул қилинган
 user.request.all.title,Barchasi,Все,Барчаси
 user.request.canceled.title,Bekor qilingan,Отменено,Бекор қилинган
 user.request.pending.title,Kutulmoqda,Ожидающий,Кутулмоқда
 user.request.rejaction.title,Rad etilgan,Отклоненный,Рад этилган
-user.request.review.title,Ko'rib chiqilmoqda,На рассмотрении,Кўриб чиқилмоқда
+user.request.review.title,Ko‘rib chiqilmoqda,На рассмотрении,Кўриб чиқилмоқда
