@@ -15,15 +15,15 @@ import 'package:onlinebozor/common/widgets/profile/profile_item_widget.dart';
 import 'package:onlinebozor/presentation/home/features/profile/cubit/profile_cubit.dart';
 
 @RoutePage()
-class ProfileDashboardPage
+class ProfilePage
     extends BasePage<ProfileCubit, ProfileBuildable, ProfileListenable> {
-  const ProfileDashboardPage({super.key});
+  const ProfilePage({super.key});
 
   @override
   void listener(BuildContext context, ProfileListenable state) {
     switch (state.effect) {
       case ProfileEffect.onLogOut:
-        context.router.push(ProfileDashboardRoute());
+        context.router.push(ProfileRoute());
     }
   }
 
@@ -53,7 +53,7 @@ class ProfileDashboardPage
                 icon: Assets.images.icUserAvatar,
                 invoke: () {
                   state.isLogin
-                      ? context.router.push(ProfileDashboardRoute())
+                      ? context.router.push(ProfileViewRoute())
                       : context.router.push(AuthStartRoute());
                 },
               ),
@@ -103,7 +103,7 @@ class ProfileDashboardPage
               Visibility(
                 visible: state.isLogin,
                 child: ProfileItemWidget(
-                    name: Strings.address,
+                    name: Strings.profileMyAddress,
                     icon: Assets.images.icProfileLocation,
                     invoke: () => context.router.push(UserAddressesRoute())),
               ),
@@ -111,7 +111,7 @@ class ProfileDashboardPage
               Visibility(
                   visible: state.isLogin,
                   child: ProfileItemWidget(
-                    name: Strings.settings,
+                    name: Strings.profileSettings,
                     icon: Assets.images.icProfileSettings,
                     invoke: () => context.router.push(SettingRoute()),
                   )),
@@ -121,11 +121,6 @@ class ProfileDashboardPage
               ),
               ProfileItemWidget(
                 name: Strings.profileChangeLanguage,
-                // icon: Icon(
-                //   Icons.language,
-                //   color: context.colors.iconGrey,
-                //   size: 18,
-                // ),
                 icon: Assets.images.icProfileLanguage,
                 invoke: () => _showChangeLanguageBottomSheet(context),
               ),

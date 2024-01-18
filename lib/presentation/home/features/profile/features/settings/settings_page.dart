@@ -54,12 +54,12 @@ class SettingPage
                 icon: Assets.images.icActiveDevice,
                 invoke: () => context.router.push(UserActiveDeviceRoute()),
               ),
-              Divider(indent: 46, height: 1),
-              ProfileItemWidget(
-                name: Strings.settingsChangePassword,
-                icon: Assets.images.icChangePassword,
-                invoke: () {},
-              )
+              // Divider(indent: 46, height: 1),
+              // ProfileItemWidget(
+              //   name: Strings.settingsChangePassword,
+              //   icon: Assets.images.icChangePassword,
+              //   invoke: () {},
+              // )
             ],
           ),
         ));

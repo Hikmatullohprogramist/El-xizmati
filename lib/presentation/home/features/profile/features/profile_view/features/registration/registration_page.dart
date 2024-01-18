@@ -5,7 +5,7 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/home/features/profile/features/profile_viewer/features/registration/cubit/registration_cubit.dart';
+import 'package:onlinebozor/presentation/home/features/profile/features/profile_view/features/registration/cubit/registration_cubit.dart';
 
 import '../../../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../../../common/widgets/common/common_button.dart';

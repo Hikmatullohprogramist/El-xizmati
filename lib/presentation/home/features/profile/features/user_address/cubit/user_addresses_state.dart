@@ -5,7 +5,7 @@ class UserAddressesBuildable with _$UserAddressesBuildable {
   const factory UserAddressesBuildable({
     @Default("") String keyWord,
     @Default(AppLoadingState.loading) AppLoadingState adsState,
-    PagingController<int, UserAddressResponse>? adsPagingController,
+    PagingController<int, UserAddressResponse>? addressPagingController,
   }) = _UserAddressesBuildable;
 }
 

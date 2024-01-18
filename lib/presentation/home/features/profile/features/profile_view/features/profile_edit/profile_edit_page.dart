@@ -6,7 +6,7 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/common/common_text_field.dart';
-import 'package:onlinebozor/presentation/home/features/profile/features/profile_viewer/features/profile_edit/cubit/profile_edit_cubit.dart';
+import 'package:onlinebozor/presentation/home/features/profile/features/profile_view/features/profile_edit/cubit/profile_edit_cubit.dart';
 
 import '../../../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../../../common/widgets/common/common_button.dart';

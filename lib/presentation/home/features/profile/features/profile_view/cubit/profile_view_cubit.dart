@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../../../common/core/base_cubit_new.dart';
+import '../../../../../../../data/responses/device/active_device_response.dart';
 import '../../../../../../../domain/repositories/auth_repository.dart';
 import '../../../../../../../domain/repositories/user_repository.dart';
 
@@ -13,9 +15,11 @@ part 'profile_view_state.dart';
 
 @injectable
 class ProfileViewCubit
-    extends BaseCubit<ProfileViewerBuildable, ProfileViewListenable> {
+    extends BaseCubit<ProfileViewBuildable, ProfileViewListenable> {
   ProfileViewCubit(this._userRepository, this._authRepository)
-      : super(ProfileViewerBuildable());
+      : super(ProfileViewBuildable()) {
+    // getActiveDeviceController();
+  }
 
   final UserRepository _userRepository;
   final AuthRepository _authRepository;
@@ -45,7 +49,8 @@ class ProfileViewCubit
       log.e("getUserInformation onLoading");
 
       final response = await _userRepository.getFullUserInfo();
-      build((buildable) => buildable.copyWith(
+      build(
+        (buildable) => buildable.copyWith(
           isLoading: false,
           userName: (response.full_name ?? "*"),
           fullName: response.full_name ?? "*",
@@ -60,7 +65,9 @@ class ProfileViewCubit
           regionId: response.region_id,
           districtId: response.district_id,
           gender: response.gender ?? "*",
-          streetId: response.mahalla_id));
+          streetId: response.mahalla_id,
+        ),
+      );
 
       log.e("getUserInformation onSuccess");
 
@@ -139,6 +146,50 @@ class ProfileViewCubit
     try {
       var url = Uri.parse("https://t.me/online_bozor_rs_bot");
       await launchUrl(url);
+    } catch (error) {
+      log.e(error.toString());
+    }
+  }
+
+  Future<void> getActiveDeviceController() async {
+    try {
+      final controller =
+          buildable.devicesPagingController ?? getActiveDevices(status: 1);
+      build((buildable) =>
+          buildable.copyWith(devicesPagingController: controller));
+    } on DioException catch (e, stackTrace) {
+      log.e(e.toString(), error: e, stackTrace: stackTrace);
+      display.error(e.toString());
+    } finally {
+      log.i(buildable.devicesPagingController);
+    }
+  }
+
+  PagingController<int, ActiveDeviceResponse> getActiveDevices({
+    required int status,
+  }) {
+    final adController = PagingController<int, ActiveDeviceResponse>(
+        firstPageKey: 1, invisibleItemsThreshold: 100);
+    log.i(buildable.devicesPagingController);
+
+    adController.addPageRequestListener(
+      (pageKey) async {
+        final adsList = await _userRepository.getActiveDevice();
+        if (adsList.length <= 1000) {
+          adController.appendLastPage(adsList);
+          log.i(buildable.devicesPagingController);
+          return;
+        }
+        adController.appendPage(adsList, pageKey + 1);
+        log.i(buildable.devicesPagingController);
+      },
+    );
+    return adController;
+  }
+
+  Future<void> removeActiveDevice(ActiveDeviceResponse response) async {
+    try {
+      await _userRepository.removeActiveResponse(response);
     } catch (error) {
       log.e(error.toString());
     }

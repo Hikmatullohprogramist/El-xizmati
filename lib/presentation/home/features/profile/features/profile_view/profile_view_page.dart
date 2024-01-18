@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
@@ -13,11 +16,12 @@ import '../../../../../../common/constants.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../common/widgets/common/common_button.dart';
 import '../../../../../../common/widgets/dashboard/app_diverder.dart';
+import '../../../../../../common/widgets/device/active_device_widgets.dart';
+import '../../../../../../data/responses/device/active_device_response.dart';
 import 'cubit/profile_view_cubit.dart';
 
 @RoutePage()
-class ProfileViewPage extends BasePage<ProfileViewCubit,
-    ProfileViewerBuildable,
+class ProfileViewPage extends BasePage<ProfileViewCubit, ProfileViewBuildable,
     ProfileViewListenable> {
   const ProfileViewPage({super.key});
 
@@ -35,54 +39,62 @@ class ProfileViewPage extends BasePage<ProfileViewCubit,
   }
 
   @override
-  Widget builder(BuildContext context, ProfileViewerBuildable state) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: Strings.profileViewTitlle
-              .w(500)
-              .s(14)
-              .c(context.colors.textPrimary),
-          centerTitle: true,
-          elevation: 0.0,
-          actions: _getAppBarActions(context, state),
-          leading: IconButton(
-            icon: Assets.images.icArrowLeft.svg(),
-            onPressed: () => context.router.pop(),
-          ),
-        ),
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Column(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      AppDivider(),
-                      _getHeaderBlock(context, state),
-                      SizedBox(height: 12),
-                      _getBioBlock(context, state),
-                      SizedBox(height: 12),
-                      _getNotificationBlock(context, state)
-                    ],
-                  ),
-                ],
-              ),
+  Widget builder(BuildContext context, ProfileViewBuildable state) {
+    try {
+      return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            title: Strings.profileViewTitlle
+                .w(500)
+                .s(14)
+                .c(context.colors.textPrimary),
+            centerTitle: true,
+            elevation: 0.0,
+            actions: _getAppBarActions(context, state),
+            leading: IconButton(
+              icon: Assets.images.icArrowLeft.svg(),
+              onPressed: () => context.router.pop(),
             ),
-            Visibility(
-              visible: state.isLoading,
-              child:
-              Center(child: CircularProgressIndicator(color: Colors.blue)),
-            )
-          ],
-        ));
+          ),
+          body: Stack(
+            children: [
+              SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        AppDivider(),
+                        _getHeaderBlock(context, state),
+                        SizedBox(height: 12),
+                        _getBioBlock(context, state),
+                        SizedBox(height: 12),
+                        // _getNotificationBlock(context, state),
+                        // SizedBox(height: 12),
+                        // _getSessionsBlock(context, state)
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Visibility(
+                visible: state.isLoading,
+                child:
+                Center(child: CircularProgressIndicator(color: Colors.blue)),
+              )
+            ],
+          ));
+    } catch (e) {
+      log("profile view page render error $e");
+      return Container();
+    }
+
   }
 
-  List<Widget> _getAppBarActions(BuildContext context,
-      ProfileViewerBuildable state) {
+  List<Widget> _getAppBarActions(
+      BuildContext context, ProfileViewBuildable state) {
     return [
       if (state.isRegistered)
         CommonButton(
@@ -92,7 +104,7 @@ class ProfileViewPage extends BasePage<ProfileViewCubit,
     ];
   }
 
-  Widget _getHeaderBlock(BuildContext context, ProfileViewerBuildable state) {
+  Widget _getHeaderBlock(BuildContext context, ProfileViewBuildable state) {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -108,38 +120,35 @@ class ProfileViewPage extends BasePage<ProfileViewCubit,
                 width: 64,
                 height: 64,
                 imageUrl: "${Constants.baseUrlForImage}${state.photo}",
-                imageBuilder: (context, imageProvider) =>
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                            image: imageProvider,
-                            colorFilter: ColorFilter.mode(
-                                Color(0xFFF6F7FC), BlendMode.colorBurn)),
-                      ),
-                    ),
-                placeholder: (context, url) =>
-                    Container(
-                      height: 64,
-                      width: 64,
-                      margin: EdgeInsets.only(top: 6),
-                      padding: EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                          color: Color(0xFFE0E0ED),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Assets.images.icAvatarBoy.svg(),
-                    ),
-                errorWidget: (context, url, error) =>
-                    Container(
-                      height: 64,
-                      width: 64,
-                      margin: EdgeInsets.only(top: 6),
-                      padding: EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                          color: Color(0xFFE0E0ED),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Assets.images.icAvatarBoy.svg(),
-                    ),
+                imageBuilder: (context, imageProvider) => Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                        image: imageProvider,
+                        colorFilter: ColorFilter.mode(
+                            Color(0xFFF6F7FC), BlendMode.colorBurn)),
+                  ),
+                ),
+                placeholder: (context, url) => Container(
+                  height: 64,
+                  width: 64,
+                  margin: EdgeInsets.only(top: 6),
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                      color: Color(0xFFE0E0ED),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Assets.images.icAvatarBoy.svg(),
+                ),
+                errorWidget: (context, url, error) => Container(
+                  height: 64,
+                  width: 64,
+                  margin: EdgeInsets.only(top: 6),
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                      color: Color(0xFFE0E0ED),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Assets.images.icAvatarBoy.svg(),
+                ),
               ),
               SizedBox(width: 16),
               Column(
@@ -164,7 +173,7 @@ class ProfileViewPage extends BasePage<ProfileViewCubit,
                     children: [
                       Container(
                         padding:
-                        EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 5),
                         decoration: ShapeDecoration(
                           color: Color(0xFFAEB2CD).withAlpha(40),
                           shape: RoundedRectangleBorder(
@@ -230,7 +239,7 @@ class ProfileViewPage extends BasePage<ProfileViewCubit,
                     height: 42,
                     child: Center(
                       child:
-                      Strings.profileIdentify.w(500).s(12).c(Colors.white),
+                          Strings.profileIdentify.w(500).s(12).c(Colors.white),
                     ),
                   ),
                 )
@@ -271,7 +280,7 @@ class ProfileViewPage extends BasePage<ProfileViewCubit,
     );
   }
 
-  Widget _getBioBlock(BuildContext context, ProfileViewerBuildable state) {
+  Widget _getBioBlock(BuildContext context, ProfileViewBuildable state) {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -349,25 +358,26 @@ class ProfileViewPage extends BasePage<ProfileViewCubit,
     );
   }
 
-  Widget _getNotificationBlock(BuildContext context,
-      ProfileViewerBuildable state) {
+  Widget _getNotificationBlock(
+      BuildContext context, ProfileViewBuildable state) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       color: Colors.white,
       child: Column(
         children: [
           SizedBox(height: 16),
-          OutlinedButton(
-            style: OutlinedButton.styleFrom(
-              foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              side: BorderSide(
-                  color: state.smsNotification
-                      ? context.colors.primary
-                      : context.colors.iconGrey),
-            ),
+          CommonButton(
+            // style: OutlinedButton.styleFrom(
+            //   foregroundColor: Colors.white,
+            //   shape: RoundedRectangleBorder(
+            //     borderRadius: BorderRadius.circular(10),
+            //   ),
+            //   side: BorderSide(
+            //       color: state.smsNotification
+            //           ? context.colors.primary
+            //           : context.colors.iconGrey),
+            // ),
+            type: ButtonType.outlined,
             onPressed: () {
               context.read<ProfileViewCubit>().setSmsNotification();
             },
@@ -383,25 +393,23 @@ class ProfileViewPage extends BasePage<ProfileViewCubit,
                   child: Center(child: Assets.images.icMessage.svg()),
                 ),
                 SizedBox(width: 16),
-                Strings.notificationReceiveSms
-                    .w(600)
-                    .s(14)
-                    .c(Color(0xFF41455E))
+                Strings.notificationReceiveSms.w(600).s(14).c(Color(0xFF41455E))
               ]),
             ),
           ),
           SizedBox(height: 10),
-          OutlinedButton(
-            style: OutlinedButton.styleFrom(
-              foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              side: BorderSide(
-                  color: state.emailNotification
-                      ? context.colors.primary
-                      : context.colors.iconGrey),
-            ),
+          CommonButton(
+            // style: OutlinedButton.styleFrom(
+            //   foregroundColor: Colors.white,
+            //   shape: RoundedRectangleBorder(
+            //     borderRadius: BorderRadius.circular(10),
+            //   ),
+            //   side: BorderSide(
+            //       color: state.emailNotification
+            //           ? context.colors.primary
+            //           : context.colors.iconGrey),
+            // ),
+            type: ButtonType.outlined,
             onPressed: () {
               context.read<ProfileViewCubit>().setEmailNotification();
             },
@@ -426,21 +434,20 @@ class ProfileViewPage extends BasePage<ProfileViewCubit,
             ),
           ),
           SizedBox(height: 10),
-          OutlinedButton(
-            style: OutlinedButton.styleFrom(
-              foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              side: BorderSide(
-                  color: state.telegramNotification
-                      ? context.colors.primary
-                      : context.colors.iconGrey),
-            ),
+          CommonButton(
+            // style: OutlinedButton.styleFrom(
+            //   foregroundColor: Colors.white,
+            //   shape: RoundedRectangleBorder(
+            //     borderRadius: BorderRadius.circular(10),
+            //   ),
+            //   side: BorderSide(
+            //       color: state.telegramNotification
+            //           ? context.colors.primary
+            //           : context.colors.iconGrey),
+            // ),
+            type: ButtonType.outlined,
             onPressed: () {
-              context
-                  .read<ProfileViewCubit>()
-                  .setTelegramNotification();
+              context.read<ProfileViewCubit>().setTelegramNotification();
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
@@ -471,10 +478,7 @@ class ProfileViewPage extends BasePage<ProfileViewCubit,
                     fontWeight: FontWeight.w400,
                     fontSize: 12,
                     color: Color(0xFF9EABBE))),
-            WidgetSpan(
-                child: SizedBox(
-                  width: 5,
-                )),
+            WidgetSpan(child: SizedBox(width: 5)),
             TextSpan(
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
@@ -496,6 +500,86 @@ class ProfileViewPage extends BasePage<ProfileViewCubit,
           ),
           SizedBox(height: 16)
         ],
+      ),
+    );
+  }
+
+  Widget _getSessionsBlock(BuildContext context, ProfileViewBuildable state) {
+    double width;
+    double height;
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
+    return PagedGridView<int, ActiveDeviceResponse>(
+      physics: BouncingScrollPhysics(),
+      pagingController: state.devicesPagingController!,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        //   childAspectRatio: width / height,
+        //   crossAxisSpacing: 16,
+        //   mainAxisSpacing: 0,
+        //   mainAxisExtent: 145,
+        crossAxisCount: 1,
+      ),
+      builderDelegate: PagedChildBuilderDelegate<ActiveDeviceResponse>(
+        firstPageErrorIndicatorBuilder: (_) {
+          return SizedBox(
+              height: 60,
+              width: double.infinity,
+              child: Center(
+                  child: Column(
+                children: [
+                  Strings.loadingStateError
+                      .w(400)
+                      .s(14)
+                      .c(context.colors.textPrimary),
+                  SizedBox(height: 12),
+                  CommonButton(
+                      onPressed: () {},
+                      type: ButtonType.elevated,
+                      child: Strings.loadingStateRetry.w(400).s(15))
+                ],
+              )));
+        },
+        firstPageProgressIndicatorBuilder: (_) {
+          return SizedBox(
+            height: 60,
+            child: Center(
+              child: CircularProgressIndicator(
+                color: Colors.blue,
+              ),
+            ),
+          );
+        },
+        noItemsFoundIndicatorBuilder: (_) {
+          return Center(child: Text(Strings.loadingStateNoItemFound));
+        },
+        newPageProgressIndicatorBuilder: (_) {
+          return SizedBox(
+            height: 60,
+            child: Center(
+              child: CircularProgressIndicator(
+                color: Colors.blue,
+              ),
+            ),
+          );
+        },
+        newPageErrorIndicatorBuilder: (_) {
+          return SizedBox(
+            height: 60,
+            child: Center(
+              child: CircularProgressIndicator(
+                color: Colors.blue,
+              ),
+            ),
+          );
+        },
+        transitionDuration: Duration(milliseconds: 100),
+        itemBuilder: (context, item, index) {
+          return ActiveDeviceWidget(
+              invoke: (response) {
+                context.read<ProfileViewCubit>().removeActiveDevice(response);
+              },
+              response: item);
+        },
       ),
     );
   }

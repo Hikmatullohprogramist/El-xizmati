@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
@@ -24,36 +25,37 @@ class UserAddressesCubit
   Future<void> getController() async {
     try {
       final controller =
-          buildable.adsPagingController ?? getAdsController(status: 1);
-      build((buildable) => buildable.copyWith(adsPagingController: controller));
+          buildable.addressPagingController ?? getAddressController(status: 1);
+      build((buildable) => buildable.copyWith(addressPagingController: controller));
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
-      log.i(buildable.adsPagingController);
+      log.i(buildable.addressPagingController);
     }
   }
 
-  PagingController<int, UserAddressResponse> getAdsController({
+  PagingController<int, UserAddressResponse> getAddressController({
     required int status,
   }) {
-    final adController = PagingController<int, UserAddressResponse>(
+    final addressController = PagingController<int, UserAddressResponse>(
         firstPageKey: 1, invisibleItemsThreshold: 100);
-    log.i(buildable.adsPagingController);
+    log.i(buildable.addressPagingController);
 
-    adController.addPageRequestListener(
+    addressController.addPageRequestListener(
       (pageKey) async {
-        final adsList = await userAddressRepository.getUserAddresses();
-        if (adsList.length <= 1000) {
-          adController.appendLastPage(adsList);
-          log.i(buildable.adsPagingController);
+        final addressList = await userAddressRepository.getUserAddresses();
+        addressList.removeWhere((element) => true);
+        if (addressList.length <= 1000) {
+          addressController.appendLastPage(addressList);
+          log.i(buildable.addressPagingController);
           return;
         }
-        adController.appendPage(adsList, pageKey + 1);
-        log.i(buildable.adsPagingController);
+        addressController.appendPage(addressList, pageKey + 1);
+        log.i(buildable.addressPagingController);
       },
     );
-    return adController;
+    return addressController;
   }
 
   Future<void> editUserAddress(UserAddressResponse address) async {
@@ -74,8 +76,8 @@ class UserAddressesCubit
   Future<void> deleteUserAddress(UserAddressResponse address) async {
     try {
       await userAddressRepository.deleteAddress(id: address.id);
-      buildable.adsPagingController?.itemList?.remove(address);
-      buildable.adsPagingController?.notifyListeners();
+      buildable.addressPagingController?.itemList?.remove(address);
+      buildable.addressPagingController?.notifyListeners();
       await getController();
     } catch (e) {
       display.error(e.toString());
