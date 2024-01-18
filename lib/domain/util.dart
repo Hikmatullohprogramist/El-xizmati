@@ -20,7 +20,7 @@ enum AdType { product, service }
 
 enum Currency { eur, usd, rub, uzb }
 
-enum ViewType { view, selected, phone, message }
+enum StatsType { view, selected, phone, message }
 
 enum UserAdStatus {
   all,

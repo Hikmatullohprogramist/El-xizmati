@@ -48,5 +48,7 @@ abstract class AdRepository {
 
   Future<AdDetail?> getAdDetail(int adId);
 
-  Future<void> setViewAd({required ViewType type, required int adId});
+  Future<void> increaseAdStats({required StatsType type, required int adId});
+
+  Future<void> addAdToRecentlySeed({required int adId});
 }

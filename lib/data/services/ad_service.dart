@@ -4,11 +4,15 @@ import 'package:onlinebozor/data/constants/rest_query_keys.dart';
 import 'package:onlinebozor/domain/util.dart';
 import 'package:onlinebozor/presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
 
+import '../constants/rest_header_keys.dart';
+import '../storages/token_storage.dart';
+
 @lazySingleton
 class AdsService {
   final Dio _dio;
+  final TokenStorage tokenStorage;
 
-  AdsService(this._dio);
+  AdsService(this._dio, this.tokenStorage);
 
   Future<Response> getHomeAds(int pageIndex, int pageSize, String keyWord) {
     final queryParameters = {
@@ -124,12 +128,33 @@ class AdsService {
     return _dio.get('v1/ads/details/similar', queryParameters: queryParameters);
   }
 
-  Future<Response> setViewAd(
-      {required ViewType type, required int adId}) async {
+  Future<Response> increaseAdStats({
+    required StatsType type,
+    required int adId,
+  }) async {
     final queryParameters = {
       RestQueryKeys.queryAdsId: adId,
-      RestQueryKeys.queryType: type
+      RestQueryKeys.queryType: type.name
     };
     return _dio.put('v1/ads/details', queryParameters: queryParameters);
+  }
+
+  Future<Response> addAdToRecentlySeed({
+    required StatsType type,
+    required int adId,
+  }) async {
+    final headers = {
+      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
+    };
+
+    final queryParameters = {
+      RestQueryKeys.queryProductId: adId,
+      RestQueryKeys.queryType: type.name
+    };
+    return _dio.post(
+      'v1/user/view/ads',
+      queryParameters: queryParameters,
+      options: Options(headers: headers),
+    );
   }
 }

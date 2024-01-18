@@ -3,7 +3,7 @@ class RestQueryKeys {
   static String queryPageSize = "page_size";
   static String queryKeyWord = "key_word";
   static String queryId = "id";
-  static String  queryAdsId ="ads_id";
+  static String queryAdsId = "ads_id";
   static String queryCollectiveTypeAds = "type_ads";
   static String querySearchQuery = "q";
 

@@ -178,8 +178,17 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<void> setViewAd({required ViewType type, required int adId}) async {
-    await _adsService.setViewAd(type: type, adId: adId);
+  Future<void> increaseAdStats({
+    required StatsType type,
+    required int adId,
+  }) async {
+    await _adsService.increaseAdStats(type: type, adId: adId);
+    return;
+  }
+
+  @override
+  Future<void> addAdToRecentlySeed({required int adId}) async {
+    await _adsService.addAdToRecentlySeed(type: StatsType.view, adId: adId);
     return;
   }
 }

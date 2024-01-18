@@ -356,7 +356,7 @@ class AdDetailPage
                             onTap: () {
                               context
                                   .read<AdDetailCubit>()
-                                  .setViewAd(ViewType.message);
+                                  .increaseAdStats(StatsType.message);
                               try {
                                 launch("sms://${state.adDetail!.phoneNumber}");
                               } catch (e) {}

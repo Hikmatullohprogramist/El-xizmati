@@ -42,10 +42,12 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
     try {
       var response = await _adRepository.getAdDetail(buildable.adId!);
       build((buildable) => buildable.copyWith(
-          adDetail: response,
-          isPhoneVisible: false,
-          isAddCart: response?.isAddCart ?? false));
-      await setViewAd(ViewType.view);
+            adDetail: response,
+            isPhoneVisible: false,
+            isAddCart: response?.isAddCart ?? false,
+          ));
+      await increaseAdStats(StatsType.view);
+      await addAdToRecentlySeed();
     } on DioException catch (e) {
       log.e(e.toString());
       display.error(e.toString());
@@ -54,7 +56,7 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
   }
 
   Future<void> setPhotoView() async {
-    await setViewAd(ViewType.phone);
+    await increaseAdStats(StatsType.phone);
     build((buildable) => buildable.copyWith(isPhoneVisible: true));
   }
 
@@ -127,10 +129,22 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
     }
   }
 
-  Future<void> setViewAd(ViewType type) async {
+  Future<void> increaseAdStats(StatsType type) async {
     try {
-      if (tokenStorage.isLogin.call() ?? false) {
-        await adRepository.setViewAd(type: type, adId: buildable.adId ?? 0);
+      int? adId = buildable.adId;
+      if (adId != null) {
+        await adRepository.increaseAdStats(type: type, adId: adId);
+      }
+    } catch (error) {
+      log.e(error.toString());
+    }
+  }
+
+  Future<void> addAdToRecentlySeed() async {
+    try {
+      int? adId = buildable.adId;
+      if (adId != null && tokenStorage.isLogin.call() == true) {
+        await adRepository.addAdToRecentlySeed(adId: adId);
       }
     } catch (error) {
       log.e(error.toString());
