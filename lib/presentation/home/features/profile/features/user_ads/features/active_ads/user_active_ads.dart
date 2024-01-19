@@ -23,75 +23,73 @@ class UserActiveAdsPage extends BasePage<UserActiveAdsCubit,
   Widget builder(BuildContext context, UserActiveAdsBuildable state) {
     return Scaffold(
       backgroundColor: Color(0xFFF2F4FB),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        child: PagedListView<int, UserAdResponse>(
-          shrinkWrap: true,
-          addAutomaticKeepAlives: true,
-          physics: BouncingScrollPhysics(),
-          pagingController: state.userAdsPagingController!,
-          builderDelegate: PagedChildBuilderDelegate<UserAdResponse>(
-            firstPageErrorIndicatorBuilder: (_) {
-              return SizedBox(
-                height: 100,
-                child: Center(
-                  child: Column(
-                    children: [
-                      Strings.loadingStateError
-                          .w(400)
-                          .s(14)
-                          .c(context.colors.textPrimary),
-                      SizedBox(height: 12),
-                      CommonButton(
-                          onPressed: () {},
-                          type: ButtonType.elevated,
-                          child: Strings.loadingStateRetry.w(400).s(15))
-                    ],
-                  ),
+      body: PagedListView<int, UserAdResponse>(
+        shrinkWrap: true,
+        addAutomaticKeepAlives: true,
+        physics: BouncingScrollPhysics(),
+        pagingController: state.userAdsPagingController!,
+        padding: EdgeInsets.only(top: 12, bottom: 12),
+        builderDelegate: PagedChildBuilderDelegate<UserAdResponse>(
+          firstPageErrorIndicatorBuilder: (_) {
+            return SizedBox(
+              height: 100,
+              child: Center(
+                child: Column(
+                  children: [
+                    Strings.loadingStateError
+                        .w(400)
+                        .s(14)
+                        .c(context.colors.textPrimary),
+                    SizedBox(height: 12),
+                    CommonButton(
+                        onPressed: () {},
+                        type: ButtonType.elevated,
+                        child: Strings.loadingStateRetry.w(400).s(15))
+                  ],
                 ),
-              );
-            },
-            firstPageProgressIndicatorBuilder: (_) {
-              return SizedBox(
-                height: 160,
-                child: Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.blue,
-                  ),
+              ),
+            );
+          },
+          firstPageProgressIndicatorBuilder: (_) {
+            return SizedBox(
+              height: 160,
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: Colors.blue,
                 ),
-              );
+              ),
+            );
+          },
+          noItemsFoundIndicatorBuilder: (_) {
+            return UserAdEmptyWidget(listener: () {
+              context.router.push(CreateAdRoute());
+            });
+          },
+          newPageProgressIndicatorBuilder: (_) {
+            return SizedBox(
+              height: 160,
+              child: Center(
+                child: CircularProgressIndicator(color: Colors.blue),
+              ),
+            );
+          },
+          newPageErrorIndicatorBuilder: (_) {
+            return SizedBox(
+              height: 160,
+              child: Center(
+                child: CircularProgressIndicator(color: Colors.blue),
+              ),
+            );
+          },
+          transitionDuration: Duration(milliseconds: 100),
+          itemBuilder: (context, item, index) => UserAdWidget(
+            onActionClicked: () {
+              showAdsActions(context);
             },
-            noItemsFoundIndicatorBuilder: (_) {
-              return UserAdEmptyWidget(listener: () {
-                context.router.push(CreateAdRoute());
-              });
+            onItemClicked: () {
+              context.router.push(UserAdDetailRoute(userAdResponse: item));
             },
-            newPageProgressIndicatorBuilder: (_) {
-              return SizedBox(
-                height: 160,
-                child: Center(
-                  child: CircularProgressIndicator(color: Colors.blue),
-                ),
-              );
-            },
-            newPageErrorIndicatorBuilder: (_) {
-              return SizedBox(
-                height: 160,
-                child: Center(
-                  child: CircularProgressIndicator(color: Colors.blue),
-                ),
-              );
-            },
-            transitionDuration: Duration(milliseconds: 100),
-            itemBuilder: (context, item, index) => UserAdWidget(
-              onActionClicked: () {
-                showAdsActions(context);
-              },
-              onItemClicked: () {
-                context.router.push(UserAdDetailRoute(userAdResponse: item));
-              },
-              response: item,
-            ),
+            response: item,
           ),
         ),
       ),
