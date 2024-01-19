@@ -6,15 +6,12 @@ import 'package:easy_localization_generator/easy_localization_generator.dart';
 part 'strings.g.dart';
 
 // LINK FOR THE GOOGLE SHEET
-// https://docs.google.com/spreadsheets/d/1Dqdash1R4Mlhvh1uuwNKzL3t_OnnHC6YyTwJCokJyE0/edit#gid=0
 // https://docs.google.com/spreadsheets/d/14H9f5eQWz2aH71NH9cGqEuy_BvgDyo_VMo-AlznFsfY/edit#gid=0
 
 // ignore: unused_element
 @SheetLocalization(
-  // docId: '1Dqdash1R4Mlhvh1uuwNKzL3t_OnnHC6YyTwJCokJyE0',
-  // version: 97,
   docId: '14H9f5eQWz2aH71NH9cGqEuy_BvgDyo_VMo-AlznFsfY',
-  version: 9,
+  version: 10,
   outDir: 'assets/localization',
   outName: 'translations.csv',
   preservedKeywords: [
