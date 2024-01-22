@@ -13,7 +13,7 @@ class AuthService {
   AuthService(this._dio, this.tokenStorage);
 
   Future<Response> authStart({required String phone}) {
-    final body = {RestQueryKeys.queryPhoneNumber: phone};
+    final body = {RestQueryKeys.phoneNumber: phone};
     return _dio.post('v1/auth/phone/verification', data: body);
   }
 
@@ -23,9 +23,9 @@ class AuthService {
     required String sessionToken,
   }) {
     final body = {
-      RestQueryKeys.queryPhoneNumber: phone,
-      RestQueryKeys.querySessionToken: sessionToken,
-      RestQueryKeys.querySecurityCode: code
+      RestQueryKeys.phoneNumber: phone,
+      RestQueryKeys.sessionToken: sessionToken,
+      RestQueryKeys.securityCode: code
     };
     return _dio.post('v1/auth/phone/verification/register', data: body);
   }
@@ -36,13 +36,13 @@ class AuthService {
   }) {
     final body = {
       RestQueryKeys.queryUserName: phone,
-      RestQueryKeys.queryPassword: password
+      RestQueryKeys.password: password
     };
     return _dio.post('v2/auth/login', data: body);
   }
 
   Future<Response> forgetPassword({required String phone}) {
-    final body = {RestQueryKeys.queryPhoneNumber: phone};
+    final body = {RestQueryKeys.phoneNumber: phone};
     return _dio.post('v1/auth/phone/verification/recovery', data: body);
   }
 
@@ -51,9 +51,9 @@ class AuthService {
       required String code,
       required String sessionToken}) {
     final body = {
-      RestQueryKeys.queryPhoneNumber: phone,
-      RestQueryKeys.querySessionToken: sessionToken,
-      RestQueryKeys.querySecurityCode: code
+      RestQueryKeys.phoneNumber: phone,
+      RestQueryKeys.sessionToken: sessionToken,
+      RestQueryKeys.securityCode: code
     };
     return _dio.post('v1/auth/phone/verification/recovery/password',
         data: body);
@@ -64,23 +64,23 @@ class AuthService {
     required String repeatPassword,
   }) async {
     final headers = {
-      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
+      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
     };
     final body = {
-      RestQueryKeys.queryPassword: password,
-      RestQueryKeys.queryRepeatPassword: repeatPassword
+      RestQueryKeys.password: password,
+      RestQueryKeys.confirmPassword: repeatPassword
     };
     return _dio.put('v1/auth/user/change_password',
         data: body, options: Options(headers: headers));
   }
 
   Future<Response> loginValidate({required String accessCode}) {
-    final body = {RestQueryKeys.queryAccessToken: accessCode};
+    final body = {RestQueryKeys.accessToken: accessCode};
     return _dio.post("v1/auth/one_id/login-validate", data: body);
   }
 
   Future<Response> loginWithOneId({required String accessCode}) {
-    final body = {RestQueryKeys.queryAccessToken: accessCode};
+    final body = {RestQueryKeys.accessToken: accessCode};
     return _dio.post("v1/auth/one_id/login", data: body);
   }
 }

@@ -21,7 +21,13 @@ part 'ad_detail_state.dart';
 class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
   AdDetailCubit(this._adRepository, this.favoriteRepository,
       this.cartRepository, this.adRepository, this.tokenStorage)
-      : super(AdDetailBuildable());
+      : super(AdDetailBuildable()) {
+    getInitialData();
+  }
+
+  Future<void> getInitialData() async {
+    await Future.wait([getRecentlyViewedAds()]);
+  }
 
   final AdRepository _adRepository;
   final FavoriteRepository favoriteRepository;
@@ -47,7 +53,7 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
             isAddCart: response?.isAddCart ?? false,
           ));
       await increaseAdStats(StatsType.view);
-      await addAdToRecentlySeed();
+      await addAdToRecentlyViewed();
     } on DioException catch (e) {
       log.e(e.toString());
       display.error(e.toString());
@@ -118,7 +124,7 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
   Future<void> getSimilarAds() async {
     try {
       final similarAds = await _adRepository.getSimilarAds(
-          adId: buildable.adId ?? 0, pageIndex: 1, pageSize: 10);
+          adId: buildable.adId ?? 0, page: 1, limit: 10);
       build((buildable) => buildable.copyWith(
           similarAds: similarAds, similarAdsState: AppLoadingState.success));
     } on DioException catch (e, stackTrace) {
@@ -140,13 +146,53 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
     }
   }
 
-  Future<void> addAdToRecentlySeed() async {
+  Future<void> addAdToRecentlyViewed() async {
     try {
       int? adId = buildable.adId;
       if (adId != null && tokenStorage.isLogin.call() == true) {
-        await adRepository.addAdToRecentlySeed(adId: adId);
+        await adRepository.addAdToRecentlyViewed(adId: adId);
       }
     } catch (error) {
+      log.e(error.toString());
+    }
+  }
+
+  Future<void> getRecentlyViewedAds() async {
+    try {
+      final ads = await adRepository.getRecentlyViewedAds(page: 1, limit: 20);
+
+      build((buildable) => buildable.copyWith(
+            recentlyViewedAds: ads,
+            recentlyViewedAdsState: AppLoadingState.success,
+          ));
+    } on DioException catch (e, stackTrace) {
+      build((buildable) =>
+          buildable.copyWith(recentlyViewedAdsState: AppLoadingState.error));
+      log.e(e.toString(), error: e, stackTrace: stackTrace);
+      display.error(e.toString());
+    }
+  }
+
+  Future<void> recentlyViewAdAddToFavorite(Ad ad) async {
+    try {
+      if (!ad.favorite) {
+        final backendId = await favoriteRepository.addFavorite(ad);
+        final index = buildable.recentlyViewedAds.indexOf(ad);
+        final item = buildable.recentlyViewedAds.elementAt(index);
+        buildable.recentlyViewedAds.insert(
+          index,
+          item
+            ..favorite = true
+            ..backendId = backendId,
+        );
+      } else {
+        await favoriteRepository.removeFavorite(ad);
+        final index = buildable.recentlyViewedAds.indexOf(ad);
+        final item = buildable.recentlyViewedAds.elementAt(index);
+        buildable.recentlyViewedAds.insert(index, item..favorite = false);
+      }
+    } on DioException catch (error) {
+      display.error("serverda xatolik yuz  berdi");
       log.e(error.toString());
     }
   }

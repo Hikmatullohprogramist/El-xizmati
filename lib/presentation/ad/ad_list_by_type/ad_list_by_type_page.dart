@@ -17,32 +17,32 @@ import '../../../common/widgets/common/common_button.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../domain/models/ad.dart';
 import '../../../domain/util.dart';
-import 'cubit/ad_collection_cubit.dart';
+import 'cubit/ad_list_by_type_cubit.dart';
 
 @RoutePage()
-class AdCollectionPage extends BasePage<AdCollectionCubit,
-    AdCollectionBuildable, AdCollectionListenable> {
-  const AdCollectionPage(this.collectiveType, {super.key});
+class AdListByTypePage extends BasePage<AdListByTypeCubit,
+    AdListByTypeBuildable, AdListByTypeListenable> {
+  const AdListByTypePage(this.adType, {super.key});
 
-  final CollectiveType collectiveType;
+  final AdType adType;
 
   @override
   void init(BuildContext context) {
-    context.read<AdCollectionCubit>().setCollectionType(collectiveType);
+    context.read<AdListByTypeCubit>().setAdType(adType);
   }
 
   @override
-  void listener(BuildContext context, AdCollectionListenable state) {
+  void listener(BuildContext context, AdListByTypeListenable state) {
     switch (state.effect) {
-      case AdsCollectionEffect.success:
+      case AdsListByTypeEffect.success:
         () {};
-      case AdsCollectionEffect.navigationToAuthStart:
+      case AdsListByTypeEffect.navigationToAuthStart:
         context.router.push(AuthStartRoute());
     }
   }
 
   @override
-  Widget builder(BuildContext context, AdCollectionBuildable state) {
+  Widget builder(BuildContext context, AdListByTypeBuildable state) {
     double width;
     double height;
     width = MediaQuery.of(context).size.width;
@@ -65,14 +65,12 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                         padding: EdgeInsets.only(right: 16, left: 16, top: 16),
                         child: Align(
                           alignment: Alignment.centerLeft,
-                          child: switch (collectiveType) {
-                            CollectiveType.product => Strings
-                                .favoriteProductTitle
+                          child: switch (adType) {
+                            AdType.product => Strings.favoriteProductTitle
                                 .w(700)
                                 .s(16)
                                 .c(context.colors.textPrimary),
-                            CollectiveType.service => Strings
-                                .favoriteServiceTitle
+                            AdType.service => Strings.favoriteServiceTitle
                                 .w(700)
                                 .s(16)
                                 .c(context.colors.textPrimary),
@@ -81,7 +79,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                     SeeAllWidget(
                         listener: () {
                           context.router.push(AdListRoute(
-                              collectiveType: state.collectiveType,
+                              collectiveType: state.adType,
                               adListType: AdListType.collectionCheapAds,
                               keyWord: '',
                               title: "eng arzonlari"));
@@ -96,7 +94,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                             context.router.push(AdDetailRoute(adId: result.id));
                           },
                           onFavoriteClicked: (Ad result) => context
-                              .read<AdCollectionCubit>()
+                              .read<AdListByTypeCubit>()
                               .cheapAdsAddFavorite(result),
                         )),
                     SizedBox(height: 6),
@@ -104,10 +102,11 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                     SeeAllWidget(
                         listener: () {
                           context.router.push(AdListRoute(
-                              collectiveType: state.collectiveType,
-                              adListType: AdListType.collectionPopularAds,
-                              keyWord: '',
-                              title: Strings.adCollectivePopular));
+                            collectiveType: state.adType,
+                            adListType: AdListType.collectionPopularAds,
+                            keyWord: '',
+                            title: Strings.adCollectivePopular,
+                          ));
                         },
                         title: Strings.adCollectivePopular),
                     SizedBox(height: 6),
@@ -120,7 +119,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                             context.router.push(AdDetailRoute(adId: result.id));
                           },
                           onFavoriteClicked: (Ad result) => context
-                              .read<AdCollectionCubit>()
+                              .read<AdListByTypeCubit>()
                               .popularAdsAddFavorite(result),
                         )),
                     SizedBox(height: 6),
@@ -203,7 +202,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                                 child: VerticalAdWidget(
                                   ad: item,
                                   invokeFavorite: (value) => context
-                                      .read<AdCollectionCubit>()
+                                      .read<AdListByTypeCubit>()
                                       .addFavorite(value),
                                   invoke: (value) => context.router
                                       .push(AdDetailRoute(adId: value.id)),
@@ -215,7 +214,7 @@ class AdCollectionPage extends BasePage<AdCollectionCubit,
                                 child: VerticalAdWidget(
                                   ad: item,
                                   invokeFavorite: (value) => context
-                                      .read<AdCollectionCubit>()
+                                      .read<AdListByTypeCubit>()
                                       .addFavorite(value),
                                   invoke: (value) => context.router
                                       .push(AdDetailRoute(adId: value.id)),

@@ -24,7 +24,9 @@ class AdTypeWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Strings.adTypeProductTitle
+            (adType == AdType.product
+                    ? Strings.adTypeProductTitle
+                    : Strings.adTypeServiceTitle)
                 .w(400)
                 .s(12)
                 .c(context.colors.textPrimaryInverse)

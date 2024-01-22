@@ -15,7 +15,7 @@ class PaymentTransactionService {
   Future<Response> getPaymentTransaction(
       {required int pageSize, required pageIndex}) async {
     final headers = {
-      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
+      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
     };
     return _dio.get("v1/user/billings", options: Options(headers: headers));
   }

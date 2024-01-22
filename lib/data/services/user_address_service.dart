@@ -14,7 +14,7 @@ class UserAddressService {
 
   Future<Response> getUserAddresses() async {
     final headers = {
-      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
+      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
     };
     return _dio.get("v1/user/address", options: Options(headers: headers));
   }
@@ -31,18 +31,18 @@ class UserAddressService {
     required String? geo,
   }) {
     final headers = {
-      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
+      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
     };
     final data = {
-      RestQueryKeys.queryName: name,
-      RestQueryKeys.queryRegionId: regionId,
-      RestQueryKeys.queryDistrictId: districtId,
-      RestQueryKeys.queryMahallaId: mahallaId,
-      RestQueryKeys.queryHomeNumber: homeNum,
-      RestQueryKeys.queryApartmentNumber: apartmentNum,
-      RestQueryKeys.queryStreetNumber: streetNum,
-      RestQueryKeys.queryIsMain: isMain,
-      RestQueryKeys.queryGeo: geo,
+      RestQueryKeys.name: name,
+      RestQueryKeys.regionId: regionId,
+      RestQueryKeys.districtId: districtId,
+      RestQueryKeys.neighborhoodId: mahallaId,
+      RestQueryKeys.homeNumber: homeNum,
+      RestQueryKeys.apartmentNumber: apartmentNum,
+      RestQueryKeys.streetNumber: streetNum,
+      RestQueryKeys.isMain: isMain,
+      RestQueryKeys.geo: geo,
     };
     return _dio.post('v1/user/address',
         data: data, options: Options(headers: headers));
@@ -61,20 +61,20 @@ class UserAddressService {
       required int id,
       required String state}) async {
     final headers = {
-      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
+      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
     };
     final data = {
-      RestQueryKeys.queryName: name,
-      RestQueryKeys.queryRegionId: regionId,
-      RestQueryKeys.queryDistrictId: districtId,
-      RestQueryKeys.queryMahallaId: mahallaId,
-      RestQueryKeys.queryHomeNumber: homeNum,
-      RestQueryKeys.queryApartmentNumber: apartmentNum,
-      RestQueryKeys.queryStreetNumber: streetNum,
-      RestQueryKeys.queryIsMain: isMain,
-      RestQueryKeys.queryGeo: geo,
-      RestQueryKeys.queryId: id,
-      RestQueryKeys.queryState: 1
+      RestQueryKeys.name: name,
+      RestQueryKeys.regionId: regionId,
+      RestQueryKeys.districtId: districtId,
+      RestQueryKeys.neighborhoodId: mahallaId,
+      RestQueryKeys.homeNumber: homeNum,
+      RestQueryKeys.apartmentNumber: apartmentNum,
+      RestQueryKeys.streetNumber: streetNum,
+      RestQueryKeys.isMain: isMain,
+      RestQueryKeys.geo: geo,
+      RestQueryKeys.id: id,
+      RestQueryKeys.state: 1
     };
     return _dio.put('v1/user/address',
         data: data, options: Options(headers: headers));
@@ -82,11 +82,11 @@ class UserAddressService {
 
   Future<Response> deleteUserAddress({required int userAddressId}) async {
     final headers = {
-      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
+      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
     };
     final data = {
-      RestQueryKeys.queryId: userAddressId,
-      RestQueryKeys.queryType: "SELECTED"
+      RestQueryKeys.id: userAddressId,
+      RestQueryKeys.type: "SELECTED"
     };
     return _dio.delete("v1/user/address",
         queryParameters: data, options: Options(headers: headers));
@@ -95,11 +95,11 @@ class UserAddressService {
   Future<Response> updateMainAddress(
       {required int userAddressId, required bool isMain}) async {
     final headers = {
-      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
+      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
     };
     final data = {
-      RestQueryKeys.queryId: userAddressId,
-      RestQueryKeys.queryIsMain: isMain
+      RestQueryKeys.id: userAddressId,
+      RestQueryKeys.isMain: isMain
     };
     return _dio.patch("v1/user/address",
         queryParameters: data, options: Options(headers: headers));

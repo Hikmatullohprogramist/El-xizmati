@@ -9,25 +9,28 @@ import '../../../../domain/models/ad.dart';
 import '../../../../domain/repositories/ad_repository.dart';
 import '../../../../domain/repositories/common_repository.dart';
 import '../../../../domain/repositories/favorite_repository.dart';
+import '../../../../domain/util.dart';
 
-part 'ad_collection_cubit.freezed.dart';
-part 'ad_collection_state.dart';
+part 'ad_list_by_type_cubit.freezed.dart';
+
+part 'ad_list_by_type_state.dart';
 
 @injectable
-class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionListenable> {
-  AdCollectionCubit(
+class AdListByTypeCubit
+    extends BaseCubit<AdListByTypeBuildable, AdListByTypeListenable> {
+  AdListByTypeCubit(
       this.adRepository, this.commonRepository, this.favoriteRepository)
-      : super(AdCollectionBuildable());
+      : super(AdListByTypeBuildable());
 
-  Future<void> setCollectionType(CollectiveType collectiveType) async {
-    build((buildable) => buildable.copyWith(collectiveType: collectiveType));
+  Future<void> setAdType(AdType adType) async {
+    build((buildable) => buildable.copyWith(adType: adType));
     getHome();
   }
 
   Future<void> getHome() async {
     await Future.wait([
-      getCollectiveCheapAds(),
-      getCollectivePopularAds(),
+      getCheapAdsByType(),
+      getPopularAdsByType(),
       getController(),
     ]);
   }
@@ -38,12 +41,10 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
   final CommonRepository commonRepository;
   final FavoriteRepository favoriteRepository;
 
-  Future<void> getCollectiveCheapAds() async {
+  Future<void> getCheapAdsByType() async {
     try {
-      final cheapAds = await adRepository.getCollectiveCheapAds(
-          collectiveType: buildable.collectiveType,
-          pageIndex: 1,
-          pageSize: 10);
+      final cheapAds = await adRepository.getCheapAdsByType(
+          adType: buildable.adType, page: 1, limit: 10);
       build((buildable) => buildable.copyWith(
           cheapAds: cheapAds, cheapAdsState: AppLoadingState.success));
     } on DioException catch (e, stackTrace) {
@@ -54,10 +55,10 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
     }
   }
 
-  Future<void> getCollectivePopularAds() async {
+  Future<void> getPopularAdsByType() async {
     try {
-      final popularAds = await adRepository.getCollectivePopularAds(
-          collectiveType: buildable.collectiveType, pageIndex: 1, pageSize: 10);
+      final popularAds = await adRepository.getPopularAdsByType(
+          adType: buildable.adType, page: 1, limit: 10);
       build((buildable) => buildable.copyWith(
           popularAds: popularAds, popularAdsState: AppLoadingState.success));
     } on DioException catch (e, stackTrace) {
@@ -73,7 +74,7 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
       final controller =
           buildable.adsPagingController ?? getAdsController(status: 1);
       build((buildable) => buildable.copyWith(adsPagingController: controller));
-    }on DioException  catch (e, stackTrace) {
+    } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
@@ -90,11 +91,12 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
     log.i(buildable.adsPagingController);
 
     adController.addPageRequestListener(
-          (pageKey) async {
-        final adsList = await adRepository.getCollectiveAds(
-            collectiveType: buildable.collectiveType,
-            pageIndex: pageKey,
-            pageSize: _pageSize);
+      (pageKey) async {
+        final adsList = await adRepository.getAdsByType(
+          adType: buildable.adType,
+          page: pageKey,
+          limit: _pageSize,
+        );
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);
           log.i(buildable.adsPagingController);
@@ -110,7 +112,7 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
   Future<void> popularAdsAddFavorite(Ad ad) async {
     try {
       if (!ad.favorite) {
-      final backendId = await favoriteRepository.addFavorite(ad);
+        final backendId = await favoriteRepository.addFavorite(ad);
         final index = buildable.popularAds.indexOf(ad);
         final item = buildable.popularAds.elementAt(index);
         buildable.popularAds.insert(
@@ -158,8 +160,7 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
     try {
       if (!ad.favorite) {
         final backendId = await favoriteRepository.addFavorite(ad);
-        final index =
-            buildable.adsPagingController?.itemList?.indexOf(ad) ?? 0;
+        final index = buildable.adsPagingController?.itemList?.indexOf(ad) ?? 0;
         final item = buildable.adsPagingController?.itemList?.elementAt(index);
         if (item != null) {
           buildable.adsPagingController?.itemList?.insert(
@@ -172,8 +173,7 @@ class AdCollectionCubit extends BaseCubit<AdCollectionBuildable, AdCollectionLis
         }
       } else {
         await favoriteRepository.removeFavorite(ad);
-        final index =
-            buildable.adsPagingController?.itemList?.indexOf(ad) ?? 0;
+        final index = buildable.adsPagingController?.itemList?.indexOf(ad) ?? 0;
         final item = buildable.adsPagingController?.itemList?.elementAt(index);
         if (item != null) {
           buildable.adsPagingController?.itemList

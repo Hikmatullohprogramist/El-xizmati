@@ -51,6 +51,10 @@ class Ad {
   bool favorite;
   bool isCheck;
   String photo;
+
+  bool hasOnlyOnePrice() {
+    return price == 0;
+  }
 }
 
 class AdPhotoModel {

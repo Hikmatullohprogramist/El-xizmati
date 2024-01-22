@@ -9,7 +9,7 @@ class AdListBuildable with _$AdListBuildable {
     PagingController<int, Ad>? adsPagingController,
     int? sellerTin,
     int? adId,
-    CollectiveType? collectiveType,
+    AdType? collectiveType,
   }) = _AdListBuildable;
 }
 

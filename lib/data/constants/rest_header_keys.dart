@@ -1,3 +1,3 @@
 class RestHeaderKeys {
-  static String headerAuthorization = "Authorization";
+  static String authorization = "Authorization";
 }

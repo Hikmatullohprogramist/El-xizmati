@@ -6,7 +6,6 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/app_bar/common_app_bar.dart';
-import 'package:onlinebozor/presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
 import 'package:onlinebozor/presentation/ad/ad_list/cubit/ad_list_cubit.dart';
 
 import '../../../common/core/base_page.dart';
@@ -27,7 +26,7 @@ class AdListPage
   final String? title;
   final int? sellerTin;
   final int? adId;
-  final CollectiveType? collectiveType;
+  final AdType? collectiveType;
 
   @override
   void init(BuildContext context) {

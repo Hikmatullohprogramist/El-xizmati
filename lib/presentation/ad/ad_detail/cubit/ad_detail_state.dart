@@ -9,7 +9,9 @@ class AdDetailBuildable with _$AdDetailBuildable {
     @Default(false) bool isPhoneVisible,
     @Default(<Ad>[]) List<Ad> similarAds,
     @Default(AppLoadingState.loading) AppLoadingState similarAdsState,
-   }) = _AdDetailBuildable;
+    @Default(<Ad>[]) List<Ad> recentlyViewedAds,
+    @Default(AppLoadingState.loading) AppLoadingState recentlyViewedAdsState,
+  }) = _AdDetailBuildable;
 }
 
 @freezed

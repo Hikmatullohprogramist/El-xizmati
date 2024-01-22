@@ -19,12 +19,12 @@ class UserOrderService {
       required UserOrderStatus userOrderStatus,
       required OrderType orderType}) async {
     final headers = {
-      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
+      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
     };
     final queryParameters = {
-      RestQueryKeys.queryPageSize: pageSiz,
-      RestQueryKeys.queryPageIndex: pageIndex,
-      RestQueryKeys.queryStatus: userOrderStatus.name.toUpperCase()
+      RestQueryKeys.limit: pageSiz,
+      RestQueryKeys.page: pageIndex,
+      RestQueryKeys.status: userOrderStatus.name.toUpperCase()
     };
     if (orderType == OrderType.sell) {
       return _dio.get("v1/seller/orders",
@@ -40,13 +40,13 @@ class UserOrderService {
       required UserOrderStatus userOrderStatus,
       required String canceledNote}) async {
     final headers = {
-      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
+      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
     };
     final data = {
-      RestQueryKeys.queryCancelNote: canceledNote,
-      RestQueryKeys.queryStatus: userOrderStatus.name.toUpperCase()
+      RestQueryKeys.cancelNote: canceledNote,
+      RestQueryKeys.status: userOrderStatus.name.toUpperCase()
     };
-    final queryParameters = {RestQueryKeys.queryId: orderId};
+    final queryParameters = {RestQueryKeys.id: orderId};
     return _dio.put("mobile/v1/buyer/order",
         data: data, queryParameters: queryParameters);
   }

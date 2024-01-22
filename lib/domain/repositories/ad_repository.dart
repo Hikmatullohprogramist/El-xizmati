@@ -1,48 +1,47 @@
 import 'package:onlinebozor/domain/util.dart';
-import 'package:onlinebozor/presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
 
 import '../../data/responses/search/search_response.dart';
 import '../models/ad.dart';
 import '../models/ad_detail.dart';
 
 abstract class AdRepository {
-  Future<List<Ad>> getHomeAds(int pageIndex, int pageSize, String keyWord);
+  Future<List<Ad>> getHomeAds(int page, int limit, String keyWord);
 
-  Future<List<Ad>> getHomePopularAds(int pageIndex, int pageSize);
-
-  Future<List<Ad>> getCollectivePopularAds({
-    required CollectiveType collectiveType,
-    required int pageIndex,
-    required int pageSize,
+  Future<List<Ad>> getPopularAdsByType({
+    required AdType adType,
+    required int page,
+    required int limit,
   });
 
-  Future<List<Ad>> getCollectiveCheapAds({
-    required CollectiveType collectiveType,
-    required int pageIndex,
-    required int pageSize,
+  Future<List<Ad>> getCheapAdsByType({
+    required AdType adType,
+    required int page,
+    required int limit,
   });
 
-  Future<List<Ad>> getCollectiveAds({required CollectiveType collectiveType,
-    required int pageIndex,
-    required int pageSize});
+  Future<List<Ad>> getAdsByType({
+    required AdType adType,
+    required int page,
+    required int limit,
+  });
+
+  Future<List<Ad>> getHotDiscountAdsByType(
+    AdType adType,
+    int page,
+    int pageSize,
+  );
 
   Future<List<Ad>> getSellerAds({
     required int sellerTin,
-    required int pageIndex,
-    required int pageSize,
+    required int page,
+    required int limit,
   });
 
   Future<List<Ad>> getSimilarAds({
     required int adId,
-    required int pageIndex,
-    required int pageSize,
+    required int page,
+    required int limit,
   });
-
-  Future<List<Ad>> getHotDiscountAds(
-    CollectiveType collectiveType,
-    int pageIndex,
-    int pageSize,
-  );
 
   Future<List<AdSearchResponse>> getSearch(String query);
 
@@ -50,5 +49,10 @@ abstract class AdRepository {
 
   Future<void> increaseAdStats({required StatsType type, required int adId});
 
-  Future<void> addAdToRecentlySeed({required int adId});
+  Future<void> addAdToRecentlyViewed({required int adId});
+
+  Future<List<Ad>> getRecentlyViewedAds({
+    required int page,
+    required int limit,
+  });
 }

@@ -2,11 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/widgets/ad/list_ad_property_widget.dart';
-import 'package:onlinebozor/common/widgets/ad/list_ad_author_type_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_status_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_type_widget.dart';
-import 'package:onlinebozor/common/widgets/ad/price_text_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/list_ad_author_type_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/list_ad_property_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/list_price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/view_count_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite/ad_favorite_widget.dart';
 import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
@@ -41,11 +41,7 @@ class HorizontalAdWidget extends StatelessWidget {
               Container(
                   width: 140,
                   height: 140,
-                  decoration: BoxDecoration(
-                    // borderRadius: BorderRadius.circular(6),
-                    // border: Border.all(width: 0.50, color: Color(0xFFE5E9F3)),
-                    color: Color(0xFFF6F7FC),
-                  ),
+                  decoration: BoxDecoration(color: Color(0xFFF6F7FC)),
                   child: Stack(children: [
                     CachedNetworkImage(
                       imageUrl: "${Constants.baseUrlForImage}${ad.photo}",
@@ -60,7 +56,8 @@ class HorizontalAdWidget extends StatelessWidget {
                         ),
                       ),
                       placeholder: (context, url) => Center(),
-                      errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
+                      errorWidget: (context, url, error) =>
+                          Center(child: Icon(Icons.error)),
                     ),
                     AppAdStatusWidget(adStatus: AdStatus.standard),
                     Align(
@@ -88,7 +85,7 @@ class HorizontalAdWidget extends StatelessWidget {
                     .copyWith(maxLines: 2, overflow: TextOverflow.ellipsis),
               ),
               SizedBox(height: 6),
-              PriceTextWidget(
+              ListPriceTextWidget(
                   price: ad.price,
                   toPrice: ad.toPrice,
                   fromPrice: ad.fromPrice,

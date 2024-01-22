@@ -2,6 +2,7 @@ string,uz_UZ,ru_RU,uz_UZK
 action.title,Harakat,Действие,Ҳаракат
 active.device.current.device,Joriy sessiya,Текущий сеанс,Жорий сессия
 active.device.remove.device,Seansni tugatish,Завершить сеанс,Сеансни тугатиш
+ad.buy.by.one.click,Bir klikda sotib olish,Купить в один клик,Бир кликда сотиб олиш
 ad.collective.discounts,Chegirmalar,Скидки,Чегирмалар
 ad.collective.popular,Ommaboplar,Популярные,Оммабоплар
 ad.create.exchange.title,Almashish,обмен,Алмашиш
@@ -17,7 +18,6 @@ ad.detail.feedback,Sharhlar,Отзывы,Шарҳлар
 ad.detail.location,Manzil,Местоположение,Манзил
 ad.detail.number.views,Ko‘rishlar soni,Количество просмотров,Кўришлар сони
 ad.detail.on.online.bozor,OnlineBozorda,на OnlineBozor с,OnlineBozorда
-ad.detail.price,narxi:,Цена:,нархи:
 ad.detail.published.date,Nashr etilgan:,Опубликовано:,Нашр этилган:
 ad.detail.seller,Sotuvchi,Продавец,Сотувчи
 ad.detail.show.more,Ko‘proq ko‘rsatish,Показать больше,Кўпроқ кўрсатиш
@@ -142,8 +142,12 @@ payment.filter.title,Filtr,Фильтр,Фильтр
 payment.filter.to.date,gacha:,До:,гача:
 payment.filter.type,Turi,Тип,Тури
 payment.title,To‘lovlar,Платежи,Тўловлар
-popular.product.title,Ommabop mahsulot,Популярный продукт,Оммабоп маҳсулот
-products.title,Mahsulotlar,Продукт,Маҳсулот
+popular.products,Ommabop mahsulotlar,Популярные продукты,Оммабоп маҳсулотлар
+popular.services,Ommabop xizmatlar,Популярные услуги,Оммабоп хизматлар
+price.from,{price} dan,От {price},{price} дан
+price.to,{price} gacha,До {price},{price} гача
+price.two.dot,Narxi:,Цена:,Нархи:
+products.title,Mahsulotlar,Продукты,Маҳсулотлар
 profile.change.language,Tilni o‘zgartirish,Изменить язык,Тилни ўзгартириш
 profile.change.to.business,Biznesga o‘tish,Поменять на бизнес,Бизнесга ўтиш
 profile.comparison,Taqqoslash ro‘yxati,Список сравнения,Таққослаш рўйхати

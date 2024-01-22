@@ -57,7 +57,7 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
             padding: EdgeInsets.symmetric(vertical: 12),
             child: Row(children: [
               SizedBox(width: 16),
-              Strings.adDetailPrice.w(400).s(12).c(Color(0xFF9EABBE)),
+              Strings.priceTwoDot.w(400).s(12).c(Color(0xFF9EABBE)),
               SizedBox(width: 8),
               "${formatter.format(state.adDetail!.price * state.count).replaceAll(',', ' ')} ${state.adDetail!.currency.getName}"
                   .w(800)

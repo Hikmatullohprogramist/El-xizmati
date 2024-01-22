@@ -18,8 +18,8 @@ class CommonService {
 
   Future<Response> getPopularCategories(int pageIndex, int pageSize) {
     final queryParameters = {
-      RestQueryKeys.queryPageIndex: pageIndex,
-      RestQueryKeys.queryPageSize: pageSize
+      RestQueryKeys.page: pageIndex,
+      RestQueryKeys.limit: pageSize
     };
     return _dio.get("v1/popular/categories", queryParameters: queryParameters);
   }

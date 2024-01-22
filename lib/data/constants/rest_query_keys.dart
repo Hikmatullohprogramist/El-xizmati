@@ -1,51 +1,68 @@
 class RestQueryKeys {
-  static String queryPageIndex = "page";
-  static String queryPageSize = "page_size";
-  static String queryKeyWord = "key_word";
-  static String queryId = "id";
-  static String queryAdsId = "ads_id";
-  static String queryCollectiveTypeAds = "type_ads";
-  static String querySearchQuery = "q";
 
-  static String queryPhoneNumber = "phone_number";
-  static String querySessionToken = "session_token";
-  static String querySecurityCode = "security_code";
+  static String accessToken = "accessToken";
+  static String adType = "type_ads";
+  static String adId = "ad_id";
+  static String adsId = "ads_id";
+  static String adsList = "adsList";
+  static String amount = "amount";
+  static String apartmentNumber = "apartment_num";
+
+  static String brithDate = "birth_date";
+
+  static String cancelNote = "cancel_note";
+  static String confirmPassword = "repeat_password";
+
+  static String deliveryAddressId = "delivery_address_id";
+  static String districtId = "district_id";
+
+  static String email = "email";
+
+  static String gender = "gender";
+  static String geo = "geo";
+
+  static String homeName = "home_name";
+  static String homeNumber = "home_num";
+
+  static String id = "id";
+  static String isMain = "is_main";
+
+  static String keyWord = "key_word";
+
+  static String limit = "page_size";
+
+  static String mobilePhone = "mobile_number";
+
+  static String name = "name";
+  static String neighborhoodId = "mahalla_id";
+  static String number = "num";
+
+  static String page = "page";
+  static String passportNumber = "passport_number";
+  static String passportSerial = "passport_serial";
+  static String password = "password";
+  static String paymentTypeId = "payment_type_id";
+  static String phoneNumber = "phone_number";
+  static String photo = "photo";
+  static String pinfl = "pinfl";
+  static String postName = "post_name";
+  static String productId = "product_id";
+  static String productType = "product_type";
+  static String products = "products";
+
   static String queryUserName = "username";
-  static String queryPassword = "password";
-  static String queryRepeatPassword = "repeat_password";
-  static String queryAccessToken = "accessToken";
-  static String queryProductType = "product_type";
-  static String queryProductId = "product_id";
-  static String queryNum = "num";
-  static String queryType = "type";
-  static String queryTin = "tin";
-  static String queryProducts = "products";
-  static String queryAmount = "amount";
-  static String queryPaymentTypeId = "payment_type_id";
-  static String queryDeliveryAddressId = "delivery_address_id";
-  static String queryShippingId = "shipping_id";
-  static String queryName = "name";
-  static String queryRegionId = "region_id";
-  static String queryDistrictId = "district_id";
-  static String queryMahallaId = "mahalla_id";
-  static String queryHomeNumber = "home_num";
-  static String queryApartmentNumber = "apartment_num";
-  static String queryStreetNumber = "street_num";
-  static String queryIsMain = "is_main";
-  static String queryGeo = "geo";
-  static String queryState = "state";
-  static String queryPassportSerial = "passport_serial";
-  static String queryPassportNumber = "passport_number";
-  static String queryBrithDate = "birth_date";
-  static String querySecretKey = "secret_key";
-  static String queryEmail = "email";
-  static String queryGender = "gender";
-  static String queryHomeName = "home_name";
-  static String queryMobilePhone = "mobile_number";
-  static String queryPhoto = "photo";
-  static String queryPnifl = "pinfl";
-  static String queryPostName = "post_name";
-  static String queryAdsList = "adsList";
-  static String queryStatus = "status";
-  static String queryCancelNote = "cancel_note";
+
+  static String regionId = "region_id";
+
+  static String searchQuery = "q";
+  static String secretKey = "secret_key";
+  static String securityCode = "security_code";
+  static String sessionToken = "session_token";
+  static String shippingId = "shipping_id";
+  static String state = "state";
+  static String status = "status";
+  static String streetNumber = "street_num";
+
+  static String tin = "tin";
+  static String type = "type";
 }

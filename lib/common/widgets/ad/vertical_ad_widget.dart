@@ -5,7 +5,7 @@ import 'package:onlinebozor/common/constants.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/ad/list_ad_property_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_status_widget.dart';
-import 'package:onlinebozor/common/widgets/ad/price_text_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/list_price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/view_count_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite/ad_favorite_widget.dart';
 import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
@@ -91,7 +91,7 @@ class VerticalAdWidget extends StatelessWidget {
                     .copyWith(maxLines: 2, overflow: TextOverflow.ellipsis),
               ),
               SizedBox(height: 6),
-              PriceTextWidget(
+              ListPriceTextWidget(
                   price: ad.price,
                   toPrice: ad.toPrice,
                   fromPrice: ad.fromPrice,

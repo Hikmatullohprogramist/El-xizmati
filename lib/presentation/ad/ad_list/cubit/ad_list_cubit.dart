@@ -10,9 +10,9 @@ import '../../../../domain/models/ad.dart';
 import '../../../../domain/repositories/ad_repository.dart';
 import '../../../../domain/repositories/common_repository.dart';
 import '../../../../domain/repositories/favorite_repository.dart';
-import '../../ad_collection/cubit/ad_collection_cubit.dart';
 
 part 'ad_list_cubit.freezed.dart';
+
 part 'ad_list_state.dart';
 
 @injectable
@@ -21,7 +21,7 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
       : super(AdListBuildable());
 
   void setInitiallyDate(String? keyWord, AdListType adListType, int? sellerTin,
-      int? adId, CollectiveType? collectiveType) {
+      int? adId, AdType? collectiveType) {
     build((buildable) => buildable.copyWith(
         adsPagingController: null,
         keyWord: keyWord ?? "",
@@ -42,7 +42,7 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
       final controller =
           buildable.adsPagingController ?? getAdsController(status: 1);
       build((buildable) => buildable.copyWith(adsPagingController: controller));
-    }on DioException  catch (e, stackTrace) {
+    } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
@@ -66,30 +66,32 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
             adsList = await adRepository.getHomeAds(
                 pageKey, _pageSize, buildable.keyWord);
           case AdListType.homePopularAds:
-            adsList = await adRepository.getHomePopularAds(pageKey, _pageSize);
+            adsList = await adRepository.getPopularAdsByType(
+              adType: AdType.product,
+              page: pageKey,
+              limit: _pageSize,
+            );
           case AdListType.sellerProductAds:
             adsList = await adRepository.getSellerAds(
                 sellerTin: buildable.sellerTin ?? -1,
-                pageIndex: pageKey,
-                pageSize: 20);
+                page: pageKey,
+                limit: 20);
           case AdListType.similarAds:
             adsList = await adRepository.getSimilarAds(
-                adId: buildable.adId ?? 0, pageIndex: pageKey, pageSize: 20);
+                adId: buildable.adId ?? 0, page: pageKey, limit: 20);
           case AdListType.popularCategoryAds:
             adsList = await adRepository.getHomeAds(
                 pageKey, _pageSize, buildable.keyWord);
           case AdListType.collectionCheapAds:
-            adsList = await adRepository.getCollectiveCheapAds(
-                collectiveType:
-                    buildable.collectiveType ?? CollectiveType.product,
-                pageIndex: pageKey,
-                pageSize: 20);
+            adsList = await adRepository.getCheapAdsByType(
+                adType: buildable.collectiveType ?? AdType.product,
+                page: pageKey,
+                limit: 20);
           case AdListType.collectionPopularAds:
-            adsList = await adRepository.getCollectivePopularAds(
-                collectiveType:
-                    buildable.collectiveType ?? CollectiveType.product,
-                pageIndex: pageKey,
-                pageSize: 20);
+            adsList = await adRepository.getPopularAdsByType(
+                adType: buildable.collectiveType ?? AdType.product,
+                page: pageKey,
+                limit: 20);
         }
 
         if (buildable.adListType == AdListType.homePopularAds ||
@@ -118,9 +120,8 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
   Future<void> addFavorite(Ad ad) async {
     try {
       if (!ad.favorite) {
-      final backendId = await favoriteRepository.addFavorite(ad);
-        final index =
-            buildable.adsPagingController?.itemList?.indexOf(ad) ?? 0;
+        final backendId = await favoriteRepository.addFavorite(ad);
+        final index = buildable.adsPagingController?.itemList?.indexOf(ad) ?? 0;
         final item = buildable.adsPagingController?.itemList?.elementAt(index);
         if (item != null) {
           buildable.adsPagingController?.itemList?.insert(
@@ -133,8 +134,7 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
         }
       } else {
         await favoriteRepository.removeFavorite(ad);
-        final index =
-            buildable.adsPagingController?.itemList?.indexOf(ad) ?? 0;
+        final index = buildable.adsPagingController?.itemList?.indexOf(ad) ?? 0;
         final item = buildable.adsPagingController?.itemList?.elementAt(index);
         if (item != null) {
           buildable.adsPagingController?.itemList

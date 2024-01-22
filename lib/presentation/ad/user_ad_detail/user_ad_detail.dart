@@ -5,7 +5,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/common/widgets/ad/price_text_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/detail_price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
 import 'package:onlinebozor/data/responses/user_ad/user_ad_response.dart';
 import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
@@ -26,21 +26,21 @@ class UserAdDetailPage extends BasePage<UserAdDetailCubit,
   Widget builder(BuildContext context, UserAdDetailBuildable state) {
     return Scaffold(
       appBar: AppBar(
-          // title: "ID12345677".w(500).c(context.colors.textPrimary),
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          elevation: 1,
-          leading: IconButton(
-              onPressed: () => context.router.pop(),
-              icon: Assets.images.icArrowLeft.svg(height: 24, width: 24)),
-          // actions: [
-          //   Padding(
-          //       padding: EdgeInsets.all(4),
-          //       child: IconButton(
-          //         icon: Assets.images.icMoreVert.svg(height: 24, width: 24),
-          //         onPressed: () {},
-          //       ))
-          // ]
+        // title: "ID12345677".w(500).c(context.colors.textPrimary),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 1,
+        leading: IconButton(
+            onPressed: () => context.router.pop(),
+            icon: Assets.images.icArrowLeft.svg(height: 24, width: 24)),
+        // actions: [
+        //   Padding(
+        //       padding: EdgeInsets.all(4),
+        //       child: IconButton(
+        //         icon: Assets.images.icMoreVert.svg(height: 24, width: 24),
+        //         onPressed: () {},
+        //       ))
+        // ]
       ),
       body: Container(
         color: Colors.white,
@@ -77,7 +77,10 @@ class UserAdDetailPage extends BasePage<UserAdDetailCubit,
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Strings.userAdDetailRemainder.w(400).s(12).c(Color(0xFF9EABBE)),
+                  Strings.userAdDetailRemainder
+                      .w(400)
+                      .s(12)
+                      .c(Color(0xFF9EABBE)),
                   SizedBox(width: 6),
                   "0".s(12).c(Color(0xFF41455E)).w(500)
                 ]),
@@ -96,11 +99,12 @@ class UserAdDetailPage extends BasePage<UserAdDetailCubit,
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 22),
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  PriceTextWidget(
-                      price: userAdResponse.price ?? 0,
-                      toPrice: userAdResponse.to_price ?? 0,
-                      fromPrice: userAdResponse.from_price??0,
-                      currency: userAdResponse.currency.toCurrency()),
+                  DetailPriceTextWidget(
+                    price: userAdResponse.price ?? 0,
+                    toPrice: userAdResponse.to_price ?? 0,
+                    fromPrice: userAdResponse.from_price ?? 0,
+                    currency: userAdResponse.currency.toCurrency(),
+                  ),
                   // "473 769 560 сум".w(700).s(16).c(Color(0xFF5C6AC3))
                 ]),
               ),
@@ -162,7 +166,11 @@ class UserAdDetailPage extends BasePage<UserAdDetailCubit,
                                 width: 12,
                                 color: context.colors.iconGrey),
                             SizedBox(width: 8),
-                            (userAdResponse.view??0).toString().w(600).s(10).c(Color(0xFF41455E))
+                            (userAdResponse.view ?? 0)
+                                .toString()
+                                .w(600)
+                                .s(10)
+                                .c(Color(0xFF41455E))
                           ]),
                     ),
                     Container(
@@ -181,7 +189,11 @@ class UserAdDetailPage extends BasePage<UserAdDetailCubit,
                                 width: 12,
                                 color: context.colors.iconGrey),
                             SizedBox(width: 8),
-                            (userAdResponse.selected??0).toString().w(600).s(10).c(Color(0xFF41455E))
+                            (userAdResponse.selected ?? 0)
+                                .toString()
+                                .w(600)
+                                .s(10)
+                                .c(Color(0xFF41455E))
                           ]),
                     ),
                     Container(
@@ -200,7 +212,11 @@ class UserAdDetailPage extends BasePage<UserAdDetailCubit,
                                 width: 12,
                                 color: context.colors.iconGrey),
                             SizedBox(width: 8),
-                            (userAdResponse.phone_view??0).toString().w(600).s(10).c(Color(0xFF41455E))
+                            (userAdResponse.phone_view ?? 0)
+                                .toString()
+                                .w(600)
+                                .s(10)
+                                .c(Color(0xFF41455E))
                           ]),
                     ),
                     Container(
@@ -219,7 +235,11 @@ class UserAdDetailPage extends BasePage<UserAdDetailCubit,
                                 width: 12,
                                 color: context.colors.iconGrey),
                             SizedBox(width: 8),
-                           (userAdResponse.message_number??0).toString().w(600).s(10).c(Color(0xFF41455E))
+                            (userAdResponse.message_number ?? 0)
+                                .toString()
+                                .w(600)
+                                .s(10)
+                                .c(Color(0xFF41455E))
                           ]),
                     )
                   ],

@@ -14,13 +14,13 @@ class CartService {
 
   Future<Response> addCart({required String adType, required int id}) {
     final headers = {
-      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
+      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
     };
     final queryParameters = {
-      RestQueryKeys.queryProductType: "ADS",
-      RestQueryKeys.queryProductId: id,
-      RestQueryKeys.queryNum: 1,
-      RestQueryKeys.queryType: "BASKET"
+      RestQueryKeys.productType: "ADS",
+      RestQueryKeys.productId: id,
+      RestQueryKeys.number: 1,
+      RestQueryKeys.type: "BASKET"
     };
     return _dio.post("v1/buyer/product",
         queryParameters: queryParameters, options: Options(headers: headers));
@@ -28,11 +28,11 @@ class CartService {
 
   Future<Response> removeCart({required int adId}) {
     final headers = {
-      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
+      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
     };
     final queryParameters = {
-      RestQueryKeys.queryProductId: adId,
-      RestQueryKeys.queryType: "BASKET"
+      RestQueryKeys.productId: adId,
+      RestQueryKeys.type: "BASKET"
     };
     return _dio.delete("v1/buyer/product",
         queryParameters: queryParameters, options: Options(headers: headers));
@@ -40,9 +40,9 @@ class CartService {
 
   Future<Response> getCartAllAds() {
     final headers = {
-      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
+      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
     };
-    final queryParameters = {RestQueryKeys.queryType: 'BASKET'};
+    final queryParameters = {RestQueryKeys.type: 'BASKET'};
     return _dio.get("v1/buyer/products",
         queryParameters: queryParameters, options: Options(headers: headers));
   }
@@ -53,17 +53,17 @@ class CartService {
       required int paymentTypeId,
       required int tin}) async {
     final headers = {
-      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
+      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
     };
     final data = {
-      RestQueryKeys.queryTin: tin,
-      RestQueryKeys.queryProducts: [
+      RestQueryKeys.tin: tin,
+      RestQueryKeys.products: [
         {
-          RestQueryKeys.queryProductId: productId,
-          RestQueryKeys.queryAmount: amount,
-          RestQueryKeys.queryPaymentTypeId: paymentTypeId,
-          RestQueryKeys.queryDeliveryAddressId: 0,
-          RestQueryKeys.queryShippingId: 0
+          RestQueryKeys.productId: productId,
+          RestQueryKeys.amount: amount,
+          RestQueryKeys.paymentTypeId: paymentTypeId,
+          RestQueryKeys.deliveryAddressId: 0,
+          RestQueryKeys.shippingId: 0
         }
       ]
     };
@@ -73,9 +73,9 @@ class CartService {
 
   Future<Response> removeOrder({required int tin}) {
     final headers = {
-      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
+      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
     };
-    final queryParameters = {RestQueryKeys.queryTin: tin};
+    final queryParameters = {RestQueryKeys.tin: tin};
     return _dio.delete("v1/buyer/products_seller",
         queryParameters: queryParameters, options: Options(headers: headers));
   }

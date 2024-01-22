@@ -7,7 +7,7 @@ import 'package:onlinebozor/common/constants.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/common/widgets/ad/price_text_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/detail_price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/dashboard/see_all_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite/ad_favorite_widget.dart';
 import 'package:onlinebozor/domain/util.dart';
@@ -15,6 +15,7 @@ import 'package:onlinebozor/presentation/ad/ad_detail/cubit/ad_detail_cubit.dart
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../common/core/base_page.dart';
+import '../../../common/enum/enums.dart';
 import '../../../common/gen/assets/assets.gen.dart';
 import '../../../common/widgets/ad/horizontal_ad_list_widget.dart';
 import '../../../common/widgets/common/common_button.dart';
@@ -47,9 +48,9 @@ class AdDetailPage
                   padding: EdgeInsets.symmetric(vertical: 12),
                   child: Row(children: [
                     SizedBox(width: 16),
-                    Strings.adDetailPrice.w(400).s(14).c(Color(0xFF9EABBE)),
+                    Strings.priceTwoDot.w(400).s(14).c(Color(0xFF9EABBE)),
                     SizedBox(width: 8),
-                    PriceTextWidget(
+                    DetailPriceTextWidget(
                       price: state.adDetail!.price,
                       toPrice: state.adDetail!.toPrice,
                       fromPrice: state.adDetail!.fromPrice,
@@ -125,7 +126,7 @@ class AdDetailPage
                                 overflow: TextOverflow.ellipsis,
                               ),
                           SizedBox(height: 16),
-                          PriceTextWidget(
+                          DetailPriceTextWidget(
                             price: state.adDetail!.price,
                             toPrice: state.adDetail!.toPrice,
                             fromPrice: state.adDetail!.fromPrice,
@@ -439,6 +440,7 @@ class AdDetailPage
                           .similarAdsAddFavorite(ad),
                     ),
                   ),
+                  _getRecentlyViewedAdsWidget(context, state)
                 ],
               ),
             ),
@@ -556,6 +558,50 @@ class AdDetailPage
           ]),
         ),
       ]),
+    );
+  }
+
+  Widget _getRecentlyViewedAdsWidget(
+    BuildContext context,
+    AdDetailBuildable state,
+  ) {
+    return Visibility(
+      visible: state.recentlyViewedAdsState != AppLoadingState.loading &&
+          state.recentlyViewedAds.isNotEmpty,
+      child: Column(
+        children: [
+          SizedBox(height: 12),
+          SeeAllWidget(
+            listener: () {
+              context.router.push(
+                AdListRoute(
+                  adListType: AdListType.homeList,
+                  keyWord: '',
+                  title: Strings.recentlyViewedTitle,
+                  sellerTin: null,
+                ),
+              );
+            },
+            title: Strings.recentlyViewedTitle,
+          ),
+          LoaderStateWidget(
+            isFullScreen: false,
+            onErrorToAgainRequest: () {
+              context.read<AdDetailCubit>().getRecentlyViewedAds();
+            },
+            loadingState: state.recentlyViewedAdsState,
+            child: HorizontalAdListWidget(
+              ads: state.recentlyViewedAds,
+              onItemClicked: (Ad ad) {
+                context.router.push(AdDetailRoute(adId: ad.id));
+              },
+              onFavoriteClicked: (Ad ad) {
+                context.read<AdDetailCubit>().recentlyViewAdAddToFavorite(ad);
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

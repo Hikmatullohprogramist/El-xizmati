@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/common/widgets/ad/price_text_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/list_price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/user_ad_stats_widget.dart';
 import 'package:onlinebozor/data/responses/user_ad/user_ad_response.dart';
 import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
@@ -68,7 +68,7 @@ class UserAdWidget extends StatelessWidget {
                       SizedBox(height: 12),
                       Padding(
                         padding: const EdgeInsets.all(0.0),
-                        child: PriceTextWidget(
+                        child: ListPriceTextWidget(
                             price: response.price ?? 0,
                             toPrice: response.to_price ?? 0,
                             fromPrice: response.from_price ?? 0,
@@ -93,7 +93,7 @@ class UserAdWidget extends StatelessWidget {
                       icon: Assets.images.icCall, count: response.phone_view),
                   SizedBox(width: 6),
                   AdStatsWidget(
-                      icon: Assets.images.icSms,
+                      icon: Assets.images.icAdMessage,
                       count: response.message_number),
                   Expanded(
                     child: Row(

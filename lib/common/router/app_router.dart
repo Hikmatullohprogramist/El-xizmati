@@ -7,10 +7,9 @@ import '../../data/responses/address/user_address_response.dart';
 import '../../data/responses/category/category/category_response.dart';
 import '../../data/responses/user_ad/user_ad_response.dart';
 import '../../domain/util.dart';
-import '../../presentation/ad/ad_collection/ad_collection_page.dart';
-import '../../presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
 import '../../presentation/ad/ad_detail/ad_detail_page.dart';
 import '../../presentation/ad/ad_list/ad_list_page.dart';
+import '../../presentation/ad/ad_list_by_type/ad_list_by_type_page.dart';
 import '../../presentation/ad/create_ad/create_ad_page.dart';
 import '../../presentation/ad/create_ad/features/create_exchange_ad/create_exchange_ad_page.dart';
 import '../../presentation/ad/create_ad/features/create_free_ad/create_free_ad_page.dart';
@@ -142,7 +141,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: OrderCreateRoute.page, path: '/order_create'),
 
         // Ads collection
-        AutoRoute(page: AdCollectionRoute.page, path: "/ads_collection"),
+        AutoRoute(page: AdListByTypeRoute.page, path: "/ads_collection"),
         AutoRoute(
           page: AdListRoute.page,
           path: '/ads_list',

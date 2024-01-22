@@ -7,7 +7,7 @@ import '../../../../../common/core/base_cubit.dart';
 import '../../../../../domain/repositories/auth_repository.dart';
 import '../../../../../domain/repositories/state_repository.dart';
 
-part 'profile_dashboard_cubit.freezed.dart';
+part 'profile_cubit.freezed.dart';
 
 part 'profile_state.dart';
 

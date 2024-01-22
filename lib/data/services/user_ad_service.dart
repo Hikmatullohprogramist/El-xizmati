@@ -18,12 +18,12 @@ class UserAdService {
       required int pageIndex,
       required UserAdStatus userAdType}) async {
     final headers = {
-      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
+      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
     };
     final queryParameters = {
-      RestQueryKeys.queryPageSize: pageSiz,
-      RestQueryKeys.queryPageIndex: pageIndex,
-      RestQueryKeys.queryStatus: userAdType.name.toUpperCase()
+      RestQueryKeys.limit: pageSiz,
+      RestQueryKeys.page: pageIndex,
+      RestQueryKeys.status: userAdType.name.toUpperCase()
     };
     return _dio.get("v1/user/adsList",
         queryParameters: queryParameters, options: Options(headers: headers));

@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/constants/rest_query_keys.dart';
 import 'package:onlinebozor/domain/util.dart';
-import 'package:onlinebozor/presentation/ad/ad_collection/cubit/ad_collection_cubit.dart';
 
 import '../constants/rest_header_keys.dart';
 import '../storages/token_storage.dart';
@@ -14,100 +13,92 @@ class AdsService {
 
   AdsService(this._dio, this.tokenStorage);
 
-  Future<Response> getHomeAds(int pageIndex, int pageSize, String keyWord) {
+  Future<Response> getHomeAds(int page, int limit, String keyWord) {
     final queryParameters = {
-      RestQueryKeys.queryPageIndex: pageIndex,
-      RestQueryKeys.queryPageSize: pageSize,
-      RestQueryKeys.queryKeyWord: keyWord
+      RestQueryKeys.page: page,
+      RestQueryKeys.limit: limit,
+      RestQueryKeys.keyWord: keyWord
     };
     return _dio.get('v1/home/ads?', queryParameters: queryParameters);
   }
 
   Future<Response> getHomePopularAds(
-    int pageIndex,
-    int pageSize,
+    int page,
+    int limit,
   ) {
     final queryParameters = {
-      RestQueryKeys.queryPageIndex: pageIndex,
-      RestQueryKeys.queryPageSize: pageSize
+      RestQueryKeys.page: page,
+      RestQueryKeys.limit: limit
     };
     return _dio.get('v1/popular/ads', queryParameters: queryParameters);
   }
 
   Future<Response> getAdDetail(int adId) {
-    final queryParameters = {RestQueryKeys.queryId: adId};
+    final queryParameters = {RestQueryKeys.id: adId};
     return _dio.get('v1/ads/detail/', queryParameters: queryParameters);
   }
 
-  Future<Response> getCollectiveAds(
-      CollectiveType collectiveType, int pageIndex, int pageSize) {
-    String param = CollectiveType.product == collectiveType ? "ADS" : "SERVICE";
+  Future<Response> getCollectiveAds(AdType adType, int page, int limit) {
+    String param = AdType.product == adType ? "ADS" : "SERVICE";
     final queryParameters = {
-      RestQueryKeys.queryPageIndex: pageIndex,
-      RestQueryKeys.queryPageSize: pageSize,
-      RestQueryKeys.queryCollectiveTypeAds: param
+      RestQueryKeys.page: page,
+      RestQueryKeys.limit: limit,
+      RestQueryKeys.adType: param
     };
     return _dio.get("v1/home/ads", queryParameters: queryParameters);
   }
 
-  Future<Response> getCollectivePopularAds({
-    required CollectiveType collectiveType,
-    required int pageIndex,
-    required int pageSize,
+  Future<Response> getPopularAdsByType({
+    required AdType adType,
+    required int page,
+    required int limit,
   }) {
     String param;
-    param = CollectiveType.product == collectiveType ? "ADA" : "SERVICE";
+    param = AdType.product == adType ? "ADA" : "SERVICE";
     final queryParameters = {
-      RestQueryKeys.queryCollectiveTypeAds: param,
-      RestQueryKeys.queryPageIndex: pageIndex,
-      RestQueryKeys.queryPageSize: pageSize,
+      RestQueryKeys.adType: param,
+      RestQueryKeys.page: page,
+      RestQueryKeys.limit: limit,
     };
     return _dio.get("v1/popular/ads", queryParameters: queryParameters);
   }
 
-  Future<Response> getCollectiveRecentlyAds(CollectiveType collectiveType) {
+  Future<Response> getCollectiveRecentlyAds(AdType collectiveType) {
     String param;
-    param = CollectiveType.product == collectiveType ? "ADA" : "SERVICE";
-    final queryParameters = {RestQueryKeys.queryCollectiveTypeAds: param};
+    param = AdType.product == collectiveType ? "ADA" : "SERVICE";
+    final queryParameters = {RestQueryKeys.adType: param};
     return _dio.get("v1/home/ads", queryParameters: queryParameters);
   }
 
   Future<Response> getCollectiveCheapAds({
-    required CollectiveType collectiveType,
-    required int pageIndex,
-    required int pageSize,
+    required AdType adType,
+    required int page,
+    required int limit,
   }) {
     String param;
-    param = CollectiveType.product == collectiveType ? "ADA" : "SERVICE";
+    param = AdType.product == adType ? "ADA" : "SERVICE";
     final queryParameters = {
-      RestQueryKeys.queryCollectiveTypeAds: param,
-      RestQueryKeys.queryPageIndex: pageIndex,
-      RestQueryKeys.queryPageSize: pageSize,
+      RestQueryKeys.adType: param,
+      RestQueryKeys.page: page,
+      RestQueryKeys.limit: limit,
     };
     return _dio.get("v1/home/cheap/ads", queryParameters: queryParameters);
   }
 
-  Future<Response> getCollectiveHotDiscountAds(CollectiveType collectiveType) {
-    String param;
-    param = CollectiveType.product == collectiveType ? "ADA" : "SERVICE";
-    final queryParameters = {RestQueryKeys.queryCollectiveTypeAds: param};
-    return _dio.get("v1/home/ads?", queryParameters: queryParameters);
-  }
-
   Future<Response> getSearchAd(String query) {
-    final queryParameters = {RestQueryKeys.querySearchQuery: query};
+    final queryParameters = {RestQueryKeys.searchQuery: query};
     return _dio.get('v1/search', queryParameters: queryParameters);
   }
 
   Future<Response> getSellerAds({
     required int sellerTin,
-    required int pageIndex,
-    required int pageSize,
+    required int page,
+    required int limit,
   }) {
     final queryParameters = {
-      RestQueryKeys.queryTin: sellerTin,
-      RestQueryKeys.queryPageIndex: pageIndex,
-      RestQueryKeys.queryPageSize: pageSize
+      RestQueryKeys.tin: sellerTin,
+      RestQueryKeys.page: page,
+      RestQueryKeys.limit: limit
     };
     return _dio.get(
       'v1/seller/ads',
@@ -117,13 +108,13 @@ class AdsService {
 
   Future<Response> getSimilarAds({
     required int adId,
-    required int pageIndex,
-    required int pageSize,
+    required int page,
+    required int limit,
   }) {
     final queryParameters = {
-      RestQueryKeys.queryAdsId: adId,
-      RestQueryKeys.queryPageIndex: pageIndex,
-      RestQueryKeys.queryPageSize: pageSize
+      RestQueryKeys.adsId: adId,
+      RestQueryKeys.page: page,
+      RestQueryKeys.limit: limit
     };
     return _dio.get('v1/ads/details/similar', queryParameters: queryParameters);
   }
@@ -133,26 +124,39 @@ class AdsService {
     required int adId,
   }) async {
     final queryParameters = {
-      RestQueryKeys.queryAdsId: adId,
-      RestQueryKeys.queryType: type.name
+      RestQueryKeys.adsId: adId,
+      RestQueryKeys.type: type.name
     };
     return _dio.put('v1/ads/details', queryParameters: queryParameters);
   }
 
-  Future<Response> addAdToRecentlySeed({
-    required StatsType type,
+  Future<Response> addAdToRecentlyViewed({
     required int adId,
   }) async {
     final headers = {
-      RestHeaderKeys.headerAuthorization: "Bearer ${tokenStorage.token.call()}"
+      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
     };
-
-    final queryParameters = {
-      RestQueryKeys.queryProductId: adId,
-      RestQueryKeys.queryType: type.name.toUpperCase()
-    };
+    final queryParameters = {RestQueryKeys.adId: adId};
     return _dio.post(
-      'v1/user/view/ads',
+      'v1/recently-viewed/add',
+      queryParameters: queryParameters,
+      options: Options(headers: headers),
+    );
+  }
+
+  Future<Response> getRecentlyViewedAds({
+    required int page,
+    required int limit,
+  }) {
+    final headers = {
+      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
+    };
+    final queryParameters = {
+      RestQueryKeys.page: page,
+      RestQueryKeys.limit: limit
+    };
+    return _dio.get(
+      'v1/recently-viewed/getAds',
       queryParameters: queryParameters,
       options: Options(headers: headers),
     );
