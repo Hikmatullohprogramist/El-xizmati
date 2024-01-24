@@ -15,7 +15,7 @@ class LoaderStateWidget extends StatelessWidget {
       this.onEmptyWidget});
 
   final bool isFullScreen;
-  final AppLoadingState loadingState;
+  final LoadingState loadingState;
   final Widget child;
   final Widget? onStartWidget;
   final Widget? onEmptyWidget;
@@ -24,11 +24,11 @@ class LoaderStateWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return switch (loadingState) {
-      AppLoadingState.loading => LoadingWidget(isFullScreen: isFullScreen),
-      AppLoadingState.error => ErrorWidget(isFullScreen: isFullScreen),
-      AppLoadingState.success => child,
-      AppLoadingState.onStart => onStartWidget ?? Center(),
-      AppLoadingState.empty => onEmptyWidget ?? Center(),
+      LoadingState.loading => LoadingWidget(isFullScreen: isFullScreen),
+      LoadingState.error => ErrorWidget(isFullScreen: isFullScreen),
+      LoadingState.success => child,
+      LoadingState.onStart => onStartWidget ?? Center(),
+      LoadingState.empty => onEmptyWidget ?? Center(),
     };
   }
 }

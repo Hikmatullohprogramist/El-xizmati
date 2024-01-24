@@ -4,7 +4,7 @@ part of 'user_addresses_cubit.dart';
 class UserAddressesBuildable with _$UserAddressesBuildable {
   const factory UserAddressesBuildable({
     @Default("") String keyWord,
-    @Default(AppLoadingState.loading) AppLoadingState adsState,
+    @Default(LoadingState.loading) LoadingState adsState,
     PagingController<int, UserAddressResponse>? addressPagingController,
   }) = _UserAddressesBuildable;
 }

@@ -4,7 +4,7 @@ part of 'user_inactive_ads_cubit.dart';
 class UserInactiveAdsBuildable with _$UserInactiveAdsBuildable {
   const factory UserInactiveAdsBuildable({
     @Default("") String keyWord,
-    @Default(AppLoadingState.loading) AppLoadingState userAdsState,
+    @Default(LoadingState.loading) LoadingState userAdsState,
     PagingController<int, UserAdResponse>? userAdsPagingController,
   }) = _UserInactiveAdsBuildable;
 }

@@ -4,7 +4,7 @@ part of 'user_cancel_order_cubit.dart';
 class UserCancelOrderBuildable with _$UserCancelOrderBuildable {
   const factory UserCancelOrderBuildable(
       {@Default("") String keyWord,
-      @Default(AppLoadingState.loading) AppLoadingState userOrderState,
+      @Default(LoadingState.loading) LoadingState userOrderState,
       PagingController<int, UserOrderResponse>?
           userOrderPagingController,
       @Default(OrderType.buy) OrderType orderType}) = _UserCancelOrderBuildable;

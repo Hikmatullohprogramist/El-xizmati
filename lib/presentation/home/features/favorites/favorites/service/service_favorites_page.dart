@@ -12,7 +12,7 @@ import '../../../../../../common/gen/localization/strings.dart';
 import '../../../../../../common/widgets/ad/vertical_ad_widget.dart';
 import '../../../../../../common/widgets/common/common_button.dart';
 import '../../../../../../common/widgets/favorite/favorite_empty_widget.dart';
-import '../../../../../../domain/models/ad.dart';
+import '../../../../../../domain/models/ad/ad.dart';
 
 @RoutePage()
 class ServiceFavoritesPage extends BasePage<ServiceFavoritesCubit,

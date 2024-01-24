@@ -4,7 +4,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../../common/core/base_cubit.dart';
-import '../../../../../domain/models/ad.dart';
+import '../../../../../domain/models/ad/ad.dart';
 import '../../../../../domain/repositories/cart_repository.dart';
 import '../../../../../domain/repositories/favorite_repository.dart';
 

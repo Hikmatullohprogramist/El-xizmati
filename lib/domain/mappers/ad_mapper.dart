@@ -1,11 +1,13 @@
 import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
-import 'package:onlinebozor/domain/models/ad.dart';
-import 'package:onlinebozor/domain/util.dart';
+import 'package:onlinebozor/domain/models/ad/ad.dart';
 
 import '../../data/hive_objects/ad/ad_object.dart';
 import '../../data/responses/ad/ad/ad_response.dart';
 import '../../data/responses/ad/ad_detail/ad_detail_response.dart';
-import '../models/ad_detail.dart';
+import '../models/ad/ad_detail.dart';
+import '../models/ad/ad_item_condition.dart';
+import '../models/ad/ad_priority_level.dart';
+import '../models/ad/ad_transaction_type.dart';
 
 extension AdResponseExtension on AdResponse {
   Ad toMap({bool favorite = false}) {
@@ -64,15 +66,15 @@ extension AdDetailResponseExtension on AdDetailResponse {
         currency: currency.toCurrency(),
         isContract: is_contract ?? false,
         adAuthorType: route_type.toAdRouteType(),
-        propertyStatus: property_status.toAdPropertyStatus(),
+        adItemCondition: property_status.toAdPropertyStatus(),
         isAutoRenew: is_autoRenew ?? false,
-        adTypeStatus: type_status.toAdTypeStatus(),
-        adStatus: type.toAdStatus(),
+        adTransactionType: type_status.toAdTypeStatus(),
+        adPriorityLevel: type.toAdStatus(),
         showSocial: show_social ?? false,
         view: view ?? 0,
         addressId: address?.id,
-        otherRouteType: null,
-        otherPropertyStatus: null,
+        adAuthorType2: null,
+        adItemCondition2: null,
         beginDate: begin_date,
         endDate: end_date,
         address: address,
@@ -157,10 +159,10 @@ extension AdDetailExtension on AdDetail {
         fromPrice: fromPrice,
         categoryName: categoryName ?? "",
         categoryId: categoryId ?? -1,
-        adPropertyStatus: AdPropertyStatus.fresh,
+        adPropertyStatus: AdItemCondition.fresh,
         adRouteType: adAuthorType,
-        adStatus: adStatus ?? AdStatus.standard,
-        adTypeStatus: adTypeStatus ?? AdTypeStatus.sell,
+        adStatus: adPriorityLevel ?? AdPriorityLevel.standard,
+        adTypeStatus: adTransactionType ?? AdTransactionType.sell,
         currency: currency,
         isCheck: false,
         isSell: true,

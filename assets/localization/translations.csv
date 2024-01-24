@@ -19,10 +19,11 @@ ad.detail.location,Manzil,Местоположение,Манзил
 ad.detail.number.views,Ko‘rishlar soni,Количество просмотров,Кўришлар сони
 ad.detail.on.online.bozor,OnlineBozorda,на OnlineBozor с,OnlineBozorда
 ad.detail.published.date,Nashr etilgan:,Опубликовано:,Нашр этилган:
-ad.detail.seller,Sotuvchi,Продавец,Сотувчи
+ad.detail.author,Muallif,Автор,Муаллиф
+ad.detail.author.ads,Muallifning boshqa e‘lonlari,Другие объявления автора,Муаллифнинг бошқа эълонлари
 ad.detail.show.more,Ko‘proq ko‘rsatish,Показать больше,Кўпроқ кўрсатиш
-ad.detail.show.phone,Telefonni ko‘rsatish,Показать телефон,Телефонни кўрсатиш
-ad.detail.towritemessge,Xabar yozish uchun,Написать сообщение,Хабар ёзиш учун
+ad.detail.show.phone,Qo‘ng‘iroq,Позвонить,Қўнғироқ
+ad.detail.towritemessge,Sms,Sms,Sms
 ad.detail.view.count.title,Ko‘rishlar:,Просмотров:,Кўришлар:
 ad.empty.description,Bu e‘lonlar hamma uchun ko‘rinadi. Ularning amal qilish muddati faollashtirilgan kundan boshlab 30 kun.,Эти объявления видны всем. Срок их действия - 30 дней с момента активации.,Бу эълонлар ҳамма учун кўринади. Уларнинг амал қилиш муддати фаоллаштирилган кундан бошлаб 30 кун.
 ad.empty.title,Sizda hali hech qanday faol e‘lon yo‘q!,У вас пока нету активных объявлений!,Сизда ҳали ҳеч қандай фаол эълон йўқ!

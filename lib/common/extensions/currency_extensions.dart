@@ -1,6 +1,6 @@
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 
-import '../../domain/util.dart';
+import '../../domain/models/currency/currency.dart';
 
 extension CurrencyExtension on Currency {
   String get getName => getCurrencyName(this);

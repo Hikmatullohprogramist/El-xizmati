@@ -1,4 +1,4 @@
-import '../models/ad.dart';
+import '../models/ad/ad.dart';
 
 abstract class FavoriteRepository {
   Future<int> addFavorite(Ad ad);

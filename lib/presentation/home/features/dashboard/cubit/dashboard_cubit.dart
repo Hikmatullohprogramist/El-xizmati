@@ -7,11 +7,11 @@ import 'package:onlinebozor/common/enum/enums.dart';
 import '../../../../../common/core/base_cubit.dart';
 import '../../../../../data/responses/banner/banner_response.dart';
 import '../../../../../data/responses/category/popular_category/popular_category_response.dart';
-import '../../../../../domain/models/ad.dart';
+import '../../../../../domain/models/ad/ad.dart';
+import '../../../../../domain/models/ad/ad_type.dart';
 import '../../../../../domain/repositories/ad_repository.dart';
 import '../../../../../domain/repositories/common_repository.dart';
 import '../../../../../domain/repositories/favorite_repository.dart';
-import '../../../../../domain/util.dart';
 
 part 'dashboard_cubit.freezed.dart';
 
@@ -47,11 +47,11 @@ class DashboardCubit
 
       build((buildable) => buildable.copyWith(
             popularCategories: popularCategories,
-            popularCategoriesState: AppLoadingState.success,
+            popularCategoriesState: LoadingState.success,
           ));
     } on DioException catch (e, stackTrace) {
       build((buildable) =>
-          buildable.copyWith(popularCategoriesState: AppLoadingState.error));
+          buildable.copyWith(popularCategoriesState: LoadingState.error));
 
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
@@ -68,11 +68,11 @@ class DashboardCubit
 
       build((buildable) => buildable.copyWith(
             popularProductAds: ads,
-            popularProductAdsState: AppLoadingState.success,
+            popularProductAdsState: LoadingState.success,
           ));
     } on DioException catch (e, stackTrace) {
       build((buildable) =>
-          buildable.copyWith(popularProductAdsState: AppLoadingState.error));
+          buildable.copyWith(popularProductAdsState: LoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
@@ -88,11 +88,11 @@ class DashboardCubit
 
       build((buildable) => buildable.copyWith(
             popularServiceAds: ads,
-            popularServiceAdsState: AppLoadingState.success,
+            popularServiceAdsState: LoadingState.success,
           ));
     } on DioException catch (e, stackTrace) {
       build((buildable) =>
-          buildable.copyWith(popularServiceAdsState: AppLoadingState.error));
+          buildable.copyWith(popularServiceAdsState: LoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
@@ -108,11 +108,11 @@ class DashboardCubit
 
       build((buildable) => buildable.copyWith(
             topRatedAds: ads,
-            topRatedAdsState: AppLoadingState.success,
+            topRatedAdsState: LoadingState.success,
           ));
     } on DioException catch (e, stackTrace) {
       build((buildable) =>
-          buildable.copyWith(topRatedAdsState: AppLoadingState.error));
+          buildable.copyWith(topRatedAdsState: LoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
@@ -124,11 +124,11 @@ class DashboardCubit
 
       build((buildable) => buildable.copyWith(
             recentlyViewedAds: ads,
-            recentlyViewedAdsState: AppLoadingState.success,
+            recentlyViewedAdsState: LoadingState.success,
           ));
     } on DioException catch (e, stackTrace) {
       build((buildable) =>
-          buildable.copyWith(recentlyViewedAdsState: AppLoadingState.error));
+          buildable.copyWith(recentlyViewedAdsState: LoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
@@ -139,12 +139,12 @@ class DashboardCubit
       final banners = await commonRepository.getBanner();
 
       build((buildable) => buildable.copyWith(
-          banners: banners, bannersState: AppLoadingState.success));
+          banners: banners, bannersState: LoadingState.success));
 
       log.i("getBanners success = ${buildable.banners}");
     } on DioException catch (e, stackTrace) {
       build((buildable) =>
-          buildable.copyWith(bannersState: AppLoadingState.error));
+          buildable.copyWith(bannersState: LoadingState.error));
       log.e("getBanners error = ${e.toString()}",
           error: e, stackTrace: stackTrace);
       display.error(e.toString());

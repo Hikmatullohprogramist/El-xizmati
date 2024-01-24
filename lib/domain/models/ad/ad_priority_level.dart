@@ -1,0 +1,4 @@
+enum AdPriorityLevel {
+  top,
+  standard,
+}

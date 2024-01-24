@@ -4,7 +4,7 @@ part of 'user_reject_orders_cubit.dart';
 class UserRejectOrdersBuildable with _$UserRejectOrdersBuildable {
   const factory UserRejectOrdersBuildable(
           {@Default("") String keyWord,
-          @Default(AppLoadingState.loading) AppLoadingState userOrderState,
+          @Default(LoadingState.loading) LoadingState userOrderState,
           PagingController<int, UserOrderResponse>?
               userOrderPagingController,
           @Default(OrderType.buy) OrderType orderType}) =

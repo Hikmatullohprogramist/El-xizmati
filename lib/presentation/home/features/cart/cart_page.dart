@@ -11,7 +11,7 @@ import 'package:onlinebozor/common/widgets/common/common_button.dart';
 import 'package:onlinebozor/common/widgets/favorite/favorite_empty_widget.dart';
 
 import '../../../../common/widgets/cart/cart_widget.dart';
-import '../../../../domain/models/ad.dart';
+import '../../../../domain/models/ad/ad.dart';
 import 'cubit/cart_cubit.dart';
 
 @RoutePage()

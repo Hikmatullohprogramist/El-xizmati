@@ -30,7 +30,7 @@ class SelectionCategoryCubit
       build((buildable) => buildable.copyWith(
           selectCategories: result,
           categories: categories,
-          categoriesState: AppLoadingState.success));
+          categoriesState: LoadingState.success));
     } on DioException catch (exception) {
       log.e(exception.toString());
     }

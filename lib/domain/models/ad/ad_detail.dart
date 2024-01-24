@@ -1,7 +1,12 @@
 import 'dart:ffi';
 
-import '../../data/responses/ad/ad_detail/ad_detail_response.dart';
-import '../util.dart';
+import 'package:onlinebozor/domain/models/ad/ad_item_condition.dart';
+
+import '../../../data/responses/ad/ad_detail/ad_detail_response.dart';
+import '../currency/currency.dart';
+import 'ad_author_type.dart';
+import 'ad_priority_level.dart';
+import 'ad_transaction_type.dart';
 
 class AdDetail {
   AdDetail({
@@ -19,11 +24,11 @@ class AdDetail {
     required this.currency,
     required this.isContract,
     required this.adAuthorType,
-    required this.propertyStatus,
+    required this.adItemCondition,
     this.email,
     this.phoneNumber,
     required this.isAutoRenew,
-    required this.adTypeStatus,
+    required this.adTransactionType,
     this.beginDate,
     this.endDate,
     this.createdAt,
@@ -34,7 +39,7 @@ class AdDetail {
     this.sellerPhone,
     this.otherName,
     this.otherDescription,
-    required this.adStatus,
+    required this.adPriorityLevel,
     required this.showSocial,
     this.hasFreeShipping,
     this.hasShipping,
@@ -58,8 +63,8 @@ class AdDetail {
     this.photos,
     this.address,
     this.paymentTypes,
-    this.otherRouteType,
-    this.otherPropertyStatus,
+    this.adAuthorType2,
+    this.adItemCondition2,
     required this.favorite,
     required this.isAddCart,
   });
@@ -78,11 +83,11 @@ class AdDetail {
   final Currency currency;
   bool? isContract;
   final AdAuthorType adAuthorType;
-  final AdPropertyStatus propertyStatus;
+  final AdItemCondition adItemCondition;
   String? email;
   String? phoneNumber;
   final bool isAutoRenew;
-  final AdTypeStatus? adTypeStatus;
+  final AdTransactionType? adTransactionType;
   String? beginDate;
   String? endDate;
   String? createdAt;
@@ -93,9 +98,9 @@ class AdDetail {
   String? sellerPhone;
   String? otherName;
   String? otherDescription;
-  AdAuthorType? otherRouteType;
-  AdPropertyStatus? otherPropertyStatus;
-  AdStatus? adStatus;
+  AdAuthorType? adAuthorType2;
+  AdItemCondition? adItemCondition2;
+  AdPriorityLevel? adPriorityLevel;
   final bool showSocial;
   dynamic hasFreeShipping;
   dynamic hasShipping;

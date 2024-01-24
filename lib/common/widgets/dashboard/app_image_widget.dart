@@ -10,11 +10,13 @@ class AppImageWidget extends StatelessWidget {
 
   final controller = PageController(viewportFraction: 1, keepPage: true);
 
+  // int currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      height: 440,
+      height: 460,
       child: Column(
         children: [
           Container(
@@ -26,29 +28,37 @@ class AppImageWidget extends StatelessWidget {
                 physics: BouncingScrollPhysics(),
                 itemCount: images.length,
                 itemBuilder: (context, index) {
+                  // currentIndex = index;
                   return InkWell(
                       onTap: () => invoke(index),
                       child: CachedNetworkImage(
                         imageUrl: images[index],
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
-                            // borderRadius: BorderRadius.circular(6),
                             image: DecorationImage(
-                                image: imageProvider,
-                                fit: BoxFit.fill,
-                                colorFilter: ColorFilter.mode(
-                                    Colors.grey, BlendMode.colorBurn)),
+                              image: imageProvider,
+                              fit: BoxFit.fill,
+                              colorFilter: ColorFilter.mode(
+                                Colors.grey,
+                                BlendMode.colorBurn,
+                              ),
+                            ),
                           ),
                         ),
                         placeholder: (context, url) => Center(),
-                        errorWidget: (context, url, error) =>
-                            Icon(Icons.error),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
                       ));
                 },
               ),
             ),
           ),
           SizedBox(height: 12),
+          // CustomIndicator(
+          //   itemCount: images.length, // Number of pages
+          //   currentPageIndex: currentIndex,
+          //   activeIcon: Assets.images.icDotSelected,
+          //   inactiveIcon: Assets.images.icDotUnselected,
+          // ),
           SmoothPageIndicator(
             controller: controller,
             count: images.length,

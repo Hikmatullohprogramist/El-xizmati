@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
-import '../../../domain/util.dart';
+import '../../../domain/models/ad/ad_author_type.dart';
 import '../../gen/localization/strings.dart';
 
 class ListAdAuthorTypeChipWidget extends StatelessWidget {
-  const ListAdAuthorTypeChipWidget(
-      {super.key, required this.adAuthorType, required this.isHorizontal});
+  const ListAdAuthorTypeChipWidget({
+    super.key,
+    required this.adAuthorType,
+    required this.isHorizontal,
+  });
 
   final AdAuthorType adAuthorType;
   final bool isHorizontal;

@@ -6,7 +6,9 @@ import 'package:onlinebozor/presentation/home/home_page.dart';
 import '../../data/responses/address/user_address_response.dart';
 import '../../data/responses/category/category/category_response.dart';
 import '../../data/responses/user_ad/user_ad_response.dart';
-import '../../domain/util.dart';
+import '../../domain/models/ad/ad_list_type.dart';
+import '../../domain/models/ad/ad_type.dart';
+import '../../domain/models/order/order_type.dart';
 import '../../presentation/ad/ad_detail/ad_detail_page.dart';
 import '../../presentation/ad/ad_list/ad_list_page.dart';
 import '../../presentation/ad/ad_list_by_type/ad_list_by_type_page.dart';
@@ -86,8 +88,7 @@ class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
         //
-        AutoRoute(
-            page: SetLanguageRoute.page, path: "/set_language", initial: true),
+        AutoRoute(page: SetLanguageRoute.page, path: "/set_language", initial: true),
         AutoRoute(page: AuthStartRoute.page, path: "/auth_start"),
         AutoRoute(page: ConfirmRoute.page, path: '/confirmation'),
         AutoRoute(page: VerificationRoute.page, path: '/verification'),

@@ -5,7 +5,7 @@ class AdListBuildable with _$AdListBuildable {
   const factory AdListBuildable({
     @Default("") String keyWord,
     @Default(AdListType.homePopularAds) AdListType adListType,
-    @Default(AppLoadingState.loading) AppLoadingState adsState,
+    @Default(LoadingState.loading) LoadingState adsState,
     PagingController<int, Ad>? adsPagingController,
     int? sellerTin,
     int? adId,

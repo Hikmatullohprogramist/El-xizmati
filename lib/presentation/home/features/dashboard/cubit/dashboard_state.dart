@@ -8,17 +8,17 @@ class DashboardBuildable with _$DashboardBuildable {
   const factory DashboardBuildable({
     @Default(<PopularCategoryResponse>[])
     List<PopularCategoryResponse> popularCategories,
-    @Default(AppLoadingState.loading) AppLoadingState popularCategoriesState,
+    @Default(LoadingState.loading) LoadingState popularCategoriesState,
     @Default(<Ad>[]) List<Ad> popularProductAds,
-    @Default(AppLoadingState.loading) AppLoadingState popularProductAdsState,
+    @Default(LoadingState.loading) LoadingState popularProductAdsState,
     @Default(<Ad>[]) List<Ad> popularServiceAds,
-    @Default(AppLoadingState.loading) AppLoadingState popularServiceAdsState,
+    @Default(LoadingState.loading) LoadingState popularServiceAdsState,
     @Default(<Ad>[]) List<Ad> topRatedAds,
-    @Default(AppLoadingState.loading) AppLoadingState topRatedAdsState,
+    @Default(LoadingState.loading) LoadingState topRatedAdsState,
     @Default(<Ad>[]) List<Ad> recentlyViewedAds,
-    @Default(AppLoadingState.loading) AppLoadingState recentlyViewedAdsState,
+    @Default(LoadingState.loading) LoadingState recentlyViewedAdsState,
     @Default(<BannerResponse>[]) List<BannerResponse> banners,
-    @Default(AppLoadingState.loading) AppLoadingState bannersState,
+    @Default(LoadingState.loading) LoadingState bannersState,
     PagingController<int, Ad>? adsPagingController,
   }) = _DashboardBuildable;
 }

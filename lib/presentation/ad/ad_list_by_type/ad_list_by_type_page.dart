@@ -15,8 +15,9 @@ import '../../../common/core/base_page.dart';
 import '../../../common/widgets/ad/vertical_ad_widget.dart';
 import '../../../common/widgets/common/common_button.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
-import '../../../domain/models/ad.dart';
-import '../../../domain/util.dart';
+import '../../../domain/models/ad/ad.dart';
+import '../../../domain/models/ad/ad_list_type.dart';
+import '../../../domain/models/ad/ad_type.dart';
 import 'cubit/ad_list_by_type_cubit.dart';
 
 @RoutePage()
@@ -79,8 +80,8 @@ class AdListByTypePage extends BasePage<AdListByTypeCubit,
                     SeeAllWidget(
                         listener: () {
                           context.router.push(AdListRoute(
-                              collectiveType: state.adType,
-                              adListType: AdListType.collectionCheapAds,
+                              adType: state.adType,
+                              adListType: AdListType.cheaperAdsByAdType,
                               keyWord: '',
                               title: "eng arzonlari"));
                         },
@@ -102,8 +103,8 @@ class AdListByTypePage extends BasePage<AdListByTypeCubit,
                     SeeAllWidget(
                         listener: () {
                           context.router.push(AdListRoute(
-                            collectiveType: state.adType,
-                            adListType: AdListType.collectionPopularAds,
+                            adType: state.adType,
+                            adListType: AdListType.popularAdsByAdType,
                             keyWord: '',
                             title: Strings.adCollectivePopular,
                           ));

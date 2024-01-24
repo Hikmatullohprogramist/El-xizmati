@@ -4,8 +4,8 @@ part of 'ad_list_by_type_cubit.dart';
 class AdListByTypeBuildable with _$AdListByTypeBuildable {
   const factory AdListByTypeBuildable({
     @Default(AdType.product) AdType adType,
-    @Default(AppLoadingState.loading) AppLoadingState cheapAdsState,
-    @Default(AppLoadingState.loading) AppLoadingState popularAdsState,
+    @Default(LoadingState.loading) LoadingState cheapAdsState,
+    @Default(LoadingState.loading) LoadingState popularAdsState,
     PagingController<int, Ad>? adsPagingController,
     @Default(<Ad>[]) List<Ad> cheapAds,
     @Default(<Ad>[]) List<Ad> popularAds,

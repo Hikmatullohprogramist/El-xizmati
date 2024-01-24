@@ -13,7 +13,7 @@ import '../../../../../../../../common/widgets/ad/user_ad_empty_widget.dart';
 import '../../../../../../../../common/widgets/common/common_button.dart';
 import '../../../../../../../../common/widgets/order/user_order.dart';
 import '../../../../../../../../data/responses/user_order/user_order_response.dart';
-import '../../../../../../../../domain/util.dart';
+import '../../../../../../../../domain/models/order/order_type.dart';
 
 @RoutePage()
 class UserRejectOrdersPage extends BasePage<UserRejectOrdersCubit,

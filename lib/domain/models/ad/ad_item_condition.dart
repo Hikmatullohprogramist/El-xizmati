@@ -1,0 +1,4 @@
+enum AdItemCondition {
+  fresh,
+  used,
+}

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/widgets/ad/top_rated_ad_widget.dart';
 
-import '../../../domain/models/ad.dart';
+import '../../../domain/models/ad/ad.dart';
 
 class TopRatedAdListWidget extends StatelessWidget {
   const TopRatedAdListWidget({

@@ -4,7 +4,7 @@ part of 'user_cancel_ads_cubit.dart';
 class UserCancelAdsBuildable with _$UserCancelAdsBuildable {
   const factory UserCancelAdsBuildable({
     @Default("") String keyWord,
-    @Default(AppLoadingState.loading) AppLoadingState userAdsState,
+    @Default(LoadingState.loading) LoadingState userAdsState,
     PagingController<int, UserAdResponse>? userAdsPagingController,
   }) = _UserCancelAdsBuildable;
 }

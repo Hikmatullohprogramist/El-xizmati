@@ -4,7 +4,7 @@ part of 'user_review_orders_cubit.dart';
 class UserReviewOrdersBuildable with _$UserReviewOrdersBuildable {
   const factory UserReviewOrdersBuildable(
           {@Default("") String keyWord,
-          @Default(AppLoadingState.loading) AppLoadingState userOrderState,
+          @Default(LoadingState.loading) LoadingState userOrderState,
           PagingController<int, UserOrderResponse>?
               userOrderPagingController,
           @Default(OrderType.buy) OrderType orderType}) =

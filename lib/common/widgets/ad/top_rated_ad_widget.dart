@@ -6,7 +6,7 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/ad/list_price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite/ad_favorite_widget.dart';
 
-import '../../../domain/models/ad.dart';
+import '../../../domain/models/ad/ad.dart';
 import '../../constants.dart';
 
 class TopRatedAdWidget extends StatelessWidget {

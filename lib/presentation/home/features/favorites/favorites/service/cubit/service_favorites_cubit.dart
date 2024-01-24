@@ -4,10 +4,9 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/enum/enums.dart';
 import '../../../../../../../common/core/base_cubit_new.dart';
-import '../../../../../../../domain/models/ad.dart';
+import '../../../../../../../domain/models/ad/ad.dart';
+import '../../../../../../../domain/models/ad/ad_list_type.dart';
 import '../../../../../../../domain/repositories/favorite_repository.dart';
-import '../../../../../../../domain/util.dart';
-
 
 part 'service_favorites_cubit.freezed.dart';
 part 'service_favorites_state.dart';

@@ -4,7 +4,7 @@ import 'package:onlinebozor/data/responses/add_result/add_result_response.dart';
 import 'package:onlinebozor/data/services/cart_service.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 
-import '../../domain/models/ad.dart';
+import '../../domain/models/ad/ad.dart';
 import '../../domain/repositories/cart_repository.dart';
 import '../responses/ad/ad/ad_response.dart';
 import '../storages/cart_storage.dart';

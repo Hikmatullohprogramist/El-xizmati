@@ -4,7 +4,7 @@ part of 'user_pending_ads_cubit.dart';
 class UserPendingAdsBuildable with _$UserPendingAdsBuildable {
   const factory UserPendingAdsBuildable({
     @Default("") String keyWord,
-    @Default(AppLoadingState.loading) AppLoadingState userAdsState,
+    @Default(LoadingState.loading) LoadingState userAdsState,
     PagingController<int, UserAdResponse>? userAdsPagingController,
   }) = _UserPendingAdsBuildable;
 }

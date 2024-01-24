@@ -12,27 +12,28 @@ import '../../../common/core/base_page.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/widgets/ad/vertical_ad_widget.dart';
 import '../../../common/widgets/common/common_button.dart';
-import '../../../domain/models/ad.dart';
-import '../../../domain/util.dart';
+import '../../../domain/models/ad/ad.dart';
+import '../../../domain/models/ad/ad_list_type.dart';
+import '../../../domain/models/ad/ad_type.dart';
 
 @RoutePage()
 class AdListPage
     extends BasePage<AdListCubit, AdListBuildable, AdListListenable> {
   const AdListPage(this.adListType, this.keyWord, this.title,
-      {super.key, this.sellerTin, this.adId, this.collectiveType});
+      {super.key, this.sellerTin, this.adId, this.adType});
 
   final AdListType adListType;
   final String? keyWord;
   final String? title;
   final int? sellerTin;
   final int? adId;
-  final AdType? collectiveType;
+  final AdType? adType;
 
   @override
   void init(BuildContext context) {
     context
         .read<AdListCubit>()
-        .setInitiallyDate(keyWord, adListType, sellerTin, adId, collectiveType);
+        .setInitiallyDate(keyWord, adListType, sellerTin, adId, adType);
   }
 
   @override

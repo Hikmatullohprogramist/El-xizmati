@@ -5,9 +5,10 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
 import 'package:onlinebozor/data/responses/user_order/user_order_response.dart';
 import 'package:onlinebozor/domain/repositories/user_order_repository.dart';
-import 'package:onlinebozor/domain/util.dart';
 
 import '../../../../../../../../../common/enum/enums.dart';
+import '../../../../../../../../../domain/models/order/order_type.dart';
+import '../../../../../../../../../domain/models/order/user_order_status.dart';
 
 part 'user_accept_orders_cubit.freezed.dart';
 part 'user_accept_orders_state.dart';
@@ -50,9 +51,9 @@ class UserAcceptOrdersCubit
     adController.addPageRequestListener(
       (pageKey) async {
         final orderList = await userOrderRepository.getUserOrders(
-            pageSiz: 20,
+            limit: 20,
             userOrderStatus: UserOrderStatus.accept,
-            pageIndex: pageKey,
+            page: pageKey,
             orderType: buildable.orderType);
         if (orderList.length <= 19) {
           adController.appendLastPage(orderList);

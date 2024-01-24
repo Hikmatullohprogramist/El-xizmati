@@ -5,7 +5,7 @@ class ProductFavoritesBuildable with _$ProductFavoritesBuildable {
   const factory ProductFavoritesBuildable({
     @Default("") String keyWord,
     @Default(AdListType.homePopularAds) AdListType adListType,
-    @Default(AppLoadingState.loading) AppLoadingState adsState,
+    @Default(LoadingState.loading) LoadingState adsState,
     PagingController<int, Ad>? adsPagingController,
   }) = _ProductFavoritesBuildable;
 }

@@ -1,4 +1,10 @@
-import 'package:onlinebozor/domain/util.dart';
+
+
+import '../currency/currency.dart';
+import 'ad_author_type.dart';
+import 'ad_item_condition.dart';
+import 'ad_priority_level.dart';
+import 'ad_transaction_type.dart';
 
 class Ad {
   Ad(
@@ -35,9 +41,9 @@ class Ad {
   final String region;
   final String district;
   final AdAuthorType adRouteType;
-  final AdPropertyStatus adPropertyStatus;
-  final AdStatus adStatus;
-  final AdTypeStatus adTypeStatus;
+  final AdItemCondition adPropertyStatus;
+  final AdPriorityLevel adStatus;
+  final AdTransactionType adTypeStatus;
   final int fromPrice;
   final int toPrice;
   final int categoryId;

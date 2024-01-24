@@ -5,11 +5,11 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/enum/enums.dart';
 
 import '../../../../common/core/base_cubit.dart';
-import '../../../../domain/models/ad.dart';
+import '../../../../domain/models/ad/ad.dart';
+import '../../../../domain/models/ad/ad_type.dart';
 import '../../../../domain/repositories/ad_repository.dart';
 import '../../../../domain/repositories/common_repository.dart';
 import '../../../../domain/repositories/favorite_repository.dart';
-import '../../../../domain/util.dart';
 
 part 'ad_list_by_type_cubit.freezed.dart';
 
@@ -46,10 +46,10 @@ class AdListByTypeCubit
       final cheapAds = await adRepository.getCheapAdsByType(
           adType: buildable.adType, page: 1, limit: 10);
       build((buildable) => buildable.copyWith(
-          cheapAds: cheapAds, cheapAdsState: AppLoadingState.success));
+          cheapAds: cheapAds, cheapAdsState: LoadingState.success));
     } on DioException catch (e, stackTrace) {
       build((buildable) =>
-          buildable.copyWith(cheapAdsState: AppLoadingState.error));
+          buildable.copyWith(cheapAdsState: LoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
@@ -60,10 +60,10 @@ class AdListByTypeCubit
       final popularAds = await adRepository.getPopularAdsByType(
           adType: buildable.adType, page: 1, limit: 10);
       build((buildable) => buildable.copyWith(
-          popularAds: popularAds, popularAdsState: AppLoadingState.success));
+          popularAds: popularAds, popularAdsState: LoadingState.success));
     } on DioException catch (e, stackTrace) {
       build((buildable) =>
-          buildable.copyWith(popularAdsState: AppLoadingState.error));
+          buildable.copyWith(popularAdsState: LoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }

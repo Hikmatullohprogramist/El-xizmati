@@ -6,7 +6,7 @@ import 'package:logger/logger.dart';
 import 'package:onlinebozor/data/constants/rest_header_keys.dart';
 import 'package:onlinebozor/data/constants/rest_query_keys.dart';
 
-import '../../domain/models/ad.dart';
+import '../../domain/models/ad/ad.dart';
 import '../storages/token_storage.dart';
 
 @lazySingleton

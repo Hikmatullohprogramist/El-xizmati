@@ -4,7 +4,7 @@ part of 'user_pending_orders_cubit.dart';
 class UserPendingOrdersBuildable with _$UserPendingOrdersBuildable {
   const factory UserPendingOrdersBuildable(
           {@Default("") String keyWord,
-          @Default(AppLoadingState.loading) AppLoadingState userOrderState,
+          @Default(LoadingState.loading) LoadingState userOrderState,
           PagingController<int, UserOrderResponse>?
               userOrderPagingController,
           @Default(OrderType.buy) OrderType orderType}) =

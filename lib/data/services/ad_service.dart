@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/constants/rest_query_keys.dart';
-import 'package:onlinebozor/domain/util.dart';
 
+import '../../domain/models/ad/ad_type.dart';
+import '../../domain/models/stats/stats_type.dart';
 import '../constants/rest_header_keys.dart';
 import '../storages/token_storage.dart';
 
@@ -38,7 +39,7 @@ class AdsService {
     return _dio.get('v1/ads/detail/', queryParameters: queryParameters);
   }
 
-  Future<Response> getCollectiveAds(AdType adType, int page, int limit) {
+  Future<Response> getAdsByAdType(AdType adType, int page, int limit) {
     String param = AdType.product == adType ? "ADS" : "SERVICE";
     final queryParameters = {
       RestQueryKeys.page: page,
@@ -63,14 +64,14 @@ class AdsService {
     return _dio.get("v1/popular/ads", queryParameters: queryParameters);
   }
 
-  Future<Response> getCollectiveRecentlyAds(AdType collectiveType) {
+  Future<Response> getRecentlyAdsByAdType(AdType adType) {
     String param;
-    param = AdType.product == collectiveType ? "ADA" : "SERVICE";
+    param = AdType.product == adType ? "ADA" : "SERVICE";
     final queryParameters = {RestQueryKeys.adType: param};
     return _dio.get("v1/home/ads", queryParameters: queryParameters);
   }
 
-  Future<Response> getCollectiveCheapAds({
+  Future<Response> getCheapAdsByAdType({
     required AdType adType,
     required int page,
     required int limit,
@@ -90,7 +91,7 @@ class AdsService {
     return _dio.get('v1/search', queryParameters: queryParameters);
   }
 
-  Future<Response> getSellerAds({
+  Future<Response> getAdsByUser({
     required int sellerTin,
     required int page,
     required int limit,
@@ -101,7 +102,7 @@ class AdsService {
       RestQueryKeys.limit: limit
     };
     return _dio.get(
-      'v1/seller/ads',
+      'v1/seller/get-ads',
       queryParameters: queryParameters,
     );
   }

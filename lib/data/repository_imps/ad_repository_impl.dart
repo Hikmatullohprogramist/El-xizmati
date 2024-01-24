@@ -1,9 +1,10 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
-import 'package:onlinebozor/domain/util.dart';
 
-import '../../domain/models/ad.dart';
-import '../../domain/models/ad_detail.dart';
+import '../../domain/models/ad/ad.dart';
+import '../../domain/models/ad/ad_detail.dart';
+import '../../domain/models/ad/ad_type.dart';
+import '../../domain/models/stats/stats_type.dart';
 import '../../domain/repositories/ad_repository.dart';
 import '../responses/ad/ad/ad_response.dart';
 import '../responses/ad/ad_detail/ad_detail_response.dart';
@@ -65,7 +66,7 @@ class AdRepositoryImpl extends AdRepository {
       required int page,
       required int limit}) async {
     final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
-    final response = await _adsService.getCollectiveCheapAds(
+    final response = await _adsService.getCheapAdsByAdType(
         adType: adType, page: page, limit: limit);
     final adsResponse = AdRootResponse.fromJson(response.data).data.results;
     final ads = adsResponse
@@ -100,7 +101,7 @@ class AdRepositoryImpl extends AdRepository {
       required int limit,
       required AdType adType}) async {
     final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
-    final response = await _adsService.getCollectiveAds(adType, page, limit);
+    final response = await _adsService.getAdsByAdType(adType, page, limit);
     final adsResponse = AdRootResponse.fromJson(response.data).data.results;
     final ads = adsResponse
         .map(
@@ -136,13 +137,13 @@ class AdRepositoryImpl extends AdRepository {
   }
 
   @override
-  Future<List<Ad>> getSellerAds({
+  Future<List<Ad>> getAdsByUser({
     required int sellerTin,
     required int page,
     required int limit,
   }) async {
     final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
-    final response = await _adsService.getSellerAds(
+    final response = await _adsService.getAdsByUser(
         sellerTin: sellerTin, page: page, limit: limit);
     final adsResponse = AdRootResponse.fromJson(response.data).data.results;
     final ads = adsResponse

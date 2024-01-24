@@ -3,7 +3,7 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 
-import '../../../domain/util.dart';
+import '../../../domain/models/ad/ad_type.dart';
 
 class AdTypeWidget extends StatelessWidget {
   const AdTypeWidget({super.key, required this.adType});

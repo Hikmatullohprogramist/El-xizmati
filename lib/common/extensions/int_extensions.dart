@@ -1,5 +1,6 @@
 import 'package:onlinebozor/common/constants.dart';
-import 'package:onlinebozor/domain/util.dart';
+
+import '../../domain/models/currency/currency.dart';
 
 extension IntExtensions on int {
   String priceToFormatWithCurrency(Currency currency) {

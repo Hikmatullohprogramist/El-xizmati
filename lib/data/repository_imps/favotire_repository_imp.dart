@@ -3,9 +3,9 @@ import 'package:logger/logger.dart';
 import 'package:onlinebozor/data/responses/add_result/add_result_response.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 import 'package:onlinebozor/domain/repositories/favorite_repository.dart';
-import 'package:onlinebozor/domain/util.dart';
 
-import '../../domain/models/ad.dart';
+import '../../domain/models/ad/ad.dart';
+import '../../domain/models/ad/ad_transaction_type.dart';
 import '../responses/ad/ad/ad_response.dart';
 import '../services/ad_service.dart';
 import '../services/favorite_service.dart';
@@ -88,10 +88,10 @@ class FavoriteRepositoryImp extends FavoriteRepository {
       final result = favoriteStorage.allItems;
       return result
           .map((item) => item.toMap(favorite: true))
-          .where((element) => (element.adTypeStatus == AdTypeStatus.sell ||
-              element.adTypeStatus == AdTypeStatus.free ||
-              element.adTypeStatus == AdTypeStatus.exchange ||
-              element.adTypeStatus == AdTypeStatus.buy))
+          .where((element) => (element.adTypeStatus == AdTransactionType.sell ||
+              element.adTypeStatus == AdTransactionType.free ||
+              element.adTypeStatus == AdTransactionType.exchange ||
+              element.adTypeStatus == AdTransactionType.buy))
           .toList();
     } catch (e) {
       return List.empty();
@@ -118,8 +118,8 @@ class FavoriteRepositoryImp extends FavoriteRepository {
       final result = favoriteStorage.allItems;
       return result
           .map((e) => e.toMap(favorite: true))
-          .where((element) => (element.adTypeStatus == AdTypeStatus.service ||
-              element.adTypeStatus == AdTypeStatus.buyService))
+          .where((element) => (element.adTypeStatus == AdTransactionType.service ||
+              element.adTypeStatus == AdTransactionType.buyService))
           .toList();
     } catch (e) {
       return List.empty();

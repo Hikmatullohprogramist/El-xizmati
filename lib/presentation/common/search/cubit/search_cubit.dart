@@ -18,14 +18,14 @@ class SearchCubit extends BaseCubit<SearchBuildable, SearchListenable> {
   Future<void> getSearchResult(String request) async {
     try {
       build((buildable) =>
-          buildable.copyWith(appLoadingState: AppLoadingState.loading));
+          buildable.copyWith(appLoadingState: LoadingState.loading));
       final result = await _repository.getSearch(request);
       if (result.isNotEmpty) {
         build((buildable) => buildable.copyWith(
-            searchResult: result, appLoadingState: AppLoadingState.success));
+            searchResult: result, appLoadingState: LoadingState.success));
       } else {
         build((buildable) =>
-            buildable.copyWith(appLoadingState: AppLoadingState.empty));
+            buildable.copyWith(appLoadingState: LoadingState.empty));
       }
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);

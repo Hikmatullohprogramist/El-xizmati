@@ -11,7 +11,7 @@ import '../../../../../common/router/app_router.dart';
 import '../../../../../common/widgets/category/category_widget.dart';
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../../../data/responses/category/category/category_response.dart';
-import '../../../../../domain/util.dart';
+import '../../../../../domain/models/ad/ad_list_type.dart';
 
 @RoutePage()
 class SubCategoryPage extends BasePage<SubCategoryCubit, SubCategoryBuildable,

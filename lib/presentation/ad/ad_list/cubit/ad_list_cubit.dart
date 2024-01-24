@@ -2,11 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/domain/util.dart';
 
 import '../../../../common/core/base_cubit.dart';
 import '../../../../common/enum/enums.dart';
-import '../../../../domain/models/ad.dart';
+import '../../../../domain/models/ad/ad.dart';
+import '../../../../domain/models/ad/ad_list_type.dart';
+import '../../../../domain/models/ad/ad_type.dart';
 import '../../../../domain/repositories/ad_repository.dart';
 import '../../../../domain/repositories/common_repository.dart';
 import '../../../../domain/repositories/favorite_repository.dart';
@@ -71,34 +72,35 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
               page: pageKey,
               limit: _pageSize,
             );
-          case AdListType.sellerProductAds:
-            adsList = await adRepository.getSellerAds(
-                sellerTin: buildable.sellerTin ?? -1,
-                page: pageKey,
-                limit: 20);
+          case AdListType.adsByUser:
+            adsList = await adRepository.getAdsByUser(
+                sellerTin: buildable.sellerTin ?? -1, page: pageKey, limit: 20);
           case AdListType.similarAds:
             adsList = await adRepository.getSimilarAds(
                 adId: buildable.adId ?? 0, page: pageKey, limit: 20);
           case AdListType.popularCategoryAds:
             adsList = await adRepository.getHomeAds(
                 pageKey, _pageSize, buildable.keyWord);
-          case AdListType.collectionCheapAds:
+          case AdListType.cheaperAdsByAdType:
             adsList = await adRepository.getCheapAdsByType(
                 adType: buildable.collectiveType ?? AdType.product,
                 page: pageKey,
                 limit: 20);
-          case AdListType.collectionPopularAds:
+          case AdListType.popularAdsByAdType:
             adsList = await adRepository.getPopularAdsByType(
                 adType: buildable.collectiveType ?? AdType.product,
                 page: pageKey,
                 limit: 20);
+          case AdListType.recentlyViewedAds:
+            adsList = await adRepository.getRecentlyViewedAds(
+                page: pageKey, limit: 20);
         }
 
         if (buildable.adListType == AdListType.homePopularAds ||
-            buildable.adListType == AdListType.collectionCheapAds ||
-            buildable.adListType == AdListType.collectionPopularAds ||
+            buildable.adListType == AdListType.cheaperAdsByAdType ||
+            buildable.adListType == AdListType.popularAdsByAdType ||
             buildable.adListType == AdListType.popularCategoryAds ||
-            buildable.adListType == AdListType.sellerProductAds ||
+            buildable.adListType == AdListType.adsByUser ||
             buildable.adListType == AdListType.similarAds) {
           adController.appendLastPage(adsList);
           log.i(buildable.adsPagingController);

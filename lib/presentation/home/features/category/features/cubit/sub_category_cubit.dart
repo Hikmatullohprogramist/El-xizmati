@@ -26,12 +26,12 @@ class SubCategoryCubit
           .toList();
       log.i(categories.toString());
       build((buildable) => buildable.copyWith(
-          categories: result, categoriesState: AppLoadingState.success));
+          categories: result, categoriesState: LoadingState.success));
     } on DioException catch (exception) {
       log.e(exception.toString());
       display.error(exception.toString());
       build((buildable) =>
-          buildable.copyWith(categoriesState: AppLoadingState.error));
+          buildable.copyWith(categoriesState: LoadingState.error));
     }
   }
 }

@@ -6,8 +6,9 @@ import 'package:onlinebozor/common/core/base_cubit.dart';
 
 import '../../../../../../../../../common/enum/enums.dart';
 import '../../../../../../../../../data/responses/user_order/user_order_response.dart';
+import '../../../../../../../../../domain/models/order/order_type.dart';
+import '../../../../../../../../../domain/models/order/user_order_status.dart';
 import '../../../../../../../../../domain/repositories/user_order_repository.dart';
-import '../../../../../../../../../domain/util.dart';
 
 part 'user_review_orders_cubit.freezed.dart';
 part 'user_review_orders_state.dart';
@@ -50,9 +51,9 @@ class UserReviewOrdersCubit
     adController.addPageRequestListener(
       (pageKey) async {
         final orderList = await userOrderRepository.getUserOrders(
-            pageSiz: 20,
+            limit: 20,
             userOrderStatus: UserOrderStatus.review,
-            pageIndex: pageKey,
+            page: pageKey,
             orderType: buildable.orderType);
         if (orderList.length <= 19) {
           adController.appendLastPage(orderList);

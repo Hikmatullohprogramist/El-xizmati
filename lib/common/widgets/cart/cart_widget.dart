@@ -6,8 +6,8 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/common/common_button.dart';
 
-import '../../../domain/models/ad.dart';
-import '../../../domain/util.dart';
+import '../../../domain/models/ad/ad.dart';
+import '../../../domain/models/currency/currency.dart';
 import '../../constants.dart';
 import '../../gen/assets/assets.gen.dart';
 

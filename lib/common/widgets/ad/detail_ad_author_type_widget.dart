@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
-import '../../../domain/util.dart';
+import '../../../domain/models/ad/ad_author_type.dart';
 import '../../gen/localization/strings.dart';
 
 class DetailAdAuthorTypeWidget extends StatelessWidget {

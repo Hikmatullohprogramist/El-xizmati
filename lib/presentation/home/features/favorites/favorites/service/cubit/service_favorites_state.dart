@@ -5,7 +5,7 @@ class ServiceFavoritesBuildable with _$ServiceFavoritesBuildable {
   const factory ServiceFavoritesBuildable({
     @Default("") String keyWord,
     @Default(AdListType.homePopularAds) AdListType adListType,
-    @Default(AppLoadingState.loading) AppLoadingState adsState,
+    @Default(LoadingState.loading) LoadingState adsState,
     PagingController<int, Ad>? adsPagingController,
   }) = _ServiceFavoritesBuildable;
 }

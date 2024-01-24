@@ -8,9 +8,11 @@ class AdDetailBuildable with _$AdDetailBuildable {
     @Default(false) bool isAddCart,
     @Default(false) bool isPhoneVisible,
     @Default(<Ad>[]) List<Ad> similarAds,
-    @Default(AppLoadingState.loading) AppLoadingState similarAdsState,
+    @Default(LoadingState.loading) LoadingState similarAdsState,
+    @Default(<Ad>[]) List<Ad> ownerAds,
+    @Default(LoadingState.loading) LoadingState ownerAdsState,
     @Default(<Ad>[]) List<Ad> recentlyViewedAds,
-    @Default(AppLoadingState.loading) AppLoadingState recentlyViewedAdsState,
+    @Default(LoadingState.loading) LoadingState recentlyViewedAdsState,
   }) = _AdDetailBuildable;
 }
 

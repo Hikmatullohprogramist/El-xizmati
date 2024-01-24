@@ -1,15 +1,22 @@
-import 'package:onlinebozor/domain/util.dart';
+
+
+import '../models/ad/ad_author_type.dart';
+import '../models/ad/ad_item_condition.dart';
+import '../models/ad/ad_priority_level.dart';
+import '../models/ad/ad_transaction_type.dart';
+import '../models/ad/ad_type.dart';
+import '../models/currency/currency.dart';
 
 extension AdEnumMapper on String? {
-  AdPropertyStatus toAdPropertyStatus() {
+  AdItemCondition toAdPropertyStatus() {
     switch (this) {
       case "NEW":
-        return AdPropertyStatus.fresh;
+        return AdItemCondition.fresh;
       case "USED":
-        AdPropertyStatus.used;
-        return AdPropertyStatus.used;
+        AdItemCondition.used;
+        return AdItemCondition.used;
       default:
-        return AdPropertyStatus.fresh;
+        return AdItemCondition.fresh;
     }
   }
 
@@ -24,33 +31,33 @@ extension AdEnumMapper on String? {
     }
   }
 
-  AdTypeStatus toAdTypeStatus() {
+  AdTransactionType toAdTypeStatus() {
     switch (this) {
       case "SELL":
-        return AdTypeStatus.sell;
+        return AdTransactionType.sell;
       case "FREE":
-        return AdTypeStatus.free;
+        return AdTransactionType.free;
       case "EXCHANGE":
-        return AdTypeStatus.exchange;
+        return AdTransactionType.exchange;
       case "SERVICE":
-        return AdTypeStatus.service;
+        return AdTransactionType.service;
       case "BUY":
-        return AdTypeStatus.buy;
+        return AdTransactionType.buy;
       case "BUY_SERVICE":
-        return AdTypeStatus.buyService;
+        return AdTransactionType.buyService;
       default:
-        return AdTypeStatus.sell;
+        return AdTransactionType.sell;
     }
   }
 
-  AdStatus toAdStatus() {
+  AdPriorityLevel toAdStatus() {
     switch (this) {
       case "TOP":
-        return AdStatus.top;
+        return AdPriorityLevel.top;
       case "STANDARD":
-        return AdStatus.standard;
+        return AdPriorityLevel.standard;
       default:
-        return AdStatus.standard;
+        return AdPriorityLevel.standard;
     }
   }
 
@@ -70,12 +77,12 @@ extension AdEnumMapper on String? {
   }
 }
 
-extension AdPropertStatusToStringExtension on AdPropertyStatus {
+extension AdPropertStatusToStringExtension on AdItemCondition {
   String adPropertyStatusToString() {
     switch (this) {
-      case AdPropertyStatus.fresh:
+      case AdItemCondition.fresh:
         return "NEW";
-      case AdPropertyStatus.used:
+      case AdItemCondition.used:
         return "USED";
     }
   }
@@ -92,48 +99,48 @@ extension AdRouteTypeToStringExtension on AdAuthorType {
   }
 }
 
-extension AdTypeStatusToStringExtension on AdTypeStatus {
+extension AdTypeStatusToStringExtension on AdTransactionType {
   String adTypeStatusToString() {
     switch (this) {
-      case AdTypeStatus.sell:
+      case AdTransactionType.sell:
         return "SELL";
-      case AdTypeStatus.free:
+      case AdTransactionType.free:
         return "FREE";
-      case AdTypeStatus.exchange:
+      case AdTransactionType.exchange:
         return "EXCHANGE";
-      case AdTypeStatus.service:
+      case AdTransactionType.service:
         return "SERVICE";
-      case AdTypeStatus.buy:
+      case AdTransactionType.buy:
         return "BUY";
-      case AdTypeStatus.buyService:
+      case AdTransactionType.buyService:
         return "BUY_SERVICE";
     }
   }
 
   AdType adType() {
     switch (this) {
-      case AdTypeStatus.sell:
+      case AdTransactionType.sell:
         return AdType.product;
-      case AdTypeStatus.free:
+      case AdTransactionType.free:
         return AdType.product;
-      case AdTypeStatus.exchange:
+      case AdTransactionType.exchange:
         return AdType.product;
-      case AdTypeStatus.service:
+      case AdTransactionType.service:
         return AdType.service;
-      case AdTypeStatus.buy:
+      case AdTransactionType.buy:
         return AdType.product;
-      case AdTypeStatus.buyService:
+      case AdTransactionType.buyService:
         return AdType.service;
     }
   }
 }
 
-extension AdStatusTypeToStringExtension on AdStatus {
+extension AdStatusTypeToStringExtension on AdPriorityLevel {
   String adStatusToString() {
     switch (this) {
-      case AdStatus.top:
+      case AdPriorityLevel.top:
         return "TOP";
-      case AdStatus.standard:
+      case AdPriorityLevel.standard:
         return "STANDARD";
     }
   }

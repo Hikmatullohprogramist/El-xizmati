@@ -4,7 +4,7 @@ part of 'user_accept_orders_cubit.dart';
 class UserAcceptOrdersBuildable with _$UserAcceptOrdersBuildable {
   const factory UserAcceptOrdersBuildable(
           {@Default("") String keyWord,
-          @Default(AppLoadingState.loading) AppLoadingState userOrderState,
+          @Default(LoadingState.loading) LoadingState userOrderState,
           PagingController<int, UserOrderResponse>? userOrderPagingController,
           @Default(OrderType.buy) OrderType orderType}) =
       _UserAcceptOrdersBuildable;

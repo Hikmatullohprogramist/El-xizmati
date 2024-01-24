@@ -4,7 +4,7 @@ part of 'sub_category_cubit.dart';
 class SubCategoryBuildable with _$SubCategoryBuildable {
   const factory SubCategoryBuildable(
           {@Default(<CategoryResponse>[]) List<CategoryResponse> categories,
-          @Default(AppLoadingState.loading) AppLoadingState categoriesState}) =
+          @Default(LoadingState.loading) LoadingState categoriesState}) =
       _SubCategoryBuildable;
 }
 

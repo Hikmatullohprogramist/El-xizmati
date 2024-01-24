@@ -15,8 +15,9 @@ import '../../../../common/widgets/dashboard/banner_widget.dart';
 import '../../../../common/widgets/dashboard/product_or_service.dart';
 import '../../../../common/widgets/dashboard/see_all_widget.dart';
 import '../../../../common/widgets/loading/loader_state_widget.dart';
-import '../../../../domain/models/ad.dart';
-import '../../../../domain/util.dart';
+import '../../../../domain/models/ad/ad.dart';
+import '../../../../domain/models/ad/ad_list_type.dart';
+import '../../../../domain/models/ad/ad_type.dart';
 import 'cubit/dashboard_cubit.dart';
 
 @RoutePage()
@@ -63,7 +64,7 @@ class DashboardPage
                   _getTopRatedAdsWidget(context, state),
                   Visibility(
                     visible: state.recentlyViewedAdsState !=
-                            AppLoadingState.loading &&
+                            LoadingState.loading &&
                         state.recentlyViewedAds.isNotEmpty,
                     child: SizedBox(height: 12),
                   ),
@@ -113,10 +114,11 @@ class DashboardPage
                 invoke: (popularCategories) {
                   context.router.push(
                     AdListRoute(
-                        adListType: AdListType.homeList,
-                        keyWord: popularCategories.key_word,
-                        title: popularCategories.name,
-                        sellerTin: null),
+                      adListType: AdListType.homeList,
+                      keyWord: popularCategories.key_word,
+                      title: popularCategories.name,
+                      sellerTin: null,
+                    ),
                   );
                 },
               )),
@@ -273,7 +275,7 @@ class DashboardPage
     DashboardBuildable state,
   ) {
     return Visibility(
-      visible: state.recentlyViewedAdsState != AppLoadingState.loading &&
+      visible: state.recentlyViewedAdsState != LoadingState.loading &&
           state.recentlyViewedAds.isNotEmpty,
       child: Container(
         color: Colors.white,

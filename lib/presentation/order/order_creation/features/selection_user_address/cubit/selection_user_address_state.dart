@@ -5,7 +5,7 @@ class SelectionUserAddressBuildable with _$SelectionUserAddressBuildable {
   const factory SelectionUserAddressBuildable(
           {@Default(<UserAddressResponse>[])
           List<UserAddressResponse> userAddresses,
-          @Default(AppLoadingState.loading) AppLoadingState userAddressState}) =
+          @Default(LoadingState.loading) LoadingState userAddressState}) =
       _SelectionUserAddressBuildable;
 }
 

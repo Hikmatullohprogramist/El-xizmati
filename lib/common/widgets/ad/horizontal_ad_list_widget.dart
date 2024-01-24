@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../domain/models/ad.dart';
+import '../../../domain/models/ad/ad.dart';
 import 'horizontal_ad_widget.dart';
 
 class HorizontalAdListWidget extends StatelessWidget {

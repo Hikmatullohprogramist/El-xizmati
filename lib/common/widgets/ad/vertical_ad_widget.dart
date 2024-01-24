@@ -9,7 +9,7 @@ import 'package:onlinebozor/common/widgets/ad/list_price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/view_count_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite/ad_favorite_widget.dart';
 import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
-import 'package:onlinebozor/domain/models/ad.dart';
+import 'package:onlinebozor/domain/models/ad/ad.dart';
 
 import '../../gen/assets/assets.gen.dart';
 import 'list_ad_author_type_widget.dart';

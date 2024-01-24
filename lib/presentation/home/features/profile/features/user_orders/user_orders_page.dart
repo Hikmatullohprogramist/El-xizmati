@@ -4,13 +4,13 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/domain/util.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_orders/cubit/user_orders_cubit.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
 import '../../../../../../common/core/base_page.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../common/widgets/common/common_button.dart';
+import '../../../../../../domain/models/order/order_type.dart';
 
 @RoutePage()
 class UserOrdersPage extends BasePage<UserOrdersCubit, UserOrdersBuildable,

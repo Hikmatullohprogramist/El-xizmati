@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 
 import '../../../../../../../common/core/base_cubit.dart';
-import '../../../../../../../domain/models/ad_detail.dart';
+import '../../../../../../../domain/models/ad/ad_detail.dart';
 import '../../../../../../../domain/repositories/ad_repository.dart';
 import '../../../../../../../domain/repositories/cart_repository.dart';
 import '../../../../../../../domain/repositories/favorite_repository.dart';

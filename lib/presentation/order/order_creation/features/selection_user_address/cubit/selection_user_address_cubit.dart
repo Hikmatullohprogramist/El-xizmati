@@ -25,7 +25,7 @@ class SelectionUserAddressCubit extends BaseCubit<SelectionUserAddressBuildable,
     try {
       final userAddresses = await _repository.getUserAddresses();
       build((buildable) => buildable.copyWith(
-          userAddressState: AppLoadingState.success,
+          userAddressState: LoadingState.success,
           userAddresses: userAddresses));
     } on DioException catch (exception) {
       log.e(exception.toString());

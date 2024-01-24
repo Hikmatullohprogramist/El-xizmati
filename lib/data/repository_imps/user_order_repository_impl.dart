@@ -1,8 +1,9 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/responses/user_order/user_order_response.dart';
 import 'package:onlinebozor/domain/repositories/user_order_repository.dart';
-import 'package:onlinebozor/domain/util.dart';
 
+import '../../domain/models/order/order_type.dart';
+import '../../domain/models/order/user_order_status.dart';
 import '../services/user_order_service.dart';
 
 @LazySingleton(as: UserOrderRepository)
@@ -12,18 +13,19 @@ class UserOrderRepositoryImp extends UserOrderRepository {
   final UserOrderService userOrderService;
 
   @override
-  Future<List<UserOrderResponse>> getUserOrders(
-      {required int pageSiz,
-      required int pageIndex,
-      required UserOrderStatus userOrderStatus,
-      required OrderType orderType}) async {
+  Future<List<UserOrderResponse>> getUserOrders({
+    required int page,
+    required int limit,
+    required UserOrderStatus userOrderStatus,
+    required OrderType orderType,
+  }) async {
     final response = await userOrderService.getUserOrders(
-        pageSiz: pageSiz,
-        pageIndex: pageIndex,
-        userOrderStatus: userOrderStatus,
-        orderType: orderType);
-    final userOrderResponse =
-        UserOrderRootResponse.fromJson(response.data).data.results;
-    return userOrderResponse;
+      page: page,
+      limit: limit,
+      userOrderStatus: userOrderStatus,
+      orderType: orderType,
+    );
+    final orders = UserOrderRootResponse.fromJson(response.data).data.results;
+    return orders;
   }
 }

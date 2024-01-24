@@ -1,8 +1,8 @@
-import 'package:onlinebozor/domain/util.dart';
-
 import '../../data/responses/search/search_response.dart';
-import '../models/ad.dart';
-import '../models/ad_detail.dart';
+import '../models/ad/ad.dart';
+import '../models/ad/ad_detail.dart';
+import '../models/ad/ad_type.dart';
+import '../models/stats/stats_type.dart';
 
 abstract class AdRepository {
   Future<List<Ad>> getHomeAds(int page, int limit, String keyWord);
@@ -31,7 +31,7 @@ abstract class AdRepository {
     int pageSize,
   );
 
-  Future<List<Ad>> getSellerAds({
+  Future<List<Ad>> getAdsByUser({
     required int sellerTin,
     required int page,
     required int limit,

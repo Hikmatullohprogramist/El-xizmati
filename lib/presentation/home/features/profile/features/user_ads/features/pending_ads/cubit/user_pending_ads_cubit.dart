@@ -2,11 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/domain/util.dart';
 
 import '../../../../../../../../../common/core/base_cubit_new.dart';
 import '../../../../../../../../../common/enum/enums.dart';
 import '../../../../../../../../../data/responses/user_ad/user_ad_response.dart';
+import '../../../../../../../../../domain/models/ad/user_ad_status.dart';
 import '../../../../../../../../../domain/repositories/user_ad_repository.dart';
 
 part 'user_pending_ads_cubit.freezed.dart';
@@ -46,7 +46,7 @@ class UserPendingAdsCubit
     adController.addPageRequestListener(
       (pageKey) async {
         final adsList = await userAdRepository.getUserAds(
-            pageSize: 20, pageIndex: pageKey, userAdType: UserAdStatus.wait);
+            limit: 20, page: pageKey, userAdStatus: UserAdStatus.wait);
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);
           log.i(buildable.userAdsPagingController);

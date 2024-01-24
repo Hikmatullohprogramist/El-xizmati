@@ -6,8 +6,8 @@ class SelectionCategoryBuildable with _$SelectionCategoryBuildable {
       {CategoryResponse? selectedCategoryResponse,
       @Default(<CategoryResponse>[]) List<CategoryResponse> categories,
       @Default(<CategoryResponse>[]) List<CategoryResponse> selectCategories,
-      @Default(AppLoadingState.loading)
-      AppLoadingState categoriesState}) = _SelectionCategoryBuildable;
+      @Default(LoadingState.loading)
+      LoadingState categoriesState}) = _SelectionCategoryBuildable;
 }
 
 @freezed
