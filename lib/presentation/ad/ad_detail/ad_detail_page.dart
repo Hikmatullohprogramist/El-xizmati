@@ -425,36 +425,14 @@ class AdDetailPage
                 ),
                 SizedBox(height: 16),
                 Visibility(
-                  visible: state.adDetail?.address?.geo != null,
+                  // visible: state.adDetail?.address?.geo != null,
+                  visible: false,
                   child: Assets.images.pngImages.map
                       .image(width: double.infinity, fit: BoxFit.fill),
-                  // child: Stack(
-                  //   children: [
-                  //     InkWell(
-                  //       child: Assets.images.pngImages.map
-                  //           .image(width: double.infinity),
-                  //     ),
-                  //     Positioned.fill(
-                  //       child: InkWell(
-                  //         onTap: () {},
-                  //         child: Align(
-                  //           child: Strings.adDetailNumberViews
-                  //               .w(600)
-                  //               .s(14)
-                  //               .c(Color(0xFF41455E))
-                  //               .frosted(
-                  //                 blur: 2.5,
-                  //                 borderRadius: BorderRadius.circular(20),
-                  //                 padding: EdgeInsets.all(8),
-                  //               ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
                 ),
                 Visibility(
-                  visible: state.adDetail?.address?.geo != null,
+                  // visible: state.adDetail?.address?.geo != null,
+                  visible: false,
                   child: SizedBox(height: 12),
                 ),
                 Visibility(
