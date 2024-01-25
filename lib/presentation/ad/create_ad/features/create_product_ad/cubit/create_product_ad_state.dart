@@ -2,7 +2,9 @@ part of 'create_product_ad_cubit.dart';
 
 @freezed
 class CreateProductAdBuildable with _$CreateProductAdBuildable {
-  const factory CreateProductAdBuildable() = _CreateProductAdBuildable;
+  const factory CreateProductAdBuildable({
+    List<XFile>? pickedImages,
+}) = _CreateProductAdBuildable;
 }
 
 @freezed

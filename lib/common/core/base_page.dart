@@ -30,4 +30,8 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<BUILDABLE, LISTENABLE>>,
       ),
     );
   }
+
+  CUBIT cubit(BuildContext context){
+    return context.read<CUBIT>();
+  }
 }
