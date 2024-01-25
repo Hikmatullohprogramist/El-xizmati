@@ -54,13 +54,12 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
           ));
       await increaseAdStats(StatsType.view);
       await addAdToRecentlyViewed();
-
-      getOwnerOtherAds();
     } on DioException catch (e) {
       log.e(e.toString());
       display.error(e.toString());
     }
     getSimilarAds();
+    getOwnerOtherAds();
   }
 
   Future<void> setPhotoView() async {
@@ -125,10 +124,12 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
 
   Future<void> getSimilarAds() async {
     try {
-      final similarAds = await _adRepository.getSimilarAds(
+      final ads = await _adRepository.getSimilarAds(
           adId: buildable.adId ?? 0, page: 1, limit: 10);
       build((buildable) => buildable.copyWith(
-          similarAds: similarAds, similarAdsState: LoadingState.success));
+            similarAds: ads,
+            similarAdsState: LoadingState.success,
+          ));
     } on DioException catch (e, stackTrace) {
       build((buildable) =>
           buildable.copyWith(similarAdsState: LoadingState.error));

@@ -11,7 +11,7 @@ class AdRootResponse with _$AdRootResponse {
     dynamic timestamp,
     int? status,
     dynamic path,
-    required Data data,
+    required AdDataResponse data,
     dynamic response,
   }) = _AdRootResponse;
 
@@ -20,13 +20,13 @@ class AdRootResponse with _$AdRootResponse {
 }
 
 @freezed
-class Data with _$Data {
-  const factory Data({
+class AdDataResponse with _$AdDataResponse {
+  const factory AdDataResponse({
     int? count,
     required List<AdResponse> results,
-  }) = _Data;
+  }) = _AdDataResponse;
 
-  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
+  factory AdDataResponse.fromJson(Map<String, dynamic> json) => _$AdDataResponseFromJson(json);
 }
 
 @freezed

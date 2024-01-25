@@ -62,9 +62,7 @@ class AdRepositoryImpl extends AdRepository {
 
   @override
   Future<List<Ad>> getCheapAdsByType(
-      {required AdType adType,
-      required int page,
-      required int limit}) async {
+      {required AdType adType, required int page, required int limit}) async {
     final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
     final response = await _adsService.getCheapAdsByAdType(
         adType: adType, page: page, limit: limit);
@@ -97,9 +95,7 @@ class AdRepositoryImpl extends AdRepository {
 
   @override
   Future<List<Ad>> getAdsByType(
-      {required int page,
-      required int limit,
-      required AdType adType}) async {
+      {required int page, required int limit, required AdType adType}) async {
     final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
     final response = await _adsService.getAdsByAdType(adType, page, limit);
     final adsResponse = AdRootResponse.fromJson(response.data).data.results;
@@ -144,7 +140,10 @@ class AdRepositoryImpl extends AdRepository {
   }) async {
     final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
     final response = await _adsService.getAdsByUser(
-        sellerTin: sellerTin, page: page, limit: limit);
+      sellerTin: sellerTin,
+      page: page,
+      limit: limit,
+    );
     final adsResponse = AdRootResponse.fromJson(response.data).data.results;
     final ads = adsResponse
         .map(
@@ -163,8 +162,8 @@ class AdRepositoryImpl extends AdRepository {
     required int limit,
   }) async {
     final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
-    final response = await _adsService.getSimilarAds(
-        adId: adId, page: page, limit: limit);
+    final response =
+        await _adsService.getSimilarAds(adId: adId, page: page, limit: limit);
     final adsResponse = AdRootResponse.fromJson(response.data).data.results;
     final ads = adsResponse
         .map(
