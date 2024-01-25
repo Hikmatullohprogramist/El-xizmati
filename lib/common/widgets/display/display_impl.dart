@@ -47,6 +47,7 @@ class DisplayImpl extends Display {
 
   @override
   void setOnDisplayListener(void Function(DisplayMessage message) onDisplay) {
-    _onDisplay = onDisplay;
+    // _onDisplay = onDisplay;
+    // fixme for disallowing showing  toasts
   }
 }
