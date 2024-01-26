@@ -54,4 +54,19 @@ class CreateProductAdCubit
       log.e(e.toString());
     }
   }
+
+  void removeImage(String imagePath) {
+    try {
+      List<XFile> imageList = buildable.pickedImages != null
+          ? List<XFile>.from(buildable.pickedImages!)
+          : [];
+
+      imageList.removeWhere((element) => element.path == imagePath);
+      List<XFile> newImageList = [];
+      newImageList.addAll(imageList);
+      build((buildable) => buildable.copyWith(pickedImages: newImageList));
+    } catch (e) {
+      log.e(e.toString());
+    }
+  }
 }

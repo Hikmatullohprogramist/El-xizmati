@@ -243,3 +243,6 @@ user.request.canceled.title,Bekor qilingan,Отменено,Бекор қили�
 user.request.pending.title,Kutulmoqda,Ожидающий,Кутулмоқда
 user.request.rejaction.title,Rad etilgan,Отклоненный,Рад этилган
 user.request.review.title,Ko‘rib chiqilmoqda,На рассмотрении,Кўриб чиқилмоқда
+image_list_add_title,Rasm qo‘shish,Добавить фото,Расм қўшиш
+image_list_add_take_photo,Rasmga olish,Сфотографировать,Расмга олиш
+image_list_add_pick_image,Galeriyadan tanlash,Выбрать из галереи,Галериядан танлаш
