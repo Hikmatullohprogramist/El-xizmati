@@ -4,7 +4,6 @@ import 'package:onlinebozor/common/widgets/image/add_image_widget.dart';
 import 'package:onlinebozor/common/widgets/image/added_image_widget.dart';
 
 import '../../gen/localization/strings.dart';
-import '../common/common_button.dart';
 
 class ImageAdListWidget extends StatelessWidget {
   const ImageAdListWidget({
@@ -36,11 +35,11 @@ class ImageAdListWidget extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Strings.imageListTitle.w(500).s(16),
+            child: Strings.imageListTitle.w(500).s(14),
           ),
           SizedBox(height: 12),
           SizedBox(
-            height: 96,
+            height: 82,
             child: ListView.separated(
               physics: BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
@@ -79,7 +78,7 @@ class ImageAdListWidget extends StatelessWidget {
           SizedBox(height: 12),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Strings.imageListMainImage.w(400).s(12),
+            child: Strings.imageListMainImage.w(400).s(10),
           )
         ],
       ),
@@ -105,12 +104,14 @@ class ImageAdListWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(height: 32),
-              Center(child: Strings.imageListAddTitle.s(22).w(600)),
+              Center(child: Strings.imageListAddTitle.s(18).w(600)),
               SizedBox(height: 32),
               InkWell(
-                onTap: () => onPickImageClicked(),
+                onTap: () {
+                  onTakePhotoClicked();
+                  Navigator.pop(context);
+                },
                 child: Container(
-                  height: 64,
                   decoration: BoxDecoration(
                     color: Color(0XFFFBFAFF),
                     borderRadius: BorderRadius.circular(10),
@@ -120,46 +121,54 @@ class ImageAdListWidget extends StatelessWidget {
                       width: 1,
                     ),
                   ),
-                  child: Row(
-                    children: [
-                      Strings.imageListAddPickImage.s(16).c(Colors.black),
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 14,
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Strings.imageListAddTakePhoto.s(16).c(Colors.black),
+                        Icon(Icons.camera_alt_outlined)
+                      ],
+                    ),
                   ),
                 ),
               ),
               SizedBox(height: 16),
-              Expanded(
-                child: CommonButton(
-                  color: Colors.blueAccent,
-                  child: Container(
-                    height: 48,
-                    alignment: Alignment.center,
-                    child: Strings.imageListAddPickImage.s(16).c(Colors.white),
+              InkWell(
+                onTap: () {
+                  onPickImageClicked();
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(0XFFFBFAFF),
+                    borderRadius: BorderRadius.circular(10),
+                    shape: BoxShape.rectangle,
+                    border: Border.all(
+                      color: Color(0xFFDFE2E9),
+                      width: 1,
+                    ),
                   ),
-                  onPressed: () {
-                    onPickImageClicked();
-
-                    Navigator.pop(context);
-                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 14,
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Strings.imageListAddPickImage.s(16).c(Colors.black),
+                        Icon(Icons.image_outlined)
+                      ],
+                    ),
+                  ),
                 ),
               ),
-              SizedBox(height: 16),
-              Expanded(
-                child: CommonButton(
-                  color: Colors.red,
-                  child: Container(
-                    height: 48,
-                    alignment: Alignment.center,
-                    child: Strings.imageListAddTakePhoto.s(16).c(Colors.white),
-                  ),
-                  onPressed: () {
-                    onTakePhotoClicked();
-
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-              SizedBox(height: 16),
               SizedBox(height: 24),
             ],
           ),
@@ -186,7 +195,7 @@ class ImageAdListWidget extends StatelessWidget {
             TextButton(
               child: Strings.closeTitle.s(14),
               onPressed: () {
-                Navigator.of(dialogContext).pop(); // Dismiss the dialog
+                Navigator.of(dialogContext).pop();
               },
             ),
           ],

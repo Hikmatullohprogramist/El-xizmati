@@ -26,7 +26,7 @@ class AddedImageWidget extends StatelessWidget {
         InkWell(
           onTap: () => onImageClicked(),
           child: Container(
-            height: 96,
+            height: 82,
             width: 96,
             decoration: BoxDecoration(
               color: Color(0XFFFBFAFF),
@@ -48,8 +48,8 @@ class AddedImageWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 8,
-          right: 8,
+          top: 6,
+          right: 6,
           child: InkWell(
             onTap: () => onRemoveClicked(imagePath),
             child: Container(

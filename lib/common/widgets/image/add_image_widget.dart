@@ -18,7 +18,7 @@ class AddImageWidget extends StatelessWidget {
       key: ValueKey(index),
       onTap: () => onAddClicked(),
       child: Container(
-        height: 96,
+        height: 82,
         width: 96,
         decoration: BoxDecoration(
           color: Color(0XFFFBFAFF),
