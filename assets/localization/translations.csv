@@ -1,251 +1,251 @@
 string,uz_UZ,ru_RU,uz_UZK
-action.title,Harakat,Действие,Ҳаракат
-active.device.current.device,Joriy sessiya,Текущий сеанс,Жорий сессия
-active.device.remove.device,Seansni tugatish,Завершить сеанс,Сеансни тугатиш
-ad.buy.by.one.click,Bir klikda sotib olish,Купить в один клик,Бир кликда сотиб олиш
-ad.collective.discounts,Chegirmalar,Скидки,Чегирмалар
-ad.collective.popular,Ommaboplar,Популярные,Оммабоплар
-ad.create.exchange.title,Almashish,обмен,Алмашиш
-ad.create.free.title,Bepul,Бесплатно,Бепул
-ad.create.product.title,Mahsulot,Продукт,Маҳсулот
-ad.create.service.title,Xizmat,Услуга,Хизмат
-ad.create.title,E‘lon yaratish,Создать объявление,Эълон яратиш
-ad.detail.addtocart,Savatchaga qo‘shish,В корзину,Саватчага қўшиш
-ad.detail.characteristics,Xususiyatlari,Характеристики,Хусусиятлари
-ad.detail.complain,Shikoyat qiling,Пожаловаться,Шикоят қилинг
-ad.detail.description,Tavsif,Описание,Тавсиф
-ad.detail.feedback,Sharhlar,Отзывы,Шарҳлар
-ad.detail.location,Manzil,Местоположение,Манзил
-ad.detail.number.views,Ko‘rishlar soni,Количество просмотров,Кўришлар сони
-ad.detail.on.online.bozor,OnlineBozorda,на OnlineBozor с,OnlineBozorда
-ad.detail.published.date,Nashr etilgan:,Опубликовано:,Нашр этилган:
-ad.detail.author,Muallif,Автор,Муаллиф
-ad.detail.author.ads,Muallifning boshqa e‘lonlari,Другие объявления автора,Муаллифнинг бошқа эълонлари
-ad.detail.show.more,Ko‘proq ko‘rsatish,Показать больше,Кўпроқ кўрсатиш
-ad.detail.show.phone,Qo‘ng‘iroq,Позвонить,Қўнғироқ
-ad.detail.towritemessge,Sms,Sms,Sms
-ad.detail.view.count.title,Ko‘rishlar:,Просмотров:,Кўришлар:
-ad.empty.description,Bu e‘lonlar hamma uchun ko‘rinadi. Ularning amal qilish muddati faollashtirilgan kundan boshlab 30 kun.,Эти объявления видны всем. Срок их действия - 30 дней с момента активации.,Бу эълонлар ҳамма учун кўринади. Уларнинг амал қилиш муддати фаоллаштирилган кундан бошлаб 30 кун.
-ad.empty.title,Sizda hali hech qanday faol e‘lon yo‘q!,У вас пока нету активных объявлений!,Сизда ҳали ҳеч қандай фаол эълон йўқ!
-ad.property.biznes,Biznes,Бизнес,Бизнес
-ad.property.personal,Shaxsiy,Частное,Шахсий
-ad.search.hint,Mahsulotlar va kategoriyalar qidiring,Искать товары и категории,Маҳсулотлар ва категорийлар қидиринг
-ad.status.new,Yangi,Новый,Янги
-ad.status.old,I/B,Б/У,И/Б
-ad.status.title,Holati:,Cтатус:,Ҳолати:
-ad.type.product.title,Mahsulot,Продукт,Маҳсулот
-ad.type.service.title,Xizmat,Услуга,Хизмат
-address.add.title,Manzil qo‘shish,Добавить адрес,Манзил қўшиш
-address.empty.title,"Siz hali manzil qo‘shmagansiz, qo‘shmoqchimisiz?","Вы ещё не добавили адрес, хотите добавить?","Сиз ҳали манзил қўшмагансиз, қўшмоқчимисиз?"
-advertise.title,Reklama qilish,Рекламировать,Реклама қилиш
-all.title,Barchasi,Все,Барчаси
-auth.common.password,Parol,пароль,Парол
-auth.common.you.agree.in,Tizimga kirish orqali siz rozilik bildirasiz,"Авторизуясь, вы соглашаетесь с ",Тизимга кириш орқали сиз розилик билдирасиз
-auth.common.your.processing.policy,shaxsiy \nma‘lumotlarni qayta ishlash siyosati,политикой \nобработки персональных данных,шахсий \nмаълумотларни қайта ишлаш сиёсати
-auth.confirm.again.sent.sms.your.phone,Yana yuboring,Отправить еще раз,Яна юборинг
-auth.confirm.corfimation.code,Tasdiqlash kodi,КОД подтверждения,Тасдиқлаш коди
-auth.confirm.sent.sms.your.phone,Biz sizga {phone} raqamiga kod bilan SMS yubordik,Мы отправили вам СМС с кодом на номер {phone},Биз сизга {phone} рақамига код билан СМС юбордик
-auth.person.policy,siyosat shaxsiy ma‘lumotlarni qayta ishlash,политикой nобработки персональных данных,сиёсат шахсий маълумотларни қайта ишлаш
-auth.policy.agree,Tizimga kirish orqali siz rozilik bildirasiz,"Авторизуясь, вы соглашаетесь с ",Тизимга кириш орқали сиз розилик билдирасиз
-auth.register.create.password,Kirish uchun parol yarating,Придумайте пароль для входа,Кириш учун парол яратинг
-auth.register.password.contain.least.characters,Parol kamida 8 ta belgidan iborat bo‘lishi kerak.,Пароль должен содержать минимум 8 символов.,Парол камида 8 та белгидан иборат бўлиши керак.
-auth.register.register,Roʻyxatdan oʻtish,Зарегистрироваться,Рўйхатдан ўтиш
-auth.register.repeat.password,Parolni qayta kiriting,Повторить пароль,Паролни қайта киритинг
-auth.singin.title,Tizimga kirish,Войти,Тизимга кириш
-auth.start.login.with.eds,E-Imzo yordamida tizimga kiring,Войти с помощью ЭЦП,E-imzo ёрдамида тизимга киринг
-auth.start.login.with.face.id,FaceID bilan tizimga kiring,Войти с помощью FaceID,FaceId билан тизимга киринг
-auth.start.login.with.id.card,ID-Card bilan kirish,Войти с помощью ID-Card,ID-Card билан кириш
-auth.start.login.with.mobile.id,Mobile-ID bilan kirish,Войти с помощью Mobile-ID,Mobile-ID билан кириш
-auth.start.login.with.one.id,One-ID bilan kirish,Войти с помощью one-ID,One-ID билан кириш
-auth.start.singin,Tizimga kirish,Войти в систему,Тизимга кириш
-auth.verification.forget.password,Parolni unutdingizmi?,Забыли пароль?,Паролни унутдингизми?
-bottom.navigation.cart,Savat,Корзина,Сават
-bottom.navigation.catalog,Kategoriyalar,Категории,Категориялар
-bottom.navigation.favorite,Tanlanganlar,Избранные,Танланганлар
-bottom.navigation.home,Asosiy,Главная,Асосий
-bottom.navigation.more,Ko‘proq,Больше,Кўпроқ
-bottom.navigation.profile,Profil,Профиль,Профил
-button.title.save,saqlash,сохранять,сақлаш
-card.add.card.title,Karta qo‘shish,добавить карту,Карта қўшиш
-card.add.title,Karta qo‘shish,Добавить карту,Карта қўшиш
-card.add.title,Qo‘shish,Добавить,Қўшиш
-card.close,Yopish,Закрыть,Ёпиш
-card.confirmation.code,Tasdiqlash kodi,Код подтверждения,Тасдиқлаш коди
-card.empty.descripton,Ushbu kartalar bilan siz mahsulot yoki xizmat uchun to‘lashingiz mumkin,С помощью этих карт вы можете оплатит за товар или услугу,Ушбу карталар билан сиз маҳсулот ёки хизмат учун тўлашингиз мумкин
-card.empty.title,Siz hali toʻlov kartasini qoʻshmagansiz,Вы еще не добавили карту для оплаты,Сиз ҳали тўлов картасини қўшмагансиз
-card.expiry.date.title,Kartaning amal qilish muddati,Срок действия карты,Картанинг амал қилиш муддати
-card.name.hint,Masalan: Asosiy,Например: Основная,Масалан: Асосий
-card.name.title,Karta nomi,Название карты,Карта номи
-card.number.title,Karta raqami,Номер карты,Карта рақами
-card.set.as.main,Asosiy qilib belgilang,Сделать основным,Асосий қилиб белгиланг
-cart.product.clearance,Rasmiylashtirish,оформление,Расмийлаштириш
-categories.title,Kategoriyalar,Основные категории,Машҳур Kategoriyalar
-category.ads.count,ta e‘lon,объявлений,та эълон
-close.title,Yopish,Закрыть,Ёпиш
-common.continue.title,Davom etish,Продолжить,Давом этиш
-common.no,Yo‘q,No,Йўқ
-common.phone.number,Telefon raqami,Номер телефона,Телефон рақами
-common.save.title,Saqlash,Сохранить,Сақлаш
-common.unfind,topilmadi,не найдено,топилмади
-common.yes,Ha,Да,Ҳа
-create.request.title,So‘rov yaratish,Создать запрос,Сўров яратиш
-currency.uzb,so‘m,сўм,сўм
-deactivate.tilte,Faolsizlantirish,Деактивировать,Фаолсизлантириш
-edit.title,Tahrirlash,Редактировать,Таҳрирлаш
-favorite.empty.description,Asosiy sahifaga o‘tish,Перейдите на главную страницу и нажмите,Асосий саҳифага ўтиш
-favorite.empty.title,O‘zingiz yoqtirgan narsani qo‘shing,"Добавьте то, что понравилось",Ўзингиз ёқтирган нарсани қўшинг
-favorite.empty.to.main,Asosiy  oynaga,На главную,Асосий  ойнага
-favorite.product.title,Mahsulotlar,Продукты,Маҳсулотлар
-favorite.service.title,Xizmatlar,Услуги,Хизматлар
-favorite.title,Sevimlilar,Мои желания,Севимлилар
-hot.discounts.title,Issiq chegirmalar,Горячие скидки,Иссиқ чегирмалар
-language.rus,Русский,Русский,Русский
-language.set.title,Ilova tilini tanlang,Выберите язык приложения,Илова тилини танланг
-language.uz.cyr,Ўзбекча,Ўзбекча,Ўзбекча
-language.uz.lat,O’zbekcha,O’zbekcha,O’zbekcha
-language.welcome,xush kelibsiz,Добро пожаловать,хуш келибсиз
-link.title,link,связь,линк
-loading.state.error,Xatolik yuz berdi,Произошла ошибка,Хатолик юз берди
-loading.state.no.item.found,Hech qanday element topilmadi,No items found,Ҳеч қандай элемент топилмади
-loading.state.retry,Qayta urinish,Повторить попытку,Қайта уриниш
-my.card.title,Mening kartalarim,Мои карты,Менинг карталарим
-my.requests.title,Mening so‘rovlarim,Мои Запросы,Менинг сўровларим
-no.have.notification,Sizda hech qanday bildirishnoma yoʻq,У вас нет уведомлений,Сизда ҳеч қандай билдиришнома йўқ
-no.you.have.card.description,Ushbu kartalar bilan siz mahsulot yoki xizmat uchun to‘lashingiz mumkin,С помощью этих карт вы можете оплатит за товар или услугу,Ушбу карталар билан сиз маҳсулот ёки хизмат учун тўлашингиз мумкин
-no.you.have.card.title,Siz hali toʻlov kartasini qoʻshmagansiz,Вы еще не добавили карту для оплаты,Сиз ҳали тўлов картасини қўшмагансиз
-notification.receive.email,Elektron pochta orqali,Через Эл. почту,Электрон почта орқали
-notification.receive.sms,SMS xabar,СМС собщение,СМС хабар
-notification.receive.telegram,Telegram boti,Телеграм бот,Телеграм боти
-notification.title,Bildirishnoma,Уведомление,Билдиришнома
-order.create.address,Manzil,Адрес,Манзил
-order.create.cash.description,To‘lov o‘zbek so‘mida tovarni olgandan keyin qabul qilinadi,Оплата принимается в узбекских сумах при получении товара,Тўлов ўзбек сўмида товарни олгандан кейин қабул қилинади
-order.create.cash.payment,Naqt pul,Наличними,Нақт пул
-order.create.category,Kategorya,Категория,Категоря
-order.create.online.description,RealPay orqali onlayn to‘lov,Онлайн оплата через RealPay,RealPay орқали онлайн тўлов
-order.create.online.payment,Onlayn to‘lov,Онлайн оплата,Онлайн тўлов
-order.create.payment.method,To‘lov usuli,Способ оплаты,Тўлов усули
-order.create.price,narxi:,Цена:,нархи:
-order.create.register,Rasmiylashtirish,оформление,Расмийлаштириш
-order.create.terminal.description,Toʻlov UzCard va Humo bank kartalari orqali qabul qilinadi,Оплата принимается через банковские карты UzCard и Humo,Тўлов УзCард ва Ҳумо банк карталари орқали қабул қилинади
-order.create.terminal.payment,Terminal orqali to‘lov,Оплата по терминалу,Терминал орқали тўлов
-order.create.transfer.discription,To‘lov bank o‘tkazmalari orqali qabul qilinadi,Оплата принимается через банковские расчеты,Тўлов банк ўтказмалари орқали қабул қилинади
-order.create.transfer.payment,Transfer,Перечисления,Трансфер
-order.need.product,Mahsulot kerak,Нужен товар,Маҳсулот керак
-order.need.service,Xizmat kerak,Нужна услуга,Хизмат керак
-payment.filter.all,Hammasi,Все,Ҳаммаси
-payment.filter.apply,Qo‘llash,Применять,Қўллаш
-payment.filter.from.date,dan:,От:,дан:
-payment.filter.payment.method,To‘lov usuli,Способ оплаты,Тўлов усули
-payment.filter.payment.type,To‘lov turi,Тип оплаты,Тўлов тури
-payment.filter.reset,Tozalash,Сброс,Тозалаш
-payment.filter.status,Holat,Статус,Ҳолат
-payment.filter.title,Filtr,Фильтр,Фильтр
-payment.filter.to.date,gacha:,До:,гача:
-payment.filter.type,Turi,Тип,Тури
-payment.title,To‘lovlar,Платежи,Тўловлар
-popular.products,Ommabop mahsulotlar,Популярные продукты,Оммабоп маҳсулотлар
-popular.services,Ommabop xizmatlar,Популярные услуги,Оммабоп хизматлар
-price.from,{price} dan,От {price},{price} дан
-price.to,{price} gacha,До {price},{price} гача
-price.two.dot,Narxi:,Цена:,Нархи:
-products.title,Mahsulotlar,Продукты,Маҳсулотлар
-profile.change.language,Tilni o‘zgartirish,Изменить язык,Тилни ўзгартириш
-profile.change.to.business,Biznesga o‘tish,Поменять на бизнес,Бизнесга ўтиш
-profile.comparison,Taqqoslash ro‘yxati,Список сравнения,Таққослаш рўйхати
-profile.edit.apartment,Kvartira,Квартира,Квартира
-profile.edit.biometric.information,Biometric ma‘lumotlar,Паспортные данные,Биометриc маълумотлар
-profile.edit.biometric.serial,Biometric raqami,Номер паспорта,Биометриc рақами
-profile.edit.brith.date,Tug‘ilgan yil (2004-11-28),Дата рождения (2004-11-28),Туғилган йил (2004-11-28)
-profile.edit.change.personal.data,Shaxsiy ma‘lumotlarni o‘zgartiring,Изменить личные данные,Шахсий маълумотларни ўзгартиринг
-profile.edit.district,Tuman,Район,Туман
-profile.edit.full.biometric,"Pasport raqami va seriyasini, tug‘ilgan sanasini ko‘rsating","Укажите номер и серия паспорта, дата рождения","Паспорт рақами ва сериясини, туғилган санасини кўрсатинг"
-profile.edit.house,Uy,Дом,Уй
-profile.edit.neighborhood,Mahalla,Махалля,Маҳалла
-profile.edit.phone,Telefon raqami (+998 __ ___ __ __),Номер телефона (+998 __ ___ __ __),Телефон рақами (+998 __ ___ __ __)
-profile.edit.region,Viloyat,Регион,Вилоят
-profile.edit.title,Tahrirlash,Изменить,Таҳрирлаш
-profile.edit.unfull.information,Ma‘lumotlarni to‘liq kiriting,Введите данные полностью,Маълумотларни тўлиқ киритинг
-profile.edit.user.email,elektron pochta,электронная почта,электрон почта
-profile.edit.user.name,Ism,Имя,Исм
-profile.edit.user.username,foydalanuvchi nomi,имя пользователя,фойдаланувчи номи
-profile.fill.wallet,Hamyonni to‘ldiring,Наполните кошелек,Ҳамённи тўлдиринг
-profile.identified,Shaxsingiz tasdiqlangan,Идентифицирован,Шахсингиз тасдиқланган
-profile.identify,Shaxsni tasdiqlash,Идентифицировать,Шахсни тасдиқлаш
-profile.logout,Chiqish,Выйти,Чиқиш
-profile.logout.description,Tizimdan chiqishni hohlaysizmi?,Вы хотите выйти из системы?,Тизимдан чиқишни ҳоҳлайсизми?
-profile.logout.title,Tizimdan chiqish,Выйти,Тизимдан чиқиш
-profile.message,Xabar,Сообщение,Хабар
-profile.my.address,Mening manzillarim,Мои адреса,Менинг манзилларим
-profile.my.ads,Mening e‘lonlarim,Мои Объявления,Менинг эълонларим
-profile.my.balans,Mening balansim:,Мой баланс:,Менинг балансим:
-profile.my.card,Mening kartalarim,Мои карты,Менинг карталарим
-profile.not.identified,Shaxsingiz tasdiqlanmagan,Не идентифицирован,Шахсингиз тасдиқланмаган
-profile.notification,Bildirishnoma,Уведомление,Билдиришнома
-profile.orders,Buyurtmalar,Заказы,Буюртмалар
-profile.payment,To‘lovlar,Платежи,Тўловлар
-profile.personal.data,Shaxsiy ma‘lumotlar,Личные данные,Шахсий маълумотлар
-profile.private.person,Jismoniy shaxs,Частное лицо,Жисмоний шахс
-profile.promotions,Aktsiyalar,Продвижения,Акциялар
-profile.settings,Sozlamalar,Настройки,Созламалар
-profile.title,Profil,Профиль,Профил
-profile.user.date.of.birth,Tug‘ilgan kuni,Дата рождения,Туғилган куни
-profile.user.date.of.doc.validity,Pasport ma‘lumoti,Паспортные данные,Паспорт маълумоти
-profile.user.district,Tuman,Район,Туман
-profile.user.email,Email,email,Эмаил
-profile.user.gender,Jins,Пол,Жинс
-profile.user.gender.boy,Erkak,Муж.,Эркак
-profile.user.gender.women,Ayol,Жен.,Аёл
-profile.user.name,Foydalanuvchi nomi,Имя пользователя,Фойдаланувчи номи
-profile.user.neighborhood,Turar joy,Махалля,Турар жой
-profile.user.phone,Telefon,Телефон,Телефон
-profile.user.region,Viloyat,Регион,Вилоят
-profile.view.titlle,Profil,Профиль,Профил
-recently.viewed.title,Yaqinda ko‘rilgan,Недавно посмотренные,Яқинда кўрилган
-request.title,So‘rovlar,Запросы,Сўровлар
-services.title,Xizmatlar,Услуги,Хизматлар
-settings.active.devices,Faol qurilmalar,Активные устройства,Фаол қурилмалар
-settings.change.password,Parolni o‘zgartirish,Поменять пароль,Паролни ўзгартириш
-settings.receive.notification,Bildirishnomani qanday olish mumkin,Способ получения уведомления,Билдиришномани қандай олиш мумкин
-settings.social.network,Mening ijtimoiy tarmoqlarim,Мои соц.сети,Менинг ижтимоий тармоқларим
-settings.title,Sozlamalar,Настройки,Созламалар
-similar.product.title,O‘xshash mahsulotlar,Похожие продукты,Ўхшаш маҳсулотлар
-telegram.bot.description,Bot orqali bildirishnomalarni olish uchun siz botga ulangan bo‘lishingiz kerak,"Вы должны быть подключены, чтобы получать уведомления от ботов.",Бот орқали билдиришномаларни олиш учун сиз ботга уланган бўлишингиз керак
-user.ad.detail.remainder,Qolgan,Остаток,Қолган
-user.address.action,Harakat,Действие,Ҳаракат
-user.address.add,Qo‘shish,Добавить,Қўшиш
-user.address.add.new.address,Yangi manzil qo‘shing,Добавить новый адрес,Янги манзил қўшинг
-user.address.address,Manzil:,Адрес:,Манзил:
-user.address.apartment,Kvartira:,Квартира:,Квартира:
-user.address.close,Yopish,Закрыть,Ёпиш
-user.address.district,Tuman,Район,Туман
-user.address.edit,Tahrirlash,Редактировать,Таҳрирлаш
-user.address.entrance,Kirish:,Подъезд:,Кириш:
-user.address.floor,Qavat:,Этаж:,Қават:
-user.address.home.number,Uy raqami,Номер дома,Uy raqami
-user.address.main,Asosiy,Основной,Асосий
-user.address.my.address,Mening manzillarim,Мои адреса,Менинг манзилларим
-user.address.name,Manzil nomi,Название адреса,Манзил номи
-user.address.region,Viloyat,Регион,Вилоят
-user.address.remove,Manzilni olib tashlang,Удалить адрес,Манзилни олиб ташланг
-user.address.save,Saqlash,Сақлаш,Сақлаш
-user.address.selection.location,Joylashuvni tanlang,Выберите локацию,Жойлашувни танланг
-user.address.set.as.main,Asosiy qilib belgilang,Сделать основным,Асосий қилиб белгиланг
-user.address.street,Mahalla,Махалля,Маҳалла
-user.ads.active.title,Faol,Активный,Фаол
-user.ads.all.title,Barchasi,Все,Барчаси
-user.ads.canceled.title,Bekor qilingan,Отменено,Бекор қилинган
-user.ads.inactive.title,Faol emas,Не активен,Фаол эмас
-user.ads.pending.title,Kutulmoqda,Ожидающий,Кутулмоқда
-user.ads.title,E‘lonlar,Объявления,Эълонлар
-user.request.accept.title,Qabul qilingan,Принял,Қабул қилинган
-user.request.all.title,Barchasi,Все,Барчаси
-user.request.canceled.title,Bekor qilingan,Отменено,Бекор қилинган
-user.request.pending.title,Kutulmoqda,Ожидающий,Кутулмоқда
-user.request.rejaction.title,Rad etilgan,Отклоненный,Рад этилган
-user.request.review.title,Ko‘rib chiqilmoqda,На рассмотрении,Кўриб чиқилмоқда
-image_list_add_title,Rasm qo‘shish,Добавить фото,Расм қўшиш
-image_list_add_take_photo,Rasmga olish,Сфотографировать,Расмга олиш
+action_title,Harakat,Действие,Ҳаракат
+active_device_current_device,Joriy sessiya,Текущий сеанс,Жорий сессия
+active_device_remove_device,Seansni tugatish,Завершить сеанс,Сеансни тугатиш
+ad_buy_by_one_click,Bir klikda sotib olish,Купить в один клик,Бир кликда сотиб олиш
+ad_collective_discounts,Chegirmalar,Скидки,Чегирмалар
+ad_collective_popular,Ommaboplar,Популярные,Оммабоплар
+ad_create_exchange_title,Almashish,обмен,Алмашиш
+ad_create_free_title,Bepul,Бесплатно,Бепул
+ad_create_product_title,Mahsulot,Продукт,Маҳсулот
+ad_create_service_title,Xizmat,Услуга,Хизмат
+ad_create_title,E‘lon yaratish,Создать объявление,Эълон яратиш
+ad_detail_addtocart,Savatchaga qo‘shish,В корзину,Саватчага қўшиш
+ad_detail_author,Muallif,Автор,Муаллиф
+ad_detail_author_ads,Muallifning boshqa e‘lonlari,Другие объявления автора,Муаллифнинг бошқа эълонлари
+ad_detail_characteristics,Xususiyatlari,Характеристики,Хусусиятлари
+ad_detail_complain,Shikoyat qiling,Пожаловаться,Шикоят қилинг
+ad_detail_description,Tavsif,Описание,Тавсиф
+ad_detail_feedback,Sharhlar,Отзывы,Шарҳлар
+ad_detail_location,Manzil,Местоположение,Манзил
+ad_detail_number_views,Ko‘rishlar soni,Количество просмотров,Кўришлар сони
+ad_detail_on_online_bozor,OnlineBozorda,на OnlineBozor с,OnlineBozorда
+ad_detail_published_date,Nashr etilgan:,Опубликовано:,Нашр этилган:
+ad_detail_show_more,Ko‘proq ko‘rsatish,Показать больше,Кўпроқ кўрсатиш
+ad_detail_show_phone,Qo‘ng‘iroq,Позвонить,Қўнғироқ
+ad_detail_towritemessge,Sms,Sms,Sms
+ad_detail_view_count_title,Ko‘rishlar:,Просмотров:,Кўришлар:
+ad_empty_description,Bu e‘lonlar hamma uchun ko‘rinadi. Ularning amal qilish muddati faollashtirilgan kundan boshlab 30 kun.,Эти объявления видны всем. Срок их действия - 30 дней с момента активации.,Бу эълонлар ҳамма учун кўринади. Уларнинг амал қилиш муддати фаоллаштирилган кундан бошлаб 30 кун.
+ad_empty_title,Sizda hali hech qanday faol e‘lon yo‘q!,У вас пока нету активных объявлений!,Сизда ҳали ҳеч қандай фаол эълон йўқ!
+ad_property_biznes,Biznes,Бизнес,Бизнес
+ad_property_personal,Shaxsiy,Частное,Шахсий
+ad_search_hint,Mahsulotlar va kategoriyalar qidiring,Искать товары и категории,Маҳсулотлар ва категорийлар қидиринг
+ad_status_new,Yangi,Новый,Янги
+ad_status_old,I/B,Б/У,И/Б
+ad_status_title,Holati:,Cтатус:,Ҳолати:
+ad_type_product_title,Mahsulot,Продукт,Маҳсулот
+ad_type_service_title,Xizmat,Услуга,Хизмат
+address_add_title,Manzil qo‘shish,Добавить адрес,Манзил қўшиш
+address_empty_title,"Siz hali manzil qo‘shmagansiz, qo‘shmoqchimisiz?","Вы ещё не добавили адрес, хотите добавить?","Сиз ҳали манзил қўшмагансиз, қўшмоқчимисиз?"
+advertise_title,Reklama qilish,Рекламировать,Реклама қилиш
+all_title,Barchasi,Все,Барчаси
+auth_common_password,Parol,пароль,Парол
+auth_common_you_agree_in,Tizimga kirish orqali siz rozilik bildirasiz,"Авторизуясь, вы соглашаетесь с ",Тизимга кириш орқали сиз розилик билдирасиз
+auth_common_your_processing_policy,shaxsiy \nma‘lumotlarni qayta ishlash siyosati,политикой \nобработки персональных данных,шахсий \nмаълумотларни қайта ишлаш сиёсати
+auth_confirm_again_sent_sms_your_phone,Yana yuboring,Отправить еще раз,Яна юборинг
+auth_confirm_corfimation_code,Tasdiqlash kodi,КОД подтверждения,Тасдиқлаш коди
+auth_confirm_sent_sms_your_phone,Biz sizga {phone} raqamiga kod bilan SMS yubordik,Мы отправили вам СМС с кодом на номер {phone},Биз сизга {phone} рақамига код билан СМС юбордик
+auth_person_policy,siyosat shaxsiy ma‘lumotlarni qayta ishlash,политикой nобработки персональных данных,сиёсат шахсий маълумотларни қайта ишлаш
+auth_policy_agree,Tizimga kirish orqali siz rozilik bildirasiz,"Авторизуясь, вы соглашаетесь с ",Тизимга кириш орқали сиз розилик билдирасиз
+auth_register_create_password,Kirish uchun parol yarating,Придумайте пароль для входа,Кириш учун парол яратинг
+auth_register_password_contain_least_characters,Parol kamida 8 ta belgidan iborat bo‘lishi kerak.,Пароль должен содержать минимум 8 символов.,Парол камида 8 та белгидан иборат бўлиши керак.
+auth_register_register,Roʻyxatdan oʻtish,Зарегистрироваться,Рўйхатдан ўтиш
+auth_register_repeat_password,Parolni qayta kiriting,Повторить пароль,Паролни қайта киритинг
+auth_singin_title,Tizimga kirish,Войти,Тизимга кириш
+auth_start_login_with_eds,E-Imzo yordamida tizimga kiring,Войти с помощью ЭЦП,E-imzo ёрдамида тизимга киринг
+auth_start_login_with_face_id,FaceID bilan tizimga kiring,Войти с помощью FaceID,FaceId билан тизимга киринг
+auth_start_login_with_id_card,ID-Card bilan kirish,Войти с помощью ID-Card,ID-Card билан кириш
+auth_start_login_with_mobile_id,Mobile-ID bilan kirish,Войти с помощью Mobile-ID,Mobile-ID билан кириш
+auth_start_login_with_one_id,One-ID bilan kirish,Войти с помощью one-ID,One-ID билан кириш
+auth_start_singin,Tizimga kirish,Войти в систему,Тизимга кириш
+auth_verification_forget_password,Parolni unutdingizmi?,Забыли пароль?,Паролни унутдингизми?
+bottom_navigation_cart,Savat,Корзина,Сават
+bottom_navigation_catalog,Kategoriyalar,Категории,Категориялар
+bottom_navigation_favorite,Tanlanganlar,Избранные,Танланганлар
+bottom_navigation_home,Asosiy,Главная,Асосий
+bottom_navigation_more,Ko‘proq,Больше,Кўпроқ
+bottom_navigation_profile,Profil,Профиль,Профил
+button_title_save,saqlash,сохранять,сақлаш
+card_add_card_title,Karta qo‘shish,добавить карту,Карта қўшиш
+card_add_title,Karta qo‘shish,Добавить карту,Карта қўшиш
+card_add_title,Qo‘shish,Добавить,Қўшиш
+card_close,Yopish,Закрыть,Ёпиш
+card_confirmation_code,Tasdiqlash kodi,Код подтверждения,Тасдиқлаш коди
+card_empty_descripton,Ushbu kartalar bilan siz mahsulot yoki xizmat uchun to‘lashingiz mumkin,С помощью этих карт вы можете оплатит за товар или услугу,Ушбу карталар билан сиз маҳсулот ёки хизмат учун тўлашингиз мумкин
+card_empty_title,Siz hali toʻlov kartasini qoʻshmagansiz,Вы еще не добавили карту для оплаты,Сиз ҳали тўлов картасини қўшмагансиз
+card_expiry_date_title,Kartaning amal qilish muddati,Срок действия карты,Картанинг амал қилиш муддати
+card_name_hint,Masalan: Asosiy,Например: Основная,Масалан: Асосий
+card_name_title,Karta nomi,Название карты,Карта номи
+card_number_title,Karta raqami,Номер карты,Карта рақами
+card_set_as_main,Asosiy qilib belgilang,Сделать основным,Асосий қилиб белгиланг
+cart_product_clearance,Rasmiylashtirish,оформление,Расмийлаштириш
+categories_title,Kategoriyalar,Основные категории,Машҳур Kategoriyalar
+category_ads_count,ta e‘lon,объявлений,та эълон
+close_title,Yopish,Закрыть,Ёпиш
+common_continue_title,Davom etish,Продолжить,Давом этиш
+common_no,Yo‘q,No,Йўқ
+common_phone_number,Telefon raqami,Номер телефона,Телефон рақами
+common_save_title,Saqlash,Сохранить,Сақлаш
+common_unfind,topilmadi,не найдено,топилмади
+common_yes,Ha,Да,Ҳа
+create_request_title,So‘rov yaratish,Создать запрос,Сўров яратиш
+currency_uzb,so‘m,сўм,сўм
+deactivate_tilte,Faolsizlantirish,Деактивировать,Фаолсизлантириш
+edit_title,Tahrirlash,Редактировать,Таҳрирлаш
+favorite_empty_description,Asosiy sahifaga o‘tish,Перейдите на главную страницу и нажмите,Асосий саҳифага ўтиш
+favorite_empty_title,O‘zingiz yoqtirgan narsani qo‘shing,"Добавьте то, что понравилось",Ўзингиз ёқтирган нарсани қўшинг
+favorite_empty_to_main,Asosiy  oynaga,На главную,Асосий  ойнага
+favorite_product_title,Mahsulotlar,Продукты,Маҳсулотлар
+favorite_service_title,Xizmatlar,Услуги,Хизматлар
+favorite_title,Sevimlilar,Мои желания,Севимлилар
+hot_discounts_title,Issiq chegirmalar,Горячие скидки,Иссиқ чегирмалар
 image_list_add_pick_image,Galeriyadan tanlash,Выбрать из галереи,Галериядан танлаш
-image_list_title,Rasmlar,Фото,Расмлар
+image_list_add_take_photo,Rasmga olish,Сфотографировать,Расмга олиш
+image_list_add_title,Rasm qo‘shish,Добавить фото,Расм қўшиш
 image_list_main_image,Birinchi surat e’loningiz asosiy rasmi bo‘ladi. Suratlar tartibini ularning ustiga bosib va olib o‘tish bilan o‘zgartirishingiz mumkin.,"Первое фото будет на обложке объявления. Перетащите, чтобы изменить порядок.",Биринчи сурат эълонингиз асосий расми бўлади. Суратлар тартибини уларнинг устига босиб ва олиб ўтиш билан ўзгартиришингиз мумкин.
 image_list_max_count_error,Siz ko‘pi bilan {max_count} ta rasmni qo‘shishingiz mumkin,Вы можете добавить максимум {max_count} изображений,Сиз кўпи билан {max_count} та расмни қўшишингиз мумкин
+image_list_title,Rasmlar,Фото,Расмлар
+language_rus,Русский,Русский,Русский
+language_set_title,Ilova tilini tanlang,Выберите язык приложения,Илова тилини танланг
+language_uz_cyr,Ўзбекча,Ўзбекча,Ўзбекча
+language_uz_lat,O’zbekcha,O’zbekcha,O’zbekcha
+language_welcome,xush kelibsiz,Добро пожаловать,хуш келибсиз
+link_title,link,связь,линк
+loading_state_error,Xatolik yuz berdi,Произошла ошибка,Хатолик юз берди
+loading_state_no_item_found,Hech qanday element topilmadi,No items found,Ҳеч қандай элемент топилмади
+loading_state_retry,Qayta urinish,Повторить попытку,Қайта уриниш
+my_card_title,Mening kartalarim,Мои карты,Менинг карталарим
+my_requests_title,Mening so‘rovlarim,Мои Запросы,Менинг сўровларим
+no_have_notification,Sizda hech qanday bildirishnoma yoʻq,У вас нет уведомлений,Сизда ҳеч қандай билдиришнома йўқ
+no_you_have_card_description,Ushbu kartalar bilan siz mahsulot yoki xizmat uchun to‘lashingiz mumkin,С помощью этих карт вы можете оплатит за товар или услугу,Ушбу карталар билан сиз маҳсулот ёки хизмат учун тўлашингиз мумкин
+no_you_have_card_title,Siz hali toʻlov kartasini qoʻshmagansiz,Вы еще не добавили карту для оплаты,Сиз ҳали тўлов картасини қўшмагансиз
+notification_receive_email,Elektron pochta orqali,Через Эл. почту,Электрон почта орқали
+notification_receive_sms,SMS xabar,СМС собщение,СМС хабар
+notification_receive_telegram,Telegram boti,Телеграм бот,Телеграм боти
+notification_title,Bildirishnoma,Уведомление,Билдиришнома
+order_create_address,Manzil,Адрес,Манзил
+order_create_cash_description,To‘lov o‘zbek so‘mida tovarni olgandan keyin qabul qilinadi,Оплата принимается в узбекских сумах при получении товара,Тўлов ўзбек сўмида товарни олгандан кейин қабул қилинади
+order_create_cash_payment,Naqt pul,Наличними,Нақт пул
+order_create_category,Kategorya,Категория,Категоря
+order_create_online_description,RealPay orqali onlayn to‘lov,Онлайн оплата через RealPay,RealPay орқали онлайн тўлов
+order_create_online_payment,Onlayn to‘lov,Онлайн оплата,Онлайн тўлов
+order_create_payment_method,To‘lov usuli,Способ оплаты,Тўлов усули
+order_create_price,narxi:,Цена:,нархи:
+order_create_register,Rasmiylashtirish,оформление,Расмийлаштириш
+order_create_terminal_description,Toʻlov UzCard va Humo bank kartalari orqali qabul qilinadi,Оплата принимается через банковские карты UzCard и Humo,Тўлов УзCард ва Ҳумо банк карталари орқали қабул қилинади
+order_create_terminal_payment,Terminal orqali to‘lov,Оплата по терминалу,Терминал орқали тўлов
+order_create_transfer_discription,To‘lov bank o‘tkazmalari orqali qabul qilinadi,Оплата принимается через банковские расчеты,Тўлов банк ўтказмалари орқали қабул қилинади
+order_create_transfer_payment,Transfer,Перечисления,Трансфер
+order_need_product,Mahsulot kerak,Нужен товар,Маҳсулот керак
+order_need_service,Xizmat kerak,Нужна услуга,Хизмат керак
+payment_filter_all,Hammasi,Все,Ҳаммаси
+payment_filter_apply,Qo‘llash,Применять,Қўллаш
+payment_filter_from_date,dan:,От:,дан:
+payment_filter_payment_method,To‘lov usuli,Способ оплаты,Тўлов усули
+payment_filter_payment_type,To‘lov turi,Тип оплаты,Тўлов тури
+payment_filter_reset,Tozalash,Сброс,Тозалаш
+payment_filter_status,Holat,Статус,Ҳолат
+payment_filter_title,Filtr,Фильтр,Фильтр
+payment_filter_to_date,gacha:,До:,гача:
+payment_filter_type,Turi,Тип,Тури
+payment_title,To‘lovlar,Платежи,Тўловлар
+popular_products,Ommabop mahsulotlar,Популярные продукты,Оммабоп маҳсулотлар
+popular_services,Ommabop xizmatlar,Популярные услуги,Оммабоп хизматлар
+price_from,{price} dan,От {price},{price} дан
+price_to,{price} gacha,До {price},{price} гача
+price_two_dot,Narxi:,Цена:,Нархи:
+products_title,Mahsulotlar,Продукты,Маҳсулотлар
+profile_change_language,Tilni o‘zgartirish,Изменить язык,Тилни ўзгартириш
+profile_change_to_business,Biznesga o‘tish,Поменять на бизнес,Бизнесга ўтиш
+profile_comparison,Taqqoslash ro‘yxati,Список сравнения,Таққослаш рўйхати
+profile_edit_apartment,Kvartira,Квартира,Квартира
+profile_edit_biometric_information,Biometric ma‘lumotlar,Паспортные данные,Биометриc маълумотлар
+profile_edit_biometric_serial,Biometric raqami,Номер паспорта,Биометриc рақами
+profile_edit_brith_date,Tug‘ilgan yil (2004-11-28),Дата рождения (2004-11-28),Туғилган йил (2004-11-28)
+profile_edit_change_personal_data,Shaxsiy ma‘lumotlarni o‘zgartiring,Изменить личные данные,Шахсий маълумотларни ўзгартиринг
+profile_edit_district,Tuman,Район,Туман
+profile_edit_full_biometric,"Pasport raqami va seriyasini, tug‘ilgan sanasini ko‘rsating","Укажите номер и серия паспорта, дата рождения","Паспорт рақами ва сериясини, туғилган санасини кўрсатинг"
+profile_edit_house,Uy,Дом,Уй
+profile_edit_neighborhood,Mahalla,Махалля,Маҳалла
+profile_edit_phone,Telefon raqami (+998 __ ___ __ __),Номер телефона (+998 __ ___ __ __),Телефон рақами (+998 __ ___ __ __)
+profile_edit_region,Viloyat,Регион,Вилоят
+profile_edit_title,Tahrirlash,Изменить,Таҳрирлаш
+profile_edit_unfull_information,Ma‘lumotlarni to‘liq kiriting,Введите данные полностью,Маълумотларни тўлиқ киритинг
+profile_edit_user_email,elektron pochta,электронная почта,электрон почта
+profile_edit_user_name,Ism,Имя,Исм
+profile_edit_user_username,foydalanuvchi nomi,имя пользователя,фойдаланувчи номи
+profile_fill_wallet,Hamyonni to‘ldiring,Наполните кошелек,Ҳамённи тўлдиринг
+profile_identified,Shaxsingiz tasdiqlangan,Идентифицирован,Шахсингиз тасдиқланган
+profile_identify,Shaxsni tasdiqlash,Идентифицировать,Шахсни тасдиқлаш
+profile_logout,Chiqish,Выйти,Чиқиш
+profile_logout_description,Tizimdan chiqishni hohlaysizmi?,Вы хотите выйти из системы?,Тизимдан чиқишни ҳоҳлайсизми?
+profile_logout_title,Tizimdan chiqish,Выйти,Тизимдан чиқиш
+profile_message,Xabar,Сообщение,Хабар
+profile_my_address,Mening manzillarim,Мои адреса,Менинг манзилларим
+profile_my_ads,Mening e‘lonlarim,Мои Объявления,Менинг эълонларим
+profile_my_balans,Mening balansim:,Мой баланс:,Менинг балансим:
+profile_my_card,Mening kartalarim,Мои карты,Менинг карталарим
+profile_not_identified,Shaxsingiz tasdiqlanmagan,Не идентифицирован,Шахсингиз тасдиқланмаган
+profile_notification,Bildirishnoma,Уведомление,Билдиришнома
+profile_orders,Buyurtmalar,Заказы,Буюртмалар
+profile_payment,To‘lovlar,Платежи,Тўловлар
+profile_personal_data,Shaxsiy ma‘lumotlar,Личные данные,Шахсий маълумотлар
+profile_private_person,Jismoniy shaxs,Частное лицо,Жисмоний шахс
+profile_promotions,Aktsiyalar,Продвижения,Акциялар
+profile_settings,Sozlamalar,Настройки,Созламалар
+profile_title,Profil,Профиль,Профил
+profile_user_date_of_birth,Tug‘ilgan kuni,Дата рождения,Туғилган куни
+profile_user_date_of_doc_validity,Pasport ma‘lumoti,Паспортные данные,Паспорт маълумоти
+profile_user_district,Tuman,Район,Туман
+profile_user_email,Email,email,Эмаил
+profile_user_gender,Jins,Пол,Жинс
+profile_user_gender_boy,Erkak,Муж.,Эркак
+profile_user_gender_women,Ayol,Жен.,Аёл
+profile_user_name,Foydalanuvchi nomi,Имя пользователя,Фойдаланувчи номи
+profile_user_neighborhood,Turar joy,Махалля,Турар жой
+profile_user_phone,Telefon,Телефон,Телефон
+profile_user_region,Viloyat,Регион,Вилоят
+profile_view_titlle,Profil,Профиль,Профил
+recently_viewed_title,Yaqinda ko‘rilgan,Недавно посмотренные,Яқинда кўрилган
+request_title,So‘rovlar,Запросы,Сўровлар
+services_title,Xizmatlar,Услуги,Хизматлар
+settings_active_devices,Faol qurilmalar,Активные устройства,Фаол қурилмалар
+settings_change_password,Parolni o‘zgartirish,Поменять пароль,Паролни ўзгартириш
+settings_receive_notification,Bildirishnomani qanday olish mumkin,Способ получения уведомления,Билдиришномани қандай олиш мумкин
+settings_social_network,Mening ijtimoiy tarmoqlarim,Мои соц.сети,Менинг ижтимоий тармоқларим
+settings_title,Sozlamalar,Настройки,Созламалар
+similar_product_title,O‘xshash mahsulotlar,Похожие продукты,Ўхшаш маҳсулотлар
+telegram_bot_description,Bot orqali bildirishnomalarni olish uchun siz botga ulangan bo‘lishingiz kerak,"Вы должны быть подключены, чтобы получать уведомления от ботов.",Бот орқали билдиришномаларни олиш учун сиз ботга уланган бўлишингиз керак
+user_ad_detail_remainder,Qolgan,Остаток,Қолган
+user_address_action,Harakat,Действие,Ҳаракат
+user_address_add,Qo‘shish,Добавить,Қўшиш
+user_address_add_new_address,Yangi manzil qo‘shing,Добавить новый адрес,Янги манзил қўшинг
+user_address_address,Manzil:,Адрес:,Манзил:
+user_address_apartment,Kvartira:,Квартира:,Квартира:
+user_address_close,Yopish,Закрыть,Ёпиш
+user_address_district,Tuman,Район,Туман
+user_address_edit,Tahrirlash,Редактировать,Таҳрирлаш
+user_address_entrance,Kirish:,Подъезд:,Кириш:
+user_address_floor,Qavat:,Этаж:,Қават:
+user_address_home_number,Uy raqami,Номер дома,Uy raqami
+user_address_main,Asosiy,Основной,Асосий
+user_address_my_address,Mening manzillarim,Мои адреса,Менинг манзилларим
+user_address_name,Manzil nomi,Название адреса,Манзил номи
+user_address_region,Viloyat,Регион,Вилоят
+user_address_remove,Manzilni olib tashlang,Удалить адрес,Манзилни олиб ташланг
+user_address_save,Saqlash,Сақлаш,Сақлаш
+user_address_selection_location,Joylashuvni tanlang,Выберите локацию,Жойлашувни танланг
+user_address_set_as_main,Asosiy qilib belgilang,Сделать основным,Асосий қилиб белгиланг
+user_address_street,Mahalla,Махалля,Маҳалла
+user_ads_active_title,Faol,Активный,Фаол
+user_ads_all_title,Barchasi,Все,Барчаси
+user_ads_canceled_title,Bekor qilingan,Отменено,Бекор қилинган
+user_ads_inactive_title,Faol emas,Не активен,Фаол эмас
+user_ads_pending_title,Kutulmoqda,Ожидающий,Кутулмоқда
+user_ads_title,E‘lonlar,Объявления,Эълонлар
+user_request_accept_title,Qabul qilingan,Принял,Қабул қилинган
+user_request_all_title,Barchasi,Все,Барчаси
+user_request_canceled_title,Bekor qilingan,Отменено,Бекор қилинган
+user_request_pending_title,Kutulmoqda,Ожидающий,Кутулмоқда
+user_request_rejaction_title,Rad etilgan,Отклоненный,Рад этилган
+user_request_review_title,Ko‘rib chiqilmoqda,На рассмотрении,Кўриб чиқилмоқда

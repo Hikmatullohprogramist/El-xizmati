@@ -68,7 +68,7 @@ class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
                 );
               },
               noItemsFoundIndicatorBuilder: (_) {
-                return Center(child: Strings.loadingStateNoItem.w(400));
+                return Center(child: Strings.loadingStateNoItemFound.w(400));
               },
               newPageProgressIndicatorBuilder: (_) {
                 return SizedBox(
