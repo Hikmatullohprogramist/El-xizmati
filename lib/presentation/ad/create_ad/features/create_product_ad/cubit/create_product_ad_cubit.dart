@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
@@ -62,6 +63,24 @@ class CreateProductAdCubit
           : [];
 
       imageList.removeWhere((element) => element.path == imagePath);
+      List<XFile> newImageList = [];
+      newImageList.addAll(imageList);
+      build((buildable) => buildable.copyWith(pickedImages: newImageList));
+    } catch (e) {
+      log.e(e.toString());
+    }
+  }
+
+  void onReorder(int oldIndex, int newIndex) {
+    try {
+      List<XFile> imageList = buildable.pickedImages != null
+          ? List<XFile>.from(buildable.pickedImages!)
+          : [];
+
+      var item = imageList[oldIndex];
+      imageList.removeAt(oldIndex);
+      imageList.insert(newIndex, item);
+
       List<XFile> newImageList = [];
       newImageList.addAll(imageList);
       build((buildable) => buildable.copyWith(pickedImages: newImageList));

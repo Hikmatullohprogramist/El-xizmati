@@ -4,14 +4,16 @@ import 'package:flutter/material.dart';
 
 import '../../gen/assets/assets.gen.dart';
 
-class AddAdPickedImageWidget extends StatelessWidget {
-  const AddAdPickedImageWidget({
+class AddedImageWidget extends StatelessWidget {
+  const AddedImageWidget({
     super.key,
+    required this.index,
     required this.imagePath,
     required this.onImageClicked,
     required this.onRemoveClicked,
   });
 
+  final int index;
   final String imagePath;
   final Function() onImageClicked;
   final Function(String imagePath) onRemoveClicked;
@@ -19,6 +21,7 @@ class AddAdPickedImageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
+      key: ValueKey(imagePath),
       children: [
         InkWell(
           onTap: () => onImageClicked(),

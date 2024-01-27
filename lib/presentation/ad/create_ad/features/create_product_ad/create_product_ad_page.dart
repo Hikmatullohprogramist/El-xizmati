@@ -1,8 +1,9 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/widgets/image/add_ad_pick_image_widget.dart';
-import 'package:onlinebozor/common/widgets/image/add_ad_picked_image_widget.dart';
+import 'package:onlinebozor/common/widgets/image/add_image_widget.dart';
+import 'package:onlinebozor/common/widgets/image/added_image_widget.dart';
+import 'package:onlinebozor/common/widgets/image/image_ad_list_widget.dart';
 import 'package:onlinebozor/presentation/ad/create_ad/features/create_product_ad/cubit/create_product_ad_cubit.dart';
 
 import '../../../../../common/core/base_page.dart';
@@ -11,8 +12,7 @@ import '../../../../../common/widgets/common/common_button.dart';
 
 @RoutePage()
 class CreateProductAdPage extends BasePage<CreateProductAdCubit,
-    CreateProductAdBuildable,
-    CreateProductAdListenable> {
+    CreateProductAdBuildable, CreateProductAdListenable> {
   const CreateProductAdPage({super.key});
 
   @override
@@ -23,35 +23,45 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
         children: [
           SizedBox(
             width: double.infinity,
-            child: _getImageListWidget(state),
+            child: ImageAdListWidget(
+              imagePaths: state.pickedImages?.map((e) => e.path).toList() ?? [],
+              maxCount: 5,
+              onTakePhotoClicked: () {
+                cubit(context).takeImage();
+              },
+              onPickImageClicked: () {
+                cubit(context).pickImage();
+              },
+              onRemoveClicked: (imagePath) {
+                cubit(context).removeImage(imagePath);
+              },
+              onImageClicked: () {},
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _getImageListWidget(CreateProductAdBuildable state) {
+  Widget _getImageListWidget(
+      BuildContext context, CreateProductAdBuildable state) {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.symmetric(vertical: 12),
       margin: EdgeInsets.only(top: 12),
       child: SizedBox(
         height: 96,
-        child: ListView.separated(
-          physics: BouncingScrollPhysics(),
-          scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
-          padding: EdgeInsets.symmetric(
-            horizontal: 16,
-          ),
-          itemCount: (state.pickedImages?.length ?? 0) + 1,
-          itemBuilder: (context, index) {
+        child: ReorderableListView.builder(
+          itemBuilder: (BuildContext context, int index) {
             if (index == 0) {
-              return AddAdPickImageWidget(onAddClicked: () {
-                _showPickerTypeBottomSheet(context);
-              });
+              return AddImageWidget(
+                  index: index,
+                  onAddClicked: () {
+
+                  });
             } else {
-              return AddAdPickedImageWidget(
+              return AddedImageWidget(
+                index: index,
                 imagePath: state.pickedImages![index - 1].path,
                 onImageClicked: () {},
                 onRemoveClicked: (imagePath) {
@@ -60,93 +70,49 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
               );
             }
           },
-          separatorBuilder: (BuildContext context, int index) {
-            return SizedBox(width: 12);
+          itemCount: (state.pickedImages?.length ?? 0) + 1,
+          // separatorBuilder: (context, index) => SizedBox(width: 12),
+          onReorder: (int oldIndex, int newIndex) {
+            cubit(context).onReorder(oldIndex, newIndex);
           },
         ),
       ),
-    );
-  }
-
-  void _showPickerTypeBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (BuildContext bc) {
-        return Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: 32),
-              Center(child: Strings.imageListAddTitle.s(22).w(600)),
-              SizedBox(height: 32),
-              InkWell(
-                onTap: () => cubit(context).pickImage(),
-                child: Container(
-                  height: 64,
-                  decoration: BoxDecoration(
-                    color: Color(0XFFFBFAFF),
-                    borderRadius: BorderRadius.circular(10),
-                    shape: BoxShape.rectangle,
-                    border: Border.all(
-                      color: Color(0xFFDFE2E9),
-                      width: 1,
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      Strings.imageListAddPickImage.s(16).c(Colors.black),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: 16),
-              Expanded(
-                child: CommonButton(
-                  color: Colors.blueAccent,
-                  child: Container(
-                    height: 48,
-                    alignment: Alignment.center,
-                    child: Strings.imageListAddPickImage.s(16).c(Colors.white),
-                  ),
-                  onPressed: () {
-                    cubit(context).pickImage();
-
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-              SizedBox(height: 16),
-              Expanded(
-                child: CommonButton(
-                  color: Colors.red,
-                  child: Container(
-                    height: 48,
-                    alignment: Alignment.center,
-                    child: Strings.imageListAddTakePhoto.s(16).c(Colors.white),
-                  ),
-                  onPressed: () {
-                    cubit(context).takeImage();
-
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-              SizedBox(height: 16),
-              SizedBox(height: 24),
-            ],
-          ),
-        );
-      },
+      // child: ReorderableListView(
+      //   physics: BouncingScrollPhysics(),
+      //   scrollDirection: Axis.horizontal,
+      //   shrinkWrap: true,
+      //   padding: EdgeInsets.symmetric(
+      //     horizontal: 16,
+      //   ),
+      //   itemCount: (state.pickedImages?.length ?? 0) + 1,
+      //   itemBuilder: (context, index) {
+      //     if (index == 0) {
+      //       return AddAdPickImageWidget(onAddClicked: () {
+      //         _showPickerTypeBottomSheet(context);
+      //       });
+      //     } else {
+      //       return AddAdPickedImageWidget(
+      //         imagePath: state.pickedImages![index - 1].path,
+      //         onImageClicked: () {},
+      //         onRemoveClicked: (imagePath) {
+      //           cubit(context).removeImage(imagePath);
+      //         },
+      //       );
+      //     }
+      //   },
+      //   separatorBuilder: (BuildContext context, int index) {
+      //     return SizedBox(width: 12);
+      //   },
+      //   onReorder: (int oldIndex, int newIndex) {
+      //     setState(() {
+      //       if (newIndex > oldIndex) {
+      //         newIndex -= 1;
+      //       }
+      //       final item = _items.removeAt(oldIndex);
+      //       _items.insert(newIndex, item);
+      //     });
+      //   },
+      // ),
     );
   }
 }

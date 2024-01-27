@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 
 import '../../gen/assets/assets.gen.dart';
 
-class AddAdPickImageWidget extends StatelessWidget {
-  const AddAdPickImageWidget({
+class AddImageWidget extends StatelessWidget {
+  const AddImageWidget({
     super.key,
+    required this.index,
     required this.onAddClicked,
   });
 
+  final int index;
   final Function() onAddClicked;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      key: ValueKey(index),
       onTap: () => onAddClicked(),
       child: Container(
         height: 96,
