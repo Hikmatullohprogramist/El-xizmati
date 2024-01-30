@@ -24,6 +24,7 @@ class AddedImageWidget extends StatelessWidget {
       key: ValueKey(imagePath),
       children: [
         InkWell(
+          key: ValueKey(imagePath),
           onTap: () => onImageClicked(),
           child: Container(
             height: 82,

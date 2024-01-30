@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/image/add_image_widget.dart';
@@ -14,6 +15,7 @@ class ImageAdListWidget extends StatelessWidget {
     required this.onPickImageClicked,
     required this.onImageClicked,
     required this.onRemoveClicked,
+    required this.onReorder,
   });
 
   final List<String> imagePaths;
@@ -22,6 +24,7 @@ class ImageAdListWidget extends StatelessWidget {
   final Function() onPickImageClicked;
   final Function() onImageClicked;
   final Function(String imagePath) onRemoveClicked;
+  final Function(int oldIndex, int newIndex) onReorder;
 
   @override
   Widget build(BuildContext context) {
@@ -40,39 +43,47 @@ class ImageAdListWidget extends StatelessWidget {
           SizedBox(height: 12),
           SizedBox(
             height: 82,
-            child: ListView.separated(
-              physics: BouncingScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              padding: EdgeInsets.symmetric(
-                horizontal: 16,
-              ),
-              itemCount: imagePaths.length + 1,
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  return AddImageWidget(
-                      index: index,
-                      onAddClicked: () {
-                        if (imagePaths.length < maxCount) {
-                          _showPickerTypeBottomSheet(context);
-                        } else {
-                          _showMaxCountError(context);
-                        }
-                      });
-                } else {
-                  return AddedImageWidget(
-                    index: index,
-                    imagePath: imagePaths[index - 1],
-                    onImageClicked: () {},
-                    onRemoveClicked: (imagePath) {
-                      onRemoveClicked(imagePath);
+            child: Row(
+              children: [
+                SizedBox(width: 16),
+                AddImageWidget(
+                  key: ValueKey(-1),
+                  index: -1,
+                  onAddClicked: () {
+                    if (imagePaths.length < maxCount) {
+                      _showPickerTypeBottomSheet(context);
+                    } else {
+                      _showMaxCountError(context);
+                    }
+                  },
+                ),
+                Expanded(
+                  child: ReorderableListView(
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    padding: EdgeInsets.only(left: 6, right: 10),
+                    onReorder: (int oldIndex, int newIndex) {
+                      onReorder(oldIndex, newIndex);
                     },
-                  );
-                }
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return SizedBox(width: 12);
-              },
+                    children: imagePaths
+                        .mapIndexed(
+                          (index, element) => Padding(
+                            key: ValueKey(element),
+                            padding: const EdgeInsets.symmetric(horizontal: 6),
+                            child: AddedImageWidget(
+                              key: ValueKey(element),
+                              index: index,
+                              imagePath: element,
+                              onImageClicked: () {},
+                              onRemoveClicked: (imagePath) => onRemoveClicked(element),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ),
+              ],
             ),
           ),
           SizedBox(height: 12),

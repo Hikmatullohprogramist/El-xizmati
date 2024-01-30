@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
@@ -17,18 +16,33 @@ class CreateProductAdCubit
   Future<void> pickImage() async {
     try {
       final ImagePicker picker = ImagePicker();
-      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+      final List<XFile> newImages = await picker.pickMultiImage();
 
-      log.w("pickImageFromGallery result = $image");
-      if (image != null) {
-        List<XFile> imageList = buildable.pickedImages != null
+      log.w("pickImageFromGallery result = ${newImages.length}");
+      if (newImages.isNotEmpty) {
+        List<XFile> addedImages = buildable.pickedImages != null
             ? List<XFile>.from(buildable.pickedImages!)
             : [];
+        List<XFile> changedImages = [];
 
-        imageList.add(image);
-        List<XFile> newImageList = [];
-        newImageList.addAll(imageList);
-        build((buildable) => buildable.copyWith(pickedImages: newImageList));
+        var addedCount = addedImages.length;
+        var newCount = newImages.length;
+        var maxCount = state.buildable!.maxImageCount;
+
+        if (addedCount >= maxCount) {
+          invoke(CreateProductAdListenable(CreateProductAdEffect.onMaxCount));
+        }
+        if ((addedCount + newCount) > maxCount) {
+          invoke(CreateProductAdListenable(CreateProductAdEffect.onMaxCount));
+
+          addedImages.addAll(newImages.sublist(0, maxCount - addedCount));
+          changedImages.addAll(addedImages);
+          build((buildable) => buildable.copyWith(pickedImages: changedImages));
+        } else {
+          addedImages.addAll(newImages);
+          changedImages.addAll(addedImages);
+          build((buildable) => buildable.copyWith(pickedImages: changedImages));
+        }
       }
     } catch (e) {
       log.e(e.toString());
