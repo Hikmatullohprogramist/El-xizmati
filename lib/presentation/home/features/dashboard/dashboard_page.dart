@@ -44,9 +44,10 @@ class DashboardPage
   Widget builder(BuildContext context, DashboardBuildable state) {
     return Scaffold(
         appBar: CommonSearchBar(
-          onMicrophoneClicked: () {},
-          onNotificationClicked: () => context.router.push(NotificationRoute()),
           onSearchClicked: () => context.router.push(SearchRoute()),
+          onMicrophoneClicked: () {},
+          onFavoriteClicked: () => context.router.push(FavoritesRoute()),
+          onNotificationClicked: () => context.router.push(NotificationRoute()),
         ),
         body: CustomScrollView(
           physics: BouncingScrollPhysics(),

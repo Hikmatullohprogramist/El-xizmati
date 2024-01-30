@@ -48,69 +48,59 @@ class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
                 currentIndex: tabsRouter.activeIndex,
                 onTap: (index) {
                   // here we switch between tabs
-                  tabsRouter.setActiveIndex(index);
+                  // if (index < 2) {
+                  //   tabsRouter.setActiveIndex(index);
+                  // }
+                  if (index == 2) {
+                    context.router.push(FavoritesRoute());
+                    tabsRouter.setActiveIndex(index, notify: false);
+                  } else {
+                    tabsRouter.setActiveIndex(index);
+                  }
                 },
                 items: [
                   BottomNavigationBarItem(
-                      label: Strings.bottomNavigationHome,
-                      tooltip: Strings.bottomNavigationHome,
-                      icon: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Assets.images.bottomBar.dashboard.svg()),
-                      activeIcon: Padding(
+                    label: Strings.bottomNavigationHome,
+                    tooltip: Strings.bottomNavigationHome,
+                    icon: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Assets.images.bottomBar.dashboardActive.svg(),
-                      )),
+                        child: Assets.images.bottomBar.dashboard.svg()),
+                    activeIcon: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Assets.images.bottomBar.dashboardActive.svg(),
+                    ),
+                  ),
                   BottomNavigationBarItem(
-                      label: Strings.bottomNavigationCatalog,
-                      icon: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Assets.images.bottomBar.category.svg()),
-                      activeIcon: Padding(
+                    label: Strings.bottomNavigationCatalog,
+                    icon: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Assets.images.bottomBar.categoryActive.svg(),
-                      )),
+                        child: Assets.images.bottomBar.category.svg()),
+                    activeIcon: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Assets.images.bottomBar.categoryActive.svg(),
+                    ),
+                  ),
                   BottomNavigationBarItem(
-                      label: Strings.bottomNavigationFavorite,
-                      icon: Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: ValueListenableBuilder(
-                          valueListenable: Hive.box('favorites_storage').listenable(),
-                          builder: (BuildContext context, value, Widget? child) {
-                            int cartNumber = Hive.box("favorites_storage").length;
-                            return Badge(
-                              textStyle: TextStyle(fontSize: 8),
-                              alignment: Alignment.topRight,
-                              isLabelVisible: cartNumber > 0,
-                              label: cartNumber.toString().w(500),
-                              child: Assets.images.bottomBar.favorite.svg(),
-                            );
-                          },
-                        ),
-                      ),
-                      activeIcon: Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: ValueListenableBuilder(
-                          valueListenable: Hive.box('favorites_storage').listenable(),
-                          builder: (BuildContext context, value, Widget? child) {
-                            int cartNumber = Hive.box("favorites_storage").length;
-                            return Badge(
-                              textStyle: TextStyle(fontSize: 8),
-                              alignment: Alignment.topRight,
-                              isLabelVisible: cartNumber > 0,
-                              label: cartNumber.toString().w(500),
-                              child: Assets.images.bottomBar.favoriteActive.svg(),
-                            );
-                          },
-                        ),
-                      ),),
+                    label: Strings.bottomNavigationAddAd,
+                    icon: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Assets.images.bottomBar.addAd
+                          .svg(height: 20, width: 20),
+                    ),
+                    // activeIcon: Padding(
+                    //   padding: const EdgeInsets.all(8.0),
+                    //   child: Assets.images.bottomBar.categoryActive.svg(),
+                    // ),
+                  ),
                   BottomNavigationBarItem(
                       label: Strings.bottomNavigationCart,
                       icon: Padding(
                         padding: const EdgeInsets.all(8),
                         child: ValueListenableBuilder(
-                          valueListenable: Hive.box('cart_storage').listenable(),
-                          builder: (BuildContext context, value, Widget? child) {
+                          valueListenable:
+                              Hive.box('cart_storage').listenable(),
+                          builder:
+                              (BuildContext context, value, Widget? child) {
                             int cartNumber = Hive.box("cart_storage").length;
                             return Badge(
                               textStyle: TextStyle(fontSize: 8),
@@ -125,8 +115,10 @@ class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
                       activeIcon: Padding(
                         padding: const EdgeInsets.all(8),
                         child: ValueListenableBuilder(
-                          valueListenable: Hive.box('cart_storage').listenable(),
-                          builder: (BuildContext context, value, Widget? child) {
+                          valueListenable:
+                              Hive.box('cart_storage').listenable(),
+                          builder:
+                              (BuildContext context, value, Widget? child) {
                             int cartNumber = Hive.box("cart_storage").length;
                             return Badge(
                               textStyle: TextStyle(fontSize: 8),

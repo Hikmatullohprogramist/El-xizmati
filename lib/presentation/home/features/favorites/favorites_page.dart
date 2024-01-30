@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
@@ -30,7 +32,16 @@ class FavoritesPage
                 .w(500)
                 .s(16)
                 .c(context.colors.textPrimary),
-            leading: AutoLeadingButton(),
+            // leading: AutoLeadingButton(),
+            leading: IconButton(
+                icon: Icon(Icons.arrow_back_ios, color: context.colors.iconGrey),
+                onPressed: () {
+                  if (context.router.stack.length == 1) {
+                    exit(0);
+                  } else {
+                    context.router.pop();
+                  }
+                }),
             bottom: TabBar(
               physics: BouncingScrollPhysics(),
               indicator: MaterialIndicator(

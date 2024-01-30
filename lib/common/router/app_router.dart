@@ -88,7 +88,8 @@ class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
         //
-        AutoRoute(page: SetLanguageRoute.page, path: "/set_language", initial: true),
+        AutoRoute(
+            page: SetLanguageRoute.page, path: "/set_language", initial: true),
         AutoRoute(page: AuthStartRoute.page, path: "/auth_start"),
         AutoRoute(page: ConfirmRoute.page, path: '/confirmation'),
         AutoRoute(page: VerificationRoute.page, path: '/verification'),
@@ -111,7 +112,7 @@ class AppRouter extends _$AppRouter {
               AutoRoute(
                   page: FavoritesRoute.page,
                   path: 'favorite',
-                  maintainState: false,
+                  maintainState: true,
                   children: [
                     AutoRoute(
                         page: ProductFavoritesRoute.page,

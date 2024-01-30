@@ -18,9 +18,11 @@ class CategoryPage
   Widget builder(BuildContext context, CategoryBuildable state) {
     return Scaffold(
       appBar: CommonSearchBar(
-          onMicrophoneClicked: () {},
-          onNotificationClicked: () => context.router.push(NotificationRoute()),
-          onSearchClicked: () => context.router.push(SearchRoute())),
+        onSearchClicked: () => context.router.push(SearchRoute()),
+        onMicrophoneClicked: () {},
+        onFavoriteClicked: () => context.router.push(FavoritesRoute()),
+        onNotificationClicked: () => context.router.push(NotificationRoute()),
+      ),
       body: LoaderStateWidget(
         isFullScreen: true,
         loadingState: state.categoriesState,
@@ -34,7 +36,7 @@ class CategoryPage
                 invoke: (CategoryResponse categoryResponse) {
                   context.router.push(SubCategoryRoute(
                       subCategoryId: categoryResponse.id,
-                      title: categoryResponse.name??""));
+                      title: categoryResponse.name ?? ""));
                 },
                 category: state.categories[index]);
           },

@@ -59,6 +59,7 @@ auth_start_login_with_mobile_id,Mobile-ID bilan kirish,Войти с помощ�
 auth_start_login_with_one_id,One-ID bilan kirish,Войти с помощью one-ID,One-ID билан кириш
 auth_start_singin,Tizimga kirish,Войти в систему,Тизимга кириш
 auth_verification_forget_password,Parolni unutdingizmi?,Забыли пароль?,Паролни унутдингизми?
+bottom_navigation_add_ad,Yaratish,Создать,Яратиш
 bottom_navigation_cart,Savat,Корзина,Сават
 bottom_navigation_catalog,Kategoriyalar,Категории,Категориялар
 bottom_navigation_favorite,Tanlanganlar,Избранные,Танланганлар

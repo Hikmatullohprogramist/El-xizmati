@@ -13,7 +13,6 @@ import 'package:onlinebozor/common/widgets/common/common_button.dart';
 import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
 import 'package:onlinebozor/common/widgets/profile/profile_item_widget.dart';
 import 'package:onlinebozor/presentation/home/features/profile/cubit/profile_cubit.dart';
-import 'cubit/profile_cubit.dart';
 
 @RoutePage()
 class ProfilePage
@@ -47,16 +46,21 @@ class ProfilePage
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 10),
-              ProfileItemWidget(
-                name: state.isLogin
-                    ? Strings.profileTitle
-                    : Strings.authSinginTitle,
-                icon: Assets.images.icUserAvatar,
-                invoke: () {
-                  state.isLogin
-                      ? context.router.push(ProfileViewRoute())
-                      : context.router.push(AuthStartRoute());
-                },
+              Visibility(
+                visible: state.isLogin,
+                child: ProfileItemWidget(
+                  name: Strings.profileTitle,
+                  icon: Assets.images.icUserAvatar,
+                  invoke: () => context.router.push(ProfileViewRoute()),
+                ),
+              ),
+              Visibility(
+                visible: !state.isLogin,
+                child: ProfileItemWidget(
+                  name: Strings.authSinginTitle,
+                  icon: Assets.images.icUserAvatar,
+                  invoke: () => context.router.push(AuthStartRoute()),
+                ),
               ),
               SizedBox(height: 8),
               Visibility(
@@ -77,14 +81,6 @@ class ProfilePage
                     icon: Assets.images.icProfileOrder,
                     invoke: () => context.router.push(UserOrderStartRoute())),
               ),
-              SizedBox(height: 8),
-              Visibility(
-                visible: state.isLogin,
-                child: ProfileItemWidget(
-                    name: Strings.profileMyCard,
-                    icon: Assets.images.icCard,
-                    invoke: () => context.router.push(UserCardsRoute())),
-              ),
               Visibility(
                 visible: state.isLogin,
                 child: Divider(indent: 46, height: 1),
@@ -99,6 +95,17 @@ class ProfilePage
               ),
               Visibility(
                 visible: state.isLogin,
+                child: SizedBox(height: 8),
+              ),
+              Visibility(
+                visible: state.isLogin,
+                child: ProfileItemWidget(
+                    name: Strings.profileMyCard,
+                    icon: Assets.images.icCard,
+                    invoke: () => context.router.push(UserCardsRoute())),
+              ),
+              Visibility(
+                visible: state.isLogin,
                 child: Divider(indent: 46, height: 1),
               ),
               Visibility(
@@ -107,6 +114,15 @@ class ProfilePage
                     name: Strings.profileMyAddress,
                     icon: Assets.images.icProfileLocation,
                     invoke: () => context.router.push(UserAddressesRoute())),
+              ),
+              Visibility(
+                visible: state.isLogin,
+                child: Divider(indent: 46, height: 1),
+              ),
+              ProfileItemWidget(
+                name: Strings.bottomNavigationFavorite,
+                icon: Assets.images.bottomBar.favorite,
+                invoke: () => context.router.push(FavoritesRoute()),
               ),
               SizedBox(height: 8),
               Visibility(
