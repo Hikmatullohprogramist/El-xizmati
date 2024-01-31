@@ -34,76 +34,88 @@ class UserAllOrdersPage extends BasePage<UserAllOrdersCubit,
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: PagedGridView<int, UserOrderResponse>(
-        shrinkWrap: true,
-        addAutomaticKeepAlives: true,
-        physics: BouncingScrollPhysics(),
-        pagingController: state.userOrderPagingController!,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: width / height,
-            crossAxisSpacing: 16,
-            mainAxisExtent: 165,
-            crossAxisCount: 1,
-            mainAxisSpacing: 0),
-        builderDelegate: PagedChildBuilderDelegate<UserOrderResponse>(
-            firstPageErrorIndicatorBuilder: (_) {
-              return SizedBox(
-                height: 100,
-                child: Center(
-                  child: Column(
-                    children: [
-                      Strings.loadingStateError
-                          .w(400)
-                          .s(14)
-                          .c(context.colors.textPrimary),
-                      SizedBox(height: 12),
-                      CommonButton(
-                          onPressed: () {},
-                          type: ButtonType.elevated,
-                          child: Strings.loadingStateRetry.w(400).s(15))
-                    ],
-                  ),
-                ),
-              );
-            },
-            firstPageProgressIndicatorBuilder: (_) {
-              return SizedBox(
-                height: 160,
-                child: Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.blue,
-                  ),
-                ),
-              );
-            },
-            noItemsFoundIndicatorBuilder: (_) {
-              return UserAdEmptyWidget(listener: () {
-                context.router.push(OrderCreationRoute());
-              });
-            },
-            newPageProgressIndicatorBuilder: (_) {
-              return SizedBox(
-                height: 160,
-                child: Center(
-                  child: CircularProgressIndicator(color: Colors.blue),
-                ),
-              );
-            },
-            newPageErrorIndicatorBuilder: (_) {
-              return SizedBox(
-                height: 160,
-                child: Center(
-                  child: CircularProgressIndicator(color: Colors.blue),
-                ),
-              );
-            },
-            transitionDuration: Duration(milliseconds: 100),
-            itemBuilder: (context, item, index) {
-              return UserOrderWidget(
-                  listenerAddressEdit: () {}, listener: () {}, response: item);
-            }),
+      backgroundColor: Color(0xFFF2F4FB),
+      body: _getOrderListWidget(context, state, width, height),
+    );
+  }
+
+  Widget _getOrderListWidget(
+    BuildContext context,
+    UserAllOrdersBuildable state,
+    double width,
+    double height,
+  ) {
+    return PagedGridView<int, UserOrderResponse>(
+      shrinkWrap: true,
+      padding: EdgeInsets.symmetric(vertical: 12),
+      addAutomaticKeepAlives: true,
+      physics: BouncingScrollPhysics(),
+      pagingController: state.userOrderPagingController!,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        childAspectRatio: width / height,
+        crossAxisSpacing: 16,
+        mainAxisExtent: 165,
+        crossAxisCount: 1,
+        mainAxisSpacing: 0,
       ),
+      builderDelegate: PagedChildBuilderDelegate<UserOrderResponse>(
+          firstPageErrorIndicatorBuilder: (_) {
+            return SizedBox(
+              height: 100,
+              child: Center(
+                child: Column(
+                  children: [
+                    Strings.loadingStateError
+                        .w(400)
+                        .s(14)
+                        .c(context.colors.textPrimary),
+                    SizedBox(height: 12),
+                    CommonButton(
+                        onPressed: () {},
+                        type: ButtonType.elevated,
+                        child: Strings.loadingStateRetry.w(400).s(15))
+                  ],
+                ),
+              ),
+            );
+          },
+          firstPageProgressIndicatorBuilder: (_) {
+            return SizedBox(
+              height: 160,
+              child: Center(
+                child: CircularProgressIndicator(color: Colors.blue),
+              ),
+            );
+          },
+          noItemsFoundIndicatorBuilder: (_) {
+            return UserAdEmptyWidget(listener: () {
+              context.router.push(OrderCreationRoute());
+            });
+          },
+          newPageProgressIndicatorBuilder: (_) {
+            return SizedBox(
+              height: 160,
+              child: Center(
+                child: CircularProgressIndicator(color: Colors.blue),
+              ),
+            );
+          },
+          newPageErrorIndicatorBuilder: (_) {
+            return SizedBox(
+              height: 160,
+              child: Center(
+                child: CircularProgressIndicator(color: Colors.blue),
+              ),
+            );
+          },
+          transitionDuration: Duration(milliseconds: 100),
+          itemBuilder: (context, item, index) {
+            return UserOrderWidget(
+              listenerAddressEdit: () {},
+              listener: () {},
+              response: item,
+            );
+          }),
     );
   }
 }

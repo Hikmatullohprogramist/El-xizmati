@@ -11,7 +11,7 @@ class PaymentTransactionRootResponse with _$PaymentTransactionRootResponse {
     dynamic timestamp,
     int? status,
     dynamic path,
-   required Data data,
+   required PaymentTransactionDataResponse data,
     dynamic response,
   }) = _PaymentTransactionRootResponse;
 
@@ -19,11 +19,27 @@ class PaymentTransactionRootResponse with _$PaymentTransactionRootResponse {
 }
 
 @freezed
-class Data with _$Data {
-  const factory Data({
+class PaymentTransactionDataResponse with _$PaymentTransactionDataResponse {
+  const factory PaymentTransactionDataResponse({
     int? count,
-   required List<dynamic> results,
-  }) = _Data;
+   required List<PaymentTransactionResponse> results,
+  }) = _PaymentTransactionDataResponse;
 
-  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
+  factory PaymentTransactionDataResponse.fromJson(Map<String, dynamic> json) => _$PaymentTransactionDataResponseFromJson(json);
+}
+
+@freezed
+class PaymentTransactionResponse with _$PaymentTransactionResponse {
+  const factory PaymentTransactionResponse({
+    required int id,
+    required String pay_date,
+    required String type,
+    required dynamic amount,
+    required String pay_status,
+    required String pay_method,
+    required String pay_type,
+    String? note,
+  }) = _PaymentTransactionResponse;
+
+  factory PaymentTransactionResponse.fromJson(Map<String, dynamic> json) => _$PaymentTransactionResponseFromJson(json);
 }

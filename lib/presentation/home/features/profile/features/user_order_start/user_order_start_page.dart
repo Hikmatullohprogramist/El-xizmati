@@ -27,6 +27,7 @@ class UserOrderStartPage extends BasePage<UserOrderStartCubit,
           onPressed: () => context.router.pop(),
         ),
       ),
+      backgroundColor: Color(0xFFF2F4FB),
       body: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,

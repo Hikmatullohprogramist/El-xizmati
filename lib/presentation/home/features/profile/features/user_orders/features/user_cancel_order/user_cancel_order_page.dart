@@ -34,7 +34,7 @@ class UserCancelOrderPage extends BasePage<UserCancelOrderCubit,
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFFF2F4FB),
       body: PagedGridView<int, UserOrderResponse>(
         shrinkWrap: true,
         addAutomaticKeepAlives: true,

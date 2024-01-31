@@ -39,6 +39,7 @@ class ProfilePage
             .s(16)
             .c(context.colors.textPrimary),
       ),
+      backgroundColor: Color(0xFFF2F4FB),
       body: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Column(

@@ -21,9 +21,15 @@ class UserOrderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+    return Container(
+      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      decoration: BoxDecoration(
+        color: Color(0xFFFFFFFF),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(width: 1, color: Color(0xFFE5E9F3)),
+      ),
+      child: InkWell(
         child: Row(
           children: [
             Container(
@@ -134,8 +140,8 @@ class UserOrderWidget extends StatelessWidget {
                 ])),
           ],
         ),
+        onTap: () {},
       ),
-      onTap: () {},
     );
   }
 }

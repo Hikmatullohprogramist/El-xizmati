@@ -15,7 +15,7 @@ part 'payment_transaction_state.dart';
 class PaymentTransactionCubit extends BaseCubit<PaymentTransactionBuildable,
     PaymentTransactionListenable> {
   PaymentTransactionCubit(this.paymentTransactionRepository)
-      : super(PaymentTransactionBuildable()){
+      : super(PaymentTransactionBuildable()) {
     getController();
   }
 
@@ -44,8 +44,9 @@ class PaymentTransactionCubit extends BaseCubit<PaymentTransactionBuildable,
 
     adController.addPageRequestListener(
       (pageKey) async {
-        final adsList = await paymentTransactionRepository.getPaymentTransactions(
-            pageSize: 20, pageIndex: pageKey,);
+        final adsList = await paymentTransactionRepository
+            .getPaymentTransactions(pageSize: 20, pageIndex: pageKey);
+
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);
           log.i(buildable.transactionPagingController);
@@ -58,4 +59,3 @@ class PaymentTransactionCubit extends BaseCubit<PaymentTransactionBuildable,
     return adController;
   }
 }
-
