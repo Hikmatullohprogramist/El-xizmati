@@ -19,11 +19,11 @@ class SelectionUserAddressPage extends BasePage<SelectionUserAddressCubit,
   final void Function(UserAddressResponse userAddressResponse) onResult;
 
   @override
-  void listener(BuildContext context, SelectionUserAddressListenable state) {
-    switch (state.effect) {
+  void listener(BuildContext context, SelectionUserAddressListenable event) {
+    switch (event.effect) {
       case SelectionUserAddressEffect.back:
         {
-          onResult.call(state.userAddressResponse!);
+          onResult.call(event.userAddressResponse!);
           context.router.pop(true);
         }
     }

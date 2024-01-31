@@ -31,8 +31,8 @@ class ConfirmPage
   }
 
   @override
-  void listener(BuildContext context, ConfirmListenable state) {
-    switch (state.effect) {
+  void listener(BuildContext context, ConfirmListenable event) {
+    switch (event.effect) {
       case ConfirmEffect.setPassword:
         context.router.replace(SetPasswordRoute());
     }

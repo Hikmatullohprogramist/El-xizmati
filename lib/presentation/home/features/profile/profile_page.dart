@@ -20,8 +20,8 @@ class ProfilePage
   const ProfilePage({super.key});
 
   @override
-  void listener(BuildContext context, ProfileListenable state) {
-    switch (state.effect) {
+  void listener(BuildContext context, ProfileListenable event) {
+    switch (event.effect) {
       case ProfileEffect.onLogOut:
         context.router.push(ProfileRoute());
     }

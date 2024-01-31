@@ -24,8 +24,8 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
   final int adId;
 
   @override
-  void listener(BuildContext context, OrderCreateListenable state) {
-    switch (state.effect) {
+  void listener(BuildContext context, OrderCreateListenable event) {
+    switch (event.effect) {
       case OrderCreateEffect.delete:
         context.router.push(CartRoute());
       case OrderCreateEffect.back:

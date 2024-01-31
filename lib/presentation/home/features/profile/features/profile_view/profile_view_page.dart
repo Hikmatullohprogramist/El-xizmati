@@ -31,8 +31,8 @@ class ProfileViewPage extends BasePage<ProfileViewCubit, ProfileViewBuildable,
   }
 
   @override
-  void listener(BuildContext context, ProfileViewListenable state) {
-    switch (state.effect) {
+  void listener(BuildContext context, ProfileViewListenable event) {
+    switch (event.effect) {
       case ProfileViewEffect.navigationAuthStart:
         context.router.push(AuthStartRoute());
     }

@@ -21,7 +21,7 @@ class ProductOrderCreatePage extends BasePage<ProductOrderCreateCubit,
   ProductOrderCreatePage({super.key});
 
   @override
-  void listener(BuildContext context, ProductOrderCreateListenable state) {}
+  void listener(BuildContext context, ProductOrderCreateListenable event) {}
 
   final TextEditingController nameEditingController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
@@ -68,7 +68,7 @@ class ProductOrderCreatePage extends BasePage<ProductOrderCreateCubit,
               children: [
                 "Название товара".w(500).s(14).c(Color(0xFF41455E)),
                 SizedBox(width: 5),
-                Assets.images.icSnow.svg(height: 8, width: 8)
+                Assets.images.icRequiredField.svg(height: 8, width: 8)
               ],
             ),
             SizedBox(height: 10),
@@ -84,7 +84,7 @@ class ProductOrderCreatePage extends BasePage<ProductOrderCreateCubit,
               children: [
                 "Категория".w(500).s(14).c(Color(0xFF41455E)),
                 SizedBox(width: 5),
-                Assets.images.icSnow.svg(height: 8, width: 8)
+                Assets.images.icRequiredField.svg(height: 8, width: 8)
               ],
             ),
             SizedBox(height: 10),
@@ -139,7 +139,7 @@ class ProductOrderCreatePage extends BasePage<ProductOrderCreateCubit,
               children: [
                 "Описание товара".w(500).s(14).c(Color(0xFF41455E)),
                 SizedBox(width: 5),
-                Assets.images.icSnow.svg(height: 8, width: 8)
+                Assets.images.icRequiredField.svg(height: 8, width: 8)
               ],
             ),
             SizedBox(height: 10),
@@ -158,6 +158,8 @@ class ProductOrderCreatePage extends BasePage<ProductOrderCreateCubit,
                         context
                             .read<ProductOrderCreateCubit>()
                             .setDescription(value);
+
+                        cubit(context).setDescription(value);
                       },
                       keyboardType: TextInputType.multiline,
                       maxLines: null,
@@ -186,7 +188,7 @@ class ProductOrderCreatePage extends BasePage<ProductOrderCreateCubit,
               children: [
                 "Цена".w(500).s(14).c(Color(0xFF41455E)),
                 SizedBox(width: 5),
-                Assets.images.icSnow.svg(height: 8, width: 8)
+                Assets.images.icRequiredField.svg(height: 8, width: 8)
               ],
             ),
             SizedBox(height: 10),
@@ -291,7 +293,7 @@ class ProductOrderCreatePage extends BasePage<ProductOrderCreateCubit,
               children: [
                 "Моё местоположения".w(500).s(14).c(Color(0xFF41455E)),
                 SizedBox(width: 5),
-                Assets.images.icSnow.svg(height: 8, width: 8)
+                Assets.images.icRequiredField.svg(height: 8, width: 8)
               ],
             ),
             SizedBox(height: 10),
@@ -332,7 +334,7 @@ class ProductOrderCreatePage extends BasePage<ProductOrderCreateCubit,
               children: [
                 "Где искать?".w(500).s(14).c(Color(0xFF41455E)),
                 SizedBox(width: 5),
-                Assets.images.icSnow.svg(height: 8, width: 8)
+                Assets.images.icRequiredField.svg(height: 8, width: 8)
               ],
             ),
             SizedBox(height: 16),
@@ -398,7 +400,7 @@ class ProductOrderCreatePage extends BasePage<ProductOrderCreateCubit,
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Assets.images.icSnow.svg(height: 8, width: 8),
+                Assets.images.icRequiredField.svg(height: 8, width: 8),
                 SizedBox(width: 10),
                 Expanded(
                   child: "Необходимо заполнить все поля отмеченный звездочкой  "

@@ -19,8 +19,8 @@ class ChangeLanguagePage extends BasePage<ChangeLanguageCubit,
   const ChangeLanguagePage({super.key});
 
   @override
-  void listener(BuildContext context, ChangeLanguageListenable state) {
-    switch(state.effect){
+  void listener(BuildContext context, ChangeLanguageListenable event) {
+    switch(event.effect){
       case ChangeLanguageEffect.backTo:context.router.pop();
     }
   }

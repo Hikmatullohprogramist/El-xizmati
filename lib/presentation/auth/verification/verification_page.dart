@@ -29,8 +29,8 @@ class VerificationPage extends BasePage<VerificationCubit,
   }
 
   @override
-  void listener(BuildContext context, VerificationListenable state) {
-    switch (state.effect) {
+  void listener(BuildContext context, VerificationListenable event) {
+    switch (event.effect) {
       case VerificationEffect.navigationHome:
         context.router.replace(HomeRoute());
       case VerificationEffect.navigationToConfirm:

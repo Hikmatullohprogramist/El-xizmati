@@ -19,11 +19,11 @@ class SelectionCategoryPage extends BasePage<SelectionCategoryCubit,
   final void Function(CategoryResponse categoryResponse) onResult;
 
   @override
-  void listener(BuildContext context, SelectionCategoryListenable state) {
-    switch (state.selectionCategoryEffect) {
+  void listener(BuildContext context, SelectionCategoryListenable event) {
+    switch (event.selectionCategoryEffect) {
       case SelectionCategoryEffect.back:
         {
-          onResult.call(state.categoryResponse!);
+          onResult.call(event.categoryResponse!);
           context.router.pop(true);
         }
     }

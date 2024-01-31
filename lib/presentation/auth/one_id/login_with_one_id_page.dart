@@ -14,8 +14,8 @@ class LoginWithOneIdPage extends BasePage<LoginWithOneIdCubit,
   const LoginWithOneIdPage({super.key});
 
   @override
-  void listener(BuildContext context, LoginWithOneIdListenable state) {
-    switch (state.effect) {
+  void listener(BuildContext context, LoginWithOneIdListenable event) {
+    switch (event.effect) {
       case LoginWithOneIdEffect.navigationHome:
         context.router.replace(HomeRoute());
     }

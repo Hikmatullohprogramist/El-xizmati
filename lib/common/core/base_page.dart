@@ -9,7 +9,7 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<BUILDABLE, LISTENABLE>>,
     BUILDABLE, LISTENABLE> extends StatelessWidget {
   const BasePage({Key? key}) : super(key: key);
 
-  void listener(BuildContext context, LISTENABLE state) {}
+  void listener(BuildContext context, LISTENABLE event) {}
 
   Widget builder(BuildContext context, BUILDABLE state);
 
@@ -22,8 +22,9 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<BUILDABLE, LISTENABLE>>,
       child: Builder(
         builder: (context) {
           init(context);
+
           return BaseListener<CUBIT, BUILDABLE, LISTENABLE>(
-            listener: (listenable) => listener(context, listenable),
+            listener: (event) => listener(context, event),
             child: BaseBuilder<CUBIT, BUILDABLE, LISTENABLE>(builder: builder),
           );
         },
@@ -31,7 +32,15 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<BUILDABLE, LISTENABLE>>,
     );
   }
 
-  CUBIT cubit(BuildContext context){
+  CUBIT cubit(BuildContext context) {
     return context.read<CUBIT>();
+  }
+
+  BUILDABLE state(BuildContext context) {
+    return context.read<BUILDABLE>();
+  }
+
+  LISTENABLE event(BuildContext context) {
+    return context.read<LISTENABLE>();
   }
 }

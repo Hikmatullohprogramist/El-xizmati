@@ -18,8 +18,8 @@ class SetPasswordPage extends BasePage<SetPasswordCubit, SetPasswordBuildable,
   const SetPasswordPage({super.key});
 
   @override
-  void listener(BuildContext context, SetPasswordListenable state) {
-    switch (state.effect) {
+  void listener(BuildContext context, SetPasswordListenable event) {
+    switch (event.effect) {
       case SetPasswordEffect.navigationToHome:
         context.router.replace(HomeRoute());
     }

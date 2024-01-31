@@ -31,8 +31,8 @@ class DashboardPage
   }
 
   @override
-  void listener(BuildContext context, DashboardListenable state) {
-    switch (state.effect) {
+  void listener(BuildContext context, DashboardListenable event) {
+    switch (event.effect) {
       case DashboardEffect.success:
         () {};
       case DashboardEffect.navigationToAuthStart:

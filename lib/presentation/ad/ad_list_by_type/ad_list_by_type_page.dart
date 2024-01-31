@@ -33,8 +33,8 @@ class AdListByTypePage extends BasePage<AdListByTypeCubit,
   }
 
   @override
-  void listener(BuildContext context, AdListByTypeListenable state) {
-    switch (state.effect) {
+  void listener(BuildContext context, AdListByTypeListenable event) {
+    switch (event.effect) {
       case AdsListByTypeEffect.success:
         () {};
       case AdsListByTypeEffect.navigationToAuthStart:

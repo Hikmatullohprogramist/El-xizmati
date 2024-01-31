@@ -37,8 +37,8 @@ class AdListPage
   }
 
   @override
-  void listener(BuildContext context, AdListListenable state) {
-    switch (state.effect) {
+  void listener(BuildContext context, AdListListenable event) {
+    switch (event.effect) {
       case AdListEffect.success:
         () {};
       case AdListEffect.navigationToAuthStart:

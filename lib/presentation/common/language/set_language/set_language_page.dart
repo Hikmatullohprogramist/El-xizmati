@@ -18,8 +18,8 @@ class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageBuildable,
   const SetLanguagePage({super.key});
 
   @override
-  void listener(BuildContext context, SetLanguageListenable state) {
-    switch (state.effect) {
+  void listener(BuildContext context, SetLanguageListenable event) {
+    switch (event.effect) {
       case SetLanguageEffect.navigationAuthStart:
         context.router.replace(HomeRoute());
         break;

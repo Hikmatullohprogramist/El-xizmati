@@ -19,8 +19,8 @@ class RegistrationPage extends BasePage<RegistrationCubit,
   const RegistrationPage({super.key});
 
   @override
-  void listener(BuildContext context, RegistrationListenable state) {
-    switch (state.effect) {
+  void listener(BuildContext context, RegistrationListenable event) {
+    switch (event.effect) {
       case RegistrationEffect.success:
         () {};
       case RegistrationEffect.backToProfileDashboard:

@@ -28,9 +28,10 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
   }
 
   @override
-  void listener(BuildContext context, AddAddressListenable state) {
-    switch(state.effect){
-      case AddAddressEffect.navigationToHome:context.router.push(UserAddressesRoute());
+  void listener(BuildContext context, AddAddressListenable event) {
+    switch (event.effect) {
+      case AddAddressEffect.navigationToHome:
+        context.router.push(UserAddressesRoute());
     }
   }
 

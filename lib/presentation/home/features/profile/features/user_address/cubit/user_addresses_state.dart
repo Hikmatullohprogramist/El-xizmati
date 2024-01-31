@@ -11,8 +11,11 @@ class UserAddressesBuildable with _$UserAddressesBuildable {
 
 @freezed
 class UserAddressesListenable with _$UserAddressesListenable {
-  const factory UserAddressesListenable(UserAddressesEffect effect,
-      {String? error, UserAddressResponse? address}) = _UserAddressesListenable;
+  const factory UserAddressesListenable(
+    UserAddressesEffect effect, {
+    String? error,
+    UserAddressResponse? address,
+  }) = _UserAddressesListenable;
 }
 
 enum UserAddressesEffect { success, editUserAddress }

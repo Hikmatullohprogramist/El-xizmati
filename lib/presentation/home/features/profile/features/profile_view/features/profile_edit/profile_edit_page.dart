@@ -18,8 +18,8 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
   const ProfileEditPage({super.key});
 
   @override
-  void listener(BuildContext context, ProfileEditListenable state) {
-    switch (state.effect) {
+  void listener(BuildContext context, ProfileEditListenable event) {
+    switch (event.effect) {
       case ProfileEditEffect.success:
         () {};
       case ProfileEditEffect.backToProfileDashboard:

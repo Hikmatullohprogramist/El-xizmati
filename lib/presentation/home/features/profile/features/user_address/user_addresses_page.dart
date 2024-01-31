@@ -21,12 +21,12 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
   const UserAddressesPage({super.key});
 
   @override
-  void listener(BuildContext context, UserAddressesListenable state) {
-    switch (state.effect) {
+  void listener(BuildContext context, UserAddressesListenable event) {
+    switch (event.effect) {
       case UserAddressesEffect.success:
         () {};
       case UserAddressesEffect.editUserAddress:
-        context.router.replace(AddAddressRoute(address: state.address));
+        context.router.replace(AddAddressRoute(address: event.address));
     }
   }
 
