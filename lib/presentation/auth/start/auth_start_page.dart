@@ -14,7 +14,7 @@ import 'package:onlinebozor/common/widgets/common/common_text_field.dart';
 import 'package:onlinebozor/presentation/auth/confirm/confirm_page.dart';
 import 'package:onlinebozor/presentation/auth/start/cubit/auth_start_cubit.dart';
 
-import '../../util.dart';
+import '../../mask_formatters.dart';
 
 @RoutePage()
 class AuthStartPage
@@ -22,22 +22,22 @@ class AuthStartPage
   AuthStartPage({super.key});
 
   @override
-  void listener(BuildContext context, AuthStartListenable state) {
-    switch (state.effect) {
+  void listener(BuildContext context, AuthStartListenable event) {
+    switch (event.effect) {
       case AuthStartEffect.verification:
-        context.router.push(VerificationRoute(phone: state.phone!));
+        context.router.push(VerificationRoute(phone: event.phone!));
       case AuthStartEffect.confirmation:
         context.router.push(ConfirmRoute(
-            phone: state.phone!, confirmType: ConfirmType.confirm));
+            phone: event.phone!, confirmType: ConfirmType.confirm));
     }
   }
 
   @override
   void init(BuildContext context) {
-    textEditingController.text = "+998 ";
+    // phoneController.text = "+998 ";
   }
 
-  final TextEditingController textEditingController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
 
   @override
   Widget builder(BuildContext context, AuthStartBuildable state) {
@@ -83,7 +83,7 @@ class AuthStartPage
                 keyboardType: TextInputType.phone,
                 maxLines: 1,
                 textInputAction: TextInputAction.done,
-                controller: textEditingController,
+                controller: phoneController,
                 inputFormatters: phoneMaskFormatter,
                 onChanged: (value) {
                   context.read<AuthStartCubit>().setPhone(value);
