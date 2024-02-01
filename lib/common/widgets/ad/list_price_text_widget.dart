@@ -51,8 +51,8 @@ class ListPriceTextWidget extends StatelessWidget {
 
     return priceStr
         .replaceAll(',', ' ')
-        .w(800)
-        .s(13)
+        .w(500)
+        .s(14)
         .c(color != null ? color! : Color(0xFF5C6AC3))
         .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis);
   }

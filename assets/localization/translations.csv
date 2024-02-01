@@ -152,8 +152,8 @@ payment_filter_type,Turi,Тип,Тури
 payment_title,To‘lovlar,Платежи,Тўловлар
 popular_products,Ommabop mahsulotlar,Популярные продукты,Оммабоп маҳсулотлар
 popular_services,Ommabop xizmatlar,Популярные услуги,Оммабоп хизматлар
-price_from,{price} dan,От {price},{price} дан
-price_to,{price} gacha,До {price},{price} гача
+price_from,{price}dan,От {price},{price}дан
+price_to,{price}gacha,До {price},{price}гача
 price_two_dot,Narxi:,Цена:,Нархи:
 products_title,Mahsulotlar,Продукты,Маҳсулотлар
 profile_change_language,Tilni o‘zgartirish,Изменить язык,Тилни ўзгартириш

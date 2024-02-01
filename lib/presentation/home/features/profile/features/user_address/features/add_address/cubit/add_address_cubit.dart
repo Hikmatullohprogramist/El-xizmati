@@ -10,6 +10,7 @@ import '../../../../../../../../../domain/repositories/user_address_respository.
 import '../../../../../../../../../domain/repositories/user_repository.dart';
 
 part 'add_address_cubit.freezed.dart';
+
 part 'add_address_state.dart';
 
 @injectable
@@ -50,10 +51,13 @@ class AddAddressCubit
   }
 
   Future<void> getRegions() async {
-    final response = await _userRepository.getRegions();
-    build((buildable) => buildable.copyWith(
-          regions: response,
-        ));
+    try {
+      final response = await _userRepository.getRegions();
+      build((buildable) => buildable.copyWith(regions: response));
+    } catch (e) {
+      display.error("street error $e");
+      build((buildable) => buildable.copyWith());
+    }
   }
 
   Future<void> getDistrict() async {
@@ -110,7 +114,7 @@ class AddAddressCubit
         districtId: district.id,
         districtName: district.name,
         streetId: null,
-        streetName:Strings.userAddressStreet));
+        streetName: Strings.userAddressStreet));
     getStreets();
   }
 

@@ -37,12 +37,12 @@ class CartPage extends BasePage<CartCubit, CartBuildable, CartListenable> {
         //         child: "Выбрать все".w(500).s(12).c(Color(0xFF5C6AC3)))
         // ],
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFFF2F4FB),
       body: PagedGridView<int, Ad>(
         shrinkWrap: true,
         addAutomaticKeepAlives: true,
         physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        padding: EdgeInsets.symmetric(vertical: 16),
         pagingController: state.adsPagingController!,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: 360 / 142,
@@ -120,14 +120,6 @@ class CartPage extends BasePage<CartCubit, CartBuildable, CartListenable> {
                   context.router.push(OrderCreateRoute(adId: ad.id));
                 },
               );
-
-              //   AppAdWidget(
-              //   result: item,
-              //   onClickFavorite: (value) {},
-              //   onClick: (value) {
-              //     context.router.push(AdDetailRoute(adId: value.id));
-              //   },
-              // )
             }),
       ),
     );

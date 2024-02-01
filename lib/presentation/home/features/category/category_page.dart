@@ -23,6 +23,7 @@ class CategoryPage
         onFavoriteClicked: () => context.router.push(FavoritesRoute()),
         onNotificationClicked: () => context.router.push(NotificationRoute()),
       ),
+      backgroundColor: Color(0xFFF2F4FB),
       body: LoaderStateWidget(
         isFullScreen: true,
         loadingState: state.categoriesState,

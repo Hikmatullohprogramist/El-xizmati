@@ -49,6 +49,7 @@ class DashboardPage
           onFavoriteClicked: () => context.router.push(FavoritesRoute()),
           onNotificationClicked: () => context.router.push(NotificationRoute()),
         ),
+        backgroundColor: Color(0xFFF2F4FB),
         body: CustomScrollView(
           physics: BouncingScrollPhysics(),
           slivers: [
