@@ -5,11 +5,19 @@ active_device_remove_device,Seansni tugatish,Завершить сеанс,Се�
 ad_buy_by_one_click,Bir klikda sotib olish,Купить в один клик,Бир кликда сотиб олиш
 ad_collective_discounts,Chegirmalar,Скидки,Чегирмалар
 ad_collective_popular,Ommaboplar,Популярные,Оммабоплар
-ad_create_exchange_title,Almashish,обмен,Алмашиш
+ad_create_exchange_title,Almashish,Обмен,Алмашиш
 ad_create_free_title,Bepul,Бесплатно,Бепул
 ad_create_product_title,Mahsulot,Продукт,Маҳсулот
 ad_create_service_title,Xizmat,Услуга,Хизмат
 ad_create_title,E‘lon yaratish,Создать объявление,Эълон яратиш
+ad_creation_start_buy_desc,Siz qulay va tez mahsulot yoki xizmatni sotib olish uchun so‘rovlarni yaratishingiz mumkin!,Вы можете легко и быстро создавать заявки на покупку товара или услуги!,Сиз қулай ва тез маҳсулот ёки хизматни сотиб олиш учун сўровларни яратишингиз мумкин!
+ad_creation_start_buy_product,Mahsulot sotib oling,Купить товар,Маҳсулот сотиб олинг
+ad_creation_start_buy_service,Xizmat sotib oling,Купить услугу,Хизмат сотиб олинг
+ad_creation_start_buy_title,Sotib olmoqchimisiz ?,Хотите купить ?,Сотиб олмоқчимисиз ?
+ad_creation_start_sale_desc,Siz bizning platformamizda mahsulotlar va xizmatlarni qulay va tez sotishingiz mumkin!,На нашей платформе вы можете быстро и надёжно продавать свои товары и услуги!,Сиз бизнинг платформамизда товарлар ва хизматларни қулай ва тез сотишингиз мумкин!
+ad_creation_start_sale_product,Mahsulot soting,Продавайте товар,Маҳсулот сотинг
+ad_creation_start_sale_service,Xizmat soting,Продавайте услугу,Хизмат сотинг
+ad_creation_start_sale_title,Sotmoqchimisiz ?,Хочу продать ?,Сотмоқчимисиз ?
 ad_detail_addtocart,Savatchaga qo‘shish,В корзину,Саватчага қўшиш
 ad_detail_author,Muallif,Автор,Муаллиф
 ad_detail_author_ads,Muallifning boshqa e‘lonlari,Другие объявления автора,Муаллифнинг бошқа эълонлари
