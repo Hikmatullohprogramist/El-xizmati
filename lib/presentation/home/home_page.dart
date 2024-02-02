@@ -19,7 +19,7 @@ class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
       routes: const [
         DashboardRoute(),
         CategoryRoute(),
-        FavoritesRoute(),
+        AdCreationStartRoute(),
         CartRoute(),
         ProfileRoute()
       ],
@@ -51,12 +51,12 @@ class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
                   // if (index < 2) {
                   //   tabsRouter.setActiveIndex(index);
                   // }
-                  if (index == 2) {
-                    context.router.push(FavoritesRoute());
-                    tabsRouter.setActiveIndex(index, notify: false);
-                  } else {
-                    tabsRouter.setActiveIndex(index);
-                  }
+                  // if (index == 2) {
+                  //   context.router.push(FavoritesRoute());
+                  tabsRouter.setActiveIndex(index);
+                  // } else {
+                  //   tabsRouter.setActiveIndex(index);
+                  // }
                 },
                 items: [
                   BottomNavigationBarItem(

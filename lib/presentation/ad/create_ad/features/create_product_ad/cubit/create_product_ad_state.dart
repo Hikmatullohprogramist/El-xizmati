@@ -3,7 +3,7 @@ part of 'create_product_ad_cubit.dart';
 @freezed
 class CreateProductAdBuildable with _$CreateProductAdBuildable {
   const factory CreateProductAdBuildable({
-    @Default(5) int maxImageCount,
+    @Default(MAX_IMAGE_COUNT) int maxImageCount,
     List<XFile>? pickedImages,
   }) = _CreateProductAdBuildable;
 }
@@ -12,8 +12,10 @@ class CreateProductAdBuildable with _$CreateProductAdBuildable {
 class CreateProductAdListenable with _$CreateProductAdListenable {
   const factory CreateProductAdListenable(
     CreateProductAdEffect effect, {
-    String? message,
+    @Default(MAX_IMAGE_COUNT) int maxImageCount,
   }) = _CreateProductAdListenable;
 }
 
-enum CreateProductAdEffect { onMaxCount }
+enum CreateProductAdEffect { onOverMaxCount }
+
+const int MAX_IMAGE_COUNT = 5;

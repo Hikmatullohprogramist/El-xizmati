@@ -25,19 +25,20 @@ import '../../presentation/auth/one_id/login_with_one_id_page.dart';
 import '../../presentation/auth/set_password/set_password_page.dart';
 import '../../presentation/auth/start/auth_start_page.dart';
 import '../../presentation/auth/verification/verification_page.dart';
+import '../../presentation/common/favorites/favorites/product/product_favorites_page.dart';
+import '../../presentation/common/favorites/favorites/service/service_favorites_page.dart';
+import '../../presentation/common/favorites/favorites_page.dart';
 import '../../presentation/common/language/set_language/set_language_page.dart';
 import '../../presentation/common/notification/notification_page.dart';
 import '../../presentation/common/photo_view/photo_view_page.dart';
 import '../../presentation/common/popular_categories/popular_categories_page.dart';
 import '../../presentation/common/search/search_page.dart';
+import '../../presentation/home/features/ad_creation_start/ad_creation_start_page.dart';
 import '../../presentation/home/features/cart/cart_page.dart';
 import '../../presentation/home/features/cart/features /order_create/order_create_page.dart';
 import '../../presentation/home/features/category/category_page.dart';
 import '../../presentation/home/features/category/features/sub_category_page.dart';
 import '../../presentation/home/features/dashboard/dashboard_page.dart';
-import '../../presentation/home/features/favorites/favorites/product/product_favorites_page.dart';
-import '../../presentation/home/features/favorites/favorites/service/service_favorites_page.dart';
-import '../../presentation/home/features/favorites/favorites_page.dart';
 import '../../presentation/home/features/profile/features/chat_list/chats_list.dart';
 import '../../presentation/home/features/profile/features/chat_list/features/buying_chats/buying_chats_page.dart';
 import '../../presentation/home/features/profile/features/chat_list/features/chat/chat_page.dart';
@@ -89,7 +90,10 @@ class AppRouter extends _$AppRouter {
   List<AutoRoute> get routes => [
         //
         AutoRoute(
-            page: SetLanguageRoute.page, path: "/set_language", initial: true),
+          page: SetLanguageRoute.page,
+          path: "/set_language",
+          initial: true,
+        ),
         AutoRoute(page: AuthStartRoute.page, path: "/auth_start"),
         AutoRoute(page: ConfirmRoute.page, path: '/confirmation'),
         AutoRoute(page: VerificationRoute.page, path: '/verification'),
@@ -100,40 +104,51 @@ class AppRouter extends _$AppRouter {
 
         //home screen
         AutoRoute(
-            page: HomeRoute.page,
-            path: '/home',
-            initial: false,
-            children: [
-              AutoRoute(
-                  page: DashboardRoute.page,
-                  path: 'dashboard',
-                  maintainState: false),
-              AutoRoute(page: CategoryRoute.page, path: 'category'),
-              AutoRoute(
-                  page: FavoritesRoute.page,
-                  path: 'favorite',
-                  maintainState: true,
-                  children: [
-                    AutoRoute(
-                        page: ProductFavoritesRoute.page,
-                        path: 'product_favorites',
-                        maintainState: false),
-                    AutoRoute(
-                        page: ServiceFavoritesRoute.page,
-                        path: 'service_favorites',
-                        maintainState: false)
-                  ]),
-              AutoRoute(
-                  page: CartRoute.page, path: 'cart', maintainState: false),
-              AutoRoute(page: ProfileRoute.page, path: 'profile')
-            ]),
+          page: HomeRoute.page,
+          path: '/home',
+          initial: false,
+          children: [
+            AutoRoute(
+              page: DashboardRoute.page,
+              path: 'dashboard',
+              maintainState: false,
+            ),
+            AutoRoute(page: CategoryRoute.page, path: 'category'),
+            AutoRoute(
+              page: AdCreationStartRoute.page,
+              path: 'ad_creation_start',
+            ),
+            AutoRoute(page: CartRoute.page, path: 'cart', maintainState: false),
+            AutoRoute(page: ProfileRoute.page, path: 'profile')
+          ],
+        ),
+
+        AutoRoute(
+          page: FavoritesRoute.page,
+          path: '/favorite',
+          maintainState: true,
+          children: [
+            AutoRoute(
+              page: ProductFavoritesRoute.page,
+              path: 'product_favorites',
+              maintainState: false,
+            ),
+            AutoRoute(
+              page: ServiceFavoritesRoute.page,
+              path: 'service_favorites',
+              maintainState: false,
+            )
+          ],
+        ),
 
         AutoRoute(page: CreateAdRoute.page, path: '/create_ad', children: [
           AutoRoute(page: CreateProductAdRoute.page, path: 'create_product_ad'),
           AutoRoute(page: CreateServiceAdRoute.page, path: 'create_service_ad'),
           AutoRoute(page: CreateFreeAdRoute.page, path: 'create_free_ad'),
           AutoRoute(
-              page: CreateExchangeAdRoute.page, path: 'create_exchange_ad')
+            page: CreateExchangeAdRoute.page,
+            path: 'create_exchange_ad',
+          )
         ]),
 
         //  sub category
@@ -152,7 +167,9 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: AdDetailRoute.page, path: '/ads_detail'),
         //  common page
         AutoRoute(
-            page: PopularCategoriesRoute.page, path: '/popular_categories'),
+          page: PopularCategoriesRoute.page,
+          path: '/popular_categories',
+        ),
         AutoRoute(page: SearchRoute.page, path: '/search'),
         AutoRoute(page: NotificationRoute.page, path: '/notification'),
         AutoRoute(page: PhotoViewRoute.page, path: '/photo_view'),
@@ -201,9 +218,13 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: SettingRoute.page, path: '/setting'),
         AutoRoute(page: UserActiveDeviceRoute.page, path: '/my_active_device'),
         AutoRoute(
-            page: UserSocialNetworkRoute.page, path: '/my_social_network'),
+          page: UserSocialNetworkRoute.page,
+          path: '/my_social_network',
+        ),
         AutoRoute(
-            page: NotificationSettingRoute.page, path: '/notification_setting'),
+          page: NotificationSettingRoute.page,
+          path: '/notification_setting',
+        ),
         AutoRoute(page: UserAdDetailRoute.page, path: "/user_ad_detail"),
         AutoRoute(page: ChangeLanguageRoute.page, path: '/change_language'),
         AutoRoute(page: UserOrderStartRoute.page, path: "/user_order_start"),
@@ -212,17 +233,20 @@ class AppRouter extends _$AppRouter {
             path: '/order_creation',
             children: [
               AutoRoute(
-                  page: ProductOrderCreateRoute.page,
-                  path: "product_order_create"),
+                page: ProductOrderCreateRoute.page,
+                path: "product_order_create",
+              ),
               AutoRoute(
-                  page: ServiceOrderCreateRoute.page,
-                  path: 'service_order_create')
+                page: ServiceOrderCreateRoute.page,
+                path: 'service_order_create',
+              )
             ]),
         AutoRoute(
             page: SelectionCategoryRoute.page, path: '/selection_category'),
         AutoRoute(
-            page: SelectionUserAddressRoute.page,
-            path: '/selection_user_address'),
+          page: SelectionUserAddressRoute.page,
+          path: '/selection_user_address',
+        ),
         AutoRoute(page: SelectionAddressRoute.page, path: '/selection_address')
       ];
 }

@@ -24,6 +24,7 @@ class CommonTextField extends StatefulWidget {
     this.maxLength = 1000,
     this.textAlign = TextAlign.start,
   }) : super(key: key);
+
   final Iterable<String>? autofillHints;
   final bool? enableSuggestions;
   final String? hint;
@@ -35,8 +36,8 @@ class CommonTextField extends StatefulWidget {
   final bool readOnly;
   final int? minLines;
   final int? maxLines;
-  final bool enabled;
   final int maxLength;
+  final bool enabled;
   final TextAlign textAlign;
   final Color? disabledColor;
   final TextInputAction? textInputAction;
@@ -62,11 +63,12 @@ class _CommonTextFieldState extends State<CommonTextField> {
       autofillHints: widget.autofillHints,
       textAlign: widget.textAlign,
       textAlignVertical: TextAlignVertical.center,
-      maxLength: widget.maxLength,
-      style: TextStyle(),
+      // style: TextStyle(),
       controller: widget.controller,
       keyboardType: widget.inputType,
       minLines: widget.minLines,
+      maxLines: widget.maxLines,
+      maxLength: widget.maxLength,
       readOnly: widget.readOnly,
       enabled: widget.enabled,
       enableSuggestions: widget.enableSuggestions ?? true,
@@ -80,6 +82,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
         focusColor: Colors.white,
         fillColor: Color(0xFFFAF9FF),
         hintText: widget.hint,
+        hintStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
         isDense: false,
         counter: Offstage(),
         contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),

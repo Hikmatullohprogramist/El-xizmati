@@ -30,10 +30,10 @@ class CreateProductAdCubit
         var maxCount = state.buildable!.maxImageCount;
 
         if (addedCount >= maxCount) {
-          invoke(CreateProductAdListenable(CreateProductAdEffect.onMaxCount));
+          invoke(CreateProductAdListenable(CreateProductAdEffect.onOverMaxCount, maxImageCount: buildable.maxImageCount));
         }
         if ((addedCount + newCount) > maxCount) {
-          invoke(CreateProductAdListenable(CreateProductAdEffect.onMaxCount));
+          invoke(CreateProductAdListenable(CreateProductAdEffect.onOverMaxCount, maxImageCount: buildable.maxImageCount));
 
           addedImages.addAll(newImages.sublist(0, maxCount - addedCount));
           changedImages.addAll(addedImages);

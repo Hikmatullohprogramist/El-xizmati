@@ -9,7 +9,7 @@ import '../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../domain/models/order/order_type.dart';
 import 'cubit/user_order_start_cubit.dart';
 
-  @RoutePage()
+@RoutePage()
 class UserOrderStartPage extends BasePage<UserOrderStartCubit,
     UserOrderStartBuildable, UserOrderStartListenable> {
   const UserOrderStartPage({super.key});
@@ -54,10 +54,7 @@ class UserOrderStartPage extends BasePage<UserOrderStartCubit,
                         children: [
                           Assets.images.pngImages.sell.image(),
                           SizedBox(height: 16),
-                          "Sotaman"
-                              .w(500)
-                              .s(16)
-                              .c(context.colors.textPrimary)
+                          "Sotaman".w(500).s(16).c(context.colors.textPrimary)
                         ]),
                   ),
                 ),
@@ -85,7 +82,10 @@ class UserOrderStartPage extends BasePage<UserOrderStartCubit,
                         children: [
                           Assets.images.pngImages.buy.image(),
                           SizedBox(height: 16),
-                          "Sotib olaman".w(500).s(16).c(context.colors.textPrimary)
+                          "Sotib olaman"
+                              .w(500)
+                              .s(16)
+                              .c(context.colors.textPrimary)
                         ]),
                   ),
                 ),

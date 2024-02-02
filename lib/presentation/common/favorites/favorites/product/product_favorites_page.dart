@@ -5,7 +5,6 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/presentation/home/features/favorites/favorites/product/cubit/product_favorites_cubit.dart';
 
 import '../../../../../../common/gen/localization/strings.dart';
 import '../../../../../../common/router/app_router.dart';
@@ -13,6 +12,7 @@ import '../../../../../../common/widgets/ad/vertical_ad_widget.dart';
 import '../../../../../../common/widgets/common/common_button.dart';
 import '../../../../../../common/widgets/favorite/favorite_empty_widget.dart';
 import '../../../../../../domain/models/ad/ad.dart';
+import 'cubit/product_favorites_cubit.dart';
 
 @RoutePage()
 class ProductFavoritesPage extends BasePage<ProductFavoritesCubit,
