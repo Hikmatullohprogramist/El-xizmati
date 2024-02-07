@@ -1,14 +1,16 @@
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/widgets/common/common_dropdown_text_field.dart';
 import 'package:onlinebozor/common/widgets/image/image_ad_list_widget.dart';
-import 'package:onlinebozor/presentation/ad/create_ad/features/create_product_ad/cubit/create_product_ad_cubit.dart';
 
 import '../../../../../common/core/base_page.dart';
 import '../../../../../common/gen/localization/strings.dart';
 import '../../../../../common/widgets/common/common_text_field.dart';
+import 'cubit/create_product_ad_cubit.dart';
 
 @RoutePage()
 class CreateProductAdPage extends BasePage<CreateProductAdCubit,
@@ -30,6 +32,17 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
   @override
   Widget builder(BuildContext context, CreateProductAdBuildable state) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Assets.images.icArrowLeft.svg(),
+          onPressed: () => context.router.pop(),
+        ),
+        elevation: 0.5,
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        bottomOpacity: 1,
+        title: Strings.adCreateTitle.w(500).s(16).c(context.colors.textPrimary),
+      ),
       backgroundColor: Color(0xFFF2F4FB),
       body: SingleChildScrollView(
         child: Column(
@@ -71,23 +84,26 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
                 SizedBox(height: 6),
                 _getDescTextField(),
                 SizedBox(height: 16),
-
                 Row(
                   children: [
-                    Flexible(flex: 3, child: Column(
-                      children: [
-                        _getRequiredLabelText('Кол-во на складе'),
-                        SizedBox(height: 6),
-                        _getWarehouseTextField(),
-                      ],
-                    )),
-                    Flexible(flex: 2, child: Column(
-                      children: [
-                        _getLabelText('Тип'),
-                        SizedBox(height: 6),
-                        _getWarehouseUnitDropDownTextField(),
-                      ],
-                    ))
+                    Flexible(
+                        flex: 3,
+                        child: Column(
+                          children: [
+                            _getRequiredLabelText('Кол-во на складе'),
+                            SizedBox(height: 6),
+                            _getWarehouseTextField(),
+                          ],
+                        )),
+                    Flexible(
+                        flex: 2,
+                        child: Column(
+                          children: [
+                            _getLabelText('Тип'),
+                            SizedBox(height: 6),
+                            _getWarehouseUnitDropDownTextField(),
+                          ],
+                        ))
                   ],
                 ),
                 SizedBox(height: 16),

@@ -32,7 +32,7 @@ class UserAdsPage extends BasePage<UserAdsCubit, UserAdsBuildable, UserAdsListen
             actions: [
               CommonButton(
                   type: ButtonType.text,
-                  onPressed: () => context.router.push(CreateAdRoute()),
+                  onPressed: () => context.router.push(CreateAdStartRoute()),
                   child: Strings.adCreateTitle.w(500).s(12).c(Color(0xFF5C6AC3)))
             ],
             leading: IconButton(

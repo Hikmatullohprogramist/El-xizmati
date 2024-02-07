@@ -62,7 +62,7 @@ class UserAllAdsPage extends BasePage<UserAllAdsCubit, UserAllAdsBuildable,
           },
           noItemsFoundIndicatorBuilder: (_) {
             return UserAdEmptyWidget(listener: () {
-              context.router.push(CreateAdRoute());
+              context.router.push(CreateAdStartRoute());
             });
           },
           newPageProgressIndicatorBuilder: (_) {

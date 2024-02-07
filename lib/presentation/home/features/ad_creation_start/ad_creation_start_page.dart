@@ -83,7 +83,7 @@ class AdCreationStartPage extends BasePage<AdCreationStartCubit,
                       color: context.colors.buttonPrimary,
                       type: ButtonType.elevated,
                       onPressed: () {
-                        context.router.push(CreateProductAdRoute());
+                        context.router.push(CreateServiceAdRoute());
                       },
                       child: Strings.adCreationStartSaleService
                           .s(13)

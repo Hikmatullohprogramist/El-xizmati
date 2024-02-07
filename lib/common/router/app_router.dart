@@ -12,12 +12,9 @@ import '../../domain/models/order/order_type.dart';
 import '../../presentation/ad/ad_detail/ad_detail_page.dart';
 import '../../presentation/ad/ad_list/ad_list_page.dart';
 import '../../presentation/ad/ad_list_by_type/ad_list_by_type_page.dart';
-import '../../presentation/ad/create_ad/create_ad_page.dart';
-import '../../presentation/ad/create_ad/features/create_exchange_ad/create_exchange_ad_page.dart';
-import '../../presentation/ad/create_ad/features/create_free_ad/create_free_ad_page.dart';
-import '../../presentation/ad/create_ad/features/create_product_ad/create_product_ad_page.dart';
-import '../../presentation/ad/create_ad/features/create_service_ad/create_service_ad_page.dart';
 import '../../presentation/ad/create_ad_start/create_ad_start_page.dart';
+import '../../presentation/ad/create_product_ad/create_product_ad_page.dart';
+import '../../presentation/ad/create_service_ad/create_service_ad_page.dart';
 import '../../presentation/ad/user_ad_detail/user_ad_detail.dart';
 import '../../presentation/auth/confirm/confirm_page.dart';
 import '../../presentation/auth/eds/eds_page.dart';
@@ -141,15 +138,11 @@ class AppRouter extends _$AppRouter {
           ],
         ),
 
-        AutoRoute(page: CreateAdRoute.page, path: '/create_ad', children: [
-          AutoRoute(page: CreateProductAdRoute.page, path: 'create_product_ad'),
-          AutoRoute(page: CreateServiceAdRoute.page, path: 'create_service_ad'),
-          AutoRoute(page: CreateFreeAdRoute.page, path: 'create_free_ad'),
-          AutoRoute(
-            page: CreateExchangeAdRoute.page,
-            path: 'create_exchange_ad',
-          )
-        ]),
+        // create product ad
+        AutoRoute(page: CreateProductAdRoute.page, path: '/create_product_ad'),
+
+        // create service ad
+        AutoRoute(page: CreateServiceAdRoute.page, path: '/create_service_ad'),
 
         //  sub category
         AutoRoute(page: SubCategoryRoute.page, path: "/sub_category"),
