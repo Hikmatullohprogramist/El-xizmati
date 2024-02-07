@@ -37,12 +37,7 @@ class AdCreationStartPage extends BasePage<AdCreationStartCubit,
   Widget _buildSaleBlock(BuildContext context) {
     return Expanded(
       child: Container(
-        margin: EdgeInsets.only(
-          left: 16,
-          right: 16,
-          top: 16,
-          bottom: 8,
-        ),
+        margin: EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 8),
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -69,8 +64,7 @@ class AdCreationStartPage extends BasePage<AdCreationStartCubit,
               SizedBox(height: 16),
               Row(
                 children: [
-                  Flexible(
-                    flex: 1,
+                  Expanded(
                     child: CommonButton(
                       color: context.colors.buttonPrimary,
                       type: ButtonType.elevated,
@@ -83,9 +77,8 @@ class AdCreationStartPage extends BasePage<AdCreationStartCubit,
                           .c(Colors.white),
                     ),
                   ),
-                  SizedBox(width: 24),
-                  Flexible(
-                    flex: 1,
+                  SizedBox(width: 16),
+                  Expanded(
                     child: CommonButton(
                       color: context.colors.buttonPrimary,
                       type: ButtonType.elevated,
@@ -138,8 +131,7 @@ class AdCreationStartPage extends BasePage<AdCreationStartCubit,
               SizedBox(height: 16),
               Row(
                 children: [
-                  Flexible(
-                    flex: 1,
+                  Expanded(
                     child: CommonButton(
                       color: context.colors.buttonPrimary,
                       type: ButtonType.elevated,
@@ -153,9 +145,8 @@ class AdCreationStartPage extends BasePage<AdCreationStartCubit,
                           .c(Colors.white),
                     ),
                   ),
-                  SizedBox(width: 24),
-                  Flexible(
-                    flex: 1,
+                  SizedBox(width: 16),
+                  Expanded(
                     child: CommonButton(
                       color: context.colors.buttonPrimary,
                       type: ButtonType.elevated,
