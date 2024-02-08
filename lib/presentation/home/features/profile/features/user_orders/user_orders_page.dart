@@ -37,7 +37,7 @@ class UserOrdersPage extends BasePage<UserOrdersCubit, UserOrdersBuildable,
             actions: [
               CommonButton(
                   type: ButtonType.text,
-                  onPressed: () => context.router.push(OrderCreationRoute()),
+                  onPressed: () => context.router.push(CreateRequestStartRoute()),
                   child: Strings.createRequestTitle.w(500).s(12).c(Color(0xFF5C6AC3)))
             ],
             leading: IconButton(

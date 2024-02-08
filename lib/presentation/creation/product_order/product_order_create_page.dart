@@ -3,8 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/common/common_button.dart';
 import 'package:onlinebozor/common/widgets/common/common_text_field.dart';
@@ -12,7 +14,7 @@ import 'package:onlinebozor/data/responses/address/user_address_response.dart';
 import 'package:onlinebozor/data/responses/category/category/category_response.dart';
 
 import '../../../../../common/core/base_page.dart';
-import '../../../../mask_formatters.dart';
+import '../../mask_formatters.dart';
 import 'cubit/product_order_create_cubit.dart';
 
 @RoutePage()
@@ -57,6 +59,17 @@ class ProductOrderCreatePage extends BasePage<ProductOrderCreateCubit,
     }
 
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Assets.images.icArrowLeft.svg(),
+          onPressed: () => context.router.pop(),
+        ),
+        elevation: 0.5,
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        bottomOpacity: 1,
+        title: Strings.createRequestTitle.w(500).s(16).c(context.colors.textPrimary),
+      ),
       backgroundColor: Colors.white,
       body: ListView(physics: BouncingScrollPhysics(), children: [
         Padding(

@@ -79,7 +79,7 @@ class UserCancelOrderPage extends BasePage<UserCancelOrderCubit,
             },
             noItemsFoundIndicatorBuilder: (_) {
               return UserAdEmptyWidget(listener: () {
-                context.router.push(OrderCreationRoute());
+                context.router.push(CreateRequestStartRoute());
               });
             },
             newPageProgressIndicatorBuilder: (_) {

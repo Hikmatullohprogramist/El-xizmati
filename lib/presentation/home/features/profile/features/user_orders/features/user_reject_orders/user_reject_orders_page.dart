@@ -5,10 +5,10 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_orders/features/user_reject_orders/cubit/user_reject_orders_cubit.dart';
 
 import '../../../../../../../../common/gen/localization/strings.dart';
-import '../../../../../../../../common/router/app_router.dart';
 import '../../../../../../../../common/widgets/ad/user_ad_empty_widget.dart';
 import '../../../../../../../../common/widgets/common/common_button.dart';
 import '../../../../../../../../common/widgets/order/user_order.dart';
@@ -78,7 +78,9 @@ class UserRejectOrdersPage extends BasePage<UserRejectOrdersCubit,
               );
             },
             noItemsFoundIndicatorBuilder: (_) {
-              return UserAdEmptyWidget(listener: () {context.router.push(OrderCreationRoute());});
+              return UserAdEmptyWidget(listener: () {
+                context.router.push(CreateRequestStartRoute());
+              });
             },
             newPageProgressIndicatorBuilder: (_) {
               return SizedBox(
@@ -98,7 +100,8 @@ class UserRejectOrdersPage extends BasePage<UserRejectOrdersCubit,
             },
             transitionDuration: Duration(milliseconds: 100),
             itemBuilder: (context, item, index) {
-              return UserOrderWidget(listenerAddressEdit: (){}, listener: (){}, response: item);
+              return UserOrderWidget(
+                  listenerAddressEdit: () {}, listener: () {}, response: item);
             }),
       ),
     );

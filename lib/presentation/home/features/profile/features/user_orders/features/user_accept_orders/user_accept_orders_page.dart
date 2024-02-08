@@ -78,7 +78,7 @@ class UserAcceptOrdersPage extends BasePage<UserAcceptOrdersCubit,
               );
             },
             noItemsFoundIndicatorBuilder: (_) {
-              return UserAdEmptyWidget(listener: () {context.router.push(OrderCreationRoute());});
+              return UserAdEmptyWidget(listener: () {context.router.push(CreateRequestStartRoute());});
             },
             newPageProgressIndicatorBuilder: (_) {
               return SizedBox(

@@ -12,9 +12,6 @@ import '../../domain/models/order/order_type.dart';
 import '../../presentation/ad/ad_detail/ad_detail_page.dart';
 import '../../presentation/ad/ad_list/ad_list_page.dart';
 import '../../presentation/ad/ad_list_by_type/ad_list_by_type_page.dart';
-import '../../presentation/ad/create_ad_start/create_ad_start_page.dart';
-import '../../presentation/ad/create_product_ad/create_product_ad_page.dart';
-import '../../presentation/ad/create_service_ad/create_service_ad_page.dart';
 import '../../presentation/ad/user_ad_detail/user_ad_detail.dart';
 import '../../presentation/auth/confirm/confirm_page.dart';
 import '../../presentation/auth/eds/eds_page.dart';
@@ -30,6 +27,15 @@ import '../../presentation/common/notification/notification_page.dart';
 import '../../presentation/common/photo_view/photo_view_page.dart';
 import '../../presentation/common/popular_categories/popular_categories_page.dart';
 import '../../presentation/common/search/search_page.dart';
+import '../../presentation/common/selection_address/selection_address_page.dart';
+import '../../presentation/common/selection_category/selection_category_page.dart';
+import '../../presentation/common/selection_user_address/selection_user_address.dart';
+import '../../presentation/creation/create_ad_start/create_ad_start_page.dart';
+import '../../presentation/creation/create_product_ad/create_product_ad_page.dart';
+import '../../presentation/creation/create_request_start/create_request_start_page.dart';
+import '../../presentation/creation/create_service_ad/create_service_ad_page.dart';
+import '../../presentation/creation/product_order/product_order_create_page.dart';
+import '../../presentation/creation/service_order/service_order_create_page.dart';
 import '../../presentation/home/features/ad_creation_start/ad_creation_start_page.dart';
 import '../../presentation/home/features/cart/cart_page.dart';
 import '../../presentation/home/features/cart/features /order_create/order_create_page.dart';
@@ -62,7 +68,6 @@ import '../../presentation/home/features/profile/features/user_ads/features/pend
 import '../../presentation/home/features/profile/features/user_ads/user_ads_page.dart';
 import '../../presentation/home/features/profile/features/user_cards/features /add_card/add_cart_page.dart';
 import '../../presentation/home/features/profile/features/user_cards/user_cards_page.dart';
-import '../../presentation/home/features/profile/features/user_order_start/user_order_start_page.dart';
 import '../../presentation/home/features/profile/features/user_orders/features/user_accept_orders/user_accept_orders_page.dart';
 import '../../presentation/home/features/profile/features/user_orders/features/user_all_orders/user_all_orders_page.dart';
 import '../../presentation/home/features/profile/features/user_orders/features/user_cancel_order/user_cancel_order_page.dart';
@@ -72,12 +77,6 @@ import '../../presentation/home/features/profile/features/user_orders/features/u
 import '../../presentation/home/features/profile/features/user_orders/user_orders_page.dart';
 import '../../presentation/home/features/profile/features/wallet_filling/wallet_filling_page.dart';
 import '../../presentation/home/features/profile/profile_page.dart';
-import '../../presentation/order/order_creation/features/product_order/product_order_create_page.dart';
-import '../../presentation/order/order_creation/features/selection_address/selection_address_page.dart';
-import '../../presentation/order/order_creation/features/selection_category/selection_category_page.dart';
-import '../../presentation/order/order_creation/features/selection_user_address/selection_user_address.dart';
-import '../../presentation/order/order_creation/features/service_order/service_order_create_page.dart';
-import '../../presentation/order/order_creation/order_creation_page.dart';
 
 part 'app_router.gr.dart';
 
@@ -139,10 +138,34 @@ class AppRouter extends _$AppRouter {
         ),
 
         // create product ad
-        AutoRoute(page: CreateProductAdRoute.page, path: '/create_product_ad'),
+        AutoRoute(
+          page: CreateProductAdRoute.page,
+          path: '/create_product_ad',
+        ),
 
         // create service ad
-        AutoRoute(page: CreateServiceAdRoute.page, path: '/create_service_ad'),
+        AutoRoute(
+          page: CreateServiceAdRoute.page,
+          path: '/create_service_ad',
+        ),
+
+        // create request start
+        AutoRoute(
+          page: CreateRequestStartRoute.page,
+          path: "/create_request_start",
+        ),
+
+        // create product request
+        AutoRoute(
+          page: ProductOrderCreateRoute.page,
+          path: "/product_order_create",
+        ),
+
+        // create service request
+        AutoRoute(
+          page: ServiceOrderCreateRoute.page,
+          path: '/service_order_create',
+        ),
 
         //  sub category
         AutoRoute(page: SubCategoryRoute.page, path: "/sub_category"),
@@ -220,26 +243,20 @@ class AppRouter extends _$AppRouter {
         ),
         AutoRoute(page: UserAdDetailRoute.page, path: "/user_ad_detail"),
         AutoRoute(page: ChangeLanguageRoute.page, path: '/change_language'),
-        AutoRoute(page: UserOrderStartRoute.page, path: "/user_order_start"),
+
         AutoRoute(
-            page: OrderCreationRoute.page,
-            path: '/order_creation',
-            children: [
-              AutoRoute(
-                page: ProductOrderCreateRoute.page,
-                path: "product_order_create",
-              ),
-              AutoRoute(
-                page: ServiceOrderCreateRoute.page,
-                path: 'service_order_create',
-              )
-            ]),
-        AutoRoute(
-            page: SelectionCategoryRoute.page, path: '/selection_category'),
+          page: SelectionCategoryRoute.page,
+          path: '/selection_category',
+        ),
+
         AutoRoute(
           page: SelectionUserAddressRoute.page,
           path: '/selection_user_address',
         ),
-        AutoRoute(page: SelectionAddressRoute.page, path: '/selection_address')
+
+        AutoRoute(
+          page: SelectionAddressRoute.page,
+          path: '/selection_address',
+        )
       ];
 }

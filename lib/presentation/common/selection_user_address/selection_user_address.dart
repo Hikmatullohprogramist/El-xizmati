@@ -5,11 +5,11 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/address/user_address_widget.dart';
-import 'package:onlinebozor/presentation/order/order_creation/features/selection_user_address/cubit/selection_user_address_cubit.dart';
 
 import '../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../../../data/responses/address/user_address_response.dart';
+import 'cubit/selection_user_address_cubit.dart';
 
 @RoutePage()
 class SelectionUserAddressPage extends BasePage<SelectionUserAddressCubit,

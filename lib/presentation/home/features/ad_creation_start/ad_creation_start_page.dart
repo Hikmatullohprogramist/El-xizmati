@@ -49,8 +49,7 @@ class AdCreationStartPage extends BasePage<AdCreationStartCubit,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Assets.images.pngImages.sell.image(height: 96, width: 96),
-              SizedBox(height: 16),
+              Assets.images.pngImages.sell.image(height: 56, width: 56),
               Strings.adCreationStartSaleTitle
                   .w(800)
                   .s(18)
@@ -106,9 +105,10 @@ class AdCreationStartPage extends BasePage<AdCreationStartCubit,
         margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: Color(0xFFE5E9F3), width: 1)),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: Color(0xFFE5E9F3), width: 1),
+        ),
         child: SizedBox(
           width: double.infinity,
           child: Column(
@@ -116,8 +116,7 @@ class AdCreationStartPage extends BasePage<AdCreationStartCubit,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Assets.images.pngImages.buy.image(height: 96, width: 96),
-              SizedBox(height: 16),
+              Assets.images.pngImages.buy.image(height: 56, width: 56),
               Strings.adCreationStartBuyTitle
                   .w(800)
                   .s(18)
@@ -137,7 +136,7 @@ class AdCreationStartPage extends BasePage<AdCreationStartCubit,
                       type: ButtonType.elevated,
                       onPressed: () {
                         context.router
-                            .push(UserOrdersRoute(orderType: OrderType.buy));
+                            .push(ProductOrderCreateRoute());
                       },
                       child: Strings.adCreationStartBuyProduct
                           .s(13)
@@ -152,7 +151,7 @@ class AdCreationStartPage extends BasePage<AdCreationStartCubit,
                       type: ButtonType.elevated,
                       onPressed: () {
                         context.router
-                            .push(UserOrdersRoute(orderType: OrderType.sell));
+                            .push(ServiceOrderCreateRoute());
                       },
                       child: Strings.adCreationStartBuyService
                           .s(13)

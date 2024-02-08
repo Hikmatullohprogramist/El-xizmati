@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/router/app_router.dart';
 
 import '../../../common/core/base_page.dart';
 import '../../../common/gen/assets/assets.gen.dart';
@@ -31,8 +32,7 @@ class CreateAdStartPage extends BasePage<CreateAdStartCubit, CreateAdStartBuilda
             Expanded(
               child: InkWell(
                 onTap: () {
-                  // context.router
-                  //     .push(UserOrdersRoute(orderType: OrderType.sell));
+                  context.router.push(CreateProductAdRoute());
                 },
                 child: Container(
                   margin:
@@ -59,8 +59,7 @@ class CreateAdStartPage extends BasePage<CreateAdStartCubit, CreateAdStartBuilda
             Expanded(
               child: InkWell(
                 onTap: () {
-                  // context.router
-                  //     .push(UserOrdersRoute(orderType: OrderType.buy));
+                  context.router.push(CreateServiceAdRoute());
                 },
                 child: Container(
                   margin:

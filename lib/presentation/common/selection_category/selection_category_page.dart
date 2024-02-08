@@ -4,12 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/presentation/order/order_creation/features/selection_category/cubit/selection_category_cubit.dart';
 
 import '../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../common/widgets/category/category_widget.dart';
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../../../data/responses/category/category/category_response.dart';
+import 'cubit/selection_category_cubit.dart';
 
 @RoutePage()
 class SelectionCategoryPage extends BasePage<SelectionCategoryCubit,
