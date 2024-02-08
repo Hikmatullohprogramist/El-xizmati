@@ -9,15 +9,15 @@ import 'package:onlinebozor/common/router/app_router.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../domain/models/order/order_type.dart';
 import '../../../../common/widgets/common/common_button.dart';
-import 'cubit/ad_creation_start_cubit.dart';
+import 'cubit/create_ad_chooser_cubit.dart';
 
 @RoutePage()
-class AdCreationStartPage extends BasePage<AdCreationStartCubit,
-    AdCreationStartBuildable, AdCreationStartListenable> {
-  const AdCreationStartPage({super.key});
+class CreateAdChooserPage extends BasePage<CreateAdChooserCubit,
+    CreateAdChooserBuildable, CreateAdChooserListenable> {
+  const CreateAdChooserPage({super.key});
 
   @override
-  Widget builder(BuildContext context, AdCreationStartBuildable state) {
+  Widget builder(BuildContext context, CreateAdChooserBuildable state) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -30,6 +30,75 @@ class AdCreationStartPage extends BasePage<AdCreationStartCubit,
           _buildSaleBlock(context),
           _buildBuyBlock(context),
         ],
+      ),
+    );
+  }
+
+  Widget _buildBuyBlock(BuildContext context) {
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: Color(0xFFE5E9F3), width: 1),
+        ),
+        child: SizedBox(
+          width: double.infinity,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Assets.images.pngImages.buy.image(height: 56, width: 56),
+              Strings.adCreationStartBuyTitle
+                  .w(800)
+                  .s(18)
+                  .c(context.colors.textPrimary),
+              SizedBox(height: 16),
+              Strings.adCreationStartBuyDesc
+                  .w(500)
+                  .s(14)
+                  .c(context.colors.textSecondary)
+                  .copyWith(textAlign: TextAlign.center),
+              SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: CommonButton(
+                      color: context.colors.buttonPrimary,
+                      type: ButtonType.elevated,
+                      onPressed: () {
+                        context.router
+                            .push(CreateProductOrderRoute());
+                      },
+                      child: Strings.adCreationStartBuyProduct
+                          .s(13)
+                          .w(400)
+                          .c(Colors.white),
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Expanded(
+                    child: CommonButton(
+                      color: context.colors.buttonPrimary,
+                      type: ButtonType.elevated,
+                      onPressed: () {
+                        context.router
+                            .push(CreateServiceOrderRoute());
+                      },
+                      child: Strings.adCreationStartBuyService
+                          .s(13)
+                          .w(400)
+                          .c(Colors.white),
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -85,75 +154,6 @@ class AdCreationStartPage extends BasePage<AdCreationStartCubit,
                         context.router.push(CreateServiceAdRoute());
                       },
                       child: Strings.adCreationStartSaleService
-                          .s(13)
-                          .w(400)
-                          .c(Colors.white),
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildBuyBlock(BuildContext context) {
-    return Expanded(
-      child: Container(
-        margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: Color(0xFFE5E9F3), width: 1),
-        ),
-        child: SizedBox(
-          width: double.infinity,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Assets.images.pngImages.buy.image(height: 56, width: 56),
-              Strings.adCreationStartBuyTitle
-                  .w(800)
-                  .s(18)
-                  .c(context.colors.textPrimary),
-              SizedBox(height: 16),
-              Strings.adCreationStartBuyDesc
-                  .w(500)
-                  .s(14)
-                  .c(context.colors.textSecondary)
-                  .copyWith(textAlign: TextAlign.center),
-              SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: CommonButton(
-                      color: context.colors.buttonPrimary,
-                      type: ButtonType.elevated,
-                      onPressed: () {
-                        context.router
-                            .push(ProductOrderCreateRoute());
-                      },
-                      child: Strings.adCreationStartBuyProduct
-                          .s(13)
-                          .w(400)
-                          .c(Colors.white),
-                    ),
-                  ),
-                  SizedBox(width: 16),
-                  Expanded(
-                    child: CommonButton(
-                      color: context.colors.buttonPrimary,
-                      type: ButtonType.elevated,
-                      onPressed: () {
-                        context.router
-                            .push(ServiceOrderCreateRoute());
-                      },
-                      child: Strings.adCreationStartBuyService
                           .s(13)
                           .w(400)
                           .c(Colors.white),

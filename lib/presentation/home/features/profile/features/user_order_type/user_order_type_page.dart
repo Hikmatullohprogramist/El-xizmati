@@ -7,20 +7,20 @@ import 'package:onlinebozor/common/router/app_router.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../domain/models/order/order_type.dart';
-import 'cubit/create_reqeust_start_cubit.dart';
+import 'cubit/user_order_type_cubit.dart';
 
 @RoutePage()
-class CreateRequestStartPage extends BasePage<CreateRequestStartCubit,
-    CreateRequestStartBuildable, CreateRequestStartListenable> {
-  const CreateRequestStartPage({super.key});
+class UserOrderTypePage extends BasePage<UserOrderTypeCubit,
+    UserOrderTypeBuildable, UserOrderTypeListenable> {
+  const UserOrderTypePage({super.key});
 
   @override
-  Widget builder(BuildContext context, CreateRequestStartBuildable state) {
+  Widget builder(BuildContext context, UserOrderTypeBuildable state) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         centerTitle: true,
-        elevation: 0,
+        elevation: 0.5,
         leading: IconButton(
           icon: Assets.images.icArrowLeft.svg(),
           onPressed: () => context.router.pop(),
@@ -37,11 +37,41 @@ class CreateRequestStartPage extends BasePage<CreateRequestStartCubit,
     );
   }
 
-  Widget _buildCreateServiceRequest(BuildContext context) {
+  Widget _buildCreateProductRequest(BuildContext context) {
     return Expanded(
       child: InkWell(
         onTap: () {
           context.router.push(UserOrdersRoute(orderType: OrderType.buy));
+        },
+        child: Container(
+          margin: EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: Color(0xFFE5E9F3), width: 1),
+          ),
+          child: SizedBox(
+            width: double.infinity,
+            child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Assets.images.pngImages.sell.image(width: 116, height: 116),
+                  SizedBox(height: 16),
+                  "Sotaman".w(500).s(16).c(context.colors.textPrimary)
+                ]),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCreateServiceRequest(BuildContext context) {
+    return Expanded(
+      child: InkWell(
+        onTap: () {
+          context.router.push(UserOrdersRoute(orderType: OrderType.sell));
         },
         child: Container(
           margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),
@@ -56,38 +86,9 @@ class CreateRequestStartPage extends BasePage<CreateRequestStartCubit,
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Assets.images.pngImages.buy.image(),
+                  Assets.images.pngImages.buy.image(width: 116, height: 116),
                   SizedBox(height: 16),
                   "Sotib olaman".w(500).s(16).c(context.colors.textPrimary)
-                ]),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCreateProductRequest(BuildContext context) {
-    return Expanded(
-      child: InkWell(
-        onTap: () {
-          context.router.push(UserOrdersRoute(orderType: OrderType.sell));
-        },
-        child: Container(
-          margin: EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: Color(0xFFE5E9F3), width: 1)),
-          child: SizedBox(
-            width: double.infinity,
-            child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Assets.images.pngImages.sell.image(),
-                  SizedBox(height: 16),
-                  "Sotaman".w(500).s(16).c(context.colors.textPrimary)
                 ]),
           ),
         ),

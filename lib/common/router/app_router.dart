@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/presentation/common/language/change_language/change_language_page.dart';
+import 'package:onlinebozor/presentation/creation/create_product_order/create_product_order_page.dart';
+import 'package:onlinebozor/presentation/creation/create_service_order/create_service_request_page.dart';
 import 'package:onlinebozor/presentation/home/home_page.dart';
 
 import '../../data/responses/address/user_address_response.dart';
@@ -31,16 +33,14 @@ import '../../presentation/common/selection_address/selection_address_page.dart'
 import '../../presentation/common/selection_category/selection_category_page.dart';
 import '../../presentation/common/selection_user_address/selection_user_address.dart';
 import '../../presentation/creation/create_ad_start/create_ad_start_page.dart';
+import '../../presentation/creation/create_order_start/create_order_start_page.dart';
 import '../../presentation/creation/create_product_ad/create_product_ad_page.dart';
-import '../../presentation/creation/create_request_start/create_request_start_page.dart';
 import '../../presentation/creation/create_service_ad/create_service_ad_page.dart';
-import '../../presentation/creation/product_order/product_order_create_page.dart';
-import '../../presentation/creation/service_order/service_order_create_page.dart';
-import '../../presentation/home/features/ad_creation_start/ad_creation_start_page.dart';
 import '../../presentation/home/features/cart/cart_page.dart';
 import '../../presentation/home/features/cart/features /order_create/order_create_page.dart';
 import '../../presentation/home/features/category/category_page.dart';
 import '../../presentation/home/features/category/features/sub_category_page.dart';
+import '../../presentation/home/features/create_ad_chooser/create_ad_chooser_page.dart';
 import '../../presentation/home/features/dashboard/dashboard_page.dart';
 import '../../presentation/home/features/profile/features/chat_list/chats_list.dart';
 import '../../presentation/home/features/profile/features/chat_list/features/buying_chats/buying_chats_page.dart';
@@ -68,6 +68,7 @@ import '../../presentation/home/features/profile/features/user_ads/features/pend
 import '../../presentation/home/features/profile/features/user_ads/user_ads_page.dart';
 import '../../presentation/home/features/profile/features/user_cards/features /add_card/add_cart_page.dart';
 import '../../presentation/home/features/profile/features/user_cards/user_cards_page.dart';
+import '../../presentation/home/features/profile/features/user_order_type/user_order_type_page.dart';
 import '../../presentation/home/features/profile/features/user_orders/features/user_accept_orders/user_accept_orders_page.dart';
 import '../../presentation/home/features/profile/features/user_orders/features/user_all_orders/user_all_orders_page.dart';
 import '../../presentation/home/features/profile/features/user_orders/features/user_cancel_order/user_cancel_order_page.dart';
@@ -111,8 +112,8 @@ class AppRouter extends _$AppRouter {
             ),
             AutoRoute(page: CategoryRoute.page, path: 'category'),
             AutoRoute(
-              page: AdCreationStartRoute.page,
-              path: 'ad_creation_start',
+              page: CreateAdChooserRoute.page,
+              path: 'create_ad_chooser',
             ),
             AutoRoute(page: CartRoute.page, path: 'cart', maintainState: false),
             AutoRoute(page: ProfileRoute.page, path: 'profile')
@@ -151,20 +152,26 @@ class AppRouter extends _$AppRouter {
 
         // create request start
         AutoRoute(
-          page: CreateRequestStartRoute.page,
+          page: CreateOrderStartRoute.page,
           path: "/create_request_start",
         ),
 
         // create product request
         AutoRoute(
-          page: ProductOrderCreateRoute.page,
-          path: "/product_order_create",
+          page: CreateProductOrderRoute.page,
+          path: "/create_product_request",
         ),
 
         // create service request
         AutoRoute(
-          page: ServiceOrderCreateRoute.page,
-          path: '/service_order_create',
+          page: CreateServiceOrderRoute.page,
+          path: '/create_service_request',
+        ),
+
+        // create service request
+        AutoRoute(
+          page: UserOrderTypeRoute.page,
+          path: '/user_order_type',
         ),
 
         //  sub category

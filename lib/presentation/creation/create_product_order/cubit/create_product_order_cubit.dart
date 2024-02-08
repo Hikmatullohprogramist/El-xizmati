@@ -7,12 +7,12 @@ import '../../../../../../data/responses/category/category/category_response.dar
 
 part 'product_order_create_cubit.freezed.dart';
 
-part 'product_order_create_state.dart';
+part 'create_product_order_state.dart';
 
 @Injectable()
-class ProductOrderCreateCubit extends BaseCubit<ProductOrderCreateBuildable,
-    ProductOrderCreateListenable> {
-  ProductOrderCreateCubit() : super(const ProductOrderCreateBuildable());
+class CreateProductOrderCubit extends BaseCubit<CreateProductOrderBuildable,
+    CreateProductOrderListenable> {
+  CreateProductOrderCubit() : super(const CreateProductOrderBuildable());
 
   void setName(String name) {
     build((buildable) => buildable.copyWith(name: name));

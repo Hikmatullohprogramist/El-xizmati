@@ -1,8 +1,8 @@
-part of 'product_order_create_cubit.dart';
+part of 'create_product_order_cubit.dart';
 
 @freezed
-class ProductOrderCreateBuildable with _$ProductOrderCreateBuildable {
-  const factory ProductOrderCreateBuildable(
+class CreateProductOrderBuildable with _$ProductOrderCreateBuildable {
+  const factory CreateProductOrderBuildable(
       {String? name,
       CategoryResponse? categoryResponse,
       UserAddressResponse? userAddressResponse,
@@ -18,8 +18,8 @@ class ProductOrderCreateBuildable with _$ProductOrderCreateBuildable {
 }
 
 @freezed
-class ProductOrderCreateListenable with _$ProductOrderCreateListenable {
-  const factory ProductOrderCreateListenable(
+class CreateProductOrderListenable with _$ProductOrderCreateListenable {
+  const factory CreateProductOrderListenable(
           ProductOrderCreateEffect productOrderCreateEffect) =
       _ProductOrderCreateListenable;
 }

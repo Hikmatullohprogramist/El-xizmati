@@ -7,14 +7,14 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import '../../../../../common/core/base_page.dart';
 import '../../../common/gen/assets/assets.gen.dart';
 import '../../../common/gen/localization/strings.dart';
-import 'cubit/service_order_create_cubit.dart';
+import 'cubit/create_service_request_cubit.dart';
 
 @RoutePage()
-class ServiceOrderCreatePage extends BasePage<ServiceOrderCreateCubit, ServiceOrderCreateBuildable, ServiceOrderCreateListenable> {
-  const ServiceOrderCreatePage({super.key});
+class CreateServiceOrderPage extends BasePage<ServiceOrderCreateCubit, CreateServiceOrderBuildable, CreateServiceOrderListenable> {
+  const CreateServiceOrderPage({super.key});
 
   @override
-  Widget builder(BuildContext context, ServiceOrderCreateBuildable state) {
+  Widget builder(BuildContext context, CreateServiceOrderBuildable state) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(

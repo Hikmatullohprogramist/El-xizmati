@@ -79,7 +79,11 @@ class UserReviewOrdersPage extends BasePage<UserReviewOrdersCubit,
             },
             noItemsFoundIndicatorBuilder: (_) {
               return UserAdEmptyWidget(listener: () {
-                context.router.push(CreateRequestStartRoute());
+                if (orderType == OrderType.buy) {
+                  context.router.push(CreateProductOrderRoute());
+                } else if (orderType == OrderType.sell) {
+                  context.router.push(CreateServiceOrderRoute());
+                }
               });
             },
             newPageProgressIndicatorBuilder: (_) {

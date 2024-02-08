@@ -80,7 +80,7 @@ class ProfilePage
                 child: ProfileItemWidget(
                     name: Strings.profileOrders,
                     icon: Assets.images.icProfileOrder,
-                    invoke: () => context.router.push(CreateRequestStartRoute())),
+                    invoke: () => context.router.push(UserOrderTypeRoute())),
               ),
               Visibility(
                 visible: state.isLogin,

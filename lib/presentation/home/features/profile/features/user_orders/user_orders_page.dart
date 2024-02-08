@@ -37,8 +37,17 @@ class UserOrdersPage extends BasePage<UserOrdersCubit, UserOrdersBuildable,
             actions: [
               CommonButton(
                   type: ButtonType.text,
-                  onPressed: () => context.router.push(CreateRequestStartRoute()),
-                  child: Strings.createRequestTitle.w(500).s(12).c(Color(0xFF5C6AC3)))
+                  onPressed: () {
+                    if (orderType == OrderType.buy) {
+                      context.router.push(CreateProductOrderRoute());
+                    } else if (orderType == OrderType.sell) {
+                      context.router.push(CreateServiceOrderRoute());
+                    }
+                  },
+                  child: Strings.createRequestTitle
+                      .w(500)
+                      .s(12)
+                      .c(Color(0xFF5C6AC3)))
             ],
             leading: IconButton(
               icon: Assets.images.icArrowLeft.svg(),
@@ -48,7 +57,10 @@ class UserOrdersPage extends BasePage<UserOrdersCubit, UserOrdersBuildable,
             backgroundColor: Colors.white,
             centerTitle: true,
             bottomOpacity: 1,
-            title: Strings.myRequestsTitle.w(500).s(16).c(context.colors.textPrimary),
+            title: Strings.myRequestsTitle
+                .w(500)
+                .s(16)
+                .c(context.colors.textPrimary),
             bottom: TabBar(
               isScrollable: true,
               physics: BouncingScrollPhysics(),
@@ -65,7 +77,7 @@ class UserOrdersPage extends BasePage<UserOrdersCubit, UserOrdersBuildable,
               unselectedLabelColor: Color(0xFF9EABBE),
               indicatorColor: context.colors.textPrimary,
               controller: controller,
-              tabs:  [
+              tabs: [
                 Tab(text: Strings.userRequestAllTitle),
                 Tab(text: Strings.userRequestPendingTitle),
                 Tab(text: Strings.userRequestRejactionTitle),

@@ -5,9 +5,9 @@ import '../../../../../../common/core/base_cubit.dart';
 
 part 'service_order_create_cubit.freezed.dart';
 
-part 'service_order_create_state.dart';
+part 'create_service_request_state.dart';
 
 @Injectable()
-class ServiceOrderCreateCubit extends BaseCubit<ServiceOrderCreateBuildable, ServiceOrderCreateListenable> {
-  ServiceOrderCreateCubit() : super(const ServiceOrderCreateBuildable());
+class ServiceOrderCreateCubit extends BaseCubit<CreateServiceOrderBuildable, CreateServiceOrderListenable> {
+  ServiceOrderCreateCubit() : super(const CreateServiceOrderBuildable());
 }

@@ -15,15 +15,15 @@ import 'package:onlinebozor/data/responses/category/category/category_response.d
 
 import '../../../../../common/core/base_page.dart';
 import '../../mask_formatters.dart';
-import 'cubit/product_order_create_cubit.dart';
+import 'cubit/create_product_order_cubit.dart';
 
 @RoutePage()
-class ProductOrderCreatePage extends BasePage<ProductOrderCreateCubit,
-    ProductOrderCreateBuildable, ProductOrderCreateListenable> {
-  ProductOrderCreatePage({super.key});
+class CreateProductOrderPage extends BasePage<CreateProductOrderCubit,
+    CreateProductOrderBuildable, CreateProductOrderListenable> {
+  CreateProductOrderPage({super.key});
 
   @override
-  void listener(BuildContext context, ProductOrderCreateListenable event) {}
+  void listener(BuildContext context, CreateProductOrderListenable event) {}
 
   final TextEditingController nameEditingController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
@@ -34,7 +34,7 @@ class ProductOrderCreatePage extends BasePage<ProductOrderCreateCubit,
   final TextEditingController emailController = TextEditingController();
 
   @override
-  Widget builder(BuildContext context, ProductOrderCreateBuildable state) {
+  Widget builder(BuildContext context, CreateProductOrderBuildable state) {
     nameEditingController.text != state.name
         ? nameEditingController.text = state.name ?? ""
         : nameEditingController.text = nameEditingController.text;
@@ -49,12 +49,12 @@ class ProductOrderCreatePage extends BasePage<ProductOrderCreateCubit,
         : toPriceController.text = toPriceController.text;
 
     void setSelectionCategory(CategoryResponse categoryResponse) {
-      context.read<ProductOrderCreateCubit>().setCategory(categoryResponse);
+      context.read<CreateProductOrderCubit>().setCategory(categoryResponse);
     }
 
     void selectionUserAddress(UserAddressResponse userAddressResponse) {
       context
-          .read<ProductOrderCreateCubit>()
+          .read<CreateProductOrderCubit>()
           .setUserAddress(userAddressResponse);
     }
 
@@ -88,7 +88,7 @@ class ProductOrderCreatePage extends BasePage<ProductOrderCreateCubit,
             CommonTextField(
                 hint: "Название товара",
                 onChanged: (value) {
-                  context.read<ProductOrderCreateCubit>().setName(value);
+                  context.read<CreateProductOrderCubit>().setName(value);
                 },
                 controller: nameEditingController),
             SizedBox(height: 20),
@@ -169,7 +169,7 @@ class ProductOrderCreatePage extends BasePage<ProductOrderCreateCubit,
                       maxLength: 1000,
                       onChanged: (value) {
                         context
-                            .read<ProductOrderCreateCubit>()
+                            .read<CreateProductOrderCubit>()
                             .setDescription(value);
 
                         cubit(context).setDescription(value);
@@ -211,7 +211,7 @@ class ProductOrderCreatePage extends BasePage<ProductOrderCreateCubit,
               inputType: TextInputType.number,
               textInputAction: TextInputAction.next,
               onChanged: (value) {
-                context.read<ProductOrderCreateCubit>().setFromPrice(value);
+                context.read<CreateProductOrderCubit>().setFromPrice(value);
               },
             ),
             SizedBox(height: 16),
@@ -220,7 +220,7 @@ class ProductOrderCreatePage extends BasePage<ProductOrderCreateCubit,
               controller: toPriceController,
               inputType: TextInputType.number,
               onChanged: (value) {
-                context.read<ProductOrderCreateCubit>().setToPrice(value);
+                context.read<CreateProductOrderCubit>().setToPrice(value);
               },
             ),
             SizedBox(height: 24),
@@ -251,7 +251,7 @@ class ProductOrderCreatePage extends BasePage<ProductOrderCreateCubit,
                     value: state.isNegotiate,
                     onChanged: (value) {
                       context
-                          .read<ProductOrderCreateCubit>()
+                          .read<CreateProductOrderCubit>()
                           .setNegative(value);
                     }),
                 SizedBox(width: 16),

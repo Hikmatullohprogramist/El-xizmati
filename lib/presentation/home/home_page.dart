@@ -19,7 +19,7 @@ class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
       routes: const [
         DashboardRoute(),
         CategoryRoute(),
-        AdCreationStartRoute(),
+        CreateAdChooserRoute(),
         CartRoute(),
         ProfileRoute()
       ],

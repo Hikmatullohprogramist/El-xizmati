@@ -78,7 +78,13 @@ class UserAcceptOrdersPage extends BasePage<UserAcceptOrdersCubit,
               );
             },
             noItemsFoundIndicatorBuilder: (_) {
-              return UserAdEmptyWidget(listener: () {context.router.push(CreateRequestStartRoute());});
+              return UserAdEmptyWidget(listener: () {
+                if (orderType == OrderType.buy) {
+                  context.router.push(CreateProductOrderRoute());
+                } else if (orderType == OrderType.sell) {
+                  context.router.push(CreateServiceOrderRoute());
+                }
+              });
             },
             newPageProgressIndicatorBuilder: (_) {
               return SizedBox(
@@ -98,7 +104,8 @@ class UserAcceptOrdersPage extends BasePage<UserAcceptOrdersCubit,
             },
             transitionDuration: Duration(milliseconds: 100),
             itemBuilder: (context, item, index) {
-              return UserOrderWidget(listenerAddressEdit: (){}, listener: (){}, response: item);
+              return UserOrderWidget(
+                  listenerAddressEdit: () {}, listener: () {}, response: item);
             }),
       ),
     );
