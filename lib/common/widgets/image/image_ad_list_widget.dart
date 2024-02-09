@@ -42,22 +42,24 @@ class ImageAdListWidget extends StatelessWidget {
           SizedBox(height: 12),
           SizedBox(
             height: 82,
-            child: Row(
-              children: [
-                SizedBox(width: 16),
-                AddImageWidget(
-                  key: ValueKey(-1),
-                  index: -1,
-                  onAddClicked: () {
-                    if (imagePaths.length < maxCount) {
-                      _showPickerTypeBottomSheet(context);
-                    } else {
-                      _showMaxCountError(context);
-                    }
-                  },
-                ),
-                Expanded(
-                  child: ReorderableListView(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              physics: BouncingScrollPhysics(),
+              child: Row(
+                children: [
+                  SizedBox(width: 16),
+                  AddImageWidget(
+                    key: ValueKey(-1),
+                    index: -1,
+                    onAddClicked: () {
+                      if (imagePaths.length < maxCount) {
+                        _showPickerTypeBottomSheet(context);
+                      } else {
+                        _showMaxCountError(context);
+                      }
+                    },
+                  ),
+                  ReorderableListView(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
@@ -81,8 +83,8 @@ class ImageAdListWidget extends StatelessWidget {
                         )
                         .toList(),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           SizedBox(height: 12),
