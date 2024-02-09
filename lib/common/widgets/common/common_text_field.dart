@@ -5,6 +5,7 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 class CommonTextField extends StatefulWidget {
   const CommonTextField({
     Key? key,
+    this.height = 58,
     this.autofillHints,
     this.enableSuggestions,
     this.hint,
@@ -25,6 +26,7 @@ class CommonTextField extends StatefulWidget {
     this.textAlign = TextAlign.start,
   }) : super(key: key);
 
+  final double? height;
   final Iterable<String>? autofillHints;
   final bool? enableSuggestions;
   final String? hint;
@@ -59,61 +61,81 @@ class _CommonTextFieldState extends State<CommonTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      autofillHints: widget.autofillHints,
-      textAlign: widget.textAlign,
-      textAlignVertical: TextAlignVertical.center,
-      // style: TextStyle(),
-      controller: widget.controller,
-      keyboardType: widget.inputType,
-      minLines: widget.minLines,
-      maxLines: widget.maxLines,
-      maxLength: widget.maxLength,
-      readOnly: widget.readOnly,
-      enabled: widget.enabled,
-      enableSuggestions: widget.enableSuggestions ?? true,
-      textInputAction: widget.textInputAction,
-      onChanged: widget.onChanged,
-      inputFormatters: [
-        if (widget.inputFormatters != null) widget.inputFormatters!
-      ],
-      decoration: InputDecoration(
-        filled: true,
-        focusColor: Colors.white,
-        fillColor: Color(0xFFFAF9FF),
-        hintText: widget.hint,
-        hintStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
-        isDense: false,
-        counter: Offstage(),
-        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        labelText: widget.label,
-        border: OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xFFDFE2E9)),
-          borderRadius: BorderRadius.circular(8),
+    return SizedBox(
+      height: widget.height,
+      child: TextFormField(
+        autofillHints: widget.autofillHints,
+        textAlign: widget.textAlign,
+        textAlignVertical: TextAlignVertical.center,
+        style: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          color: Color(0xFF41455F),
         ),
-        disabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xFFDFE2E9)),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: context.colors.buttonPrimary),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        suffixIcon: !widget.obscureText
-            ? null
-            : IconButton(
-                icon: Icon(
-                  _passwordVisible ? Icons.visibility : Icons.visibility_off,
-                  color: Theme.of(context).primaryColorDark,
+        controller: widget.controller,
+        keyboardType: widget.inputType,
+        minLines: widget.minLines,
+        maxLines: widget.maxLines,
+        maxLength: widget.maxLength,
+        readOnly: widget.readOnly,
+        enabled: widget.enabled,
+        enableSuggestions: widget.enableSuggestions ?? true,
+        textInputAction: widget.textInputAction,
+        onChanged: widget.onChanged,
+        inputFormatters: [
+          if (widget.inputFormatters != null) widget.inputFormatters!
+        ],
+        decoration: InputDecoration(
+          filled: true,
+          focusColor: Colors.white,
+          fillColor: Color(0xFFFAF9FF),
+          hintText: widget.hint,
+          hintStyle: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF9EABBE),
+          ),
+          isDense: false,
+          counter: Offstage(),
+          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          labelText: widget.label,
+          labelStyle: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: Color(0xFF41455F),
+          ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFFDFE2E9)),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFFDFE2E9)),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          disabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFFDFE2E9)),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: context.colors.buttonPrimary),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          suffixIcon: !widget.obscureText
+              ? null
+              : IconButton(
+                  icon: Icon(
+                    _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                    color: Theme.of(context).primaryColorDark,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _passwordVisible = !_passwordVisible;
+                    });
+                  },
                 ),
-                onPressed: () {
-                  setState(() {
-                    _passwordVisible = !_passwordVisible;
-                  });
-                },
-              ),
+        ),
+        obscureText: _passwordVisible,
       ),
-      obscureText: _passwordVisible,
     );
   }
 }

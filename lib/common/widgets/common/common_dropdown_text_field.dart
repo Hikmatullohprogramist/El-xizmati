@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 
 class CommonDropDownTextField extends StatefulWidget {
   const CommonDropDownTextField({
     Key? key,
+    required this.onTap,
     this.autofillHints,
     this.enableSuggestions,
     this.hint,
@@ -28,6 +28,8 @@ class CommonDropDownTextField extends StatefulWidget {
   final bool enabled;
   final TextAlign textAlign;
   final Color? disabledColor;
+
+  final Function() onTap;
   final Function(String text)? onChanged;
 
   @override
@@ -46,6 +48,7 @@ class _CommonDropDownTextFieldState extends State<CommonDropDownTextField> {
     return DropdownButtonFormField<String>(
       // style: TextStyle(),
       items: [],
+      onTap: () => widget.onTap,
       onChanged: (Object? value) {},
       decoration: InputDecoration(
           filled: true,
