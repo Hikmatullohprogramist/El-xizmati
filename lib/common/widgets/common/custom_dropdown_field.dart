@@ -19,7 +19,6 @@ class CustomDropdownField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height,
-      margin: EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
         color: Color(0xFFFAF9FF),
         borderRadius: BorderRadius.circular(10),
