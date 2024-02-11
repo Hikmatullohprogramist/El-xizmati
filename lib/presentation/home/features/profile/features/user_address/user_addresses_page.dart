@@ -128,6 +128,7 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
             onEditClicked: () {
               _showAddressActions(context, state, item);
             },
+            isManageEnabled: true,
           ),
         ),
       ),

@@ -11,17 +11,19 @@ class UserAddressWidgets extends StatelessWidget {
     required this.address,
     required this.onClicked,
     required this.onEditClicked,
+    this.isManageEnabled = false,
   });
 
   final UserAddressResponse address;
   final VoidCallback onClicked;
   final VoidCallback onEditClicked;
+  final bool isManageEnabled;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal:16, vertical: 6),
-      padding: EdgeInsets.only(left: 12, top: 12, right: 12),
+      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      padding: EdgeInsets.only(left: 12, right: 12),
       decoration: BoxDecoration(
         color: Color(0xFFFFFFFF),
         borderRadius: BorderRadius.circular(8),
@@ -31,6 +33,7 @@ class UserAddressWidgets extends StatelessWidget {
         onTap: () {
           onClicked();
         },
+        borderRadius: BorderRadius.circular(8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -39,21 +42,25 @@ class UserAddressWidgets extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                    child: (address.name ?? "")
-                        .w(600)
-                        .s(16)
-                        .c(Color(0xFF41455E))
-                        .copyWith(overflow: TextOverflow.ellipsis)),
+                  child: (address.name ?? "")
+                      .w(600)
+                      .s(16)
+                      .c(Color(0xFF41455E))
+                      .copyWith(overflow: TextOverflow.ellipsis),
+                ),
                 Row(
                   children: [
                     Visibility(
-                      visible: true,
+                      visible: address.is_main == true,
                       child: Container(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                        padding: EdgeInsets.symmetric(
+                          vertical: 4,
+                          horizontal: 8,
+                        ),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(6),
-                            color: Color(0xFFF6B712)),
+                          borderRadius: BorderRadius.circular(6),
+                          color: Color(0xFFF6B712),
+                        ),
                         child: Strings.userAddressMain
                             .w(600)
                             .s(12)
@@ -61,9 +68,12 @@ class UserAddressWidgets extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 8),
-                    IconButton(
-                      onPressed: onEditClicked,
-                      icon: Assets.images.icMoreVert.svg(),
+                    Visibility(
+                      visible: isManageEnabled,
+                      child: IconButton(
+                        onPressed: onEditClicked,
+                        icon: Assets.images.icMoreVert.svg(),
+                      ),
                     )
                   ],
                 )
