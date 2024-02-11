@@ -52,13 +52,15 @@ class UserAdDetailPage extends BasePage<UserAdDetailCubit,
                 images: ([userAdResponse.main_photo])
                     .map((e) => "${Constants.baseUrlForImage}$e")
                     .toList(),
-                invoke: (int position) {
-                  context.router.push(PhotoViewRoute(
-                    lists: (List.empty(growable: true))
-                        .map((e) => "${Constants.baseUrlForImage}${e.image}")
-                        .toList(),
-                    position: position,
-                  ));
+                onClicked: (int position) {
+                  context.router.push(
+                    ImageViewerRoute(
+                      images: (List.empty(growable: true))
+                          .map((e) => "${Constants.baseUrlForImage}${e.image}")
+                          .toList(),
+                      initialIndex: position,
+                    ),
+                  );
                 },
               ),
               SizedBox(height: 24),

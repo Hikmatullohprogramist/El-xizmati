@@ -99,14 +99,13 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                   images: (state.adDetail?.photos ?? List.empty(growable: true))
                       .map((e) => "${Constants.baseUrlForImage}${e.image}")
                       .toList(),
-                  invoke: (int position) {
-                    context.router.push(PhotoViewRoute(
-                      lists: (state.adDetail?.photos ??
-                              List.empty(growable: true))
-                          .map((e) => "${Constants.baseUrlForImage}${e.image}")
-                          .toList(),
-                      position: position,
-                    ));
+                  onClicked: (int position) {
+                    context.router.push(
+                      ImageViewerRoute(
+                        images: cubit(context).getImages(),
+                        initialIndex: position,
+                      ),
+                    );
                   },
                 ),
                 AppDivider(height: 1),
@@ -279,12 +278,9 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                                           width: 1, color: Color(0xFFDEE1E8))),
                                   child: Row(children: [
                                     if (state.paymentId == 6)
-                                      Assets.images
-                                          .icRadioButtonSelected
-                                          .svg()
+                                      Assets.images.icRadioButtonSelected.svg()
                                     else
-                                      Assets.images
-                                          .icRadioButtonUnSelected
+                                      Assets.images.icRadioButtonUnSelected
                                           .svg(),
                                     SizedBox(width: 16),
                                     Expanded(
@@ -325,12 +321,9 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                                           width: 1, color: Color(0xFFDEE1E8))),
                                   child: Row(children: [
                                     if (state.paymentId == 1)
-                                      Assets.images
-                                          .icRadioButtonSelected
-                                          .svg()
+                                      Assets.images.icRadioButtonSelected.svg()
                                     else
-                                      Assets.images
-                                          .icRadioButtonUnSelected
+                                      Assets.images.icRadioButtonUnSelected
                                           .svg(),
                                     SizedBox(width: 16),
                                     Expanded(
@@ -371,12 +364,9 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                                           width: 1, color: Color(0xFFDEE1E8))),
                                   child: Row(children: [
                                     if (state.paymentId == 4)
-                                      Assets.images
-                                          .icRadioButtonSelected
-                                          .svg()
+                                      Assets.images.icRadioButtonSelected.svg()
                                     else
-                                      Assets.images
-                                          .icRadioButtonUnSelected
+                                      Assets.images.icRadioButtonUnSelected
                                           .svg(),
                                     SizedBox(width: 16),
                                     Expanded(
@@ -417,12 +407,9 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                                           width: 1, color: Color(0xFFDEE1E8))),
                                   child: Row(children: [
                                     if (state.paymentId == 5)
-                                      Assets.images
-                                          .icRadioButtonSelected
-                                          .svg()
+                                      Assets.images.icRadioButtonSelected.svg()
                                     else
-                                      Assets.images
-                                          .icRadioButtonUnSelected
+                                      Assets.images.icRadioButtonUnSelected
                                           .svg(),
                                     SizedBox(width: 16),
                                     Expanded(

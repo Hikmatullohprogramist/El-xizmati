@@ -3,8 +3,8 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 
 import '../../gen/assets/assets.gen.dart';
 
-class AdFavoriteWidget extends StatefulWidget {
-  const AdFavoriteWidget({
+class AdDetailFavoriteWidget extends StatefulWidget {
+  const AdDetailFavoriteWidget({
     super.key,
     required this.isSelected,
     required this.invoke,
@@ -19,7 +19,7 @@ class AdFavoriteWidget extends StatefulWidget {
   State<StatefulWidget> createState() => _AdFavoriteWidget();
 }
 
-class _AdFavoriteWidget extends State<AdFavoriteWidget> {
+class _AdFavoriteWidget extends State<AdDetailFavoriteWidget> {
   bool _isSelected = false;
 
   @override
@@ -39,26 +39,14 @@ class _AdFavoriteWidget extends State<AdFavoriteWidget> {
           });
         }
       },
+      borderRadius: BorderRadius.circular(24),
       child: Container(
-        margin: const EdgeInsets.all(8),
-        padding: const EdgeInsets.all(4),
-        height: 30,
-        width: 30,
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: _isSelected
-                ? context.colors.textPrimaryInverse.withAlpha(100)
-                : context.colors.buttonPrimary.withAlpha(150),
-            width: 0.5,
-          ),
-          borderRadius: BorderRadius.circular(8),
-          color: _isSelected
-              ? context.colors.buttonPrimary
-              : context.colors.textPrimaryInverse,
-        ),
+        padding: const EdgeInsets.all(10),
+        height: 56,
+        width: 56,
         child: _isSelected
-            ? Assets.images.icFavoriteRemove.svg()
-            : Assets.images.icFavoriteAdd.svg(),
+            ? Assets.images.icFavoriteRemoveDetail.svg()
+            : Assets.images.icFavoriteAddDetail.svg(),
       ),
     );
   }

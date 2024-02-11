@@ -2,12 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
-import 'package:onlinebozor/common/constants.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/ad/detail_price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/dashboard/see_all_widget.dart';
+import 'package:onlinebozor/common/widgets/favorite/ad_detail_favorite_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite/ad_favorite_widget.dart';
 import 'package:onlinebozor/presentation/ad/ad_detail/cubit/ad_detail_cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -80,16 +80,14 @@ class AdDetailPage
       physics: BouncingScrollPhysics(),
       children: [
         AppImageWidget(
-          images: (state.adDetail?.photos ?? List.empty(growable: true))
-              .map((e) => "${Constants.baseUrlForImage}${e.image}")
-              .toList(),
-          invoke: (int position) {
-            context.router.push(PhotoViewRoute(
-              lists: (state.adDetail?.photos ?? List.empty(growable: true))
-                  .map((e) => "${Constants.baseUrlForImage}${e.image}")
-                  .toList(),
-              position: position,
-            ));
+          images: cubit(context).getImages(),
+          onClicked: (int position) {
+            context.router.push(
+              ImageViewerRoute(
+                images: cubit(context).getImages(),
+                initialIndex: position,
+              ),
+            );
           },
         ),
         Container(
@@ -161,7 +159,7 @@ class AdDetailPage
         actions: [
           Padding(
               padding: EdgeInsets.all(4),
-              child: AdFavoriteWidget(
+              child: AdDetailFavoriteWidget(
                   isSelected: state.adDetail!.favorite,
                   invoke: () => context.read<AdDetailCubit>().addFavorite()))
         ]);

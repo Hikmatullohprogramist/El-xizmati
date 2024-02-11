@@ -106,13 +106,20 @@ class HorizontalAdWidget extends StatelessWidget {
                 )
               ]),
               SizedBox(height: 12),
-              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                ListAdAuthorTypeChipWidget(
-                    isHorizontal: true, adAuthorType: ad.adRouteType),
-                SizedBox(width: 2),
-                ListAdPropertyWidget(
-                    isHorizontal: true, adPropertyType: ad.adPropertyStatus)
-              ])
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  ListAdAuthorTypeChipWidget(
+                    isHorizontal: true,
+                    adAuthorType: ad.adRouteType,
+                  ),
+                  SizedBox(width: 2),
+                  ListAdPropertyWidget(
+                    isHorizontal: true,
+                    adPropertyType: ad.adPropertyStatus,
+                  )
+                ],
+              )
             ],
           ),
         ));

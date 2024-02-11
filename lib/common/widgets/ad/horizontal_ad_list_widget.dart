@@ -19,22 +19,25 @@ class HorizontalAdListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 285,
-      child: ListView.separated(
-        physics: BouncingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemCount: ads.length,
-        padding: EdgeInsets.only(left: 16, right: 16),
-        itemBuilder: (context, index) {
-          return HorizontalAdWidget(
-            ad: ads[index],
-            onItemClicked: onItemClicked,
-            onFavoriteClicked: onFavoriteClicked,
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return SizedBox(width: 8);
-        },
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: ListView.separated(
+          physics: BouncingScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          itemCount: ads.length,
+          padding: EdgeInsets.only(left: 16, right: 16),
+          itemBuilder: (context, index) {
+            return HorizontalAdWidget(
+              ad: ads[index],
+              onItemClicked: onItemClicked,
+              onFavoriteClicked: onFavoriteClicked,
+            );
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return SizedBox(width: 8);
+          },
+        ),
       ),
     );
   }

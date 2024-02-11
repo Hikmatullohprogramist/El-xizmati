@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 
+import '../../../../../../../common/constants.dart';
 import '../../../../../../../common/core/base_cubit.dart';
 import '../../../../../../../domain/models/ad/ad_detail.dart';
 import '../../../../../../../domain/repositories/ad_repository.dart';
@@ -29,6 +30,12 @@ class OrderCreateCubit
   Future<void> setAdId(int adId) async {
     build((buildable) => buildable.copyWith(adId: adId));
     getDetailResponse();
+  }
+
+  List<String> getImages(){
+    return (buildable.adDetail?.photos ?? List.empty(growable: true))
+        .map((e) => "${Constants.baseUrlForImage}${e.image}")
+        .toList();
   }
 
   void add() {

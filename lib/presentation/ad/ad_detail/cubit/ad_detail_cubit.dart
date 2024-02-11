@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/enum/enums.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 
+import '../../../../common/constants.dart';
 import '../../../../common/core/base_cubit.dart';
 import '../../../../data/storages/token_storage.dart';
 import '../../../../domain/models/ad/ad.dart';
@@ -34,6 +35,12 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
   final CartRepository cartRepository;
   final AdRepository adRepository;
   final TokenStorage tokenStorage;
+
+  List<String> getImages(){
+    return (buildable.adDetail?.photos ?? List.empty(growable: true))
+        .map((e) => "${Constants.baseUrlForImage}${e.image}")
+        .toList();
+  }
 
   void setAdId(int adId) {
     build((buildable) => buildable.copyWith(adId: adId));
