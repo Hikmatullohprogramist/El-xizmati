@@ -32,16 +32,20 @@ class SelectionUserAddressPage extends BasePage<SelectionUserAddressCubit,
   @override
   Widget builder(BuildContext context, SelectionUserAddressBuildable state) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        leading:
-            IconButton(icon: Assets.images.icArrowLeft.svg(), onPressed: () {context.router.pop();}),
+        leading: IconButton(
+          icon: Assets.images.icArrowLeft.svg(),
+          onPressed: () {
+            context.router.pop();
+          },
+        ),
         elevation: 0.5,
         backgroundColor: Colors.white,
         centerTitle: true,
         bottomOpacity: 1,
         title: "".w(500).s(16).c(context.colors.textPrimary),
       ),
+      backgroundColor: Color(0xFFF2F4FB),
       body: LoaderStateWidget(
         isFullScreen: true,
         loadingState: state.userAddressState,
@@ -49,19 +53,17 @@ class SelectionUserAddressPage extends BasePage<SelectionUserAddressCubit,
           physics: BouncingScrollPhysics(),
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
+          padding: EdgeInsets.symmetric(vertical: 12),
           itemCount: state.userAddresses.length,
           itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: UserAddressWidgets(
-                listener: () {
-                  context
-                      .read<SelectionUserAddressCubit>()
-                      .selectionUserAddress(state.userAddresses[index]);
-                },
-                address: state.userAddresses[index],
-                listenerEdit: () {},
-              ),
+            return UserAddressWidgets(
+              onClicked: () {
+                context
+                    .read<SelectionUserAddressCubit>()
+                    .selectionUserAddress(state.userAddresses[index]);
+              },
+              address: state.userAddresses[index],
+              onEditClicked: () {},
             );
           },
           separatorBuilder: (BuildContext context, int index) {

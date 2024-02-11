@@ -24,9 +24,11 @@ class SelectionUserAddressCubit extends BaseCubit<SelectionUserAddressBuildable,
   Future<void> getUserAddresses() async {
     try {
       final userAddresses = await _repository.getUserAddresses();
-      build((buildable) => buildable.copyWith(
-          userAddressState: LoadingState.success,
-          userAddresses: userAddresses));
+      build(
+        (buildable) => buildable.copyWith(
+            userAddressState: LoadingState.success,
+            userAddresses: userAddresses),
+      );
     } on DioException catch (exception) {
       log.e(exception.toString());
       display.error("server xatolik yuz beradi");

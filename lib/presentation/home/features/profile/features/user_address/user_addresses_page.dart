@@ -32,19 +32,15 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
 
   @override
   Widget builder(BuildContext context, UserAddressesBuildable state) {
-    double width;
-    double height;
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        // actions: [
-        //   CommonButton(
-        //       type: ButtonType.text,
-        //       onPressed: () =>
-        //           context.router.push(AddAddressRoute(address: null)),
-        //       child: Strings.userAddressAdd.w(500).s(12).c(Color(0xFF5C6AC3)))
-        // ],
+        actions: [
+          CommonButton(
+              type: ButtonType.text,
+              onPressed: () =>
+                  context.router.push(AddAddressRoute(address: null)),
+              child: Strings.userAddressAdd.w(500).s(12).c(Color(0xFF5C6AC3)))
+        ],
         backgroundColor: Colors.white,
         title: Strings.userAddressMyAddress
             .w(500)
@@ -57,36 +53,39 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
           onPressed: () => context.router.pop(),
         ),
       ),
-      backgroundColor: Colors.white,
-      body: PagedGridView<int, UserAddressResponse>(
+      backgroundColor: Color(0xFFF2F4FB),
+      body: PagedListView<int, UserAddressResponse>(
         shrinkWrap: true,
         addAutomaticKeepAlives: true,
         physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(vertical: 12),
         pagingController: state.addressPagingController!,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          childAspectRatio: width / height,
-          crossAxisSpacing: 16,
-          mainAxisExtent: 156,
-          crossAxisCount: 1,
-        ),
         builderDelegate: PagedChildBuilderDelegate<UserAddressResponse>(
           firstPageErrorIndicatorBuilder: (_) {
-            return SizedBox(
-              height: 100,
-              child: Center(
-                child: Column(
-                  children: [
-                    Strings.loadingStateError
-                        .w(400)
-                        .s(14)
-                        .c(context.colors.textPrimary),
-                    SizedBox(height: 12),
-                    CommonButton(
-                        onPressed: () {},
-                        type: ButtonType.elevated,
-                        child: Strings.loadingStateRetry.w(400).s(15))
-                  ],
+            return  Container(
+              margin: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+              padding: EdgeInsets.only(left: 12, top: 12, right: 12),
+              decoration: BoxDecoration(
+                color: Color(0xFFFFFFFF),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(width: 1, color: Color(0xFFE5E9F3)),
+              ),
+              child: SizedBox(
+                height: 100,
+                child: Center(
+                  child: Column(
+                    children: [
+                      Strings.loadingStateError
+                          .w(400)
+                          .s(14)
+                          .c(context.colors.textPrimary),
+                      SizedBox(height: 12),
+                      CommonButton(
+                          onPressed: () {},
+                          type: ButtonType.elevated,
+                          child: Strings.loadingStateRetry.w(400).s(15))
+                    ],
+                  ),
                 ),
               ),
             );
@@ -124,9 +123,9 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
           },
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) => UserAddressWidgets(
-            listener: () {},
+            onClicked: () {},
             address: item,
-            listenerEdit: () {
+            onEditClicked: () {
               _showAddressActions(context, state, item);
             },
           ),

@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
@@ -10,6 +9,7 @@ import '../../../../../../../data/responses/address/user_address_response.dart';
 import '../../../../../../../domain/repositories/user_address_respository.dart';
 
 part 'user_addresses_cubit.freezed.dart';
+
 part 'user_addresses_state.dart';
 
 @Injectable()
@@ -26,7 +26,8 @@ class UserAddressesCubit
     try {
       final controller =
           buildable.addressPagingController ?? getAddressController(status: 1);
-      build((buildable) => buildable.copyWith(addressPagingController: controller));
+      build((buildable) =>
+          buildable.copyWith(addressPagingController: controller));
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
@@ -42,31 +43,38 @@ class UserAddressesCubit
         firstPageKey: 1, invisibleItemsThreshold: 100);
     log.i(buildable.addressPagingController);
 
-    addressController.addPageRequestListener(
-      (pageKey) async {
-        final addressList = await userAddressRepository.getUserAddresses();
-        addressList.removeWhere((element) => true);
-        if (addressList.length <= 1000) {
-          addressController.appendLastPage(addressList);
+    try {
+      addressController.addPageRequestListener(
+        (pageKey) async {
+          final addressList = await userAddressRepository.getUserAddresses();
+          if (addressList.length <= 1000) {
+            addressController.appendLastPage(addressList);
+            log.i(buildable.addressPagingController);
+            return;
+          }
+          addressController.appendPage(addressList, pageKey + 1);
           log.i(buildable.addressPagingController);
-          return;
-        }
-        addressController.appendPage(addressList, pageKey + 1);
-        log.i(buildable.addressPagingController);
-      },
-    );
+        },
+      );
+    } on DioException catch (exception) {
+      log.e(exception.toString());
+      display.error("server xatolik yuz beradi");
+    }
+
     return addressController;
   }
 
   Future<void> editUserAddress(UserAddressResponse address) async {
-   await invoke(UserAddressesListenable(UserAddressesEffect.editUserAddress,
+    await invoke(UserAddressesListenable(UserAddressesEffect.editUserAddress,
         address: address));
   }
 
   Future<void> updateMainAddress(UserAddressResponse address) async {
     try {
       await userAddressRepository.updateMainAddress(
-          id: address.id, isMain: address.is_main ?? false);
+        id: address.id,
+        isMain: address.is_main ?? false,
+      );
     } catch (e) {
       display.error(e.toString());
       log.e(e.toString());
