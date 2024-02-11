@@ -102,7 +102,7 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
           },
           noItemsFoundIndicatorBuilder: (_) {
             return UserAddressEmptyWidget(callBack: () {
-              context.router.push(DashboardRoute());
+              context.router.push(AddAddressRoute());
             });
           },
           newPageProgressIndicatorBuilder: (_) {
