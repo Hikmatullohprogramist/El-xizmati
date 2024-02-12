@@ -1,23 +1,20 @@
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/domain/repositories/user_address_respository.dart';
 
-import '../responses/address/user_address_response.dart';
-import '../services/user_address_service.dart';
+import '../../data/responses/address/user_address_response.dart';
+import '../../data/services/user_address_service.dart';
 
-@LazySingleton(as: UserAddressRepository)
-class UserAddressRepositoryImp extends UserAddressRepository {
-  UserAddressRepositoryImp(this._userAddressService);
+@LazySingleton()
+class UserAddressRepository {
+  UserAddressRepository(this._userAddressService);
 
   final UserAddressService _userAddressService;
 
-  @override
   Future<List<UserAddressResponse>> getUserAddresses() async {
     final response = await _userAddressService.getUserAddresses();
     final userAddresses = UserAddressRootResponse.fromJson(response.data).data;
     return userAddresses;
   }
 
-  @override
   Future<void> addUserAddress({
     required String name,
     required int regionId,
@@ -30,32 +27,31 @@ class UserAddressRepositoryImp extends UserAddressRepository {
     required String? geo,
   }) async {
     await _userAddressService.addUserAddress(
-        name: name,
-        regionId: regionId,
-        districtId: districtId,
-        mahallaId: mahallaId,
-        homeNum: homeNum,
-        apartmentNum: apartmentNum,
-        streetNum: streetNum,
-        isMain: isMain,
-        geo: geo,
+      name: name,
+      regionId: regionId,
+      districtId: districtId,
+      mahallaId: mahallaId,
+      homeNum: homeNum,
+      apartmentNum: apartmentNum,
+      streetNum: streetNum,
+      isMain: isMain,
+      geo: geo,
     );
     return;
   }
 
-  @override
   Future<void> deleteAddress({required int id}) async {
     await _userAddressService.deleteUserAddress(userAddressId: id);
     return;
   }
 
-  @override
-  Future<void> updateMainAddress({required int id, required bool isMain}) async {
-    await _userAddressService.updateMainAddress(userAddressId: id, isMain:true );
+  Future<void> updateMainAddress(
+      {required int id, required bool isMain}) async {
+    await _userAddressService.updateMainAddress(
+        userAddressId: id, isMain: true);
     return;
   }
 
-  @override
   Future<void> updateUserAddress(
       {required String name,
       required int regionId,

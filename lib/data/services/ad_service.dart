@@ -49,6 +49,26 @@ class AdsService {
     return _dio.get("v1/home/ads", queryParameters: queryParameters);
   }
 
+  Future<Response> getDashboardAdsByType({required AdType adType}) {
+    String param;
+    param = AdType.product == adType ? "ADA" : "SERVICE";
+    final queryParameters = {
+      RestQueryKeys.adType: param,
+      RestQueryKeys.page: 1,
+      RestQueryKeys.limit: 10,
+    };
+    return _dio.get("v1/dashboard/popular/ads", queryParameters: queryParameters);
+  }
+
+  Future<Response> getDashboardTopRatedAds() {
+    final queryParameters = {
+      RestQueryKeys.page: 1,
+      RestQueryKeys.limit: 10,
+    };
+    // https://api.online-bozor.uz/api/mobile/v1/banner/ads
+    return _dio.get("/v1/banner/ads", queryParameters: queryParameters);
+  }
+
   Future<Response> getPopularAdsByType({
     required AdType adType,
     required int page,

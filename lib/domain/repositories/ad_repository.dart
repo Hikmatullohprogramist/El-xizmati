@@ -1,58 +1,226 @@
+import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
+
+import '../../data/responses/ad/ad/ad_response.dart';
+import '../../data/responses/ad/ad_detail/ad_detail_response.dart';
 import '../../data/responses/search/search_response.dart';
+import '../../data/services/ad_service.dart';
+import '../../data/storages/cart_storage.dart';
+import '../../data/storages/favorite_storage.dart';
 import '../models/ad/ad.dart';
 import '../models/ad/ad_detail.dart';
 import '../models/ad/ad_type.dart';
 import '../models/stats/stats_type.dart';
 
-abstract class AdRepository {
-  Future<List<Ad>> getHomeAds(int page, int limit, String keyWord);
+@LazySingleton()
+class AdRepository {
+  final AdsService _adsService;
+  final FavoriteStorage favoriteStorage;
+  final CartStorage cartStorage;
+
+  AdRepository(this._adsService, this.favoriteStorage, this.cartStorage);
+
+  Future<List<Ad>> getHomeAds(
+      int pageIndex, int pageSize, String keyWord) async {
+    final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
+    final response = await _adsService.getHomeAds(pageIndex, pageSize, keyWord);
+    final adsResponse = AdRootResponse.fromJson(response.data).data.results;
+    final ads = adsResponse
+        .map(
+          (ad) => ad.toMap(
+              favorite:
+                  allItems.where((element) => element.id == ad.id).isNotEmpty),
+        )
+        .toList(growable: true);
+    return ads;
+  }
+
+  Future<List<Ad>> getDashboardPopularAdsByType({
+    required AdType adType,
+  }) async {
+    final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
+    final response = await _adsService.getDashboardAdsByType(adType: adType);
+    final adsResponse = AdRootResponse.fromJson(response.data).data.results;
+    final ads = adsResponse
+        .map(
+          (ad) => ad.toMap(
+              favorite:
+                  allItems.where((element) => element.id == ad.id).isNotEmpty),
+        )
+        .toList(growable: true);
+    return ads;
+  }
+
+  Future<List<Ad>> getDashboardTopRatedAds() async {
+    final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
+    final response = await _adsService.getDashboardTopRatedAds();
+    final adsResponse = AdRootResponse.fromJson(response.data).data.results;
+    final ads = adsResponse
+        .map(
+          (ad) => ad.toMap(
+              favorite:
+                  allItems.where((element) => element.id == ad.id).isNotEmpty),
+        )
+        .toList(growable: true);
+    return ads;
+  }
 
   Future<List<Ad>> getPopularAdsByType({
     required AdType adType,
     required int page,
     required int limit,
-  });
+  }) async {
+    final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
+    final response = await _adsService.getPopularAdsByType(
+      adType: adType,
+      page: page,
+      limit: limit,
+    );
+    final adsResponse = AdRootResponse.fromJson(response.data).data.results;
+    final ads = adsResponse
+        .map(
+          (ad) => ad.toMap(
+              favorite:
+                  allItems.where((element) => element.id == ad.id).isNotEmpty),
+        )
+        .toList(growable: true);
+    return ads;
+  }
 
-  Future<List<Ad>> getCheapAdsByType({
-    required AdType adType,
-    required int page,
-    required int limit,
-  });
-
-  Future<List<Ad>> getAdsByType({
-    required AdType adType,
-    required int page,
-    required int limit,
-  });
+  Future<List<Ad>> getCheapAdsByType(
+      {required AdType adType, required int page, required int limit}) async {
+    final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
+    final response = await _adsService.getCheapAdsByAdType(
+        adType: adType, page: page, limit: limit);
+    final adsResponse = AdRootResponse.fromJson(response.data).data.results;
+    final ads = adsResponse
+        .map(
+          (ad) => ad.toMap(
+              favorite:
+                  allItems.where((element) => element.id == ad.id).isNotEmpty),
+        )
+        .toList(growable: true);
+    return ads;
+  }
 
   Future<List<Ad>> getHotDiscountAdsByType(
-    AdType adType,
-    int page,
-    int pageSize,
-  );
+      AdType collectiveType, int pageIndex, int pageSize) async {
+    final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
+    final response = await _adsService.getHomePopularAds(pageIndex, pageSize);
+    final adsResponse = AdRootResponse.fromJson(response.data).data.results;
+    final ads = adsResponse
+        .map(
+          (ad) => ad.toMap(
+              favorite:
+                  allItems.where((element) => element.id == ad.id).isNotEmpty),
+        )
+        .toList(growable: true);
+    return ads;
+  }
+
+  Future<List<Ad>> getAdsByType(
+      {required int page, required int limit, required AdType adType}) async {
+    final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
+    final response = await _adsService.getAdsByAdType(adType, page, limit);
+    final adsResponse = AdRootResponse.fromJson(response.data).data.results;
+    final ads = adsResponse
+        .map(
+          (ad) => ad.toMap(
+              favorite:
+                  allItems.where((element) => element.id == ad.id).isNotEmpty),
+        )
+        .toList(growable: true);
+    return ads;
+  }
+
+  Future<AdDetail?> getAdDetail(int adId) async {
+    final allItems =
+        favoriteStorage.allItems.map((item) => item.toMap()).toList();
+    final allCartItems =
+        cartStorage.allItems.map((item) => item.toMap()).toList();
+    final response = await _adsService.getAdDetail(adId);
+    final adDetailResponse =
+        AdDetailRootResponse.fromJson(response.data).data.results;
+    final adDetail = adDetailResponse.toMap(
+        favorite: allItems.where((element) => element.id == adId).isNotEmpty,
+        isAddCart:
+            allCartItems.where((element) => element.id == adId).isNotEmpty);
+    return adDetail;
+  }
+
+  Future<List<AdSearchResponse>> getSearch(String query) async {
+    final response = await _adsService.getSearchAd(query);
+    final searchAd = SearchResponse.fromJson(response.data).data;
+    return searchAd.ads;
+  }
 
   Future<List<Ad>> getAdsByUser({
     required int sellerTin,
     required int page,
     required int limit,
-  });
+  }) async {
+    final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
+    final response = await _adsService.getAdsByUser(
+      sellerTin: sellerTin,
+      page: page,
+      limit: limit,
+    );
+    final adsResponse = AdRootResponse.fromJson(response.data).data.results;
+    final ads = adsResponse
+        .map(
+          (ad) => ad.toMap(
+              favorite:
+                  allItems.where((element) => element.id == ad.id).isNotEmpty),
+        )
+        .toList(growable: true);
+    return ads;
+  }
 
   Future<List<Ad>> getSimilarAds({
     required int adId,
     required int page,
     required int limit,
-  });
+  }) async {
+    final allItems = favoriteStorage.allItems.map((e) => e.toMap()).toList();
+    final response =
+        await _adsService.getSimilarAds(adId: adId, page: page, limit: limit);
+    final adsResponse = AdRootResponse.fromJson(response.data).data.results;
+    final ads = adsResponse
+        .map(
+          (ad) => ad.toMap(
+              favorite:
+                  allItems.where((element) => element.id == ad.id).isNotEmpty),
+        )
+        .toList(growable: true);
+    return ads;
+  }
 
-  Future<List<AdSearchResponse>> getSearch(String query);
+  Future<void> increaseAdStats({
+    required StatsType type,
+    required int adId,
+  }) async {
+    await _adsService.increaseAdStats(type: type, adId: adId);
+    return;
+  }
 
-  Future<AdDetail?> getAdDetail(int adId);
+  Future<void> addAdToRecentlyViewed({required int adId}) async {
+    await _adsService.addAdToRecentlyViewed(adId: adId);
+    return;
+  }
 
-  Future<void> increaseAdStats({required StatsType type, required int adId});
-
-  Future<void> addAdToRecentlyViewed({required int adId});
-
-  Future<List<Ad>> getRecentlyViewedAds({
-    required int page,
-    required int limit,
-  });
+  Future<List<Ad>> getRecentlyViewedAds(
+      {required int page, required int limit}) async {
+    final allItems = favoriteStorage.allItems.map((ad) => ad.toMap()).toList();
+    final response =
+        await _adsService.getRecentlyViewedAds(page: page, limit: limit);
+    final adsResponse = AdRootResponse.fromJson(response.data).data.results;
+    final ads = adsResponse
+        .map(
+          (ad) => ad.toMap(
+              favorite:
+                  allItems.where((element) => element.id == ad.id).isNotEmpty),
+        )
+        .toList(growable: true);
+    return ads;
+  }
 }
