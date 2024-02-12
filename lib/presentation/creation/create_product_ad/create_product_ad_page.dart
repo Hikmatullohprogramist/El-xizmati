@@ -176,7 +176,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
         SizedBox(height: 16),
         _buildWarehouseCount(),
         SizedBox(height: 16),
-        _buildPriceCount(),
+        _buildPriceCount(context),
         SizedBox(height: 16),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -397,7 +397,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
     );
   }
 
-  Widget _buildPriceCount() {
+  Widget _buildPriceCount(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -429,8 +429,11 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
               LabelTextField(text: 'Валюта', isRequired: false),
               SizedBox(height: 6),
               CustomDropdownField(
+                text: Strings.currencyUzb,
                 hint: "-",
-                onTap: () {},
+                onTap: () {
+                  _showCurrencyBottomSheet(context);
+                },
               ),
             ],
           ),
@@ -463,6 +466,54 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
               },
             ),
           ],
+        );
+      },
+    );
+  }
+
+  /// Bottom sheet showing methods
+
+  void _showCurrencyBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext bc) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              SizedBox(height: 32),
+              Center(child: "Выберите валюту".s(20).w(600)),
+              SizedBox(height: 24),
+              InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Strings.currencyUzb.w(500).s(16).c(Color(0xFF41455F)),
+                      Assets.images.icRadioButtonSelected.svg(height: 20, width: 20)
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 32)
+            ],
+          ),
         );
       },
     );
