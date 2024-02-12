@@ -20,9 +20,12 @@ part 'ad_detail_state.dart';
 
 @injectable
 class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
-  AdDetailCubit(this._adRepository, this.favoriteRepository,
-      this.cartRepository, this.adRepository, this.tokenStorage)
-      : super(AdDetailBuildable()) {
+  AdDetailCubit(
+    this.adRepository,
+    this.cartRepository,
+    this.favoriteRepository,
+    this.tokenStorage,
+  ) : super(AdDetailBuildable()) {
     // getInitialData();
   }
 
@@ -30,13 +33,12 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
   //   await Future.wait([getRecentlyViewedAds()]);
   // }
 
-  final AdRepository _adRepository;
-  final FavoriteRepository favoriteRepository;
-  final CartRepository cartRepository;
   final AdRepository adRepository;
+  final CartRepository cartRepository;
+  final FavoriteRepository favoriteRepository;
   final TokenStorage tokenStorage;
 
-  List<String> getImages(){
+  List<String> getImages() {
     return (buildable.adDetail?.photos ?? List.empty(growable: true))
         .map((e) => "${Constants.baseUrlForImage}${e.image}")
         .toList();
@@ -53,12 +55,14 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
 
   Future<void> getDetailResponse() async {
     try {
-      var response = await _adRepository.getAdDetail(buildable.adId!);
-      build((buildable) => buildable.copyWith(
-            adDetail: response,
-            isPhoneVisible: false,
-            isAddCart: response?.isAddCart ?? false,
-          ));
+      var response = await adRepository.getAdDetail(buildable.adId!);
+      build(
+        (buildable) => buildable.copyWith(
+          adDetail: response,
+          isPhoneVisible: false,
+          isAddCart: response?.isAddCart ?? false,
+        ),
+      );
       await increaseAdStats(StatsType.view);
       await addAdToRecentlyViewed();
     } on DioException catch (e) {
@@ -131,7 +135,7 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
 
   Future<void> getSimilarAds() async {
     try {
-      final ads = await _adRepository.getSimilarAds(
+      final ads = await adRepository.getSimilarAds(
           adId: buildable.adId ?? 0, page: 1, limit: 10);
       build((buildable) => buildable.copyWith(
             similarAds: ads,

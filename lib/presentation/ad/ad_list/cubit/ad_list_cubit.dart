@@ -18,8 +18,11 @@ part 'ad_list_state.dart';
 
 @injectable
 class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
-  AdListCubit(this.adRepository, this.commonRepository, this.favoriteRepository)
-      : super(AdListBuildable());
+  AdListCubit(
+    this.adRepository,
+    this.commonRepository,
+    this.favoriteRepository,
+  ) : super(AdListBuildable());
 
   void setInitiallyDate(String? keyWord, AdListType adListType, int? sellerTin,
       int? adId, AdType? collectiveType) {
@@ -65,7 +68,10 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
         switch (buildable.adListType) {
           case AdListType.homeList:
             adsList = await adRepository.getHomeAds(
-                pageKey, _pageSize, buildable.keyWord);
+              pageKey,
+              _pageSize,
+              buildable.keyWord,
+            );
           case AdListType.homePopularAds:
             adsList = await adRepository.getPopularAdsByType(
               adType: AdType.product,
@@ -74,23 +80,34 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
             );
           case AdListType.adsByUser:
             adsList = await adRepository.getAdsByUser(
-                sellerTin: buildable.sellerTin ?? -1, page: pageKey, limit: 20);
+              sellerTin: buildable.sellerTin ?? -1,
+              page: pageKey,
+              limit: 20,
+            );
           case AdListType.similarAds:
             adsList = await adRepository.getSimilarAds(
-                adId: buildable.adId ?? 0, page: pageKey, limit: 20);
+              adId: buildable.adId ?? 0,
+              page: pageKey,
+              limit: 20,
+            );
           case AdListType.popularCategoryAds:
             adsList = await adRepository.getHomeAds(
-                pageKey, _pageSize, buildable.keyWord);
+              pageKey,
+              _pageSize,
+              buildable.keyWord,
+            );
           case AdListType.cheaperAdsByAdType:
             adsList = await adRepository.getCheapAdsByType(
-                adType: buildable.collectiveType ?? AdType.product,
-                page: pageKey,
-                limit: 20);
+              adType: buildable.collectiveType ?? AdType.product,
+              page: pageKey,
+              limit: 20,
+            );
           case AdListType.popularAdsByAdType:
             adsList = await adRepository.getPopularAdsByType(
-                adType: buildable.collectiveType ?? AdType.product,
-                page: pageKey,
-                limit: 20);
+              adType: buildable.collectiveType ?? AdType.product,
+              page: pageKey,
+              limit: 20,
+            );
           case AdListType.recentlyViewedAds:
             adsList = await adRepository.getRecentlyViewedAds(
                 page: pageKey, limit: 20);

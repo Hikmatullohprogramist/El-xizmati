@@ -48,8 +48,9 @@ class AdListByTypeCubit
       build((buildable) => buildable.copyWith(
           cheapAds: cheapAds, cheapAdsState: LoadingState.success));
     } on DioException catch (e, stackTrace) {
-      build((buildable) =>
-          buildable.copyWith(cheapAdsState: LoadingState.error));
+      build(
+        (buildable) => buildable.copyWith(cheapAdsState: LoadingState.error),
+      );
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
@@ -58,9 +59,16 @@ class AdListByTypeCubit
   Future<void> getPopularAdsByType() async {
     try {
       final popularAds = await adRepository.getPopularAdsByType(
-          adType: buildable.adType, page: 1, limit: 10);
-      build((buildable) => buildable.copyWith(
-          popularAds: popularAds, popularAdsState: LoadingState.success));
+        adType: buildable.adType,
+        page: 1,
+        limit: 10,
+      );
+      build(
+        (buildable) => buildable.copyWith(
+          popularAds: popularAds,
+          popularAdsState: LoadingState.success,
+        ),
+      );
     } on DioException catch (e, stackTrace) {
       build((buildable) =>
           buildable.copyWith(popularAdsState: LoadingState.error));

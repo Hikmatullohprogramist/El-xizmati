@@ -60,10 +60,8 @@ class DashboardCubit
 
   Future<void> getPopularProductAds() async {
     try {
-      final ads = await adRepository.getPopularAdsByType(
+      final ads = await adRepository.getDashboardPopularAdsByType(
         adType: AdType.product,
-        page: 1,
-        limit: 10,
       );
 
       build((buildable) => buildable.copyWith(
@@ -80,16 +78,16 @@ class DashboardCubit
 
   Future<void> getPopularServiceAds() async {
     try {
-      final ads = await adRepository.getPopularAdsByType(
+      final ads = await adRepository.getDashboardPopularAdsByType(
         adType: AdType.service,
-        page: 1,
-        limit: 10,
       );
 
-      build((buildable) => buildable.copyWith(
-            popularServiceAds: ads,
-            popularServiceAdsState: LoadingState.success,
-          ));
+      build(
+        (buildable) => buildable.copyWith(
+          popularServiceAds: ads,
+          popularServiceAdsState: LoadingState.success,
+        ),
+      );
     } on DioException catch (e, stackTrace) {
       build((buildable) =>
           buildable.copyWith(popularServiceAdsState: LoadingState.error));
@@ -100,16 +98,14 @@ class DashboardCubit
 
   Future<void> getTopRatedAds() async {
     try {
-      final ads = await adRepository.getPopularAdsByType(
-        adType: AdType.product,
-        page: 1,
-        limit: 5,
-      );
+      final ads = await adRepository.getDashboardTopRatedAds();
 
-      build((buildable) => buildable.copyWith(
-            topRatedAds: ads,
-            topRatedAdsState: LoadingState.success,
-          ));
+      build(
+        (buildable) => buildable.copyWith(
+          topRatedAds: ads,
+          topRatedAdsState: LoadingState.success,
+        ),
+      );
     } on DioException catch (e, stackTrace) {
       build((buildable) =>
           buildable.copyWith(topRatedAdsState: LoadingState.error));
@@ -143,8 +139,9 @@ class DashboardCubit
 
       log.i("getBanners success = ${buildable.banners}");
     } on DioException catch (e, stackTrace) {
-      build((buildable) =>
-          buildable.copyWith(bannersState: LoadingState.error));
+      build(
+        (buildable) => buildable.copyWith(bannersState: LoadingState.error),
+      );
       log.e("getBanners error = ${e.toString()}",
           error: e, stackTrace: stackTrace);
       display.error(e.toString());
