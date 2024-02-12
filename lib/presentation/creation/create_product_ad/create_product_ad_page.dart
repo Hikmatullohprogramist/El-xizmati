@@ -25,6 +25,8 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
   final TextEditingController descController = TextEditingController();
   final TextEditingController warehouseController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
+
+  final TextEditingController contactPersonController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
 
@@ -214,13 +216,13 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
           "Контактное лицо".w(500).s(14).c(Color(0xFF41455E)),
           SizedBox(height: 8),
           CommonTextField(
-            autofillHints: const [AutofillHints.telephoneNumber],
-            keyboardType: TextInputType.phone,
+            autofillHints: const [AutofillHints.name],
+            keyboardType: TextInputType.name,
             maxLines: 1,
             hint: 'Контактное лицо',
-            inputType: TextInputType.phone,
+            inputType: TextInputType.name,
             textInputAction: TextInputAction.next,
-            controller: phoneController,
+            controller: contactPersonController,
             inputFormatters: phoneMaskFormatter,
             onChanged: (value) {},
           ),
@@ -241,8 +243,8 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
           "Эл. почта".w(500).s(14).c(Color(0xFF41455E)),
           SizedBox(height: 8),
           CommonTextField(
-            autofillHints: const [AutofillHints.telephoneNumber],
-            keyboardType: TextInputType.phone,
+            autofillHints: const [AutofillHints.email],
+            keyboardType: TextInputType.emailAddress,
             inputType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             hint: "Эл. почта",
