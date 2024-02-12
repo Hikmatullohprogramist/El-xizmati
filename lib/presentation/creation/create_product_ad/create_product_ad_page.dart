@@ -1,15 +1,19 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/common/widgets/common/common_dropdown_text_field.dart';
+import 'package:onlinebozor/common/widgets/common/custom_dropdown_field.dart';
+import 'package:onlinebozor/common/widgets/common/label_text_field.dart';
 import 'package:onlinebozor/common/widgets/image/image_ad_list_widget.dart';
 
 import '../../../../../common/core/base_page.dart';
 import '../../../../../common/gen/localization/strings.dart';
 import '../../../../../common/widgets/common/common_text_field.dart';
+import '../../../common/router/app_router.dart';
+import '../../../common/widgets/common/common_button.dart';
+import '../../mask_formatters.dart';
 import 'cubit/create_product_ad_cubit.dart';
 
 @RoutePage()
@@ -20,6 +24,9 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descController = TextEditingController();
   final TextEditingController warehouseController = TextEditingController();
+  final TextEditingController priceController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
   @override
   void listener(BuildContext context, CreateProductAdListenable event) {
@@ -32,202 +39,401 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
   @override
   Widget builder(BuildContext context, CreateProductAdBuildable state) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Assets.images.icArrowLeft.svg(),
-          onPressed: () => context.router.pop(),
-        ),
-        elevation: 0.5,
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        bottomOpacity: 1,
-        title: Strings.adCreateTitle.w(500).s(16).c(context.colors.textPrimary),
-      ),
+      appBar: _buildAppBar(context),
       backgroundColor: Color(0xFFF2F4FB),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SizedBox(height: 12),
-            Container(
-              color: Colors.white,
-              child: Column(
-                children: [
-                  SizedBox(height: 24),
-                  _getRequiredLabelText('Название товара'),
-                  SizedBox(height: 6),
-                  _getTitleTextField(),
-                  SizedBox(height: 16),
-                  _getRequiredLabelText('Категория'),
-                  SizedBox(height: 6),
-                  _getCategoryDropDownTextField(),
-                  SizedBox(height: 16),
-                ],
-              ),
-            ),
+            _buildTitleAndCategoryBlock(context),
             SizedBox(height: 12),
-            Container(
-              color: Colors.white,
-              child: Column(
-                children: [
-                  _getImageList(context, state),
-                  SizedBox(height: 16),
-                ],
-              ),
-            ),
+            _buildImageListBlock(context, state),
             SizedBox(height: 16),
-            Container(
-              color: Colors.white,
-              child: Column(children: [
-                SizedBox(height: 16),
-                _getRequiredLabelText('Описание товара'),
-                SizedBox(height: 6),
-                _getDescTextField(),
-                SizedBox(height: 16),
-                Row(
-                  children: [
-                    Flexible(
-                        flex: 3,
-                        child: Column(
-                          children: [
-                            _getRequiredLabelText('Кол-во на складе'),
-                            SizedBox(height: 6),
-                            _getWarehouseTextField(),
-                          ],
-                        )),
-                    Flexible(
-                        flex: 2,
-                        child: Column(
-                          children: [
-                            _getLabelText('Тип'),
-                            SizedBox(height: 6),
-                            _getWarehouseUnitDropDownTextField(),
-                          ],
-                        ))
-                  ],
-                ),
-                SizedBox(height: 16),
-              ]),
-            ),
+            _buildDescAndPriceBlock(context),
             SizedBox(height: 16),
+            _buildContactsBlock(context),
+            SizedBox(height: 16),
+            _buildAutoContinueBlock(),
+            SizedBox(height: 16),
+            _buildPinMySocialAccountsBlock(),
+            SizedBox(height: 16),
+            _buildFooterBlock(context),
+            SizedBox(height: 24),
           ],
         ),
       ),
     );
   }
 
-  Widget _getImageList(BuildContext context, CreateProductAdBuildable state) {
-    return ImageAdListWidget(
-      imagePaths: state.pickedImages?.map((e) => e.path).toList() ?? [],
-      maxCount: state.maxImageCount,
-      onTakePhotoClicked: () {
-        cubit(context).takeImage();
-      },
-      onPickImageClicked: () {
-        cubit(context).pickImage();
-      },
-      onImageClicked: () {},
-      onRemoveClicked: (imagePath) {
-        cubit(context).removeImage(imagePath);
-      },
-      onReorder: (oldIndex, newIndex) {
-        cubit(context).onReorder(oldIndex, newIndex);
-      },
+  AppBar _buildAppBar(BuildContext context) {
+    return AppBar(
+      leading: IconButton(
+        icon: Assets.images.icArrowLeft.svg(),
+        onPressed: () => context.router.pop(),
+      ),
+      elevation: 0.5,
+      backgroundColor: Colors.white,
+      centerTitle: true,
+      bottomOpacity: 1,
+      title: Strings.adCreateTitle.w(500).s(16).c(context.colors.textPrimary),
     );
   }
 
-  Widget _getRequiredLabelText(String title) {
+  /// Build block methods
+
+  Widget _buildTitleAndCategoryBlock(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+      child: Column(
+        children: [
+          LabelTextField(text: 'Название товара'),
+          SizedBox(height: 6),
+          CommonTextField(
+            autofillHints: const [AutofillHints.name],
+            inputType: TextInputType.name,
+            keyboardType: TextInputType.name,
+            minLines: 1,
+            maxLines: 3,
+            hint: 'Название товара',
+            textInputAction: TextInputAction.next,
+            controller: titleController,
+            onChanged: (value) {},
+          ),
+          SizedBox(height: 16),
+          LabelTextField(text: 'Категория'),
+          SizedBox(height: 6),
+          CustomDropdownField(
+            hint: "Категория",
+            onTap: () {
+              context.router.push(
+                SelectionCategoryRoute(onResult: (categoryResponse) {
+                  // setSelectionCategory(categoryResponse);
+                }),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildImageListBlock(
+    BuildContext context,
+    CreateProductAdBuildable state,
+  ) {
+    return Container(
+      color: Colors.white,
+      child: Column(
+        children: [
+          ImageAdListWidget(
+            imagePaths: state.pickedImages?.map((e) => e.path).toList() ?? [],
+            maxCount: state.maxImageCount,
+            onTakePhotoClicked: () {
+              cubit(context).takeImage();
+            },
+            onPickImageClicked: () {
+              cubit(context).pickImage();
+            },
+            onImageClicked: () {},
+            onRemoveClicked: (imagePath) {
+              cubit(context).removeImage(imagePath);
+            },
+            onReorder: (oldIndex, newIndex) {
+              cubit(context).onReorder(oldIndex, newIndex);
+            },
+          ),
+          SizedBox(height: 16),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDescAndPriceBlock(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+      child: Column(children: [
+        LabelTextField(text: 'Описание товара'),
+        SizedBox(height: 6),
+        CommonTextField(
+          height: null,
+          autofillHints: const [AutofillHints.name],
+          inputType: TextInputType.name,
+          keyboardType: TextInputType.name,
+          maxLines: 5,
+          minLines: 3,
+          hint:
+              'Подумайте, какие подробности вы хотели бы узнать из объявления. И добавьте их в описание',
+          textInputAction: TextInputAction.next,
+          controller: descController,
+          onChanged: (value) {},
+        ),
+        SizedBox(height: 16),
+        _buildWarehouseCount(),
+        SizedBox(height: 16),
+        _buildPriceCount(),
+        SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            CupertinoSwitch(value: true, onChanged: (value) {}),
+            SizedBox(width: 16),
+            Expanded(
+              child: "Договорная".w(400).s(14).c(Color(0xFF41455E)),
+            ),
+          ],
+        ),
+      ]),
+    );
+  }
+
+  Widget _buildContactsBlock(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 8),
+          "Контактная информация".w(700).s(16).c(Color(0xFF41455E)),
+          SizedBox(height: 20),
+          LabelTextField(text: "Местоположение"),
+          SizedBox(height: 8),
+          CustomDropdownField(
+            hint: "Местоположение",
+            onTap: () {
+              context.router.push(
+                SelectionUserAddressRoute(onResult: (userAddressResponse) {}),
+              );
+            },
+          ),
+          SizedBox(height: 12),
+          "Контактное лицо".w(500).s(14).c(Color(0xFF41455E)),
+          SizedBox(height: 8),
+          CommonTextField(
+            autofillHints: const [AutofillHints.telephoneNumber],
+            keyboardType: TextInputType.phone,
+            maxLines: 1,
+            hint: 'Контактное лицо',
+            inputType: TextInputType.phone,
+            textInputAction: TextInputAction.next,
+            controller: phoneController,
+            inputFormatters: phoneMaskFormatter,
+            onChanged: (value) {},
+          ),
+          "Номер телефона".w(500).s(14).c(Color(0xFF41455E)),
+          SizedBox(height: 8),
+          CommonTextField(
+            autofillHints: const [AutofillHints.telephoneNumber],
+            keyboardType: TextInputType.phone,
+            maxLines: 1,
+            hint: '998 12 345 67 89',
+            inputType: TextInputType.phone,
+            textInputAction: TextInputAction.next,
+            controller: phoneController,
+            inputFormatters: phoneMaskFormatter,
+            onChanged: (value) {},
+          ),
+          SizedBox(height: 12),
+          "Эл. почта".w(500).s(14).c(Color(0xFF41455E)),
+          SizedBox(height: 8),
+          CommonTextField(
+            autofillHints: const [AutofillHints.telephoneNumber],
+            keyboardType: TextInputType.phone,
+            inputType: TextInputType.emailAddress,
+            textInputAction: TextInputAction.next,
+            hint: "Эл. почта",
+            maxLines: 1,
+            controller: emailController,
+            onChanged: (value) {},
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAutoContinueBlock() {
+    return Container(
+      color: Colors.white,
+      child: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            "Автопродление".w(600).s(14).c(Color(0xFF41455E)),
+            SizedBox(height: 24),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                CupertinoSwitch(value: true, onChanged: (value) {}),
+                SizedBox(width: 16),
+                Expanded(
+                  child: "Объявление будет деактивировано через 15 дней"
+                      .w(400)
+                      .s(14)
+                      .c(Color(0xFF41455E)),
+                ),
+              ],
+            ),
+            SizedBox(height: 6),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPinMySocialAccountsBlock() {
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          "Мои соц. сети".w(600).s(14).c(Color(0xFF41455E)),
+          SizedBox(height: 24),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              CupertinoSwitch(value: true, onChanged: (value) {}),
+              SizedBox(width: 16),
+              Expanded(
+                child: "Показать мои соц. сети на описание товара"
+                    .w(400)
+                    .s(14)
+                    .c(Color(0xFF41455E)),
+              ),
+            ],
+          ),
+          SizedBox(height: 6),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFooterBlock(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.all(16),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              SizedBox(width: 16),
+              Assets.images.icRequiredField.svg(),
+              SizedBox(width: 8),
+              Expanded(
+                child: "Необходимо заполнить все поля отмеченный звездочкой "
+                    .w(300)
+                    .s(13)
+                    .c(context.colors.textSecondary),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          CommonButton(
+              color: context.colors.buttonPrimary,
+              onPressed: () {},
+              // enabled: false,
+              // loading: state.loading,
+              child: Container(
+                height: 52,
+                alignment: Alignment.center,
+                width: double.infinity,
+                child: Strings.commonContinueTitle
+                    .w(500)
+                    .s(14)
+                    .c(context.colors.textPrimaryInverse),
+              )),
+        ],
+      ),
+    );
+  }
+
+  /// Build field methods
+
+  Widget _buildWarehouseCount() {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Flexible(
+          flex: 3,
+          child: Column(
+            children: [
+              LabelTextField(text: 'Кол-во на складе'),
+              SizedBox(height: 6),
+              CommonTextField(
+                autofillHints: const [AutofillHints.telephoneNumber],
+                inputType: TextInputType.number,
+                keyboardType: TextInputType.number,
+                maxLines: 1,
+                minLines: 1,
+                hint: '-',
+                textInputAction: TextInputAction.next,
+                controller: warehouseController,
+                onChanged: (value) {},
+              )
+            ],
+          ),
+        ),
         SizedBox(width: 16),
-        title.w(500).s(14).copyWith(textAlign: TextAlign.left),
-        SizedBox(width: 8),
-        Assets.images.icRequiredField.svg()
+        Flexible(
+            flex: 2,
+            child: Column(
+              children: [
+                LabelTextField(text: 'Тип', isRequired: false),
+                SizedBox(height: 6),
+                CustomDropdownField(
+                  hint: "-",
+                  onTap: () {},
+                ),
+              ],
+            ))
       ],
     );
   }
 
-  Widget _getLabelText(String title) {
+  Widget _buildPriceCount() {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Flexible(
+          flex: 3,
+          child: Column(
+            children: [
+              LabelTextField(text: 'Цена'),
+              SizedBox(height: 6),
+              CommonTextField(
+                autofillHints: const [AutofillHints.telephoneNumber],
+                inputType: TextInputType.number,
+                keyboardType: TextInputType.number,
+                maxLines: 1,
+                minLines: 1,
+                hint: '-',
+                textInputAction: TextInputAction.next,
+                controller: priceController,
+                onChanged: (value) {},
+              )
+            ],
+          ),
+        ),
         SizedBox(width: 16),
-        title.w(500).s(14).copyWith(textAlign: TextAlign.left),
+        Flexible(
+          flex: 2,
+          child: Column(
+            children: [
+              LabelTextField(text: 'Валюта', isRequired: false),
+              SizedBox(height: 6),
+              CustomDropdownField(
+                hint: "-",
+                onTap: () {},
+              ),
+            ],
+          ),
+        )
       ],
-    );
-  }
-
-  Widget _getTitleTextField() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: CommonTextField(
-        autofillHints: const [AutofillHints.name],
-        inputType: TextInputType.name,
-        keyboardType: TextInputType.name,
-        minLines: 1,
-        maxLines: 3,
-        hint: 'Название товара',
-        textInputAction: TextInputAction.next,
-        controller: titleController,
-        onChanged: (value) {},
-      ),
-    );
-  }
-
-  Widget _getCategoryDropDownTextField() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: CommonDropDownTextField(
-        autofillHints: const [AutofillHints.telephoneNumber],
-        inputType: TextInputType.number,
-        onChanged: (value) {},
-      ),
-    );
-  }
-
-  Widget _getDescTextField() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: CommonTextField(
-        autofillHints: const [AutofillHints.name],
-        inputType: TextInputType.name,
-        keyboardType: TextInputType.name,
-        maxLines: 5,
-        minLines: 3,
-        hint:
-            'Подумайте, какие подробности вы хотели бы узнать из объявления. И добавьте их в описание',
-        textInputAction: TextInputAction.next,
-        controller: descController,
-        onChanged: (value) {},
-      ),
-    );
-  }
-
-  Widget _getWarehouseTextField() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: CommonTextField(
-        autofillHints: const [AutofillHints.telephoneNumber],
-        inputType: TextInputType.number,
-        keyboardType: TextInputType.number,
-        maxLines: 1,
-        minLines: 1,
-        hint: '-',
-        textInputAction: TextInputAction.next,
-        controller: warehouseController,
-        onChanged: (value) {},
-      ),
-    );
-  }
-
-  Widget _getWarehouseUnitDropDownTextField() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: CommonDropDownTextField(
-        autofillHints: const [AutofillHints.telephoneNumber],
-        inputType: TextInputType.number,
-        hint: '-',
-        onChanged: (value) {},
-      ),
     );
   }
 

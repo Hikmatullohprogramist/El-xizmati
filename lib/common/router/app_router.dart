@@ -24,9 +24,9 @@ import '../../presentation/auth/verification/verification_page.dart';
 import '../../presentation/common/favorites/favorites/product/product_favorites_page.dart';
 import '../../presentation/common/favorites/favorites/service/service_favorites_page.dart';
 import '../../presentation/common/favorites/favorites_page.dart';
+import '../../presentation/common/image_viewer/image_viewer_page.dart';
 import '../../presentation/common/language/set_language/set_language_page.dart';
 import '../../presentation/common/notification/notification_page.dart';
-import '../../presentation/common/photo_view/photo_view_page.dart';
 import '../../presentation/common/popular_categories/popular_categories_page.dart';
 import '../../presentation/common/search/search_page.dart';
 import '../../presentation/common/selection_address/selection_address_page.dart';
@@ -195,7 +195,7 @@ class AppRouter extends _$AppRouter {
         ),
         AutoRoute(page: SearchRoute.page, path: '/search'),
         AutoRoute(page: NotificationRoute.page, path: '/notification'),
-        AutoRoute(page: PhotoViewRoute.page, path: '/photo_view'),
+        AutoRoute(page: ImageViewerRoute.page, path: '/photo_view'),
 
         //   profile page
         AutoRoute(page: WalletFillingRoute.page, path: '/wallet_filling'),
