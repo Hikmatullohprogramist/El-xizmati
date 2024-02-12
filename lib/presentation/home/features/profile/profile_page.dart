@@ -30,15 +30,7 @@ class ProfilePage
   @override
   Widget builder(BuildContext context, ProfileBuildable state) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-        title: Strings.profileViewTitlle
-            .w(500)
-            .s(16)
-            .c(context.colors.textPrimary),
-      ),
+      appBar: _buildAppBar(context),
       backgroundColor: Color(0xFFF2F4FB),
       body: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
@@ -47,134 +39,192 @@ class ProfilePage
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 10),
-              Visibility(
-                visible: state.isLogin,
-                child: ProfileItemWidget(
-                  name: Strings.profileTitle,
-                  icon: Assets.images.icUserAvatar,
-                  invoke: () => context.router.push(ProfileViewRoute()),
-                ),
-              ),
-              Visibility(
-                visible: !state.isLogin,
-                child: ProfileItemWidget(
-                  name: Strings.authSinginTitle,
-                  icon: Assets.images.icUserAvatar,
-                  invoke: () => context.router.push(AuthStartRoute()),
-                ),
-              ),
+              _buildProfileBlock(state, context),
               SizedBox(height: 8),
-              Visibility(
-                visible: state.isLogin,
-                child: ProfileItemWidget(
-                    name: Strings.profileMyAds,
-                    icon: Assets.images.icProfileMyAds,
-                    invoke: () => context.router.push(UserAdsRoute())),
-              ),
-              Visibility(
-                visible: state.isLogin,
-                child: Divider(indent: 46, height: 1),
-              ),
-              Visibility(
-                visible: state.isLogin,
-                child: ProfileItemWidget(
-                    name: Strings.profileOrders,
-                    icon: Assets.images.icProfileOrder,
-                    invoke: () => context.router.push(UserOrderTypeRoute())),
-              ),
-              Visibility(
-                visible: state.isLogin,
-                child: Divider(indent: 46, height: 1),
-              ),
-              Visibility(
-                visible: state.isLogin,
-                child: ProfileItemWidget(
-                    name: Strings.profilePayment,
-                    icon: Assets.images.icProfilePayment,
-                    invoke: () =>
-                        context.router.push(PaymentTransactionRoute())),
-              ),
-              Visibility(
-                visible: state.isLogin,
-                child: SizedBox(height: 8),
-              ),
-              Visibility(
-                visible: state.isLogin,
-                child: ProfileItemWidget(
-                    name: Strings.profileMyCard,
-                    icon: Assets.images.icCard,
-                    invoke: () => context.router.push(UserCardsRoute())),
-              ),
-              Visibility(
-                visible: state.isLogin,
-                child: Divider(indent: 46, height: 1),
-              ),
-              Visibility(
-                visible: state.isLogin,
-                child: ProfileItemWidget(
-                    name: Strings.profileMyAddress,
-                    icon: Assets.images.icProfileLocation,
-                    invoke: () => context.router.push(UserAddressesRoute())),
-              ),
-              Visibility(
-                visible: state.isLogin,
-                child: Divider(indent: 46, height: 1),
-              ),
-              ProfileItemWidget(
-                name: Strings.bottomNavigationFavorite,
-                icon: Assets.images.bottomBar.favorite,
-                invoke: () => context.router.push(FavoritesRoute()),
-              ),
+              _buildOrderBlock(context, state),
+              _buildCardBlock(context, state),
               SizedBox(height: 8),
-              Visibility(
-                  visible: state.isLogin,
-                  child: ProfileItemWidget(
-                    name: Strings.profileSettings,
-                    icon: Assets.images.icProfileSettings,
-                    invoke: () => context.router.push(SettingRoute()),
-                  )),
-              Visibility(
-                visible: state.isLogin,
-                child: Divider(indent: 46, height: 1),
-              ),
-              ProfileItemWidget(
-                name: Strings.profileChangeLanguage,
-                icon: Assets.images.icProfileLanguage,
-                invoke: () => _showChangeLanguageBottomSheet(context),
-              ),
+              _buildSettingsBlock(context, state),
               SizedBox(height: 8),
-              Visibility(
-                  visible: state.isLogin,
-                  child: InkWell(
-                      onTap: () => _showLogoutBottomSheet(context),
-                      child: Container(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                        color: Colors.white,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Assets.images.icProfileLogout.svg(),
-                                SizedBox(width: 16),
-                                Strings.profileLogout
-                                    .w(500)
-                                    .s(14)
-                                    .c(Color(0xFFF66412))
-                              ],
-                            ),
-                            Assets.images.icArrowRight
-                                .svg(height: 16, width: 16)
-                          ],
-                        ),
-                      ))),
+              _buildLogoutBlock(context, state),
             ],
           )),
     );
   }
+
+  AppBar _buildAppBar(BuildContext context) {
+    return AppBar(
+      backgroundColor: Colors.white,
+      elevation: 0,
+      centerTitle: true,
+      title:
+          Strings.profileViewTitlle.w(500).s(16).c(context.colors.textPrimary),
+    );
+  }
+
+  /// Block builder methods
+
+  Widget _buildProfileBlock(ProfileBuildable state, BuildContext context) {
+    return Column(
+      children: [
+        Visibility(
+          visible: state.isLogin,
+          child: ProfileItemWidget(
+            name: Strings.profileTitle,
+            icon: Assets.images.icUserAvatar,
+            invoke: () => context.router.push(ProfileViewRoute()),
+          ),
+        ),
+        Visibility(
+          visible: !state.isLogin,
+          child: ProfileItemWidget(
+            name: Strings.authSinginTitle,
+            icon: Assets.images.icUserAvatar,
+            invoke: () => context.router.push(AuthStartRoute()),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildOrderBlock(
+    BuildContext context,
+    ProfileBuildable state,
+  ) {
+    return Column(
+      children: [
+        Visibility(
+          visible: state.isLogin,
+          child: ProfileItemWidget(
+              name: Strings.profileMyAds,
+              icon: Assets.images.icProfileMyAds,
+              invoke: () => context.router.push(UserAdsRoute())),
+        ),
+        Visibility(
+          visible: state.isLogin,
+          child: Divider(indent: 46, height: 1),
+        ),
+        Visibility(
+          visible: state.isLogin,
+          child: ProfileItemWidget(
+              name: Strings.profileOrders,
+              icon: Assets.images.icProfileOrder,
+              invoke: () => context.router.push(UserOrderTypeRoute())),
+        ),
+        Visibility(
+          visible: state.isLogin,
+          child: Divider(indent: 46, height: 1),
+        ),
+        Visibility(
+          visible: state.isLogin,
+          child: ProfileItemWidget(
+              name: Strings.profilePayment,
+              icon: Assets.images.icProfilePayment,
+              invoke: () => context.router.push(PaymentTransactionRoute())),
+        ),
+        Visibility(
+          visible: state.isLogin,
+          child: SizedBox(height: 8),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCardBlock(
+    BuildContext context,
+    ProfileBuildable state,
+  ) {
+    return Column(
+      children: [
+        Visibility(
+          visible: state.isLogin,
+          child: ProfileItemWidget(
+            name: Strings.profileMyCard,
+            icon: Assets.images.icCard,
+            invoke: () => context.router.push(UserCardsRoute()),
+          ),
+        ),
+        Visibility(
+          visible: state.isLogin,
+          child: Divider(indent: 46, height: 1),
+        ),
+        Visibility(
+          visible: state.isLogin,
+          child: ProfileItemWidget(
+              name: Strings.profileMyAddress,
+              icon: Assets.images.icProfileLocation,
+              invoke: () => context.router.push(UserAddressesRoute())),
+        ),
+        Visibility(
+          visible: state.isLogin,
+          child: Divider(indent: 46, height: 1),
+        ),
+        ProfileItemWidget(
+          name: Strings.bottomNavigationFavorite,
+          icon: Assets.images.bottomBar.favorite,
+          invoke: () => context.router.push(FavoritesRoute()),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSettingsBlock(
+    BuildContext context,
+    ProfileBuildable state,
+  ) {
+    return Column(
+      children: [
+        Visibility(
+          visible: state.isLogin,
+          child: ProfileItemWidget(
+            name: Strings.profileSettings,
+            icon: Assets.images.icProfileSettings,
+            invoke: () => context.router.push(SettingRoute()),
+          ),
+        ),
+        Visibility(
+          visible: state.isLogin,
+          child: Divider(indent: 46, height: 1),
+        ),
+        ProfileItemWidget(
+          name: Strings.profileChangeLanguage,
+          icon: Assets.images.icProfileLanguage,
+          invoke: () => _showChangeLanguageBottomSheet(context),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildLogoutBlock(
+    BuildContext context,
+    ProfileBuildable state,
+  ) {
+    return Visibility(
+        visible: state.isLogin,
+        child: InkWell(
+            onTap: () => _showLogoutBottomSheet(context),
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              color: Colors.white,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Assets.images.icProfileLogout.svg(),
+                      SizedBox(width: 16),
+                      Strings.profileLogout.w(500).s(14).c(Color(0xFFF66412))
+                    ],
+                  ),
+                  Assets.images.icArrowRight.svg(height: 16, width: 16)
+                ],
+              ),
+            )));
+  }
+
+  /// Bottom sheet showing methods
 
   void _showChangeLanguageBottomSheet(BuildContext context) {
     showModalBottomSheet(
