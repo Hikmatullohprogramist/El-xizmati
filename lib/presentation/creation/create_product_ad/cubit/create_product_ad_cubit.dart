@@ -85,6 +85,10 @@ class CreateProductAdCubit
     }
   }
 
+  List<XFile> getImages() {
+    return (buildable.pickedImages ?? []).map((e) => e).toList();
+  }
+
   void onReorder(int oldIndex, int newIndex) {
     try {
       List<XFile> imageList = buildable.pickedImages != null
@@ -97,6 +101,16 @@ class CreateProductAdCubit
 
       List<XFile> newImageList = [];
       newImageList.addAll(imageList);
+      build((buildable) => buildable.copyWith(pickedImages: newImageList));
+    } catch (e) {
+      log.e(e.toString());
+    }
+  }
+
+  void setChangedImageList(List<XFile> images) {
+    try {
+      List<XFile> newImageList = [];
+      newImageList.addAll(images);
       build((buildable) => buildable.copyWith(pickedImages: newImageList));
     } catch (e) {
       log.e(e.toString());

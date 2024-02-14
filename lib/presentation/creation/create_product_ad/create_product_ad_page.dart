@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
@@ -13,6 +14,7 @@ import '../../../../../common/gen/localization/strings.dart';
 import '../../../../../common/widgets/common/common_text_field.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/widgets/common/common_button.dart';
+import '../../../common/widgets/dashboard/app_diverder.dart';
 import '../../mask_formatters.dart';
 import 'cubit/create_product_ad_cubit.dart';
 
@@ -131,7 +133,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
       child: Column(
         children: [
           ImageAdListWidget(
-            imagePaths: state.pickedImages?.map((e) => e.path).toList() ?? [],
+            imagePaths: cubit(context).getImages(),
             maxCount: state.maxImageCount,
             onTakePhotoClicked: () {
               cubit(context).takeImage();
@@ -139,7 +141,18 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
             onPickImageClicked: () {
               cubit(context).pickImage();
             },
-            onImageClicked: () {},
+            onImageClicked: (index)  async {
+              final result = await context.router.push(
+                LocaleImageViewerRoute(
+                  images: cubit(context).getImages(),
+                  initialIndex: index,
+                ),
+              );
+
+              if (result != null) {
+                cubit(context).setChangedImageList(result as List<XFile>);
+              }
+            },
             onRemoveClicked: (imagePath) {
               cubit(context).removeImage(imagePath);
             },
@@ -501,16 +514,22 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                  child: Column(
                     children: [
-                      Strings.currencyUzb.w(500).s(16).c(Color(0xFF41455F)),
-                      Assets.images.icRadioButtonSelected.svg(height: 20, width: 20)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Strings.currencyUzb.w(500).s(16).c(Color(0xFF41455F)),
+                          Assets.images.icRadioButtonSelected
+                              .svg(height: 20, width: 20)
+                        ],
+                      ),
                     ],
                   ),
                 ),
               ),
+              AppDivider(height: 2),
               SizedBox(height: 32)
             ],
           ),

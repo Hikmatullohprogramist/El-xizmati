@@ -150,7 +150,7 @@ class CreateProductOrderPage extends BasePage<CreateProductOrderCubit,
       child: Column(
         children: [
           ImageAdListWidget(
-            imagePaths: state.pickedImages?.map((e) => e.path).toList() ?? [],
+            imagePaths: state.pickedImages ?? [],
             maxCount: state.maxImageCount,
             onTakePhotoClicked: () {
               cubit(context).takeImage();
@@ -158,7 +158,7 @@ class CreateProductOrderPage extends BasePage<CreateProductOrderCubit,
             onPickImageClicked: () {
               cubit(context).pickImage();
             },
-            onImageClicked: () {},
+            onImageClicked: (index) {},
             onRemoveClicked: (imagePath) {
               cubit(context).removeImage(imagePath);
             },

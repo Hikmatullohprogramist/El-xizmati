@@ -1,26 +1,32 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
+import '../../../common/widgets/common/common_button.dart';
+
 @RoutePage()
-class ImageViewerPage extends StatefulWidget {
-  const ImageViewerPage(
-    this.initialIndex, {
+class LocaleImageViewerPage extends StatefulWidget {
+  const LocaleImageViewerPage({
     super.key,
     required this.images,
+    required this.initialIndex,
   });
 
-  final List<String> images;
+  final List<XFile> images;
   final int initialIndex;
 
   @override
-  _ImageViewerPageState createState() => _ImageViewerPageState();
+  _LocaleImageViewerPageState createState() => _LocaleImageViewerPageState();
 }
 
-class _ImageViewerPageState extends State<ImageViewerPage> {
+class _LocaleImageViewerPageState extends State<LocaleImageViewerPage> {
   late int currentIndex;
 
   @override
@@ -61,6 +67,8 @@ class _ImageViewerPageState extends State<ImageViewerPage> {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
 
+    var pageController = PageController(initialPage: widget.initialIndex);
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
@@ -68,13 +76,14 @@ class _ImageViewerPageState extends State<ImageViewerPage> {
           PhotoViewGallery.builder(
             reverse: false,
             onPageChanged: onPageChanged,
-            pageController: PageController(initialPage: currentIndex),
+            pageController: pageController,
             scrollPhysics: const BouncingScrollPhysics(),
             builder: (BuildContext context, int index) {
               return PhotoViewGalleryPageOptions(
-                imageProvider: NetworkImage(widget.images[index]),
+                imageProvider: FileImage(File(widget.images[index].path)),
                 initialScale: PhotoViewComputedScale.contained * 1,
-                heroAttributes: PhotoViewHeroAttributes(tag: widget.images[index]),
+                heroAttributes:
+                    PhotoViewHeroAttributes(tag: widget.images[index]),
               );
             },
             itemCount: widget.images.length,
@@ -88,7 +97,7 @@ class _ImageViewerPageState extends State<ImageViewerPage> {
           ),
           Positioned(
             top: 48,
-            left: 24,
+            left: 12,
             child: InkWell(
               onTap: () {},
               borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -108,6 +117,57 @@ class _ImageViewerPageState extends State<ImageViewerPage> {
               ),
             ),
           ),
+          Positioned(
+              left: 16,
+              bottom: 16,
+              right: 16,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
+                    child: CommonButton(
+                      color: Colors.white,
+                      type: ButtonType.elevated,
+                      enabled: currentIndex != 0,
+                      onPressed: () {
+                        setState(() {
+                          var element = widget.images.removeAt(currentIndex);
+                          widget.images.insert(0, element);
+
+                          pageController.jumpToPage(0);
+                        });
+                      },
+                      child: (currentIndex == 0
+                              ? "Главное фото"
+                              : "Сделать главным")
+                          .s(14)
+                          .w(400)
+                          .c(Colors.black)
+                          .copyWith(textAlign: TextAlign.center),
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: CommonButton(
+                      color: Colors.white,
+                      type: ButtonType.elevated,
+                      onPressed: () {
+                        setState(() {
+                          widget.images.removeAt(currentIndex);
+                          if (widget.images.isEmpty) {
+                            context.router.pop(widget.images);
+                          }
+                        });
+                      },
+                      child: "Удалить"
+                          .s(14)
+                          .w(400)
+                          .c(Colors.black)
+                          .copyWith(textAlign: TextAlign.center),
+                    ),
+                  )
+                ],
+              )),
         ],
       ),
     );
