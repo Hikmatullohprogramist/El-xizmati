@@ -9,6 +9,7 @@ import 'package:onlinebozor/presentation/home/features/profile/features/user_ads
 import '../../../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../../../common/gen/localization/strings.dart';
 import '../../../../../../../../common/router/app_router.dart';
+import '../../../../../../../../common/vibrator/vibrator_extension.dart';
 import '../../../../../../../../common/widgets/ad/user_ad.dart';
 import '../../../../../../../../common/widgets/ad/user_ad_empty_widget.dart';
 import '../../../../../../../../common/widgets/common/common_button.dart';
@@ -106,7 +107,6 @@ class UserPendingAdsPage extends BasePage<UserPendingAdsCubit,
         context: context,
         builder: (BuildContext buildContext) {
           return Container(
-            height: 320,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
@@ -115,81 +115,84 @@ class UserPendingAdsPage extends BasePage<UserPendingAdsCubit,
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(children: [
-                Row(
-                  children: [
-                    Expanded(
-                        child: Center(
-                            child: Strings.actionTitle
-                                .w(500)
-                                .s(16)
-                                .c(Color(0xFF41455E)))),
-                    IconButton(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Strings.actionTitle
+                            .w(600)
+                            .s(18)
+                            .c(Color(0xFF41455E)),
+                      ),
+                      IconButton(
                         onPressed: () {
-                          Navigator.of(buildContext).pop();
+                          context.router.pop();
+                          vibrateByTactile();
                         },
-                        icon: Assets.images.icClose.svg(width: 24, height: 24))
-                  ],
-                ),
-                SizedBox(width: 32),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Assets.images.icEdit.svg(width: 24, height: 24),
-                          SizedBox(width: 10),
-                          Strings.editTitle.w(500).s(14).c(Color(0xFF5C6AC3))
-                        ],
-                      )),
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Assets.images.icAdvertise.svg(width: 24, height: 24),
-                          SizedBox(width: 10),
-                          Strings.advertiseTitle
-                              .w(500)
-                              .s(14)
-                              .c(Color(0xFF41455E))
-                        ],
-                      )),
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Assets.images.icDelete.svg(width: 24, height: 24),
-                          SizedBox(width: 10),
-                          Strings.deactivateTilte
-                              .w(500)
-                              .s(14)
-                              .c(Color(0xFF5C6AC3))
-                        ],
-                      )),
-                ),
-                SizedBox(height: 24),
-                SizedBox(
-                  height: 42,
-                  width: double.infinity,
-                  child: CommonButton(
-                    onPressed: () {
-                      Navigator.of(buildContext).pop();
-                    },
-                    child: Strings.cardClose.w(600).s(14).c(Colors.white),
+                        icon: Assets.images.icClose.svg(width: 24, height: 24),
+                      )
+                    ],
                   ),
-                )
-              ]),
+                  SizedBox(height: 16),
+                  InkWell(
+                    onTap: () {
+                      context.router.pop();
+                      vibrateByTactile();
+                    },
+                    child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Assets.images.icEdit.svg(width: 24, height: 24),
+                            SizedBox(width: 24),
+                            Strings.editTitle.w(500).s(16).w(400)
+                          ],
+                        )),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      context.router.pop();
+                      vibrateByTactile();
+                    },
+                    child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Assets.images.icAdvertise
+                                .svg(width: 24, height: 24),
+                            SizedBox(width: 24),
+                            Strings.advertiseTitle.s(16).w(400)
+                          ],
+                        )),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      context.router.pop();
+                      vibrateByTactile();
+                    },
+                    child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Assets.images.icDelete.svg(width: 24, height: 24),
+                            SizedBox(width: 24),
+                            Strings.deactivateTilte
+                                .w(500)
+                                .s(14)
+                                .c(Color(0xFFFA6F5D))
+                          ],
+                        )),
+                  ),
+                  SizedBox(height: 16),
+                ],
+              ),
             ),
           );
         });
