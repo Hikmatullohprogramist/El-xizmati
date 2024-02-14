@@ -78,7 +78,7 @@ class AdListByTypePage extends BasePage<AdListByTypeCubit,
                           },
                         )),
                     SeeAllWidget(
-                        listener: () {
+                        onClicked: () {
                           context.router.push(AdListRoute(
                               adType: state.adType,
                               adListType: AdListType.cheaperAdsByAdType,
@@ -101,7 +101,7 @@ class AdListByTypePage extends BasePage<AdListByTypeCubit,
                     SizedBox(height: 6),
                     AppDivider(height: 3),
                     SeeAllWidget(
-                        listener: () {
+                        onClicked: () {
                           context.router.push(AdListRoute(
                             adType: state.adType,
                             adListType: AdListType.popularAdsByAdType,

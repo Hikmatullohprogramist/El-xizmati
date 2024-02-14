@@ -3,13 +3,13 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
 import '../../gen/localization/strings.dart';
+import '../../vibrator/vibrator_extension.dart';
 
 class SeeAllWidget extends StatelessWidget {
   final String title;
-  final VoidCallback listener;
+  final VoidCallback onClicked;
 
-  const SeeAllWidget(
-      {super.key, required this.listener, required this.title});
+  const SeeAllWidget({super.key, required this.onClicked, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,10 @@ class SeeAllWidget extends StatelessWidget {
         children: [
           title.w(600).s(16).c(context.colors.textPrimary),
           TextButton(
-            onPressed: listener,
+            onPressed: () {
+              onClicked();
+              vibrateByTactile();
+            },
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[

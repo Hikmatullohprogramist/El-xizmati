@@ -51,6 +51,7 @@ class CommonButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
             ),
             backgroundColor: color ?? context.colors.buttonPrimary,
+            disabledBackgroundColor: (color ?? context.colors.buttonPrimary).withAlpha(150),
             elevation: 0,
           ),
           child: _buildChild(context),

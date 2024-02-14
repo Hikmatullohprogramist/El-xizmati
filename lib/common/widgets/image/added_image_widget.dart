@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import '../../gen/assets/assets.gen.dart';
+import '../../vibrator/vibrator_extension.dart';
 
 class AddedImageWidget extends StatelessWidget {
   const AddedImageWidget({
@@ -25,7 +26,10 @@ class AddedImageWidget extends StatelessWidget {
       children: [
         InkWell(
           key: ValueKey(imagePath),
-          onTap: () => onImageClicked(),
+          onTap: () {
+            onImageClicked();
+            vibrateByTactile();
+          },
           child: Container(
             height: 82,
             width: 96,
@@ -52,7 +56,10 @@ class AddedImageWidget extends StatelessWidget {
           top: 6,
           right: 6,
           child: InkWell(
-            onTap: () => onRemoveClicked(imagePath),
+            onTap: () {
+              onRemoveClicked(imagePath);
+              vibrateByTactile();
+            },
             child: Container(
               height: 24,
               width: 24,

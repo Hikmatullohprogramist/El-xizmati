@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
+import 'package:onlinebozor/common/vibrator/vibrator_extension.dart';
 
 import '../../gen/assets/assets.gen.dart';
 
@@ -38,6 +39,7 @@ class _AdFavoriteWidget extends State<AdFavoriteWidget> {
             _isSelected = !_isSelected;
           });
         }
+        vibrateByTactile();
       },
       child: Container(
         margin: const EdgeInsets.all(8),

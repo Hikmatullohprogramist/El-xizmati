@@ -539,7 +539,7 @@ class AdDetailPage
     return Column(
       children: [
         SeeAllWidget(
-          listener: () {
+          onClicked: () {
             context.router.push(
               AdListRoute(
                 adListType: AdListType.similarAds,
@@ -577,7 +577,7 @@ class AdDetailPage
         children: [
           SizedBox(height: 12),
           SeeAllWidget(
-            listener: () {
+            onClicked: () {
               context.router.push(
                 AdListRoute(
                   adListType: AdListType.adsByUser,
@@ -621,7 +621,7 @@ class AdDetailPage
         children: [
           SizedBox(height: 12),
           SeeAllWidget(
-            listener: () {
+            onClicked: () {
               context.router.push(
                 AdListRoute(
                   adListType: AdListType.recentlyViewedAds,

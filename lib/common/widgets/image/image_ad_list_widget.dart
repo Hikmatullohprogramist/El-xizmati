@@ -1,10 +1,14 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/image/add_image_widget.dart';
 import 'package:onlinebozor/common/widgets/image/added_image_widget.dart';
 
+import '../../gen/assets/assets.gen.dart';
 import '../../gen/localization/strings.dart';
+import '../../vibrator/vibrator_extension.dart';
 
 class ImageAdListWidget extends StatelessWidget {
   const ImageAdListWidget({
@@ -18,11 +22,11 @@ class ImageAdListWidget extends StatelessWidget {
     required this.onReorder,
   });
 
-  final List<String> imagePaths;
+  final List<XFile> imagePaths;
   final int maxCount;
   final Function() onTakePhotoClicked;
   final Function() onPickImageClicked;
-  final Function() onImageClicked;
+  final Function(int index) onImageClicked;
   final Function(String imagePath) onRemoveClicked;
   final Function(int oldIndex, int newIndex) onReorder;
 
@@ -75,9 +79,13 @@ class ImageAdListWidget extends StatelessWidget {
                             child: AddedImageWidget(
                               key: ValueKey(element),
                               index: index,
-                              imagePath: element,
-                              onImageClicked: () {},
-                              onRemoveClicked: (imagePath) => onRemoveClicked(element),
+                              imagePath: element.path,
+                              onImageClicked: () {
+                                onImageClicked(index);
+                              },
+                              onRemoveClicked: (imagePath) {
+                                onRemoveClicked(element.path);
+                              },
                             ),
                           ),
                         )
@@ -115,73 +123,58 @@ class ImageAdListWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              SizedBox(height: 32),
-              Center(child: Strings.imageListAddTitle.s(18).w(600)),
-              SizedBox(height: 32),
-              InkWell(
-                onTap: () {
-                  onTakePhotoClicked();
-                  Navigator.pop(context);
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color(0XFFFBFAFF),
-                    borderRadius: BorderRadius.circular(10),
-                    shape: BoxShape.rectangle,
-                    border: Border.all(
-                      color: Color(0xFFDFE2E9),
-                      width: 1,
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 14,
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Strings.imageListAddTakePhoto.s(16).c(Colors.black),
-                        Icon(Icons.camera_alt_outlined)
-                      ],
-                    ),
-                  ),
-                ),
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(child: Strings.actionTitle.s(18).w(600)),
+                  IconButton(
+                    onPressed: () {
+                      context.router.pop();
+                      vibrateByTactile();
+                    },
+                    icon: Assets.images.icClose.svg(width: 24, height: 24),
+                  )
+                ],
               ),
               SizedBox(height: 16),
               InkWell(
                 onTap: () {
-                  onPickImageClicked();
+                  onTakePhotoClicked();
                   Navigator.pop(context);
+                  vibrateByTactile();
                 },
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color(0XFFFBFAFF),
-                    borderRadius: BorderRadius.circular(10),
-                    shape: BoxShape.rectangle,
-                    border: Border.all(
-                      color: Color(0xFFDFE2E9),
-                      width: 1,
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 14,
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Strings.imageListAddPickImage.s(16).c(Colors.black),
-                        Icon(Icons.image_outlined)
-                      ],
-                    ),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 12, bottom: 4),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Assets.images.icAddImageCamera.svg(),
+                      SizedBox(width: 24),
+                      Strings.imageListAddTakePhoto.s(16).w(400),
+                    ],
                   ),
                 ),
               ),
               SizedBox(height: 24),
+              InkWell(
+                onTap: () {
+                  onPickImageClicked();
+                  Navigator.pop(context);
+                  vibrateByTactile();
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 4, bottom: 12),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Assets.images.icAddImageGallery.svg(),
+                      SizedBox(width: 24),
+                      Strings.imageListAddPickImage.s(16).w(400),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 32),
             ],
           ),
         );

@@ -100,7 +100,7 @@ class DashboardPage
       child: Column(
         children: [
           SeeAllWidget(
-            listener: () => context.router.push(
+            onClicked: () => context.router.push(
               PopularCategoriesRoute(title: Strings.categoriesTitle),
             ),
             title: Strings.categoriesTitle,
@@ -173,7 +173,7 @@ class DashboardPage
       child: Column(
         children: [
           SeeAllWidget(
-            listener: () {
+            onClicked: () {
               context.router.push(
                 AdListRoute(
                   adListType: AdListType.homePopularAds,
@@ -213,7 +213,7 @@ class DashboardPage
       child: Column(
         children: [
           SeeAllWidget(
-            listener: () {
+            onClicked: () {
               context.router.push(
                 AdListRoute(
                   adListType: AdListType.homePopularAds,
@@ -284,7 +284,7 @@ class DashboardPage
         child: Column(
           children: [
             SeeAllWidget(
-              listener: () {
+              onClicked: () {
                 context.router.push(
                   AdListRoute(
                     adListType: AdListType.homeList,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../gen/assets/assets.gen.dart';
+import '../../vibrator/vibrator_extension.dart';
 
 class AddImageWidget extends StatelessWidget {
   const AddImageWidget({
@@ -16,7 +17,10 @@ class AddImageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       key: ValueKey(index),
-      onTap: () => onAddClicked(),
+      onTap: () {
+        onAddClicked();
+        vibrateByTactile();
+      },
       child: Container(
         height: 82,
         width: 96,
@@ -29,9 +33,8 @@ class AddImageWidget extends StatelessWidget {
             width: 1,
           ),
         ),
-        child: IconButton(
-          onPressed: () => onAddClicked(),
-          icon: Assets.images.icAddImage.svg(height: 32, width: 32),
+        child: Center(
+          child: Assets.images.icAddImage.svg(height: 42, width: 42),
         ),
       ),
     );

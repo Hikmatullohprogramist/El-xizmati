@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 
 import '../../gen/assets/assets.gen.dart';
+import '../../vibrator/vibrator_extension.dart';
 
 class AdDetailFavoriteWidget extends StatefulWidget {
   const AdDetailFavoriteWidget({
@@ -38,6 +39,7 @@ class _AdFavoriteWidget extends State<AdDetailFavoriteWidget> {
             _isSelected = !_isSelected;
           });
         }
+        vibrateByTactile();
       },
       borderRadius: BorderRadius.circular(24),
       child: Container(

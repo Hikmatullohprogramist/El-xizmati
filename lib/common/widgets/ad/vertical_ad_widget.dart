@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/constants.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/widgets/ad/list_ad_property_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/ad_status_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/list_ad_property_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/list_price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/view_count_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite/ad_favorite_widget.dart';
@@ -12,27 +12,28 @@ import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 
 import '../../gen/assets/assets.gen.dart';
-import 'list_ad_author_type_widget.dart';
 import 'ad_type_widget.dart';
+import 'list_ad_author_type_widget.dart';
 
 class VerticalAdWidget extends StatelessWidget {
-   VerticalAdWidget({
-    super.key,
-    required this.invokeFavorite,
-    required this.invoke,
-    required this.ad,
-    this.favoriteBeChange = true
-  });
+  VerticalAdWidget(
+      {super.key,
+      required this.invokeFavorite,
+      required this.invoke,
+      required this.ad,
+      this.favoriteBeChange = true});
 
   final Ad ad;
   final Function(Ad ad) invoke;
   final Function(Ad ad) invokeFavorite;
-   bool  favoriteBeChange ;
+  bool favoriteBeChange;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () => invoke(ad),
+        onTap: () {
+          invoke(ad);
+        },
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
           width: double.infinity,

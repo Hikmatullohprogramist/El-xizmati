@@ -15,6 +15,7 @@ import '../../../domain/models/ad/ad.dart';
 import '../../../domain/models/ad/ad_priority_level.dart';
 import '../../constants.dart';
 import '../../gen/assets/assets.gen.dart';
+import '../../vibrator/vibrator_extension.dart';
 
 class HorizontalAdWidget extends StatelessWidget {
   const HorizontalAdWidget({
@@ -31,7 +32,9 @@ class HorizontalAdWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () => onItemClicked(ad),
+        onTap: () {
+          onItemClicked(ad);
+        },
         child: SizedBox(
           height: 342,
           width: 140,

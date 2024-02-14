@@ -8,6 +8,7 @@ import 'package:onlinebozor/common/widgets/favorite/ad_favorite_widget.dart';
 
 import '../../../domain/models/ad/ad.dart';
 import '../../constants.dart';
+import '../../vibrator/vibrator_extension.dart';
 
 class TopRatedAdWidget extends StatelessWidget {
   const TopRatedAdWidget({
@@ -30,7 +31,9 @@ class TopRatedAdWidget extends StatelessWidget {
       padding: EdgeInsets.only(left: 16, top: 16, right: 0),
       decoration: _getBackgroundGradient(),
       child: InkWell(
-          onTap: () => onItemClicked(ad),
+          onTap: () {
+            onItemClicked(ad);
+          },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
