@@ -1,8 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/data/responses/category/category/category_response.dart';
 
 import '../../../../../../common/core/base_cubit.dart';
+import '../../../../data/responses/address/user_address_response.dart';
 
 part 'create_product_ad_cubit.freezed.dart';
 
@@ -30,10 +32,12 @@ class CreateProductAdCubit
         var maxCount = state.buildable!.maxImageCount;
 
         if (addedCount >= maxCount) {
-          invoke(CreateProductAdListenable(CreateProductAdEffect.onOverMaxCount, maxImageCount: buildable.maxImageCount));
+          invoke(CreateProductAdListenable(CreateProductAdEffect.onOverMaxCount,
+              maxImageCount: buildable.maxImageCount));
         }
         if ((addedCount + newCount) > maxCount) {
-          invoke(CreateProductAdListenable(CreateProductAdEffect.onOverMaxCount, maxImageCount: buildable.maxImageCount));
+          invoke(CreateProductAdListenable(CreateProductAdEffect.onOverMaxCount,
+              maxImageCount: buildable.maxImageCount));
 
           addedImages.addAll(newImages.sublist(0, maxCount - addedCount));
           changedImages.addAll(addedImages);
@@ -115,5 +119,26 @@ class CreateProductAdCubit
     } catch (e) {
       log.e(e.toString());
     }
+  }
+
+  void setSelectedCategory(CategoryResponse category) {
+    build((buildable) => buildable.copyWith(category: category));
+  }
+
+  void setSelectedAddress(UserAddressResponse address) {
+    build((buildable) => buildable.copyWith(address: address));
+  }
+
+  void setAgreedPrice(bool isAgreedPrice) {
+    build((buildable) => buildable.copyWith(isAgreedPrice: isAgreedPrice));
+  }
+
+  void setAutoRenewal(bool isAutoRenewal) {
+    build((buildable) => buildable.copyWith(isAutoRenewal: isAutoRenewal));
+  }
+
+  void setShowMySocialAccounts(bool isShowMySocialAccount) {
+    build((buildable) =>
+        buildable.copyWith(isShowMySocialAccount: isShowMySocialAccount));
   }
 }

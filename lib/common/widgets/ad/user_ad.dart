@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/common/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/common/widgets/ad/list_price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/user_ad_stats_widget.dart';
 import 'package:onlinebozor/data/responses/user_ad/user_ad_response.dart';
@@ -50,32 +51,32 @@ class UserAdWidget extends StatelessWidget {
                   SizedBox(width: 12),
                   Expanded(
                       child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      (response.name ?? "")
-                          .w(600)
-                          .s(14)
-                          .c(Color(0xFF41455E))
-                          .copyWith(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          (response.name ?? "")
+                              .w(600)
+                              .s(14)
+                              .c(Color(0xFF41455E))
+                              .copyWith(
                               maxLines: 3, overflow: TextOverflow.ellipsis),
-                      SizedBox(height: 4),
-                      (response.category?.name ?? "*")
-                          .w(500)
-                          .s(14)
-                          .c(Color(0xFF9EABBE))
-                          .copyWith(
+                          SizedBox(height: 4),
+                          (response.category?.name ?? "*")
+                              .w(500)
+                              .s(14)
+                              .c(Color(0xFF9EABBE))
+                              .copyWith(
                               maxLines: 1, overflow: TextOverflow.ellipsis),
-                      SizedBox(height: 12),
-                      Padding(
-                        padding: const EdgeInsets.all(0.0),
-                        child: ListPriceTextWidget(
-                            price: response.price ?? 0,
-                            toPrice: response.to_price ?? 0,
-                            fromPrice: response.from_price ?? 0,
-                            currency: response.currency.toCurrency()),
-                      ),
-                    ],
-                  ))
+                          SizedBox(height: 12),
+                          Padding(
+                            padding: const EdgeInsets.all(0.0),
+                            child: ListPriceTextWidget(
+                                price: response.price ?? 0,
+                                toPrice: response.to_price ?? 0,
+                                fromPrice: response.from_price ?? 0,
+                                currency: response.currency.toCurrency()),
+                          ),
+                        ],
+                      ))
                 ],
               ),
               SizedBox(height: 2),
@@ -100,7 +101,10 @@ class UserAdWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         IconButton(
-                            onPressed: onActionClicked,
+                            onPressed: () {
+                              onActionClicked();
+                              vibrateByTactile();
+                            },
                             icon: Assets.images.icMoreVert
                                 .svg(width: 24, height: 24)),
                       ],
@@ -117,15 +121,17 @@ class UserAdWidget extends StatelessWidget {
   Widget _getAdImageWidget() {
     return CachedNetworkImage(
       imageUrl: "${Constants.baseUrlForImage}${response.main_photo ?? ""}",
-      imageBuilder: (context, imageProvider) => Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(6),
-          image: DecorationImage(
-              image: imageProvider,
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(Colors.white, BlendMode.colorBurn)),
-        ),
-      ),
+      imageBuilder: (context, imageProvider) =>
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6),
+              image: DecorationImage(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                      Colors.white, BlendMode.colorBurn)),
+            ),
+          ),
       placeholder: (context, url) => Center(),
       errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
     );

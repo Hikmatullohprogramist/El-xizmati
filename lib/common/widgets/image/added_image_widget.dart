@@ -73,7 +73,7 @@ class AddedImageWidget extends StatelessWidget {
                 ),
                 shape: BoxShape.rectangle,
               ),
-              child: Assets.images.icClose.svg(
+              child: Assets.images.icRemove.svg(
                 fit: BoxFit.fill,
                 color: Colors.white,
               ),

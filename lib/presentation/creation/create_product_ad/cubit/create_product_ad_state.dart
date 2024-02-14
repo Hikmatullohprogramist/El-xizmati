@@ -5,6 +5,11 @@ class CreateProductAdBuildable with _$CreateProductAdBuildable {
   const factory CreateProductAdBuildable({
     @Default(MAX_IMAGE_COUNT) int maxImageCount,
     List<XFile>? pickedImages,
+    CategoryResponse? category,
+    UserAddressResponse? address,
+    @Default(false) bool isAgreedPrice,
+    @Default(false) bool isAutoRenewal,
+    @Default(false) bool isShowMySocialAccount,
   }) = _CreateProductAdBuildable;
 }
 

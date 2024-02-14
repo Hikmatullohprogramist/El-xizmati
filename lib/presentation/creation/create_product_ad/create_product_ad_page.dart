@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
@@ -8,11 +7,13 @@ import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/widgets/common/custom_dropdown_field.dart';
 import 'package:onlinebozor/common/widgets/common/label_text_field.dart';
 import 'package:onlinebozor/common/widgets/image/image_ad_list_widget.dart';
+import 'package:onlinebozor/common/widgets/switch/custom_switch.dart';
 
 import '../../../../../common/core/base_page.dart';
 import '../../../../../common/gen/localization/strings.dart';
 import '../../../../../common/widgets/common/common_text_field.dart';
 import '../../../common/router/app_router.dart';
+import '../../../common/vibrator/vibrator_extension.dart';
 import '../../../common/widgets/common/common_button.dart';
 import '../../../common/widgets/dashboard/app_diverder.dart';
 import '../../mask_formatters.dart';
@@ -51,17 +52,17 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SizedBox(height: 12),
-            _buildTitleAndCategoryBlock(context),
+            _buildTitleAndCategoryBlock(context, state),
             SizedBox(height: 12),
             _buildImageListBlock(context, state),
             SizedBox(height: 16),
-            _buildDescAndPriceBlock(context),
+            _buildDescAndPriceBlock(context, state),
             SizedBox(height: 16),
-            _buildContactsBlock(context),
+            _buildContactsBlock(context, state),
             SizedBox(height: 16),
-            _buildAutoContinueBlock(),
+            _buildAutoContinueBlock(context, state),
             SizedBox(height: 16),
-            _buildPinMySocialAccountsBlock(),
+            _buildPinMySocialAccountsBlock(context, state),
             SizedBox(height: 16),
             _buildFooterBlock(context),
             SizedBox(height: 24),
@@ -87,7 +88,10 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
 
   /// Build block methods
 
-  Widget _buildTitleAndCategoryBlock(BuildContext context) {
+  Widget _buildTitleAndCategoryBlock(
+    BuildContext context,
+    CreateProductAdBuildable state,
+  ) {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
@@ -110,11 +114,12 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
           LabelTextField(text: 'Категория'),
           SizedBox(height: 6),
           CustomDropdownField(
+            text: state.category?.name ?? "",
             hint: "Категория",
             onTap: () {
               context.router.push(
                 SelectionCategoryRoute(onResult: (categoryResponse) {
-                  // setSelectionCategory(categoryResponse);
+                  cubit(context).setSelectedCategory(categoryResponse);
                 }),
               );
             },
@@ -141,7 +146,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
             onPickImageClicked: () {
               cubit(context).pickImage();
             },
-            onImageClicked: (index)  async {
+            onImageClicked: (index) async {
               final result = await context.router.push(
                 LocaleImageViewerRoute(
                   images: cubit(context).getImages(),
@@ -166,7 +171,10 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
     );
   }
 
-  Widget _buildDescAndPriceBlock(BuildContext context) {
+  Widget _buildDescAndPriceBlock(
+    BuildContext context,
+    CreateProductAdBuildable state,
+  ) {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
@@ -194,7 +202,12 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            CupertinoSwitch(value: true, onChanged: (value) {}),
+            CustomSwitch(
+              value: state.isAgreedPrice,
+              onChanged: (value) {
+                cubit(context).setAgreedPrice(value);
+              },
+            ),
             SizedBox(width: 16),
             Expanded(
               child: "Договорная".w(400).s(14).c(Color(0xFF41455E)),
@@ -205,7 +218,10 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
     );
   }
 
-  Widget _buildContactsBlock(BuildContext context) {
+  Widget _buildContactsBlock(
+    BuildContext context,
+    CreateProductAdBuildable state,
+  ) {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.all(16),
@@ -218,10 +234,13 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
           LabelTextField(text: "Местоположение"),
           SizedBox(height: 8),
           CustomDropdownField(
+            text: state.address?.name ?? "",
             hint: "Местоположение",
             onTap: () {
               context.router.push(
-                SelectionUserAddressRoute(onResult: (userAddressResponse) {}),
+                SelectionUserAddressRoute(onResult: (userAddressResponse) {
+                  cubit(context).setSelectedAddress(userAddressResponse);
+                }),
               );
             },
           ),
@@ -270,7 +289,10 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
     );
   }
 
-  Widget _buildAutoContinueBlock() {
+  Widget _buildAutoContinueBlock(
+    BuildContext context,
+    CreateProductAdBuildable state,
+  ) {
     return Container(
       color: Colors.white,
       child: Padding(
@@ -283,7 +305,12 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                CupertinoSwitch(value: true, onChanged: (value) {}),
+                CustomSwitch(
+                  value: state.isAutoRenewal,
+                  onChanged: (value) {
+                    cubit(context).setAutoRenewal(value);
+                  },
+                ),
                 SizedBox(width: 16),
                 Expanded(
                   child: "Объявление будет деактивировано через 15 дней"
@@ -300,7 +327,10 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
     );
   }
 
-  Widget _buildPinMySocialAccountsBlock() {
+  Widget _buildPinMySocialAccountsBlock(
+    BuildContext context,
+    CreateProductAdBuildable state,
+  ) {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.all(16),
@@ -312,7 +342,12 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              CupertinoSwitch(value: true, onChanged: (value) {}),
+              CustomSwitch(
+                value: state.isShowMySocialAccount,
+                onChanged: (value) {
+                  cubit(context).setShowMySocialAccounts(value);
+                },
+              ),
               SizedBox(width: 16),
               Expanded(
                 child: "Показать мои соц. сети на описание товара"
@@ -511,6 +546,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
               InkWell(
                 onTap: () {
                   Navigator.pop(context);
+                  vibrateByTactile();
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
