@@ -8,6 +8,7 @@ import 'package:onlinebozor/presentation/home/cubit/home_cubit.dart';
 import '../../common/core/base_page.dart';
 import '../../common/gen/assets/assets.gen.dart';
 import '../../common/router/app_router.dart';
+import '../../common/vibrator/vibrator_extension.dart';
 
 @RoutePage()
 class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
@@ -47,16 +48,8 @@ class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
                 backgroundColor: Colors.white,
                 currentIndex: tabsRouter.activeIndex,
                 onTap: (index) {
-                  // here we switch between tabs
-                  // if (index < 2) {
-                  //   tabsRouter.setActiveIndex(index);
-                  // }
-                  // if (index == 2) {
-                  //   context.router.push(FavoritesRoute());
                   tabsRouter.setActiveIndex(index);
-                  // } else {
-                  //   tabsRouter.setActiveIndex(index);
-                  // }
+                  vibrateByTactile();
                 },
                 items: [
                   BottomNavigationBarItem(

@@ -14,6 +14,8 @@ import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
 import 'package:onlinebozor/common/widgets/profile/profile_item_widget.dart';
 import 'package:onlinebozor/presentation/home/features/profile/cubit/profile_cubit.dart';
 
+import '../../../../common/vibrator/vibrator_extension.dart';
+
 @RoutePage()
 class ProfilePage
     extends BasePage<ProfileCubit, ProfileBuildable, ProfileListenable> {
@@ -72,7 +74,10 @@ class ProfilePage
           child: ProfileItemWidget(
             name: Strings.profileTitle,
             icon: Assets.images.icUserAvatar,
-            invoke: () => context.router.push(ProfileViewRoute()),
+            invoke: () {
+              context.router.push(ProfileViewRoute());
+              vibrateByTactile();
+            },
           ),
         ),
         Visibility(
@@ -80,7 +85,10 @@ class ProfilePage
           child: ProfileItemWidget(
             name: Strings.authSinginTitle,
             icon: Assets.images.icUserAvatar,
-            invoke: () => context.router.push(AuthStartRoute()),
+            invoke: () {
+              context.router.push(AuthStartRoute());
+              vibrateByTactile();
+            },
           ),
         ),
       ],
@@ -96,9 +104,13 @@ class ProfilePage
         Visibility(
           visible: state.isLogin,
           child: ProfileItemWidget(
-              name: Strings.profileMyAds,
-              icon: Assets.images.icProfileMyAds,
-              invoke: () => context.router.push(UserAdsRoute())),
+            name: Strings.profileMyAds,
+            icon: Assets.images.icProfileMyAds,
+            invoke: () {
+              context.router.push(UserAdsRoute());
+              vibrateByTactile();
+            },
+          ),
         ),
         Visibility(
           visible: state.isLogin,
@@ -107,9 +119,13 @@ class ProfilePage
         Visibility(
           visible: state.isLogin,
           child: ProfileItemWidget(
-              name: Strings.profileOrders,
-              icon: Assets.images.icProfileOrder,
-              invoke: () => context.router.push(UserOrderTypeRoute())),
+            name: Strings.profileOrders,
+            icon: Assets.images.icProfileOrder,
+            invoke: () {
+              context.router.push(UserOrderTypeRoute());
+              vibrateByTactile();
+            },
+          ),
         ),
         Visibility(
           visible: state.isLogin,
@@ -118,9 +134,13 @@ class ProfilePage
         Visibility(
           visible: state.isLogin,
           child: ProfileItemWidget(
-              name: Strings.profilePayment,
-              icon: Assets.images.icProfilePayment,
-              invoke: () => context.router.push(PaymentTransactionRoute())),
+            name: Strings.profilePayment,
+            icon: Assets.images.icProfilePayment,
+            invoke: () {
+              context.router.push(PaymentTransactionRoute());
+              vibrateByTactile();
+            },
+          ),
         ),
         Visibility(
           visible: state.isLogin,
@@ -141,7 +161,10 @@ class ProfilePage
           child: ProfileItemWidget(
             name: Strings.profileMyCard,
             icon: Assets.images.icCard,
-            invoke: () => context.router.push(UserCardsRoute()),
+            invoke: () {
+              context.router.push(UserCardsRoute());
+              vibrateByTactile();
+            },
           ),
         ),
         Visibility(
@@ -151,9 +174,13 @@ class ProfilePage
         Visibility(
           visible: state.isLogin,
           child: ProfileItemWidget(
-              name: Strings.profileMyAddress,
-              icon: Assets.images.icProfileLocation,
-              invoke: () => context.router.push(UserAddressesRoute())),
+            name: Strings.profileMyAddress,
+            icon: Assets.images.icProfileLocation,
+            invoke: () {
+              context.router.push(UserAddressesRoute());
+              vibrateByTactile();
+            },
+          ),
         ),
         Visibility(
           visible: state.isLogin,
@@ -162,7 +189,10 @@ class ProfilePage
         ProfileItemWidget(
           name: Strings.bottomNavigationFavorite,
           icon: Assets.images.bottomBar.favorite,
-          invoke: () => context.router.push(FavoritesRoute()),
+          invoke: () {
+            context.router.push(FavoritesRoute());
+            vibrateByTactile();
+          },
         ),
       ],
     );
@@ -179,7 +209,10 @@ class ProfilePage
           child: ProfileItemWidget(
             name: Strings.profileSettings,
             icon: Assets.images.icProfileSettings,
-            invoke: () => context.router.push(SettingRoute()),
+            invoke: () {
+              context.router.push(SettingRoute());
+              vibrateByTactile();
+            },
           ),
         ),
         Visibility(
@@ -189,7 +222,10 @@ class ProfilePage
         ProfileItemWidget(
           name: Strings.profileChangeLanguage,
           icon: Assets.images.icProfileLanguage,
-          invoke: () => _showChangeLanguageBottomSheet(context),
+          invoke: () {
+            _showChangeLanguageBottomSheet(context);
+            vibrateByTactile();
+          },
         ),
       ],
     );
@@ -202,7 +238,10 @@ class ProfilePage
     return Visibility(
         visible: state.isLogin,
         child: InkWell(
-            onTap: () => _showLogoutBottomSheet(context),
+            onTap: () {
+              _showLogoutBottomSheet(context);
+              vibrateByTactile();
+            },
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
               color: Colors.white,
@@ -245,13 +284,30 @@ class ProfilePage
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              SizedBox(height: 32),
-              Center(child: Strings.languageSetTitle.s(20).w(600)),
-              SizedBox(height: 24),
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    child: Strings.languageSetTitle
+                        .w(600)
+                        .s(18)
+                        .c(Color(0xFF41455E)),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      context.router.pop();
+                      vibrateByTactile();
+                    },
+                    icon: Assets.images.icClose.svg(width: 24, height: 24),
+                  )
+                ],
+              ),
+              SizedBox(height: 16),
               InkWell(
                   onTap: () {
                     _saveSelectedLanguage(context, Language.uzbekLatin);
                     Navigator.pop(context);
+                    vibrateByTactile();
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
@@ -269,6 +325,7 @@ class ProfilePage
                   onTap: () {
                     _saveSelectedLanguage(context, Language.uzbekCyrill);
                     Navigator.pop(context);
+                    vibrateByTactile();
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
@@ -287,6 +344,7 @@ class ProfilePage
                   onTap: () {
                     _saveSelectedLanguage(context, Language.russian);
                     Navigator.pop(context);
+                    vibrateByTactile();
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
@@ -342,7 +400,10 @@ class ProfilePage
                         alignment: Alignment.center,
                         child: Strings.commonNo.s(16).c(Colors.white),
                       ),
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        vibrateByTactile();
+                      },
                     ),
                   ),
                   SizedBox(width: 16),
@@ -356,8 +417,8 @@ class ProfilePage
                       ),
                       onPressed: () {
                         context.read<ProfileCubit>().logOut();
-
                         Navigator.pop(context);
+                        vibrateByTactile();
                       },
                     ),
                   ),
