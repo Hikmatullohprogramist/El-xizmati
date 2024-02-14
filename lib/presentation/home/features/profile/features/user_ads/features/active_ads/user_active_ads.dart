@@ -184,8 +184,8 @@ class UserActiveAdsPage extends BasePage<UserActiveAdsCubit,
                             Assets.images.icDelete.svg(width: 24, height: 24),
                             SizedBox(width: 24),
                             Strings.deactivateTilte
-                                .w(500)
-                                .s(14)
+                                .s(16)
+                                .w(400)
                                 .c(Color(0xFFFA6F5D))
                           ],
                         )),

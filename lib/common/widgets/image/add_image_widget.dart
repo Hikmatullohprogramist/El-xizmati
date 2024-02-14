@@ -34,7 +34,7 @@ class AddImageWidget extends StatelessWidget {
           ),
         ),
         child: Center(
-          child: Assets.images.icAddImage.svg(height: 42, width: 42),
+          child: Assets.images.icAddImage.svg(height: 36, width: 36),
         ),
       ),
     );
