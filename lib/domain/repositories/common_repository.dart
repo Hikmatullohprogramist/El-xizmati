@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/data/responses/unit/unit_response.dart';
 
 import '../../data/responses/banner/banner_response.dart';
 import '../../data/responses/category/category/category_response.dart';
@@ -44,4 +45,11 @@ class CommonRepository {
         PopularRootCategoryResponse.fromJson(response.data).data;
     return popularCategories;
   }
+
+  Future<List<UnitResponse>> getUnits() async {
+    final response = await _commonService.getUnits();
+    final units = UnitRootResponse.fromJson(response.data).data;
+    return units;
+  }
+
 }

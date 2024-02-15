@@ -9,6 +9,7 @@ import 'package:onlinebozor/common/widgets/image/added_image_widget.dart';
 import '../../gen/assets/assets.gen.dart';
 import '../../gen/localization/strings.dart';
 import '../../vibrator/vibrator_extension.dart';
+import '../common/bottom_sheet_title.dart';
 
 class ImageAdListWidget extends StatelessWidget {
   const ImageAdListWidget({
@@ -124,17 +125,11 @@ class ImageAdListWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(child: Strings.actionTitle.s(18).w(600)),
-                  IconButton(
-                    onPressed: () {
-                      context.router.pop();
-                      vibrateByTactile();
-                    },
-                    icon: Assets.images.icClose.svg(width: 24, height: 24),
-                  )
-                ],
+              BottomSheetTitle(
+                title: Strings.actionTitle,
+                onCloseClicked: () {
+                  context.router.pop();
+                },
               ),
               SizedBox(height: 16),
               InkWell(

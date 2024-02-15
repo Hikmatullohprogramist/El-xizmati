@@ -8,6 +8,7 @@ import 'package:onlinebozor/presentation/home/home_page.dart';
 
 import '../../data/responses/address/user_address_response.dart';
 import '../../data/responses/category/category/category_response.dart';
+import '../../data/responses/unit/unit_response.dart';
 import '../../data/responses/user_ad/user_ad_response.dart';
 import '../../domain/models/ad/ad_list_type.dart';
 import '../../domain/models/ad/ad_type.dart';
@@ -33,6 +34,7 @@ import '../../presentation/common/popular_categories/popular_categories_page.dar
 import '../../presentation/common/search/search_page.dart';
 import '../../presentation/common/selection_address/selection_address_page.dart';
 import '../../presentation/common/selection_category/selection_category_page.dart';
+import '../../presentation/common/selection_unit/selection_unit_page.dart';
 import '../../presentation/common/selection_user_address/selection_user_address.dart';
 import '../../presentation/creation/create_ad_start/create_ad_start_page.dart';
 import '../../presentation/creation/create_order_start/create_order_start_page.dart';
@@ -200,7 +202,8 @@ class AppRouter extends _$AppRouter {
 
         /// image viewer pages
         AutoRoute(page: ImageViewerRoute.page, path: '/image_viewer'),
-        AutoRoute(page: LocaleImageViewerRoute.page, path: '/local_image_viewer'),
+        AutoRoute(
+            page: LocaleImageViewerRoute.page, path: '/local_image_viewer'),
 
         //   profile page
         AutoRoute(page: WalletFillingRoute.page, path: '/wallet_filling'),
@@ -259,6 +262,11 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           page: SelectionCategoryRoute.page,
           path: '/selection_category',
+        ),
+
+        AutoRoute(
+          page: SelectionUnitRoute.page,
+          path: '/selection_unit',
         ),
 
         AutoRoute(

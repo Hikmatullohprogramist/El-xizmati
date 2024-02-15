@@ -7,6 +7,7 @@ class CreateProductAdBuildable with _$CreateProductAdBuildable {
     List<XFile>? pickedImages,
     CategoryResponse? category,
     UserAddressResponse? address,
+    UnitResponse? unit,
     @Default(false) bool isAgreedPrice,
     @Default(false) bool isAutoRenewal,
     @Default(false) bool isShowMySocialAccount,

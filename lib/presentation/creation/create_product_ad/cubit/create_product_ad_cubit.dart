@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/responses/category/category/category_response.dart';
+import 'package:onlinebozor/data/responses/unit/unit_response.dart';
 
 import '../../../../../../common/core/base_cubit.dart';
 import '../../../../data/responses/address/user_address_response.dart';
@@ -123,6 +124,10 @@ class CreateProductAdCubit
 
   void setSelectedCategory(CategoryResponse category) {
     build((buildable) => buildable.copyWith(category: category));
+  }
+
+  void setSelectedUnit(UnitResponse unit) {
+    build((buildable) => buildable.copyWith(unit: unit));
   }
 
   void setSelectedAddress(UserAddressResponse address) {

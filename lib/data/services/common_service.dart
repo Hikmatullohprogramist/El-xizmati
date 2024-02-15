@@ -27,4 +27,8 @@ class CommonService {
   Future<Response> getCurrency() {
     return _dio.get('v1/currencies');
   }
+
+  Future<Response> getUnits() {
+    return _dio.get('v1/get-untis-for-create-ad');
+  }
 }

@@ -4,10 +4,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/common/widgets/common/bottom_sheet_title.dart';
 import 'package:onlinebozor/common/widgets/common/custom_dropdown_field.dart';
 import 'package:onlinebozor/common/widgets/common/label_text_field.dart';
+import 'package:onlinebozor/common/widgets/common/selection_list_item.dart';
 import 'package:onlinebozor/common/widgets/image/image_ad_list_widget.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_switch.dart';
+import 'package:onlinebozor/presentation/common/selection_unit/selection_unit_page.dart';
 
 import '../../../../../common/core/base_page.dart';
 import '../../../../../common/gen/localization/strings.dart';
@@ -195,7 +198,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
           onChanged: (value) {},
         ),
         SizedBox(height: 16),
-        _buildWarehouseCount(),
+        _buildWarehouseCount(context, state),
         SizedBox(height: 16),
         _buildPriceCount(context),
         SizedBox(height: 16),
@@ -404,7 +407,10 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
 
   /// Build field methods
 
-  Widget _buildWarehouseCount() {
+  Widget _buildWarehouseCount(
+    BuildContext context,
+    CreateProductAdBuildable state,
+  ) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -436,8 +442,22 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
                 LabelTextField(text: 'Тип', isRequired: false),
                 SizedBox(height: 6),
                 CustomDropdownField(
+                  text: state.unit?.name ?? "",
                   hint: "-",
-                  onTap: () {},
+                  onTap: () async {
+                    final unit = await showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      useSafeArea: true,
+                      backgroundColor: Colors.transparent,
+                      builder: (context) => SelectionUnitPage(
+                        key: Key(""),
+                        selectedUnit: state.unit,
+                      ),
+                    );
+
+                    cubit(context).setSelectedUnit(unit);
+                  },
                 ),
               ],
             ))
@@ -534,38 +554,29 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
               topRight: Radius.circular(20),
             ),
           ),
-          padding: EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               SizedBox(height: 32),
-              Center(child: "Выберите валюту".s(20).w(600)),
-              SizedBox(height: 24),
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
+              BottomSheetTitle(
+                title: "Выберите валюту",
+                onCloseClicked: () {
+                  context.router.pop();
+                },
+              ),
+              SizedBox(height: 12),
+              SelectionListItem(
+                item: "",
+                title: Strings.currencyUzb,
+                isSelected: true,
+                onClicked: (item) {
+                  context.router.pop();
                   vibrateByTactile();
                 },
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Strings.currencyUzb.w(500).s(16).c(Color(0xFF41455F)),
-                          Assets.images.icRadioButtonSelected
-                              .svg(height: 20, width: 20)
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
               ),
-              AppDivider(height: 2),
+              AppDivider(height: 2, indent: 20, endIndent: 20),
               SizedBox(height: 32)
             ],
           ),
