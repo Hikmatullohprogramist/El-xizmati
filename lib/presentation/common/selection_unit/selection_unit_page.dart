@@ -50,7 +50,6 @@ class SelectionUnitPage extends BasePage<SelectionUnitCubit,
                     context.router.pop();
                   },
                 ),
-                // SizedBox(height: 16),
                 LoaderStateWidget(
                   isFullScreen: false,
                   loadingState: state.unitsState,

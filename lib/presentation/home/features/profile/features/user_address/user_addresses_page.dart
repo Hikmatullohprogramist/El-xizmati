@@ -7,12 +7,15 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/vibrator/vibrator_extension.dart';
+import 'package:onlinebozor/common/widgets/address/user_address.dart';
 import 'package:onlinebozor/common/widgets/address/user_address_empty_widget.dart';
-import 'package:onlinebozor/common/widgets/address/user_address_widget.dart';
+import 'package:onlinebozor/common/widgets/common/action_list_item.dart';
 import 'package:onlinebozor/common/widgets/common/common_button.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_address/cubit/user_addresses_cubit.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
+import '../../../../../../common/widgets/common/bottom_sheet_title.dart';
 import '../../../../../../data/responses/address/user_address_response.dart';
 
 @RoutePage()
@@ -62,7 +65,7 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
         pagingController: state.addressPagingController!,
         builderDelegate: PagedChildBuilderDelegate<UserAddressResponse>(
           firstPageErrorIndicatorBuilder: (_) {
-            return  Container(
+            return Container(
               margin: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
               padding: EdgeInsets.only(left: 12, top: 12, right: 12),
               decoration: BoxDecoration(
@@ -122,11 +125,12 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
             );
           },
           transitionDuration: Duration(milliseconds: 100),
-          itemBuilder: (context, item, index) => UserAddressWidgets(
+          itemBuilder: (context, item, index) => UserAddress(
             onClicked: () {},
             address: item,
             onEditClicked: () {
-              _showAddressActions(context, state, item);
+              // _showAddressActions(context, state, item);
+              _showAddressActions(context, item);
             },
             isManageEnabled: true,
           ),
@@ -135,8 +139,7 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
     );
   }
 
-  void _showAddressActions(BuildContext context, UserAddressesBuildable state,
-      UserAddressResponse address) {
+  void _showAddressActions(BuildContext context, UserAddressResponse address) {
     showModalBottomSheet(
         isScrollControlled: true,
         shape: RoundedRectangleBorder(
@@ -146,7 +149,6 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
         context: context,
         builder: (BuildContext buildContext) {
           return Container(
-            height: 320,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
@@ -155,98 +157,48 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(children: [
-                Row(
-                  children: [
-                    Expanded(
-                        child: Center(
-                            child: Strings.userAddressAction
-                                .w(500)
-                                .s(16)
-                                .c(Color(0xFF41455E)))),
-                    IconButton(
-                        onPressed: () {
-                          Navigator.of(buildContext).pop();
-                        },
-                        icon: Assets.images.icClose.svg(width: 24, height: 24))
-                  ],
-                ),
-                SizedBox(width: 32),
-                InkWell(
-                  onTap: () {
-                    Navigator.of(buildContext).pop();
-                    context.read<UserAddressesCubit>().editUserAddress(address);
-                  },
-                  child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Assets.images.icEdit.svg(width: 24, height: 24),
-                          SizedBox(width: 10),
-                          Strings.userAddressEdit.s(14).c(Color(0xFF5C6AC3))
-                        ],
-                      )),
-                ),
-                InkWell(
-                  onTap: () {
-                    context
-                        .read<UserAddressesCubit>()
-                        .updateMainAddress(address);
-                    Navigator.of(buildContext).pop();
-                  },
-                  child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Assets.images.icStar.svg(
-                              width: 24,
-                              height: 24,
-                              color: context.colors.iconGrey),
-                          SizedBox(width: 10),
-                          Strings.userAddressSetAsMain
-                              .w(500)
-                              .s(14)
-                              .c(Color(0xFF41455E))
-                        ],
-                      )),
-                ),
-                InkWell(
-                  onTap: () {
-                    context
-                        .read<UserAddressesCubit>()
-                        .deleteUserAddress(address);
-                    Navigator.of(buildContext).pop();
-                  },
-                  child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Assets.images.icDelete.svg(width: 24, height: 24),
-                          SizedBox(width: 10),
-                          Strings.userAddressRemove
-                              .w(500)
-                              .s(14)
-                              .c(Color(0xFF5C6AC3))
-                        ],
-                      )),
-                ),
-                SizedBox(height: 24),
-                SizedBox(
-                  height: 42,
-                  width: double.infinity,
-                  child: CommonButton(
-                    onPressed: () {
-                      Navigator.of(buildContext).pop();
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(height: 20),
+                  BottomSheetTitle(
+                    title: Strings.actionTitle,
+                    onCloseClicked: () {
+                      context.router.pop();
                     },
-                    child:
-                        Strings.userAddressClose.w(600).s(14).c(Colors.white),
                   ),
-                )
-              ]),
+                  SizedBox(height: 16),
+                  ActionListItem(
+                    item: "",
+                    title: Strings.editTitle,
+                    icon: Assets.images.icEdit.svg(width: 24, height: 24),
+                    onClicked: (item) {
+                      cubit(context).editUserAddress(address);
+                      context.router.pop();
+                    },
+                  ),
+                  ActionListItem(
+                    item: "",
+                    title: Strings.userAddressSetAsMain,
+                    icon: Assets.images.icMain.svg(width: 24, height: 24),
+                    onClicked: (item) {
+                      cubit(context).updateMainAddress(address);
+                      context.router.pop();
+                    },
+                  ),
+                  ActionListItem(
+                    item: "",
+                    title: Strings.userAddressRemove,
+                    icon: Assets.images.icDelete.svg(width: 24, height: 24),
+                    onClicked: (item) {
+                      cubit(context).deleteUserAddress(address);
+                      context.router.pop();
+                    },
+                  ),
+                  SizedBox(height: 16),
+                ],
+              ),
             ),
           );
         });

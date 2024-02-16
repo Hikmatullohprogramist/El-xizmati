@@ -5,6 +5,7 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/common/bottom_sheet_title.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_ads/features/all_ads/cubit/user_all_ads_cubit.dart';
 
 import '../../../../../../../../common/gen/assets/assets.gen.dart';
@@ -120,22 +121,11 @@ class UserAllAdsPage extends BasePage<UserAllAdsCubit, UserAllAdsBuildable,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Strings.actionTitle
-                            .w(600)
-                            .s(18)
-                            .c(Color(0xFF41455E)),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          context.router.pop();
-                          vibrateByTactile();
-                        },
-                        icon: Assets.images.icClose.svg(width: 24, height: 24),
-                      )
-                    ],
+                  BottomSheetTitle(
+                    title: Strings.actionTitle,
+                    onCloseClicked: () {
+                      context.router.pop();
+                    },
                   ),
                   SizedBox(height: 16),
                   InkWell(

@@ -1,74 +1,84 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
-import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/widgets/address/user_address_widget.dart';
+import 'package:onlinebozor/common/vibrator/vibrator_extension.dart';
+import 'package:onlinebozor/common/widgets/address/user_address.dart';
+import 'package:onlinebozor/common/widgets/address/user_address_selection.dart';
 
-import '../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../../../data/responses/address/user_address_response.dart';
+import '../../../common/widgets/common/bottom_sheet_title.dart';
 import 'cubit/selection_user_address_cubit.dart';
 
 @RoutePage()
 class SelectionUserAddressPage extends BasePage<SelectionUserAddressCubit,
     SelectionUserAddressBuildable, SelectionUserAddressListenable> {
-  const SelectionUserAddressPage(this.onResult, {super.key});
+  const SelectionUserAddressPage({
+    super.key,
+    this.selectedAddress,
+  });
 
-  final void Function(UserAddressResponse userAddressResponse) onResult;
+  final UserAddressResponse? selectedAddress;
 
   @override
   void listener(BuildContext context, SelectionUserAddressListenable event) {
     switch (event.effect) {
       case SelectionUserAddressEffect.back:
-        {
-          onResult.call(event.userAddressResponse!);
-          context.router.pop(true);
-        }
+        {}
     }
   }
 
   @override
   Widget builder(BuildContext context, SelectionUserAddressBuildable state) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Assets.images.icArrowLeft.svg(),
-          onPressed: () {
-            context.router.pop();
-          },
-        ),
-        elevation: 0.5,
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        bottomOpacity: 1,
-        title: "".w(500).s(16).c(context.colors.textPrimary),
-      ),
-      backgroundColor: Color(0xFFF2F4FB),
-      body: LoaderStateWidget(
-        isFullScreen: true,
-        loadingState: state.userAddressState,
-        child: ListView.separated(
-          physics: BouncingScrollPhysics(),
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          padding: EdgeInsets.symmetric(vertical: 12),
-          itemCount: state.userAddresses.length,
-          itemBuilder: (context, index) {
-            return UserAddressWidgets(
-              onClicked: () {
-                context
-                    .read<SelectionUserAddressCubit>()
-                    .selectionUserAddress(state.userAddresses[index]);
-              },
-              address: state.userAddresses[index],
-              onEditClicked: () {},
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return SizedBox();
-          },
+    return SizedBox(
+      width: double.infinity,
+      height: MediaQuery.sizeOf(context).height * .7,
+      child: Container(
+        color: Colors.white,
+        child: ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: LoaderStateWidget(
+              isFullScreen: false,
+              loadingState: state.userAddressState,
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  BottomSheetTitle(
+                    title: "Выберите адрес",
+                    onCloseClicked: () {
+                      context.router.pop();
+                    },
+                  ),
+                  ListView.separated(
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    itemCount: state.userAddresses.length,
+                    itemBuilder: (context, index) {
+                      var element = state.userAddresses[index];
+                      return UserAddressSelection(
+                        address: element,
+                        onClicked: () {
+                          context.router.pop(element);
+                          vibrateByTactile();
+                        },
+                        isSelected: selectedAddress?.id == element.id,
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return SizedBox();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );

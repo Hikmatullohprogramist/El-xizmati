@@ -9,7 +9,9 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/common/bottom_sheet_title.dart';
 import 'package:onlinebozor/common/widgets/common/common_button.dart';
+import 'package:onlinebozor/common/widgets/common/selection_list_item.dart';
 import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
 import 'package:onlinebozor/common/widgets/profile/profile_item_widget.dart';
 import 'package:onlinebozor/presentation/home/features/profile/cubit/profile_cubit.dart';
@@ -278,86 +280,51 @@ class ProfilePage
               topRight: Radius.circular(20),
             ),
           ),
-          padding: EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(
-                    child: Strings.languageSetTitle
-                        .w(600)
-                        .s(18)
-                        .c(Color(0xFF41455E)),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      context.router.pop();
-                      vibrateByTactile();
-                    },
-                    icon: Assets.images.icClose.svg(width: 24, height: 24),
-                  )
-                ],
+              SizedBox(height: 12),
+              BottomSheetTitle(
+                title: Strings.languageSetTitle,
+                onCloseClicked: () {
+                  context.router.pop();
+                },
               ),
               SizedBox(height: 16),
-              InkWell(
-                  onTap: () {
-                    _saveSelectedLanguage(context, Language.uzbekLatin);
-                    Navigator.pop(context);
-                    vibrateByTactile();
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Strings.languageUzLat.w(500).s(16).c(Color(0xFF41455F)),
-                        _getLanguageIcon(context, Language.uzbekLatin)
-                      ],
-                    ),
-                  )),
-              AppDivider(height: 2),
-              InkWell(
-                  onTap: () {
-                    _saveSelectedLanguage(context, Language.uzbekCyrill);
-                    Navigator.pop(context);
-                    vibrateByTactile();
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                    color: Colors.white,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Strings.languageUzCyr.w(500).s(16).c(Color(0xFF41455F)),
-                        _getLanguageIcon(context, Language.uzbekCyrill)
-                      ],
-                    ),
-                  )),
-              AppDivider(height: 2),
-              InkWell(
-                  onTap: () {
-                    _saveSelectedLanguage(context, Language.russian);
-                    Navigator.pop(context);
-                    vibrateByTactile();
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                    color: Colors.white,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Strings.languageRus.w(500).s(16).c(Color(0xFF41455F)),
-                        _getLanguageIcon(context, Language.russian)
-                      ],
-                    ),
-                  )),
+              SelectionListItem(
+                item: Language.uzbekLatin,
+                title: Strings.languageUzLat,
+                isSelected: context.read<ProfileCubit>().buildable.language ==
+                    Language.uzbekLatin,
+                onClicked: (item) {
+                  _saveSelectedLanguage(context, item);
+                  context.router.pop();
+                },
+              ),
+              AppDivider(height: 2, indent: 20, endIndent: 20),
+              SelectionListItem(
+                item: Language.uzbekCyrill,
+                title: Strings.languageUzCyr,
+                isSelected: context.read<ProfileCubit>().buildable.language ==
+                    Language.uzbekCyrill,
+                onClicked: (item) {
+                  _saveSelectedLanguage(context, item);
+                  context.router.pop();
+                },
+              ),
+              AppDivider(height: 2, indent: 20, endIndent: 20),
+              SelectionListItem(
+                item: Language.russian,
+                title: Strings.languageRus,
+                isSelected: context.read<ProfileCubit>().buildable.language ==
+                    Language.russian,
+                onClicked: (item) {
+                  _saveSelectedLanguage(context, item);
+                  context.router.pop();
+                },
+              ),
               SizedBox(height: 32)
             ],
           ),
