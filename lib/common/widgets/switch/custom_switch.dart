@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/vibrator/vibrator_extension.dart';
 
 class CustomSwitch extends StatefulWidget {
-  final bool value;
+  final bool isChecked;
   final ValueChanged<bool> onChanged;
 
-  CustomSwitch({required this.value, required this.onChanged});
+  CustomSwitch({required this.isChecked, required this.onChanged});
 
   @override
   _CustomSwitchState createState() => _CustomSwitchState();
@@ -14,11 +14,11 @@ class CustomSwitch extends StatefulWidget {
 class _CustomSwitchState extends State<CustomSwitch> {
   @override
   Widget build(BuildContext context) {
-    var switchColor = widget.value ? Color(0xFF5C6AC4) : Color(0xFFAEB2CD);
+    var switchColor = widget.isChecked ? Color(0xFF5C6AC4) : Color(0xFFAEB2CD);
 
     return GestureDetector(
       onTap: () {
-        widget.onChanged(!widget.value);
+        widget.onChanged(!widget.isChecked);
         vibrateByTactile();
       },
       child: Container(
@@ -37,8 +37,8 @@ class _CustomSwitchState extends State<CustomSwitch> {
           // Space between the thumb and the track
           child: AnimatedAlign(
             alignment:
-                widget.value ? Alignment.centerRight : Alignment.centerLeft,
-            duration: Duration(milliseconds: 120),
+                widget.isChecked ? Alignment.centerRight : Alignment.centerLeft,
+            duration: Duration(milliseconds: 300),
             curve: Curves.easeIn,
             child: Container(
               width: 22, // Thumb width
