@@ -20,14 +20,6 @@ class SelectionUnitPage extends BasePage<SelectionUnitCubit,
   final UnitResponse? selectedUnit;
 
   @override
-  void listener(BuildContext context, SelectionUnitListenable event) {
-    switch (event.selectionUnitEffect) {
-      case SelectionUnitEffect.back:
-        {}
-    }
-  }
-
-  @override
   Widget builder(BuildContext context, SelectionUnitBuildable state) {
     return SizedBox(
       width: double.infinity,
@@ -65,7 +57,6 @@ class SelectionUnitPage extends BasePage<SelectionUnitCubit,
                         title: element.name ?? "",
                         isSelected: selectedUnit?.id == element.id,
                         onClicked: (dynamic item) {
-                          cubit(context).setSelectedUnit(item);
                           context.router.pop(state.units[index]);
                         },
                       );

@@ -11,10 +11,5 @@ class SelectionUnitBuildable with _$SelectionUnitBuildable {
 
 @freezed
 class SelectionUnitListenable with _$SelectionUnitListenable {
-  const factory SelectionUnitListenable(
-    SelectionUnitEffect selectionUnitEffect, {
-    UnitResponse? unitResponse,
-  }) = _SelectionUnitListenable;
+  const factory SelectionUnitListenable() = _SelectionUnitListenable;
 }
-
-enum SelectionUnitEffect { back }

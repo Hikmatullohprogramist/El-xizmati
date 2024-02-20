@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/vibrator/vibrator_extension.dart';
-import 'package:onlinebozor/common/widgets/address/user_address.dart';
 import 'package:onlinebozor/common/widgets/address/user_address_selection.dart';
 
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
@@ -33,13 +32,13 @@ class SelectionUserAddressPage extends BasePage<SelectionUserAddressCubit,
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.sizeOf(context).height * .7,
-      child: Container(
-        color: Colors.white,
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+        child: Container(
+          color: Colors.white,
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: LoaderStateWidget(
