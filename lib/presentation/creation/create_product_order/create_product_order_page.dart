@@ -330,13 +330,7 @@ class CreateProductOrderPage extends BasePage<CreateProductOrderCubit,
             hint: "Моё местоположения",
             onTap: () {
               context.router.push(
-                SelectionUserAddressRoute(
-                  onResult: (userAddressResponse) {
-                    context
-                        .read<CreateProductOrderCubit>()
-                        .setUserAddress(userAddressResponse);
-                  },
-                ),
+                SelectionUserAddressRoute(),
               );
             },
           ),
@@ -350,13 +344,7 @@ class CreateProductOrderPage extends BasePage<CreateProductOrderCubit,
             hint: "Где искать?",
             onTap: () {
               context.router.push(
-                SelectionUserAddressRoute(
-                  onResult: (userAddressResponse) {
-                    context
-                        .read<CreateProductOrderCubit>()
-                        .setUserAddress(userAddressResponse);
-                  },
-                ),
+                SelectionUserAddressRoute(),
               );
             },
           ),

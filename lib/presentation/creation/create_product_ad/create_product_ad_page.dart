@@ -5,12 +5,15 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/widgets/common/bottom_sheet_title.dart';
+import 'package:onlinebozor/common/widgets/common/chips_item.dart';
 import 'package:onlinebozor/common/widgets/common/custom_dropdown_field.dart';
 import 'package:onlinebozor/common/widgets/common/label_text_field.dart';
 import 'package:onlinebozor/common/widgets/common/selection_list_item.dart';
 import 'package:onlinebozor/common/widgets/image/image_ad_list_widget.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_switch.dart';
+import 'package:onlinebozor/common/widgets/switch/custom_toggle.dart';
 import 'package:onlinebozor/presentation/common/selection_unit/selection_unit_page.dart';
+import 'package:onlinebozor/presentation/common/selection_user_address/selection_user_address.dart';
 
 import '../../../../../common/core/base_page.dart';
 import '../../../../../common/gen/localization/strings.dart';
@@ -19,6 +22,7 @@ import '../../../common/router/app_router.dart';
 import '../../../common/vibrator/vibrator_extension.dart';
 import '../../../common/widgets/common/common_button.dart';
 import '../../../common/widgets/dashboard/app_diverder.dart';
+import '../../common/selection_payment_type/selection_payment_type_page.dart';
 import '../../mask_formatters.dart';
 import 'cubit/create_product_ad_cubit.dart';
 
@@ -60,6 +64,8 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
             _buildImageListBlock(context, state),
             SizedBox(height: 16),
             _buildDescAndPriceBlock(context, state),
+            SizedBox(height: 16),
+            _buildAdditionalInfoBlock(context, state),
             SizedBox(height: 16),
             _buildContactsBlock(context, state),
             SizedBox(height: 16),
@@ -198,15 +204,119 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
           onChanged: (value) {},
         ),
         SizedBox(height: 16),
-        _buildWarehouseCount(context, state),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Flexible(
+              flex: 3,
+              child: Column(
+                children: [
+                  LabelTextField(text: 'Кол-во на складе'),
+                  SizedBox(height: 6),
+                  CommonTextField(
+                    autofillHints: const [AutofillHints.telephoneNumber],
+                    inputType: TextInputType.number,
+                    keyboardType: TextInputType.number,
+                    maxLines: 1,
+                    minLines: 1,
+                    hint: '-',
+                    textInputAction: TextInputAction.next,
+                    controller: warehouseController,
+                    onChanged: (value) {},
+                  )
+                ],
+              ),
+            ),
+            SizedBox(width: 16),
+            Flexible(
+                flex: 2,
+                child: Column(
+                  children: [
+                    LabelTextField(text: 'Тип', isRequired: false),
+                    SizedBox(height: 6),
+                    CustomDropdownField(
+                      text: state.unit?.name ?? "",
+                      hint: "-",
+                      onTap: () async {
+                        final unit = await showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          useSafeArea: true,
+                          backgroundColor: Colors.transparent,
+                          builder: (context) => SelectionUnitPage(
+                            key: Key(""),
+                            selectedUnit: state.unit,
+                          ),
+                        );
+
+                        cubit(context).setSelectedUnit(unit);
+                      },
+                    ),
+                  ],
+                ))
+          ],
+        ),
         SizedBox(height: 16),
-        _buildPriceCount(context),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Flexible(
+              flex: 3,
+              child: Column(
+                children: [
+                  LabelTextField(text: 'Цена'),
+                  SizedBox(height: 6),
+                  CommonTextField(
+                    autofillHints: const [AutofillHints.telephoneNumber],
+                    inputType: TextInputType.number,
+                    keyboardType: TextInputType.number,
+                    maxLines: 1,
+                    minLines: 1,
+                    hint: '-',
+                    textInputAction: TextInputAction.next,
+                    controller: priceController,
+                    onChanged: (value) {},
+                  )
+                ],
+              ),
+            ),
+            SizedBox(width: 16),
+            Flexible(
+              flex: 2,
+              child: Column(
+                children: [
+                  LabelTextField(text: 'Валюта', isRequired: false),
+                  SizedBox(height: 6),
+                  CustomDropdownField(
+                    text: Strings.currencyUzb,
+                    hint: "-",
+                    onTap: () async {
+                      _showCurrencyBottomSheet(context);
+                    },
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+        SizedBox(height: 16),
+        LabelTextField(text: 'Способ оплаты', isRequired: true),
+        SizedBox(height: 16),
+        Wrap(
+          direction: Axis.horizontal,
+          spacing: 8,
+          runSpacing: 8,
+          alignment: WrapAlignment.start,
+          crossAxisAlignment: WrapCrossAlignment.start,
+          runAlignment: WrapAlignment.start,
+          children: _buildChips(context, state),
+        ),
         SizedBox(height: 16),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             CustomSwitch(
-              value: state.isAgreedPrice,
+              isChecked: state.isAgreedPrice,
               onChanged: (value) {
                 cubit(context).setAgreedPrice(value);
               },
@@ -218,6 +328,91 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
           ],
         ),
       ]),
+    );
+  }
+
+  List<Widget> _buildChips(
+    BuildContext context,
+    CreateProductAdBuildable state,
+  ) {
+    List<Widget> chips = [];
+    chips.add(InkWell(
+      onTap: () async {
+        final paymentTypes = await showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          useSafeArea: true,
+          backgroundColor: Colors.transparent,
+          builder: (context) => SelectionPaymentTypePage(
+            key: Key(""),
+            selectedPaymentTypes: state.paymentTypes,
+          ),
+        );
+
+        cubit(context).setSelectedPaymentTypes(paymentTypes);
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+          // color: Color(0x28AEB2CD),
+          border: Border.all(width: 1, color: Color(0xFF5C6AC4)),
+        ),
+        child: Icon(Icons.add),
+      ),
+    ));
+    chips.addAll(state.paymentTypes
+        .map(
+          (element) => ChipsItem(
+            item: element,
+            title: element.name ?? "",
+            onClicked: (item) {
+              cubit(context).removeSelectedPaymentType(element);
+            },
+          ),
+        )
+        .toList());
+    return chips;
+  }
+
+  Widget _buildAdditionalInfoBlock(
+    BuildContext context,
+    CreateProductAdBuildable state,
+  ) {
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 8),
+          "Дополнительная информация".w(700).s(16).c(Color(0xFF41455E)),
+          SizedBox(height: 20),
+          LabelTextField(text: "Бизнес или личное", isRequired: false),
+          SizedBox(height: 8),
+          CustomToggle(
+            width: 240,
+            isChecked: state.isBusiness,
+            onChanged: (isChecked) {
+              cubit(context).setIsBusiness(isChecked);
+            },
+            negativeTitle: "Личное",
+            positiveTitle: "Бизнес",
+          ),
+          SizedBox(height: 16),
+          LabelTextField(text: "Состояние", isRequired: false),
+          SizedBox(height: 8),
+          CustomToggle(
+            width: 240,
+            isChecked: state.isNew,
+            onChanged: (isChecked) {
+              cubit(context).setIsNew(isChecked);
+            },
+            negativeTitle: "Б / У",
+            positiveTitle: "Новый",
+          ),
+        ],
+      ),
     );
   }
 
@@ -239,12 +434,19 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
           CustomDropdownField(
             text: state.address?.name ?? "",
             hint: "Местоположение",
-            onTap: () {
-              context.router.push(
-                SelectionUserAddressRoute(onResult: (userAddressResponse) {
-                  cubit(context).setSelectedAddress(userAddressResponse);
-                }),
+            onTap: () async {
+              final address = await showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                useSafeArea: true,
+                backgroundColor: Colors.transparent,
+                builder: (context) => SelectionUserAddressPage(
+                  key: Key(""),
+                  selectedAddress: state.address,
+                ),
               );
+
+              cubit(context).setSelectedAddress(address);
             },
           ),
           SizedBox(height: 12),
@@ -258,9 +460,9 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
             inputType: TextInputType.name,
             textInputAction: TextInputAction.next,
             controller: contactPersonController,
-            inputFormatters: phoneMaskFormatter,
             onChanged: (value) {},
           ),
+          SizedBox(height: 12),
           "Номер телефона".w(500).s(14).c(Color(0xFF41455E)),
           SizedBox(height: 8),
           CommonTextField(
@@ -309,7 +511,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 CustomSwitch(
-                  value: state.isAutoRenewal,
+                  isChecked: state.isAutoRenewal,
                   onChanged: (value) {
                     cubit(context).setAutoRenewal(value);
                   },
@@ -346,7 +548,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CustomSwitch(
-                value: state.isShowMySocialAccount,
+                isChecked: state.isShowMySocialAccount,
                 onChanged: (value) {
                   cubit(context).setShowMySocialAccounts(value);
                 },
@@ -387,126 +589,22 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
           ),
           SizedBox(height: 16),
           CommonButton(
-              color: context.colors.buttonPrimary,
-              onPressed: () {},
-              // enabled: false,
-              // loading: state.loading,
-              child: Container(
-                height: 52,
-                alignment: Alignment.center,
-                width: double.infinity,
-                child: Strings.commonContinueTitle
-                    .w(500)
-                    .s(14)
-                    .c(context.colors.textPrimaryInverse),
-              )),
+            color: context.colors.buttonPrimary,
+            onPressed: () {},
+            // enabled: false,
+            // loading: state.loading,
+            child: Container(
+              height: 52,
+              alignment: Alignment.center,
+              width: double.infinity,
+              child: Strings.commonContinueTitle
+                  .w(500)
+                  .s(14)
+                  .c(context.colors.textPrimaryInverse),
+            ),
+          ),
         ],
       ),
-    );
-  }
-
-  /// Build field methods
-
-  Widget _buildWarehouseCount(
-    BuildContext context,
-    CreateProductAdBuildable state,
-  ) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Flexible(
-          flex: 3,
-          child: Column(
-            children: [
-              LabelTextField(text: 'Кол-во на складе'),
-              SizedBox(height: 6),
-              CommonTextField(
-                autofillHints: const [AutofillHints.telephoneNumber],
-                inputType: TextInputType.number,
-                keyboardType: TextInputType.number,
-                maxLines: 1,
-                minLines: 1,
-                hint: '-',
-                textInputAction: TextInputAction.next,
-                controller: warehouseController,
-                onChanged: (value) {},
-              )
-            ],
-          ),
-        ),
-        SizedBox(width: 16),
-        Flexible(
-            flex: 2,
-            child: Column(
-              children: [
-                LabelTextField(text: 'Тип', isRequired: false),
-                SizedBox(height: 6),
-                CustomDropdownField(
-                  text: state.unit?.name ?? "",
-                  hint: "-",
-                  onTap: () async {
-                    final unit = await showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      useSafeArea: true,
-                      backgroundColor: Colors.transparent,
-                      builder: (context) => SelectionUnitPage(
-                        key: Key(""),
-                        selectedUnit: state.unit,
-                      ),
-                    );
-
-                    cubit(context).setSelectedUnit(unit);
-                  },
-                ),
-              ],
-            ))
-      ],
-    );
-  }
-
-  Widget _buildPriceCount(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Flexible(
-          flex: 3,
-          child: Column(
-            children: [
-              LabelTextField(text: 'Цена'),
-              SizedBox(height: 6),
-              CommonTextField(
-                autofillHints: const [AutofillHints.telephoneNumber],
-                inputType: TextInputType.number,
-                keyboardType: TextInputType.number,
-                maxLines: 1,
-                minLines: 1,
-                hint: '-',
-                textInputAction: TextInputAction.next,
-                controller: priceController,
-                onChanged: (value) {},
-              )
-            ],
-          ),
-        ),
-        SizedBox(width: 16),
-        Flexible(
-          flex: 2,
-          child: Column(
-            children: [
-              LabelTextField(text: 'Валюта', isRequired: false),
-              SizedBox(height: 6),
-              CustomDropdownField(
-                text: Strings.currencyUzb,
-                hint: "-",
-                onTap: () {
-                  _showCurrencyBottomSheet(context);
-                },
-              ),
-            ],
-          ),
-        )
-      ],
     );
   }
 

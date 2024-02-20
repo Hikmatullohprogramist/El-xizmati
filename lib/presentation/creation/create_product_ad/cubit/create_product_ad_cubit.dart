@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/responses/category/category/category_response.dart';
+import 'package:onlinebozor/data/responses/payment_type/payment_type_response.dart';
 import 'package:onlinebozor/data/responses/unit/unit_response.dart';
 
 import '../../../../../../common/core/base_cubit.dart';
@@ -134,8 +135,46 @@ class CreateProductAdCubit
     build((buildable) => buildable.copyWith(address: address));
   }
 
+  void setSelectedPaymentTypes(List<PaymentTypeResponse>? selectedPaymentTypes) {
+    try {
+      if (selectedPaymentTypes != null) {
+        var paymentTypes =
+            List<PaymentTypeResponse>.from(buildable.paymentTypes);
+
+        if(selectedPaymentTypes.isNotEmpty){
+          paymentTypes.addAll(selectedPaymentTypes);
+          paymentTypes = paymentTypes.toSet().toList();
+        }else{
+          paymentTypes.clear();
+        }
+
+        build((buildable) => buildable.copyWith(paymentTypes: paymentTypes));
+      }
+    } catch (e) {
+      log.e(e.toString());
+    }
+  }
+
+  void removeSelectedPaymentType(PaymentTypeResponse paymentType) {
+    try {
+      var paymentTypes = List<PaymentTypeResponse>.from(buildable.paymentTypes);
+      paymentTypes.remove(paymentType);
+      build((buildable) => buildable.copyWith(paymentTypes: paymentTypes));
+    } catch (e) {
+      log.e(e.toString());
+    }
+  }
+
   void setAgreedPrice(bool isAgreedPrice) {
     build((buildable) => buildable.copyWith(isAgreedPrice: isAgreedPrice));
+  }
+
+  void setIsNew(bool isNew) {
+    build((buildable) => buildable.copyWith(isNew: isNew));
+  }
+
+  void setIsBusiness(bool isBusiness) {
+    build((buildable) => buildable.copyWith(isBusiness: isBusiness));
   }
 
   void setAutoRenewal(bool isAutoRenewal) {

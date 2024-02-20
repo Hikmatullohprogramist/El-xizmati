@@ -6,11 +6,14 @@ class CreateProductAdBuildable with _$CreateProductAdBuildable {
     @Default(MAX_IMAGE_COUNT) int maxImageCount,
     List<XFile>? pickedImages,
     CategoryResponse? category,
+    @Default([]) List<PaymentTypeResponse> paymentTypes,
     UserAddressResponse? address,
     UnitResponse? unit,
     @Default(false) bool isAgreedPrice,
     @Default(false) bool isAutoRenewal,
     @Default(false) bool isShowMySocialAccount,
+    @Default(true) bool isNew,
+    @Default(false) bool isBusiness,
   }) = _CreateProductAdBuildable;
 }
 
