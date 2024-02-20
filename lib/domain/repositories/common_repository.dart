@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/data/responses/payment_type/payment_type_response.dart';
 import 'package:onlinebozor/data/responses/unit/unit_response.dart';
 
 import '../../data/responses/banner/banner_response.dart';
@@ -44,6 +45,12 @@ class CommonRepository {
     final popularCategories =
         PopularRootCategoryResponse.fromJson(response.data).data;
     return popularCategories;
+  }
+
+  Future<List<PaymentTypeResponse>> getPaymentTypes() async {
+    final response = await _commonService.getPaymentTypes();
+    final paymentTypes = PaymentTypeRootResponse.fromJson(response.data).data;
+    return paymentTypes;
   }
 
   Future<List<UnitResponse>> getUnits() async {
