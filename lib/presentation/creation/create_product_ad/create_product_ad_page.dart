@@ -23,6 +23,7 @@ import '../../../common/router/app_router.dart';
 import '../../../common/vibrator/vibrator_extension.dart';
 import '../../../common/widgets/common/common_button.dart';
 import '../../../common/widgets/dashboard/app_diverder.dart';
+import '../../common/selection_category/selection_category_page.dart';
 import '../../common/selection_payment_type/selection_payment_type_page.dart';
 import '../../mask_formatters.dart';
 import 'cubit/create_product_ad_cubit.dart';
@@ -135,6 +136,20 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
                 }),
               );
             },
+            // onTap: () async {
+            // final category = await showModalBottomSheet(
+            //   context: context,
+            //   isScrollControlled: true,
+            //   useSafeArea: true,
+            //   backgroundColor: Colors.transparent,
+            //   builder: (context) => SelectionCategoryPage(
+            //     key: Key(""),
+            //     initialSelectedItem: state.category,
+            //   ),
+            // );
+            //
+            // cubit(context).setSelectedCategory(category);
+            // },
           ),
         ],
       ),

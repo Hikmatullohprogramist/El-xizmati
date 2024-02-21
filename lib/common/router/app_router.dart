@@ -35,6 +35,7 @@ import '../../presentation/common/notification/notification_page.dart';
 import '../../presentation/common/popular_categories/popular_categories_page.dart';
 import '../../presentation/common/search/search_page.dart';
 import '../../presentation/common/selection_address/selection_address_page.dart';
+import '../../presentation/common/selection_category/selection_category_page.dart';
 import '../../presentation/common/selection_currency/selection_currency_page.dart';
 import '../../presentation/common/selection_nested_category/selection_nested_category_page.dart';
 import '../../presentation/common/selection_payment_type/selection_payment_type_page.dart';
