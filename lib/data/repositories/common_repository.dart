@@ -46,17 +46,4 @@ class CommonRepository {
         PopularRootCategoryResponse.fromJson(response.data).data;
     return popularCategories;
   }
-
-  Future<List<PaymentTypeResponse>> getPaymentTypes() async {
-    final response = await _commonService.getPaymentTypes();
-    final paymentTypes = PaymentTypeRootResponse.fromJson(response.data).data;
-    return paymentTypes;
-  }
-
-  Future<List<UnitResponse>> getUnits() async {
-    final response = await _commonService.getUnits();
-    final units = UnitRootResponse.fromJson(response.data).data;
-    return units;
-  }
-
 }

@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../../../../common/core/base_cubit.dart';
 import '../../../../../../../common/enum/enums.dart';
-import '../../../../../../../domain/repositories/transaction_repository.dart';
+import '../../../../../../../data/repositories/transaction_repository.dart';
 
 part 'payment_transaction_cubit.freezed.dart';
 

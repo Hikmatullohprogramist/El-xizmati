@@ -4,8 +4,8 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
 
 import '../../../../../../common/enum/enums.dart';
+import '../../../../../../data/repositories/common_repository.dart';
 import '../../../../../../data/responses/category/category/category_response.dart';
-import '../../../../../../domain/repositories/common_repository.dart';
 
 part 'sub_category_cubit.freezed.dart';
 

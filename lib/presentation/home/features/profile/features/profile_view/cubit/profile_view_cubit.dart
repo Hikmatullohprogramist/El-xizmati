@@ -5,9 +5,9 @@ import 'package:injectable/injectable.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../../../common/core/base_cubit_new.dart';
+import '../../../../../../../data/repositories/auth_repository.dart';
+import '../../../../../../../data/repositories/user_repository.dart';
 import '../../../../../../../data/responses/device/active_device_response.dart';
-import '../../../../../../../domain/repositories/auth_repository.dart';
-import '../../../../../../../domain/repositories/user_repository.dart';
 
 part 'profile_view_cubit.freezed.dart';
 
@@ -16,13 +16,15 @@ part 'profile_view_state.dart';
 @injectable
 class ProfileViewCubit
     extends BaseCubit<ProfileViewBuildable, ProfileViewListenable> {
-  ProfileViewCubit(this._userRepository, this._authRepository)
-      : super(ProfileViewBuildable()) {
+  ProfileViewCubit(
+    this._authRepository,
+    this._userRepository,
+  ) : super(ProfileViewBuildable()) {
     // getActiveDeviceController();
   }
 
-  final UserRepository _userRepository;
   final AuthRepository _authRepository;
+  final UserRepository _userRepository;
 
   Future<void> getUser() async {
     try {

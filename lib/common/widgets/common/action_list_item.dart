@@ -22,7 +22,7 @@ class ActionListItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         onClicked(item);
-        vibrateByTactile();
+        vibrateAsHapticFeedback();
       },
       child: Padding(
         padding: const EdgeInsets.only(top: 12, bottom: 12),

@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/responses/user_ad/user_ad_response.dart';
 
-import '../models/ad/user_ad_status.dart';
+import '../../domain/models/ad/user_ad_status.dart';
 import '../../data/services/user_ad_service.dart';
 
 @LazySingleton()

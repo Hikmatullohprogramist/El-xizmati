@@ -28,7 +28,7 @@ class AddedImageWidget extends StatelessWidget {
           key: ValueKey(imagePath),
           onTap: () {
             onImageClicked();
-            vibrateByTactile();
+            vibrateAsHapticFeedback();
           },
           child: Container(
             height: 82,
@@ -58,7 +58,7 @@ class AddedImageWidget extends StatelessWidget {
           child: InkWell(
             onTap: () {
               onRemoveClicked(imagePath);
-              vibrateByTactile();
+              vibrateAsHapticFeedback();
             },
             child: Container(
               height: 24,

@@ -39,7 +39,7 @@ class _AdFavoriteWidget extends State<AdFavoriteWidget> {
             _isSelected = !_isSelected;
           });
         }
-        vibrateByTactile();
+        vibrateAsHapticFeedback();
       },
       child: Container(
         margin: const EdgeInsets.all(8),

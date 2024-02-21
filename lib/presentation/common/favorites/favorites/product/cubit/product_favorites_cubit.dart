@@ -3,20 +3,22 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
-import 'package:onlinebozor/domain/repositories/favorite_repository.dart';
 
 import '../../../../../../../common/core/base_cubit.dart';
 import '../../../../../../../common/enum/enums.dart';
 import '../../../../../../../domain/models/ad/ad_list_type.dart';
+import '../../../../../../data/repositories/favorite_repository.dart';
 
 part 'product_favorites_cubit.freezed.dart';
+
 part 'product_favorites_state.dart';
 
 @injectable
 class ProductFavoritesCubit
     extends BaseCubit<ProductFavoritesBuildable, ProductFavoritesListenable> {
-  ProductFavoritesCubit(this._favoriteRepository)
-      : super(const ProductFavoritesBuildable()) {
+  ProductFavoritesCubit(
+    this._favoriteRepository,
+  ) : super(const ProductFavoritesBuildable()) {
     getController();
   }
 

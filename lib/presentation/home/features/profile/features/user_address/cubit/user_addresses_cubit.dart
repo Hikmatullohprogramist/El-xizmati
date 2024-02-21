@@ -5,8 +5,8 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../../../../common/core/base_cubit.dart';
 import '../../../../../../../common/enum/enums.dart';
+import '../../../../../../../data/repositories/user_address_repository.dart';
 import '../../../../../../../data/responses/address/user_address_response.dart';
-import '../../../../../../../domain/repositories/user_address_repository.dart';
 
 part 'user_addresses_cubit.freezed.dart';
 

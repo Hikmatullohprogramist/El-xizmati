@@ -5,19 +5,22 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/domain/repositories/favorite_repository.dart';
 import 'package:onlinebozor/presentation/auth/confirm/confirm_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../domain/repositories/auth_repository.dart';
+import '../../../../data/repositories/auth_repository.dart';
+import '../../../../data/repositories/favorite_repository.dart';
 
 part 'confirm_cubit.freezed.dart';
+
 part 'confirm_state.dart';
 
 @injectable
 class ConfirmCubit extends BaseCubit<ConfirmBuildable, ConfirmListenable> {
-  ConfirmCubit(this._repository, this._favoriteRepository)
-      : super(ConfirmBuildable());
+  ConfirmCubit(
+    this._repository,
+    this._favoriteRepository,
+  ) : super(ConfirmBuildable());
 
   final AuthRepository _repository;
   final FavoriteRepository _favoriteRepository;

@@ -2,10 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
+import 'package:onlinebozor/data/repositories/ad_creation_repository.dart';
 import 'package:onlinebozor/data/responses/payment_type/payment_type_response.dart';
 
 import '../../../../../../common/enum/enums.dart';
-import '../../../../../../domain/repositories/common_repository.dart';
+import '../../../../data/repositories/common_repository.dart';
 
 part 'selection_payment_type_cubit.freezed.dart';
 
@@ -19,11 +20,11 @@ class SelectionPaymentTypeCubit extends BaseCubit<SelectionPaymentTypeBuildable,
     getPaymentTypes();
   }
 
-  final CommonRepository _repository;
+  final AdCreationRepository _repository;
 
   Future<void> getPaymentTypes() async {
     try {
-      final paymentTypes = await _repository.getPaymentTypes();
+      final paymentTypes = await _repository.getPaymentTypesForCreationAd();
       log.i(paymentTypes.toString());
       build(
         (buildable) => buildable.copyWith(

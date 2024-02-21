@@ -4,10 +4,10 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 
 import '../../../../../../../../../common/core/base_cubit.dart';
+import '../../../../../../../../../data/repositories/user_address_repository.dart';
+import '../../../../../../../../../data/repositories/user_repository.dart';
 import '../../../../../../../../../data/responses/address/user_address_response.dart';
 import '../../../../../../../../../data/responses/region /region_response.dart';
-import '../../../../../../../../../domain/repositories/user_address_repository.dart';
-import '../../../../../../../../../domain/repositories/user_repository.dart';
 
 part 'add_address_cubit.freezed.dart';
 
@@ -21,8 +21,8 @@ class AddAddressCubit
     getRegions();
   }
 
-  final UserRepository _userRepository;
   final UserAddressRepository userAddressRepository;
+  final UserRepository _userRepository;
 
   void setAddress(UserAddressResponse? address) {
     if (address != null) {

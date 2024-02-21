@@ -5,9 +5,9 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../../../../../../common/core/base_cubit.dart';
 import '../../../../../../../../../common/enum/enums.dart';
+import '../../../../../../../../../data/repositories/user_ad_repository.dart';
 import '../../../../../../../../../data/responses/user_ad/user_ad_response.dart';
 import '../../../../../../../../../domain/models/ad/user_ad_status.dart';
-import '../../../../../../../../../domain/repositories/user_ad_repository.dart';
 
 part 'user_active_ads_cubit.freezed.dart';
 part 'user_active_ads_state.dart';

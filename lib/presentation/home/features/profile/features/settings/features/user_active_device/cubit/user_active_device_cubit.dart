@@ -4,9 +4,9 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/domain/repositories/user_repository.dart';
 
 import '../../../../../../../../../common/core/base_cubit.dart';
+import '../../../../../../../../../data/repositories/user_repository.dart';
 import '../../../../../../../../../data/responses/device/active_device_response.dart';
 
 part 'user_active_device_cubit.freezed.dart';

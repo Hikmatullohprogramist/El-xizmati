@@ -9,20 +9,17 @@ class ChipsItem extends StatelessWidget {
     super.key,
     required this.item,
     required this.title,
-    required this.onClicked,
+    required this.onRemoveClicked,
   });
 
   final dynamic item;
   final String title;
-  final Function(dynamic item) onClicked;
+  final Function(dynamic item) onRemoveClicked;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () {
-          onClicked(item);
-          vibrateByTactile();
-        },
+        onTap: () {},
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 14),
           decoration: BoxDecoration(
@@ -42,7 +39,13 @@ class ChipsItem extends StatelessWidget {
                     .c(Colors.white)
                     .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
                 SizedBox(width: 12),
-                Assets.images.icCloseChip.svg(height: 20, width: 20),
+                InkWell(
+                  onTap: () {
+                    onRemoveClicked(item);
+                    vibrateAsHapticFeedback();
+                  },
+                  child: Assets.images.icCloseChip.svg(height: 20, width: 20),
+                ),
               ],
             ),
           ),

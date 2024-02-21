@@ -83,7 +83,7 @@ class UserAddress extends StatelessWidget {
             SizedBox(height: 8),
             Strings.userAddressAddress.w(400).s(14).c(Color(0xFF9EABBE)),
             SizedBox(height: 5),
-            address.getFullAddress()
+            address.fullAddress
                 .w(500)
                 .s(12)
                 .c(Color(0xFF41455E)),

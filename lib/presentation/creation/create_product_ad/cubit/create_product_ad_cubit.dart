@@ -17,6 +17,113 @@ class CreateProductAdCubit
     extends BaseCubit<CreateProductAdBuildable, CreateProductAdListenable> {
   CreateProductAdCubit() : super(const CreateProductAdBuildable());
 
+  void setEnteredTitle(String title){
+    build((buildable) => buildable.copyWith(title: title));
+  }
+
+  void setSelectedCategory(CategoryResponse category) {
+    build((buildable) => buildable.copyWith(category: category));
+  }
+
+  void setEnteredDesc(String desc){
+    build((buildable) => buildable.copyWith(desc: desc));
+  }
+
+  void setEnteredWarehouseCount(String warehouseCount){
+    int? warehouseCountInt;
+    if(warehouseCount.trim().isNotEmpty){
+      try{
+        warehouseCountInt = warehouseCount as int;
+      }catch (e) {
+        log.e(e.toString());
+      }
+    }
+    build((buildable) => buildable.copyWith(warehouseCount: warehouseCountInt));
+  }
+
+  void setSelectedUnit(UnitResponse unit) {
+    build((buildable) => buildable.copyWith(unit: unit));
+  }
+
+  void setEnteredPrice(String price){
+    int? priceInt;
+    if(price.trim().isNotEmpty){
+      try{
+        priceInt = price as int;
+      }catch (e) {
+        log.e(e.toString());
+      }
+    }
+    build((buildable) => buildable.copyWith(price: priceInt));
+  }
+
+  void setSelectedPaymentTypes(List<PaymentTypeResponse>? selectedPaymentTypes) {
+    try {
+      if (selectedPaymentTypes != null) {
+        var paymentTypes =
+        List<PaymentTypeResponse>.from(buildable.paymentTypes);
+
+        if(selectedPaymentTypes.isNotEmpty){
+          paymentTypes.addAll(selectedPaymentTypes);
+          paymentTypes = paymentTypes.toSet().toList();
+        }else{
+          paymentTypes.clear();
+        }
+
+        build((buildable) => buildable.copyWith(paymentTypes: paymentTypes));
+      }
+    } catch (e) {
+      log.e(e.toString());
+    }
+  }
+
+  void removeSelectedPaymentType(PaymentTypeResponse paymentType) {
+    try {
+      var paymentTypes = List<PaymentTypeResponse>.from(buildable.paymentTypes);
+      paymentTypes.remove(paymentType);
+      build((buildable) => buildable.copyWith(paymentTypes: paymentTypes));
+    } catch (e) {
+      log.e(e.toString());
+    }
+  }
+
+  void setAgreedPrice(bool isAgreedPrice) {
+    build((buildable) => buildable.copyWith(isAgreedPrice: isAgreedPrice));
+  }
+
+  void setIsNew(bool isNew) {
+    build((buildable) => buildable.copyWith(isNew: isNew));
+  }
+
+  void setIsBusiness(bool isBusiness) {
+    build((buildable) => buildable.copyWith(isBusiness: isBusiness));
+  }
+
+  void setSelectedAddress(UserAddressResponse address) {
+    build((buildable) => buildable.copyWith(address: address));
+  }
+
+  void setEnteredContactPerson(String contactPerson){
+    build((buildable) => buildable.copyWith(contactPerson: contactPerson));
+  }
+
+  void setEnteredPhone(String phone){
+    build((buildable) => buildable.copyWith(phone: phone));
+  }
+
+  void setEnteredEmail(String email){
+    build((buildable) => buildable.copyWith(email: email));
+  }
+
+  void setAutoRenewal(bool isAutoRenewal) {
+    build((buildable) => buildable.copyWith(isAutoRenewal: isAutoRenewal));
+  }
+
+  void setShowMySocialAccounts(bool isShowMySocialAccount) {
+    build((buildable) =>
+        buildable.copyWith(isShowMySocialAccount: isShowMySocialAccount));
+  }
+
   Future<void> pickImage() async {
     try {
       final ImagePicker picker = ImagePicker();
@@ -121,68 +228,5 @@ class CreateProductAdCubit
     } catch (e) {
       log.e(e.toString());
     }
-  }
-
-  void setSelectedCategory(CategoryResponse category) {
-    build((buildable) => buildable.copyWith(category: category));
-  }
-
-  void setSelectedUnit(UnitResponse unit) {
-    build((buildable) => buildable.copyWith(unit: unit));
-  }
-
-  void setSelectedAddress(UserAddressResponse address) {
-    build((buildable) => buildable.copyWith(address: address));
-  }
-
-  void setSelectedPaymentTypes(List<PaymentTypeResponse>? selectedPaymentTypes) {
-    try {
-      if (selectedPaymentTypes != null) {
-        var paymentTypes =
-            List<PaymentTypeResponse>.from(buildable.paymentTypes);
-
-        if(selectedPaymentTypes.isNotEmpty){
-          paymentTypes.addAll(selectedPaymentTypes);
-          paymentTypes = paymentTypes.toSet().toList();
-        }else{
-          paymentTypes.clear();
-        }
-
-        build((buildable) => buildable.copyWith(paymentTypes: paymentTypes));
-      }
-    } catch (e) {
-      log.e(e.toString());
-    }
-  }
-
-  void removeSelectedPaymentType(PaymentTypeResponse paymentType) {
-    try {
-      var paymentTypes = List<PaymentTypeResponse>.from(buildable.paymentTypes);
-      paymentTypes.remove(paymentType);
-      build((buildable) => buildable.copyWith(paymentTypes: paymentTypes));
-    } catch (e) {
-      log.e(e.toString());
-    }
-  }
-
-  void setAgreedPrice(bool isAgreedPrice) {
-    build((buildable) => buildable.copyWith(isAgreedPrice: isAgreedPrice));
-  }
-
-  void setIsNew(bool isNew) {
-    build((buildable) => buildable.copyWith(isNew: isNew));
-  }
-
-  void setIsBusiness(bool isBusiness) {
-    build((buildable) => buildable.copyWith(isBusiness: isBusiness));
-  }
-
-  void setAutoRenewal(bool isAutoRenewal) {
-    build((buildable) => buildable.copyWith(isAutoRenewal: isAutoRenewal));
-  }
-
-  void setShowMySocialAccounts(bool isShowMySocialAccount) {
-    build((buildable) =>
-        buildable.copyWith(isShowMySocialAccount: isShowMySocialAccount));
   }
 }

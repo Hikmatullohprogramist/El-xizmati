@@ -82,7 +82,7 @@ class UserAddressSelection extends StatelessWidget {
                       .w(400)
                       .c(context.colors.textSecondary),
                   SizedBox(height: 5),
-                  address.getFullAddress()
+                  address.fullAddress
                       .w(500)
                       .s(12)
                       .c(Color(0xFF41455E)),

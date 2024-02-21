@@ -3,17 +3,19 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 
 import '../../../../../../../../../common/core/base_cubit_new.dart';
+import '../../../../../../../../../data/repositories/user_repository.dart';
 import '../../../../../../../../../data/responses/region /region_response.dart';
-import '../../../../../../../../../domain/repositories/user_repository.dart';
 
 part 'registration_cubit.freezed.dart';
+
 part 'registration_state.dart';
 
 @Injectable()
 class RegistrationCubit
     extends BaseCubit<RegistrationBuildable, RegistrationListenable> {
-  RegistrationCubit(this._userRepository)
-      : super(const RegistrationBuildable());
+  RegistrationCubit(
+    this._userRepository,
+  ) : super(const RegistrationBuildable());
 
   final UserRepository _userRepository;
 

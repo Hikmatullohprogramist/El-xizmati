@@ -81,7 +81,7 @@ class CommonSearchBar extends AppBar implements PreferredSizeWidget {
     return IconButton(
       onPressed: () {
         onFavoriteClicked();
-        vibrateByTactile();
+        vibrateAsHapticFeedback();
       },
       icon: Assets.images.bottomBar.favorite.svg(),
     );
@@ -91,7 +91,7 @@ class CommonSearchBar extends AppBar implements PreferredSizeWidget {
     return IconButton(
       onPressed: () {
         onNotificationClicked();
-        vibrateByTactile();
+        vibrateAsHapticFeedback();
       },
       icon: Assets.images.icNotification.svg(color: Color(0xFF5C6AC4)),
     );

@@ -7,10 +7,10 @@ import '../../data/responses/search/search_response.dart';
 import '../../data/services/ad_service.dart';
 import '../../data/storages/cart_storage.dart';
 import '../../data/storages/favorite_storage.dart';
-import '../models/ad/ad.dart';
-import '../models/ad/ad_detail.dart';
-import '../models/ad/ad_type.dart';
-import '../models/stats/stats_type.dart';
+import '../../domain/models/ad/ad.dart';
+import '../../domain/models/ad/ad_detail.dart';
+import '../../domain/models/ad/ad_type.dart';
+import '../../domain/models/stats/stats_type.dart';
 
 @LazySingleton()
 class AdRepository {

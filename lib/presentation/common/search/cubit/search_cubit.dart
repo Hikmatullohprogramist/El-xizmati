@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
 import 'package:onlinebozor/common/enum/enums.dart';
 import '../../../../data/responses/search/search_response.dart';
-import '../../../../domain/repositories/ad_repository.dart';
+import '../../../../data/repositories/ad_repository.dart';
 
 part 'search_cubit.freezed.dart';
 part 'search_state.dart';

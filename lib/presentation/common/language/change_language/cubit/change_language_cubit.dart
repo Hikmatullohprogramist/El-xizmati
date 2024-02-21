@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/domain/repositories/state_repository.dart';
 import '../../../../../../common/core/base_cubit.dart';
+import '../../../../../data/repositories/state_repository.dart';
 
 part 'change_language_cubit.freezed.dart';
 

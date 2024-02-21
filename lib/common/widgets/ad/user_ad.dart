@@ -103,7 +103,7 @@ class UserAdWidget extends StatelessWidget {
                         IconButton(
                             onPressed: () {
                               onActionClicked();
-                              vibrateByTactile();
+                              vibrateAsHapticFeedback();
                             },
                             icon: Assets.images.icMoreVert
                                 .svg(width: 24, height: 24)),

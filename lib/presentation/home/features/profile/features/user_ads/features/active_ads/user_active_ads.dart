@@ -131,7 +131,7 @@ class UserActiveAdsPage extends BasePage<UserActiveAdsCubit,
                   InkWell(
                     onTap: () {
                       context.router.pop();
-                      vibrateByTactile();
+                      vibrateAsHapticFeedback();
                     },
                     child: Container(
                         padding: EdgeInsets.symmetric(vertical: 16),
@@ -147,7 +147,7 @@ class UserActiveAdsPage extends BasePage<UserActiveAdsCubit,
                   InkWell(
                     onTap: () {
                       context.router.pop();
-                      vibrateByTactile();
+                      vibrateAsHapticFeedback();
                     },
                     child: Container(
                         padding: EdgeInsets.symmetric(vertical: 16),
@@ -164,7 +164,7 @@ class UserActiveAdsPage extends BasePage<UserActiveAdsCubit,
                   InkWell(
                     onTap: () {
                       context.router.pop();
-                      vibrateByTactile();
+                      vibrateAsHapticFeedback();
                     },
                     child: Container(
                         padding: EdgeInsets.symmetric(vertical: 16),

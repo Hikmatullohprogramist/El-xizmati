@@ -3,17 +3,30 @@ part of 'create_product_ad_cubit.dart';
 @freezed
 class CreateProductAdBuildable with _$CreateProductAdBuildable {
   const factory CreateProductAdBuildable({
+    @Default("") String title,
+    CategoryResponse? category,
+//
     @Default(MAX_IMAGE_COUNT) int maxImageCount,
     List<XFile>? pickedImages,
-    CategoryResponse? category,
-    @Default([]) List<PaymentTypeResponse> paymentTypes,
-    UserAddressResponse? address,
+//
+    @Default("") String desc,
+    int? warehouseCount,
     UnitResponse? unit,
+    int? price,
+    @Default([]) List<PaymentTypeResponse> paymentTypes,
     @Default(false) bool isAgreedPrice,
-    @Default(false) bool isAutoRenewal,
-    @Default(false) bool isShowMySocialAccount,
+//
     @Default(true) bool isNew,
     @Default(false) bool isBusiness,
+//
+    UserAddressResponse? address,
+    @Default("") String contactPerson,
+    @Default("") String phone,
+    @Default("") String email,
+//
+    @Default(false) bool isAutoRenewal,
+//
+    @Default(false) bool isShowMySocialAccount,
   }) = _CreateProductAdBuildable;
 }
 

@@ -23,7 +23,7 @@ class BottomSheetTitle extends StatelessWidget {
         IconButton(
           onPressed: () {
             onCloseClicked();
-            vibrateByTactile();
+            vibrateAsHapticFeedback();
           },
           icon: Assets.images.icClose.svg(width: 24, height: 24),
         ),

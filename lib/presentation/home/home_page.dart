@@ -49,7 +49,7 @@ class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
                 currentIndex: tabsRouter.activeIndex,
                 onTap: (index) {
                   tabsRouter.setActiveIndex(index);
-                  vibrateByTactile();
+                  vibrateAsHapticFeedback();
                 },
                 items: [
                   BottomNavigationBarItem(

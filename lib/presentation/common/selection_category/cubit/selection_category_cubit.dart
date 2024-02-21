@@ -5,7 +5,7 @@ import 'package:onlinebozor/common/core/base_cubit.dart';
 
 import '../../../../../../common/enum/enums.dart';
 import '../../../../../../data/responses/category/category/category_response.dart';
-import '../../../../../../domain/repositories/common_repository.dart';
+import '../../../../data/repositories/common_repository.dart';
 
 part 'selection_category_cubit.freezed.dart';
 

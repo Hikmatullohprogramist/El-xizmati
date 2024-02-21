@@ -19,7 +19,7 @@ class AddImageWidget extends StatelessWidget {
       key: ValueKey(index),
       onTap: () {
         onAddClicked();
-        vibrateByTactile();
+        vibrateAsHapticFeedback();
       },
       child: Container(
         height: 82,

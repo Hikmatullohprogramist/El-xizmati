@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 import '../../../../common/core/base_cubit.dart';
 import '../../../../common/enum/enums.dart';
 import '../../../../data/responses/category/popular_category/popular_category_response.dart';
-import '../../../../domain/repositories/common_repository.dart';
+import '../../../../data/repositories/common_repository.dart';
 
 part 'popular_categories_cubit.freezed.dart';
 part 'popular_categories_state.dart';

@@ -69,8 +69,24 @@ class ImageAdListWidget extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
                     padding: EdgeInsets.only(left: 6, right: 10),
+                    proxyDecorator: (
+                      Widget child,
+                      int index,
+                      Animation<double> animation,
+                    ) {
+                      return Material(
+                        elevation: 0,
+                        animationDuration: Duration.zero,
+                        color: Colors.transparent,
+                        child: child,
+                      );
+                    },
+                    onReorderStart: (index) {
+                      vibrateAsHapticFeedback();
+                    },
                     onReorder: (int oldIndex, int newIndex) {
                       onReorder(oldIndex, newIndex);
+                      vibrateAsHapticFeedback();
                     },
                     children: imagePaths
                         .mapIndexed(
@@ -136,7 +152,7 @@ class ImageAdListWidget extends StatelessWidget {
                 onTap: () {
                   onTakePhotoClicked();
                   Navigator.pop(context);
-                  vibrateByTactile();
+                  vibrateAsHapticFeedback();
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(top: 12, bottom: 4),
@@ -155,7 +171,7 @@ class ImageAdListWidget extends StatelessWidget {
                 onTap: () {
                   onPickImageClicked();
                   Navigator.pop(context);
-                  vibrateByTactile();
+                  vibrateAsHapticFeedback();
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(top: 4, bottom: 12),

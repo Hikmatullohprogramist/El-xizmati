@@ -4,9 +4,9 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
 import 'package:onlinebozor/data/responses/user_order/user_order_response.dart';
-import 'package:onlinebozor/domain/repositories/user_order_repository.dart';
 
 import '../../../../../../../../../common/enum/enums.dart';
+import '../../../../../../../../../data/repositories/user_order_repository.dart';
 import '../../../../../../../../../domain/models/order/order_type.dart';
 import '../../../../../../../../../domain/models/order/user_order_status.dart';
 

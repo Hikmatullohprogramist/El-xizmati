@@ -5,8 +5,8 @@ import 'package:onlinebozor/common/core/base_cubit.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../domain/repositories/auth_repository.dart';
-import '../../../../domain/repositories/favorite_repository.dart';
+import '../../../../data/repositories/auth_repository.dart';
+import '../../../../data/repositories/favorite_repository.dart';
 
 part 'verification_cubit.freezed.dart';
 part 'verification_state.dart';

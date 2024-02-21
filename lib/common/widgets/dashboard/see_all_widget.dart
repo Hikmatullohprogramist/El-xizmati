@@ -22,7 +22,7 @@ class SeeAllWidget extends StatelessWidget {
           TextButton(
             onPressed: () {
               onClicked();
-              vibrateByTactile();
+              vibrateAsHapticFeedback();
             },
             child: Row(
               mainAxisSize: MainAxisSize.min,

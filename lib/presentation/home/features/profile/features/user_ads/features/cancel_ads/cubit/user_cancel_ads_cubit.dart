@@ -7,7 +7,7 @@ import 'package:onlinebozor/common/core/base_cubit.dart';
 import '../../../../../../../../../common/enum/enums.dart';
 import '../../../../../../../../../data/responses/user_ad/user_ad_response.dart';
 import '../../../../../../../../../domain/models/ad/user_ad_status.dart';
-import '../../../../../../../../../domain/repositories/user_ad_repository.dart';
+import '../../../../../../../../../data/repositories/user_ad_repository.dart';
 
 part 'user_cancel_ads_cubit.freezed.dart';
 part 'user_cancel_ads_state.dart';

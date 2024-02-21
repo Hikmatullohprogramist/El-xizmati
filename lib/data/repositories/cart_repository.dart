@@ -4,12 +4,12 @@ import 'package:onlinebozor/data/responses/add_result/add_result_response.dart';
 import 'package:onlinebozor/data/services/cart_service.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 
-import '../models/ad/ad.dart';
 import '../../data/responses/ad/ad/ad_response.dart';
 import '../../data/storages/cart_storage.dart';
 import '../../data/storages/favorite_storage.dart';
 import '../../data/storages/sync_storage.dart';
 import '../../data/storages/token_storage.dart';
+import '../../domain/models/ad/ad.dart';
 
 @LazySingleton()
 class CartRepository {

@@ -4,22 +4,27 @@ import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 
 import '../../../../../../../common/constants.dart';
 import '../../../../../../../common/core/base_cubit.dart';
+import '../../../../../../../data/repositories/ad_repository.dart';
+import '../../../../../../../data/repositories/cart_repository.dart';
+import '../../../../../../../data/repositories/favorite_repository.dart';
+import '../../../../../../../data/repositories/state_repository.dart';
+import '../../../../../../../data/repositories/user_repository.dart';
 import '../../../../../../../domain/models/ad/ad_detail.dart';
-import '../../../../../../../domain/repositories/ad_repository.dart';
-import '../../../../../../../domain/repositories/cart_repository.dart';
-import '../../../../../../../domain/repositories/favorite_repository.dart';
-import '../../../../../../../domain/repositories/state_repository.dart';
-import '../../../../../../../domain/repositories/user_repository.dart';
 
 part 'order_create_cubit.freezed.dart';
+
 part 'order_create_state.dart';
 
 @Injectable()
 class OrderCreateCubit
     extends BaseCubit<OrderCreateBuildable, OrderCreateListenable> {
-  OrderCreateCubit(this._adRepository, this._cartRepository,
-      this.favoriteRepository, this.stateRepository, this.userRepository)
-      : super(const OrderCreateBuildable());
+  OrderCreateCubit(
+    this._adRepository,
+    this._cartRepository,
+    this.favoriteRepository,
+    this.stateRepository,
+    this.userRepository,
+  ) : super(const OrderCreateBuildable());
 
   final AdRepository _adRepository;
   final CartRepository _cartRepository;
@@ -32,7 +37,7 @@ class OrderCreateCubit
     getDetailResponse();
   }
 
-  List<String> getImages(){
+  List<String> getImages() {
     return (buildable.adDetail?.photos ?? List.empty(growable: true))
         .map((e) => "${Constants.baseUrlForImage}${e.image}")
         .toList();

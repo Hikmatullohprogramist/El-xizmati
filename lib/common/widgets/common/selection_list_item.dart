@@ -24,7 +24,7 @@ class SelectionListItem extends StatelessWidget {
     return InkWell(
         onTap: () {
           onClicked(item);
-          vibrateByTactile();
+          vibrateAsHapticFeedback();
         },
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),

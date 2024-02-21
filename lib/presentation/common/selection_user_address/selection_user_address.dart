@@ -65,7 +65,7 @@ class SelectionUserAddressPage extends BasePage<SelectionUserAddressCubit,
                         address: element,
                         onClicked: () {
                           context.router.pop(element);
-                          vibrateByTactile();
+                          vibrateAsHapticFeedback();
                         },
                         isSelected: selectedAddress?.id == element.id,
                       );

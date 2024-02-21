@@ -131,7 +131,7 @@ class UserInactiveAdsPage extends BasePage<UserInactiveAdsCubit,
                       IconButton(
                         onPressed: () {
                           context.router.pop();
-                          vibrateByTactile();
+                          vibrateAsHapticFeedback();
                         },
                         icon: Assets.images.icClose.svg(width: 24, height: 24),
                       )
@@ -141,7 +141,7 @@ class UserInactiveAdsPage extends BasePage<UserInactiveAdsCubit,
                   InkWell(
                     onTap: () {
                       context.router.pop();
-                      vibrateByTactile();
+                      vibrateAsHapticFeedback();
                     },
                     child: Container(
                         padding: EdgeInsets.symmetric(vertical: 16),
@@ -157,7 +157,7 @@ class UserInactiveAdsPage extends BasePage<UserInactiveAdsCubit,
                   InkWell(
                     onTap: () {
                       context.router.pop();
-                      vibrateByTactile();
+                      vibrateAsHapticFeedback();
                     },
                     child: Container(
                         padding: EdgeInsets.symmetric(vertical: 16),
@@ -174,7 +174,7 @@ class UserInactiveAdsPage extends BasePage<UserInactiveAdsCubit,
                   InkWell(
                     onTap: () {
                       context.router.pop();
-                      vibrateByTactile();
+                      vibrateAsHapticFeedback();
                     },
                     child: Container(
                         padding: EdgeInsets.symmetric(vertical: 16),

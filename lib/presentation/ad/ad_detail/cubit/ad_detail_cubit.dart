@@ -6,13 +6,13 @@ import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 
 import '../../../../common/constants.dart';
 import '../../../../common/core/base_cubit.dart';
+import '../../../../data/repositories/ad_repository.dart';
+import '../../../../data/repositories/cart_repository.dart';
+import '../../../../data/repositories/favorite_repository.dart';
 import '../../../../data/storages/token_storage.dart';
 import '../../../../domain/models/ad/ad.dart';
 import '../../../../domain/models/ad/ad_detail.dart';
 import '../../../../domain/models/stats/stats_type.dart';
-import '../../../../domain/repositories/ad_repository.dart';
-import '../../../../domain/repositories/cart_repository.dart';
-import '../../../../domain/repositories/favorite_repository.dart';
 
 part 'ad_detail_cubit.freezed.dart';
 

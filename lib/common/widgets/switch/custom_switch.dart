@@ -19,7 +19,7 @@ class _CustomSwitchState extends State<CustomSwitch> {
     return GestureDetector(
       onTap: () {
         widget.onChanged(!widget.isChecked);
-        vibrateByTactile();
+        vibrateAsHapticFeedback();
       },
       child: Container(
         width: 55,

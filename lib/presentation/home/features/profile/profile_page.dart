@@ -78,7 +78,7 @@ class ProfilePage
             icon: Assets.images.icUserAvatar,
             invoke: () {
               context.router.push(ProfileViewRoute());
-              vibrateByTactile();
+              vibrateAsHapticFeedback();
             },
           ),
         ),
@@ -89,7 +89,7 @@ class ProfilePage
             icon: Assets.images.icUserAvatar,
             invoke: () {
               context.router.push(AuthStartRoute());
-              vibrateByTactile();
+              vibrateAsHapticFeedback();
             },
           ),
         ),
@@ -110,7 +110,7 @@ class ProfilePage
             icon: Assets.images.icProfileMyAds,
             invoke: () {
               context.router.push(UserAdsRoute());
-              vibrateByTactile();
+              vibrateAsHapticFeedback();
             },
           ),
         ),
@@ -125,7 +125,7 @@ class ProfilePage
             icon: Assets.images.icProfileOrder,
             invoke: () {
               context.router.push(UserOrderTypeRoute());
-              vibrateByTactile();
+              vibrateAsHapticFeedback();
             },
           ),
         ),
@@ -140,7 +140,7 @@ class ProfilePage
             icon: Assets.images.icProfilePayment,
             invoke: () {
               context.router.push(PaymentTransactionRoute());
-              vibrateByTactile();
+              vibrateAsHapticFeedback();
             },
           ),
         ),
@@ -165,7 +165,7 @@ class ProfilePage
             icon: Assets.images.icCard,
             invoke: () {
               context.router.push(UserCardsRoute());
-              vibrateByTactile();
+              vibrateAsHapticFeedback();
             },
           ),
         ),
@@ -180,7 +180,7 @@ class ProfilePage
             icon: Assets.images.icProfileLocation,
             invoke: () {
               context.router.push(UserAddressesRoute());
-              vibrateByTactile();
+              vibrateAsHapticFeedback();
             },
           ),
         ),
@@ -193,7 +193,7 @@ class ProfilePage
           icon: Assets.images.bottomBar.favorite,
           invoke: () {
             context.router.push(FavoritesRoute());
-            vibrateByTactile();
+            vibrateAsHapticFeedback();
           },
         ),
       ],
@@ -213,7 +213,7 @@ class ProfilePage
             icon: Assets.images.icProfileSettings,
             invoke: () {
               context.router.push(SettingRoute());
-              vibrateByTactile();
+              vibrateAsHapticFeedback();
             },
           ),
         ),
@@ -226,7 +226,7 @@ class ProfilePage
           icon: Assets.images.icProfileLanguage,
           invoke: () {
             _showChangeLanguageBottomSheet(context);
-            vibrateByTactile();
+            vibrateAsHapticFeedback();
           },
         ),
       ],
@@ -242,7 +242,7 @@ class ProfilePage
         child: InkWell(
             onTap: () {
               _showLogoutBottomSheet(context);
-              vibrateByTactile();
+              vibrateAsHapticFeedback();
             },
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
@@ -369,7 +369,7 @@ class ProfilePage
                       ),
                       onPressed: () {
                         Navigator.pop(context);
-                        vibrateByTactile();
+                        vibrateAsHapticFeedback();
                       },
                     ),
                   ),
@@ -385,7 +385,7 @@ class ProfilePage
                       onPressed: () {
                         context.read<ProfileCubit>().logOut();
                         Navigator.pop(context);
-                        vibrateByTactile();
+                        vibrateAsHapticFeedback();
                       },
                     ),
                   ),

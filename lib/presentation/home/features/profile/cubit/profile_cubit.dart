@@ -4,8 +4,8 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 
 import '../../../../../common/core/base_cubit.dart';
-import '../../../../../domain/repositories/auth_repository.dart';
-import '../../../../../domain/repositories/state_repository.dart';
+import '../../../../../data/repositories/auth_repository.dart';
+import '../../../../../data/repositories/state_repository.dart';
 
 part 'profile_cubit.freezed.dart';
 

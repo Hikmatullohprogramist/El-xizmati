@@ -37,7 +37,7 @@ class _CustomToggleState extends State<CustomToggle> {
     return GestureDetector(
       onTap: () {
         widget.onChanged(!widget.isChecked);
-        vibrateByTactile();
+        vibrateAsHapticFeedback();
       },
       child: Container(
         width: widget.width,

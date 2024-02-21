@@ -8,7 +8,7 @@ import '../../../../../../../../../common/enum/enums.dart';
 import '../../../../../../../../../data/responses/user_order/user_order_response.dart';
 import '../../../../../../../../../domain/models/order/order_type.dart';
 import '../../../../../../../../../domain/models/order/user_order_status.dart';
-import '../../../../../../../../../domain/repositories/user_order_repository.dart';
+import '../../../../../../../../../data/repositories/user_order_repository.dart';
 
 part 'user_all_orders_cubit.freezed.dart';
 part 'user_all_orders_state.dart';

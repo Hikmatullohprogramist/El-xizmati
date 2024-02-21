@@ -24,15 +24,9 @@ class CommonService {
     return _dio.get("v1/popular/categories", queryParameters: queryParameters);
   }
 
-  Future<Response> getCurrency() {
+  Future<Response> getCurrencies() {
     return _dio.get('v1/currencies');
   }
 
-  Future<Response> getPaymentTypes() {
-    return _dio.get('v1/get-payment-types-for-create-ad');
-  }
 
-  Future<Response> getUnits() {
-    return _dio.get('v1/get-untis-for-create-ad');
-  }
 }

@@ -8,9 +8,9 @@ import '../../../../common/enum/enums.dart';
 import '../../../../domain/models/ad/ad.dart';
 import '../../../../domain/models/ad/ad_list_type.dart';
 import '../../../../domain/models/ad/ad_type.dart';
-import '../../../../domain/repositories/ad_repository.dart';
-import '../../../../domain/repositories/common_repository.dart';
-import '../../../../domain/repositories/favorite_repository.dart';
+import '../../../../data/repositories/ad_repository.dart';
+import '../../../../data/repositories/common_repository.dart';
+import '../../../../data/repositories/favorite_repository.dart';
 
 part 'ad_list_cubit.freezed.dart';
 

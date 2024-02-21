@@ -5,13 +5,13 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/enum/enums.dart';
 
 import '../../../../../common/core/base_cubit.dart';
+import '../../../../../data/repositories/ad_repository.dart';
+import '../../../../../data/repositories/common_repository.dart';
+import '../../../../../data/repositories/favorite_repository.dart';
 import '../../../../../data/responses/banner/banner_response.dart';
 import '../../../../../data/responses/category/popular_category/popular_category_response.dart';
 import '../../../../../domain/models/ad/ad.dart';
 import '../../../../../domain/models/ad/ad_type.dart';
-import '../../../../../domain/repositories/ad_repository.dart';
-import '../../../../../domain/repositories/common_repository.dart';
-import '../../../../../domain/repositories/favorite_repository.dart';
 
 part 'dashboard_cubit.freezed.dart';
 
@@ -21,8 +21,10 @@ part 'dashboard_state.dart';
 class DashboardCubit
     extends BaseCubit<DashboardBuildable, DashboardListenable> {
   DashboardCubit(
-      this.adRepository, this.commonRepository, this.favoriteRepository)
-      : super(DashboardBuildable()) {
+    this.adRepository,
+    this.commonRepository,
+    this.favoriteRepository,
+  ) : super(DashboardBuildable()) {
     getInitialData();
   }
 
