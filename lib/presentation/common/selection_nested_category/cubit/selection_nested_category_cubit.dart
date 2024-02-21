@@ -7,15 +7,16 @@ import '../../../../../../common/enum/enums.dart';
 import '../../../../../../data/responses/category/category/category_response.dart';
 import '../../../../data/repositories/common_repository.dart';
 
-part 'selection_category_cubit.freezed.dart';
+part 'selection_nested_category_cubit.freezed.dart';
 
-part 'selection_category_state.dart';
+part 'selection_nested_category_state.dart';
 
 @Injectable()
-class SelectionCategoryCubit
-    extends BaseCubit<SelectionCategoryBuildable, SelectionCategoryListenable> {
-  SelectionCategoryCubit(this._repository)
-      : super(SelectionCategoryBuildable()) {
+class SelectionNestedCategoryCubit extends BaseCubit<
+    SelectionNestedCategoryBuildable, SelectionNestedCategoryListenable> {
+  SelectionNestedCategoryCubit(
+    this._repository,
+  ) : super(SelectionNestedCategoryBuildable()) {
     getCategories();
   }
 
@@ -44,7 +45,8 @@ class SelectionCategoryCubit
         .where((element) => element.parent_id == categoryResponse.id)
         .toList();
     if (result.isEmpty) {
-      invoke(SelectionCategoryListenable(SelectionCategoryEffect.back,
+      invoke(SelectionNestedCategoryListenable(
+          SelectionNestedCategoryEffect.back,
           categoryResponse: categoryResponse));
     } else {
       build((buildable) => buildable.copyWith(selectCategories: result));
@@ -58,7 +60,8 @@ class SelectionCategoryCubit
     build((buildable) => buildable.copyWith(
         selectCategories: result, selectedCategoryResponse: null));
     if (buildable.selectedCategoryResponse == null) {
-      invoke(SelectionCategoryListenable(SelectionCategoryEffect.back));
+      invoke(SelectionNestedCategoryListenable(
+          SelectionNestedCategoryEffect.back));
     }
   }
 }

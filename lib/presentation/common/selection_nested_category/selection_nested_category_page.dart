@@ -9,19 +9,19 @@ import '../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../common/widgets/category/category_widget.dart';
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../../../data/responses/category/category/category_response.dart';
-import 'cubit/selection_category_cubit.dart';
+import 'cubit/selection_nested_category_cubit.dart';
 
 @RoutePage()
-class SelectionCategoryPage extends BasePage<SelectionCategoryCubit,
-    SelectionCategoryBuildable, SelectionCategoryListenable> {
-  const SelectionCategoryPage(this.onResult, {super.key});
+class SelectionNestedCategoryPage extends BasePage<SelectionNestedCategoryCubit,
+    SelectionNestedCategoryBuildable, SelectionNestedCategoryListenable> {
+  const SelectionNestedCategoryPage(this.onResult, {super.key});
 
   final void Function(CategoryResponse categoryResponse) onResult;
 
   @override
-  void listener(BuildContext context, SelectionCategoryListenable event) {
+  void listener(BuildContext context, SelectionNestedCategoryListenable event) {
     switch (event.selectionCategoryEffect) {
-      case SelectionCategoryEffect.back:
+      case SelectionNestedCategoryEffect.back:
         {
           onResult.call(event.categoryResponse!);
           context.router.pop(true);
@@ -30,13 +30,13 @@ class SelectionCategoryPage extends BasePage<SelectionCategoryCubit,
   }
 
   @override
-  Widget builder(BuildContext context, SelectionCategoryBuildable state) {
+  Widget builder(BuildContext context, SelectionNestedCategoryBuildable state) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
             icon: Assets.images.icArrowLeft.svg(),
             onPressed: () {
-              context.read<SelectionCategoryCubit>().backCategory();
+              context.read<SelectionNestedCategoryCubit>().backCategory();
             }),
         elevation: 0.5,
         backgroundColor: Colors.white,
@@ -59,7 +59,7 @@ class SelectionCategoryPage extends BasePage<SelectionCategoryCubit,
             return AppCategoryWidget(
                 invoke: (CategoryResponse categoryResponse) {
                   context
-                      .read<SelectionCategoryCubit>()
+                      .read<SelectionNestedCategoryCubit>()
                       .selectCategory(categoryResponse);
                 },
                 category: state.selectCategories[index]);

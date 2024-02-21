@@ -129,7 +129,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
             hint: "Категория",
             onTap: () {
               context.router.push(
-                SelectionCategoryRoute(onResult: (categoryResponse) {
+                SelectionNestedCategoryRoute(onResult: (categoryResponse) {
                   cubit(context).setSelectedCategory(categoryResponse);
                 }),
               );

@@ -128,10 +128,8 @@ class CreateProductOrderPage extends BasePage<CreateProductOrderCubit,
             hint: "Категория",
             onTap: () {
               context.router.push(
-                SelectionCategoryRoute(onResult: (categoryResponse) {
-                  context
-                      .read<CreateProductOrderCubit>()
-                      .setCategory(categoryResponse);
+                SelectionNestedCategoryRoute(onResult: (categoryResponse) {
+                  cubit(context).setCategory(categoryResponse);
                 }),
               );
             },
