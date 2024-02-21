@@ -35,7 +35,7 @@ class ChipsItem extends StatelessWidget {
               children: [
                 title
                     .w(500)
-                    .s(16)
+                    .s(14)
                     .c(Colors.white)
                     .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
                 SizedBox(width: 12),

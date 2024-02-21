@@ -34,19 +34,15 @@ class MultiSelectionListItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
-                child: Row(
-                  children: [
-                    (title)
-                        .toString()
-                        .w(500)
-                        .s(16)
-                        .c(context.colors.textPrimary)
-                        .copyWith(
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                  ],
-                ),
+                child: (title)
+                    .toString()
+                    .w(500)
+                    .s(16)
+                    .c(context.colors.textPrimary)
+                    .copyWith(
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
               ),
               (isSelected
                       ? Assets.images.icCheckboxSelected
