@@ -2,32 +2,33 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
-import 'package:onlinebozor/data/responses/address/user_address_response.dart';
+import 'package:onlinebozor/data/repositories/ad_creation_repository.dart';
+import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
 
 import '../../../../../../common/enum/enums.dart';
-import '../../../../data/repositories/user_address_repository.dart';
 
-part 'selection_user_address_cubit.freezed.dart';
+part 'selection_currency_cubit.freezed.dart';
 
-part 'selection_user_address_state.dart';
+part 'selection_currency_state.dart';
 
 @Injectable()
-class SelectionUserAddressCubit extends BaseCubit<SelectionUserAddressBuildable,
-    SelectionUserAddressListenable> {
-  SelectionUserAddressCubit(this._repository)
-      : super(const SelectionUserAddressBuildable()) {
+class SelectionCurrencyCubit
+    extends BaseCubit<SelectionCurrencyBuildable, SelectionCurrencyListenable> {
+  SelectionCurrencyCubit(this._repository)
+      : super(SelectionCurrencyBuildable()) {
     getItems();
   }
 
-  final UserAddressRepository _repository;
+  final AdCreationRepository _repository;
 
   Future<void> getItems() async {
     try {
-      final items = await _repository.getUserAddresses();
+      final items = await _repository.getCurrenciesForCreationAd();
+      log.i(items.toString());
       build(
         (buildable) => buildable.copyWith(
-          itemsLoadState: LoadingState.success,
           items: items,
+          itemsLoadState: LoadingState.success,
         ),
       );
     } on DioException catch (exception) {

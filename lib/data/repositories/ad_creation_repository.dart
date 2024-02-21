@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/services/ad_creation_service.dart';
 
 import '../responses/payment_type/payment_type_response.dart';
@@ -9,6 +10,12 @@ class AdCreationRepository {
   final AdCreationService _adCreationService;
 
   AdCreationRepository(this._adCreationService);
+
+  Future<List<CurrencyResponse>> getCurrenciesForCreationAd() async {
+    final response = await _adCreationService.getCurrenciesForCreationAd();
+    final currencies = CurrencyRootResponse.fromJson(response.data).data;
+    return currencies;
+  }
 
   Future<List<PaymentTypeResponse>> getPaymentTypesForCreationAd() async {
     final response = await _adCreationService.getPaymentTypesForCreationAd();

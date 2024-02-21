@@ -3,9 +3,8 @@ part of 'selection_unit_cubit.dart';
 @freezed
 class SelectionUnitBuildable with _$SelectionUnitBuildable {
   const factory SelectionUnitBuildable({
-    UnitResponse? selectedUnit,
-    @Default(<UnitResponse>[]) List<UnitResponse> units,
-    @Default(LoadingState.loading) LoadingState unitsState,
+    @Default(<UnitResponse>[]) List<UnitResponse> items,
+    @Default(LoadingState.loading) LoadingState itemsLoadState,
   }) = _SelectionUnitBuildable;
 }
 

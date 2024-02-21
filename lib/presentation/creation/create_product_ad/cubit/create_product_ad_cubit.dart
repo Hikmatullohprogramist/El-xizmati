@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/responses/category/category/category_response.dart';
+import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/responses/payment_type/payment_type_response.dart';
 import 'package:onlinebozor/data/responses/unit/unit_response.dart';
 
@@ -55,6 +56,10 @@ class CreateProductAdCubit
       }
     }
     build((buildable) => buildable.copyWith(price: priceInt));
+  }
+
+  void setSelectedCurrency(CurrencyResponse currency) {
+    build((buildable) => buildable.copyWith(currency: currency));
   }
 
   void setSelectedPaymentTypes(List<PaymentTypeResponse>? selectedPaymentTypes) {

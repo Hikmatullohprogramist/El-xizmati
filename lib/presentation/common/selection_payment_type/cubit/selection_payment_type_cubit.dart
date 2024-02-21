@@ -6,7 +6,6 @@ import 'package:onlinebozor/data/repositories/ad_creation_repository.dart';
 import 'package:onlinebozor/data/responses/payment_type/payment_type_response.dart';
 
 import '../../../../../../common/enum/enums.dart';
-import '../../../../data/repositories/common_repository.dart';
 
 part 'selection_payment_type_cubit.freezed.dart';
 
@@ -28,23 +27,28 @@ class SelectionPaymentTypeCubit extends BaseCubit<SelectionPaymentTypeBuildable,
       log.i(paymentTypes.toString());
       build(
         (buildable) => buildable.copyWith(
-          paymentTypes: paymentTypes,
-          paymentTypesState: LoadingState.success,
+          items: paymentTypes,
+          itemsLoadState: LoadingState.success,
         ),
       );
     } on DioException catch (exception) {
       log.e(exception.toString());
+      build(
+        (buildable) => buildable.copyWith(
+          itemsLoadState: LoadingState.error,
+        ),
+      );
     }
   }
 
   void setInitialSelectedPaymentTypes(List<PaymentTypeResponse>? paymentTypes) {
     try {
       if (paymentTypes != null) {
-        List<PaymentTypeResponse> updatedSelectedPaymentTypes = [];
-        updatedSelectedPaymentTypes.addAll(paymentTypes);
+        List<PaymentTypeResponse> updatedSelectedItems = [];
+        updatedSelectedItems.addAll(paymentTypes);
         build(
           (buildable) => buildable.copyWith(
-            selectedPaymentTypes: updatedSelectedPaymentTypes,
+            selectedItems: updatedSelectedItems,
           ),
         );
       }
@@ -53,20 +57,20 @@ class SelectionPaymentTypeCubit extends BaseCubit<SelectionPaymentTypeBuildable,
     }
   }
 
-  void updateSelectedPaymentTypes(PaymentTypeResponse paymentType) {
+  void updateSelectedItems(PaymentTypeResponse paymentType) {
     try {
-      var updatedSelectedPaymentTypes =
-          List<PaymentTypeResponse>.from(buildable.selectedPaymentTypes);
+      var updatedSelectedItems =
+          List<PaymentTypeResponse>.from(buildable.selectedItems);
 
-      if (buildable.selectedPaymentTypes.contains(paymentType)) {
-        updatedSelectedPaymentTypes.remove(paymentType);
+      if (buildable.selectedItems.contains(paymentType)) {
+        updatedSelectedItems.remove(paymentType);
       } else {
-        updatedSelectedPaymentTypes.add(paymentType);
+        updatedSelectedItems.add(paymentType);
       }
 
       build(
         (buildable) => buildable.copyWith(
-          selectedPaymentTypes: updatedSelectedPaymentTypes,
+          selectedItems: updatedSelectedItems,
         ),
       );
     } catch (e) {

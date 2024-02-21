@@ -5,14 +5,15 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/common/common_button.dart';
 
 class LoaderStateWidget extends StatelessWidget {
-  const LoaderStateWidget(
-      {super.key,
-      required this.isFullScreen,
-      required this.loadingState,
-      required this.child,
-      this.onErrorToAgainRequest,
-      this.onStartWidget,
-      this.onEmptyWidget});
+  const LoaderStateWidget({
+    super.key,
+    required this.isFullScreen,
+    required this.loadingState,
+    required this.child,
+    this.onErrorToAgainRequest,
+    this.onStartWidget,
+    this.onEmptyWidget,
+  });
 
   final bool isFullScreen;
   final LoadingState loadingState;
@@ -58,8 +59,11 @@ class LoadingWidget extends StatelessWidget {
 }
 
 class ErrorWidget extends StatelessWidget {
-  const ErrorWidget(
-      {super.key, required this.isFullScreen, this.onErrorToAgainRequest});
+  const ErrorWidget({
+    super.key,
+    required this.isFullScreen,
+    this.onErrorToAgainRequest,
+  });
 
   final bool isFullScreen;
   final VoidCallback? onErrorToAgainRequest;

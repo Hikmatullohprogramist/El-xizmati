@@ -1,34 +1,28 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
-import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/common/bottom_sheet_title.dart';
-import 'package:onlinebozor/common/widgets/common/multi_selection_list_item.dart';
-import 'package:onlinebozor/data/responses/payment_type/payment_type_response.dart';
-import 'package:onlinebozor/presentation/common/selection_payment_type/cubit/selection_payment_type_cubit.dart';
+import 'package:onlinebozor/common/widgets/common/selection_list_item.dart';
+import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
+import 'package:onlinebozor/data/responses/unit/unit_response.dart';
+import 'package:onlinebozor/presentation/common/selection_unit/cubit/selection_unit_cubit.dart';
 
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
-import '../../../common/widgets/common/common_button.dart';
 import '../../../common/widgets/dashboard/app_diverder.dart';
+import 'cubit/selection_currency_cubit.dart';
 
 @RoutePage()
-class SelectionPaymentTypePage extends BasePage<SelectionPaymentTypeCubit,
-    SelectionPaymentTypeBuildable, SelectionPaymentTypeListenable> {
-  const SelectionPaymentTypePage({
+class SelectionCurrencyPage extends BasePage<SelectionCurrencyCubit,
+    SelectionCurrencyBuildable, SelectionCurrencyListenable> {
+  const SelectionCurrencyPage({
     super.key,
-    this.selectedPaymentTypes,
+    this.initialSelectedItem,
   });
 
-  final List<PaymentTypeResponse>? selectedPaymentTypes;
+  final CurrencyResponse? initialSelectedItem;
 
   @override
-  void init(BuildContext context) {
-    cubit(context).setInitialSelectedPaymentTypes(selectedPaymentTypes);
-  }
-
-  @override
-  Widget builder(BuildContext context, SelectionPaymentTypeBuildable state) {
+  Widget builder(BuildContext context, SelectionCurrencyBuildable state) {
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.sizeOf(context).height * .4,
@@ -45,7 +39,7 @@ class SelectionPaymentTypePage extends BasePage<SelectionPaymentTypeCubit,
               children: [
                 SizedBox(height: 20),
                 BottomSheetTitle(
-                  title: "Выберите типы оплаты",
+                  title: "Выберите валюту",
                   onCloseClicked: () {
                     context.router.pop();
                   },
@@ -53,6 +47,9 @@ class SelectionPaymentTypePage extends BasePage<SelectionPaymentTypeCubit,
                 LoaderStateWidget(
                   isFullScreen: false,
                   loadingState: state.itemsLoadState,
+                  onErrorToAgainRequest: () {
+                    cubit(context).getItems();
+                  },
                   child: ListView.separated(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
@@ -60,37 +57,18 @@ class SelectionPaymentTypePage extends BasePage<SelectionPaymentTypeCubit,
                     itemCount: state.items.length,
                     itemBuilder: (context, index) {
                       var element = state.items[index];
-                      return MultiSelectionListItem(
+                      return SelectionListItem(
                         item: element,
                         title: element.name ?? "",
-                        isSelected: state.selectedItems.contains(element),
+                        isSelected: initialSelectedItem?.id == element.id,
                         onClicked: (dynamic item) {
-                          cubit(context).updateSelectedItems(item);
+                          context.router.pop(state.items[index]);
                         },
                       );
                     },
                     separatorBuilder: (BuildContext context, int index) {
                       return AppDivider(height: 2, indent: 20, endIndent: 20);
                     },
-                  ),
-                ),
-                SizedBox(height: 16),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: CommonButton(
-                    color: context.colors.buttonPrimary,
-                    onPressed: () {
-                      context.router.pop(state.selectedItems);
-                    },
-                    child: Container(
-                      height: 52,
-                      alignment: Alignment.center,
-                      width: double.infinity,
-                      child: "Сохранить"
-                          .w(500)
-                          .s(14)
-                          .c(context.colors.textPrimaryInverse),
-                    ),
                   ),
                 ),
               ],

@@ -20,14 +20,6 @@ class SelectionUserAddressPage extends BasePage<SelectionUserAddressCubit,
   final UserAddressResponse? selectedAddress;
 
   @override
-  void listener(BuildContext context, SelectionUserAddressListenable event) {
-    switch (event.effect) {
-      case SelectionUserAddressEffect.back:
-        {}
-    }
-  }
-
-  @override
   Widget builder(BuildContext context, SelectionUserAddressBuildable state) {
     return SizedBox(
       width: double.infinity,
@@ -41,26 +33,29 @@ class SelectionUserAddressPage extends BasePage<SelectionUserAddressCubit,
           color: Colors.white,
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
-            child: LoaderStateWidget(
-              isFullScreen: false,
-              loadingState: state.userAddressState,
-              child: Column(
-                children: [
-                  SizedBox(height: 20),
-                  BottomSheetTitle(
-                    title: "Выберите адрес",
-                    onCloseClicked: () {
-                      context.router.pop();
-                    },
-                  ),
-                  ListView.separated(
+            child: Column(
+              children: [
+                SizedBox(height: 20),
+                BottomSheetTitle(
+                  title: "Выберите адрес",
+                  onCloseClicked: () {
+                    context.router.pop();
+                  },
+                ),
+                LoaderStateWidget(
+                  isFullScreen: false,
+                  loadingState: state.itemsLoadState,
+                  onErrorToAgainRequest: () {
+                    cubit(context).getItems();
+                  },
+                  child: ListView.separated(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     padding: EdgeInsets.symmetric(vertical: 12),
-                    itemCount: state.userAddresses.length,
+                    itemCount: state.items.length,
                     itemBuilder: (context, index) {
-                      var element = state.userAddresses[index];
+                      var element = state.items[index];
                       return UserAddressSelection(
                         address: element,
                         onClicked: () {
@@ -74,8 +69,8 @@ class SelectionUserAddressPage extends BasePage<SelectionUserAddressCubit,
                       return SizedBox();
                     },
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

@@ -13,6 +13,7 @@ class CreateProductAdBuildable with _$CreateProductAdBuildable {
     int? warehouseCount,
     UnitResponse? unit,
     int? price,
+    CurrencyResponse? currency,
     @Default([]) List<PaymentTypeResponse> paymentTypes,
     @Default(false) bool isAgreedPrice,
 //

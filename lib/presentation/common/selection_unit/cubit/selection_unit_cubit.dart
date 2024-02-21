@@ -15,21 +15,24 @@ part 'selection_unit_state.dart';
 class SelectionUnitCubit
     extends BaseCubit<SelectionUnitBuildable, SelectionUnitListenable> {
   SelectionUnitCubit(this._repository) : super(SelectionUnitBuildable()) {
-    getUnits();
+    getItems();
   }
 
   final AdCreationRepository _repository;
 
-  Future<void> getUnits() async {
+  Future<void> getItems() async {
     try {
-      final units = await _repository.getUnitsForCreationAd();
-      log.i(units.toString());
+      final items = await _repository.getUnitsForCreationAd();
+      log.i(items.toString());
       build((buildable) => buildable.copyWith(
-            units: units,
-            unitsState: LoadingState.success,
+            items: items,
+            itemsLoadState: LoadingState.success,
           ));
     } on DioException catch (exception) {
       log.e(exception.toString());
+      build((buildable) => buildable.copyWith(
+        itemsLoadState: LoadingState.error,
+      ));
     }
   }
 }

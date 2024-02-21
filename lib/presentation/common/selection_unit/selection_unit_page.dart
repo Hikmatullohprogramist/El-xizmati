@@ -44,20 +44,23 @@ class SelectionUnitPage extends BasePage<SelectionUnitCubit,
                 ),
                 LoaderStateWidget(
                   isFullScreen: false,
-                  loadingState: state.unitsState,
+                  loadingState: state.itemsLoadState,
+                  onErrorToAgainRequest: () {
+                    cubit(context).getItems();
+                  },
                   child: ListView.separated(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
-                    itemCount: state.units.length,
+                    itemCount: state.items.length,
                     itemBuilder: (context, index) {
-                      var element = state.units[index];
+                      var element = state.items[index];
                       return SelectionListItem(
                         item: element,
                         title: element.name ?? "",
                         isSelected: selectedUnit?.id == element.id,
                         onClicked: (dynamic item) {
-                          context.router.pop(state.units[index]);
+                          context.router.pop(item);
                         },
                       );
                     },

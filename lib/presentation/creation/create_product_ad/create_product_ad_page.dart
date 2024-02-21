@@ -12,8 +12,9 @@ import 'package:onlinebozor/common/widgets/common/selection_list_item.dart';
 import 'package:onlinebozor/common/widgets/image/image_ad_list_widget.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_switch.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_toggle.dart';
+import 'package:onlinebozor/presentation/common/selection_currency/selection_currency_page.dart';
 import 'package:onlinebozor/presentation/common/selection_unit/selection_unit_page.dart';
-import 'package:onlinebozor/presentation/common/selection_user_address/selection_user_address.dart';
+import 'package:onlinebozor/presentation/common/selection_user_address/selection_user_address_page.dart';
 
 import '../../../../../common/core/base_page.dart';
 import '../../../../../common/gen/localization/strings.dart';
@@ -299,10 +300,22 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
                     LabelTextField(text: 'Валюта', isRequired: false),
                     SizedBox(height: 6),
                     CustomDropdownField(
-                      text: Strings.currencyUzb,
+                      text: state.currency?.name ?? "",
                       hint: "-",
                       onTap: () async {
-                        _showCurrencyBottomSheet(context);
+                        // _showCurrencyBottomSheet(context);
+                        final currency = await showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          useSafeArea: true,
+                          backgroundColor: Colors.transparent,
+                          builder: (context) => SelectionCurrencyPage(
+                            key: Key(""),
+                            initialSelectedItem: state.currency,
+                          ),
+                        );
+
+                        cubit(context).setSelectedCurrency(currency);
                       },
                     ),
                   ],
