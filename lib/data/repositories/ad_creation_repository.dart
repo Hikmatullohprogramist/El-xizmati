@@ -4,6 +4,7 @@ import 'package:onlinebozor/data/responses/category/category_selection/category_
 import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/services/ad_creation_service.dart';
 
+import '../responses/address/user_address_response.dart';
 import '../responses/payment_type/payment_type_response.dart';
 import '../responses/unit/unit_response.dart';
 
@@ -15,7 +16,8 @@ class AdCreationRepository {
 
   Future<List<CategorySelectionResponse>> getCategoriesForCreationAd() async {
     final response = await _adCreationService.getCategoriesForCreationAd();
-    final categories = CategorySelectionRootResponse.fromJson(response.data).data;
+    final categories =
+        CategorySelectionRootResponse.fromJson(response.data).data;
     return categories;
   }
 
@@ -35,5 +37,49 @@ class AdCreationRepository {
     final response = await _adCreationService.getUnitsForCreationAd();
     final units = UnitRootResponse.fromJson(response.data).data;
     return units;
+  }
+
+  Future<String> createProductAd({
+    required String title,
+    required CategoryResponse category,
+    required pickedImageIds,
+    required String desc,
+    required int? warehouseCount,
+    required UnitResponse? unit,
+    required int? price,
+    required CurrencyResponse? currency,
+    required List<PaymentTypeResponse> paymentTypes,
+    required bool isAgreedPrice,
+    required bool isNew,
+    required bool isBusiness,
+    required UserAddressResponse? address,
+    required String contactPerson,
+    required String phone,
+    required String email,
+    required bool isAutoRenewal,
+    required bool isShowMySocialAccount,
+  }) async {
+    final response = await _adCreationService.createProductAd(
+      title: title,
+      categoryId: category.id,
+      pickedImageIds: [],
+      desc: desc,
+      warehouseCount: warehouseCount,
+      unitId: unit?.id,
+      price: price,
+      currency: currency?.id,
+      paymentTypeIds: paymentTypes.map((e) => "${e.id}").toList(),
+      isAgreedPrice: isAgreedPrice,
+      isNew: isNew,
+      isBusiness: isBusiness,
+      addressId: address?.id,
+      contactPerson: contactPerson,
+      phone: phone,
+      email: email,
+      isAutoRenewal: isAutoRenewal,
+      isShowMySocialAccount: isShowMySocialAccount,
+    );
+
+    return "";
   }
 }

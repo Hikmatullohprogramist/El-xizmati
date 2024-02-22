@@ -28,6 +28,7 @@ class CreateProductAdBuildable with _$CreateProductAdBuildable {
     @Default(false) bool isAutoRenewal,
 //
     @Default(false) bool isShowMySocialAccount,
+    @Default(false) bool isRequestSending,
   }) = _CreateProductAdBuildable;
 }
 

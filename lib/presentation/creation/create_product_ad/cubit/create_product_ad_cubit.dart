@@ -1,13 +1,14 @@
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/responses/category/category/category_response.dart';
-import 'package:onlinebozor/data/responses/category/category_selection/category_selection_response.dart';
 import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/responses/payment_type/payment_type_response.dart';
 import 'package:onlinebozor/data/responses/unit/unit_response.dart';
 
 import '../../../../../../common/core/base_cubit.dart';
+import '../../../../data/repositories/ad_creation_repository.dart';
 import '../../../../data/responses/address/user_address_response.dart';
 
 part 'create_product_ad_cubit.freezed.dart';
@@ -17,9 +18,45 @@ part 'create_product_ad_state.dart';
 @Injectable()
 class CreateProductAdCubit
     extends BaseCubit<CreateProductAdBuildable, CreateProductAdListenable> {
-  CreateProductAdCubit() : super(const CreateProductAdBuildable());
+  CreateProductAdCubit(
+    this._repository,
+  ) : super(const CreateProductAdBuildable());
 
-  void setEnteredTitle(String title){
+  final AdCreationRepository _repository;
+
+  Future<void> sendCreateProductAdRequest() async {
+    build((buildable) => buildable.copyWith(isRequestSending: true));
+    try {
+      final response = await _repository.createProductAd(
+        title: buildable.title,
+        category: buildable.category!,
+        pickedImageIds: [""],
+        desc: buildable.desc,
+        warehouseCount: buildable.warehouseCount,
+        unit: buildable.unit,
+        price: buildable.price,
+        currency: buildable.currency,
+        paymentTypes: buildable.paymentTypes,
+        isAgreedPrice: buildable.isAgreedPrice,
+        isNew: buildable.isNew,
+        isBusiness: buildable.isBusiness,
+        address: buildable.address,
+        contactPerson: buildable.contactPerson,
+        phone: buildable.phone,
+        email: buildable.email,
+        isAutoRenewal: buildable.isAutoRenewal,
+        isShowMySocialAccount: buildable.isShowMySocialAccount,
+      );
+      log.i(response.toString());
+
+      build((buildable) => buildable.copyWith(isRequestSending: false));
+    } on DioException catch (exception) {
+      log.e(exception.toString());
+      build((buildable) => buildable.copyWith(isRequestSending: false));
+    }
+  }
+
+  void setEnteredTitle(String title) {
     build((buildable) => buildable.copyWith(title: title));
   }
 
@@ -27,16 +64,16 @@ class CreateProductAdCubit
     build((buildable) => buildable.copyWith(category: category));
   }
 
-  void setEnteredDesc(String desc){
+  void setEnteredDesc(String desc) {
     build((buildable) => buildable.copyWith(desc: desc));
   }
 
-  void setEnteredWarehouseCount(String warehouseCount){
+  void setEnteredWarehouseCount(String warehouseCount) {
     int? warehouseCountInt;
-    if(warehouseCount.trim().isNotEmpty){
-      try{
+    if (warehouseCount.trim().isNotEmpty) {
+      try {
         warehouseCountInt = warehouseCount as int;
-      }catch (e) {
+      } catch (e) {
         log.e(e.toString());
       }
     }
@@ -47,12 +84,12 @@ class CreateProductAdCubit
     build((buildable) => buildable.copyWith(unit: unit));
   }
 
-  void setEnteredPrice(String price){
+  void setEnteredPrice(String price) {
     int? priceInt;
-    if(price.trim().isNotEmpty){
-      try{
+    if (price.trim().isNotEmpty) {
+      try {
         priceInt = price as int;
-      }catch (e) {
+      } catch (e) {
         log.e(e.toString());
       }
     }
@@ -63,16 +100,17 @@ class CreateProductAdCubit
     build((buildable) => buildable.copyWith(currency: currency));
   }
 
-  void setSelectedPaymentTypes(List<PaymentTypeResponse>? selectedPaymentTypes) {
+  void setSelectedPaymentTypes(
+      List<PaymentTypeResponse>? selectedPaymentTypes) {
     try {
       if (selectedPaymentTypes != null) {
         var paymentTypes =
-        List<PaymentTypeResponse>.from(buildable.paymentTypes);
+            List<PaymentTypeResponse>.from(buildable.paymentTypes);
 
-        if(selectedPaymentTypes.isNotEmpty){
+        if (selectedPaymentTypes.isNotEmpty) {
           paymentTypes.addAll(selectedPaymentTypes);
           paymentTypes = paymentTypes.toSet().toList();
-        }else{
+        } else {
           paymentTypes.clear();
         }
 
@@ -109,15 +147,15 @@ class CreateProductAdCubit
     build((buildable) => buildable.copyWith(address: address));
   }
 
-  void setEnteredContactPerson(String contactPerson){
+  void setEnteredContactPerson(String contactPerson) {
     build((buildable) => buildable.copyWith(contactPerson: contactPerson));
   }
 
-  void setEnteredPhone(String phone){
+  void setEnteredPhone(String phone) {
     build((buildable) => buildable.copyWith(phone: phone));
   }
 
-  void setEnteredEmail(String email){
+  void setEnteredEmail(String email) {
     build((buildable) => buildable.copyWith(email: email));
   }
 

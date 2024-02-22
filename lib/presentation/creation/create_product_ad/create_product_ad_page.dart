@@ -23,7 +23,6 @@ import '../../../common/router/app_router.dart';
 import '../../../common/vibrator/vibrator_extension.dart';
 import '../../../common/widgets/common/common_button.dart';
 import '../../../common/widgets/dashboard/app_diverder.dart';
-import '../../common/selection_category/selection_category_page.dart';
 import '../../common/selection_payment_type/selection_payment_type_page.dart';
 import '../../mask_formatters.dart';
 import 'cubit/create_product_ad_cubit.dart';
@@ -75,7 +74,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
             SizedBox(height: 16),
             _buildPinMySocialAccountsBlock(context, state),
             SizedBox(height: 16),
-            _buildFooterBlock(context),
+            _buildFooterBlock(context, state),
             SizedBox(height: 24),
           ],
         ),
@@ -338,19 +337,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
               )
             ],
           ),
-          SizedBox(height: 16),
-          LabelTextField(text: 'Способ оплаты', isRequired: true),
-          SizedBox(height: 16),
-          Wrap(
-            direction: Axis.horizontal,
-            spacing: 8,
-            runSpacing: 8,
-            alignment: WrapAlignment.start,
-            crossAxisAlignment: WrapCrossAlignment.start,
-            runAlignment: WrapAlignment.start,
-            children: _buildChips(context, state),
-          ),
-          SizedBox(height: 16),
+          SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -365,6 +352,18 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
                 child: "Договорная".w(400).s(14).c(Color(0xFF41455E)),
               ),
             ],
+          ),
+          SizedBox(height: 24),
+          LabelTextField(text: 'Способ оплаты', isRequired: true),
+          SizedBox(height: 16),
+          Wrap(
+            direction: Axis.horizontal,
+            spacing: 8,
+            runSpacing: 8,
+            alignment: WrapAlignment.start,
+            crossAxisAlignment: WrapCrossAlignment.start,
+            runAlignment: WrapAlignment.start,
+            children: _buildChips(context, state),
           ),
         ],
       ),
@@ -607,7 +606,10 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
     );
   }
 
-  Widget _buildFooterBlock(BuildContext context) {
+  Widget _buildFooterBlock(
+    BuildContext context,
+    CreateProductAdBuildable state,
+  ) {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.all(16),
@@ -629,9 +631,11 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
           SizedBox(height: 16),
           CommonButton(
             color: context.colors.buttonPrimary,
-            onPressed: () {},
+            onPressed: () {
+              cubit(context).sendCreateProductAdRequest();
+            },
             // enabled: false,
-            // loading: state.loading,
+            loading: state.isRequestSending,
             child: Container(
               height: 52,
               alignment: Alignment.center,
