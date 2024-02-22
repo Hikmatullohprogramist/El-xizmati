@@ -7,12 +7,14 @@ import 'package:onlinebozor/data/services/ad_creation_service.dart';
 import '../responses/address/user_address_response.dart';
 import '../responses/payment_type/payment_type_response.dart';
 import '../responses/unit/unit_response.dart';
+import '../storages/user_storage.dart';
 
 @LazySingleton()
 class AdCreationRepository {
   final AdCreationService _adCreationService;
+  final UserInfoStorage _userInfoStorage;
 
-  AdCreationRepository(this._adCreationService);
+  AdCreationRepository(this._adCreationService, this._userInfoStorage);
 
   Future<List<CategorySelectionResponse>> getCategoriesForCreationAd() async {
     final response = await _adCreationService.getCategoriesForCreationAd();
@@ -31,6 +33,16 @@ class AdCreationRepository {
     final response = await _adCreationService.getPaymentTypesForCreationAd();
     final paymentTypes = PaymentTypeRootResponse.fromJson(response.data).data;
     return paymentTypes;
+  }
+
+  Future<List<UserAddressResponse>> getWarehousesForCreationAd() async {
+    var tin = _userInfoStorage.userInformation.call()?.tin;
+    var pinfl = _userInfoStorage.userInformation.call()?.pinfl;
+    final response = await _adCreationService.getWarehousesForCreationAd(
+      tinOrPinfl: tin ?? pinfl ?? 0,
+    );
+    final warehouses = UserAddressRootResponse.fromJson(response.data).data;
+    return warehouses;
   }
 
   Future<List<UnitResponse>> getUnitsForCreationAd() async {
@@ -56,6 +68,7 @@ class AdCreationRepository {
     required String contactPerson,
     required String phone,
     required String email,
+    required List<UserAddressResponse> pickupAddresses,
     required bool isAutoRenewal,
     required bool isShowMySocialAccount,
   }) async {

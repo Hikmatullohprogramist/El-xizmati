@@ -25,6 +25,11 @@ class CreateProductAdBuildable with _$CreateProductAdBuildable {
     @Default("") String phone,
     @Default("") String email,
 //
+    @Default(false) bool isPickupEnabled,
+    @Default([]) List<UserAddressResponse> pickupAddresses,
+    @Default(false) bool isFreeDeliveryEnabled,
+    @Default(false) bool isPaidDeliveryEnabled,
+//
     @Default(false) bool isAutoRenewal,
 //
     @Default(false) bool isShowMySocialAccount,

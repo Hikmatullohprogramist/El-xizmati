@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/utils/dio_extensions.dart';
@@ -27,8 +29,10 @@ class AdCreationService {
     return _dio.get('v1/get-payment-types-for-create-ad');
   }
 
-  Future<Response> getWarehousesForCreationAd() {
-    return _dio.get('v1/get-warehouses-for-create-ad');
+  Future<Response> getWarehousesForCreationAd({required int tinOrPinfl}) {
+    final Map<String, dynamic> query = {};
+    query["org_id"] = tinOrPinfl;
+    return _dio.get('v1/get-warehouses-for-create-ad', queryParameters: query);
   }
 
   Future<Response> getUnitsForCreationAd() {

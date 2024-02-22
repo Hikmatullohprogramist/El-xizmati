@@ -8,7 +8,6 @@ import 'package:onlinebozor/common/widgets/favorite/ad_favorite_widget.dart';
 
 import '../../../domain/models/ad/ad.dart';
 import '../../constants.dart';
-import '../../vibrator/vibrator_extension.dart';
 
 class TopRatedAdWidget extends StatelessWidget {
   const TopRatedAdWidget({
@@ -28,7 +27,7 @@ class TopRatedAdWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 248,
-      padding: EdgeInsets.only(left: 16, top: 16, right: 0),
+      padding: EdgeInsets.only(left: 12, top: 12, right: 0),
       decoration: _getBackgroundGradient(),
       child: InkWell(
           onTap: () {
@@ -44,9 +43,10 @@ class TopRatedAdWidget extends StatelessWidget {
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         _getAdNameWidget(context),
+                        SizedBox(height: 8),
                         ListPriceTextWidget(
                           price: ad.price,
                           toPrice: ad.toPrice,
@@ -57,8 +57,10 @@ class TopRatedAdWidget extends StatelessWidget {
                       ],
                     ),
                   ),
+                  SizedBox(width: 12),
                 ],
               ),
+              SizedBox(height: 4),
               _getActionItems(),
               SizedBox(height: 8)
             ],

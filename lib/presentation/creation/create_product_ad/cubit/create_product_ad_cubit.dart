@@ -44,6 +44,8 @@ class CreateProductAdCubit
         contactPerson: buildable.contactPerson,
         phone: buildable.phone,
         email: buildable.email,
+        pickupAddresses:
+            buildable.isPickupEnabled ? buildable.pickupAddresses : [],
         isAutoRenewal: buildable.isAutoRenewal,
         isShowMySocialAccount: buildable.isShowMySocialAccount,
       );
@@ -101,17 +103,17 @@ class CreateProductAdCubit
   }
 
   void setSelectedPaymentTypes(
-      List<PaymentTypeResponse>? selectedPaymentTypes) {
+    List<PaymentTypeResponse>? selectedPaymentTypes,
+  ) {
     try {
       if (selectedPaymentTypes != null) {
         var paymentTypes =
             List<PaymentTypeResponse>.from(buildable.paymentTypes);
+        paymentTypes.clear();
 
         if (selectedPaymentTypes.isNotEmpty) {
           paymentTypes.addAll(selectedPaymentTypes);
           paymentTypes = paymentTypes.toSet().toList();
-        } else {
-          paymentTypes.clear();
         }
 
         build((buildable) => buildable.copyWith(paymentTypes: paymentTypes));
@@ -157,6 +159,55 @@ class CreateProductAdCubit
 
   void setEnteredEmail(String email) {
     build((buildable) => buildable.copyWith(email: email));
+  }
+
+  void setPickupEnabling(bool isEnabled) {
+    build((buildable) => buildable.copyWith(isPickupEnabled: isEnabled));
+  }
+
+  void setSelectedPickupAddresses(
+    List<UserAddressResponse>? selectedPickupAddresses,
+  ) {
+    try {
+      if (selectedPickupAddresses != null) {
+        var pickupAddresses =
+            List<UserAddressResponse>.from(buildable.pickupAddresses);
+
+        pickupAddresses.clear();
+
+        if (selectedPickupAddresses.isNotEmpty) {
+          pickupAddresses.addAll(selectedPickupAddresses);
+          pickupAddresses = pickupAddresses.toSet().toList();
+        }
+
+        build(
+          (buildable) => buildable.copyWith(pickupAddresses: pickupAddresses),
+        );
+      }
+    } catch (e) {
+      log.e(e.toString());
+    }
+  }
+
+  void removeSelectedPickupAddress(UserAddressResponse pickupAddress) {
+    try {
+      var pickupAddresses =
+          List<UserAddressResponse>.from(buildable.pickupAddresses);
+      pickupAddresses.remove(pickupAddress);
+      build(
+        (buildable) => buildable.copyWith(pickupAddresses: pickupAddresses),
+      );
+    } catch (e) {
+      log.e(e.toString());
+    }
+  }
+
+  void setFreeDeliveryEnabling(bool isEnabled) {
+    build((buildable) => buildable.copyWith(isFreeDeliveryEnabled: isEnabled));
+  }
+
+  void setPaidDeliveryEnabling(bool isEnabled) {
+    build((buildable) => buildable.copyWith(isPaidDeliveryEnabled: isEnabled));
   }
 
   void setAutoRenewal(bool isAutoRenewal) {

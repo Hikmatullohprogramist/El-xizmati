@@ -41,6 +41,7 @@ import '../../presentation/common/selection_nested_category/selection_nested_cat
 import '../../presentation/common/selection_payment_type/selection_payment_type_page.dart';
 import '../../presentation/common/selection_unit/selection_unit_page.dart';
 import '../../presentation/common/selection_user_address/selection_user_address_page.dart';
+import '../../presentation/common/selection_user_warehouse/selection_user_warehouse_page.dart';
 import '../../presentation/creation/create_ad_start/create_ad_start_page.dart';
 import '../../presentation/creation/create_order_start/create_order_start_page.dart';
 import '../../presentation/creation/create_product_ad/create_product_ad_page.dart';
@@ -93,7 +94,8 @@ part 'app_router.gr.dart';
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
 class AppRouter extends _$AppRouter {
   @override
-  List<AutoRoute> get routes => [
+  List<AutoRoute> get routes =>
+      [
         //
         AutoRoute(
           page: SetLanguageRoute.page,
@@ -266,17 +268,17 @@ class AppRouter extends _$AppRouter {
 
         AutoRoute(
           page: SelectionNestedCategoryRoute.page,
+          path: '/selection_nested_category',
+        ),
+
+        AutoRoute(
+          page: SelectionCategoryRoute.page,
           path: '/selection_category',
         ),
 
         AutoRoute(
           page: SelectionPaymentTypeRoute.page,
           path: '/selection_payment_type',
-        ),
-
-        AutoRoute(
-          page: SelectionUnitRoute.page,
-          path: '/selection_unit',
         ),
 
         AutoRoute(
@@ -287,6 +289,16 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           page: SelectionAddressRoute.page,
           path: '/selection_address',
+        ),
+
+        AutoRoute(
+          page: SelectionUserWarehouseRoute.page,
+          path: '/selection_user_warehouse',
+        ),
+
+        AutoRoute(
+          page: SelectionUnitRoute.page,
+          path: '/selection_unit',
         )
       ];
 }

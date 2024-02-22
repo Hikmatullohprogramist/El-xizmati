@@ -5,30 +5,32 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/common/bottom_sheet_title.dart';
 import 'package:onlinebozor/common/widgets/common/multi_selection_list_item.dart';
+import 'package:onlinebozor/data/responses/address/user_address_response.dart';
 import 'package:onlinebozor/data/responses/payment_type/payment_type_response.dart';
 import 'package:onlinebozor/presentation/common/selection_payment_type/cubit/selection_payment_type_cubit.dart';
+import 'package:onlinebozor/presentation/common/selection_user_warehouse/cubit/selection_user_warehouse_cubit.dart';
 
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../common/widgets/common/common_button.dart';
 import '../../../common/widgets/dashboard/app_diverder.dart';
 
 @RoutePage()
-class SelectionPaymentTypePage extends BasePage<SelectionPaymentTypeCubit,
-    SelectionPaymentTypeBuildable, SelectionPaymentTypeListenable> {
-  const SelectionPaymentTypePage({
+class SelectionUserWarehousePage extends BasePage<SelectionUserWarehouseCubit,
+    SelectionUserWarehouseBuildable, SelectionUserWarehouseListenable> {
+  const SelectionUserWarehousePage({
     super.key,
-    this.selectedPaymentTypes,
+    this.initialSelectedItems,
   });
 
-  final List<PaymentTypeResponse>? selectedPaymentTypes;
+  final List<UserAddressResponse>? initialSelectedItems;
 
   @override
   void init(BuildContext context) {
-    cubit(context).setInitialSelectedItems(selectedPaymentTypes);
+    cubit(context).setInitialSelectedItems(initialSelectedItems);
   }
 
   @override
-  Widget builder(BuildContext context, SelectionPaymentTypeBuildable state) {
+  Widget builder(BuildContext context, SelectionUserWarehouseBuildable state) {
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.sizeOf(context).height * .4,
@@ -45,7 +47,7 @@ class SelectionPaymentTypePage extends BasePage<SelectionPaymentTypeCubit,
               children: [
                 SizedBox(height: 20),
                 BottomSheetTitle(
-                  title: "Выберите типы оплаты",
+                  title: "Выберите адреса самовывоза",
                   onCloseClicked: () {
                     context.router.pop();
                   },

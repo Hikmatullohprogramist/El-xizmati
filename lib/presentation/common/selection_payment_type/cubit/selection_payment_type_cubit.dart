@@ -16,12 +16,12 @@ class SelectionPaymentTypeCubit extends BaseCubit<SelectionPaymentTypeBuildable,
     SelectionPaymentTypeListenable> {
   SelectionPaymentTypeCubit(this._repository)
       : super(SelectionPaymentTypeBuildable()) {
-    getPaymentTypes();
+    getItems();
   }
 
   final AdCreationRepository _repository;
 
-  Future<void> getPaymentTypes() async {
+  Future<void> getItems() async {
     try {
       final paymentTypes = await _repository.getPaymentTypesForCreationAd();
       log.i(paymentTypes.toString());
@@ -41,7 +41,7 @@ class SelectionPaymentTypeCubit extends BaseCubit<SelectionPaymentTypeBuildable,
     }
   }
 
-  void setInitialSelectedPaymentTypes(List<PaymentTypeResponse>? paymentTypes) {
+  void setInitialSelectedItems(List<PaymentTypeResponse>? paymentTypes) {
     try {
       if (paymentTypes != null) {
         List<PaymentTypeResponse> updatedSelectedItems = [];
