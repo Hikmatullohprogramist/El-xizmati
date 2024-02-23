@@ -60,18 +60,18 @@ class DashboardPage
                   _getPopularCategoriesWidget(context, state),
                   _getAdTypeChooserWidget(context),
                   _getDashboardProductAdsWidget(context, state),
-                  SizedBox(height: 12),
+                  // SizedBox(height: 12),
                   _getDashboardServiceAdsWidget(context, state),
-                  SizedBox(height: 12),
+                  // SizedBox(height: 12),
                   _getTopRatedAdsWidget(context, state),
-                  Visibility(
-                    visible: state.recentlyViewedAdsState !=
-                            LoadingState.loading &&
-                        state.recentlyViewedAds.isNotEmpty,
-                    child: SizedBox(height: 12),
-                  ),
+                  // Visibility(
+                  //   visible: state.recentlyViewedAdsState !=
+                  //           LoadingState.loading &&
+                  //       state.recentlyViewedAds.isNotEmpty,
+                  //   child: SizedBox(height: 12),
+                  // ),
                   _getRecentlyViewedAdsWidget(context, state),
-                  SizedBox(height: 24)
+                  // SizedBox(height: 24)
                 ],
               ),
             ),
@@ -249,7 +249,7 @@ class DashboardPage
   Widget _getTopRatedAdsWidget(BuildContext context, DashboardBuildable state) {
     return Container(
       color: Colors.white,
-      padding: EdgeInsets.only(top: 16, bottom: 16),
+      padding: EdgeInsets.only(top: 8, bottom: 0),
       child: LoaderStateWidget(
         isFullScreen: false,
         onErrorToAgainRequest: () {
