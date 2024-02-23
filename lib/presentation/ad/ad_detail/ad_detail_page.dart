@@ -8,7 +8,6 @@ import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/ad/detail_price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/dashboard/see_all_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite/ad_detail_favorite_widget.dart';
-import 'package:onlinebozor/common/widgets/favorite/ad_favorite_widget.dart';
 import 'package:onlinebozor/presentation/ad/ad_detail/cubit/ad_detail_cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -280,8 +279,8 @@ class AdDetailPage
             color: Color(0x28AEB2CD),
           ),
           child: Row(mainAxisSize: MainAxisSize.min, children: [
-            Assets.images.icEdit.svg(height: 14, width: 14),
-            SizedBox(width: 4),
+            Assets.images.icEdit.svg(height: 12, width: 12),
+            SizedBox(width: 6),
             (state.adDetail!.createdAt ?? "").w(500).s(12).c(Color(0xFF41455E))
           ]),
         )
@@ -571,8 +570,8 @@ class AdDetailPage
 
   Widget _getOwnerAdsWidget(BuildContext context, AdDetailBuildable state) {
     return Visibility(
-      // visible: state.ownerAdsState != LoadingState.loading &&
-      //     state.ownerAds.isNotEmpty,
+      visible: state.ownerAdsState != LoadingState.error &&
+          state.ownerAds.isNotEmpty,
       child: Column(
         children: [
           SizedBox(height: 12),
@@ -615,7 +614,7 @@ class AdDetailPage
     AdDetailBuildable state,
   ) {
     return Visibility(
-      visible: state.recentlyViewedAdsState != LoadingState.loading &&
+      visible: state.recentlyViewedAdsState != LoadingState.error &&
           state.recentlyViewedAds.isNotEmpty,
       child: Column(
         children: [

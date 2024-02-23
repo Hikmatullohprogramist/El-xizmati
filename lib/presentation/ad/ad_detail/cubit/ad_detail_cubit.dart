@@ -174,7 +174,8 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
   Future<void> getOwnerOtherAds() async {
     if (state.buildable?.adDetail?.sellerTin == null) {
       build(
-          (buildable) => buildable.copyWith(ownerAdsState: LoadingState.error));
+        (buildable) => buildable.copyWith(ownerAdsState: LoadingState.error),
+      );
       return;
     }
 
@@ -188,13 +189,16 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
       display.success("Muallifning boshqa e'lonlari muaffaqiyatli yuklandi");
 
       ads.removeWhere((element) => element.id == state.buildable?.adId);
-      build((buildable) => buildable.copyWith(
-            ownerAds: ads,
-            ownerAdsState: LoadingState.success,
-          ));
+      build(
+        (buildable) => buildable.copyWith(
+          ownerAds: ads,
+          ownerAdsState: LoadingState.success,
+        ),
+      );
     } on DioException catch (e, stackTrace) {
       build(
-          (buildable) => buildable.copyWith(ownerAdsState: LoadingState.error));
+        (buildable) => buildable.copyWith(ownerAdsState: LoadingState.error),
+      );
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
