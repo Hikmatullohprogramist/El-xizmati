@@ -22,7 +22,7 @@ import '../../../../../common/widgets/common/common_text_field.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/widgets/common/common_button.dart';
 import '../../common/selection_payment_type/selection_payment_type_page.dart';
-import '../../mask_formatters.dart';
+import '../../utils/mask_formatters.dart';
 import 'cubit/create_product_ad_cubit.dart';
 
 @RoutePage()

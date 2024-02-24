@@ -14,7 +14,7 @@ import 'package:onlinebozor/common/widgets/common/label_text_field.dart';
 
 import '../../../../../common/core/base_page.dart';
 import '../../../common/widgets/image/image_ad_list_widget.dart';
-import '../../mask_formatters.dart';
+import '../../utils/mask_formatters.dart';
 import 'cubit/create_product_order_cubit.dart';
 
 @RoutePage()

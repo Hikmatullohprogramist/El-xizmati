@@ -10,7 +10,7 @@ import 'package:onlinebozor/presentation/home/features/profile/features/profile_
 
 import '../../../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../../../common/widgets/common/common_button.dart';
-import '../../../../../../../mask_formatters.dart';
+import '../../../../../../../utils/mask_formatters.dart';
 
 @RoutePage()
 class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,

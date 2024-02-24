@@ -14,7 +14,7 @@ import 'package:onlinebozor/common/widgets/common/common_text_field.dart';
 import 'package:onlinebozor/presentation/auth/confirm/confirm_page.dart';
 import 'package:onlinebozor/presentation/auth/start/cubit/auth_start_cubit.dart';
 
-import '../../mask_formatters.dart';
+import '../../utils/mask_formatters.dart';
 
 @RoutePage()
 class AuthStartPage

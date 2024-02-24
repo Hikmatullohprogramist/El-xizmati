@@ -8,7 +8,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/common/common_button.dart';
 import 'package:onlinebozor/common/widgets/common/common_text_field.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_cards/features%20/add_card/cubit/add_card_cubit.dart';
-import 'package:onlinebozor/presentation/mask_formatters.dart';
+import 'package:onlinebozor/presentation/utils/mask_formatters.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../../../../../../common/constants.dart';

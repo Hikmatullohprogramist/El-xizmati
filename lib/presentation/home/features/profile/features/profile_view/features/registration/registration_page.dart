@@ -11,7 +11,7 @@ import '../../../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../../../common/widgets/common/common_button.dart';
 import '../../../../../../../../common/widgets/common/common_text_field.dart';
 import '../../../../../../../../common/widgets/dashboard/app_diverder.dart';
-import '../../../../../../../mask_formatters.dart';
+import '../../../../../../../utils/mask_formatters.dart';
 
 @RoutePage()
 class RegistrationPage extends BasePage<RegistrationCubit,
