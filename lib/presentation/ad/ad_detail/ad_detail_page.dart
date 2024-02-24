@@ -121,15 +121,15 @@ class AdDetailPage
         ),
         Visibility(
           visible: (state.adDetail?.hasDescription() ?? false),
-          child: AppDivider(indent: 16, endIndent: 16),
+          child: AppDivider(startIndent: 16, endIndent: 16),
         ),
         _getDescriptionBlock(context, state),
-        AppDivider(indent: 16, endIndent: 16),
+        AppDivider(startIndent: 16, endIndent: 16),
         _getAuthorBlock(context, state),
         SizedBox(height: 12),
         _getContactsBlock(context, state),
         SizedBox(height: 12),
-        AppDivider(indent: 16, endIndent: 16),
+        AppDivider(startIndent: 16, endIndent: 16),
         SizedBox(height: 12),
         _getAddressBlock(context, state),
         Visibility(

@@ -303,7 +303,7 @@ class ProfilePage
                   context.router.pop();
                 },
               ),
-              AppDivider(height: 2, indent: 20, endIndent: 20),
+              AppDivider(height: 2, startIndent: 20, endIndent: 20),
               SelectionListItem(
                 item: Language.uzbekCyrill,
                 title: Strings.languageUzCyr,
@@ -314,7 +314,7 @@ class ProfilePage
                   context.router.pop();
                 },
               ),
-              AppDivider(height: 2, indent: 20, endIndent: 20),
+              AppDivider(height: 2, startIndent: 20, endIndent: 20),
               SelectionListItem(
                 item: Language.russian,
                 title: Strings.languageRus,

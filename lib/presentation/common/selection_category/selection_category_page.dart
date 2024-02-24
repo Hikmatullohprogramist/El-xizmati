@@ -65,7 +65,7 @@ class SelectionCategoryPage extends BasePage<SelectionCategoryCubit,
                       );
                     },
                     separatorBuilder: (BuildContext context, int index) {
-                      return AppDivider(height: 2, indent: 20, endIndent: 20);
+                      return AppDivider(height: 2, startIndent: 20, endIndent: 20);
                     },
                   ),
                 ),
