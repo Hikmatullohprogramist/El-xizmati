@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
-import 'package:onlinebozor/data/repositories/user_address_repository.dart';
+import 'package:onlinebozor/data/repositories/ad_creation_repository.dart';
 import 'package:onlinebozor/data/responses/address/user_address_response.dart';
 
 import '../../../../../../common/enum/enums.dart';
@@ -19,11 +19,11 @@ class SelectionUserWarehouseCubit extends BaseCubit<
     getItems();
   }
 
-  final UserAddressRepository _repository;
+  final AdCreationRepository _repository;
 
   Future<void> getItems() async {
     try {
-      final warehouses = await _repository.getUserAddresses();
+      final warehouses = await _repository.getWarehousesForCreationAd();
       log.i(warehouses.toString());
       build(
         (buildable) => buildable.copyWith(

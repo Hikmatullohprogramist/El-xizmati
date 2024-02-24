@@ -6,8 +6,6 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/common/bottom_sheet_title.dart';
 import 'package:onlinebozor/common/widgets/common/multi_selection_list_item.dart';
 import 'package:onlinebozor/data/responses/address/user_address_response.dart';
-import 'package:onlinebozor/data/responses/payment_type/payment_type_response.dart';
-import 'package:onlinebozor/presentation/common/selection_payment_type/cubit/selection_payment_type_cubit.dart';
 import 'package:onlinebozor/presentation/common/selection_user_warehouse/cubit/selection_user_warehouse_cubit.dart';
 
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
