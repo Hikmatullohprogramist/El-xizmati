@@ -25,6 +25,7 @@ class PopularCategoryVertical extends StatelessWidget {
           onTap: () {
             onItemClicked(category);
           },
+          borderRadius: BorderRadius.circular(6),
           child: Container(
             decoration: BoxDecoration(
               color: Color(0xFFF6F7FC),

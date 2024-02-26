@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:onlinebozor/common/widgets/category/popular_category_horizontal.dart';
-import 'package:onlinebozor/common/widgets/category/popular_category_vertical.dart';
 
 import '../../../data/responses/category/popular_category/popular_category_response.dart';
 
@@ -17,7 +16,7 @@ class PopularCategoryListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 152,
+      height: 154,
       child: ListView.separated(
         physics: BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,

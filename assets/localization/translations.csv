@@ -1,4 +1,10 @@
 string,uz_UZ,ru_RU,uz_UZK
+action_activate,Faollashtirish,Активировать,Фаоллаштириш
+action_advertise,Reklama qilish,Рекламировать,Реклама қилиш
+action_deactivate,Faolsizlantirish,Деактивировать,Фаолсизлантириш
+action_delete,O‘chirish,Удалить,Ўчириш
+action_edit,Tahrirlash,Редактировать,Таҳрирлаш
+action_make_main,Asosiy qilish,Сделать основным,Асосий қилиш
 action_title,Harakat,Действие,Ҳаракат
 active_device_current_device,Joriy sessiya,Текущий сеанс,Жорий сессия
 active_device_remove_device,Seansni tugatish,Завершить сеанс,Сеансни тугатиш
@@ -45,7 +51,6 @@ ad_type_product_title,Mahsulot,Продукт,Маҳсулот
 ad_type_service_title,Xizmat,Услуга,Хизмат
 address_add_title,Manzil qo‘shish,Добавить адрес,Манзил қўшиш
 address_empty_title,"Siz hali manzil qo‘shmagansiz, qo‘shmoqchimisiz?","Вы ещё не добавили адрес, хотите добавить?","Сиз ҳали манзил қўшмагансиз, қўшмоқчимисиз?"
-advertise_title,Reklama qilish,Рекламировать,Реклама қилиш
 all_title,Barchasi,Все,Барчаси
 auth_common_password,Parol,пароль,Парол
 auth_common_you_agree_in,Tizimga kirish orqali siz rozilik bildirasiz,"Авторизуясь, вы соглашаетесь с ",Тизимга кириш орқали сиз розилик билдирасиз
@@ -99,7 +104,6 @@ common_unfind,topilmadi,не найдено,топилмади
 common_yes,Ha,Да,Ҳа
 create_request_title,So‘rov yaratish,Создать запрос,Сўров яратиш
 currency_uzb,so‘m,сўм,сўм
-deactivate_tilte,Faolsizlantirish,Деактивировать,Фаолсизлантириш
 edit_title,Tahrirlash,Редактировать,Таҳрирлаш
 favorite_empty_description,Asosiy sahifaga o‘tish,Перейдите на главную страницу и нажмите,Асосий саҳифага ўтиш
 favorite_empty_title,O‘zingiz yoqtirgan narsani qo‘shing,"Добавьте то, что понравилось",Ўзингиз ёқтирган нарсани қўшинг
@@ -191,7 +195,7 @@ profile_logout_description,Tizimdan chiqishni hohlaysizmi?,Вы хотите в�
 profile_logout_title,Tizimdan chiqish,Выйти,Тизимдан чиқиш
 profile_message,Xabar,Сообщение,Хабар
 profile_my_address,Mening manzillarim,Мои адреса,Менинг манзилларим
-profile_my_ads,Mening e‘lonlarim,Мои Объявления,Менинг эълонларим
+profile_my_ads,Mening e‘lonlarim,Мои объявления,Менинг эълонларим
 profile_my_balans,Mening balansim:,Мой баланс:,Менинг балансим:
 profile_my_card,Mening kartalarim,Мои карты,Менинг карталарим
 profile_not_identified,Shaxsingiz tasdiqlanmagan,Не идентифицирован,Шахсингиз тасдиқланмаган
@@ -241,10 +245,8 @@ user_address_main,Asosiy,Основной,Асосий
 user_address_my_address,Mening manzillarim,Мои адреса,Менинг манзилларим
 user_address_name,Manzil nomi,Название адреса,Манзил номи
 user_address_region,Viloyat,Регион,Вилоят
-user_address_remove,Manzilni olib tashlang,Удалить адрес,Манзилни олиб ташланг
 user_address_save,Saqlash,Сақлаш,Сақлаш
 user_address_selection_location,Joylashuvni tanlang,Выберите локацию,Жойлашувни танланг
-user_address_set_as_main,Asosiy qilib belgilang,Сделать основным,Асосий қилиб белгиланг
 user_address_street,Mahalla,Махалля,Маҳалла
 user_ads_active_title,Faol,Активный,Фаол
 user_ads_all_title,Barchasi,Все,Барчаси

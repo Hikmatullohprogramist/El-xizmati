@@ -30,10 +30,10 @@ class PopularCategoryHorizontal extends StatelessWidget {
           border: Border.all(width: 0.90, color: Color(0xFFE5E9F3)),
         ),
         child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // mainAxisSize: MainAxisSize.max,
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(height: 8),
+            SizedBox(height: 12),
             Container(
               width: 52,
               height: 52,
@@ -45,26 +45,22 @@ class PopularCategoryHorizontal extends StatelessWidget {
                   decoration: _getImageDecoration(imageProvider),
                 ),
                 placeholder: (context, url) => Center(),
-                errorWidget: (context, url, error) =>
-                    Center(child: Icon(Icons.error)),
+                errorWidget: (context, url, error) => Center(),
               ),
             ),
+            SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 6),
               child: _getCategoryNameAsString(category),
             ),
-            Column(
-              children: [
-                SizedBox(height: 4),
-                AppDivider(),
-                SizedBox(height: 6),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 6),
-                  child: _getAdsCountAsString(category),
-                ),
-                SizedBox(height: 8),
-              ],
+            SizedBox(height: 4),
+            AppDivider(),
+            SizedBox(height: 2),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 6),
+              child: _getAdsCountAsString(category),
             ),
+            SizedBox(height: 0),
           ],
         ),
       ),
@@ -86,9 +82,11 @@ class PopularCategoryHorizontal extends StatelessWidget {
   }
 
   Widget _getCategoryNameAsString(PopularCategoryResponse category) {
-    return (category.name ?? "*").w(600).s(11.5).copyWith(
+    return (category.name ?? "*")
+        .w(600)
+        .s(11).copyWith(
           textAlign: TextAlign.center,
-          maxLines: 2,
+          maxLines: 1,
           overflow: TextOverflow.ellipsis,
         );
   }

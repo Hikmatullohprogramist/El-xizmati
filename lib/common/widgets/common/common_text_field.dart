@@ -9,6 +9,7 @@ class CommonTextField extends StatefulWidget {
     this.autofillHints,
     this.enableSuggestions,
     this.hint,
+    this.prefixText,
     this.controller,
     this.inputType,
     this.keyboardType,
@@ -31,6 +32,7 @@ class CommonTextField extends StatefulWidget {
   final bool? enableSuggestions;
   final String? hint;
   final String? label;
+  final String? prefixText;
   final TextInputType? inputType;
   final TextInputType? keyboardType;
   final TextEditingController? controller;
@@ -51,12 +53,30 @@ class CommonTextField extends StatefulWidget {
 }
 
 class _CommonTextFieldState extends State<CommonTextField> {
+  final FocusNode _focusNode = FocusNode();
+  bool _isFocused = false;
   bool _passwordVisible = true;
 
   @override
   void initState() {
     super.initState();
+    _focusNode.addListener(_handleFocusChange);
     _passwordVisible = widget.obscureText;
+  }
+
+  void _handleFocusChange() {
+    if (_focusNode.hasFocus != _isFocused) {
+      setState(() {
+        _isFocused = _focusNode.hasFocus;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _focusNode.removeListener(_handleFocusChange);
+    _focusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -64,6 +84,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
     return SizedBox(
       height: widget.height,
       child: TextFormField(
+        focusNode: _focusNode,
         autofillHints: widget.autofillHints,
         textAlign: widget.textAlign,
         textAlignVertical: TextAlignVertical.center,
@@ -87,13 +108,33 @@ class _CommonTextFieldState extends State<CommonTextField> {
         ],
         decoration: InputDecoration(
           filled: true,
-          focusColor: Colors.white,
-          fillColor: Color(0xFFFAF9FF),
           hintText: widget.hint,
           hintStyle: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w400,
             color: Color(0xFF9EABBE),
+          ),
+          // prefixText: widget.prefixText,
+          prefix: widget.prefixText == null
+              ? null
+              : Expanded(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(widget.prefixText ?? ""),
+                      Container(
+                        width: 1,
+                        margin: EdgeInsets.fromLTRB(6, 5, 10, 4),
+                        color:
+                            _isFocused ? Color(0xFF5C6AC4) : Color(0xFFDFE2E9),
+                      )
+                    ],
+                  ),
+                ),
+          prefixStyle: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF41455F),
           ),
           isDense: false,
           counter: Offstage(),
@@ -104,6 +145,8 @@ class _CommonTextFieldState extends State<CommonTextField> {
             fontWeight: FontWeight.w500,
             color: Color(0xFF41455F),
           ),
+          focusColor: Color(0xFFFFFFFF),
+          fillColor: _isFocused ? Color(0xFFFFFFFF) : Color(0xFFFBFAFF),
           border: OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xFFDFE2E9)),
             borderRadius: BorderRadius.circular(8),
@@ -118,6 +161,10 @@ class _CommonTextFieldState extends State<CommonTextField> {
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: context.colors.buttonPrimary),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red.shade200),
             borderRadius: BorderRadius.circular(8),
           ),
           suffixIcon: !widget.obscureText

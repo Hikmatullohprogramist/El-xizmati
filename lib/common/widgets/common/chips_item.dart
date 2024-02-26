@@ -21,7 +21,7 @@ class ChipsItem extends StatelessWidget {
     return InkWell(
         onTap: () {},
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 14),
+          padding: EdgeInsets.only(left: 14, top: 10, right: 10, bottom: 10),
           decoration: BoxDecoration(
             color: Color(0xFF7C2DFB),
             borderRadius: BorderRadius.all(Radius.circular(24)),
@@ -35,7 +35,7 @@ class ChipsItem extends StatelessWidget {
               children: [
                 title
                     .w(500)
-                    .s(14)
+                    .s(13)
                     .c(Colors.white)
                     .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
                 SizedBox(width: 12),

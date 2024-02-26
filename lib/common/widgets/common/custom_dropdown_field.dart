@@ -31,9 +31,12 @@ class CustomDropdownField extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              text.isNotEmpty
-                  ? (text).w(400).s(14).c(Color(0xFF41455E))
-                  : (hint).w(400).s(14).c(Color(0xFF9EABBE)),
+              Expanded(
+                child: (text.isNotEmpty
+                        ? (text).w(400).s(14).c(Color(0xFF41455E))
+                        : (hint).w(400).s(14).c(Color(0xFF9EABBE)))
+                    .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
+              ),
               Icon(Icons.keyboard_arrow_down, color: Color(0xFF9EABBE))
             ],
           ),
