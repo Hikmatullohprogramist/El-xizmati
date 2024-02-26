@@ -12,11 +12,14 @@ import '../../data/responses/currencies/currency_response.dart';
 import '../../data/responses/payment_type/payment_type_response.dart';
 import '../../data/responses/unit/unit_response.dart';
 import '../../data/responses/user_ad/user_ad_response.dart';
+import '../../domain/models/ad/ad.dart';
 import '../../domain/models/ad/ad_list_type.dart';
 import '../../domain/models/ad/ad_type.dart';
+import '../../domain/models/ad/user_ad_status.dart';
 import '../../domain/models/order/order_type.dart';
 import '../../presentation/ad/ad_detail/ad_detail_page.dart';
 import '../../presentation/ad/ad_list/ad_list_page.dart';
+import '../../presentation/ad/ad_list_actions/ad_list_actions_page.dart';
 import '../../presentation/ad/ad_list_by_type/ad_list_by_type_page.dart';
 import '../../presentation/ad/user_ad_detail/user_ad_detail.dart';
 import '../../presentation/auth/confirm/confirm_page.dart';
@@ -94,23 +97,24 @@ part 'app_router.gr.dart';
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
 class AppRouter extends _$AppRouter {
   @override
-  List<AutoRoute> get routes =>
-      [
-        //
+  List<AutoRoute> get routes => [
+        /// Language
         AutoRoute(
           page: SetLanguageRoute.page,
           path: "/set_language",
           initial: true,
         ),
+
+        /// Auth
         AutoRoute(page: AuthStartRoute.page, path: "/auth_start"),
         AutoRoute(page: ConfirmRoute.page, path: '/confirmation'),
         AutoRoute(page: VerificationRoute.page, path: '/verification'),
-        AutoRoute(page: HomeRoute.page),
         AutoRoute(page: SetPasswordRoute.page, path: '/set_password'),
         AutoRoute(page: EdsRoute.page, path: '/eds'),
         AutoRoute(page: LoginWithOneIdRoute.page, path: "/login_with_one_id"),
 
-        //home screen
+        /// home
+        AutoRoute(page: HomeRoute.page),
         AutoRoute(
           page: HomeRoute.page,
           path: '/home',
@@ -131,6 +135,7 @@ class AppRouter extends _$AppRouter {
           ],
         ),
 
+        /// Favorite ads
         AutoRoute(
           page: FavoritesRoute.page,
           path: '/favorite',
@@ -149,56 +154,63 @@ class AppRouter extends _$AppRouter {
           ],
         ),
 
-        // create product ad
+        /// create product ad
         AutoRoute(
           page: CreateProductAdRoute.page,
           path: '/create_product_ad',
         ),
 
-        // create service ad
+        /// create service ad
         AutoRoute(
           page: CreateServiceAdRoute.page,
           path: '/create_service_ad',
         ),
 
-        // create request start
+        /// create request start
         AutoRoute(
           page: CreateOrderStartRoute.page,
           path: "/create_request_start",
         ),
 
-        // create product request
+        /// create product request
         AutoRoute(
           page: CreateProductOrderRoute.page,
           path: "/create_product_request",
         ),
 
-        // create service request
+        /// create service request
         AutoRoute(
           page: CreateServiceOrderRoute.page,
           path: '/create_service_request',
         ),
 
-        // create service request
+        /// create service request
         AutoRoute(
           page: UserOrderTypeRoute.page,
           path: '/user_order_type',
         ),
 
-        //  sub category
+        ///  sub category
         AutoRoute(page: SubCategoryRoute.page, path: "/sub_category"),
 
-        // order create
+        /// order create
         AutoRoute(page: OrderCreateRoute.page, path: '/order_create'),
 
-        // Ads collection
-        AutoRoute(page: AdListByTypeRoute.page, path: "/ads_collection"),
+        /// Ads collections
+        AutoRoute(
+          page: AdListByTypeRoute.page,
+          path: "/ads_list_by_type",
+        ),
         AutoRoute(
           page: AdListRoute.page,
           path: '/ads_list',
           maintainState: false,
         ),
-        AutoRoute(page: AdDetailRoute.page, path: '/ads_detail'),
+        AutoRoute(
+          page: AdDetailRoute.page,
+          path: '/ads_detail',
+        ),
+
         //  common page
         AutoRoute(
           page: PopularCategoriesRoute.page,
@@ -207,48 +219,101 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: SearchRoute.page, path: '/search'),
         AutoRoute(page: NotificationRoute.page, path: '/notification'),
 
-        /// image viewer pages
-        AutoRoute(page: ImageViewerRoute.page, path: '/image_viewer'),
+        /// image viewer
         AutoRoute(
-            page: LocaleImageViewerRoute.page, path: '/local_image_viewer'),
+          page: ImageViewerRoute.page,
+          path: '/image_viewer',
+        ),
+
+        /// local image viewer
+        AutoRoute(
+          page: LocaleImageViewerRoute.page,
+          path: '/local_image_viewer',
+        ),
 
         //   profile page
         AutoRoute(page: WalletFillingRoute.page, path: '/wallet_filling'),
         AutoRoute(page: ProfileViewRoute.page, path: '/profile_viewer'),
         AutoRoute(page: AddAddressRoute.page, path: '/add_address'),
+
         AutoRoute(page: UserAddressesRoute.page, path: '/my_addresses'),
-        AutoRoute(page: UserAdsRoute.page, path: '/my_ads', children: [
-          AutoRoute(page: UserAllAdsRoute.page, path: "all_ads"),
-          AutoRoute(page: UserActiveAdsRoute.page, path: 'active_ads'),
-          AutoRoute(page: UserPendingAdsRoute.page, path: 'pending_ads'),
-          AutoRoute(page: UserInactiveAdsRoute.page, path: 'inactive_ads'),
-          AutoRoute(page: UserCancelAdsRoute.page, path: 'cancel_ads')
-        ]),
+
+        /// my ads
+        AutoRoute(
+          page: UserAdsRoute.page,
+          path: '/my_ads',
+          children: [
+            AutoRoute(page: UserAllAdsRoute.page, path: "all_ads"),
+            AutoRoute(page: UserActiveAdsRoute.page, path: 'active_ads'),
+            AutoRoute(page: UserPendingAdsRoute.page, path: 'pending_ads'),
+            AutoRoute(page: UserInactiveAdsRoute.page, path: 'inactive_ads'),
+            AutoRoute(page: UserCancelAdsRoute.page, path: 'cancel_ads')
+          ],
+        ),
+
+        /// ad list actions
+        AutoRoute(page: AdListActionsRoute.page, path: '/ad_list_actions'),
+
         AutoRoute(page: UserCardsRoute.page, path: '/my_cards'),
         AutoRoute(page: AddCardRoute.page, path: '/add_card'),
-        AutoRoute(page: UserOrdersRoute.page, path: '/user_orders', children: [
-          AutoRoute(page: UserAllOrdersRoute.page, path: 'user_all_order'),
-          AutoRoute(
-              page: UserPendingOrdersRoute.page, path: 'user_pending_orders'),
-          AutoRoute(
-              page: UserRejectOrdersRoute.page, path: 'user_reject_order'),
-          AutoRoute(page: UserCancelOrderRoute.page, path: 'user_cancel_order'),
-          AutoRoute(
-              page: UserReviewOrdersRoute.page, path: 'user_review_order'),
-          AutoRoute(
-              page: UserAcceptOrdersRoute.page, path: 'user_accept_order'),
-        ]),
-        AutoRoute(page: ChatListRoute.page, path: '/chat_list', children: [
-          AutoRoute(page: SellingChatsRoute.page, path: 'selling'),
-          AutoRoute(page: BuyingChatsRoute.page, path: 'buying'),
-          AutoRoute(page: SavedChatsRoute.page, path: 'saved')
-        ]),
-        AutoRoute(page: ChatRoute.page, path: '/chat'),
         AutoRoute(
-            page: PaymentTransactionRoute.page, path: '/payment_transaction'),
+          page: UserOrdersRoute.page,
+          path: '/user_orders',
+          children: [
+            AutoRoute(
+              page: UserAllOrdersRoute.page,
+              path: 'user_all_order',
+            ),
+            AutoRoute(
+              page: UserPendingOrdersRoute.page,
+              path: 'user_pending_orders',
+            ),
+            AutoRoute(
+              page: UserRejectOrdersRoute.page,
+              path: 'user_reject_order',
+            ),
+            AutoRoute(
+              page: UserCancelOrderRoute.page,
+              path: 'user_cancel_order',
+            ),
+            AutoRoute(
+              page: UserReviewOrdersRoute.page,
+              path: 'user_review_order',
+            ),
+            AutoRoute(
+              page: UserAcceptOrdersRoute.page,
+              path: 'user_accept_order',
+            ),
+          ],
+        ),
+
+        /// My chat lists
         AutoRoute(
-            page: PaymentTransactionFilterRoute.page,
-            path: '/payment_transaction_filter'),
+          page: ChatListRoute.page,
+          path: '/chat_list',
+          children: [
+            AutoRoute(page: SellingChatsRoute.page, path: 'selling'),
+            AutoRoute(page: BuyingChatsRoute.page, path: 'buying'),
+            AutoRoute(page: SavedChatsRoute.page, path: 'saved')
+          ],
+        ),
+
+        /// Chat
+        AutoRoute(
+          page: ChatRoute.page,
+          path: '/chat',
+        ),
+
+        /// Payment transactions
+        AutoRoute(
+          page: PaymentTransactionRoute.page,
+          path: '/payment_transaction',
+        ),
+        AutoRoute(
+          page: PaymentTransactionFilterRoute.page,
+          path: '/payment_transaction_filter',
+        ),
+
         AutoRoute(page: ProfileEditRoute.page, path: '/profile_edit'),
         AutoRoute(page: RegistrationRoute.page, path: '/identified'),
         AutoRoute(page: ComparisonDetailRoute.page, path: '/comparison_detail'),
