@@ -7,25 +7,31 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import '../../../../data/repositories/auth_repository.dart';
 
 part 'auth_start_cubit.freezed.dart';
+
 part 'auth_start_state.dart';
 
 @injectable
-class AuthStartCubit extends BaseCubit<AuthStartBuildable, AuthStartListenable> {
+class AuthStartCubit
+    extends BaseCubit<AuthStartBuildable, AuthStartListenable> {
   AuthStartCubit(this._repository) : super(AuthStartBuildable());
 
   final AuthRepository _repository;
 
   void setPhone(String phone) {
     log.i(phone);
-    build((buildable) =>
-        buildable.copyWith(phone: phone, validation: phone.length >= 12));
+    build(
+      (buildable) => buildable.copyWith(
+        phone: phone,
+        validation: phone.length >= 9,
+      ),
+    );
   }
 
   void validation() async {
     build((buildable) => buildable.copyWith(loading: true));
     try {
       var authStartResponse =
-          await _repository.authStart(buildable.phone.clearSpaceInPhone());
+          await _repository.authStart("998${buildable.phone.clearSpaceInPhone()}");
       if (authStartResponse.data.is_registered == true) {
         invoke(AuthStartListenable(AuthStartEffect.verification,
             phone: buildable.phone));

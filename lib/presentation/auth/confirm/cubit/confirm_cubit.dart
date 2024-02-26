@@ -28,8 +28,9 @@ class ConfirmCubit extends BaseCubit<ConfirmBuildable, ConfirmListenable> {
 
   void startTimer() {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      build((buildable) =>
-          buildable.copyWith(timerTime: buildable.timerTime - 1));
+      build(
+        (buildable) => buildable.copyWith(timerTime: buildable.timerTime - 1),
+      );
       if (buildable.timerTime == 0) stopTimer();
     });
   }
@@ -41,11 +42,13 @@ class ConfirmCubit extends BaseCubit<ConfirmBuildable, ConfirmListenable> {
   }
 
   void setPhone(String phone, ConfirmType confirmType) {
-    build((buildable) => buildable.copyWith(
-          phone: phone,
-          confirmType: confirmType,
-          code: "",
-        ));
+    build(
+      (buildable) => buildable.copyWith(
+        phone: phone,
+        confirmType: confirmType,
+        code: "",
+      ),
+    );
   }
 
   void setCode(String code) {
@@ -73,7 +76,9 @@ class ConfirmCubit extends BaseCubit<ConfirmBuildable, ConfirmListenable> {
     build((buildable) => buildable.copyWith(loading: true));
     try {
       await _repository.confirm(
-          buildable.phone.clearSpaceInPhone(), buildable.code);
+        buildable.phone.clearSpaceInPhone(),
+        buildable.code,
+      );
       _timer?.cancel();
       sendAllFavoriteAds();
       invoke(ConfirmListenable(ConfirmEffect.setPassword));
@@ -89,7 +94,9 @@ class ConfirmCubit extends BaseCubit<ConfirmBuildable, ConfirmListenable> {
     build((buildable) => buildable.copyWith(loading: true));
     try {
       await _repository.recoveryConfirm(
-          buildable.phone.clearSpaceInPhone(), buildable.code);
+        buildable.phone.clearSpaceInPhone(),
+        buildable.code,
+      );
       _timer?.cancel();
       await sendAllFavoriteAds();
       invoke(ConfirmListenable(ConfirmEffect.setPassword));

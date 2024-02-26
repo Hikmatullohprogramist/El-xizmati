@@ -105,6 +105,7 @@ class ConfirmPage
             CommonTextField(
               inputType: TextInputType.number,
               maxLines: 1,
+              prefixText: "+998 ",
               textInputAction: TextInputAction.done,
               onChanged: (value) {
                 context.read<ConfirmCubit>().setCode(value);

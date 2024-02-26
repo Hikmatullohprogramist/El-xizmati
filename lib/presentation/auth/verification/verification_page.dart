@@ -24,8 +24,8 @@ class VerificationPage extends BasePage<VerificationCubit,
 
   @override
   void init(BuildContext context) {
-    context.read<VerificationCubit>().setPhone(phone);
-    textEditingController.text = phone;
+    context.read<VerificationCubit>().setPhone("998 $phone");
+    textEditingController.text = "998 $phone";
   }
 
   @override
@@ -35,7 +35,8 @@ class VerificationPage extends BasePage<VerificationCubit,
         context.router.replace(HomeRoute());
       case VerificationEffect.navigationToConfirm:
         context.router.replace(
-            ConfirmRoute(phone: phone, confirmType: ConfirmType.recovery));
+          ConfirmRoute(phone: phone, confirmType: ConfirmType.recovery),
+        );
     }
   }
 
@@ -82,6 +83,7 @@ class VerificationPage extends BasePage<VerificationCubit,
                   enabled: false,
                   readOnly: true,
                   maxLines: 1,
+                  prefixText: "998",
                   label: state.phone,
                   onChanged: (value) {},
                 ),

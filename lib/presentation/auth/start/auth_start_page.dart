@@ -27,8 +27,9 @@ class AuthStartPage
       case AuthStartEffect.verification:
         context.router.push(VerificationRoute(phone: event.phone!));
       case AuthStartEffect.confirmation:
-        context.router.push(ConfirmRoute(
-            phone: event.phone!, confirmType: ConfirmType.confirm));
+        context.router.push(
+          ConfirmRoute(phone: event.phone!, confirmType: ConfirmType.confirm),
+        );
     }
   }
 
@@ -82,6 +83,7 @@ class AuthStartPage
                 inputType: TextInputType.phone,
                 keyboardType: TextInputType.phone,
                 maxLines: 1,
+                prefixText: "+998 ",
                 textInputAction: TextInputAction.done,
                 controller: phoneController,
                 inputFormatters: phoneMaskFormatter,
