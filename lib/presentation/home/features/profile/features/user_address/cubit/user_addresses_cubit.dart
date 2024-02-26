@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -26,8 +27,9 @@ class UserAddressesCubit
     try {
       final controller =
           buildable.addressPagingController ?? getAddressController(status: 1);
-      build((buildable) =>
-          buildable.copyWith(addressPagingController: controller));
+      build(
+        (buildable) => buildable.copyWith(addressPagingController: controller),
+      );
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
@@ -69,12 +71,29 @@ class UserAddressesCubit
         address: address));
   }
 
-  Future<void> updateMainAddress(UserAddressResponse address) async {
+  Future<void> makeMainAddress(UserAddressResponse address, int index) async {
     try {
       await userAddressRepository.updateMainAddress(
         id: address.id,
-        isMain: address.is_main ?? false,
+        isMain: true,
       );
+
+      var items = buildable.addressPagingController?.itemList;
+      if (items != null) {
+        var oldMain =
+            items.firstWhereOrNull((element) => element.is_main == true);
+        if (oldMain != null) {
+          var oldMainIndex = items.indexOf(oldMain);
+          var oldMainChanged = oldMain.copyWith(is_main: false);
+          items.remove(oldMain);
+          items.insert(oldMainIndex, oldMainChanged);
+        }
+
+        var item = items[index];
+        items.removeAt(index);
+        items.insert(0, item.copyWith(is_main: true));
+        buildable.addressPagingController?.notifyListeners();
+      }
     } catch (e) {
       display.error(e.toString());
       log.e(e.toString());

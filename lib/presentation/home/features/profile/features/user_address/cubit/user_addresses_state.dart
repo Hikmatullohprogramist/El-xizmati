@@ -3,8 +3,7 @@ part of 'user_addresses_cubit.dart';
 @freezed
 class UserAddressesBuildable with _$UserAddressesBuildable {
   const factory UserAddressesBuildable({
-    @Default("") String keyWord,
-    @Default(LoadingState.loading) LoadingState adsState,
+    @Default(LoadingState.loading) LoadingState addressLoadState,
     PagingController<int, UserAddressResponse>? addressPagingController,
   }) = _UserAddressesBuildable;
 }

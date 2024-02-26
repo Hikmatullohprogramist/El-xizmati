@@ -12,6 +12,7 @@ import '../../../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../../../common/widgets/common/common_button.dart';
 import '../../../../../../../../common/widgets/common/common_text_field.dart';
 import '../../../../../../../../common/widgets/common/custom_dropdown_field.dart';
+import '../../../../../../../../common/widgets/switch/custom_switch.dart';
 import '../../../../../../../../data/responses/address/user_address_response.dart';
 import 'cubit/add_address_cubit.dart';
 
@@ -264,13 +265,16 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Checkbox(
-                  value: state.isMain ?? false,
-                  onChanged: (bool? value) {
-                    context.read<AddAddressCubit>().setMainCard(value);
-                  }),
-              SizedBox(width: 12),
-              Strings.userAddressSetAsMain.s(14).w(500).c(Color(0xFF41455E))
+              CustomSwitch(
+                isChecked:  state.isMain ?? false,
+                onChanged: (value) {
+                  cubit(context).setMainCard(value);
+                },
+              ),
+              SizedBox(width: 16),
+              Expanded(
+                child: Strings.actionMakeMain.s(14).w(500).c(Color(0xFF41455E)),
+              ),
             ],
           ),
           SizedBox(height: 20),
