@@ -7,7 +7,7 @@ import '../../../../../../../../../common/core/base_cubit.dart';
 import '../../../../../../../../../data/repositories/user_address_repository.dart';
 import '../../../../../../../../../data/repositories/user_repository.dart';
 import '../../../../../../../../../data/responses/address/user_address_response.dart';
-import '../../../../../../../../../data/responses/region /region_response.dart';
+import '../../../../../../../../../data/responses/region/region_response.dart';
 
 part 'add_address_cubit.freezed.dart';
 

@@ -5,7 +5,7 @@ import '../../data/responses/device/active_device_response.dart';
 import '../../data/responses/profile/biometric_info/biometric_info_response.dart';
 import '../../data/responses/profile/user/user_info_response.dart';
 import '../../data/responses/profile/user_full/user_full_info_response.dart';
-import '../../data/responses/region /region_response.dart';
+import '../../data/responses/region/region_response.dart';
 import '../../data/services/user_service.dart';
 import '../../data/storages/user_storage.dart';
 
