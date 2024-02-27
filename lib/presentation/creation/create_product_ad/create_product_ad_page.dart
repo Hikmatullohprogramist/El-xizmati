@@ -748,7 +748,6 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
               selectedPaymentTypes: state.paymentTypes,
             ),
           );
-
           cubit(context).setSelectedPaymentTypes(paymentTypes);
         },
       ),

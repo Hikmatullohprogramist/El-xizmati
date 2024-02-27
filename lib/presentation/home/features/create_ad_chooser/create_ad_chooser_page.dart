@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
@@ -7,12 +9,12 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
+import '../../../../common/vibrator/vibrator_extension.dart';
 import '../../../../common/widgets/common/common_button.dart';
 import 'cubit/create_ad_chooser_cubit.dart';
 
 @RoutePage()
-class CreateAdChooserPage extends BasePage<CreateAdChooserCubit,
-    CreateAdChooserBuildable, CreateAdChooserListenable> {
+class CreateAdChooserPage extends BasePage<CreateAdChooserCubit, CreateAdChooserBuildable, CreateAdChooserListenable> {
   const CreateAdChooserPage({super.key});
 
   @override
@@ -23,14 +25,26 @@ class CreateAdChooserPage extends BasePage<CreateAdChooserCubit,
         centerTitle: true,
         elevation: 0.5,
       ),
-      backgroundColor: Color(0xFFF2F4FB),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _buildSaleBlock(context),
-            _buildBuyBlock(context),
+             Visibility(
+               visible: state.isLogin,
+                 child: Column(
+                   children: [
+                     _buildSaleBlock(context),
+                     _buildBuyBlock(context),
+                   ],
+                 )
+             ),
+            Visibility(
+                visible: !state.isLogin,
+                child: _buildDirectToRegister(context)
+            ),
+
           ],
         ),
       ),
@@ -101,7 +115,6 @@ class CreateAdChooserPage extends BasePage<CreateAdChooserCubit,
       ),
     );
   }
-
   Widget _buildSaleBlock(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 8),
@@ -168,4 +181,43 @@ class CreateAdChooserPage extends BasePage<CreateAdChooserCubit,
       ),
     );
   }
+  Widget _buildDirectToRegister(BuildContext context){
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 36),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        SizedBox(height: 150),
+        Assets.images.pngImages.adEmpty.image(),
+        SizedBox(height: 48),
+        Strings.authRecommentTitle.w(500).s(16).c(Color(0xFF41455E)).copyWith(
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.start),
+        SizedBox(height: 12),
+        Strings.authRecommentDesc.w(400).s(12).c(Color(0xFF41455E)).copyWith(
+          maxLines: 2,
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: 100),
+        SizedBox(
+            width: double.maxFinite,
+            child: CommonButton(
+              type: ButtonType.elevated,
+              color: context.colors.buttonPrimary,
+              onPressed: (){
+                context.router.push(AuthStartRoute());
+                vibrateAsHapticFeedback();
+              },
+              child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(width: 10),
+                    Strings.authRecommentAction.w(500).s(14).c(Colors.white)
+                  ]),
+            ))
+      ]),
+    );
+  }
+
+
 }

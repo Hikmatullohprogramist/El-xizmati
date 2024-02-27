@@ -61,8 +61,7 @@ class ProfilePage
       backgroundColor: Colors.white,
       elevation: 0,
       centerTitle: true,
-      title:
-          Strings.profileViewTitlle.w(500).s(16).c(context.colors.textPrimary),
+      title: Strings.profileViewTitlle.w(500).s(16).c(context.colors.textPrimary),
     );
   }
 
@@ -82,7 +81,7 @@ class ProfilePage
             },
           ),
         ),
-        Visibility(
+          Visibility(
           visible: !state.isLogin,
           child: ProfileItemWidget(
             name: Strings.authSinginTitle,

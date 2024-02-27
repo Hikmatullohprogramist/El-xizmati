@@ -21,6 +21,8 @@ class SelectionPaymentTypeCubit extends BaseCubit<SelectionPaymentTypeBuildable,
 
   final AdCreationRepository _repository;
 
+   var listmy=["sk","sk","sk","sk","sk","sk","sk","sk","sk","sk"];
+
   Future<void> getItems() async {
     try {
       final paymentTypes = await _repository.getPaymentTypesForCreationAd();

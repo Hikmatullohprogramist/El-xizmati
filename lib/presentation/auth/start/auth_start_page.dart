@@ -78,6 +78,7 @@ class AuthStartPage
                       .s(14)
                       .c(context.colors.textPrimary)),
               SizedBox(height: 10),
+
               CommonTextField(
                 autofillHints: const [AutofillHints.telephoneNumber],
                 inputType: TextInputType.phone,
