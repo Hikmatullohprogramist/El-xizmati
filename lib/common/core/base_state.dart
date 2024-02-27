@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
-class BaseState<BUILDABLE, LISTENABLE> implements Equatable {
-  final BUILDABLE? buildable;
-  final LISTENABLE? listenable;
+class BaseState<STATE, EVENT> implements Equatable {
+  final STATE? state;
+  final EVENT? event;
 
-  BaseState({this.buildable, this.listenable});
+  BaseState({this.state, this.event});
 
   @override
-  List<Object?> get props => [buildable, listenable];
+  List<Object?> get props => [state, event];
 
   @override
   bool? get stringify => false;

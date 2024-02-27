@@ -1,28 +1,26 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
+import 'package:onlinebozor/common/core/base_state.dart';
 import 'package:onlinebozor/common/di/injection.dart';
 import 'package:onlinebozor/common/widgets/display/display.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onlinebozor/common/core/base_state.dart';
-import 'package:logger/logger.dart';
 
-abstract class BaseCubit<BUILDABLE, LISTENABLE>
-    extends Cubit<BaseState<BUILDABLE, LISTENABLE>> {
-  late BUILDABLE buildable;
+abstract class BaseCubit<STATE, EVENT> extends Cubit<BaseState<STATE, EVENT>> {
+  late STATE currentState;
 
   final log = getIt<Logger>();
   final display = getIt<Display>();
 
-  BaseCubit(BUILDABLE initialBuildable)
-      : super(BaseState(buildable: initialBuildable)) {
-    buildable = initialBuildable;
+  BaseCubit(STATE initialState) : super(BaseState(state: initialState)) {
+    currentState = initialState;
   }
 
-  build(BUILDABLE Function(BUILDABLE buildable) builder) {
-    buildable = builder(buildable);
-    emit(BaseState(buildable: buildable));
+  updateState(STATE Function(STATE state) updateState) {
+    currentState = updateState(currentState);
+    emit(BaseState(state: currentState));
   }
 
-  invoke(LISTENABLE listenable) {
-    emit(BaseState(listenable: listenable));
-    build((buildable) => buildable);
+  emitEvent(EVENT event) {
+    emit(BaseState(event: event));
+    updateState((buildable) => buildable);
   }
 }

@@ -4,19 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/core/base_state.dart';
 
 // ignore: must_be_immutable
-class BaseBuilder<
-    CUBIT extends StateStreamable<BaseState<BUILDABLE, LISTENABLE>>,
-    BUILDABLE,
-    LISTENABLE> extends StatelessWidget {
-  final List<dynamic> Function(BUILDABLE) properties;
-  final bool Function(BUILDABLE)? buildWhen;
-  final Widget Function(BuildContext context, BUILDABLE buildable) builder;
+class BaseBuilder<Cubit extends StateStreamable<BaseState<STATE, EVENT>>, STATE,
+    EVENT> extends StatelessWidget {
+  final List<dynamic> Function(STATE) properties;
+  final bool Function(STATE)? onStateUpdated;
+  final Widget Function(BuildContext context, STATE buildable) onWidgetBuild;
 
   BaseBuilder({
     Key? key,
-    List<dynamic> Function(BUILDABLE)? properties,
-    required this.builder,
-    this.buildWhen,
+    List<dynamic> Function(STATE)? properties,
+    required this.onWidgetBuild,
+    this.onStateUpdated,
   })  : properties = properties ?? ((state) => [state]),
         super(key: key);
 
@@ -25,16 +23,16 @@ class BaseBuilder<
   @override
   Widget build(BuildContext context) {
     List<Object?>? built;
-    return BlocBuilder<CUBIT, BaseState<BUILDABLE, LISTENABLE>>(
+    return BlocBuilder<Cubit, BaseState<STATE, EVENT>>(
       buildWhen: (_, current) {
         print('checking');
-        if (current.buildable == null) return false;
-        return !equals(built, properties(current.buildable as BUILDABLE)) &&
-            (buildWhen == null || buildWhen!(current as BUILDABLE));
+        if (current.state == null) return false;
+        return !equals(built, properties(current.state as STATE)) &&
+            (onStateUpdated == null || onStateUpdated!(current as STATE));
       },
       builder: (context, state) {
-        built = properties(state.buildable as BUILDABLE);
-        return builder(context, state.buildable as BUILDABLE);
+        built = properties(state.state as STATE);
+        return onWidgetBuild(context, state.state as STATE);
       },
     );
   }
