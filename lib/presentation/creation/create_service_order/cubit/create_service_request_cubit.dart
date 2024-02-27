@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../../../common/core/base_cubit.dart';
 
-part 'service_order_create_cubit.freezed.dart';
+part 'create_service_request_cubit.freezed.dart';
 
 part 'create_service_request_state.dart';
 

@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../../../../common/core/base_cubit.dart';
 
-part 'setting_cubit.freezed.dart';
+part 'settings_cubit.freezed.dart';
 
 part 'settings_state.dart';
 

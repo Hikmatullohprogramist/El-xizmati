@@ -5,7 +5,7 @@ import '../../../../../../../../../common/core/base_cubit.dart';
 
 part 'create_order_start_state.dart';
 
-part 'user_order_start_cubit.freezed.dart';
+part 'create_order_start_cubit.freezed.dart';
 
 @Injectable()
 class CreateRequestStartCubit

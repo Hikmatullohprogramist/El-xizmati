@@ -1,11 +1,11 @@
 part of 'settings_cubit.dart';
 
 @freezed
-class SettingsBuildable with _$SettingBuildable {
-  const factory SettingsBuildable() = _SettingBuildable;
+class SettingsBuildable with _$SettingsBuildable {
+  const factory SettingsBuildable() = _SettingsBuildable;
 }
 
 @freezed
-class SettingsListenable with _$SettingListenable {
-  const factory SettingsListenable() = _SettingListenable;
+class SettingsListenable with _$SettingsListenable {
+  const factory SettingsListenable() = _SettingsListenable;
 }

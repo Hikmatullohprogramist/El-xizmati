@@ -1,15 +1,15 @@
 part of 'create_service_request_cubit.dart';
 
 @freezed
-class CreateServiceOrderBuildable with _$ServiceOrderCreateBuildable {
-  const factory CreateServiceOrderBuildable() = _ServiceOrderCreateBuildable;
+class CreateServiceOrderBuildable with _$CreateServiceOrderBuildable {
+  const factory CreateServiceOrderBuildable() = _CreateServiceOrderBuildable;
 }
 
 @freezed
-class CreateServiceOrderListenable with _$ServiceOrderCreateListenable {
+class CreateServiceOrderListenable with _$CreateServiceOrderListenable {
   const factory CreateServiceOrderListenable({
     CreateServiceOrderEffect? serviceOrderCreate1Effect,
-  }) = _ServiceOrderCreateListenable;
+  }) = _CreateServiceOrderListenable;
 }
 
 enum CreateServiceOrderEffect { success }
