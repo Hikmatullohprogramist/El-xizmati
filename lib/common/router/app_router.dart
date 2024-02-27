@@ -73,11 +73,7 @@ import '../../presentation/home/features/profile/features/settings/features/user
 import '../../presentation/home/features/profile/features/settings/settings_page.dart';
 import '../../presentation/home/features/profile/features/user_address/features/add_address/add_address_page.dart';
 import '../../presentation/home/features/profile/features/user_address/user_addresses_page.dart';
-import '../../presentation/home/features/profile/features/user_ads/features/active_ads/user_active_ads.dart';
-import '../../presentation/home/features/profile/features/user_ads/features/all_ads/user_all_ads_page.dart';
-import '../../presentation/home/features/profile/features/user_ads/features/cancel_ads/user_cancel_ads_page.dart';
-import '../../presentation/home/features/profile/features/user_ads/features/inactive_ads/user_inactive_ads.dart';
-import '../../presentation/home/features/profile/features/user_ads/features/pending_ads/user_pending_ads.dart';
+import '../../presentation/home/features/profile/features/user_ads/features/ad_list/user_ad_list_page.dart';
 import '../../presentation/home/features/profile/features/user_ads/user_ads_page.dart';
 import '../../presentation/home/features/profile/features/user_cards/features/add_card/add_cart_page.dart';
 import '../../presentation/home/features/profile/features/user_cards/user_cards_page.dart';
@@ -243,11 +239,7 @@ class AppRouter extends _$AppRouter {
           page: UserAdsRoute.page,
           path: '/my_ads',
           children: [
-            AutoRoute(page: UserAllAdsRoute.page, path: "all_ads"),
-          //   AutoRoute(page: UserAllAdsRoute.page, path: 'active_ads'),
-          //   AutoRoute(page: UserAllAdsRoute.page, path: 'pending_ads'),
-          //   AutoRoute(page: UserAllAdsRoute.page, path: 'inactive_ads'),
-          //   AutoRoute(page: UserAllAdsRoute.page, path: 'cancel_ads')
+            AutoRoute(page: UserAdListRoute.page, path: "all_ads"),
           ],
         ),
 

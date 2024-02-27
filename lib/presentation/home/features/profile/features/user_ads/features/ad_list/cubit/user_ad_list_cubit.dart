@@ -2,32 +2,38 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/common/core/base_cubit.dart';
 
-import '../../../../../../../../../common/core/base_cubit.dart';
 import '../../../../../../../../../common/enum/enums.dart';
 import '../../../../../../../../../data/repositories/user_ad_repository.dart';
 import '../../../../../../../../../data/responses/user_ad/user_ad_response.dart';
 import '../../../../../../../../../domain/models/ad/user_ad_status.dart';
 
-part 'user_active_ads_cubit.freezed.dart';
-part 'user_active_ads_state.dart';
+part 'user_ad_list_cubit.freezed.dart';
+
+part 'user_ad_list_state.dart';
 
 @Injectable()
-class UserActiveAdsCubit
-    extends BaseCubit<UserActiveAdsBuildable, UserActiveAdsListenable> {
-  UserActiveAdsCubit(this.userAdRepository)
-      : super(const UserActiveAdsBuildable()) {
-    getController();
-  }
+class UserAdListCubit
+    extends BaseCubit<UserAdListBuildable, UserAdListListenable> {
+  UserAdListCubit(this.userAdRepository) : super(const UserAdListBuildable());
 
   final UserAdRepository userAdRepository;
+
+  void setInitialParams(UserAdStatus userAdStatus) {
+    build((buildable) => buildable.copyWith(userAdStatus: userAdStatus));
+
+    getController();
+  }
 
   Future<void> getController() async {
     try {
       final controller =
           buildable.userAdsPagingController ?? getAdsController(status: 1);
-      build((buildable) =>
-          buildable.copyWith(userAdsPagingController: controller));
+      build(
+            (buildable) =>
+            buildable.copyWith(userAdsPagingController: controller),
+      );
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
@@ -44,9 +50,12 @@ class UserActiveAdsCubit
     log.i(buildable.userAdsPagingController);
 
     adController.addPageRequestListener(
-      (pageKey) async {
+          (pageKey) async {
         final adsList = await userAdRepository.getUserAds(
-            limit: 20, page: pageKey, userAdStatus: UserAdStatus.active);
+          limit: 20,
+          page: pageKey,
+          userAdStatus: buildable.userAdStatus,
+        );
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);
           log.i(buildable.userAdsPagingController);
