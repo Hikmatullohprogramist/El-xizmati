@@ -5,12 +5,11 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/common/widgets/common/bottom_sheet_title.dart';
+import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
+import 'package:onlinebozor/presentation/ad/ad_list_actions/ad_list_actions_page.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_ads/features/all_ads/cubit/user_all_ads_cubit.dart';
 
-import '../../../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../../../common/gen/localization/strings.dart';
-import '../../../../../../../../common/vibrator/vibrator_extension.dart';
 import '../../../../../../../../common/widgets/ad/user_ad.dart';
 import '../../../../../../../../common/widgets/ad/user_ad_empty_widget.dart';
 import '../../../../../../../../common/widgets/common/common_button.dart';
@@ -19,7 +18,17 @@ import '../../../../../../../../data/responses/user_ad/user_ad_response.dart';
 @RoutePage()
 class UserAllAdsPage extends BasePage<UserAllAdsCubit, UserAllAdsBuildable,
     UserAllAdsListenable> {
-  const UserAllAdsPage({super.key});
+  const UserAllAdsPage({
+    super.key,
+    required this.userAdStatus,
+  });
+
+  final UserAdStatus userAdStatus;
+
+  @override
+  void init(BuildContext context) {
+      cubit(context).setInitialParams(userAdStatus);
+  }
 
   @override
   Widget builder(BuildContext context, UserAllAdsBuildable state) {
@@ -85,8 +94,22 @@ class UserAllAdsPage extends BasePage<UserAllAdsCubit, UserAllAdsBuildable,
           },
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) => UserAdWidget(
-            onActionClicked: () {
-              _showAdActions(context);
+            onActionClicked: () async {
+              // _showAdActions(context);
+
+              final action = await showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                useSafeArea: true,
+                backgroundColor: Colors.transparent,
+                builder: (context) => AdListActionsPage(
+                  key: Key(""),
+                  userAdResponse: item,
+                  userAdStatus: state.userAdStatus,
+                ),
+              );
+
+              // cubit(context).getAdsController(status: )
             },
             onItemClicked: () {
               context.router.push(UserAdDetailRoute(userAdResponse: item));
@@ -96,95 +119,5 @@ class UserAllAdsPage extends BasePage<UserAllAdsCubit, UserAllAdsBuildable,
         ),
       ),
     );
-  }
-
-  void _showAdActions(BuildContext context) {
-    showModalBottomSheet(
-        isScrollControlled: true,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        backgroundColor: Colors.white,
-        context: context,
-        builder: (BuildContext buildContext) {
-          return Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20.0),
-                topRight: Radius.circular(20.0),
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(height: 20),
-                  BottomSheetTitle(
-                    title: Strings.actionTitle,
-                    onCloseClicked: () {
-                      context.router.pop();
-                    },
-                  ),
-                  SizedBox(height: 16),
-                  InkWell(
-                    onTap: () {
-                      context.router.pop();
-                      vibrateAsHapticFeedback();
-                    },
-                    child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 16),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Assets.images.icEdit.svg(width: 24, height: 24),
-                            SizedBox(width: 24),
-                            Strings.editTitle.w(500).s(16).w(400)
-                          ],
-                        )),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      context.router.pop();
-                      vibrateAsHapticFeedback();
-                    },
-                    child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 16),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Assets.images.icAdvertise
-                                .svg(width: 24, height: 24),
-                            SizedBox(width: 24),
-                            Strings.advertiseTitle.s(16).w(400)
-                          ],
-                        )),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      context.router.pop();
-                      vibrateAsHapticFeedback();
-                    },
-                    child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 16),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Assets.images.icDelete.svg(width: 24, height: 24),
-                            SizedBox(width: 24),
-                            Strings.deactivateTilte
-                                .s(16)
-                                .w(400)
-                                .c(Color(0xFFFA6F5D))
-                          ],
-                        )),
-                  ),
-                  SizedBox(height: 16),
-                ],
-              ),
-            ),
-          );
-        });
   }
 }

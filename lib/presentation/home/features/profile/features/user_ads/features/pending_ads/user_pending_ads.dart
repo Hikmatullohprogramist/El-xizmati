@@ -6,10 +6,8 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_ads/features/pending_ads/cubit/user_pending_ads_cubit.dart';
 
-import '../../../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../../../common/gen/localization/strings.dart';
 import '../../../../../../../../common/router/app_router.dart';
-import '../../../../../../../../common/vibrator/vibrator_extension.dart';
 import '../../../../../../../../common/widgets/ad/user_ad.dart';
 import '../../../../../../../../common/widgets/ad/user_ad_empty_widget.dart';
 import '../../../../../../../../common/widgets/common/common_button.dart';
@@ -84,9 +82,7 @@ class UserPendingAdsPage extends BasePage<UserPendingAdsCubit,
           },
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) => UserAdWidget(
-            onActionClicked: () {
-              _showAdActions(context);
-            },
+            onActionClicked: () {},
             onItemClicked: () {
               context.router.push(UserAdDetailRoute(userAdResponse: item));
             },
@@ -95,106 +91,5 @@ class UserPendingAdsPage extends BasePage<UserPendingAdsCubit,
         ),
       ),
     );
-  }
-
-  void _showAdActions(BuildContext context) {
-    showModalBottomSheet(
-        isScrollControlled: true,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        backgroundColor: Colors.white,
-        context: context,
-        builder: (BuildContext buildContext) {
-          return Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20.0),
-                topRight: Radius.circular(20.0),
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Strings.actionTitle
-                            .w(600)
-                            .s(18)
-                            .c(Color(0xFF41455E)),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          context.router.pop();
-                          vibrateAsHapticFeedback();
-                        },
-                        icon: Assets.images.icClose.svg(width: 24, height: 24),
-                      )
-                    ],
-                  ),
-                  SizedBox(height: 16),
-                  InkWell(
-                    onTap: () {
-                      context.router.pop();
-                      vibrateAsHapticFeedback();
-                    },
-                    child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 16),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Assets.images.icEdit.svg(width: 24, height: 24),
-                            SizedBox(width: 24),
-                            Strings.editTitle.w(500).s(16).w(400)
-                          ],
-                        )),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      context.router.pop();
-                      vibrateAsHapticFeedback();
-                    },
-                    child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 16),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Assets.images.icAdvertise
-                                .svg(width: 24, height: 24),
-                            SizedBox(width: 24),
-                            Strings.advertiseTitle.s(16).w(400)
-                          ],
-                        )),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      context.router.pop();
-                      vibrateAsHapticFeedback();
-                    },
-                    child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 16),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Assets.images.icDelete.svg(width: 24, height: 24),
-                            SizedBox(width: 24),
-                            Strings.deactivateTilte
-                                .s(16)
-                                .w(400)
-                                .c(Color(0xFFFA6F5D))
-                          ],
-                        )),
-                  ),
-                  SizedBox(height: 16),
-                ],
-              ),
-            ),
-          );
-        });
   }
 }

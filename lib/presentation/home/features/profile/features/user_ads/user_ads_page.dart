@@ -10,21 +10,27 @@ import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../common/widgets/common/common_button.dart';
+import '../../../../../../domain/models/ad/user_ad_status.dart';
 
 @RoutePage()
-class UserAdsPage extends BasePage<UserAdsCubit, UserAdsBuildable, UserAdsListenable> {
+class UserAdsPage
+    extends BasePage<UserAdsCubit, UserAdsBuildable, UserAdsListenable> {
   const UserAdsPage({super.key});
 
   @override
   Widget builder(BuildContext context, UserAdsBuildable state) {
     return AutoTabsRouter.tabBar(
       physics: BouncingScrollPhysics(),
-      routes: const [
-        UserAllAdsRoute(),
-        UserActiveAdsRoute(),
-        UserPendingAdsRoute(),
-        UserInactiveAdsRoute(),
-        UserCancelAdsRoute()
+      routes:  [
+        UserAllAdsRoute(userAdStatus: UserAdStatus.all),
+        UserAllAdsRoute(userAdStatus: UserAdStatus.active),
+        UserAllAdsRoute(userAdStatus: UserAdStatus.wait),
+        UserAllAdsRoute(userAdStatus: UserAdStatus.inactive),
+        UserAllAdsRoute(userAdStatus: UserAdStatus.canceled),
+        // UserActiveAdsRoute(),
+        // UserPendingAdsRoute(),
+        // UserInactiveAdsRoute(),
+        // UserCancelAdsRoute()
       ],
       builder: (context, child, controller) {
         return Scaffold(
@@ -33,7 +39,8 @@ class UserAdsPage extends BasePage<UserAdsCubit, UserAdsBuildable, UserAdsListen
               CommonButton(
                   type: ButtonType.text,
                   onPressed: () => context.router.push(CreateAdStartRoute()),
-                  child: Strings.adCreateTitle.w(500).s(12).c(Color(0xFF5C6AC3)))
+                  child:
+                      Strings.adCreateTitle.w(500).s(12).c(Color(0xFF5C6AC3)))
             ],
             leading: IconButton(
               icon: Assets.images.icArrowLeft.svg(),
@@ -43,7 +50,8 @@ class UserAdsPage extends BasePage<UserAdsCubit, UserAdsBuildable, UserAdsListen
             backgroundColor: Colors.white,
             centerTitle: true,
             bottomOpacity: 1,
-            title: Strings.userAdsTitle.w(500).s(16).c(context.colors.textPrimary),
+            title:
+                Strings.userAdsTitle.w(500).s(16).c(context.colors.textPrimary),
             bottom: TabBar(
               isScrollable: true,
               physics: BouncingScrollPhysics(),
@@ -60,11 +68,11 @@ class UserAdsPage extends BasePage<UserAdsCubit, UserAdsBuildable, UserAdsListen
               unselectedLabelColor: Color(0xFF9EABBE),
               indicatorColor: context.colors.textPrimary,
               controller: controller,
-              tabs:  [
+              tabs: [
                 Tab(text: Strings.userAdsAllTitle),
                 Tab(text: Strings.userAdsActiveTitle),
                 Tab(text: Strings.userAdsPendingTitle),
-                Tab(text:Strings.userAdsInactiveTitle),
+                Tab(text: Strings.userAdsInactiveTitle),
                 Tab(text: Strings.userAdsCanceledTitle)
               ],
             ),

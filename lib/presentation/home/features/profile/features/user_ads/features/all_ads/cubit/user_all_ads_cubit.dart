@@ -10,23 +10,30 @@ import '../../../../../../../../../data/responses/user_ad/user_ad_response.dart'
 import '../../../../../../../../../domain/models/ad/user_ad_status.dart';
 
 part 'user_all_ads_cubit.freezed.dart';
+
 part 'user_all_ads_state.dart';
 
 @Injectable()
 class UserAllAdsCubit
     extends BaseCubit<UserAllAdsBuildable, UserAllAdsListenable> {
-  UserAllAdsCubit(this.userAdRepository) : super(const UserAllAdsBuildable()) {
-    getController();
-  }
+  UserAllAdsCubit(this.userAdRepository) : super(const UserAllAdsBuildable());
 
   final UserAdRepository userAdRepository;
+
+  void setInitialParams(UserAdStatus userAdStatus) {
+    build((buildable) => buildable.copyWith(userAdStatus: userAdStatus));
+
+    getController();
+  }
 
   Future<void> getController() async {
     try {
       final controller =
           buildable.userAdsPagingController ?? getAdsController(status: 1);
-      build((buildable) =>
-          buildable.copyWith(userAdsPagingController: controller));
+      build(
+            (buildable) =>
+            buildable.copyWith(userAdsPagingController: controller),
+      );
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
@@ -43,9 +50,12 @@ class UserAllAdsCubit
     log.i(buildable.userAdsPagingController);
 
     adController.addPageRequestListener(
-      (pageKey) async {
+          (pageKey) async {
         final adsList = await userAdRepository.getUserAds(
-            limit: 20, page: pageKey, userAdStatus: UserAdStatus.all);
+          limit: 20,
+          page: pageKey,
+          userAdStatus: buildable.userAdStatus,
+        );
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);
           log.i(buildable.userAdsPagingController);

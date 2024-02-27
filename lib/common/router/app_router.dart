@@ -244,10 +244,10 @@ class AppRouter extends _$AppRouter {
           path: '/my_ads',
           children: [
             AutoRoute(page: UserAllAdsRoute.page, path: "all_ads"),
-            AutoRoute(page: UserActiveAdsRoute.page, path: 'active_ads'),
-            AutoRoute(page: UserPendingAdsRoute.page, path: 'pending_ads'),
-            AutoRoute(page: UserInactiveAdsRoute.page, path: 'inactive_ads'),
-            AutoRoute(page: UserCancelAdsRoute.page, path: 'cancel_ads')
+          //   AutoRoute(page: UserAllAdsRoute.page, path: 'active_ads'),
+          //   AutoRoute(page: UserAllAdsRoute.page, path: 'pending_ads'),
+          //   AutoRoute(page: UserAllAdsRoute.page, path: 'inactive_ads'),
+          //   AutoRoute(page: UserAllAdsRoute.page, path: 'cancel_ads')
           ],
         ),
 

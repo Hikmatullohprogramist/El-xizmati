@@ -8,6 +8,7 @@ import 'package:onlinebozor/common/widgets/common/chips_add_item.dart';
 import 'package:onlinebozor/common/widgets/common/chips_item.dart';
 import 'package:onlinebozor/common/widgets/common/custom_dropdown_field.dart';
 import 'package:onlinebozor/common/widgets/common/label_text_field.dart';
+import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
 import 'package:onlinebozor/common/widgets/image/image_ad_list_widget.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_switch.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_toggle.dart';
@@ -49,6 +50,9 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
 
   @override
   Widget builder(BuildContext context, CreateProductAdBuildable state) {
+    // priceController =
+    //     TextEditingController(text: currencyFormatter.format(text));
+
     return Scaffold(
       appBar: _buildAppBar(context),
       backgroundColor: Color(0xFFF2F4FB),
@@ -230,7 +234,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Flexible(
-                flex: 3,
+                flex: 5,
                 child: Column(
                   children: [
                     LabelTextField(text: 'Кол-во на складе'),
@@ -244,6 +248,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
                       hint: '-',
                       textInputAction: TextInputAction.next,
                       controller: warehouseController,
+                      inputFormatters: quantityMaskFormatter,
                       onChanged: (value) {
                         cubit(context).setEnteredWarehouseCount(value);
                       },
@@ -253,7 +258,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
               ),
               SizedBox(width: 16),
               Flexible(
-                  flex: 2,
+                  flex: 4,
                   child: Column(
                     children: [
                       LabelTextField(text: 'Тип', isRequired: false),
@@ -285,13 +290,13 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Flexible(
-                flex: 3,
+                flex: 5,
                 child: Column(
                   children: [
                     LabelTextField(text: 'Цена'),
                     SizedBox(height: 6),
                     CommonTextField(
-                      autofillHints: const [AutofillHints.telephoneNumber],
+                      autofillHints: const [AutofillHints.transactionAmount],
                       inputType: TextInputType.number,
                       keyboardType: TextInputType.number,
                       maxLines: 1,
@@ -299,6 +304,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
                       hint: '-',
                       textInputAction: TextInputAction.next,
                       controller: priceController,
+                      inputFormatters: amountMaskFormatter,
                       onChanged: (value) {
                         cubit(context).setEnteredPrice(value);
                       },
@@ -308,7 +314,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
               ),
               SizedBox(width: 16),
               Flexible(
-                flex: 2,
+                flex: 4,
                 child: Column(
                   children: [
                     LabelTextField(text: 'Валюта', isRequired: false),
@@ -455,7 +461,9 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
             inputType: TextInputType.name,
             textInputAction: TextInputAction.next,
             controller: contactPersonController,
-            onChanged: (value) {},
+            onChanged: (value) {
+              cubit(context).setEnteredContactPerson(value);
+            },
           ),
           SizedBox(height: 12),
           "Номер телефона".w(500).s(14).c(Color(0xFF41455E)),
@@ -464,12 +472,15 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
             autofillHints: const [AutofillHints.telephoneNumber],
             keyboardType: TextInputType.phone,
             maxLines: 1,
-            hint: '998 12 345 67 89',
+            hint: '',
+            prefixText: "+998 ",
             inputType: TextInputType.phone,
             textInputAction: TextInputAction.next,
             controller: phoneController,
-            inputFormatters: phoneMaskFormatter,
-            onChanged: (value) {},
+            // inputFormatters: phoneMaskFormatter,
+            onChanged: (value) {
+              cubit(context).setEnteredPhone(value);
+            },
           ),
           SizedBox(height: 12),
           "Эл. почта".w(500).s(14).c(Color(0xFF41455E)),
@@ -482,7 +493,9 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
             hint: "Эл. почта",
             maxLines: 1,
             controller: emailController,
-            onChanged: (value) {},
+            onChanged: (value) {
+              cubit(context).setEnteredEmail(value);
+            },
           ),
         ],
       ),
@@ -530,7 +543,9 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
               children: _buildPickupAddressChips(context, state),
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 10),
+          AppDivider(thickness: 1),
+          SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -559,7 +574,9 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
               children: _buildPaymentTypeChips(context, state),
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 10),
+          AppDivider(thickness: 1),
+          SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
