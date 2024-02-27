@@ -13,9 +13,9 @@ class SelectionNestedCategoryBuildable with _$SelectionNestedCategoryBuildable {
 @freezed
 class SelectionNestedCategoryListenable with _$SelectionNestedCategoryListenable {
   const factory SelectionNestedCategoryListenable(
-    SelectionNestedCategoryEffect selectionCategoryEffect, {
-    CategoryResponse? categoryResponse,
+    EventType eventType, {
+    CategoryResponse? category,
   }) = _SelectionNestedCategoryListenable;
 }
 
-enum SelectionNestedCategoryEffect { back }
+enum EventType { closePage }
