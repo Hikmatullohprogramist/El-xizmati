@@ -20,11 +20,13 @@ class SelectionNestedCategoryPage extends BasePage<SelectionNestedCategoryCubit,
 
   @override
   void listener(BuildContext context, SelectionNestedCategoryListenable event) {
-    switch (event.selectionCategoryEffect) {
-      case SelectionNestedCategoryEffect.back:
+    switch (event.eventType) {
+      case EventType.closePage:
         {
-          onResult.call(event.categoryResponse!);
-          context.router.pop(true);
+          if (event.category != null) {
+            onResult(event.category!);
+          }
+          context.router.pop(event.category);
         }
     }
   }
@@ -34,10 +36,11 @@ class SelectionNestedCategoryPage extends BasePage<SelectionNestedCategoryCubit,
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            icon: Assets.images.icArrowLeft.svg(),
-            onPressed: () {
-              context.read<SelectionNestedCategoryCubit>().backCategory();
-            }),
+          icon: Assets.images.icArrowLeft.svg(),
+          onPressed: () {
+            cubit(context).backWithoutSelectedCategory();
+          },
+        ),
         elevation: 0.5,
         backgroundColor: Colors.white,
         centerTitle: true,

@@ -2,28 +2,40 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
+import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/widgets/ad/user_ad.dart';
-import 'package:onlinebozor/common/widgets/ad/user_ad_empty_widget.dart';
-import 'package:onlinebozor/data/responses/user_ad/user_ad_response.dart';
-import 'package:onlinebozor/presentation/home/features/profile/features/user_ads/features/active_ads/cubit/user_active_ads_cubit.dart';
+import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
+import 'package:onlinebozor/presentation/ad/ad_list_actions/ad_list_actions_page.dart';
 
-import '../../../../../../../../common/core/base_page.dart';
 import '../../../../../../../../common/gen/localization/strings.dart';
-import '../../../../../../../../common/router/app_router.dart';
+import '../../../../../../../../common/widgets/ad/user_ad.dart';
+import '../../../../../../../../common/widgets/ad/user_ad_empty_widget.dart';
 import '../../../../../../../../common/widgets/common/common_button.dart';
+import '../../../../../../../../data/responses/user_ad/user_ad_response.dart';
+import 'cubit/user_ad_list_cubit.dart';
 
 @RoutePage()
-class UserActiveAdsPage extends BasePage<UserActiveAdsCubit,
-    UserActiveAdsBuildable, UserActiveAdsListenable> {
-  const UserActiveAdsPage({super.key});
+class UserAdListPage extends BasePage<UserAdListCubit, UserAdListBuildable,
+    UserAdListListenable> {
+  const UserAdListPage({
+    super.key,
+    required this.userAdStatus,
+  });
+
+  final UserAdStatus userAdStatus;
 
   @override
-  Widget builder(BuildContext context, UserActiveAdsBuildable state) {
+  void init(BuildContext context) {
+    cubit(context).setInitialParams(userAdStatus);
+  }
+
+  @override
+  Widget builder(BuildContext context, UserAdListBuildable state) {
     return Scaffold(
       backgroundColor: Color(0xFFF2F4FB),
       body: PagedListView<int, UserAdResponse>(
-        shrinkWrap: true,
+        shrinkWrap: false,
         addAutomaticKeepAlives: true,
         physics: BouncingScrollPhysics(),
         pagingController: state.userAdsPagingController!,
@@ -82,7 +94,23 @@ class UserActiveAdsPage extends BasePage<UserActiveAdsCubit,
           },
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) => UserAdWidget(
-            onActionClicked: () {},
+            onActionClicked: () async {
+              // _showAdActions(context);
+
+              final action = await showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                useSafeArea: true,
+                backgroundColor: Colors.transparent,
+                builder: (context) => AdListActionsPage(
+                  key: Key(""),
+                  userAdResponse: item,
+                  userAdStatus: state.userAdStatus,
+                ),
+              );
+
+              // cubit(context).getAdsController(status: )
+            },
             onItemClicked: () {
               context.router.push(UserAdDetailRoute(userAdResponse: item));
             },

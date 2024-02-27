@@ -22,15 +22,11 @@ class UserAdsPage
     return AutoTabsRouter.tabBar(
       physics: BouncingScrollPhysics(),
       routes:  [
-        UserAllAdsRoute(userAdStatus: UserAdStatus.all),
-        UserAllAdsRoute(userAdStatus: UserAdStatus.active),
-        UserAllAdsRoute(userAdStatus: UserAdStatus.wait),
-        UserAllAdsRoute(userAdStatus: UserAdStatus.inactive),
-        UserAllAdsRoute(userAdStatus: UserAdStatus.canceled),
-        // UserActiveAdsRoute(),
-        // UserPendingAdsRoute(),
-        // UserInactiveAdsRoute(),
-        // UserCancelAdsRoute()
+        UserAdListRoute(userAdStatus: UserAdStatus.all),
+        UserAdListRoute(userAdStatus: UserAdStatus.active),
+        UserAdListRoute(userAdStatus: UserAdStatus.wait),
+        UserAdListRoute(userAdStatus: UserAdStatus.inactive),
+        UserAdListRoute(userAdStatus: UserAdStatus.canceled),
       ],
       builder: (context, child, controller) {
         return Scaffold(

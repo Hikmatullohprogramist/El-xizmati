@@ -46,22 +46,27 @@ class SelectionNestedCategoryCubit extends BaseCubit<
         .toList();
     if (result.isEmpty) {
       invoke(SelectionNestedCategoryListenable(
-          SelectionNestedCategoryEffect.back,
-          categoryResponse: categoryResponse));
+          EventType.closePage,
+          category: categoryResponse));
     } else {
       build((buildable) => buildable.copyWith(selectCategories: result));
     }
   }
 
-  Future<void> backCategory() async {
+  Future<void> backWithoutSelectedCategory() async {
     final result = buildable.categories
         .where((element) => element.parent_id == 0)
         .toList();
-    build((buildable) => buildable.copyWith(
-        selectCategories: result, selectedCategoryResponse: null));
+
+    build(
+      (buildable) => buildable.copyWith(
+        selectCategories: result,
+        selectedCategoryResponse: null,
+      ),
+    );
+
     if (buildable.selectedCategoryResponse == null) {
-      invoke(SelectionNestedCategoryListenable(
-          SelectionNestedCategoryEffect.back));
+      invoke(SelectionNestedCategoryListenable(EventType.closePage));
     }
   }
 }
