@@ -24,13 +24,13 @@ class CartCubit extends BaseCubit<CartBuildable, CartListenable> {
   Future<void> getController() async {
     try {
       final controller =
-          buildable.adsPagingController ?? getAdsController(status: 1);
-      build((buildable) => buildable.copyWith(adsPagingController: controller));
+          currentState.adsPagingController ?? getAdsController(status: 1);
+      updateState((buildable) => buildable.copyWith(adsPagingController: controller));
     }on DioException  catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
-      log.i(buildable.adsPagingController);
+      log.i(currentState.adsPagingController);
     }
   }
 
@@ -39,18 +39,18 @@ class CartCubit extends BaseCubit<CartBuildable, CartListenable> {
   }) {
     final adController = PagingController<int, Ad>(
         firstPageKey: 1, invisibleItemsThreshold: 100);
-    log.i(buildable.adsPagingController);
+    log.i(currentState.adsPagingController);
 
     adController.addPageRequestListener(
       (pageKey) async {
         final adsList = await _cartRepository.getCartAds();
         if (adsList.length <= 1000) {
           adController.appendLastPage(adsList);
-          log.i(buildable.adsPagingController);
+          log.i(currentState.adsPagingController);
           return;
         }
         adController.appendPage(adsList, pageKey + 1);
-        log.i(buildable.adsPagingController);
+        log.i(currentState.adsPagingController);
       },
     );
     return adController;
@@ -59,8 +59,8 @@ class CartCubit extends BaseCubit<CartBuildable, CartListenable> {
   Future<void> removeCart(Ad ad) async {
     try {
       await _cartRepository.removeCart(ad);
-      buildable.adsPagingController?.itemList?.remove(ad);
-      buildable.adsPagingController?.notifyListeners();
+      currentState.adsPagingController?.itemList?.remove(ad);
+      currentState.adsPagingController?.notifyListeners();
     } on DioException catch (e) {
       display.error(e.toString());
     }
@@ -73,12 +73,12 @@ class CartCubit extends BaseCubit<CartBuildable, CartListenable> {
       } else {
         await favoriteRepository.removeFavorite(ad);
       }
-      final index = buildable.adsPagingController?.itemList?.indexOf(ad);
+      final index = currentState.adsPagingController?.itemList?.indexOf(ad);
       if (index != null) {
         final newAd = ad..favorite = !ad.favorite;
-        buildable.adsPagingController?.itemList?.remove(ad);
-        buildable.adsPagingController?.itemList?.insert(index, newAd);
-        buildable.adsPagingController?.notifyListeners();
+        currentState.adsPagingController?.itemList?.remove(ad);
+        currentState.adsPagingController?.itemList?.insert(index, newAd);
+        currentState.adsPagingController?.notifyListeners();
       }
     } on DioException catch (e) {
       display.error(e.toString());

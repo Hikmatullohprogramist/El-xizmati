@@ -28,7 +28,7 @@ class ProfileViewCubit
 
   Future<void> getUser() async {
     try {
-      build((buildable) => buildable.copyWith(isLoading: true));
+      updateState((buildable) => buildable.copyWith(isLoading: true));
 
       await Future.wait([
         getRegions(),
@@ -36,22 +36,22 @@ class ProfileViewCubit
         getStreets(),
       ]);
 
-      build((buildable) => buildable.copyWith(isLoading: false));
+      updateState((buildable) => buildable.copyWith(isLoading: false));
     } catch (e) {
       log.e(e.toString());
 
-      build((buildable) => buildable.copyWith(isLoading: false));
+      updateState((buildable) => buildable.copyWith(isLoading: false));
     }
   }
 
   Future<void> getUserInformation() async {
     try {
-      build((buildable) => buildable.copyWith(isLoading: true));
+      updateState((buildable) => buildable.copyWith(isLoading: true));
 
       log.e("getUserInformation onLoading");
 
       final response = await _userRepository.getFullUserInfo();
-      build(
+      updateState(
         (buildable) => buildable.copyWith(
           isLoading: false,
           userName: (response.full_name ?? "*"),
@@ -77,7 +77,7 @@ class ProfileViewCubit
     } on DioException catch (e) {
       log.e("getUserInformation onFailure error = ${e.toString()}");
 
-      build((buildable) => buildable.copyWith(isLoading: false));
+      updateState((buildable) => buildable.copyWith(isLoading: false));
 
       if (e.response?.statusCode == 401) {
         logOut();
@@ -91,10 +91,10 @@ class ProfileViewCubit
     final regionList =
         response.where((element) => element.id == buildable.regionId);
     if (regionList.isNotEmpty) {
-      build((buildable) => buildable.copyWith(
+      updateState((buildable) => buildable.copyWith(
           regionName: regionList.first.name, isLoading: false));
     } else {
-      build((buildable) =>
+      updateState((buildable) =>
           buildable.copyWith(regionName: "topilmadi", isLoading: false));
     }
   }
@@ -102,7 +102,7 @@ class ProfileViewCubit
   Future<void> getDistrict() async {
     final regionId = buildable.regionId;
     final response = await _userRepository.getDistricts(regionId ?? 14);
-    build((buildable) => buildable.copyWith(
+    updateState((buildable) => buildable.copyWith(
         districtName: response
             .where((element) => element.id == buildable.districtId)
             .first
@@ -113,34 +113,34 @@ class ProfileViewCubit
     try {
       final districtId = buildable.districtId;
       final response = await _userRepository.getStreets(districtId ?? 1419);
-      build((buildable) => buildable.copyWith(
+      updateState((buildable) => buildable.copyWith(
           streetName: response
               .where((element) => element.id == buildable.streetId)
               .first
               .name,
           isLoading: false));
     } catch (e) {
-      build((buildable) => buildable.copyWith(isLoading: false));
+      updateState((buildable) => buildable.copyWith(isLoading: false));
     }
   }
 
   Future<void> logOut() async {
     await _authRepository.logOut();
-    invoke(ProfileViewListenable(ProfileViewEffect.navigationAuthStart));
+    emitEvent(ProfileViewListenable(ProfileViewEffect.navigationAuthStart));
   }
 
   setSmsNotification() {
-    build((buildable) =>
+    updateState((buildable) =>
         buildable.copyWith(smsNotification: !buildable.smsNotification));
   }
 
   setTelegramNotification() {
-    build((buildable) => buildable.copyWith(
+    updateState((buildable) => buildable.copyWith(
         telegramNotification: !buildable.telegramNotification));
   }
 
   setEmailNotification() {
-    build((buildable) =>
+    updateState((buildable) =>
         buildable.copyWith(emailNotification: !buildable.emailNotification));
   }
 
@@ -157,7 +157,7 @@ class ProfileViewCubit
     try {
       final controller =
           buildable.devicesPagingController ?? getActiveDevices(status: 1);
-      build((buildable) =>
+      updateState((buildable) =>
           buildable.copyWith(devicesPagingController: controller));
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);

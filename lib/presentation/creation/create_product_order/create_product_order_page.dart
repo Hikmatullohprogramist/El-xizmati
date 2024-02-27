@@ -30,7 +30,7 @@ class CreateProductOrderPage extends BasePage<CreateProductOrderCubit,
   final TextEditingController emailController = TextEditingController();
 
   @override
-  void listener(BuildContext context, CreateProductOrderListenable event) {
+  void onEventEmitted(BuildContext context, CreateProductOrderListenable event) {
     switch (event.effect) {
       case CreateProductOrderEffect.onOverMaxCount:
         {
@@ -42,7 +42,7 @@ class CreateProductOrderPage extends BasePage<CreateProductOrderCubit,
   }
 
   @override
-  Widget builder(BuildContext context, CreateProductOrderBuildable state) {
+  Widget onWidgetBuild(BuildContext context, CreateProductOrderBuildable state) {
     titleController.text != state.name
         ? titleController.text = state.name ?? ""
         : titleController.text = titleController.text;

@@ -37,12 +37,12 @@ class ProfileCubit extends BaseCubit<ProfileBuildable, ProfileListenable> {
           language = Language.uzbekCyrill;
         }
       }
-      build((buildable) => buildable.copyWith(language: language));
+      updateState((buildable) => buildable.copyWith(language: language));
     } catch (e) {}
   }
 
   Future<void> selectLanguage(Language language, String languageName) async {
-    build((buildable) => buildable.copyWith(language: language));
+    updateState((buildable) => buildable.copyWith(language: language));
     await stateRepository.setLanguage(languageName);
   }
 
@@ -50,8 +50,8 @@ class ProfileCubit extends BaseCubit<ProfileBuildable, ProfileListenable> {
     try {
       log.w("logOut call");
       await authRepository.logOut();
-      build((buildable) => buildable.copyWith(isLogin: false));
-      invoke(ProfileListenable(ProfileEffect.onLogOut));
+      updateState((buildable) => buildable.copyWith(isLogin: false));
+      emitEvent(ProfileListenable(ProfileEffect.onLogOut));
     } on DioException {
       display.error(Strings.loadingStateError);
     }
@@ -59,7 +59,7 @@ class ProfileCubit extends BaseCubit<ProfileBuildable, ProfileListenable> {
 
   Future<void> isLogin() async {
     final isLogin = await stateRepository.isLogin() ?? false;
-    build((buildable) => buildable.copyWith(isLogin: isLogin));
+    updateState((buildable) => buildable.copyWith(isLogin: isLogin));
   }
 }
 

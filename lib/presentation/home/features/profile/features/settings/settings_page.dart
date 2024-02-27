@@ -16,7 +16,7 @@ class SettingPage
   const SettingPage({super.key});
 
   @override
-  Widget builder(BuildContext context, SettingsBuildable state) {
+  Widget onWidgetBuild(BuildContext context, SettingsBuildable state) {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(

@@ -18,7 +18,7 @@ class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageBuildable,
   const SetLanguagePage({super.key});
 
   @override
-  void listener(BuildContext context, SetLanguageListenable event) {
+  void onEventEmitted(BuildContext context, SetLanguageListenable event) {
     switch (event.effect) {
       case SetLanguageEffect.navigationAuthStart:
         context.router.replace(HomeRoute());
@@ -27,7 +27,7 @@ class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageBuildable,
   }
 
   @override
-  Widget builder(BuildContext context, SetLanguageBuildable state) {
+  Widget onWidgetBuild(BuildContext context, SetLanguageBuildable state) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: context.colors.colorBackgroundPrimary,

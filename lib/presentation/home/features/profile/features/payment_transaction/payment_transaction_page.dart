@@ -19,7 +19,7 @@ class PaymentTransactionPage extends BasePage<PaymentTransactionCubit,
   const PaymentTransactionPage({super.key});
 
   @override
-  Widget builder(BuildContext context, PaymentTransactionBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PaymentTransactionBuildable state) {
     return Scaffold(
       appBar: _getAppBar(context),
       backgroundColor: Color(0xFFF2F4FB),

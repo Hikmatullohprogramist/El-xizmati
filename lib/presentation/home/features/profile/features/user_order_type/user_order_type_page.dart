@@ -15,7 +15,7 @@ class UserOrderTypePage extends BasePage<UserOrderTypeCubit,
   const UserOrderTypePage({super.key});
 
   @override
-  Widget builder(BuildContext context, UserOrderTypeBuildable state) {
+  Widget onWidgetBuild(BuildContext context, UserOrderTypeBuildable state) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

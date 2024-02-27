@@ -12,11 +12,10 @@ part 'selection_nested_category_cubit.freezed.dart';
 part 'selection_nested_category_state.dart';
 
 @Injectable()
-class SelectionNestedCategoryCubit extends BaseCubit<
-    SelectionNestedCategoryBuildable, SelectionNestedCategoryListenable> {
-  SelectionNestedCategoryCubit(
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit(
     this._repository,
-  ) : super(SelectionNestedCategoryBuildable()) {
+  ) : super(PageState()) {
     getCategories();
   }
 
@@ -24,49 +23,46 @@ class SelectionNestedCategoryCubit extends BaseCubit<
 
   Future<void> getCategories() async {
     try {
-      final categories = await _repository.getCategories();
-      final result =
-          categories.where((element) => element.parent_id == 0).toList();
-      log.i(categories.toString());
-      build((buildable) => buildable.copyWith(
-          selectCategories: result,
+      final allCategories = await _repository.getCategories();
+      final categories = allCategories.where((e) => e.parent_id == 0).toList();
+      log.i(allCategories.toString());
+      updateState(
+        (state) => state.copyWith(
           categories: categories,
-          categoriesState: LoadingState.success));
+          allCategories: allCategories,
+          categoriesState: LoadingState.success,
+        ),
+      );
     } on DioException catch (exception) {
       log.e(exception.toString());
     }
   }
 
-  Future<void> selectCategory(CategoryResponse categoryResponse) async {
-    build((buildable) =>
-        buildable.copyWith(selectedCategoryResponse: categoryResponse));
-    // display.success(categoryResponse.id.toString());
-    final result = buildable.categories
-        .where((element) => element.parent_id == categoryResponse.id)
+  Future<void> selectCategory(CategoryResponse category) async {
+    updateState((state) => state.copyWith(selectedCategory: category));
+
+    final updatedCategories = currentState.categories
+        .where((element) => element.parent_id == category.id)
         .toList();
-    if (result.isEmpty) {
-      invoke(SelectionNestedCategoryListenable(
-          EventType.closePage,
-          category: categoryResponse));
+
+    if (updatedCategories.isEmpty) {
+      emitEvent(PageEvent(PageEventType.closePage, category: category));
     } else {
-      build((buildable) => buildable.copyWith(selectCategories: result));
+      updateState((state) => state.copyWith(categories: updatedCategories));
     }
   }
 
   Future<void> backWithoutSelectedCategory() async {
-    final result = buildable.categories
-        .where((element) => element.parent_id == 0)
-        .toList();
+    final updatedCategories =
+        currentState.categories.where((e) => e.parent_id == 0).toList();
 
-    build(
-      (buildable) => buildable.copyWith(
-        selectCategories: result,
-        selectedCategoryResponse: null,
+    updateState(
+      (state) => state.copyWith(
+        categories: updatedCategories,
+        selectedCategory: null,
       ),
     );
 
-    if (buildable.selectedCategoryResponse == null) {
-      invoke(SelectionNestedCategoryListenable(EventType.closePage));
-    }
+    emitEvent(PageEvent(PageEventType.closePage));
   }
 }

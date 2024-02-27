@@ -24,7 +24,7 @@ class ServiceFavoritesCubit extends BaseCubit<ServiceFavoritesBuildable, Service
     try {
       final controller =
           buildable.adsPagingController ?? getAdsController(status: 1);
-      build((buildable) => buildable.copyWith(adsPagingController: controller));
+      updateState((buildable) => buildable.copyWith(adsPagingController: controller));
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());

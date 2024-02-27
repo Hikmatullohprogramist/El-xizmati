@@ -22,7 +22,7 @@ class SelectionCurrencyPage extends BasePage<SelectionCurrencyCubit,
   final CurrencyResponse? initialSelectedItem;
 
   @override
-  Widget builder(BuildContext context, SelectionCurrencyBuildable state) {
+  Widget onWidgetBuild(BuildContext context, SelectionCurrencyBuildable state) {
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.sizeOf(context).height * .4,

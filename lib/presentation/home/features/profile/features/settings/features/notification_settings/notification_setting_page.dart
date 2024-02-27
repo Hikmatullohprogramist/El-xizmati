@@ -17,7 +17,7 @@ class NotificationSettingPage extends BasePage<NotificationSettingCubit,
   const NotificationSettingPage({super.key});
 
   @override
-  Widget builder(BuildContext context, NotificationSettingBuildable state) {
+  Widget onWidgetBuild(BuildContext context, NotificationSettingBuildable state) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

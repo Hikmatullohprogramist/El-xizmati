@@ -24,14 +24,14 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
   UserAddressResponse? address;
 
   @override
-  void init(BuildContext context) {
+  void onWidgetCreated(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<AddAddressCubit>().setAddress(address);
     });
   }
 
   @override
-  void listener(BuildContext context, AddAddressListenable event) {
+  void onEventEmitted(BuildContext context, AddAddressListenable event) {
     switch (event.effect) {
       case AddAddressEffect.navigationToHome:
         context.router.push(UserAddressesRoute());
@@ -44,7 +44,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
   TextEditingController neighborhoodController = TextEditingController();
 
   @override
-  Widget builder(BuildContext context, AddAddressBuildable state) {
+  Widget onWidgetBuild(BuildContext context, AddAddressBuildable state) {
     addressController.text != state.addressName
         ? addressController.text = state.addressName ?? ""
         : addressController.text = addressController.text;

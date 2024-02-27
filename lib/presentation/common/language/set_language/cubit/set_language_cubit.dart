@@ -17,10 +17,10 @@ class SetLanguageCubit
   Future<void> setLanguage(Language language) async {
     await stateRepository.languageSelection(true);
     await stateRepository.setLanguage(language.name);
-    invoke(SetLanguageListenable(
+    emitEvent(SetLanguageListenable(
       SetLanguageEffect.navigationAuthStart,
     ));
-    build((buildable) => buildable);
+    updateState((buildable) => buildable);
   }
 }
 

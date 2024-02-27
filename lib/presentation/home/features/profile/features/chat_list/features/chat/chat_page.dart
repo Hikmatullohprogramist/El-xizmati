@@ -12,7 +12,7 @@ class ChatPage extends BasePage<ChatCubit, ChatBuildable, ChatListenable> {
   const ChatPage({super.key});
 
   @override
-  Widget builder(BuildContext context, ChatBuildable state) {
+  Widget onWidgetBuild(BuildContext context, ChatBuildable state) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

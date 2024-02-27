@@ -10,8 +10,8 @@ import '../../../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../common/widgets/dashboard/app_diverder.dart';
 
 @RoutePage()
-class SelectionCategoryPage extends BasePage<SelectionCategoryCubit,
-    SelectionCategoryBuildable, SelectionCategoryListenable> {
+class SelectionCategoryPage extends BasePage<PageCubit,
+    PageState, PageEvent> {
   const SelectionCategoryPage({
     super.key,
     this.initialSelectedItem,
@@ -20,7 +20,7 @@ class SelectionCategoryPage extends BasePage<SelectionCategoryCubit,
   final CategoryResponse? initialSelectedItem;
 
   @override
-  Widget builder(BuildContext context, SelectionCategoryBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.sizeOf(context).height * .8,

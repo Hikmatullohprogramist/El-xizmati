@@ -18,7 +18,7 @@ class PaymentTransactionFilterPage extends BasePage<
   const PaymentTransactionFilterPage({super.key});
 
   @override
-  Widget builder(
+  Widget onWidgetBuild(
       BuildContext context, PaymentTransactionFilterBuildable state) {
     return Scaffold(
       backgroundColor: Colors.white,

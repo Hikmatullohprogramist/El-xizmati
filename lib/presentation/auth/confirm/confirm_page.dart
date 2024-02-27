@@ -24,14 +24,14 @@ class ConfirmPage
   final format = DateFormat("mm:ss");
 
   @override
-  void init(BuildContext context) {
+  void onWidgetCreated(BuildContext context) {
     context.read<ConfirmCubit>().setPhone(phone, confirmType);
     context.read<ConfirmCubit>().startTimer();
     textEditingController.text = phone;
   }
 
   @override
-  void listener(BuildContext context, ConfirmListenable event) {
+  void onEventEmitted(BuildContext context, ConfirmListenable event) {
     switch (event.effect) {
       case ConfirmEffect.setPassword:
         context.router.replace(SetPasswordRoute());
@@ -39,7 +39,7 @@ class ConfirmPage
   }
 
   @override
-  Widget builder(BuildContext context, ConfirmBuildable state) {
+  Widget onWidgetBuild(BuildContext context, ConfirmBuildable state) {
     return Scaffold(
       backgroundColor: context.colors.colorBackgroundPrimary,
       resizeToAvoidBottomInset: false,

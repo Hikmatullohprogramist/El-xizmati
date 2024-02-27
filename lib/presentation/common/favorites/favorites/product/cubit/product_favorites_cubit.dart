@@ -27,13 +27,13 @@ class ProductFavoritesCubit
   Future<void> getController() async {
     try {
       final controller =
-          buildable.adsPagingController ?? getAdsController(status: 1);
-      build((buildable) => buildable.copyWith(adsPagingController: controller));
+          currentState.adsPagingController ?? getAdsController(status: 1);
+      updateState((buildable) => buildable.copyWith(adsPagingController: controller));
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
-      log.i(buildable.adsPagingController);
+      log.i(currentState.adsPagingController);
       // build((buildable) => buildable.copyWith(loading: false));
     }
   }
@@ -43,18 +43,18 @@ class ProductFavoritesCubit
   }) {
     final adController = PagingController<int, Ad>(
         firstPageKey: 1, invisibleItemsThreshold: 100);
-    log.i(buildable.adsPagingController);
+    log.i(currentState.adsPagingController);
 
     adController.addPageRequestListener(
       (pageKey) async {
         final adsList = await _favoriteRepository.getProductFavoriteAds();
         if (adsList.length <= 1000) {
           adController.appendLastPage(adsList);
-          log.i(buildable.adsPagingController);
+          log.i(currentState.adsPagingController);
           return;
         }
         adController.appendPage(adsList, pageKey + 1);
-        log.i(buildable.adsPagingController);
+        log.i(currentState.adsPagingController);
       },
     );
     return adController;
@@ -63,8 +63,8 @@ class ProductFavoritesCubit
   Future<void> removeFavorite(Ad ad) async {
     try {
       await _favoriteRepository.removeFavorite(ad);
-      buildable.adsPagingController?.itemList?.remove(ad);
-      buildable.adsPagingController?.notifyListeners();
+      currentState.adsPagingController?.itemList?.remove(ad);
+      currentState.adsPagingController?.notifyListeners();
     } on DioException {
       display.error("xatolik yuz berdi");
     }

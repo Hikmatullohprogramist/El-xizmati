@@ -10,7 +10,7 @@ class SelectionAddressPage extends BasePage<SelectionAddressCubit,
   const SelectionAddressPage({super.key});
 
   @override
-  Widget builder(context, SelectionAddressBuildable state) {
+  Widget onWidgetBuild(context, SelectionAddressBuildable state) {
     return Scaffold();
   }
 }

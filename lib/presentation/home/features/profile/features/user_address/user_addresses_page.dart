@@ -22,7 +22,7 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
   const UserAddressesPage({super.key});
 
   @override
-  void listener(BuildContext context, UserAddressesListenable event) {
+  void onEventEmitted(BuildContext context, UserAddressesListenable event) {
     switch (event.effect) {
       case UserAddressesEffect.success:
         () {};
@@ -32,7 +32,7 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
   }
 
   @override
-  Widget builder(BuildContext context, UserAddressesBuildable state) {
+  Widget onWidgetBuild(BuildContext context, UserAddressesBuildable state) {
     return Scaffold(
       appBar: AppBar(
         actions: [

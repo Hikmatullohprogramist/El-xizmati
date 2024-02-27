@@ -23,12 +23,12 @@ class SelectionPaymentTypePage extends BasePage<SelectionPaymentTypeCubit,
   final List<PaymentTypeResponse>? selectedPaymentTypes;
 
   @override
-  void init(BuildContext context) {
+  void onWidgetCreated(BuildContext context) {
     cubit(context).setInitialSelectedItems(selectedPaymentTypes);
   }
 
   @override
-  Widget builder(BuildContext context, SelectionPaymentTypeBuildable state) {
+  Widget onWidgetBuild(BuildContext context, SelectionPaymentTypeBuildable state) {
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.sizeOf(context).height * .4,

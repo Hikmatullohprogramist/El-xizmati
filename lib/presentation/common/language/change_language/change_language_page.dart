@@ -19,14 +19,14 @@ class ChangeLanguagePage extends BasePage<ChangeLanguageCubit,
   const ChangeLanguagePage({super.key});
 
   @override
-  void listener(BuildContext context, ChangeLanguageListenable event) {
+  void onEventEmitted(BuildContext context, ChangeLanguageListenable event) {
     switch(event.effect){
       case ChangeLanguageEffect.backTo:context.router.pop();
     }
   }
 
   @override
-  Widget builder(BuildContext context, ChangeLanguageBuildable state) {
+  Widget onWidgetBuild(BuildContext context, ChangeLanguageBuildable state) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

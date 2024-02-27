@@ -23,14 +23,14 @@ class PopularCategoriesCubit extends BaseCubit<PopularCategoriesBuildable, Popul
   Future<void> getController() async {
     try {
       final controller =
-          buildable.categoriesPagingController ?? getPagingController(status: 1);
-      build((buildable) =>
+          currentState.categoriesPagingController ?? getPagingController(status: 1);
+      updateState((buildable) =>
           buildable.copyWith(categoriesPagingController: controller));
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
-      log.i(buildable.categoriesPagingController);
+      log.i(currentState.categoriesPagingController);
       // build((buildable) => buildable.copyWith(loading: false));
     }
   }
@@ -41,18 +41,18 @@ class PopularCategoriesCubit extends BaseCubit<PopularCategoriesBuildable, Popul
     final adController = PagingController<int, PopularCategoryResponse>(
       firstPageKey: 1,
     );
-    log.i(buildable.categoriesPagingController);
+    log.i(currentState.categoriesPagingController);
 
     adController.addPageRequestListener(
           (pageKey) async {
         final adsList = await _repository.getPopularCategories(pageKey, 20);
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);
-          log.i(buildable.categoriesPagingController);
+          log.i(currentState.categoriesPagingController);
           return;
         }
         adController.appendPage(adsList, pageKey + 1);
-        log.i(buildable.categoriesPagingController);
+        log.i(currentState.categoriesPagingController);
       },
     );
     return adController;

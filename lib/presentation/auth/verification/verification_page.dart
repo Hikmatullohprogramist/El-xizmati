@@ -23,13 +23,13 @@ class VerificationPage extends BasePage<VerificationCubit,
   final textEditingController = TextEditingController();
 
   @override
-  void init(BuildContext context) {
+  void onWidgetCreated(BuildContext context) {
     context.read<VerificationCubit>().setPhone("998 $phone");
     textEditingController.text = "998 $phone";
   }
 
   @override
-  void listener(BuildContext context, VerificationListenable event) {
+  void onEventEmitted(BuildContext context, VerificationListenable event) {
     switch (event.effect) {
       case VerificationEffect.navigationHome:
         context.router.replace(HomeRoute());
@@ -41,7 +41,7 @@ class VerificationPage extends BasePage<VerificationCubit,
   }
 
   @override
-  Widget builder(BuildContext context, VerificationBuildable state) {
+  Widget onWidgetBuild(BuildContext context, VerificationBuildable state) {
     return Scaffold(
         backgroundColor: context.colors.colorBackgroundPrimary,
         resizeToAvoidBottomInset: false,

@@ -15,7 +15,7 @@ class ChatListPage
   const ChatListPage({super.key});
 
   @override
-  Widget builder(BuildContext context, ChatListBuildable state) {
+  Widget onWidgetBuild(BuildContext context, ChatListBuildable state) {
     return AutoTabsRouter.tabBar(
       physics: BouncingScrollPhysics(),
       routes: const [

@@ -18,7 +18,7 @@ class UserCardsPage
   const UserCardsPage({super.key});
 
   @override
-  Widget builder(BuildContext context, UserCardsBuildable state) {
+  Widget onWidgetBuild(BuildContext context, UserCardsBuildable state) {
     void edit() {
       showModalBottomSheet(
           isScrollControlled: true,

@@ -22,7 +22,7 @@ class AddCardPage
   const AddCardPage({super.key});
 
   @override
-  Widget builder(BuildContext context, AddCardBuildable state) {
+  Widget onWidgetBuild(BuildContext context, AddCardBuildable state) {
     final List<String> images = [
       "8a818006f6ddda2c7af7dbf4",
       '8a818006cc72d42b7c204717',

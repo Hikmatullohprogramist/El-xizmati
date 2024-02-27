@@ -30,7 +30,7 @@ class ProfileEditCubit
   Future<void> getFullUserInfo() async {
     try {
       final response = await _userRepository.getFullUserInfo();
-      build((buildable) => buildable.copyWith(
+      updateState((buildable) => buildable.copyWith(
             userName: response.username ?? "",
             fullName: response.full_name ?? "",
             phoneNumber: response.mobile_phone ?? "",
@@ -59,12 +59,12 @@ class ProfileEditCubit
     final regionList =
         response.where((element) => element.id == buildable.regionId);
     if (regionList.isNotEmpty) {
-      build((buildable) => buildable.copyWith(
+      updateState((buildable) => buildable.copyWith(
           regions: response,
           regionName: regionList.first.name,
           isLoading: false));
     } else {
-      build(
+      updateState(
           (buildable) => buildable.copyWith(regionName: "", isLoading: false));
     }
   }
@@ -73,14 +73,14 @@ class ProfileEditCubit
     final regionId = buildable.regionId;
     final response = await _userRepository.getDistricts(regionId ?? 14);
     if (buildable.districtId != null) {
-      build((buildable) => buildable.copyWith(
+      updateState((buildable) => buildable.copyWith(
           districts: response,
           districtName: response
               .where((element) => element.id == buildable.districtId)
               .first
               .name));
     } else {
-      build((buildable) => buildable.copyWith(districts: response));
+      updateState((buildable) => buildable.copyWith(districts: response));
     }
   }
 
@@ -89,7 +89,7 @@ class ProfileEditCubit
       final districtId = buildable.districtId;
       final response = await _userRepository.getStreets(districtId ?? 1419);
       if (buildable.streetId != null) {
-        build((buildable) => buildable.copyWith(
+        updateState((buildable) => buildable.copyWith(
             streets: response,
             streetName: response
                 .where((element) => element.id == buildable.streetId)
@@ -97,35 +97,35 @@ class ProfileEditCubit
                 .name,
             isLoading: false));
       } else {
-        build((buildable) =>
+        updateState((buildable) =>
             buildable.copyWith(streets: response, isLoading: false));
       }
     } catch (e) {
       display.error("street error $e");
-      build((buildable) => buildable.copyWith(isLoading: false));
+      updateState((buildable) => buildable.copyWith(isLoading: false));
     }
   }
 
   void setBiometricSerial(String serial) {
-    build((buildable) => buildable.copyWith(biometricSerial: serial));
+    updateState((buildable) => buildable.copyWith(biometricSerial: serial));
   }
 
   void setBiometricNumber(String number) {
-    build((buildable) =>
+    updateState((buildable) =>
         buildable.copyWith(biometricNumber: number.replaceAll(" ", "")));
   }
 
   void setBrithDate(String brithDate) {
-    build((buildable) => buildable.copyWith(brithDate: brithDate));
+    updateState((buildable) => buildable.copyWith(brithDate: brithDate));
   }
 
   void setPhoneNumber(String phone) {
-    build((buildable) => buildable.copyWith(
+    updateState((buildable) => buildable.copyWith(
         phoneNumber: phone.replaceAll(" ", "").replaceAll("+", "")));
   }
 
   void setRegion(RegionResponse region) {
-    build((buildable) => buildable.copyWith(
+    updateState((buildable) => buildable.copyWith(
         regionId: region.id,
         regionName: region.name,
         districtId: null,
@@ -136,7 +136,7 @@ class ProfileEditCubit
   }
 
   void setDistrict(RegionResponse district) {
-    build((buildable) => buildable.copyWith(
+    updateState((buildable) => buildable.copyWith(
         districtId: district.id,
         districtName: district.name,
         streetId: null,
@@ -145,7 +145,7 @@ class ProfileEditCubit
   }
 
   void setStreet(RegionResponse street) {
-    build((buildable) =>
+    updateState((buildable) =>
         buildable.copyWith(streetId: street.id, streetName: street.name));
   }
 

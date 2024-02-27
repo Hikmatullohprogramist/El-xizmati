@@ -23,7 +23,7 @@ class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
   final String? title;
 
   @override
-  Widget builder(BuildContext context, PopularCategoriesBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PopularCategoriesBuildable state) {
     return Scaffold(
         appBar: CommonAppBar(() => context.router.pop(), title ?? ""),
         body: state.categoriesPagingController == null

@@ -20,7 +20,7 @@ class SelectionUserAddressPage extends BasePage<SelectionUserAddressCubit,
   final UserAddressResponse? selectedAddress;
 
   @override
-  Widget builder(BuildContext context, SelectionUserAddressBuildable state) {
+  Widget onWidgetBuild(BuildContext context, SelectionUserAddressBuildable state) {
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.sizeOf(context).height * .7,

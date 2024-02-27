@@ -20,7 +20,7 @@ class ServiceFavoritesPage extends BasePage<ServiceFavoritesCubit,
   const ServiceFavoritesPage({super.key});
 
   @override
-  Widget builder(BuildContext context, ServiceFavoritesBuildable state) {
+  Widget onWidgetBuild(BuildContext context, ServiceFavoritesBuildable state) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: PagedGridView<int, Ad>(

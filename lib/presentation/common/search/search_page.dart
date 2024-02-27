@@ -18,7 +18,7 @@ class SearchPage
   final textController = TextEditingController();
 
   @override
-  Widget builder(BuildContext context, SearchBuildable state) {
+  Widget onWidgetBuild(BuildContext context, SearchBuildable state) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

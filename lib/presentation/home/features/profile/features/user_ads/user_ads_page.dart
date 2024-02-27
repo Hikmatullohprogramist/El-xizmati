@@ -18,7 +18,7 @@ class UserAdsPage
   const UserAdsPage({super.key});
 
   @override
-  Widget builder(BuildContext context, UserAdsBuildable state) {
+  Widget onWidgetBuild(BuildContext context, UserAdsBuildable state) {
     return AutoTabsRouter.tabBar(
       physics: BouncingScrollPhysics(),
       routes:  [

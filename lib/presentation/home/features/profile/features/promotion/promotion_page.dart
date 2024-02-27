@@ -9,7 +9,7 @@ class PromotionPage
   const PromotionPage({super.key});
 
   @override
-  Widget builder(BuildContext context, PromotionBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PromotionBuildable state) {
     return Scaffold(
       appBar: AppBar(),
       body: Center(child: Text("Promotion Page")),

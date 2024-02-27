@@ -26,12 +26,12 @@ class UserAdListPage extends BasePage<UserAdListCubit, UserAdListBuildable,
   final UserAdStatus userAdStatus;
 
   @override
-  void init(BuildContext context) {
+  void onWidgetCreated(BuildContext context) {
     cubit(context).setInitialParams(userAdStatus);
   }
 
   @override
-  Widget builder(BuildContext context, UserAdListBuildable state) {
+  Widget onWidgetBuild(BuildContext context, UserAdListBuildable state) {
     return Scaffold(
       backgroundColor: Color(0xFFF2F4FB),
       body: PagedListView<int, UserAdResponse>(

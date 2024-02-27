@@ -23,12 +23,12 @@ class UserAcceptOrdersPage extends BasePage<UserAcceptOrdersCubit,
   final OrderType orderType;
 
   @override
-  void init(BuildContext context) {
+  void onWidgetCreated(BuildContext context) {
     context.read<UserAcceptOrdersCubit>().setInitialOrderType(orderType);
   }
 
   @override
-  Widget builder(BuildContext context, UserAcceptOrdersBuildable state) {
+  Widget onWidgetBuild(BuildContext context, UserAcceptOrdersBuildable state) {
     double width;
     double height;
     width = MediaQuery.of(context).size.width;

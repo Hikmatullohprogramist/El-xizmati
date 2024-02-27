@@ -23,12 +23,12 @@ class SelectionUserWarehousePage extends BasePage<SelectionUserWarehouseCubit,
   final List<UserAddressResponse>? initialSelectedItems;
 
   @override
-  void init(BuildContext context) {
+  void onWidgetCreated(BuildContext context) {
     cubit(context).setInitialSelectedItems(initialSelectedItems);
   }
 
   @override
-  Widget builder(BuildContext context, SelectionUserWarehouseBuildable state) {
+  Widget onWidgetBuild(BuildContext context, SelectionUserWarehouseBuildable state) {
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.sizeOf(context).height * .4,

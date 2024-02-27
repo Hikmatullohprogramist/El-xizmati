@@ -17,8 +17,8 @@ class ChangeLanguageCubit
   StateRepository stateRepository;
 
   Future<void> selectLanguage(Language language) async {
-    build((buildable) => buildable.copyWith(language: language));
-    await stateRepository.setLanguage(buildable.language!.name);
+    updateState((buildable) => buildable.copyWith(language: language));
+    await stateRepository.setLanguage(currentState.language!.name);
   }
 
   Future<void> getLanguage() async {
@@ -34,7 +34,7 @@ class ChangeLanguageCubit
           language =Language.uzbekCyrill;
         }
       }
-      build((buildable) => buildable.copyWith(language: language));
+      updateState((buildable) => buildable.copyWith(language: language));
     } catch (e) {}
   }
 

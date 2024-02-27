@@ -9,12 +9,12 @@ import '../../gen/assets/assets.gen.dart';
 class AppCategoryWidget extends StatelessWidget {
   const AppCategoryWidget({
     super.key,
-    required this.invoke,
+    required this.onClicked,
     required this.category,
     this.isDisableAmount = false,
   });
 
-  final Function(CategoryResponse category) invoke;
+  final Function(CategoryResponse category) onClicked;
   final CategoryResponse category;
   final bool isDisableAmount;
 
@@ -22,7 +22,7 @@ class AppCategoryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          invoke(category);
+          onClicked(category);
         },
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),

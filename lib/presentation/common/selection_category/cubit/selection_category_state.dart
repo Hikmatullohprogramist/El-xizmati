@@ -1,15 +1,15 @@
 part of 'selection_category_cubit.dart';
 
 @freezed
-class SelectionCategoryBuildable with _$SelectionCategoryBuildable {
-  const factory SelectionCategoryBuildable({
+class PageState with _$PageState {
+  const factory PageState({
     @Default(<CategorySelectionResponse>[])
     List<CategorySelectionResponse> items,
     @Default(LoadingState.loading) LoadingState itemsLoadState,
-  }) = _SelectionCategoryBuildable;
+  }) = _PageState;
 }
 
 @freezed
-class SelectionCategoryListenable with _$SelectionCategoryListenable {
-  const factory SelectionCategoryListenable() = _SelectionCategoryListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent() = _PageEvent;
 }

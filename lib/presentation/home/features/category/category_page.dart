@@ -15,7 +15,7 @@ class CategoryPage
   const CategoryPage({super.key});
 
   @override
-  Widget builder(BuildContext context, CategoryBuildable state) {
+  Widget onWidgetBuild(BuildContext context, CategoryBuildable state) {
     return Scaffold(
       appBar: CommonSearchBar(
         onSearchClicked: () => context.router.push(SearchRoute()),
@@ -34,7 +34,7 @@ class CategoryPage
           itemCount: state.categories.length,
           itemBuilder: (context, index) {
             return AppCategoryWidget(
-                invoke: (CategoryResponse categoryResponse) {
+                onClicked: (CategoryResponse categoryResponse) {
                   context.router.push(SubCategoryRoute(
                       subCategoryId: categoryResponse.id,
                       title: categoryResponse.name ?? ""));

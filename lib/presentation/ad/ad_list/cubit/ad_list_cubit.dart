@@ -26,7 +26,7 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
 
   void setInitiallyDate(String? keyWord, AdListType adListType, int? sellerTin,
       int? adId, AdType? collectiveType) {
-    build((buildable) => buildable.copyWith(
+    updateState((buildable) => buildable.copyWith(
         adsPagingController: null,
         keyWord: keyWord ?? "",
         sellerTin: sellerTin,
@@ -44,13 +44,13 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
   Future<void> getController() async {
     try {
       final controller =
-          buildable.adsPagingController ?? getAdsController(status: 1);
-      build((buildable) => buildable.copyWith(adsPagingController: controller));
+          currentState.adsPagingController ?? getAdsController(status: 1);
+      updateState((buildable) => buildable.copyWith(adsPagingController: controller));
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
-      log.i(buildable.adsPagingController);
+      log.i(currentState.adsPagingController);
     }
   }
 
@@ -60,17 +60,17 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
     final adController = PagingController<int, Ad>(
       firstPageKey: 1,
     );
-    log.i(buildable.adsPagingController);
+    log.i(currentState.adsPagingController);
 
     adController.addPageRequestListener(
       (pageKey) async {
         List<Ad> adsList;
-        switch (buildable.adListType) {
+        switch (currentState.adListType) {
           case AdListType.homeList:
             adsList = await adRepository.getHomeAds(
               pageKey,
               _pageSize,
-              buildable.keyWord,
+              currentState.keyWord,
             );
           case AdListType.homePopularAds:
             adsList = await adRepository.getPopularAdsByType(
@@ -80,13 +80,13 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
             );
           case AdListType.adsByUser:
             adsList = await adRepository.getAdsByUser(
-              sellerTin: buildable.sellerTin ?? -1,
+              sellerTin: currentState.sellerTin ?? -1,
               page: pageKey,
               limit: 20,
             );
           case AdListType.similarAds:
             adsList = await adRepository.getSimilarAds(
-              adId: buildable.adId ?? 0,
+              adId: currentState.adId ?? 0,
               page: pageKey,
               limit: 20,
             );
@@ -94,17 +94,17 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
             adsList = await adRepository.getHomeAds(
               pageKey,
               _pageSize,
-              buildable.keyWord,
+              currentState.keyWord,
             );
           case AdListType.cheaperAdsByAdType:
             adsList = await adRepository.getCheapAdsByType(
-              adType: buildable.collectiveType ?? AdType.product,
+              adType: currentState.collectiveType ?? AdType.product,
               page: pageKey,
               limit: 20,
             );
           case AdListType.popularAdsByAdType:
             adsList = await adRepository.getPopularAdsByType(
-              adType: buildable.collectiveType ?? AdType.product,
+              adType: currentState.collectiveType ?? AdType.product,
               page: pageKey,
               limit: 20,
             );
@@ -113,23 +113,23 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
                 page: pageKey, limit: 20);
         }
 
-        if (buildable.adListType == AdListType.homePopularAds ||
-            buildable.adListType == AdListType.cheaperAdsByAdType ||
-            buildable.adListType == AdListType.popularAdsByAdType ||
-            buildable.adListType == AdListType.popularCategoryAds ||
-            buildable.adListType == AdListType.adsByUser ||
-            buildable.adListType == AdListType.similarAds) {
+        if (currentState.adListType == AdListType.homePopularAds ||
+            currentState.adListType == AdListType.cheaperAdsByAdType ||
+            currentState.adListType == AdListType.popularAdsByAdType ||
+            currentState.adListType == AdListType.popularCategoryAds ||
+            currentState.adListType == AdListType.adsByUser ||
+            currentState.adListType == AdListType.similarAds) {
           adController.appendLastPage(adsList);
-          log.i(buildable.adsPagingController);
+          log.i(currentState.adsPagingController);
           return;
         } else {
           if (adsList.length <= 19) {
             adController.appendLastPage(adsList);
-            log.i(buildable.adsPagingController);
+            log.i(currentState.adsPagingController);
             return;
           }
           adController.appendPage(adsList, pageKey + 1);
-          log.i(buildable.adsPagingController);
+          log.i(currentState.adsPagingController);
         }
       },
     );
@@ -140,26 +140,26 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
     try {
       if (!ad.favorite) {
         final backendId = await favoriteRepository.addFavorite(ad);
-        final index = buildable.adsPagingController?.itemList?.indexOf(ad) ?? 0;
-        final item = buildable.adsPagingController?.itemList?.elementAt(index);
+        final index = currentState.adsPagingController?.itemList?.indexOf(ad) ?? 0;
+        final item = currentState.adsPagingController?.itemList?.elementAt(index);
         if (item != null) {
-          buildable.adsPagingController?.itemList?.insert(
+          currentState.adsPagingController?.itemList?.insert(
               index,
               item
                 ..favorite = true
                 ..backendId = backendId);
-          buildable.adsPagingController?.itemList?.removeAt(index);
-          buildable.adsPagingController?.notifyListeners();
+          currentState.adsPagingController?.itemList?.removeAt(index);
+          currentState.adsPagingController?.notifyListeners();
         }
       } else {
         await favoriteRepository.removeFavorite(ad);
-        final index = buildable.adsPagingController?.itemList?.indexOf(ad) ?? 0;
-        final item = buildable.adsPagingController?.itemList?.elementAt(index);
+        final index = currentState.adsPagingController?.itemList?.indexOf(ad) ?? 0;
+        final item = currentState.adsPagingController?.itemList?.elementAt(index);
         if (item != null) {
-          buildable.adsPagingController?.itemList
+          currentState.adsPagingController?.itemList
               ?.insert(index, item..favorite = false);
-          buildable.adsPagingController?.itemList?.removeAt(index);
-          buildable.adsPagingController?.notifyListeners();
+          currentState.adsPagingController?.itemList?.removeAt(index);
+          currentState.adsPagingController?.notifyListeners();
         }
       }
     } on DioException catch (error) {

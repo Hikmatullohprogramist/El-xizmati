@@ -20,7 +20,7 @@ class UserOrdersPage extends BasePage<UserOrdersCubit, UserOrdersBuildable,
   final OrderType orderType;
 
   @override
-  Widget builder(BuildContext context, UserOrdersBuildable state) {
+  Widget onWidgetBuild(BuildContext context, UserOrdersBuildable state) {
     return AutoTabsRouter.tabBar(
       physics: BouncingScrollPhysics(),
       routes: [

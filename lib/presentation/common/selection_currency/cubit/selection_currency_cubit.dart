@@ -25,7 +25,7 @@ class SelectionCurrencyCubit
     try {
       final items = await _repository.getCurrenciesForCreationAd();
       log.i(items.toString());
-      build(
+      updateState(
         (buildable) => buildable.copyWith(
           items: items,
           itemsLoadState: LoadingState.success,
@@ -33,7 +33,7 @@ class SelectionCurrencyCubit
       );
     } on DioException catch (exception) {
       log.e(exception.toString());
-      build(
+      updateState(
         (buildable) => buildable.copyWith(
           itemsLoadState: LoadingState.error,
         ),

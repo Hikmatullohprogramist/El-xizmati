@@ -12,23 +12,23 @@ class AddCardCubit extends BaseCubit<AddCardBuildable, AddCardListenable> {
   AddCardCubit() : super(const AddCardBuildable());
 
   void setCardPosition(int position) {
-    build((buildable) => buildable.copyWith(selectedCard: position));
+    updateState((buildable) => buildable.copyWith(selectedCard: position));
   }
 
   void setCardName(String name) {
-    build((buildable) => buildable.copyWith(cardName: name));
+    updateState((buildable) => buildable.copyWith(cardName: name));
   }
 
   void setCardNumber(String number) {
-    build((buildable) => buildable.copyWith(cardNumber: number));
+    updateState((buildable) => buildable.copyWith(cardNumber: number));
   }
 
   void setExpiredDate(String expired) {
-    build((buildable) => buildable.copyWith(cardExpired: expired));
+    updateState((buildable) => buildable.copyWith(cardExpired: expired));
   }
 
   void setMainCard(bool isMainCard) {
-    build((buildable) => buildable.copyWith(isMain: isMainCard));
+    updateState((buildable) => buildable.copyWith(isMain: isMainCard));
   }
 
   Future<void> addCard() async {}

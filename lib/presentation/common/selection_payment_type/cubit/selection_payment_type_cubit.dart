@@ -25,7 +25,7 @@ class SelectionPaymentTypeCubit extends BaseCubit<SelectionPaymentTypeBuildable,
     try {
       final paymentTypes = await _repository.getPaymentTypesForCreationAd();
       log.i(paymentTypes.toString());
-      build(
+      updateState(
         (buildable) => buildable.copyWith(
           items: paymentTypes,
           itemsLoadState: LoadingState.success,
@@ -33,7 +33,7 @@ class SelectionPaymentTypeCubit extends BaseCubit<SelectionPaymentTypeBuildable,
       );
     } on DioException catch (exception) {
       log.e(exception.toString());
-      build(
+      updateState(
         (buildable) => buildable.copyWith(
           itemsLoadState: LoadingState.error,
         ),
@@ -46,7 +46,7 @@ class SelectionPaymentTypeCubit extends BaseCubit<SelectionPaymentTypeBuildable,
       if (paymentTypes != null) {
         List<PaymentTypeResponse> updatedSelectedItems = [];
         updatedSelectedItems.addAll(paymentTypes);
-        build(
+        updateState(
           (buildable) => buildable.copyWith(
             selectedItems: updatedSelectedItems,
           ),
@@ -60,15 +60,15 @@ class SelectionPaymentTypeCubit extends BaseCubit<SelectionPaymentTypeBuildable,
   void updateSelectedItems(PaymentTypeResponse paymentType) {
     try {
       var updatedSelectedItems =
-          List<PaymentTypeResponse>.from(buildable.selectedItems);
+          List<PaymentTypeResponse>.from(currentState.selectedItems);
 
-      if (buildable.selectedItems.contains(paymentType)) {
+      if (currentState.selectedItems.contains(paymentType)) {
         updatedSelectedItems.remove(paymentType);
       } else {
         updatedSelectedItems.add(paymentType);
       }
 
-      build(
+      updateState(
         (buildable) => buildable.copyWith(
           selectedItems: updatedSelectedItems,
         ),

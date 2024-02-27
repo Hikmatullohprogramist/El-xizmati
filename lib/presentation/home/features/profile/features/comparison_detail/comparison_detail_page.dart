@@ -10,7 +10,7 @@ class ComparisonDetailPage extends BasePage<ComparisonDetailCubit,
   const ComparisonDetailPage({super.key});
 
   @override
-  Widget builder(BuildContext context, ComparisonDetailBuildable state) {
+  Widget onWidgetBuild(BuildContext context, ComparisonDetailBuildable state) {
     return Scaffold(
       appBar: AppBar(),
       body: Center(child: Text("Comparison Detail Page")),

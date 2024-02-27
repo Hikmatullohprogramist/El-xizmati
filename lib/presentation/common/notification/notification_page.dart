@@ -14,7 +14,7 @@ class NotificationPage extends BasePage<NotificationCubit,
   const NotificationPage({super.key});
 
   @override
-  Widget builder(BuildContext context, NotificationBuildable state) {
+  Widget onWidgetBuild(BuildContext context, NotificationBuildable state) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

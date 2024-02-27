@@ -12,7 +12,7 @@ class SellingChatsPage extends BasePage<SellingChatsCubit, SellingChatsBuildable
   const SellingChatsPage({super.key});
 
   @override
-  Widget builder(BuildContext context, SellingChatsBuildable state) {
+  Widget onWidgetBuild(BuildContext context, SellingChatsBuildable state) {
     return Scaffold(
         body: ListView.separated(
           physics: BouncingScrollPhysics(),

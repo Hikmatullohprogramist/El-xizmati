@@ -23,14 +23,14 @@ class UserPendingOrdersCubit
   final UserOrderRepository userOrderRepository;
 
   void setInitialOrderType(OrderType orderType) {
-    build((buildable) => buildable.copyWith(orderType: orderType));
+    updateState((buildable) => buildable.copyWith(orderType: orderType));
   }
 
   Future<void> getController() async {
     try {
       final controller =
           buildable.userOrderPagingController ?? getOrderController(status: 1);
-      build((buildable) =>
+      updateState((buildable) =>
           buildable.copyWith(userOrderPagingController: controller));
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);

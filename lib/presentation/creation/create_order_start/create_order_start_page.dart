@@ -15,7 +15,7 @@ class CreateOrderStartPage extends BasePage<CreateRequestStartCubit,
   const CreateOrderStartPage({super.key});
 
   @override
-  Widget builder(BuildContext context, CreateOrderStartBuildable state) {
+  Widget onWidgetBuild(BuildContext context, CreateOrderStartBuildable state) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

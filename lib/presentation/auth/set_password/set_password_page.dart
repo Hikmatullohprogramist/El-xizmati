@@ -18,7 +18,7 @@ class SetPasswordPage extends BasePage<SetPasswordCubit, SetPasswordBuildable,
   const SetPasswordPage({super.key});
 
   @override
-  void listener(BuildContext context, SetPasswordListenable event) {
+  void onEventEmitted(BuildContext context, SetPasswordListenable event) {
     switch (event.effect) {
       case SetPasswordEffect.navigationToHome:
         context.router.replace(HomeRoute());
@@ -26,7 +26,7 @@ class SetPasswordPage extends BasePage<SetPasswordCubit, SetPasswordBuildable,
   }
 
   @override
-  Widget builder(BuildContext context, SetPasswordBuildable state) {
+  Widget onWidgetBuild(BuildContext context, SetPasswordBuildable state) {
     return Scaffold(
       backgroundColor: context.colors.colorBackgroundPrimary,
       resizeToAvoidBottomInset: false,

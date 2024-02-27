@@ -24,7 +24,7 @@ class ProfilePage
   const ProfilePage({super.key});
 
   @override
-  void listener(BuildContext context, ProfileListenable event) {
+  void onEventEmitted(BuildContext context, ProfileListenable event) {
     switch (event.effect) {
       case ProfileEffect.onLogOut:
         context.router.push(ProfileRoute());
@@ -32,7 +32,7 @@ class ProfilePage
   }
 
   @override
-  Widget builder(BuildContext context, ProfileBuildable state) {
+  Widget onWidgetBuild(BuildContext context, ProfileBuildable state) {
     return Scaffold(
       appBar: _buildAppBar(context),
       backgroundColor: Color(0xFFF2F4FB),
@@ -296,7 +296,7 @@ class ProfilePage
               SelectionListItem(
                 item: Language.uzbekLatin,
                 title: Strings.languageUzLat,
-                isSelected: context.read<ProfileCubit>().buildable.language ==
+                isSelected: context.read<ProfileCubit>().currentState.language ==
                     Language.uzbekLatin,
                 onClicked: (item) {
                   _saveSelectedLanguage(context, item);
@@ -307,7 +307,7 @@ class ProfilePage
               SelectionListItem(
                 item: Language.uzbekCyrill,
                 title: Strings.languageUzCyr,
-                isSelected: context.read<ProfileCubit>().buildable.language ==
+                isSelected: context.read<ProfileCubit>().currentState.language ==
                     Language.uzbekCyrill,
                 onClicked: (item) {
                   _saveSelectedLanguage(context, item);
@@ -318,7 +318,7 @@ class ProfilePage
               SelectionListItem(
                 item: Language.russian,
                 title: Strings.languageRus,
-                isSelected: context.read<ProfileCubit>().buildable.language ==
+                isSelected: context.read<ProfileCubit>().currentState.language ==
                     Language.russian,
                 onClicked: (item) {
                   _saveSelectedLanguage(context, item);
@@ -424,7 +424,7 @@ class ProfilePage
   }
 
   SvgPicture _getLanguageIcon(BuildContext context, Language language) {
-    return context.read<ProfileCubit>().buildable.language == language
+    return context.read<ProfileCubit>().currentState.language == language
         ? Assets.images.icRadioButtonSelected.svg(height: 20, width: 20)
         : Assets.images.icRadioButtonUnSelected.svg(height: 20, width: 20);
   }

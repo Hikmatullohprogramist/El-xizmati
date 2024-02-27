@@ -22,7 +22,7 @@ class AuthStartPage
   AuthStartPage({super.key});
 
   @override
-  void listener(BuildContext context, AuthStartListenable event) {
+  void onEventEmitted(BuildContext context, AuthStartListenable event) {
     switch (event.effect) {
       case AuthStartEffect.verification:
         context.router.push(VerificationRoute(phone: event.phone!));
@@ -34,14 +34,14 @@ class AuthStartPage
   }
 
   @override
-  void init(BuildContext context) {
+  void onWidgetCreated(BuildContext context) {
     // phoneController.text = "+998 ";
   }
 
   final TextEditingController phoneController = TextEditingController();
 
   @override
-  Widget builder(BuildContext context, AuthStartBuildable state) {
+  Widget onWidgetBuild(BuildContext context, AuthStartBuildable state) {
     return Scaffold(
       backgroundColor: context.colors.colorBackgroundPrimary,
       resizeToAvoidBottomInset: false,

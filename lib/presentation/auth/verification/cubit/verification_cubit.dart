@@ -21,11 +21,11 @@ class VerificationCubit
   final FavoriteRepository _favoriteRepository;
 
   void setPhone(String phone) {
-    build((buildable) => buildable.copyWith(phone: phone, password: ""));
+    updateState((buildable) => buildable.copyWith(phone: phone, password: ""));
   }
 
   void setPassword(String password) {
-    build((buildable) => buildable.copyWith(
+    updateState((buildable) => buildable.copyWith(
           password: password,
         ));
   }
@@ -40,12 +40,12 @@ class VerificationCubit
   }
 
   Future<void> verification() async {
-    build((buildable) => buildable.copyWith(loading: true));
+    updateState((buildable) => buildable.copyWith(loading: true));
     try {
       await _repository.verification(
-          buildable.phone.clearSpaceInPhone(), buildable.password);
+          currentState.phone.clearSpaceInPhone(), currentState.password);
       sendAllFavoriteAds();
-      invoke(VerificationListenable(VerificationEffect.navigationHome));
+      emitEvent(VerificationListenable(VerificationEffect.navigationHome));
     } on DioException catch (e, stackTrace) {
       log.w("${e.toString()} ${stackTrace.toString()}");
       if (e.response?.statusCode == 401) {
@@ -57,14 +57,14 @@ class VerificationCubit
             "Xatolik  yuz berdi");
       }
     } finally {
-      build((buildable) => buildable.copyWith(loading: false));
+      updateState((buildable) => buildable.copyWith(loading: false));
     }
   }
 
   Future<void> forgetPassword() async {
     try {
-      await _repository.forgetPassword(buildable.phone.clearSpaceInPhone());
-      invoke(VerificationListenable(VerificationEffect.navigationToConfirm));
+      await _repository.forgetPassword(currentState.phone.clearSpaceInPhone());
+      emitEvent(VerificationListenable(VerificationEffect.navigationToConfirm));
     } on DioException {
       display.error(
           "xatolik yuz berdi qayta urinib ko'ring", "Xatolik  yuz berdi");
@@ -76,7 +76,7 @@ class VerificationCubit
       await _favoriteRepository.pushAllFavoriteAds();
     } catch (error) {
       display.error("Xatolik yuz berdi");
-      invoke(VerificationListenable(VerificationEffect.navigationHome));
+      emitEvent(VerificationListenable(VerificationEffect.navigationHome));
     }
   }
 }

@@ -14,7 +14,7 @@ class UserSocialNetworkPage extends BasePage<UserSocialNetworkCubit,
   const UserSocialNetworkPage({super.key});
 
   @override
-  Widget builder(BuildContext context, UserSocialNetworkBuildable state) {
+  Widget onWidgetBuild(BuildContext context, UserSocialNetworkBuildable state) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

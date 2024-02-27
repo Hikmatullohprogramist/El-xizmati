@@ -13,7 +13,7 @@ class WalletFillingPage extends BasePage<WalletFilingCubit,
   const WalletFillingPage({super.key});
 
   @override
-  Widget builder(BuildContext context, WalletFilingBuildable state) {
+  Widget onWidgetBuild(BuildContext context, WalletFilingBuildable state) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

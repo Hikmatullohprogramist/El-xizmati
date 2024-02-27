@@ -1,8 +1,8 @@
 part of 'ad_detail_cubit.dart';
 
 @freezed
-class AdDetailBuildable with _$AdDetailBuildable {
-  const factory AdDetailBuildable({
+class PageState with _$PageState {
+  const factory PageState({
     int? adId,
     AdDetail? adDetail,
     @Default(false) bool isAddCart,
@@ -13,13 +13,12 @@ class AdDetailBuildable with _$AdDetailBuildable {
     @Default(LoadingState.loading) LoadingState ownerAdsState,
     @Default(<Ad>[]) List<Ad> recentlyViewedAds,
     @Default(LoadingState.loading) LoadingState recentlyViewedAdsState,
-  }) = _AdDetailBuildable;
+  }) = _PageState;
 }
 
 @freezed
-class AdDetailListenable with _$AdDetailListenable {
-  const factory AdDetailListenable(AdDetailEffect effect, {String? message}) =
-      _AdDetailListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent(PageEventType effect, {String? message}) = _PageEvent;
 }
 
-enum AdDetailEffect { phoneCall, smsWrite }
+enum PageEventType { phoneCall, smsWrite }

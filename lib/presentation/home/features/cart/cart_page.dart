@@ -19,7 +19,7 @@ class CartPage extends BasePage<CartCubit, CartBuildable, CartListenable> {
   const CartPage({super.key});
 
   @override
-  Widget builder(BuildContext context, CartBuildable state) {
+  Widget onWidgetBuild(BuildContext context, CartBuildable state) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

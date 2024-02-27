@@ -24,13 +24,13 @@ class SelectionUnitCubit
     try {
       final items = await _repository.getUnitsForCreationAd();
       log.i(items.toString());
-      build((buildable) => buildable.copyWith(
+      updateState((buildable) => buildable.copyWith(
             items: items,
             itemsLoadState: LoadingState.success,
           ));
     } on DioException catch (exception) {
       log.e(exception.toString());
-      build((buildable) => buildable.copyWith(
+      updateState((buildable) => buildable.copyWith(
         itemsLoadState: LoadingState.error,
       ));
     }

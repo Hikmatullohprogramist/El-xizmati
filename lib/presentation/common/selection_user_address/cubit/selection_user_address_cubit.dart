@@ -24,7 +24,7 @@ class SelectionUserAddressCubit extends BaseCubit<SelectionUserAddressBuildable,
   Future<void> getItems() async {
     try {
       final items = await _repository.getUserAddresses();
-      build(
+      updateState(
         (buildable) => buildable.copyWith(
           itemsLoadState: LoadingState.success,
           items: items,
@@ -32,7 +32,7 @@ class SelectionUserAddressCubit extends BaseCubit<SelectionUserAddressBuildable,
       );
     } on DioException catch (exception) {
       log.e(exception.toString());
-      build(
+      updateState(
         (buildable) => buildable.copyWith(
           itemsLoadState: LoadingState.error,
         ),

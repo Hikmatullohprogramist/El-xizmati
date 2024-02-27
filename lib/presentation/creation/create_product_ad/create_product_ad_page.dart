@@ -41,7 +41,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
   final TextEditingController emailController = TextEditingController();
 
   @override
-  void listener(BuildContext context, CreateProductAdListenable event) {
+  void onEventEmitted(BuildContext context, CreateProductAdListenable event) {
     switch (event.effect) {
       case CreateProductAdEffect.onOverMaxCount:
         _showMaxCountError(context, event.maxImageCount);
@@ -49,7 +49,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
   }
 
   @override
-  Widget builder(BuildContext context, CreateProductAdBuildable state) {
+  Widget onWidgetBuild(BuildContext context, CreateProductAdBuildable state) {
     // priceController =
     //     TextEditingController(text: currencyFormatter.format(text));
 

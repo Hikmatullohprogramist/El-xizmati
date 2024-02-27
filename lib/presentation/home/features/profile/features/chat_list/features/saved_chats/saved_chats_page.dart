@@ -13,7 +13,7 @@ class SavedChatsPage extends BasePage<SavedChatsCubit, SavedChatsBuildable,
   const SavedChatsPage({super.key});
 
   @override
-  Widget builder(BuildContext context, SavedChatsBuildable state) {
+  Widget onWidgetBuild(BuildContext context, SavedChatsBuildable state) {
     return Scaffold(
         body: ListView.separated(
           physics: BouncingScrollPhysics(),

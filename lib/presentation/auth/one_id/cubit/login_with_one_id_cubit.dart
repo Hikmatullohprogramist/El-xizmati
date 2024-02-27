@@ -22,7 +22,7 @@ class LoginWithOneIdCubit
     try {
       final uri = Uri.parse(url);
       await _repository.loginWithOneId(uri.queryParameters['code'] ?? "");
-      invoke(LoginWithOneIdListenable(LoginWithOneIdEffect.navigationHome));
+      emitEvent(LoginWithOneIdListenable(LoginWithOneIdEffect.navigationHome));
       await sendAllFavoriteAds();
     } on DioException catch (e) {
       display.error(e.toString());
@@ -30,7 +30,7 @@ class LoginWithOneIdCubit
   }
 
   void hideLoading() {
-    build((buildable) => buildable.copyWith(isLoading: false));
+    updateState((buildable) => buildable.copyWith(isLoading: false));
   }
 
   Future<void> sendAllFavoriteAds() async {
@@ -38,7 +38,7 @@ class LoginWithOneIdCubit
       await _favoriteRepository.pushAllFavoriteAds();
     } catch (error) {
       display.error("Xatolik yuz berdi");
-      invoke(LoginWithOneIdListenable(LoginWithOneIdEffect.navigationHome));
+      emitEvent(LoginWithOneIdListenable(LoginWithOneIdEffect.navigationHome));
     }
   }
 }

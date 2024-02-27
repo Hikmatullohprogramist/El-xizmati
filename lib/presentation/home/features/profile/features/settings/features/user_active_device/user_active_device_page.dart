@@ -19,7 +19,7 @@ class UserActiveDevicePage extends BasePage<UserActiveDeviceCubit,
   const UserActiveDevicePage({super.key});
 
   @override
-  Widget builder(BuildContext context, UserActiveDeviceBuildable state) {
+  Widget onWidgetBuild(BuildContext context, UserActiveDeviceBuildable state) {
     double width;
     double height;
     width = MediaQuery.of(context).size.width;

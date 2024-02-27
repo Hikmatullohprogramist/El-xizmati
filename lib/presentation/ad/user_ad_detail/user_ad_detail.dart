@@ -23,7 +23,7 @@ class UserAdDetailPage extends BasePage<UserAdDetailCubit,
   final UserAdResponse userAdResponse;
 
   @override
-  Widget builder(BuildContext context, UserAdDetailBuildable state) {
+  Widget onWidgetBuild(BuildContext context, UserAdDetailBuildable state) {
     return Scaffold(
       appBar: AppBar(
         // title: "ID12345677".w(500).c(context.colors.textPrimary),

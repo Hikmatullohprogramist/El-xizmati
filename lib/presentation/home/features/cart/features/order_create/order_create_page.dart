@@ -24,7 +24,7 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
   final int adId;
 
   @override
-  void listener(BuildContext context, OrderCreateListenable event) {
+  void onEventEmitted(BuildContext context, OrderCreateListenable event) {
     switch (event.effect) {
       case OrderCreateEffect.delete:
         context.router.push(CartRoute());
@@ -36,12 +36,12 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
   }
 
   @override
-  void init(BuildContext context) {
+  void onWidgetCreated(BuildContext context) {
     context.read<OrderCreateCubit>().setAdId(adId);
   }
 
   @override
-  Widget builder(BuildContext context, OrderCreateBuildable state) {
+  Widget onWidgetBuild(BuildContext context, OrderCreateBuildable state) {
     var formatter = NumberFormat('###,000');
     Widget liked(bool isLiked) {
       if (isLiked) {

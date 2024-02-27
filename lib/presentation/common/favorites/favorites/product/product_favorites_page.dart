@@ -20,13 +20,13 @@ class ProductFavoritesPage extends BasePage<ProductFavoritesCubit,
   const ProductFavoritesPage({super.key});
 
   @override
-  void init(BuildContext context) {
+  void onWidgetCreated(BuildContext context) {
     // context.read<ProductFavoritesCubit>().getController();
     context.read<ProductFavoritesCubit>().close();
   }
 
   @override
-  Widget builder(BuildContext context, ProductFavoritesBuildable state) {
+  Widget onWidgetBuild(BuildContext context, ProductFavoritesBuildable state) {
     double width;
     double height;
     width = MediaQuery.of(context).size.width;

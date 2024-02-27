@@ -19,7 +19,7 @@ class AuthStartCubit
 
   void setPhone(String phone) {
     log.i(phone);
-    build(
+    updateState(
       (buildable) => buildable.copyWith(
         phone: phone,
         validation: phone.length >= 9,
@@ -28,21 +28,21 @@ class AuthStartCubit
   }
 
   void validation() async {
-    build((buildable) => buildable.copyWith(loading: true));
+    updateState((buildable) => buildable.copyWith(loading: true));
     try {
       var authStartResponse =
-          await _repository.authStart("998${buildable.phone.clearSpaceInPhone()}");
+          await _repository.authStart("998${currentState.phone.clearSpaceInPhone()}");
       if (authStartResponse.data.is_registered == true) {
-        invoke(AuthStartListenable(AuthStartEffect.verification,
-            phone: buildable.phone));
+        emitEvent(AuthStartListenable(AuthStartEffect.verification,
+            phone: currentState.phone));
       } else {
-        invoke(AuthStartListenable(AuthStartEffect.confirmation,
-            phone: buildable.phone));
+        emitEvent(AuthStartListenable(AuthStartEffect.confirmation,
+            phone: currentState.phone));
       }
     } on DioException catch (e) {
       display.error(e.toString());
     } finally {
-      build((buildable) => buildable.copyWith(loading: false));
+      updateState((buildable) => buildable.copyWith(loading: false));
     }
   }
 }

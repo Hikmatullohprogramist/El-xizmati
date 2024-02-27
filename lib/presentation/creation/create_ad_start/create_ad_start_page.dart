@@ -14,7 +14,7 @@ class CreateAdStartPage extends BasePage<CreateAdStartCubit, CreateAdStartBuilda
   const CreateAdStartPage({super.key});
 
   @override
-  Widget builder(BuildContext context, CreateAdStartBuildable state) {
+  Widget onWidgetBuild(BuildContext context, CreateAdStartBuildable state) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

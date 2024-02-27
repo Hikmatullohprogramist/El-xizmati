@@ -14,7 +14,7 @@ class CreateServiceOrderPage extends BasePage<ServiceOrderCreateCubit, CreateSer
   const CreateServiceOrderPage({super.key});
 
   @override
-  Widget builder(BuildContext context, CreateServiceOrderBuildable state) {
+  Widget onWidgetBuild(BuildContext context, CreateServiceOrderBuildable state) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(

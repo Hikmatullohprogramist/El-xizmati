@@ -18,7 +18,7 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
   const ProfileEditPage({super.key});
 
   @override
-  void listener(BuildContext context, ProfileEditListenable event) {
+  void onEventEmitted(BuildContext context, ProfileEditListenable event) {
     switch (event.effect) {
       case ProfileEditEffect.success:
         () {};
@@ -28,7 +28,7 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditBuildable,
   }
 
   @override
-  Widget builder(BuildContext context, ProfileEditBuildable state) {
+  Widget onWidgetBuild(BuildContext context, ProfileEditBuildable state) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

@@ -26,12 +26,12 @@ class ProfileViewPage extends BasePage<ProfileViewCubit, ProfileViewBuildable,
   const ProfileViewPage({super.key});
 
   @override
-  void init(BuildContext context) {
+  void onWidgetCreated(BuildContext context) {
     context.read<ProfileViewCubit>().getUserInformation();
   }
 
   @override
-  void listener(BuildContext context, ProfileViewListenable event) {
+  void onEventEmitted(BuildContext context, ProfileViewListenable event) {
     switch (event.effect) {
       case ProfileViewEffect.navigationAuthStart:
         context.router.push(AuthStartRoute());
@@ -39,7 +39,7 @@ class ProfileViewPage extends BasePage<ProfileViewCubit, ProfileViewBuildable,
   }
 
   @override
-  Widget builder(BuildContext context, ProfileViewBuildable state) {
+  Widget onWidgetBuild(BuildContext context, ProfileViewBuildable state) {
     try {
       return Scaffold(
           appBar: AppBar(

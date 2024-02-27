@@ -25,7 +25,7 @@ class SelectionUserWarehouseCubit extends BaseCubit<
     try {
       final warehouses = await _repository.getWarehousesForCreationAd();
       log.i(warehouses.toString());
-      build(
+      updateState(
         (buildable) => buildable.copyWith(
           items: warehouses,
           itemsLoadState: LoadingState.success,
@@ -33,7 +33,7 @@ class SelectionUserWarehouseCubit extends BaseCubit<
       );
     } on DioException catch (exception) {
       log.e(exception.toString());
-      build(
+      updateState(
         (buildable) => buildable.copyWith(
           itemsLoadState: LoadingState.error,
         ),
@@ -46,7 +46,7 @@ class SelectionUserWarehouseCubit extends BaseCubit<
       if (warehouses != null) {
         List<UserAddressResponse> updatedSelectedItems = [];
         updatedSelectedItems.addAll(warehouses);
-        build(
+        updateState(
           (buildable) => buildable.copyWith(
             selectedItems: updatedSelectedItems,
           ),
@@ -60,15 +60,15 @@ class SelectionUserWarehouseCubit extends BaseCubit<
   void updateSelectedItems(UserAddressResponse warehouse) {
     try {
       var updatedSelectedItems =
-          List<UserAddressResponse>.from(buildable.selectedItems);
+          List<UserAddressResponse>.from(currentState.selectedItems);
 
-      if (buildable.selectedItems.contains(warehouse)) {
+      if (currentState.selectedItems.contains(warehouse)) {
         updatedSelectedItems.remove(warehouse);
       } else {
         updatedSelectedItems.add(warehouse);
       }
 
-      build(
+      updateState(
         (buildable) => buildable.copyWith(
           selectedItems: updatedSelectedItems,
         ),

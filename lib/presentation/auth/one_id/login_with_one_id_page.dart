@@ -14,7 +14,7 @@ class LoginWithOneIdPage extends BasePage<LoginWithOneIdCubit,
   const LoginWithOneIdPage({super.key});
 
   @override
-  void listener(BuildContext context, LoginWithOneIdListenable event) {
+  void onEventEmitted(BuildContext context, LoginWithOneIdListenable event) {
     switch (event.effect) {
       case LoginWithOneIdEffect.navigationHome:
         context.router.replace(HomeRoute());
@@ -22,7 +22,7 @@ class LoginWithOneIdPage extends BasePage<LoginWithOneIdCubit,
   }
 
   @override
-  Widget builder(BuildContext context, LoginWithOneIdBuildable state) {
+  Widget onWidgetBuild(BuildContext context, LoginWithOneIdBuildable state) {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,

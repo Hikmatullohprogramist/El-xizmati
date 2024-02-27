@@ -21,7 +21,7 @@ class UserAdListCubit
   final UserAdRepository userAdRepository;
 
   void setInitialParams(UserAdStatus userAdStatus) {
-    build((buildable) => buildable.copyWith(userAdStatus: userAdStatus));
+    updateState((buildable) => buildable.copyWith(userAdStatus: userAdStatus));
 
     getController();
   }
@@ -29,8 +29,8 @@ class UserAdListCubit
   Future<void> getController() async {
     try {
       final controller =
-          buildable.userAdsPagingController ?? getAdsController(status: 1);
-      build(
+          currentState.userAdsPagingController ?? getAdsController(status: 1);
+      updateState(
             (buildable) =>
             buildable.copyWith(userAdsPagingController: controller),
       );
@@ -38,7 +38,7 @@ class UserAdListCubit
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
-      log.i(buildable.userAdsPagingController);
+      log.i(currentState.userAdsPagingController);
     }
   }
 
@@ -47,22 +47,22 @@ class UserAdListCubit
   }) {
     final adController = PagingController<int, UserAdResponse>(
         firstPageKey: 1, invisibleItemsThreshold: 100);
-    log.i(buildable.userAdsPagingController);
+    log.i(currentState.userAdsPagingController);
 
     adController.addPageRequestListener(
           (pageKey) async {
         final adsList = await userAdRepository.getUserAds(
           limit: 20,
           page: pageKey,
-          userAdStatus: buildable.userAdStatus,
+          userAdStatus: currentState.userAdStatus,
         );
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);
-          log.i(buildable.userAdsPagingController);
+          log.i(currentState.userAdsPagingController);
           return;
         }
         adController.appendPage(adsList, pageKey + 1);
-        log.i(buildable.userAdsPagingController);
+        log.i(currentState.userAdsPagingController);
       },
     );
     return adController;

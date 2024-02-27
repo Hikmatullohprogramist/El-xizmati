@@ -25,49 +25,49 @@ class CreateProductAdCubit
   final AdCreationRepository _repository;
 
   Future<void> sendCreateProductAdRequest() async {
-    build((buildable) => buildable.copyWith(isRequestSending: true));
+    updateState((buildable) => buildable.copyWith(isRequestSending: true));
     try {
       final response = await _repository.createProductAd(
-        title: buildable.title,
-        category: buildable.category!,
+        title: currentState.title,
+        category: currentState.category!,
         pickedImageIds: [""],
-        desc: buildable.desc,
-        warehouseCount: buildable.warehouseCount,
-        unit: buildable.unit,
-        price: buildable.price,
-        currency: buildable.currency,
-        paymentTypes: buildable.paymentTypes,
-        isAgreedPrice: buildable.isAgreedPrice,
-        isNew: buildable.isNew,
-        isBusiness: buildable.isBusiness,
-        address: buildable.address,
-        contactPerson: buildable.contactPerson,
-        phone: buildable.phone,
-        email: buildable.email,
+        desc: currentState.desc,
+        warehouseCount: currentState.warehouseCount,
+        unit: currentState.unit,
+        price: currentState.price,
+        currency: currentState.currency,
+        paymentTypes: currentState.paymentTypes,
+        isAgreedPrice: currentState.isAgreedPrice,
+        isNew: currentState.isNew,
+        isBusiness: currentState.isBusiness,
+        address: currentState.address,
+        contactPerson: currentState.contactPerson,
+        phone: currentState.phone,
+        email: currentState.email,
         pickupAddresses:
-            buildable.isPickupEnabled ? buildable.pickupAddresses : [],
-        isAutoRenewal: buildable.isAutoRenewal,
-        isShowMySocialAccount: buildable.isShowMySocialAccount,
+            currentState.isPickupEnabled ? currentState.pickupAddresses : [],
+        isAutoRenewal: currentState.isAutoRenewal,
+        isShowMySocialAccount: currentState.isShowMySocialAccount,
       );
       log.i(response.toString());
 
-      build((buildable) => buildable.copyWith(isRequestSending: false));
+      updateState((buildable) => buildable.copyWith(isRequestSending: false));
     } on DioException catch (exception) {
       log.e(exception.toString());
-      build((buildable) => buildable.copyWith(isRequestSending: false));
+      updateState((buildable) => buildable.copyWith(isRequestSending: false));
     }
   }
 
   void setEnteredTitle(String title) {
-    build((buildable) => buildable.copyWith(title: title));
+    updateState((buildable) => buildable.copyWith(title: title));
   }
 
   void setSelectedCategory(CategoryResponse category) {
-    build((buildable) => buildable.copyWith(category: category));
+    updateState((buildable) => buildable.copyWith(category: category));
   }
 
   void setEnteredDesc(String desc) {
-    build((buildable) => buildable.copyWith(desc: desc));
+    updateState((buildable) => buildable.copyWith(desc: desc));
   }
 
   void setEnteredWarehouseCount(String warehouseCount) {
@@ -79,11 +79,11 @@ class CreateProductAdCubit
         log.e(e.toString());
       }
     }
-    build((buildable) => buildable.copyWith(warehouseCount: warehouseCountInt));
+    updateState((buildable) => buildable.copyWith(warehouseCount: warehouseCountInt));
   }
 
   void setSelectedUnit(UnitResponse unit) {
-    build((buildable) => buildable.copyWith(unit: unit));
+    updateState((buildable) => buildable.copyWith(unit: unit));
   }
 
   void setEnteredPrice(String price) {
@@ -95,11 +95,11 @@ class CreateProductAdCubit
         log.e(e.toString());
       }
     }
-    build((buildable) => buildable.copyWith(price: priceInt));
+    updateState((buildable) => buildable.copyWith(price: priceInt));
   }
 
   void setSelectedCurrency(CurrencyResponse currency) {
-    build((buildable) => buildable.copyWith(currency: currency));
+    updateState((buildable) => buildable.copyWith(currency: currency));
   }
 
   void setSelectedPaymentTypes(
@@ -108,7 +108,7 @@ class CreateProductAdCubit
     try {
       if (selectedPaymentTypes != null) {
         var paymentTypes =
-            List<PaymentTypeResponse>.from(buildable.paymentTypes);
+            List<PaymentTypeResponse>.from(currentState.paymentTypes);
         paymentTypes.clear();
 
         if (selectedPaymentTypes.isNotEmpty) {
@@ -116,7 +116,7 @@ class CreateProductAdCubit
           paymentTypes = paymentTypes.toSet().toList();
         }
 
-        build((buildable) => buildable.copyWith(paymentTypes: paymentTypes));
+        updateState((buildable) => buildable.copyWith(paymentTypes: paymentTypes));
       }
     } catch (e) {
       log.e(e.toString());
@@ -125,44 +125,44 @@ class CreateProductAdCubit
 
   void removeSelectedPaymentType(PaymentTypeResponse paymentType) {
     try {
-      var paymentTypes = List<PaymentTypeResponse>.from(buildable.paymentTypes);
+      var paymentTypes = List<PaymentTypeResponse>.from(currentState.paymentTypes);
       paymentTypes.remove(paymentType);
-      build((buildable) => buildable.copyWith(paymentTypes: paymentTypes));
+      updateState((buildable) => buildable.copyWith(paymentTypes: paymentTypes));
     } catch (e) {
       log.e(e.toString());
     }
   }
 
   void setAgreedPrice(bool isAgreedPrice) {
-    build((buildable) => buildable.copyWith(isAgreedPrice: isAgreedPrice));
+    updateState((buildable) => buildable.copyWith(isAgreedPrice: isAgreedPrice));
   }
 
   void setIsNew(bool isNew) {
-    build((buildable) => buildable.copyWith(isNew: isNew));
+    updateState((buildable) => buildable.copyWith(isNew: isNew));
   }
 
   void setIsBusiness(bool isBusiness) {
-    build((buildable) => buildable.copyWith(isBusiness: isBusiness));
+    updateState((buildable) => buildable.copyWith(isBusiness: isBusiness));
   }
 
   void setSelectedAddress(UserAddressResponse address) {
-    build((buildable) => buildable.copyWith(address: address));
+    updateState((buildable) => buildable.copyWith(address: address));
   }
 
   void setEnteredContactPerson(String contactPerson) {
-    build((buildable) => buildable.copyWith(contactPerson: contactPerson));
+    updateState((buildable) => buildable.copyWith(contactPerson: contactPerson));
   }
 
   void setEnteredPhone(String phone) {
-    build((buildable) => buildable.copyWith(phone: phone));
+    updateState((buildable) => buildable.copyWith(phone: phone));
   }
 
   void setEnteredEmail(String email) {
-    build((buildable) => buildable.copyWith(email: email));
+    updateState((buildable) => buildable.copyWith(email: email));
   }
 
   void setPickupEnabling(bool isEnabled) {
-    build((buildable) => buildable.copyWith(isPickupEnabled: isEnabled));
+    updateState((buildable) => buildable.copyWith(isPickupEnabled: isEnabled));
   }
 
   void setSelectedPickupAddresses(
@@ -171,7 +171,7 @@ class CreateProductAdCubit
     try {
       if (selectedPickupAddresses != null) {
         var pickupAddresses =
-            List<UserAddressResponse>.from(buildable.pickupAddresses);
+            List<UserAddressResponse>.from(currentState.pickupAddresses);
 
         pickupAddresses.clear();
 
@@ -180,7 +180,7 @@ class CreateProductAdCubit
           pickupAddresses = pickupAddresses.toSet().toList();
         }
 
-        build(
+        updateState(
           (buildable) => buildable.copyWith(pickupAddresses: pickupAddresses),
         );
       }
@@ -192,9 +192,9 @@ class CreateProductAdCubit
   void removeSelectedPickupAddress(UserAddressResponse pickupAddress) {
     try {
       var pickupAddresses =
-          List<UserAddressResponse>.from(buildable.pickupAddresses);
+          List<UserAddressResponse>.from(currentState.pickupAddresses);
       pickupAddresses.remove(pickupAddress);
-      build(
+      updateState(
         (buildable) => buildable.copyWith(pickupAddresses: pickupAddresses),
       );
     } catch (e) {
@@ -203,19 +203,19 @@ class CreateProductAdCubit
   }
 
   void setFreeDeliveryEnabling(bool isEnabled) {
-    build((buildable) => buildable.copyWith(isFreeDeliveryEnabled: isEnabled));
+    updateState((buildable) => buildable.copyWith(isFreeDeliveryEnabled: isEnabled));
   }
 
   void setPaidDeliveryEnabling(bool isEnabled) {
-    build((buildable) => buildable.copyWith(isPaidDeliveryEnabled: isEnabled));
+    updateState((buildable) => buildable.copyWith(isPaidDeliveryEnabled: isEnabled));
   }
 
   void setAutoRenewal(bool isAutoRenewal) {
-    build((buildable) => buildable.copyWith(isAutoRenewal: isAutoRenewal));
+    updateState((buildable) => buildable.copyWith(isAutoRenewal: isAutoRenewal));
   }
 
   void setShowMySocialAccounts(bool isShowMySocialAccount) {
-    build((buildable) =>
+    updateState((buildable) =>
         buildable.copyWith(isShowMySocialAccount: isShowMySocialAccount));
   }
 
@@ -226,30 +226,30 @@ class CreateProductAdCubit
 
       log.w("pickImageFromGallery result = ${newImages.length}");
       if (newImages.isNotEmpty) {
-        List<XFile> addedImages = buildable.pickedImages != null
-            ? List<XFile>.from(buildable.pickedImages!)
+        List<XFile> addedImages = currentState.pickedImages != null
+            ? List<XFile>.from(currentState.pickedImages!)
             : [];
         List<XFile> changedImages = [];
 
         var addedCount = addedImages.length;
         var newCount = newImages.length;
-        var maxCount = state.buildable!.maxImageCount;
+        var maxCount = state.state!.maxImageCount;
 
         if (addedCount >= maxCount) {
-          invoke(CreateProductAdListenable(CreateProductAdEffect.onOverMaxCount,
-              maxImageCount: buildable.maxImageCount));
+          emitEvent(CreateProductAdListenable(CreateProductAdEffect.onOverMaxCount,
+              maxImageCount: currentState.maxImageCount));
         }
         if ((addedCount + newCount) > maxCount) {
-          invoke(CreateProductAdListenable(CreateProductAdEffect.onOverMaxCount,
-              maxImageCount: buildable.maxImageCount));
+          emitEvent(CreateProductAdListenable(CreateProductAdEffect.onOverMaxCount,
+              maxImageCount: currentState.maxImageCount));
 
           addedImages.addAll(newImages.sublist(0, maxCount - addedCount));
           changedImages.addAll(addedImages);
-          build((buildable) => buildable.copyWith(pickedImages: changedImages));
+          updateState((buildable) => buildable.copyWith(pickedImages: changedImages));
         } else {
           addedImages.addAll(newImages);
           changedImages.addAll(addedImages);
-          build((buildable) => buildable.copyWith(pickedImages: changedImages));
+          updateState((buildable) => buildable.copyWith(pickedImages: changedImages));
         }
       }
     } catch (e) {
@@ -264,14 +264,14 @@ class CreateProductAdCubit
 
       log.w("pickImageFromGallery result = $image");
       if (image != null) {
-        List<XFile> imageList = buildable.pickedImages != null
-            ? List<XFile>.from(buildable.pickedImages!)
+        List<XFile> imageList = currentState.pickedImages != null
+            ? List<XFile>.from(currentState.pickedImages!)
             : [];
 
         imageList.add(image);
         List<XFile> newImageList = [];
         newImageList.addAll(imageList);
-        build((buildable) => buildable.copyWith(pickedImages: newImageList));
+        updateState((buildable) => buildable.copyWith(pickedImages: newImageList));
       }
     } catch (e) {
       log.e(e.toString());
@@ -280,27 +280,27 @@ class CreateProductAdCubit
 
   void removeImage(String imagePath) {
     try {
-      List<XFile> imageList = buildable.pickedImages != null
-          ? List<XFile>.from(buildable.pickedImages!)
+      List<XFile> imageList = currentState.pickedImages != null
+          ? List<XFile>.from(currentState.pickedImages!)
           : [];
 
       imageList.removeWhere((element) => element.path == imagePath);
       List<XFile> newImageList = [];
       newImageList.addAll(imageList);
-      build((buildable) => buildable.copyWith(pickedImages: newImageList));
+      updateState((buildable) => buildable.copyWith(pickedImages: newImageList));
     } catch (e) {
       log.e(e.toString());
     }
   }
 
   List<XFile> getImages() {
-    return (buildable.pickedImages ?? []).map((e) => e).toList();
+    return (currentState.pickedImages ?? []).map((e) => e).toList();
   }
 
   void onReorder(int oldIndex, int newIndex) {
     try {
-      List<XFile> imageList = buildable.pickedImages != null
-          ? List<XFile>.from(buildable.pickedImages!)
+      List<XFile> imageList = currentState.pickedImages != null
+          ? List<XFile>.from(currentState.pickedImages!)
           : [];
 
       var item = imageList[oldIndex];
@@ -309,7 +309,7 @@ class CreateProductAdCubit
 
       List<XFile> newImageList = [];
       newImageList.addAll(imageList);
-      build((buildable) => buildable.copyWith(pickedImages: newImageList));
+      updateState((buildable) => buildable.copyWith(pickedImages: newImageList));
     } catch (e) {
       log.e(e.toString());
     }
@@ -319,7 +319,7 @@ class CreateProductAdCubit
     try {
       List<XFile> newImageList = [];
       newImageList.addAll(images);
-      build((buildable) => buildable.copyWith(pickedImages: newImageList));
+      updateState((buildable) => buildable.copyWith(pickedImages: newImageList));
     } catch (e) {
       log.e(e.toString());
     }

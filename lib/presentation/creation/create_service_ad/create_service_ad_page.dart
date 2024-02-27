@@ -15,7 +15,7 @@ class CreateServiceAdPage extends BasePage<CreateServiceAdCubit,
   const CreateServiceAdPage({super.key});
 
   @override
-  Widget builder(BuildContext context, CreateServiceAdBuildable state) {
+  Widget onWidgetBuild(BuildContext context, CreateServiceAdBuildable state) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(

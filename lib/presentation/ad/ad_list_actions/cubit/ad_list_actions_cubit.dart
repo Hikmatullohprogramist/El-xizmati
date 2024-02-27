@@ -25,7 +25,7 @@ class AdListActionsCubit
     UserAdResponse? userAdResponse,
     UserAdStatus? userAdStatus,
   ) {
-    build(
+    updateState(
       (buildable) => buildable.copyWith(
         userAdResponse: userAdResponse,
         userAdStatus: userAdStatus,

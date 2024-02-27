@@ -28,12 +28,12 @@ class AdListByTypePage extends BasePage<AdListByTypeCubit,
   final AdType adType;
 
   @override
-  void init(BuildContext context) {
+  void onWidgetCreated(BuildContext context) {
     context.read<AdListByTypeCubit>().setAdType(adType);
   }
 
   @override
-  void listener(BuildContext context, AdListByTypeListenable event) {
+  void onEventEmitted(BuildContext context, AdListByTypeListenable event) {
     switch (event.effect) {
       case AdsListByTypeEffect.success:
         () {};
@@ -43,7 +43,7 @@ class AdListByTypePage extends BasePage<AdListByTypeCubit,
   }
 
   @override
-  Widget builder(BuildContext context, AdListByTypeBuildable state) {
+  Widget onWidgetBuild(BuildContext context, AdListByTypeBuildable state) {
     double width;
     double height;
     width = MediaQuery.of(context).size.width;

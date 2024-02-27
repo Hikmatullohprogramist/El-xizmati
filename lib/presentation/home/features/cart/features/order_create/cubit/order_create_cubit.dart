@@ -33,33 +33,33 @@ class OrderCreateCubit
   final UserRepository userRepository;
 
   Future<void> setAdId(int adId) async {
-    build((buildable) => buildable.copyWith(adId: adId));
+    updateState((buildable) => buildable.copyWith(adId: adId));
     getDetailResponse();
   }
 
   List<String> getImages() {
-    return (buildable.adDetail?.photos ?? List.empty(growable: true))
+    return (currentState.adDetail?.photos ?? List.empty(growable: true))
         .map((e) => "${Constants.baseUrlForImage}${e.image}")
         .toList();
   }
 
   void add() {
-    build((buildable) => buildable.copyWith(count: buildable.count + 1));
+    updateState((buildable) => buildable.copyWith(count: buildable.count + 1));
   }
 
   void minus() {
-    if (buildable.count > 1) {
-      build((buildable) => buildable.copyWith(count: buildable.count - 1));
+    if (currentState.count > 1) {
+      updateState((buildable) => buildable.copyWith(count: buildable.count - 1));
     }
   }
 
   Future<void> getDetailResponse() async {
     try {
-      final response = await _adRepository.getAdDetail(buildable.adId!);
+      final response = await _adRepository.getAdDetail(currentState.adId!);
       final paymentList =
           response?.paymentTypes?.map((e) => e.id ?? -1).toList() ??
               List.empty();
-      build((buildable) => buildable.copyWith(
+      updateState((buildable) => buildable.copyWith(
           adDetail: response,
           favorite: response?.favorite ?? false,
           paymentType: paymentList));
@@ -70,14 +70,14 @@ class OrderCreateCubit
   }
 
   void setPaymentType(int typeId) {
-    build((buildable) => buildable.copyWith(paymentId: typeId));
+    updateState((buildable) => buildable.copyWith(paymentId: typeId));
   }
 
   Future<void> removeCart() async {
     try {
-      if (buildable.adId != null) {
-        await _cartRepository.removeCart(buildable.adDetail!.toMap());
-        invoke(OrderCreateListenable(OrderCreateEffect.delete));
+      if (currentState.adId != null) {
+        await _cartRepository.removeCart(currentState.adDetail!.toMap());
+        emitEvent(OrderCreateListenable(OrderCreateEffect.delete));
       }
     } catch (e) {
       display.error(e.toString());
@@ -86,14 +86,14 @@ class OrderCreateCubit
 
   Future<void> addFavorite() async {
     try {
-      if (!buildable.adDetail!.favorite) {
-        await favoriteRepository.addFavorite(buildable.adDetail!.toMap());
+      if (!currentState.adDetail!.favorite) {
+        await favoriteRepository.addFavorite(currentState.adDetail!.toMap());
         display.success("Success");
       } else {
-        await favoriteRepository.removeFavorite(buildable.adDetail!.toMap());
+        await favoriteRepository.removeFavorite(currentState.adDetail!.toMap());
       }
-      final favorite = !buildable.favorite;
-      build((buildable) => buildable.copyWith(favorite: favorite));
+      final favorite = !currentState.favorite;
+      updateState((buildable) => buildable.copyWith(favorite: favorite));
       display.success("succes");
     } catch (e) {
       display.error(e.toString());
@@ -106,15 +106,15 @@ class OrderCreateCubit
       final isFullRegister = await userRepository.isFullRegister();
       if (isLogin) {
         if (isFullRegister) {
-          if (buildable.paymentId > 0) {
+          if (currentState.paymentId > 0) {
             await _cartRepository.orderCreate(
-                productId: buildable.adId ?? -1,
-                amount: buildable.count,
-                paymentTypeId: buildable.paymentId,
-                tin: buildable.adDetail?.sellerTin ?? -1);
+                productId: currentState.adId ?? -1,
+                amount: currentState.count,
+                paymentTypeId: currentState.paymentId,
+                tin: currentState.adDetail?.sellerTin ?? -1);
             await _cartRepository.removeOrder(
-                tin: buildable.adDetail?.sellerTin ?? -1);
-            invoke(OrderCreateListenable(OrderCreateEffect.delete));
+                tin: currentState.adDetail?.sellerTin ?? -1);
+            emitEvent(OrderCreateListenable(OrderCreateEffect.delete));
           } else {
             display.error("to'lov turi tanlanmagan");
           }
@@ -122,7 +122,7 @@ class OrderCreateCubit
           display.error("To'liq ro'yxatdan o'tilmagan");
         }
       } else {
-        invoke(OrderCreateListenable(OrderCreateEffect.navigationAuthStart));
+        emitEvent(OrderCreateListenable(OrderCreateEffect.navigationAuthStart));
       }
     } catch (e) {
       display.error("error");

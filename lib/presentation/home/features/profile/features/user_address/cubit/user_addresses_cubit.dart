@@ -26,15 +26,15 @@ class UserAddressesCubit
   Future<void> getController() async {
     try {
       final controller =
-          buildable.addressPagingController ?? getAddressController(status: 1);
-      build(
+          currentState.addressPagingController ?? getAddressController(status: 1);
+      updateState(
         (buildable) => buildable.copyWith(addressPagingController: controller),
       );
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
-      log.i(buildable.addressPagingController);
+      log.i(currentState.addressPagingController);
     }
   }
 
@@ -43,7 +43,7 @@ class UserAddressesCubit
   }) {
     final addressController = PagingController<int, UserAddressResponse>(
         firstPageKey: 1, invisibleItemsThreshold: 100);
-    log.i(buildable.addressPagingController);
+    log.i(currentState.addressPagingController);
 
     try {
       addressController.addPageRequestListener(
@@ -51,11 +51,11 @@ class UserAddressesCubit
           final addressList = await userAddressRepository.getUserAddresses();
           if (addressList.length <= 1000) {
             addressController.appendLastPage(addressList);
-            log.i(buildable.addressPagingController);
+            log.i(currentState.addressPagingController);
             return;
           }
           addressController.appendPage(addressList, pageKey + 1);
-          log.i(buildable.addressPagingController);
+          log.i(currentState.addressPagingController);
         },
       );
     } on DioException catch (exception) {
@@ -67,7 +67,7 @@ class UserAddressesCubit
   }
 
   Future<void> editUserAddress(UserAddressResponse address) async {
-    await invoke(UserAddressesListenable(UserAddressesEffect.editUserAddress,
+    await emitEvent(UserAddressesListenable(UserAddressesEffect.editUserAddress,
         address: address));
   }
 
@@ -78,7 +78,7 @@ class UserAddressesCubit
         isMain: true,
       );
 
-      var items = buildable.addressPagingController?.itemList;
+      var items = currentState.addressPagingController?.itemList;
       if (items != null) {
         var oldMain =
             items.firstWhereOrNull((element) => element.is_main == true);
@@ -92,7 +92,7 @@ class UserAddressesCubit
         var item = items[index];
         items.removeAt(index);
         items.insert(0, item.copyWith(is_main: true));
-        buildable.addressPagingController?.notifyListeners();
+        currentState.addressPagingController?.notifyListeners();
       }
     } catch (e) {
       display.error(e.toString());
@@ -103,8 +103,8 @@ class UserAddressesCubit
   Future<void> deleteUserAddress(UserAddressResponse address) async {
     try {
       await userAddressRepository.deleteAddress(id: address.id);
-      buildable.addressPagingController?.itemList?.remove(address);
-      buildable.addressPagingController?.notifyListeners();
+      currentState.addressPagingController?.itemList?.remove(address);
+      currentState.addressPagingController?.notifyListeners();
       await getController();
     } catch (e) {
       display.error(e.toString());

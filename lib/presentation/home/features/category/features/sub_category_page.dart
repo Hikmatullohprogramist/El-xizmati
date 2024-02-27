@@ -22,12 +22,12 @@ class SubCategoryPage extends BasePage<SubCategoryCubit, SubCategoryBuildable,
   final String title;
 
   @override
-  void init(BuildContext context) {
+  void onWidgetCreated(BuildContext context) {
     context.read<SubCategoryCubit>().getCategories(subCategoryId);
   }
 
   @override
-  Widget builder(BuildContext context, SubCategoryBuildable state) {
+  Widget onWidgetBuild(BuildContext context, SubCategoryBuildable state) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -49,7 +49,7 @@ class SubCategoryPage extends BasePage<SubCategoryCubit, SubCategoryBuildable,
           itemCount: state.categories.length,
           itemBuilder: (context, index) {
             return AppCategoryWidget(
-                invoke: (CategoryResponse categoryResponse) {
+                onClicked: (CategoryResponse categoryResponse) {
                   context.router.push(AdListRoute(
                       adListType: AdListType.popularCategoryAds,
                       keyWord: categoryResponse.key_word,

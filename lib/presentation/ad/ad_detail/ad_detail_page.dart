@@ -26,26 +26,25 @@ import '../../../domain/models/ad/ad_list_type.dart';
 import '../../../domain/models/stats/stats_type.dart';
 
 @RoutePage()
-class AdDetailPage
-    extends BasePage<AdDetailCubit, AdDetailBuildable, AdDetailListenable> {
+class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
   const AdDetailPage(this.adId, {super.key});
 
   final int adId;
 
   @override
-  void init(BuildContext context) {
-    context.read<AdDetailCubit>().setAdId(adId);
-    context.read<AdDetailCubit>().getRecentlyViewedAds();
+  void onWidgetCreated(BuildContext context) {
+    context.read<PageCubit>().setAdId(adId);
+    context.read<PageCubit>().getRecentlyViewedAds();
   }
 
   @override
-  Widget builder(BuildContext context, AdDetailBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return state.adDetail != null
         ? _getSuccessContent(context, state)
         : _getLoadingContent(context, state);
   }
 
-  Widget _getLoadingContent(BuildContext context, AdDetailBuildable state) {
+  Widget _getLoadingContent(BuildContext context, PageState state) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -61,7 +60,7 @@ class AdDetailPage
     );
   }
 
-  Widget _getSuccessContent(BuildContext context, AdDetailBuildable state) {
+  Widget _getSuccessContent(BuildContext context, PageState state) {
     return Scaffold(
       appBar: _getAppBar(context, state),
       bottomNavigationBar: _getBottomNavigationBar(context, state),
@@ -73,7 +72,7 @@ class AdDetailPage
     );
   }
 
-  Widget _getBodyContent(BuildContext context, AdDetailBuildable state) {
+  Widget _getBodyContent(BuildContext context, PageState state) {
     return ListView(
       shrinkWrap: true,
       physics: BouncingScrollPhysics(),
@@ -148,7 +147,7 @@ class AdDetailPage
     );
   }
 
-  AppBar _getAppBar(BuildContext context, AdDetailBuildable state) {
+  AppBar _getAppBar(BuildContext context, PageState state) {
     return AppBar(
         backgroundColor: Colors.white,
         elevation: 1,
@@ -160,12 +159,11 @@ class AdDetailPage
               padding: EdgeInsets.all(4),
               child: AdDetailFavoriteWidget(
                   isSelected: state.adDetail!.favorite,
-                  invoke: () => context.read<AdDetailCubit>().addFavorite()))
+                  invoke: () => context.read<PageCubit>().addFavorite()))
         ]);
   }
 
-  Widget _getBottomNavigationBar(
-      BuildContext context, AdDetailBuildable state) {
+  Widget _getBottomNavigationBar(BuildContext context, PageState state) {
     return Visibility(
         visible: (state.adDetail!.mainTypeStatus == "SELL" ||
             state.adDetail!.mainTypeStatus == "FREE" ||
@@ -193,7 +191,7 @@ class AdDetailPage
                     enabled: !state.isAddCart,
                     color: context.colors.buttonPrimary,
                     type: ButtonType.elevated,
-                    onPressed: () => context.read<AdDetailCubit>().addCart(),
+                    onPressed: () => context.read<PageCubit>().addCart(),
                     child:
                         Strings.adDetailAddtocart.s(13).c(Colors.white).w(500)),
               ),
@@ -219,7 +217,7 @@ class AdDetailPage
         ));
   }
 
-  Widget _getAdInfoChips(AdDetailBuildable state) {
+  Widget _getAdInfoChips(PageState state) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -288,7 +286,7 @@ class AdDetailPage
     );
   }
 
-  Widget _getDescriptionBlock(BuildContext context, AdDetailBuildable state) {
+  Widget _getDescriptionBlock(BuildContext context, PageState state) {
     return Visibility(
       visible: (state.adDetail?.hasDescription() ?? false),
       child: Container(
@@ -318,7 +316,7 @@ class AdDetailPage
     );
   }
 
-  Widget _getAuthorBlock(BuildContext context, AdDetailBuildable state) {
+  Widget _getAuthorBlock(BuildContext context, PageState state) {
     return Container(
       padding: EdgeInsets.only(left: 16, top: 8),
       child: Column(
@@ -385,7 +383,7 @@ class AdDetailPage
     );
   }
 
-  Widget _getAddressBlock(BuildContext context, AdDetailBuildable state) {
+  Widget _getAddressBlock(BuildContext context, PageState state) {
     return Visibility(
         visible: state.adDetail?.address != null,
         child: Container(
@@ -440,7 +438,7 @@ class AdDetailPage
             )));
   }
 
-  Widget _getContactsBlock(BuildContext context, AdDetailBuildable state) {
+  Widget _getContactsBlock(BuildContext context, PageState state) {
     return Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -475,9 +473,7 @@ class AdDetailPage
                 ),
               ),
               onTap: () {
-                context
-                    .read<AdDetailCubit>()
-                    .increaseAdStats(StatsType.message);
+                context.read<PageCubit>().increaseAdStats(StatsType.message);
                 try {
                   launch("sms://${state.adDetail!.phoneNumber}");
                 } catch (e) {}
@@ -525,7 +521,7 @@ class AdDetailPage
                     launch("tel://${state.adDetail!.phoneNumber}");
                   } catch (e) {}
                 } else {
-                  context.read<AdDetailCubit>().setPhotoView();
+                  context.read<PageCubit>().setPhotoView();
                 }
               }),
         ),
@@ -534,7 +530,7 @@ class AdDetailPage
     );
   }
 
-  Widget _getSimilarAds(BuildContext context, AdDetailBuildable state) {
+  Widget _getSimilarAds(BuildContext context, PageState state) {
     return Column(
       children: [
         SeeAllWidget(
@@ -553,7 +549,7 @@ class AdDetailPage
         LoaderStateWidget(
           isFullScreen: false,
           onErrorToAgainRequest: () {
-            context.read<AdDetailCubit>().getSimilarAds();
+            context.read<PageCubit>().getSimilarAds();
           },
           loadingState: state.similarAdsState,
           child: HorizontalAdListWidget(
@@ -561,14 +557,14 @@ class AdDetailPage
             onItemClicked: (Ad ad) =>
                 context.router.push(AdDetailRoute(adId: ad.id)),
             onFavoriteClicked: (Ad ad) =>
-                context.read<AdDetailCubit>().similarAdsAddFavorite(ad),
+                context.read<PageCubit>().similarAdsAddFavorite(ad),
           ),
         ),
       ],
     );
   }
 
-  Widget _getOwnerAdsWidget(BuildContext context, AdDetailBuildable state) {
+  Widget _getOwnerAdsWidget(BuildContext context, PageState state) {
     return Visibility(
       visible: state.ownerAdsState != LoadingState.error &&
           state.ownerAds.isNotEmpty,
@@ -591,7 +587,7 @@ class AdDetailPage
           LoaderStateWidget(
             isFullScreen: false,
             onErrorToAgainRequest: () {
-              context.read<AdDetailCubit>().getOwnerOtherAds();
+              context.read<PageCubit>().getOwnerOtherAds();
             },
             loadingState: state.ownerAdsState,
             child: HorizontalAdListWidget(
@@ -600,7 +596,7 @@ class AdDetailPage
                 context.router.push(AdDetailRoute(adId: ad.id));
               },
               onFavoriteClicked: (Ad ad) {
-                context.read<AdDetailCubit>().ownerAdAddToFavorite(ad);
+                context.read<PageCubit>().ownerAdAddToFavorite(ad);
               },
             ),
           ),
@@ -611,7 +607,7 @@ class AdDetailPage
 
   Widget _getRecentlyViewedAdsWidget(
     BuildContext context,
-    AdDetailBuildable state,
+    PageState state,
   ) {
     return Visibility(
       visible: state.recentlyViewedAdsState != LoadingState.error &&
@@ -635,7 +631,7 @@ class AdDetailPage
           LoaderStateWidget(
             isFullScreen: false,
             onErrorToAgainRequest: () {
-              context.read<AdDetailCubit>().getRecentlyViewedAds();
+              context.read<PageCubit>().getRecentlyViewedAds();
             },
             loadingState: state.recentlyViewedAdsState,
             child: HorizontalAdListWidget(
@@ -644,7 +640,7 @@ class AdDetailPage
                 context.router.push(AdDetailRoute(adId: ad.id));
               },
               onFavoriteClicked: (Ad ad) {
-                context.read<AdDetailCubit>().recentlyViewAdAddToFavorite(ad);
+                context.read<PageCubit>().recentlyViewAdAddToFavorite(ad);
               },
             ),
           ),

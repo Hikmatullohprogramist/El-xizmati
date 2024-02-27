@@ -30,14 +30,14 @@ class AdListPage
   final AdType? adType;
 
   @override
-  void init(BuildContext context) {
+  void onWidgetCreated(BuildContext context) {
     context
         .read<AdListCubit>()
         .setInitiallyDate(keyWord, adListType, sellerTin, adId, adType);
   }
 
   @override
-  void listener(BuildContext context, AdListListenable event) {
+  void onEventEmitted(BuildContext context, AdListListenable event) {
     switch (event.effect) {
       case AdListEffect.success:
         () {};
@@ -47,7 +47,7 @@ class AdListPage
   }
 
   @override
-  Widget builder(BuildContext context, AdListBuildable state) {
+  Widget onWidgetBuild(BuildContext context, AdListBuildable state) {
     double width;
     double height;
     width = MediaQuery.of(context).size.width;

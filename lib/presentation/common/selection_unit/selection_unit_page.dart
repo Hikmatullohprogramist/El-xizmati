@@ -20,7 +20,7 @@ class SelectionUnitPage extends BasePage<SelectionUnitCubit,
   final UnitResponse? selectedUnit;
 
   @override
-  Widget builder(BuildContext context, SelectionUnitBuildable state) {
+  Widget onWidgetBuild(BuildContext context, SelectionUnitBuildable state) {
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.sizeOf(context).height * .7,

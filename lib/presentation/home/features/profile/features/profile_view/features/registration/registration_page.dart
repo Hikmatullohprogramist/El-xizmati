@@ -19,7 +19,7 @@ class RegistrationPage extends BasePage<RegistrationCubit,
   const RegistrationPage({super.key});
 
   @override
-  void listener(BuildContext context, RegistrationListenable event) {
+  void onEventEmitted(BuildContext context, RegistrationListenable event) {
     switch (event.effect) {
       case RegistrationEffect.success:
         () {};
@@ -29,7 +29,7 @@ class RegistrationPage extends BasePage<RegistrationCubit,
   }
 
   @override
-  Widget builder(BuildContext context, RegistrationBuildable state) {
+  Widget onWidgetBuild(BuildContext context, RegistrationBuildable state) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

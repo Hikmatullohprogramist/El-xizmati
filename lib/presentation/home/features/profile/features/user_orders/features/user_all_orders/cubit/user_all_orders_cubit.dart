@@ -23,20 +23,20 @@ class UserAllOrdersCubit
    final UserOrderRepository userOrderRepository;
 
   void setInitialOrderType(OrderType orderType) {
-    build((buildable) => buildable.copyWith(orderType: orderType));
+    updateState((buildable) => buildable.copyWith(orderType: orderType));
   }
 
   Future<void> getController() async {
     try {
       final controller =
-          buildable.userOrderPagingController ?? getOrderController(status: 1);
-      build((buildable) =>
+          currentState.userOrderPagingController ?? getOrderController(status: 1);
+      updateState((buildable) =>
           buildable.copyWith(userOrderPagingController: controller));
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
-      log.i(buildable.userOrderPagingController);
+      log.i(currentState.userOrderPagingController);
     }
   }
 
@@ -45,7 +45,7 @@ class UserAllOrdersCubit
   }) {
     final adController = PagingController<int, UserOrderResponse>(
         firstPageKey: 1, invisibleItemsThreshold: 100);
-    log.i(buildable.userOrderPagingController);
+    log.i(currentState.userOrderPagingController);
 
     adController.addPageRequestListener(
           (pageKey) async {
@@ -53,14 +53,14 @@ class UserAllOrdersCubit
             limit: 20,
             userOrderStatus: UserOrderStatus.all,
             page: pageKey,
-            orderType: buildable.orderType);
+            orderType: currentState.orderType);
         if (orderList.length <= 19) {
           adController.appendLastPage(orderList);
-          log.i(buildable.userOrderPagingController);
+          log.i(currentState.userOrderPagingController);
           return;
         }
         adController.appendPage(orderList, pageKey + 1);
-        log.i(buildable.userOrderPagingController);
+        log.i(currentState.userOrderPagingController);
       },
     );
     return adController;

@@ -23,12 +23,12 @@ class AdListActionsPage extends BasePage<AdListActionsCubit,
   final UserAdStatus? userAdStatus;
 
   @override
-  void init(BuildContext context) {
+  void onWidgetCreated(BuildContext context) {
     cubit(context).setInitialParams(userAdResponse, userAdStatus);
   }
 
   @override
-  void listener(BuildContext context, AdListActionsListenable event) {
+  void onEventEmitted(BuildContext context, AdListActionsListenable event) {
     switch (event.eventData) {
       case AdListActionsEvent.closeOnSuccess:
         {
@@ -38,7 +38,7 @@ class AdListActionsPage extends BasePage<AdListActionsCubit,
   }
 
   @override
-  Widget builder(BuildContext context, AdListActionsBuildable state) {
+  Widget onWidgetBuild(BuildContext context, AdListActionsBuildable state) {
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.sizeOf(context).height * .35,

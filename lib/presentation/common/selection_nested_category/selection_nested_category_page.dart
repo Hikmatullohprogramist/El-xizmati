@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
@@ -12,16 +11,16 @@ import '../../../../../data/responses/category/category/category_response.dart';
 import 'cubit/selection_nested_category_cubit.dart';
 
 @RoutePage()
-class SelectionNestedCategoryPage extends BasePage<SelectionNestedCategoryCubit,
-    SelectionNestedCategoryBuildable, SelectionNestedCategoryListenable> {
+class SelectionNestedCategoryPage
+    extends BasePage<PageCubit, PageState, PageEvent> {
   const SelectionNestedCategoryPage(this.onResult, {super.key});
 
   final void Function(CategoryResponse categoryResponse) onResult;
 
   @override
-  void listener(BuildContext context, SelectionNestedCategoryListenable event) {
-    switch (event.eventType) {
-      case EventType.closePage:
+  void onEventEmitted(BuildContext context, PageEvent event) {
+    switch (event.pageEventType) {
+      case PageEventType.closePage:
         {
           if (event.category != null) {
             onResult(event.category!);
@@ -32,7 +31,7 @@ class SelectionNestedCategoryPage extends BasePage<SelectionNestedCategoryCubit,
   }
 
   @override
-  Widget builder(BuildContext context, SelectionNestedCategoryBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -45,7 +44,7 @@ class SelectionNestedCategoryPage extends BasePage<SelectionNestedCategoryCubit,
         backgroundColor: Colors.white,
         centerTitle: true,
         bottomOpacity: 1,
-        title: (state.selectedCategoryResponse?.name ?? "")
+        title: (state.selectedCategory?.name ?? "")
             .w(500)
             .s(16)
             .c(context.colors.textPrimary),
@@ -57,15 +56,14 @@ class SelectionNestedCategoryPage extends BasePage<SelectionNestedCategoryCubit,
           physics: BouncingScrollPhysics(),
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
-          itemCount: state.selectCategories.length,
+          itemCount: state.categories.length,
           itemBuilder: (context, index) {
             return AppCategoryWidget(
-                invoke: (CategoryResponse categoryResponse) {
-                  context
-                      .read<SelectionNestedCategoryCubit>()
-                      .selectCategory(categoryResponse);
-                },
-                category: state.selectCategories[index]);
+              category: state.categories[index],
+              onClicked: (CategoryResponse categoryResponse) {
+                cubit(context).selectCategory(categoryResponse);
+              },
+            );
           },
           separatorBuilder: (BuildContext context, int index) {
             return Divider(height: 1, indent: 54, color: Color(0xFFE5E9F3));

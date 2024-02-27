@@ -19,13 +19,13 @@ part 'ad_detail_cubit.freezed.dart';
 part 'ad_detail_state.dart';
 
 @injectable
-class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
-  AdDetailCubit(
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit(
     this.adRepository,
     this.cartRepository,
     this.favoriteRepository,
     this.tokenStorage,
-  ) : super(AdDetailBuildable()) {
+  ) : super(PageState()) {
     // getInitialData();
   }
 
@@ -39,24 +39,24 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
   final TokenStorage tokenStorage;
 
   List<String> getImages() {
-    return (buildable.adDetail?.photos ?? List.empty(growable: true))
+    return (currentState.adDetail?.photos ?? List.empty(growable: true))
         .map((e) => "${Constants.baseUrlForImage}${e.image}")
         .toList();
   }
 
   void setAdId(int adId) {
-    build((buildable) => buildable.copyWith(adId: adId));
+    updateState((buildable) => buildable.copyWith(adId: adId));
     getDetailResponse();
   }
 
   bool hasAdDetailDescription() {
-    return buildable.adDetail?.hasDescription() ?? false;
+    return currentState.adDetail?.hasDescription() ?? false;
   }
 
   Future<void> getDetailResponse() async {
     try {
-      var response = await adRepository.getAdDetail(buildable.adId!);
-      build(
+      var response = await adRepository.getAdDetail(currentState.adId!);
+      updateState(
         (buildable) => buildable.copyWith(
           adDetail: response,
           isPhoneVisible: false,
@@ -75,23 +75,23 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
 
   Future<void> setPhotoView() async {
     await increaseAdStats(StatsType.phone);
-    build((buildable) => buildable.copyWith(isPhoneVisible: true));
+    updateState((buildable) => buildable.copyWith(isPhoneVisible: true));
   }
 
   Future<void> addFavorite() async {
     try {
-      final ad = buildable.adDetail;
+      final ad = currentState.adDetail;
       if (!(ad?.favorite ?? false)) {
         final backendId =
-            await favoriteRepository.addFavorite(buildable.adDetail!.toMap());
-        build((buildable) => buildable.copyWith(
+            await favoriteRepository.addFavorite(currentState.adDetail!.toMap());
+        updateState((buildable) => buildable.copyWith(
             adDetail: buildable.adDetail
               ?..favorite = true
               ..backendId = backendId,
             isAddCart: false));
       } else {
-        await favoriteRepository.removeFavorite(buildable.adDetail!.toMap());
-        build((buildable) => buildable.copyWith(
+        await favoriteRepository.removeFavorite(currentState.adDetail!.toMap());
+        updateState((buildable) => buildable.copyWith(
             adDetail: buildable.adDetail?..favorite = false));
       }
     } on DioException catch (e) {
@@ -103,18 +103,18 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
     try {
       if (!ad.favorite) {
         final backendId = await favoriteRepository.addFavorite(ad);
-        final index = buildable.similarAds.indexOf(ad);
-        final item = buildable.similarAds.elementAt(index);
-        buildable.similarAds.insert(
+        final index = currentState.similarAds.indexOf(ad);
+        final item = currentState.similarAds.elementAt(index);
+        currentState.similarAds.insert(
             index,
             item
               ..favorite = true
               ..backendId = backendId);
       } else {
         await favoriteRepository.removeFavorite(ad);
-        final index = buildable.similarAds.indexOf(ad);
-        final item = buildable.similarAds.elementAt(index);
-        buildable.similarAds.insert(index, item..favorite = false);
+        final index = currentState.similarAds.indexOf(ad);
+        final item = currentState.similarAds.elementAt(index);
+        currentState.similarAds.insert(index, item..favorite = false);
       }
     } on DioException catch (error) {
       display.error("xatolik yuz  berdi");
@@ -124,8 +124,8 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
 
   Future<void> addCart() async {
     try {
-      await cartRepository.addCart(buildable.adDetail!.toMap());
-      build((buildable) => buildable.copyWith(isAddCart: true));
+      await cartRepository.addCart(currentState.adDetail!.toMap());
+      updateState((buildable) => buildable.copyWith(isAddCart: true));
       display.success("mahsulot savatchaga qo'shildi");
     } on DioException catch (e) {
       display.error("xatlik yuz berdi");
@@ -136,13 +136,13 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
   Future<void> getSimilarAds() async {
     try {
       final ads = await adRepository.getSimilarAds(
-          adId: buildable.adId ?? 0, page: 1, limit: 10);
-      build((buildable) => buildable.copyWith(
+          adId: currentState.adId ?? 0, page: 1, limit: 10);
+      updateState((buildable) => buildable.copyWith(
             similarAds: ads,
             similarAdsState: LoadingState.success,
           ));
     } on DioException catch (e, stackTrace) {
-      build((buildable) =>
+      updateState((buildable) =>
           buildable.copyWith(similarAdsState: LoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
@@ -151,7 +151,7 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
 
   Future<void> increaseAdStats(StatsType type) async {
     try {
-      int? adId = buildable.adId;
+      int? adId = currentState.adId;
       if (adId != null) {
         await adRepository.increaseAdStats(type: type, adId: adId);
       }
@@ -162,7 +162,7 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
 
   Future<void> addAdToRecentlyViewed() async {
     try {
-      int? adId = buildable.adId;
+      int? adId = currentState.adId;
       if (adId != null && tokenStorage.isLogin.call() == true) {
         await adRepository.addAdToRecentlyViewed(adId: adId);
       }
@@ -172,8 +172,8 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
   }
 
   Future<void> getOwnerOtherAds() async {
-    if (state.buildable?.adDetail?.sellerTin == null) {
-      build(
+    if (state.state?.adDetail?.sellerTin == null) {
+      updateState(
         (buildable) => buildable.copyWith(ownerAdsState: LoadingState.error),
       );
       return;
@@ -181,22 +181,22 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
 
     try {
       final ads = await adRepository.getAdsByUser(
-        sellerTin: state.buildable!.adDetail!.sellerTin!,
+        sellerTin: state.state!.adDetail!.sellerTin!,
         page: 1,
         limit: 20,
       );
 
       display.success("Muallifning boshqa e'lonlari muaffaqiyatli yuklandi");
 
-      ads.removeWhere((element) => element.id == state.buildable?.adId);
-      build(
+      ads.removeWhere((element) => element.id == state.state?.adId);
+      updateState(
         (buildable) => buildable.copyWith(
           ownerAds: ads,
           ownerAdsState: LoadingState.success,
         ),
       );
     } on DioException catch (e, stackTrace) {
-      build(
+      updateState(
         (buildable) => buildable.copyWith(ownerAdsState: LoadingState.error),
       );
       log.e(e.toString(), error: e, stackTrace: stackTrace);
@@ -208,9 +208,9 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
     try {
       if (!ad.favorite) {
         final backendId = await favoriteRepository.addFavorite(ad);
-        final index = buildable.ownerAds.indexOf(ad);
-        final item = buildable.ownerAds.elementAt(index);
-        buildable.ownerAds.insert(
+        final index = currentState.ownerAds.indexOf(ad);
+        final item = currentState.ownerAds.elementAt(index);
+        currentState.ownerAds.insert(
           index,
           item
             ..favorite = true
@@ -218,9 +218,9 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
         );
       } else {
         await favoriteRepository.removeFavorite(ad);
-        final index = buildable.ownerAds.indexOf(ad);
-        final item = buildable.ownerAds.elementAt(index);
-        buildable.ownerAds.insert(index, item..favorite = false);
+        final index = currentState.ownerAds.indexOf(ad);
+        final item = currentState.ownerAds.elementAt(index);
+        currentState.ownerAds.insert(index, item..favorite = false);
       }
     } on DioException catch (error) {
       display.error("serverda xatolik yuz  berdi");
@@ -232,12 +232,12 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
     try {
       final ads = await adRepository.getRecentlyViewedAds(page: 1, limit: 20);
 
-      build((buildable) => buildable.copyWith(
+      updateState((buildable) => buildable.copyWith(
             recentlyViewedAds: ads,
             recentlyViewedAdsState: LoadingState.success,
           ));
     } on DioException catch (e, stackTrace) {
-      build((buildable) =>
+      updateState((buildable) =>
           buildable.copyWith(recentlyViewedAdsState: LoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
@@ -248,9 +248,9 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
     try {
       if (!ad.favorite) {
         final backendId = await favoriteRepository.addFavorite(ad);
-        final index = buildable.recentlyViewedAds.indexOf(ad);
-        final item = buildable.recentlyViewedAds.elementAt(index);
-        buildable.recentlyViewedAds.insert(
+        final index = currentState.recentlyViewedAds.indexOf(ad);
+        final item = currentState.recentlyViewedAds.elementAt(index);
+        currentState.recentlyViewedAds.insert(
           index,
           item
             ..favorite = true
@@ -258,9 +258,9 @@ class AdDetailCubit extends BaseCubit<AdDetailBuildable, AdDetailListenable> {
         );
       } else {
         await favoriteRepository.removeFavorite(ad);
-        final index = buildable.recentlyViewedAds.indexOf(ad);
-        final item = buildable.recentlyViewedAds.elementAt(index);
-        buildable.recentlyViewedAds.insert(index, item..favorite = false);
+        final index = currentState.recentlyViewedAds.indexOf(ad);
+        final item = currentState.recentlyViewedAds.elementAt(index);
+        currentState.recentlyViewedAds.insert(index, item..favorite = false);
       }
     } on DioException catch (error) {
       display.error("serverda xatolik yuz  berdi");

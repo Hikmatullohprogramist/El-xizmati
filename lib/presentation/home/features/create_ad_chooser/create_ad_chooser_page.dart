@@ -16,7 +16,7 @@ class CreateAdChooserPage extends BasePage<CreateAdChooserCubit,
   const CreateAdChooserPage({super.key});
 
   @override
-  Widget builder(BuildContext context, CreateAdChooserBuildable state) {
+  Widget onWidgetBuild(BuildContext context, CreateAdChooserBuildable state) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

@@ -25,12 +25,12 @@ class SubCategoryCubit
           .where((element) => element.parent_id == subCategoryId)
           .toList();
       log.i(categories.toString());
-      build((buildable) => buildable.copyWith(
+      updateState((buildable) => buildable.copyWith(
           categories: result, categoriesState: LoadingState.success));
     } on DioException catch (exception) {
       log.e(exception.toString());
       display.error(exception.toString());
-      build((buildable) =>
+      updateState((buildable) =>
           buildable.copyWith(categoriesState: LoadingState.error));
     }
   }

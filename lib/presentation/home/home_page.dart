@@ -15,7 +15,7 @@ class HomePage extends BasePage<HomeCubit, HomeBuildable, HomeListenable> {
   const HomePage({super.key});
 
   @override
-  Widget builder(BuildContext context, HomeBuildable state) {
+  Widget onWidgetBuild(BuildContext context, HomeBuildable state) {
     return AutoTabsRouter(
       routes: const [
         DashboardRoute(),

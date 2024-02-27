@@ -1,21 +1,21 @@
 part of 'selection_nested_category_cubit.dart';
 
 @freezed
-class SelectionNestedCategoryBuildable with _$SelectionNestedCategoryBuildable {
-  const factory SelectionNestedCategoryBuildable({
-    CategoryResponse? selectedCategoryResponse,
+class PageState with _$PageState {
+  const factory PageState({
+    CategoryResponse? selectedCategory,
+    @Default(<CategoryResponse>[]) List<CategoryResponse> allCategories,
     @Default(<CategoryResponse>[]) List<CategoryResponse> categories,
-    @Default(<CategoryResponse>[]) List<CategoryResponse> selectCategories,
     @Default(LoadingState.loading) LoadingState categoriesState,
-  }) = _SelectionNestedCategoryBuildable;
+  }) = _PageState;
 }
 
 @freezed
-class SelectionNestedCategoryListenable with _$SelectionNestedCategoryListenable {
-  const factory SelectionNestedCategoryListenable(
-    EventType eventType, {
+class PageEvent with _$PageEvent {
+  const factory PageEvent(
+    PageEventType pageEventType, {
     CategoryResponse? category,
-  }) = _SelectionNestedCategoryListenable;
+  }) = _PageEvent;
 }
 
-enum EventType { closePage }
+enum PageEventType { closePage }

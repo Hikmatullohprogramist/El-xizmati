@@ -26,12 +26,12 @@ class DashboardPage
   const DashboardPage({super.key});
 
   @override
-  void init(BuildContext context) {
+  void onWidgetCreated(BuildContext context) {
     context.read<DashboardCubit>().getRecentlyViewedAds();
   }
 
   @override
-  void listener(BuildContext context, DashboardListenable event) {
+  void onEventEmitted(BuildContext context, DashboardListenable event) {
     switch (event.effect) {
       case DashboardEffect.success:
         () {};
@@ -41,7 +41,7 @@ class DashboardPage
   }
 
   @override
-  Widget builder(BuildContext context, DashboardBuildable state) {
+  Widget onWidgetBuild(BuildContext context, DashboardBuildable state) {
     return Scaffold(
         appBar: CommonSearchBar(
           onSearchClicked: () => context.router.push(SearchRoute()),
