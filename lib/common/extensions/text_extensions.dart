@@ -8,7 +8,16 @@ extension TextStringExtensions on String {
   Text c(Color color) => Text(this).c(color);
 
   String clearSpaceInPhone() {
-    return "998${replaceAll(' ', '').replaceAll('(', '').replaceAll(')', '').replaceAll('+', '')}";
+    var phone = replaceAll(' ', '')
+        .replaceAll('(', '')
+        .replaceAll(')', '')
+        .replaceAll('+', '');
+
+    if (phone.length == 9) {
+      phone = "998$phone";
+    }
+
+    return phone;
   }
 }
 
