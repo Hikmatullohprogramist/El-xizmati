@@ -60,6 +60,9 @@ auth_confirm_corfimation_code,Tasdiqlash kodi,КОД подтверждения,
 auth_confirm_sent_sms_your_phone,Biz sizga {phone} raqamiga kod bilan SMS yubordik,Мы отправили вам СМС с кодом на номер {phone},Биз сизга {phone} рақамига код билан СМС юбордик
 auth_person_policy,siyosat shaxsiy ma‘lumotlarni qayta ishlash,политикой nобработки персональных данных,сиёсат шахсий маълумотларни қайта ишлаш
 auth_policy_agree,Tizimga kirish orqali siz rozilik bildirasiz,"Авторизуясь, вы соглашаетесь с ",Тизимга кириш орқали сиз розилик билдирасиз
+auth_recomment_action,Tizimga kirish,Войти в систему,Тизимга кириш
+auth_recomment_desc,E’lon berish uchun tizimga kirishingiz zarur,"Войдите в систему, чтобы опубликовать объявление",Эълон бериш учун тизимга киришингиз зарур
+auth_recomment_title,E’lon bermoqchimisiz?,Хотите опубликовать объявление?,Эълон бермоқчимисиз?
 auth_register_create_password,Kirish uchun parol yarating,Придумайте пароль для входа,Кириш учун парол яратинг
 auth_register_password_contain_least_characters,Parol kamida 8 ta belgidan iborat bo‘lishi kerak.,Пароль должен содержать минимум 8 символов.,Парол камида 8 та белгидан иборат бўлиши керак.
 auth_register_register,Roʻyxatdan oʻtish,Зарегистрироваться,Рўйхатдан ўтиш
@@ -97,7 +100,7 @@ categories_title,Kategoriyalar,Основные категории,Машҳур 
 category_ads_count,ta e‘lon,объявлений,та эълон
 close_title,Yopish,Закрыть,Ёпиш
 common_continue_title,Davom etish,Продолжить,Давом этиш
-common_no,Yo‘q,No,Йўқ
+common_no,Yo‘q,Нет,Йўқ
 common_phone_number,Telefon raqami,Номер телефона,Телефон рақами
 common_save_title,Saqlash,Сохранить,Сақлаш
 common_unfind,topilmadi,не найдено,топилмади
@@ -260,6 +263,3 @@ user_request_canceled_title,Bekor qilingan,Отменено,Бекор қили�
 user_request_pending_title,Kutulmoqda,Ожидающий,Кутулмоқда
 user_request_rejaction_title,Rad etilgan,Отклоненный,Рад этилган
 user_request_review_title,Ko‘rib chiqilmoqda,На рассмотрении,Кўриб чиқилмоқда
-auth_recomment_title,E’lon bermoqchimisiz?,Хотите опубликовать объявление?,Эълон бермоқчимисиз?
-auth_recomment_desc,E’lon berish uchun tizimga kirishingiz zarur,"Войдите в систему, чтобы опубликовать объявление",Эълон бериш учун тизимга киришингиз зарур
-auth_recomment_action,Tizimga kirish,Войти в систему,Тизимга кириш
