@@ -28,7 +28,7 @@ class UserOrderListPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   @override
   void onWidgetCreated(BuildContext context) {
-    cubit(context).setInitialOrderType(type);
+    cubit(context).setInitialParams(type, status);
   }
 
   @override

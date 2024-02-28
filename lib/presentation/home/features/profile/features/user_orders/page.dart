@@ -12,12 +12,9 @@ import '../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../common/widgets/common/common_button.dart';
 import '../../../../../../domain/models/order/order_type.dart';
 import '../../../../../../domain/models/order/user_order_status.dart';
-import 'features/user_order_list/page.dart';
 
 @RoutePage()
-class UserOrdersPage extends BasePage<PageCubit,
-    PageState,
-    PageEvent> {
+class UserOrdersPage extends BasePage<PageCubit, PageState, PageEvent> {
   const UserOrdersPage(this.orderType, {super.key});
 
   final OrderType orderType;
@@ -28,11 +25,11 @@ class UserOrdersPage extends BasePage<PageCubit,
       physics: BouncingScrollPhysics(),
       routes: [
         UserOrderListRoute(type: orderType, status: UserOrderStatus.all),
-        UserOrderListRoute(type: orderType, status: UserOrderStatus.accept),
-        UserOrderListRoute(type: orderType, status: UserOrderStatus.active),
-        UserOrderListRoute(type: orderType, status: UserOrderStatus.review),
+        UserOrderListRoute(type: orderType, status: UserOrderStatus.wait),
         UserOrderListRoute(type: orderType, status: UserOrderStatus.rejected),
         UserOrderListRoute(type: orderType, status: UserOrderStatus.canceled),
+        UserOrderListRoute(type: orderType, status: UserOrderStatus.review),
+        UserOrderListRoute(type: orderType, status: UserOrderStatus.accept),
       ],
       builder: (context, child, controller) {
         return Scaffold(

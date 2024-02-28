@@ -7,6 +7,7 @@ class PageState with _$PageState {
     @Default(LoadingState.loading) LoadingState userOrderState,
     PagingController<int, UserOrderResponse>? controller,
     @Default(OrderType.buy) OrderType orderType,
+    @Default(UserOrderStatus.all) UserOrderStatus userOrderStatus,
   }) = _PageState;
 }
 

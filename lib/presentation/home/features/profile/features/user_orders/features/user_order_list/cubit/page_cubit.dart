@@ -22,8 +22,10 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   final UserOrderRepository userOrderRepository;
 
-  void setInitialOrderType(OrderType orderType) {
-    updateState((state) => states.copyWith(orderType: orderType));
+  void setInitialParams(OrderType orderType, UserOrderStatus status) {
+    updateState(
+      (state) => states.copyWith(orderType: orderType, userOrderStatus: status),
+    );
   }
 
   Future<void> getController() async {
@@ -51,7 +53,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       (pageKey) async {
         final orderList = await userOrderRepository.getUserOrders(
           limit: 20,
-          userOrderStatus: UserOrderStatus.all,
+          userOrderStatus: states.userOrderStatus,
           page: pageKey,
           orderType: states.orderType,
         );
