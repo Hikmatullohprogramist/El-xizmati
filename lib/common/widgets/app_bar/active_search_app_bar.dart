@@ -4,13 +4,13 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 
 import '../../gen/assets/assets.gen.dart';
 
-class CommonActiveSearchBar extends AppBar implements PreferredSizeWidget {
+class ActiveSearchAppBar extends AppBar implements PreferredSizeWidget {
   final VoidCallback? listenerMic;
   final VoidCallback? listener;
   final VoidCallback? listenerSearch;
   final VoidCallback? listenerNotification;
 
-  CommonActiveSearchBar({
+  ActiveSearchAppBar({
     super.key,
     this.listenerMic,
     this.listenerSearch,
@@ -19,12 +19,13 @@ class CommonActiveSearchBar extends AppBar implements PreferredSizeWidget {
   }) : super(
           actions: [
             InkWell(
-                onTap: listener,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: 16, top: 8, bottom: 8, right: 12),
-                  child: Assets.images.icArrowLeft.svg(),
-                )),
+              onTap: listener,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 16, top: 8, bottom: 8, right: 12),
+                child: Assets.images.icArrowLeft.svg(),
+              ),
+            ),
             Expanded(
               child: Padding(
                 padding: EdgeInsets.fromLTRB(16, 12, 0, 12),

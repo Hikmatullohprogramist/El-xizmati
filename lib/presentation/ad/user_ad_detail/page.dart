@@ -6,7 +6,7 @@ import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/ad/detail_price_text_widget.dart';
-import 'package:onlinebozor/common/widgets/app_bar/common_app_bar.dart';
+import 'package:onlinebozor/common/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
 import 'package:onlinebozor/data/responses/user_ad/user_ad_response.dart';
 import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
@@ -25,7 +25,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: CommonAppBar("", () => context.router.pop()),
+      appBar: DefaultAppBar("", () => context.router.pop()),
       body: Container(
         color: Colors.white,
         child: ListView(

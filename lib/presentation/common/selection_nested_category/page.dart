@@ -5,7 +5,7 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import '../../../../../common/widgets/category/category_widget.dart';
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../../../data/responses/category/category/category_response.dart';
-import '../../../common/widgets/app_bar/common_app_bar.dart';
+import '../../../common/widgets/app_bar/default_app_bar.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -31,7 +31,7 @@ class SelectionNestedCategoryPage
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: CommonAppBar(
+      appBar: DefaultAppBar(
         state.selectedCategory?.name ?? "",
         () => cubit(context).backWithoutSelectedCategory(),
       ),

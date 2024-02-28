@@ -8,7 +8,7 @@ import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/payment_transaction/features/payment_transaction_filter/cubit/page_cubit.dart';
 
 import '../../../../../../../../common/core/base_page.dart';
-import '../../../../../../../../common/widgets/app_bar/common_app_bar.dart';
+import '../../../../../../../../common/widgets/app_bar/default_app_bar.dart';
 
 @RoutePage()
 class PaymentTransactionFilterPage
@@ -19,7 +19,7 @@ class PaymentTransactionFilterPage
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CommonAppBar(
+      appBar: DefaultAppBar(
         Strings.paymentFilterTitle,
         () => context.router.pop(),
       ),

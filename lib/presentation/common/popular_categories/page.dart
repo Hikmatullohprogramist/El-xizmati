@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/widgets/app_bar/common_app_bar.dart';
+import 'package:onlinebozor/common/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/common/widgets/category/popular_category_vertical.dart';
 import 'package:onlinebozor/presentation/common/popular_categories/cubit/page_cubit.dart';
 
@@ -23,7 +23,7 @@ class PopularCategoriesPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: CommonAppBar(title ?? "", () => context.router.pop()),
+      appBar: DefaultAppBar(title ?? "", () => context.router.pop()),
       body: state.controller == null
           ? SizedBox()
           : SizedBox(

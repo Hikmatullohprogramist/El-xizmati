@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../common/core/base_page.dart';
 import '../../../common/gen/localization/strings.dart';
-import '../../../common/widgets/app_bar/common_app_bar.dart';
+import '../../../common/widgets/app_bar/default_app_bar.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -13,7 +13,7 @@ class CreateServiceOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: CommonAppBar(
+      appBar: DefaultAppBar(
         Strings.createRequestTitle,
         () => context.router.pop(),
       ),

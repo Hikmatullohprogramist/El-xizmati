@@ -9,7 +9,7 @@ import 'package:onlinebozor/common/widgets/ad/top_rated_ad_list_widget.dart';
 import '../../../../common/gen/assets/assets.gen.dart';
 import '../../../../common/gen/localization/strings.dart';
 import '../../../../common/widgets/ad/horizontal_ad_list_widget.dart';
-import '../../../../common/widgets/app_bar/common_search_bar.dart';
+import '../../../../common/widgets/app_bar/search_app_bar.dart';
 import '../../../../common/widgets/category/popular_category_list_widget.dart';
 import '../../../../common/widgets/dashboard/banner_widget.dart';
 import '../../../../common/widgets/dashboard/product_or_service.dart';
@@ -32,7 +32,7 @@ class DashboardPage extends BasePage<DashboardCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: CommonSearchBar(
+      appBar: SearchAppBar(
         onSearchClicked: () => context.router.push(SearchRoute()),
         onMicrophoneClicked: () {},
         onFavoriteClicked: () => context.router.push(FavoritesRoute()),

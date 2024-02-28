@@ -7,7 +7,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/ad/horizontal_ad_list_widget.dart';
-import 'package:onlinebozor/common/widgets/app_bar/common_active_search_bar.dart';
+import 'package:onlinebozor/common/widgets/app_bar/active_search_app_bar.dart';
 import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
 import 'package:onlinebozor/common/widgets/dashboard/see_all_widget.dart';
 
@@ -40,7 +40,7 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
     return Center(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: CommonActiveSearchBar(
+        appBar: ActiveSearchAppBar(
             listener: () => context.router.pop(),
             listenerSearch: () => context.router.push(SearchRoute()),
             listenerNotification: () =>

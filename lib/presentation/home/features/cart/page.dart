@@ -10,7 +10,7 @@ import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/common/common_button.dart';
 import 'package:onlinebozor/common/widgets/favorite/favorite_empty_widget.dart';
 
-import '../../../../common/widgets/app_bar/common_app_bar.dart';
+import '../../../../common/widgets/app_bar/default_app_bar.dart';
 import '../../../../common/widgets/cart/cart_widget.dart';
 import '../../../../domain/models/ad/ad.dart';
 import 'cubit/page_cubit.dart';
@@ -22,7 +22,7 @@ class CartPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: CommonAppBar(
+      appBar: DefaultAppBar(
         Strings.bottomNavigationCart,
         () => context.router.pop(),
       ),

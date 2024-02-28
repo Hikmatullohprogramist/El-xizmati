@@ -4,7 +4,7 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/presentation/home/features/category/features/cubit/page_cubit.dart';
 
 import '../../../../../common/router/app_router.dart';
-import '../../../../../common/widgets/app_bar/common_app_bar.dart';
+import '../../../../../common/widgets/app_bar/default_app_bar.dart';
 import '../../../../../common/widgets/category/category_widget.dart';
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../../../data/responses/category/category/category_response.dart';
@@ -26,7 +26,7 @@ class SubCategoryPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CommonAppBar(title, () => context.router.pop()),
+      appBar: DefaultAppBar(title, () => context.router.pop()),
       body: LoaderStateWidget(
         isFullScreen: true,
         loadingState: state.loadState,

@@ -5,13 +5,13 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import '../../gen/assets/assets.gen.dart';
 import '../../vibrator/vibrator_extension.dart';
 
-class CommonSearchBar extends AppBar implements PreferredSizeWidget {
+class SearchAppBar extends AppBar implements PreferredSizeWidget {
   final VoidCallback onSearchClicked;
   final VoidCallback onMicrophoneClicked;
   final VoidCallback onFavoriteClicked;
   final VoidCallback onNotificationClicked;
 
-  CommonSearchBar({
+  SearchAppBar({
     super.key,
     required this.onSearchClicked,
     required this.onMicrophoneClicked,

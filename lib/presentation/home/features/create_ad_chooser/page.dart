@@ -5,10 +5,11 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/app_bar/empty_app_bar.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../common/vibrator/vibrator_extension.dart';
-import '../../../../common/widgets/app_bar/common_app_bar.dart';
+import '../../../../common/widgets/app_bar/default_app_bar.dart';
 import '../../../../common/widgets/common/common_button.dart';
 import 'cubit/page_cubit.dart';
 
@@ -19,13 +20,13 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: CommonAppBar("", () => context.router.pop()),
+      appBar: EmptyAppBar(),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: state.isLogin
+          children: !state.isLogin
               ? [
                   _buildSaleBlock(context),
                   _buildBuyBlock(context),

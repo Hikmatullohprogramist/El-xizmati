@@ -7,7 +7,7 @@ import 'package:onlinebozor/common/router/app_router.dart';
 
 import '../../../common/core/base_page.dart';
 import '../../../common/gen/assets/assets.gen.dart';
-import '../../../common/widgets/app_bar/common_app_bar.dart';
+import '../../../common/widgets/app_bar/default_app_bar.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -18,7 +18,7 @@ class CreateAdStartPage
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: CommonAppBar(Strings.adCreateTitle, () => context.router.pop()),
+      appBar: DefaultAppBar(Strings.adCreateTitle, () => context.router.pop()),
       body: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,

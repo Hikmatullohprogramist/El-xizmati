@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/common/widgets/app_bar/common_search_bar.dart';
+import 'package:onlinebozor/common/widgets/app_bar/search_app_bar.dart';
 import 'package:onlinebozor/common/widgets/category/category_widget.dart';
 import 'package:onlinebozor/common/widgets/loading/loader_state_widget.dart';
 
@@ -16,7 +16,7 @@ class CategoryPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: CommonSearchBar(
+      appBar: SearchAppBar(
         onSearchClicked: () => context.router.push(SearchRoute()),
         onMicrophoneClicked: () {},
         onFavoriteClicked: () => context.router.push(FavoritesRoute()),

@@ -12,7 +12,7 @@ import 'package:onlinebozor/common/widgets/common/common_text_field.dart';
 import 'package:onlinebozor/presentation/auth/confirm/page.dart';
 import 'package:onlinebozor/presentation/auth/start/cubit/page_cubit.dart';
 
-import '../../../common/widgets/app_bar/common_app_bar.dart';
+import '../../../common/widgets/app_bar/default_app_bar.dart';
 import '../../utils/mask_formatters.dart';
 
 @RoutePage()
@@ -43,7 +43,7 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Scaffold(
       backgroundColor: context.colors.colorBackgroundPrimary,
       resizeToAvoidBottomInset: false,
-      appBar: CommonAppBar("", () => context.router.pop()),
+      appBar: DefaultAppBar("", () => context.router.pop()),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: AutofillGroup(

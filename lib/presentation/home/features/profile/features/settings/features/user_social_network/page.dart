@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 
 import '../../../../../../../../common/core/base_page.dart';
-import '../../../../../../../../common/widgets/app_bar/common_app_bar.dart';
+import '../../../../../../../../common/widgets/app_bar/default_app_bar.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -14,7 +14,7 @@ class UserSocialNetworkPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CommonAppBar(
+      appBar: DefaultAppBar(
         Strings.settingsSocialNetwork,
         () => context.router.pop(),
       ),

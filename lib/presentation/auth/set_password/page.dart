@@ -9,7 +9,7 @@ import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/presentation/auth/set_password/cubit/page_cubit.dart';
 
 import '../../../common/gen/localization/strings.dart';
-import '../../../common/widgets/app_bar/common_app_bar.dart';
+import '../../../common/widgets/app_bar/default_app_bar.dart';
 import '../../../common/widgets/common/common_button.dart';
 import '../../../common/widgets/common/common_text_field.dart';
 
@@ -30,7 +30,7 @@ class SetPasswordPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Scaffold(
       backgroundColor: context.colors.colorBackgroundPrimary,
       resizeToAvoidBottomInset: false,
-      appBar: CommonAppBar("", () => context.router.pop()),
+      appBar: DefaultAppBar("", () => context.router.pop()),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: AutofillGroup(

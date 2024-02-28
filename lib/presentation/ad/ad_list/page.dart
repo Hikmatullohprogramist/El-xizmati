@@ -4,7 +4,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
-import 'package:onlinebozor/common/widgets/app_bar/common_app_bar.dart';
+import 'package:onlinebozor/common/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/presentation/ad/ad_list/cubit/page_cubit.dart';
 
 import '../../../common/core/base_page.dart';
@@ -55,7 +55,7 @@ class AdListPage extends BasePage<PageCubit, PageState, PageEvent> {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: CommonAppBar(title ?? "", () => context.router.pop()),
+      appBar: DefaultAppBar(title ?? "", () => context.router.pop()),
       backgroundColor: Colors.white,
       body: PagedGridView<int, Ad>(
         shrinkWrap: true,

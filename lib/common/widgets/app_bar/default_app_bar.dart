@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 
-class CommonAppBar extends AppBar implements PreferredSizeWidget {
-  final VoidCallback? onBackPressed;
+class DefaultAppBar extends AppBar implements PreferredSizeWidget {
+  final VoidCallback onBackPressed;
   final String titleText;
 
-  CommonAppBar(this.titleText, this.onBackPressed, {super.key})
+  DefaultAppBar(this.titleText, this.onBackPressed, {super.key})
       : super(
           backgroundColor: Colors.white,
           elevation: 0.5,
