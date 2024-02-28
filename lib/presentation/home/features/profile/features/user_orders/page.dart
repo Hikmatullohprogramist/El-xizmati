@@ -27,12 +27,12 @@ class UserOrdersPage extends BasePage<PageCubit,
     return AutoTabsRouter.tabBar(
       physics: BouncingScrollPhysics(),
       routes: [
-        UserOrderListPage(type: orderType, status: UserOrderStatus.all),
-        UserOrderListPage(type: orderType, status: UserOrderStatus.accept),
-        UserOrderListPage(type: orderType, status: UserOrderStatus.active),
-        UserOrderListPage(type: orderType, status: UserOrderStatus.review),
-        UserOrderListPage(type: orderType, status: UserOrderStatus.rejected),
-        UserOrderListPage(type: orderType, status: UserOrderStatus.canceled),
+        UserOrderListRoute(type: orderType, status: UserOrderStatus.all),
+        UserOrderListRoute(type: orderType, status: UserOrderStatus.accept),
+        UserOrderListRoute(type: orderType, status: UserOrderStatus.active),
+        UserOrderListRoute(type: orderType, status: UserOrderStatus.review),
+        UserOrderListRoute(type: orderType, status: UserOrderStatus.rejected),
+        UserOrderListRoute(type: orderType, status: UserOrderStatus.canceled),
       ],
       builder: (context, child, controller) {
         return Scaffold(
