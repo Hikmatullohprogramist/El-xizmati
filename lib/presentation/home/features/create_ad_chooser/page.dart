@@ -9,7 +9,6 @@ import 'package:onlinebozor/common/widgets/app_bar/empty_app_bar.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../common/vibrator/vibrator_extension.dart';
-import '../../../../common/widgets/app_bar/default_app_bar.dart';
 import '../../../../common/widgets/common/common_button.dart';
 import 'cubit/page_cubit.dart';
 
@@ -21,18 +20,20 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
       appBar: EmptyAppBar(),
-      backgroundColor: Colors.white,
+      backgroundColor: !state.isLogin ? Color(0xFFF2F4FB) : Colors.white,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          // mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: !state.isLogin
               ? [
                   _buildSaleBlock(context),
                   _buildBuyBlock(context),
                 ]
               : [
-                  _buildDirectToRegister(context),
+                  _buildAuthBlock(context),
                 ],
         ),
       ),
@@ -171,41 +172,52 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildDirectToRegister(BuildContext context) {
+  Widget _buildAuthBlock(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 36),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-        SizedBox(height: 170),
-        Assets.images.pngImages.adEmpty.image(),
-        SizedBox(height: 48),
-        Strings.authRecommentTitle.w(500).s(20).c(Color(0xFF41455E)).copyWith(
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.start),
-        SizedBox(height: 12),
-        Strings.authRecommentDesc.w(400).s(18).c(Color(0xFF41455E)).copyWith(
-              maxLines: 2,
-              textAlign: TextAlign.center,
-            ),
-        SizedBox(height: 130),
-        SizedBox(
-            width: double.maxFinite,
-            child: CommonButton(
-              type: ButtonType.elevated,
-              color: context.colors.buttonPrimary,
-              onPressed: () {
-                context.router.push(AuthStartRoute());
-                vibrateAsHapticFeedback();
-              },
-              child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(width: 10),
-                    Strings.authRecommentAction.w(500).s(14).c(Colors.white)
-                  ]),
-            ))
-      ]),
+      child: SizedBox(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(height: 170),
+            Assets.images.pngImages.adEmpty.image(),
+            SizedBox(height: 48),
+            Strings.authRecommentTitle
+                .w(500)
+                .s(20)
+                .c(Color(0xFF41455E))
+                .copyWith(textAlign: TextAlign.center),
+            SizedBox(height: 20),
+            Strings.authRecommentDesc
+                .w(500)
+                .s(16)
+                .c(Color(0xFF41455E))
+                .copyWith(textAlign: TextAlign.center),
+            SizedBox(height: 120),
+            SizedBox(
+              width: double.maxFinite,
+              child: CommonButton(
+                type: ButtonType.elevated,
+                color: context.colors.buttonPrimary,
+                onPressed: () {
+                  context.router.push(AuthStartRoute());
+                  vibrateAsHapticFeedback();
+                },
+                child: Container(
+                  height: 52,
+                  alignment: Alignment.center,
+                  width: double.infinity,
+                  child: Strings.authRecommentAction
+                      .w(500)
+                      .s(14)
+                      .c(context.colors.textPrimaryInverse),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
