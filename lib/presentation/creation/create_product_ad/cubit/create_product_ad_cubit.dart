@@ -8,8 +8,10 @@ import 'package:onlinebozor/data/responses/payment_type/payment_type_response.da
 import 'package:onlinebozor/data/responses/unit/unit_response.dart';
 
 import '../../../../../../common/core/base_cubit.dart';
+import '../../../../common/enum/enums.dart';
 import '../../../../data/repositories/ad_creation_repository.dart';
 import '../../../../data/responses/address/user_address_response.dart';
+import '../../../../data/responses/region/region_response.dart';
 
 part 'create_product_ad_cubit.freezed.dart';
 
@@ -20,7 +22,7 @@ class CreateProductAdCubit
     extends BaseCubit<CreateProductAdBuildable, CreateProductAdListenable> {
   CreateProductAdCubit(
     this._repository,
-  ) : super(const CreateProductAdBuildable());
+  ) : super( CreateProductAdBuildable());
 
   final AdCreationRepository _repository;
 
@@ -123,11 +125,43 @@ class CreateProductAdCubit
     }
   }
 
+  void setSelectedDeleveryForFree(
+      List<RegionResponse>? selectedPaymentTypes,
+      ) {
+    try {
+      if (selectedPaymentTypes != null) {
+        var paymentTypes =
+        List<RegionResponse>.from(buildable.paymentType);
+        paymentTypes.clear();
+
+        if (selectedPaymentTypes.isNotEmpty) {
+          paymentTypes.addAll(selectedPaymentTypes);
+          paymentTypes = paymentTypes.toSet().toList();
+        }
+        build((buildable) => buildable.copyWith(paymentType: paymentTypes));
+      }
+    } catch (e) {
+      log.e(e.toString());
+    }
+  }
+
+
+
   void removeSelectedPaymentType(PaymentTypeResponse paymentType) {
     try {
       var paymentTypes = List<PaymentTypeResponse>.from(buildable.paymentTypes);
       paymentTypes.remove(paymentType);
       build((buildable) => buildable.copyWith(paymentTypes: paymentTypes));
+    } catch (e) {
+      log.e(e.toString());
+    }
+  }
+
+  void removeSelectedDeleveryForFree(RegionResponse paymentType) {
+    try {
+      var paymentTypes = List<RegionResponse>.from(buildable.paymentType);
+      paymentTypes.remove(paymentType);
+      build((buildable) => buildable.copyWith(paymentType: paymentTypes));
     } catch (e) {
       log.e(e.toString());
     }

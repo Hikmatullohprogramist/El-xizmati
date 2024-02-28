@@ -331,10 +331,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, AddAddressBuildable,
               itemBuilder: (BuildContext buildContext, int index) {
                 return InkWell(
                     onTap: () {
-                      context
-                          .read<AddAddressCubit>()
-                          .setRegion(state.regions[index]);
-
+                      context.read<AddAddressCubit>().setRegion(state.regions[index]);
                       Navigator.pop(buildContext);
                     },
                     child: Padding(

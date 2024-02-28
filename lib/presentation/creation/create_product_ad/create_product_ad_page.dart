@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -22,6 +24,7 @@ import '../../../../../common/gen/localization/strings.dart';
 import '../../../../../common/widgets/common/common_text_field.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/widgets/common/common_button.dart';
+import '../../common/selection_address/selection_address_page.dart';
 import '../../common/selection_payment_type/selection_payment_type_page.dart';
 import '../../utils/mask_formatters.dart';
 import 'cubit/create_product_ad_cubit.dart';
@@ -571,7 +574,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
               alignment: WrapAlignment.start,
               crossAxisAlignment: WrapCrossAlignment.start,
               runAlignment: WrapAlignment.start,
-              children: _buildPaymentTypeChips(context, state),
+              children: _buildDeleveryForFree(context, state),
             ),
           ),
           SizedBox(height: 10),
@@ -799,6 +802,42 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
             },
           ),
         )
+        .toList());
+    return chips;
+  }
+
+  List<Widget> _buildDeleveryForFree(
+      BuildContext context,
+      CreateProductAdBuildable state,
+      ) {
+    List<Widget> chips = [];
+    chips.add(
+      ChipsAddItem(
+        onAddClicked: () async {
+          final paymentTypes = await showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            useSafeArea: true,
+            backgroundColor: Colors.transparent,
+            builder: (context) => SelectionAddressPage(
+              key: Key(""),
+              selectedPaymentTypes: state.items,
+            ),
+          );
+          cubit(context).setSelectedDeleveryForFree(paymentTypes);
+        },
+      ),
+    );
+    chips.addAll(state.paymentType
+        .map(
+          (element) => ChipsItem(
+        item: element,
+        title: element.name ?? "",
+        onRemoveClicked: (item) {
+          cubit(context).removeSelectedDeleveryForFree(element);
+        },
+      ),
+    )
         .toList());
     return chips;
   }

@@ -6,6 +6,7 @@ import 'package:onlinebozor/data/repositories/ad_creation_repository.dart';
 import 'package:onlinebozor/data/responses/payment_type/payment_type_response.dart';
 
 import '../../../../../../common/enum/enums.dart';
+import '../../../../data/repositories/user_repository.dart';
 
 part 'selection_payment_type_cubit.freezed.dart';
 
@@ -18,10 +19,22 @@ class SelectionPaymentTypeCubit extends BaseCubit<SelectionPaymentTypeBuildable,
       : super(SelectionPaymentTypeBuildable()) {
     getItems();
   }
-
   final AdCreationRepository _repository;
 
+
+
    var listmy=["sk","sk","sk","sk","sk","sk","sk","sk","sk","sk"];
+
+ // Future<void> getRegions() async {
+ //   try {
+ //     final response = await _userRepository.getRegions();
+ //     log.d(response);
+ //    // build((buildable) => buildable.copyWith(regions: response));
+ //   } catch (e) {
+ //     display.error("street error $e");
+ //     build((buildable) => buildable.copyWith());
+ //   }
+ // }
 
   Future<void> getItems() async {
     try {

@@ -53,6 +53,7 @@ class AddAddressCubit
   Future<void> getRegions() async {
     try {
       final response = await _userRepository.getRegions();
+      log.d(response);
       build((buildable) => buildable.copyWith(regions: response));
     } catch (e) {
       display.error("street error $e");

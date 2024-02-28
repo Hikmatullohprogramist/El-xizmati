@@ -88,11 +88,11 @@ class ProfileViewCubit
 
   Future<void> getRegions() async {
     final response = await _userRepository.getRegions();
+     log.d(response);
     final regionList =
         response.where((element) => element.id == buildable.regionId);
     if (regionList.isNotEmpty) {
-      build((buildable) => buildable.copyWith(
-          regionName: regionList.first.name, isLoading: false));
+      build((buildable) => buildable.copyWith(regionName: regionList.first.name, isLoading: false));
     } else {
       build((buildable) =>
           buildable.copyWith(regionName: "topilmadi", isLoading: false));
