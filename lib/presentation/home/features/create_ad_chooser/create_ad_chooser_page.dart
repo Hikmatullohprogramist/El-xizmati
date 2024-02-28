@@ -7,6 +7,7 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
+import '../../../../common/vibrator/vibrator_extension.dart';
 import '../../../../common/widgets/app_bar/common_app_bar.dart';
 import '../../../../common/widgets/common/common_button.dart';
 import 'cubit/create_ad_chooser_cubit.dart';
@@ -19,14 +20,23 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
       appBar: CommonAppBar("", () => context.router.pop()),
-      backgroundColor: Color(0xFFF2F4FB),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _buildSaleBlock(context),
-            _buildBuyBlock(context),
+            Visibility(
+                visible: state.isLogin,
+                child: Column(
+                  children: [
+                    _buildSaleBlock(context),
+                    _buildBuyBlock(context),
+                  ],
+                )),
+            Visibility(
+                visible: !state.isLogin,
+                child: _buildDirectToRegister(context)),
           ],
         ),
       ),
@@ -162,6 +172,44 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildDirectToRegister(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 36),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        SizedBox(height: 150),
+        Assets.images.pngImages.adEmpty.image(),
+        SizedBox(height: 48),
+        Strings.authRecommentTitle.w(500).s(16).c(Color(0xFF41455E)).copyWith(
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.start),
+        SizedBox(height: 12),
+        Strings.authRecommentDesc.w(400).s(12).c(Color(0xFF41455E)).copyWith(
+              maxLines: 2,
+              textAlign: TextAlign.center,
+            ),
+        SizedBox(height: 100),
+        SizedBox(
+            width: double.maxFinite,
+            child: CommonButton(
+              type: ButtonType.elevated,
+              color: context.colors.buttonPrimary,
+              onPressed: () {
+                context.router.push(AuthStartRoute());
+                vibrateAsHapticFeedback();
+              },
+              child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(width: 10),
+                    Strings.authRecommentAction.w(500).s(14).c(Colors.white)
+                  ]),
+            ))
+      ]),
     );
   }
 }

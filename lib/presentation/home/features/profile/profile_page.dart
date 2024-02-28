@@ -60,8 +60,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
       backgroundColor: Colors.white,
       elevation: 0,
       centerTitle: true,
-      title:
-          Strings.profileViewTitlle.w(500).s(16).c(context.colors.textPrimary),
+      title: Strings.profileViewTitlle.w(500).s(16).c(context.colors.textPrimary),
     );
   }
 
@@ -81,7 +80,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
             },
           ),
         ),
-        Visibility(
+          Visibility(
           visible: !state.isLogin,
           child: ProfileItemWidget(
             name: Strings.authSinginTitle,

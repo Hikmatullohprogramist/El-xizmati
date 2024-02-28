@@ -50,6 +50,7 @@ class SelectionPaymentTypePage extends BasePage<PageCubit,
                     context.router.pop();
                   },
                 ),
+                SizedBox(height: 50,),
                 LoaderStateWidget(
                   isFullScreen: false,
                   loadingState: state.loadState,
@@ -67,6 +68,7 @@ class SelectionPaymentTypePage extends BasePage<PageCubit,
                         onClicked: (dynamic item) {
                           cubit(context).updateSelectedItems(item);
                         },
+
                       );
                     },
                     separatorBuilder: (BuildContext context, int index) {
@@ -99,5 +101,8 @@ class SelectionPaymentTypePage extends BasePage<PageCubit,
         ),
       ),
     );
+  }
+  Widget directions(){
+    return Container();
   }
 }

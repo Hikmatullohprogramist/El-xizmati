@@ -23,9 +23,7 @@ class CommonButton extends StatelessWidget {
   Widget build(BuildContext context) {
     DateTime? clickTime;
 
-    final onButtonPressed = !enabled
-        ? null
-        : () {
+    final onButtonPressed = !enabled ? null : () {
             if (loading) {
               return;
             }

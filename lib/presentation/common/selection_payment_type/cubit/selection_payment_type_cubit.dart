@@ -19,6 +19,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   final AdCreationRepository _repository;
 
+   var listmy=["sk","sk","sk","sk","sk","sk","sk","sk","sk","sk"];
+
   Future<void> getItems() async {
     try {
       final paymentTypes = await _repository.getPaymentTypesForCreationAd();
