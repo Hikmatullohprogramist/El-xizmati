@@ -10,6 +10,7 @@ import '../../data/responses/address/user_address_response.dart';
 import '../../data/responses/category/category/category_response.dart';
 import '../../data/responses/currencies/currency_response.dart';
 import '../../data/responses/payment_type/payment_type_response.dart';
+import '../../data/responses/region/region_response.dart';
 import '../../data/responses/unit/unit_response.dart';
 import '../../data/responses/user_ad/user_ad_response.dart';
 import '../../domain/models/ad/ad_list_type.dart';

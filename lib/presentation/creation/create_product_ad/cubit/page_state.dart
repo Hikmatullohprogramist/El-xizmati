@@ -15,6 +15,8 @@ class PageState with _$PageState {
     int? price,
     CurrencyResponse? currency,
     @Default([]) List<PaymentTypeResponse> paymentTypes,
+    @Default([]) List<RegionResponse> paymentType,
+
     @Default(false) bool isAgreedPrice,
 //
     @Default(true) bool isNew,
@@ -34,6 +36,11 @@ class PageState with _$PageState {
 //
     @Default(false) bool isShowMySocialAccount,
     @Default(false) bool isRequestSending,
+//
+    @Default(<RegionResponse>[]) List<RegionResponse> items,
+    @Default(LoadingState.loading) LoadingState itemsLoadState,
+
+
   }) = _PageState;
 }
 

@@ -27,7 +27,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> getUser() async {
     try {
-      updateState((state) => state.copyWith(isLoading: true));
+      build((buildable) => buildable.copyWith(isLoading: true));
 
       await Future.wait([
         getRegions(),
@@ -35,23 +35,23 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         getStreets(),
       ]);
 
-      updateState((state) => state.copyWith(isLoading: false));
+      build((buildable) => buildable.copyWith(isLoading: false));
     } catch (e) {
       log.e(e.toString());
 
-      updateState((state) => state.copyWith(isLoading: false));
+      build((buildable) => buildable.copyWith(isLoading: false));
     }
   }
 
   Future<void> getUserInformation() async {
     try {
-      updateState((state) => state.copyWith(isLoading: true));
+      build((buildable) => buildable.copyWith(isLoading: true));
 
       log.e("getUserInformation onLoading");
 
       final response = await _userRepository.getFullUserInfo();
-      updateState(
-        (state) => state.copyWith(
+      build(
+        (buildable) => buildable.copyWith(
           isLoading: false,
           userName: (response.full_name ?? "*"),
           fullName: response.full_name ?? "*",
@@ -76,7 +76,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     } on DioException catch (e) {
       log.e("getUserInformation onFailure error = ${e.toString()}");
 
-      updateState((state) => state.copyWith(isLoading: false));
+      build((buildable) => buildable.copyWith(isLoading: false));
 
       if (e.response?.statusCode == 401) {
         logOut();
@@ -88,60 +88,59 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> getRegions() async {
     final response = await _userRepository.getRegions();
     final regionList =
-        response.where((element) => element.id == states.regionId);
+        response.where((element) => element.id == buildable.regionId);
     if (regionList.isNotEmpty) {
-      updateState((state) =>
-          state.copyWith(regionName: regionList.first.name, isLoading: false));
+      build((buildable) => buildable.copyWith(
+          regionName: regionList.first.name, isLoading: false));
     } else {
-      updateState(
-          (state) => state.copyWith(regionName: "topilmadi", isLoading: false));
+      build((buildable) =>
+          buildable.copyWith(regionName: "topilmadi", isLoading: false));
     }
   }
 
   Future<void> getDistrict() async {
-    final regionId = states.regionId;
+    final regionId = buildable.regionId;
     final response = await _userRepository.getDistricts(regionId ?? 14);
-    updateState(
-      (state) => state.copyWith(
-        districtName:
-            response.where((e) => e.id == state.districtId).first.name,
-      ),
-    );
+    build((buildable) => buildable.copyWith(
+        districtName: response
+            .where((element) => element.id == buildable.districtId)
+            .first
+            .name));
   }
 
   Future<void> getStreets() async {
     try {
-      final districtId = states.districtId;
+      final districtId = buildable.districtId;
       final response = await _userRepository.getStreets(districtId ?? 1419);
-      updateState((state) => state.copyWith(
+      build((buildable) => buildable.copyWith(
           streetName: response
-              .where((element) => element.id == state.streetId)
+              .where((element) => element.id == buildable.streetId)
               .first
               .name,
           isLoading: false));
     } catch (e) {
-      updateState((state) => state.copyWith(isLoading: false));
+      build((buildable) => buildable.copyWith(isLoading: false));
     }
   }
 
   Future<void> logOut() async {
     await _authRepository.logOut();
-    emitEvent(PageEvent(PageEventType.onLogout));
+    invoke(ProfileViewListenable(ProfileViewEffect.navigationAuthStart));
   }
 
   setSmsNotification() {
-    updateState(
-        (state) => state.copyWith(smsNotification: !state.smsNotification));
+    build((buildable) =>
+        buildable.copyWith(smsNotification: !buildable.smsNotification));
   }
 
   setTelegramNotification() {
-    updateState((state) =>
-        state.copyWith(telegramNotification: !state.telegramNotification));
+    build((buildable) => buildable.copyWith(
+        telegramNotification: !buildable.telegramNotification));
   }
 
   setEmailNotification() {
-    updateState(
-        (state) => state.copyWith(emailNotification: !state.emailNotification));
+    build((buildable) =>
+        buildable.copyWith(emailNotification: !buildable.emailNotification));
   }
 
   Future<void> openTelegram() async {
@@ -155,13 +154,15 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> getActiveDeviceController() async {
     try {
-      final controller = states.controller ?? getActiveDevices(status: 1);
-      updateState((state) => state.copyWith(controller: controller));
+      final controller =
+          buildable.devicesPagingController ?? getActiveDevices(status: 1);
+      build((buildable) =>
+          buildable.copyWith(devicesPagingController: controller));
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
-      log.i(states.controller);
+      log.i(buildable.devicesPagingController);
     }
   }
 
@@ -169,13 +170,51 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     required int status,
   }) {
     final adController = PagingController<int, ActiveDeviceResponse>(
+        firstPageKey: 1, invisibleItemsThreshold: 100);
+    log.i(buildable.devicesPagingController);
+
+    adController.addPageRequestListener(
+      (pageKey) async {
+        updateState((state) => state.copyWith(isLoading: true));
+        log.d(response);
+        build((buildable) => buildable.copyWith(
+            regionName: regionList.first.name, isLoading: false));
+      updateState((state) => state.copyWith(isLoading: false));
+      updateState((state) => state.copyWith(isLoading: false));
+      updateState((state) => state.copyWith(isLoading: true));
+      updateState(
+        (state) => state.copyWith(
+      updateState((state) => state.copyWith(isLoading: false));
+        response.where((element) => element.id == states.regionId);
+      updateState((state) =>
+          state.copyWith(regionName: regionList.first.name, isLoading: false));
+      updateState(
+          (state) => state.copyWith(regionName: "topilmadi", isLoading: false));
+    final regionId = states.regionId;
+    updateState(
+      (state) => state.copyWith(
+        districtName:
+            response.where((e) => e.id == state.districtId).first.name,
+      ),
+    );
+      final districtId = states.districtId;
+      updateState((state) => state.copyWith(
+              .where((element) => element.id == state.streetId)
+      updateState((state) => state.copyWith(isLoading: false));
+    emitEvent(PageEvent(PageEventType.onLogout));
+    updateState(
+        (state) => state.copyWith(smsNotification: !state.smsNotification));
+    updateState((state) =>
+        state.copyWith(telegramNotification: !state.telegramNotification));
+    updateState(
+        (state) => state.copyWith(emailNotification: !state.emailNotification));
+      final controller = states.controller ?? getActiveDevices(status: 1);
+      updateState((state) => state.copyWith(controller: controller));
+      log.i(states.controller);
       firstPageKey: 1,
       invisibleItemsThreshold: 100,
     );
     log.i(states.controller);
-
-    adController.addPageRequestListener(
-      (pageKey) async {
         final adsList = await _userRepository.getActiveDevice();
         if (adsList.length <= 1000) {
           adController.appendLastPage(adsList);

@@ -13,31 +13,31 @@ import '../../../../common/widgets/common/common_button.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
-class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
+class CreateAdChooserPage extends BasePage<CreateAdChooserCubit,
+    CreateAdChooserBuildable, CreateAdChooserListenable> {
   const CreateAdChooserPage({super.key});
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget builder(BuildContext context, CreateAdChooserBuildable state) {
     return Scaffold(
-      appBar: CommonAppBar("", () => context.router.pop()),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        elevation: 0.5,
+      ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            Visibility(
-                visible: state.isLogin,
-                child: Column(
-                  children: [
-                    _buildSaleBlock(context),
-                    _buildBuyBlock(context),
-                  ],
-                )),
-            Visibility(
-                visible: !state.isLogin,
-                child: _buildDirectToRegister(context)),
-          ],
+          children: state.isLogin
+              ? [
+                  _buildSaleBlock(context),
+                  _buildBuyBlock(context),
+                ]
+              : [
+                  _buildDirectToRegister(context),
+                ],
         ),
       ),
     );
@@ -179,19 +179,22 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 36),
       child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-        SizedBox(height: 150),
+        SizedBox(height: 170),
         Assets.images.pngImages.adEmpty.image(),
         SizedBox(height: 48),
-        Strings.authRecommentTitle.w(500).s(16).c(Color(0xFF41455E)).copyWith(
+        Strings.authRecommentTitle.w(500).s(20).c(Color(0xFF41455E)).copyWith(
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.start),
         SizedBox(height: 12),
-        Strings.authRecommentDesc.w(400).s(12).c(Color(0xFF41455E)).copyWith(
+        Strings.authRecommentDesc.w(400).s(18).c(Color(0xFF41455E)).copyWith(
               maxLines: 2,
               textAlign: TextAlign.center,
             ),
-        SizedBox(height: 100),
+class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
+      appBar: CommonAppBar("", () => context.router.pop()),
+        SizedBox(height: 130),
         SizedBox(
             width: double.maxFinite,
             child: CommonButton(

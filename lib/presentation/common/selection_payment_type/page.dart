@@ -70,6 +70,8 @@ class SelectionPaymentTypePage extends BasePage<PageCubit,
                         },
 
                       );
+
+
                     },
                     separatorBuilder: (BuildContext context, int index) {
                       return AppDivider(height: 2, startIndent: 20, endIndent: 20);

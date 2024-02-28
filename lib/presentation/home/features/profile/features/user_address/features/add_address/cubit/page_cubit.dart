@@ -14,8 +14,7 @@ part 'page_cubit.freezed.dart';
 part 'page_state.dart';
 
 @injectable
-class AddAddressCubit
-    extends BaseCubit<PageState, PageEvent> {
+class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
   AddAddressCubit(this._userRepository, this.userAddressRepository)
       : super(PageState()) {
     getRegions();
@@ -210,8 +209,8 @@ class AddAddressCubit
               desiredAccuracy: LocationAccuracy.high);
           double lat = position.latitude;
           double long = position.longitude;
-          updateState((state) =>
-              state.copyWith(latitude: lat, longitude: long));
+          updateState(
+              (state) => state.copyWith(latitude: lat, longitude: long));
           display.success("location muvaffaqiyatli olindi");
           print("Latitude: $lat and Longitude: $long");
         } catch (e) {
@@ -226,8 +225,7 @@ class AddAddressCubit
             desiredAccuracy: LocationAccuracy.high);
         double lat = position.latitude;
         double long = position.longitude;
-        updateState(
-            (state) => state.copyWith(latitude: lat, longitude: long));
+        updateState((state) => state.copyWith(latitude: lat, longitude: long));
         display.success("location muvaffaqiyatli olindi");
         print("Latitude: $lat and Longitude: $long");
       } catch (e) {
