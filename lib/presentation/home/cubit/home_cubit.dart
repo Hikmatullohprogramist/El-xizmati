@@ -17,14 +17,14 @@ class HomeCubit extends BaseCubit<HomeBuildable, HomeListenable> {
     Hive.box("favorites_storage")
         .listenable(keys: ["key_favorites_storage"]).addListener(() {
       int favoriteNumber = Hive.box("favorites_storage").length;
-      updateState((buildable) => buildable.copyWith(favoriteAmount: favoriteNumber));
+      updateState((state) => state.copyWith(favoriteAmount: favoriteNumber));
       display.success("favorite change $favoriteNumber");
     });
 
     Hive.box("cart_storage")
         .listenable(keys: ["key_cart_storage"]).addListener(() {
       int cartNumber = Hive.box("cart_storage").length;
-      updateState((buildable) => buildable.copyWith(cartAmount: cartNumber));
+      updateState((state) => state.copyWith(cartAmount: cartNumber));
       display.success("cart change $cartNumber");
     });
   }

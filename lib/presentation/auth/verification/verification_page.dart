@@ -15,8 +15,8 @@ import '../../../common/widgets/common/common_button.dart';
 import '../../../common/widgets/common/common_text_field.dart';
 
 @RoutePage()
-class VerificationPage extends BasePage<VerificationCubit,
-    VerificationBuildable, VerificationListenable> {
+class VerificationPage extends BasePage<PageCubit,
+    PageState, PageEvent> {
   VerificationPage(this.phone, {super.key});
 
   final phone;
@@ -24,16 +24,16 @@ class VerificationPage extends BasePage<VerificationCubit,
 
   @override
   void onWidgetCreated(BuildContext context) {
-    context.read<VerificationCubit>().setPhone("998 $phone");
+    context.read<PageCubit>().setPhone("998 $phone");
     textEditingController.text = "998 $phone";
   }
 
   @override
-  void onEventEmitted(BuildContext context, VerificationListenable event) {
-    switch (event.effect) {
-      case VerificationEffect.navigationHome:
+  void onEventEmitted(BuildContext context, PageEvent event) {
+    switch (event.type) {
+      case PageEventType.navigationHome:
         context.router.replace(HomeRoute());
-      case VerificationEffect.navigationToConfirm:
+      case PageEventType.navigationToConfirm:
         context.router.replace(
           ConfirmRoute(phone: phone, confirmType: ConfirmType.recovery),
         );
@@ -41,7 +41,7 @@ class VerificationPage extends BasePage<VerificationCubit,
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, VerificationBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
         backgroundColor: context.colors.colorBackgroundPrimary,
         resizeToAvoidBottomInset: false,
@@ -106,14 +106,14 @@ class VerificationPage extends BasePage<VerificationCubit,
                   maxLines: 1,
                   obscureText: true,
                   onChanged: (value) {
-                    context.read<VerificationCubit>().setPassword(value);
+                    context.read<PageCubit>().setPassword(value);
                   },
                 ),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: CommonButton(
                     onPressed: () =>
-                        context.read<VerificationCubit>().forgetPassword(),
+                        context.read<PageCubit>().forgetPassword(),
                     type: ButtonType.text,
                     child: Text(Strings.authVerificationForgetPassword),
                   ),
@@ -123,7 +123,7 @@ class VerificationPage extends BasePage<VerificationCubit,
                     color: context.colors.buttonPrimary,
                     onPressed: () {
                       TextInput.finishAutofillContext(shouldSave: true);
-                      context.read<VerificationCubit>().verification();
+                      context.read<PageCubit>().verification();
                     },
                     enabled: state.enable,
                     loading: state.loading,
@@ -151,7 +151,7 @@ class VerificationPage extends BasePage<VerificationCubit,
                       TextSpan(
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            context.read<VerificationCubit>().launchURLApp();
+                            context.read<PageCubit>().launchURLApp();
                           },
                         text: Strings.authPersonPolicy,
                         style: TextStyle(

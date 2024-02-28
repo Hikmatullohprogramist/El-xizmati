@@ -19,12 +19,12 @@ part 'dashboard_state.dart';
 
 @injectable
 class DashboardCubit
-    extends BaseCubit<DashboardBuildable, DashboardListenable> {
+    extends BaseCubit<PageState, PageEvent> {
   DashboardCubit(
     this.adRepository,
     this.commonRepository,
     this.favoriteRepository,
-  ) : super(DashboardBuildable()) {
+  ) : super(PageState()) {
     getInitialData();
   }
 
@@ -47,13 +47,13 @@ class DashboardCubit
       final popularCategories =
           await commonRepository.getPopularCategories(1, 20);
 
-      updateState((buildable) => buildable.copyWith(
+      updateState((state) => state.copyWith(
             popularCategories: popularCategories,
             popularCategoriesState: LoadingState.success,
           ));
     } on DioException catch (e, stackTrace) {
-      updateState((buildable) =>
-          buildable.copyWith(popularCategoriesState: LoadingState.error));
+      updateState((state) =>
+          state.copyWith(popularCategoriesState: LoadingState.error));
 
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
@@ -66,13 +66,13 @@ class DashboardCubit
         adType: AdType.product,
       );
 
-      updateState((buildable) => buildable.copyWith(
+      updateState((state) => state.copyWith(
             popularProductAds: ads,
             popularProductAdsState: LoadingState.success,
           ));
     } on DioException catch (e, stackTrace) {
-      updateState((buildable) =>
-          buildable.copyWith(popularProductAdsState: LoadingState.error));
+      updateState((state) =>
+          state.copyWith(popularProductAdsState: LoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
@@ -85,14 +85,14 @@ class DashboardCubit
       );
 
       updateState(
-        (buildable) => buildable.copyWith(
+        (state) => state.copyWith(
           popularServiceAds: ads,
           popularServiceAdsState: LoadingState.success,
         ),
       );
     } on DioException catch (e, stackTrace) {
-      updateState((buildable) =>
-          buildable.copyWith(popularServiceAdsState: LoadingState.error));
+      updateState((state) =>
+          state.copyWith(popularServiceAdsState: LoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
@@ -103,14 +103,14 @@ class DashboardCubit
       final ads = await adRepository.getDashboardTopRatedAds();
 
       updateState(
-        (buildable) => buildable.copyWith(
+        (state) => state.copyWith(
           topRatedAds: ads,
           topRatedAdsState: LoadingState.success,
         ),
       );
     } on DioException catch (e, stackTrace) {
-      updateState((buildable) =>
-          buildable.copyWith(topRatedAdsState: LoadingState.error));
+      updateState((state) =>
+          state.copyWith(topRatedAdsState: LoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
@@ -120,13 +120,13 @@ class DashboardCubit
     try {
       final ads = await adRepository.getRecentlyViewedAds(page: 1, limit: 20);
 
-      updateState((buildable) => buildable.copyWith(
+      updateState((state) => state.copyWith(
             recentlyViewedAds: ads,
             recentlyViewedAdsState: LoadingState.success,
           ));
     } on DioException catch (e, stackTrace) {
-      updateState((buildable) =>
-          buildable.copyWith(recentlyViewedAdsState: LoadingState.error));
+      updateState((state) =>
+          state.copyWith(recentlyViewedAdsState: LoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
@@ -136,13 +136,13 @@ class DashboardCubit
     try {
       final banners = await commonRepository.getBanner();
 
-      updateState((buildable) => buildable.copyWith(
+      updateState((state) => state.copyWith(
           banners: banners, bannersState: LoadingState.success));
 
-      log.i("getBanners success = ${currentState.banners}");
+      log.i("getBanners success = ${states.banners}");
     } on DioException catch (e, stackTrace) {
       updateState(
-        (buildable) => buildable.copyWith(bannersState: LoadingState.error),
+        (state) => state.copyWith(bannersState: LoadingState.error),
       );
       log.e("getBanners error = ${e.toString()}",
           error: e, stackTrace: stackTrace);
@@ -154,9 +154,9 @@ class DashboardCubit
     try {
       if (!ad.favorite) {
         final backendId = await favoriteRepository.addFavorite(ad);
-        final index = currentState.popularProductAds.indexOf(ad);
-        final item = currentState.popularProductAds.elementAt(index);
-        currentState.popularProductAds.insert(
+        final index = states.popularProductAds.indexOf(ad);
+        final item = states.popularProductAds.elementAt(index);
+        states.popularProductAds.insert(
           index,
           item
             ..favorite = true
@@ -164,9 +164,9 @@ class DashboardCubit
         );
       } else {
         await favoriteRepository.removeFavorite(ad);
-        final index = currentState.popularProductAds.indexOf(ad);
-        final item = currentState.popularProductAds.elementAt(index);
-        currentState.popularProductAds.insert(index, item..favorite = false);
+        final index = states.popularProductAds.indexOf(ad);
+        final item = states.popularProductAds.elementAt(index);
+        states.popularProductAds.insert(index, item..favorite = false);
       }
     } on DioException catch (error) {
       display.error("serverda xatolik yuz  berdi");
@@ -178,9 +178,9 @@ class DashboardCubit
     try {
       if (!ad.favorite) {
         final backendId = await favoriteRepository.addFavorite(ad);
-        final index = currentState.popularServiceAds.indexOf(ad);
-        final item = currentState.popularServiceAds.elementAt(index);
-        currentState.popularServiceAds.insert(
+        final index = states.popularServiceAds.indexOf(ad);
+        final item = states.popularServiceAds.elementAt(index);
+        states.popularServiceAds.insert(
           index,
           item
             ..favorite = true
@@ -188,9 +188,9 @@ class DashboardCubit
         );
       } else {
         await favoriteRepository.removeFavorite(ad);
-        final index = currentState.popularServiceAds.indexOf(ad);
-        final item = currentState.popularServiceAds.elementAt(index);
-        currentState.popularServiceAds.insert(index, item..favorite = false);
+        final index = states.popularServiceAds.indexOf(ad);
+        final item = states.popularServiceAds.elementAt(index);
+        states.popularServiceAds.insert(index, item..favorite = false);
       }
     } on DioException catch (error) {
       display.error("serverda xatolik yuz  berdi");
@@ -202,9 +202,9 @@ class DashboardCubit
     try {
       if (!ad.favorite) {
         final backendId = await favoriteRepository.addFavorite(ad);
-        final index = currentState.topRatedAds.indexOf(ad);
-        final item = currentState.topRatedAds.elementAt(index);
-        currentState.topRatedAds.insert(
+        final index = states.topRatedAds.indexOf(ad);
+        final item = states.topRatedAds.elementAt(index);
+        states.topRatedAds.insert(
           index,
           item
             ..favorite = true
@@ -212,9 +212,9 @@ class DashboardCubit
         );
       } else {
         await favoriteRepository.removeFavorite(ad);
-        final index = currentState.topRatedAds.indexOf(ad);
-        final item = currentState.topRatedAds.elementAt(index);
-        currentState.topRatedAds.insert(index, item..favorite = false);
+        final index = states.topRatedAds.indexOf(ad);
+        final item = states.topRatedAds.elementAt(index);
+        states.topRatedAds.insert(index, item..favorite = false);
       }
     } on DioException catch (error) {
       display.error("serverda xatolik yuz  berdi");
@@ -226,9 +226,9 @@ class DashboardCubit
     try {
       if (!ad.favorite) {
         final backendId = await favoriteRepository.addFavorite(ad);
-        final index = currentState.recentlyViewedAds.indexOf(ad);
-        final item = currentState.recentlyViewedAds.elementAt(index);
-        currentState.recentlyViewedAds.insert(
+        final index = states.recentlyViewedAds.indexOf(ad);
+        final item = states.recentlyViewedAds.elementAt(index);
+        states.recentlyViewedAds.insert(
           index,
           item
             ..favorite = true
@@ -236,9 +236,9 @@ class DashboardCubit
         );
       } else {
         await favoriteRepository.removeFavorite(ad);
-        final index = currentState.recentlyViewedAds.indexOf(ad);
-        final item = currentState.recentlyViewedAds.elementAt(index);
-        currentState.recentlyViewedAds.insert(index, item..favorite = false);
+        final index = states.recentlyViewedAds.indexOf(ad);
+        final item = states.recentlyViewedAds.elementAt(index);
+        states.recentlyViewedAds.insert(index, item..favorite = false);
       }
     } on DioException catch (error) {
       display.error("serverda xatolik yuz  berdi");

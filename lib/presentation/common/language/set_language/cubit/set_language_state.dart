@@ -1,14 +1,13 @@
 part of 'set_language_cubit.dart';
 
 @freezed
-class SetLanguageBuildable with _$SetLanguageBuildable {
-  const factory SetLanguageBuildable() = _SetLanguageBuildable;
+class PageState with _$PageState {
+  const factory PageState() = _PageState;
 }
 
 @freezed
-class SetLanguageListenable with _$SetLanguageListenable {
-  const factory SetLanguageListenable(SetLanguageEffect effect,
-      {String? message}) = _SetLanguageListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent(PageEventType type) = _PageEvent;
 }
 
-enum SetLanguageEffect { navigationAuthStart }
+enum PageEventType { navigationAuthStart }

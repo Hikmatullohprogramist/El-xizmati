@@ -13,8 +13,8 @@ import '../../../common/widgets/common/common_button.dart';
 import '../../../common/widgets/dashboard/app_diverder.dart';
 
 @RoutePage()
-class SelectionPaymentTypePage extends BasePage<SelectionPaymentTypeCubit,
-    SelectionPaymentTypeBuildable, SelectionPaymentTypeListenable> {
+class SelectionPaymentTypePage extends BasePage<PageCubit,
+    PageState, PageEvent> {
   const SelectionPaymentTypePage({
     super.key,
     this.selectedPaymentTypes,
@@ -28,7 +28,7 @@ class SelectionPaymentTypePage extends BasePage<SelectionPaymentTypeCubit,
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, SelectionPaymentTypeBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.sizeOf(context).height * .4,
@@ -52,7 +52,7 @@ class SelectionPaymentTypePage extends BasePage<SelectionPaymentTypeCubit,
                 ),
                 LoaderStateWidget(
                   isFullScreen: false,
-                  loadingState: state.itemsLoadState,
+                  loadingState: state.loadState,
                   child: ListView.separated(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,

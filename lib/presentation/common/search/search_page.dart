@@ -11,14 +11,13 @@ import 'package:onlinebozor/common/widgets/loading/loader_state_widget.dart';
 import 'package:onlinebozor/presentation/common/search/cubit/search_cubit.dart';
 
 @RoutePage()
-class SearchPage
-    extends BasePage<SearchCubit, SearchBuildable, SearchListenable> {
+class SearchPage extends BasePage<PageCubit, PageState, PageEvent> {
   SearchPage({super.key});
 
   final textController = TextEditingController();
 
   @override
-  Widget onWidgetBuild(BuildContext context, SearchBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -38,7 +37,7 @@ class SearchPage
                 child: TextField(
               autofocus: true,
               onSubmitted: (value) {
-                context.read<SearchCubit>().getSearchResult(value);
+                context.read<PageCubit>().getSearchResult(value);
               },
               style: TextStyle(
                 color: context.colors.textPrimary,
@@ -57,7 +56,7 @@ class SearchPage
             InkWell(
                 onTap: () {
                   final value = textController.text;
-                  context.read<SearchCubit>().getSearchResult(value);
+                  context.read<PageCubit>().getSearchResult(value);
                 },
                 child: Assets.images.iconSearch
                     .svg(color: Colors.blueAccent, width: 24, height: 24)),
@@ -76,7 +75,7 @@ class SearchPage
       ),
       body: LoaderStateWidget(
         isFullScreen: false,
-        loadingState: state.appLoadingState,
+        loadingState: state.loadingState,
         onStartWidget: Center(child: Text("Qidirishni boshlang")),
         onEmptyWidget: Center(child: Text(Strings.loadingStateNoItemFound)),
         child: ListView.builder(

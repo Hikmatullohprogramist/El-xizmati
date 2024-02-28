@@ -1,14 +1,14 @@
 part of 'selection_currency_cubit.dart';
 
 @freezed
-class SelectionCurrencyBuildable with _$SelectionCurrencyBuildable {
-  const factory SelectionCurrencyBuildable({
+class PageState with _$PageState {
+  const factory PageState({
     @Default(<CurrencyResponse>[]) List<CurrencyResponse> items,
-    @Default(LoadingState.loading) LoadingState itemsLoadState,
-  }) = _SelectionCurrencyBuildable;
+    @Default(LoadingState.loading) LoadingState loadState,
+  }) = _PageState;
 }
 
 @freezed
-class SelectionCurrencyListenable with _$SelectionCurrencyListenable {
-  const factory SelectionCurrencyListenable() = _SelectionCurrencyListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent() = _PageEvent;
 }

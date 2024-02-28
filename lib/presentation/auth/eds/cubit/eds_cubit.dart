@@ -7,8 +7,8 @@ part 'eds_cubit.freezed.dart';
 part 'eds_state.dart';
 
 @injectable
-class EdsCubit extends BaseCubit<EdsBuildable, EdsListenable> {
-  EdsCubit() : super(const EdsBuildable());
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit() : super(const PageState());
 
   void setFinishUrl(String url) {
     display.success(url);

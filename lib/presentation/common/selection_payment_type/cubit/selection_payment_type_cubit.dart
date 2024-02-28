@@ -12,10 +12,8 @@ part 'selection_payment_type_cubit.freezed.dart';
 part 'selection_payment_type_state.dart';
 
 @Injectable()
-class SelectionPaymentTypeCubit extends BaseCubit<SelectionPaymentTypeBuildable,
-    SelectionPaymentTypeListenable> {
-  SelectionPaymentTypeCubit(this._repository)
-      : super(SelectionPaymentTypeBuildable()) {
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit(this._repository) : super(PageState()) {
     getItems();
   }
 
@@ -26,31 +24,23 @@ class SelectionPaymentTypeCubit extends BaseCubit<SelectionPaymentTypeBuildable,
       final paymentTypes = await _repository.getPaymentTypesForCreationAd();
       log.i(paymentTypes.toString());
       updateState(
-        (buildable) => buildable.copyWith(
+        (state) => state.copyWith(
           items: paymentTypes,
-          itemsLoadState: LoadingState.success,
+          loadState: LoadingState.success,
         ),
       );
     } on DioException catch (exception) {
       log.e(exception.toString());
-      updateState(
-        (buildable) => buildable.copyWith(
-          itemsLoadState: LoadingState.error,
-        ),
-      );
+      updateState((state) => state.copyWith(loadState: LoadingState.error));
     }
   }
 
   void setInitialSelectedItems(List<PaymentTypeResponse>? paymentTypes) {
     try {
       if (paymentTypes != null) {
-        List<PaymentTypeResponse> updatedSelectedItems = [];
-        updatedSelectedItems.addAll(paymentTypes);
-        updateState(
-          (buildable) => buildable.copyWith(
-            selectedItems: updatedSelectedItems,
-          ),
-        );
+        List<PaymentTypeResponse> selectedItems = [];
+        selectedItems.addAll(paymentTypes);
+        updateState((state) => state.copyWith(selectedItems: selectedItems));
       }
     } catch (e) {
       log.e(e.toString());
@@ -59,20 +49,15 @@ class SelectionPaymentTypeCubit extends BaseCubit<SelectionPaymentTypeBuildable,
 
   void updateSelectedItems(PaymentTypeResponse paymentType) {
     try {
-      var updatedSelectedItems =
-          List<PaymentTypeResponse>.from(currentState.selectedItems);
+      var selectedItems = List<PaymentTypeResponse>.from(states.selectedItems);
 
-      if (currentState.selectedItems.contains(paymentType)) {
-        updatedSelectedItems.remove(paymentType);
+      if (states.selectedItems.contains(paymentType)) {
+        selectedItems.remove(paymentType);
       } else {
-        updatedSelectedItems.add(paymentType);
+        selectedItems.add(paymentType);
       }
 
-      updateState(
-        (buildable) => buildable.copyWith(
-          selectedItems: updatedSelectedItems,
-        ),
-      );
+      updateState((state) => state.copyWith(selectedItems: selectedItems));
     } catch (e) {
       log.e(e.toString());
     }

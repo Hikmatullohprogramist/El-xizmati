@@ -1,11 +1,11 @@
 part of 'create_service_ad_cubit.dart';
 
 @freezed
-class CreateServiceAdBuildable with _$CreateServiceAdBuildable {
-  const factory CreateServiceAdBuildable() = _CreateServiceAdBuildable;
+class PageState with _$PageState {
+  const factory PageState() = _PageState;
 }
 
 @freezed
-class CreateServiceAdListenable with _$CreateServiceAdListenable {
-  const factory CreateServiceAdListenable() = _CreateServiceAdListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent() = _PageEvent;
 }

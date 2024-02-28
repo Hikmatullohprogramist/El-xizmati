@@ -10,32 +10,21 @@ import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/common/common_button.dart';
 import 'package:onlinebozor/common/widgets/favorite/favorite_empty_widget.dart';
 
+import '../../../../common/widgets/app_bar/common_app_bar.dart';
 import '../../../../common/widgets/cart/cart_widget.dart';
 import '../../../../domain/models/ad/ad.dart';
 import 'cubit/cart_cubit.dart';
 
 @RoutePage()
-class CartPage extends BasePage<CartCubit, CartBuildable, CartListenable> {
+class CartPage extends BasePage<PageCubit, PageState, PageEvent> {
   const CartPage({super.key});
 
   @override
-  Widget onWidgetBuild(BuildContext context, CartBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Strings.bottomNavigationCart
-            .w(500)
-            .s(14)
-            .c(context.colors.textPrimary),
-        centerTitle: true,
-        elevation: 0.5,
-        // actions: [
-        //   if (true)
-        //     CommonButton(
-        //         type: ButtonType.text,
-        //         onPressed: () {},
-        //         child: "Выбрать все".w(500).s(12).c(Color(0xFF5C6AC3)))
-        // ],
+      appBar: CommonAppBar(
+        Strings.bottomNavigationCart,
+        () => context.router.pop(),
       ),
       backgroundColor: Color(0xFFF2F4FB),
       body: PagedGridView<int, Ad>(
@@ -43,84 +32,84 @@ class CartPage extends BasePage<CartCubit, CartBuildable, CartListenable> {
         addAutomaticKeepAlives: true,
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.symmetric(vertical: 16),
-        pagingController: state.adsPagingController!,
+        pagingController: state.controller!,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: 360 / 142,
           // mainAxisSpacing: 24,
           crossAxisCount: 1,
         ),
         builderDelegate: PagedChildBuilderDelegate<Ad>(
-            firstPageErrorIndicatorBuilder: (_) {
-              return SizedBox(
-                height: 100,
-                child: Center(
-                  child: Column(
-                    children: [
-                      Strings.loadingStateError
-                          .w(400)
-                          .s(14)
-                          .c(context.colors.textPrimary),
-                      SizedBox(height: 12),
-                      CommonButton(
-                          onPressed: () {},
-                          type: ButtonType.elevated,
-                          child: Strings.loadingStateRetry.w(400).s(15))
-                    ],
-                  ),
+          firstPageErrorIndicatorBuilder: (_) {
+            return SizedBox(
+              height: 100,
+              child: Center(
+                child: Column(
+                  children: [
+                    Strings.loadingStateError
+                        .w(400)
+                        .s(14)
+                        .c(context.colors.textPrimary),
+                    SizedBox(height: 12),
+                    CommonButton(
+                        onPressed: () {},
+                        type: ButtonType.elevated,
+                        child: Strings.loadingStateRetry.w(400).s(15))
+                  ],
                 ),
-              );
-            },
-            firstPageProgressIndicatorBuilder: (_) {
-              return SizedBox(
-                height: 160,
-                child: Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.blue,
-                  ),
+              ),
+            );
+          },
+          firstPageProgressIndicatorBuilder: (_) {
+            return SizedBox(
+              height: 160,
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: Colors.blue,
                 ),
-              );
-            },
-            noItemsFoundIndicatorBuilder: (_) {
-              return FavoriteEmptyWidget(invoke: () {
-                context.router.push(DashboardRoute());
-              });
-            },
-            newPageProgressIndicatorBuilder: (_) {
-              return SizedBox(
-                height: 160,
-                child: Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.blue,
-                  ),
+              ),
+            );
+          },
+          noItemsFoundIndicatorBuilder: (_) {
+            return FavoriteEmptyWidget(invoke: () {
+              context.router.push(DashboardRoute());
+            });
+          },
+          newPageProgressIndicatorBuilder: (_) {
+            return SizedBox(
+              height: 160,
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: Colors.blue,
                 ),
-              );
-            },
-            newPageErrorIndicatorBuilder: (_) {
-              return SizedBox(
-                height: 160,
-                child: Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.blue,
-                  ),
+              ),
+            );
+          },
+          newPageErrorIndicatorBuilder: (_) {
+            return SizedBox(
+              height: 160,
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: Colors.blue,
                 ),
-              );
-            },
-            transitionDuration: Duration(milliseconds: 100),
-            itemBuilder: (context, item, index) {
-              return CartWidget(
-                invokeAdd: (Ad ad) {},
-                invokeMinus: (Ad ad) {},
-                invokeDelete: (Ad ad) =>
-                    context.read<CartCubit>().removeCart(ad),
-                invokeFavoriteDelete: (Ad ad) {
-                  context.read<CartCubit>().addFavorite(ad);
-                },
-                ad: item,
-                invoke: (Ad ad) {
-                  context.router.push(OrderCreateRoute(adId: ad.id));
-                },
-              );
-            }),
+              ),
+            );
+          },
+          transitionDuration: Duration(milliseconds: 100),
+          itemBuilder: (context, item, index) {
+            return CartWidget(
+              invokeAdd: (Ad ad) {},
+              invokeMinus: (Ad ad) {},
+              invokeDelete: (Ad ad) => context.read<PageCubit>().removeCart(ad),
+              invokeFavoriteDelete: (Ad ad) {
+                cubit(context).addFavorite(ad);
+              },
+              ad: item,
+              invoke: (Ad ad) {
+                context.router.push(OrderCreateRoute(adId: ad.id));
+              },
+            );
+          },
+        ),
       ),
     );
   }

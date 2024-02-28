@@ -5,72 +5,76 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../common/core/base_cubit.dart';
 import '../../../../common/enum/enums.dart';
-import '../../../../domain/models/ad/ad.dart';
-import '../../../../domain/models/ad/ad_list_type.dart';
-import '../../../../domain/models/ad/ad_type.dart';
 import '../../../../data/repositories/ad_repository.dart';
 import '../../../../data/repositories/common_repository.dart';
 import '../../../../data/repositories/favorite_repository.dart';
+import '../../../../domain/models/ad/ad.dart';
+import '../../../../domain/models/ad/ad_list_type.dart';
+import '../../../../domain/models/ad/ad_type.dart';
 
 part 'ad_list_cubit.freezed.dart';
 
 part 'ad_list_state.dart';
 
 @injectable
-class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
-  AdListCubit(
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit(
     this.adRepository,
     this.commonRepository,
     this.favoriteRepository,
-  ) : super(AdListBuildable());
-
-  void setInitiallyDate(String? keyWord, AdListType adListType, int? sellerTin,
-      int? adId, AdType? collectiveType) {
-    updateState((buildable) => buildable.copyWith(
-        adsPagingController: null,
-        keyWord: keyWord ?? "",
-        sellerTin: sellerTin,
-        adListType: adListType,
-        adId: adId,
-        collectiveType: collectiveType));
-    getController();
-  }
+  ) : super(PageState());
 
   static const _pageSize = 20;
   final AdRepository adRepository;
   final CommonRepository commonRepository;
   final FavoriteRepository favoriteRepository;
 
+  void setInitialParams(
+    AdListType adListType,
+    String? keyWord,
+    int? sellerTin,
+    int? adId,
+    AdType? collectiveType,
+  ) {
+    updateState(
+      (state) => state.copyWith(
+        adListType: adListType,
+        keyWord: keyWord ?? "",
+        sellerTin: sellerTin,
+        adId: adId,
+        collectiveType: collectiveType,
+        controller: null,
+      ),
+    );
+
+    getController();
+  }
+
   Future<void> getController() async {
     try {
-      final controller =
-          currentState.adsPagingController ?? getAdsController(status: 1);
-      updateState((buildable) => buildable.copyWith(adsPagingController: controller));
+      final controller = states.controller ?? getAdsController(status: 1);
+      updateState((state) => state.copyWith(controller: controller));
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
-      log.i(currentState.adsPagingController);
+      log.i(states.controller);
     }
   }
 
-  PagingController<int, Ad> getAdsController({
-    required int status,
-  }) {
-    final adController = PagingController<int, Ad>(
-      firstPageKey: 1,
-    );
-    log.i(currentState.adsPagingController);
+  PagingController<int, Ad> getAdsController({required int status}) {
+    final adController = PagingController<int, Ad>(firstPageKey: 1);
+    log.i(states.controller);
 
     adController.addPageRequestListener(
       (pageKey) async {
         List<Ad> adsList;
-        switch (currentState.adListType) {
+        switch (states.adListType) {
           case AdListType.homeList:
             adsList = await adRepository.getHomeAds(
               pageKey,
               _pageSize,
-              currentState.keyWord,
+              states.keyWord,
             );
           case AdListType.homePopularAds:
             adsList = await adRepository.getPopularAdsByType(
@@ -80,13 +84,13 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
             );
           case AdListType.adsByUser:
             adsList = await adRepository.getAdsByUser(
-              sellerTin: currentState.sellerTin ?? -1,
+              sellerTin: states.sellerTin ?? -1,
               page: pageKey,
               limit: 20,
             );
           case AdListType.similarAds:
             adsList = await adRepository.getSimilarAds(
-              adId: currentState.adId ?? 0,
+              adId: states.adId ?? 0,
               page: pageKey,
               limit: 20,
             );
@@ -94,17 +98,17 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
             adsList = await adRepository.getHomeAds(
               pageKey,
               _pageSize,
-              currentState.keyWord,
+              states.keyWord,
             );
           case AdListType.cheaperAdsByAdType:
             adsList = await adRepository.getCheapAdsByType(
-              adType: currentState.collectiveType ?? AdType.product,
+              adType: states.collectiveType ?? AdType.product,
               page: pageKey,
               limit: 20,
             );
           case AdListType.popularAdsByAdType:
             adsList = await adRepository.getPopularAdsByType(
-              adType: currentState.collectiveType ?? AdType.product,
+              adType: states.collectiveType ?? AdType.product,
               page: pageKey,
               limit: 20,
             );
@@ -113,23 +117,23 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
                 page: pageKey, limit: 20);
         }
 
-        if (currentState.adListType == AdListType.homePopularAds ||
-            currentState.adListType == AdListType.cheaperAdsByAdType ||
-            currentState.adListType == AdListType.popularAdsByAdType ||
-            currentState.adListType == AdListType.popularCategoryAds ||
-            currentState.adListType == AdListType.adsByUser ||
-            currentState.adListType == AdListType.similarAds) {
+        if (states.adListType == AdListType.homePopularAds ||
+            states.adListType == AdListType.cheaperAdsByAdType ||
+            states.adListType == AdListType.popularAdsByAdType ||
+            states.adListType == AdListType.popularCategoryAds ||
+            states.adListType == AdListType.adsByUser ||
+            states.adListType == AdListType.similarAds) {
           adController.appendLastPage(adsList);
-          log.i(currentState.adsPagingController);
+          log.i(states.controller);
           return;
         } else {
           if (adsList.length <= 19) {
             adController.appendLastPage(adsList);
-            log.i(currentState.adsPagingController);
+            log.i(states.controller);
             return;
           }
           adController.appendPage(adsList, pageKey + 1);
-          log.i(currentState.adsPagingController);
+          log.i(states.controller);
         }
       },
     );
@@ -140,26 +144,25 @@ class AdListCubit extends BaseCubit<AdListBuildable, AdListListenable> {
     try {
       if (!ad.favorite) {
         final backendId = await favoriteRepository.addFavorite(ad);
-        final index = currentState.adsPagingController?.itemList?.indexOf(ad) ?? 0;
-        final item = currentState.adsPagingController?.itemList?.elementAt(index);
+        final index = states.controller?.itemList?.indexOf(ad) ?? 0;
+        final item = states.controller?.itemList?.elementAt(index);
         if (item != null) {
-          currentState.adsPagingController?.itemList?.insert(
+          states.controller?.itemList?.insert(
               index,
               item
                 ..favorite = true
                 ..backendId = backendId);
-          currentState.adsPagingController?.itemList?.removeAt(index);
-          currentState.adsPagingController?.notifyListeners();
+          states.controller?.itemList?.removeAt(index);
+          states.controller?.notifyListeners();
         }
       } else {
         await favoriteRepository.removeFavorite(ad);
-        final index = currentState.adsPagingController?.itemList?.indexOf(ad) ?? 0;
-        final item = currentState.adsPagingController?.itemList?.elementAt(index);
+        final index = states.controller?.itemList?.indexOf(ad) ?? 0;
+        final item = states.controller?.itemList?.elementAt(index);
         if (item != null) {
-          currentState.adsPagingController?.itemList
-              ?.insert(index, item..favorite = false);
-          currentState.adsPagingController?.itemList?.removeAt(index);
-          currentState.adsPagingController?.notifyListeners();
+          states.controller?.itemList?.insert(index, item..favorite = false);
+          states.controller?.itemList?.removeAt(index);
+          states.controller?.notifyListeners();
         }
       }
     } on DioException catch (error) {

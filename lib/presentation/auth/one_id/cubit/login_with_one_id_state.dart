@@ -1,14 +1,16 @@
 part of 'login_with_one_id_cubit.dart';
 
 @freezed
-class LoginWithOneIdBuildable with _$LoginWithOneIdBuildable {
-  const factory LoginWithOneIdBuildable({@Default(true) bool isLoading}) =
-      _LoginWithOneIdBuildable;
+class PageState with _$PageState {
+  const factory PageState({
+    @Default(true) bool isLoading,
+  }) = _PageState;
 }
 
 @freezed
-class LoginWithOneIdListenable with _$LoginWithOneIdListenable {
-  const factory LoginWithOneIdListenable(LoginWithOneIdEffect effect,{String? message}) = _LoginWithOneIdListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent(PageEventType effect,
+      {String? message}) = _PageEvent;
 }
 
-enum LoginWithOneIdEffect { navigationHome }
+enum PageEventType { navigationHome }

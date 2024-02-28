@@ -12,32 +12,26 @@ part 'selection_currency_cubit.freezed.dart';
 part 'selection_currency_state.dart';
 
 @Injectable()
-class SelectionCurrencyCubit
-    extends BaseCubit<SelectionCurrencyBuildable, SelectionCurrencyListenable> {
-  SelectionCurrencyCubit(this._repository)
-      : super(SelectionCurrencyBuildable()) {
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit(this.repository) : super(PageState()) {
     getItems();
   }
 
-  final AdCreationRepository _repository;
+  final AdCreationRepository repository;
 
   Future<void> getItems() async {
     try {
-      final items = await _repository.getCurrenciesForCreationAd();
+      final items = await repository.getCurrenciesForCreationAd();
       log.i(items.toString());
       updateState(
-        (buildable) => buildable.copyWith(
+        (state) => state.copyWith(
           items: items,
-          itemsLoadState: LoadingState.success,
+          loadState: LoadingState.success,
         ),
       );
     } on DioException catch (exception) {
       log.e(exception.toString());
-      updateState(
-        (buildable) => buildable.copyWith(
-          itemsLoadState: LoadingState.error,
-        ),
-      );
+      updateState((state) => state.copyWith(loadState: LoadingState.error));
     }
   }
 }

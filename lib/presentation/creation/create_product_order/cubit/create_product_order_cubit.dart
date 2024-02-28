@@ -11,48 +11,45 @@ part 'create_product_order_cubit.freezed.dart';
 part 'create_product_order_state.dart';
 
 @Injectable()
-class CreateProductOrderCubit extends BaseCubit<CreateProductOrderBuildable,
-    CreateProductOrderListenable> {
-  CreateProductOrderCubit() : super(const CreateProductOrderBuildable());
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit() : super(const PageState());
 
   void setName(String name) {
-    updateState((buildable) => buildable.copyWith(name: name));
+    updateState((state) => state.copyWith(name: name));
   }
 
   void setNegative(bool isNegotiate) {
-    updateState((buildable) => buildable.copyWith(isNegotiate: isNegotiate));
+    updateState((state) => state.copyWith(isNegotiate: isNegotiate));
   }
 
   void setDescription(String description) {
-    updateState((buildable) => buildable.copyWith(description: description));
+    updateState((state) => state.copyWith(description: description));
   }
 
   void setCategory(CategoryResponse? categoryResponse) {
     display.success("set category ");
-    updateState(
-        (buildable) => buildable.copyWith(categoryResponse: categoryResponse));
+    updateState((state) => state.copyWith(categoryResponse: categoryResponse));
   }
 
   void setFromPrice(String fromPrice) {
-    updateState((buildable) => buildable.copyWith(fromPrice: fromPrice));
+    updateState((state) => state.copyWith(fromPrice: fromPrice));
   }
 
   void setToPrice(String toPrice) {
-    updateState((buildable) => buildable.copyWith(toPrice: toPrice));
+    updateState((state) => state.copyWith(toPrice: toPrice));
   }
 
   void setPhoneNumber(String phoneNumber) {
-    updateState((buildable) => buildable.copyWith(phone: phoneNumber));
+    updateState((state) => state.copyWith(phone: phoneNumber));
   }
 
   void setEmail(String email) {
-    updateState((buildable) => buildable.copyWith(email: email));
+    updateState((state) => state.copyWith(email: email));
   }
 
-  void setUserAddress(UserAddressResponse userAddressResponse) {
+  void setUserAddress(UserAddressResponse address) {
     display.success("address set");
-    updateState((buildable) =>
-        buildable.copyWith(userAddressResponse: userAddressResponse));
+    updateState((state) => state.copyWith(userAddressResponse: address));
   }
 
   Future<void> pickImage() async {
@@ -62,8 +59,8 @@ class CreateProductOrderCubit extends BaseCubit<CreateProductOrderBuildable,
 
       log.w("pickImageFromGallery result = ${newImages.length}");
       if (newImages.isNotEmpty) {
-        List<XFile> addedImages = currentState.pickedImages != null
-            ? List<XFile>.from(currentState.pickedImages!)
+        List<XFile> addedImages = states.pickedImages != null
+            ? List<XFile>.from(states.pickedImages!)
             : [];
         List<XFile> changedImages = [];
 
@@ -73,27 +70,27 @@ class CreateProductOrderCubit extends BaseCubit<CreateProductOrderBuildable,
 
         if (addedCount >= maxCount) {
           emitEvent(
-            CreateProductOrderListenable(
-              CreateProductOrderEffect.onOverMaxCount,
-              maxImageCount: currentState.maxImageCount,
+            PageEvent(
+              PageEventType.onOverMaxCount,
+              maxImageCount: states.maxImageCount,
             ),
           );
         }
         if ((addedCount + newCount) > maxCount) {
           emitEvent(
-            CreateProductOrderListenable(
-              CreateProductOrderEffect.onOverMaxCount,
-              maxImageCount: currentState.maxImageCount,
+            PageEvent(
+              PageEventType.onOverMaxCount,
+              maxImageCount: states.maxImageCount,
             ),
           );
 
           addedImages.addAll(newImages.sublist(0, maxCount - addedCount));
           changedImages.addAll(addedImages);
-          updateState((buildable) => buildable.copyWith(pickedImages: changedImages));
+          updateState((state) => state.copyWith(pickedImages: changedImages));
         } else {
           addedImages.addAll(newImages);
           changedImages.addAll(addedImages);
-          updateState((buildable) => buildable.copyWith(pickedImages: changedImages));
+          updateState((state) => state.copyWith(pickedImages: changedImages));
         }
       }
     } catch (e) {
@@ -108,14 +105,14 @@ class CreateProductOrderCubit extends BaseCubit<CreateProductOrderBuildable,
 
       log.w("pickImageFromGallery result = $image");
       if (image != null) {
-        List<XFile> imageList = currentState.pickedImages != null
-            ? List<XFile>.from(currentState.pickedImages!)
+        List<XFile> imageList = states.pickedImages != null
+            ? List<XFile>.from(states.pickedImages!)
             : [];
 
         imageList.add(image);
         List<XFile> newImageList = [];
         newImageList.addAll(imageList);
-        updateState((buildable) => buildable.copyWith(pickedImages: newImageList));
+        updateState((state) => state.copyWith(pickedImages: newImageList));
       }
     } catch (e) {
       log.e(e.toString());
@@ -124,14 +121,14 @@ class CreateProductOrderCubit extends BaseCubit<CreateProductOrderBuildable,
 
   void removeImage(String imagePath) {
     try {
-      List<XFile> imageList = currentState.pickedImages != null
-          ? List<XFile>.from(currentState.pickedImages!)
+      List<XFile> imageList = states.pickedImages != null
+          ? List<XFile>.from(states.pickedImages!)
           : [];
 
       imageList.removeWhere((element) => element.path == imagePath);
       List<XFile> newImageList = [];
       newImageList.addAll(imageList);
-      updateState((buildable) => buildable.copyWith(pickedImages: newImageList));
+      updateState((state) => state.copyWith(pickedImages: newImageList));
     } catch (e) {
       log.e(e.toString());
     }
@@ -139,8 +136,8 @@ class CreateProductOrderCubit extends BaseCubit<CreateProductOrderBuildable,
 
   void onReorder(int oldIndex, int newIndex) {
     try {
-      List<XFile> imageList = currentState.pickedImages != null
-          ? List<XFile>.from(currentState.pickedImages!)
+      List<XFile> imageList = states.pickedImages != null
+          ? List<XFile>.from(states.pickedImages!)
           : [];
 
       var item = imageList[oldIndex];
@@ -149,7 +146,7 @@ class CreateProductOrderCubit extends BaseCubit<CreateProductOrderBuildable,
 
       List<XFile> newImageList = [];
       newImageList.addAll(imageList);
-      updateState((buildable) => buildable.copyWith(pickedImages: newImageList));
+      updateState((state) => state.copyWith(pickedImages: newImageList));
     } catch (e) {
       log.e(e.toString());
     }

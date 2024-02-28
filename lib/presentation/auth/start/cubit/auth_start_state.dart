@@ -1,18 +1,16 @@
 part of 'auth_start_cubit.dart';
 
 @freezed
-class AuthStartBuildable with _$AuthStartBuildable {
-  const factory AuthStartBuildable({
-    @Default("") String phone,
-    @Default(false) bool validation,
-    @Default(false) bool loading
-  }) = _AuthStartBuildable;
+class PageState with _$PageState {
+  const factory PageState(
+      {@Default("") String phone,
+      @Default(false) bool validation,
+      @Default(false) bool loading}) = _PageState;
 }
 
 @freezed
-class AuthStartListenable with _$AuthStartListenable {
-  const factory AuthStartListenable(AuthStartEffect effect, {String? phone}) =
-      _AuthStartListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent(PageEventType type, {String? phone}) = _PageEvent;
 }
 
-enum AuthStartEffect { verification, confirmation}
+enum PageEventType { verification, confirmation }

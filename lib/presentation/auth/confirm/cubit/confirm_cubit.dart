@@ -16,11 +16,11 @@ part 'confirm_cubit.freezed.dart';
 part 'confirm_state.dart';
 
 @injectable
-class ConfirmCubit extends BaseCubit<ConfirmBuildable, ConfirmListenable> {
+class ConfirmCubit extends BaseCubit<PageState, PageEvent> {
   ConfirmCubit(
     this._repository,
     this._favoriteRepository,
-  ) : super(ConfirmBuildable());
+  ) : super(PageState());
 
   final AuthRepository _repository;
   final FavoriteRepository _favoriteRepository;
@@ -29,9 +29,9 @@ class ConfirmCubit extends BaseCubit<ConfirmBuildable, ConfirmListenable> {
   void startTimer() {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       updateState(
-        (buildable) => buildable.copyWith(timerTime: buildable.timerTime - 1),
+        (state) => state.copyWith(timerTime: state.timerTime - 1),
       );
-      if (currentState.timerTime == 0) stopTimer();
+      if (states.timerTime == 0) stopTimer();
     });
   }
 
@@ -43,7 +43,7 @@ class ConfirmCubit extends BaseCubit<ConfirmBuildable, ConfirmListenable> {
 
   void setPhone(String phone, ConfirmType confirmType) {
     updateState(
-      (buildable) => buildable.copyWith(
+      (state) => state.copyWith(
         phone: phone,
         confirmType: confirmType,
         code: "",
@@ -52,7 +52,7 @@ class ConfirmCubit extends BaseCubit<ConfirmBuildable, ConfirmListenable> {
   }
 
   void setCode(String code) {
-    updateState((buildable) => buildable.copyWith(code: code));
+    updateState((state) => state.copyWith(code: code));
   }
 
   void confirm() {
@@ -73,39 +73,39 @@ class ConfirmCubit extends BaseCubit<ConfirmBuildable, ConfirmListenable> {
   }
 
   Future<void> confirmation() async {
-    updateState((buildable) => buildable.copyWith(loading: true));
+    updateState((state) => state.copyWith(loading: true));
     try {
       await _repository.confirm(
-        currentState.phone.clearSpaceInPhone(),
-        currentState.code,
+        states.phone.clearSpaceInPhone(),
+        states.code,
       );
       _timer?.cancel();
       sendAllFavoriteAds();
-      emitEvent(ConfirmListenable(ConfirmEffect.setPassword));
+      emitEvent(PageEvent(PageEventType.setPassword));
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
-      updateState((buildable) => buildable.copyWith(loading: false));
+      updateState((state) => state.copyWith(loading: false));
     }
   }
 
   Future<void> recoveryConfirmation() async {
-    updateState((buildable) => buildable.copyWith(loading: true));
+    updateState((state) => state.copyWith(loading: true));
     try {
       await _repository.recoveryConfirm(
-        currentState.phone.clearSpaceInPhone(),
-        currentState.code,
+        states.phone.clearSpaceInPhone(),
+        states.code,
       );
       _timer?.cancel();
       await sendAllFavoriteAds();
-      emitEvent(ConfirmListenable(ConfirmEffect.setPassword));
+      emitEvent(PageEvent(PageEventType.setPassword));
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
-      emitEvent(ConfirmListenable(ConfirmEffect.setPassword));
+      emitEvent(PageEvent(PageEventType.setPassword));
       display.error(e.toString());
     } finally {
-      updateState((buildable) => buildable.copyWith(loading: false));
+      updateState((state) => state.copyWith(loading: false));
     }
   }
 
@@ -114,7 +114,7 @@ class ConfirmCubit extends BaseCubit<ConfirmBuildable, ConfirmListenable> {
       await _favoriteRepository.pushAllFavoriteAds();
     } catch (error) {
       display.error("Xatolik yuz berdi");
-      emitEvent(ConfirmListenable(ConfirmEffect.setPassword));
+      emitEvent(PageEvent(PageEventType.setPassword));
     }
   }
 }

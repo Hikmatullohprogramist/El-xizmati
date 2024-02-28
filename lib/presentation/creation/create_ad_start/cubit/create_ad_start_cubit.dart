@@ -8,6 +8,6 @@ part 'create_ad_start_cubit.freezed.dart';
 part 'create_ad_start_state.dart';
 
 @Injectable()
-class CreateAdStartCubit extends BaseCubit<CreateAdStartBuildable, CreateAdStartListenable> {
-  CreateAdStartCubit() : super(const CreateAdStartBuildable());
+class CreateAdStartCubit extends BaseCubit<PageState, PageEvent> {
+  CreateAdStartCubit() : super(const PageState());
 }

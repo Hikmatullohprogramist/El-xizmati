@@ -10,8 +10,8 @@ import '../../../common/widgets/common/bottom_sheet_title.dart';
 import 'cubit/selection_user_address_cubit.dart';
 
 @RoutePage()
-class SelectionUserAddressPage extends BasePage<SelectionUserAddressCubit,
-    SelectionUserAddressBuildable, SelectionUserAddressListenable> {
+class SelectionUserAddressPage extends BasePage<PageCubit,
+    PageState, PageEvent> {
   const SelectionUserAddressPage({
     super.key,
     this.selectedAddress,
@@ -20,7 +20,7 @@ class SelectionUserAddressPage extends BasePage<SelectionUserAddressCubit,
   final UserAddressResponse? selectedAddress;
 
   @override
-  Widget onWidgetBuild(BuildContext context, SelectionUserAddressBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.sizeOf(context).height * .7,
@@ -44,7 +44,7 @@ class SelectionUserAddressPage extends BasePage<SelectionUserAddressCubit,
                 ),
                 LoaderStateWidget(
                   isFullScreen: false,
-                  loadingState: state.itemsLoadState,
+                  loadingState: state.loadState,
                   onErrorToAgainRequest: () {
                     cubit(context).getItems();
                   },

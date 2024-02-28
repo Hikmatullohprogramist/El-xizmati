@@ -12,31 +12,25 @@ part 'selection_user_address_cubit.freezed.dart';
 part 'selection_user_address_state.dart';
 
 @Injectable()
-class SelectionUserAddressCubit extends BaseCubit<SelectionUserAddressBuildable,
-    SelectionUserAddressListenable> {
-  SelectionUserAddressCubit(this._repository)
-      : super(const SelectionUserAddressBuildable()) {
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit(this.repository) : super(const PageState()) {
     getItems();
   }
 
-  final UserAddressRepository _repository;
+  final UserAddressRepository repository;
 
   Future<void> getItems() async {
     try {
-      final items = await _repository.getUserAddresses();
+      final items = await repository.getUserAddresses();
       updateState(
-        (buildable) => buildable.copyWith(
-          itemsLoadState: LoadingState.success,
+        (state) => state.copyWith(
+          loadState: LoadingState.success,
           items: items,
         ),
       );
     } on DioException catch (exception) {
       log.e(exception.toString());
-      updateState(
-        (buildable) => buildable.copyWith(
-          itemsLoadState: LoadingState.error,
-        ),
-      );
+      updateState((state) => state.copyWith(loadState: LoadingState.error));
     }
   }
 }

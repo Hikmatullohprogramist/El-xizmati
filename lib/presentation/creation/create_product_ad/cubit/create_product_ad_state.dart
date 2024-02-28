@@ -1,8 +1,8 @@
 part of 'create_product_ad_cubit.dart';
 
 @freezed
-class CreateProductAdBuildable with _$CreateProductAdBuildable {
-  const factory CreateProductAdBuildable({
+class PageState with _$PageState {
+  const factory PageState({
     @Default("") String title,
     CategoryResponse? category,
 //
@@ -34,17 +34,17 @@ class CreateProductAdBuildable with _$CreateProductAdBuildable {
 //
     @Default(false) bool isShowMySocialAccount,
     @Default(false) bool isRequestSending,
-  }) = _CreateProductAdBuildable;
+  }) = _PageState;
 }
 
 @freezed
-class CreateProductAdListenable with _$CreateProductAdListenable {
-  const factory CreateProductAdListenable(
-    CreateProductAdEffect effect, {
+class PageEvent with _$PageEvent {
+  const factory PageEvent(
+    PageEventType effect, {
     @Default(MAX_IMAGE_COUNT) int maxImageCount,
-  }) = _CreateProductAdListenable;
+  }) = _PageEvent;
 }
 
-enum CreateProductAdEffect { onOverMaxCount }
+enum PageEventType { onOverMaxCount }
 
 const int MAX_IMAGE_COUNT = 5;

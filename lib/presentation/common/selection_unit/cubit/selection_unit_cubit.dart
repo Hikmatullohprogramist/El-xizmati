@@ -12,27 +12,26 @@ part 'selection_unit_cubit.freezed.dart';
 part 'selection_unit_state.dart';
 
 @Injectable()
-class SelectionUnitCubit
-    extends BaseCubit<SelectionUnitBuildable, SelectionUnitListenable> {
-  SelectionUnitCubit(this._repository) : super(SelectionUnitBuildable()) {
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit(this.repository) : super(PageState()) {
     getItems();
   }
 
-  final AdCreationRepository _repository;
+  final AdCreationRepository repository;
 
   Future<void> getItems() async {
     try {
-      final items = await _repository.getUnitsForCreationAd();
+      final items = await repository.getUnitsForCreationAd();
       log.i(items.toString());
-      updateState((buildable) => buildable.copyWith(
-            items: items,
-            itemsLoadState: LoadingState.success,
-          ));
+      updateState(
+        (state) => state.copyWith(
+          items: items,
+          loadState: LoadingState.success,
+        ),
+      );
     } on DioException catch (exception) {
       log.e(exception.toString());
-      updateState((buildable) => buildable.copyWith(
-        itemsLoadState: LoadingState.error,
-      ));
+      updateState((state) => state.copyWith(loadState: LoadingState.error));
     }
   }
 }

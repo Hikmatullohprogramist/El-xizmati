@@ -1,16 +1,15 @@
 part of 'selection_payment_type_cubit.dart';
 
 @freezed
-class SelectionPaymentTypeBuildable with _$SelectionPaymentTypeBuildable {
-  const factory SelectionPaymentTypeBuildable({
-    @Default(<PaymentTypeResponse>[]) List<PaymentTypeResponse> items,
-    @Default(LoadingState.loading) LoadingState itemsLoadState,
-    @Default(<PaymentTypeResponse>[]) List<PaymentTypeResponse> selectedItems,
-  }) = _SelectionPaymentTypeBuildable;
+class PageState with _$PageState {
+  const factory PageState({
+    @Default([]) List<PaymentTypeResponse> items,
+    @Default([]) List<PaymentTypeResponse> selectedItems,
+    @Default(LoadingState.loading) LoadingState loadState,
+  }) = _PageState;
 }
 
 @freezed
-class SelectionPaymentTypeListenable with _$SelectionPaymentTypeListenable {
-  const factory SelectionPaymentTypeListenable() =
-      _SelectionPaymentTypeListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent() = _PageEvent;
 }

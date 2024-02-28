@@ -1,17 +1,14 @@
 part of 'popular_categories_cubit.dart';
 
 @freezed
-class PopularCategoriesBuildable with _$PopularCategoriesBuildable {
-  const factory PopularCategoriesBuildable({
-    PagingController<int, PopularCategoryResponse>? categoriesPagingController,
-    @Default(LoadingState.loading) LoadingState popularCategoriesState,
-  }) = _PopularCategoriesBuildable;
+class PageState with _$PageState {
+  const factory PageState({
+    PagingController<int, PopularCategoryResponse>? controller,
+    @Default(LoadingState.loading) LoadingState loadState,
+  }) = _PageState;
 }
 
 @freezed
-class PopularCategoriesListenable with _$PopularCategoriesListenable {
-  const factory PopularCategoriesListenable(PopularCategoriesEffect effect,
-      {String? message}) = _PopularCategoriesListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent() = _PageEvent;
 }
-
-enum PopularCategoriesEffect { success }

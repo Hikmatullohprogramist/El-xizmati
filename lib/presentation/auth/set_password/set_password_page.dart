@@ -9,39 +9,28 @@ import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/presentation/auth/set_password/cubit/set_password_cubit.dart';
 
 import '../../../common/gen/localization/strings.dart';
+import '../../../common/widgets/app_bar/common_app_bar.dart';
 import '../../../common/widgets/common/common_button.dart';
 import '../../../common/widgets/common/common_text_field.dart';
 
 @RoutePage()
-class SetPasswordPage extends BasePage<SetPasswordCubit, SetPasswordBuildable,
-    SetPasswordListenable> {
+class SetPasswordPage extends BasePage<PageCubit, PageState, PageEvent> {
   const SetPasswordPage({super.key});
 
   @override
-  void onEventEmitted(BuildContext context, SetPasswordListenable event) {
-    switch (event.effect) {
-      case SetPasswordEffect.navigationToHome:
+  void onEventEmitted(BuildContext context, PageEvent event) {
+    switch (event.type) {
+      case PageEventType.navigationToHome:
         context.router.replace(HomeRoute());
     }
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, SetPasswordBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
       backgroundColor: context.colors.colorBackgroundPrimary,
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: context.colors.iconGrey,
-            ),
-            onPressed: () {
-              context.router.pop();
-            }),
-      ),
+      appBar: CommonAppBar("", () => context.router.pop()),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: AutofillGroup(
@@ -70,7 +59,7 @@ class SetPasswordPage extends BasePage<SetPasswordCubit, SetPasswordBuildable,
                 inputType: TextInputType.visiblePassword,
                 maxLines: 1,
                 onChanged: (value) {
-                  context.read<SetPasswordCubit>().setPassword(value);
+                  context.read<PageCubit>().setPassword(value);
                 },
                 // controller: textController,
               ),
@@ -90,7 +79,7 @@ class SetPasswordPage extends BasePage<SetPasswordCubit, SetPasswordBuildable,
                 maxLines: 1,
                 obscureText: true,
                 onChanged: (value) {
-                  context.read<SetPasswordCubit>().setRepeatPassword(value);
+                  context.read<PageCubit>().setRepeatPassword(value);
                 },
               ),
               Align(
@@ -98,14 +87,15 @@ class SetPasswordPage extends BasePage<SetPasswordCubit, SetPasswordBuildable,
                 child: CommonButton(
                   onPressed: () {},
                   type: ButtonType.text,
-                  child: Text(Strings.authRegisterPasswordContainLeastCharacters),
+                  child:
+                      Text(Strings.authRegisterPasswordContainLeastCharacters),
                 ),
               ),
               Spacer(),
               CommonButton(
                 onPressed: () {
                   TextInput.finishAutofillContext(shouldSave: true);
-                  context.read<SetPasswordCubit>().createPassword();
+                  context.read<PageCubit>().createPassword();
                 },
                 enabled: state.enabled,
                 loading: state.loading,

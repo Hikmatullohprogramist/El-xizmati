@@ -1,11 +1,11 @@
 part of 'selection_address_cubit.dart';
 
 @freezed
-class SelectionAddressBuildable with _$SelectionAddressBuildable {
-  const factory SelectionAddressBuildable() = _SelectionAddressBuildable;
+class PageState with _$PageState {
+  const factory PageState() = _PageState;
 }
 
 @freezed
-class SelectionAddressListenable with _$SelectionAddressListenable {
-  const factory SelectionAddressListenable() = _SelectionAddressListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent() = _PageEvent;
 }

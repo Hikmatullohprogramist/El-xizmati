@@ -10,13 +10,17 @@ import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/presentation/auth/confirm/cubit/confirm_cubit.dart';
 
 import '../../../common/gen/localization/strings.dart';
+import '../../../common/widgets/app_bar/common_app_bar.dart';
 import '../../../common/widgets/common/common_button.dart';
 import '../../../common/widgets/common/common_text_field.dart';
 
 @RoutePage()
-class ConfirmPage
-    extends BasePage<ConfirmCubit, ConfirmBuildable, ConfirmListenable> {
-  ConfirmPage(this.phone, this.confirmType, {super.key});
+class ConfirmPage extends BasePage<ConfirmCubit, PageState, PageEvent> {
+  ConfirmPage({
+    super.key,
+    this.phone,
+    required this.confirmType,
+  });
 
   final phone;
   final ConfirmType confirmType;
@@ -31,30 +35,19 @@ class ConfirmPage
   }
 
   @override
-  void onEventEmitted(BuildContext context, ConfirmListenable event) {
-    switch (event.effect) {
-      case ConfirmEffect.setPassword:
+  void onEventEmitted(BuildContext context, PageEvent event) {
+    switch (event.type) {
+      case PageEventType.setPassword:
         context.router.replace(SetPasswordRoute());
     }
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, ConfirmBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
       backgroundColor: context.colors.colorBackgroundPrimary,
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: context.colors.iconGrey,
-            ),
-            onPressed: () {
-              context.router.pop();
-            }),
-      ),
+      appBar: CommonAppBar("", () => context.router.pop()),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -135,7 +128,7 @@ class ConfirmPage
             ),
             Spacer(),
             CommonButton(
-              color: context.colors.buttonPrimary,
+                color: context.colors.buttonPrimary,
                 onPressed: () {
                   context.read<ConfirmCubit>().confirm();
                 },
@@ -151,11 +144,11 @@ class ConfirmPage
                       .c(context.colors.textPrimaryInverse),
                 )),
             SizedBox(height: 20),
-             Text.rich(
+            Text.rich(
               TextSpan(
                 children: [
                   TextSpan(
-                    text:Strings.authPolicyAgree,
+                    text: Strings.authPolicyAgree,
                     style: TextStyle(
                       color: Color(0xFF9EABBE),
                       fontSize: 12,

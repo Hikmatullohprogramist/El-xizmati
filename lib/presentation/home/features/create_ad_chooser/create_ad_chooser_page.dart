@@ -7,22 +7,18 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
+import '../../../../common/widgets/app_bar/common_app_bar.dart';
 import '../../../../common/widgets/common/common_button.dart';
 import 'cubit/create_ad_chooser_cubit.dart';
 
 @RoutePage()
-class CreateAdChooserPage extends BasePage<CreateAdChooserCubit,
-    CreateAdChooserBuildable, CreateAdChooserListenable> {
+class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
   const CreateAdChooserPage({super.key});
 
   @override
-  Widget onWidgetBuild(BuildContext context, CreateAdChooserBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        elevation: 0.5,
-      ),
+      appBar: CommonAppBar("", () => context.router.pop()),
       backgroundColor: Color(0xFFF2F4FB),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),

@@ -9,23 +9,25 @@ import '../../../../data/repositories/auth_repository.dart';
 import '../../../../data/repositories/favorite_repository.dart';
 
 part 'verification_cubit.freezed.dart';
+
 part 'verification_state.dart';
 
 @injectable
-class VerificationCubit
-    extends BaseCubit<VerificationBuildable, VerificationListenable> {
-  VerificationCubit(this._repository, this._favoriteRepository)
-      : super(const VerificationBuildable());
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit(
+    this._repository,
+    this._favoriteRepository,
+  ) : super(const PageState());
 
   final AuthRepository _repository;
   final FavoriteRepository _favoriteRepository;
 
   void setPhone(String phone) {
-    updateState((buildable) => buildable.copyWith(phone: phone, password: ""));
+    updateState((state) => state.copyWith(phone: phone, password: ""));
   }
 
   void setPassword(String password) {
-    updateState((buildable) => buildable.copyWith(
+    updateState((state) => state.copyWith(
           password: password,
         ));
   }
@@ -40,12 +42,14 @@ class VerificationCubit
   }
 
   Future<void> verification() async {
-    updateState((buildable) => buildable.copyWith(loading: true));
+    updateState((state) => state.copyWith(loading: true));
     try {
       await _repository.verification(
-          currentState.phone.clearSpaceInPhone(), currentState.password);
+        states.phone.clearSpaceInPhone(),
+        states.password,
+      );
       sendAllFavoriteAds();
-      emitEvent(VerificationListenable(VerificationEffect.navigationHome));
+      emitEvent(PageEvent(PageEventType.navigationHome));
     } on DioException catch (e, stackTrace) {
       log.w("${e.toString()} ${stackTrace.toString()}");
       if (e.response?.statusCode == 401) {
@@ -57,14 +61,14 @@ class VerificationCubit
             "Xatolik  yuz berdi");
       }
     } finally {
-      updateState((buildable) => buildable.copyWith(loading: false));
+      updateState((state) => state.copyWith(loading: false));
     }
   }
 
   Future<void> forgetPassword() async {
     try {
-      await _repository.forgetPassword(currentState.phone.clearSpaceInPhone());
-      emitEvent(VerificationListenable(VerificationEffect.navigationToConfirm));
+      await _repository.forgetPassword(states.phone.clearSpaceInPhone());
+      emitEvent(PageEvent(PageEventType.navigationToConfirm));
     } on DioException {
       display.error(
           "xatolik yuz berdi qayta urinib ko'ring", "Xatolik  yuz berdi");
@@ -76,7 +80,7 @@ class VerificationCubit
       await _favoriteRepository.pushAllFavoriteAds();
     } catch (error) {
       display.error("Xatolik yuz berdi");
-      emitEvent(VerificationListenable(VerificationEffect.navigationHome));
+      emitEvent(PageEvent(PageEventType.navigationHome));
     }
   }
 }

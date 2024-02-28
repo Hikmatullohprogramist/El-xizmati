@@ -13,22 +13,19 @@ import '../../../common/widgets/common/common_button.dart';
 import '../../../common/widgets/dashboard/app_diverder.dart';
 
 @RoutePage()
-class SelectionUserWarehousePage extends BasePage<SelectionUserWarehouseCubit,
-    SelectionUserWarehouseBuildable, SelectionUserWarehouseListenable> {
-  const SelectionUserWarehousePage({
-    super.key,
-    this.initialSelectedItems,
-  });
+class SelectionUserWarehousePage
+    extends BasePage<PageCubit, PageState, PageEvent> {
+  const SelectionUserWarehousePage({super.key, this.selectedItems});
 
-  final List<UserAddressResponse>? initialSelectedItems;
+  final List<UserAddressResponse>? selectedItems;
 
   @override
   void onWidgetCreated(BuildContext context) {
-    cubit(context).setInitialSelectedItems(initialSelectedItems);
+    cubit(context).setInitialSelectedParams(selectedItems);
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, SelectionUserWarehouseBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.sizeOf(context).height * .4,
@@ -52,7 +49,7 @@ class SelectionUserWarehousePage extends BasePage<SelectionUserWarehouseCubit,
                 ),
                 LoaderStateWidget(
                   isFullScreen: false,
-                  loadingState: state.itemsLoadState,
+                  loadingState: state.loadState,
                   child: ListView.separated(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
@@ -70,7 +67,7 @@ class SelectionUserWarehousePage extends BasePage<SelectionUserWarehouseCubit,
                       );
                     },
                     separatorBuilder: (BuildContext context, int index) {
-                      return AppDivider(height: 2, startIndent: 20, endIndent: 20);
+                      return AppDivider(startIndent: 20, endIndent: 20);
                     },
                   ),
                 ),

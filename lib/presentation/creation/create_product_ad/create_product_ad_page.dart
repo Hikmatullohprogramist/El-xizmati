@@ -27,8 +27,8 @@ import '../../utils/mask_formatters.dart';
 import 'cubit/create_product_ad_cubit.dart';
 
 @RoutePage()
-class CreateProductAdPage extends BasePage<CreateProductAdCubit,
-    CreateProductAdBuildable, CreateProductAdListenable> {
+class CreateProductAdPage extends BasePage<PageCubit,
+    PageState, PageEvent> {
   CreateProductAdPage({super.key});
 
   final TextEditingController titleController = TextEditingController();
@@ -41,15 +41,15 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
   final TextEditingController emailController = TextEditingController();
 
   @override
-  void onEventEmitted(BuildContext context, CreateProductAdListenable event) {
+  void onEventEmitted(BuildContext context, PageEvent event) {
     switch (event.effect) {
-      case CreateProductAdEffect.onOverMaxCount:
+      case PageEventType.onOverMaxCount:
         _showMaxCountError(context, event.maxImageCount);
     }
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, CreateProductAdBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     // priceController =
     //     TextEditingController(text: currencyFormatter.format(text));
 
@@ -104,7 +104,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
 
   Widget _buildTitleAndCategoryBlock(
     BuildContext context,
-    CreateProductAdBuildable state,
+    PageState state,
   ) {
     return Container(
       color: Colors.white,
@@ -161,7 +161,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
 
   Widget _buildImageListBlock(
     BuildContext context,
-    CreateProductAdBuildable state,
+    PageState state,
   ) {
     return Container(
       color: Colors.white,
@@ -203,7 +203,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
 
   Widget _buildDescAndPriceBlock(
     BuildContext context,
-    CreateProductAdBuildable state,
+    PageState state,
   ) {
     return Container(
       color: Colors.white,
@@ -378,7 +378,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
 
   Widget _buildAdditionalInfoBlock(
     BuildContext context,
-    CreateProductAdBuildable state,
+    PageState state,
   ) {
     return Container(
       color: Colors.white,
@@ -419,7 +419,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
 
   Widget _buildContactsBlock(
     BuildContext context,
-    CreateProductAdBuildable state,
+    PageState state,
   ) {
     return Container(
       color: Colors.white,
@@ -504,7 +504,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
 
   Widget _buildDeliveryBlock(
     BuildContext context,
-    CreateProductAdBuildable state,
+    PageState state,
   ) {
     return Container(
       color: Colors.white,
@@ -613,7 +613,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
 
   Widget _buildAutoContinueBlock(
     BuildContext context,
-    CreateProductAdBuildable state,
+    PageState state,
   ) {
     return Container(
       color: Colors.white,
@@ -651,7 +651,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
 
   Widget _buildPinMySocialAccountsBlock(
     BuildContext context,
-    CreateProductAdBuildable state,
+    PageState state,
   ) {
     return Container(
       color: Colors.white,
@@ -687,7 +687,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
 
   Widget _buildFooterBlock(
     BuildContext context,
-    CreateProductAdBuildable state,
+    PageState state,
   ) {
     return Container(
       color: Colors.white,
@@ -732,7 +732,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
 
   List<Widget> _buildPaymentTypeChips(
     BuildContext context,
-    CreateProductAdBuildable state,
+    PageState state,
   ) {
     List<Widget> chips = [];
     chips.add(
@@ -769,7 +769,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
 
   List<Widget> _buildPickupAddressChips(
     BuildContext context,
-    CreateProductAdBuildable state,
+    PageState state,
   ) {
     List<Widget> chips = [];
     chips.add(
@@ -782,7 +782,7 @@ class CreateProductAdPage extends BasePage<CreateProductAdCubit,
             backgroundColor: Colors.transparent,
             builder: (context) => SelectionUserWarehousePage(
               key: Key(""),
-              initialSelectedItems: state.pickupAddresses,
+              selectedItems: state.pickupAddresses,
             ),
           );
 

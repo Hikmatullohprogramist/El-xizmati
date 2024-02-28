@@ -276,11 +276,17 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
             borderRadius: BorderRadius.circular(5),
             color: Color(0x28AEB2CD),
           ),
-          child: Row(mainAxisSize: MainAxisSize.min, children: [
-            Assets.images.icEdit.svg(height: 12, width: 12),
-            SizedBox(width: 6),
-            (state.adDetail!.createdAt ?? "").w(500).s(12).c(Color(0xFF41455E))
-          ]),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Assets.images.icEdit.svg(height: 12, width: 12),
+              SizedBox(width: 6),
+              (state.adDetail!.createdAt ?? "")
+                  .w(500)
+                  .s(12)
+                  .c(Color(0xFF41455E))
+            ],
+          ),
         )
       ],
     );

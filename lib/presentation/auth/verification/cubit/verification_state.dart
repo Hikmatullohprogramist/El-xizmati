@@ -1,21 +1,21 @@
 part of 'verification_cubit.dart';
 
 @freezed
-class VerificationBuildable with _$VerificationBuildable {
-  const VerificationBuildable._();
+class PageState with _$PageState {
+  const PageState._();
 
-  const factory VerificationBuildable({
+  const factory PageState({
     @Default("") String phone,
     @Default('') String password,
     @Default(false) bool loading,
-  }) = _VerificationBuildable;
+  }) = _PageState;
 
   bool get enable => password.length >= 8;
 }
 
 @freezed
-class VerificationListenable with _$VerificationListenable {
-  const factory VerificationListenable(VerificationEffect effect, {String? message}) = _VerificationListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent(PageEventType type) = _PageEvent;
 }
 
-enum VerificationEffect { navigationToConfirm, navigationHome }
+enum PageEventType { navigationToConfirm, navigationHome }

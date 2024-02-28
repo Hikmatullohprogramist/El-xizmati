@@ -10,8 +10,7 @@ import '../../../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../common/widgets/dashboard/app_diverder.dart';
 
 @RoutePage()
-class SelectionCategoryPage extends BasePage<PageCubit,
-    PageState, PageEvent> {
+class SelectionCategoryPage extends BasePage<PageCubit, PageState, PageEvent> {
   const SelectionCategoryPage({
     super.key,
     this.initialSelectedItem,
@@ -44,7 +43,7 @@ class SelectionCategoryPage extends BasePage<PageCubit,
                 ),
                 LoaderStateWidget(
                   isFullScreen: false,
-                  loadingState: state.itemsLoadState,
+                  loadingState: state.loadState,
                   onErrorToAgainRequest: () {
                     cubit(context).getItems();
                   },
@@ -65,7 +64,7 @@ class SelectionCategoryPage extends BasePage<PageCubit,
                       );
                     },
                     separatorBuilder: (BuildContext context, int index) {
-                      return AppDivider(height: 2, startIndent: 20, endIndent: 20);
+                      return AppDivider(startIndent: 20, endIndent: 20);
                     },
                   ),
                 ),

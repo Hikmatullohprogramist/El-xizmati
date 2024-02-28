@@ -1,8 +1,8 @@
 part of 'create_product_order_cubit.dart';
 
 @freezed
-class CreateProductOrderBuildable with _$CreateProductOrderBuildable {
-  const factory CreateProductOrderBuildable({
+class PageState with _$PageState {
+  const factory PageState({
     String? name,
     CategoryResponse? categoryResponse,
     UserAddressResponse? userAddressResponse,
@@ -17,17 +17,17 @@ class CreateProductOrderBuildable with _$CreateProductOrderBuildable {
     @Default(false) bool isNegotiate,
     @Default(MAX_IMAGE_COUNT) int maxImageCount,
     List<XFile>? pickedImages,
-  }) = _ProductOrderCreateBuildable;
+  }) = _PageState;
 }
 
 @freezed
-class CreateProductOrderListenable with _$CreateProductOrderListenable {
-  const factory CreateProductOrderListenable(
-    CreateProductOrderEffect effect, {
+class PageEvent with _$PageEvent {
+  const factory PageEvent(
+    PageEventType type, {
     @Default(MAX_IMAGE_COUNT) int maxImageCount,
-  }) = _ProductOrderCreateListenable;
+  }) = _PageEvent;
 }
 
-enum CreateProductOrderEffect { selectCategory, onOverMaxCount }
+enum PageEventType { onOverMaxCount }
 
 const int MAX_IMAGE_COUNT = 5;

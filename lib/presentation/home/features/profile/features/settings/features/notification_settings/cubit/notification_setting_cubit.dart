@@ -13,18 +13,18 @@ class NotificationSettingCubit extends BaseCubit<NotificationSettingBuildable,
   NotificationSettingCubit() : super(const NotificationSettingBuildable());
 
   setSmsNotification() {
-    updateState((buildable) =>
-        buildable.copyWith(smsNotification: !buildable.smsNotification));
+    updateState((state) =>
+        state.copyWith(smsNotification: !state.smsNotification));
   }
 
   setTelegramNotification() {
-    updateState((buildable) => buildable.copyWith(
-        telegramNotification: !buildable.telegramNotification));
+    updateState((state) => state.copyWith(
+        telegramNotification: !state.telegramNotification));
   }
 
   setEmailNotification() {
-    updateState((buildable) =>
-        buildable.copyWith(emailNotification: !buildable.emailNotification));
+    updateState((state) =>
+        state.copyWith(emailNotification: !state.emailNotification));
   }
 
   Future<void> openTelegram() async {

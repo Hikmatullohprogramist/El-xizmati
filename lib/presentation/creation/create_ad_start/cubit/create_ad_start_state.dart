@@ -1,13 +1,11 @@
 part of 'create_ad_start_cubit.dart';
 
 @freezed
-class CreateAdStartBuildable with _$CreateAdStartBuildable {
-  const factory CreateAdStartBuildable() = _CreateAdStartBuildable;
+class PageState with _$PageState {
+  const factory PageState() = _PageState;
 }
 
 @freezed
-class CreateAdStartListenable with _$CreateAdStartListenable {
-  const factory CreateAdStartListenable({CreateAdStartEffect? zzEffect}) = _CreateAdStartListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent() = _PageEvent;
 }
-
-enum CreateAdStartEffect{success}

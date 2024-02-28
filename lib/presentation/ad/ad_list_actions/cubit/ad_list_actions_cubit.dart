@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
@@ -13,11 +12,8 @@ part 'ad_list_actions_cubit.freezed.dart';
 part 'ad_list_actions_state.dart';
 
 @Injectable()
-class AdListActionsCubit
-    extends BaseCubit<AdListActionsBuildable, AdListActionsListenable> {
-  AdListActionsCubit(this._repository) : super(AdListActionsBuildable()) {
-    // getItems();
-  }
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit(this._repository) : super(PageState());
 
   final AdCreationRepository _repository;
 
@@ -26,7 +22,7 @@ class AdListActionsCubit
     UserAdStatus? userAdStatus,
   ) {
     updateState(
-      (buildable) => buildable.copyWith(
+      (state) => state.copyWith(
         userAdResponse: userAdResponse,
         userAdStatus: userAdStatus,
         isEditEnabled: true,
@@ -42,21 +38,5 @@ class AdListActionsCubit
         isDeleteEnabled: userAdStatus == UserAdStatus.inactive,
       ),
     );
-  }
-
-  Future<void> getItems() async {
-    try {
-      final items = await _repository.getUnitsForCreationAd();
-      log.i(items.toString());
-      // build((buildable) => buildable.copyWith(
-      //       items: items,
-      //       itemsLoadState: LoadingState.success,
-      //     ));
-    } on DioException catch (exception) {
-      log.e(exception.toString());
-      // build((buildable) => buildable.copyWith(
-      //   itemsLoadState: LoadingState.error,
-      // ));
-    }
   }
 }

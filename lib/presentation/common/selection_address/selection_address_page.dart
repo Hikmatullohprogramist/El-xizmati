@@ -5,12 +5,11 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import 'cubit/selection_address_cubit.dart';
 
 @RoutePage()
-class SelectionAddressPage extends BasePage<SelectionAddressCubit,
-    SelectionAddressBuildable, SelectionAddressListenable> {
+class SelectionAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
   const SelectionAddressPage({super.key});
 
   @override
-  Widget onWidgetBuild(context, SelectionAddressBuildable state) {
+  Widget onWidgetBuild(context, PageState state) {
     return Scaffold();
   }
 }

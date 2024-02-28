@@ -8,7 +8,6 @@ part 'create_service_ad_cubit.freezed.dart';
 part 'create_service_ad_state.dart';
 
 @Injectable()
-class CreateServiceAdCubit
-    extends BaseCubit<CreateServiceAdBuildable, CreateServiceAdListenable> {
-  CreateServiceAdCubit() : super(CreateServiceAdBuildable());
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit() : super(PageState());
 }

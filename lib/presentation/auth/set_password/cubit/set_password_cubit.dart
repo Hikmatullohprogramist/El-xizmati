@@ -6,46 +6,50 @@ import 'package:onlinebozor/common/core/base_cubit.dart';
 import '../../../../data/repositories/auth_repository.dart';
 
 part 'set_password_cubit.freezed.dart';
+
 part 'set_password_state.dart';
 
 @injectable
-class SetPasswordCubit extends BaseCubit<SetPasswordBuildable, SetPasswordListenable> {
-  SetPasswordCubit(this._repository) : super(SetPasswordBuildable());
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit(this._repository) : super(PageState());
 
   final AuthRepository _repository;
 
   void setPassword(String password) {
-    updateState((buildable) => buildable.copyWith(password: password));
+    updateState((state) => state.copyWith(password: password));
     enable();
   }
 
   void setRepeatPassword(String repeatPassword) {
-    updateState((buildable) => buildable.copyWith(
-      repeatPassword: repeatPassword,
-    ));
+    updateState((state) => state.copyWith(
+          repeatPassword: repeatPassword,
+        ));
     enable();
   }
 
   void enable() {
-    log.w(
-        "password= ${currentState.password}, repeatPassword=${currentState.repeatPassword}");
-    updateState((buildable) => buildable.copyWith(
-        enabled: ((buildable.password.length >= 8) &&
-            (buildable.repeatPassword.length >= 8) &&
-            (buildable.password == buildable.repeatPassword))));
+    log.w("password= ${states.password}, repeatPass=${states.repeatPassword}");
+    updateState(
+      (state) => state.copyWith(
+        enabled: ((state.password.length >= 8) &&
+            (state.repeatPassword.length >= 8) &&
+            (state.password == state.repeatPassword)),
+      ),
+    );
   }
 
   Future<void> createPassword() async {
-    updateState((buildable) => buildable.copyWith(loading: true));
+    updateState((state) => state.copyWith(loading: true));
     try {
       await _repository.registerOrResetPassword(
-          currentState.password, currentState.repeatPassword);
-      emitEvent(SetPasswordListenable(SetPasswordEffect.navigationToHome));
+        states.password,
+        states.repeatPassword,
+      );
+      emitEvent(PageEvent(PageEventType.navigationToHome));
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
-      display.error(e.toString());
     } finally {
-      updateState((buildable) => buildable.copyWith(loading: false));
+      updateState((state) => state.copyWith(loading: false));
     }
   }
 }

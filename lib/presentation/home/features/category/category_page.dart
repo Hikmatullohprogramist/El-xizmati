@@ -10,12 +10,11 @@ import '../../../../data/responses/category/category/category_response.dart';
 import 'cubit/category_cubit.dart';
 
 @RoutePage()
-class CategoryPage
-    extends BasePage<CategoryCubit, CategoryBuildable, CategoryListenable> {
+class CategoryPage extends BasePage<PageCubit, PageState, PageEvent> {
   const CategoryPage({super.key});
 
   @override
-  Widget onWidgetBuild(BuildContext context, CategoryBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
       appBar: CommonSearchBar(
         onSearchClicked: () => context.router.push(SearchRoute()),
@@ -26,23 +25,26 @@ class CategoryPage
       backgroundColor: Color(0xFFF2F4FB),
       body: LoaderStateWidget(
         isFullScreen: true,
-        loadingState: state.categoriesState,
+        loadingState: state.loadState,
         child: ListView.separated(
           physics: BouncingScrollPhysics(),
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
-          itemCount: state.categories.length,
+          itemCount: state.items.length,
           itemBuilder: (context, index) {
             return AppCategoryWidget(
-                onClicked: (CategoryResponse categoryResponse) {
-                  context.router.push(SubCategoryRoute(
+              onClicked: (CategoryResponse categoryResponse) {
+                context.router.push(
+                  SubCategoryRoute(
                       subCategoryId: categoryResponse.id,
-                      title: categoryResponse.name ?? ""));
-                },
-                category: state.categories[index]);
+                      title: categoryResponse.name ?? ""),
+                );
+              },
+              category: state.items[index],
+            );
           },
           separatorBuilder: (BuildContext context, int index) {
-            return Divider(height: 1, indent: 54, color: Color(0xFFE5E9F3));
+            return Divider(indent: 54, color: Color(0xFFE5E9F3));
           },
         ),
       ),

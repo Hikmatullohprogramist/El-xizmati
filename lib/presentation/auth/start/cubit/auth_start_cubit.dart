@@ -11,16 +11,15 @@ part 'auth_start_cubit.freezed.dart';
 part 'auth_start_state.dart';
 
 @injectable
-class AuthStartCubit
-    extends BaseCubit<AuthStartBuildable, AuthStartListenable> {
-  AuthStartCubit(this._repository) : super(AuthStartBuildable());
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit(this._repository) : super(PageState());
 
   final AuthRepository _repository;
 
   void setPhone(String phone) {
     log.i(phone);
     updateState(
-      (buildable) => buildable.copyWith(
+      (state) => state.copyWith(
         phone: phone,
         validation: phone.length >= 9,
       ),
@@ -28,21 +27,22 @@ class AuthStartCubit
   }
 
   void validation() async {
-    updateState((buildable) => buildable.copyWith(loading: true));
+    updateState((state) => state.copyWith(loading: true));
     try {
-      var authStartResponse =
-          await _repository.authStart("998${currentState.phone.clearSpaceInPhone()}");
-      if (authStartResponse.data.is_registered == true) {
-        emitEvent(AuthStartListenable(AuthStartEffect.verification,
-            phone: currentState.phone));
+      var res = await _repository.authStart(states.phone.clearSpaceInPhone());
+      if (res.data.is_registered == true) {
+        emitEvent(
+          PageEvent(PageEventType.verification, phone: states.phone),
+        );
       } else {
-        emitEvent(AuthStartListenable(AuthStartEffect.confirmation,
-            phone: currentState.phone));
+        emitEvent(
+          PageEvent(PageEventType.confirmation, phone: states.phone),
+        );
       }
     } on DioException catch (e) {
       display.error(e.toString());
     } finally {
-      updateState((buildable) => buildable.copyWith(loading: false));
+      updateState((state) => state.copyWith(loading: false));
     }
   }
 }

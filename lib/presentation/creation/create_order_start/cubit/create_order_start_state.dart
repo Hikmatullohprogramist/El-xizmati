@@ -1,11 +1,11 @@
 part of 'create_order_start_cubit.dart';
 
 @freezed
-class CreateOrderStartBuildable with _$CreateOrderStartBuildable {
-  const factory CreateOrderStartBuildable() = _CreateOrderStartBuildable;
+class PageState with _$PageState {
+  const factory PageState() = _PageState;
 }
 
 @freezed
-class CreateOrderStartListenable with _$CreateOrderStartListenable {
-  const factory CreateOrderStartListenable() = _CreateOrderStartListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent() = _PageEvent;
 }

@@ -8,10 +8,7 @@ extension TextStringExtensions on String {
   Text c(Color color) => Text(this).c(color);
 
   String clearSpaceInPhone() {
-    return replaceAll(' ', '')
-        .replaceAll('(', '')
-        .replaceAll(')', '')
-        .replaceAll('+', '');
+    return "998${replaceAll(' ', '').replaceAll('(', '').replaceAll(')', '').replaceAll('+', '')}";
   }
 }
 
@@ -121,5 +118,4 @@ extension TextExtensions on Text {
 
 extension ResponseExtensions on String {}
 
-extension AdResponseExtensions on String{
-}
+extension AdResponseExtensions on String {}

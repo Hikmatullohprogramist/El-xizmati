@@ -1,14 +1,14 @@
 part of 'search_cubit.dart';
 
 @freezed
-class SearchBuildable with _$SearchBuildable {
-  const factory SearchBuildable(
-          {@Default(LoadingState.onStart) LoadingState appLoadingState,
-          @Default(<AdSearchResponse>[]) List<AdSearchResponse> searchResult}) =
-      _SearchBuildable;
+class PageState with _$PageState {
+  const factory PageState({
+    @Default(LoadingState.onStart) LoadingState loadingState,
+    @Default(<AdSearchResponse>[]) List<AdSearchResponse> searchResult,
+  }) = _PageState;
 }
 
 @freezed
-class SearchListenable with _$SearchListenable {
-  const factory SearchListenable() = _SearchListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent() = _PageEvent;
 }

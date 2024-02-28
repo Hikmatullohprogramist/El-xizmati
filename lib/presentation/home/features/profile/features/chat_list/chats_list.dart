@@ -10,12 +10,11 @@ import '../../../../../../common/gen/assets/assets.gen.dart';
 import 'cubit/chat_list_cubit.dart';
 
 @RoutePage()
-class ChatListPage
-    extends BasePage<ChatListCubit, ChatListBuildable, ChatListListenable> {
+class ChatListPage extends BasePage<PageCubit, PageState, PageEvent> {
   const ChatListPage({super.key});
 
   @override
-  Widget onWidgetBuild(BuildContext context, ChatListBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return AutoTabsRouter.tabBar(
       physics: BouncingScrollPhysics(),
       routes: const [

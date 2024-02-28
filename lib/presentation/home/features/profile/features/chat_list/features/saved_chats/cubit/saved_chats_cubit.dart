@@ -8,7 +8,6 @@ part 'saved_chats_cubit.freezed.dart';
 part 'saved_chats_state.dart';
 
 @injectable
-class SavedChatsCubit
-    extends BaseCubit<SavedChatsBuildable, SavedChatsListenable> {
-  SavedChatsCubit() : super(const SavedChatsBuildable());
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit() : super(const PageState());
 }

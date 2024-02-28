@@ -13,27 +13,25 @@ part 'selection_category_state.dart';
 
 @Injectable()
 class PageCubit extends BaseCubit<PageState, PageEvent> {
-  PageCubit(this._repository) : super(PageState()) {
+  PageCubit(this.repository) : super(PageState()) {
     getItems();
   }
 
-  final AdCreationRepository _repository;
+  final AdCreationRepository repository;
 
   Future<void> getItems() async {
     try {
-      final items = await _repository.getCategoriesForCreationAd();
+      final items = await repository.getCategoriesForCreationAd();
       log.i(items.toString());
       updateState(
         (state) => state.copyWith(
           items: items,
-          itemsLoadState: LoadingState.success,
+          loadState: LoadingState.success,
         ),
       );
     } on DioException catch (exception) {
       log.e(exception.toString());
-      updateState(
-        (state) => state.copyWith(itemsLoadState: LoadingState.error),
-      );
+      updateState((state) => state.copyWith(loadState: LoadingState.error));
     }
   }
 }

@@ -12,10 +12,8 @@ part 'selection_user_warehouse_cubit.freezed.dart';
 part 'selection_user_warehouse_state.dart';
 
 @Injectable()
-class SelectionUserWarehouseCubit extends BaseCubit<
-    SelectionUserWarehouseBuildable, SelectionUserWarehouseListenable> {
-  SelectionUserWarehouseCubit(this._repository)
-      : super(SelectionUserWarehouseBuildable()) {
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit(this._repository) : super(PageState()) {
     getItems();
   }
 
@@ -26,31 +24,23 @@ class SelectionUserWarehouseCubit extends BaseCubit<
       final warehouses = await _repository.getWarehousesForCreationAd();
       log.i(warehouses.toString());
       updateState(
-        (buildable) => buildable.copyWith(
+        (state) => state.copyWith(
           items: warehouses,
-          itemsLoadState: LoadingState.success,
+          loadState: LoadingState.success,
         ),
       );
     } on DioException catch (exception) {
       log.e(exception.toString());
-      updateState(
-        (buildable) => buildable.copyWith(
-          itemsLoadState: LoadingState.error,
-        ),
-      );
+      updateState((state) => state.copyWith(loadState: LoadingState.error));
     }
   }
 
-  void setInitialSelectedItems(List<UserAddressResponse>? warehouses) {
+  void setInitialSelectedParams(List<UserAddressResponse>? warehouses) {
     try {
       if (warehouses != null) {
-        List<UserAddressResponse> updatedSelectedItems = [];
-        updatedSelectedItems.addAll(warehouses);
-        updateState(
-          (buildable) => buildable.copyWith(
-            selectedItems: updatedSelectedItems,
-          ),
-        );
+        List<UserAddressResponse> selectedItems = [];
+        selectedItems.addAll(warehouses);
+        updateState((state) => state.copyWith(selectedItems: selectedItems));
       }
     } catch (e) {
       log.e(e.toString());
@@ -59,20 +49,15 @@ class SelectionUserWarehouseCubit extends BaseCubit<
 
   void updateSelectedItems(UserAddressResponse warehouse) {
     try {
-      var updatedSelectedItems =
-          List<UserAddressResponse>.from(currentState.selectedItems);
+      var selectedItems = List<UserAddressResponse>.from(states.selectedItems);
 
-      if (currentState.selectedItems.contains(warehouse)) {
-        updatedSelectedItems.remove(warehouse);
+      if (states.selectedItems.contains(warehouse)) {
+        selectedItems.remove(warehouse);
       } else {
-        updatedSelectedItems.add(warehouse);
+        selectedItems.add(warehouse);
       }
 
-      updateState(
-        (buildable) => buildable.copyWith(
-          selectedItems: updatedSelectedItems,
-        ),
-      );
+      updateState((state) => state.copyWith(selectedItems: selectedItems));
     } catch (e) {
       log.e(e.toString());
     }

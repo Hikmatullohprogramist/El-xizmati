@@ -1,18 +1,18 @@
 part of 'set_password_cubit.dart';
 
 @freezed
-class SetPasswordBuildable with _$SetPasswordBuildable {
-  const factory SetPasswordBuildable(
-      {@Default("") String password,
-      @Default("") String repeatPassword,
-      @Default(false) bool enabled,
-      @Default(false) bool loading}) = _SetPasswordBuildable;
+class PageState with _$PageState {
+  const factory PageState({
+    @Default("") String password,
+    @Default("") String repeatPassword,
+    @Default(false) bool enabled,
+    @Default(false) bool loading,
+  }) = _PageState;
 }
 
 @freezed
-class SetPasswordListenable with _$SetPasswordListenable {
-  const factory SetPasswordListenable(SetPasswordEffect effect,
-      {String? message}) = _SetPasswordListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent(PageEventType type) = _PageEvent;
 }
 
-enum SetPasswordEffect { navigationToHome }
+enum PageEventType { navigationToHome }

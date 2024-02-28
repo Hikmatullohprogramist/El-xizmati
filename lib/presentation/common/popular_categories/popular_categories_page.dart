@@ -15,84 +15,82 @@ import '../../../data/responses/category/popular_category/popular_category_respo
 import '../../../domain/models/ad/ad_list_type.dart';
 
 @RoutePage()
-class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
-    PopularCategoriesBuildable,
-    PopularCategoriesListenable> {
+class PopularCategoriesPage extends BasePage<PageCubit, PageState, PageEvent> {
   const PopularCategoriesPage(this.title, {super.key});
 
   final String? title;
 
   @override
-  Widget onWidgetBuild(BuildContext context, PopularCategoriesBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-        appBar: CommonAppBar(() => context.router.pop(), title ?? ""),
-        body: state.categoriesPagingController == null
-            ? SizedBox()
-            : SizedBox(
-          child: PagedListView<int, PopularCategoryResponse>(
-            shrinkWrap: true,
-            addAutomaticKeepAlives: false,
-            physics: BouncingScrollPhysics(),
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            pagingController: state.categoriesPagingController!,
-            builderDelegate:
-            PagedChildBuilderDelegate<PopularCategoryResponse>(
-              firstPageErrorIndicatorBuilder: (_) {
-                return SizedBox(
-                  height: 60,
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Strings.loadingStateError
-                            .w(400)
-                            .s(14)
-                            .c(context.colors.textPrimary),
-                        SizedBox(height: 12),
-                        CommonButton(
-                            onPressed: () {},
-                            type: ButtonType.elevated,
-                            child: Strings.loadingStateRetry.w(400).s(15))
-                      ],
-                    ),
-                  ),
-                );
-              },
-              firstPageProgressIndicatorBuilder: (_) {
-                return SizedBox(
-                  height: 60,
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.blue,
-                    ),
-                  ),
-                );
-              },
-              noItemsFoundIndicatorBuilder: (_) {
-                return Center(child: Strings.loadingStateNoItemFound.w(400));
-              },
-              newPageProgressIndicatorBuilder: (_) {
-                return SizedBox(
-                  height: 60,
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.blue,
-                    ),
-                  ),
-                );
-              },
-              newPageErrorIndicatorBuilder: (_) {
-                return SizedBox(
-                  height: 60,
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.blue,
-                    ),
-                  ),
-                );
-              },
-              transitionDuration: Duration(milliseconds: 100),
-              itemBuilder: (context, item, index) =>
-                  Container(
+      appBar: CommonAppBar(title ?? "", () => context.router.pop()),
+      body: state.controller == null
+          ? SizedBox()
+          : SizedBox(
+              child: PagedListView<int, PopularCategoryResponse>(
+                shrinkWrap: true,
+                addAutomaticKeepAlives: false,
+                physics: BouncingScrollPhysics(),
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                pagingController: state.controller!,
+                builderDelegate:
+                    PagedChildBuilderDelegate<PopularCategoryResponse>(
+                  firstPageErrorIndicatorBuilder: (_) {
+                    return SizedBox(
+                      height: 60,
+                      child: Center(
+                        child: Column(
+                          children: [
+                            Strings.loadingStateError
+                                .w(400)
+                                .s(14)
+                                .c(context.colors.textPrimary),
+                            SizedBox(height: 12),
+                            CommonButton(
+                                onPressed: () {},
+                                type: ButtonType.elevated,
+                                child: Strings.loadingStateRetry.w(400).s(15))
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                  firstPageProgressIndicatorBuilder: (_) {
+                    return SizedBox(
+                      height: 60,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.blue,
+                        ),
+                      ),
+                    );
+                  },
+                  noItemsFoundIndicatorBuilder: (_) {
+                    return Center(
+                        child: Strings.loadingStateNoItemFound.w(400));
+                  },
+                  newPageProgressIndicatorBuilder: (_) {
+                    return SizedBox(
+                      height: 60,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.blue,
+                        ),
+                      ),
+                    );
+                  },
+                  newPageErrorIndicatorBuilder: (_) {
+                    return SizedBox(
+                      height: 60,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.blue,
+                        ),
+                      ),
+                    );
+                  },
+                  transitionDuration: Duration(milliseconds: 100),
+                  itemBuilder: (context, item, index) => Container(
                     margin: EdgeInsets.symmetric(vertical: 6),
                     child: PopularCategoryVertical(
                       category: item,
@@ -108,8 +106,9 @@ class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
                       },
                     ),
                   ),
+                ),
+              ),
             ),
-          ),
-        ));
+    );
   }
 }

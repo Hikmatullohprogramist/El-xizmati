@@ -1,11 +1,11 @@
 part of 'eds_cubit.dart';
 
 @freezed
-class EdsBuildable with _$EdsBuildable {
-  const factory EdsBuildable() = _EdsBuildable;
+class PageState with _$PageState {
+  const factory PageState() = _PageState;
 }
 
 @freezed
-class EdsListenable with _$EdsListenable {
-  const factory EdsListenable() = _EdsListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent() = _PageEvent;
 }

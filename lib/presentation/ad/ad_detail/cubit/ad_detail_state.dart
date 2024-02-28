@@ -18,7 +18,5 @@ class PageState with _$PageState {
 
 @freezed
 class PageEvent with _$PageEvent {
-  const factory PageEvent(PageEventType effect, {String? message}) = _PageEvent;
+  const factory PageEvent() = _PageEvent;
 }
-
-enum PageEventType { phoneCall, smsWrite }

@@ -21,7 +21,7 @@ class UserAdListCubit
   final UserAdRepository userAdRepository;
 
   void setInitialParams(UserAdStatus userAdStatus) {
-    updateState((buildable) => buildable.copyWith(userAdStatus: userAdStatus));
+    updateState((state) => state.copyWith(userAdStatus: userAdStatus));
 
     getController();
   }
@@ -29,16 +29,16 @@ class UserAdListCubit
   Future<void> getController() async {
     try {
       final controller =
-          currentState.userAdsPagingController ?? getAdsController(status: 1);
+          states.userAdsPagingController ?? getAdsController(status: 1);
       updateState(
-            (buildable) =>
-            buildable.copyWith(userAdsPagingController: controller),
+            (state) =>
+            state.copyWith(userAdsPagingController: controller),
       );
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
-      log.i(currentState.userAdsPagingController);
+      log.i(states.userAdsPagingController);
     }
   }
 
@@ -47,22 +47,22 @@ class UserAdListCubit
   }) {
     final adController = PagingController<int, UserAdResponse>(
         firstPageKey: 1, invisibleItemsThreshold: 100);
-    log.i(currentState.userAdsPagingController);
+    log.i(states.userAdsPagingController);
 
     adController.addPageRequestListener(
           (pageKey) async {
         final adsList = await userAdRepository.getUserAds(
           limit: 20,
           page: pageKey,
-          userAdStatus: currentState.userAdStatus,
+          userAdStatus: states.userAdStatus,
         );
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);
-          log.i(currentState.userAdsPagingController);
+          log.i(states.userAdsPagingController);
           return;
         }
         adController.appendPage(adsList, pageKey + 1);
-        log.i(currentState.userAdsPagingController);
+        log.i(states.userAdsPagingController);
       },
     );
     return adController;

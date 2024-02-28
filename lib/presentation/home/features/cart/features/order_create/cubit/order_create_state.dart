@@ -1,20 +1,20 @@
 part of 'order_create_cubit.dart';
 
 @freezed
-class OrderCreateBuildable with _$OrderCreateBuildable {
-  const factory OrderCreateBuildable(
-      {int? adId,
-      AdDetail? adDetail,
-      @Default(false) bool favorite,
-      @Default(-1) int paymentId,
-      @Default(<int>[]) List<int> paymentType,
-      @Default(1) int count}) = _OrderCreateBuildable;
+class PageState with _$PageState {
+  const factory PageState({
+    int? adId,
+    AdDetail? adDetail,
+    @Default(false) bool favorite,
+    @Default(-1) int paymentId,
+    @Default(<int>[]) List<int> paymentType,
+    @Default(1) int count,
+  }) = _PageState;
 }
 
 @freezed
-class OrderCreateListenable with _$OrderCreateListenable {
-  const factory OrderCreateListenable(OrderCreateEffect effect,
-      {String? message}) = _OrderCreateListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent(PageEventType type) = _PageEvent;
 }
 
-enum OrderCreateEffect { delete, back, navigationAuthStart }
+enum PageEventType { delete, back, navigationAuthStart }

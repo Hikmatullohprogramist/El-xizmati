@@ -6,16 +6,14 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
-import '../../../../../../domain/models/order/order_type.dart';
 import 'cubit/create_order_start_cubit.dart';
 
 @RoutePage()
-class CreateOrderStartPage extends BasePage<CreateRequestStartCubit,
-    CreateOrderStartBuildable, CreateOrderStartListenable> {
+class CreateOrderStartPage extends BasePage<PageCubit, PageState, PageEvent> {
   const CreateOrderStartPage({super.key});
 
   @override
-  Widget onWidgetBuild(BuildContext context, CreateOrderStartBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

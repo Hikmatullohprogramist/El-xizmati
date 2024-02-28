@@ -8,7 +8,6 @@ part 'notification_cubit.freezed.dart';
 part 'notification_state.dart';
 
 @injectable
-class NotificationCubit
-    extends BaseCubit<NotificationBuildable, NotificationListenable> {
-  NotificationCubit() : super(NotificationBuildable());
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit() : super(PageState());
 }

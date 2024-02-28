@@ -8,6 +8,6 @@ part 'create_service_request_cubit.freezed.dart';
 part 'create_service_request_state.dart';
 
 @Injectable()
-class ServiceOrderCreateCubit extends BaseCubit<CreateServiceOrderBuildable, CreateServiceOrderListenable> {
-  ServiceOrderCreateCubit() : super(const CreateServiceOrderBuildable());
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit() : super(const PageState());
 }

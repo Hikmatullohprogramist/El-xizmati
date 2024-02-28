@@ -1,16 +1,15 @@
 part of 'selection_user_warehouse_cubit.dart';
 
 @freezed
-class SelectionUserWarehouseBuildable with _$SelectionUserWarehouseBuildable {
-  const factory SelectionUserWarehouseBuildable({
+class PageState with _$PageState {
+  const factory PageState({
     @Default(<UserAddressResponse>[]) List<UserAddressResponse> items,
-    @Default(LoadingState.loading) LoadingState itemsLoadState,
+    @Default(LoadingState.loading) LoadingState loadState,
     @Default(<UserAddressResponse>[]) List<UserAddressResponse> selectedItems,
-  }) = _SelectionUserWarehouseBuildable;
+  }) = _PageState;
 }
 
 @freezed
-class SelectionUserWarehouseListenable with _$SelectionUserWarehouseListenable {
-  const factory SelectionUserWarehouseListenable() =
-      _SelectionUserWarehouseListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent() = _PageEvent;
 }

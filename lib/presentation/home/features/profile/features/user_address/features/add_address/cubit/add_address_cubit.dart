@@ -26,7 +26,7 @@ class AddAddressCubit
 
   void setAddress(UserAddressResponse? address) {
     if (address != null) {
-      updateState((buildable) => buildable.copyWith(
+      updateState((state) => state.copyWith(
           address: address,
           isMain: address.is_main,
           geo: address.geo,
@@ -42,64 +42,64 @@ class AddAddressCubit
           apartmentNum: address.apartment_num,
           addressId: address.id));
     } else {
-      updateState((buildable) => buildable.copyWith(addressId: null));
+      updateState((state) => state.copyWith(addressId: null));
     }
   }
 
   void setAddressName(String addressName) {
-    updateState((buildable) => buildable.copyWith(addressName: addressName));
+    updateState((state) => state.copyWith(addressName: addressName));
   }
 
   Future<void> getRegions() async {
     try {
       final response = await _userRepository.getRegions();
-      updateState((buildable) => buildable.copyWith(regions: response));
+      updateState((state) => state.copyWith(regions: response));
     } catch (e) {
       display.error("street error $e");
-      updateState((buildable) => buildable.copyWith());
+      updateState((state) => state.copyWith());
     }
   }
 
   Future<void> getDistrict() async {
-    final regionId = currentState.regionId;
+    final regionId = states.regionId;
     final response = await _userRepository.getDistricts(regionId ?? 14);
-    if (currentState.districtId != null) {
-      updateState((buildable) => buildable.copyWith(
+    if (states.districtId != null) {
+      updateState((state) => state.copyWith(
           districts: response,
           districtName: response
-              .where((element) => element.id == buildable.districtId)
+              .where((element) => element.id == state.districtId)
               .first
               .name));
     } else {
-      updateState((buildable) => buildable.copyWith(districts: response));
+      updateState((state) => state.copyWith(districts: response));
     }
   }
 
   Future<void> getStreets() async {
     try {
-      final districtId = currentState.districtId;
+      final districtId = states.districtId;
       final response = await _userRepository.getStreets(districtId ?? 1419);
-      if (currentState.streetId != null) {
-        updateState((buildable) => buildable.copyWith(
+      if (states.streetId != null) {
+        updateState((state) => state.copyWith(
               streets: response,
               streetName: response
-                  .where((element) => element.id == buildable.streetId)
+                  .where((element) => element.id == state.streetId)
                   .first
                   .name,
             ));
       } else {
-        updateState((buildable) => buildable.copyWith(
+        updateState((state) => state.copyWith(
               streets: response,
             ));
       }
     } catch (e) {
       display.error("street error $e");
-      updateState((buildable) => buildable.copyWith());
+      updateState((state) => state.copyWith());
     }
   }
 
   void setRegion(RegionResponse region) {
-    updateState((buildable) => buildable.copyWith(
+    updateState((state) => state.copyWith(
         regionId: region.id,
         regionName: region.name,
         districtId: null,
@@ -110,7 +110,7 @@ class AddAddressCubit
   }
 
   void setDistrict(RegionResponse district) {
-    updateState((buildable) => buildable.copyWith(
+    updateState((state) => state.copyWith(
         districtId: district.id,
         districtName: district.name,
         streetId: null,
@@ -119,36 +119,36 @@ class AddAddressCubit
   }
 
   void setStreet(RegionResponse street) {
-    updateState((buildable) =>
-        buildable.copyWith(streetId: street.id, streetName: street.name));
+    updateState((state) =>
+        state.copyWith(streetId: street.id, streetName: street.name));
   }
 
   void setMainCard(bool? isMain) {
-    updateState((buildable) => buildable.copyWith(isMain: isMain));
+    updateState((state) => state.copyWith(isMain: isMain));
   }
 
   void setHomeNum(String value) {
-    updateState((buildable) => buildable.copyWith(homeNumber: value));
+    updateState((state) => state.copyWith(homeNumber: value));
   }
 
   void setApartmentNum(String value) {
-    updateState((buildable) => buildable.copyWith(apartmentNum: value));
+    updateState((state) => state.copyWith(apartmentNum: value));
   }
 
   void setNeighborhoodNum(String value) {
-    updateState((buildable) => buildable.copyWith(neighborhoodNum: value));
+    updateState((state) => state.copyWith(neighborhoodNum: value));
   }
 
   Future<void> validationDate() async {
-    if (currentState.addressName != null &&
-        (currentState.addressName ?? "").length > 3 &&
-        currentState.regionId != null &&
-        currentState.districtId != null &&
-        currentState.streetId != null &&
-        currentState.homeNumber != null &&
-        (currentState.geo != null ||
-            (currentState.latitude != null && currentState.latitude != null))) {
-      if (currentState.addressId == null) {
+    if (states.addressName != null &&
+        (states.addressName ?? "").length > 3 &&
+        states.regionId != null &&
+        states.districtId != null &&
+        states.streetId != null &&
+        states.homeNumber != null &&
+        (states.geo != null ||
+            (states.latitude != null && states.latitude != null))) {
+      if (states.addressId == null) {
         await addAddress();
       } else {
         await updateAddress();
@@ -161,15 +161,15 @@ class AddAddressCubit
   Future<void> addAddress() async {
     try {
       await userAddressRepository.addUserAddress(
-          name: currentState.addressName!,
-          regionId: currentState.regionId!,
-          districtId: currentState.districtId!,
-          mahallaId: currentState.streetId!,
-          homeNum: currentState.homeNumber ?? "",
-          apartmentNum: currentState.apartmentNum ?? "",
-          streetNum: currentState.streetName ?? "",
-          isMain: currentState.isMain ?? false,
-          geo: "${currentState.latitude},${currentState.longitude}");
+          name: states.addressName!,
+          regionId: states.regionId!,
+          districtId: states.districtId!,
+          mahallaId: states.streetId!,
+          homeNum: states.homeNumber ?? "",
+          apartmentNum: states.apartmentNum ?? "",
+          streetNum: states.streetName ?? "",
+          isMain: states.isMain ?? false,
+          geo: "${states.latitude},${states.longitude}");
       emitEvent(AddAddressListenable(AddAddressEffect.navigationToHome));
       display.success("mazil qo'shildi");
     } catch (e) {
@@ -180,16 +180,16 @@ class AddAddressCubit
   Future<void> updateAddress() async {
     try {
       await userAddressRepository.updateUserAddress(
-          name: currentState.addressName!,
-          regionId: currentState.regionId!,
-          districtId: currentState.districtId!,
-          mahallaId: currentState.streetId!,
-          homeNum: currentState.homeNumber ?? "",
-          apartmentNum: currentState.apartmentNum ?? "",
-          streetNum: currentState.streetName ?? "",
-          isMain: currentState.isMain ?? false,
-          geo: "${currentState.latitude},${currentState.longitude}",
-          id: currentState.addressId ?? -1,
+          name: states.addressName!,
+          regionId: states.regionId!,
+          districtId: states.districtId!,
+          mahallaId: states.streetId!,
+          homeNum: states.homeNumber ?? "",
+          apartmentNum: states.apartmentNum ?? "",
+          streetNum: states.streetName ?? "",
+          isMain: states.isMain ?? false,
+          geo: "${states.latitude},${states.longitude}",
+          id: states.addressId ?? -1,
           state: '');
       display.success("mazil qo'shildi");
     } catch (e) {
@@ -210,8 +210,8 @@ class AddAddressCubit
               desiredAccuracy: LocationAccuracy.high);
           double lat = position.latitude;
           double long = position.longitude;
-          updateState((buildable) =>
-              buildable.copyWith(latitude: lat, longitude: long));
+          updateState((state) =>
+              state.copyWith(latitude: lat, longitude: long));
           display.success("location muvaffaqiyatli olindi");
           print("Latitude: $lat and Longitude: $long");
         } catch (e) {
@@ -227,7 +227,7 @@ class AddAddressCubit
         double lat = position.latitude;
         double long = position.longitude;
         updateState(
-            (buildable) => buildable.copyWith(latitude: lat, longitude: long));
+            (state) => state.copyWith(latitude: lat, longitude: long));
         display.success("location muvaffaqiyatli olindi");
         print("Latitude: $lat and Longitude: $long");
       } catch (e) {

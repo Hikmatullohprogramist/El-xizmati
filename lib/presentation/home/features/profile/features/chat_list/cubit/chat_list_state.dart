@@ -1,11 +1,11 @@
 part of 'chat_list_cubit.dart';
 
 @freezed
-class ChatListBuildable with _$ChatListBuildable {
-  const factory ChatListBuildable() = _ChatListBuildable;
+class PageState with _$PageState {
+  const factory PageState() = _PageState;
 }
 
 @freezed
-class ChatListListenable with _$ChatListListenable {
-  const factory ChatListListenable() = _ChatListListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent() = _PageEvent;
 }

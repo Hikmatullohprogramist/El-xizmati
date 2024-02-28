@@ -9,7 +9,6 @@ part 'user_ad_detail_cubit.freezed.dart';
 part 'user_ad_detail_state.dart';
 
 @Injectable()
-class UserAdDetailCubit
-    extends BaseCubit<UserAdDetailBuildable, UserAdDetailListenable> {
-  UserAdDetailCubit() : super(UserAdDetailBuildable());
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit() : super(PageState());
 }

@@ -19,20 +19,19 @@ import 'package:onlinebozor/presentation/home/features/profile/cubit/profile_cub
 import '../../../../common/vibrator/vibrator_extension.dart';
 
 @RoutePage()
-class ProfilePage
-    extends BasePage<ProfileCubit, ProfileBuildable, ProfileListenable> {
+class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
   const ProfilePage({super.key});
 
   @override
-  void onEventEmitted(BuildContext context, ProfileListenable event) {
-    switch (event.effect) {
-      case ProfileEffect.onLogOut:
+  void onEventEmitted(BuildContext context, PageEvent event) {
+    switch (event.type) {
+      case PageEventType.onLogOut:
         context.router.push(ProfileRoute());
     }
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, ProfileBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
       appBar: _buildAppBar(context),
       backgroundColor: Color(0xFFF2F4FB),
@@ -68,7 +67,7 @@ class ProfilePage
 
   /// Block builder methods
 
-  Widget _buildProfileBlock(ProfileBuildable state, BuildContext context) {
+  Widget _buildProfileBlock(PageState state, BuildContext context) {
     return Column(
       children: [
         Visibility(
@@ -99,7 +98,7 @@ class ProfilePage
 
   Widget _buildOrderBlock(
     BuildContext context,
-    ProfileBuildable state,
+    PageState state,
   ) {
     return Column(
       children: [
@@ -154,7 +153,7 @@ class ProfilePage
 
   Widget _buildCardBlock(
     BuildContext context,
-    ProfileBuildable state,
+    PageState state,
   ) {
     return Column(
       children: [
@@ -202,7 +201,7 @@ class ProfilePage
 
   Widget _buildSettingsBlock(
     BuildContext context,
-    ProfileBuildable state,
+    PageState state,
   ) {
     return Column(
       children: [
@@ -235,7 +234,7 @@ class ProfilePage
 
   Widget _buildLogoutBlock(
     BuildContext context,
-    ProfileBuildable state,
+    PageState state,
   ) {
     return Visibility(
         visible: state.isLogin,
@@ -296,7 +295,7 @@ class ProfilePage
               SelectionListItem(
                 item: Language.uzbekLatin,
                 title: Strings.languageUzLat,
-                isSelected: context.read<ProfileCubit>().currentState.language ==
+                isSelected: context.read<PageCubit>().states.language ==
                     Language.uzbekLatin,
                 onClicked: (item) {
                   _saveSelectedLanguage(context, item);
@@ -307,7 +306,7 @@ class ProfilePage
               SelectionListItem(
                 item: Language.uzbekCyrill,
                 title: Strings.languageUzCyr,
-                isSelected: context.read<ProfileCubit>().currentState.language ==
+                isSelected: context.read<PageCubit>().states.language ==
                     Language.uzbekCyrill,
                 onClicked: (item) {
                   _saveSelectedLanguage(context, item);
@@ -318,7 +317,7 @@ class ProfilePage
               SelectionListItem(
                 item: Language.russian,
                 title: Strings.languageRus,
-                isSelected: context.read<ProfileCubit>().currentState.language ==
+                isSelected: context.read<PageCubit>().states.language ==
                     Language.russian,
                 onClicked: (item) {
                   _saveSelectedLanguage(context, item);
@@ -383,7 +382,7 @@ class ProfilePage
                         child: Strings.commonYes.s(16).c(Colors.white),
                       ),
                       onPressed: () {
-                        context.read<ProfileCubit>().logOut();
+                        context.read<PageCubit>().logOut();
                         Navigator.pop(context);
                         vibrateAsHapticFeedback();
                       },
@@ -420,11 +419,11 @@ class ProfilePage
 
     EasyLocalization.of(context)?.setLocale(locale);
 
-    context.read<ProfileCubit>().selectLanguage(language, name);
+    context.read<PageCubit>().selectLanguage(language, name);
   }
 
   SvgPicture _getLanguageIcon(BuildContext context, Language language) {
-    return context.read<ProfileCubit>().currentState.language == language
+    return context.read<PageCubit>().states.language == language
         ? Assets.images.icRadioButtonSelected.svg(height: 20, width: 20)
         : Assets.images.icRadioButtonUnSelected.svg(height: 20, width: 20);
   }

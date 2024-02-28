@@ -1,19 +1,16 @@
 part of 'profile_cubit.dart';
 
 @freezed
-class ProfileBuildable with _$ProfileBuildable {
-  const factory ProfileBuildable({
+class PageState with _$PageState {
+  const factory PageState({
     @Default(false) bool isLogin,
     Language? language,
-  }) = _ProfileBuildable;
+  }) = _PageState;
 }
 
 @freezed
-class ProfileListenable with _$ProfileListenable {
-  const factory ProfileListenable(
-    ProfileEffect effect, {
-    String? message,
-  }) = _ProfileListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent(PageEventType type) = _PageEvent;
 }
 
-enum ProfileEffect { onLogOut }
+enum PageEventType { onLogOut }

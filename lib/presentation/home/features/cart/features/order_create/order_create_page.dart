@@ -17,31 +17,31 @@ import '../../../../../../common/widgets/dashboard/app_image_widget.dart';
 import 'cubit/order_create_cubit.dart';
 
 @RoutePage()
-class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
-    OrderCreateListenable> {
+class OrderCreatePage extends BasePage<PageCubit, PageState,
+    PageEvent> {
   const OrderCreatePage(this.adId, {super.key});
 
   final int adId;
 
   @override
-  void onEventEmitted(BuildContext context, OrderCreateListenable event) {
-    switch (event.effect) {
-      case OrderCreateEffect.delete:
+  void onEventEmitted(BuildContext context, PageEvent event) {
+    switch (event.type) {
+      case PageEventType.delete:
         context.router.push(CartRoute());
-      case OrderCreateEffect.back:
+      case PageEventType.back:
         context.router.push(CartRoute());
-      case OrderCreateEffect.navigationAuthStart:
+      case PageEventType.navigationAuthStart:
         context.router.push(AuthStartRoute());
     }
   }
 
   @override
   void onWidgetCreated(BuildContext context) {
-    context.read<OrderCreateCubit>().setAdId(adId);
+    context.read<PageCubit>().setAdId(adId);
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, OrderCreateBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     var formatter = NumberFormat('###,000');
     Widget liked(bool isLiked) {
       if (isLiked) {
@@ -69,7 +69,7 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                   color: context.colors.buttonPrimary,
                   type: ButtonType.elevated,
                   onPressed: () {
-                    context.read<OrderCreateCubit>().orderCreate();
+                    context.read<PageCubit>().orderCreate();
                   },
                   child:
                       Strings.orderCreateRegister.s(13).c(Colors.white).w(500)),
@@ -186,7 +186,7 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                                 borderRadius: BorderRadius.circular(6),
                                 onTap: () {
                                   context
-                                      .read<OrderCreateCubit>()
+                                      .read<PageCubit>()
                                       .addFavorite();
                                 },
                                 child: Container(
@@ -202,7 +202,7 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                             SizedBox(width: 16),
                             InkWell(
                                 onTap: () {
-                                  context.read<OrderCreateCubit>().removeCart();
+                                  context.read<PageCubit>().removeCart();
                                 },
                                 borderRadius: BorderRadius.circular(6),
                                 child: Container(
@@ -228,7 +228,7 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                                         borderRadius: BorderRadius.circular(6),
                                         onTap: () {
                                           context
-                                              .read<OrderCreateCubit>()
+                                              .read<PageCubit>()
                                               .minus();
                                         },
                                         child: Icon(Icons.remove, size: 20)),
@@ -239,7 +239,7 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                                         borderRadius: BorderRadius.circular(6),
                                         onTap: () {
                                           context
-                                              .read<OrderCreateCubit>()
+                                              .read<PageCubit>()
                                               .add();
                                         },
                                         child: Icon(Icons.add, size: 20)),
@@ -267,7 +267,7 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                             child: InkWell(
                                 onTap: () {
                                   context
-                                      .read<OrderCreateCubit>()
+                                      .read<PageCubit>()
                                       .setPaymentType(6);
                                 },
                                 child: Container(
@@ -310,7 +310,7 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                             child: InkWell(
                                 onTap: () {
                                   context
-                                      .read<OrderCreateCubit>()
+                                      .read<PageCubit>()
                                       .setPaymentType(1);
                                 },
                                 child: Container(
@@ -353,7 +353,7 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                             child: InkWell(
                                 onTap: () {
                                   context
-                                      .read<OrderCreateCubit>()
+                                      .read<PageCubit>()
                                       .setPaymentType(4);
                                 },
                                 child: Container(
@@ -396,7 +396,7 @@ class OrderCreatePage extends BasePage<OrderCreateCubit, OrderCreateBuildable,
                             child: InkWell(
                                 onTap: () {
                                   context
-                                      .read<OrderCreateCubit>()
+                                      .read<PageCubit>()
                                       .setPaymentType(5);
                                 },
                                 child: Container(

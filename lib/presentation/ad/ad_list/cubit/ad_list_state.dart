@@ -1,22 +1,21 @@
 part of 'ad_list_cubit.dart';
 
 @freezed
-class AdListBuildable with _$AdListBuildable {
-  const factory AdListBuildable({
+class PageState with _$PageState {
+  const factory PageState({
     @Default("") String keyWord,
     @Default(AdListType.homePopularAds) AdListType adListType,
     @Default(LoadingState.loading) LoadingState adsState,
-    PagingController<int, Ad>? adsPagingController,
+    PagingController<int, Ad>? controller,
     int? sellerTin,
     int? adId,
     AdType? collectiveType,
-  }) = _AdListBuildable;
+  }) = _PageState;
 }
 
 @freezed
-class AdListListenable with _$AdListListenable {
-  const factory AdListListenable(AdListEffect effect, {String? message}) =
-      _AdListListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent(PageEventType type, {String? message}) = _PageEvent;
 }
 
-enum AdListEffect { success, navigationToAuthStart }
+enum PageEventType { navigationToAuthStart }

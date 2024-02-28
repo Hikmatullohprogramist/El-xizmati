@@ -16,15 +16,14 @@ part 'order_create_cubit.freezed.dart';
 part 'order_create_state.dart';
 
 @Injectable()
-class OrderCreateCubit
-    extends BaseCubit<OrderCreateBuildable, OrderCreateListenable> {
-  OrderCreateCubit(
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit(
     this._adRepository,
     this._cartRepository,
     this.favoriteRepository,
     this.stateRepository,
     this.userRepository,
-  ) : super(const OrderCreateBuildable());
+  ) : super(const PageState());
 
   final AdRepository _adRepository;
   final CartRepository _cartRepository;
@@ -33,33 +32,33 @@ class OrderCreateCubit
   final UserRepository userRepository;
 
   Future<void> setAdId(int adId) async {
-    updateState((buildable) => buildable.copyWith(adId: adId));
+    updateState((state) => state.copyWith(adId: adId));
     getDetailResponse();
   }
 
   List<String> getImages() {
-    return (currentState.adDetail?.photos ?? List.empty(growable: true))
+    return (states.adDetail?.photos ?? List.empty(growable: true))
         .map((e) => "${Constants.baseUrlForImage}${e.image}")
         .toList();
   }
 
   void add() {
-    updateState((buildable) => buildable.copyWith(count: buildable.count + 1));
+    updateState((state) => state.copyWith(count: state.count + 1));
   }
 
   void minus() {
-    if (currentState.count > 1) {
-      updateState((buildable) => buildable.copyWith(count: buildable.count - 1));
+    if (states.count > 1) {
+      updateState((state) => state.copyWith(count: state.count - 1));
     }
   }
 
   Future<void> getDetailResponse() async {
     try {
-      final response = await _adRepository.getAdDetail(currentState.adId!);
+      final response = await _adRepository.getAdDetail(states.adId!);
       final paymentList =
           response?.paymentTypes?.map((e) => e.id ?? -1).toList() ??
               List.empty();
-      updateState((buildable) => buildable.copyWith(
+      updateState((state) => state.copyWith(
           adDetail: response,
           favorite: response?.favorite ?? false,
           paymentType: paymentList));
@@ -70,14 +69,14 @@ class OrderCreateCubit
   }
 
   void setPaymentType(int typeId) {
-    updateState((buildable) => buildable.copyWith(paymentId: typeId));
+    updateState((state) => state.copyWith(paymentId: typeId));
   }
 
   Future<void> removeCart() async {
     try {
-      if (currentState.adId != null) {
-        await _cartRepository.removeCart(currentState.adDetail!.toMap());
-        emitEvent(OrderCreateListenable(OrderCreateEffect.delete));
+      if (states.adId != null) {
+        await _cartRepository.removeCart(states.adDetail!.toMap());
+        emitEvent(PageEvent(PageEventType.delete));
       }
     } catch (e) {
       display.error(e.toString());
@@ -86,14 +85,14 @@ class OrderCreateCubit
 
   Future<void> addFavorite() async {
     try {
-      if (!currentState.adDetail!.favorite) {
-        await favoriteRepository.addFavorite(currentState.adDetail!.toMap());
+      if (!states.adDetail!.favorite) {
+        await favoriteRepository.addFavorite(states.adDetail!.toMap());
         display.success("Success");
       } else {
-        await favoriteRepository.removeFavorite(currentState.adDetail!.toMap());
+        await favoriteRepository.removeFavorite(states.adDetail!.toMap());
       }
-      final favorite = !currentState.favorite;
-      updateState((buildable) => buildable.copyWith(favorite: favorite));
+      final favorite = !states.favorite;
+      updateState((state) => state.copyWith(favorite: favorite));
       display.success("succes");
     } catch (e) {
       display.error(e.toString());
@@ -106,15 +105,17 @@ class OrderCreateCubit
       final isFullRegister = await userRepository.isFullRegister();
       if (isLogin) {
         if (isFullRegister) {
-          if (currentState.paymentId > 0) {
+          if (states.paymentId > 0) {
             await _cartRepository.orderCreate(
-                productId: currentState.adId ?? -1,
-                amount: currentState.count,
-                paymentTypeId: currentState.paymentId,
-                tin: currentState.adDetail?.sellerTin ?? -1);
+              productId: states.adId ?? -1,
+              amount: states.count,
+              paymentTypeId: states.paymentId,
+              tin: states.adDetail?.sellerTin ?? -1,
+            );
             await _cartRepository.removeOrder(
-                tin: currentState.adDetail?.sellerTin ?? -1);
-            emitEvent(OrderCreateListenable(OrderCreateEffect.delete));
+              tin: states.adDetail?.sellerTin ?? -1,
+            );
+            emitEvent(PageEvent(PageEventType.delete));
           } else {
             display.error("to'lov turi tanlanmagan");
           }
@@ -122,7 +123,7 @@ class OrderCreateCubit
           display.error("To'liq ro'yxatdan o'tilmagan");
         }
       } else {
-        emitEvent(OrderCreateListenable(OrderCreateEffect.navigationAuthStart));
+        emitEvent(PageEvent(PageEventType.navigationAuthStart));
       }
     } catch (e) {
       display.error("error");

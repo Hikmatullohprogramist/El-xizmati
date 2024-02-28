@@ -1,15 +1,13 @@
 part of 'change_language_cubit.dart';
 
 @freezed
-class ChangeLanguageBuildable with _$ChangeLanguageBuildable {
-  const factory ChangeLanguageBuildable({Language? language}) =
-      _ChangeLanguageBuildable;
+class PageState with _$PageState {
+  const factory PageState({Language? language}) = _PageState;
 }
 
 @freezed
-class ChangeLanguageListenable with _$ChangeLanguageListenable {
-  const factory ChangeLanguageListenable(ChangeLanguageEffect effect) =
-      _ChangeLanguageListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent(PageEventType type) = _PageEvent;
 }
 
-enum ChangeLanguageEffect { backTo }
+enum PageEventType { backTo }

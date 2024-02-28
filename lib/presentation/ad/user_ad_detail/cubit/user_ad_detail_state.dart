@@ -1,11 +1,13 @@
 part of 'user_ad_detail_cubit.dart';
 
 @freezed
-class UserAdDetailBuildable with _$UserAdDetailBuildable {
-  const factory UserAdDetailBuildable({UserAdResponse? userAdResponse}) = _UserAdDetailBuildable;
+class PageState with _$PageState {
+  const factory PageState({
+    UserAdResponse? userAdResponse,
+  }) = _PageState;
 }
 
 @freezed
-class UserAdDetailListenable with _$UserAdDetailListenable {
-  const factory UserAdDetailListenable() = _UserAdDetailListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent() = _PageEvent;
 }

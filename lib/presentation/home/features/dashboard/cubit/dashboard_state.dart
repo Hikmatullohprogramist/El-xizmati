@@ -1,13 +1,12 @@
 part of 'dashboard_cubit.dart';
 
 @freezed
-class DashboardBuildable with _$DashboardBuildable {
-  const DashboardBuildable._();
+class PageState with _$PageState {
+  const PageState._();
 
   @freezed
-  const factory DashboardBuildable({
-    @Default(<PopularCategoryResponse>[])
-    List<PopularCategoryResponse> popularCategories,
+  const factory PageState({
+    @Default([]) List<PopularCategoryResponse> popularCategories,
     @Default(LoadingState.loading) LoadingState popularCategoriesState,
     @Default(<Ad>[]) List<Ad> popularProductAds,
     @Default(LoadingState.loading) LoadingState popularProductAdsState,
@@ -20,13 +19,11 @@ class DashboardBuildable with _$DashboardBuildable {
     @Default(<BannerResponse>[]) List<BannerResponse> banners,
     @Default(LoadingState.loading) LoadingState bannersState,
     PagingController<int, Ad>? adsPagingController,
-  }) = _DashboardBuildable;
+  }) = _PageState;
 }
 
 @freezed
-class DashboardListenable with _$DashboardListenable {
-  const factory DashboardListenable(DashboardEffect effect, {String? message}) =
-      _DashboardListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent() =
+  _PageEvent;
 }
-
-enum DashboardEffect { success, navigationToAuthStart }

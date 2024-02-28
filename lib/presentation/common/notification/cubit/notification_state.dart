@@ -1,14 +1,11 @@
 part of 'notification_cubit.dart';
 
 @freezed
-class NotificationBuildable with _$NotificationBuildable {
-  const factory NotificationBuildable() = _NotificationBuildable;
+class PageState with _$PageState {
+  const factory PageState() = _PageState;
 }
 
 @freezed
-class NotificationListenable with _$NotificationListenable {
-  const factory NotificationListenable(NotificationEffect effect,
-      {String? message}) = _NotificationListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent() = _PageEvent;
 }
-
-enum NotificationEffect { success }

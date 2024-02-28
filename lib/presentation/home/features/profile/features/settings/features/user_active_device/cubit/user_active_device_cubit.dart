@@ -26,14 +26,14 @@ class UserActiveDeviceCubit
   Future<void> getController() async {
     try {
       final controller =
-          currentState.devicesPagingController ?? getAdsController(status: 1);
-      updateState((buildable) =>
-          buildable.copyWith(devicesPagingController: controller));
+          states.devicesPagingController ?? getAdsController(status: 1);
+      updateState((state) =>
+          state.copyWith(devicesPagingController: controller));
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
-      log.i(currentState.devicesPagingController);
+      log.i(states.devicesPagingController);
     }
   }
 
@@ -42,18 +42,18 @@ class UserActiveDeviceCubit
   }) {
     final adController = PagingController<int, ActiveDeviceResponse>(
         firstPageKey: 1, invisibleItemsThreshold: 100);
-    log.i(currentState.devicesPagingController);
+    log.i(states.devicesPagingController);
 
     adController.addPageRequestListener(
       (pageKey) async {
         final adsList = await userRepository.getActiveDevice();
         if (adsList.length <= 1000) {
           adController.appendLastPage(adsList);
-          log.i(currentState.devicesPagingController);
+          log.i(states.devicesPagingController);
           return;
         }
         adController.appendPage(adsList, pageKey + 1);
-        log.i(currentState.devicesPagingController);
+        log.i(states.devicesPagingController);
       },
     );
     return adController;

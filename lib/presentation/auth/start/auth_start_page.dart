@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,19 +12,19 @@ import 'package:onlinebozor/common/widgets/common/common_text_field.dart';
 import 'package:onlinebozor/presentation/auth/confirm/confirm_page.dart';
 import 'package:onlinebozor/presentation/auth/start/cubit/auth_start_cubit.dart';
 
+import '../../../common/widgets/app_bar/common_app_bar.dart';
 import '../../utils/mask_formatters.dart';
 
 @RoutePage()
-class AuthStartPage
-    extends BasePage<AuthStartCubit, AuthStartBuildable, AuthStartListenable> {
+class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
   AuthStartPage({super.key});
 
   @override
-  void onEventEmitted(BuildContext context, AuthStartListenable event) {
-    switch (event.effect) {
-      case AuthStartEffect.verification:
+  void onEventEmitted(BuildContext context, PageEvent event) {
+    switch (event.type) {
+      case PageEventType.verification:
         context.router.push(VerificationRoute(phone: event.phone!));
-      case AuthStartEffect.confirmation:
+      case PageEventType.confirmation:
         context.router.push(
           ConfirmRoute(phone: event.phone!, confirmType: ConfirmType.confirm),
         );
@@ -41,23 +39,11 @@ class AuthStartPage
   final TextEditingController phoneController = TextEditingController();
 
   @override
-  Widget onWidgetBuild(BuildContext context, AuthStartBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
       backgroundColor: context.colors.colorBackgroundPrimary,
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios, color: context.colors.iconGrey),
-            onPressed: () {
-              if (context.router.stack.length == 1) {
-                exit(0);
-              } else {
-                context.router.pop();
-              }
-            }),
-      ),
+      appBar: CommonAppBar("", () => context.router.pop()),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: AutofillGroup(
@@ -88,7 +74,7 @@ class AuthStartPage
                 controller: phoneController,
                 inputFormatters: phoneMaskFormatter,
                 onChanged: (value) {
-                  context.read<AuthStartCubit>().setPhone(value);
+                  context.read<PageCubit>().setPhone(value);
                 },
               ),
               Spacer(),
@@ -151,7 +137,7 @@ class AuthStartPage
               CommonButton(
                   color: context.colors.buttonPrimary,
                   onPressed: () {
-                    context.read<AuthStartCubit>().validation();
+                    context.read<PageCubit>().validation();
                   },
                   enabled: state.validation,
                   loading: state.loading,

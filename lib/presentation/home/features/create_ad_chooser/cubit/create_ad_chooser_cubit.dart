@@ -8,7 +8,6 @@ part 'create_ad_chooser_cubit.freezed.dart';
 part 'create_ad_chooser_state.dart';
 
 @Injectable()
-class CreateAdChooserCubit
-    extends BaseCubit<CreateAdChooserBuildable, CreateAdChooserListenable> {
-  CreateAdChooserCubit() : super(CreateAdChooserBuildable());
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit() : super(PageState());
 }

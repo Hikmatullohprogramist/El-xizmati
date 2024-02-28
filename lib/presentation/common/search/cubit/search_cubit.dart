@@ -3,29 +3,37 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
 import 'package:onlinebozor/common/enum/enums.dart';
-import '../../../../data/responses/search/search_response.dart';
+
 import '../../../../data/repositories/ad_repository.dart';
+import '../../../../data/responses/search/search_response.dart';
 
 part 'search_cubit.freezed.dart';
+
 part 'search_state.dart';
 
 @injectable
-class SearchCubit extends BaseCubit<SearchBuildable, SearchListenable> {
-  SearchCubit(this._repository) : super(SearchBuildable());
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit(this._repository) : super(PageState());
 
   final AdRepository _repository;
 
   Future<void> getSearchResult(String request) async {
     try {
-      updateState((buildable) =>
-          buildable.copyWith(appLoadingState: LoadingState.loading));
+      updateState(
+        (state) => state.copyWith(loadingState: LoadingState.loading),
+      );
       final result = await _repository.getSearch(request);
       if (result.isNotEmpty) {
-        updateState((buildable) => buildable.copyWith(
-            searchResult: result, appLoadingState: LoadingState.success));
+        updateState(
+          (state) => state.copyWith(
+            searchResult: result,
+            loadingState: LoadingState.success,
+          ),
+        );
       } else {
-        updateState((buildable) =>
-            buildable.copyWith(appLoadingState: LoadingState.empty));
+        updateState(
+          (state) => state.copyWith(loadingState: LoadingState.empty),
+        );
       }
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);

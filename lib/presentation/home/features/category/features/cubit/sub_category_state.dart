@@ -1,14 +1,14 @@
 part of 'sub_category_cubit.dart';
 
 @freezed
-class SubCategoryBuildable with _$SubCategoryBuildable {
-  const factory SubCategoryBuildable(
-          {@Default(<CategoryResponse>[]) List<CategoryResponse> categories,
-          @Default(LoadingState.loading) LoadingState categoriesState}) =
-      _SubCategoryBuildable;
+class PageState with _$PageState {
+  const factory PageState({
+    @Default(<CategoryResponse>[]) List<CategoryResponse> items,
+    @Default(LoadingState.loading) LoadingState loadState,
+  }) = _PageState;
 }
 
 @freezed
-class SubCategoryListenable with _$SubCategoryListenable {
-  const factory SubCategoryListenable() = _SubCategoryListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent() = _PageEvent;
 }

@@ -1,16 +1,16 @@
 part of 'confirm_cubit.dart';
 
 @freezed
-class ConfirmBuildable with _$ConfirmBuildable {
-  const ConfirmBuildable._();
+class PageState with _$PageState {
+  const PageState._();
 
-  const factory ConfirmBuildable({
+  const factory PageState({
     @Default("") String phone,
     @Default('') String code,
     @Default(false) bool loading,
     @Default(ConfirmType.confirm) ConfirmType confirmType,
     @Default(120) int timerTime,
-  }) = _ConfirmBuildable;
+  }) = _PageState;
 
   bool get againButtonEnable => timerTime == 0;
 
@@ -18,9 +18,8 @@ class ConfirmBuildable with _$ConfirmBuildable {
 }
 
 @freezed
-class ConfirmListenable with _$ConfirmListenable {
-  const factory ConfirmListenable(ConfirmEffect effect, {String? message}) =
-      _ConfirmListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent(PageEventType type) = _PageEvent;
 }
 
-enum ConfirmEffect { setPassword }
+enum PageEventType { setPassword }

@@ -8,6 +8,6 @@ part 'chat_list_cubit.freezed.dart';
 part 'chat_list_state.dart';
 
 @injectable
-class ChatListCubit extends BaseCubit<ChatListBuildable, ChatListListenable> {
-  ChatListCubit() : super(const ChatListBuildable());
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit() : super(const PageState());
 }

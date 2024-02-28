@@ -1,14 +1,11 @@
 part of 'favorites_cubit.dart';
 
 @freezed
-class FavoritesBuildable with _$FavoritesBuildable {
-  const factory FavoritesBuildable() = _FavoritesBuildable;
+class PageState with _$PageState {
+  const factory PageState() = _PageState;
 }
 
 @freezed
-class FavoritesListenable with _$FavoritesListenable {
-  const factory FavoritesListenable(FavoritesEffect effect, {String? message}) =
-      _FavoritesListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent() = _PageEvent;
 }
-
-enum FavoritesEffect { success }

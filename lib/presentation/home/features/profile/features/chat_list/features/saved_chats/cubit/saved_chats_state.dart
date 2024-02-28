@@ -1,11 +1,11 @@
 part of 'saved_chats_cubit.dart';
 
 @freezed
-class SavedChatsBuildable with _$SavedChatsBuildable {
-  const factory SavedChatsBuildable() = _SavedChatsBuildable;
+class PageState with _$PageState {
+  const factory PageState() = _PageState;
 }
 
 @freezed
-class SavedChatsListenable with _$SavedChatsListenable {
-  const factory SavedChatsListenable() = _SavedChatsListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent() = _PageEvent;
 }

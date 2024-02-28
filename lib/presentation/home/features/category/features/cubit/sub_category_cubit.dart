@@ -12,26 +12,26 @@ part 'sub_category_cubit.freezed.dart';
 part 'sub_category_state.dart';
 
 @Injectable()
-class SubCategoryCubit
-    extends BaseCubit<SubCategoryBuildable, SubCategoryListenable> {
-  SubCategoryCubit(this._repository) : super(SubCategoryBuildable());
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit(this.repository) : super(PageState());
 
-  final CommonRepository _repository;
+  final CommonRepository repository;
 
-  Future<void> getCategories(int subCategoryId) async {
+  Future<void> getCategories(int id) async {
     try {
-      final categories = await _repository.getCategories();
-      final result = categories
-          .where((element) => element.parent_id == subCategoryId)
-          .toList();
-      log.i(categories.toString());
-      updateState((buildable) => buildable.copyWith(
-          categories: result, categoriesState: LoadingState.success));
+      final allCategories = await repository.getCategories();
+      final categories = allCategories.where((e) => e.parent_id == id).toList();
+      log.i(allCategories.toString());
+      updateState(
+        (state) => state.copyWith(
+          items: categories,
+          loadState: LoadingState.success,
+        ),
+      );
     } on DioException catch (exception) {
       log.e(exception.toString());
       display.error(exception.toString());
-      updateState((buildable) =>
-          buildable.copyWith(categoriesState: LoadingState.error));
+      updateState((state) => state.copyWith(loadState: LoadingState.error));
     }
   }
 }

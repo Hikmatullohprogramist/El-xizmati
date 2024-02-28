@@ -18,8 +18,8 @@ import '../../utils/mask_formatters.dart';
 import 'cubit/create_product_order_cubit.dart';
 
 @RoutePage()
-class CreateProductOrderPage extends BasePage<CreateProductOrderCubit,
-    CreateProductOrderBuildable, CreateProductOrderListenable> {
+class CreateProductOrderPage
+    extends BasePage<PageCubit, PageState, PageEvent> {
   CreateProductOrderPage({super.key});
 
   final TextEditingController titleController = TextEditingController();
@@ -30,19 +30,15 @@ class CreateProductOrderPage extends BasePage<CreateProductOrderCubit,
   final TextEditingController emailController = TextEditingController();
 
   @override
-  void onEventEmitted(BuildContext context, CreateProductOrderListenable event) {
-    switch (event.effect) {
-      case CreateProductOrderEffect.onOverMaxCount:
-        {
-          _showMaxCountError(context, event.maxImageCount);
-        }
-      case CreateProductOrderEffect.selectCategory:
-        {}
+  void onEventEmitted(BuildContext context, PageEvent event) {
+    switch (event.type) {
+      case PageEventType.onOverMaxCount:
+        _showMaxCountError(context, event.maxImageCount);
     }
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, CreateProductOrderBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     titleController.text != state.name
         ? titleController.text = state.name ?? ""
         : titleController.text = titleController.text;
@@ -104,7 +100,7 @@ class CreateProductOrderPage extends BasePage<CreateProductOrderCubit,
 
   Widget _buildTitleAndCategoryBlock(
     BuildContext context,
-    CreateProductOrderBuildable state,
+    PageState state,
   ) {
     return Container(
       color: Colors.white,
@@ -116,7 +112,7 @@ class CreateProductOrderPage extends BasePage<CreateProductOrderCubit,
           CommonTextField(
             hint: "Название товара",
             onChanged: (value) {
-              context.read<CreateProductOrderCubit>().setName(value);
+              context.read<PageCubit>().setName(value);
             },
             controller: titleController,
           ),
@@ -141,7 +137,7 @@ class CreateProductOrderPage extends BasePage<CreateProductOrderCubit,
 
   Widget _buildImageListBlock(
     BuildContext context,
-    CreateProductOrderBuildable state,
+    PageState state,
   ) {
     return Container(
       color: Colors.white,
@@ -172,7 +168,7 @@ class CreateProductOrderPage extends BasePage<CreateProductOrderCubit,
 
   Widget _buildDescAndPriceBlock(
     BuildContext context,
-    CreateProductOrderBuildable state,
+    PageState state,
   ) {
     return Container(
       color: Colors.white,
@@ -207,7 +203,7 @@ class CreateProductOrderPage extends BasePage<CreateProductOrderCubit,
                   inputType: TextInputType.number,
                   textInputAction: TextInputAction.next,
                   onChanged: (value) {
-                    context.read<CreateProductOrderCubit>().setFromPrice(value);
+                    context.read<PageCubit>().setFromPrice(value);
                   },
                 ),
               ),
@@ -218,7 +214,7 @@ class CreateProductOrderPage extends BasePage<CreateProductOrderCubit,
                   controller: toPriceController,
                   inputType: TextInputType.number,
                   onChanged: (value) {
-                    context.read<CreateProductOrderCubit>().setToPrice(value);
+                    context.read<PageCubit>().setToPrice(value);
                   },
                 ),
               ),
@@ -238,7 +234,7 @@ class CreateProductOrderPage extends BasePage<CreateProductOrderCubit,
               CupertinoSwitch(
                 value: state.isNegotiate,
                 onChanged: (value) {
-                  context.read<CreateProductOrderCubit>().setNegative(value);
+                  context.read<PageCubit>().setNegative(value);
                 },
               ),
               SizedBox(width: 16),
@@ -309,7 +305,7 @@ class CreateProductOrderPage extends BasePage<CreateProductOrderCubit,
 
   Widget _buildAddressBlock(
     BuildContext context,
-    CreateProductOrderBuildable state,
+    PageState state,
   ) {
     return Container(
       color: Colors.white,

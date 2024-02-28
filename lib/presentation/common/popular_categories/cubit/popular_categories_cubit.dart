@@ -5,16 +5,16 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../common/core/base_cubit.dart';
 import '../../../../common/enum/enums.dart';
-import '../../../../data/responses/category/popular_category/popular_category_response.dart';
 import '../../../../data/repositories/common_repository.dart';
+import '../../../../data/responses/category/popular_category/popular_category_response.dart';
 
 part 'popular_categories_cubit.freezed.dart';
+
 part 'popular_categories_state.dart';
 
 @injectable
-class PopularCategoriesCubit extends BaseCubit<PopularCategoriesBuildable, PopularCategoriesListenable> {
-  PopularCategoriesCubit(this._repository)
-      : super(const PopularCategoriesBuildable()) {
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit(this._repository) : super(const PageState()) {
     getController();
   }
 
@@ -23,15 +23,15 @@ class PopularCategoriesCubit extends BaseCubit<PopularCategoriesBuildable, Popul
   Future<void> getController() async {
     try {
       final controller =
-          currentState.categoriesPagingController ?? getPagingController(status: 1);
-      updateState((buildable) =>
-          buildable.copyWith(categoriesPagingController: controller));
+          states.controller ?? getPagingController(status: 1);
+      updateState(
+          (state) => state.copyWith(controller: controller));
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
-      log.i(currentState.categoriesPagingController);
-      // build((buildable) => buildable.copyWith(loading: false));
+      log.i(states.controller);
+      // build((state) => state.copyWith(loading: false));
     }
   }
 
@@ -41,18 +41,18 @@ class PopularCategoriesCubit extends BaseCubit<PopularCategoriesBuildable, Popul
     final adController = PagingController<int, PopularCategoryResponse>(
       firstPageKey: 1,
     );
-    log.i(currentState.categoriesPagingController);
+    log.i(states.controller);
 
     adController.addPageRequestListener(
-          (pageKey) async {
+      (pageKey) async {
         final adsList = await _repository.getPopularCategories(pageKey, 20);
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);
-          log.i(currentState.categoriesPagingController);
+          log.i(states.controller);
           return;
         }
         adController.appendPage(adsList, pageKey + 1);
-        log.i(currentState.categoriesPagingController);
+        log.i(states.controller);
       },
     );
     return adController;

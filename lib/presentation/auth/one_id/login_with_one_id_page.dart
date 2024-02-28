@@ -9,74 +9,72 @@ import '../../../common/core/base_page.dart';
 import '../../../common/router/app_router.dart';
 
 @RoutePage()
-class LoginWithOneIdPage extends BasePage<LoginWithOneIdCubit,
-    LoginWithOneIdBuildable, LoginWithOneIdListenable> {
+class LoginWithOneIdPage extends BasePage<PageCubit, PageState, PageEvent> {
   const LoginWithOneIdPage({super.key});
 
   @override
-  void onEventEmitted(BuildContext context, LoginWithOneIdListenable event) {
+  void onEventEmitted(BuildContext context, PageEvent event) {
     switch (event.effect) {
-      case LoginWithOneIdEffect.navigationHome:
+      case PageEventType.navigationHome:
         context.router.replace(HomeRoute());
     }
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, LoginWithOneIdBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back_ios,
-                color: context.colors.iconGrey,
-              ),
-              onPressed: () => context.router.pop()),
-        ),
-        body: Stack(
-          children: [
-            WebViewWidget(
-              controller: WebViewController()
-                ..setJavaScriptMode(JavaScriptMode.unrestricted)
-                ..setBackgroundColor(const Color(0x00000000))
-                ..clearCache()
-                ..clearLocalStorage()
-                ..setNavigationDelegate(
-                  NavigationDelegate(
-                    onProgress: (int progress) {
-                      context.read<LoginWithOneIdCubit>().hideLoading();
-                    },
-                    onPageStarted: (String url) {
-                      context.read<LoginWithOneIdCubit>().hideLoading();
-                      CircularProgressIndicator(
-                        color: Colors.blueAccent,
-                      );
-                    },
-                    onPageFinished: (String url) {},
-                    onWebResourceError: (WebResourceError error) {},
-                    onNavigationRequest: (NavigationRequest request) {
-                      if (request.url.startsWith(
-                          'https://cabinet.smartoffice.realsoft.uz/oneid/android/fallback?')) {
-                        context
-                            .read<LoginWithOneIdCubit>()
-                            .loginWithOneId(request.url);
-                        return NavigationDecision.prevent;
-                      } else {
-                        return NavigationDecision.navigate;
-                      }
-                    },
-                  ),
-                )
-                ..loadRequest(
-                  Uri.parse(
-                      "https://sso.egov.uz/sso/oauth/Authorization.do?response_type=one_code&client_id=hujjat_uz&redirect_uri=https://cabinet.smartoffice.realsoft.uz/oneid/android/fallback&scope=hujjat_uz&state=active"),
-                ),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: context.colors.iconGrey,
             ),
-            state.isLoading
-                ? Center(child: CircularProgressIndicator())
-                : Center()
-          ],
-        ));
+            onPressed: () => context.router.pop()),
+      ),
+      body: Stack(
+        children: [
+          WebViewWidget(
+            controller: WebViewController()
+              ..setJavaScriptMode(JavaScriptMode.unrestricted)
+              ..setBackgroundColor(const Color(0x00000000))
+              ..clearCache()
+              ..clearLocalStorage()
+              ..setNavigationDelegate(
+                NavigationDelegate(
+                  onProgress: (int progress) {
+                    context.read<PageCubit>().hideLoading();
+                  },
+                  onPageStarted: (String url) {
+                    context.read<PageCubit>().hideLoading();
+                    CircularProgressIndicator(
+                      color: Colors.blueAccent,
+                    );
+                  },
+                  onPageFinished: (String url) {},
+                  onWebResourceError: (WebResourceError error) {},
+                  onNavigationRequest: (NavigationRequest request) {
+                    if (request.url.startsWith(
+                        'https://cabinet.smartoffice.realsoft.uz/oneid/android/fallback?')) {
+                      context.read<PageCubit>().loginWithOneId(request.url);
+                      return NavigationDecision.prevent;
+                    } else {
+                      return NavigationDecision.navigate;
+                    }
+                  },
+                ),
+              )
+              ..loadRequest(
+                Uri.parse(
+                    "https://sso.egov.uz/sso/oauth/Authorization.do?response_type=one_code&client_id=hujjat_uz&redirect_uri=https://cabinet.smartoffice.realsoft.uz/oneid/android/fallback&scope=hujjat_uz&state=active"),
+              ),
+          ),
+          state.isLoading
+              ? Center(child: CircularProgressIndicator())
+              : Center()
+        ],
+      ),
+    );
   }
 }

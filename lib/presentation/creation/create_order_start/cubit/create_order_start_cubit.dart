@@ -3,12 +3,11 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../../../../../../common/core/base_cubit.dart';
 
-part 'create_order_start_state.dart';
-
 part 'create_order_start_cubit.freezed.dart';
 
+part 'create_order_start_state.dart';
+
 @Injectable()
-class CreateRequestStartCubit
-    extends BaseCubit<CreateOrderStartBuildable, CreateOrderStartListenable> {
-  CreateRequestStartCubit() : super(CreateOrderStartBuildable());
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit() : super(PageState());
 }

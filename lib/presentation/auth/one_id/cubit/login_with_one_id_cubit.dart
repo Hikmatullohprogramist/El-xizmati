@@ -7,13 +7,15 @@ import '../../../../data/repositories/auth_repository.dart';
 import '../../../../data/repositories/favorite_repository.dart';
 
 part 'login_with_one_id_cubit.freezed.dart';
+
 part 'login_with_one_id_state.dart';
 
 @Injectable()
-class LoginWithOneIdCubit
-    extends BaseCubit<LoginWithOneIdBuildable, LoginWithOneIdListenable> {
-  LoginWithOneIdCubit(this._repository, this._favoriteRepository)
-      : super(const LoginWithOneIdBuildable());
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit(
+    this._repository,
+    this._favoriteRepository,
+  ) : super(const PageState());
 
   final AuthRepository _repository;
   final FavoriteRepository _favoriteRepository;
@@ -22,7 +24,7 @@ class LoginWithOneIdCubit
     try {
       final uri = Uri.parse(url);
       await _repository.loginWithOneId(uri.queryParameters['code'] ?? "");
-      emitEvent(LoginWithOneIdListenable(LoginWithOneIdEffect.navigationHome));
+      emitEvent(PageEvent(PageEventType.navigationHome));
       await sendAllFavoriteAds();
     } on DioException catch (e) {
       display.error(e.toString());
@@ -30,7 +32,7 @@ class LoginWithOneIdCubit
   }
 
   void hideLoading() {
-    updateState((buildable) => buildable.copyWith(isLoading: false));
+    updateState((state) => state.copyWith(isLoading: false));
   }
 
   Future<void> sendAllFavoriteAds() async {
@@ -38,7 +40,7 @@ class LoginWithOneIdCubit
       await _favoriteRepository.pushAllFavoriteAds();
     } catch (error) {
       display.error("Xatolik yuz berdi");
-      emitEvent(LoginWithOneIdListenable(LoginWithOneIdEffect.navigationHome));
+      emitEvent(PageEvent(PageEventType.navigationHome));
     }
   }
 }

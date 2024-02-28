@@ -4,16 +4,13 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/widgets/common/bottom_sheet_title.dart';
 import 'package:onlinebozor/common/widgets/common/selection_list_item.dart';
 import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
-import 'package:onlinebozor/data/responses/unit/unit_response.dart';
-import 'package:onlinebozor/presentation/common/selection_unit/cubit/selection_unit_cubit.dart';
 
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../common/widgets/dashboard/app_diverder.dart';
 import 'cubit/selection_currency_cubit.dart';
 
 @RoutePage()
-class SelectionCurrencyPage extends BasePage<SelectionCurrencyCubit,
-    SelectionCurrencyBuildable, SelectionCurrencyListenable> {
+class SelectionCurrencyPage extends BasePage<PageCubit, PageState, PageEvent> {
   const SelectionCurrencyPage({
     super.key,
     this.initialSelectedItem,
@@ -22,7 +19,7 @@ class SelectionCurrencyPage extends BasePage<SelectionCurrencyCubit,
   final CurrencyResponse? initialSelectedItem;
 
   @override
-  Widget onWidgetBuild(BuildContext context, SelectionCurrencyBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.sizeOf(context).height * .4,
@@ -46,7 +43,7 @@ class SelectionCurrencyPage extends BasePage<SelectionCurrencyCubit,
                 ),
                 LoaderStateWidget(
                   isFullScreen: false,
-                  loadingState: state.itemsLoadState,
+                  loadingState: state.loadState,
                   onErrorToAgainRequest: () {
                     cubit(context).getItems();
                   },
@@ -67,7 +64,7 @@ class SelectionCurrencyPage extends BasePage<SelectionCurrencyCubit,
                       );
                     },
                     separatorBuilder: (BuildContext context, int index) {
-                      return AppDivider(height: 2, startIndent: 20, endIndent: 20);
+                      return AppDivider(startIndent: 20, endIndent: 20);
                     },
                   ),
                 ),

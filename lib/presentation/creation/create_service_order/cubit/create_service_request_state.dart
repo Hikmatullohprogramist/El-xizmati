@@ -1,15 +1,13 @@
 part of 'create_service_request_cubit.dart';
 
 @freezed
-class CreateServiceOrderBuildable with _$CreateServiceOrderBuildable {
-  const factory CreateServiceOrderBuildable() = _CreateServiceOrderBuildable;
+class PageState with _$PageState {
+  const factory PageState() = _PageState;
 }
 
 @freezed
-class CreateServiceOrderListenable with _$CreateServiceOrderListenable {
-  const factory CreateServiceOrderListenable({
-    CreateServiceOrderEffect? serviceOrderCreate1Effect,
-  }) = _CreateServiceOrderListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent({PageEventType? type}) = _PageEvent;
 }
 
-enum CreateServiceOrderEffect { success }
+enum PageEventType { success }

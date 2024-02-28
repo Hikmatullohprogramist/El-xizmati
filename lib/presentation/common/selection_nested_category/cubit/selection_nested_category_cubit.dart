@@ -28,7 +28,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       log.i(allCategories.toString());
       updateState(
         (state) => state.copyWith(
-          categories: categories,
+          visibleCategories: categories,
           allCategories: allCategories,
           categoriesState: LoadingState.success,
         ),
@@ -41,28 +41,18 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> selectCategory(CategoryResponse category) async {
     updateState((state) => state.copyWith(selectedCategory: category));
 
-    final updatedCategories = currentState.categories
+    final categories = states.allCategories
         .where((element) => element.parent_id == category.id)
         .toList();
 
-    if (updatedCategories.isEmpty) {
+    if (categories.isEmpty) {
       emitEvent(PageEvent(PageEventType.closePage, category: category));
     } else {
-      updateState((state) => state.copyWith(categories: updatedCategories));
+      updateState((state) => state.copyWith(visibleCategories: categories));
     }
   }
 
   Future<void> backWithoutSelectedCategory() async {
-    final updatedCategories =
-        currentState.categories.where((e) => e.parent_id == 0).toList();
-
-    updateState(
-      (state) => state.copyWith(
-        categories: updatedCategories,
-        selectedCategory: null,
-      ),
-    );
-
     emitEvent(PageEvent(PageEventType.closePage));
   }
 }

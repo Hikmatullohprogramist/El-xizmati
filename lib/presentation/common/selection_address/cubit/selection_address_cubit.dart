@@ -7,7 +7,6 @@ part 'selection_address_cubit.freezed.dart';
 part 'selection_address_state.dart';
 
 @Injectable()
-class SelectionAddressCubit
-    extends BaseCubit<SelectionAddressBuildable, SelectionAddressListenable> {
-  SelectionAddressCubit() : super(const SelectionAddressBuildable());
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit() : super(const PageState());
 }

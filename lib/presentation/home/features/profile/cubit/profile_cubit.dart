@@ -12,11 +12,11 @@ part 'profile_cubit.freezed.dart';
 part 'profile_state.dart';
 
 @injectable
-class ProfileCubit extends BaseCubit<ProfileBuildable, ProfileListenable> {
-  ProfileCubit(
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit(
     this.authRepository,
     this.stateRepository,
-  ) : super(ProfileBuildable()) {
+  ) : super(PageState()) {
     isLogin();
     getLanguage();
   }
@@ -37,12 +37,12 @@ class ProfileCubit extends BaseCubit<ProfileBuildable, ProfileListenable> {
           language = Language.uzbekCyrill;
         }
       }
-      updateState((buildable) => buildable.copyWith(language: language));
+      updateState((state) => state.copyWith(language: language));
     } catch (e) {}
   }
 
   Future<void> selectLanguage(Language language, String languageName) async {
-    updateState((buildable) => buildable.copyWith(language: language));
+    updateState((state) => state.copyWith(language: language));
     await stateRepository.setLanguage(languageName);
   }
 
@@ -50,8 +50,8 @@ class ProfileCubit extends BaseCubit<ProfileBuildable, ProfileListenable> {
     try {
       log.w("logOut call");
       await authRepository.logOut();
-      updateState((buildable) => buildable.copyWith(isLogin: false));
-      emitEvent(ProfileListenable(ProfileEffect.onLogOut));
+      updateState((state) => state.copyWith(isLogin: false));
+      emitEvent(PageEvent(PageEventType.onLogOut));
     } on DioException {
       display.error(Strings.loadingStateError);
     }
@@ -59,7 +59,7 @@ class ProfileCubit extends BaseCubit<ProfileBuildable, ProfileListenable> {
 
   Future<void> isLogin() async {
     final isLogin = await stateRepository.isLogin() ?? false;
-    updateState((buildable) => buildable.copyWith(isLogin: isLogin));
+    updateState((state) => state.copyWith(isLogin: isLogin));
   }
 }
 

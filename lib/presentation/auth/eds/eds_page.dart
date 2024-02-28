@@ -4,11 +4,11 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/presentation/auth/eds/cubit/eds_cubit.dart';
 
 @RoutePage()
-class EdsPage extends BasePage<EdsCubit, EdsBuildable, EdsListenable> {
+class EdsPage extends BasePage<PageCubit, PageState, PageEvent> {
   const EdsPage({super.key});
 
   @override
-  Widget onWidgetBuild(BuildContext context, EdsBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold();
   }
 }

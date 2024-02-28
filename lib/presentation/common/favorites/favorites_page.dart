@@ -12,12 +12,11 @@ import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import 'cubit/favorites_cubit.dart';
 
 @RoutePage()
-class FavoritesPage
-    extends BasePage<FavoritesCubit, FavoritesBuildable, FavoritesListenable> {
+class FavoritesPage extends BasePage<PageCubit, PageState, PageEvent> {
   const FavoritesPage({super.key});
 
   @override
-  Widget onWidgetBuild(BuildContext context, FavoritesBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return AutoTabsRouter.tabBar(
       physics: BouncingScrollPhysics(),
       routes: const [ProductFavoritesRoute(), ServiceFavoritesRoute()],
@@ -34,14 +33,15 @@ class FavoritesPage
                 .c(context.colors.textPrimary),
             // leading: AutoLeadingButton(),
             leading: IconButton(
-                icon: Icon(Icons.arrow_back_ios, color: context.colors.iconGrey),
-                onPressed: () {
-                  if (context.router.stack.length == 1) {
-                    exit(0);
-                  } else {
-                    context.router.pop();
-                  }
-                }),
+              icon: Icon(Icons.arrow_back_ios, color: context.colors.iconGrey),
+              onPressed: () {
+                if (context.router.stack.length == 1) {
+                  exit(0);
+                } else {
+                  context.router.pop();
+                }
+              },
+            ),
             bottom: TabBar(
               physics: BouncingScrollPhysics(),
               indicator: MaterialIndicator(

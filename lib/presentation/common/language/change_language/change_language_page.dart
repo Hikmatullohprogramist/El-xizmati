@@ -13,20 +13,19 @@ import '../../../../../common/gen/localization/strings.dart';
 import '../../../../../common/widgets/common/common_button.dart';
 
 @RoutePage()
-class ChangeLanguagePage extends BasePage<ChangeLanguageCubit,
-    ChangeLanguageBuildable,
-    ChangeLanguageListenable> {
+class ChangeLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
   const ChangeLanguagePage({super.key});
 
   @override
-  void onEventEmitted(BuildContext context, ChangeLanguageListenable event) {
-    switch(event.effect){
-      case ChangeLanguageEffect.backTo:context.router.pop();
+  void onEventEmitted(BuildContext context, PageEvent event) {
+    switch (event.type) {
+      case PageEventType.backTo:
+        context.router.pop();
     }
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, ChangeLanguageBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -54,8 +53,7 @@ class ChangeLanguagePage extends BasePage<ChangeLanguageCubit,
                     : Color(0xFFE5E9F3),
                 onPressed: () {
                   EasyLocalization.of(context)?.setLocale(Locale('ru', 'RU'));
-                  context.read<ChangeLanguageCubit>().selectLanguage(
-                      Language.russian);
+                  context.read<PageCubit>().selectLanguage(Language.russian);
                 },
                 type: ButtonType.outlined,
                 child: SizedBox(
@@ -72,9 +70,7 @@ class ChangeLanguagePage extends BasePage<ChangeLanguageCubit,
             CommonButton(
                 onPressed: () {
                   EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZ'));
-                  context
-                      .read<ChangeLanguageCubit>()
-                      .selectLanguage(Language.uzbekLatin);
+                  context.read<PageCubit>().selectLanguage(Language.uzbekLatin);
                 },
                 color: state.language == Language.uzbekLatin
                     ? context.colors.primary
@@ -95,7 +91,7 @@ class ChangeLanguagePage extends BasePage<ChangeLanguageCubit,
                 onPressed: () {
                   EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZK'));
                   context
-                      .read<ChangeLanguageCubit>()
+                      .read<PageCubit>()
                       .selectLanguage(Language.uzbekCyrill);
                 },
                 color: state.language == Language.uzbekCyrill

@@ -10,8 +10,7 @@ import '../../../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../common/widgets/dashboard/app_diverder.dart';
 
 @RoutePage()
-class SelectionUnitPage extends BasePage<SelectionUnitCubit,
-    SelectionUnitBuildable, SelectionUnitListenable> {
+class SelectionUnitPage extends BasePage<PageCubit, PageState, PageEvent> {
   const SelectionUnitPage({
     super.key,
     this.selectedUnit,
@@ -20,7 +19,7 @@ class SelectionUnitPage extends BasePage<SelectionUnitCubit,
   final UnitResponse? selectedUnit;
 
   @override
-  Widget onWidgetBuild(BuildContext context, SelectionUnitBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.sizeOf(context).height * .7,
@@ -44,7 +43,7 @@ class SelectionUnitPage extends BasePage<SelectionUnitCubit,
                 ),
                 LoaderStateWidget(
                   isFullScreen: false,
-                  loadingState: state.itemsLoadState,
+                  loadingState: state.loadState,
                   onErrorToAgainRequest: () {
                     cubit(context).getItems();
                   },
@@ -65,7 +64,8 @@ class SelectionUnitPage extends BasePage<SelectionUnitCubit,
                       );
                     },
                     separatorBuilder: (BuildContext context, int index) {
-                      return AppDivider(height: 2, startIndent: 20, endIndent: 20);
+                      return AppDivider(
+                          height: 2, startIndent: 20, endIndent: 20);
                     },
                   ),
                 ),

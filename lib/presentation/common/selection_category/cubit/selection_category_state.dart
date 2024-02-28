@@ -3,9 +3,8 @@ part of 'selection_category_cubit.dart';
 @freezed
 class PageState with _$PageState {
   const factory PageState({
-    @Default(<CategorySelectionResponse>[])
-    List<CategorySelectionResponse> items,
-    @Default(LoadingState.loading) LoadingState itemsLoadState,
+    @Default([]) List<CategorySelectionResponse> items,
+    @Default(LoadingState.loading) LoadingState loadState,
   }) = _PageState;
 }
 

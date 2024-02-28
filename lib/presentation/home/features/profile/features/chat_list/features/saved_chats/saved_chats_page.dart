@@ -8,21 +8,22 @@ import '../../../../../../../../common/core/base_page.dart';
 import '../../../../../../../../common/widgets/dashboard/app_diverder.dart';
 
 @RoutePage()
-class SavedChatsPage extends BasePage<SavedChatsCubit, SavedChatsBuildable,
-    SavedChatsListenable> {
+class SavedChatsPage extends BasePage<PageCubit, PageState, PageEvent> {
   const SavedChatsPage({super.key});
 
   @override
-  Widget onWidgetBuild(BuildContext context, SavedChatsBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-        body: ListView.separated(
-          physics: BouncingScrollPhysics(),
-          itemBuilder: (context, index) {
-            return ChatItem(listener: () => context.router.push(ChatRoute()));
-          },
-          itemCount: 20, separatorBuilder: (BuildContext context, int index) {
+      body: ListView.separated(
+        physics: BouncingScrollPhysics(),
+        itemBuilder: (context, index) {
+          return ChatItem(listener: () => context.router.push(ChatRoute()));
+        },
+        itemCount: 20,
+        separatorBuilder: (BuildContext context, int index) {
           return AppDivider();
         },
-        ));
+      ),
+    );
   }
 }

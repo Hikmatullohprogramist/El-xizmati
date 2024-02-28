@@ -18,21 +18,21 @@ import 'list_ad_author_type_widget.dart';
 class VerticalAdWidget extends StatelessWidget {
   VerticalAdWidget(
       {super.key,
-      required this.invokeFavorite,
-      required this.invoke,
+      required this.onFavoriteClicked,
+      required this.onClicked,
       required this.ad,
       this.favoriteBeChange = true});
 
   final Ad ad;
-  final Function(Ad ad) invoke;
-  final Function(Ad ad) invokeFavorite;
+  final Function(Ad ad) onClicked;
+  final Function(Ad ad) onFavoriteClicked;
   bool favoriteBeChange;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          invoke(ad);
+          onClicked(ad);
         },
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -71,7 +71,7 @@ class VerticalAdWidget extends StatelessWidget {
                         child: AdFavoriteWidget(
                           isChangeAvailable: favoriteBeChange,
                           isSelected: ad.favorite,
-                          invoke: () => invokeFavorite(ad),
+                          invoke: () => onFavoriteClicked(ad),
                         )),
                     Align(
                       alignment: Alignment.bottomLeft,

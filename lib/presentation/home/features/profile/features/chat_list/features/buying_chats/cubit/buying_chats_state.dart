@@ -1,11 +1,11 @@
 part of 'buying_chats_cubit.dart';
 
 @freezed
-class BuyingChatsBuildable with _$BuyingChatsBuildable {
-  const factory BuyingChatsBuildable() = _BuyingChatsBuildable;
+class PageState with _$PageState {
+  const factory PageState() = _PageState;
 }
 
 @freezed
-class BuyingChatsListenable with _$BuyingChatsListenable {
-  const factory BuyingChatsListenable() = _BuyingChatsListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent() = _PageEvent;
 }

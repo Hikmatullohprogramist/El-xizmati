@@ -5,22 +5,22 @@ import 'package:onlinebozor/common/di/injection.dart';
 import 'package:onlinebozor/common/widgets/display/display.dart';
 
 abstract class BaseCubit<STATE, EVENT> extends Cubit<BaseState<STATE, EVENT>> {
-  late STATE currentState;
+  late STATE states;
 
   final log = getIt<Logger>();
   final display = getIt<Display>();
 
   BaseCubit(STATE initialState) : super(BaseState(state: initialState)) {
-    currentState = initialState;
+    states = initialState;
   }
 
   updateState(STATE Function(STATE state) updateState) {
-    currentState = updateState(currentState);
-    emit(BaseState(state: currentState));
+    states = updateState(states);
+    emit(BaseState(state: states));
   }
 
   emitEvent(EVENT event) {
     emit(BaseState(event: event));
-    updateState((buildable) => buildable);
+    updateState((state) => states);
   }
 }

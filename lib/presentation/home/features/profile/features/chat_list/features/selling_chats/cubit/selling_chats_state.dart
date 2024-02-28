@@ -1,11 +1,11 @@
 part of 'selling_chats_cubit.dart';
 
 @freezed
-class SellingChatsBuildable with _$SellingChatsBuildable {
-  const factory SellingChatsBuildable() = _SellingChatsBuildable;
+class PageState with _$PageState {
+  const factory PageState() = _PageState;
 }
 
 @freezed
-class SellingChatsListenable with _$SellingChatsListenable {
-  const factory SellingChatsListenable() = _SellingChatsListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent() = _PageEvent;
 }

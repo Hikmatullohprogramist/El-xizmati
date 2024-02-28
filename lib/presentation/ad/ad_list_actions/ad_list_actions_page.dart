@@ -11,8 +11,8 @@ import '../../../common/gen/localization/strings.dart';
 import '../../../domain/models/ad/user_ad_status.dart';
 
 @RoutePage()
-class AdListActionsPage extends BasePage<AdListActionsCubit,
-    AdListActionsBuildable, AdListActionsListenable> {
+class AdListActionsPage extends BasePage<PageCubit,
+    PageState, PageEvent> {
   const AdListActionsPage({
     super.key,
     this.userAdResponse,
@@ -28,17 +28,15 @@ class AdListActionsPage extends BasePage<AdListActionsCubit,
   }
 
   @override
-  void onEventEmitted(BuildContext context, AdListActionsListenable event) {
-    switch (event.eventData) {
-      case AdListActionsEvent.closeOnSuccess:
-        {
+  void onEventEmitted(BuildContext context, PageEvent event) {
+    switch (event.type) {
+      case PageEventType.closeOnSuccess:
           context.router.pop(userAdResponse);
-        }
     }
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, AdListActionsBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.sizeOf(context).height * .35,

@@ -1,18 +1,15 @@
 part of 'cart_cubit.dart';
 
 @freezed
-class CartBuildable with _$CartBuildable {
-  const factory CartBuildable({
+class PageState with _$PageState {
+  const factory PageState({
+    @Default(<Ad>[]) List<Ad> items,
+    PagingController<int, Ad>? controller,
     @Default(false) bool checkBox,
-    @Default(<Ad>[]) List<Ad> cartItems,
-    PagingController<int, Ad>? adsPagingController,
-  }) = _CartBuildable;
+  }) = _PageState;
 }
 
 @freezed
-class CartListenable with _$CartListenable {
-  const factory CartListenable(CartEffect effect, {String? message}) =
-  _CartListenable;
+class PageEvent with _$PageEvent {
+  const factory PageEvent() = _PageEvent;
 }
-
-enum CartEffect { success }

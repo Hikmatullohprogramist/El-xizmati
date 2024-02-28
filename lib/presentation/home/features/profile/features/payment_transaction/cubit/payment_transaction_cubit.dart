@@ -24,14 +24,14 @@ class PaymentTransactionCubit extends BaseCubit<PaymentTransactionBuildable,
   Future<void> getController() async {
     try {
       final controller =
-          currentState.transactionPagingController ?? getAdsController(status: 1);
-      updateState((buildable) =>
-          buildable.copyWith(transactionPagingController: controller));
+          states.transactionPagingController ?? getAdsController(status: 1);
+      updateState((state) =>
+          state.copyWith(transactionPagingController: controller));
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
-      log.i(currentState.transactionPagingController);
+      log.i(states.transactionPagingController);
     }
   }
 
@@ -40,7 +40,7 @@ class PaymentTransactionCubit extends BaseCubit<PaymentTransactionBuildable,
   }) {
     final adController = PagingController<int, dynamic>(
         firstPageKey: 1, invisibleItemsThreshold: 100);
-    log.i(currentState.transactionPagingController);
+    log.i(states.transactionPagingController);
 
     adController.addPageRequestListener(
       (pageKey) async {
@@ -49,11 +49,11 @@ class PaymentTransactionCubit extends BaseCubit<PaymentTransactionBuildable,
 
         if (adsList.length <= 19) {
           adController.appendLastPage(adsList);
-          log.i(currentState.transactionPagingController);
+          log.i(states.transactionPagingController);
           return;
         }
         adController.appendPage(adsList, pageKey + 1);
-        log.i(currentState.transactionPagingController);
+        log.i(states.transactionPagingController);
       },
     );
     return adController;

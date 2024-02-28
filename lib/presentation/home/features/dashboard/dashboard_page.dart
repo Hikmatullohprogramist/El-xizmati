@@ -21,69 +21,56 @@ import '../../../../domain/models/ad/ad_type.dart';
 import 'cubit/dashboard_cubit.dart';
 
 @RoutePage()
-class DashboardPage
-    extends BasePage<DashboardCubit, DashboardBuildable, DashboardListenable> {
+class DashboardPage extends BasePage<DashboardCubit, PageState, PageEvent> {
   const DashboardPage({super.key});
 
   @override
   void onWidgetCreated(BuildContext context) {
-    context.read<DashboardCubit>().getRecentlyViewedAds();
+    cubit(context).getRecentlyViewedAds();
   }
 
   @override
-  void onEventEmitted(BuildContext context, DashboardListenable event) {
-    switch (event.effect) {
-      case DashboardEffect.success:
-        () {};
-      case DashboardEffect.navigationToAuthStart:
-        context.router.push(AuthStartRoute());
-    }
-  }
-
-  @override
-  Widget onWidgetBuild(BuildContext context, DashboardBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-        appBar: CommonSearchBar(
-          onSearchClicked: () => context.router.push(SearchRoute()),
-          onMicrophoneClicked: () {},
-          onFavoriteClicked: () => context.router.push(FavoritesRoute()),
-          onNotificationClicked: () => context.router.push(NotificationRoute()),
-        ),
-        backgroundColor: Color(0xFFF2F4FB),
-        body: CustomScrollView(
-          physics: BouncingScrollPhysics(),
-          slivers: [
-            SliverToBoxAdapter(
-              child: Column(
-                children: [
-                  _getBannersWidget(context, state),
-                  _getPopularCategoriesWidget(context, state),
-                  _getAdTypeChooserWidget(context),
-                  _getDashboardProductAdsWidget(context, state),
-                  // SizedBox(height: 12),
-                  _getDashboardServiceAdsWidget(context, state),
-                  // SizedBox(height: 12),
-                  _getTopRatedAdsWidget(context, state),
-                  // Visibility(
-                  //   visible: state.recentlyViewedAdsState !=
-                  //           LoadingState.loading &&
-                  //       state.recentlyViewedAds.isNotEmpty,
-                  //   child: SizedBox(height: 12),
-                  // ),
-                  _getRecentlyViewedAdsWidget(context, state),
-                  // SizedBox(height: 24)
-                ],
-              ),
+      appBar: CommonSearchBar(
+        onSearchClicked: () => context.router.push(SearchRoute()),
+        onMicrophoneClicked: () {},
+        onFavoriteClicked: () => context.router.push(FavoritesRoute()),
+        onNotificationClicked: () => context.router.push(NotificationRoute()),
+      ),
+      backgroundColor: Color(0xFFF2F4FB),
+      body: CustomScrollView(
+        physics: BouncingScrollPhysics(),
+        slivers: [
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                _getBannersWidget(context, state),
+                _getPopularCategoriesWidget(context, state),
+                _getAdTypeChooserWidget(context),
+                _getDashboardProductAdsWidget(context, state),
+                // SizedBox(height: 12),
+                _getDashboardServiceAdsWidget(context, state),
+                // SizedBox(height: 12),
+                _getTopRatedAdsWidget(context, state),
+                // Visibility(
+                //   visible: state.recentlyViewedAdsState !=
+                //           LoadingState.loading &&
+                //       state.recentlyViewedAds.isNotEmpty,
+                //   child: SizedBox(height: 12),
+                // ),
+                _getRecentlyViewedAdsWidget(context, state),
+                // SizedBox(height: 24)
+              ],
             ),
-            SliverPadding(
-                padding: EdgeInsets.symmetric(
-              horizontal: 16,
-            )),
-          ],
-        ));
+          ),
+          SliverPadding(padding: EdgeInsets.symmetric(horizontal: 16)),
+        ],
+      ),
+    );
   }
 
-  Widget _getBannersWidget(BuildContext context, DashboardBuildable state) {
+  Widget _getBannersWidget(BuildContext context, PageState state) {
     return LoaderStateWidget(
         onErrorToAgainRequest: () {
           context.read<DashboardCubit>().getBanners();
@@ -93,8 +80,7 @@ class DashboardPage
         child: BannerWidget(list: state.banners));
   }
 
-  Widget _getPopularCategoriesWidget(
-      BuildContext context, DashboardBuildable state) {
+  Widget _getPopularCategoriesWidget(BuildContext context, PageState state) {
     return Container(
       color: Colors.white,
       child: Column(
@@ -166,8 +152,7 @@ class DashboardPage
     );
   }
 
-  Widget _getDashboardProductAdsWidget(
-      BuildContext context, DashboardBuildable state) {
+  Widget _getDashboardProductAdsWidget(BuildContext context, PageState state) {
     return Container(
       color: Colors.white,
       child: Column(
@@ -206,8 +191,7 @@ class DashboardPage
     );
   }
 
-  Widget _getDashboardServiceAdsWidget(
-      BuildContext context, DashboardBuildable state) {
+  Widget _getDashboardServiceAdsWidget(BuildContext context, PageState state) {
     return Container(
       color: Colors.white,
       child: Column(
@@ -246,7 +230,7 @@ class DashboardPage
     );
   }
 
-  Widget _getTopRatedAdsWidget(BuildContext context, DashboardBuildable state) {
+  Widget _getTopRatedAdsWidget(BuildContext context, PageState state) {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.only(top: 8, bottom: 0),
@@ -274,7 +258,7 @@ class DashboardPage
 
   Widget _getRecentlyViewedAdsWidget(
     BuildContext context,
-    DashboardBuildable state,
+    PageState state,
   ) {
     return Visibility(
       visible: state.recentlyViewedAdsState != LoadingState.loading &&
