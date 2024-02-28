@@ -20,14 +20,14 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
       appBar: EmptyAppBar(),
-      backgroundColor: !state.isLogin ? Color(0xFFF2F4FB) : Colors.white,
+      backgroundColor: state.isLogin ? Color(0xFFF2F4FB) : Colors.white,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
           // mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: !state.isLogin
+          children: state.isLogin
               ? [
                   _buildSaleBlock(context),
                   _buildBuyBlock(context),
