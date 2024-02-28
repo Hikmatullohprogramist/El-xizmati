@@ -39,15 +39,13 @@ class PageState with _$PageState {
 //
     @Default(<RegionResponse>[]) List<RegionResponse> items,
     @Default(LoadingState.loading) LoadingState itemsLoadState,
-
-
   }) = _PageState;
 }
 
 @freezed
 class PageEvent with _$PageEvent {
   const factory PageEvent(
-    PageEventType effect, {
+    PageEventType type, {
     @Default(MAX_IMAGE_COUNT) int maxImageCount,
   }) = _PageEvent;
 }

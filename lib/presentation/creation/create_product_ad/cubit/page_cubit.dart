@@ -125,14 +125,14 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   ) {
     try {
       if (selectedPaymentTypes != null) {
-        var paymentTypes = List<RegionResponse>.from(buildable.paymentType);
+        var paymentTypes = List<RegionResponse>.from(states.paymentType);
         paymentTypes.clear();
 
         if (selectedPaymentTypes.isNotEmpty) {
           paymentTypes.addAll(selectedPaymentTypes);
           paymentTypes = paymentTypes.toSet().toList();
         }
-        build((buildable) => buildable.copyWith(paymentType: paymentTypes));
+        updateState((state) => state.copyWith(paymentType: paymentTypes));
       }
     } catch (e) {
       log.e(e.toString());
@@ -208,24 +208,19 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   void removeSelectedPickupAddress(UserAddressResponse pickupAddress) {
     try {
       var pickupAddresses =
-          List<UserAddressResponse>.from(buildable.pickupAddresses);
+          List<UserAddressResponse>.from(states.pickupAddresses);
       pickupAddresses.remove(pickupAddress);
-      build(
-        (buildable) => buildable.copyWith(pickupAddresses: pickupAddresses),
-
-  void removeSelectedDeleveryForFree(RegionResponse paymentType) {
-    try {
-      var paymentTypes = List<RegionResponse>.from(buildable.paymentType);
-      paymentTypes.remove(paymentType);
-      build((buildable) => buildable.copyWith(paymentType: paymentTypes));
+      updateState((state) => state.copyWith(pickupAddresses: pickupAddresses));
     } catch (e) {
       log.e(e.toString());
     }
   }
-          List<UserAddressResponse>.from(states.pickupAddresses);
-      updateState(
-        (state) => state.copyWith(pickupAddresses: pickupAddresses),
-      );
+
+  void removeSelectedDeliveryForFree(RegionResponse paymentType) {
+    try {
+      var paymentTypes = List<RegionResponse>.from(states.paymentType);
+      paymentTypes.remove(paymentType);
+      updateState((state) => state.copyWith(paymentType: paymentTypes));
     } catch (e) {
       log.e(e.toString());
     }
@@ -244,8 +239,9 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   void setShowMySocialAccounts(bool isShowMySocialAccount) {
-    updateState((state) =>
-        state.copyWith(isShowMySocialAccount: isShowMySocialAccount));
+    updateState(
+      (state) => state.copyWith(isShowMySocialAccount: isShowMySocialAccount),
+    );
   }
 
   Future<void> pickImage() async {

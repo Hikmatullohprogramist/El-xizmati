@@ -13,18 +13,13 @@ import '../../../../common/widgets/common/common_button.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
-class CreateAdChooserPage extends BasePage<CreateAdChooserCubit,
-    CreateAdChooserBuildable, CreateAdChooserListenable> {
+class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
   const CreateAdChooserPage({super.key});
 
   @override
-  Widget builder(BuildContext context, CreateAdChooserBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        elevation: 0.5,
-      ),
+      appBar: CommonAppBar("", () => context.router.pop()),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
@@ -191,9 +186,6 @@ class CreateAdChooserPage extends BasePage<CreateAdChooserCubit,
               maxLines: 2,
               textAlign: TextAlign.center,
             ),
-class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
-  Widget onWidgetBuild(BuildContext context, PageState state) {
-      appBar: CommonAppBar("", () => context.router.pop()),
         SizedBox(height: 130),
         SizedBox(
             width: double.maxFinite,

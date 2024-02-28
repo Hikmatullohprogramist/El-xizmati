@@ -1,10 +1,5 @@
-import 'dart:developer';
-
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
@@ -60,7 +55,7 @@ class SelectionAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
                     ),
                     LoaderStateWidget(
                       isFullScreen: false,
-                      loadingState: state.itemsLoadState,
+                      loadingState: state.loadState,
                       child: ListView.separated(
                         physics: BouncingScrollPhysics(),
                         scrollDirection: Axis.vertical,
@@ -73,58 +68,61 @@ class SelectionAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
                               MultiSelectionListItemForAddress(
                                 item: element,
                                 title: element.name ?? "",
-                                isSelected: state.selectedItems.contains(element),
+                                isSelected:
+                                    state.selectedItems.contains(element),
                                 onClicked: (dynamic item) {
-                                   context.read<SelectionAddressCubit>().
-                                   setRegion(element.id);
-                                   cubit(context).updateSelectedItems(item);
-                                }, count: '${state.selectedItems.length}',
-
+                                  cubit(context).setRegion(element.id);
+                                  cubit(context).updateSelectedItems(item);
+                                },
+                                count: '${state.selectedItems.length}',
                               ),
                               Visibility(
-                                  visible: state.selectedItems.contains(element),
-                                   child: LoaderStateWidget(
-                                     isFullScreen: false,
-                                     loadingState: state.itemsLoadState,
-                                     child: ListView.separated(
-                                       physics: BouncingScrollPhysics(),
-                                       scrollDirection: Axis.vertical,
-                                       shrinkWrap: true,
-                                       itemCount: state.districts.length,
-                                       itemBuilder: (context, index) {
-                                         var element = state.districts[index];
-                                         return Padding(
-                                           padding: const EdgeInsets.only(left: 25),
-                                           child: MultiSelectionListItem(
-                                             item: element,
-                                             title: element.name,
-                                             isSelected: state.selectedItems.contains(element),
-                                             onClicked: (dynamic item) {
-                                               cubit(context).updateSelectedItems(item);
-                                             },
-                                           ),
-                                         );
-
-                                       },
-                                       separatorBuilder: (BuildContext context, int index) {
-                                         return AppDivider(height: 2, startIndent: 20, endIndent: 20);
-                                       },
-
-                                     ),
-                                   )
-                              )
+                                  visible:
+                                      state.selectedItems.contains(element),
+                                  child: LoaderStateWidget(
+                                    isFullScreen: false,
+                                    loadingState: state.loadState,
+                                    child: ListView.separated(
+                                      physics: BouncingScrollPhysics(),
+                                      scrollDirection: Axis.vertical,
+                                      shrinkWrap: true,
+                                      itemCount: state.districts.length,
+                                      itemBuilder: (context, index) {
+                                        var element = state.districts[index];
+                                        return Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 25),
+                                          child: MultiSelectionListItem(
+                                            item: element,
+                                            title: element.name,
+                                            isSelected: state.selectedItems
+                                                .contains(element),
+                                            onClicked: (dynamic item) {
+                                              cubit(context)
+                                                  .updateSelectedItems(item);
+                                            },
+                                          ),
+                                        );
+                                      },
+                                      separatorBuilder:
+                                          (BuildContext context, int index) {
+                                        return AppDivider(
+                                            height: 2,
+                                            startIndent: 20,
+                                            endIndent: 20);
+                                      },
+                                    ),
+                                  ))
                             ],
                           );
-
                         },
                         separatorBuilder: (BuildContext context, int index) {
-                          return AppDivider(height: 2, startIndent: 20, endIndent: 20);
+                          return AppDivider(
+                              height: 2, startIndent: 20, endIndent: 20);
                         },
-
                       ),
                     ),
                     SizedBox(height: 56),
-
                   ],
                 ),
               ),
@@ -152,7 +150,8 @@ class SelectionAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
       ),
     );
   }
-  Widget directions(){
+
+  Widget directions() {
     return Container();
   }
 }

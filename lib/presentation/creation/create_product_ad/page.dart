@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -24,7 +22,7 @@ import '../../../../../common/gen/localization/strings.dart';
 import '../../../../../common/widgets/common/common_text_field.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/widgets/common/common_button.dart';
-import '../../common/selection_address/selection_address_page.dart';
+import '../../common/selection_address/page.dart';
 import '../../common/selection_payment_type/page.dart';
 import '../../utils/mask_formatters.dart';
 import 'cubit/page_cubit.dart';
@@ -43,15 +41,15 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
   final TextEditingController emailController = TextEditingController();
 
   @override
-  void listener(BuildContext context, CreateProductAdListenable event) {
-    switch (event.effect) {
-      case CreateProductAdEffect.onOverMaxCount:
+  void onEventEmitted(BuildContext context, PageEvent event) {
+    switch (event.type) {
+      case PageEventType.onOverMaxCount:
         _showMaxCountError(context, event.maxImageCount);
     }
   }
 
   @override
-  Widget builder(BuildContext context, CreateProductAdBuildable state) {
+  Widget onWidgetBuild(BuildContext context, PageState state) {
     // priceController =
     //     TextEditingController(text: currencyFormatter.format(text));
 
@@ -106,7 +104,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildTitleAndCategoryBlock(
     BuildContext context,
-    CreateProductAdBuildable state,
+    PageState state,
   ) {
     return Container(
       color: Colors.white,
@@ -163,7 +161,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildImageListBlock(
     BuildContext context,
-    CreateProductAdBuildable state,
+    PageState state,
   ) {
     return Container(
       color: Colors.white,
@@ -205,7 +203,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildDescAndPriceBlock(
     BuildContext context,
-    CreateProductAdBuildable state,
+    PageState state,
   ) {
     return Container(
       color: Colors.white,
@@ -380,7 +378,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildAdditionalInfoBlock(
     BuildContext context,
-    CreateProductAdBuildable state,
+    PageState state,
   ) {
     return Container(
       color: Colors.white,
@@ -421,7 +419,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildContactsBlock(
     BuildContext context,
-    CreateProductAdBuildable state,
+    PageState state,
   ) {
     return Container(
       color: Colors.white,
@@ -506,7 +504,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildDeliveryBlock(
     BuildContext context,
-    CreateProductAdBuildable state,
+    PageState state,
   ) {
     return Container(
       color: Colors.white,
@@ -615,7 +613,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildAutoContinueBlock(
     BuildContext context,
-    CreateProductAdBuildable state,
+    PageState state,
   ) {
     return Container(
       color: Colors.white,
@@ -653,7 +651,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildPinMySocialAccountsBlock(
     BuildContext context,
-    CreateProductAdBuildable state,
+    PageState state,
   ) {
     return Container(
       color: Colors.white,
@@ -689,7 +687,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildFooterBlock(
     BuildContext context,
-    CreateProductAdBuildable state,
+    PageState state,
   ) {
     return Container(
       color: Colors.white,
@@ -734,7 +732,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   List<Widget> _buildPaymentTypeChips(
     BuildContext context,
-    CreateProductAdBuildable state,
+    PageState state,
   ) {
     List<Widget> chips = [];
     chips.add(
@@ -768,10 +766,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     return chips;
   }
 
-  List<Widget> _buildPickupAddressChips(
-    BuildContext context,
-    CreateProductAdBuildable state,
-  ) {
+  List<Widget> _buildPickupAddressChips(BuildContext context, PageState state) {
     List<Widget> chips = [];
     chips.add(
       ChipsAddItem(
@@ -783,7 +778,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             backgroundColor: Colors.transparent,
             builder: (context) => SelectionUserWarehousePage(
               key: Key(""),
-              initialSelectedItems: state.pickupAddresses,
+              selectedItems: state.pickupAddresses,
             ),
           );
 
@@ -801,30 +796,11 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
           ),
         )
-  void onEventEmitted(BuildContext context, PageEvent event) {
-      case PageEventType.onOverMaxCount:
-  Widget onWidgetBuild(BuildContext context, PageState state) {
-    PageState state,
-    PageState state,
-    PageState state,
-    PageState state,
-    PageState state,
-    PageState state,
-              children: _buildDeleveryForFree(context, state),
-    PageState state,
-    PageState state,
-    PageState state,
-    PageState state,
-    PageState state,
-              selectedItems: state.pickupAddresses,
         .toList());
     return chips;
   }
 
-  List<Widget> _buildDeleveryForFree(
-      BuildContext context,
-      CreateProductAdBuildable state,
-      ) {
+  List<Widget> _buildDeliveryForFree(BuildContext context, PageState state) {
     List<Widget> chips = [];
     chips.add(
       ChipsAddItem(
@@ -846,13 +822,13 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     chips.addAll(state.paymentType
         .map(
           (element) => ChipsItem(
-        item: element,
-        title: element.name ?? "",
-        onRemoveClicked: (item) {
-          cubit(context).removeSelectedDeleveryForFree(element);
-        },
-      ),
-    )
+            item: element,
+            title: element.name ?? "",
+            onRemoveClicked: (item) {
+              cubit(context).removeSelectedDeliveryForFree(element);
+            },
+          ),
+        )
         .toList());
     return chips;
   }

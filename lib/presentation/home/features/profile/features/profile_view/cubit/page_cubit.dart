@@ -15,10 +15,7 @@ part 'page_state.dart';
 
 @injectable
 class PageCubit extends BaseCubit<PageState, PageEvent> {
-  PageCubit(
-    this._authRepository,
-    this._userRepository,
-  ) : super(PageState()) {
+  PageCubit(this._authRepository, this._userRepository) : super(PageState()) {
     // getActiveDeviceController();
   }
 
@@ -27,7 +24,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> getUser() async {
     try {
-      build((buildable) => buildable.copyWith(isLoading: true));
+      updateState((state) => state.copyWith(isLoading: true));
 
       await Future.wait([
         getRegions(),
@@ -35,23 +32,23 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         getStreets(),
       ]);
 
-      build((buildable) => buildable.copyWith(isLoading: false));
+      updateState((state) => state.copyWith(isLoading: false));
     } catch (e) {
       log.e(e.toString());
 
-      build((buildable) => buildable.copyWith(isLoading: false));
+      updateState((state) => state.copyWith(isLoading: false));
     }
   }
 
   Future<void> getUserInformation() async {
     try {
-      build((buildable) => buildable.copyWith(isLoading: true));
+      updateState((state) => state.copyWith(isLoading: true));
 
       log.e("getUserInformation onLoading");
 
       final response = await _userRepository.getFullUserInfo();
-      build(
-        (buildable) => buildable.copyWith(
+      updateState(
+        (state) => state.copyWith(
           isLoading: false,
           userName: (response.full_name ?? "*"),
           fullName: response.full_name ?? "*",
@@ -76,7 +73,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     } on DioException catch (e) {
       log.e("getUserInformation onFailure error = ${e.toString()}");
 
-      build((buildable) => buildable.copyWith(isLoading: false));
+      updateState((state) => state.copyWith(isLoading: false));
 
       if (e.response?.statusCode == 401) {
         logOut();
@@ -87,60 +84,64 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> getRegions() async {
     final response = await _userRepository.getRegions();
-    final regionList =
-        response.where((element) => element.id == buildable.regionId);
+    final regionList = response.where((e) => e.id == states.regionId);
     if (regionList.isNotEmpty) {
-      build((buildable) => buildable.copyWith(
-          regionName: regionList.first.name, isLoading: false));
+      updateState((state) =>
+          state.copyWith(regionName: regionList.first.name, isLoading: false));
     } else {
-      build((buildable) =>
-          buildable.copyWith(regionName: "topilmadi", isLoading: false));
+      updateState(
+        (state) => state.copyWith(regionName: "topilmadi", isLoading: false),
+      );
     }
   }
 
   Future<void> getDistrict() async {
-    final regionId = buildable.regionId;
+    final regionId = states.regionId;
     final response = await _userRepository.getDistricts(regionId ?? 14);
-    build((buildable) => buildable.copyWith(
+    updateState((state) => state.copyWith(
         districtName: response
-            .where((element) => element.id == buildable.districtId)
+            .where((element) => element.id == states.districtId)
             .first
             .name));
   }
 
   Future<void> getStreets() async {
     try {
-      final districtId = buildable.districtId;
+      final districtId = states.districtId;
       final response = await _userRepository.getStreets(districtId ?? 1419);
-      build((buildable) => buildable.copyWith(
+      updateState((state) => state.copyWith(
           streetName: response
-              .where((element) => element.id == buildable.streetId)
+              .where((element) => element.id == states.streetId)
               .first
               .name,
           isLoading: false));
     } catch (e) {
-      build((buildable) => buildable.copyWith(isLoading: false));
+      updateState((state) => state.copyWith(isLoading: false));
     }
   }
 
   Future<void> logOut() async {
     await _authRepository.logOut();
-    invoke(ProfileViewListenable(ProfileViewEffect.navigationAuthStart));
+    emitEvent(PageEvent(PageEventType.onLogout));
   }
 
   setSmsNotification() {
-    build((buildable) =>
-        buildable.copyWith(smsNotification: !buildable.smsNotification));
+    updateState(
+      (state) => state.copyWith(smsNotification: !state.smsNotification),
+    );
   }
 
   setTelegramNotification() {
-    build((buildable) => buildable.copyWith(
-        telegramNotification: !buildable.telegramNotification));
+    updateState(
+      (state) =>
+          state.copyWith(telegramNotification: !state.telegramNotification),
+    );
   }
 
   setEmailNotification() {
-    build((buildable) =>
-        buildable.copyWith(emailNotification: !buildable.emailNotification));
+    updateState(
+      (state) => state.copyWith(emailNotification: !state.emailNotification),
+    );
   }
 
   Future<void> openTelegram() async {
@@ -154,15 +155,13 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> getActiveDeviceController() async {
     try {
-      final controller =
-          buildable.devicesPagingController ?? getActiveDevices(status: 1);
-      build((buildable) =>
-          buildable.copyWith(devicesPagingController: controller));
+      final controller = states.controller ?? getActiveDevices(status: 1);
+      updateState((state) => state.copyWith(controller: controller));
     } on DioException catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
-      log.i(buildable.devicesPagingController);
+      log.i(states.controller);
     }
   }
 
@@ -170,51 +169,13 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     required int status,
   }) {
     final adController = PagingController<int, ActiveDeviceResponse>(
-        firstPageKey: 1, invisibleItemsThreshold: 100);
-    log.i(buildable.devicesPagingController);
-
-    adController.addPageRequestListener(
-      (pageKey) async {
-        updateState((state) => state.copyWith(isLoading: true));
-        log.d(response);
-        build((buildable) => buildable.copyWith(
-            regionName: regionList.first.name, isLoading: false));
-      updateState((state) => state.copyWith(isLoading: false));
-      updateState((state) => state.copyWith(isLoading: false));
-      updateState((state) => state.copyWith(isLoading: true));
-      updateState(
-        (state) => state.copyWith(
-      updateState((state) => state.copyWith(isLoading: false));
-        response.where((element) => element.id == states.regionId);
-      updateState((state) =>
-          state.copyWith(regionName: regionList.first.name, isLoading: false));
-      updateState(
-          (state) => state.copyWith(regionName: "topilmadi", isLoading: false));
-    final regionId = states.regionId;
-    updateState(
-      (state) => state.copyWith(
-        districtName:
-            response.where((e) => e.id == state.districtId).first.name,
-      ),
-    );
-      final districtId = states.districtId;
-      updateState((state) => state.copyWith(
-              .where((element) => element.id == state.streetId)
-      updateState((state) => state.copyWith(isLoading: false));
-    emitEvent(PageEvent(PageEventType.onLogout));
-    updateState(
-        (state) => state.copyWith(smsNotification: !state.smsNotification));
-    updateState((state) =>
-        state.copyWith(telegramNotification: !state.telegramNotification));
-    updateState(
-        (state) => state.copyWith(emailNotification: !state.emailNotification));
-      final controller = states.controller ?? getActiveDevices(status: 1);
-      updateState((state) => state.copyWith(controller: controller));
-      log.i(states.controller);
       firstPageKey: 1,
       invisibleItemsThreshold: 100,
     );
     log.i(states.controller);
+
+    adController.addPageRequestListener(
+      (pageKey) async {
         final adsList = await _userRepository.getActiveDevice();
         if (adsList.length <= 1000) {
           adController.appendLastPage(adsList);

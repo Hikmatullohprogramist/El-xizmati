@@ -17,8 +17,7 @@ import '../../../../../../common/widgets/dashboard/app_diverder.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
-class ProfileViewPage extends BasePage<PageCubit, PageState,
-    PageEvent> {
+class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
   const ProfileViewPage({super.key});
 
   @override
@@ -89,14 +88,14 @@ class ProfileViewPage extends BasePage<PageCubit, PageState,
     }
   }
 
-  List<Widget> _getAppBarActions(
-      BuildContext context, PageState state) {
+  List<Widget> _getAppBarActions(BuildContext context, PageState state) {
     return [
       if (state.isRegistered)
         CommonButton(
-            type: ButtonType.text,
-            onPressed: () => context.router.replace(ProfileEditRoute()),
-            child: Strings.profileEditTitle.w(500).s(12).c(Color(0xFF5C6AC3)))
+          type: ButtonType.text,
+          onPressed: () => context.router.replace(ProfileEditRoute()),
+          child: Strings.profileEditTitle.w(500).s(12).c(Color(0xFF5C6AC3)),
+        )
     ];
   }
 
