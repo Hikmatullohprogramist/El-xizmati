@@ -13,7 +13,13 @@ import 'package:onlinebozor/common/widgets/common/custom_dropdown_field.dart';
 import 'package:onlinebozor/common/widgets/common/label_text_field.dart';
 
 import '../../../../../common/core/base_page.dart';
+import '../../../common/widgets/common/chips_add_item.dart';
+import '../../../common/widgets/common/chips_item.dart';
 import '../../../common/widgets/image/image_ad_list_widget.dart';
+import '../../../common/widgets/switch/custom_switch.dart';
+import '../../common/selection_currency/page.dart';
+import '../../common/selection_payment_type/page.dart';
+import '../../common/selection_user_address/page.dart';
 import '../../utils/mask_formatters.dart';
 import 'cubit/page_cubit.dart';
 
@@ -74,7 +80,7 @@ class CreateProductOrderPage
             SizedBox(height: 12),
             _buildAddressBlock(context, state),
             SizedBox(height: 12),
-            _buildAutoContinueBlock(),
+            _buildAutoContinueBlock(state,context),
             SizedBox(height: 12),
             _buildFooterBlock(context),
           ],
@@ -202,6 +208,7 @@ class CreateProductOrderPage
                   controller: fromPriceController,
                   inputType: TextInputType.number,
                   textInputAction: TextInputAction.next,
+                  inputFormatters: quantityMaskFormatter,
                   onChanged: (value) {
                     context.read<PageCubit>().setFromPrice(value);
                   },
@@ -213,6 +220,7 @@ class CreateProductOrderPage
                   hint: "До",
                   controller: toPriceController,
                   inputType: TextInputType.number,
+                  inputFormatters: quantityMaskFormatter,
                   onChanged: (value) {
                     context.read<PageCubit>().setToPrice(value);
                   },
@@ -224,15 +232,44 @@ class CreateProductOrderPage
           LabelTextField(text: "Валюта"),
           SizedBox(height: 8),
           SizedBox(
-              width: 120,
-              child: CustomDropdownField(
-                  text: "Uzb", hint: "Валюта", onTap: () {})),
-          SizedBox(height: 12),
+              width: 150,
+              child:   CustomDropdownField(
+                text: state.currenc?.name?? "",
+                hint: "-",
+                onTap: () async {
+                  // _showCurrencyBottomSheet(context);
+                  final currency = await showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    useSafeArea: true,
+                    backgroundColor: Colors.transparent,
+                    builder: (context) => SelectionCurrencyPage(
+                      key: Key(""),
+                      initialSelectedItem: state.currenc,
+                    ),
+                  );
+                  cubit(context).setSelectedCurrency(currency);
+                },
+              ),
+          ),
+          SizedBox(height: 20),
+          LabelTextField(text: 'Способ оплаты', isRequired: true),
+          SizedBox(height: 16),
+          Wrap(
+            direction: Axis.horizontal,
+            spacing: 8,
+            runSpacing: 8,
+            alignment: WrapAlignment.start,
+            crossAxisAlignment: WrapCrossAlignment.start,
+            runAlignment: WrapAlignment.start,
+            children: _buildPaymentTypeChips(context, state),
+          ),
+          SizedBox(height: 25,),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              CupertinoSwitch(
-                value: state.isNegotiate,
+              CustomSwitch(
+                isChecked: state.isNegotiate,
                 onChanged: (value) {
                   context.read<PageCubit>().setNegative(value);
                 },
@@ -256,35 +293,23 @@ class CreateProductOrderPage
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 8),
-          "Контактная информация".w(700).s(16).c(Color(0xFF41455E)),
-          SizedBox(height: 20),
-          "Контактное лицо".w(500).s(14).c(Color(0xFF41455E)),
-          SizedBox(height: 8),
-          CommonTextField(
-            autofillHints: const [AutofillHints.telephoneNumber],
-            keyboardType: TextInputType.phone,
-            maxLines: 1,
-            hint: 'Контактное лицо',
-            inputType: TextInputType.phone,
-            textInputAction: TextInputAction.next,
-            controller: phoneController,
-            inputFormatters: phoneMaskFormatter,
-            onChanged: (value) {},
-          ),
-          SizedBox(height: 12),
-          "Номер телефона".w(500).s(14).c(Color(0xFF41455E)),
-          SizedBox(height: 8),
-          CommonTextField(
-            autofillHints: const [AutofillHints.telephoneNumber],
-            keyboardType: TextInputType.phone,
-            maxLines: 1,
-            hint: '998 12 345 67 89',
-            inputType: TextInputType.phone,
-            textInputAction: TextInputAction.next,
-            controller: phoneController,
-            inputFormatters: phoneMaskFormatter,
-            onChanged: (value) {},
-          ),
+           "Контактная информация".w(700).s(16).c(Color(0xFF41455E)),
+            SizedBox(height: 20),
+       //  "Контактное лицо".w(500).s(14).c(Color(0xFF41455E)),
+       //  SizedBox(height: 8),
+       //  CommonTextField(
+       //    autofillHints: const [AutofillHints.telephoneNumber],
+       //    keyboardType: TextInputType.phone,
+       //    maxLines: 1,
+       //    hint: 'Контактное лицо',
+       //    inputType: TextInputType.phone,
+       //    textInputAction: TextInputAction.next,
+       //    controller: phoneController,
+       //    inputFormatters: phoneMaskFormatter,
+       //    onChanged: (value) {
+       //
+       //    },
+       //  ),
           SizedBox(height: 12),
           "Эл. почта".w(500).s(14).c(Color(0xFF41455E)),
           SizedBox(height: 8),
@@ -297,6 +322,22 @@ class CreateProductOrderPage
             maxLines: 1,
             controller: emailController,
             onChanged: (value) {},
+          ),
+          SizedBox(height: 12),
+          "Номер телефона".w(500).s(14).c(Color(0xFF41455E)),
+          SizedBox(height: 8),
+          CommonTextField(
+            autofillHints: const [AutofillHints.telephoneNumber],
+            keyboardType: TextInputType.phone,
+            maxLines: 1,
+            prefixText: "+998 ",
+            inputType: TextInputType.phone,
+            textInputAction: TextInputAction.next,
+            controller: phoneController,
+            // inputFormatters: phoneMaskFormatter,
+            onChanged: (value) {
+              cubit(context).setPhoneNumber(value);
+            },
           ),
         ],
       ),
@@ -321,11 +362,19 @@ class CreateProductOrderPage
           SizedBox(height: 8),
           CustomDropdownField(
             text: state.userAddressResponse?.name ?? "",
-            hint: "Моё местоположения",
-            onTap: () {
-              context.router.push(
-                SelectionUserAddressRoute(),
+            hint:state.address?.name??"Моё местоположения",
+            onTap: () async {
+              final address = await showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                useSafeArea: true,
+                backgroundColor: Colors.transparent,
+                builder: (context) => SelectionUserAddressPage(
+                  key: Key(""),
+                  selectedAddress: state.address,
+                ),
               );
+              cubit(context).setSelectedAddress(address);
             },
           ),
           SizedBox(height: 16),
@@ -348,7 +397,7 @@ class CreateProductOrderPage
     );
   }
 
-  Widget _buildAutoContinueBlock() {
+  Widget _buildAutoContinueBlock(PageState state,BuildContext context) {
     return Container(
       color: Colors.white,
       child: Padding(
@@ -361,7 +410,12 @@ class CreateProductOrderPage
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                CupertinoSwitch(value: true, onChanged: (value) {}),
+                CustomSwitch(
+                  isChecked: state.isAutoRenewal,
+                  onChanged: (value) {
+                    cubit(context).setAutoRenewal(value);
+                  },
+                ),
                 SizedBox(width: 16),
                 Expanded(
                   child: "Объявление будет деактивировано через 15 дней"
@@ -444,5 +498,40 @@ class CreateProductOrderPage
         );
       },
     );
+  }
+  List<Widget> _buildPaymentTypeChips(
+      BuildContext context,
+      PageState state,
+      ) {
+    List<Widget> chips = [];
+    chips.add(
+      ChipsAddItem(
+        onAddClicked: () async {
+          final paymentTypes = await showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            useSafeArea: true,
+            backgroundColor: Colors.transparent,
+            builder: (context) => SelectionPaymentTypePage(
+              key: Key(""),
+              selectedPaymentTypes: state.paymentTypes,
+            ),
+          );
+          cubit(context).setSelectedPaymentTypes(paymentTypes);
+        },
+      ),
+    );
+    chips.addAll(state.paymentTypes
+        .map(
+          (element) => ChipsItem(
+        item: element,
+        title: element.name ?? "",
+        onRemoveClicked: (item) {
+          cubit(context).removeSelectedPaymentType(element);
+        },
+      ),
+    )
+        .toList());
+    return chips;
   }
 }

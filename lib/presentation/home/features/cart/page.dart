@@ -22,10 +22,12 @@ class CartPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: DefaultAppBar(
-        Strings.bottomNavigationCart,
-        () => context.router.pop(),
-      ),
+      appBar: AppBar(
+            backgroundColor: Colors.white,
+            elevation: 0,
+            centerTitle: true,
+            title: Strings.bottomNavigationCart.w(500).s(16).c(context.colors.textPrimary),
+          ),
       backgroundColor: Color(0xFFF2F4FB),
       body: PagedGridView<int, Ad>(
         shrinkWrap: true,

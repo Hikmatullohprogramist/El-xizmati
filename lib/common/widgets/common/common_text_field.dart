@@ -121,7 +121,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(widget.prefixText ?? ""),
+                      Text(widget.prefixText ?? "",),
                       Container(
                         width: 1,
                         margin: EdgeInsets.fromLTRB(6, 5, 10, 4),

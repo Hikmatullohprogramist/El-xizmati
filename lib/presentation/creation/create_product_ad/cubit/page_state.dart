@@ -16,7 +16,6 @@ class PageState with _$PageState {
     CurrencyResponse? currency,
     @Default([]) List<PaymentTypeResponse> paymentTypes,
     @Default([]) List<RegionResponse> paymentType,
-
     @Default(false) bool isAgreedPrice,
 //
     @Default(true) bool isNew,
