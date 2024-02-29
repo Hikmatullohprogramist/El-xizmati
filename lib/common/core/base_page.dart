@@ -5,6 +5,8 @@ import 'package:onlinebozor/common/core/base_event.dart';
 import 'package:onlinebozor/common/core/base_state.dart';
 import 'package:onlinebozor/common/di/injection.dart';
 
+import '../colors/static_colors.dart';
+
 abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
     EVENT> extends StatelessWidget {
   const BasePage({Key? key}) : super(key: key);
@@ -42,5 +44,29 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
 
   EVENT event(BuildContext context) {
     return context.read<EVENT>();
+  }
+
+  void showProgressDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      useRootNavigator: false,
+      useSafeArea: false,
+      builder: (BuildContext context) {
+        return PopScope(
+          canPop: true,
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                CircularProgressIndicator(color: StaticColors.dodgerBlue),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }
