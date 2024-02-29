@@ -35,7 +35,7 @@ class RegistrationPage extends BasePage<PageCubit,
               onPressed: () {
                 context.read<PageCubit>().sendUserInfo();
               },
-              child: Strings.commonSaveTitle.w(500).s(12).c(Color(0xFF5C6AC3)))
+              child: Strings.commonSave.w(500).s(12).c(Color(0xFF5C6AC3)))
         ],
         leading: IconButton(
           icon: Assets.images.icArrowLeft.svg(),
@@ -153,7 +153,7 @@ class RegistrationPage extends BasePage<PageCubit,
                               .read<PageCubit>()
                               .getUserInformation();
                         },
-                        child: Strings.commonContinueTitle.w(500),
+                        child: Strings.commonContinue.w(500),
                       ))),
               Visibility(
                   visible: state.isRegistration,

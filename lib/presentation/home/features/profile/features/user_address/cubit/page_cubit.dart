@@ -14,10 +14,8 @@ part 'page_cubit.freezed.dart';
 part 'page_state.dart';
 
 @Injectable()
-class UserAddressesCubit
-    extends BaseCubit<PageState, PageEvent> {
-  UserAddressesCubit(this.userAddressRepository)
-      : super(PageState()) {
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit(this.userAddressRepository) : super(PageState()) {
     getController();
   }
 
@@ -25,8 +23,7 @@ class UserAddressesCubit
 
   Future<void> getController() async {
     try {
-      final controller =
-          states.controller ?? getAddressController(status: 1);
+      final controller = states.controller ?? getAddressController(status: 1);
       updateState(
         (state) => state.copyWith(controller: controller),
       );
@@ -64,11 +61,6 @@ class UserAddressesCubit
     }
 
     return addressController;
-  }
-
-  Future<void> editUserAddress(UserAddressResponse address) async {
-    await emitEvent(PageEvent(PageEventType.editUserAddress,
-        address: address));
   }
 
   Future<void> makeMainAddress(UserAddressResponse address, int index) async {

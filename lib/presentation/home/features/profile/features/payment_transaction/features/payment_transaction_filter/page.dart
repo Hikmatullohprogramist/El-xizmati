@@ -20,7 +20,7 @@ class PaymentTransactionFilterPage
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: DefaultAppBar(
-        Strings.paymentFilterTitle,
+        Strings.commonFilter,
         () => context.router.pop(),
       ),
       body: Column(children: [
@@ -159,7 +159,7 @@ class PaymentTransactionFilterPage
                       child: SizedBox(
                     child: CommonButton(
                       onPressed: () {},
-                      child: Strings.paymentFilterReset.s(14).w(600),
+                      child: Strings.commonFilterReset.s(14).w(600),
                     ),
                   ))),
               SizedBox(width: 16),
@@ -169,7 +169,7 @@ class PaymentTransactionFilterPage
                     child: SizedBox(
                   child: CommonButton(
                     onPressed: () {},
-                    child: Strings.paymentFilterApply.s(14).w(600),
+                    child: Strings.commonApply.s(14).w(600),
                   ),
                 )),
               ),

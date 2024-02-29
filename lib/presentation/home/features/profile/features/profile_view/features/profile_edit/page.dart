@@ -32,7 +32,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
               onPressed: () {
                 cubit(context).sendUserInfo();
               },
-              child: Strings.commonSaveTitle.w(500).s(12).c(Color(0xFF5C6AC3)))
+              child: Strings.commonSave.w(500).s(12).c(Color(0xFF5C6AC3)))
         ],
         leading: IconButton(
           icon: Assets.images.icArrowLeft.svg(),

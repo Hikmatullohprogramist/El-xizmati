@@ -112,7 +112,7 @@ class UserCardsPage extends BasePage<PageCubit, PageState, PageEvent> {
                               height: 24,
                               color: context.colors.iconGrey),
                           SizedBox(width: 10),
-                          Strings.cardSetAsMain
+                          Strings.actionMakeMain
                               .w(500)
                               .s(14)
                               .c(Color(0xFF41455E))
@@ -138,7 +138,7 @@ class UserCardsPage extends BasePage<PageCubit, PageState, PageEvent> {
                   width: double.infinity,
                   child: CommonButton(
                     onPressed: () {},
-                    child: Strings.cardClose.w(600).s(14).c(Colors.white),
+                    child: Strings.commonClose.w(600).s(14).c(Colors.white),
                   ),
                 )
               ]),

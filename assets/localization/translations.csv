@@ -82,11 +82,8 @@ bottom_navigation_favorite,Tanlanganlar,Избранные,Танланганл�
 bottom_navigation_home,Asosiy,Главная,Асосий
 bottom_navigation_more,Ko‘proq,Больше,Кўпроқ
 bottom_navigation_profile,Profil,Профиль,Профил
-button_title_save,saqlash,сохранять,сақлаш
-card_add_card_title,Karta qo‘shish,добавить карту,Карта қўшиш
+card_add_card_title,Karta qo‘shish,Добавить карту,Карта қўшиш
 card_add_title,Karta qo‘shish,Добавить карту,Карта қўшиш
-card_add_title,Qo‘shish,Добавить,Қўшиш
-card_close,Yopish,Закрыть,Ёпиш
 card_confirmation_code,Tasdiqlash kodi,Код подтверждения,Тасдиқлаш коди
 card_empty_descripton,Ushbu kartalar bilan siz mahsulot yoki xizmat uchun to‘lashingiz mumkin,С помощью этих карт вы можете оплатит за товар или услугу,Ушбу карталар билан сиз маҳсулот ёки хизмат учун тўлашингиз мумкин
 card_empty_title,Siz hali toʻlov kartasini qoʻshmagansiz,Вы еще не добавили карту для оплаты,Сиз ҳали тўлов картасини қўшмагансиз
@@ -94,15 +91,29 @@ card_expiry_date_title,Kartaning amal qilish muddati,Срок действия �
 card_name_hint,Masalan: Asosiy,Например: Основная,Масалан: Асосий
 card_name_title,Karta nomi,Название карты,Карта номи
 card_number_title,Karta raqami,Номер карты,Карта рақами
-card_set_as_main,Asosiy qilib belgilang,Сделать основным,Асосий қилиб белгиланг
 cart_product_clearance,Rasmiylashtirish,оформление,Расмийлаштириш
 categories_title,Kategoriyalar,Основные категории,Машҳур Kategoriyalar
 category_ads_count,ta e‘lon,объявлений,та эълон
 close_title,Yopish,Закрыть,Ёпиш
-common_continue_title,Davom etish,Продолжить,Давом этиш
+common_add,Qo‘shish,Добавить,Қўшиш
+common_apartment,Kvartira:,Квартира:,Квартира:
+common_apply,Qo‘llash,Применять,Қўллаш
+common_close,Yopish,Закрыть,Ёпиш
+common_continue,Davom etish,Продолжить,Давом этиш
+common_district,Tuman,Район,Туман
+common_edit,Tahrirlash,Редактировать,Таҳрирлаш
+common_entrance,Kirish,Подъезд,Кириш
+common_filter,Filtr,Фильтр,Фильтр
+common_filter_reset,Tozalash,Сброс,Тозалаш
+common_floor,Qavat,Этаж,Қават
+common_home_number,Uy raqami,Номер дома,Uy raqami
+common_main,Asosiy,Основной,Асосий
+common_neighborhood,Mahalla,Махалля,Маҳалла
 common_no,Yo‘q,Нет,Йўқ
 common_phone_number,Telefon raqami,Номер телефона,Телефон рақами
-common_save_title,Saqlash,Сохранить,Сақлаш
+common_region,Viloyat,Регион,Вилоят
+common_save,Saqlash,Сохранить,Сақлаш
+common_street,Ko'cha,Улица,Кўча
 common_unfind,topilmadi,не найдено,топилмади
 common_yes,Ha,Да,Ҳа
 create_request_title,So‘rov yaratish,Создать запрос,Сўров яратиш
@@ -155,14 +166,11 @@ order_create_transfer_payment,Transfer,Перечисления,Трансфер
 order_need_product,Mahsulot kerak,Нужен товар,Маҳсулот керак
 order_need_service,Xizmat kerak,Нужна услуга,Хизмат керак
 payment_filter_all,Hammasi,Все,Ҳаммаси
-payment_filter_apply,Qo‘llash,Применять,Қўллаш
-payment_filter_from_date,dan:,От:,дан:
+payment_filter_from_date,Dan:,От:,Дан:
 payment_filter_payment_method,To‘lov usuli,Способ оплаты,Тўлов усули
 payment_filter_payment_type,To‘lov turi,Тип оплаты,Тўлов тури
-payment_filter_reset,Tozalash,Сброс,Тозалаш
 payment_filter_status,Holat,Статус,Ҳолат
-payment_filter_title,Filtr,Фильтр,Фильтр
-payment_filter_to_date,gacha:,До:,гача:
+payment_filter_to_date,Gacha:,До:,Гача:
 payment_filter_type,Turi,Тип,Тури
 payment_title,To‘lovlar,Платежи,Тўловлар
 popular_products,Ommabop mahsulotlar,Популярные продукты,Оммабоп маҳсулотлар
@@ -233,24 +241,12 @@ settings_title,Sozlamalar,Настройки,Созламалар
 similar_product_title,O‘xshash mahsulotlar,Похожие продукты,Ўхшаш маҳсулотлар
 telegram_bot_description,Bot orqali bildirishnomalarni olish uchun siz botga ulangan bo‘lishingiz kerak,"Вы должны быть подключены, чтобы получать уведомления от ботов.",Бот орқали билдиришномаларни олиш учун сиз ботга уланган бўлишингиз керак
 user_ad_detail_remainder,Qolgan,Остаток,Қолган
-user_address_action,Harakat,Действие,Ҳаракат
-user_address_add,Qo‘shish,Добавить,Қўшиш
-user_address_add_new_address,Yangi manzil qo‘shing,Добавить новый адрес,Янги манзил қўшинг
+user_address_add_title,Yangi manzil qo‘shish,Добавить новый адрес,Янги манзил қўшиш
 user_address_address,Manzil:,Адрес:,Манзил:
-user_address_apartment,Kvartira:,Квартира:,Квартира:
-user_address_close,Yopish,Закрыть,Ёпиш
-user_address_district,Tuman,Район,Туман
-user_address_edit,Tahrirlash,Редактировать,Таҳрирлаш
-user_address_entrance,Kirish:,Подъезд:,Кириш:
-user_address_floor,Qavat:,Этаж:,Қават:
-user_address_home_number,Uy raqami,Номер дома,Uy raqami
-user_address_main,Asosiy,Основной,Асосий
+user_address_edit_title,Manzilni tahrirlash,Редактировать адрес,Манзилни таҳрирлаш
 user_address_my_address,Mening manzillarim,Мои адреса,Менинг манзилларим
 user_address_name,Manzil nomi,Название адреса,Манзил номи
-user_address_region,Viloyat,Регион,Вилоят
-user_address_save,Saqlash,Сақлаш,Сақлаш
 user_address_selection_location,Joylashuvni tanlang,Выберите локацию,Жойлашувни танланг
-user_address_street,Mahalla,Махалля,Маҳалла
 user_ads_active_title,Faol,Активный,Фаол
 user_ads_all_title,Barchasi,Все,Барчаси
 user_ads_canceled_title,Bekor qilingan,Отменено,Бекор қилинган

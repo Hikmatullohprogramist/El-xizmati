@@ -1,14 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
-import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/common/widgets/common/label_text_field.dart';
 
-import '../../../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../../../common/widgets/common/common_button.dart';
 import '../../../../../../../../common/widgets/common/common_text_field.dart';
 import '../../../../../../../../common/widgets/common/custom_dropdown_field.dart';
@@ -17,31 +14,34 @@ import '../../../../../../../../data/responses/address/user_address_response.dar
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
-class AddAddressPage extends BasePage<AddAddressCubit, PageState,
-    PageEvent> {
+class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
   AddAddressPage({super.key, this.address});
 
-  UserAddressResponse? address;
+  final UserAddressResponse? address;
 
   @override
   void onWidgetCreated(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<AddAddressCubit>().setAddress(address);
+      cubit(context).setInitialParams(address);
     });
   }
 
   @override
   void onEventEmitted(BuildContext context, PageEvent event) {
     switch (event.type) {
-      case PageEventType.navigationToHome:
-        context.router.push(UserAddressesRoute());
+      case PageEventType.backOnSuccess:
+        context.router.pop(true);
+      case PageEventType.onStartLoading:
+        _showFullScreenDialog(context);
+      case PageEventType.onFinishLoading:
+        Navigator.pop(context);
     }
   }
 
   TextEditingController addressController = TextEditingController();
-  TextEditingController houseController = TextEditingController();
   TextEditingController apartmentController = TextEditingController();
-  TextEditingController neighborhoodController = TextEditingController();
+  TextEditingController houseController = TextEditingController();
+  TextEditingController streetController = TextEditingController();
 
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
@@ -54,12 +54,17 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState,
     apartmentController.text != state.apartmentNum
         ? apartmentController.text = state.apartmentNum ?? ""
         : apartmentController.text = state.apartmentNum ?? "";
-    neighborhoodController.text != state.neighborhoodNum
-        ? neighborhoodController.text = state.neighborhoodNum ?? ""
-        : neighborhoodController.text = state.neighborhoodNum ?? "";
+    streetController.text != state.neighborhoodNum
+        ? streetController.text = state.neighborhoodNum ?? ""
+        : streetController.text = state.neighborhoodNum ?? "";
 
     return Scaffold(
-        appBar: _buildAppBar(context),
+        appBar: DefaultAppBar(
+          state.isEditing
+              ? Strings.userAddressEditTitle
+              : Strings.userAddressAddTitle,
+          () => context.router.pop(false),
+        ),
         backgroundColor: Color(0xFFF2F4FB),
         body: ListView(
           physics: BouncingScrollPhysics(),
@@ -79,41 +84,19 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState,
 
   /// Build block
 
-  AppBar _buildAppBar(BuildContext context) {
-    return AppBar(
-      backgroundColor: Colors.white,
-      title: Strings.userAddressAddNewAddress
-          .w(500)
-          .s(14)
-          .c(context.colors.textPrimary),
-      centerTitle: true,
-      elevation: 0.5,
-      // actions: [
-        // CommonButton(
-        //     type: ButtonType.text,
-        //     onPressed: () {},
-        //     child: Strings.userAddressSave.w(500).s(12).c(Color(0xFF5C6AC3)))
-      // ],
-      leading: IconButton(
-        icon: Assets.images.icArrowLeft.svg(),
-        onPressed: () => context.router.pop(),
-      ),
-    );
-  }
-
   Widget _buildAddressNameBlock(BuildContext context) {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Column(
         children: [
-          LabelTextField(text: Strings.userAddressAddNewAddress),
+          LabelTextField(text: Strings.userAddressAddress),
           SizedBox(height: 12),
           CommonTextField(
             controller: addressController,
-            hint: Strings.userAddressAddNewAddress,
+            hint: Strings.userAddressAddress,
             onChanged: (value) {
-              context.read<AddAddressCubit>().setAddressName(value);
+              cubit(context).setAddressName(value);
             },
             textInputAction: TextInputAction.next,
           ),
@@ -128,30 +111,30 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Column(
         children: [
-          LabelTextField(text: Strings.userAddressRegion),
+          LabelTextField(text: Strings.commonRegion),
           SizedBox(height: 8),
           CustomDropdownField(
-            hint: Strings.userAddressRegion,
+            hint: Strings.commonRegion,
             text: state.regionName ?? "",
             onTap: () {
               _showRegionSelection(context, state);
             },
           ),
           SizedBox(height: 12),
-          LabelTextField(text: Strings.userAddressDistrict),
+          LabelTextField(text: Strings.commonDistrict),
           SizedBox(height: 8),
           CustomDropdownField(
-            hint: Strings.userAddressDistrict,
+            hint: Strings.commonDistrict,
             text: state.districtName ?? "",
             onTap: () {
               _showDistrictSelection(context, state);
             },
           ),
           SizedBox(height: 12),
-          LabelTextField(text: Strings.userAddressStreet),
+          LabelTextField(text: Strings.commonNeighborhood),
           SizedBox(height: 8),
           CustomDropdownField(
-            hint: Strings.userAddressStreet,
+            hint: Strings.commonNeighborhood,
             text: state.streetName ?? "",
             onTap: () {
               _showNeighborhoodSelection(context, state);
@@ -175,31 +158,16 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState,
                 child: Column(
                   children: [
                     LabelTextField(
-                      text: Strings.userAddressHomeNumber,
+                      text: Strings.commonStreet,
                       isRequired: false,
                     ),
                     SizedBox(height: 8),
                     CommonTextField(
-                      onChanged: (value) {},
-                      textInputAction: TextInputAction.next,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  children: [
-                    LabelTextField(
-                      text: Strings.userAddressApartment,
-                      isRequired: false,
-                    ),
-                    SizedBox(height: 8),
-                    CommonTextField(
+                      controller: streetController,
+                      hint: Strings.commonStreet,
                       onChanged: (value) {
-                        context.read<AddAddressCubit>().setHomeNum(value);
+                        cubit(context).setNeighborhoodNum(value);
                       },
-                      controller: houseController,
                       textInputAction: TextInputAction.next,
                     ),
                   ],
@@ -214,15 +182,15 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState,
                 child: Column(
                   children: [
                     LabelTextField(
-                      text: Strings.userAddressEntrance,
+                      text: Strings.commonHomeNumber,
                       isRequired: false,
                     ),
                     SizedBox(height: 8),
                     CommonTextField(
                       onChanged: (value) {
-                        context.read<AddAddressCubit>().setApartmentNum(value);
+                        cubit(context).setHomeNumber(value);
                       },
-                      controller: apartmentController,
+                      controller: houseController,
                       textInputAction: TextInputAction.next,
                     ),
                   ],
@@ -233,24 +201,22 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState,
                 child: Column(
                   children: [
                     LabelTextField(
-                      text: Strings.userAddressFloor,
+                      text: Strings.commonApartment,
                       isRequired: false,
                     ),
                     SizedBox(height: 8),
                     CommonTextField(
-                      controller: neighborhoodController,
                       onChanged: (value) {
-                        context
-                            .read<AddAddressCubit>()
-                            .setNeighborhoodNum(value);
+                        cubit(context).setApartmentNumber(value);
                       },
-                      textInputAction: TextInputAction.next,
+                      controller: apartmentController,
+                      textInputAction: TextInputAction.done,
                     ),
                   ],
                 ),
               ),
             ],
-          )
+          ),
         ],
       ),
     );
@@ -266,7 +232,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CustomSwitch(
-                isChecked:  state.isMain ?? false,
+                isChecked: state.isMain ?? false,
                 onChanged: (value) {
                   cubit(context).setMainCard(value);
                 },
@@ -279,28 +245,33 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState,
           ),
           SizedBox(height: 20),
           SizedBox(
-              width: double.infinity,
-              height: 42,
-              child: CommonButton(
-                type: ButtonType.outlined,
-                onPressed: () {
-                  context.read<AddAddressCubit>().getCurrentLocation();
-                },
-                child: Strings.userAddressSelectionLocation
-                    .w(600)
-                    .s(14)
-                    .c(Colors.black),
-              )),
+            width: double.infinity,
+            height: 42,
+            child: CommonButton(
+              type: ButtonType.outlined,
+              onPressed: () {
+                cubit(context).getCurrentLocation();
+              },
+              child: Strings.userAddressSelectionLocation
+                  .w(600)
+                  .s(14)
+                  .c(Colors.black),
+            ),
+          ),
           SizedBox(height: 16),
           SizedBox(
-              width: double.infinity,
-              height: 42,
-              child: CommonButton(
-                onPressed: () {
-                  context.read<AddAddressCubit>().validationDate();
-                },
-                child: Strings.userAddressAdd.w(600).s(14).c(Colors.white),
-              )),
+            width: double.infinity,
+            height: 42,
+            child: CommonButton(
+              onPressed: () {
+                cubit(context).validationDate();
+              },
+              child: (state.isEditing ? Strings.commonSave : Strings.commonAdd)
+                  .w(600)
+                  .s(14)
+                  .c(Colors.white),
+            ),
+          ),
         ],
       ),
     );
@@ -331,7 +302,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState,
               itemBuilder: (BuildContext buildContext, int index) {
                 return InkWell(
                     onTap: () {
-                      context.read<AddAddressCubit>().setRegion(state.regions[index]);
+                      cubit(context).setRegion(state.regions[index]);
                       Navigator.pop(buildContext);
                     },
                     child: Padding(
@@ -367,10 +338,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState,
               itemBuilder: (BuildContext buildContext, int index) {
                 return InkWell(
                     onTap: () {
-                      context
-                          .read<AddAddressCubit>()
-                          .setDistrict(state.districts[index]);
-
+                      cubit(context).setDistrict(state.districts[index]);
                       Navigator.pop(buildContext);
                     },
                     child: Padding(
@@ -406,10 +374,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState,
               itemBuilder: (BuildContext buildContext, int index) {
                 return InkWell(
                     onTap: () {
-                      context
-                          .read<AddAddressCubit>()
-                          .setStreet(state.streets[index]);
-
+                      cubit(context).setStreet(state.streets[index]);
                       Navigator.pop(buildContext);
                     },
                     child: Padding(
@@ -417,6 +382,22 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState,
                       child: state.streets[index].name.w(500),
                     ));
               }),
+        );
+      },
+    );
+  }
+
+  void _showFullScreenDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      // Prevents closing the dialog by tapping outside
+      builder: (BuildContext context) {
+        return WillPopScope(
+          onWillPop: () async => false,
+          child: Center(
+            child: CircularProgressIndicator(), // Progress bar
+          ),
         );
       },
     );

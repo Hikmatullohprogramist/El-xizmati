@@ -23,9 +23,10 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
   final UserAddressRepository userAddressRepository;
   final UserRepository _userRepository;
 
-  void setAddress(UserAddressResponse? address) {
+  void setInitialParams(UserAddressResponse? address) {
     if (address != null) {
       updateState((state) => state.copyWith(
+          isEditing: true,
           address: address,
           isMain: address.is_main,
           geo: address.geo,
@@ -102,9 +103,9 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
         regionId: region.id,
         regionName: region.name,
         districtId: null,
-        districtName: Strings.userAddressDistrict,
+        districtName: Strings.commonDistrict,
         streetId: null,
-        streetName: Strings.userAddressStreet));
+        streetName: Strings.commonDistrict));
     getDistrict();
   }
 
@@ -113,7 +114,7 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
         districtId: district.id,
         districtName: district.name,
         streetId: null,
-        streetName: Strings.userAddressStreet));
+        streetName: Strings.commonNeighborhood));
     getStreets();
   }
 
@@ -126,11 +127,11 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
     updateState((state) => state.copyWith(isMain: isMain));
   }
 
-  void setHomeNum(String value) {
+  void setHomeNumber(String value) {
     updateState((state) => state.copyWith(homeNumber: value));
   }
 
-  void setApartmentNum(String value) {
+  void setApartmentNumber(String value) {
     updateState((state) => state.copyWith(apartmentNum: value));
   }
 
@@ -147,10 +148,11 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
         states.homeNumber != null &&
         (states.geo != null ||
             (states.latitude != null && states.latitude != null))) {
-      if (states.addressId == null) {
-        await addAddress();
-      } else {
+
+      if (states.isEditing) {
         await updateAddress();
+      } else {
+        await addAddress();
       }
     } else {
       display.error("Ma'lumotlarni to'liq kiriting");
@@ -158,40 +160,49 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   Future<void> addAddress() async {
+    emitEvent(PageEvent(PageEventType.onStartLoading));
     try {
       await userAddressRepository.addUserAddress(
-          name: states.addressName!,
-          regionId: states.regionId!,
-          districtId: states.districtId!,
-          mahallaId: states.streetId!,
-          homeNum: states.homeNumber ?? "",
-          apartmentNum: states.apartmentNum ?? "",
-          streetNum: states.streetName ?? "",
-          isMain: states.isMain ?? false,
-          geo: "${states.latitude},${states.longitude}");
-      emitEvent(PageEvent(PageEventType.navigationToHome));
-      display.success("mazil qo'shildi");
+        name: states.addressName!,
+        regionId: states.regionId!,
+        districtId: states.districtId!,
+        mahallaId: states.streetId!,
+        homeNum: states.homeNumber ?? "",
+        apartmentNum: states.apartmentNum ?? "",
+        streetNum: states.streetName ?? "",
+        isMain: states.isMain ?? false,
+        geo: "${states.latitude},${states.longitude}",
+      );
+
+      emitEvent(PageEvent(PageEventType.onFinishLoading));
+      emitEvent(PageEvent(PageEventType.backOnSuccess));
     } catch (e) {
+      emitEvent(PageEvent(PageEventType.onFinishLoading));
       display.error(Strings.loadingStateError);
     }
   }
 
   Future<void> updateAddress() async {
+    emitEvent(PageEvent(PageEventType.onStartLoading));
     try {
       await userAddressRepository.updateUserAddress(
-          name: states.addressName!,
-          regionId: states.regionId!,
-          districtId: states.districtId!,
-          mahallaId: states.streetId!,
-          homeNum: states.homeNumber ?? "",
-          apartmentNum: states.apartmentNum ?? "",
-          streetNum: states.streetName ?? "",
-          isMain: states.isMain ?? false,
-          geo: "${states.latitude},${states.longitude}",
-          id: states.addressId ?? -1,
-          state: '');
-      display.success("mazil qo'shildi");
+        name: states.addressName!,
+        regionId: states.regionId!,
+        districtId: states.districtId!,
+        mahallaId: states.streetId!,
+        homeNum: states.homeNumber ?? "",
+        apartmentNum: states.apartmentNum ?? "",
+        streetNum: states.streetName ?? "",
+        isMain: states.isMain ?? false,
+        geo: "${states.latitude},${states.longitude}",
+        id: states.addressId ?? -1,
+        state: '',
+      );
+
+      emitEvent(PageEvent(PageEventType.onFinishLoading));
+      emitEvent(PageEvent(PageEventType.backOnSuccess));
     } catch (e) {
+      emitEvent(PageEvent(PageEventType.onFinishLoading));
       display.error(Strings.loadingStateError);
     }
   }

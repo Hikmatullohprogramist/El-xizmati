@@ -10,11 +10,5 @@ class PageState with _$PageState {
 
 @freezed
 class PageEvent with _$PageEvent {
-  const factory PageEvent(
-    PageEventType effect, {
-    String? error,
-    UserAddressResponse? address,
-  }) = _PageEvent;
+  const factory PageEvent() = _PageEvent;
 }
-
-enum PageEventType { success, editUserAddress }

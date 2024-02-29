@@ -234,7 +234,7 @@ class AddCardPage extends BasePage<PageCubit, PageState, PageEvent> {
                         context.read<PageCubit>().setMainCard(value ?? false);
                       }),
                   SizedBox(width: 12),
-                  Strings.cardSetAsMain.s(14).w(500).c(Color(0xFF41455E))
+                  Strings.actionMakeMain.s(14).w(500).c(Color(0xFF41455E))
                 ],
               ),
               SizedBox(height: 64),

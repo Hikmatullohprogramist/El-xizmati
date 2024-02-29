@@ -146,7 +146,7 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
                     height: 52,
                     alignment: Alignment.center,
                     width: double.infinity,
-                    child: Strings.commonContinueTitle
+                    child: Strings.commonContinue
                         .w(500)
                         .s(14)
                         .c(context.colors.textPrimaryInverse),

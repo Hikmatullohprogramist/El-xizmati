@@ -26,31 +26,36 @@ class UserAdWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-      padding: EdgeInsets.only(left: 12, top: 12, right: 12),
       decoration: BoxDecoration(
         color: Color(0xFFFFFFFF),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(width: 1, color: Color(0xFFE5E9F3)),
       ),
-      child: InkWell(
-          onTap: onItemClicked,
-          child: Column(
-            children: [
-              Row(
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+            onTap: onItemClicked,
+            borderRadius: BorderRadius.circular(6),
+            child: Padding(
+              padding: EdgeInsets.only(left: 12, top: 12, right: 12),
+              child: Column(
                 children: [
-                  Container(
-                    width: 110,
-                    height: 110,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      border: Border.all(width: 0.50, color: Color(0xFFE5E9F3)),
-                      color: Color(0xFFF6F7FC),
-                    ),
-                    child: _getAdImageWidget(),
-                  ),
-                  SizedBox(width: 12),
-                  Expanded(
-                      child: Column(
+                  Row(
+                    children: [
+                      Container(
+                        width: 110,
+                        height: 110,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          border:
+                              Border.all(width: 0.50, color: Color(0xFFE5E9F3)),
+                          color: Color(0xFFF6F7FC),
+                        ),
+                        child: _getAdImageWidget(),
+                      ),
+                      SizedBox(width: 12),
+                      Expanded(
+                          child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           (response.name ?? "")
@@ -58,14 +63,14 @@ class UserAdWidget extends StatelessWidget {
                               .s(14)
                               .c(Color(0xFF41455E))
                               .copyWith(
-                              maxLines: 3, overflow: TextOverflow.ellipsis),
+                                  maxLines: 3, overflow: TextOverflow.ellipsis),
                           SizedBox(height: 4),
                           (response.category?.name ?? "*")
                               .w(500)
                               .s(14)
                               .c(Color(0xFF9EABBE))
                               .copyWith(
-                              maxLines: 1, overflow: TextOverflow.ellipsis),
+                                  maxLines: 1, overflow: TextOverflow.ellipsis),
                           SizedBox(height: 12),
                           Padding(
                             padding: const EdgeInsets.all(0.0),
@@ -77,61 +82,63 @@ class UserAdWidget extends StatelessWidget {
                           ),
                         ],
                       ))
+                    ],
+                  ),
+                  SizedBox(height: 2),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      AdStatsWidget(
+                          icon: Assets.images.icViewCount,
+                          count: response.view),
+                      SizedBox(width: 8),
+                      AdStatsWidget(
+                          icon: Assets.images.icFavoriteRemove,
+                          count: response.selected),
+                      SizedBox(width: 6),
+                      AdStatsWidget(
+                          icon: Assets.images.icCall,
+                          count: response.phone_view),
+                      SizedBox(width: 6),
+                      AdStatsWidget(
+                          icon: Assets.images.icAdMessage,
+                          count: response.message_number),
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  onActionClicked();
+                                  vibrateAsHapticFeedback();
+                                },
+                                icon: Assets.images.icMoreVert
+                                    .svg(width: 24, height: 24)),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 6)
                 ],
               ),
-              SizedBox(height: 2),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  AdStatsWidget(
-                      icon: Assets.images.icViewCount, count: response.view),
-                  SizedBox(width: 8),
-                  AdStatsWidget(
-                      icon: Assets.images.icFavoriteRemove,
-                      count: response.selected),
-                  SizedBox(width: 6),
-                  AdStatsWidget(
-                      icon: Assets.images.icCall, count: response.phone_view),
-                  SizedBox(width: 6),
-                  AdStatsWidget(
-                      icon: Assets.images.icAdMessage,
-                      count: response.message_number),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              onActionClicked();
-                              vibrateAsHapticFeedback();
-                            },
-                            icon: Assets.images.icMoreVert
-                                .svg(width: 24, height: 24)),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(height: 6)
-            ],
-          )),
+            )),
+      ),
     );
   }
 
   Widget _getAdImageWidget() {
     return CachedNetworkImage(
       imageUrl: "${Constants.baseUrlForImage}${response.main_photo ?? ""}",
-      imageBuilder: (context, imageProvider) =>
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6),
-              image: DecorationImage(
-                  image: imageProvider,
-                  fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(
-                      Colors.white, BlendMode.colorBurn)),
-            ),
-          ),
+      imageBuilder: (context, imageProvider) => Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(6),
+          image: DecorationImage(
+              image: imageProvider,
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(Colors.white, BlendMode.colorBurn)),
+        ),
+      ),
       placeholder: (context, url) => Center(),
       errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
     );

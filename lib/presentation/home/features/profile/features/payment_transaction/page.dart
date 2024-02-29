@@ -38,7 +38,7 @@ class PaymentTransactionPage extends BasePage<PageCubit,
             type: ButtonType.text,
             onPressed: () =>
                 context.router.push(PaymentTransactionFilterRoute()),
-            child: Strings.paymentFilterTitle.w(500).s(12).c(Color(0xFF5C6AC3)))
+            child: Strings.commonFilter.w(500).s(12).c(Color(0xFF5C6AC3)))
       ],
       leading: IconButton(
         icon: Assets.images.icArrowLeft.svg(),

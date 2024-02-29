@@ -171,7 +171,7 @@ class NotificationSettingPage
               width: double.infinity,
               child: CommonButton(
                   onPressed: () {},
-                  child: Strings.commonSaveTitle.w(600).s(14).c(Colors.white)),
+                  child: Strings.commonSave.w(600).s(14).c(Colors.white)),
             ),
             SizedBox(height: 16)
           ],

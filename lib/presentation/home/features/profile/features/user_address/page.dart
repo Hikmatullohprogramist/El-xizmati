@@ -6,8 +6,8 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/common/widgets/address/user_address.dart';
 import 'package:onlinebozor/common/widgets/address/user_address_empty_widget.dart';
+import 'package:onlinebozor/common/widgets/address/user_address_wdiget.dart';
 import 'package:onlinebozor/common/widgets/common/action_list_item.dart';
 import 'package:onlinebozor/common/widgets/common/common_button.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_address/cubit/page_cubit.dart';
@@ -17,19 +17,8 @@ import '../../../../../../common/widgets/common/bottom_sheet_title.dart';
 import '../../../../../../data/responses/address/user_address_response.dart';
 
 @RoutePage()
-class UserAddressesPage extends BasePage<UserAddressesCubit,
-    PageState, PageEvent> {
+class UserAddressesPage extends BasePage<PageCubit, PageState, PageEvent> {
   const UserAddressesPage({super.key});
-
-  @override
-  void onEventEmitted(BuildContext context, PageEvent event) {
-    switch (event.effect) {
-      case PageEventType.success:
-        () {};
-      case PageEventType.editUserAddress:
-        context.router.replace(AddAddressRoute(address: event.address));
-    }
-  }
 
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
@@ -38,9 +27,10 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
         actions: [
           CommonButton(
               type: ButtonType.text,
-              onPressed: () =>
-                  context.router.push(AddAddressRoute(address: null)),
-              child: Strings.userAddressAdd.w(500).s(12).c(Color(0xFF5C6AC3)))
+              onPressed: () {
+                context.router.push(AddAddressRoute(address: null));
+              },
+              child: Strings.commonAdd.w(500).s(12).c(Color(0xFF5C6AC3)))
         ],
         backgroundColor: Colors.white,
         title: Strings.userAddressMyAddress
@@ -123,7 +113,7 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
             );
           },
           transitionDuration: Duration(milliseconds: 100),
-          itemBuilder: (context, item, index) => UserAddress(
+          itemBuilder: (context, item, index) => UserAddressWidget(
             onClicked: () {},
             address: item,
             onEditClicked: () {
@@ -168,14 +158,14 @@ class UserAddressesPage extends BasePage<UserAddressesCubit,
                     context.router.pop();
                   },
                 ),
-                SizedBox(height: 16),
+                SizedBox(height: 6),
                 ActionListItem(
                   item: address,
                   title: Strings.actionEdit,
                   icon: Assets.images.icActionEdit,
                   onClicked: (item) {
-                    cubit(context).editUserAddress(address);
                     context.router.pop();
+                    context.router.push(AddAddressRoute(address: address));
                   },
                 ),
                 Visibility(
