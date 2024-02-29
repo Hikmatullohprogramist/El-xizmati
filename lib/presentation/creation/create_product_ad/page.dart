@@ -334,7 +334,6 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                             initialSelectedItem: state.currency,
                           ),
                         );
-
                         cubit(context).setSelectedCurrency(currency);
                       },
                     ),

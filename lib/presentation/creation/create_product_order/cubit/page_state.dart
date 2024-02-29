@@ -12,8 +12,17 @@ class PageState with _$PageState {
     String? fromPrice,
     String? toPrice,
     String? currency,
+//
+    UserAddressResponse? address,
     String? phone,
     String? email,
+//
+    @Default(false) bool isAutoRenewal,
+
+//
+    @Default([]) List<PaymentTypeResponse> paymentTypes,
+//
+    CurrencyResponse? currenc,
     @Default(false) bool isNegotiate,
     @Default(MAX_IMAGE_COUNT) int maxImageCount,
     List<XFile>? pickedImages,

@@ -5,6 +5,8 @@ import 'package:onlinebozor/data/responses/address/user_address_response.dart';
 
 import '../../../../../../common/core/base_cubit.dart';
 import '../../../../../../data/responses/category/category/category_response.dart';
+import '../../../../data/responses/currencies/currency_response.dart';
+import '../../../../data/responses/payment_type/payment_type_response.dart';
 
 part 'page_cubit.freezed.dart';
 
@@ -47,9 +49,51 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     updateState((state) => state.copyWith(email: email));
   }
 
-  void setUserAddress(UserAddressResponse address) {
-    display.success("address set");
-    updateState((state) => state.copyWith(userAddressResponse: address));
+  void setSelectedCurrency(CurrencyResponse currency) {
+    updateState((state) => state.copyWith(currenc: currency));
+  }
+
+  void setSelectedAddress(UserAddressResponse address) {
+    updateState((state) => state.copyWith(address: address));
+  }
+
+ // void setUserAddress(UserAddressResponse address) {
+ //   display.success("address set");
+ //   updateState((state) => state.copyWith(userAddressResponse: address));
+ // }
+
+  void setSelectedPaymentTypes(
+      List<PaymentTypeResponse>? selectedPaymentTypes,
+      ) {
+    try {
+      if (selectedPaymentTypes != null) {
+        var paymentTypes = List<PaymentTypeResponse>.from(states.paymentTypes);
+        paymentTypes.clear();
+
+        if (selectedPaymentTypes.isNotEmpty) {
+          paymentTypes.addAll(selectedPaymentTypes);
+          paymentTypes = paymentTypes.toSet().toList();
+        }
+
+        updateState((state) => state.copyWith(paymentTypes: paymentTypes));
+      }
+    } catch (e) {
+      log.e(e.toString());
+    }
+  }
+
+  void setAutoRenewal(bool isAutoRenewal) {
+    updateState((state) => state.copyWith(isAutoRenewal: isAutoRenewal));
+  }
+
+  void removeSelectedPaymentType(PaymentTypeResponse paymentType) {
+    try {
+      var paymentTypes = List<PaymentTypeResponse>.from(states.paymentTypes);
+      paymentTypes.remove(paymentType);
+      updateState((state) => state.copyWith(paymentTypes: paymentTypes));
+    } catch (e) {
+      log.e(e.toString());
+    }
   }
 
   Future<void> pickImage() async {

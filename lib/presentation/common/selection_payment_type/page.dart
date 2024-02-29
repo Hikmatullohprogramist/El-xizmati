@@ -50,7 +50,6 @@ class SelectionPaymentTypePage extends BasePage<PageCubit,
                     context.router.pop();
                   },
                 ),
-                SizedBox(height: 50,),
                 LoaderStateWidget(
                   isFullScreen: false,
                   loadingState: state.loadState,
