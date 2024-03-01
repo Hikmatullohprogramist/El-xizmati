@@ -77,7 +77,7 @@ class DashboardPage extends BasePage<DashboardCubit, PageState, PageEvent> {
         },
         isFullScreen: false,
         loadingState: state.bannersState,
-        child: BannerWidget(list: state.banners));
+        child: BannerWidget(list: state.banners, loadingState: state.bannersState));
   }
 
   Widget _getPopularCategoriesWidget(BuildContext context, PageState state) {
@@ -108,7 +108,7 @@ class DashboardPage extends BasePage<DashboardCubit, PageState, PageEvent> {
                       sellerTin: null,
                     ),
                   );
-                },
+                }, loadingState: state.popularCategoriesState,
               )),
         ],
       ),
@@ -183,7 +183,7 @@ class DashboardPage extends BasePage<DashboardCubit, PageState, PageEvent> {
               },
               onFavoriteClicked: (Ad ad) {
                 context.read<DashboardCubit>().popularProductAdsAddFavorite(ad);
-              },
+              }, loadingState:  state.popularProductAdsState,
             ),
           ),
         ],
@@ -222,7 +222,7 @@ class DashboardPage extends BasePage<DashboardCubit, PageState, PageEvent> {
               },
               onFavoriteClicked: (Ad ad) {
                 context.read<DashboardCubit>().popularServiceAdsAddFavorite(ad);
-              },
+              }, loadingState: state.popularServiceAdsState,
             ),
           ),
         ],
@@ -295,7 +295,7 @@ class DashboardPage extends BasePage<DashboardCubit, PageState, PageEvent> {
                   context
                       .read<DashboardCubit>()
                       .recentlyViewAdAddToFavorite(ad);
-                },
+                }, loadingState: state.recentlyViewedAdsState,
               ),
             ),
           ],

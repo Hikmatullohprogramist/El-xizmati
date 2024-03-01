@@ -84,7 +84,7 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                         context.router.push(AdDetailRoute(adId: result.id));
                       },
                       onFavoriteClicked: (Ad result) =>
-                          context.read<PageCubit>().cheapAdsAddFavorite(result),
+                          context.read<PageCubit>().cheapAdsAddFavorite(result), loadingState: state.cheapAdsState,
                     )),
                 SizedBox(height: 6),
                 AppDivider(height: 3),
@@ -109,7 +109,8 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                       },
                       onFavoriteClicked: (Ad result) => context
                           .read<PageCubit>()
-                          .popularAdsAddFavorite(result),
+                          .popularAdsAddFavorite(result), 
+                      loadingState: state.popularAdsState,
                     )),
                 SizedBox(height: 6),
                 AppDivider(height: 3),

@@ -321,7 +321,9 @@ class CreateProductOrderPage
             hint: "Эл. почта",
             maxLines: 1,
             controller: emailController,
-            onChanged: (value) {},
+            onChanged: (value) {
+              cubit(context).setEmail(value);
+            },
           ),
           SizedBox(height: 12),
           "Номер телефона".w(500).s(14).c(Color(0xFF41455E)),
@@ -334,7 +336,7 @@ class CreateProductOrderPage
             inputType: TextInputType.phone,
             textInputAction: TextInputAction.next,
             controller: phoneController,
-            // inputFormatters: phoneMaskFormatter,
+             inputFormatters: phoneMaskFormatter,
             onChanged: (value) {
               cubit(context).setPhoneNumber(value);
             },
