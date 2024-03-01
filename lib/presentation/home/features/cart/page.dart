@@ -12,6 +12,7 @@ import 'package:onlinebozor/common/widgets/favorite/favorite_empty_widget.dart';
 
 import '../../../../common/widgets/app_bar/default_app_bar.dart';
 import '../../../../common/widgets/cart/cart_widget.dart';
+import '../../../../common/widgets/cart/cart_widget_shimmer.dart';
 import '../../../../domain/models/ad/ad.dart';
 import 'cubit/page_cubit.dart';
 
@@ -61,16 +62,20 @@ class CartPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
             );
           },
+
           firstPageProgressIndicatorBuilder: (_) {
-            return SizedBox(
-              height: 160,
-              child: Center(
-                child: CircularProgressIndicator(
-                  color: Colors.blue,
-                ),
+            return SingleChildScrollView(
+              child: ListView.builder(
+                physics: BouncingScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: 14,
+                itemBuilder: (BuildContext context, int index) {
+                  return CartWidgetShimmer();
+                },
               ),
             );
           },
+
           noItemsFoundIndicatorBuilder: (_) {
             return FavoriteEmptyWidget(invoke: () {
               context.router.push(DashboardRoute());

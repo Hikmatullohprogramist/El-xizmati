@@ -13,7 +13,9 @@ import 'package:onlinebozor/common/widgets/button/common_button.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_address/cubit/page_cubit.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
+import '../../../../../../common/widgets/address/user_address_shimmer.dart';
 import '../../../../../../common/widgets/bottom_sheet/bottom_sheet_title.dart';
+import '../../../../../../common/widgets/cart/cart_widget_shimmer.dart';
 import '../../../../../../data/responses/address/user_address_response.dart';
 
 @RoutePage()
@@ -89,12 +91,14 @@ class UserAddressesPage extends BasePage<PageCubit, PageState, PageEvent> {
             );
           },
           firstPageProgressIndicatorBuilder: (_) {
-            return SizedBox(
-              height: 160,
-              child: Center(
-                child: CircularProgressIndicator(
-                  color: Colors.blue,
-                ),
+            return SingleChildScrollView(
+              child: ListView.builder(
+                physics: BouncingScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: 5,
+                itemBuilder: (BuildContext context, int index) {
+                  return UserAddressShimmer();
+                },
               ),
             );
           },
