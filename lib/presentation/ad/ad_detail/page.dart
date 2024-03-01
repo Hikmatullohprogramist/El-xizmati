@@ -156,11 +156,9 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
             onPressed: () => context.router.pop(),
             icon: Assets.images.icArrowLeft.svg(height: 24, width: 24)),
         actions: [
+
           IconButton(
-            icon: const Icon(
-              Icons.share,
-              color: Colors.black,
-            ),
+            icon: Assets.images.icShare.svg(),
             onPressed: () {
                 Share.share(
                  "https://online-bozor.uz/ads/${state.adId}",
