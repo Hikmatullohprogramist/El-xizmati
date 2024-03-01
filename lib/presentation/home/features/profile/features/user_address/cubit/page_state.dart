@@ -3,7 +3,6 @@ part of 'page_cubit.dart';
 @freezed
 class PageState with _$PageState {
   const factory PageState({
-    @Default(LoadingState.loading) LoadingState loadState,
     PagingController<int, UserAddressResponse>? controller,
   }) = _PageState;
 }

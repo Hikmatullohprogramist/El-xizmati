@@ -16,22 +16,22 @@ part 'page_state.dart';
 @Injectable()
 class PageCubit extends BaseCubit<PageState, PageEvent> {
   PageCubit(this.userAddressRepository) : super(PageState()) {
-    getController();
+    getController(false);
   }
 
   final UserAddressRepository userAddressRepository;
 
-  Future<void> getController() async {
+  Future<void> getController(bool isReload) async {
     try {
-      final controller = states.controller ?? getAddressController(status: 1);
-      updateState(
-        (state) => state.copyWith(controller: controller),
-      );
-    } on DioException catch (e, stackTrace) {
+      if (isReload && states.controller != null) {
+        states.controller?.refresh();
+      } else {
+        final controller = states.controller ?? getAddressController(status: 1);
+        updateState((state) => state.copyWith(controller: controller));
+      }
+    } catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
-    } finally {
-      log.i(states.controller);
     }
   }
 
@@ -39,7 +39,9 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     required int status,
   }) {
     final addressController = PagingController<int, UserAddressResponse>(
-        firstPageKey: 1, invisibleItemsThreshold: 100);
+      firstPageKey: 1,
+      invisibleItemsThreshold: 100,
+    );
     log.i(states.controller);
 
     try {
@@ -97,7 +99,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       await userAddressRepository.deleteAddress(id: address.id);
       states.controller?.itemList?.remove(address);
       states.controller?.notifyListeners();
-      await getController();
+      await getController(false);
     } catch (e) {
       display.error(e.toString());
       log.e(e.toString());

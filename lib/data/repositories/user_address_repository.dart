@@ -5,12 +5,12 @@ import '../../data/services/user_address_service.dart';
 
 @LazySingleton()
 class UserAddressRepository {
-  UserAddressRepository(this._userAddressService);
+  UserAddressRepository(this.service);
 
-  final UserAddressService _userAddressService;
+  final UserAddressService service;
 
   Future<List<UserAddressResponse>> getUserAddresses() async {
-    final response = await _userAddressService.getUserAddresses();
+    final response = await service.getUserAddresses();
     final userAddresses = UserAddressRootResponse.fromJson(response.data).data;
     return userAddresses;
   }
@@ -19,21 +19,21 @@ class UserAddressRepository {
     required String name,
     required int regionId,
     required int districtId,
-    required int mahallaId,
+    required int neighborhoodId,
     required String homeNum,
     required String apartmentNum,
-    required String streetNum,
+    required String streetName,
     required bool isMain,
     required String? geo,
   }) async {
-    await _userAddressService.addUserAddress(
+    await service.addUserAddress(
       name: name,
       regionId: regionId,
       districtId: districtId,
-      mahallaId: mahallaId,
+      neighborhoodId: neighborhoodId,
       homeNum: homeNum,
       apartmentNum: apartmentNum,
-      streetNum: streetNum,
+      streetNum: streetName,
       isMain: isMain,
       geo: geo,
     );
@@ -41,37 +41,39 @@ class UserAddressRepository {
   }
 
   Future<void> deleteAddress({required int id}) async {
-    await _userAddressService.deleteUserAddress(userAddressId: id);
+    await service.deleteUserAddress(userAddressId: id);
     return;
   }
 
-  Future<void> updateMainAddress(
-      {required int id, required bool isMain}) async {
-    await _userAddressService.updateMainAddress(
-        userAddressId: id, isMain: true);
+  Future<void> updateMainAddress({
+    required int id,
+    required bool isMain,
+  }) async {
+    await service.updateMainAddress(userAddressId: id, isMain: true);
     return;
   }
 
-  Future<void> updateUserAddress(
-      {required String name,
-      required int regionId,
-      required int districtId,
-      required int mahallaId,
-      required String homeNum,
-      required String apartmentNum,
-      required String streetNum,
-      required bool isMain,
-      required String? geo,
-      required int id,
-      required String state}) async {
-    await _userAddressService.updateUserAddress(
+  Future<void> updateUserAddress({
+    required String name,
+    required int regionId,
+    required int districtId,
+    required int neighborhoodId,
+    required String homeNum,
+    required String apartmentNum,
+    required String streetName,
+    required bool isMain,
+    required String? geo,
+    required int id,
+    required String state,
+  }) async {
+    await service.updateUserAddress(
         name: name,
         regionId: regionId,
         districtId: districtId,
-        mahallaId: mahallaId,
+        neighborhoodId: neighborhoodId,
         homeNum: homeNum,
         apartmentNum: apartmentNum,
-        streetNum: streetNum,
+        streetNum: streetName,
         isMain: isMain,
         geo: geo,
         id: id,
