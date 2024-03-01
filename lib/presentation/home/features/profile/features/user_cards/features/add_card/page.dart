@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/button/common_button.dart';
+import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/common/widgets/text_field/common_text_field.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_cards/features/add_card/cubit/page_cubit.dart';
 import 'package:onlinebozor/presentation/utils/mask_formatters.dart';
@@ -82,14 +83,10 @@ class AddCardPage extends BasePage<PageCubit, PageState, PageEvent> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CommonButton(
+                          CustomTextButton(
+                            text: Strings.authConfirmAgainSentSmsYourPhone,
                             // enabled: state.againButtonEnable,
                             onPressed: () {},
-                            type: ButtonType.text,
-                            child: Strings.authConfirmAgainSentSmsYourPhone
-                                .w(500)
-                                .s(14)
-                                .c(Color(0xFF5C6AC3)),
                           ),
                           format
                               .format(DateTime.fromMillisecondsSinceEpoch(

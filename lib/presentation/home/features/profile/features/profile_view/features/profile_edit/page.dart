@@ -1,15 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
+import 'package:onlinebozor/common/widgets/app_bar/action_app_bar.dart';
+import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/common/widgets/text_field/common_text_field.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/profile_view/features/profile_edit/cubit/page_cubit.dart';
 
-import '../../../../../../../../common/gen/assets/assets.gen.dart';
-import '../../../../../../../../common/widgets/button/common_button.dart';
 import '../../../../../../../utils/mask_formatters.dart';
 
 @RoutePage()
@@ -20,24 +19,15 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title:
-            Strings.profileEditTitle.w(500).s(14).c(context.colors.textPrimary),
-        centerTitle: true,
-        elevation: 0.5,
+      appBar: ActionAppBar(
+        titleText: Strings.profileEditTitle,
+        onBackPressed: () => context.router.pop(),
         actions: [
-          CommonButton(
-              type: ButtonType.text,
-              onPressed: () {
-                cubit(context).sendUserInfo();
-              },
-              child: Strings.commonSave.w(500).s(12).c(Color(0xFF5C6AC3)))
+          CustomTextButton(
+            text: Strings.commonSave,
+            onPressed: () => cubit(context).sendUserInfo(),
+          )
         ],
-        leading: IconButton(
-          icon: Assets.images.icArrowLeft.svg(),
-          onPressed: () => context.router.pop(),
-        ),
       ),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),

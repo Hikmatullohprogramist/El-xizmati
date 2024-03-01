@@ -6,10 +6,12 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/action/action_list_item.dart';
 import 'package:onlinebozor/common/widgets/address/user_address_empty_widget.dart';
 import 'package:onlinebozor/common/widgets/address/user_address_widget.dart';
-import 'package:onlinebozor/common/widgets/action/action_list_item.dart';
+import 'package:onlinebozor/common/widgets/app_bar/action_app_bar.dart';
 import 'package:onlinebozor/common/widgets/button/common_button.dart';
+import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_address/cubit/page_cubit.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
@@ -23,33 +25,24 @@ class UserAddressesPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: ActionAppBar(
+        titleText: Strings.userAddressMyAddress,
+        onBackPressed: () {
+          context.router.pop();
+        },
         actions: [
-          CommonButton(
-            type: ButtonType.text,
+          CustomTextButton(
+            text: Strings.commonAdd,
             onPressed: () async {
-              final isAdded = await context.router
-                  .push(AddAddressRoute(address: null));
+              final isAdded =
+                  await context.router.push(AddAddressRoute(address: null));
 
-              if(isAdded is bool && isAdded == true) {
+              if (isAdded is bool && isAdded == true) {
                 cubit(context).getController(true);
               }
-
             },
-            child: Strings.commonAdd.w(500).s(12).c(Color(0xFF5C6AC3)),
           )
         ],
-        backgroundColor: Colors.white,
-        title: Strings.userAddressMyAddress
-            .w(500)
-            .s(16)
-            .c(context.colors.textPrimary),
-        centerTitle: true,
-        elevation: 0.5,
-        leading: IconButton(
-          icon: Assets.images.icArrowLeft.svg(),
-          onPressed: () => context.router.pop(),
-        ),
       ),
       backgroundColor: Color(0xFFF2F4FB),
       body: PagedListView<int, UserAddressResponse>(

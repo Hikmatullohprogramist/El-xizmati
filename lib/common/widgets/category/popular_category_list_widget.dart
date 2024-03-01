@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/widgets/category/popular_category_horizontal.dart';
+import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../data/responses/category/popular_category/popular_category_response.dart';
 import '../../enum/enums.dart';
-import '../dashboard/app_diverder.dart';
 
 class PopularCategoryListWidget extends StatelessWidget {
   const PopularCategoryListWidget({
@@ -101,7 +100,7 @@ class PopularCategoryListWidget extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 4),
-                AppDivider(),
+                CustomDivider(),
                 SizedBox(height: 2),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),

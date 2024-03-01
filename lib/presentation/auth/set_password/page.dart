@@ -6,6 +6,7 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/presentation/auth/set_password/cubit/page_cubit.dart';
 
 import '../../../common/gen/localization/strings.dart';
@@ -84,11 +85,9 @@ class SetPasswordPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
               Align(
                 alignment: Alignment.centerLeft,
-                child: CommonButton(
+                child: CustomTextButton(
+                  text: Strings.authRegisterPasswordContainLeastCharacters,
                   onPressed: () {},
-                  type: ButtonType.text,
-                  child:
-                      Text(Strings.authRegisterPasswordContainLeastCharacters),
                 ),
               ),
               Spacer(),

@@ -7,7 +7,7 @@ extension TextStringExtensions on String {
 
   Text c(Color color) => Text(this).c(color);
 
-  String clearSpaceInPhone() {
+  String clearPhone() {
     var phone = replaceAll(' ', '')
         .replaceAll('(', '')
         .replaceAll(')', '')

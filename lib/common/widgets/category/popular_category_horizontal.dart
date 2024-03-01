@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
+import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 
 import '../../../data/responses/category/popular_category/popular_category_response.dart';
 import '../../gen/localization/strings.dart';
@@ -54,7 +54,7 @@ class PopularCategoryHorizontal extends StatelessWidget {
               child: _getCategoryNameAsString(category),
             ),
             SizedBox(height: 4),
-            AppDivider(),
+            CustomDivider(),
             SizedBox(height: 2),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 6),

@@ -4,12 +4,12 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_orders/cubit/page_cubit.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
 import '../../../../../../common/core/base_page.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
-import '../../../../../../common/widgets/button/common_button.dart';
 import '../../../../../../domain/models/order/order_type.dart';
 import '../../../../../../domain/models/order/user_order_status.dart';
 
@@ -35,19 +35,16 @@ class UserOrdersPage extends BasePage<PageCubit, PageState, PageEvent> {
         return Scaffold(
           appBar: AppBar(
             actions: [
-              CommonButton(
-                  type: ButtonType.text,
-                  onPressed: () {
-                    if (orderType == OrderType.buy) {
-                      context.router.push(CreateProductOrderRoute());
-                    } else if (orderType == OrderType.sell) {
-                      context.router.push(CreateServiceOrderRoute());
-                    }
-                  },
-                  child: Strings.createRequestTitle
-                      .w(500)
-                      .s(12)
-                      .c(Color(0xFF5C6AC3)))
+              CustomTextButton(
+                text: Strings.createRequestTitle,
+                onPressed: () {
+                  if (orderType == OrderType.buy) {
+                    context.router.push(CreateProductOrderRoute());
+                  } else if (orderType == OrderType.sell) {
+                    context.router.push(CreateServiceOrderRoute());
+                  }
+                },
+              )
             ],
             leading: IconButton(
               icon: Assets.images.icArrowLeft.svg(),

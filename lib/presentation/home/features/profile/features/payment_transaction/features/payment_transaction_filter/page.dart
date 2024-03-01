@@ -4,7 +4,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/button/common_button.dart';
-import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
+import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/payment_transaction/features/payment_transaction_filter/cubit/page_cubit.dart';
 
 import '../../../../../../../../common/core/base_page.dart';
@@ -96,7 +96,7 @@ class PaymentTransactionFilterPage
                 ],
               ),
             )),
-        AppDivider(height: 1),
+        CustomDivider(height: 1),
         InkWell(
             onTap: () {},
             child: Padding(
@@ -115,7 +115,7 @@ class PaymentTransactionFilterPage
                 ],
               ),
             )),
-        AppDivider(height: 1),
+        CustomDivider(height: 1),
         InkWell(
             onTap: () {},
             child: Padding(
@@ -131,7 +131,7 @@ class PaymentTransactionFilterPage
                 ],
               ),
             )),
-        AppDivider(height: 1),
+        CustomDivider(height: 1),
         InkWell(
             onTap: () {},
             child: Padding(

@@ -7,6 +7,7 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/presentation/auth/confirm/page.dart';
 import 'package:onlinebozor/presentation/auth/verification/cubit/page_cubit.dart';
 
@@ -15,8 +16,7 @@ import '../../../common/widgets/button/common_button.dart';
 import '../../../common/widgets/text_field/common_text_field.dart';
 
 @RoutePage()
-class VerificationPage extends BasePage<PageCubit,
-    PageState, PageEvent> {
+class VerificationPage extends BasePage<PageCubit, PageState, PageEvent> {
   VerificationPage(this.phone, {super.key});
 
   final phone;
@@ -111,11 +111,9 @@ class VerificationPage extends BasePage<PageCubit,
                 ),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: CommonButton(
-                    onPressed: () =>
-                        context.read<PageCubit>().forgetPassword(),
-                    type: ButtonType.text,
-                    child: Text(Strings.authVerificationForgetPassword),
+                  child: CustomTextButton(
+                    text: Strings.authVerificationForgetPassword,
+                    onPressed: () => cubit(context).forgetPassword(),
                   ),
                 ),
                 Spacer(),

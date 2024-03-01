@@ -45,7 +45,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     updateState((state) => state.copyWith(loading: true));
     try {
       await _repository.verification(
-        states.phone.clearSpaceInPhone(),
+        states.phone.clearPhone(),
         states.password,
       );
       sendAllFavoriteAds();
@@ -67,7 +67,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> forgetPassword() async {
     try {
-      await _repository.forgetPassword(states.phone.clearSpaceInPhone());
+      await _repository.forgetPassword(states.phone.clearPhone());
       emitEvent(PageEvent(PageEventType.navigationToConfirm));
     } on DioException {
       display.error(

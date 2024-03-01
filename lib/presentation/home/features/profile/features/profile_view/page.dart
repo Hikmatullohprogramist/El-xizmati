@@ -4,11 +4,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/app_bar/action_app_bar.dart';
+import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 
 import '../../../../../../common/constants.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
@@ -37,19 +38,18 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget onWidgetBuild(BuildContext context, PageState state) {
     try {
       return Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            title: Strings.profileViewTitlle
-                .w(500)
-                .s(14)
-                .c(context.colors.textPrimary),
-            centerTitle: true,
-            elevation: 0.0,
-            actions: _getAppBarActions(context, state),
-            leading: IconButton(
-              icon: Assets.images.icArrowLeft.svg(),
-              onPressed: () => context.router.pop(),
-            ),
+          appBar: ActionAppBar(
+            titleText: Strings.profileViewTitlle,
+            onBackPressed: () => context.router.pop(),
+            actions: state.isRegistered
+                ? [
+                    CustomTextButton(
+                      text: Strings.commonEdit,
+                      onPressed: () =>
+                          context.router.replace(ProfileEditRoute()),
+                    )
+                  ]
+                : [],
           ),
           backgroundColor: Color(0xFFF2F4FB),
           body: Stack(
@@ -86,17 +86,6 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
       log("profile view page render error $e");
       return Container();
     }
-  }
-
-  List<Widget> _getAppBarActions(BuildContext context, PageState state) {
-    return [
-      if (state.isRegistered)
-        CommonButton(
-          type: ButtonType.text,
-          onPressed: () => context.router.replace(ProfileEditRoute()),
-          child: Strings.profileEditTitle.w(500).s(12).c(Color(0xFF5C6AC3)),
-        )
-    ];
   }
 
   Widget _getHeaderBlock(BuildContext context, PageState state) {
@@ -181,13 +170,10 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                             .c(Color(0xFF999CB2)),
                       ),
                       SizedBox(width: 10),
-                      CommonButton(
-                          type: ButtonType.text,
+                      CustomTextButton(
+                          text: Strings.profileChangeToBusiness,
                           onPressed: () {},
-                          child: Strings.profileChangeToBusiness
-                              .w(500)
-                              .c(Color(0xFF5C6AC3))
-                              .s(13))
+                      )
                     ],
                   )
                 ],
@@ -249,23 +235,17 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                   borderRadius: BorderRadius.circular(6),
                 ),
               ),
-              child: CommonButton(
-                type: ButtonType.text,
-                enabled: true,
-                color: Color(0x1232B88B),
-                onPressed: () {},
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Assets.images.icIdentified.svg(),
-                      SizedBox(width: 10),
-                      Strings.profileIdentified
-                          .w(400)
-                          .s(12)
-                          .c(Color(0xFF32B88B))
-                    ],
-                  ),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Assets.images.icIdentified.svg(),
+                    SizedBox(width: 10),
+                    Strings.profileIdentified
+                        .w(400)
+                        .s(12)
+                        .c(Color(0xFF32B88B))
+                  ],
                 ),
               ),
             )

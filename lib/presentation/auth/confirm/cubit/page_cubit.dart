@@ -26,6 +26,16 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   final FavoriteRepository _favoriteRepository;
   Timer? _timer;
 
+  void setInitialParams(String phone, ConfirmType confirmType) {
+    updateState(
+      (state) => state.copyWith(
+        phone: phone,
+        confirmType: confirmType,
+        code: "",
+      ),
+    );
+  }
+
   void startTimer() {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       updateState(
@@ -41,25 +51,19 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  void setPhone(String phone, ConfirmType confirmType) {
-    updateState(
-      (state) => state.copyWith(
-        phone: phone,
-        confirmType: confirmType,
-        code: "",
-      ),
-    );
-  }
-
   void setCode(String code) {
     updateState((state) => state.copyWith(code: code));
   }
 
-  void confirm() {
+  void resendCode(){
+
+  }
+
+  void confirmCode() {
     if (ConfirmType.confirm == state.state?.confirmType) {
-      confirmation();
+      phoneConfirmByCode();
     } else {
-      recoveryConfirmation();
+      recoveryPhoneConfirmByCode();
     }
   }
 
@@ -72,13 +76,10 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  Future<void> confirmation() async {
-    updateState((state) => state.copyWith(loading: true));
+  Future<void> phoneConfirmByCode() async {
+    updateState((state) => state.copyWith(isConfirmLoading: true));
     try {
-      await _repository.confirm(
-        states.phone.clearSpaceInPhone(),
-        states.code,
-      );
+      await _repository.confirm(states.phone.clearPhone(), states.code);
       _timer?.cancel();
       sendAllFavoriteAds();
       emitEvent(PageEvent(PageEventType.setPassword));
@@ -86,17 +87,14 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
-      updateState((state) => state.copyWith(loading: false));
+      updateState((state) => state.copyWith(isConfirmLoading: false));
     }
   }
 
-  Future<void> recoveryConfirmation() async {
-    updateState((state) => state.copyWith(loading: true));
+  Future<void> recoveryPhoneConfirmByCode() async {
+    updateState((state) => state.copyWith(isConfirmLoading: true));
     try {
-      await _repository.recoveryConfirm(
-        states.phone.clearSpaceInPhone(),
-        states.code,
-      );
+      await _repository.recoveryConfirm(states.phone.clearPhone(), states.code);
       _timer?.cancel();
       await sendAllFavoriteAds();
       emitEvent(PageEvent(PageEventType.setPassword));
@@ -105,7 +103,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       emitEvent(PageEvent(PageEventType.setPassword));
       display.error(e.toString());
     } finally {
-      updateState((state) => state.copyWith(loading: false));
+      updateState((state) => state.copyWith(isConfirmLoading: false));
     }
   }
 

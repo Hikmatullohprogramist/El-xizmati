@@ -7,14 +7,14 @@ class PageState with _$PageState {
   const factory PageState({
     @Default("") String phone,
     @Default('') String code,
-    @Default(false) bool loading,
+    @Default(false) bool isResendLoading,
+    @Default(false) bool isConfirmLoading,
     @Default(ConfirmType.confirm) ConfirmType confirmType,
     @Default(120) int timerTime,
   }) = _PageState;
 
-  bool get againButtonEnable => timerTime == 0;
-
-  bool get enable => code.length == 4;
+  bool get isResentButtonEnabled => timerTime == 0;
+  bool get isConfirmButtonEnabled => code.length == 4;
 }
 
 @freezed

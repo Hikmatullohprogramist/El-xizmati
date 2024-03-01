@@ -5,11 +5,11 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_ads/cubit/page_cubit.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
-import '../../../../../../common/widgets/button/common_button.dart';
 import '../../../../../../domain/models/ad/user_ad_status.dart';
 
 @RoutePage()
@@ -31,11 +31,10 @@ class UserAdsPage extends BasePage<PageCubit, PageState, PageEvent> {
         return Scaffold(
           appBar: AppBar(
             actions: [
-              CommonButton(
-                  type: ButtonType.text,
-                  onPressed: () => context.router.push(CreateAdStartRoute()),
-                  child:
-                      Strings.adCreateTitle.w(500).s(12).c(Color(0xFF5C6AC3)))
+              CustomTextButton(
+                text: Strings.adCreateTitle,
+                onPressed: () => context.router.push(CreateAdStartRoute()),
+              )
             ],
             leading: IconButton(
               icon: Assets.images.icArrowLeft.svg(),

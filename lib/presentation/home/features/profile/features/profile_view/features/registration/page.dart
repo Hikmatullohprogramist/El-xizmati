@@ -5,17 +5,17 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
+import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/profile_view/features/registration/cubit/page_cubit.dart';
 
 import '../../../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../../../common/widgets/button/common_button.dart';
-import '../../../../../../../../common/widgets/text_field/common_text_field.dart';
 import '../../../../../../../../common/widgets/divider/custom_diverder.dart';
+import '../../../../../../../../common/widgets/text_field/common_text_field.dart';
 import '../../../../../../../utils/mask_formatters.dart';
 
 @RoutePage()
-class RegistrationPage extends BasePage<PageCubit,
-    PageState, PageEvent> {
+class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
   const RegistrationPage({super.key});
 
   @override
@@ -29,13 +29,13 @@ class RegistrationPage extends BasePage<PageCubit,
         centerTitle: true,
         elevation: 0.5,
         actions: [
-          CommonButton(
-              enabled: state.isRegistration,
-              type: ButtonType.text,
-              onPressed: () {
-                context.read<PageCubit>().sendUserInfo();
-              },
-              child: Strings.commonSave.w(500).s(12).c(Color(0xFF5C6AC3)))
+          CustomTextButton(
+            text: Strings.commonSave,
+            isEnabled: state.isRegistration,
+            onPressed: () {
+              context.read<PageCubit>().sendUserInfo();
+            },
+          )
         ],
         leading: IconButton(
           icon: Assets.images.icArrowLeft.svg(),
@@ -70,9 +70,7 @@ class RegistrationPage extends BasePage<PageCubit,
                     width: 60,
                     child: CommonTextField(
                         onChanged: (value) {
-                          context
-                              .read<PageCubit>()
-                              .setBiometricSerial(value);
+                          context.read<PageCubit>().setBiometricSerial(value);
                         },
                         inputType: TextInputType.text,
                         maxLength: 2,
@@ -84,9 +82,7 @@ class RegistrationPage extends BasePage<PageCubit,
                     child: CommonTextField(
                       maxLength: 9,
                       onChanged: (value) {
-                        context
-                            .read<PageCubit>()
-                            .setBiometricNumber(value);
+                        context.read<PageCubit>().setBiometricNumber(value);
                       },
                       inputFormatters: biometricNumberMaskFormatter,
                       textInputAction: TextInputAction.next,
@@ -149,9 +145,7 @@ class RegistrationPage extends BasePage<PageCubit,
                       width: double.infinity,
                       child: CommonButton(
                         onPressed: () {
-                          context
-                              .read<PageCubit>()
-                              .getUserInformation();
+                          context.read<PageCubit>().getUserInformation();
                         },
                         child: Strings.commonContinue.w(500),
                       ))),
@@ -189,7 +183,7 @@ class RegistrationPage extends BasePage<PageCubit,
                       ),
                       Padding(
                         padding:
-                        EdgeInsets.only(right: 16, left: 16, bottom: 12),
+                            EdgeInsets.only(right: 16, left: 16, bottom: 12),
                         child: CommonTextField(
                             hint: Strings.profileEditUserUsername,
                             readOnly: true,
@@ -209,7 +203,7 @@ class RegistrationPage extends BasePage<PageCubit,
                       ),
                       Padding(
                         padding:
-                        EdgeInsets.only(right: 16, left: 16, bottom: 12),
+                            EdgeInsets.only(right: 16, left: 16, bottom: 12),
                         child: CommonTextField(
                           hint: "example@gmail.com",
                           textInputAction: TextInputAction.next,

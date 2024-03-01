@@ -7,6 +7,7 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/presentation/auth/confirm/cubit/page_cubit.dart';
 
 import '../../../common/gen/localization/strings.dart';
@@ -29,8 +30,8 @@ class ConfirmPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   @override
   void onWidgetCreated(BuildContext context) {
-    context.read<PageCubit>().setPhone(phone, confirmType);
-    context.read<PageCubit>().startTimer();
+    cubit(context).setInitialParams(phone, confirmType);
+    cubit(context).startTimer();
     textEditingController.text = phone;
   }
 
@@ -111,19 +112,19 @@ class ConfirmPage extends BasePage<PageCubit, PageState, PageEvent> {
               children: [
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: CommonButton(
-                    enabled: state.againButtonEnable,
-                    onPressed: () => context.read<PageCubit>().confirm(),
-                    type: ButtonType.text,
-                    child: Strings.authConfirmAgainSentSmsYourPhone
-                        .w(500)
-                        .s(14)
-                        .c(Color(0xFF5C6AC3)),
+                  child: CustomTextButton(
+                    text: Strings.authConfirmAgainSentSmsYourPhone,
+                    isEnabled: state.isResentButtonEnabled,
+                    isLoading: state.isResendLoading,
+                    onPressed: () => cubit(context).resendCode(),
                   ),
                 ),
                 format
-                    .format(DateTime.fromMillisecondsSinceEpoch(
-                        state.timerTime * 1000))
+                    .format(
+                      DateTime.fromMillisecondsSinceEpoch(
+                        state.timerTime * 1000,
+                      ),
+                    )
                     .w(500)
                     .s(14)
                     .c(Colors.black)
@@ -133,10 +134,10 @@ class ConfirmPage extends BasePage<PageCubit, PageState, PageEvent> {
             CommonButton(
               color: context.colors.buttonPrimary,
               onPressed: () {
-                context.read<PageCubit>().confirm();
+                context.read<PageCubit>().confirmCode();
               },
-              enabled: state.enable,
-              isLoading: state.loading,
+              enabled: state.isConfirmButtonEnabled,
+              isLoading: state.isConfirmLoading,
               child: Container(
                 height: 52,
                 alignment: Alignment.center,
