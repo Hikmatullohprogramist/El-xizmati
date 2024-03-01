@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/widgets/common/multi_selection_list_item_for_adress.dart';
 
-import '../../../common/widgets/common/bottom_sheet_title.dart';
-import '../../../common/widgets/common/common_button.dart';
-import '../../../common/widgets/common/multi_selection_list_item.dart';
+import '../../../common/widgets/action/multi_selection_list_item.dart';
+import '../../../common/widgets/action/multi_selection_list_item_for_adress.dart';
+import '../../../common/widgets/bottom_sheet/bottom_sheet_title.dart';
+import '../../../common/widgets/button/common_button.dart';
 import '../../../common/widgets/dashboard/app_diverder.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../data/responses/region/region_response.dart';

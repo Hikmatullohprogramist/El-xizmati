@@ -11,7 +11,7 @@ import 'package:onlinebozor/presentation/ad/ad_list_actions/page.dart';
 import '../../../../../../../../common/gen/localization/strings.dart';
 import '../../../../../../../../common/widgets/ad/user_ad.dart';
 import '../../../../../../../../common/widgets/ad/user_ad_empty_widget.dart';
-import '../../../../../../../../common/widgets/common/common_button.dart';
+import '../../../../../../../../common/widgets/button/common_button.dart';
 import '../../../../../../../../data/responses/user_ad/user_ad_response.dart';
 import 'cubit/page_cubit.dart';
 

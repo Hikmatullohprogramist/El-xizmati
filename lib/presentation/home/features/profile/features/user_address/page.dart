@@ -8,12 +8,12 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/address/user_address_empty_widget.dart';
 import 'package:onlinebozor/common/widgets/address/user_address_widget.dart';
-import 'package:onlinebozor/common/widgets/common/action_list_item.dart';
-import 'package:onlinebozor/common/widgets/common/common_button.dart';
+import 'package:onlinebozor/common/widgets/action/action_list_item.dart';
+import 'package:onlinebozor/common/widgets/button/common_button.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_address/cubit/page_cubit.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
-import '../../../../../../common/widgets/common/bottom_sheet_title.dart';
+import '../../../../../../common/widgets/bottom_sheet/bottom_sheet_title.dart';
 import '../../../../../../data/responses/address/user_address_response.dart';
 
 @RoutePage()

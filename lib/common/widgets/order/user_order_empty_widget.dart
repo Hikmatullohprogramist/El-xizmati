@@ -4,7 +4,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 
 import '../../gen/assets/assets.gen.dart';
-import '../common/common_button.dart';
+import '../button/common_button.dart';
 
 class UserOrderEmptyWidget extends StatelessWidget {
   const UserOrderEmptyWidget({super.key, required this.listener});

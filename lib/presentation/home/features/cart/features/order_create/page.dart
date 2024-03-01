@@ -7,7 +7,7 @@ import 'package:onlinebozor/common/extensions/currency_extensions.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/common/widgets/common/common_button.dart';
+import 'package:onlinebozor/common/widgets/button/common_button.dart';
 import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
 
 import '../../../../../../common/constants.dart';

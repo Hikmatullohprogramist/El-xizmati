@@ -10,7 +10,7 @@ import 'package:onlinebozor/common/widgets/transaction/transaction_widget.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../common/gen/localization/strings.dart';
 import '../../../../../../common/router/app_router.dart';
-import '../../../../../../common/widgets/common/common_button.dart';
+import '../../../../../../common/widgets/button/common_button.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()

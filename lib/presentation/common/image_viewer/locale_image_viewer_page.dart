@@ -9,7 +9,7 @@ import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
-import '../../../common/widgets/common/common_button.dart';
+import '../../../common/widgets/button/common_button.dart';
 
 @RoutePage()
 class LocaleImageViewerPage extends StatefulWidget {

@@ -11,8 +11,8 @@ import 'package:onlinebozor/presentation/auth/confirm/cubit/page_cubit.dart';
 
 import '../../../common/gen/localization/strings.dart';
 import '../../../common/widgets/app_bar/default_app_bar.dart';
-import '../../../common/widgets/common/common_button.dart';
-import '../../../common/widgets/common/common_text_field.dart';
+import '../../../common/widgets/button/common_button.dart';
+import '../../../common/widgets/text_field/common_text_field.dart';
 
 @RoutePage()
 class ConfirmPage extends BasePage<PageCubit, PageState, PageEvent> {

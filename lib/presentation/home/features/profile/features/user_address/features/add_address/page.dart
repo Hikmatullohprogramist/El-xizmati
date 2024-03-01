@@ -5,12 +5,12 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/app_bar/default_app_bar.dart';
-import 'package:onlinebozor/common/widgets/common/label_text_field.dart';
-import 'package:onlinebozor/common/widgets/common/selection_list_item.dart';
+import 'package:onlinebozor/common/widgets/text_field/label_text_field.dart';
+import 'package:onlinebozor/common/widgets/action/selection_list_item.dart';
 
-import '../../../../../../../../common/widgets/common/common_button.dart';
-import '../../../../../../../../common/widgets/common/common_text_field.dart';
-import '../../../../../../../../common/widgets/common/custom_dropdown_field.dart';
+import '../../../../../../../../common/widgets/button/common_button.dart';
+import '../../../../../../../../common/widgets/text_field/common_text_field.dart';
+import '../../../../../../../../common/widgets/text_field/custom_dropdown_field.dart';
 import '../../../../../../../../common/widgets/switch/custom_switch.dart';
 import '../../../../../../../../data/responses/address/user_address_response.dart';
 import 'cubit/page_cubit.dart';

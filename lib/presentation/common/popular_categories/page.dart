@@ -10,7 +10,7 @@ import 'package:onlinebozor/presentation/common/popular_categories/cubit/page_cu
 import '../../../common/core/base_page.dart';
 import '../../../common/gen/localization/strings.dart';
 import '../../../common/router/app_router.dart';
-import '../../../common/widgets/common/common_button.dart';
+import '../../../common/widgets/button/common_button.dart';
 import '../../../data/responses/category/popular_category/popular_category_response.dart';
 import '../../../domain/models/ad/ad_list_type.dart';
 

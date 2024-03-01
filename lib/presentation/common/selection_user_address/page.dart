@@ -6,7 +6,7 @@ import 'package:onlinebozor/common/widgets/address/user_address_selection.dart';
 
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../../../data/responses/address/user_address_response.dart';
-import '../../../common/widgets/common/bottom_sheet_title.dart';
+import '../../../common/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()

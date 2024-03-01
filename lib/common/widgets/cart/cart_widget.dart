@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/extensions/currency_extensions.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
-import 'package:onlinebozor/common/widgets/common/common_button.dart';
+import 'package:onlinebozor/common/widgets/button/common_button.dart';
 
 import '../../../domain/models/ad/ad.dart';
 import '../../../domain/models/currency/currency.dart';

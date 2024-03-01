@@ -15,7 +15,7 @@ import '../../../common/core/base_page.dart';
 import '../../../common/enum/enums.dart';
 import '../../../common/gen/assets/assets.gen.dart';
 import '../../../common/widgets/ad/horizontal_ad_list_widget.dart';
-import '../../../common/widgets/common/common_button.dart';
+import '../../../common/widgets/button/common_button.dart';
 import '../../../common/widgets/dashboard/app_diverder.dart';
 import '../../../common/widgets/dashboard/app_image_widget.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
