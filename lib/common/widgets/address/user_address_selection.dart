@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
-import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
 
 import '../../../data/responses/address/user_address_response.dart';
 import '../../gen/assets/assets.gen.dart';

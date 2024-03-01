@@ -8,8 +8,8 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/profile_view/features/registration/cubit/page_cubit.dart';
 
 import '../../../../../../../../common/gen/assets/assets.gen.dart';
-import '../../../../../../../../common/widgets/common/common_button.dart';
-import '../../../../../../../../common/widgets/common/common_text_field.dart';
+import '../../../../../../../../common/widgets/button/common_button.dart';
+import '../../../../../../../../common/widgets/text_field/common_text_field.dart';
 import '../../../../../../../../common/widgets/dashboard/app_diverder.dart';
 import '../../../../../../../utils/mask_formatters.dart';
 

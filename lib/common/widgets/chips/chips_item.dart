@@ -23,8 +23,12 @@ class ChipsItem extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.only(left: 14, top: 10, right: 10, bottom: 10),
           decoration: BoxDecoration(
-            color: Color(0xFF7C2DFB),
+            color: Color(0xFF5C6AC4).withOpacity(0.75),
             borderRadius: BorderRadius.all(Radius.circular(24)),
+            border: Border.all(
+              color: Color(0xFF5C6AC4).withOpacity(0.95),
+              width: 1,
+            ),
             shape: BoxShape.rectangle,
           ),
           child: Expanded(
@@ -36,7 +40,7 @@ class ChipsItem extends StatelessWidget {
                 title
                     .w(500)
                     .s(13)
-                    .c(Colors.white)
+                    .c(Color(0xFFFFFFFF))
                     .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
                 SizedBox(width: 12),
                 InkWell(

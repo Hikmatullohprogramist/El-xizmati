@@ -5,7 +5,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/data/responses/user_order/user_order_response.dart';
 
 import '../../constants.dart';
-import '../common/common_button.dart';
+import '../button/common_button.dart';
 
 class UserOrderWidget extends StatelessWidget {
   const UserOrderWidget({

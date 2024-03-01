@@ -4,10 +4,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/common/widgets/common/chips_add_item.dart';
-import 'package:onlinebozor/common/widgets/common/chips_item.dart';
-import 'package:onlinebozor/common/widgets/common/custom_dropdown_field.dart';
-import 'package:onlinebozor/common/widgets/common/label_text_field.dart';
+import 'package:onlinebozor/common/widgets/chips/chips_add_item.dart';
+import 'package:onlinebozor/common/widgets/chips/chips_item.dart';
+import 'package:onlinebozor/common/widgets/text_field/custom_dropdown_field.dart';
+import 'package:onlinebozor/common/widgets/text_field/label_text_field.dart';
 import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
 import 'package:onlinebozor/common/widgets/image/image_ad_list_widget.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_switch.dart';
@@ -19,9 +19,9 @@ import 'package:onlinebozor/presentation/common/selection_user_warehouse/page.da
 
 import '../../../../../common/core/base_page.dart';
 import '../../../../../common/gen/localization/strings.dart';
-import '../../../../../common/widgets/common/common_text_field.dart';
+import '../../../common/widgets/text_field/common_text_field.dart';
 import '../../../common/router/app_router.dart';
-import '../../../common/widgets/common/common_button.dart';
+import '../../../common/widgets/button/common_button.dart';
 import '../../common/selection_address/page.dart';
 import '../../common/selection_payment_type/page.dart';
 import '../../utils/mask_formatters.dart';

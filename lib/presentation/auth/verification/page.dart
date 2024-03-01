@@ -11,8 +11,8 @@ import 'package:onlinebozor/presentation/auth/confirm/page.dart';
 import 'package:onlinebozor/presentation/auth/verification/cubit/page_cubit.dart';
 
 import '../../../common/gen/localization/strings.dart';
-import '../../../common/widgets/common/common_button.dart';
-import '../../../common/widgets/common/common_text_field.dart';
+import '../../../common/widgets/button/common_button.dart';
+import '../../../common/widgets/text_field/common_text_field.dart';
 
 @RoutePage()
 class VerificationPage extends BasePage<PageCubit,

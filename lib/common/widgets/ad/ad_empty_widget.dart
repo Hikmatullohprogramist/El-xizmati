@@ -4,7 +4,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 
 import '../../gen/assets/assets.gen.dart';
-import '../common/common_button.dart';
+import '../button/common_button.dart';
 
 class AdEmptyWidget extends StatelessWidget {
   const AdEmptyWidget({super.key, required this.listener});

@@ -96,7 +96,7 @@ categories_title,Kategoriyalar,Основные категории,Машҳур 
 category_ads_count,ta e‘lon,объявлений,та эълон
 close_title,Yopish,Закрыть,Ёпиш
 common_add,Qo‘shish,Добавить,Қўшиш
-common_apartment,Kvartira:,Квартира:,Квартира:
+common_apartment,Kvartira,Квартира,Квартира
 common_apply,Qo‘llash,Применять,Қўллаш
 common_close,Yopish,Закрыть,Ёпиш
 common_continue,Davom etish,Продолжить,Давом этиш
@@ -246,7 +246,9 @@ user_address_address,Manzil:,Адрес:,Манзил:
 user_address_edit_title,Manzilni tahrirlash,Редактировать адрес,Манзилни таҳрирлаш
 user_address_my_address,Mening manzillarim,Мои адреса,Менинг манзилларим
 user_address_name,Manzil nomi,Название адреса,Манзил номи
-user_address_selection_location,Joylashuvni tanlang,Выберите локацию,Жойлашувни танланг
+user_address_location,Joylashuvni tanlang,Выберите локацию,Жойлашувни танланг
+user_address_get_location,Joylashuvni aniqlash,Определить местоположение,Жойлашувни аниқлаш
+user_address_taken_location,Aniqlangan joylashuv,Полученный местоположения,Аниқланган жойлашув
 user_ads_active_title,Faol,Активный,Фаол
 user_ads_all_title,Barchasi,Все,Барчаси
 user_ads_canceled_title,Bekor qilingan,Отменено,Бекор қилинган

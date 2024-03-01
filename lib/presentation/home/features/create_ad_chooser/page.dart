@@ -9,7 +9,7 @@ import 'package:onlinebozor/common/widgets/app_bar/empty_app_bar.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../common/vibrator/vibrator_extension.dart';
-import '../../../../common/widgets/common/common_button.dart';
+import '../../../../common/widgets/button/common_button.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()

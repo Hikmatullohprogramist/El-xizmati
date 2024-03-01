@@ -9,7 +9,7 @@ import 'package:onlinebozor/common/widgets/image/added_image_widget.dart';
 import '../../gen/assets/assets.gen.dart';
 import '../../gen/localization/strings.dart';
 import '../../vibrator/vibrator_extension.dart';
-import '../common/bottom_sheet_title.dart';
+import '../bottom_sheet/bottom_sheet_title.dart';
 
 class ImageAdListWidget extends StatelessWidget {
   const ImageAdListWidget({

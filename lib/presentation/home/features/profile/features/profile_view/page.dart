@@ -12,7 +12,7 @@ import 'package:onlinebozor/common/router/app_router.dart';
 
 import '../../../../../../common/constants.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
-import '../../../../../../common/widgets/common/common_button.dart';
+import '../../../../../../common/widgets/button/common_button.dart';
 import '../../../../../../common/widgets/dashboard/app_diverder.dart';
 import 'cubit/page_cubit.dart';
 

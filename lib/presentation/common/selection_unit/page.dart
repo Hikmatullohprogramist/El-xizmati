@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
-import 'package:onlinebozor/common/widgets/common/bottom_sheet_title.dart';
-import 'package:onlinebozor/common/widgets/common/selection_list_item.dart';
+import 'package:onlinebozor/common/widgets/bottom_sheet/bottom_sheet_title.dart';
+import 'package:onlinebozor/common/widgets/action/selection_list_item.dart';
 import 'package:onlinebozor/data/responses/unit/unit_response.dart';
 import 'package:onlinebozor/presentation/common/selection_unit/cubit/page_cubit.dart';
 

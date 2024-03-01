@@ -7,13 +7,13 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/address/user_address_empty_widget.dart';
-import 'package:onlinebozor/common/widgets/address/user_address_wdiget.dart';
-import 'package:onlinebozor/common/widgets/common/action_list_item.dart';
-import 'package:onlinebozor/common/widgets/common/common_button.dart';
+import 'package:onlinebozor/common/widgets/address/user_address_widget.dart';
+import 'package:onlinebozor/common/widgets/action/action_list_item.dart';
+import 'package:onlinebozor/common/widgets/button/common_button.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_address/cubit/page_cubit.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
-import '../../../../../../common/widgets/common/bottom_sheet_title.dart';
+import '../../../../../../common/widgets/bottom_sheet/bottom_sheet_title.dart';
 import '../../../../../../data/responses/address/user_address_response.dart';
 
 @RoutePage()
@@ -26,11 +26,18 @@ class UserAddressesPage extends BasePage<PageCubit, PageState, PageEvent> {
       appBar: AppBar(
         actions: [
           CommonButton(
-              type: ButtonType.text,
-              onPressed: () {
-                context.router.push(AddAddressRoute(address: null));
-              },
-              child: Strings.commonAdd.w(500).s(12).c(Color(0xFF5C6AC3)))
+            type: ButtonType.text,
+            onPressed: () async {
+              final isAdded = await context.router
+                  .push(AddAddressRoute(address: null));
+
+              if(isAdded is bool && isAdded == true) {
+                cubit(context).getController(true);
+              }
+
+            },
+            child: Strings.commonAdd.w(500).s(12).c(Color(0xFF5C6AC3)),
+          )
         ],
         backgroundColor: Colors.white,
         title: Strings.userAddressMyAddress
@@ -163,9 +170,15 @@ class UserAddressesPage extends BasePage<PageCubit, PageState, PageEvent> {
                   item: address,
                   title: Strings.actionEdit,
                   icon: Assets.images.icActionEdit,
-                  onClicked: (item) {
+                  onClicked: (item) async {
                     context.router.pop();
-                    context.router.push(AddAddressRoute(address: address));
+
+                    final isChanged = await context.router
+                        .push(AddAddressRoute(address: address));
+
+                    if (isChanged is bool && isChanged == true) {
+                      cubit(context).getController(true);
+                    }
                   },
                 ),
                 Visibility(

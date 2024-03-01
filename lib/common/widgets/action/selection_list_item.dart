@@ -21,7 +21,9 @@ class SelectionListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
         onTap: () {
           onClicked(item);
           vibrateAsHapticFeedback();
@@ -51,6 +53,8 @@ class SelectionListItem extends StatelessWidget {
                   .svg(height: 20, width: 20),
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

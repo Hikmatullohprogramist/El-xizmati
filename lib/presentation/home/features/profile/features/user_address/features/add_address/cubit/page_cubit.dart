@@ -25,29 +25,150 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
 
   void setInitialParams(UserAddressResponse? address) {
     if (address != null) {
-      updateState((state) => state.copyWith(
+      updateState(
+        (state) => state.copyWith(
           isEditing: true,
           address: address,
+          addressId: address.id,
           isMain: address.is_main,
           geo: address.geo,
           regionId: address.region?.id,
           regionName: address.region?.name,
           districtId: address.district?.id,
           districtName: address.district?.name,
-          streetId: address.mahalla?.id,
-          streetName: address.mahalla?.name,
+          neighborhoodId: address.mahalla?.id,
+          neighborhoodName: address.mahalla?.name,
           addressName: address.name,
-          neighborhoodNum: address.street_num,
+          streetName: address.street_num,
           homeNumber: address.home_num,
           apartmentNum: address.apartment_num,
-          addressId: address.id));
+        ),
+      );
     } else {
       updateState((state) => state.copyWith(addressId: null));
     }
   }
 
-  void setAddressName(String addressName) {
+  void setEnteredAddressName(String addressName) {
     updateState((state) => state.copyWith(addressName: addressName));
+  }
+
+  void setSelectedRegion(RegionResponse region) {
+    updateState(
+      (state) => state.copyWith(
+        regionId: region.id,
+        regionName: region.name,
+        districtId: null,
+        districtName: Strings.commonDistrict,
+        neighborhoodId: null,
+        neighborhoodName: Strings.commonNeighborhood,
+      ),
+    );
+    getDistrict();
+  }
+
+  void setSelectedDistrict(RegionResponse district) {
+    updateState(
+      (state) => state.copyWith(
+        districtId: district.id,
+        districtName: district.name,
+        neighborhoodId: null,
+        neighborhoodName: Strings.commonNeighborhood,
+      ),
+    );
+    getStreets();
+  }
+
+  void setSelectedNeighborhood(RegionResponse street) {
+    updateState(
+      (state) => state.copyWith(
+        neighborhoodId: street.id,
+        neighborhoodName: street.name,
+      ),
+    );
+  }
+
+  void setStreetName(String value) {
+    updateState((state) => state.copyWith(streetName: value));
+  }
+
+  void setHomeNumber(String value) {
+    updateState((state) => state.copyWith(homeNumber: value));
+  }
+
+  void setApartmentNumber(String value) {
+    updateState((state) => state.copyWith(apartmentNum: value));
+  }
+
+  void setMainCard(bool? isMain) {
+    updateState((state) => state.copyWith(isMain: isMain));
+  }
+
+  Future<void> validationDate() async {
+    if (states.addressName != null &&
+        (states.addressName ?? "").length > 3 &&
+        states.regionId != null &&
+        states.districtId != null &&
+        states.neighborhoodId != null &&
+        states.homeNumber != null &&
+        (states.geo != null ||
+            (states.latitude != null && states.latitude != null))) {
+      if (states.isEditing) {
+        await updateAddress();
+      } else {
+        await addAddress();
+      }
+    } else {
+      display.error("Ma'lumotlarni to'liq kiriting");
+    }
+  }
+
+  Future<void> addAddress() async {
+    emitEvent(PageEvent(PageEventType.onStartLoading));
+    try {
+      await userAddressRepository.addUserAddress(
+        name: states.addressName!,
+        regionId: states.regionId!,
+        districtId: states.districtId!,
+        neighborhoodId: states.neighborhoodId!,
+        homeNum: states.homeNumber ?? "",
+        apartmentNum: states.apartmentNum ?? "",
+        streetName: states.streetName ?? "",
+        isMain: states.isMain ?? false,
+        geo: "${states.latitude},${states.longitude}",
+      );
+
+      emitEvent(PageEvent(PageEventType.onFinishLoading));
+      emitEvent(PageEvent(PageEventType.backOnSuccess));
+    } catch (e) {
+      emitEvent(PageEvent(PageEventType.onFinishLoading));
+      display.error(Strings.loadingStateError);
+    }
+  }
+
+  Future<void> updateAddress() async {
+    emitEvent(PageEvent(PageEventType.onStartLoading));
+    try {
+      await userAddressRepository.updateUserAddress(
+        name: states.addressName!,
+        regionId: states.regionId!,
+        districtId: states.districtId!,
+        neighborhoodId: states.neighborhoodId!,
+        homeNum: states.homeNumber ?? "",
+        apartmentNum: states.apartmentNum ?? "",
+        streetName: states.streetName ?? "",
+        isMain: states.isMain ?? false,
+        geo: "${states.latitude},${states.longitude}",
+        id: states.addressId ?? -1,
+        state: '',
+      );
+
+      emitEvent(PageEvent(PageEventType.onFinishLoading));
+      emitEvent(PageEvent(PageEventType.backOnSuccess));
+    } catch (e) {
+      emitEvent(PageEvent(PageEventType.onFinishLoading));
+      display.error(Strings.loadingStateError);
+    }
   }
 
   Future<void> getRegions() async {
@@ -79,131 +200,20 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
     try {
       final districtId = states.districtId;
       final response = await _userRepository.getStreets(districtId ?? 1419);
-      if (states.streetId != null) {
-        updateState((state) => state.copyWith(
-              streets: response,
-              streetName: response
-                  .where((element) => element.id == state.streetId)
-                  .first
-                  .name,
-            ));
+      if (states.neighborhoodId != null) {
+        updateState(
+          (state) => state.copyWith(
+            neighborhoods: response,
+            neighborhoodName:
+                response.where((e) => e.id == state.neighborhoodId).first.name,
+          ),
+        );
       } else {
-        updateState((state) => state.copyWith(
-              streets: response,
-            ));
+        updateState((state) => state.copyWith(neighborhoods: response));
       }
     } catch (e) {
       display.error("street error $e");
       updateState((state) => state.copyWith());
-    }
-  }
-
-  void setRegion(RegionResponse region) {
-    updateState((state) => state.copyWith(
-        regionId: region.id,
-        regionName: region.name,
-        districtId: null,
-        districtName: Strings.commonDistrict,
-        streetId: null,
-        streetName: Strings.commonDistrict));
-    getDistrict();
-  }
-
-  void setDistrict(RegionResponse district) {
-    updateState((state) => state.copyWith(
-        districtId: district.id,
-        districtName: district.name,
-        streetId: null,
-        streetName: Strings.commonNeighborhood));
-    getStreets();
-  }
-
-  void setStreet(RegionResponse street) {
-    updateState((state) =>
-        state.copyWith(streetId: street.id, streetName: street.name));
-  }
-
-  void setMainCard(bool? isMain) {
-    updateState((state) => state.copyWith(isMain: isMain));
-  }
-
-  void setHomeNumber(String value) {
-    updateState((state) => state.copyWith(homeNumber: value));
-  }
-
-  void setApartmentNumber(String value) {
-    updateState((state) => state.copyWith(apartmentNum: value));
-  }
-
-  void setNeighborhoodNum(String value) {
-    updateState((state) => state.copyWith(neighborhoodNum: value));
-  }
-
-  Future<void> validationDate() async {
-    if (states.addressName != null &&
-        (states.addressName ?? "").length > 3 &&
-        states.regionId != null &&
-        states.districtId != null &&
-        states.streetId != null &&
-        states.homeNumber != null &&
-        (states.geo != null ||
-            (states.latitude != null && states.latitude != null))) {
-
-      if (states.isEditing) {
-        await updateAddress();
-      } else {
-        await addAddress();
-      }
-    } else {
-      display.error("Ma'lumotlarni to'liq kiriting");
-    }
-  }
-
-  Future<void> addAddress() async {
-    emitEvent(PageEvent(PageEventType.onStartLoading));
-    try {
-      await userAddressRepository.addUserAddress(
-        name: states.addressName!,
-        regionId: states.regionId!,
-        districtId: states.districtId!,
-        mahallaId: states.streetId!,
-        homeNum: states.homeNumber ?? "",
-        apartmentNum: states.apartmentNum ?? "",
-        streetNum: states.streetName ?? "",
-        isMain: states.isMain ?? false,
-        geo: "${states.latitude},${states.longitude}",
-      );
-
-      emitEvent(PageEvent(PageEventType.onFinishLoading));
-      emitEvent(PageEvent(PageEventType.backOnSuccess));
-    } catch (e) {
-      emitEvent(PageEvent(PageEventType.onFinishLoading));
-      display.error(Strings.loadingStateError);
-    }
-  }
-
-  Future<void> updateAddress() async {
-    emitEvent(PageEvent(PageEventType.onStartLoading));
-    try {
-      await userAddressRepository.updateUserAddress(
-        name: states.addressName!,
-        regionId: states.regionId!,
-        districtId: states.districtId!,
-        mahallaId: states.streetId!,
-        homeNum: states.homeNumber ?? "",
-        apartmentNum: states.apartmentNum ?? "",
-        streetNum: states.streetName ?? "",
-        isMain: states.isMain ?? false,
-        geo: "${states.latitude},${states.longitude}",
-        id: states.addressId ?? -1,
-        state: '',
-      );
-
-      emitEvent(PageEvent(PageEventType.onFinishLoading));
-      emitEvent(PageEvent(PageEventType.backOnSuccess));
-    } catch (e) {
-      emitEvent(PageEvent(PageEventType.onFinishLoading));
-      display.error(Strings.loadingStateError);
     }
   }
 

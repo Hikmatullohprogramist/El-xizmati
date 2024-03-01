@@ -9,7 +9,7 @@ import 'package:onlinebozor/presentation/home/features/profile/features/user_ads
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
-import '../../../../../../common/widgets/common/common_button.dart';
+import '../../../../../../common/widgets/button/common_button.dart';
 import '../../../../../../domain/models/ad/user_ad_status.dart';
 
 @RoutePage()
