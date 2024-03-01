@@ -10,7 +10,7 @@ import 'package:onlinebozor/presentation/home/features/profile/features/profile_
 import '../../../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../../../common/widgets/button/common_button.dart';
 import '../../../../../../../../common/widgets/text_field/common_text_field.dart';
-import '../../../../../../../../common/widgets/dashboard/app_diverder.dart';
+import '../../../../../../../../common/widgets/divider/custom_diverder.dart';
 import '../../../../../../../utils/mask_formatters.dart';
 
 @RoutePage()
@@ -140,7 +140,7 @@ class RegistrationPage extends BasePage<PageCubit,
                     .s(12)
                     .c(Color(0xFF9EABBE)),
               ),
-              AppDivider(),
+              CustomDivider(),
               Visibility(
                   visible: !state.isRegistration,
                   child: Container(

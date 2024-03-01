@@ -8,7 +8,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/button/common_button.dart';
-import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
+import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 
 import '../../../../../../common/constants.dart';
 import '../../../../../../common/core/base_page.dart';
@@ -108,7 +108,7 @@ class OrderCreatePage extends BasePage<PageCubit, PageState,
                     );
                   },
                 ),
-                AppDivider(height: 1),
+                CustomDivider(height: 1),
                 Container(
                     padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
@@ -251,7 +251,7 @@ class OrderCreatePage extends BasePage<PageCubit, PageState,
                         SizedBox(height: 24)
                       ],
                     )),
-                AppDivider(height: 2, color: Color(0xFFF2F3FA)),
+                CustomDivider(height: 2, color: Color(0xFFF2F3FA)),
                 Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
                     child: Column(

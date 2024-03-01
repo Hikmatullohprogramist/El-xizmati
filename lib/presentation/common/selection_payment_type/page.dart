@@ -10,7 +10,7 @@ import 'package:onlinebozor/presentation/common/selection_payment_type/cubit/pag
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../common/widgets/action/multi_selection_list_item.dart';
 import '../../../common/widgets/button/common_button.dart';
-import '../../../common/widgets/dashboard/app_diverder.dart';
+import '../../../common/widgets/divider/custom_diverder.dart';
 
 @RoutePage()
 class SelectionPaymentTypePage extends BasePage<PageCubit,
@@ -73,7 +73,7 @@ class SelectionPaymentTypePage extends BasePage<PageCubit,
 
                     },
                     separatorBuilder: (BuildContext context, int index) {
-                      return AppDivider(height: 2, startIndent: 20, endIndent: 20);
+                      return CustomDivider(height: 2, startIndent: 20, endIndent: 20);
                     },
                   ),
                 ),

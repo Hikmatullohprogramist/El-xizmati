@@ -61,39 +61,42 @@ class ConfirmPage extends BasePage<PageCubit, PageState, PageEvent> {
                 .c(context.colors.textPrimary),
             SizedBox(height: 42),
             Align(
-                alignment: Alignment.centerLeft,
-                child: Strings.commonPhoneNumber
-                    .w(500)
-                    .s(14)
-                    .c(context.colors.textPrimary)),
+              alignment: Alignment.centerLeft,
+              child: Strings.commonPhoneNumber
+                  .w(500)
+                  .s(14)
+                  .c(context.colors.textPrimary),
+            ),
             SizedBox(height: 10),
             Container(
-                height: 56,
-                width: double.infinity,
-                decoration: ShapeDecoration(
-                  color: Color(0xFFFAF9FF),
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(width: 1, color: Color(0xFFDFE2E9)),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+              height: 56,
+              width: double.infinity,
+              decoration: ShapeDecoration(
+                color: Color(0xFFFAF9FF),
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(width: 1, color: Color(0xFFDFE2E9)),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: state.phone.w(500).s(14),
-                    ),
-                  ],
-                )),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: state.phone.w(500).s(14),
+                  ),
+                ],
+              ),
+            ),
             SizedBox(height: 24),
             Align(
-                alignment: Alignment.centerLeft,
-                child: Strings.authConfirmSentSmsYourPhone(phone: phone)
-                    .w(500)
-                    .s(14)
-                    .c(context.colors.textPrimary)
-                    .copyWith(overflow: TextOverflow.ellipsis)),
+              alignment: Alignment.centerLeft,
+              child: Strings.authConfirmSentSmsYourPhone(phone: phone)
+                  .w(500)
+                  .s(14)
+                  .c(context.colors.textPrimary)
+                  .copyWith(overflow: TextOverflow.ellipsis),
+            ),
             SizedBox(height: 10),
             CommonTextField(
               inputType: TextInputType.number,
@@ -128,21 +131,22 @@ class ConfirmPage extends BasePage<PageCubit, PageState, PageEvent> {
             ),
             Spacer(),
             CommonButton(
-                color: context.colors.buttonPrimary,
-                onPressed: () {
-                  context.read<PageCubit>().confirm();
-                },
-                enabled: state.enable,
-                loading: state.loading,
-                child: Container(
-                  height: 52,
-                  alignment: Alignment.center,
-                  width: double.infinity,
-                  child: Strings.commonContinue
-                      .w(500)
-                      .s(14)
-                      .c(context.colors.textPrimaryInverse),
-                )),
+              color: context.colors.buttonPrimary,
+              onPressed: () {
+                context.read<PageCubit>().confirm();
+              },
+              enabled: state.enable,
+              isLoading: state.loading,
+              child: Container(
+                height: 52,
+                alignment: Alignment.center,
+                width: double.infinity,
+                child: Strings.commonContinue
+                    .w(500)
+                    .s(14)
+                    .c(context.colors.textPrimaryInverse),
+              ),
+            ),
             SizedBox(height: 20),
             Text.rich(
               TextSpan(

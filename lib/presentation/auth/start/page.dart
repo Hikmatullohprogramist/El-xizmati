@@ -141,7 +141,7 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
                     context.read<PageCubit>().validation();
                   },
                   enabled: state.validation,
-                  loading: state.loading,
+                  isLoading: state.loading,
                   child: Container(
                     height: 52,
                     alignment: Alignment.center,
