@@ -10,7 +10,7 @@ import 'package:onlinebozor/presentation/common/selection_user_warehouse/cubit/p
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../common/widgets/action/multi_selection_list_item.dart';
 import '../../../common/widgets/button/common_button.dart';
-import '../../../common/widgets/dashboard/app_diverder.dart';
+import '../../../common/widgets/divider/custom_diverder.dart';
 
 @RoutePage()
 class SelectionUserWarehousePage
@@ -67,7 +67,7 @@ class SelectionUserWarehousePage
                       );
                     },
                     separatorBuilder: (BuildContext context, int index) {
-                      return AppDivider(startIndent: 20, endIndent: 20);
+                      return CustomDivider(startIndent: 20, endIndent: 20);
                     },
                   ),
                 ),

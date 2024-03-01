@@ -8,7 +8,7 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/ad/horizontal_ad_list_widget.dart';
 import 'package:onlinebozor/common/widgets/app_bar/active_search_app_bar.dart';
-import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
+import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/common/widgets/dashboard/see_all_widget.dart';
 
 import '../../../common/core/base_page.dart';
@@ -87,7 +87,7 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                           context.read<PageCubit>().cheapAdsAddFavorite(result),
                     )),
                 SizedBox(height: 6),
-                AppDivider(height: 3),
+                CustomDivider(height: 3),
                 SeeAllWidget(
                     onClicked: () {
                       context.router.push(AdListRoute(
@@ -112,7 +112,7 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                           .popularAdsAddFavorite(result),
                     )),
                 SizedBox(height: 6),
-                AppDivider(height: 3),
+                CustomDivider(height: 3),
                 SizedBox(height: 24)
               ],
             )),

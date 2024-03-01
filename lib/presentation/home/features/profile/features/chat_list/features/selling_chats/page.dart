@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/chat/chat_item.dart';
-import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
+import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/chat_list/features/selling_chats/cubit/page_cubit.dart';
 
 @RoutePage()
@@ -20,7 +20,7 @@ class SellingChatsPage extends BasePage<PageCubit, PageState, PageEvent> {
         },
         itemCount: 20,
         separatorBuilder: (BuildContext context, int index) {
-          return AppDivider();
+          return CustomDivider();
         },
       ),
     );

@@ -5,7 +5,7 @@ import 'package:onlinebozor/common/widgets/chat/chat_item.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/chat_list/features/saved_chats/cubit/page_cubit.dart';
 
 import '../../../../../../../../common/core/base_page.dart';
-import '../../../../../../../../common/widgets/dashboard/app_diverder.dart';
+import '../../../../../../../../common/widgets/divider/custom_diverder.dart';
 
 @RoutePage()
 class SavedChatsPage extends BasePage<PageCubit, PageState, PageEvent> {
@@ -21,7 +21,7 @@ class SavedChatsPage extends BasePage<PageCubit, PageState, PageEvent> {
         },
         itemCount: 20,
         separatorBuilder: (BuildContext context, int index) {
-          return AppDivider();
+          return CustomDivider();
         },
       ),
     );

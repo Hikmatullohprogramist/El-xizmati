@@ -7,7 +7,7 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/ad/detail_price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/app_bar/default_app_bar.dart';
-import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
+import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/data/responses/user_ad/user_ad_response.dart';
 import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
 import 'package:onlinebozor/presentation/ad/user_ad_detail/cubit/page_cubit.dart';
@@ -76,7 +76,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                     .c(Color(0xFF9EABBE))
                     .copyWith(maxLines: 2, overflow: TextOverflow.ellipsis)),
             SizedBox(height: 24),
-            AppDivider(height: 1),
+            CustomDivider(height: 1),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 22),
               child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -89,7 +89,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                 // "473 769 560 сум".w(700).s(16).c(Color(0xFF5C6AC3))
               ]),
             ),
-            AppDivider(height: 1),
+            CustomDivider(height: 1),
             SizedBox(height: 16),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),

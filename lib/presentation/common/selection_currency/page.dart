@@ -6,7 +6,7 @@ import 'package:onlinebozor/common/widgets/action/selection_list_item.dart';
 import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
 
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
-import '../../../common/widgets/dashboard/app_diverder.dart';
+import '../../../common/widgets/divider/custom_diverder.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -64,7 +64,7 @@ class SelectionCurrencyPage extends BasePage<PageCubit, PageState, PageEvent> {
                       );
                     },
                     separatorBuilder: (BuildContext context, int index) {
-                      return AppDivider(startIndent: 20, endIndent: 20);
+                      return CustomDivider(startIndent: 20, endIndent: 20);
                     },
                   ),
                 ),

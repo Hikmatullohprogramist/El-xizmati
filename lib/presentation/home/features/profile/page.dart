@@ -12,7 +12,7 @@ import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'package:onlinebozor/common/widgets/button/common_button.dart';
 import 'package:onlinebozor/common/widgets/action/selection_list_item.dart';
-import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
+import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/common/widgets/profile/profile_item_widget.dart';
 import 'package:onlinebozor/presentation/home/features/profile/cubit/page_cubit.dart';
 
@@ -301,7 +301,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
                   context.router.pop();
                 },
               ),
-              AppDivider(height: 2, startIndent: 20, endIndent: 20),
+              CustomDivider(height: 2, startIndent: 20, endIndent: 20),
               SelectionListItem(
                 item: Language.uzbekCyrill,
                 title: Strings.languageUzCyr,
@@ -312,7 +312,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
                   context.router.pop();
                 },
               ),
-              AppDivider(height: 2, startIndent: 20, endIndent: 20),
+              CustomDivider(height: 2, startIndent: 20, endIndent: 20),
               SelectionListItem(
                 item: Language.russian,
                 title: Strings.languageRus,

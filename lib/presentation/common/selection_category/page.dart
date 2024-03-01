@@ -7,7 +7,7 @@ import 'package:onlinebozor/presentation/common/selection_category/cubit/page_cu
 
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../common/widgets/action/selection_list_item.dart';
-import '../../../common/widgets/dashboard/app_diverder.dart';
+import '../../../common/widgets/divider/custom_diverder.dart';
 
 @RoutePage()
 class SelectionCategoryPage extends BasePage<PageCubit, PageState, PageEvent> {
@@ -64,7 +64,7 @@ class SelectionCategoryPage extends BasePage<PageCubit, PageState, PageEvent> {
                       );
                     },
                     separatorBuilder: (BuildContext context, int index) {
-                      return AppDivider(startIndent: 20, endIndent: 20);
+                      return CustomDivider(startIndent: 20, endIndent: 20);
                     },
                   ),
                 ),

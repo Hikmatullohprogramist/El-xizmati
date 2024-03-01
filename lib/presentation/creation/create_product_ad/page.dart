@@ -8,7 +8,7 @@ import 'package:onlinebozor/common/widgets/chips/chips_add_item.dart';
 import 'package:onlinebozor/common/widgets/chips/chips_item.dart';
 import 'package:onlinebozor/common/widgets/text_field/custom_dropdown_field.dart';
 import 'package:onlinebozor/common/widgets/text_field/label_text_field.dart';
-import 'package:onlinebozor/common/widgets/dashboard/app_diverder.dart';
+import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/common/widgets/image/image_ad_list_widget.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_switch.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_toggle.dart';
@@ -543,7 +543,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             ),
           ),
           SizedBox(height: 10),
-          AppDivider(thickness: 1),
+          CustomDivider(thickness: 1),
           SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -574,7 +574,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             ),
           ),
           SizedBox(height: 10),
-          AppDivider(thickness: 1),
+          CustomDivider(thickness: 1),
           SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -713,7 +713,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               cubit(context).sendCreateProductAdRequest();
             },
             // enabled: false,
-            loading: state.isRequestSending,
+            isLoading: state.isRequestSending,
             child: Container(
               height: 52,
               alignment: Alignment.center,

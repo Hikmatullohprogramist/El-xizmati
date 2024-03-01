@@ -8,7 +8,7 @@ import '../../../common/widgets/action/multi_selection_list_item.dart';
 import '../../../common/widgets/action/multi_selection_list_item_for_adress.dart';
 import '../../../common/widgets/bottom_sheet/bottom_sheet_title.dart';
 import '../../../common/widgets/button/common_button.dart';
-import '../../../common/widgets/dashboard/app_diverder.dart';
+import '../../../common/widgets/divider/custom_diverder.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../data/responses/region/region_response.dart';
 import 'cubit/page_cubit.dart';
@@ -106,7 +106,7 @@ class SelectionAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
                                       },
                                       separatorBuilder:
                                           (BuildContext context, int index) {
-                                        return AppDivider(
+                                        return CustomDivider(
                                             height: 2,
                                             startIndent: 20,
                                             endIndent: 20);
@@ -117,7 +117,7 @@ class SelectionAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
                           );
                         },
                         separatorBuilder: (BuildContext context, int index) {
-                          return AppDivider(
+                          return CustomDivider(
                               height: 2, startIndent: 20, endIndent: 20);
                         },
                       ),

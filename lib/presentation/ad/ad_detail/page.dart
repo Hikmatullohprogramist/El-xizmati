@@ -16,7 +16,7 @@ import '../../../common/enum/enums.dart';
 import '../../../common/gen/assets/assets.gen.dart';
 import '../../../common/widgets/ad/horizontal_ad_list_widget.dart';
 import '../../../common/widgets/button/common_button.dart';
-import '../../../common/widgets/dashboard/app_diverder.dart';
+import '../../../common/widgets/divider/custom_diverder.dart';
 import '../../../common/widgets/dashboard/app_image_widget.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../domain/models/ad/ad.dart';
@@ -107,7 +107,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                 color: Color(0xFFFF0098),
               ),
               SizedBox(height: 12),
-              AppDivider(),
+              CustomDivider(),
               SizedBox(height: 12),
               _getAdInfoChips(state),
               // SizedBox(height: 12),
@@ -120,15 +120,15 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
         ),
         Visibility(
           visible: (state.adDetail?.hasDescription() ?? false),
-          child: AppDivider(startIndent: 16, endIndent: 16),
+          child: CustomDivider(startIndent: 16, endIndent: 16),
         ),
         _getDescriptionBlock(context, state),
-        AppDivider(startIndent: 16, endIndent: 16),
+        CustomDivider(startIndent: 16, endIndent: 16),
         _getAuthorBlock(context, state),
         SizedBox(height: 12),
         _getContactsBlock(context, state),
         SizedBox(height: 12),
-        AppDivider(startIndent: 16, endIndent: 16),
+        CustomDivider(startIndent: 16, endIndent: 16),
         SizedBox(height: 12),
         _getAddressBlock(context, state),
         Visibility(
@@ -173,7 +173,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            AppDivider(),
+            CustomDivider(),
             SizedBox(height: 16),
             Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
               SizedBox(width: 16),
@@ -438,7 +438,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                 ),
                 Visibility(
                   visible: state.adDetail?.address?.geo != null,
-                  child: AppDivider(),
+                  child: CustomDivider(),
                 ),
               ],
             )));
