@@ -21,35 +21,38 @@ class MultiSelectionListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-        onTap: () {
-          onClicked(item);
-          vibrateAsHapticFeedback();
-        },
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-          color: Colors.transparent,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: (title)
-                    .toString()
-                    .w(500)
-                    .s(16)
-                    .c(context.colors.textPrimary)
-                    .copyWith(
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-              ),
-              (isSelected
-                      ? Assets.images.icCheckboxSelected
-                      : Assets.images.icCheckboxUnselected)
-                  .svg(height: 20, width: 20),
-            ],
-          ),
-        ));
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+          onTap: () {
+            onClicked(item);
+            vibrateAsHapticFeedback();
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+            color: Colors.transparent,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: (title)
+                      .toString()
+                      .w(500)
+                      .s(16)
+                      .c(context.colors.textPrimary)
+                      .copyWith(
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                ),
+                (isSelected
+                        ? Assets.images.icCheckboxSelected
+                        : Assets.images.icCheckboxUnselected)
+                    .svg(height: 20, width: 20),
+              ],
+            ),
+          )),
+    );
   }
 }
