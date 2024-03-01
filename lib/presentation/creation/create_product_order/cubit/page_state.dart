@@ -16,6 +16,8 @@ class PageState with _$PageState {
     UserAddressResponse? address,
     String? phone,
     String? email,
+    @Default(false) bool validation,
+
 //
     @Default(false) bool isAutoRenewal,
 

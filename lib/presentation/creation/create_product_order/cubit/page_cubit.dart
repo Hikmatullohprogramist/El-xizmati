@@ -42,11 +42,18 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   void setPhoneNumber(String phoneNumber) {
-    updateState((state) => state.copyWith(phone: phoneNumber));
+    updateState((state) => state.copyWith(phone: phoneNumber,validation: phoneNumber.length>=9));
   }
 
+
   void setEmail(String email) {
-    updateState((state) => state.copyWith(email: email));
+     log.w("jwndndwflwn");
+    updateState((state) => state.copyWith(
+        email: email,
+        validation: RegExp(
+            r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
+            .hasMatch(email)
+    ));
   }
 
   void setSelectedCurrency(CurrencyResponse currency) {

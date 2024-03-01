@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
@@ -155,6 +156,18 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
             onPressed: () => context.router.pop(),
             icon: Assets.images.icArrowLeft.svg(height: 24, width: 24)),
         actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.share,
+              color: Colors.black,
+            ),
+            onPressed: () {
+                Share.share(
+                 "https://online-bozor.uz/ads/${state.adId}",
+                 // subject: state.adDetail?.adName.toString()
+                );
+            },
+          ),
           Padding(
               padding: EdgeInsets.all(4),
               child: AdDetailFavoriteWidget(
@@ -564,6 +577,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                 context.router.push(AdDetailRoute(adId: ad.id)),
             onFavoriteClicked: (Ad ad) =>
                 context.read<PageCubit>().similarAdsAddFavorite(ad),
+            loadingState: state.similarAdsState,
           ),
         ),
       ],
@@ -603,7 +617,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
               },
               onFavoriteClicked: (Ad ad) {
                 context.read<PageCubit>().ownerAdAddToFavorite(ad);
-              },
+              }, loadingState: state.ownerAdsState,
             ),
           ),
         ],
@@ -647,7 +661,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
               },
               onFavoriteClicked: (Ad ad) {
                 context.read<PageCubit>().recentlyViewAdAddToFavorite(ad);
-              },
+              }, loadingState:state.recentlyViewedAdsState,
             ),
           ),
         ],
