@@ -9,6 +9,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import '../../../../../../common/gen/localization/strings.dart';
 import '../../../../../../common/router/app_router.dart';
 import '../../../../../../common/widgets/ad/vertical_ad_widget.dart';
+import '../../../../../common/widgets/ad/horizanral_add_list_shimmer.dart';
 import '../../../../../common/widgets/button/common_button.dart';
 import '../../../../../../common/widgets/favorite/favorite_empty_widget.dart';
 import '../../../../../../domain/models/ad/ad.dart';
@@ -67,13 +68,21 @@ class ProductFavoritesPage extends BasePage<PageCubit,
             );
           },
           firstPageProgressIndicatorBuilder: (_) {
-            return SizedBox(
-              height: 160,
-              child: Center(
-                child: CircularProgressIndicator(
-                  color: Colors.blue,
-                ),
+            return  GridView.builder(
+              padding: EdgeInsets.symmetric(horizontal: 1),
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, // Number of columns
+                childAspectRatio: 0.5,
+                crossAxisSpacing: 15.0, // Spacing between columns
+                mainAxisSpacing: 15.0, // Spacing between rows
               ),
+              itemCount: 10,
+              // Number of items in the grid
+              itemBuilder: (context, index) {
+                return HorizontalAddListShimmer();
+              },
             );
           },
           noItemsFoundIndicatorBuilder: (_) {
