@@ -433,6 +433,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
             ],
           ),
         ),
+
         Visibility(
           visible: (state.adDetail?.hasDescription() ?? false),
           child: CustomDivider(startIndent: 16, endIndent: 16),

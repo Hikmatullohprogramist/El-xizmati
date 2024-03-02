@@ -12,6 +12,8 @@ import 'package:onlinebozor/data/responses/device/active_device_response.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/settings/features/user_active_device/cubit/page_cubit.dart';
 
 import '../../../../../../../../common/gen/assets/assets.gen.dart';
+import '../../../../../../../../common/widgets/cart/cart_widget_shimmer.dart';
+import '../../../../../../../../common/widgets/device/active_device_shimmer.dart';
 
 @RoutePage()
 class UserActiveDevicePage extends BasePage<PageCubit, PageState, PageEvent> {
@@ -38,6 +40,7 @@ class UserActiveDevicePage extends BasePage<PageCubit, PageState, PageEvent> {
           ),
         ),
         body: PagedGridView<int, ActiveDeviceResponse>(
+           shrinkWrap: true,
             physics: BouncingScrollPhysics(),
             pagingController: state.controller!,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -68,12 +71,14 @@ class UserActiveDevicePage extends BasePage<PageCubit, PageState, PageEvent> {
                     )));
               },
               firstPageProgressIndicatorBuilder: (_) {
-                return SizedBox(
-                  height: 60,
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.blue,
-                    ),
+                return  SingleChildScrollView(
+                  child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: 14,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ActiveDeviceShimmer();
+                    },
                   ),
                 );
               },
@@ -102,7 +107,7 @@ class UserActiveDevicePage extends BasePage<PageCubit, PageState, PageEvent> {
               },
               transitionDuration: Duration(milliseconds: 100),
               itemBuilder: (context, item, index) {
-                return ActiveDeviceWidget(
+                return  ActiveDeviceWidget(
                     invoke: (response) {
                       context.read<PageCubit>().removeActiveDevice(response);
                     },

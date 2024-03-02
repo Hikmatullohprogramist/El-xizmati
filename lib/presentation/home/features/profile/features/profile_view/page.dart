@@ -15,6 +15,7 @@ import '../../../../../../common/constants.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../common/widgets/button/common_button.dart';
 import '../../../../../../common/widgets/divider/custom_diverder.dart';
+import '../../../../../../common/widgets/profile/profile_item_widget.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -67,6 +68,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                         SizedBox(height: 12),
                         _getBioBlock(context, state),
                         SizedBox(height: 12),
+                        _getSettingsBlock(context)
                         // _getNotificationBlock(context, state),
                         // SizedBox(height: 12),
                         // _getSessionsBlock(context, state)
@@ -260,45 +262,26 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
       color: Colors.white,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Strings.profileUserName.w(400).s(14).c(Color(0xFF9EABBE)),
-        SizedBox(height: 6),
-        state.fullName.w(500).s(16).c(Color(0xFF41455E)),
-        SizedBox(height: 8),
-        CustomDivider(),
-        SizedBox(height: 8),
-        Strings.profileUserDateOfBirth.w(400).s(14).c(Color(0xFF9EABBE)),
-        SizedBox(height: 6),
-        state.brithDate.w(500).s(16).c(Color(0xFF41455E)),
-        SizedBox(height: 8),
-        CustomDivider(),
-        SizedBox(height: 8),
-        Strings.profileUserDateOfDocValidity.w(400).s(14).c(Color(0xFF9EABBE)),
-        SizedBox(height: 6),
-        state.biometricInformation.w(500).s(16).c(Color(0xFF41455E)),
-        SizedBox(height: 8),
-        CustomDivider(),
-        SizedBox(height: 8),
-        Strings.profileUserGender.w(400).s(14).c(Color(0xFF9EABBE)),
-        SizedBox(height: 6),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            if (state.gender == "MALE")
-              Assets.images.icRadioButtonSelected.svg()
-            else
-              Assets.images.icRadioButtonUnSelected.svg(),
-            SizedBox(width: 8),
-            Strings.profileUserGenderBoy.w(400).s(14).c(Color(0xFF9EABBE)),
-            SizedBox(width: 24),
-            if (state.gender == "FEMALE")
-              Assets.images.icRadioButtonSelected.svg()
-            else
-              Assets.images.icRadioButtonUnSelected.svg(),
-            SizedBox(width: 8),
-            Strings.profileUserGenderWomen.w(400).s(14).c(Color(0xFF9EABBE)),
-            SizedBox(width: 24)
-          ],
-        ),
-        SizedBox(height: 8),
+          Column(children: [
+            Strings.profileUserDateOfBirth.w(400).s(14).c(Color(0xFF9EABBE)),
+            SizedBox(height: 6),
+            state.brithDate.w(500).s(16).c(Color(0xFF41455E)),
+            SizedBox(height: 8),
+           // CustomDivider(),
+          ],),
+          Column(
+            children: [
+              Strings.profileUserDateOfDocValidity.w(400).s(14).c(Color(0xFF9EABBE)),
+              SizedBox(height: 6),
+              state.biometricInformation.w(500).s(16).c(Color(0xFF41455E)),
+              SizedBox(height: 8),
+             // CustomDivider(),
+            ],
+          )
+        ],),
         CustomDivider(),
         SizedBox(height: 8),
         Strings.profileUserEmail.w(400).s(14).c(Color(0xFF9EABBE)),
@@ -313,23 +296,58 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
         SizedBox(height: 8),
         CustomDivider(),
         SizedBox(height: 8),
-        Strings.profileUserRegion.w(400).s(14).c(Color(0xFF9EABBE)),
+        "Manzil".w(400).s(14).c(Color(0xFF9EABBE)),
         SizedBox(height: 6),
-        state.regionName.w(500).s(16).c(Color(0xFF41455E)),
+        Row(
+          children: [
+            state.regionName.w(500).s(16).c(Color(0xFF41455E)),
+            ".".w(500).s(16).c(Color(0xFF41455E)),
+            SizedBox(width: 7,),
+            state.districtName.w(500).s(16).c(Color(0xFF41455E)),
+            SizedBox(width: 7,),
+            state.streetName.w(500).s(16).c(Color(0xFF41455E)),
+          ],
+        ),
         SizedBox(height: 8),
         CustomDivider(),
-        SizedBox(height: 8),
-        Strings.profileUserDistrict.w(400).s(14).c(Color(0xFF9EABBE)),
-        SizedBox(height: 6),
-        state.districtName.w(500).s(16).c(Color(0xFF41455E)),
-        SizedBox(height: 8),
-        CustomDivider(),
-        SizedBox(height: 8),
-        Strings.profileUserNeighborhood.w(400).s(14).c(Color(0xFF9EABBE)),
-        SizedBox(height: 6),
-        state.streetName.w(500).s(16).c(Color(0xFF41455E)),
-        SizedBox(height: 16),
+        
       ]),
+    );
+  }
+  
+  Widget _getSettingsBlock(BuildContext context){
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      child: Column(
+        children: [
+          Divider(indent: 46, height: 1),
+          ProfileItemWidget(
+            name: Strings.settingsReceiveNotification,
+            icon: Assets.images.icProfileNotification,
+            invoke: () => context.router.push(NotificationSettingRoute()),
+          ),
+          Divider(indent: 46, height: 1),
+          ProfileItemWidget(
+            name: Strings.settingsSocialNetwork,
+            icon: Assets.images.icSocialNetwork,
+            invoke: () {
+              // context.router.push(UserSocialNetworkRoute())
+            },
+          ),
+          Divider(indent: 46, height: 1),
+          ProfileItemWidget(
+            name: Strings.settingsActiveDevices,
+            icon: Assets.images.icActiveDevice,
+            invoke: () => context.router.push(UserActiveDeviceRoute()),
+          ),
+          // Divider(indent: 46, height: 1),
+          // ProfileItemWidget(
+          //   name: Strings.settingsChangePassword,
+          //   icon: Assets.images.icChangePassword,
+          //   invoke: () {},
+          // )
+        ],
+      ),
     );
   }
 }

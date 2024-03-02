@@ -1,6 +1,10 @@
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import '../../gen/assets/assets.gen.dart';
+import '../indicator/custom_indicator.dart';
 
 class AppImageWidget extends StatelessWidget {
   AppImageWidget({
@@ -14,13 +18,13 @@ class AppImageWidget extends StatelessWidget {
 
   final controller = PageController(viewportFraction: 1, keepPage: true);
 
-  // int currentIndex = 0;
+   int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      height: 400,
+
       child: Column(
         children: [
           Container(
@@ -32,7 +36,7 @@ class AppImageWidget extends StatelessWidget {
                 physics: BouncingScrollPhysics(),
                 itemCount: images.length,
                 itemBuilder: (context, index) {
-                  // currentIndex = index;
+                   currentIndex = index;
                   return InkWell(
                       onTap: () => onClicked(index),
                       child: CachedNetworkImage(
@@ -57,21 +61,23 @@ class AppImageWidget extends StatelessWidget {
             ),
           ),
           SizedBox(height: 12),
-          // CustomIndicator(
-          //   itemCount: images.length, // Number of pages
-          //   currentPageIndex: currentIndex,
-          //   activeIcon: Assets.images.icDotSelected,
-          //   inactiveIcon: Assets.images.icDotUnselected,
-          // ),
-          SmoothPageIndicator(
-            controller: controller,
-            count: images.length,
-            effect: const WormEffect(
-              dotHeight: 8,
-              dotWidth: 8,
-              type: WormType.normal,
-            ),
-          ),
+        // CustomIndicator(
+        //   itemCount: images.length, // Number of pages
+        //   currentPageIndex: currentIndex,
+        //   activeIcon: Assets.images.icDotSelected,
+        //   inactiveIcon: Assets.images.icDotUnselected,
+        // ),
+
+
+         SmoothPageIndicator(
+           controller: controller,
+           count: images.length,
+           effect: const WormEffect(
+             dotHeight: 8,
+             dotWidth: 8,
+             type: WormType.normal,
+           ),
+         ),
         ],
       ),
     );
