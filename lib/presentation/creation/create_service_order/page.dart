@@ -458,7 +458,7 @@ class CreateServiceOrderPage
               onPressed: () {},
               // enabled: false,
               // loading: state.loading,
-              child: Container(
+              text: Container(
                 height: 52,
                 alignment: Alignment.center,
                 width: double.infinity,

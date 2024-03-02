@@ -216,7 +216,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                   onPressed: state.isRegistered
                       ? null
                       : () => context.router.replace(RegistrationRoute()),
-                  child: SizedBox(
+                  text: SizedBox(
                     height: 42,
                     child: Center(
                       child:

@@ -45,7 +45,7 @@ class CardEmptyWidget extends StatelessWidget {
               color: context.colors.buttonPrimary,
               onPressed: (){listener();
               print("Card Empty  call");},
-              child: Row(
+              text: Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

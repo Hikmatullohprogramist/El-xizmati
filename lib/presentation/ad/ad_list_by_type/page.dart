@@ -144,7 +144,7 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                                 CommonButton(
                                     onPressed: () {},
                                     type: ButtonType.elevated,
-                                    child:
+                                    text:
                                         Strings.loadingStateRetry.w(400).s(15))
                               ],
                             ),

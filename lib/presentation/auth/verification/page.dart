@@ -123,9 +123,9 @@ class VerificationPage extends BasePage<PageCubit, PageState, PageEvent> {
                       TextInput.finishAutofillContext(shouldSave: true);
                       context.read<PageCubit>().verification();
                     },
-                    enabled: state.enable,
-                    loading: state.loading,
-                    child: Container(
+                    isEnabled: state.enable,
+                    isLoading: state.loading,
+                    text: Container(
                       height: 52,
                       alignment: Alignment.center,
                       width: double.infinity,

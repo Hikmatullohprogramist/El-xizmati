@@ -140,7 +140,7 @@ class _LocaleImageViewerPageState extends State<LocaleImageViewerPage> {
                         child: CommonButton(
                           color: Colors.white,
                           type: ButtonType.elevated,
-                          enabled: currentIndex != 0,
+                          isEnabled: currentIndex != 0,
                           onPressed: () {
                             setState(() {
                               var item = widget.images.removeAt(currentIndex);
@@ -149,7 +149,7 @@ class _LocaleImageViewerPageState extends State<LocaleImageViewerPage> {
                               pageController.jumpToPage(0);
                             });
                           },
-                          child: (currentIndex == 0
+                          text: (currentIndex == 0
                                   ? "Главное фото"
                                   : "Сделать главным")
                               .s(14)
@@ -171,7 +171,7 @@ class _LocaleImageViewerPageState extends State<LocaleImageViewerPage> {
                               }
                             });
                           },
-                          child: "Удалить"
+                          text: "Удалить"
                               .s(14)
                               .w(400)
                               .c(Colors.black)

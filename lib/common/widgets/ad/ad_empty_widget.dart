@@ -42,7 +42,7 @@ class AdEmptyWidget extends StatelessWidget {
               type: ButtonType.elevated,
               color: context.colors.buttonPrimary,
               onPressed: listener,
-              child: Row(
+              text: Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

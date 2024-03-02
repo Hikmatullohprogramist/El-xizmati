@@ -147,7 +147,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
                         onPressed: () {
                           context.read<PageCubit>().getUserInformation();
                         },
-                        child: Strings.commonContinue.w(500),
+                        text: Strings.commonContinue.w(500),
                       ))),
               Visibility(
                   visible: state.isRegistration,

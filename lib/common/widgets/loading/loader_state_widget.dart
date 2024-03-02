@@ -79,7 +79,7 @@ class ErrorWidget extends StatelessWidget {
               CommonButton(
                   onPressed: onErrorToAgainRequest,
                   type: ButtonType.elevated,
-                  child: "Qayta urinish".w(400).s(15))
+                  text: "Qayta urinish".w(400).s(15))
             ],
           ))
         : Center(
@@ -91,7 +91,7 @@ class ErrorWidget extends StatelessWidget {
                 CommonButton(
                     onPressed: onErrorToAgainRequest,
                     type: ButtonType.elevated,
-                    child: "Qayta urinish".w(400).s(15))
+                    text: "Qayta urinish".w(400).s(15))
             ]),
             ),
           );

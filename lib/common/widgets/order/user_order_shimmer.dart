@@ -96,7 +96,7 @@ class UserOrderWidgetShimmer extends StatelessWidget {
                         highlightColor: Colors.grey[50]!,
                         child: CommonButton(
                             onPressed: () {},
-                            child:
+                            text:
                                 "o'chirish".w(500).s(13).c(Color(0xFFDFE2E9))),
                       )),
                       SizedBox(width: 8),
@@ -106,7 +106,7 @@ class UserOrderWidgetShimmer extends StatelessWidget {
                         highlightColor: Colors.grey[50]!,
                         child: CommonButton(
                             onPressed: () {},
-                            child: "Ko'proq".w(500).s(13).c(Color(0xFFDFE2E9))),
+                            text: "Ko'proq".w(500).s(13).c(Color(0xFFDFE2E9))),
                       )),
                     ],
                   )

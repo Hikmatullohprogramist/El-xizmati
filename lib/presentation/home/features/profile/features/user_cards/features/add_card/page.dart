@@ -102,7 +102,7 @@ class AddCardPage extends BasePage<PageCubit, PageState, PageEvent> {
                         width: double.infinity,
                         child: CommonButton(
                           onPressed: () {},
-                          child: "Закрыть".w(600).s(14).c(Colors.white),
+                          text: "Закрыть".w(600).s(14).c(Colors.white),
                         ),
                       )
                     ]),
@@ -245,7 +245,7 @@ class AddCardPage extends BasePage<PageCubit, PageState, PageEvent> {
                         .setCardPosition(controller.page?.toInt() ?? 0);
                     smsCodeVerification();
                   },
-                  child: Row(
+                  text: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.add),

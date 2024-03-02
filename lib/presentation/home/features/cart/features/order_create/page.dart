@@ -71,7 +71,7 @@ class OrderCreatePage extends BasePage<PageCubit, PageState,
                   onPressed: () {
                     context.read<PageCubit>().orderCreate();
                   },
-                  child:
+                  text:
                       Strings.orderCreateRegister.s(13).c(Colors.white).w(500)),
               SizedBox(width: 16)
             ]),
