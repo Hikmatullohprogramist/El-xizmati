@@ -25,10 +25,10 @@ class AppCategoryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (loadingState.toString() == "LoadingState.success") {
-      return appCategoty(context);
-    } else {
+    if (loadingState==LoadingState.loading) {
       return aaa();
+    } else {
+      return appCategoty(context);
     }
   }
 
