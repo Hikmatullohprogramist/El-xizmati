@@ -19,14 +19,6 @@ class CartWidgetShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var formatter = NumberFormat('###,000');
-    Widget liked(bool isLiked) {
-      if (isLiked) {
-        return Assets.images.icFavoriteRemove.svg(color: Colors.red);
-      } else {
-        return Assets.images.icFavoriteAdd.svg();
-      }
-    }
 
     return Container(
       padding: const EdgeInsets.all(12),
@@ -39,15 +31,15 @@ class CartWidgetShimmer extends StatelessWidget {
       child: Row(
         children: [
           Shimmer.fromColors(
-            baseColor: Colors.grey[350]!,
-            highlightColor: Colors.grey[200]!,
+            baseColor: Color(0xFFE8E6E8),
+            highlightColor: Colors.grey[50]!,
             child: Container(
               width: 80,
               height: 110,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6),
                 border: Border.all(width: 0.50, color: Color(0xFFE5E9F3)),
-                color: Colors.red,
+                color: Colors.white,
               ),
             ),
           ),
@@ -58,40 +50,40 @@ class CartWidgetShimmer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                 Shimmer.fromColors(
-                  baseColor: Colors.grey[350]!,
-                  highlightColor: Colors.grey[200]!,
+                  baseColor: Color(0xFFE8E6E8),
+                  highlightColor: Colors.grey[50]!,
                   child: Container(
                     width: 180,
                     height: 12,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(3),
+                      borderRadius: BorderRadius.circular(7),
                     ),
                   ),
                 ),
                 SizedBox(height: 20),
                 Shimmer.fromColors(
-                  baseColor: Colors.grey[350]!,
-                  highlightColor: Colors.grey[200]!,
+                  baseColor: Color(0xFFE8E6E8),
+                  highlightColor: Colors.grey[50]!,
                   child: Container(
                     width: 100,
                     height: 12,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(3),
+                      borderRadius: BorderRadius.circular(7),
                     ),
                   ),
                 ),
                 SizedBox(height: 20),
                 Shimmer.fromColors(
-                  baseColor: Colors.grey[350]!,
-                  highlightColor: Colors.grey[200]!,
+                  baseColor: Color(0xFFE8E6E8),
+                  highlightColor: Colors.grey[50]!,
                   child: Container(
                     width: 130,
                     height: 12,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(3),
+                      borderRadius: BorderRadius.circular(7),
                     ),
                   ),
                 ),

@@ -15,13 +15,13 @@ class HorizontalAddListShimmer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-              width: 140,
-              height: 140,
+              width: 165,
+              height: 160,
               decoration: BoxDecoration(color: Color(0xFFF6F7FC)),
               child: Stack(children: [
                 Shimmer.fromColors(
-                  baseColor: Colors.grey[350]!,
-                  highlightColor: Colors.grey[200]!,
+                  baseColor: Color(0xFFE8E6E8),
+                  highlightColor: Colors.grey[50]!,
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -33,42 +33,42 @@ class HorizontalAddListShimmer extends StatelessWidget {
               ])),
           SizedBox(height: 12),
           Shimmer.fromColors(
-            baseColor: Colors.grey[350]!,
-            highlightColor: Colors.grey[200]!,
+            baseColor: Color(0xFFE8E6E8),
+            highlightColor: Colors.grey[50]!,
             child: Container(
               height: 15,
               width: 80,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(2),
+                borderRadius: BorderRadius.circular(7),
               ),
             ),
           ),
           SizedBox(height: 20),
           Shimmer.fromColors(
-            baseColor: Colors.grey[350]!,
-            highlightColor: Colors.grey[200]!,
+            baseColor: Color(0xFFE8E6E8),
+            highlightColor: Colors.grey[50]!,
             child: Container(
-              margin: EdgeInsets.only(right: 10),
+              margin: EdgeInsets.only(right:28),
               height: 12,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(2),
+                borderRadius: BorderRadius.circular(7),
               ),
             ),
           ),
-          SizedBox(height: 14),
+          SizedBox(height: 10),
           Row(mainAxisAlignment: MainAxisAlignment.start, children: [
             Expanded(
               child: Shimmer.fromColors(
-                baseColor: Colors.grey[350]!,
-                highlightColor: Colors.grey[200]!,
+                baseColor: Color(0xFFE8E6E8),
+                highlightColor: Colors.grey[50]!,
                 child: Container(
-                  margin: EdgeInsets.only(right: 10),
+                  margin: EdgeInsets.only(right: 58),
                   height: 12,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(2),
+                    borderRadius: BorderRadius.circular(7),
                   ),
                 ),
               ),
@@ -79,8 +79,8 @@ class HorizontalAddListShimmer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Shimmer.fromColors(
-                baseColor: Colors.grey[350]!,
-                highlightColor: Colors.grey[200]!,
+                baseColor: Color(0xFFE8E6E8),
+                highlightColor: Colors.grey[50]!,
                 child: Container(
                   height: 22,
                   width: 45,
@@ -92,8 +92,8 @@ class HorizontalAddListShimmer extends StatelessWidget {
               ),
               SizedBox(width: 8),
               Shimmer.fromColors(
-                baseColor: Colors.grey[350]!,
-                highlightColor: Colors.grey[200]!,
+                baseColor: Color(0xFFE8E6E8),
+                highlightColor: Colors.grey[50]!,
                 child: Container(
                   height: 22,
                   width: 45,

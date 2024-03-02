@@ -11,6 +11,7 @@ import 'package:onlinebozor/presentation/ad/ad_list_actions/page.dart';
 import '../../../../../../../../common/gen/localization/strings.dart';
 import '../../../../../../../../common/widgets/ad/user_ad.dart';
 import '../../../../../../../../common/widgets/ad/user_ad_empty_widget.dart';
+import '../../../../../../../../common/widgets/ad/user_ad_shimmer.dart';
 import '../../../../../../../../common/widgets/button/common_button.dart';
 import '../../../../../../../../data/responses/user_ad/user_ad_response.dart';
 import 'cubit/page_cubit.dart';
@@ -34,7 +35,7 @@ class UserAdListPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Scaffold(
       backgroundColor: Color(0xFFF2F4FB),
       body: PagedListView<int, UserAdResponse>(
-        shrinkWrap: false,
+        shrinkWrap: true,
         addAutomaticKeepAlives: true,
         physics: BouncingScrollPhysics(),
         pagingController: state.controller!,
@@ -61,12 +62,14 @@ class UserAdListPage extends BasePage<PageCubit, PageState, PageEvent> {
             );
           },
           firstPageProgressIndicatorBuilder: (_) {
-            return SizedBox(
-              height: 160,
-              child: Center(
-                child: CircularProgressIndicator(
-                  color: Colors.blue,
-                ),
+            return SingleChildScrollView(
+              child: ListView.builder(
+                physics: BouncingScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: 5,
+                itemBuilder: (BuildContext context, int index) {
+                  return UserAdWidgetShimmer();
+                },
               ),
             );
           },

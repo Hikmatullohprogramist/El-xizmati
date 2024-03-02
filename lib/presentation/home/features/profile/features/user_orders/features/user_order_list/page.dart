@@ -11,6 +11,8 @@ import '../../../../../../../../common/router/app_router.dart';
 import '../../../../../../../../common/widgets/ad/user_ad_empty_widget.dart';
 import '../../../../../../../../common/widgets/button/common_button.dart';
 import '../../../../../../../../common/widgets/order/user_order.dart';
+import '../../../../../../../../common/widgets/order/user_order_shimmer.dart';
+import '../../../../../../../../common/widgets/transaction/transaction_widget_shimmer.dart';
 import '../../../../../../../../data/responses/user_order/user_order_response.dart';
 import '../../../../../../../../domain/models/order/order_type.dart';
 import '../../../../../../../../domain/models/order/user_order_status.dart';
@@ -84,10 +86,14 @@ class UserOrderListPage extends BasePage<PageCubit, PageState, PageEvent> {
           );
         },
         firstPageProgressIndicatorBuilder: (_) {
-          return SizedBox(
-            height: 160,
-            child: Center(
-              child: CircularProgressIndicator(color: Colors.blue),
+          return SingleChildScrollView(
+            child: ListView.builder(
+              physics: BouncingScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: 15,
+              itemBuilder: (BuildContext context, int index) {
+                return UserOrderWidgetShimmer();
+              },
             ),
           );
         },

@@ -57,15 +57,14 @@ class ServiceFavoritesPage extends BasePage<PageCubit, PageState, PageEvent> {
             );
           },
           firstPageProgressIndicatorBuilder: (_) {
-            return GridView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 1),
+            return  GridView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2, // Number of columns
-                childAspectRatio: 0.5,
+                childAspectRatio: 0.60,
                 crossAxisSpacing: 15.0, // Spacing between columns
-                mainAxisSpacing: 15.0, // Spacing between rows
+                mainAxisSpacing: 1.0,
               ),
               itemCount: 10,
               // Number of items in the grid
@@ -73,7 +72,6 @@ class ServiceFavoritesPage extends BasePage<PageCubit, PageState, PageEvent> {
                 return HorizontalAddListShimmer();
               },
             );
-            ;
           },
           noItemsFoundIndicatorBuilder: (_) {
             return FavoriteEmptyWidget(invoke: () {

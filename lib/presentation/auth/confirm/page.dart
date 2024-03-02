@@ -137,7 +137,7 @@ class ConfirmPage extends BasePage<PageCubit, PageState, PageEvent> {
                 context.read<PageCubit>().confirmCode();
               },
               enabled: state.isConfirmButtonEnabled,
-              isLoading: state.isConfirmLoading,
+              loading: state.isConfirmLoading,
               child: Container(
                 height: 52,
                 alignment: Alignment.center,

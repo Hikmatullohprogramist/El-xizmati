@@ -97,7 +97,7 @@ class SetPasswordPage extends BasePage<PageCubit, PageState, PageEvent> {
                   context.read<PageCubit>().createPassword();
                 },
                 enabled: state.enabled,
-                isLoading: state.loading,
+                loading: state.loading,
                 child: Container(
                   height: 52,
                   alignment: Alignment.center,

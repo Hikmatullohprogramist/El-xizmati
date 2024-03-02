@@ -124,7 +124,7 @@ class VerificationPage extends BasePage<PageCubit, PageState, PageEvent> {
                       context.read<PageCubit>().verification();
                     },
                     enabled: state.enable,
-                    isLoading: state.loading,
+                    loading: state.loading,
                     child: Container(
                       height: 52,
                       alignment: Alignment.center,

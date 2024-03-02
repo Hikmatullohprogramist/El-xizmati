@@ -12,6 +12,7 @@ import 'package:onlinebozor/common/widgets/transaction/transaction_widget.dart';
 import '../../../../../../common/gen/localization/strings.dart';
 import '../../../../../../common/router/app_router.dart';
 import '../../../../../../common/widgets/button/common_button.dart';
+import '../../../../../../common/widgets/transaction/transaction_widget_shimmer.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -69,12 +70,14 @@ class PaymentTransactionPage extends BasePage<PageCubit, PageState, PageEvent> {
           );
         },
         firstPageProgressIndicatorBuilder: (_) {
-          return SizedBox(
-            height: 160,
-            child: Center(
-              child: CircularProgressIndicator(
-                color: Colors.blue,
-              ),
+          return SingleChildScrollView(
+            child: ListView.builder(
+                physics: BouncingScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: 15,
+                itemBuilder: (BuildContext context, int index) {
+                  return TransactionShimmer();
+                },
             ),
           );
         },

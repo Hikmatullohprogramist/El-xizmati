@@ -713,7 +713,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               cubit(context).sendCreateProductAdRequest();
             },
             // enabled: false,
-            isLoading: state.isRequestSending,
+             loading: state.isRequestSending,
             child: Container(
               height: 52,
               alignment: Alignment.center,

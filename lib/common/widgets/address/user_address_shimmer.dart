@@ -34,44 +34,46 @@ class UserAddressShimmer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Shimmer.fromColors(
-                  baseColor: Colors.grey[350]!,
-                  highlightColor: Colors.grey[200]!,
-                  child: Container(height: 14, width:80,
+                  baseColor: Color(0xFFE8E6E8),
+                  highlightColor: Colors.grey[50]!,
+                  child: Container(
+                    height: 14, width:110,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(3)
+                      borderRadius: BorderRadius.circular(7)
                   ),),
                 ),
                 SizedBox(height: 15),
                 Shimmer.fromColors(
-                  baseColor: Colors.grey[350]!,
-                  highlightColor: Colors.grey[200]!,
-                  child: Container(height: 14,
-                    margin: EdgeInsets.only(right: 60),
+                  baseColor: Color(0xFFE8E6E8),
+                  highlightColor: Colors.grey[50]!,
+                  child: Container(
+                    height: 14,
+                    width: 65,
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(3)
+                        borderRadius: BorderRadius.circular(7)
                     ),),
                 ),
                 SizedBox(height: 15),
                 Shimmer.fromColors(
-                  baseColor: Colors.grey[350]!,
-                  highlightColor: Colors.grey[200]!,
+                  baseColor: Color(0xFFE8E6E8),
+                  highlightColor: Colors.grey[50]!,
                   child: Container(height: 14,
                     decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(3)
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(7)
                     ),),
                 ),
                 SizedBox(height: 12),
                 Shimmer.fromColors(
-                  baseColor: Colors.grey[350]!,
-                  highlightColor: Colors.grey[200]!,
+                  baseColor: Color(0xFFE8E6E8),
+                  highlightColor: Colors.grey[50]!,
                   child: Container(height: 14,
-                    margin: EdgeInsets.only(right: 60),
+                    margin: EdgeInsets.only(right: 80),
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(3)
+                        borderRadius: BorderRadius.circular(7)
                     ),),
                 ),
                 SizedBox(height: 12),

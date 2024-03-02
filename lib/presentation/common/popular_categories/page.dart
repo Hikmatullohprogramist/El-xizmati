@@ -11,6 +11,7 @@ import '../../../common/core/base_page.dart';
 import '../../../common/gen/localization/strings.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/widgets/button/common_button.dart';
+import '../../../common/widgets/category/popular_category_vertical_shimmer.dart';
 import '../../../data/responses/category/popular_category/popular_category_response.dart';
 import '../../../domain/models/ad/ad_list_type.dart';
 
@@ -56,12 +57,14 @@ class PopularCategoriesPage extends BasePage<PageCubit, PageState, PageEvent> {
                     );
                   },
                   firstPageProgressIndicatorBuilder: (_) {
-                    return SizedBox(
-                      height: 60,
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          color: Colors.blue,
-                        ),
+                    return SingleChildScrollView(
+                      child: ListView.builder(
+                        physics: BouncingScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: 14,
+                        itemBuilder: (BuildContext context, int index) {
+                          return PopularCategoryVerticalShimmer();
+                        },
                       ),
                     );
                   },
