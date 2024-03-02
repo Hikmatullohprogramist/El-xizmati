@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
 abstract class StaticColors {
   static const dodgerBlue = Color(0xFF3f9cfb);
   static const white = Color(0xFFFFFFFF);
@@ -12,4 +14,6 @@ abstract class StaticColors {
   static const bondiBlue = Color(0xFF0096B2);
   static const manatee = Color(0xFF999CB2);
   static const business = Color(0x1E6546E7);
+  static const shimmerBaseColor = Color(0xFFE8E6E8);
+  static const shimmerHighLightColor = Color(0xFAFAFAFF);
 }

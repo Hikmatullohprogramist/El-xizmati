@@ -18,8 +18,7 @@ part 'page_cubit.freezed.dart';
 part 'page_state.dart';
 
 @injectable
-class DashboardCubit
-    extends BaseCubit<PageState, PageEvent> {
+class DashboardCubit extends BaseCubit<PageState, PageEvent> {
   DashboardCubit(
     this.adRepository,
     this.commonRepository,
@@ -47,13 +46,16 @@ class DashboardCubit
       final popularCategories =
           await commonRepository.getPopularCategories(1, 20);
 
-      updateState((state) => state.copyWith(
-            popularCategories: popularCategories,
-            popularCategoriesState: LoadingState.success,
-          ));
+      updateState(
+        (state) => state.copyWith(
+          popularCategories: popularCategories,
+          popularCategoriesState: LoadingState.success,
+        ),
+      );
     } on DioException catch (e, stackTrace) {
-      updateState((state) =>
-          state.copyWith(popularCategoriesState: LoadingState.error));
+      updateState(
+        (state) => state.copyWith(popularCategoriesState: LoadingState.error),
+      );
 
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
@@ -109,8 +111,8 @@ class DashboardCubit
         ),
       );
     } on DioException catch (e, stackTrace) {
-      updateState((state) =>
-          state.copyWith(topRatedAdsState: LoadingState.error));
+      updateState(
+          (state) => state.copyWith(topRatedAdsState: LoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
@@ -136,8 +138,8 @@ class DashboardCubit
     try {
       final banners = await commonRepository.getBanner();
 
-      updateState((state) => state.copyWith(
-          banners: banners, bannersState: LoadingState.success));
+      updateState((state) =>
+          state.copyWith(banners: banners, bannersState: LoadingState.success));
 
       log.i("getBanners success = ${states.banners}");
     } on DioException catch (e, stackTrace) {
