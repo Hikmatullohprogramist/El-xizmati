@@ -231,27 +231,23 @@ class DashboardPage extends BasePage<DashboardCubit, PageState, PageEvent> {
   }
 
   Widget _getTopRatedAdsWidget(BuildContext context, PageState state) {
-    return Container(
-      color: Colors.white,
-      padding: EdgeInsets.only(top: 8, bottom: 0),
-      child: LoaderStateWidget(
-        isFullScreen: false,
-        onErrorToAgainRequest: () {
-          context.read<DashboardCubit>().getTopRatedAds();
+    return LoaderStateWidget(
+      isFullScreen: false,
+      onErrorToAgainRequest: () {
+        context.read<DashboardCubit>().getTopRatedAds();
+      },
+      loadingState: state.popularServiceAdsState,
+      child: TopRatedAdListWidget(
+        ads: state.topRatedAds,
+        onItemClicked: (Ad ad) {
+          context.router.push(AdDetailRoute(adId: ad.id));
         },
-        loadingState: state.popularServiceAdsState,
-        child: TopRatedAdListWidget(
-          ads: state.topRatedAds,
-          onItemClicked: (Ad ad) {
-            context.router.push(AdDetailRoute(adId: ad.id));
-          },
-          onOnClickBuyClicked: (Ad ad) {
-            context.router.push(OrderCreateRoute(adId: ad.id));
-          },
-          onFavoriteClicked: (Ad ad) {
-            context.read<DashboardCubit>().topRatedAdsAddFavorite(ad);
-          },
-        ),
+        onOnClickBuyClicked: (Ad ad) {
+          context.router.push(OrderCreateRoute(adId: ad.id));
+        },
+        onFavoriteClicked: (Ad ad) {
+          context.read<DashboardCubit>().topRatedAdsAddFavorite(ad);
+        }, loadingState: state.popularServiceAdsState,
       ),
     );
   }
@@ -261,8 +257,8 @@ class DashboardPage extends BasePage<DashboardCubit, PageState, PageEvent> {
     PageState state,
   ) {
     return Visibility(
-      visible: state.recentlyViewedAdsState != LoadingState.loading &&
-          state.recentlyViewedAds.isNotEmpty,
+      visible:true,
+     // state.recentlyViewedAdsState != LoadingState.loading && state.recentlyViewedAds.isNotEmpty,
       child: Container(
         color: Colors.white,
         child: Column(
@@ -295,7 +291,8 @@ class DashboardPage extends BasePage<DashboardCubit, PageState, PageEvent> {
                   context
                       .read<DashboardCubit>()
                       .recentlyViewAdAddToFavorite(ad);
-                }, loadingState: state.recentlyViewedAdsState,
+                },
+                loadingState: state.recentlyViewedAdsState,
               ),
             ),
           ],
