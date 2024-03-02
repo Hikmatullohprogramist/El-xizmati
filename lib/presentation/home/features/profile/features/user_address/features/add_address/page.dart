@@ -5,6 +5,7 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/app_bar/default_app_bar.dart';
+import 'package:onlinebozor/common/widgets/button/custom_outlined_button.dart';
 import 'package:onlinebozor/common/widgets/text_field/label_text_field.dart';
 import 'package:onlinebozor/common/widgets/action/selection_list_item.dart';
 
@@ -233,17 +234,12 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
           SizedBox(height: 8),
           Text("${state.latitude}, ${state.longitude},"),
           SizedBox(height: 8),
-          SizedBox(
-            width: double.infinity,
-            height: 42,
-            child: CommonButton(
-              type: ButtonType.outlined,
-              onPressed: () {
-                cubit(context).getCurrentLocation();
-              },
-              text:
-                  Strings.userAddressGetLocation.w(600).s(14).c(Colors.black),
-            ),
+          CustomOutlinedButton(
+            text: Strings.userAddressGetLocation,
+            isLoading: state.isLocationLoading,
+            onPressed: () {
+              cubit(context).getCurrentLocation();
+            },
           ),
         ],
       ),

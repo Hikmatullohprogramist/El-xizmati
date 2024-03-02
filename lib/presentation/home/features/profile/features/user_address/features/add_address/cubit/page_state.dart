@@ -24,6 +24,8 @@ class PageState with _$PageState {
     double? longitude,
     String? geo,
     String? state,
+    @Default(false) bool isLoading,
+    @Default(false) bool isLocationLoading,
   }) = _PageState;
 }
 

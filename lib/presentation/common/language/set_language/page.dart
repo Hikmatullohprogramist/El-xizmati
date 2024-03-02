@@ -7,7 +7,7 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/common/widgets/button/common_button.dart';
+import 'package:onlinebozor/common/widgets/button/custom_outlined_button.dart';
 
 import '../../../../common/gen/assets/assets.gen.dart';
 import 'cubit/page_cubit.dart';
@@ -53,60 +53,35 @@ class SetLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
               Text(Strings.languageWelcome).w(500).s(24).c(Color(0xFF41455F)),
               Text(Strings.languageSetTitle).w(400).s(12).c(Color(0xFF9EABBE)),
               Spacer(),
-              CommonButton(
-                  color: Color(0xFFE5E9F3),
-                  onPressed: () {
-                    EasyLocalization.of(context)?.setLocale(Locale('ru', 'RU'));
-                    context.read<PageCubit>().setLanguage(Language.ru);
-                  },
-                  type: ButtonType.outlined,
-                  text: SizedBox(
-                    height: 48,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Strings.languageRus.w(400).s(14).c(Color(0xFF41455F)),
-                        Assets.images.pngImages.flagRu.image()
-                      ],
-                    ),
-                  )),
-              SizedBox(height: 6),
-              CommonButton(
-                  onPressed: () {
-                    EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZ'));
-                    context.read<PageCubit>().setLanguage(Language.uz);
-                  },
-                  color: Color(0xFFE5E9F3),
-                  type: ButtonType.outlined,
-                  text: SizedBox(
-                    height: 48,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Strings.languageUzLat.w(400).s(14).c(Color(0xFF41455F)),
-                        Assets.images.pngImages.flagUz.image()
-                      ],
-                    ),
-                  )),
-              SizedBox(height: 6),
-              CommonButton(
-                  onPressed: () {
-                    EasyLocalization.of(context)
-                        ?.setLocale(Locale('uz', 'UZK'));
-                    context.read<PageCubit>().setLanguage(Language.kr);
-                  },
-                  color: Color(0xFFE5E9F3),
-                  type: ButtonType.outlined,
-                  text: SizedBox(
-                    height: 48,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Strings.languageUzCyr.w(400).s(14).c(Color(0xFF41455F)),
-                        Assets.images.pngImages.flagUz.image()
-                      ],
-                    ),
-                  ))
+              CustomOutlinedButton(
+                text: Strings.languageRus,
+                onPressed: () {
+                  EasyLocalization.of(context)?.setLocale(Locale('ru', 'RU'));
+                  context.read<PageCubit>().setLanguage(Language.ru);
+                },
+                strokeColor: Color(0xFFE5E9F3),
+                rightIcon: Assets.images.pngImages.flagRu.image(),
+              ),
+              SizedBox(height: 12),
+              CustomOutlinedButton(
+                text: Strings.languageUzLat,
+                onPressed: () {
+                  EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZ'));
+                  context.read<PageCubit>().setLanguage(Language.uz);
+                },
+                strokeColor: Color(0xFFE5E9F3),
+                rightIcon: Assets.images.pngImages.flagUz.image(),
+              ),
+              SizedBox(height: 12),
+              CustomOutlinedButton(
+                onPressed: () {
+                  EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZK'));
+                  context.read<PageCubit>().setLanguage(Language.kr);
+                },
+                strokeColor: Color(0xFFE5E9F3),
+                rightIcon: Assets.images.pngImages.flagUz.image(),
+                text: Strings.languageUzCyr,
+              )
             ],
           ),
         ),

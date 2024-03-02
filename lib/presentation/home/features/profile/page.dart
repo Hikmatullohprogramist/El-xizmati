@@ -2,16 +2,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/common/widgets/bottom_sheet/bottom_sheet_title.dart';
-import 'package:onlinebozor/common/widgets/button/common_button.dart';
 import 'package:onlinebozor/common/widgets/action/selection_list_item.dart';
+import 'package:onlinebozor/common/widgets/bottom_sheet/bottom_sheet_title.dart';
+import 'package:onlinebozor/common/widgets/button/custom_outlined_button.dart';
 import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/common/widgets/profile/profile_item_widget.dart';
 import 'package:onlinebozor/presentation/home/features/profile/cubit/page_cubit.dart';
@@ -60,7 +59,8 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
       backgroundColor: Colors.white,
       elevation: 0,
       centerTitle: true,
-      title: Strings.profileViewTitlle.w(500).s(16).c(context.colors.textPrimary),
+      title:
+          Strings.profileViewTitlle.w(500).s(16).c(context.colors.textPrimary),
     );
   }
 
@@ -80,7 +80,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
             },
           ),
         ),
-          Visibility(
+        Visibility(
           visible: !state.isLogin,
           child: ProfileItemWidget(
             name: Strings.authSinginTitle,
@@ -358,13 +358,9 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
                 children: <Widget>[
                   SizedBox(width: 16),
                   Expanded(
-                    child: CommonButton(
-                      color: Colors.blueAccent,
-                      text: Container(
-                        height: 48,
-                        alignment: Alignment.center,
-                        child: Strings.commonNo.s(16).c(Colors.white),
-                      ),
+                    child: CustomOutlinedButton(
+                      text: Strings.commonNo,
+                      strokeColor: Colors.blueAccent,
                       onPressed: () {
                         Navigator.pop(context);
                         vibrateAsHapticFeedback();
@@ -373,15 +369,11 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
                   ),
                   SizedBox(width: 16),
                   Expanded(
-                    child: CommonButton(
-                      color: Colors.red,
-                      text: Container(
-                        height: 48,
-                        alignment: Alignment.center,
-                        child: Strings.commonYes.s(16).c(Colors.white),
-                      ),
+                    child: CustomOutlinedButton(
+                      text: Strings.commonYes,
+                      strokeColor: Colors.red,
                       onPressed: () {
-                        context.read<PageCubit>().logOut();
+                        cubit(context).logOut();
                         Navigator.pop(context);
                         vibrateAsHapticFeedback();
                       },
