@@ -138,7 +138,7 @@ class CartWidget extends StatelessWidget {
                           onPressed: () {
                             invoke(ad);
                           },
-                          child: Strings.cartProductClearance
+                          text: Strings.cartProductClearance
                               .w(500)
                               .s(13)
                               .c(Color(0xFFDFE2E9))),

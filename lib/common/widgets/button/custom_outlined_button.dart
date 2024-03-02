@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
-class CustomTextButton extends StatelessWidget {
-  const CustomTextButton({
+class CustomOutlinedButton extends StatelessWidget {
+  const CustomOutlinedButton({
     Key? key,
-    required this.text,
     required this.onPressed,
-    this.isLoading = false,
+    required this.text,
     this.isEnabled = true,
+    this.isLoading = false,
     this.textColor,
   }) : super(key: key);
 
-  final String text;
   final VoidCallback? onPressed;
   final bool isLoading;
+  final String text;
   final bool isEnabled;
   final Color? textColor;
 
@@ -42,21 +42,28 @@ class CustomTextButton extends StatelessWidget {
         : null;
 
     var defaultTextColor = Color(0xFF5C6AC3).withOpacity(isEnabled ? 1 : 0.75);
-    return TextButton(
+
+    return OutlinedButton(
       onPressed: onButtonPressed,
-      style: TextButton.styleFrom(
-        textStyle: TextStyle(color: textColor ?? context.colors.buttonPrimary),
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      style: OutlinedButton.styleFrom(
+        foregroundColor: textColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6),
+        ),
+        side: BorderSide(
+          color: textColor ?? context.colors.primary,
+        ),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          text.w(500).s(14).c(textColor ?? (defaultTextColor)),
+          text.w(400).s(14).c(context.colors.textPrimary),
           Visibility(visible: isLoading, child: SizedBox(width: 12)),
           Visibility(
             visible: isLoading,
             child: SizedBox(
-              width: 16,
-              height: 16,
+              width: 24,
+              height: 24,
               child: CircularProgressIndicator(
                 color: textColor ?? defaultTextColor,
                 strokeWidth: 1.5,
@@ -69,3 +76,5 @@ class CustomTextButton extends StatelessWidget {
     );
   }
 }
+
+enum ButtonType { elevated, outlined, text }

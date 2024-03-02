@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 
-class CommonButton extends StatelessWidget {
-  const CommonButton({
+class CustomElevatedButton extends StatelessWidget {
+  const CustomElevatedButton({
     Key? key,
     required this.onPressed,
     required this.text,
@@ -24,21 +24,21 @@ class CommonButton extends StatelessWidget {
     DateTime? clickTime;
 
     final onButtonPressed = !isEnabled ? null : () {
-            if (isLoading) {
-              return;
-            }
+      if (isLoading) {
+        return;
+      }
 
-            final difference =
-                clickTime?.difference(DateTime.now()).inMilliseconds ?? -1000;
+      final difference =
+          clickTime?.difference(DateTime.now()).inMilliseconds ?? -1000;
 
-            if (difference > -1000) {
-              return;
-            }
+      if (difference > -1000) {
+        return;
+      }
 
-            clickTime = DateTime.now();
+      clickTime = DateTime.now();
 
-            onPressed?.call();
-          };
+      onPressed?.call();
+    };
 
     switch (type) {
       case ButtonType.elevated:
@@ -82,15 +82,15 @@ class CommonButton extends StatelessWidget {
   Widget _buildChild(BuildContext context) {
     return isLoading
         ? SizedBox(
-            height: 23,
-            width: 23,
-            child: CircularProgressIndicator.adaptive(
-              strokeWidth: 3,
-              backgroundColor: type == ButtonType.elevated
-                  ? context.colors.buttonPrimary
-                  : context.colors.primary,
-            ),
-          )
+      height: 23,
+      width: 23,
+      child: CircularProgressIndicator.adaptive(
+        strokeWidth: 3,
+        backgroundColor: type == ButtonType.elevated
+            ? context.colors.buttonPrimary
+            : context.colors.primary,
+      ),
+    )
         : text;
   }
 }

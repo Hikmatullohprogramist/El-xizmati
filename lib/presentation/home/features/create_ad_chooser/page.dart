@@ -77,7 +77,7 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
                     onPressed: () {
                       context.router.push(CreateProductOrderRoute());
                     },
-                    child: Strings.adCreationStartBuyProduct
+                    text: Strings.adCreationStartBuyProduct
                         .s(13)
                         .w(400)
                         .c(Colors.white),
@@ -91,7 +91,7 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
                     onPressed: () {
                       context.router.push(CreateServiceOrderRoute());
                     },
-                    child: Strings.adCreationStartBuyService
+                    text: Strings.adCreationStartBuyService
                         .s(13)
                         .w(400)
                         .c(Colors.white),
@@ -142,7 +142,7 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
                     onPressed: () {
                       context.router.push(CreateProductAdRoute());
                     },
-                    child: Strings.adCreationStartSaleProduct
+                    text: Strings.adCreationStartSaleProduct
                         .s(13)
                         .w(400)
                         .c(Colors.white)
@@ -157,7 +157,7 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
                     onPressed: () {
                       context.router.push(CreateServiceAdRoute());
                     },
-                    child: Strings.adCreationStartSaleService
+                    text: Strings.adCreationStartSaleService
                         .s(13)
                         .w(400)
                         .c(Colors.white)
@@ -204,7 +204,7 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
                   context.router.push(AuthStartRoute());
                   vibrateAsHapticFeedback();
                 },
-                child: Container(
+                text: Container(
                   height: 52,
                   alignment: Alignment.center,
                   width: double.infinity,

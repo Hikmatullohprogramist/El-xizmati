@@ -134,7 +134,7 @@ class UserCardsPage extends BasePage<PageCubit, PageState, PageEvent> {
                   width: double.infinity,
                   child: CommonButton(
                     onPressed: () {},
-                    child: Strings.commonClose.w(600).s(14).c(Colors.white),
+                    text: Strings.commonClose.w(600).s(14).c(Colors.white),
                   ),
                 )
               ]),

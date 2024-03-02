@@ -134,7 +134,7 @@ class SelectionAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
                 onPressed: () {
                   context.router.pop(state.selectedItems);
                 },
-                child: Container(
+                text: Container(
                   height: 52,
                   alignment: Alignment.center,
                   width: double.infinity,

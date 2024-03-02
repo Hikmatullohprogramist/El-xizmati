@@ -61,7 +61,7 @@ class ProductFavoritesPage extends BasePage<PageCubit,
                     CommonButton(
                         onPressed: () {},
                         type: ButtonType.elevated,
-                        child: Strings.loadingStateRetry.w(400).s(15))
+                        text: Strings.loadingStateRetry.w(400).s(15))
                   ],
                 ),
               ),

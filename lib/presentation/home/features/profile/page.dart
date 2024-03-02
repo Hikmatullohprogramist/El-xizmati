@@ -360,7 +360,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
                   Expanded(
                     child: CommonButton(
                       color: Colors.blueAccent,
-                      child: Container(
+                      text: Container(
                         height: 48,
                         alignment: Alignment.center,
                         child: Strings.commonNo.s(16).c(Colors.white),
@@ -375,7 +375,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
                   Expanded(
                     child: CommonButton(
                       color: Colors.red,
-                      child: Container(
+                      text: Container(
                         height: 48,
                         alignment: Alignment.center,
                         child: Strings.commonYes.s(16).c(Colors.white),

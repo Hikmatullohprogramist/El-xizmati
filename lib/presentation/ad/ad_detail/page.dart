@@ -512,11 +512,11 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
               SizedBox(
                 height: 36,
                 child: CommonButton(
-                    enabled: !state.isAddCart,
+                    isEnabled: !state.isAddCart,
                     color: context.colors.buttonPrimary,
                     type: ButtonType.elevated,
                     onPressed: () => context.read<PageCubit>().addCart(),
-                    child:
+                    text:
                         Strings.adDetailAddtocart.s(13).c(Colors.white).w(500)),
               ),
               SizedBox(width: 16)

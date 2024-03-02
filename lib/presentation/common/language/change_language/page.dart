@@ -56,7 +56,7 @@ class ChangeLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
                   context.read<PageCubit>().selectLanguage(Language.russian);
                 },
                 type: ButtonType.outlined,
-                child: SizedBox(
+                text: SizedBox(
                   height: 48,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,7 +76,7 @@ class ChangeLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
                     ? context.colors.primary
                     : Color(0xFFE5E9F3),
                 type: ButtonType.outlined,
-                child: SizedBox(
+                text: SizedBox(
                   height: 48,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -98,7 +98,7 @@ class ChangeLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
                     ? context.colors.primary
                     : Color(0xFFE5E9F3),
                 type: ButtonType.outlined,
-                child: SizedBox(
+                text: SizedBox(
                   height: 48,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

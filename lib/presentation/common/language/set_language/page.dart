@@ -60,7 +60,7 @@ class SetLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
                     context.read<PageCubit>().setLanguage(Language.ru);
                   },
                   type: ButtonType.outlined,
-                  child: SizedBox(
+                  text: SizedBox(
                     height: 48,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -78,7 +78,7 @@ class SetLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
                   },
                   color: Color(0xFFE5E9F3),
                   type: ButtonType.outlined,
-                  child: SizedBox(
+                  text: SizedBox(
                     height: 48,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -97,7 +97,7 @@ class SetLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
                   },
                   color: Color(0xFFE5E9F3),
                   type: ButtonType.outlined,
-                  child: SizedBox(
+                  text: SizedBox(
                     height: 48,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

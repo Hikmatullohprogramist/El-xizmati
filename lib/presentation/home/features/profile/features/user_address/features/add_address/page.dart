@@ -241,7 +241,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
               onPressed: () {
                 cubit(context).getCurrentLocation();
               },
-              child:
+              text:
                   Strings.userAddressGetLocation.w(600).s(14).c(Colors.black),
             ),
           ),
@@ -279,7 +279,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
               onPressed: () {
                 cubit(context).validationDate();
               },
-              child: (state.isEditing ? Strings.commonSave : Strings.commonAdd)
+              text: (state.isEditing ? Strings.commonSave : Strings.commonAdd)
                   .w(600)
                   .s(14)
                   .c(Colors.white),

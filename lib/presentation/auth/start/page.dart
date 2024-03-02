@@ -83,7 +83,7 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
                   color: context.colors.borderColor,
                   type: ButtonType.outlined,
                   onPressed: () {},
-                  child: SizedBox(
+                  text: SizedBox(
                     height: 48,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -102,7 +102,7 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
                   type: ButtonType.outlined,
                   onPressed: () =>
                       context.router.replace(LoginWithOneIdRoute()),
-                  child: SizedBox(
+                  text: SizedBox(
                     height: 48,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -121,7 +121,7 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
                   type: ButtonType.outlined,
                   onPressed: () =>
                       context.router.replace(LoginWithOneIdRoute()),
-                  child: SizedBox(
+                  text: SizedBox(
                     height: 48,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -140,9 +140,9 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
                   onPressed: () {
                     context.read<PageCubit>().validation();
                   },
-                  enabled: state.validation,
-                  loading: state.loading,
-                  child: Container(
+                  isEnabled: state.validation,
+                  isLoading: state.loading,
+                  text: Container(
                     height: 52,
                     alignment: Alignment.center,
                     width: double.infinity,

@@ -35,7 +35,7 @@ class FavoriteEmptyWidget extends StatelessWidget {
             type: ButtonType.elevated,
             color: context.colors.buttonPrimary,
             onPressed: invoke,
-            child: Strings.favoriteEmptyToMain.w(500).s(14).c(Colors.white))
+            text: Strings.favoriteEmptyToMain.w(500).s(14).c(Colors.white))
       ]),
     );
   }

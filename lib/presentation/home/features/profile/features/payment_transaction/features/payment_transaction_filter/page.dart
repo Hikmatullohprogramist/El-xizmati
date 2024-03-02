@@ -159,7 +159,7 @@ class PaymentTransactionFilterPage
                       child: SizedBox(
                     child: CommonButton(
                       onPressed: () {},
-                      child: Strings.commonFilterReset.s(14).w(600),
+                      text: Strings.commonFilterReset.s(14).w(600),
                     ),
                   ))),
               SizedBox(width: 16),
@@ -169,7 +169,7 @@ class PaymentTransactionFilterPage
                     child: SizedBox(
                   child: CommonButton(
                     onPressed: () {},
-                    child: Strings.commonApply.s(14).w(600),
+                    text: Strings.commonApply.s(14).w(600),
                   ),
                 )),
               ),
