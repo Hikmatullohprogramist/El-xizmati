@@ -472,11 +472,11 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             keyboardType: TextInputType.phone,
             maxLines: 1,
             hint: '',
-            prefixText: "+998 ",
+            prefixText: "+998",
             inputType: TextInputType.phone,
             textInputAction: TextInputAction.next,
             controller: phoneController,
-            // inputFormatters: phoneMaskFormatter,
+             inputFormatters: phoneMaskFormatter,
             onChanged: (value) {
               cubit(context).setEnteredPhone(value);
             },
