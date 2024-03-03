@@ -43,6 +43,7 @@ class CategoryPage extends BasePage<PageCubit, PageState, PageEvent> {
                 );
               },
               category: state.items[index],
+              loadingState: state.loadState,
             );
           },
           separatorBuilder: (BuildContext context, int index) {

@@ -92,11 +92,14 @@ class _CommonTextFieldState extends State<CommonTextField> {
   @override
   void initState() {
     super.initState();
+    log("init");
     _focusNode.addListener(_handleFocusChange);
     _passwordVisible = widget.obscureText;
   }
 
+
   void _handleFocusChange() {
+    log("init2");
     if (_focusNode.hasFocus != _isFocused) {
       setState(() {
         _isFocused = _focusNode.hasFocus;
@@ -141,7 +144,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
             fontWeight: FontWeight.w400,
             color: Color(0xFF41455F),
           ),
-          controller: widget.controller,
+          controller:widget.controller,
           keyboardType: widget.inputType,
           minLines: widget.minLines,
           maxLines: widget.maxLines,

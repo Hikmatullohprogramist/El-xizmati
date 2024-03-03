@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
+import 'package:onlinebozor/common/controller/controller_exts.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
@@ -15,6 +16,8 @@ import 'package:onlinebozor/common/widgets/text_field/label_text_field.dart';
 
 import '../../../../../common/core/base_page.dart';
 import '../../../common/colors/static_colors.dart';
+import '../../../common/vibrator/vibrator_extension.dart';
+import '../../../common/widgets/button/custom_outlined_button.dart';
 import '../../../common/widgets/chips/chips_add_item.dart';
 import '../../../common/widgets/chips/chips_item.dart';
 import '../../../common/widgets/image/image_ad_list_widget.dart';
@@ -115,7 +118,7 @@ class CreateProductOrderPage
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       child: Column(
         children: [
-          LabelTextField(text: "Название товара ", isRequired: true),
+          LabelTextField(text: "Название товара", isRequired: true),
           SizedBox(height: 8),
           CommonTextField(
             hint: "Название товара",
@@ -200,7 +203,9 @@ class CreateProductOrderPage
                 'Подумайте, какие подробности вы хотели бы узнать из объявления. И добавьте их в описание',
             textInputAction: TextInputAction.next,
             controller: descController,
-            onChanged: (value) {},
+            onChanged: (value) {
+              cubit(context).setDescription(value);
+            },
           ),
           SizedBox(height: 12),
           LabelTextField(text: "Цена", isRequired: true),
@@ -318,18 +323,23 @@ class CreateProductOrderPage
           SizedBox(height: 12),
           "Эл. почта".w(500).s(14).c(Color(0xFF41455E)),
           SizedBox(height: 8),
-          CommonTextField(
-            autofillHints: const [AutofillHints.telephoneNumber],
-            keyboardType: TextInputType.phone,
-            inputType: TextInputType.emailAddress,
-            textInputAction: TextInputAction.next,
-            hint: "Эл. почта",
-            validateType: "email",
-            maxLines: 1,
-            controller: emailController,
-            onChanged: (value) {
-              cubit(context).setEmail(value);
+          InkWell(
+            onTap: (){
+              emailController.text.length;
             },
+            child: CommonTextField(
+              autofillHints: const [AutofillHints.telephoneNumber],
+              keyboardType: TextInputType.phone,
+              inputType: TextInputType.emailAddress,
+              textInputAction: TextInputAction.next,
+              hint: "Эл. почта",
+              validateType: "email",
+              maxLines: 1,
+              controller: emailController,
+              onChanged: (value) {
+                cubit(context).setEmail(value);
+              },
+            ),
           ),
           SizedBox(height: 12),
           "Номер телефона".w(500).s(14).c(Color(0xFF41455E)),
@@ -463,7 +473,34 @@ class CreateProductOrderPage
           SizedBox(height: 16),
           CommonButton(
               color: context.colors.buttonPrimary,
-              onPressed: () {},
+              onPressed: () {
+                vibrateAsHapticFeedback();
+                var result=cubit(context).checkEnabledField();
+                if(result){
+                  _showLogoutBottomSheet(context);
+                }else{
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    backgroundColor:  Colors.red,
+                      behavior: SnackBarBehavior.floating,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10.0),
+                          topRight: Radius.circular(10.0),
+                          bottomLeft: Radius.circular(10.0),
+                          bottomRight: Radius.circular(10.0),
+                        ),),
+                    content: Center(child: Column(
+                      children: [
+                       SizedBox(height: 7,),
+                        Text('Please fill the required fields'),
+                        SizedBox(height: 7,),
+
+                      ],
+                    )),
+                  ));
+                }
+
+              },
               // enabled: false,
               // loading: state.loading,
               text: Container(
@@ -543,4 +580,61 @@ class CreateProductOrderPage
         .toList());
     return chips;
   }
+
+  void _showLogoutBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext bc) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(height: 32),
+              Center(child: "Success".s(22).w(600)),
+              SizedBox(height: 24),
+              Center(child: "...".s(16)),
+              SizedBox(height: 32),
+              Row(
+                children: <Widget>[
+                  SizedBox(width: 16),
+                  Expanded(
+                    child: CustomOutlinedButton(
+                      text: Strings.commonNo,
+                      strokeColor: Colors.blueAccent,
+                      onPressed: () {
+
+                      },
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Expanded(
+                    child: CustomOutlinedButton(
+                      text: Strings.commonYes,
+                      strokeColor: Colors.red,
+                      onPressed: () {
+
+                      },
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                ],
+              ),
+              SizedBox(height: 24),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
 }

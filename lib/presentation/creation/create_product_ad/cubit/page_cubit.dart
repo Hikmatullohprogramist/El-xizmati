@@ -205,6 +205,27 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
+  bool checkEnabledField() {
+    var title = (state.state?.title.isNotEmpty) ?? false;
+    var category = (state.state?.category?.name?.isNotEmpty) ?? false;
+    var description = (state.state?.desc.isNotEmpty) ?? false;
+    var warehouseCount = (state.state?.warehouseCount.toString()?.isNotEmpty) ?? false;
+    var unit= (state.state?.unit?.name?.isNotEmpty) ?? false;
+    var price = (state.state?.price.toString().isNotEmpty) ?? false;
+    var currency = (state.state?.currency?.name?.isNotEmpty) ?? false;
+    var contactPerson = (state.state?.contactPerson.isNotEmpty) ?? false;
+    var phoneNumber = (state.state?.phone.isNotEmpty) ?? false;
+    var email = (state.state?.email.isNotEmpty) ?? false;
+
+
+    if (title && category && description && warehouseCount && unit && price &&currency
+      &&contactPerson&&phoneNumber&&email) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   void removeSelectedPickupAddress(UserAddressResponse pickupAddress) {
     try {
       var pickupAddresses =

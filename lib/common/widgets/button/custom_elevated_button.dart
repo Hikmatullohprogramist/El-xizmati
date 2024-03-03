@@ -69,6 +69,7 @@ class CustomElevatedButton extends StatelessWidget {
         width: buttonWidth,
         height: buttonHeight,
         child: Row(
+
           children: [
             Expanded(
               child: text.w(400).s(14).c(actualTextColor).copyWith(

@@ -70,6 +70,24 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
  //   updateState((state) => state.copyWith(userAddressResponse: address));
  // }
 
+  bool checkEnabledField() {
+    var name = (state.state?.name?.isNotEmpty) ?? false;
+    var category = (state.state?.categoryResponse?.name?.isNotEmpty) ?? false;
+    var description = (state.state?.description?.isNotEmpty) ?? false;
+    var fromPrice = (state.state?.fromPrice?.isNotEmpty) ?? false;
+    var toPrice = (state.state?.toPrice?.isNotEmpty) ?? false;
+    var currency = (state.state?.currenc?.name?.isNotEmpty) ?? false;
+    var email = (state.state?.email?.isNotEmpty) ?? false;
+    var phone = (state.state?.phone?.isNotEmpty) ?? false;
+    if (name &&
+        category && description && fromPrice && toPrice && currency &&
+        email && phone) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   void setSelectedPaymentTypes(
       List<PaymentTypeResponse>? selectedPaymentTypes,
       ) {
