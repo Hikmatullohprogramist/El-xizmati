@@ -2,23 +2,26 @@ import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/common/widgets/button/common_button.dart';
+import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/common/widgets/text_field/common_text_field.dart';
 import 'package:onlinebozor/common/widgets/text_field/custom_dropdown_field.dart';
 import 'package:onlinebozor/common/widgets/text_field/label_text_field.dart';
 
 import '../../../../../common/core/base_page.dart';
 import '../../../common/colors/static_colors.dart';
+import '../../../common/vibrator/vibrator_extension.dart';
+import '../../../common/widgets/button/custom_elevated_button.dart';
+import '../../../common/widgets/button/custom_outlined_button.dart';
 import '../../../common/widgets/chips/chips_add_item.dart';
 import '../../../common/widgets/chips/chips_item.dart';
 import '../../../common/widgets/image/image_ad_list_widget.dart';
 import '../../../common/widgets/switch/custom_switch.dart';
+import '../../common/selection_address/selection_address_page.dart';
 import '../../common/selection_currency/selection_currency_page.dart';
 import '../../common/selection_payment_type/selection_payment_type_page.dart';
 import '../../common/selection_user_address/selection_user_address_page.dart';
@@ -26,8 +29,7 @@ import '../../utils/mask_formatters.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
-class CreateProductOrderPage
-    extends BasePage<PageCubit, PageState, PageEvent> {
+class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
   CreateProductOrderPage({super.key});
 
   final TextEditingController titleController = TextEditingController();
@@ -82,7 +84,7 @@ class CreateProductOrderPage
             SizedBox(height: 12),
             _buildAddressBlock(context, state),
             SizedBox(height: 12),
-            _buildAutoContinueBlock(state,context),
+            _buildAutoContinueBlock(state, context),
             SizedBox(height: 12),
             _buildFooterBlock(context),
           ],
@@ -123,10 +125,8 @@ class CreateProductOrderPage
               cubit(context).setName(value);
             },
             controller: titleController,
-            onFieldSubmitted1: (val){
-            },
+            onFieldSubmitted1: (val) {},
           ),
-
           SizedBox(height: 12),
           LabelTextField(text: "Категория", isRequired: true),
           SizedBox(height: 8),
@@ -200,7 +200,9 @@ class CreateProductOrderPage
                 'Подумайте, какие подробности вы хотели бы узнать из объявления. И добавьте их в описание',
             textInputAction: TextInputAction.next,
             controller: descController,
-            onChanged: (value) {},
+            onChanged: (value) {
+              cubit(context).setDescription(value);
+            },
           ),
           SizedBox(height: 12),
           LabelTextField(text: "Цена", isRequired: true),
@@ -237,25 +239,25 @@ class CreateProductOrderPage
           LabelTextField(text: "Валюта"),
           SizedBox(height: 8),
           SizedBox(
-              width: 150,
-              child:   CustomDropdownField(
-                text: state.currenc?.name?? "",
-                hint: "-",
-                onTap: () async {
-                  // _showCurrencyBottomSheet(context);
-                  final currency = await showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    useSafeArea: true,
-                    backgroundColor: Colors.transparent,
-                    builder: (context) => SelectionCurrencyPage(
-                      key: Key(""),
-                      initialSelectedItem: state.currenc,
-                    ),
-                  );
-                  cubit(context).setSelectedCurrency(currency);
-                },
-              ),
+            width: 150,
+            child: CustomDropdownField(
+              text: state.currenc?.name ?? "",
+              hint: "-",
+              onTap: () async {
+                // _showCurrencyBottomSheet(context);
+                final currency = await showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  useSafeArea: true,
+                  backgroundColor: Colors.transparent,
+                  builder: (context) => SelectionCurrencyPage(
+                    key: Key(""),
+                    initialSelectedItem: state.currenc,
+                  ),
+                );
+                cubit(context).setSelectedCurrency(currency);
+              },
+            ),
           ),
           SizedBox(height: 20),
           LabelTextField(text: 'Способ оплаты', isRequired: true),
@@ -269,7 +271,9 @@ class CreateProductOrderPage
             runAlignment: WrapAlignment.start,
             children: _buildPaymentTypeChips(context, state),
           ),
-          SizedBox(height: 25,),
+          SizedBox(
+            height: 25,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -298,23 +302,23 @@ class CreateProductOrderPage
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 8),
-           "Контактная информация".w(700).s(16).c(Color(0xFF41455E)),
-            SizedBox(height: 20),
-       //  "Контактное лицо".w(500).s(14).c(Color(0xFF41455E)),
-       //  SizedBox(height: 8),
-       //  CommonTextField(
-       //    autofillHints: const [AutofillHints.telephoneNumber],
-       //    keyboardType: TextInputType.phone,
-       //    maxLines: 1,
-       //    hint: 'Контактное лицо',
-       //    inputType: TextInputType.phone,
-       //    textInputAction: TextInputAction.next,
-       //    controller: phoneController,
-       //    inputFormatters: phoneMaskFormatter,
-       //    onChanged: (value) {
-       //
-       //    },
-       //  ),
+          "Контактная информация".w(700).s(16).c(Color(0xFF41455E)),
+          SizedBox(height: 20),
+          //  "Контактное лицо".w(500).s(14).c(Color(0xFF41455E)),
+          //  SizedBox(height: 8),
+          //  CommonTextField(
+          //    autofillHints: const [AutofillHints.telephoneNumber],
+          //    keyboardType: TextInputType.phone,
+          //    maxLines: 1,
+          //    hint: 'Контактное лицо',
+          //    inputType: TextInputType.phone,
+          //    textInputAction: TextInputAction.next,
+          //    controller: phoneController,
+          //    inputFormatters: phoneMaskFormatter,
+          //    onChanged: (value) {
+          //
+          //    },
+          //  ),
           SizedBox(height: 12),
           "Эл. почта".w(500).s(14).c(Color(0xFF41455E)),
           SizedBox(height: 8),
@@ -343,7 +347,7 @@ class CreateProductOrderPage
             inputType: TextInputType.phone,
             textInputAction: TextInputAction.next,
             controller: phoneController,
-             inputFormatters: phoneMaskFormatter,
+            inputFormatters: phoneMaskFormatter,
             onChanged: (value) {
               cubit(context).setPhoneNumber(value);
             },
@@ -371,7 +375,7 @@ class CreateProductOrderPage
           SizedBox(height: 8),
           CustomDropdownField(
             text: state.userAddressResponse?.name ?? "",
-            hint:state.address?.name??"Моё местоположения",
+            hint: state.address?.name ?? "Моё местоположения",
             onTap: () async {
               final address = await showModalBottomSheet(
                 context: context,
@@ -395,18 +399,17 @@ class CreateProductOrderPage
             text: state.userAddressResponse?.name ?? "",
             hint: "Где искать?",
             onTap: () {
-              context.router.push(
-                SelectionUserAddressRoute(),
-              );
+             // context.router.push(
+             //   SelectionUserAddressRoute(),
+             // );
             },
           ),
         ],
       ),
-
     );
   }
 
-  Widget _buildAutoContinueBlock(PageState state,BuildContext context) {
+  Widget _buildAutoContinueBlock(PageState state, BuildContext context) {
     return Container(
       color: Colors.white,
       child: Padding(
@@ -461,20 +464,37 @@ class CreateProductOrderPage
             ],
           ),
           SizedBox(height: 16),
-          CommonButton(
-              color: context.colors.buttonPrimary,
-              onPressed: () {},
-              // enabled: false,
-              // loading: state.loading,
-              text: Container(
-                height: 52,
-                alignment: Alignment.center,
-                width: double.infinity,
-                child: Strings.commonContinue
-                    .w(500)
-                    .s(14)
-                    .c(context.colors.textPrimaryInverse),
-              )),
+          CustomElevatedButton(
+            text: Strings.commonContinue,
+            onPressed: () {
+              log("jdj");
+             vibrateAsHapticFeedback();
+             var result=cubit(context).checkEnabledField();
+             if(result){
+               _showLogoutBottomSheet(context);
+             }else{
+               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                 backgroundColor:  Colors.red,
+                 behavior: SnackBarBehavior.floating,
+                 shape: RoundedRectangleBorder(
+                   borderRadius: BorderRadius.only(
+                     topLeft: Radius.circular(10.0),
+                     topRight: Radius.circular(10.0),
+                     bottomLeft: Radius.circular(10.0),
+                     bottomRight: Radius.circular(10.0),
+                   ),),
+                 content: Center(child: Column(
+                   children: [
+                     SizedBox(height: 7,),
+                     Text('Please fill the required fields'),
+                     SizedBox(height: 7,),
+                   ],
+                 )),
+               ));
+              }
+
+            },
+          ),
         ],
       ),
     );
@@ -508,10 +528,11 @@ class CreateProductOrderPage
       },
     );
   }
+
   List<Widget> _buildPaymentTypeChips(
-      BuildContext context,
-      PageState state,
-      ) {
+    BuildContext context,
+    PageState state,
+  ) {
     List<Widget> chips = [];
     chips.add(
       ChipsAddItem(
@@ -533,14 +554,71 @@ class CreateProductOrderPage
     chips.addAll(state.paymentTypes
         .map(
           (element) => ChipsItem(
-        item: element,
-        title: element.name ?? "",
-        onRemoveClicked: (item) {
-          cubit(context).removeSelectedPaymentType(element);
-        },
-      ),
-    )
+            item: element,
+            title: element.name ?? "",
+            onRemoveClicked: (item) {
+              cubit(context).removeSelectedPaymentType(element);
+            },
+          ),
+        )
         .toList());
     return chips;
   }
+
+  void _showLogoutBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext bc) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(height: 32),
+              Center(child: "Success".s(22).w(600)),
+              SizedBox(height: 24),
+              Center(child: "...".s(16)),
+              SizedBox(height: 32),
+              Row(
+                children: <Widget>[
+                  SizedBox(width: 16),
+                  Expanded(
+                    child: CustomOutlinedButton(
+                      text: Strings.commonNo,
+                      strokeColor: Colors.blueAccent,
+                      onPressed: () {
+
+                      },
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Expanded(
+                    child: CustomOutlinedButton(
+                      text: Strings.commonYes,
+                      strokeColor: Colors.red,
+                      onPressed: () {
+
+                      },
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                ],
+              ),
+              SizedBox(height: 24),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
 }

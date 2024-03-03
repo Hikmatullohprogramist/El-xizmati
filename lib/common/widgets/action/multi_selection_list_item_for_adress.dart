@@ -68,8 +68,9 @@ class MultiSelectionListItemForAddress extends StatelessWidget {
                       ],
                     ),
                   ),
-
-                  ( Assets.images.icCheckboxUnselected)
+                  (isSelected
+                      ? Assets.images.icCheckboxSelected
+                      : Assets.images.icCheckboxUnselected)
                       .svg(height: 20, width: 20),
                 ],
               ),

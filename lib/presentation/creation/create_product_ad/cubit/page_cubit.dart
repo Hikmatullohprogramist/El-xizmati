@@ -124,6 +124,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     List<RegionResponse>? selectedPaymentTypes,
   ) {
     try {
+      log.d("kdhcjdf");
       if (selectedPaymentTypes != null) {
         var paymentTypes = List<RegionResponse>.from(states.paymentType);
         paymentTypes.clear();
@@ -135,6 +136,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         updateState((state) => state.copyWith(paymentType: paymentTypes));
       }
     } catch (e) {
+      log.d("eror");
       log.e(e.toString());
     }
   }

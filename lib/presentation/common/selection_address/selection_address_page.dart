@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
@@ -67,13 +69,15 @@ class SelectionAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
                               MultiSelectionListItemForAddress(
                                 item: element,
                                 title: element.name ?? "",
-                                isSelected:
-                                    state.selectedItems.contains(element),
+                                isSelected: state.selectedItems.contains(element),
                                 onClicked: (dynamic item) {
+                                //  state.items.addAll(state.districts);
                                   cubit(context).setRegion(element.id);
                                   cubit(context).updateSelectedItems(item);
+
+                                  log("kkk");
                                 },
-                                count: '${state.selectedItems.length}',
+                                count: '${state.selectedItems.where((elem) => elem.id/100==element.id).length}',
                               ),
                               Visibility(
                                   visible:
@@ -87,18 +91,25 @@ class SelectionAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
                                       shrinkWrap: true,
                                       itemCount: state.districts.length,
                                       itemBuilder: (context, index) {
-                                        var element = state.districts[index];
+                                        var element2 = state.districts[index];
                                         return Padding(
                                           padding:
                                               const EdgeInsets.only(left: 25),
                                           child: MultiSelectionListItem(
-                                            item: element,
-                                            title: element.name,
+                                            item: element2,
+                                            title: element2.name,
                                             isSelected: state.selectedItems
-                                                .contains(element),
-                                            onClicked: (dynamic item) {
+                                                .contains(element2),
+                                            onClicked: (dynamic item2) {
+                                              log("oo");
+                                              log(element.name);
+                                              log(element2.name);
+
+
                                               cubit(context)
-                                                  .updateSelectedItems(item);
+                                                  .updateSelectedItems(item2);
+
+                                             // selectedPaymentTypes.
                                             },
                                           ),
                                         );
@@ -111,7 +122,7 @@ class SelectionAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
                                             endIndent: 20);
                                       },
                                     ),
-                                  ))
+                                  )),
                             ],
                           );
                         },

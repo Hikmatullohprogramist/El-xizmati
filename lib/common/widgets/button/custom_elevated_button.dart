@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
 import '../../colors/static_colors.dart';
@@ -66,10 +65,9 @@ class CustomElevatedButton extends StatelessWidget {
         elevation: 0,
       ),
       child: SizedBox(
-        width: buttonWidth,
+        width: 120,
         height: buttonHeight,
         child: Row(
-
           children: [
             Expanded(
               child: text.w(400).s(14).c(actualTextColor).copyWith(

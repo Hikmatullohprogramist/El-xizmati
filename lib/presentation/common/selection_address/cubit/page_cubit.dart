@@ -14,7 +14,10 @@ part 'page_state.dart';
 
 @Injectable()
 class PageCubit extends BaseCubit<PageState, PageEvent> {
-  PageCubit(this._repository, this._userRepository) : super(const PageState());
+  PageCubit(this._repository, this._userRepository) : super(const PageState()){
+    getRegions();
+    //getDistrict();
+  }
 
   final AdCreationRepository _repository;
   final UserRepository _userRepository;

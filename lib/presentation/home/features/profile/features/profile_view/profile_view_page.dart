@@ -14,7 +14,6 @@ import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 import '../../../../../../common/colors/static_colors.dart';
 import '../../../../../../common/constants.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
-import '../../../../../../common/widgets/button/common_button.dart';
 import '../../../../../../common/widgets/divider/custom_diverder.dart';
 import '../../../../../../common/widgets/profile/profile_item_widget.dart';
 import 'cubit/page_cubit.dart';

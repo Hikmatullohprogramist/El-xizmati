@@ -14,6 +14,7 @@ class PageState with _$PageState {
     String? currency,
 //
     UserAddressResponse? address,
+    @Default([]) List<RegionResponse> paymentType,
     String? phone,
     String? email,
     @Default(false) bool validation,

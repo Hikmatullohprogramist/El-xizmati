@@ -7,6 +7,7 @@ import '../../../../../../common/core/base_cubit.dart';
 import '../../../../../../data/responses/category/category/category_response.dart';
 import '../../../../data/responses/currencies/currency_response.dart';
 import '../../../../data/responses/payment_type/payment_type_response.dart';
+import '../../../../data/responses/region/region_response.dart';
 
 part 'page_cubit.freezed.dart';
 
@@ -102,6 +103,25 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         }
 
         updateState((state) => state.copyWith(paymentTypes: paymentTypes));
+      }
+    } catch (e) {
+      log.e(e.toString());
+    }
+  }
+
+  void setSelectedDeleveryForFree(
+      List<RegionResponse>? selectedPaymentTypes,
+      ) {
+    try {
+      if (selectedPaymentTypes != null) {
+        var paymentTypes = List<RegionResponse>.from(states.paymentType);
+        paymentTypes.clear();
+
+        if (selectedPaymentTypes.isNotEmpty) {
+          paymentTypes.addAll(selectedPaymentTypes);
+          paymentTypes = paymentTypes.toSet().toList();
+        }
+        updateState((state) => state.copyWith(paymentType: paymentTypes));
       }
     } catch (e) {
       log.e(e.toString());

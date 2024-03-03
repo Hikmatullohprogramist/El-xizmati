@@ -20,6 +20,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   final UserAddressRepository repository;
 
   Future<void> getItems() async {
+    log.d("77");
     try {
       final items = await repository.getUserAddresses();
       updateState(

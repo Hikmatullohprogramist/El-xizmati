@@ -1,16 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/common/extensions/currency_extensions.dart';
-import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/gen/localization/strings.dart';
-import 'package:onlinebozor/common/widgets/button/common_button.dart';
 import 'package:shimmer/shimmer.dart';
-
-import '../../../domain/models/ad/ad.dart';
-import '../../../domain/models/currency/currency.dart';
-import '../../constants.dart';
-import '../../gen/assets/assets.gen.dart';
 
 class CartWidgetShimmer extends StatelessWidget {
   const CartWidgetShimmer({
