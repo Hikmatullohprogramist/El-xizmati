@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+
+import '../../colors/static_colors.dart';
 
 class CustomOutlinedButton extends StatelessWidget {
   const CustomOutlinedButton({
@@ -11,8 +12,8 @@ class CustomOutlinedButton extends StatelessWidget {
     this.buttonHeight = 48,
     this.isEnabled = true,
     this.isLoading = false,
-    this.textColor,
-    this.strokeColor,
+    this.textColor = StaticColors.textColorPrimary,
+    this.strokeColor = StaticColors.dodgerBlue,
     this.rightIcon,
   }) : super(key: key);
 
@@ -22,8 +23,8 @@ class CustomOutlinedButton extends StatelessWidget {
   final double buttonHeight;
   final bool isLoading;
   final bool isEnabled;
-  final Color? textColor;
-  final Color? strokeColor;
+  final Color textColor;
+  final Color strokeColor;
   final Widget? rightIcon;
 
   bool isClickedRecently(DateTime? lastClickTime) {
@@ -44,17 +45,13 @@ class CustomOutlinedButton extends StatelessWidget {
               return;
             } else {
               clickTime = DateTime.now();
-              onPressed?.call();
+              onPressed.call();
             }
           }
         : null;
 
-    var actualTextColor =
-        (context.colors.textPrimary).withOpacity(isEnabled ? 1 : 0.75);
-
-    var actualStrokeColor =
-        (strokeColor ?? Color(0xFF3f9cfb)).withOpacity(isEnabled ? 1 : 0.75);
-
+    var actualTextColor = textColor.withOpacity(isEnabled ? 1 : 0.75);
+    var actualStrokeColor = strokeColor.withOpacity(isEnabled ? 1 : 0.75);
     var actualTextAlign = rightIcon != null ? TextAlign.left : TextAlign.center;
 
     return OutlinedButton(

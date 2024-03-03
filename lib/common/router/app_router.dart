@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:onlinebozor/presentation/common/language/change_language/page.dart';
-import 'package:onlinebozor/presentation/creation/create_product_order/page.dart';
-import 'package:onlinebozor/presentation/creation/create_service_order/page.dart';
-import 'package:onlinebozor/presentation/home/page.dart';
+import 'package:onlinebozor/presentation/common/language/change_language/change_language_page.dart';
+import 'package:onlinebozor/presentation/creation/create_product_order/create_product_order_page.dart';
+import 'package:onlinebozor/presentation/creation/create_service_order/create_service_order_page.dart';
+import 'package:onlinebozor/presentation/home/home_page.dart';
 
 import '../../data/responses/address/user_address_response.dart';
 import '../../data/responses/category/category/category_response.dart';
@@ -18,71 +18,71 @@ import '../../domain/models/ad/ad_type.dart';
 import '../../domain/models/ad/user_ad_status.dart';
 import '../../domain/models/order/order_type.dart';
 import '../../domain/models/order/user_order_status.dart';
-import '../../presentation/ad/ad_detail/page.dart';
-import '../../presentation/ad/ad_list/page.dart';
-import '../../presentation/ad/ad_list_actions/page.dart';
-import '../../presentation/ad/ad_list_by_type/page.dart';
-import '../../presentation/ad/user_ad_detail/page.dart';
-import '../../presentation/auth/confirm/page.dart';
-import '../../presentation/auth/eds/page.dart';
-import '../../presentation/auth/one_id/page.dart';
-import '../../presentation/auth/set_password/page.dart';
-import '../../presentation/auth/start/page.dart';
-import '../../presentation/auth/verification/page.dart';
-import '../../presentation/common/favorites/page.dart';
-import '../../presentation/common/favorites/features/product/page.dart';
-import '../../presentation/common/favorites/features/service/page.dart';
+import '../../presentation/ad/ad_detail/ad_detail_page.dart';
+import '../../presentation/ad/ad_list/ad_list_page.dart';
+import '../../presentation/ad/ad_list_actions/ad_list_actions.dart';
+import '../../presentation/ad/ad_list_by_type/ad_list_by_type.dart';
+import '../../presentation/ad/user_ad_detail/user_ad_detail.dart';
+import '../../presentation/auth/confirm/auth_confirm_page.dart';
+import '../../presentation/auth/eds/auth_with_eds_page.dart';
+import '../../presentation/auth/one_id/auth_with_one_id_page.dart';
+import '../../presentation/auth/set_password/set_password_page.dart';
+import '../../presentation/auth/start/auth_start_page.dart';
+import '../../presentation/auth/verification/auth_verification_page.dart';
+import '../../presentation/common/favorites/favorite_list_page.dart';
+import '../../presentation/common/favorites/features/product/favorite_products_page.dart';
+import '../../presentation/common/favorites/features/service/favorite_services_page.dart';
 import '../../presentation/common/image_viewer/image_viewer_page.dart';
 import '../../presentation/common/image_viewer/locale_image_viewer_page.dart';
-import '../../presentation/common/language/set_language/page.dart';
-import '../../presentation/common/notification/page.dart';
-import '../../presentation/common/popular_categories/page.dart';
-import '../../presentation/common/search/page.dart';
-import '../../presentation/common/selection_address/page.dart';
-import '../../presentation/common/selection_category/page.dart';
-import '../../presentation/common/selection_currency/page.dart';
-import '../../presentation/common/selection_nested_category/page.dart';
-import '../../presentation/common/selection_payment_type/page.dart';
-import '../../presentation/common/selection_unit/page.dart';
-import '../../presentation/common/selection_user_address/page.dart';
-import '../../presentation/common/selection_user_warehouse/page.dart';
-import '../../presentation/creation/create_ad_start/page.dart';
-import '../../presentation/creation/create_order_start/page.dart';
-import '../../presentation/creation/create_product_ad/page.dart';
-import '../../presentation/creation/create_service_ad/page.dart';
-import '../../presentation/home/features/cart/page.dart';
-import '../../presentation/home/features/cart/features/order_create/page.dart';
-import '../../presentation/home/features/category/page.dart';
-import '../../presentation/home/features/category/features/page.dart';
-import '../../presentation/home/features/create_ad_chooser/page.dart';
-import '../../presentation/home/features/dashboard/page.dart';
-import '../../presentation/home/features/profile/features/chat_list/page.dart';
-import '../../presentation/home/features/profile/features/chat_list/features/buying_chats/page.dart';
-import '../../presentation/home/features/profile/features/chat_list/features/chat/page_page.dart';
-import '../../presentation/home/features/profile/features/chat_list/features/saved_chats/page.dart';
-import '../../presentation/home/features/profile/features/chat_list/features/selling_chats/page.dart';
-import '../../presentation/home/features/profile/features/comparison_detail/page.dart';
-import '../../presentation/home/features/profile/features/payment_transaction/features/payment_transaction_filter/page.dart';
-import '../../presentation/home/features/profile/features/payment_transaction/page.dart';
-import '../../presentation/home/features/profile/features/profile_view/features/profile_edit/page.dart';
-import '../../presentation/home/features/profile/features/profile_view/features/registration/page.dart';
-import '../../presentation/home/features/profile/features/profile_view/page.dart';
-import '../../presentation/home/features/profile/features/promotion/page.dart';
-import '../../presentation/home/features/profile/features/settings/features/notification_settings/page.dart';
-import '../../presentation/home/features/profile/features/settings/features/user_active_device/page.dart';
-import '../../presentation/home/features/profile/features/settings/features/user_social_network/page.dart';
-import '../../presentation/home/features/profile/features/settings/page.dart';
-import '../../presentation/home/features/profile/features/user_address/features/add_address/page.dart';
-import '../../presentation/home/features/profile/features/user_address/page.dart';
-import '../../presentation/home/features/profile/features/user_ads/features/ad_list/page.dart';
-import '../../presentation/home/features/profile/features/user_ads/page.dart';
-import '../../presentation/home/features/profile/features/user_cards/features/add_card/page.dart';
-import '../../presentation/home/features/profile/features/user_cards/page.dart';
-import '../../presentation/home/features/profile/features/user_order_type/page.dart';
-import '../../presentation/home/features/profile/features/user_orders/features/user_order_list/page.dart';
-import '../../presentation/home/features/profile/features/user_orders/page.dart';
+import '../../presentation/common/language/set_language/set_language_page.dart';
+import '../../presentation/common/notification/notification_list_page.dart';
+import '../../presentation/common/popular_categories/popular_categories_page.dart';
+import '../../presentation/common/search/search_page.dart';
+import '../../presentation/common/selection_address/selection_address_page.dart';
+import '../../presentation/common/selection_category/selection_category_page.dart';
+import '../../presentation/common/selection_currency/selection_currency_page.dart';
+import '../../presentation/common/selection_nested_category/selection_nested_category_page.dart';
+import '../../presentation/common/selection_payment_type/selection_payment_type_page.dart';
+import '../../presentation/common/selection_unit/selection_unit_page.dart';
+import '../../presentation/common/selection_user_address/selection_user_address_page.dart';
+import '../../presentation/common/selection_user_warehouse/selection_user_warehouse_page.dart';
+import '../../presentation/creation/create_ad_start/create_ad_start_page.dart';
+import '../../presentation/creation/create_order_start/create_order_start_page.dart';
+import '../../presentation/creation/create_product_ad/create_product_ad_page.dart';
+import '../../presentation/creation/create_service_ad/create_service_ad_page.dart';
+import '../../presentation/home/features/cart/cart_page.dart';
+import '../../presentation/home/features/cart/features/order_create/order_create_page.dart';
+import '../../presentation/home/features/category/category_page.dart';
+import '../../presentation/home/features/category/features/sub_category_page.dart';
+import '../../presentation/home/features/create_ad_chooser/create_ad_chooser_page.dart';
+import '../../presentation/home/features/dashboard/dashboard_page.dart';
+import '../../presentation/home/features/profile/features/chat_list/chat_list_page.dart';
+import '../../presentation/home/features/profile/features/chat_list/features/buying_chats/buying_chats_page.dart';
+import '../../presentation/home/features/profile/features/chat_list/features/chat/chat_page.dart';
+import '../../presentation/home/features/profile/features/chat_list/features/saved_chats/saved_chats_page.dart';
+import '../../presentation/home/features/profile/features/chat_list/features/selling_chats/selling_chats_page.dart';
+import '../../presentation/home/features/profile/features/comparison_detail/comparision_detail_page.dart';
+import '../../presentation/home/features/profile/features/payment_transaction/features/payment_transaction_filter/payment_transaction_filter_page.dart';
+import '../../presentation/home/features/profile/features/payment_transaction/payment_transaction_page.dart';
+import '../../presentation/home/features/profile/features/profile_view/features/profile_edit/profile_edit_page.dart';
+import '../../presentation/home/features/profile/features/profile_view/features/registration/registration_page.dart';
+import '../../presentation/home/features/profile/features/profile_view/profile_view_page.dart';
+import '../../presentation/home/features/profile/features/promotion/promotion_page.dart';
+import '../../presentation/home/features/profile/features/settings/features/notification_settings/notification_settings_page.dart';
+import '../../presentation/home/features/profile/features/settings/features/user_active_device/user_action_sessions_page.dart';
+import '../../presentation/home/features/profile/features/settings/features/user_social_network/user_social_accounts_page.dart';
+import '../../presentation/home/features/profile/features/settings/settings_page.dart';
+import '../../presentation/home/features/profile/features/user_address/features/add_address/add_address_page.dart';
+import '../../presentation/home/features/profile/features/user_address/user_addresses_page.dart';
+import '../../presentation/home/features/profile/features/user_ads/features/ad_list/user_ads_page.dart';
+import '../../presentation/home/features/profile/features/user_ads/user_ad_list_page.dart';
+import '../../presentation/home/features/profile/features/user_cards/features/add_card/add_card_page.dart';
+import '../../presentation/home/features/profile/features/user_cards/user_card_list_page.dart';
+import '../../presentation/home/features/profile/features/user_order_type/user_order_type_page.dart';
+import '../../presentation/home/features/profile/features/user_orders/features/user_order_list/use_orders_page.dart';
+import '../../presentation/home/features/profile/features/user_orders/user_order_list_page.dart';
 import '../../presentation/home/features/profile/features/wallet_filling/page.dart';
-import '../../presentation/home/features/profile/page.dart';
+import '../../presentation/home/features/profile/profile_page.dart';
 
 part 'app_router.gr.dart';
 
@@ -99,11 +99,11 @@ class AppRouter extends _$AppRouter {
 
         /// Auth
         AutoRoute(page: AuthStartRoute.page, path: "/auth_start"),
-        AutoRoute(page: ConfirmRoute.page, path: '/confirmation'),
-        AutoRoute(page: VerificationRoute.page, path: '/verification'),
+        AutoRoute(page: AuthConfirmRoute.page, path: '/auth_confirmation'),
+        AutoRoute(page: AuthVerificationRoute.page, path: '/auth_verification'),
         AutoRoute(page: SetPasswordRoute.page, path: '/set_password'),
-        AutoRoute(page: EdsRoute.page, path: '/eds'),
-        AutoRoute(page: LoginWithOneIdRoute.page, path: "/login_with_one_id"),
+        AutoRoute(page: AuthWithEdsRoute.page, path: '/eds'),
+        AutoRoute(page: AuthWithOneIdRoute.page, path: "/login_with_one_id"),
 
         /// home
         AutoRoute(page: HomeRoute.page),
@@ -129,18 +129,18 @@ class AppRouter extends _$AppRouter {
 
         /// Favorite ads
         AutoRoute(
-          page: FavoritesRoute.page,
-          path: '/favorite',
+          page: FavoriteListRoute.page,
+          path: '/favorite_list',
           maintainState: true,
           children: [
             AutoRoute(
-              page: ProductFavoritesRoute.page,
-              path: 'product_favorites',
+              page: FavoriteProductsRoute.page,
+              path: 'favorites_products',
               maintainState: false,
             ),
             AutoRoute(
-              page: ServiceFavoritesRoute.page,
-              path: 'service_favorites',
+              page: FavoriteServicesRoute.page,
+              path: 'favorites_services',
               maintainState: false,
             )
           ],
@@ -209,7 +209,7 @@ class AppRouter extends _$AppRouter {
           path: '/popular_categories',
         ),
         AutoRoute(page: SearchRoute.page, path: '/search'),
-        AutoRoute(page: NotificationRoute.page, path: '/notification'),
+        AutoRoute(page: NotificationListRoute.page, path: '/notification_list'),
 
         /// image viewer
         AutoRoute(
@@ -230,34 +230,34 @@ class AppRouter extends _$AppRouter {
 
         AutoRoute(page: UserAddressesRoute.page, path: '/my_addresses'),
 
-        /// my ads
+        /// user ads
         AutoRoute(
-          page: UserAdsRoute.page,
-          path: '/my_ads',
+          page: UserAdListRoute.page,
+          path: '/user_ad_list',
           children: [
-            AutoRoute(page: UserAdListRoute.page, path: "all_ads"),
+            AutoRoute(page: UserAdsRoute.page, path: "user_ads"),
           ],
         ),
 
         /// ad list actions
         AutoRoute(page: AdListActionsRoute.page, path: '/ad_list_actions'),
 
-        AutoRoute(page: UserCardsRoute.page, path: '/my_cards'),
+        AutoRoute(page: UserCardListRoute.page, path: '/user_card_list'),
 
         /// user orders
         AutoRoute(page: AddCardRoute.page, path: '/add_card'),
         AutoRoute(
-          page: UserOrdersRoute.page,
-          path: '/user_orders',
+          page: UserOrderListRoute.page,
+          path: '/user_order_list',
           children: [
             AutoRoute(
-              page: UserOrderListRoute.page,
-              path: 'user_order_list',
+              page: UserOrdersRoute.page,
+              path: 'user_orders',
             ),
           ],
         ),
 
-        /// My chat lists
+        /// user chat lists
         AutoRoute(
           page: ChatListRoute.page,
           path: '/chat_list',
@@ -289,14 +289,17 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: ComparisonDetailRoute.page, path: '/comparison_detail'),
         AutoRoute(page: PromotionRoute.page, path: '/promotion'),
         AutoRoute(page: SettingRoute.page, path: '/setting'),
-        AutoRoute(page: UserActiveDeviceRoute.page, path: '/my_active_device'),
         AutoRoute(
-          page: UserSocialNetworkRoute.page,
-          path: '/my_social_network',
+          page: UserActiveSessionsRoute.page,
+          path: '/user_active_sessions',
         ),
         AutoRoute(
-          page: NotificationSettingRoute.page,
-          path: '/notification_setting',
+          page: UserSocialAccountsRoute.page,
+          path: '/user_social_accounts',
+        ),
+        AutoRoute(
+          page: NotificationSettingsRoute.page,
+          path: '/notification_settings',
         ),
         AutoRoute(page: UserAdDetailRoute.page, path: "/user_ad_detail"),
         AutoRoute(page: ChangeLanguageRoute.page, path: '/change_language'),

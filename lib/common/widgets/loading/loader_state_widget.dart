@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/enum/enums.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/widgets/button/common_button.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 
 class LoaderStateWidget extends StatelessWidget {
   const LoaderStateWidget({
@@ -73,26 +73,32 @@ class ErrorWidget extends StatelessWidget {
     return isFullScreen
         ? Center(
             child: Column(
-            children: [
-              "Xatolik yuz berdi?".w(400).s(14).c(context.colors.textPrimary),
-              SizedBox(height: 12),
-              CommonButton(
-                  onPressed: onErrorToAgainRequest,
-                  type: ButtonType.elevated,
-                  text: "Qayta urinish".w(400).s(15))
-            ],
-          ))
+              children: [
+                "Xatolik yuz berdi?".w(400).s(14).c(context.colors.textPrimary),
+                SizedBox(height: 12),
+                CustomElevatedButton(
+                  text: "Qayta urinish",
+                  onPressed: () => onErrorToAgainRequest,
+                )
+              ],
+            ),
+          )
         : Center(
             child: SizedBox(
               height: 160,
-              child: Column(children: [
-                "Xatolik yuz berdi?".w(400).s(14).c(context.colors.textPrimary),
-                SizedBox(height: 12),
-                CommonButton(
-                    onPressed: onErrorToAgainRequest,
-                    type: ButtonType.elevated,
-                    text: "Qayta urinish".w(400).s(15))
-            ]),
+              child: Column(
+                children: [
+                  "Xatolik yuz berdi?"
+                      .w(400)
+                      .s(14)
+                      .c(context.colors.textPrimary),
+                  SizedBox(height: 12),
+                  CustomElevatedButton(
+                    onPressed: () => onErrorToAgainRequest,
+                    text: "Qayta urinish",
+                  )
+                ],
+              ),
             ),
           );
   }

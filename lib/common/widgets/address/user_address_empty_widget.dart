@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 
 import '../../gen/assets/assets.gen.dart';
-import '../button/common_button.dart';
 
 class UserAddressEmptyWidget extends StatelessWidget {
-  const UserAddressEmptyWidget({super.key, required this.callBack});
+  const UserAddressEmptyWidget({super.key, required this.onActionClicked});
 
-  final VoidCallback callBack;
+  final VoidCallback onActionClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -31,21 +30,9 @@ class UserAddressEmptyWidget extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center),
             SizedBox(height: 42),
-            SizedBox(
-              width: double.maxFinite,
-              child: CommonButton(
-                type: ButtonType.elevated,
-                color: context.colors.buttonPrimary,
-                onPressed: callBack,
-                text: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.add),
-                      SizedBox(width: 10),
-                      Strings.addressAddTitle.w(500).s(14).c(Colors.white)
-                    ]),
-              ),
+            CustomElevatedButton(
+              onPressed: onActionClicked,
+              text: Strings.addressAddTitle,
             )
           ],
         ),
