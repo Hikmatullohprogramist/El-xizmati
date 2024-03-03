@@ -19,7 +19,7 @@ class CustomElevatedButton extends StatelessWidget {
   }) : super(key: key);
 
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final double buttonWidth;
   final double buttonHeight;
   final bool isLoading;
@@ -46,7 +46,7 @@ class CustomElevatedButton extends StatelessWidget {
               return;
             } else {
               clickTime = DateTime.now();
-              onPressed.call();
+              onPressed?.call();
             }
           }
         : null;

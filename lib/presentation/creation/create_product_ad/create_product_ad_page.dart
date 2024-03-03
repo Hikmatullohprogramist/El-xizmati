@@ -20,8 +20,6 @@ import 'package:onlinebozor/presentation/common/selection_user_warehouse/selecti
 import '../../../../../common/core/base_page.dart';
 import '../../../../../common/gen/localization/strings.dart';
 import '../../../common/colors/static_colors.dart';
-import '../../../common/vibrator/vibrator_extension.dart';
-import '../../../common/widgets/button/custom_outlined_button.dart';
 import '../../../common/widgets/text_field/common_text_field.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/widgets/button/common_button.dart';
@@ -114,7 +112,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       child: Column(
         children: [
-          LabelTextField(text: 'Название товара'),
+          LabelTextField(text: 'Название товара '),
           SizedBox(height: 6),
           CommonTextField(
             autofillHints: const [AutofillHints.name],
@@ -186,6 +184,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   initialIndex: index,
                 ),
               );
+
               if (result != null) {
                 cubit(context).setChangedImageList(result as List<XFile>);
               }
@@ -714,34 +713,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           CommonButton(
             color: context.colors.buttonPrimary,
             onPressed: () {
-              vibrateAsHapticFeedback();
-              var result=cubit(context).checkEnabledField();
-              if(result){
-                _showLogoutBottomSheet(context);
-              }else{
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  backgroundColor:  Colors.red,
-                  behavior: SnackBarBehavior.floating,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10.0),
-                      topRight: Radius.circular(10.0),
-                      bottomLeft: Radius.circular(10.0),
-                      bottomRight: Radius.circular(10.0),
-                    ),),
-                  content: Center(child: Column(
-                    children: [
-                      SizedBox(height: 7,),
-                      Text('Please fill the required fields'),
-                      SizedBox(height: 7,),
-
-                    ],
-                  )),
-                ));
-              }
-
-
-             // cubit(context).sendCreateProductAdRequest();
+              cubit(context).sendCreateProductAdRequest();
             },
             // enabled: false,
              isLoading: state.isRequestSending,
@@ -887,61 +859,6 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               },
             ),
           ],
-        );
-      },
-    );
-  }
-  void _showLogoutBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (BuildContext bc) {
-        return Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: 32),
-              Center(child: "Success".s(22).w(600)),
-              SizedBox(height: 24),
-              Center(child: "...".s(16)),
-              SizedBox(height: 32),
-              Row(
-                children: <Widget>[
-                  SizedBox(width: 16),
-                  Expanded(
-                    child: CustomOutlinedButton(
-                      text: Strings.commonNo,
-                      strokeColor: Colors.blueAccent,
-                      onPressed: () {
-
-                      },
-                    ),
-                  ),
-                  SizedBox(width: 16),
-                  Expanded(
-                    child: CustomOutlinedButton(
-                      text: Strings.commonYes,
-                      strokeColor: Colors.red,
-                      onPressed: () {
-
-                      },
-                    ),
-                  ),
-                  SizedBox(width: 16),
-                ],
-              ),
-              SizedBox(height: 24),
-            ],
-          ),
         );
       },
     );

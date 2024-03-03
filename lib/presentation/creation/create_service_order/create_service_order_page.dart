@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 
 import '../../../../../common/core/base_page.dart';
 import '../../../common/colors/static_colors.dart';
@@ -11,12 +11,11 @@ import '../../../common/gen/localization/strings.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/widgets/chips/chips_add_item.dart';
 import '../../../common/widgets/chips/chips_item.dart';
-import '../../../common/widgets/button/common_button.dart';
+import '../../../common/widgets/image/image_ad_list_widget.dart';
+import '../../../common/widgets/switch/custom_switch.dart';
 import '../../../common/widgets/text_field/common_text_field.dart';
 import '../../../common/widgets/text_field/custom_dropdown_field.dart';
 import '../../../common/widgets/text_field/label_text_field.dart';
-import '../../../common/widgets/image/image_ad_list_widget.dart';
-import '../../../common/widgets/switch/custom_switch.dart';
 import '../../common/selection_currency/selection_currency_page.dart';
 import '../../common/selection_payment_type/selection_payment_type_page.dart';
 import '../../common/selection_user_address/selection_user_address_page.dart';
@@ -24,8 +23,7 @@ import '../../utils/mask_formatters.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
-class CreateServiceOrderPage
-    extends BasePage<PageCubit, PageState, PageEvent> {
+class CreateServiceOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
   CreateServiceOrderPage({super.key});
 
   final TextEditingController titleController = TextEditingController();
@@ -80,7 +78,7 @@ class CreateServiceOrderPage
             SizedBox(height: 12),
             _buildAddressBlock(context, state),
             SizedBox(height: 12),
-            _buildAutoContinueBlock(state,context),
+            _buildAutoContinueBlock(state, context),
             SizedBox(height: 12),
             _buildFooterBlock(context),
           ],
@@ -99,15 +97,17 @@ class CreateServiceOrderPage
       backgroundColor: Colors.white,
       centerTitle: true,
       bottomOpacity: 1,
-      title:
-      Strings.adCreateServiceTitle.w(500).s(16).c(context.colors.textPrimary),
+      title: Strings.adCreateServiceTitle
+          .w(500)
+          .s(16)
+          .c(context.colors.textPrimary),
     );
   }
 
   Widget _buildTitleAndCategoryBlock(
-      BuildContext context,
-      PageState state,
-      ) {
+    BuildContext context,
+    PageState state,
+  ) {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
@@ -142,9 +142,9 @@ class CreateServiceOrderPage
   }
 
   Widget _buildImageListBlock(
-      BuildContext context,
-      PageState state,
-      ) {
+    BuildContext context,
+    PageState state,
+  ) {
     return Container(
       color: Colors.white,
       child: Column(
@@ -173,9 +173,9 @@ class CreateServiceOrderPage
   }
 
   Widget _buildDescAndPriceBlock(
-      BuildContext context,
-      PageState state,
-      ) {
+    BuildContext context,
+    PageState state,
+  ) {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
@@ -192,7 +192,7 @@ class CreateServiceOrderPage
             maxLines: 5,
             minLines: 3,
             hint:
-            'Подумайте, какие подробности вы хотели бы узнать из объявления. И добавьте их в описание',
+                'Подумайте, какие подробности вы хотели бы узнать из объявления. И добавьте их в описание',
             textInputAction: TextInputAction.next,
             controller: descController,
             onChanged: (value) {},
@@ -233,8 +233,8 @@ class CreateServiceOrderPage
           SizedBox(height: 8),
           SizedBox(
             width: 150,
-            child:   CustomDropdownField(
-              text: state.currenc?.name?? "",
+            child: CustomDropdownField(
+              text: state.currenc?.name ?? "",
               hint: "-",
               onTap: () async {
                 // _showCurrencyBottomSheet(context);
@@ -253,7 +253,6 @@ class CreateServiceOrderPage
             ),
           ),
           SizedBox(height: 12),
-
           LabelTextField(text: 'Способ оплаты', isRequired: true),
           SizedBox(height: 16),
           Wrap(
@@ -346,9 +345,9 @@ class CreateServiceOrderPage
   }
 
   Widget _buildAddressBlock(
-      BuildContext context,
-      PageState state,
-      ) {
+    BuildContext context,
+    PageState state,
+  ) {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.all(16),
@@ -363,7 +362,7 @@ class CreateServiceOrderPage
           SizedBox(height: 8),
           CustomDropdownField(
             text: state.userAddressResponse?.name ?? "",
-            hint:state.address?.name??"Моё местоположения",
+            hint: state.address?.name ?? "Моё местоположения",
             onTap: () async {
               final address = await showModalBottomSheet(
                 context: context,
@@ -394,11 +393,10 @@ class CreateServiceOrderPage
           ),
         ],
       ),
-
     );
   }
 
-  Widget _buildAutoContinueBlock(PageState state,BuildContext context) {
+  Widget _buildAutoContinueBlock(PageState state, BuildContext context) {
     return Container(
       color: Colors.white,
       child: Padding(
@@ -453,20 +451,10 @@ class CreateServiceOrderPage
             ],
           ),
           SizedBox(height: 16),
-          CommonButton(
-              color: context.colors.buttonPrimary,
-              onPressed: () {},
-              // enabled: false,
-              // loading: state.loading,
-              text: Container(
-                height: 52,
-                alignment: Alignment.center,
-                width: double.infinity,
-                child: Strings.commonContinue
-                    .w(500)
-                    .s(14)
-                    .c(context.colors.textPrimaryInverse),
-              )),
+          CustomElevatedButton(
+            text: Strings.commonContinue,
+            onPressed: () {},
+          ),
         ],
       ),
     );
@@ -500,10 +488,11 @@ class CreateServiceOrderPage
       },
     );
   }
+
   List<Widget> _buildPaymentTypeChips(
-      BuildContext context,
-      PageState state,
-      ) {
+    BuildContext context,
+    PageState state,
+  ) {
     List<Widget> chips = [];
     chips.add(
       ChipsAddItem(
@@ -525,13 +514,13 @@ class CreateServiceOrderPage
     chips.addAll(state.paymentTypes
         .map(
           (element) => ChipsItem(
-        item: element,
-        title: element.name ?? "",
-        onRemoveClicked: (item) {
-          cubit(context).removeSelectedPaymentType(element);
-        },
-      ),
-    )
+            item: element,
+            title: element.name ?? "",
+            onRemoveClicked: (item) {
+              cubit(context).removeSelectedPaymentType(element);
+            },
+          ),
+        )
         .toList());
     return chips;
   }

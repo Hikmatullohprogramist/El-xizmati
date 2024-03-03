@@ -1,15 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
-import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/bottom_sheet/bottom_sheet_title.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/data/responses/address/user_address_response.dart';
 import 'package:onlinebozor/presentation/common/selection_user_warehouse/cubit/page_cubit.dart';
 
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
+import '../../../common/gen/localization/strings.dart';
 import '../../../common/widgets/action/multi_selection_list_item.dart';
-import '../../../common/widgets/button/common_button.dart';
 import '../../../common/widgets/divider/custom_diverder.dart';
 
 @RoutePage()
@@ -74,20 +73,11 @@ class SelectionUserWarehousePage
                 SizedBox(height: 16),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: CommonButton(
-                    color: context.colors.buttonPrimary,
+                  child: CustomElevatedButton(
+                    text: Strings.commonSave,
                     onPressed: () {
                       context.router.pop(state.selectedItems);
                     },
-                    text: Container(
-                      height: 52,
-                      alignment: Alignment.center,
-                      width: double.infinity,
-                      child: "Сохранить"
-                          .w(500)
-                          .s(14)
-                          .c(context.colors.textPrimaryInverse),
-                    ),
                   ),
                 ),
               ],

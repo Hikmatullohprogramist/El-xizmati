@@ -6,7 +6,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/app_bar/action_app_bar.dart';
-import 'package:onlinebozor/common/widgets/button/common_button.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 
 import '../../../../../../common/router/app_router.dart';
@@ -132,9 +132,9 @@ class UserCardListPage extends BasePage<PageCubit, PageState, PageEvent> {
                 SizedBox(
                   height: 42,
                   width: double.infinity,
-                  child: CommonButton(
+                  child: CustomElevatedButton(
+                    text: Strings.commonClose,
                     onPressed: () {},
-                    text: Strings.commonClose.w(600).s(14).c(Colors.white),
                   ),
                 )
               ]),

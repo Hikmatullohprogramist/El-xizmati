@@ -4,16 +4,16 @@ import 'package:onlinebozor/common/controller/controller_exts.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
+import 'package:onlinebozor/common/widgets/action/selection_list_item.dart';
 import 'package:onlinebozor/common/widgets/app_bar/default_app_bar.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/button/custom_outlined_button.dart';
 import 'package:onlinebozor/common/widgets/text_field/label_text_field.dart';
-import 'package:onlinebozor/common/widgets/action/selection_list_item.dart';
 
 import '../../../../../../../../common/colors/static_colors.dart';
-import '../../../../../../../../common/widgets/button/common_button.dart';
+import '../../../../../../../../common/widgets/switch/custom_switch.dart';
 import '../../../../../../../../common/widgets/text_field/common_text_field.dart';
 import '../../../../../../../../common/widgets/text_field/custom_dropdown_field.dart';
-import '../../../../../../../../common/widgets/switch/custom_switch.dart';
 import '../../../../../../../../data/responses/address/user_address_response.dart';
 import 'cubit/page_cubit.dart';
 
@@ -231,7 +231,8 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
         children: [
           Strings.userAddressLocation.w(600).s(16),
           SizedBox(height: 12),
-          LabelTextField(text: Strings.userAddressTakenLocation,isRequired: true),
+          LabelTextField(
+              text: Strings.userAddressTakenLocation, isRequired: true),
           SizedBox(height: 8),
           Text("${state.latitude}, ${state.longitude},"),
           SizedBox(height: 8),
@@ -272,14 +273,11 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
           SizedBox(
             width: double.infinity,
             height: 42,
-            child: CommonButton(
+            child: CustomElevatedButton(
+              text: (state.isEditing ? Strings.commonSave : Strings.commonAdd),
               onPressed: () {
                 cubit(context).validationDate();
               },
-              text: (state.isEditing ? Strings.commonSave : Strings.commonAdd)
-                  .w(600)
-                  .s(14)
-                  .c(Colors.white),
             ),
           ),
         ],

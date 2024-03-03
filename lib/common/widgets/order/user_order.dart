@@ -2,10 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
+import 'package:onlinebozor/common/widgets/button/custom_outlined_button.dart';
 import 'package:onlinebozor/data/responses/user_order/user_order_response.dart';
 
 import '../../constants.dart';
-import '../button/common_button.dart';
 
 class UserOrderWidget extends StatelessWidget {
   const UserOrderWidget({
@@ -58,20 +60,18 @@ class UserOrderWidget extends StatelessWidget {
                 )),
             SizedBox(width: 12),
             Expanded(
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      "Product name".w(400).s(12).c(context.colors.textPrimary),
-                      SizedBox(width: 8),
                       Expanded(
                         child: (response.products.first.product?.name ?? "")
                             .toString()
-                            .w(500)
-                            .s(12)
+                            .w(600)
+                            .s(13)
                             .copyWith(overflow: TextOverflow.ellipsis),
                       )
                     ],
@@ -80,42 +80,18 @@ class UserOrderWidget extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      "Time".w(400).s(12).c(context.colors.textPrimary),
+                      Strings.commonDate.w(400).s(13).c(context.colors.textPrimary),
                       SizedBox(width: 8),
-                      (response.created_at ?? "").toString().w(500).s(12),
+                      (response.created_at ?? "").toString().w(500).s(13),
                     ],
                   ),
                   SizedBox(height: 3),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.start,
-                  //   children: [
-                  //     "Amount".w(400).s(12).c(context.colors.textPrimary),
-                  //     SizedBox(width: 8),
-                  //     (response.final_sum ?? "")
-                  //         .toString()
-                  //         .w(500)
-                  //         .s(12),
-                  //   ],
-                  // ),
-                  // SizedBox(height: 3),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.start,
-                  //   children: [
-                  //     "Price".w(400).s(12).c(context.colors.textPrimary),
-                  //     SizedBox(width: 8),
-                  //     (response.products.first.product?.name ?? "")
-                  //         .toString()
-                  //         .w(500)
-                  //         .s(12),
-                  //   ],
-                  // ),
-                  // SizedBox(height: 3),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      "Total cost".w(400).s(12).c(context.colors.textPrimary),
+                      Strings.commonTotalCost.w(400).s(13).c(context.colors.textPrimary),
                       SizedBox(width: 6),
-                      (response.final_sum ?? "").toString().w(500).s(12),
+                      (response.final_sum ?? "").toString().w(500).s(13),
                     ],
                   ),
                   SizedBox(height: 6),
@@ -123,21 +99,26 @@ class UserOrderWidget extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                          child: CommonButton(
-                              onPressed: () {},
-                              text: "o'chirish"
-                                  .w(500)
-                                  .s(13)
-                                  .c(Color(0xFFDFE2E9)))),
+                        child: CustomOutlinedButton(
+                          buttonHeight: 30,
+                          text: Strings.commonDelete,
+                          onPressed: () {},
+                          strokeColor: Colors.red.shade400,
+                        ),
+                      ),
                       SizedBox(width: 8),
                       Expanded(
-                          child: CommonButton(
-                              onPressed: () {},
-                              text:
-                                  "Ko'proq".w(500).s(13).c(Color(0xFFDFE2E9)))),
+                        child: CustomOutlinedButton(
+                          buttonHeight: 30,
+                          text: Strings.commonMore,
+                          onPressed: () {},
+                        ),
+                      ),
                     ],
                   )
-                ])),
+                ],
+              ),
+            ),
           ],
         ),
         onTap: () {},

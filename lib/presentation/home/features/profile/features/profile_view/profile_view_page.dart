@@ -3,12 +3,12 @@ import 'dart:developer' as profile_view_page;
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/app_bar/action_app_bar.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 
 import '../../../../../../common/colors/static_colors.dart';
@@ -174,8 +174,8 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                       ),
                       SizedBox(width: 10),
                       CustomTextButton(
-                          text: Strings.profileChangeToBusiness,
-                          onPressed: () {},
+                        text: Strings.profileChangeToBusiness,
+                        onPressed: () {},
                       )
                     ],
                   )
@@ -214,18 +214,11 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                   ),
                 ),
                 SizedBox(width: 16),
-                CommonButton(
-                  type: ButtonType.elevated,
+                CustomElevatedButton(
+                  text: Strings.profileIdentify,
                   onPressed: state.isRegistered
                       ? null
                       : () => context.router.replace(RegistrationRoute()),
-                  text: SizedBox(
-                    height: 42,
-                    child: Center(
-                      child:
-                          Strings.profileIdentify.w(500).s(12).c(Colors.white),
-                    ),
-                  ),
                 )
               ],
             )
@@ -244,10 +237,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                   children: [
                     Assets.images.icIdentified.svg(),
                     SizedBox(width: 10),
-                    Strings.profileIdentified
-                        .w(400)
-                        .s(12)
-                        .c(Color(0xFF32B88B))
+                    Strings.profileIdentified.w(400).s(12).c(Color(0xFF32B88B))
                   ],
                 ),
               ),
@@ -266,23 +256,32 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-          Column(children: [
-            Strings.profileUserDateOfBirth.w(400).s(14).c(Color(0xFF9EABBE)),
-            SizedBox(height: 6),
-            state.brithDate.w(500).s(16).c(Color(0xFF41455E)),
-            SizedBox(height: 8),
-           // CustomDivider(),
-          ],),
-          Column(
-            children: [
-              Strings.profileUserDateOfDocValidity.w(400).s(14).c(Color(0xFF9EABBE)),
-              SizedBox(height: 6),
-              state.biometricInformation.w(500).s(16).c(Color(0xFF41455E)),
-              SizedBox(height: 8),
-             // CustomDivider(),
-            ],
-          )
-        ],),
+            Column(
+              children: [
+                Strings.profileUserDateOfBirth
+                    .w(400)
+                    .s(14)
+                    .c(Color(0xFF9EABBE)),
+                SizedBox(height: 6),
+                state.brithDate.w(500).s(16).c(Color(0xFF41455E)),
+                SizedBox(height: 8),
+                // CustomDivider(),
+              ],
+            ),
+            Column(
+              children: [
+                Strings.profileUserDateOfDocValidity
+                    .w(400)
+                    .s(14)
+                    .c(Color(0xFF9EABBE)),
+                SizedBox(height: 6),
+                state.biometricInformation.w(500).s(16).c(Color(0xFF41455E)),
+                SizedBox(height: 8),
+                // CustomDivider(),
+              ],
+            )
+          ],
+        ),
         CustomDivider(),
         SizedBox(height: 8),
         Strings.profileUserEmail.w(400).s(14).c(Color(0xFF9EABBE)),
@@ -303,20 +302,23 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
           children: [
             state.regionName.w(500).s(16).c(Color(0xFF41455E)),
             ".".w(500).s(16).c(Color(0xFF41455E)),
-            SizedBox(width: 7,),
+            SizedBox(
+              width: 7,
+            ),
             state.districtName.w(500).s(16).c(Color(0xFF41455E)),
-            SizedBox(width: 7,),
+            SizedBox(
+              width: 7,
+            ),
             state.streetName.w(500).s(16).c(Color(0xFF41455E)),
           ],
         ),
         SizedBox(height: 8),
         CustomDivider(),
-        
       ]),
     );
   }
-  
-  Widget _getSettingsBlock(BuildContext context){
+
+  Widget _getSettingsBlock(BuildContext context) {
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Column(

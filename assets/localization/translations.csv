@@ -100,6 +100,8 @@ common_apartment,Kvartira,Квартира,Квартира
 common_apply,Qo‘llash,Применять,Қўллаш
 common_close,Yopish,Закрыть,Ёпиш
 common_continue,Davom etish,Продолжить,Давом этиш
+common_date,Sana,Дата,Сана
+common_delete,O‘chirish,Удалить,Ўчириш
 common_district,Tuman,Район,Туман
 common_edit,Tahrirlash,Редактировать,Таҳрирлаш
 common_entrance,Kirish,Подъезд,Кириш
@@ -108,12 +110,14 @@ common_filter_reset,Tozalash,Сброс,Тозалаш
 common_floor,Qavat,Этаж,Қават
 common_home_number,Uy raqami,Номер дома,Uy raqami
 common_main,Asosiy,Основной,Асосий
+common_more,Ko‘proq,Подробнее,Кўпроқ
 common_neighborhood,Mahalla,Махалля,Маҳалла
 common_no,Yo‘q,Нет,Йўқ
 common_phone_number,Telefon raqami,Номер телефона,Телефон рақами
 common_region,Viloyat,Регион,Вилоят
 common_save,Saqlash,Сохранить,Сақлаш
 common_street,Ko'cha,Улица,Кўча
+common_total_cost,Umumiy narx,Общая стоимость,Умумий нарх
 common_unfind,topilmadi,не найдено,топилмади
 common_yes,Ha,Да,Ҳа
 create_request_title,So‘rov yaratish,Создать запрос,Сўров яратиш
@@ -244,10 +248,10 @@ user_ad_detail_remainder,Qolgan,Остаток,Қолган
 user_address_add_title,Yangi manzil qo‘shish,Добавить новый адрес,Янги манзил қўшиш
 user_address_address,Manzil:,Адрес:,Манзил:
 user_address_edit_title,Manzilni tahrirlash,Редактировать адрес,Манзилни таҳрирлаш
+user_address_get_location,Joylashuvni aniqlash,Определить местоположение,Жойлашувни аниқлаш
+user_address_location,Joylashuvni tanlang,Выберите локацию,Жойлашувни танланг
 user_address_my_address,Mening manzillarim,Мои адреса,Менинг манзилларим
 user_address_name,Manzil nomi,Название адреса,Манзил номи
-user_address_location,Joylashuvni tanlang,Выберите локацию,Жойлашувни танланг
-user_address_get_location,Joylashuvni aniqlash,Определить местоположение,Жойлашувни аниқлаш
 user_address_taken_location,Aniqlangan joylashuv,Полученный местоположения,Аниқланган жойлашув
 user_ads_active_title,Faol,Активный,Фаол
 user_ads_all_title,Barchasi,Все,Барчаси

@@ -73,7 +73,7 @@ class CustomOutlinedButton extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              child: text.w(400).s(14).c(actualTextColor).copyWith(
+              child: text.w(400).s(13).c(actualTextColor).copyWith(
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     textAlign: actualTextAlign,

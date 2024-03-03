@@ -2,10 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/widgets/button/common_button.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/common/widgets/text_field/common_text_field.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_cards/features/add_card/cubit/page_cubit.dart';
@@ -100,9 +99,9 @@ class AddCardPage extends BasePage<PageCubit, PageState, PageEvent> {
                       SizedBox(
                         height: 42,
                         width: double.infinity,
-                        child: CommonButton(
+                        child: CustomElevatedButton(
+                          text: Strings.commonClose,
                           onPressed: () {},
-                          text: "Закрыть".w(600).s(14).c(Colors.white),
                         ),
                       )
                     ]),
@@ -182,80 +181,74 @@ class AddCardPage extends BasePage<PageCubit, PageState, PageEvent> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Strings.cardNameTitle.w(500).s(14).c(Color(0xFF41455E)),
-              SizedBox(height: 10),
-              CommonTextField(
-                inputType: TextInputType.text,
-                textInputAction: TextInputAction.next,
-                maxLength: 25,
-                hint: Strings.cardNameHint,
-                onChanged: (value) {
-                  cubit(context).setCardName(value);
-                },
-              ),
-              SizedBox(height: 20),
-              Strings.cardNumberTitle.w(500).s(14).c(Color(0xFF41455E)),
-              SizedBox(height: 10),
-              CommonTextField(
-                maxLength: 19,
-                textInputAction: TextInputAction.next,
-                inputType: TextInputType.number,
-                inputFormatters: cardNumberMaskFormatter,
-                hint: "____ ____ ____ ____",
-                onChanged: (value) {
-                  cubit(context).setCardNumber(value);
-                },
-              ),
-              SizedBox(height: 20),
-              Strings.cardExpiryDateTitle.w(500).s(14).c(Color(0xFF41455E)),
-              SizedBox(height: 10),
-              CommonTextField(
-                textInputAction: TextInputAction.done,
-                inputType: TextInputType.number,
-                inputFormatters: cardExpiredMaskFormatter,
-                maxLength: 5,
-                hint: "__/__",
-                onChanged: (value) {
-                  cubit(context).setCardNumber(value);
-                },
-              ),
-              SizedBox(height: 36),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Checkbox(
-                      value: state.isMain,
-                      onChanged: (bool? value) {
-                        cubit(context).setMainCard(value ?? false);
-                      }),
-                  SizedBox(width: 12),
-                  Strings.actionMakeMain.s(14).w(500).c(Color(0xFF41455E))
-                ],
-              ),
-              SizedBox(height: 64),
-              SizedBox(
-                height: 42,
-                width: double.infinity,
-                child: CommonButton(
-                  onPressed: () {
-                    context
-                        .read<PageCubit>()
-                        .setCardPosition(controller.page?.toInt() ?? 0);
-                    smsCodeVerification();
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Strings.cardNameTitle.w(500).s(14).c(Color(0xFF41455E)),
+                SizedBox(height: 10),
+                CommonTextField(
+                  inputType: TextInputType.text,
+                  textInputAction: TextInputAction.next,
+                  maxLength: 25,
+                  hint: Strings.cardNameHint,
+                  onChanged: (value) {
+                    cubit(context).setCardName(value);
                   },
-                  text: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.add),
-                      SizedBox(width: 10),
-                      Strings.cardAddCardTitle.w(600).s(14)
-                    ],
-                  ),
                 ),
-              )
-            ]),
+                SizedBox(height: 20),
+                Strings.cardNumberTitle.w(500).s(14).c(Color(0xFF41455E)),
+                SizedBox(height: 10),
+                CommonTextField(
+                  maxLength: 19,
+                  textInputAction: TextInputAction.next,
+                  inputType: TextInputType.number,
+                  inputFormatters: cardNumberMaskFormatter,
+                  hint: "____ ____ ____ ____",
+                  onChanged: (value) {
+                    cubit(context).setCardNumber(value);
+                  },
+                ),
+                SizedBox(height: 20),
+                Strings.cardExpiryDateTitle.w(500).s(14).c(Color(0xFF41455E)),
+                SizedBox(height: 10),
+                CommonTextField(
+                  textInputAction: TextInputAction.done,
+                  inputType: TextInputType.number,
+                  inputFormatters: cardExpiredMaskFormatter,
+                  maxLength: 5,
+                  hint: "__/__",
+                  onChanged: (value) {
+                    cubit(context).setCardNumber(value);
+                  },
+                ),
+                SizedBox(height: 36),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Checkbox(
+                        value: state.isMain,
+                        onChanged: (bool? value) {
+                          cubit(context).setMainCard(value ?? false);
+                        }),
+                    SizedBox(width: 12),
+                    Strings.actionMakeMain.s(14).w(500).c(Color(0xFF41455E))
+                  ],
+                ),
+                SizedBox(height: 64),
+                SizedBox(
+                  height: 42,
+                  width: double.infinity,
+                  child: CustomElevatedButton(
+                    text: Strings.cardAddCardTitle,
+                    onPressed: () {
+                      cubit(context)
+                          .setCardPosition(controller.page?.toInt() ?? 0);
+                      smsCodeVerification();
+                    },
+                  ),
+                )
+              ],
+            ),
           )
         ],
       ),

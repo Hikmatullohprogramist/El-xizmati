@@ -5,6 +5,7 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/app_bar/action_app_bar.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/common/widgets/transaction/transaction_empty_widget.dart';
 import 'package:onlinebozor/common/widgets/transaction/transaction_widget.dart';
@@ -12,7 +13,6 @@ import 'package:onlinebozor/common/widgets/transaction/transaction_widget.dart';
 import '../../../../../../common/colors/static_colors.dart';
 import '../../../../../../common/gen/localization/strings.dart';
 import '../../../../../../common/router/app_router.dart';
-import '../../../../../../common/widgets/button/common_button.dart';
 import '../../../../../../common/widgets/transaction/transaction_widget_shimmer.dart';
 import 'cubit/page_cubit.dart';
 
@@ -61,10 +61,10 @@ class PaymentTransactionPage extends BasePage<PageCubit, PageState, PageEvent> {
                       .s(14)
                       .c(context.colors.textPrimary),
                   SizedBox(height: 12),
-                  CommonButton(
-                      onPressed: () {},
-                      type: ButtonType.elevated,
-                      text: Strings.loadingStateRetry.w(400).s(15))
+                  CustomElevatedButton(
+                    text: Strings.loadingStateRetry,
+                    onPressed: () {},
+                  )
                 ],
               ),
             ),
@@ -73,12 +73,12 @@ class PaymentTransactionPage extends BasePage<PageCubit, PageState, PageEvent> {
         firstPageProgressIndicatorBuilder: (_) {
           return SingleChildScrollView(
             child: ListView.builder(
-                physics: BouncingScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 15,
-                itemBuilder: (BuildContext context, int index) {
-                  return TransactionShimmer();
-                },
+              physics: BouncingScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: 15,
+              itemBuilder: (BuildContext context, int index) {
+                return TransactionShimmer();
+              },
             ),
           );
         },
