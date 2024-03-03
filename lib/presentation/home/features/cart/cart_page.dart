@@ -100,7 +100,7 @@ class CartPage extends BasePage<PageCubit, PageState, PageEvent> {
             return CartWidget(
               invokeAdd: (Ad ad) {},
               invokeMinus: (Ad ad) {},
-              invokeDelete: (Ad ad) => context.read<PageCubit>().removeCart(ad),
+              invokeDelete: (Ad ad) => cubit(context).removeCart(ad),
               invokeFavoriteDelete: (Ad ad) {
                 cubit(context).addFavorite(ad);
               },

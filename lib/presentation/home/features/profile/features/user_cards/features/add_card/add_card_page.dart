@@ -192,7 +192,7 @@ class AddCardPage extends BasePage<PageCubit, PageState, PageEvent> {
                 maxLength: 25,
                 hint: Strings.cardNameHint,
                 onChanged: (value) {
-                  context.read<PageCubit>().setCardName(value);
+                  cubit(context).setCardName(value);
                 },
               ),
               SizedBox(height: 20),
@@ -205,7 +205,7 @@ class AddCardPage extends BasePage<PageCubit, PageState, PageEvent> {
                 inputFormatters: cardNumberMaskFormatter,
                 hint: "____ ____ ____ ____",
                 onChanged: (value) {
-                  context.read<PageCubit>().setCardNumber(value);
+                  cubit(context).setCardNumber(value);
                 },
               ),
               SizedBox(height: 20),
@@ -218,7 +218,7 @@ class AddCardPage extends BasePage<PageCubit, PageState, PageEvent> {
                 maxLength: 5,
                 hint: "__/__",
                 onChanged: (value) {
-                  context.read<PageCubit>().setCardNumber(value);
+                  cubit(context).setCardNumber(value);
                 },
               ),
               SizedBox(height: 36),
@@ -228,7 +228,7 @@ class AddCardPage extends BasePage<PageCubit, PageState, PageEvent> {
                   Checkbox(
                       value: state.isMain,
                       onChanged: (bool? value) {
-                        context.read<PageCubit>().setMainCard(value ?? false);
+                        cubit(context).setMainCard(value ?? false);
                       }),
                   SizedBox(width: 12),
                   Strings.actionMakeMain.s(14).w(500).c(Color(0xFF41455E))

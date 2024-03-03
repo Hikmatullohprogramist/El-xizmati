@@ -118,7 +118,7 @@ class CreateProductOrderPage
           CommonTextField(
             hint: "Название товара",
             onChanged: (value) {
-              context.read<PageCubit>().setName(value);
+              cubit(context).setName(value);
             },
             controller: titleController,
           ),
@@ -210,7 +210,7 @@ class CreateProductOrderPage
                   textInputAction: TextInputAction.next,
                   inputFormatters: quantityMaskFormatter,
                   onChanged: (value) {
-                    context.read<PageCubit>().setFromPrice(value);
+                    cubit(context).setFromPrice(value);
                   },
                 ),
               ),
@@ -222,7 +222,7 @@ class CreateProductOrderPage
                   inputType: TextInputType.number,
                   inputFormatters: quantityMaskFormatter,
                   onChanged: (value) {
-                    context.read<PageCubit>().setToPrice(value);
+                    cubit(context).setToPrice(value);
                   },
                 ),
               ),
@@ -271,7 +271,7 @@ class CreateProductOrderPage
               CustomSwitch(
                 isChecked: state.isNegotiate,
                 onChanged: (value) {
-                  context.read<PageCubit>().setNegative(value);
+                  cubit(context).setNegative(value);
                 },
               ),
               SizedBox(width: 16),

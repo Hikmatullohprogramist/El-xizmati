@@ -37,7 +37,7 @@ class OrderCreatePage extends BasePage<PageCubit, PageState,
 
   @override
   void onWidgetCreated(BuildContext context) {
-    context.read<PageCubit>().setAdId(adId);
+    cubit(context).setAdId(adId);
   }
 
   @override
@@ -69,7 +69,7 @@ class OrderCreatePage extends BasePage<PageCubit, PageState,
                   color: context.colors.buttonPrimary,
                   type: ButtonType.elevated,
                   onPressed: () {
-                    context.read<PageCubit>().orderCreate();
+                    cubit(context).orderCreate();
                   },
                   text:
                       Strings.orderCreateRegister.s(13).c(Colors.white).w(500)),
@@ -202,7 +202,7 @@ class OrderCreatePage extends BasePage<PageCubit, PageState,
                             SizedBox(width: 16),
                             InkWell(
                                 onTap: () {
-                                  context.read<PageCubit>().removeCart();
+                                  cubit(context).removeCart();
                                 },
                                 borderRadius: BorderRadius.circular(6),
                                 child: Container(

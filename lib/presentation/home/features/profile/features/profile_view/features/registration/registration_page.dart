@@ -33,7 +33,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
             text: Strings.commonSave,
             isEnabled: state.isRegistration,
             onPressed: () {
-              context.read<PageCubit>().sendUserInfo();
+              cubit(context).sendUserInfo();
             },
           )
         ],
@@ -70,7 +70,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
                     width: 60,
                     child: CommonTextField(
                         onChanged: (value) {
-                          context.read<PageCubit>().setBiometricSerial(value);
+                          cubit(context).setBiometricSerial(value);
                         },
                         inputType: TextInputType.text,
                         maxLength: 2,
@@ -82,7 +82,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
                     child: CommonTextField(
                       maxLength: 9,
                       onChanged: (value) {
-                        context.read<PageCubit>().setBiometricNumber(value);
+                        cubit(context).setBiometricNumber(value);
                       },
                       inputFormatters: biometricNumberMaskFormatter,
                       textInputAction: TextInputAction.next,
@@ -103,7 +103,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
                 padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
                 child: CommonTextField(
                   onChanged: (value) {
-                    context.read<PageCubit>().setBrithDate(value);
+                    cubit(context).setBrithDate(value);
                   },
                   inputType: TextInputType.number,
                   textInputAction: TextInputAction.next,
@@ -122,7 +122,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
                 child: CommonTextField(
                     hint: "+998",
                     onChanged: (value) {
-                      context.read<PageCubit>().setPhoneNumber(value);
+                      cubit(context).setPhoneNumber(value);
                     },
                     inputFormatters: phoneMaskFormatter,
                     inputType: TextInputType.phone,
@@ -145,7 +145,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
                       width: double.infinity,
                       child: CommonButton(
                         onPressed: () {
-                          context.read<PageCubit>().getUserInformation();
+                          cubit(context).getUserInformation();
                         },
                         text: Strings.commonContinue.w(500),
                       ))),

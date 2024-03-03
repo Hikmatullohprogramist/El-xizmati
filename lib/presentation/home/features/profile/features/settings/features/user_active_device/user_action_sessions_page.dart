@@ -108,7 +108,7 @@ class UserActiveSessionsPage extends BasePage<PageCubit, PageState, PageEvent> {
               itemBuilder: (context, item, index) {
                 return ActiveDeviceWidget(
                     invoke: (response) {
-                      context.read<PageCubit>().removeActiveDevice(response);
+                      cubit(context).removeActiveDevice(response);
                     },
                     response: item);
               },

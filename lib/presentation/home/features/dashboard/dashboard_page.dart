@@ -22,7 +22,7 @@ import '../../../../domain/models/ad/ad_type.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
-class DashboardPage extends BasePage<DashboardCubit, PageState, PageEvent> {
+class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
   const DashboardPage({super.key});
 
   @override
@@ -65,7 +65,7 @@ class DashboardPage extends BasePage<DashboardCubit, PageState, PageEvent> {
   Widget _getBannersWidget(BuildContext context, PageState state) {
     return LoaderStateWidget(
         onErrorToAgainRequest: () {
-          context.read<DashboardCubit>().getBanners();
+          cubit(context).getBanners();
         },
         isFullScreen: false,
         loadingState: state.bannersState,
@@ -85,7 +85,7 @@ class DashboardPage extends BasePage<DashboardCubit, PageState, PageEvent> {
           ),
           LoaderStateWidget(
               onErrorToAgainRequest: () {
-                context.read<DashboardCubit>().getPopularCategories();
+                cubit(context).getPopularCategories();
               },
               isFullScreen: false,
               loadingState: state.popularCategoriesState,
@@ -165,7 +165,7 @@ class DashboardPage extends BasePage<DashboardCubit, PageState, PageEvent> {
           LoaderStateWidget(
             isFullScreen: false,
             onErrorToAgainRequest: () {
-              context.read<DashboardCubit>().getPopularProductAds();
+              cubit(context).getPopularProductAds();
             },
             loadingState: state.popularProductAdsState,
             child: HorizontalAdListWidget(
@@ -174,7 +174,7 @@ class DashboardPage extends BasePage<DashboardCubit, PageState, PageEvent> {
                 context.router.push(AdDetailRoute(adId: ad.id));
               },
               onFavoriteClicked: (Ad ad) {
-                context.read<DashboardCubit>().popularProductAdsAddFavorite(ad);
+                cubit(context).popularProductAdsAddFavorite(ad);
               }, loadingState:  state.popularProductAdsState,
             ),
           ),
@@ -204,7 +204,7 @@ class DashboardPage extends BasePage<DashboardCubit, PageState, PageEvent> {
           LoaderStateWidget(
             isFullScreen: false,
             onErrorToAgainRequest: () {
-              context.read<DashboardCubit>().getPopularServiceAds();
+              cubit(context).getPopularServiceAds();
             },
             loadingState: state.popularServiceAdsState,
             child: HorizontalAdListWidget(
@@ -213,7 +213,7 @@ class DashboardPage extends BasePage<DashboardCubit, PageState, PageEvent> {
                 context.router.push(AdDetailRoute(adId: ad.id));
               },
               onFavoriteClicked: (Ad ad) {
-                context.read<DashboardCubit>().popularServiceAdsAddFavorite(ad);
+                cubit(context).popularServiceAdsAddFavorite(ad);
               }, loadingState: state.popularServiceAdsState,
             ),
           ),
@@ -226,7 +226,7 @@ class DashboardPage extends BasePage<DashboardCubit, PageState, PageEvent> {
     return LoaderStateWidget(
       isFullScreen: false,
       onErrorToAgainRequest: () {
-        context.read<DashboardCubit>().getTopRatedAds();
+        cubit(context).getTopRatedAds();
       },
       loadingState: state.popularServiceAdsState,
       child: TopRatedAdListWidget(
@@ -238,7 +238,7 @@ class DashboardPage extends BasePage<DashboardCubit, PageState, PageEvent> {
           context.router.push(OrderCreateRoute(adId: ad.id));
         },
         onFavoriteClicked: (Ad ad) {
-          context.read<DashboardCubit>().topRatedAdsAddFavorite(ad);
+          cubit(context).topRatedAdsAddFavorite(ad);
         }, loadingState: state.popularServiceAdsState,
       ),
     );
@@ -271,7 +271,7 @@ class DashboardPage extends BasePage<DashboardCubit, PageState, PageEvent> {
             LoaderStateWidget(
               isFullScreen: false,
               onErrorToAgainRequest: () {
-                context.read<DashboardCubit>().getRecentlyViewedAds();
+                cubit(context).getRecentlyViewedAds();
               },
               loadingState: state.recentlyViewedAdsState,
               child: HorizontalAdListWidget(
@@ -281,7 +281,7 @@ class DashboardPage extends BasePage<DashboardCubit, PageState, PageEvent> {
                 },
                 onFavoriteClicked: (Ad ad) {
                   context
-                      .read<DashboardCubit>()
+                      .read<PageCubit>()
                       .recentlyViewAdAddToFavorite(ad);
                 },
                 loadingState: state.recentlyViewedAdsState,

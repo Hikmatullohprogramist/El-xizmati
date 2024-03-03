@@ -13,7 +13,6 @@ import 'package:onlinebozor/common/widgets/bottom_sheet/bottom_sheet_title.dart'
 import 'package:onlinebozor/common/widgets/button/custom_outlined_button.dart';
 import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/common/widgets/profile/profile_item_widget.dart';
-import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
 import 'package:onlinebozor/presentation/home/features/profile/cubit/page_cubit.dart';
 
 import '../../../../common/colors/static_colors.dart';
@@ -225,7 +224,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
           name: Strings.profileChangeLanguage,
           icon: Assets.images.icProfileLanguage,
           invoke: () {
-            _showChangeLanguageBottomSheet(context);
+            _showChangeLanguageBottomSheet(context, state);
             vibrateAsHapticFeedback();
           },
         ),
@@ -267,7 +266,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
 
   /// Bottom sheet showing methods
 
-  void _showChangeLanguageBottomSheet(BuildContext context) {
+  void _showChangeLanguageBottomSheet(BuildContext context, PageState state) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -296,8 +295,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
               SelectionListItem(
                 item: Language.uzbekLatin,
                 title: Strings.languageUzLat,
-                isSelected: context.read<PageCubit>().states.language ==
-                    Language.uzbekLatin,
+                isSelected: state.language == Language.uzbekLatin,
                 onClicked: (item) {
                   _saveSelectedLanguage(context, item);
                   context.router.pop();
@@ -307,8 +305,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
               SelectionListItem(
                 item: Language.uzbekCyrill,
                 title: Strings.languageUzCyr,
-                isSelected: context.read<PageCubit>().states.language ==
-                    Language.uzbekCyrill,
+                isSelected: state.language == Language.uzbekCyrill,
                 onClicked: (item) {
                   _saveSelectedLanguage(context, item);
                   context.router.pop();
@@ -318,8 +315,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
               SelectionListItem(
                 item: Language.russian,
                 title: Strings.languageRus,
-                isSelected: context.read<PageCubit>().states.language ==
-                    Language.russian,
+                isSelected: state.language == Language.russian,
                 onClicked: (item) {
                   _saveSelectedLanguage(context, item);
                   context.router.pop();
@@ -412,6 +408,6 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
 
     EasyLocalization.of(context)?.setLocale(locale);
 
-    context.read<PageCubit>().selectLanguage(language, name);
+    cubit(context).selectLanguage(language, name);
   }
 }

@@ -109,7 +109,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
               padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
               child: CommonTextField(
                 onChanged: (value) {
-                  context.read<PageCubit>().setBrithDate(value);
+                  cubit(context).setBrithDate(value);
                 },
                 readOnly: true,
                 enabled: false,
@@ -138,7 +138,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
                       readOnly: true,
                       enabled: false,
                       onChanged: (value) {
-                        context.read<PageCubit>().setBiometricSerial(value);
+                        cubit(context).setBiometricSerial(value);
                       },
                       inputType: TextInputType.text,
                       maxLength: 2,
@@ -153,7 +153,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
                     readOnly: true,
                     enabled: false,
                     onChanged: (value) {
-                      context.read<PageCubit>().setBiometricNumber(value);
+                      cubit(context).setBiometricNumber(value);
                     },
                     controller:
                         TextEditingController(text: state.biometricNumber),
@@ -251,7 +251,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
                                     (BuildContext buildContext, int index) {
                                   return InkWell(
                                       onTap: () {
-                                        context.read<PageCubit>().setDistrict(
+                                        cubit(context).setDistrict(
                                             state.districts[index]);
                                         Navigator.pop(buildContext);
                                       },

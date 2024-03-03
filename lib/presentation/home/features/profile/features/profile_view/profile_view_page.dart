@@ -25,7 +25,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   @override
   void onWidgetCreated(BuildContext context) {
-    context.read<PageCubit>().getUserInformation();
+    cubit(context).getUserInformation();
   }
 
   @override

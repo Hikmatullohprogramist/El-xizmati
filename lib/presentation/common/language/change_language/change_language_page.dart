@@ -63,7 +63,7 @@ class ChangeLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
               text: Strings.languageUzLat,
               onPressed: () {
                 EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZ'));
-                context.read<PageCubit>().selectLanguage(Language.uzbekLatin);
+                cubit(context).selectLanguage(Language.uzbekLatin);
               },
               strokeColor: (state.language == Language.uzbekLatin
                   ? context.colors.primary
@@ -75,7 +75,7 @@ class ChangeLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
               text: Strings.languageUzCyr,
               onPressed: () {
                 EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZK'));
-                context.read<PageCubit>().selectLanguage(Language.uzbekCyrill);
+                cubit(context).selectLanguage(Language.uzbekCyrill);
               },
               strokeColor: (state.language == Language.uzbekCyrill
                   ? context.colors.primary

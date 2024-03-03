@@ -50,7 +50,7 @@ class NotificationSettingsPage
                         : context.colors.iconGrey),
               ),
               onPressed: () {
-                context.read<PageCubit>().setSmsNotification();
+                cubit(context).setSmsNotification();
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
@@ -84,7 +84,7 @@ class NotificationSettingsPage
                         : context.colors.iconGrey),
               ),
               onPressed: () {
-                context.read<PageCubit>().setEmailNotification();
+                cubit(context).setEmailNotification();
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
@@ -119,7 +119,7 @@ class NotificationSettingsPage
                         : context.colors.iconGrey),
               ),
               onPressed: () {
-                context.read<PageCubit>().setTelegramNotification();
+                cubit(context).setTelegramNotification();
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
@@ -157,7 +157,7 @@ class NotificationSettingsPage
               TextSpan(
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      context.read<PageCubit>().openTelegram();
+                      cubit(context).openTelegram();
                     },
                   text: Strings.linkTitle,
                   style: TextStyle(

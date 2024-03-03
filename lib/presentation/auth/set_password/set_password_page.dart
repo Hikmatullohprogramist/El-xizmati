@@ -6,12 +6,12 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/presentation/auth/set_password/cubit/page_cubit.dart';
 
 import '../../../common/gen/localization/strings.dart';
 import '../../../common/widgets/app_bar/default_app_bar.dart';
-import '../../../common/widgets/button/common_button.dart';
 import '../../../common/widgets/text_field/common_text_field.dart';
 
 @RoutePage()
@@ -60,7 +60,7 @@ class SetPasswordPage extends BasePage<PageCubit, PageState, PageEvent> {
                 inputType: TextInputType.visiblePassword,
                 maxLines: 1,
                 onChanged: (value) {
-                  context.read<PageCubit>().setPassword(value);
+                  cubit(context).setPassword(value);
                 },
                 // controller: textController,
               ),
@@ -80,7 +80,7 @@ class SetPasswordPage extends BasePage<PageCubit, PageState, PageEvent> {
                 maxLines: 1,
                 obscureText: true,
                 onChanged: (value) {
-                  context.read<PageCubit>().setRepeatPassword(value);
+                  cubit(context).setRepeatPassword(value);
                 },
               ),
               Align(
@@ -91,22 +91,14 @@ class SetPasswordPage extends BasePage<PageCubit, PageState, PageEvent> {
                 ),
               ),
               Spacer(),
-              CommonButton(
+              CustomElevatedButton(
+                text: Strings.commonContinue,
                 onPressed: () {
                   TextInput.finishAutofillContext(shouldSave: true);
-                  context.read<PageCubit>().createPassword();
+                  cubit(context).createPassword();
                 },
                 isEnabled: state.enabled,
                 isLoading: state.loading,
-                text: Container(
-                  height: 52,
-                  alignment: Alignment.center,
-                  width: double.infinity,
-                  child: Strings.commonContinue
-                      .w(500)
-                      .s(14)
-                      .c(context.colors.textPrimaryInverse),
-                ),
               ),
               SizedBox(height: 20),
             ],

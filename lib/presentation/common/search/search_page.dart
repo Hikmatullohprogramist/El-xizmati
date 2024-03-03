@@ -37,7 +37,7 @@ class SearchPage extends BasePage<PageCubit, PageState, PageEvent> {
                 child: TextField(
               autofocus: true,
               onSubmitted: (value) {
-                context.read<PageCubit>().getSearchResult(value);
+                cubit(context).getSearchResult(value);
               },
               style: TextStyle(
                 color: context.colors.textPrimary,
@@ -56,7 +56,7 @@ class SearchPage extends BasePage<PageCubit, PageState, PageEvent> {
             InkWell(
                 onTap: () {
                   final value = textController.text;
-                  context.read<PageCubit>().getSearchResult(value);
+                  cubit(context).getSearchResult(value);
                 },
                 child: Assets.images.iconSearch
                     .svg(color: Colors.blueAccent, width: 24, height: 24)),

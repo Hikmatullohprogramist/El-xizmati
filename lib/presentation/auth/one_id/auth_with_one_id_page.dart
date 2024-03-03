@@ -44,10 +44,10 @@ class AuthWithOneIdPage extends BasePage<PageCubit, PageState, PageEvent> {
               ..setNavigationDelegate(
                 NavigationDelegate(
                   onProgress: (int progress) {
-                    context.read<PageCubit>().hideLoading();
+                    cubit(context).hideLoading();
                   },
                   onPageStarted: (String url) {
-                    context.read<PageCubit>().hideLoading();
+                    cubit(context).hideLoading();
                     CircularProgressIndicator(
                       color: Colors.blueAccent,
                     );
@@ -57,7 +57,7 @@ class AuthWithOneIdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   onNavigationRequest: (NavigationRequest request) {
                     if (request.url.startsWith(
                         'https://cabinet.smartoffice.realsoft.uz/oneid/android/fallback?')) {
-                      context.read<PageCubit>().loginWithOneId(request.url);
+                      cubit(context).loginWithOneId(request.url);
                       return NavigationDecision.prevent;
                     } else {
                       return NavigationDecision.navigate;

@@ -35,8 +35,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   @override
   void onWidgetCreated(BuildContext context) {
-    context.read<PageCubit>().setAdId(adId);
-    context.read<PageCubit>().getRecentlyViewedAds();
+    cubit(context).setAdId(adId);
+    cubit(context).getRecentlyViewedAds();
   }
 
   @override
@@ -456,7 +456,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
               padding: EdgeInsets.all(4),
               child: AdDetailFavoriteWidget(
                   isSelected: state.adDetail!.favorite,
-                  invoke: () => context.read<PageCubit>().addFavorite()))
+                  invoke: () => cubit(context).addFavorite()))
         ]);
   }
 
@@ -487,7 +487,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
               child: CustomElevatedButton(
                 text: Strings.adDetailAddtocart,
                 isEnabled: !state.isAddCart,
-                onPressed: () => context.read<PageCubit>().addCart(),
+                onPressed: () => cubit(context).addCart(),
               ),
             ),
             SizedBox(width: 16)
@@ -776,7 +776,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                 ),
               ),
               onTap: () {
-                context.read<PageCubit>().increaseAdStats(StatsType.message);
+                cubit(context).increaseAdStats(StatsType.message);
                 try {
                   launch("sms://${state.adDetail!.phoneNumber}");
                 } catch (e) {}
@@ -824,7 +824,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                     launch("tel://${state.adDetail!.phoneNumber}");
                   } catch (e) {}
                 } else {
-                  context.read<PageCubit>().setPhotoView();
+                  cubit(context).setPhotoView();
                 }
               }),
         ),
@@ -852,7 +852,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
         LoaderStateWidget(
           isFullScreen: false,
           onErrorToAgainRequest: () {
-            context.read<PageCubit>().getSimilarAds();
+            cubit(context).getSimilarAds();
           },
           loadingState: state.similarAdsState,
           child: HorizontalAdListWidget(
@@ -860,7 +860,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
             onItemClicked: (Ad ad) =>
                 context.router.push(AdDetailRoute(adId: ad.id)),
             onFavoriteClicked: (Ad ad) =>
-                context.read<PageCubit>().similarAdsAddFavorite(ad),
+                cubit(context).similarAdsAddFavorite(ad),
             loadingState: state.similarAdsState,
           ),
         ),
@@ -891,7 +891,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
           LoaderStateWidget(
             isFullScreen: false,
             onErrorToAgainRequest: () {
-              context.read<PageCubit>().getOwnerOtherAds();
+              cubit(context).getOwnerOtherAds();
             },
             loadingState: state.ownerAdsState,
             child: HorizontalAdListWidget(
@@ -900,7 +900,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                 context.router.push(AdDetailRoute(adId: ad.id));
               },
               onFavoriteClicked: (Ad ad) {
-                context.read<PageCubit>().ownerAdAddToFavorite(ad);
+                cubit(context).ownerAdAddToFavorite(ad);
               },
               loadingState: state.ownerAdsState,
             ),
@@ -936,7 +936,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
           LoaderStateWidget(
             isFullScreen: false,
             onErrorToAgainRequest: () {
-              context.read<PageCubit>().getRecentlyViewedAds();
+              cubit(context).getRecentlyViewedAds();
             },
             loadingState: state.recentlyViewedAdsState,
             child: HorizontalAdListWidget(
@@ -945,7 +945,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                 context.router.push(AdDetailRoute(adId: ad.id));
               },
               onFavoriteClicked: (Ad ad) {
-                context.read<PageCubit>().recentlyViewAdAddToFavorite(ad);
+                cubit(context).recentlyViewAdAddToFavorite(ad);
               },
               loadingState: state.recentlyViewedAdsState,
             ),

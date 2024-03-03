@@ -2,17 +2,16 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/presentation/auth/confirm/auth_confirm_page.dart';
 import 'package:onlinebozor/presentation/auth/verification/cubit/page_cubit.dart';
 
 import '../../../common/gen/localization/strings.dart';
-import '../../../common/widgets/button/common_button.dart';
 import '../../../common/widgets/text_field/common_text_field.dart';
 
 @RoutePage()
@@ -24,7 +23,7 @@ class AuthVerificationPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   @override
   void onWidgetCreated(BuildContext context) {
-    context.read<PageCubit>().setPhone("998 $phone");
+    cubit(context).setPhone("998 $phone");
     textEditingController.text = "998 $phone";
   }
 
@@ -106,7 +105,7 @@ class AuthVerificationPage extends BasePage<PageCubit, PageState, PageEvent> {
                   maxLines: 1,
                   obscureText: true,
                   onChanged: (value) {
-                    context.read<PageCubit>().setPassword(value);
+                    cubit(context).setPassword(value);
                   },
                 ),
                 Align(
@@ -117,23 +116,15 @@ class AuthVerificationPage extends BasePage<PageCubit, PageState, PageEvent> {
                   ),
                 ),
                 Spacer(),
-                CommonButton(
-                    color: context.colors.buttonPrimary,
-                    onPressed: () {
-                      TextInput.finishAutofillContext(shouldSave: true);
-                      context.read<PageCubit>().verification();
-                    },
-                    isEnabled: state.enable,
-                    isLoading: state.loading,
-                    text: Container(
-                      height: 52,
-                      alignment: Alignment.center,
-                      width: double.infinity,
-                      child: Strings.commonContinue
-                          .w(500)
-                          .s(14)
-                          .c(context.colors.textPrimaryInverse),
-                    )),
+                CustomElevatedButton(
+                  text: Strings.commonContinue,
+                  onPressed: () {
+                    TextInput.finishAutofillContext(shouldSave: true);
+                    cubit(context).verification();
+                  },
+                  isEnabled: state.enable,
+                  isLoading: state.loading,
+                ),
                 SizedBox(height: 20),
                 Text.rich(
                   TextSpan(
@@ -149,7 +140,7 @@ class AuthVerificationPage extends BasePage<PageCubit, PageState, PageEvent> {
                       TextSpan(
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            context.read<PageCubit>().launchURLApp();
+                            cubit(context).launchURLApp();
                           },
                         text: Strings.authPersonPolicy,
                         style: TextStyle(

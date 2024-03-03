@@ -1,18 +1,17 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 
 import '../../../../../../common/gen/localization/strings.dart';
 import '../../../../../../common/widgets/ad/vertical_ad_widget.dart';
-import '../../../../../common/widgets/ad/horizanral_add_list_shimmer.dart';
-import '../../../../../common/widgets/button/common_button.dart';
 import '../../../../../../common/widgets/favorite/favorite_empty_widget.dart';
 import '../../../../../../domain/models/ad/ad.dart';
+import '../../../../../common/widgets/ad/horizanral_add_list_shimmer.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -47,17 +46,17 @@ class FavoriteServicesPage extends BasePage<PageCubit, PageState, PageEvent> {
                         .s(14)
                         .c(context.colors.textPrimary),
                     SizedBox(height: 12),
-                    CommonButton(
-                        onPressed: () {},
-                        type: ButtonType.elevated,
-                        text: Strings.loadingStateRetry.w(400).s(15))
+                    CustomElevatedButton(
+                      text: Strings.loadingStateRetry,
+                      onPressed: () {},
+                    )
                   ],
                 ),
               ),
             );
           },
           firstPageProgressIndicatorBuilder: (_) {
-            return  GridView.builder(
+            return GridView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -102,8 +101,7 @@ class FavoriteServicesPage extends BasePage<PageCubit, PageState, PageEvent> {
           itemBuilder: (context, item, index) => VerticalAdWidget(
             favoriteBeChange: false,
             ad: item,
-            onFavoriteClicked: (value) =>
-                context.read<PageCubit>().removeFavorite(value),
+            onFavoriteClicked: (value) => cubit(context).removeFavorite(value),
             onClicked: (value) {
               context.router.push(AdDetailRoute(adId: value.id));
             },

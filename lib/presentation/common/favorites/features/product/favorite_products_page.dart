@@ -5,24 +5,23 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 
 import '../../../../../../common/gen/localization/strings.dart';
 import '../../../../../../common/router/app_router.dart';
 import '../../../../../../common/widgets/ad/vertical_ad_widget.dart';
-import '../../../../../common/widgets/ad/horizanral_add_list_shimmer.dart';
-import '../../../../../common/widgets/button/common_button.dart';
 import '../../../../../../common/widgets/favorite/favorite_empty_widget.dart';
 import '../../../../../../domain/models/ad/ad.dart';
+import '../../../../../common/widgets/ad/horizanral_add_list_shimmer.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
-class FavoriteProductsPage extends BasePage<PageCubit,
-    PageState, PageEvent> {
+class FavoriteProductsPage extends BasePage<PageCubit, PageState, PageEvent> {
   const FavoriteProductsPage({super.key});
 
   @override
   void onWidgetCreated(BuildContext context) {
-    context.read<PageCubit>().getController();
+    cubit(context).getController();
   }
 
   @override
@@ -58,17 +57,17 @@ class FavoriteProductsPage extends BasePage<PageCubit,
                         .s(14)
                         .c(context.colors.textPrimary),
                     SizedBox(height: 12),
-                    CommonButton(
-                        onPressed: () {},
-                        type: ButtonType.elevated,
-                        text: Strings.loadingStateRetry.w(400).s(15))
+                    CustomElevatedButton(
+                      text: Strings.loadingStateRetry,
+                      onPressed: () {},
+                    )
                   ],
                 ),
               ),
             );
           },
           firstPageProgressIndicatorBuilder: (_) {
-            return  GridView.builder(
+            return GridView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -114,7 +113,7 @@ class FavoriteProductsPage extends BasePage<PageCubit,
             favoriteBeChange: false,
             ad: item,
             onFavoriteClicked: (value) =>
-                context.read<PageCubit>().removeFavorite(value),
+                cubit(context).removeFavorite(value),
             onClicked: (value) {
               context.router.push(AdDetailRoute(adId: value.id));
             },

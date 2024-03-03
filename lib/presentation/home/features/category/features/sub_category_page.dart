@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
+import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/presentation/home/features/category/features/cubit/page_cubit.dart';
 
 import '../../../../../common/colors/static_colors.dart';
@@ -52,7 +53,7 @@ class SubCategoryPage extends BasePage<PageCubit, PageState, PageEvent> {
             );
           },
           separatorBuilder: (BuildContext context, int index) {
-            return Divider(indent: 54, color: Color(0xFFE5E9F3));
+            return CustomDivider(startIndent: 54, color: Color(0xFFE5E9F3));
           },
         ),
       ),

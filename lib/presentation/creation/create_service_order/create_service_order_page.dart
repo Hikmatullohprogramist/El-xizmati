@@ -118,7 +118,7 @@ class CreateServiceOrderPage
           CommonTextField(
             hint: "Название услуги",
             onChanged: (value) {
-              context.read<PageCubit>().setName(value);
+              cubit(context).setName(value);
             },
             controller: titleController,
           ),
@@ -210,7 +210,7 @@ class CreateServiceOrderPage
                   textInputAction: TextInputAction.next,
                   inputFormatters: quantityMaskFormatter,
                   onChanged: (value) {
-                    context.read<PageCubit>().setFromPrice(value);
+                    cubit(context).setFromPrice(value);
                   },
                 ),
               ),
@@ -222,7 +222,7 @@ class CreateServiceOrderPage
                   inputType: TextInputType.number,
                   inputFormatters: quantityMaskFormatter,
                   onChanged: (value) {
-                    context.read<PageCubit>().setToPrice(value);
+                    cubit(context).setToPrice(value);
                   },
                 ),
               ),
@@ -272,7 +272,7 @@ class CreateServiceOrderPage
               CustomSwitch(
                 isChecked: state.isNegotiate,
                 onChanged: (value) {
-                  context.read<PageCubit>().setNegative(value);
+                  cubit(context).setNegative(value);
                 },
               ),
               SizedBox(width: 16),

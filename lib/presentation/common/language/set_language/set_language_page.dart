@@ -57,7 +57,7 @@ class SetLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
                 text: Strings.languageRus,
                 onPressed: () {
                   EasyLocalization.of(context)?.setLocale(Locale('ru', 'RU'));
-                  context.read<PageCubit>().setLanguage(Language.ru);
+                  cubit(context).setLanguage(Language.ru);
                 },
                 strokeColor: Color(0xFFE5E9F3),
                 rightIcon: Assets.images.pngImages.flagRu.image(),
@@ -67,7 +67,7 @@ class SetLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
                 text: Strings.languageUzLat,
                 onPressed: () {
                   EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZ'));
-                  context.read<PageCubit>().setLanguage(Language.uz);
+                  cubit(context).setLanguage(Language.uz);
                 },
                 strokeColor: Color(0xFFE5E9F3),
                 rightIcon: Assets.images.pngImages.flagUz.image(),
@@ -76,7 +76,7 @@ class SetLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
               CustomOutlinedButton(
                 onPressed: () {
                   EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZK'));
-                  context.read<PageCubit>().setLanguage(Language.kr);
+                  cubit(context).setLanguage(Language.kr);
                 },
                 strokeColor: Color(0xFFE5E9F3),
                 rightIcon: Assets.images.pngImages.flagUz.image(),
