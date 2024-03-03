@@ -7,7 +7,7 @@ import 'package:onlinebozor/common/extensions/currency_extensions.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/common/widgets/button/common_button.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 
 import '../../../../../../common/constants.dart';
@@ -17,8 +17,7 @@ import '../../../../../../common/widgets/dashboard/app_image_widget.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
-class OrderCreatePage extends BasePage<PageCubit, PageState,
-    PageEvent> {
+class OrderCreatePage extends BasePage<PageCubit, PageState, PageEvent> {
   const OrderCreatePage(this.adId, {super.key});
 
   final int adId;
@@ -65,14 +64,10 @@ class OrderCreatePage extends BasePage<PageCubit, PageState,
                   .c(Color(0xFF5C6AC3))
                   .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
               Spacer(),
-              CommonButton(
-                  color: context.colors.buttonPrimary,
-                  type: ButtonType.elevated,
-                  onPressed: () {
-                    cubit(context).orderCreate();
-                  },
-                  text:
-                      Strings.orderCreateRegister.s(13).c(Colors.white).w(500)),
+              CustomElevatedButton(
+                text: Strings.orderCreateRegister,
+                onPressed: () => cubit(context).orderCreate(),
+              ),
               SizedBox(width: 16)
             ]),
           ),
@@ -185,9 +180,7 @@ class OrderCreatePage extends BasePage<PageCubit, PageState,
                             InkWell(
                                 borderRadius: BorderRadius.circular(6),
                                 onTap: () {
-                                  context
-                                      .read<PageCubit>()
-                                      .addFavorite();
+                                  cubit(context).addFavorite();
                                 },
                                 child: Container(
                                     padding: EdgeInsets.all(5),
@@ -227,9 +220,7 @@ class OrderCreatePage extends BasePage<PageCubit, PageState,
                                     InkWell(
                                         borderRadius: BorderRadius.circular(6),
                                         onTap: () {
-                                          context
-                                              .read<PageCubit>()
-                                              .minus();
+                                          cubit(context).minus();
                                         },
                                         child: Icon(Icons.remove, size: 20)),
                                     SizedBox(width: 15),
@@ -238,9 +229,7 @@ class OrderCreatePage extends BasePage<PageCubit, PageState,
                                     InkWell(
                                         borderRadius: BorderRadius.circular(6),
                                         onTap: () {
-                                          context
-                                              .read<PageCubit>()
-                                              .add();
+                                          cubit(context).add();
                                         },
                                         child: Icon(Icons.add, size: 20)),
                                   ],
@@ -266,9 +255,7 @@ class OrderCreatePage extends BasePage<PageCubit, PageState,
                             visible: state.paymentType.isNotEmpty,
                             child: InkWell(
                                 onTap: () {
-                                  context
-                                      .read<PageCubit>()
-                                      .setPaymentType(6);
+                                  cubit(context).setPaymentType(6);
                                 },
                                 child: Container(
                                   padding: EdgeInsets.all(16),
@@ -309,9 +296,7 @@ class OrderCreatePage extends BasePage<PageCubit, PageState,
                             visible: state.paymentType.isNotEmpty,
                             child: InkWell(
                                 onTap: () {
-                                  context
-                                      .read<PageCubit>()
-                                      .setPaymentType(1);
+                                  cubit(context).setPaymentType(1);
                                 },
                                 child: Container(
                                   padding: EdgeInsets.all(16),
@@ -352,9 +337,7 @@ class OrderCreatePage extends BasePage<PageCubit, PageState,
                             visible: state.paymentType.isNotEmpty,
                             child: InkWell(
                                 onTap: () {
-                                  context
-                                      .read<PageCubit>()
-                                      .setPaymentType(4);
+                                  cubit(context).setPaymentType(4);
                                 },
                                 child: Container(
                                   padding: EdgeInsets.all(16),
@@ -395,9 +378,7 @@ class OrderCreatePage extends BasePage<PageCubit, PageState,
                             visible: state.paymentType.isNotEmpty,
                             child: InkWell(
                                 onTap: () {
-                                  context
-                                      .read<PageCubit>()
-                                      .setPaymentType(5);
+                                  cubit(context).setPaymentType(5);
                                 },
                                 child: Container(
                                   padding: EdgeInsets.all(16),

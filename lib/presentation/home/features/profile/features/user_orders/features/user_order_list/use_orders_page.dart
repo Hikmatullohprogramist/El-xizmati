@@ -4,13 +4,13 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_orders/features/user_order_list/cubit/page_cubit.dart';
 
 import '../../../../../../../../common/colors/static_colors.dart';
 import '../../../../../../../../common/gen/localization/strings.dart';
 import '../../../../../../../../common/router/app_router.dart';
 import '../../../../../../../../common/widgets/ad/user_ad_empty_widget.dart';
-import '../../../../../../../../common/widgets/button/common_button.dart';
 import '../../../../../../../../common/widgets/order/user_order.dart';
 import '../../../../../../../../common/widgets/order/user_order_shimmer.dart';
 import '../../../../../../../../data/responses/user_order/user_order_response.dart';
@@ -76,10 +76,10 @@ class UserOrdersPage extends BasePage<PageCubit, PageState, PageEvent> {
                       .s(14)
                       .c(context.colors.textPrimary),
                   SizedBox(height: 12),
-                  CommonButton(
-                      onPressed: () {},
-                      type: ButtonType.elevated,
-                      text: Strings.loadingStateRetry.w(400).s(15))
+                  CustomElevatedButton(
+                    text: Strings.loadingStateRetry,
+                    onPressed: () {},
+                  )
                 ],
               ),
             ),

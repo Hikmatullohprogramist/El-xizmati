@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
@@ -8,7 +7,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/app_bar/empty_app_bar.dart';
-import 'package:onlinebozor/common/widgets/button/common_button.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/favorite/favorite_empty_widget.dart';
 
 import '../../../../common/colors/static_colors.dart';
@@ -49,10 +48,10 @@ class CartPage extends BasePage<PageCubit, PageState, PageEvent> {
                         .s(14)
                         .c(context.colors.textPrimary),
                     SizedBox(height: 12),
-                    CommonButton(
-                        onPressed: () {},
-                        type: ButtonType.elevated,
-                        text: Strings.loadingStateRetry.w(400).s(15))
+                    CustomElevatedButton(
+                      text: Strings.loadingStateRetry,
+                      onPressed: () {},
+                    )
                   ],
                 ),
               ),

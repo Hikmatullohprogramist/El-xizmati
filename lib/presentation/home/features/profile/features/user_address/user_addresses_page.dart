@@ -10,7 +10,7 @@ import 'package:onlinebozor/common/widgets/action/action_list_item.dart';
 import 'package:onlinebozor/common/widgets/address/user_address_empty_widget.dart';
 import 'package:onlinebozor/common/widgets/address/user_address_widget.dart';
 import 'package:onlinebozor/common/widgets/app_bar/action_app_bar.dart';
-import 'package:onlinebozor/common/widgets/button/common_button.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_address/cubit/page_cubit.dart';
 
@@ -73,10 +73,10 @@ class UserAddressesPage extends BasePage<PageCubit, PageState, PageEvent> {
                           .s(14)
                           .c(context.colors.textPrimary),
                       SizedBox(height: 12),
-                      CommonButton(
-                          onPressed: () {},
-                          type: ButtonType.elevated,
-                          text: Strings.loadingStateRetry.w(400).s(15))
+                      CustomElevatedButton(
+                        text: Strings.loadingStateRetry,
+                        onPressed: () {},
+                      )
                     ],
                   ),
                 ),

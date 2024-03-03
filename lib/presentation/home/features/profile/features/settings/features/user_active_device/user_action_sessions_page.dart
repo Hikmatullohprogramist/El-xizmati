@@ -1,12 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
-import 'package:onlinebozor/common/widgets/button/common_button.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/device/active_device_widgets.dart';
 import 'package:onlinebozor/data/responses/device/active_device_response.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/settings/features/user_active_device/cubit/page_cubit.dart';
@@ -62,10 +61,10 @@ class UserActiveSessionsPage extends BasePage<PageCubit, PageState, PageEvent> {
                             .s(14)
                             .c(context.colors.textPrimary),
                         SizedBox(height: 12),
-                        CommonButton(
-                            onPressed: () {},
-                            type: ButtonType.elevated,
-                            text: Strings.loadingStateRetry.w(400).s(15))
+                        CustomElevatedButton(
+                          text: Strings.loadingStateRetry,
+                          onPressed: () {},
+                        )
                       ],
                     )));
               },

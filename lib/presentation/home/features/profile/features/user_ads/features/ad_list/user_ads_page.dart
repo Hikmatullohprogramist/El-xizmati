@@ -5,6 +5,7 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
 import 'package:onlinebozor/presentation/ad/ad_list_actions/ad_list_actions.dart';
 
@@ -13,7 +14,6 @@ import '../../../../../../../../common/gen/localization/strings.dart';
 import '../../../../../../../../common/widgets/ad/user_ad.dart';
 import '../../../../../../../../common/widgets/ad/user_ad_empty_widget.dart';
 import '../../../../../../../../common/widgets/ad/user_ad_shimmer.dart';
-import '../../../../../../../../common/widgets/button/common_button.dart';
 import '../../../../../../../../data/responses/user_ad/user_ad_response.dart';
 import 'cubit/page_cubit.dart';
 
@@ -53,10 +53,10 @@ class UserAdsPage extends BasePage<PageCubit, PageState, PageEvent> {
                         .s(14)
                         .c(context.colors.textPrimary),
                     SizedBox(height: 12),
-                    CommonButton(
-                        onPressed: () {},
-                        type: ButtonType.elevated,
-                        text: Strings.loadingStateRetry.w(400).s(15))
+                    CustomElevatedButton(
+                      text: Strings.loadingStateRetry,
+                      onPressed: () {},
+                    )
                   ],
                 ),
               ),

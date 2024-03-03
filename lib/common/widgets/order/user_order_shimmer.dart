@@ -1,12 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/common/colors/color_extension.dart';
-import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/data/responses/user_order/user_order_response.dart';
 import 'package:shimmer/shimmer.dart';
-
-import '../../constants.dart';
-import '../button/common_button.dart';
 
 class UserOrderWidgetShimmer extends StatelessWidget {
   const UserOrderWidgetShimmer({
@@ -41,10 +34,10 @@ class UserOrderWidgetShimmer extends StatelessWidget {
             ),
             SizedBox(width: 12),
             Expanded(
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
                   SizedBox(
                     height: 25,
                   ),
@@ -91,29 +84,43 @@ class UserOrderWidgetShimmer extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                          child: Shimmer.fromColors(
-                        baseColor: Color(0xFFE8E6E8),
-                        highlightColor: Colors.grey[50]!,
-                        child: CommonButton(
-                            onPressed: () {},
-                            text:
-                                "o'chirish".w(500).s(13).c(Color(0xFFDFE2E9))),
-                      )),
+                        child: Shimmer.fromColors(
+                          baseColor: Color(0xFFE8E6E8),
+                          highlightColor: Colors.grey[50]!,
+                          child: Container(
+                            height: 10,
+                            decoration: ShapeDecoration(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
                       SizedBox(width: 8),
                       Expanded(
-                          child: Shimmer.fromColors(
-                        baseColor: Color(0xFFE8E6E8),
-                        highlightColor: Colors.grey[50]!,
-                        child: CommonButton(
-                            onPressed: () {},
-                            text: "Ko'proq".w(500).s(13).c(Color(0xFFDFE2E9))),
-                      )),
+                        child: Shimmer.fromColors(
+                          baseColor: Color(0xFFE8E6E8),
+                          highlightColor: Colors.grey[50]!,
+                          child: Container(
+                            height: 10,
+                            decoration: ShapeDecoration(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   )
-                ])),
+                ],
+              ),
+            ),
           ],
         ),
-        onTap: () {},
       ),
     );
   }

@@ -6,10 +6,10 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/app_bar/empty_app_bar.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../common/vibrator/vibrator_extension.dart';
-import '../../../../common/widgets/button/common_button.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -71,30 +71,20 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
             Row(
               children: [
                 Expanded(
-                  child: CommonButton(
-                    color: context.colors.buttonPrimary,
-                    type: ButtonType.elevated,
+                  child: CustomElevatedButton(
+                    text: Strings.adCreationStartBuyProduct,
                     onPressed: () {
                       context.router.push(CreateProductOrderRoute());
                     },
-                    text: Strings.adCreationStartBuyProduct
-                        .s(13)
-                        .w(400)
-                        .c(Colors.white),
                   ),
                 ),
                 SizedBox(width: 16),
                 Expanded(
-                  child: CommonButton(
-                    color: context.colors.buttonPrimary,
-                    type: ButtonType.elevated,
+                  child: CustomElevatedButton(
+                    text: Strings.adCreationStartBuyService,
                     onPressed: () {
                       context.router.push(CreateServiceOrderRoute());
                     },
-                    text: Strings.adCreationStartBuyService
-                        .s(13)
-                        .w(400)
-                        .c(Colors.white),
                   ),
                 )
               ],
@@ -136,32 +126,20 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
             Row(
               children: [
                 Expanded(
-                  child: CommonButton(
-                    color: context.colors.buttonPrimary,
-                    type: ButtonType.elevated,
+                  child: CustomElevatedButton(
+                    text: Strings.adCreationStartSaleProduct,
                     onPressed: () {
                       context.router.push(CreateProductAdRoute());
                     },
-                    text: Strings.adCreationStartSaleProduct
-                        .s(13)
-                        .w(400)
-                        .c(Colors.white)
-                        .copyWith(textAlign: TextAlign.center),
                   ),
                 ),
                 SizedBox(width: 12),
                 Expanded(
-                  child: CommonButton(
-                    color: context.colors.buttonPrimary,
-                    type: ButtonType.elevated,
+                  child: CustomElevatedButton(
+                    text: Strings.adCreationStartSaleService,
                     onPressed: () {
                       context.router.push(CreateServiceAdRoute());
                     },
-                    text: Strings.adCreationStartSaleService
-                        .s(13)
-                        .w(400)
-                        .c(Colors.white)
-                        .copyWith(textAlign: TextAlign.center),
                   ),
                 )
               ],
@@ -197,22 +175,12 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
             SizedBox(height: 120),
             SizedBox(
               width: double.maxFinite,
-              child: CommonButton(
-                type: ButtonType.elevated,
-                color: context.colors.buttonPrimary,
+              child: CustomElevatedButton(
+                text: Strings.authRecommentAction,
                 onPressed: () {
                   context.router.push(AuthStartRoute());
                   vibrateAsHapticFeedback();
                 },
-                text: Container(
-                  height: 52,
-                  alignment: Alignment.center,
-                  width: double.infinity,
-                  child: Strings.authRecommentAction
-                      .w(500)
-                      .s(14)
-                      .c(context.colors.textPrimaryInverse),
-                ),
               ),
             )
           ],
