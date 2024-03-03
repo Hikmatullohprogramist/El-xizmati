@@ -18,8 +18,8 @@ part 'page_cubit.freezed.dart';
 part 'page_state.dart';
 
 @injectable
-class DashboardCubit extends BaseCubit<PageState, PageEvent> {
-  DashboardCubit(
+class PageCubit extends BaseCubit<PageState, PageEvent> {
+  PageCubit(
     this.adRepository,
     this.commonRepository,
     this.favoriteRepository,

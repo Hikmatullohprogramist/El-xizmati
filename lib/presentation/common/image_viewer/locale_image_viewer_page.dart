@@ -4,12 +4,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
-
-import '../../../common/widgets/button/common_button.dart';
 
 @RoutePage()
 class LocaleImageViewerPage extends StatefulWidget {
@@ -130,56 +128,50 @@ class _LocaleImageViewerPageState extends State<LocaleImageViewerPage> {
                 ),
               ),
               Positioned(
-                  left: 16,
-                  bottom: 16,
-                  right: 16,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Expanded(
-                        child: CommonButton(
-                          color: Colors.white,
-                          type: ButtonType.elevated,
-                          isEnabled: currentIndex != 0,
-                          onPressed: () {
-                            setState(() {
-                              var item = widget.images.removeAt(currentIndex);
-                              currentIndex = -1;
-                              widget.images.insert(0, item);
-                              pageController.jumpToPage(0);
-                            });
-                          },
-                          text: (currentIndex == 0
-                                  ? "Главное фото"
-                                  : "Сделать главным")
-                              .s(14)
-                              .w(400)
-                              .c(Colors.black)
-                              .copyWith(textAlign: TextAlign.center),
-                        ),
+                left: 16,
+                bottom: 16,
+                right: 16,
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: CustomElevatedButton(
+                        buttonHeight: 32,
+                        text: (currentIndex == 0
+                            ? "Главное фото"
+                            : "Сделать главным"),
+                        isEnabled: currentIndex != 0,
+                        onPressed: () {
+                          setState(() {
+                            var item = widget.images.removeAt(currentIndex);
+                            currentIndex = -1;
+                            widget.images.insert(0, item);
+                            pageController.jumpToPage(0);
+                          });
+                        },
+                        textColor: Colors.black,
+                        backgroundColor: Colors.white,
                       ),
-                      SizedBox(width: 12),
-                      Expanded(
-                        child: CommonButton(
-                          color: Colors.white,
-                          type: ButtonType.elevated,
-                          onPressed: () {
-                            setState(() {
-                              widget.images.removeAt(currentIndex);
-                              if (widget.images.isEmpty) {
-                                context.router.pop(widget.images);
-                              }
-                            });
-                          },
-                          text: "Удалить"
-                              .s(14)
-                              .w(400)
-                              .c(Colors.black)
-                              .copyWith(textAlign: TextAlign.center),
-                        ),
-                      )
-                    ],
-                  )),
+                    ),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: CustomElevatedButton(
+                        text: "Удалить",
+                        onPressed: () {
+                          setState(() {
+                            widget.images.removeAt(currentIndex);
+                            if (widget.images.isEmpty) {
+                              context.router.pop(widget.images);
+                            }
+                          });
+                        },
+                        textColor: Colors.black,
+                        backgroundColor: Colors.white,
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
         ),

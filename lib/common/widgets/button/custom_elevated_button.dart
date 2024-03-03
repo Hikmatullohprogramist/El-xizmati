@@ -1,98 +1,103 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
+import 'package:onlinebozor/common/extensions/text_extensions.dart';
+
+import '../../colors/static_colors.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({
     Key? key,
-    required this.onPressed,
     required this.text,
+    required this.onPressed,
+    this.buttonWidth = double.infinity,
+    this.buttonHeight = 48,
     this.isEnabled = true,
     this.isLoading = false,
-    this.color,
-    this.type = ButtonType.elevated,
+    this.textColor = Colors.white,
+    this.backgroundColor = StaticColors.slateBlue,
+    this.rightIcon,
   }) : super(key: key);
 
-  final VoidCallback? onPressed;
+  final String text;
+  final VoidCallback onPressed;
+  final double buttonWidth;
+  final double buttonHeight;
   final bool isLoading;
-  final Widget text;
   final bool isEnabled;
-  final Color? color;
-  final ButtonType type;
+  final Color textColor;
+  final Color backgroundColor;
+  final Widget? rightIcon;
+
+  bool isClickedRecently(DateTime? lastClickTime) {
+    if (lastClickTime == null) return false;
+    var now = DateTime.now();
+    return (lastClickTime.difference(now).inMilliseconds) > -1000;
+  }
 
   @override
   Widget build(BuildContext context) {
     DateTime? clickTime;
 
-    final onButtonPressed = !isEnabled ? null : () {
-      if (isLoading) {
-        return;
-      }
+    final onButtonPressed = isEnabled
+        ? () {
+            if (isLoading) {
+              return;
+            } else if (isClickedRecently(clickTime)) {
+              return;
+            } else {
+              clickTime = DateTime.now();
+              onPressed.call();
+            }
+          }
+        : null;
 
-      final difference =
-          clickTime?.difference(DateTime.now()).inMilliseconds ?? -1000;
+    var actualTextColor = textColor.withOpacity(isEnabled ? 1 : 0.75);
+    var actualBackgroundColor = backgroundColor.withOpacity(isEnabled ? 1 : 0.75);
+    var actualTextAlign = rightIcon != null ? TextAlign.left : TextAlign.center;
 
-      if (difference > -1000) {
-        return;
-      }
-
-      clickTime = DateTime.now();
-
-      onPressed?.call();
-    };
-
-    switch (type) {
-      case ButtonType.elevated:
-        return ElevatedButton(
-          onPressed: onButtonPressed,
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(6),
-            ),
-            backgroundColor: color ?? context.colors.buttonPrimary,
-            disabledBackgroundColor: (color ?? context.colors.buttonPrimary).withAlpha(150),
-            elevation: 0,
-          ),
-          child: _buildChild(context),
-        );
-      case ButtonType.outlined:
-        return OutlinedButton(
-          onPressed: onButtonPressed,
-          style: OutlinedButton.styleFrom(
-            foregroundColor: color,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(6),
-            ),
-            side: BorderSide(
-              color: color ?? context.colors.primary,
-            ),
-          ),
-          child: _buildChild(context),
-        );
-      case ButtonType.text:
-        return TextButton(
-          onPressed: onButtonPressed,
-          style: TextButton.styleFrom(
-            textStyle: TextStyle(color: color ?? context.colors.buttonPrimary),
-          ),
-          child: _buildChild(context),
-        );
-    }
-  }
-
-  Widget _buildChild(BuildContext context) {
-    return isLoading
-        ? SizedBox(
-      height: 23,
-      width: 23,
-      child: CircularProgressIndicator.adaptive(
-        strokeWidth: 3,
-        backgroundColor: type == ButtonType.elevated
-            ? context.colors.buttonPrimary
-            : context.colors.primary,
+    return ElevatedButton(
+      onPressed: onButtonPressed,
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6),
+        ),
+        backgroundColor: actualBackgroundColor,
+        disabledBackgroundColor: backgroundColor.withAlpha(150),
+        elevation: 0,
       ),
-    )
-        : text;
+      child: SizedBox(
+        width: buttonWidth,
+        height: buttonHeight,
+        child: Row(
+          children: [
+            Expanded(
+              child: text.w(400).s(14).c(actualTextColor).copyWith(
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: actualTextAlign,
+                  ),
+            ),
+            Visibility(visible: isLoading, child: SizedBox(width: 12)),
+            Visibility(
+              visible: isLoading,
+              child: SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                  strokeWidth: 1.5,
+                  strokeAlign: 0.5,
+                ),
+              ),
+            ),
+            Visibility(visible: rightIcon != null, child: SizedBox(width: 12)),
+            Visibility(
+              visible: rightIcon != null,
+              child: SizedBox(width: 20, height: 20, child: rightIcon),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
-
-enum ButtonType { elevated, outlined, text }

@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/presentation/auth/confirm/page.dart';
+import 'package:onlinebozor/presentation/auth/confirm/auth_confirm_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../data/repositories/auth_repository.dart';

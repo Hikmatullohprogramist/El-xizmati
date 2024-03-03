@@ -124,7 +124,7 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   Future<void> addAddress() async {
-    emitEvent(PageEvent(PageEventType.onStartLoading));
+    updateState((state) => state.copyWith(isLoading: true));
     try {
       await userAddressRepository.addUserAddress(
         name: states.addressName!,
@@ -138,16 +138,16 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
         geo: "${states.latitude},${states.longitude}",
       );
 
-      emitEvent(PageEvent(PageEventType.onFinishLoading));
+      updateState((state) => state.copyWith(isLoading: false));
       emitEvent(PageEvent(PageEventType.backOnSuccess));
     } catch (e) {
-      emitEvent(PageEvent(PageEventType.onFinishLoading));
+      updateState((state) => state.copyWith(isLoading: false));
       display.error(Strings.loadingStateError);
     }
   }
 
   Future<void> updateAddress() async {
-    emitEvent(PageEvent(PageEventType.onStartLoading));
+    updateState((state) => state.copyWith(isLoading: true));
     try {
       await userAddressRepository.updateUserAddress(
         name: states.addressName!,
@@ -163,10 +163,10 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
         state: '',
       );
 
-      emitEvent(PageEvent(PageEventType.onFinishLoading));
+      updateState((state) => state.copyWith(isLoading: false));
       emitEvent(PageEvent(PageEventType.backOnSuccess));
     } catch (e) {
-      emitEvent(PageEvent(PageEventType.onFinishLoading));
+      updateState((state) => state.copyWith(isLoading: false));
       display.error(Strings.loadingStateError);
     }
   }
@@ -218,11 +218,13 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   Future<void> getCurrentLocation() async {
+    updateState((state) => state.copyWith(isLocationLoading: true));
     LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         // Handle the case where the user has denied the permission
+        updateState((state) => state.copyWith(isLocationLoading: false));
         return;
       } else {
         try {
@@ -230,14 +232,18 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
               desiredAccuracy: LocationAccuracy.high);
           double lat = position.latitude;
           double long = position.longitude;
+
           updateState(
-              (state) => state.copyWith(latitude: lat, longitude: long));
-          display.success("location muvaffaqiyatli olindi");
+            (state) => state.copyWith(
+              latitude: lat,
+              longitude: long,
+              isLocationLoading: false,
+            ),
+          );
           print("Latitude: $lat and Longitude: $long");
         } catch (e) {
           log.e(e.toString());
-          display
-              .error("Location olishda xatolik yuz berdi qayta urinib ko'ring");
+          updateState((state) => state.copyWith(isLocationLoading: false));
         }
       }
     } else {
@@ -246,13 +252,17 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
             desiredAccuracy: LocationAccuracy.high);
         double lat = position.latitude;
         double long = position.longitude;
-        updateState((state) => state.copyWith(latitude: lat, longitude: long));
-        display.success("location muvaffaqiyatli olindi");
+        updateState(
+              (state) => state.copyWith(
+            latitude: lat,
+            longitude: long,
+            isLocationLoading: false,
+          ),
+        );
         print("Latitude: $lat and Longitude: $long");
       } catch (e) {
         log.e(e.toString());
-        display
-            .error("Location olishda xatolik yuz berdi qayta urinib ko'ring");
+        updateState((state) => state.copyWith(isLocationLoading: false));
       }
     }
   }
