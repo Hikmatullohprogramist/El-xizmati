@@ -17,6 +17,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   PageCubit() : super(const PageState());
 
   void setName(String name) {
+    log.w(name);
     updateState((state) => state.copyWith(name: name));
   }
 

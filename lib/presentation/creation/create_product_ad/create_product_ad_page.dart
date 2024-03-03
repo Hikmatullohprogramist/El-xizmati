@@ -112,7 +112,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       child: Column(
         children: [
-          LabelTextField(text: 'Название товара'),
+          LabelTextField(text: 'Название товара '),
           SizedBox(height: 6),
           CommonTextField(
             autofillHints: const [AutofillHints.name],
@@ -474,6 +474,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             maxLines: 1,
             hint: '',
             prefixText: "+998",
+            validateType: "phone",
             inputType: TextInputType.phone,
             textInputAction: TextInputAction.next,
             controller: phoneController,
@@ -491,6 +492,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             inputType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             hint: "Эл. почта",
+            validateType: "email",
             maxLines: 1,
             controller: emailController,
             onChanged: (value) {

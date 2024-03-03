@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -113,7 +115,7 @@ class CreateProductOrderPage
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       child: Column(
         children: [
-          LabelTextField(text: "Название товара", isRequired: true),
+          LabelTextField(text: "Название товара ", isRequired: true),
           SizedBox(height: 8),
           CommonTextField(
             hint: "Название товара",
@@ -121,7 +123,10 @@ class CreateProductOrderPage
               cubit(context).setName(value);
             },
             controller: titleController,
+            onFieldSubmitted1: (val){
+            },
           ),
+
           SizedBox(height: 12),
           LabelTextField(text: "Категория", isRequired: true),
           SizedBox(height: 8),
@@ -319,6 +324,7 @@ class CreateProductOrderPage
             inputType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             hint: "Эл. почта",
+            validateType: "email",
             maxLines: 1,
             controller: emailController,
             onChanged: (value) {
@@ -333,6 +339,7 @@ class CreateProductOrderPage
             keyboardType: TextInputType.phone,
             maxLines: 1,
             prefixText: "+998 ",
+            validateType: "phone",
             inputType: TextInputType.phone,
             textInputAction: TextInputAction.next,
             controller: phoneController,
