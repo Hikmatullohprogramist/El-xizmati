@@ -24,8 +24,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       final allCategories = await repository.getCategories();
       final categories = allCategories.where((e) => e.parent_id == 0).toList();
       log.i(allCategories.toString());
-      updateState(
-        (state) => state.copyWith(
+      updateState((state) => state.copyWith(
           items: categories,
           loadState: LoadingState.success,
         ),

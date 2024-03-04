@@ -28,15 +28,6 @@ class AppCategoryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(loadingState.toString());
-    if(loadingState==LoadingState.loading){
-     log(loadingState.toString());
-      return bbb();
-    }else{
-      return aaa(context);
-    }
-  }
-  Widget aaa(BuildContext context){
     return InkWell(
       onTap: () {
         onClicked(category);
@@ -97,7 +88,5 @@ class AppCategoryWidget extends StatelessWidget {
       ),
     );
   }
-  Widget bbb(){
-    return Container(height: 45,width: 45,color: Colors.red,);
-  }
+
 }
