@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/data/responses/category/category/category_response.dart';
 import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/responses/payment_type/payment_type_response.dart';
@@ -41,7 +42,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         isBusiness: states.isBusiness,
         address: states.address,
         contactPerson: states.contactPerson,
-        phone: states.phone,
+        phone: states.phone.clearPhone(),
         email: states.email,
         pickupAddresses: states.isPickupEnabled ? states.pickupAddresses : [],
         isAutoRenewal: states.isAutoRenewal,
@@ -69,11 +70,12 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   void setEnteredWarehouseCount(String warehouseCount) {
-    int? warehouseCountInt;
+    int warehouseCountInt = 14000;
     if (warehouseCount.trim().isNotEmpty) {
       try {
-        warehouseCountInt = warehouseCount as int;
+        warehouseCountInt = int.parse(warehouseCount.clearPrice());
       } catch (e) {
+        warehouseCountInt = 15000;
         log.e(e.toString());
       }
     }
@@ -85,11 +87,12 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   void setEnteredPrice(String price) {
-    int? priceInt;
+    int priceInt = 125000;
     if (price.trim().isNotEmpty) {
       try {
-        priceInt = price as int;
+        priceInt = int.parse(price.clearPrice());
       } catch (e) {
+        priceInt = 130000;
         log.e(e.toString());
       }
     }
@@ -120,7 +123,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  void setSelectedDeleveryForFree(
+  void setSelectedDeliveryForFree(
     List<RegionResponse>? selectedPaymentTypes,
   ) {
     try {
@@ -209,15 +212,24 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     var title = (state.state?.title.isNotEmpty) ?? false;
     var category = (state.state?.category?.name?.isNotEmpty) ?? false;
     var description = (state.state?.desc.isNotEmpty) ?? false;
-    var warehouseCount = (state.state?.warehouseCount.toString()?.isNotEmpty) ?? false;
-    var unit= (state.state?.unit?.name?.isNotEmpty) ?? false;
+    var warehouseCount =
+        (state.state?.warehouseCount.toString()?.isNotEmpty) ?? false;
+    var unit = (state.state?.unit?.name?.isNotEmpty) ?? false;
     var price = (state.state?.price.toString().isNotEmpty) ?? false;
     var currency = (state.state?.currency?.name?.isNotEmpty) ?? false;
     var contactPerson = (state.state?.contactPerson.isNotEmpty) ?? false;
     var phoneNumber = (state.state?.phone.isNotEmpty) ?? false;
     var email = (state.state?.email.isNotEmpty) ?? false;
-    if (title && category && description && warehouseCount && unit && price &&currency
-      &&contactPerson&&phoneNumber&&email) {
+    if (title &&
+        category &&
+        description &&
+        warehouseCount &&
+        unit &&
+        price &&
+        currency &&
+        contactPerson &&
+        phoneNumber &&
+        email) {
       return true;
     } else {
       return false;

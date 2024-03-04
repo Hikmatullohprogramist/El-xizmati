@@ -1,11 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/data/storages/token_storage.dart';
 
+import '../../../data/constants/rest_header_keys.dart';
 import '../../constants.dart';
 
 @lazySingleton
 class AppInterceptor extends QueuedInterceptor {
-  AppInterceptor();
+  AppInterceptor(this._tokenStorage);
+
+  final TokenStorage _tokenStorage;
 
   @override
   void onRequest(
@@ -21,7 +25,13 @@ class AppInterceptor extends QueuedInterceptor {
     headers['MobileOs'] = DeviceInfo.mobileOs;
     headers['NightMode'] = DeviceInfo.nightMode;
     headers['MobileOsType'] = DeviceInfo.mobileOsType;
-    headers['MobileOsVersion']="33";
+    headers['MobileOsVersion'] = "33";
+
+    var token = _tokenStorage.token.call() ?? "";
+    if (token.isNotEmpty) {
+      headers[RestHeaderKeys.authorization] = "Bearer $token";
+    }
+
     options.headers.addAll(headers);
     handler.next(options);
   }

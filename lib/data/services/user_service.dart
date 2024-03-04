@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/constants/rest_header_keys.dart';
 import 'package:onlinebozor/data/constants/rest_query_keys.dart';
 
 import '../responses/device/active_device_response.dart';
@@ -14,45 +13,34 @@ class UserService {
   UserService(this._dio, this.tokenStorage);
 
   Future<Response> getFullUserInfo() {
-    final headers = {
-      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
-    };
-    final response =
-        _dio.get("v1/user/profile", options: Options(headers: headers));
+    final response = _dio.get("v1/user/profile");
     return response;
   }
 
-  Future<Response> getBiometricInfo(
-      {required String phoneNumber,
-      required String biometricSerial,
-      required String biometricNumber,
-      required String brithDate}) {
-    final headers = {
-      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
-    };
+  Future<Response> getBiometricInfo({
+    required String phoneNumber,
+    required String biometricSerial,
+    required String biometricNumber,
+    required String brithDate,
+  }) {
     final data = {
       RestQueryKeys.phoneNumber: phoneNumber,
       RestQueryKeys.passportSerial: biometricSerial,
       RestQueryKeys.passportNumber: biometricNumber,
       RestQueryKeys.brithDate: brithDate
     };
-    return _dio.post('v1/user/profile',
-        data: data, options: Options(headers: headers));
+    return _dio.post('v1/user/profile', data: data);
   }
 
   Future<Response> getUserInfo({
     required String secretKey,
     required String phoneNumber,
   }) {
-    final headers = {
-      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
-    };
     final data = {
       RestQueryKeys.secretKey: secretKey,
       RestQueryKeys.phoneNumber: phoneNumber
     };
-    return _dio.post('v1/user/profile/verify/in_progress',
-        data: data, options: Options(headers: headers));
+    return _dio.post('v1/user/profile/verify/in_progress', data: data);
   }
 
   Future<Response> sendUserInformation({
@@ -67,9 +55,6 @@ class UserService {
     required String postName,
     required String phoneNumber,
   }) async {
-    final headers = {
-      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
-    };
     final queryParameters = {
       RestQueryKeys.email: email,
       RestQueryKeys.gender: gender,
@@ -82,8 +67,8 @@ class UserService {
       RestQueryKeys.postName: postName,
       RestQueryKeys.phoneNumber: phoneNumber
     };
-    final response = await _dio.put("v1/user/profile",
-        queryParameters: queryParameters, options: Options(headers: headers));
+    final response =
+        await _dio.put("v1/user/profile", queryParameters: queryParameters);
     return response;
   }
 
@@ -107,30 +92,18 @@ class UserService {
   }
 
   Future<Response> getActiveDevices() async {
-    final headers = {
-      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
-    };
-    final response =
-        await _dio.get("v1/profile/active", options: Options(headers: headers));
+    final response = await _dio.get("v1/profile/active");
     return response;
   }
 
   Future<void> removeActiveDevice(ActiveDeviceResponse response) async {
-    final headers = {
-      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
-    };
     final queryParameters = {RestQueryKeys.id: response.id};
-    await _dio.delete("v1/user/active?id= ",
-        options: Options(headers: headers), queryParameters: queryParameters);
+    await _dio.delete("v1/user/active?id= ", queryParameters: queryParameters);
     return;
   }
 
   Future<Response> getSocialNetwork() async {
-    final headers = {
-      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
-    };
-    final response = await _dio.get("v1/profile/social_medias",
-        options: Options(headers: headers));
+    final response = await _dio.get("v1/profile/social_medias");
     return response;
   }
 }
