@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/constants/rest_query_keys.dart';
+import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 
-import '../responses/device/active_device_response.dart';
 import '../storages/token_storage.dart';
 
 @lazySingleton
@@ -96,8 +96,8 @@ class UserService {
     return response;
   }
 
-  Future<void> removeActiveDevice(ActiveDeviceResponse response) async {
-    final queryParameters = {RestQueryKeys.id: response.id};
+  Future<void> removeActiveDevice(ActiveSession session) async {
+    final queryParameters = {RestQueryKeys.id: session.id};
     await _dio.delete("v1/user/active?id= ", queryParameters: queryParameters);
     return;
   }

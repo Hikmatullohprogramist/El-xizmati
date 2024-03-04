@@ -2,12 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../../../common/core/base_cubit.dart';
 import '../../../../../../../data/repositories/auth_repository.dart';
 import '../../../../../../../data/repositories/user_repository.dart';
-import '../../../../../../../data/responses/device/active_device_response.dart';
 
 part 'page_cubit.freezed.dart';
 
@@ -166,35 +166,33 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  PagingController<int, ActiveDeviceResponse> getActiveDevices({
+  PagingController<int, ActiveSession> getActiveDevices({
     required int status,
   }) {
-    final adController = PagingController<int, ActiveDeviceResponse>(
+    final controller = PagingController<int, ActiveSession>(
       firstPageKey: 1,
       invisibleItemsThreshold: 100,
     );
     log.i(states.controller);
 
-    adController.addPageRequestListener(
+    controller.addPageRequestListener(
       (pageKey) async {
-        final currentDevice=await _userRepository.getCurrentDevice();
-        final adsList = await _userRepository.getActiveDevice();
-        if (adsList.length <= 1000) {
-          adController.appendLastPage(currentDevice);
-          adController.appendLastPage(adsList.sublist(0,1));
+        final items = await _userRepository.getActiveDevice();
+        if (items.length <= 1000) {
+          controller.appendLastPage(items.sublist(0,1));
           log.i(states.controller);
           return;
         }
-        adController.appendPage(adsList, pageKey + 1);
+        controller.appendPage(items, pageKey + 1);
         log.i(states.controller);
       },
     );
-    return adController;
+    return controller;
   }
 
-  Future<void> removeActiveDevice(ActiveDeviceResponse response) async {
+  Future<void> removeActiveDevice(ActiveSession session) async {
     try {
-      await _userRepository.removeActiveResponse(response);
+      await _userRepository.removeActiveResponse(session);
     } catch (error) {
       log.e(error.toString());
     }

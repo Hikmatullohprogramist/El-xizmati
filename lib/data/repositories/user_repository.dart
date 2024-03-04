@@ -1,8 +1,10 @@
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/data/responses/active_sessions/active_session_response.dart';
+import 'package:onlinebozor/domain/mappers/active_session_mapper.dart';
+import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 
 import '../../common/constants.dart';
 import '../../data/hive_objects/user/user_info_object.dart';
-import '../../data/responses/device/active_device_response.dart';
 import '../../data/responses/profile/biometric_info/biometric_info_response.dart';
 import '../../data/responses/profile/user/user_info_response.dart';
 import '../../data/responses/profile/user_full/user_full_info_response.dart';
@@ -128,21 +130,37 @@ class UserRepository {
     return isRegister;
   }
 
-  Future<List<ActiveDeviceResponse>> getActiveDevice() async {
+  Future<List<ActiveSession>> getActiveDevice() async {
     final deviceResponse = await _userService.getActiveDevices();
-    final response = ActiveDeviceRootResponse.fromJson(deviceResponse.data).data;
-    final sortedResponse=response.where((element) => element.user_agent!=DeviceInfo.userAgent).toList();
-    return sortedResponse.reversed.toList();
-  }
-  Future<List<ActiveDeviceResponse>> getCurrentDevice() async {
-    final deviceResponse = await _userService.getActiveDevices();
-    final response = ActiveDeviceRootResponse.fromJson(deviceResponse.data).data;
-    final currentDevice=response.where((element) => element.user_agent==DeviceInfo.userAgent).toList();
-    return currentDevice;
+    final root = ActiveSessionsRootResponse.fromJson(deviceResponse.data).data;
+    final userAgent = DeviceInfo.userAgent;
+    final items = root.map((e) => e.toMap(e.user_agent == userAgent)).toList();
+    items.sort(
+      (a, b) {
+        int currentSessionComparison =
+            b.isCurrentSession ? 1 : 0 - (a.isCurrentSession ? 1 : 0);
+
+        int dateComparison = a.lastActivityAt == null
+            ? 1
+            : b.lastActivityAt == null
+                ? -1
+                : (a.lastActivityAt?.compareTo(b.lastActivityAt!) ?? 1) -
+                    (b.lastActivityAt?.compareTo(a.lastActivityAt!) ?? 1);
+
+        return currentSessionComparison == 0 && dateComparison == 0
+            ? 0
+            : currentSessionComparison == 1
+                ? 1
+                : currentSessionComparison == 1
+                    ? -1
+                    : dateComparison;
+      },
+    );
+    return items;
   }
 
-  Future<void> removeActiveResponse(ActiveDeviceResponse response) async {
-    await _userService.removeActiveDevice(response);
+  Future<void> removeActiveResponse(ActiveSession session) async {
+    await _userService.removeActiveDevice(session);
     return;
   }
 }

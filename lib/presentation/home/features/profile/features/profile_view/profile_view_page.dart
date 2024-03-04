@@ -14,15 +14,15 @@ import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/app_bar/action_app_bar.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
+import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 
 import '../../../../../../common/colors/static_colors.dart';
 import '../../../../../../common/constants.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
-import '../../../../../../common/widgets/device/active_device_shimmer.dart';
-import '../../../../../../common/widgets/device/active_device_widgets.dart';
+import '../../../../../../common/widgets/device/active_session_shimmer.dart';
+import '../../../../../../common/widgets/device/active_session_widgets.dart';
 import '../../../../../../common/widgets/divider/custom_diverder.dart';
 import '../../../../../../common/widgets/profile/profile_item_widget.dart';
-import '../../../../../../data/responses/device/active_device_response.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -545,7 +545,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
             ],
           ),
         ),
-        PagedGridView<int, ActiveDeviceResponse>(
+        PagedGridView<int, ActiveSession>(
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
             pagingController: state.controller!,
@@ -556,7 +556,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
               mainAxisExtent: 145,
               crossAxisCount: 1,
             ),
-            builderDelegate: PagedChildBuilderDelegate<ActiveDeviceResponse>(
+            builderDelegate: PagedChildBuilderDelegate<ActiveSession>(
               firstPageErrorIndicatorBuilder: (_) {
                 return SizedBox(
                     height: 60,
@@ -613,11 +613,11 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
               },
               transitionDuration: Duration(milliseconds: 100),
               itemBuilder: (context, item, index) {
-                return ActiveDeviceWidget(
-                    invoke: (response) {
+                return ActiveSessionWidget(
+                    onClicked: (response) {
                       cubit(context).removeActiveDevice(response);
                     },
-                    response: item);
+                    session: item);
               },
             )),
       ],

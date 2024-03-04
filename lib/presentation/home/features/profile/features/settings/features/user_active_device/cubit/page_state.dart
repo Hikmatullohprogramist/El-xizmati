@@ -3,7 +3,7 @@ part of 'page_cubit.dart';
 @freezed
 class PageState with _$PageState {
   const factory PageState({
-    PagingController<int, ActiveDeviceResponse>? controller,
+    PagingController<int, ActiveSession>? controller,
   }) = _PageState;
 }
 
