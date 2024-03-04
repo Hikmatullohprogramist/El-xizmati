@@ -10,6 +10,8 @@ class CustomElevatedButton extends StatelessWidget {
     required this.onPressed,
     this.buttonWidth = double.infinity,
     this.buttonHeight = 48,
+
+
     this.isEnabled = true,
     this.isLoading = false,
     this.textColor = Colors.white,
@@ -56,47 +58,51 @@ class CustomElevatedButton extends StatelessWidget {
     var actualBackgroundColor = backgroundColor.withOpacity(isEnabled ? 1 : 0.75);
     var actualTextAlign = rightIcon != null ? TextAlign.left : TextAlign.center;
 
-    return ElevatedButton(
-      onPressed: onButtonPressed,
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(6),
+    return SizedBox(
+      height: buttonHeight,
+      width: buttonWidth,
+      child: ElevatedButton(
+        onPressed: onButtonPressed,
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6),
+          ),
+          backgroundColor: actualBackgroundColor,
+          disabledBackgroundColor: backgroundColor.withAlpha(150),
+          elevation: 0,
         ),
-        backgroundColor: actualBackgroundColor,
-        disabledBackgroundColor: backgroundColor.withAlpha(150),
-        elevation: 0,
-      ),
-      child: SizedBox(
-        width: buttonWidth,
-        height: buttonHeight,
-        child: Row(
-          children: [
-            Expanded(
-              child: text.w(400).s(textSize).c(actualTextColor).copyWith(
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: actualTextAlign,
+        child: SizedBox(
+          width: buttonWidth,
+          height: buttonHeight,
+          child: Row(
+            children: [
+              Expanded(
+                child: text.w(400).s(textSize).c(actualTextColor).copyWith(
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: actualTextAlign,
+                    ),
+              ),
+              Visibility(visible: isLoading, child: SizedBox(width: 12)),
+              Visibility(
+                visible: isLoading,
+                child: SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 1.5,
+                    strokeAlign: 0.5,
                   ),
-            ),
-            Visibility(visible: isLoading, child: SizedBox(width: 12)),
-            Visibility(
-              visible: isLoading,
-              child: SizedBox(
-                width: 20,
-                height: 20,
-                child: CircularProgressIndicator(
-                  color: Colors.white,
-                  strokeWidth: 1.5,
-                  strokeAlign: 0.5,
                 ),
               ),
-            ),
-            Visibility(visible: rightIcon != null, child: SizedBox(width: 12)),
-            Visibility(
-              visible: rightIcon != null,
-              child: SizedBox(width: 20, height: 20, child: rightIcon),
-            ),
-          ],
+              Visibility(visible: rightIcon != null, child: SizedBox(width: 12)),
+              Visibility(
+                visible: rightIcon != null,
+                child: SizedBox(width: 20, height: 20, child: rightIcon),
+              ),
+            ],
+          ),
         ),
       ),
     );

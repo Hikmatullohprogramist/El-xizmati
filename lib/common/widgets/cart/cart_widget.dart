@@ -136,6 +136,9 @@ class CartWidget extends StatelessWidget {
                               child: Assets.images.icDelete.svg())),
                       Spacer(),
                       CustomElevatedButton(
+                        buttonWidth:90,
+                        buttonHeight: 38,
+                        textSize: 12,
                         text: Strings.cartProductClearance,
                         onPressed: () {
                           invoke(ad);

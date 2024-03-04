@@ -486,6 +486,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
             SizedBox(
               height: 36,
               child: CustomElevatedButton(
+                buttonWidth: 120,
                 text: Strings.adDetailAddtocart,
                 isEnabled: !state.isAddCart,
                 onPressed: () => cubit(context).addCart(),
