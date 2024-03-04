@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
@@ -249,7 +248,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                               children: [
                                 Shimmer.fromColors(
                                   baseColor: StaticColors.shimmerBaseColor,
-                                  highlightColor: StaticColors.shimmerHighLightColor,
+                                  highlightColor:
+                                      StaticColors.shimmerHighLightColor,
                                   child: Container(
                                     height: 15,
                                     decoration: BoxDecoration(
@@ -262,7 +262,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                                 ),
                                 Shimmer.fromColors(
                                   baseColor: StaticColors.shimmerBaseColor,
-                                  highlightColor: StaticColors.shimmerHighLightColor,
+                                  highlightColor:
+                                      StaticColors.shimmerHighLightColor,
                                   child: Container(
                                     height: 15,
                                     margin: EdgeInsets.only(right: 55),
@@ -422,11 +423,13 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
         _getAddressBlock(context, state),
         Visibility(
           visible: false,
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Column(children: [
-              getTitleWithArrowIcon(Strings.adDetailFeedback, () {})
-            ]),
+          child: Column(
+            children: [
+              SeeAllWidget(
+                title: Strings.adDetailFeedback,
+                onClicked: () {},
+              )
+            ],
           ),
         ),
         _getSimilarAds(context, state),
@@ -495,22 +498,6 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
             SizedBox(width: 16)
           ]),
           SizedBox(height: 16)
-        ],
-      ),
-    );
-  }
-
-  Widget getTitleWithArrowIcon(String title, VoidCallback onPressed) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          title.w(500).s(14).c(Color(0xFF41455E)),
-          // IconButton(
-          //   onPressed: onPressed,
-          //   icon: Assets.images.icArrowRight.svg(height: 18, width: 18),
-          // )
         ],
       ),
     );
@@ -593,15 +580,23 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _getDescriptionBlock(BuildContext context, PageState state) {
     return Visibility(
-      visible: (state.adDetail?.hasDescription() ?? false),
+      visible: true, //(state.adDetail?.hasDescription() ?? false),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            getTitleWithArrowIcon(Strings.adDetailDescription, () {}),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Strings.adDetailDescription.w(600).s(14).c(Color(0xFF41455E)),
+                ],
+              ),
+            ),
             (state.adDetail?.description ?? "")
-                .w(600)
+                .w(400)
                 .s(14)
                 .c(Color(0xFF41455E))
                 .copyWith(maxLines: 7),

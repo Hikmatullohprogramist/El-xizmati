@@ -64,7 +64,7 @@ class UserAddressSelection extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(6),
                                 color: Color(0xFFF6B712),
                               ),
-                              child: Strings.actionMakeMain
+                              child: Strings.commonMain
                                   .w(600)
                                   .s(12)
                                   .c(Colors.white),
