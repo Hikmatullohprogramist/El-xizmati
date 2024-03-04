@@ -1,3 +1,4 @@
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -259,9 +260,10 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
     PageState state,
   ) {
     return Visibility(
-      visible: state.recentlyViewedAdsState == LoadingState.loading &&
-          (state.recentlyViewedAdsState ==
-              LoadingState.success && state.recentlyViewedAds.isNotEmpty),
+      visible:
+     state.recentlyViewedAdsState != LoadingState.loading &&
+         (state.recentlyViewedAdsState ==
+             LoadingState.success && state.recentlyViewedAds.isNotEmpty),
       child: Container(
         color: Colors.white,
         child: Column(

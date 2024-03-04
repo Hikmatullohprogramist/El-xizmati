@@ -34,6 +34,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       getPopularProductAds(),
       getPopularServiceAds(),
       getTopRatedAds(),
+      getRecentlyViewedAds(),
     ]);
   }
 
@@ -129,19 +130,21 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           recentlyViewedAdsState: LoadingState.success,
         ),
       );
+      log.e(777);
     } on DioException catch (e, stackTrace) {
       updateState(
         (state) => state.copyWith(recentlyViewedAdsState: LoadingState.error),
       );
       log.e(e.toString(), error: e, stackTrace: stackTrace);
     } finally {
-      updateState(
-        (state) => state.copyWith(recentlyViewedAdsState: LoadingState.error),
-      );
+    //  updateState(
+    //    (state) => state.copyWith(recentlyViewedAdsState: LoadingState.success),
+    //  );
     }
   }
 
   Future<void> getBanners() async {
+    log.e("kekf");
     try {
       final banners = await commonRepository.getBanner();
       updateState(
@@ -242,6 +245,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             ..backendId = backendId,
         );
       } else {
+
         await favoriteRepository.removeFavorite(ad);
         final index = states.recentlyViewedAds.indexOf(ad);
         final item = states.recentlyViewedAds.elementAt(index);
