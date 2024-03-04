@@ -218,6 +218,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                   onPressed: state.isRegistered
                       ? null
                       : () => context.router.replace(RegistrationRoute()),
+                  buttonWidth: 120,
                 )
               ],
             )

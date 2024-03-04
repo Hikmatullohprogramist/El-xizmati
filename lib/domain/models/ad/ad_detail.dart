@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:onlinebozor/domain/models/ad/ad_item_condition.dart';
 
 import '../../../data/responses/ad/ad_detail/ad_detail_response.dart';
@@ -127,7 +125,7 @@ class AdDetail {
   bool favorite;
   bool isAddCart;
 
-  bool hasDescription(){
-    return description != null && description != "";
+  bool hasDescription() {
+    return description != null && description!.isNotEmpty;
   }
 }

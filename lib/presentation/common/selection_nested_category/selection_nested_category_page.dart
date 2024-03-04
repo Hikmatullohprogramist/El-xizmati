@@ -44,7 +44,7 @@ class SelectionNestedCategoryPage
           shrinkWrap: true,
           itemCount: state.visibleCategories.length,
           itemBuilder: (context, index) {
-            return AppCategoryWidget(
+            return CategoryWidget(
               category: state.visibleCategories[index],
               onClicked: (CategoryResponse categoryResponse) {
                 cubit(context).selectCategory(categoryResponse);

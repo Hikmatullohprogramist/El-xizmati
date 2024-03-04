@@ -11,8 +11,8 @@ import '../../../data/responses/category/category/category_response.dart';
 import '../../enum/enums.dart';
 import '../../gen/assets/assets.gen.dart';
 
-class AppCategoryWidget extends StatelessWidget {
-  const AppCategoryWidget({
+class CategoryWidget extends StatelessWidget {
+  const CategoryWidget({
     super.key,
     required this.onClicked,
     required this.category,

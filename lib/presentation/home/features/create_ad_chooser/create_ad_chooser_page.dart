@@ -76,8 +76,8 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
                     onPressed: () {
                       context.router.push(CreateProductAdRoute());
                     },
-                    buttonHeight: 42,
-                    textSize: 14,
+                    buttonHeight: 36,
+                    textSize: 12,
                   ),
                 ),
                 SizedBox(width: 12),
@@ -87,8 +87,8 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
                     onPressed: () {
                       context.router.push(CreateServiceAdRoute());
                     },
-                    buttonHeight: 42,
-                    textSize: 14,
+                    buttonHeight: 36,
+                    textSize: 12,
                   ),
                 )
               ],
@@ -135,19 +135,19 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
                     onPressed: () {
                       context.router.push(CreateProductOrderRoute());
                     },
-                    buttonHeight: 44,
-                    textSize: 14,
+                    buttonHeight: 36,
+                    textSize: 12,
                   ),
                 ),
-                SizedBox(width: 16),
+                SizedBox(width: 12),
                 Expanded(
                   child: CustomElevatedButton(
                     text: Strings.adCreationStartBuyService,
                     onPressed: () {
                       context.router.push(CreateServiceOrderRoute());
                     },
-                    buttonHeight: 44,
-                    textSize: 14,
+                    buttonHeight: 36,
+                    textSize: 12,
                   ),
                 )
               ],
