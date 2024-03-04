@@ -2,11 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
-import 'package:onlinebozor/common/enum/enums.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/ad/top_rated_ad_list_widget.dart';
 
 import '../../../../common/colors/static_colors.dart';
+import '../../../../common/enum/enums.dart';
 import '../../../../common/gen/assets/assets.gen.dart';
 import '../../../../common/gen/localization/strings.dart';
 import '../../../../common/widgets/ad/horizontal_ad_list_widget.dart';
@@ -37,7 +37,8 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
         onSearchClicked: () => context.router.push(SearchRoute()),
         onMicrophoneClicked: () {},
         onFavoriteClicked: () => context.router.push(FavoriteListRoute()),
-        onNotificationClicked: () => context.router.push(NotificationListRoute()),
+        onNotificationClicked: () =>
+            context.router.push(NotificationListRoute()),
       ),
       backgroundColor: StaticColors.backgroundColor,
       body: CustomScrollView(
@@ -64,12 +65,16 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _getBannersWidget(BuildContext context, PageState state) {
     return LoaderStateWidget(
-        onErrorToAgainRequest: () {
-          cubit(context).getBanners();
-        },
-        isFullScreen: false,
+      onErrorToAgainRequest: () {
+        cubit(context).getBanners();
+      },
+      isFullScreen: false,
+      loadingState: state.bannersState,
+      child: BannerWidget(
+        list: state.banners,
         loadingState: state.bannersState,
-        child: BannerWidget(list: state.banners, loadingState: state.bannersState));
+      ),
+    );
   }
 
   Widget _getPopularCategoriesWidget(BuildContext context, PageState state) {
@@ -84,24 +89,26 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
             title: Strings.categoriesTitle,
           ),
           LoaderStateWidget(
-              onErrorToAgainRequest: () {
-                cubit(context).getPopularCategories();
+            onErrorToAgainRequest: () {
+              cubit(context).getPopularCategories();
+            },
+            isFullScreen: false,
+            loadingState: state.popularCategoriesState,
+            child: PopularCategoryListWidget(
+              categories: state.popularCategories,
+              invoke: (popularCategories) {
+                context.router.push(
+                  AdListRoute(
+                    adListType: AdListType.homeList,
+                    keyWord: popularCategories.key_word,
+                    title: popularCategories.name,
+                    sellerTin: null,
+                  ),
+                );
               },
-              isFullScreen: false,
               loadingState: state.popularCategoriesState,
-              child: PopularCategoryListWidget(
-                categories: state.popularCategories,
-                invoke: (popularCategories) {
-                  context.router.push(
-                    AdListRoute(
-                      adListType: AdListType.homeList,
-                      keyWord: popularCategories.key_word,
-                      title: popularCategories.name,
-                      sellerTin: null,
-                    ),
-                  );
-                }, loadingState: state.popularCategoriesState,
-              )),
+            ),
+          ),
         ],
       ),
     );
@@ -175,7 +182,8 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
               },
               onFavoriteClicked: (Ad ad) {
                 cubit(context).popularProductAdsAddFavorite(ad);
-              }, loadingState:  state.popularProductAdsState,
+              },
+              loadingState: state.popularProductAdsState,
             ),
           ),
         ],
@@ -214,7 +222,8 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
               },
               onFavoriteClicked: (Ad ad) {
                 cubit(context).popularServiceAdsAddFavorite(ad);
-              }, loadingState: state.popularServiceAdsState,
+              },
+              loadingState: state.popularServiceAdsState,
             ),
           ),
         ],
@@ -239,7 +248,8 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
         },
         onFavoriteClicked: (Ad ad) {
           cubit(context).topRatedAdsAddFavorite(ad);
-        }, loadingState: state.popularServiceAdsState,
+        },
+        loadingState: state.popularServiceAdsState,
       ),
     );
   }
@@ -249,8 +259,9 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
     PageState state,
   ) {
     return Visibility(
-      visible:true,
-     // state.recentlyViewedAdsState != LoadingState.loading && state.recentlyViewedAds.isNotEmpty,
+      visible: state.recentlyViewedAdsState == LoadingState.loading &&
+          (state.recentlyViewedAdsState ==
+              LoadingState.success && state.recentlyViewedAds.isNotEmpty),
       child: Container(
         color: Colors.white,
         child: Column(
@@ -280,9 +291,7 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
                   context.router.push(AdDetailRoute(adId: ad.id));
                 },
                 onFavoriteClicked: (Ad ad) {
-                  context
-                      .read<PageCubit>()
-                      .recentlyViewAdAddToFavorite(ad);
+                  context.read<PageCubit>().recentlyViewAdAddToFavorite(ad);
                 },
                 loadingState: state.recentlyViewedAdsState,
               ),

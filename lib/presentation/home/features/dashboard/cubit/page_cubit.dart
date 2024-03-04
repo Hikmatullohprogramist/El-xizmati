@@ -68,13 +68,16 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         adType: AdType.product,
       );
 
-      updateState((state) => state.copyWith(
-            popularProductAds: ads,
-            popularProductAdsState: LoadingState.success,
-          ));
+      updateState(
+        (state) => state.copyWith(
+          popularProductAds: ads,
+          popularProductAdsState: LoadingState.success,
+        ),
+      );
     } on DioException catch (e, stackTrace) {
-      updateState((state) =>
-          state.copyWith(popularProductAdsState: LoadingState.error));
+      updateState(
+        (state) => state.copyWith(popularProductAdsState: LoadingState.error),
+      );
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
@@ -85,7 +88,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       final ads = await adRepository.getDashboardPopularAdsByType(
         adType: AdType.service,
       );
-
       updateState(
         (state) => state.copyWith(
           popularServiceAds: ads,
@@ -103,7 +105,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> getTopRatedAds() async {
     try {
       final ads = await adRepository.getDashboardTopRatedAds();
-
       updateState(
         (state) => state.copyWith(
           topRatedAds: ads,
@@ -112,7 +113,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       );
     } on DioException catch (e, stackTrace) {
       updateState(
-          (state) => state.copyWith(topRatedAdsState: LoadingState.error));
+        (state) => state.copyWith(topRatedAdsState: LoadingState.error),
+      );
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }
@@ -121,34 +123,37 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> getRecentlyViewedAds() async {
     try {
       final ads = await adRepository.getRecentlyViewedAds(page: 1, limit: 20);
-
-      updateState((state) => state.copyWith(
-            recentlyViewedAds: ads,
-            recentlyViewedAdsState: LoadingState.success,
-          ));
+      updateState(
+        (state) => state.copyWith(
+          recentlyViewedAds: ads,
+          recentlyViewedAdsState: LoadingState.success,
+        ),
+      );
     } on DioException catch (e, stackTrace) {
-      updateState((state) =>
-          state.copyWith(recentlyViewedAdsState: LoadingState.error));
+      updateState(
+        (state) => state.copyWith(recentlyViewedAdsState: LoadingState.error),
+      );
       log.e(e.toString(), error: e, stackTrace: stackTrace);
-      display.error(e.toString());
+    } finally {
+      updateState(
+        (state) => state.copyWith(recentlyViewedAdsState: LoadingState.error),
+      );
     }
   }
 
   Future<void> getBanners() async {
     try {
       final banners = await commonRepository.getBanner();
-
-      updateState((state) =>
-          state.copyWith(banners: banners, bannersState: LoadingState.success));
-
+      updateState(
+        (state) => state.copyWith(
+            banners: banners, bannersState: LoadingState.success),
+      );
       log.i("getBanners success = ${states.banners}");
     } on DioException catch (e, stackTrace) {
       updateState(
         (state) => state.copyWith(bannersState: LoadingState.error),
       );
-      log.e("getBanners error = ${e.toString()}",
-          error: e, stackTrace: stackTrace);
-      display.error(e.toString());
+      log.e("getBanners e = ${e.toString()}", error: e, stackTrace: stackTrace);
     }
   }
 

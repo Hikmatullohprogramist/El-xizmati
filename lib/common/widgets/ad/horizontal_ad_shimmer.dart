@@ -17,14 +17,17 @@ class HorizontalAddListShimmer extends StatelessWidget {
           Container(
             width: 165,
             height: 160,
-            decoration: BoxDecoration(color: Color(0xFFF6F7FC)),
+            decoration: BoxDecoration(
+              color: Color(0xFFF6F7FC),
+              borderRadius: BorderRadius.circular(12),
+            ),
             child: Shimmer.fromColors(
               baseColor: StaticColors.shimmerBaseColor,
               highlightColor: StaticColors.shimmerHighLightColor,
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(6),
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),
@@ -35,10 +38,10 @@ class HorizontalAddListShimmer extends StatelessWidget {
             highlightColor: StaticColors.shimmerHighLightColor,
             child: Container(
               height: 15,
-              width: 80,
+              width: 120,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(7),
+                borderRadius: BorderRadius.circular(8),
               ),
             ),
           ),
@@ -83,11 +86,11 @@ class HorizontalAddListShimmer extends StatelessWidget {
                 baseColor: StaticColors.shimmerBaseColor,
                 highlightColor: StaticColors.shimmerHighLightColor,
                 child: Container(
-                  height: 22,
+                  height: 18,
                   width: 45,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(2),
+                    borderRadius: BorderRadius.circular(8),
                   ),
                 ),
               ),
@@ -96,11 +99,11 @@ class HorizontalAddListShimmer extends StatelessWidget {
                 baseColor: StaticColors.shimmerBaseColor,
                 highlightColor: StaticColors.shimmerHighLightColor,
                 child: Container(
-                  height: 22,
+                  height: 18,
                   width: 45,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(2),
+                    borderRadius: BorderRadius.circular(8),
                   ),
                 ),
               ),

@@ -67,7 +67,7 @@ class CustomElevatedButton extends StatelessWidget {
         elevation: 0,
       ),
       child: SizedBox(
-        width: 120,
+        width: buttonWidth,
         height: buttonHeight,
         child: Row(
           children: [

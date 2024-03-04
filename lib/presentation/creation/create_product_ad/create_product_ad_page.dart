@@ -6,12 +6,12 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/widgets/chips/chips_add_item.dart';
 import 'package:onlinebozor/common/widgets/chips/chips_item.dart';
-import 'package:onlinebozor/common/widgets/text_field/custom_dropdown_field.dart';
-import 'package:onlinebozor/common/widgets/text_field/label_text_field.dart';
 import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/common/widgets/image/image_ad_list_widget.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_switch.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_toggle.dart';
+import 'package:onlinebozor/common/widgets/text_field/custom_dropdown_field.dart';
+import 'package:onlinebozor/common/widgets/text_field/label_text_field.dart';
 import 'package:onlinebozor/presentation/common/selection_currency/selection_currency_page.dart';
 import 'package:onlinebozor/presentation/common/selection_unit/selection_unit_page.dart';
 import 'package:onlinebozor/presentation/common/selection_user_address/selection_user_address_page.dart';
@@ -20,11 +20,11 @@ import 'package:onlinebozor/presentation/common/selection_user_warehouse/selecti
 import '../../../../../common/core/base_page.dart';
 import '../../../../../common/gen/localization/strings.dart';
 import '../../../common/colors/static_colors.dart';
+import '../../../common/router/app_router.dart';
 import '../../../common/vibrator/vibrator_extension.dart';
 import '../../../common/widgets/button/custom_elevated_button.dart';
 import '../../../common/widgets/button/custom_outlined_button.dart';
 import '../../../common/widgets/text_field/common_text_field.dart';
-import '../../../common/router/app_router.dart';
 import '../../common/selection_address/selection_address_page.dart';
 import '../../common/selection_payment_type/selection_payment_type_page.dart';
 import '../../utils/mask_formatters.dart';
@@ -480,7 +480,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             inputType: TextInputType.phone,
             textInputAction: TextInputAction.next,
             controller: phoneController,
-             inputFormatters: phoneMaskFormatter,
+            inputFormatters: phoneMaskFormatter,
             onChanged: (value) {
               cubit(context).setEnteredPhone(value);
             },
@@ -712,39 +712,52 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             ],
           ),
           SizedBox(height: 16),
-          CustomElevatedButton(
-            text: Strings.commonContinue,
-            onPressed: () {
-              vibrateAsHapticFeedback();
-              var result=cubit(context).checkEnabledField();
-              if(result){
-                _showLogoutBottomSheet(context);
-              }else{
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  backgroundColor:  Colors.red,
-                  behavior: SnackBarBehavior.floating,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10.0),
-                      topRight: Radius.circular(10.0),
-                      bottomLeft: Radius.circular(10.0),
-                      bottomRight: Radius.circular(10.0),
-                    ),),
-                  content: Center(child: Column(
-                    children: [
-                      SizedBox(height: 7,),
-                      Text('Please fill the required fields'),
-                      SizedBox(height: 7,),
+          Row(
+            children: [
+              Expanded(
+                child: CustomElevatedButton(
+                  text: Strings.commonContinue,
+                  onPressed: () {
+                    vibrateAsHapticFeedback();
+                    // var result = cubit(context).checkEnabledField();
+                    // if (result) {
+                    //   _showLogoutBottomSheet(context);
+                    // } else {
+                    //   ScaffoldMessenger.of(context).showSnackBar(
+                    //     SnackBar(
+                    //       backgroundColor: Colors.red,
+                    //       behavior: SnackBarBehavior.floating,
+                    //       shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.only(
+                    //           topLeft: Radius.circular(10.0),
+                    //           topRight: Radius.circular(10.0),
+                    //           bottomLeft: Radius.circular(10.0),
+                    //           bottomRight: Radius.circular(10.0),
+                    //         ),
+                    //       ),
+                    //       content: Center(
+                    //         child: Column(
+                    //           children: [
+                    //             SizedBox(
+                    //               height: 7,
+                    //             ),
+                    //             Text('Please fill the required fields'),
+                    //             SizedBox(
+                    //               height: 7,
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   );
+                    // }
 
-                    ],
-                  )),
-                ));
-              }
-
-
-              cubit(context).sendCreateProductAdRequest();
-            },
-            isLoading: state.isRequestSending,
+                    cubit(context).sendCreateProductAdRequest();
+                  },
+                  isLoading: state.isRequestSending,
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -913,9 +926,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                     child: CustomOutlinedButton(
                       text: Strings.commonNo,
                       strokeColor: Colors.blueAccent,
-                      onPressed: () {
-
-                      },
+                      onPressed: () {},
                     ),
                   ),
                   SizedBox(width: 16),
@@ -923,9 +934,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                     child: CustomOutlinedButton(
                       text: Strings.commonYes,
                       strokeColor: Colors.red,
-                      onPressed: () {
-
-                      },
+                      onPressed: () {},
                     ),
                   ),
                   SizedBox(width: 16),
@@ -938,5 +947,4 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
       },
     );
   }
-
 }
