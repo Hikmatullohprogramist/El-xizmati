@@ -131,14 +131,7 @@ class UserRepository {
   Future<List<ActiveDeviceResponse>> getActiveDevice() async {
     final deviceResponse = await _userService.getActiveDevices();
     final response = ActiveDeviceRootResponse.fromJson(deviceResponse.data).data;
-    final sortedResponse=response.where((element) => element.user_agent!=DeviceInfo.userAgent).toList();
-    return sortedResponse.reversed.toList();
-  }
-  Future<List<ActiveDeviceResponse>> getCurrentDevice() async {
-    final deviceResponse = await _userService.getActiveDevices();
-    final response = ActiveDeviceRootResponse.fromJson(deviceResponse.data).data;
-    final currentDevice=response.where((element) => element.user_agent==DeviceInfo.userAgent).toList();
-    return currentDevice;
+    return response.reversed.toList();
   }
 
   Future<void> removeActiveResponse(ActiveDeviceResponse response) async {

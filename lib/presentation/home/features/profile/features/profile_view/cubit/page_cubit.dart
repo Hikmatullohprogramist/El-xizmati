@@ -4,6 +4,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../../../../common/constants.dart';
 import '../../../../../../../common/core/base_cubit.dart';
 import '../../../../../../../data/repositories/auth_repository.dart';
 import '../../../../../../../data/repositories/user_repository.dart';
@@ -177,11 +178,19 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
     adController.addPageRequestListener(
       (pageKey) async {
-        final currentDevice=await _userRepository.getCurrentDevice();
         final adsList = await _userRepository.getActiveDevice();
+        var currentUser= adsList.where((element) => element.user_agent==DeviceInfo.userAgent).toList();
+           
         if (adsList.length <= 1000) {
-          adController.appendLastPage(currentDevice);
-          adController.appendLastPage(adsList.sublist(0,1));
+          if(currentUser.length>=1){
+            var thisDevice= currentUser.sublist(0,1);
+            adController.appendLastPage(thisDevice);
+          }
+          if(adsList.length>1){
+            adController.appendLastPage(adsList.sublist(0,1));
+          }else{
+            adController.appendLastPage(adsList);
+          }
           log.i(states.controller);
           return;
         }
