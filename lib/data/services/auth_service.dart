@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/constants/rest_header_keys.dart';
 import 'package:onlinebozor/data/constants/rest_query_keys.dart';
 
 import '../storages/token_storage.dart';
@@ -63,15 +62,11 @@ class AuthService {
     required String password,
     required String repeatPassword,
   }) async {
-    final headers = {
-      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
-    };
     final body = {
       RestQueryKeys.password: password,
       RestQueryKeys.confirmPassword: repeatPassword
     };
-    return _dio.put('v1/auth/user/change_password',
-        data: body, options: Options(headers: headers));
+    return _dio.put('v1/auth/user/change_password', data: body);
   }
 
   Future<Response> loginValidate({required String accessCode}) {

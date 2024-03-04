@@ -4,7 +4,6 @@ import 'package:onlinebozor/data/constants/rest_query_keys.dart';
 
 import '../../domain/models/ad/ad_type.dart';
 import '../../domain/models/stats/stats_type.dart';
-import '../constants/rest_header_keys.dart';
 import '../storages/token_storage.dart';
 
 @lazySingleton
@@ -57,7 +56,8 @@ class AdsService {
       RestQueryKeys.page: 1,
       RestQueryKeys.limit: 10,
     };
-    return _dio.get("v1/dashboard/popular/ads", queryParameters: queryParameters);
+    return _dio.get("v1/dashboard/popular/ads",
+        queryParameters: queryParameters);
   }
 
   Future<Response> getDashboardTopRatedAds() {
@@ -154,14 +154,10 @@ class AdsService {
   Future<Response> addAdToRecentlyViewed({
     required int adId,
   }) async {
-    final headers = {
-      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
-    };
     final queryParameters = {RestQueryKeys.adId: adId};
     return _dio.post(
       'v1/recently-viewed/add',
       queryParameters: queryParameters,
-      options: Options(headers: headers),
     );
   }
 
@@ -169,9 +165,6 @@ class AdsService {
     required int page,
     required int limit,
   }) {
-    final headers = {
-      RestHeaderKeys.authorization: "Bearer ${tokenStorage.token.call()}"
-    };
     final queryParameters = {
       RestQueryKeys.page: page,
       RestQueryKeys.limit: limit
@@ -179,7 +172,6 @@ class AdsService {
     return _dio.get(
       'v1/recently-viewed/getAds',
       queryParameters: queryParameters,
-      options: Options(headers: headers),
     );
   }
 }
