@@ -8,16 +8,17 @@ extension TextStringExtensions on String {
   Text c(Color color) => Text(this).c(color);
 
   String clearPhone() {
-    var phone = replaceAll(' ', '')
-        .replaceAll('(', '')
-        .replaceAll(')', '')
-        .replaceAll('+', '');
-
-    if (phone.length == 9) {
-      phone = "998$phone";
+    var clearedPhone = replaceAll(RegExp(r"[^\d+\.]"), '');
+    if (clearedPhone.length == 9) {
+      clearedPhone = "998$clearedPhone";
     }
 
-    return phone;
+    return clearedPhone;
+  }
+
+  String clearPrice() {
+    var clearedPrice = replaceAll(RegExp(r"[^\d+\.]"), '');
+    return clearedPrice;
   }
 }
 
