@@ -2,7 +2,11 @@ import 'dart:developer' as profile_view_page;
 
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
@@ -14,8 +18,11 @@ import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 import '../../../../../../common/colors/static_colors.dart';
 import '../../../../../../common/constants.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
+import '../../../../../../common/widgets/device/active_device_shimmer.dart';
+import '../../../../../../common/widgets/device/active_device_widgets.dart';
 import '../../../../../../common/widgets/divider/custom_diverder.dart';
 import '../../../../../../common/widgets/profile/profile_item_widget.dart';
+import '../../../../../../data/responses/device/active_device_response.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -67,8 +74,16 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                         _getHeaderBlock(context, state),
                         SizedBox(height: 12),
                         _getBioBlock(context, state),
+                        SizedBox(
+                          height: 12,
+                        ),
+                        _buildNotificationBlock(context),
                         SizedBox(height: 12),
-                        _getSettingsBlock(context)
+                        _buildActiveDeviceBlock(context, state),
+                        SizedBox(
+                          height: 12,
+                        ),
+                        // _getSettingsBlock(context),
                         // _getNotificationBlock(context, state),
                         // SizedBox(height: 12),
                         // _getSessionsBlock(context, state)
@@ -312,8 +327,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
             state.streetName.w(500).s(16).c(Color(0xFF41455E)),
           ],
         ),
-        SizedBox(height: 8),
-        CustomDivider(),
+        SizedBox(height: 5),
       ]),
     );
   }
@@ -351,6 +365,262 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
           // )
         ],
       ),
+    );
+  }
+
+  Widget _buildNotificationBlock(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        children: [
+          SizedBox(height: 18),
+          OutlinedButton(
+            style: OutlinedButton.styleFrom(
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              side: BorderSide(
+                  color: cubit(context).states.smsNotification
+                      ? context.colors.primary
+                      : context.colors.iconGrey),
+            ),
+            onPressed: () {
+              cubit(context).setSmsNotification();
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Row(children: [
+                Container(
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color(0xFF5C6AC3)),
+                  child: Center(child: Assets.images.icMessage.svg()),
+                ),
+                SizedBox(width: 16),
+                Strings.notificationReceiveSms.w(600).s(14).c(Color(0xFF41455E))
+              ]),
+            ),
+          ),
+          SizedBox(height: 10),
+          OutlinedButton(
+            style: OutlinedButton.styleFrom(
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              side: BorderSide(
+                  color: cubit(context).states.emailNotification
+                      ? context.colors.primary
+                      : context.colors.iconGrey),
+            ),
+            onPressed: () {
+              cubit(context).setEmailNotification();
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Row(children: [
+                Container(
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Color(0xFFDFE2E9), width: 1),
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white),
+                  child: Center(child: Assets.images.icSms.svg()),
+                ),
+                SizedBox(width: 16),
+                Strings.notificationReceiveEmail
+                    .w(600)
+                    .s(14)
+                    .c(Color(0xFF41455E))
+              ]),
+            ),
+          ),
+          SizedBox(height: 10),
+          OutlinedButton(
+            style: OutlinedButton.styleFrom(
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              side: BorderSide(
+                  color: cubit(context).states.telegramNotification
+                      ? context.colors.primary
+                      : context.colors.iconGrey),
+            ),
+            onPressed: () {
+              cubit(context).setTelegramNotification();
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Row(children: [
+                Assets.images.icTelegram.svg(height: 32, width: 32),
+                // Container(
+                //   width: 32,
+                //   height: 32,
+                //   decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(10),
+                //       color: Color(0xFF00A4DD)),
+                //   child: Center(child: Assets.images.icSms.svg()),
+                // ),
+                SizedBox(width: 16),
+                Strings.notificationReceiveTelegram
+                    .w(600)
+                    .s(14)
+                    .c(Color(0xFF41455E))
+              ]),
+            ),
+          ),
+          SizedBox(height: 12),
+          Text.rich(TextSpan(children: [
+            TextSpan(
+                text: Strings.telegramBotDescription,
+                style: TextStyle(
+                    overflow: TextOverflow.ellipsis,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                    color: Color(0xFF9EABBE))),
+            WidgetSpan(
+                child: SizedBox(
+              width: 5,
+            )),
+            TextSpan(
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    cubit(context).openTelegram();
+                  },
+                text: Strings.linkTitle,
+                style: TextStyle(
+                    overflow: TextOverflow.ellipsis,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 12,
+                    color: Color(0xFF5C6AC3)))
+          ])),
+          SizedBox(height: 18),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildActiveDeviceBlock(BuildContext context, PageState state) {
+    double width;
+    double height;
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.only(left: 20.0, top: 10.0, right: 20),
+          width: double.infinity,
+          height: 25,
+          color: Colors.white,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              "Активные сеансы".w(700).s(14).c(Colors.black),
+              InkWell(
+                onTap: () {
+                  context.router.push(UserActiveSessionsRoute());
+                },
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    "see all".w(400).s(14).c(Colors.black),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    SvgPicture.asset(
+                      'assets/images/ic_arrow_right.svg',
+                      // Replace with the path to your SVG file
+                      height: 12.0,
+                      width: 12.0,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        PagedGridView<int, ActiveDeviceResponse>(
+            shrinkWrap: true,
+            physics: BouncingScrollPhysics(),
+            pagingController: state.controller!,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              childAspectRatio: width / height,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 0,
+              mainAxisExtent: 145,
+              crossAxisCount: 1,
+            ),
+            builderDelegate: PagedChildBuilderDelegate<ActiveDeviceResponse>(
+              firstPageErrorIndicatorBuilder: (_) {
+                return SizedBox(
+                    height: 60,
+                    width: double.infinity,
+                    child: Center(
+                        child: Column(
+                      children: [
+                        Strings.loadingStateError
+                            .w(400)
+                            .s(14)
+                            .c(context.colors.textPrimary),
+                        SizedBox(height: 12),
+                        CustomElevatedButton(
+                          text: Strings.loadingStateRetry,
+                          onPressed: () {},
+                        )
+                      ],
+                    )));
+              },
+              firstPageProgressIndicatorBuilder: (_) {
+                return SingleChildScrollView(
+                  child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: 2,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ActiveDeviceShimmer();
+                    },
+                  ),
+                );
+              },
+              noItemsFoundIndicatorBuilder: (_) {
+                return Center(child: Text(Strings.loadingStateNoItemFound));
+              },
+              newPageProgressIndicatorBuilder: (_) {
+                return SizedBox(
+                  height: 60,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.blue,
+                    ),
+                  ),
+                );
+              },
+              newPageErrorIndicatorBuilder: (_) {
+                return SizedBox(
+                  height: 60,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.blue,
+                    ),
+                  ),
+                );
+              },
+              transitionDuration: Duration(milliseconds: 100),
+              itemBuilder: (context, item, index) {
+                return ActiveDeviceWidget(
+                    invoke: (response) {
+                      cubit(context).removeActiveDevice(response);
+                    },
+                    response: item);
+              },
+            )),
+      ],
     );
   }
 }

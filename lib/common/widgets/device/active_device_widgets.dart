@@ -7,7 +7,9 @@ import 'package:onlinebozor/data/responses/device/active_device_response.dart';
 
 class ActiveDeviceWidget extends StatelessWidget {
   const ActiveDeviceWidget(
-      {super.key, required this.response, required this.invoke});
+      {super.key,
+        required this.response,
+        required this.invoke});
 
   final Function(ActiveDeviceResponse response) invoke;
   final ActiveDeviceResponse response;

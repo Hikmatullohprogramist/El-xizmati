@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 
+import '../../common/constants.dart';
 import '../../data/hive_objects/user/user_info_object.dart';
 import '../../data/responses/device/active_device_response.dart';
 import '../../data/responses/profile/biometric_info/biometric_info_response.dart';
@@ -129,9 +130,15 @@ class UserRepository {
 
   Future<List<ActiveDeviceResponse>> getActiveDevice() async {
     final deviceResponse = await _userService.getActiveDevices();
-    final response =
-        ActiveDeviceRootResponse.fromJson(deviceResponse.data).data;
-    return response;
+    final response = ActiveDeviceRootResponse.fromJson(deviceResponse.data).data;
+    final sortedResponse=response.where((element) => element.user_agent!=DeviceInfo.userAgent).toList();
+    return sortedResponse.reversed.toList();
+  }
+  Future<List<ActiveDeviceResponse>> getCurrentDevice() async {
+    final deviceResponse = await _userService.getActiveDevices();
+    final response = ActiveDeviceRootResponse.fromJson(deviceResponse.data).data;
+    final currentDevice=response.where((element) => element.user_agent==DeviceInfo.userAgent).toList();
+    return currentDevice;
   }
 
   Future<void> removeActiveResponse(ActiveDeviceResponse response) async {
