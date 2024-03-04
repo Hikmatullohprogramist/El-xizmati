@@ -208,8 +208,10 @@ class AdRepository {
     return;
   }
 
-  Future<List<Ad>> getRecentlyViewedAds(
-      {required int page, required int limit}) async {
+  Future<List<Ad>> getRecentlyViewedAds({
+    required int page,
+    required int limit,
+  }) async {
     final allItems = favoriteStorage.allItems.map((ad) => ad.toMap()).toList();
     final response =
         await _adsService.getRecentlyViewedAds(page: page, limit: limit);

@@ -10,8 +10,6 @@ class CustomElevatedButton extends StatelessWidget {
     required this.onPressed,
     this.buttonWidth = double.infinity,
     this.buttonHeight = 48,
-
-
     this.isEnabled = true,
     this.isLoading = false,
     this.textColor = Colors.white,
@@ -55,7 +53,8 @@ class CustomElevatedButton extends StatelessWidget {
         : null;
 
     var actualTextColor = textColor.withOpacity(isEnabled ? 1 : 0.75);
-    var actualBackgroundColor = backgroundColor.withOpacity(isEnabled ? 1 : 0.75);
+    var actualBackgroundColor =
+        backgroundColor.withOpacity(isEnabled ? 1 : 0.75);
     var actualTextAlign = rightIcon != null ? TextAlign.left : TextAlign.center;
 
     return SizedBox(
@@ -96,7 +95,8 @@ class CustomElevatedButton extends StatelessWidget {
                   ),
                 ),
               ),
-              Visibility(visible: rightIcon != null, child: SizedBox(width: 12)),
+              Visibility(
+                  visible: rightIcon != null, child: SizedBox(width: 12)),
               Visibility(
                 visible: rightIcon != null,
                 child: SizedBox(width: 20, height: 20, child: rightIcon),
