@@ -4,12 +4,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/common/widgets/bottom_sheet/botton_sheet_for_result.dart';
 import 'package:onlinebozor/common/widgets/chips/chips_add_item.dart';
 import 'package:onlinebozor/common/widgets/chips/chips_item.dart';
 import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/common/widgets/image/image_ad_list_widget.dart';
-import 'package:onlinebozor/common/widgets/snackbar/snackbar_widget.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_switch.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_toggle.dart';
 import 'package:onlinebozor/common/widgets/text_field/custom_dropdown_field.dart';
@@ -25,7 +23,6 @@ import '../../../common/colors/static_colors.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/vibrator/vibrator_extension.dart';
 import '../../../common/widgets/button/custom_elevated_button.dart';
-import '../../../common/widgets/button/custom_outlined_button.dart';
 import '../../../common/widgets/text_field/common_text_field.dart';
 import '../../common/selection_address/selection_address_page.dart';
 import '../../common/selection_payment_type/selection_payment_type_page.dart';
@@ -328,7 +325,6 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                       text: state.currency?.name ?? "",
                       hint: "-",
                       onTap: () async {
-                        // _showCurrencyBottomSheet(context);
                         final currency = await showModalBottomSheet(
                           context: context,
                           isScrollControlled: true,
@@ -721,17 +717,17 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   text: Strings.commonContinue,
                   onPressed: () {
                     vibrateAsHapticFeedback();
-                     var result = cubit(context).checkEnabledField();
-                     if (result) {
-                        context.showResultButtomSheet();
-                     } else {
-                       context.showCustomSnackBar(
-                         message: 'Please fill the required fields',
-                         behavior: SnackBarBehavior.floating,
-                         duration: Duration(seconds: 2),
-                       );
-                     }
-                   //  cubit(context).sendCreateProductAdRequest();
+                    var result = cubit(context).checkEnabledField();
+                    // if (result) {
+                    //    context.showResultButtomSheet();
+                    // } else {
+                    //   context.showCustomSnackBar(
+                    //     message: 'Please fill the required fields',
+                    //     behavior: SnackBarBehavior.floating,
+                    //     duration: Duration(seconds: 2),
+                    //   );
+                    // }
+                    cubit(context).sendCreateProductAdRequest();
                   },
                   isLoading: state.isRequestSending,
                 ),
@@ -828,7 +824,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               selectedPaymentTypes: state.paymentType,
             ),
           );
-          cubit(context).setSelectedDeleveryForFree(paymentTypes);
+          cubit(context).setSelectedDeliveryForFree(paymentTypes);
         },
       ),
     );
@@ -874,5 +870,4 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
       },
     );
   }
-
 }
