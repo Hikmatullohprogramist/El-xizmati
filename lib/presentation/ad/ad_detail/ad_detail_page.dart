@@ -14,6 +14,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../common/colors/static_colors.dart';
 import '../../../common/core/base_page.dart';
 import '../../../common/enum/enums.dart';
 import '../../../common/gen/assets/assets.gen.dart';
@@ -60,8 +61,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
           child: Column(
             children: [
               Shimmer.fromColors(
-                baseColor: Color(0xFFE8E6E8),
-                highlightColor: Colors.grey[50]!,
+                baseColor: StaticColors.shimmerBaseColor,
+                highlightColor: StaticColors.shimmerHighLightColor,
                 child: Container(
                   color: Colors.white,
                   width: double.infinity,
@@ -79,8 +80,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Shimmer.fromColors(
-                            baseColor: Color(0xFFE8E6E8),
-                            highlightColor: Colors.grey[50]!,
+                            baseColor: StaticColors.shimmerBaseColor,
+                            highlightColor: StaticColors.shimmerHighLightColor,
                             child: Container(
                               height: 15,
                               width: 15,
@@ -92,8 +93,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                             width: 4,
                           ),
                           Shimmer.fromColors(
-                            baseColor: Color(0xFFE8E6E8),
-                            highlightColor: Colors.grey[50]!,
+                            baseColor: StaticColors.shimmerBaseColor,
+                            highlightColor: StaticColors.shimmerHighLightColor,
                             child: Container(
                               height: 15,
                               width: 15,
@@ -105,8 +106,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                             width: 4,
                           ),
                           Shimmer.fromColors(
-                            baseColor: Color(0xFFE8E6E8),
-                            highlightColor: Colors.grey[50]!,
+                            baseColor: StaticColors.shimmerBaseColor,
+                            highlightColor: StaticColors.shimmerHighLightColor,
                             child: Container(
                               height: 15,
                               width: 15,
@@ -118,8 +119,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                             width: 4,
                           ),
                           Shimmer.fromColors(
-                            baseColor: Color(0xFFE8E6E8),
-                            highlightColor: Colors.grey[50]!,
+                            baseColor: StaticColors.shimmerBaseColor,
+                            highlightColor: StaticColors.shimmerHighLightColor,
                             child: Container(
                               height: 15,
                               width: 15,
@@ -133,8 +134,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                         height: 20,
                       ),
                       Shimmer.fromColors(
-                        baseColor: Color(0xFFE8E6E8),
-                        highlightColor: Colors.grey[50]!,
+                        baseColor: StaticColors.shimmerBaseColor,
+                        highlightColor: StaticColors.shimmerHighLightColor,
                         child: Container(
                           height: 15,
                           margin: EdgeInsets.only(right: 220),
@@ -148,8 +149,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                         height: 22,
                       ),
                       Shimmer.fromColors(
-                        baseColor: Color(0xFFE8E6E8),
-                        highlightColor: Colors.grey[50]!,
+                        baseColor: StaticColors.shimmerBaseColor,
+                        highlightColor: StaticColors.shimmerHighLightColor,
                         child: Container(
                           height: 15,
                           margin: EdgeInsets.only(right: 120),
@@ -166,8 +167,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Shimmer.fromColors(
-                            baseColor: Color(0xFFE8E6E8),
-                            highlightColor: Colors.grey[50]!,
+                            baseColor: StaticColors.shimmerBaseColor,
+                            highlightColor: StaticColors.shimmerHighLightColor,
                             child: Container(
                               height: 25,
                               width: 70,
@@ -177,8 +178,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                             ),
                           ),
                           Shimmer.fromColors(
-                            baseColor: Color(0xFFE8E6E8),
-                            highlightColor: Colors.grey[50]!,
+                            baseColor: StaticColors.shimmerBaseColor,
+                            highlightColor: StaticColors.shimmerHighLightColor,
                             child: Container(
                               height: 25,
                               width: 50,
@@ -188,8 +189,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                             ),
                           ),
                           Shimmer.fromColors(
-                            baseColor: Color(0xFFE8E6E8),
-                            highlightColor: Colors.grey[50]!,
+                            baseColor: StaticColors.shimmerBaseColor,
+                            highlightColor: StaticColors.shimmerHighLightColor,
                             child: Container(
                               height: 25,
                               width: 50,
@@ -199,8 +200,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                             ),
                           ),
                           Shimmer.fromColors(
-                            baseColor: Color(0xFFE8E6E8),
-                            highlightColor: Colors.grey[50]!,
+                            baseColor: StaticColors.shimmerBaseColor,
+                            highlightColor: StaticColors.shimmerHighLightColor,
                             child: Container(
                               height: 25,
                               width: 100,
@@ -213,8 +214,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                       ),
                       SizedBox(height: 22),
                       Shimmer.fromColors(
-                        baseColor: Color(0xFFE8E6E8),
-                        highlightColor: Colors.grey[50]!,
+                        baseColor: StaticColors.shimmerBaseColor,
+                        highlightColor: StaticColors.shimmerHighLightColor,
                         child: Container(
                           height: 15,
                           width: 70,
@@ -230,8 +231,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Shimmer.fromColors(
-                            baseColor: Color(0xFFE8E6E8),
-                            highlightColor: Colors.grey[50]!,
+                            baseColor: StaticColors.shimmerBaseColor,
+                            highlightColor: StaticColors.shimmerHighLightColor,
                             child: Container(
                               height: 80,
                               width: 80,
@@ -247,8 +248,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                             child: Column(
                               children: [
                                 Shimmer.fromColors(
-                                  baseColor: Color(0xFFE8E6E8),
-                                  highlightColor: Colors.grey[50]!,
+                                  baseColor: StaticColors.shimmerBaseColor,
+                                  highlightColor: StaticColors.shimmerHighLightColor,
                                   child: Container(
                                     height: 15,
                                     decoration: BoxDecoration(
@@ -260,8 +261,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                                   height: 15,
                                 ),
                                 Shimmer.fromColors(
-                                  baseColor: Color(0xFFE8E6E8),
-                                  highlightColor: Colors.grey[50]!,
+                                  baseColor: StaticColors.shimmerBaseColor,
+                                  highlightColor: StaticColors.shimmerHighLightColor,
                                   child: Container(
                                     height: 15,
                                     margin: EdgeInsets.only(right: 55),
@@ -280,8 +281,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Shimmer.fromColors(
-                            baseColor: Color(0xFFE8E6E8),
-                            highlightColor: Colors.grey[50]!,
+                            baseColor: StaticColors.shimmerBaseColor,
+                            highlightColor: StaticColors.shimmerHighLightColor,
                             child: Container(
                               height: 35,
                               width: 160,
@@ -291,8 +292,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                             ),
                           ),
                           Shimmer.fromColors(
-                            baseColor: Color(0xFFE8E6E8),
-                            highlightColor: Colors.grey[50]!,
+                            baseColor: StaticColors.shimmerBaseColor,
+                            highlightColor: StaticColors.shimmerHighLightColor,
                             child: Container(
                               height: 35,
                               width: 160,
@@ -305,8 +306,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                       ),
                       SizedBox(height: 22),
                       Shimmer.fromColors(
-                        baseColor: Color(0xFFE8E6E8),
-                        highlightColor: Colors.grey[50]!,
+                        baseColor: StaticColors.shimmerBaseColor,
+                        highlightColor: StaticColors.shimmerHighLightColor,
                         child: Container(
                           height: 15,
                           width: 120,
@@ -317,8 +318,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                       ),
                       SizedBox(height: 8),
                       Shimmer.fromColors(
-                        baseColor: Color(0xFFE8E6E8),
-                        highlightColor: Colors.grey[50]!,
+                        baseColor: StaticColors.shimmerBaseColor,
+                        highlightColor: StaticColors.shimmerHighLightColor,
                         child: Container(
                           height: 15,
                           margin: EdgeInsets.only(right: 50),
@@ -329,8 +330,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                       ),
                       SizedBox(height: 8),
                       Shimmer.fromColors(
-                        baseColor: Color(0xFFE8E6E8),
-                        highlightColor: Colors.grey[50]!,
+                        baseColor: StaticColors.shimmerBaseColor,
+                        highlightColor: StaticColors.shimmerHighLightColor,
                         child: Container(
                           height: 15,
                           margin: EdgeInsets.only(right: 100),

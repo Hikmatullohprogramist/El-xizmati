@@ -15,7 +15,6 @@ import '../../../domain/models/ad/ad.dart';
 import '../../../domain/models/ad/ad_priority_level.dart';
 import '../../constants.dart';
 import '../../gen/assets/assets.gen.dart';
-import '../../vibrator/vibrator_extension.dart';
 
 class HorizontalAdWidget extends StatelessWidget {
   const HorizontalAdWidget({
@@ -32,69 +31,83 @@ class HorizontalAdWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () {
-          onItemClicked(ad);
-        },
-        child: SizedBox(
-          height: 342,
-          width: 140,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                  width: 140,
-                  height: 140,
-                  decoration: BoxDecoration(color: Color(0xFFF6F7FC)),
-                  child: Stack(children: [
-                    CachedNetworkImage(
-                      imageUrl: "${Constants.baseUrlForImage}${ad.photo}",
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
-                          image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
-                              colorFilter: ColorFilter.mode(
-                                  Colors.white, BlendMode.colorBurn)),
+      onTap: () {
+        onItemClicked(ad);
+      },
+      child: SizedBox(
+        height: 342,
+        width: 140,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 140,
+              height: 140,
+              decoration: BoxDecoration(color: Color(0xFFF6F7FC)),
+              child: Stack(
+                children: [
+                  CachedNetworkImage(
+                    imageUrl: "${Constants.baseUrlForImage}${ad.photo}",
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                          colorFilter: ColorFilter.mode(
+                            Colors.white,
+                            BlendMode.colorBurn,
+                          ),
                         ),
                       ),
-                      placeholder: (context, url) => Center(),
-                      errorWidget: (context, url, error) =>
-                          Center(child: Icon(Icons.error)),
                     ),
-                    AppAdStatusWidget(adStatus: AdPriorityLevel.standard),
-                    Align(
-                        alignment: Alignment.topRight,
-                        child: AdFavoriteWidget(
-                            isSelected: ad.favorite,
-                            invoke: () => onFavoriteClicked(ad))),
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: AdTypeWidget(adType: ad.adTypeStatus.adType()),
+                    placeholder: (context, url) => Center(),
+                    errorWidget: (context, url, error) => Center(
+                      child: Icon(Icons.error),
                     ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: ViewCountWidget(viewCount: ad.view),
+                  ),
+                  AppAdStatusWidget(adStatus: AdPriorityLevel.standard),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: AdFavoriteWidget(
+                      isSelected: ad.favorite,
+                      invoke: () => onFavoriteClicked(ad),
                     ),
-                  ])),
-              SizedBox(height: 12),
-              SizedBox(
-                height: 32,
-                child: (ad.name)
-                    .w(400)
-                    .s(13)
-                    .c(context.colors.textPrimary)
-                    .copyWith(maxLines: 2)
-                    .copyWith(maxLines: 2, overflow: TextOverflow.ellipsis),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: AdTypeWidget(
+                      adType: ad.adTypeStatus.adType(),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: ViewCountWidget(viewCount: ad.view),
+                  ),
+                ],
               ),
-              SizedBox(height: 6),
-              ListPriceTextWidget(
-                  price: ad.price,
-                  toPrice: ad.toPrice,
-                  fromPrice: ad.fromPrice,
-                  currency: ad.currency),
-              SizedBox(height: 14),
-              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+            ),
+            SizedBox(height: 12),
+            SizedBox(
+              height: 32,
+              child: (ad.name)
+                  .w(400)
+                  .s(13)
+                  .c(context.colors.textPrimary)
+                  .copyWith(maxLines: 2)
+                  .copyWith(maxLines: 2, overflow: TextOverflow.ellipsis),
+            ),
+            SizedBox(height: 6),
+            ListPriceTextWidget(
+              price: ad.price,
+              toPrice: ad.toPrice,
+              fromPrice: ad.fromPrice,
+              currency: ad.currency,
+            ),
+            SizedBox(height: 14),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
                 Assets.images.icLocation.svg(width: 12, height: 12),
                 SizedBox(width: 4),
                 Expanded(
@@ -107,24 +120,26 @@ class HorizontalAdWidget extends StatelessWidget {
                         softWrap: false,
                       ),
                 )
-              ]),
-              SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  ListAdAuthorTypeChipWidget(
-                    isHorizontal: true,
-                    adAuthorType: ad.adRouteType,
-                  ),
-                  SizedBox(width: 2),
-                  ListAdPropertyWidget(
-                    isHorizontal: true,
-                    adPropertyType: ad.adPropertyStatus,
-                  )
-                ],
-              )
-            ],
-          ),
-        ));
+              ],
+            ),
+            SizedBox(height: 12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                ListAdAuthorTypeChipWidget(
+                  isHorizontal: true,
+                  adAuthorType: ad.adRouteType,
+                ),
+                SizedBox(width: 2),
+                ListAdPropertyWidget(
+                  isHorizontal: true,
+                  adPropertyType: ad.adPropertyStatus,
+                )
+              ],
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../colors/static_colors.dart';
+
 class UserOrderWidgetShimmer extends StatelessWidget {
   const UserOrderWidgetShimmer({
     super.key,
@@ -20,8 +22,8 @@ class UserOrderWidgetShimmer extends StatelessWidget {
         child: Row(
           children: [
             Shimmer.fromColors(
-              baseColor: Color(0xFFE8E6E8),
-              highlightColor: Colors.grey[50]!,
+              baseColor: StaticColors.shimmerBaseColor,
+              highlightColor: StaticColors.shimmerHighLightColor,
               child: Container(
                 width: 100,
                 height: 110,
@@ -42,8 +44,8 @@ class UserOrderWidgetShimmer extends StatelessWidget {
                     height: 25,
                   ),
                   Shimmer.fromColors(
-                    baseColor: Color(0xFFE8E6E8),
-                    highlightColor: Colors.grey[50]!,
+                    baseColor: StaticColors.shimmerBaseColor,
+                    highlightColor: StaticColors.shimmerHighLightColor,
                     child: Container(
                       width: 140,
                       height: 12,
@@ -57,8 +59,8 @@ class UserOrderWidgetShimmer extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Shimmer.fromColors(
-                          baseColor: Color(0xFFE8E6E8),
-                          highlightColor: Colors.grey[50]!,
+                          baseColor: StaticColors.shimmerBaseColor,
+                          highlightColor: StaticColors.shimmerHighLightColor,
                           child: Container(
                             width: 50,
                             height: 12,
@@ -70,8 +72,8 @@ class UserOrderWidgetShimmer extends StatelessWidget {
                   ),
                   SizedBox(height: 13),
                   Shimmer.fromColors(
-                    baseColor: Color(0xFFE8E6E8),
-                    highlightColor: Colors.grey[50]!,
+                    baseColor: StaticColors.shimmerBaseColor,
+                    highlightColor: StaticColors.shimmerHighLightColor,
                     child: Container(
                       width: 140,
                       height: 12,
@@ -85,8 +87,8 @@ class UserOrderWidgetShimmer extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Shimmer.fromColors(
-                          baseColor: Color(0xFFE8E6E8),
-                          highlightColor: Colors.grey[50]!,
+                          baseColor: StaticColors.shimmerBaseColor,
+                          highlightColor: StaticColors.shimmerHighLightColor,
                           child: Container(
                             height: 10,
                             decoration: ShapeDecoration(
@@ -101,8 +103,8 @@ class UserOrderWidgetShimmer extends StatelessWidget {
                       SizedBox(width: 8),
                       Expanded(
                         child: Shimmer.fromColors(
-                          baseColor: Color(0xFFE8E6E8),
-                          highlightColor: Colors.grey[50]!,
+                          baseColor: StaticColors.shimmerBaseColor,
+                          highlightColor: StaticColors.shimmerHighLightColor,
                           child: Container(
                             height: 10,
                             decoration: ShapeDecoration(

@@ -18,10 +18,8 @@ class PageState with _$PageState {
     String? phone,
     String? email,
     @Default(false) bool validation,
-
 //
     @Default(false) bool isAutoRenewal,
-
 //
     @Default([]) List<PaymentTypeResponse> paymentTypes,
 //

@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/widgets/ad/top_rated_ad_widget.dart';
-import 'package:onlinebozor/common/widgets/ad/top_rated_ad_widget_shimmer.dart';
+import 'package:onlinebozor/common/widgets/ad/top_rated_ad_shimmer.dart';
 
 import '../../../domain/models/ad/ad.dart';
 import '../../enum/enums.dart';

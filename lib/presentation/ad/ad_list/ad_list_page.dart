@@ -10,7 +10,7 @@ import 'package:onlinebozor/presentation/ad/ad_list/cubit/page_cubit.dart';
 
 import '../../../common/core/base_page.dart';
 import '../../../common/router/app_router.dart';
-import '../../../common/widgets/ad/horizanral_add_list_shimmer.dart';
+import '../../../common/widgets/ad/horizontal_ad_shimmer.dart';
 import '../../../common/widgets/ad/vertical_ad_widget.dart';
 import '../../../domain/models/ad/ad.dart';
 import '../../../domain/models/ad/ad_list_type.dart';

@@ -44,18 +44,16 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   void setPhoneNumber(String phoneNumber) {
-    updateState((state) => state.copyWith(phone: phoneNumber,validation: phoneNumber.length>=9));
+    updateState((state) => state.copyWith(
+        phone: phoneNumber, validation: phoneNumber.length >= 9));
   }
 
-
   void setEmail(String email) {
-     log.w("jwndndwflwn");
+    log.w("jwndndwflwn");
     updateState((state) => state.copyWith(
         email: email,
-        validation: RegExp(
-            r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
-            .hasMatch(email)
-    ));
+        validation:
+            RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$').hasMatch(email)));
   }
 
   void setSelectedCurrency(CurrencyResponse currency) {
@@ -66,32 +64,33 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     updateState((state) => state.copyWith(address: address));
   }
 
- // void setUserAddress(UserAddressResponse address) {
- //   display.success("address set");
- //   updateState((state) => state.copyWith(userAddressResponse: address));
- // }
+  // void setUserAddress(UserAddressResponse address) {
+  //   display.success("address set");
+  //   updateState((state) => state.copyWith(userAddressResponse: address));
+  // }
 
-  bool checkEnabledField() {
-    var name = (state.state?.name?.isNotEmpty) ?? false;
-    var category = (state.state?.categoryResponse?.name?.isNotEmpty) ?? false;
-    var description = (state.state?.description?.isNotEmpty) ?? false;
-    var fromPrice = (state.state?.fromPrice?.isNotEmpty) ?? false;
-    var toPrice = (state.state?.toPrice?.isNotEmpty) ?? false;
-    var currency = (state.state?.currenc?.name?.isNotEmpty) ?? false;
-    var email = (state.state?.email?.isNotEmpty) ?? false;
-    var phone = (state.state?.phone?.isNotEmpty) ?? false;
-    if (name &&
-        category && description && fromPrice && toPrice && currency &&
-        email && phone) {
-      return true;
-    } else {
-      return false;
-    }
+  bool validateFieldData() {
+    var isNameValid = (state.state?.name?.isNotEmpty) ?? false;
+    var isCategorySelected =
+        (state.state?.categoryResponse?.name?.isNotEmpty) ?? false;
+    var isDescValid = (state.state?.description?.isNotEmpty) ?? false;
+    var isFromPriceValid = (state.state?.fromPrice?.isNotEmpty) ?? false;
+    var isToPriceValid = (state.state?.toPrice?.isNotEmpty) ?? false;
+    var isCurrencySelected = (state.state?.currenc?.name?.isNotEmpty) ?? false;
+    var isEmailValid = (state.state?.email?.isNotEmpty) ?? false;
+    var isPhoneValid = (state.state?.phone?.isNotEmpty) ?? false;
+
+    return isNameValid &&
+        isCategorySelected &&
+        isDescValid &&
+        isFromPriceValid &&
+        isToPriceValid &&
+        isCurrencySelected &&
+        isEmailValid &&
+        isPhoneValid;
   }
 
-  void setSelectedPaymentTypes(
-      List<PaymentTypeResponse>? selectedPaymentTypes,
-      ) {
+  void setSelectedPaymentTypes(List<PaymentTypeResponse>? selectedPaymentTypes) {
     try {
       if (selectedPaymentTypes != null) {
         var paymentTypes = List<PaymentTypeResponse>.from(states.paymentTypes);
@@ -110,8 +109,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   void setSelectedDeleveryForFree(
-      List<RegionResponse>? selectedPaymentTypes,
-      ) {
+    List<RegionResponse>? selectedPaymentTypes,
+  ) {
     try {
       if (selectedPaymentTypes != null) {
         var paymentTypes = List<RegionResponse>.from(states.paymentType);
