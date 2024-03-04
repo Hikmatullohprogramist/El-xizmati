@@ -22,10 +22,13 @@ class ActiveSessionWidget extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: Row(
         children: [
-          if (session.isMobile())
-            Assets.images.icPhone.svg(width: 24, height: 24)
-          else
-            Assets.images.icLaptop.svg(width: 24, height: 24),
+          Column(
+            children: [
+              SizedBox(height: 6),
+              (session.isMobile() ? Assets.images.icPhone : Assets.images.icLaptop)
+                  .svg(width: 24, height: 24),
+            ],
+          ),
           SizedBox(width: 16),
           Expanded(
               child: Column(
@@ -41,7 +44,7 @@ class ActiveSessionWidget extends StatelessWidget {
                       .copyWith(overflow: TextOverflow.ellipsis, maxLines: 2)),
               SizedBox(height: 6),
               Flexible(
-                child: "${session.lastLoginAt}- ${session.lastActivityAt}"
+                child: (session.lastActivityAt ?? "")
                     .w(400)
                     .s(12)
                     .c(Color(0xFF9EABBE))
