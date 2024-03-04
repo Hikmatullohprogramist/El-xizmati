@@ -4,10 +4,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/common/widgets/bottom_sheet/botton_sheet_for_result.dart';
 import 'package:onlinebozor/common/widgets/chips/chips_add_item.dart';
 import 'package:onlinebozor/common/widgets/chips/chips_item.dart';
 import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/common/widgets/image/image_ad_list_widget.dart';
+import 'package:onlinebozor/common/widgets/snackbar/snackbar_widget.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_switch.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_toggle.dart';
 import 'package:onlinebozor/common/widgets/text_field/custom_dropdown_field.dart';
@@ -719,40 +721,17 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   text: Strings.commonContinue,
                   onPressed: () {
                     vibrateAsHapticFeedback();
-                    // var result = cubit(context).checkEnabledField();
-                    // if (result) {
-                    //   _showLogoutBottomSheet(context);
-                    // } else {
-                    //   ScaffoldMessenger.of(context).showSnackBar(
-                    //     SnackBar(
-                    //       backgroundColor: Colors.red,
-                    //       behavior: SnackBarBehavior.floating,
-                    //       shape: RoundedRectangleBorder(
-                    //         borderRadius: BorderRadius.only(
-                    //           topLeft: Radius.circular(10.0),
-                    //           topRight: Radius.circular(10.0),
-                    //           bottomLeft: Radius.circular(10.0),
-                    //           bottomRight: Radius.circular(10.0),
-                    //         ),
-                    //       ),
-                    //       content: Center(
-                    //         child: Column(
-                    //           children: [
-                    //             SizedBox(
-                    //               height: 7,
-                    //             ),
-                    //             Text('Please fill the required fields'),
-                    //             SizedBox(
-                    //               height: 7,
-                    //             ),
-                    //           ],
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   );
-                    // }
-
-                    cubit(context).sendCreateProductAdRequest();
+                     var result = cubit(context).checkEnabledField();
+                     if (result) {
+                        context.showResultButtomSheet();
+                     } else {
+                       context.showCustomSnackBar(
+                         message: 'Please fill the required fields',
+                         behavior: SnackBarBehavior.floating,
+                         duration: Duration(seconds: 2),
+                       );
+                     }
+                   //  cubit(context).sendCreateProductAdRequest();
                   },
                   isLoading: state.isRequestSending,
                 ),
@@ -896,55 +875,4 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  void _showLogoutBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (BuildContext bc) {
-        return Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: 32),
-              Center(child: "Success".s(22).w(600)),
-              SizedBox(height: 24),
-              Center(child: "...".s(16)),
-              SizedBox(height: 32),
-              Row(
-                children: <Widget>[
-                  SizedBox(width: 16),
-                  Expanded(
-                    child: CustomOutlinedButton(
-                      text: Strings.commonNo,
-                      strokeColor: Colors.blueAccent,
-                      onPressed: () {},
-                    ),
-                  ),
-                  SizedBox(width: 16),
-                  Expanded(
-                    child: CustomOutlinedButton(
-                      text: Strings.commonYes,
-                      strokeColor: Colors.red,
-                      onPressed: () {},
-                    ),
-                  ),
-                  SizedBox(width: 16),
-                ],
-              ),
-              SizedBox(height: 24),
-            ],
-          ),
-        );
-      },
-    );
-  }
 }

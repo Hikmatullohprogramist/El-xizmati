@@ -5,6 +5,8 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/bottom_sheet/botton_sheet_for_result.dart';
+import 'package:onlinebozor/common/widgets/snackbar/snackbar_widget.dart';
 import 'package:onlinebozor/common/widgets/text_field/common_text_field.dart';
 import 'package:onlinebozor/common/widgets/text_field/custom_dropdown_field.dart';
 import 'package:onlinebozor/common/widgets/text_field/label_text_field.dart';
@@ -460,45 +462,21 @@ class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
             ],
           ),
           SizedBox(height: 16),
-          Expanded(
-            child: CustomElevatedButton(
-              text: Strings.commonContinue,
-              onPressed: () {
-                vibrateAsHapticFeedback();
-                var result = cubit(context).validateFieldData();
-                if (result) {
-                  _showResultBottomSheet(context);
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: Colors.red,
-                      behavior: SnackBarBehavior.floating,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10.0),
-                          topRight: Radius.circular(10.0),
-                          bottomLeft: Radius.circular(10.0),
-                          bottomRight: Radius.circular(10.0),
-                        ),
-                      ),
-                      content: Center(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 7,
-                            ),
-                            Text('Please fill the required fields'),
-                            SizedBox(
-                              height: 7,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                }
-              },
-            ),
+          CustomElevatedButton(
+            text: Strings.commonContinue,
+            onPressed: () {
+              vibrateAsHapticFeedback();
+              var result = cubit(context).validateFieldData();
+              if (result) {
+                context.showResultButtomSheet();
+              } else {
+                context.showCustomSnackBar(
+                  message: 'Please fill the required fields',
+                  behavior: SnackBarBehavior.floating,
+                  duration: Duration(seconds: 2),
+                );
+              }
+            },
           ),
         ],
       ),
@@ -570,55 +548,4 @@ class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
     return chips;
   }
 
-  void _showResultBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (BuildContext bc) {
-        return Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: 32),
-              Center(child: "Success".s(22).w(600)),
-              SizedBox(height: 24),
-              Center(child: "...".s(16)),
-              SizedBox(height: 32),
-              Row(
-                children: <Widget>[
-                  SizedBox(width: 16),
-                  Expanded(
-                    child: CustomOutlinedButton(
-                      text: Strings.commonNo,
-                      strokeColor: Colors.blueAccent,
-                      onPressed: () {},
-                    ),
-                  ),
-                  SizedBox(width: 16),
-                  Expanded(
-                    child: CustomOutlinedButton(
-                      text: Strings.commonYes,
-                      strokeColor: Colors.red,
-                      onPressed: () {},
-                    ),
-                  ),
-                  SizedBox(width: 16),
-                ],
-              ),
-              SizedBox(height: 24),
-            ],
-          ),
-        );
-      },
-    );
-  }
 }

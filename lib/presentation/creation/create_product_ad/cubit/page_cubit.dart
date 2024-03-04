@@ -124,7 +124,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     List<RegionResponse>? selectedPaymentTypes,
   ) {
     try {
-      log.d("kdhcjdf");
       if (selectedPaymentTypes != null) {
         var paymentTypes = List<RegionResponse>.from(states.paymentType);
         paymentTypes.clear();
@@ -136,7 +135,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         updateState((state) => state.copyWith(paymentType: paymentTypes));
       }
     } catch (e) {
-      log.d("eror");
       log.e(e.toString());
     }
   }
@@ -218,8 +216,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     var contactPerson = (state.state?.contactPerson.isNotEmpty) ?? false;
     var phoneNumber = (state.state?.phone.isNotEmpty) ?? false;
     var email = (state.state?.email.isNotEmpty) ?? false;
-
-
     if (title && category && description && warehouseCount && unit && price &&currency
       &&contactPerson&&phoneNumber&&email) {
       return true;
