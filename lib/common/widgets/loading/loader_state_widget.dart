@@ -79,6 +79,7 @@ class ErrorWidget extends StatelessWidget {
                 CustomElevatedButton(
                   text: "Qayta urinish",
                   onPressed: () => onErrorToAgainRequest,
+                  buttonWidth: 180,
                 )
               ],
             ),
@@ -94,8 +95,9 @@ class ErrorWidget extends StatelessWidget {
                       .c(context.colors.textPrimary),
                   SizedBox(height: 12),
                   CustomElevatedButton(
-                    onPressed: () => onErrorToAgainRequest,
                     text: "Qayta urinish",
+                    onPressed: () => onErrorToAgainRequest,
+                    buttonWidth: 180,
                   )
                 ],
               ),
