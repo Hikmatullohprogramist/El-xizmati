@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../colors/static_colors.dart';
+
 class CartWidgetShimmer extends StatelessWidget {
   const CartWidgetShimmer({
     super.key,
@@ -20,8 +22,8 @@ class CartWidgetShimmer extends StatelessWidget {
       child: Row(
         children: [
           Shimmer.fromColors(
-            baseColor: Color(0xFFE8E6E8),
-            highlightColor: Colors.grey[50]!,
+            baseColor: StaticColors.shimmerBaseColor,
+            highlightColor: StaticColors.shimmerHighLightColor,
             child: Container(
               width: 80,
               height: 110,
@@ -39,8 +41,8 @@ class CartWidgetShimmer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                 Shimmer.fromColors(
-                  baseColor: Color(0xFFE8E6E8),
-                  highlightColor: Colors.grey[50]!,
+                  baseColor: StaticColors.shimmerBaseColor,
+                  highlightColor: StaticColors.shimmerHighLightColor,
                   child: Container(
                     width: 180,
                     height: 12,
@@ -52,8 +54,8 @@ class CartWidgetShimmer extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 Shimmer.fromColors(
-                  baseColor: Color(0xFFE8E6E8),
-                  highlightColor: Colors.grey[50]!,
+                  baseColor: StaticColors.shimmerBaseColor,
+                  highlightColor: StaticColors.shimmerHighLightColor,
                   child: Container(
                     width: 100,
                     height: 12,
@@ -65,8 +67,8 @@ class CartWidgetShimmer extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 Shimmer.fromColors(
-                  baseColor: Color(0xFFE8E6E8),
-                  highlightColor: Colors.grey[50]!,
+                  baseColor: StaticColors.shimmerBaseColor,
+                  highlightColor: StaticColors.shimmerHighLightColor,
                   child: Container(
                     width: 130,
                     height: 12,

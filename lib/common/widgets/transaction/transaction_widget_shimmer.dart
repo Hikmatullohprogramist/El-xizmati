@@ -5,6 +5,7 @@ import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/data/responses/transaction/payment_transaction_response.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../colors/static_colors.dart';
 import '../../constants.dart';
 
 class TransactionShimmer extends StatelessWidget {
@@ -30,8 +31,8 @@ class TransactionShimmer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Shimmer.fromColors(
-            baseColor: Color(0xFFE8E6E8),
-            highlightColor: Colors.grey[50]!,
+            baseColor: StaticColors.shimmerBaseColor,
+            highlightColor: StaticColors.shimmerHighLightColor,
             child: Container(
               height: 48,
               width: 48,
@@ -48,8 +49,8 @@ class TransactionShimmer extends StatelessWidget {
             children: [
               SizedBox(height: 10),
              Shimmer.fromColors(
-               baseColor: Color(0xFFE8E6E8),
-               highlightColor: Colors.grey[50]!,
+               baseColor: StaticColors.shimmerBaseColor,
+               highlightColor: StaticColors.shimmerHighLightColor,
                child: Container(width: 100,height: 10,
                    decoration: BoxDecoration(
                        color: Colors.white,
@@ -59,8 +60,8 @@ class TransactionShimmer extends StatelessWidget {
              ),
               SizedBox(height: 12),
               Shimmer.fromColors(
-                baseColor: Color(0xFFE8E6E8),
-                highlightColor: Colors.grey[50]!,
+                baseColor: StaticColors.shimmerBaseColor,
+                highlightColor: StaticColors.shimmerHighLightColor,
                 child: Container(width: 150,height: 10,
                   decoration: BoxDecoration(
                       color: Colors.white,

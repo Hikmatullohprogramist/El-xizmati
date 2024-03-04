@@ -5,6 +5,7 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../data/responses/address/user_address_response.dart';
+import '../../colors/static_colors.dart';
 
 class UserAddressShimmer extends StatelessWidget {
   const UserAddressShimmer({
@@ -34,8 +35,8 @@ class UserAddressShimmer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Shimmer.fromColors(
-                  baseColor: Color(0xFFE8E6E8),
-                  highlightColor: Colors.grey[50]!,
+                  baseColor: StaticColors.shimmerBaseColor,
+                  highlightColor: StaticColors.shimmerHighLightColor,
                   child: Container(
                     height: 14, width:110,
                   decoration: BoxDecoration(
@@ -45,8 +46,8 @@ class UserAddressShimmer extends StatelessWidget {
                 ),
                 SizedBox(height: 15),
                 Shimmer.fromColors(
-                  baseColor: Color(0xFFE8E6E8),
-                  highlightColor: Colors.grey[50]!,
+                  baseColor: StaticColors.shimmerBaseColor,
+                  highlightColor: StaticColors.shimmerHighLightColor,
                   child: Container(
                     height: 14,
                     width: 65,
@@ -57,8 +58,8 @@ class UserAddressShimmer extends StatelessWidget {
                 ),
                 SizedBox(height: 15),
                 Shimmer.fromColors(
-                  baseColor: Color(0xFFE8E6E8),
-                  highlightColor: Colors.grey[50]!,
+                  baseColor: StaticColors.shimmerBaseColor,
+                  highlightColor: StaticColors.shimmerHighLightColor,
                   child: Container(height: 14,
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -67,8 +68,8 @@ class UserAddressShimmer extends StatelessWidget {
                 ),
                 SizedBox(height: 12),
                 Shimmer.fromColors(
-                  baseColor: Color(0xFFE8E6E8),
-                  highlightColor: Colors.grey[50]!,
+                  baseColor: StaticColors.shimmerBaseColor,
+                  highlightColor: StaticColors.shimmerHighLightColor,
                   child: Container(height: 14,
                     margin: EdgeInsets.only(right: 80),
                     decoration: BoxDecoration(
