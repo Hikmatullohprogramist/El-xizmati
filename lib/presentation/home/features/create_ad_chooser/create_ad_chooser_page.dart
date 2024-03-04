@@ -40,61 +40,6 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildBuyBlock(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Color(0xFFE5E9F3), width: 1),
-      ),
-      child: SizedBox(
-        width: double.infinity,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Assets.images.pngImages.buy.image(height: 86, width: 86),
-            Strings.adCreationStartBuyTitle
-                .w(800)
-                .s(18)
-                .c(context.colors.textPrimary),
-            SizedBox(height: 16),
-            Strings.adCreationStartBuyDesc
-                .w(500)
-                .s(14)
-                .c(context.colors.textSecondary)
-                .copyWith(textAlign: TextAlign.center),
-            SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: CustomElevatedButton(
-                    text: Strings.adCreationStartBuyProduct,
-                    onPressed: () {
-                      context.router.push(CreateProductOrderRoute());
-                    },
-                  ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: CustomElevatedButton(
-                    text: Strings.adCreationStartBuyService,
-                    onPressed: () {
-                      context.router.push(CreateServiceOrderRoute());
-                    },
-                  ),
-                )
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget _buildSaleBlock(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 8),
@@ -131,6 +76,8 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
                     onPressed: () {
                       context.router.push(CreateProductAdRoute());
                     },
+                    buttonHeight: 32,
+                    textSize: 12,
                   ),
                 ),
                 SizedBox(width: 12),
@@ -140,6 +87,67 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
                     onPressed: () {
                       context.router.push(CreateServiceAdRoute());
                     },
+                    buttonHeight: 32,
+                    textSize: 12,
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBuyBlock(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Color(0xFFE5E9F3), width: 1),
+      ),
+      child: SizedBox(
+        width: double.infinity,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Assets.images.pngImages.buy.image(height: 86, width: 86),
+            Strings.adCreationStartBuyTitle
+                .w(800)
+                .s(18)
+                .c(context.colors.textPrimary),
+            SizedBox(height: 16),
+            Strings.adCreationStartBuyDesc
+                .w(500)
+                .s(14)
+                .c(context.colors.textSecondary)
+                .copyWith(textAlign: TextAlign.center),
+            SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: CustomElevatedButton(
+                    text: Strings.adCreationStartBuyProduct,
+                    onPressed: () {
+                      context.router.push(CreateProductOrderRoute());
+                    },
+                    buttonHeight: 32,
+                    textSize: 12,
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: CustomElevatedButton(
+                    text: Strings.adCreationStartBuyService,
+                    onPressed: () {
+                      context.router.push(CreateServiceOrderRoute());
+                    },
+                    buttonHeight: 32,
+                    textSize: 12,
                   ),
                 )
               ],

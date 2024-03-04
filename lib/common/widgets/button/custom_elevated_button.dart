@@ -13,6 +13,7 @@ class CustomElevatedButton extends StatelessWidget {
     this.isEnabled = true,
     this.isLoading = false,
     this.textColor = Colors.white,
+    this.textSize = 14,
     this.backgroundColor = StaticColors.slateBlue,
     this.rightIcon,
   }) : super(key: key);
@@ -24,6 +25,7 @@ class CustomElevatedButton extends StatelessWidget {
   final bool isLoading;
   final bool isEnabled;
   final Color textColor;
+  final double textSize;
   final Color backgroundColor;
   final Widget? rightIcon;
 
@@ -70,7 +72,7 @@ class CustomElevatedButton extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              child: text.w(400).s(14).c(actualTextColor).copyWith(
+              child: text.w(400).s(textSize).c(actualTextColor).copyWith(
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     textAlign: actualTextAlign,
