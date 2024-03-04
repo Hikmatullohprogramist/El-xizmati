@@ -64,11 +64,13 @@ class OrderCreatePage extends BasePage<PageCubit, PageState, PageEvent> {
                   .c(Color(0xFF5C6AC3))
                   .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
               Spacer(),
-              CustomElevatedButton(
-                text: Strings.orderCreateRegister,
-                onPressed: () => cubit(context).orderCreate(),
-              ),
-              SizedBox(width: 16)
+             CustomElevatedButton(
+               buttonWidth: 100,
+               buttonHeight: 42,
+               text: Strings.orderCreateRegister,
+               onPressed: () => cubit(context).orderCreate(),
+             ),
+             SizedBox(width: 16)
             ]),
           ),
           appBar: AppBar(
