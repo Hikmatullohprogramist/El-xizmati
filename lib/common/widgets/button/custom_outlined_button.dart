@@ -50,8 +50,9 @@ class CustomOutlinedButton extends StatelessWidget {
           }
         : null;
 
-    var actualTextColor = textColor.withOpacity(isEnabled ? 1 : 0.75);
-    var actualStrokeColor = strokeColor.withOpacity(isEnabled ? 1 : 0.75);
+    var actualTextColor = isEnabled ? textColor : textColor.withOpacity(0.75);
+    var actualStrokeColor =
+        isEnabled ? strokeColor : strokeColor.withOpacity(0.75);
     var actualTextAlign = rightIcon != null ? TextAlign.left : TextAlign.center;
 
     return OutlinedButton(

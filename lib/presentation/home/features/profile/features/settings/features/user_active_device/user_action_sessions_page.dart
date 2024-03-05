@@ -6,7 +6,7 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
-import 'package:onlinebozor/common/widgets/device/active_session_widgets.dart';
+import 'package:onlinebozor/common/widgets/device/active_session_widget.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/settings/features/user_active_device/cubit/page_cubit.dart';
 

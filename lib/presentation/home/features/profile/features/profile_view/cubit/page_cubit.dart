@@ -16,7 +16,7 @@ part 'page_state.dart';
 @injectable
 class PageCubit extends BaseCubit<PageState, PageEvent> {
   PageCubit(this._authRepository, this._userRepository) : super(PageState()) {
-     getActiveDeviceController();
+    getActiveDeviceController();
   }
 
   final AuthRepository _authRepository;
@@ -125,7 +125,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     emitEvent(PageEvent(PageEventType.onLogout));
   }
 
-
   setSmsNotification() {
     updateState(
       (state) => state.copyWith(smsNotification: !state.smsNotification),
@@ -179,7 +178,11 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       (pageKey) async {
         final items = await _userRepository.getActiveDevice();
         if (items.length <= 1000) {
-          controller.appendLastPage(items.sublist(0,1));
+          if (items.length > 2) {
+            controller.appendLastPage(items.sublist(0, 2));
+          } else {
+            controller.appendLastPage(items);
+          }
           log.i(states.controller);
           return;
         }

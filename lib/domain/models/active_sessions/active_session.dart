@@ -21,13 +21,14 @@ class ActiveSession {
   String? lastIpAddress;
   bool isCurrentSession;
 
-  bool isMobile() => userAgent.contains("Android");
+  bool isMobileBrowser() =>
+      userAgent.contains("Android") || userAgent.contains("iOS");
 
   bool isMobileApp() => userAgent.contains("APPLICATION");
 
-  bool isMacOs() => userAgent.contains("APPLICATION");
+  bool isMobileBrowserOrApp() => isMobileBrowser() || isMobileApp();
 
-  bool isWindows() => userAgent.contains("APPLICATION");
+  bool isMacOs() => userAgent.contains("Macintosh");
 
-  bool isLinux() => userAgent.contains("APPLICATION");
+  bool isWindows() => userAgent.contains("Windows");
 }

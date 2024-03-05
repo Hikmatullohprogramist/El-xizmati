@@ -28,10 +28,15 @@ class ActiveSessionWidget extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: Row(
               children: [
-                if (session.user_agent.contains("Android"))
-                  Assets.images.icPhone.svg(width: 24, height: 24)
-                else
-                  Assets.images.icLaptop.svg(width: 24, height: 24),
+                Column(
+                  children: [
+                    SizedBox(height: 6),
+                    (session.isMobileBrowserOrApp()
+                            ? Assets.images.icPhone
+                            : Assets.images.icLaptop)
+                        .svg(width: 24, height: 24),
+                  ],
+                ),
                 SizedBox(width: 16),
                 Expanded(
                     child: Column(
@@ -40,7 +45,7 @@ class ActiveSessionWidget extends StatelessWidget {
                     "OnlineBozor app".w(700).s(12).c(Colors.black),
                     SizedBox(height: 6),
                     Flexible(
-                        child: session.user_agent
+                        child: session.userAgent
                             .w(400)
                             .s(12)
                             .c(Color(0xFF41455E))
@@ -55,16 +60,20 @@ class ActiveSessionWidget extends StatelessWidget {
                           .copyWith(overflow: TextOverflow.ellipsis),
                     ),
                     SizedBox(height: 8),
-                    if (DeviceInfo.userAgent == session.user_agent)
+                    if (DeviceInfo.userAgent == session.userAgent)
                       Strings.activeDeviceCurrentDevice
                           .w(400)
                           .c(Color(0xFF32B88B))
                           .s(12)
                     else
-                      CustomTextButton(
-                        text: Strings.activeDeviceRemoveDevice,
+                      TextButton(
+                        style:
+                        TextButton.styleFrom(backgroundColor: Color(0x1EF66412)),
                         onPressed: () => onClicked(session),
-                        textColor: Color(0x1EF66412),
+                        child: Strings.activeDeviceRemoveDevice
+                            .w(600)
+                            .c(Color(0xFFF66412))
+                            .s(12),
                       )
                   ],
                 ))
