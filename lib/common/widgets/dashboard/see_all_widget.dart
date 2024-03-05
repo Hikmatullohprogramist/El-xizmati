@@ -9,7 +9,11 @@ class SeeAllWidget extends StatelessWidget {
   final String title;
   final VoidCallback onClicked;
 
-  const SeeAllWidget({super.key, required this.onClicked, required this.title});
+  const SeeAllWidget({
+    super.key,
+    required this.title,
+    required this.onClicked,
+  });
 
   @override
   Widget build(BuildContext context) {

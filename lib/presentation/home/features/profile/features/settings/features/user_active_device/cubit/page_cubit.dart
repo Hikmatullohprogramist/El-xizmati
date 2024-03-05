@@ -4,13 +4,13 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 
-import '../../../../../../../../../common/constants.dart';
 import '../../../../../../../../../common/core/base_cubit.dart';
 import '../../../../../../../../../data/repositories/user_repository.dart';
-import '../../../../../../../../../data/responses/device/active_device_response.dart';
 
 part 'page_cubit.freezed.dart';
+
 part 'page_state.dart';
 
 @Injectable()
@@ -33,36 +33,33 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  PagingController<int, ActiveDeviceResponse> getAdsController({
+  PagingController<int, ActiveSession> getAdsController({
     required int status,
   }) {
-    final adController = PagingController<int, ActiveDeviceResponse>(
-        firstPageKey: 1, invisibleItemsThreshold: 100);
+    final controller = PagingController<int, ActiveSession>(
+      firstPageKey: 1,
+      invisibleItemsThreshold: 100,
+    );
     log.i(states.controller);
 
-    adController.addPageRequestListener(
+    controller.addPageRequestListener(
       (pageKey) async {
-        final adsList = await  userRepository.getActiveDevice();
-        var currentUser= adsList.where((element) => element.user_agent==DeviceInfo.userAgent).toList();
-        if (adsList.length <= 1000) {
-          if(currentUser.length>=1){
-            var thisDevice= currentUser.sublist(0,1);
-            adController.appendLastPage(thisDevice);
-          }
-          adController.appendLastPage(adsList);
+        final items = await userRepository.getActiveDevice();
+        if (items.length <= 1000) {
+          controller.appendLastPage(items);
           log.i(states.controller);
           return;
         }
-        adController.appendPage(adsList, pageKey + 1);
+        controller.appendPage(items, pageKey + 1);
         log.i(states.controller);
       },
     );
-    return adController;
+    return controller;
   }
 
-  Future<void> removeActiveDevice(ActiveDeviceResponse response) async {
+  Future<void> removeActiveDevice(ActiveSession session) async {
     try {
-      await userRepository.removeActiveResponse(response);
+      await userRepository.removeActiveResponse(session);
     } catch (error) {
       log.e(error.toString());
     }

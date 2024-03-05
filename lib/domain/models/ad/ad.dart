@@ -1,5 +1,3 @@
-
-
 import '../currency/currency.dart';
 import 'ad_author_type.dart';
 import 'ad_item_condition.dart';
@@ -7,31 +5,32 @@ import 'ad_priority_level.dart';
 import 'ad_transaction_type.dart';
 
 class Ad {
-  Ad(
-      {this.backendId,
-      required this.id,
-      required this.name,
-      required this.price,
-      required this.currency,
-      required this.region,
-      required this.district,
-      required this.adRouteType,
-      required this.adPropertyStatus,
-      required this.adStatus,
-      required this.adTypeStatus,
-      required this.fromPrice,
-      required this.toPrice,
-      required this.categoryId,
-      required this.categoryName,
-      required this.sellerName,
-      required this.sellerId,
-      required this.photo,
-      required this.isCheck,
-      required this.favorite,
-      required this.isSort,
-      required this.isSell,
-      required this.maxAmount,
-      required this.view});
+  Ad({
+    this.backendId,
+    required this.id,
+    required this.name,
+    required this.price,
+    required this.currency,
+    required this.region,
+    required this.district,
+    required this.adRouteType,
+    required this.adPropertyStatus,
+    required this.adStatus,
+    required this.adTypeStatus,
+    required this.fromPrice,
+    required this.toPrice,
+    required this.categoryId,
+    required this.categoryName,
+    required this.sellerName,
+    required this.sellerId,
+    required this.photo,
+    required this.isCheck,
+    required this.favorite,
+    required this.isSort,
+    required this.isSell,
+    required this.maxAmount,
+    required this.view,
+  });
 
   int? backendId;
   final int id;
@@ -64,7 +63,11 @@ class Ad {
 }
 
 class AdPhotoModel {
-  AdPhotoModel({required this.image, required this.isMain, required this.id});
+  AdPhotoModel({
+    required this.image,
+    required this.isMain,
+    required this.id,
+  });
 
   final String image;
   final bool isMain;

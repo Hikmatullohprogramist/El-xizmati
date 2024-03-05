@@ -22,7 +22,7 @@ class PageState with _$PageState {
     @Default(false) bool smsNotification,
     @Default(false) bool telegramNotification,
     @Default(false) bool emailNotification,
-    PagingController<int, ActiveDeviceResponse>? controller,
+    PagingController<int, ActiveSession>? controller,
   }) = _PageState;
 }
 

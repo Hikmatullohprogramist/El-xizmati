@@ -14,16 +14,17 @@ import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/app_bar/action_app_bar.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
+import 'package:onlinebozor/common/widgets/dashboard/see_all_widget.dart';
+import 'package:onlinebozor/common/widgets/device/active_session_widget.dart';
+import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 
 import '../../../../../../common/colors/static_colors.dart';
 import '../../../../../../common/constants.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
-import '../../../../../../common/widgets/device/active_device_shimmer.dart';
-import '../../../../../../common/widgets/device/active_device_widgets.dart';
+import '../../../../../../common/widgets/device/active_session_shimmer.dart';
 import '../../../../../../common/widgets/divider/custom_diverder.dart';
 import '../../../../../../common/widgets/profile/profile_item_widget.dart';
 import '../../../../../../common/widgets/switch/custom_switch.dart';
-import '../../../../../../data/responses/device/active_device_response.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -52,12 +53,12 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
             onBackPressed: () => context.router.pop(),
             actions: state.isRegistered
                 ? [
-                    CustomTextButton(
-                      text: Strings.commonEdit,
-                      onPressed: () =>
-                          context.router.replace(ProfileEditRoute()),
-                    )
-                  ]
+              CustomTextButton(
+                text: Strings.commonEdit,
+                onPressed: () =>
+                    context.router.replace(ProfileEditRoute()),
+              )
+            ]
                 : [],
           ),
           backgroundColor: StaticColors.backgroundColor,
@@ -118,35 +119,38 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                 width: 64,
                 height: 64,
                 imageUrl: "${Constants.baseUrlForImage}${state.photo}",
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                        image: imageProvider,
-                        colorFilter: ColorFilter.mode(
-                            Color(0xFFF6F7FC), BlendMode.colorBurn)),
-                  ),
-                ),
-                placeholder: (context, url) => Container(
-                  height: 64,
-                  width: 64,
-                  margin: EdgeInsets.only(top: 6),
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                      color: Color(0xFFE0E0ED),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Assets.images.icAvatarBoy.svg(),
-                ),
-                errorWidget: (context, url, error) => Container(
-                  height: 64,
-                  width: 64,
-                  margin: EdgeInsets.only(top: 6),
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                      color: Color(0xFFE0E0ED),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Assets.images.icAvatarBoy.svg(),
-                ),
+                imageBuilder: (context, imageProvider) =>
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                            image: imageProvider,
+                            colorFilter: ColorFilter.mode(
+                                Color(0xFFF6F7FC), BlendMode.colorBurn)),
+                      ),
+                    ),
+                placeholder: (context, url) =>
+                    Container(
+                      height: 64,
+                      width: 64,
+                      margin: EdgeInsets.only(top: 6),
+                      padding: EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                          color: Color(0xFFE0E0ED),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Assets.images.icAvatarBoy.svg(),
+                    ),
+                errorWidget: (context, url, error) =>
+                    Container(
+                      height: 64,
+                      width: 64,
+                      margin: EdgeInsets.only(top: 6),
+                      padding: EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                          color: Color(0xFFE0E0ED),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Assets.images.icAvatarBoy.svg(),
+                    ),
               ),
               SizedBox(width: 16),
               Column(
@@ -171,7 +175,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                     children: [
                       Container(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                        EdgeInsets.symmetric(horizontal: 12, vertical: 5),
                         decoration: ShapeDecoration(
                           color: Color(0xFFAEB2CD).withAlpha(40),
                           shape: RoundedRectangleBorder(
@@ -264,14 +268,15 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Strings.profileUserDateOfBirth.w(400).s(14).c(Color(0xFF9EABBE)),
         SizedBox(height: 6),
         state.brithDate.w(500).s(16).c(Color(0xFF41455E)),
         SizedBox(height: 8),
-            CustomDivider(),
-        SizedBox(height: 8,),
+        CustomDivider(),
+        SizedBox(
+          height: 8,
+        ),
         Strings.profileUserDateOfDocValidity.w(400).s(14).c(Color(0xFF9EABBE)),
         SizedBox(height: 6),
         state.biometricInformation.w(500).s(16).c(Color(0xFF41455E)),
@@ -281,8 +286,10 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
         Strings.profileUserEmail.w(400).s(14).c(Color(0xFF9EABBE)),
         SizedBox(height: 6),
         //state.email.w(500).s(16).c(Color(0xFF41455E)),
-        if(state.email.isNotEmpty) state.email.w(500).s(16).c(Color(0xFF41455E)),
-        if(state.email.isEmpty) "name@gmail.com".w(400).s(15).c(Color(0xFF9EABBE)),
+        if (state.email.isNotEmpty)
+          state.email.w(500).s(16).c(Color(0xFF41455E)),
+        if (state.email.isEmpty)
+          "name@gmail.com".w(400).s(15).c(Color(0xFF9EABBE)),
         SizedBox(height: 8),
         CustomDivider(),
         SizedBox(height: 8),
@@ -357,10 +364,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 18),
-           "Способ получения уведомления"
-              .w(600)
-              .s(14)
-              .c(Color(0xFF41455E)),
+          "Способ получения уведомления".w(600).s(14).c(Color(0xFF41455E)),
           SizedBox(height: 18),
           OutlinedButton(
             style: OutlinedButton.styleFrom(
@@ -374,12 +378,11 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                       : Color(0xFFAEB2CD)),
             ),
             onPressed: () {
-             // cubit(context).setSmsNotification();
+              // cubit(context).setSmsNotification();
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
-              child: Row(
-                  children: [
+              child: Row(children: [
                 Container(
                   width: 32,
                   height: 32,
@@ -389,8 +392,14 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                   child: Center(child: Assets.images.icMessage.svg()),
                 ),
                 SizedBox(width: 16),
-                Strings.notificationReceiveSms.w(600).s(14).c(Color(0xFF41455E)),
-                Expanded(child: SizedBox(height: 1,)),
+                Strings.notificationReceiveSms
+                    .w(600)
+                    .s(14)
+                    .c(Color(0xFF41455E)),
+                Expanded(
+                    child: SizedBox(
+                      height: 1,
+                    )),
                 CustomSwitch(
                   isChecked: cubit(context).states.smsNotification,
                   onChanged: (value) {
@@ -413,7 +422,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                       : Color(0xFFAEB2CD)),
             ),
             onPressed: () {
-             // cubit(context).setEmailNotification();
+              // cubit(context).setEmailNotification();
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
@@ -432,7 +441,10 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                     .w(600)
                     .s(14)
                     .c(Color(0xFF41455E)),
-                Expanded(child: SizedBox(height: 1,)),
+                Expanded(
+                    child: SizedBox(
+                      height: 1,
+                    )),
                 CustomSwitch(
                   isChecked: cubit(context).states.emailNotification,
                   onChanged: (value) {
@@ -455,7 +467,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                       : Color(0xFFAEB2CD)),
             ),
             onPressed: () {
-             // cubit(context).setTelegramNotification();
+              // cubit(context).setTelegramNotification();
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
@@ -474,7 +486,10 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                     .w(600)
                     .s(14)
                     .c(Color(0xFF41455E)),
-                Expanded(child: SizedBox(height: 1,)),
+                Expanded(
+                    child: SizedBox(
+                      height: 1,
+                    )),
                 CustomSwitch(
                   isChecked: cubit(context).states.telegramNotification,
                   onChanged: (value) {
@@ -495,8 +510,8 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                     color: Color(0xFF9EABBE))),
             WidgetSpan(
                 child: SizedBox(
-              width: 5,
-            )),
+                  width: 5,
+                )),
             TextSpan(
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
@@ -518,44 +533,25 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget _buildActiveDeviceBlock(BuildContext context, PageState state) {
     double width;
     double height;
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
+    width = MediaQuery
+        .of(context)
+        .size
+        .width;
+    height = MediaQuery
+        .of(context)
+        .size
+        .height;
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.only(left: 20.0, top: 18.0, right: 20),
-          width: double.infinity,
-          height: 35,
           color: Colors.white,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              "Активные сеансы".w(700).s(15).c(Colors.black),
-              InkWell(
-                onTap: () {
-                  context.router.push(UserActiveSessionsRoute());
-                },
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    "see all".w(500).s(14).c(Colors.black),
-                    SizedBox(
-                      width: 2,
-                    ),
-                    SvgPicture.asset(
-                      'assets/images/ic_arrow_right.svg',
-                      // Replace with the path to your SVG file
-                      height: 12.0,
-                      width: 12.0,
-                      color: Colors.black,
-                    ),
-                  ],
-                ),
-              ),
-            ],
+          padding: EdgeInsets.only(top: 8),
+          child: SeeAllWidget(
+            title: "Активные сеансы",
+            onClicked: () => context.router.push(UserActiveSessionsRoute()),
           ),
         ),
-        PagedGridView<int, ActiveDeviceResponse>(
+        PagedGridView<int, ActiveSession>(
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
             pagingController: state.controller!,
@@ -566,25 +562,25 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
               mainAxisExtent: 145,
               crossAxisCount: 1,
             ),
-            builderDelegate: PagedChildBuilderDelegate<ActiveDeviceResponse>(
+            builderDelegate: PagedChildBuilderDelegate<ActiveSession>(
               firstPageErrorIndicatorBuilder: (_) {
                 return SizedBox(
                     height: 60,
                     width: double.infinity,
                     child: Center(
                         child: Column(
-                      children: [
-                        Strings.loadingStateError
-                            .w(400)
-                            .s(14)
-                            .c(context.colors.textPrimary),
-                        SizedBox(height: 12),
-                        CustomElevatedButton(
-                          text: Strings.loadingStateRetry,
-                          onPressed: () {},
-                        )
-                      ],
-                    )));
+                          children: [
+                            Strings.loadingStateError
+                                .w(400)
+                                .s(14)
+                                .c(context.colors.textPrimary),
+                            SizedBox(height: 12),
+                            CustomElevatedButton(
+                              text: Strings.loadingStateRetry,
+                              onPressed: () {},
+                            )
+                          ],
+                        )));
               },
               firstPageProgressIndicatorBuilder: (_) {
                 return SingleChildScrollView(
@@ -623,11 +619,12 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
               },
               transitionDuration: Duration(milliseconds: 100),
               itemBuilder: (context, item, index) {
-                return ActiveDeviceWidget(
-                    invoke: (response) {
-                      cubit(context).removeActiveDevice(response);
-                    },
-                    response: item);
+                return ActiveSessionWidget(
+                  session: item,
+                  onClicked: (response) {
+                    cubit(context).removeActiveDevice(response);
+                  },
+                );
               },
             )),
       ],

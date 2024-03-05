@@ -4,31 +4,32 @@ part 'ad_object.g.dart';
 
 @HiveType(typeId: 3)
 class AdObject extends HiveObject {
-  AdObject(
-      {required this.id,
-      required this.name,
-      required this.price,
-      required this.currency,
-      required this.region,
-      required this.district,
-      required this.adRouteType,
-      required this.adPropertyStatus,
-      required this.adStatus,
-      required this.adTypeStatus,
-      required this.fromPrice,
-      required this.toPrice,
-      required this.categoryId,
-      required this.categoryName,
-      required this.isSort,
-      required this.isSell,
-      required this.isCheck,
-      required this.sellerId,
-      required this.maxAmount,
-      required this.favorite,
-      required this.photo,
-      required this.sellerName,
-      this.backendId,
-      required this.view});
+  AdObject({
+    required this.id,
+    required this.name,
+    required this.price,
+    required this.currency,
+    required this.region,
+    required this.district,
+    required this.adRouteType,
+    required this.adPropertyStatus,
+    required this.adStatus,
+    required this.adTypeStatus,
+    required this.fromPrice,
+    required this.toPrice,
+    required this.categoryId,
+    required this.categoryName,
+    required this.isSort,
+    required this.isSell,
+    required this.isCheck,
+    required this.sellerId,
+    required this.maxAmount,
+    required this.favorite,
+    required this.photo,
+    required this.sellerName,
+    this.backendId,
+    required this.view,
+  });
 
   @HiveField(0)
   int id;
