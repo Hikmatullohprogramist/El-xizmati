@@ -59,6 +59,7 @@ dependencies:
   shimmer: ^3.0.0
   flutter_shimmer_widget: ^1.1.0
   email_validator: ^2.1.17
+  external_app_launcher: ^4.0.0
 
 dev_dependencies:
   flutter_test:
