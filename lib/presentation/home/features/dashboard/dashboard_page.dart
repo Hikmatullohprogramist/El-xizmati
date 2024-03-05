@@ -25,7 +25,6 @@ import 'cubit/page_cubit.dart';
 @RoutePage()
 class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
   const DashboardPage({super.key});
-
   @override
   void onWidgetCreated(BuildContext context) {
     cubit(context).getRecentlyViewedAds();
@@ -42,24 +41,32 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
             context.router.push(NotificationListRoute()),
       ),
       backgroundColor: StaticColors.backgroundColor,
-      body: CustomScrollView(
-        physics: BouncingScrollPhysics(),
-        slivers: [
-          SliverToBoxAdapter(
-            child: Column(
-              children: [
-                _getBannersWidget(context, state),
-                _getPopularCategoriesWidget(context, state),
-                _getAdTypeChooserWidget(context),
-                _getDashboardProductAdsWidget(context, state),
-                _getDashboardServiceAdsWidget(context, state),
-                _getTopRatedAdsWidget(context, state),
-                _getRecentlyViewedAdsWidget(context, state),
-              ],
+      body: RefreshIndicator(
+        displacement: 160,
+        strokeWidth: 3,
+        color: Color(0xFF586BC2),
+        onRefresh: () async{
+            cubit(context).getInitialData();
+        },
+        child: CustomScrollView(
+          physics: BouncingScrollPhysics(),
+          slivers: [
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  _getBannersWidget(context, state),
+                  _getPopularCategoriesWidget(context, state),
+                  _getAdTypeChooserWidget(context),
+                  _getDashboardProductAdsWidget(context, state),
+                  _getDashboardServiceAdsWidget(context, state),
+                  _getTopRatedAdsWidget(context, state),
+                  _getRecentlyViewedAdsWidget(context, state),
+                ],
+              ),
             ),
-          ),
-          SliverPadding(padding: EdgeInsets.symmetric(horizontal: 16)),
-        ],
+            SliverPadding(padding: EdgeInsets.symmetric(horizontal: 16)),
+          ],
+        ),
       ),
     );
   }

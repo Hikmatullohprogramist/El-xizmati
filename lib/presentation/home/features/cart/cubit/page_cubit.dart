@@ -20,7 +20,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   ) : super(PageState()) {
     getController();
   }
-
   final CartRepository repository;
   final FavoriteRepository favoriteRepository;
 
