@@ -23,11 +23,11 @@ class ChipsItem extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.only(left: 14, top: 10, right: 10, bottom: 10),
           decoration: BoxDecoration(
-            color: Color(0xFF5C6AC4).withOpacity(0.75),
+            color: Color(0xFF5C6AC4).withOpacity(0.12),
             borderRadius: BorderRadius.all(Radius.circular(24)),
             border: Border.all(
-              color: Color(0xFF5C6AC4).withOpacity(0.95),
-              width: 1,
+              color: Color(0xFF5C6AC4).withOpacity(0.15),
+              width: 0.5,
             ),
             shape: BoxShape.rectangle,
           ),
@@ -38,17 +38,21 @@ class ChipsItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 title
-                    .w(500)
+                    .w(600)
                     .s(13)
-                    .c(Color(0xFFFFFFFF))
+                    .c(Color(0xFF5C6AC4))
                     .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
-                SizedBox(width: 12),
+                SizedBox(width: 14),
                 InkWell(
                   onTap: () {
                     onRemoveClicked(item);
                     vibrateAsHapticFeedback();
                   },
-                  child: Assets.images.icCloseChip.svg(height: 20, width: 20),
+                  child: Assets.images.icCloseChip.svg(
+                    height: 20,
+                    width: 20,
+                    color: Color(0xFF5C6AC4),
+                  ),
                 ),
               ],
             ),
