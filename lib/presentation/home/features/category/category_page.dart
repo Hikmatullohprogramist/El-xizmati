@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
-import 'package:onlinebozor/common/enum/enums.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/app_bar/search_app_bar.dart';
 import 'package:onlinebozor/common/widgets/category/category_widget.dart';
@@ -29,15 +28,11 @@ class CategoryPage extends BasePage<PageCubit, PageState, PageEvent> {
       ),
       backgroundColor: StaticColors.backgroundColor,
       body: LoaderStateWidget(
-          isFullScreen: true,
-          loadingState: state.loadState,
-          successBody: Stack(
-            children: [
-              state.loadState == LoadingState.loading
-                  ? _buildShimmerLoadingItems()
-                  : _buildCategoryItems(state)
-            ],
-          )),
+        isFullScreen: true,
+        loadingState: state.loadState,
+        loadingBody: _buildShimmerLoadingItems(),
+        successBody: _buildCategoryItems(state),
+      ),
     );
   }
 

@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
-import 'package:onlinebozor/common/enum/enums.dart';
 import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 
 import '../../../../../common/widgets/category/category_widget.dart';
@@ -41,18 +40,13 @@ class SelectionNestedCategoryPage
       body: LoaderStateWidget(
         isFullScreen: true,
         loadingState: state.categoriesState,
-        successBody: Stack(
-          children: [
-            state.categoriesState == LoadingState.loading
-                ? _buildShimmerLoadingItems()
-                : _buildCategoryItems(state)
-          ],
-        ),
+        loadingBody: _buildLoadingBody(),
+        successBody: _buildCategoryItems(state),
       ),
     );
   }
 
-  ListView _buildShimmerLoadingItems() {
+  ListView _buildLoadingBody() {
     return ListView.separated(
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,
