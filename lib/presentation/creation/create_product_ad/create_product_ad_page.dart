@@ -528,7 +528,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
               SizedBox(width: 16),
               Expanded(
-                child: "Самовывоз с адреса".w(400).s(15).c(Color(0xFF41455E)),
+                child: "Самовывоз с адреса".w(600).s(15).c(Color(0xFF41455E)),
               ),
             ],
           ),
@@ -559,7 +559,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
               SizedBox(width: 16),
               Expanded(
-                child: "Бесплатная доставка".w(400).s(14).c(Color(0xFF41455E)),
+                child: "Бесплатная доставка".w(600).s(15).c(Color(0xFF41455E)),
               ),
             ],
           ),
@@ -590,7 +590,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
               SizedBox(width: 16),
               Expanded(
-                child: "Платная доставка".w(400).s(14).c(Color(0xFF41455E)),
+                child: "Платная доставка".w(600).s(15).c(Color(0xFF41455E)),
               ),
             ],
           ),

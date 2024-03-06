@@ -23,12 +23,10 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     log.d("77");
     try {
       final items = await repository.getUserAddresses();
-      updateState(
-        (state) => state.copyWith(
-          loadState: LoadingState.success,
-          items: items,
-        ),
-      );
+      updateState((state) => state.copyWith(
+            loadState: LoadingState.success,
+            items: items,
+          ));
     } on DioException catch (exception) {
       log.e(exception.toString());
       updateState((state) => state.copyWith(loadState: LoadingState.error));

@@ -39,7 +39,7 @@ class SelectionNestedCategoryPage
       body: LoaderStateWidget(
         isFullScreen: true,
         loadingState: state.categoriesState,
-        child: ListView.separated(
+        successBody: ListView.separated(
           physics: BouncingScrollPhysics(),
           scrollDirection: Axis.vertical,
           shrinkWrap: true,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/common/widgets/address/user_address_selection.dart';
+import 'package:onlinebozor/common/widgets/address/user_address_shimmer.dart';
 
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../../../data/responses/address/user_address_response.dart';
@@ -10,8 +11,8 @@ import '../../../common/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
-class SelectionUserAddressPage extends BasePage<PageCubit,
-    PageState, PageEvent> {
+class SelectionUserAddressPage
+    extends BasePage<PageCubit, PageState, PageEvent> {
   const SelectionUserAddressPage({
     super.key,
     this.selectedAddress,
@@ -45,36 +46,56 @@ class SelectionUserAddressPage extends BasePage<PageCubit,
                 LoaderStateWidget(
                   isFullScreen: false,
                   loadingState: state.loadState,
-                  onErrorToAgainRequest: () {
+                  loadingBody: _buildLoadingBody(),
+                  successBody: _buildSuccessBody(state),
+                  onRetryClicked: () {
                     cubit(context).getItems();
                   },
-                  child: ListView.separated(
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    padding: EdgeInsets.symmetric(vertical: 12),
-                    itemCount: state.items.length,
-                    itemBuilder: (context, index) {
-                      var element = state.items[index];
-                      return UserAddressSelection(
-                        address: element,
-                        onClicked: () {
-                          context.router.pop(element);
-                          vibrateAsHapticFeedback();
-                        },
-                        isSelected: selectedAddress?.id == element.id,
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return SizedBox();
-                    },
-                  ),
                 ),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildLoadingBody() {
+    return ListView.separated(
+      physics: BouncingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: 20,
+      itemBuilder: (context, index) {
+        return UserAddressShimmer();
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return Padding(padding: EdgeInsets.only(top: 3, bottom: 3));
+      },
+    );
+  }
+
+  ListView _buildSuccessBody(PageState state) {
+    return ListView.separated(
+      physics: BouncingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      padding: EdgeInsets.symmetric(vertical: 12),
+      itemCount: state.items.length,
+      itemBuilder: (context, index) {
+        var element = state.items[index];
+        return UserAddressSelection(
+          address: element,
+          onClicked: () {
+            context.router.pop(element);
+            vibrateAsHapticFeedback();
+          },
+          isSelected: selectedAddress?.id == element.id,
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return SizedBox();
+      },
     );
   }
 }

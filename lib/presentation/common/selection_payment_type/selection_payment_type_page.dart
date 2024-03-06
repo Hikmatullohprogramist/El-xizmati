@@ -8,6 +8,7 @@ import 'package:onlinebozor/presentation/common/selection_payment_type/cubit/pag
 
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../common/gen/localization/strings.dart';
+import '../../../common/widgets/action/action_item_shimmer.dart';
 import '../../../common/widgets/action/multi_selection_list_item.dart';
 import '../../../common/widgets/divider/custom_diverder.dart';
 
@@ -23,7 +24,7 @@ class SelectionPaymentTypePage
 
   @override
   void onWidgetCreated(BuildContext context) {
-    cubit(context).setInitialSelectedItems(selectedPaymentTypes);
+    cubit(context).setInitialParams(selectedPaymentTypes);
   }
 
   @override
@@ -52,27 +53,8 @@ class SelectionPaymentTypePage
                 LoaderStateWidget(
                   isFullScreen: false,
                   loadingState: state.loadState,
-                  child: ListView.separated(
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: state.items.length,
-                    itemBuilder: (context, index) {
-                      var element = state.items[index];
-                      return MultiSelectionListItem(
-                        item: element,
-                        title: element.name ?? "",
-                        isSelected: state.selectedItems.contains(element),
-                        onClicked: (dynamic item) {
-                          cubit(context).updateSelectedItems(item);
-                        },
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return CustomDivider(
-                          height: 2, startIndent: 20, endIndent: 20);
-                    },
-                  ),
+                  loadingBody: _buildLoadingBody(),
+                  successBody: _buildSuccessBody(state),
                 ),
                 SizedBox(height: 16),
                 Padding(
@@ -89,6 +71,44 @@ class SelectionPaymentTypePage
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildLoadingBody() {
+    return ListView.separated(
+      physics: BouncingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: 7,
+      itemBuilder: (context, index) {
+        return ActionItemShimmer();
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return CustomDivider(startIndent: 48, color: Color(0xFFE5E9F3));
+      },
+    );
+  }
+
+  ListView _buildSuccessBody(PageState state) {
+    return ListView.separated(
+      physics: BouncingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: state.items.length,
+      itemBuilder: (context, index) {
+        var element = state.items[index];
+        return MultiSelectionListItem(
+          item: element,
+          title: element.name ?? "",
+          isSelected: state.selectedItems.contains(element),
+          onClicked: (dynamic item) {
+            cubit(context).updateSelectedItems(item);
+          },
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return CustomDivider(height: 2, startIndent: 20, endIndent: 20);
+      },
     );
   }
 

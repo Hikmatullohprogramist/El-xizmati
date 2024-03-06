@@ -8,6 +8,7 @@ import 'package:onlinebozor/presentation/common/selection_user_warehouse/cubit/p
 
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../common/gen/localization/strings.dart';
+import '../../../common/widgets/action/action_item_shimmer.dart';
 import '../../../common/widgets/action/multi_selection_list_item.dart';
 import '../../../common/widgets/divider/custom_diverder.dart';
 
@@ -49,26 +50,8 @@ class SelectionUserWarehousePage
                 LoaderStateWidget(
                   isFullScreen: false,
                   loadingState: state.loadState,
-                  child: ListView.separated(
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: state.items.length,
-                    itemBuilder: (context, index) {
-                      var element = state.items[index];
-                      return MultiSelectionListItem(
-                        item: element,
-                        title: element.name ?? "",
-                        isSelected: state.selectedItems.contains(element),
-                        onClicked: (dynamic item) {
-                          cubit(context).updateSelectedItems(item);
-                        },
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return CustomDivider(startIndent: 20, endIndent: 20);
-                    },
-                  ),
+                  loadingBody: _buildLoadingBody(),
+                  successBody: _buildSuccessBody(state),
                 ),
                 SizedBox(height: 16),
                 Padding(
@@ -85,6 +68,44 @@ class SelectionUserWarehousePage
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildLoadingBody() {
+    return ListView.separated(
+      physics: BouncingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: 6,
+      itemBuilder: (context, index) {
+        return ActionItemShimmer();
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return CustomDivider(startIndent: 48, color: Color(0xFFE5E9F3));
+      },
+    );
+  }
+
+  ListView _buildSuccessBody(PageState state) {
+    return ListView.separated(
+      physics: BouncingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: state.items.length,
+      itemBuilder: (context, index) {
+        var element = state.items[index];
+        return MultiSelectionListItem(
+          item: element,
+          title: element.name ?? "",
+          isSelected: state.selectedItems.contains(element),
+          onClicked: (dynamic item) {
+            cubit(context).updateSelectedItems(item);
+          },
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return CustomDivider(startIndent: 20, endIndent: 20);
+      },
     );
   }
 }

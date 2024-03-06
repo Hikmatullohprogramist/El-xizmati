@@ -1,18 +1,15 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
+import 'package:onlinebozor/common/widgets/action/action_item_shimmer.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 
 import '../../../common/gen/localization/strings.dart';
-import '../../../common/widgets/action/multi_selection_list_item.dart';
 import '../../../common/widgets/action/multi_selection_list_collapse_item.dart';
 import '../../../common/widgets/bottom_sheet/bottom_sheet_title.dart';
 import '../../../common/widgets/divider/custom_diverder.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
-import '../../../data/responses/region/region_root_response.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -58,32 +55,8 @@ class SelectionAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
                     LoaderStateWidget(
                       isFullScreen: false,
                       loadingState: state.loadState,
-                      child: ListView.separated(
-                        physics: BouncingScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: state.visibleItems.length,
-                        itemBuilder: (context, index) {
-                          var element = state.visibleItems[index];
-                          return MultiSelectionListCollapseItem(
-                            item: element,
-                            title: element.name,
-                            isSelected: element.isSelected,
-                            isOpened: element.isOpened,
-                            isParent: element.isParent,
-                            count: '${state.visibleItems.where((elem) => elem.id/100==element.id).length}',
-                            onCollapseClicked: (dynamic item) {
-                              cubit(context).openOrClose(item);
-                            },
-                            onCheckboxClicked: (item){
-                              cubit(context).updateSelectedState(item);
-                            },
-                          );
-                        },
-                        separatorBuilder: (BuildContext context, int index) {
-                          return CustomDivider(startIndent: 20, endIndent: 20);
-                        },
-                      ),
+                      loadingBody: _buildLoadingBody(),
+                      successBody: _buildSuccessBody(state),
                     ),
                     SizedBox(height: 56),
                   ],
@@ -105,7 +78,48 @@ class SelectionAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget directions() {
-    return Container();
+  Widget _buildLoadingBody() {
+    return ListView.separated(
+      physics: BouncingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: 20,
+      itemBuilder: (context, index) {
+        return ActionItemShimmer();
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return CustomDivider(startIndent: 48, color: Color(0xFFE5E9F3));
+      },
+    );
+  }
+
+  Widget _buildSuccessBody(PageState state) {
+    return ListView.separated(
+      physics: BouncingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: state.visibleItems.length,
+      itemBuilder: (context, index) {
+        var element = state.visibleItems[index];
+        return MultiSelectionListCollapseItem(
+          item: element,
+          title: element.name,
+          isSelected: element.isSelected,
+          isOpened: element.isOpened,
+          isParent: element.isParent,
+          count:
+              '${state.visibleItems.where((elem) => elem.id / 100 == element.id).length}',
+          onCollapseClicked: (dynamic item) {
+            cubit(context).openOrClose(item);
+          },
+          onCheckboxClicked: (item) {
+            cubit(context).updateSelectedState(item);
+          },
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return CustomDivider(startIndent: 20, endIndent: 20);
+      },
+    );
   }
 }
