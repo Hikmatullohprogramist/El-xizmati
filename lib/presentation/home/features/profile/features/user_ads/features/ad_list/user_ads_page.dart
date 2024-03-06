@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -101,19 +103,18 @@ class UserAdsPage extends BasePage<PageCubit, PageState, PageEvent> {
           itemBuilder: (context, item, index) => UserAdWidget(
             onActionClicked: () async {
               // _showAdActions(context);
-
-              final action = await showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                useSafeArea: true,
-                backgroundColor: Colors.transparent,
-                builder: (context) => AdListActionsPage(
-                  key: Key(""),
-                  userAdResponse: item,
-                  userAdStatus: state.userAdStatus,
-                ),
-              );
-
+             final action = await showModalBottomSheet(
+               context: context,
+               isScrollControlled: true,
+               useSafeArea: true,
+               backgroundColor: Colors.transparent,
+               builder: (context) => AdListActionsPage(
+                 key: Key(""),
+                 userAdResponse: item,
+                 userAdStatus: state.userAdStatus,
+               ),
+             );
+             log(action.toString());
               // cubit(context).getAdsController(status: )
             },
             onItemClicked: () {

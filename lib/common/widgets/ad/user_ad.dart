@@ -37,7 +37,7 @@ class UserAdWidget extends StatelessWidget {
             onTap: onItemClicked,
             borderRadius: BorderRadius.circular(6),
             child: Padding(
-              padding: EdgeInsets.only(left: 12, top: 12, right: 12),
+              padding: EdgeInsets.only(left: 12, top: 12, right: 0),
               child: Column(
                 children: [
                   Row(

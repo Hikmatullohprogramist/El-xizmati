@@ -38,5 +38,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         isDeleteEnabled: userAdStatus == UserAdStatus.inactive,
       ),
     );
+
   }
 }

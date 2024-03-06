@@ -103,7 +103,7 @@ class UserAdWidgetShimmer extends StatelessWidget {
                         height: 26,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(3),
+                          borderRadius: BorderRadius.circular(12),
                         ),
                       ),
                     ),
@@ -116,7 +116,7 @@ class UserAdWidgetShimmer extends StatelessWidget {
                         height: 26,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(3),
+                          borderRadius: BorderRadius.circular(12),
                         ),
                       ),
                     ),
@@ -129,7 +129,7 @@ class UserAdWidgetShimmer extends StatelessWidget {
                         height: 26,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(3),
+                          borderRadius: BorderRadius.circular(12),
                         ),
                       ),
                     ),
@@ -142,7 +142,7 @@ class UserAdWidgetShimmer extends StatelessWidget {
                         height: 26,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(3),
+                          borderRadius: BorderRadius.circular(12),
                         ),
                       ),
                     ),
