@@ -39,11 +39,11 @@ import '../../presentation/common/language/set_language/set_language_page.dart';
 import '../../presentation/common/notification/notification_list_page.dart';
 import '../../presentation/common/popular_categories/popular_categories_page.dart';
 import '../../presentation/common/search/search_page.dart';
-import '../../presentation/common/selection_address/selection_region_and_district_page.dart';
 import '../../presentation/common/selection_category/selection_category_page.dart';
 import '../../presentation/common/selection_currency/selection_currency_page.dart';
 import '../../presentation/common/selection_nested_category/selection_nested_category_page.dart';
 import '../../presentation/common/selection_payment_type/selection_payment_type_page.dart';
+import '../../presentation/common/selection_region_and_district/selection_region_and_district_page.dart';
 import '../../presentation/common/selection_unit/selection_unit_page.dart';
 import '../../presentation/common/selection_user_address/selection_user_address_page.dart';
 import '../../presentation/common/selection_user_warehouse/selection_user_warehouse_page.dart';
@@ -326,8 +326,8 @@ class AppRouter extends _$AppRouter {
         ),
 
         AutoRoute(
-          page: SelectionAddressRoute.page,
-          path: '/selection_address',
+          page: SelectionRegionAndDistrictRoute.page,
+          path: '/selection_region_and_district',
         ),
 
         AutoRoute(
