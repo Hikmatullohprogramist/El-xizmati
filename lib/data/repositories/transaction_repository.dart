@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/responses/transaction/payment_transaction_response.dart';
 import 'package:onlinebozor/data/services/payment_transaction_service.dart';
@@ -17,8 +19,15 @@ class PaymentTransactionRepository {
       pageIndex: pageIndex,
     );
 
-    final transactionResponse =
-        PaymentTransactionRootResponse.fromJson(response.data).data;
+    final transactionResponse = PaymentTransactionRootResponse.fromJson(response.data).data;
+    return transactionResponse.results;
+  }
+
+
+  Future<List<PaymentTransactionResponse>> getPaymentTransactionsFilter() async{
+    final response = await paymentTransactionService.getPaymentTransactionFilter();
+
+    final transactionResponse = PaymentTransactionRootResponse.fromJson(response.data).data;
     return transactionResponse.results;
   }
 }

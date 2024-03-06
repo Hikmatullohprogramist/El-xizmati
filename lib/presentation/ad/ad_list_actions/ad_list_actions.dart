@@ -51,7 +51,7 @@ class AdListActionsPage extends BasePage<PageCubit,
             physics: BouncingScrollPhysics(),
             child: Column(
               children: [
-                SizedBox(height: 20),
+                SizedBox(height: 10),
                 BottomSheetTitle(
                   title: Strings.actionTitle,
                   onCloseClicked: () {
@@ -103,6 +103,7 @@ class AdListActionsPage extends BasePage<PageCubit,
                         icon: Assets.images.icActionDeactivate,
                         color: Color(0xFFFA6F5D),
                         onClicked: (item) {
+                         // state.isDeactivateEnabled=true;
                           context.router.pop();
                         },
                       ),

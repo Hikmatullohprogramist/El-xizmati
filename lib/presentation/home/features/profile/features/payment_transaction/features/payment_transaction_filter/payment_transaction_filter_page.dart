@@ -1,14 +1,21 @@
+
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
+import 'package:onlinebozor/common/widgets/snackbar/snackbar_widget.dart';
+import 'package:onlinebozor/domain/models/payment_filter/paymant_filter.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/payment_transaction/features/payment_transaction_filter/cubit/page_cubit.dart';
-
 import '../../../../../../../../common/core/base_page.dart';
+import '../../../../../../../../common/widgets/action/selection_list_item.dart';
 import '../../../../../../../../common/widgets/app_bar/default_app_bar.dart';
+import '../../../../../../../../common/widgets/transaction/transaction_widget.dart';
+import '../../../../../../../../data/responses/transaction/payment_transaction_response.dart';
+import 'package:intl/intl.dart';
 
 @RoutePage()
 class PaymentTransactionFilterPage
@@ -33,31 +40,11 @@ class PaymentTransactionFilterPage
                 Flexible(
                     flex: 1,
                     child: InkWell(
-                        child: Container(
-                            decoration: BoxDecoration(
-                                color: Color(0xFFFAF9FF),
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                  width: 1,
-                                  color: Color(0xFFFAF9FF),
-                                )),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 24, vertical: 16),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Strings.paymentFilterFromDate
-                                    .w(600)
-                                    .s(14)
-                                    .c(Color(0xFF9EABBE)),
-                                Assets.images.icCalendar
-                                    .svg(height: 24, width: 24)
-                              ],
-                            )))),
-                SizedBox(width: 16),
-                Flexible(
-                  flex: 1,
-                  child: InkWell(
+                      onTap: (){
+                      _showDatePicker(context,cubit(context).states.fromDate).then((value) {
+                        cubit(context).fromDate(value);
+                      });
+                      },
                       child: Container(
                           decoration: BoxDecoration(
                               color: Color(0xFFFAF9FF),
@@ -71,10 +58,41 @@ class PaymentTransactionFilterPage
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Strings.paymentFilterToDate
-                                  .w(600)
-                                  .s(14)
-                                  .c(Color(0xFF9EABBE)),
+                              if(state.fromDate.isEmpty)
+                                Strings.paymentFilterFromDate.w(600).s(14).c(Color(0xFF9EABBE)),
+                              if(state.fromDate.isNotEmpty)
+                                state.fromDate.w(600).s(14).c(Colors.black),
+                              Assets.images.icCalendar
+                                  .svg(height: 24, width: 24)
+                            ],
+                          )),
+                    )),
+                SizedBox(width: 16),
+                Flexible(
+                  flex: 1,
+                  child: InkWell(
+                    onTap: (){
+                      _showDatePicker(context,cubit(context).states.toDate).then((value) {
+                        cubit(context).toDate(value);
+                      });
+                    },
+                      child: Container(
+                          decoration: BoxDecoration(
+                              color: Color(0xFFFAF9FF),
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                width: 1,
+                                color: Color(0xFFFAF9FF),
+                              )),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 16),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              if(state.toDate.isEmpty)
+                                Strings.paymentFilterToDate.w(600).s(14).c(Color(0xFF9EABBE)),
+                              if(state.toDate.isNotEmpty)
+                                state.toDate.w(600).s(14).c(Colors.black),
                               Assets.images.icCalendar
                                   .svg(height: 24, width: 24)
                             ],
@@ -84,71 +102,97 @@ class PaymentTransactionFilterPage
             ),
           ),
           InkWell(
-              onTap: () {},
+              onTap: ()  async{
+                  var result= await showResultBottomSheet(context,state.paymentTypes);
+                  cubit(context).paymentTypes();
+                  cubit(context).states.paymentTypes[result].isSelected=true;
+                  cubit(context).setPaymentType(state.paymentTypes[result].name);
+              },
               child: Padding(
                 padding: EdgeInsets.all(16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Strings.paymentFilterPaymentType
-                        .w(400)
-                        .c(Colors.black)
-                        .s(12),
-                    Spacer(),
-                    Strings.paymentFilterAll.w(400).s(12).c(Color(0xFF9EABBE)),
-                    SizedBox(width: 16),
-                    Assets.images.icArrowRight.svg(width: 24, height: 24)
+                    if(cubit(context).states.paymentType.isNotEmpty)
+                    Strings.paymentFilterPaymentType.w(400).c(Color(0xFF9EABBE)).s(12),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        if(cubit(context).states.paymentType.isEmpty)
+                        Strings.paymentFilterPaymentType.w(400).c(Colors.black).s(14),
+                        if(cubit(context).states.paymentType.isNotEmpty)
+                          state.paymentType.w(400).c(Colors.black).s(14),
+                        Spacer(),
+                        Strings.paymentFilterAll.w(400).s(12).c(Color(0xFF9EABBE)),
+                        SizedBox(width: 16),
+                        Assets.images.icArrowRight.svg(width: 20, height: 20)
+                      ],
+                    ),
+
+
                   ],
                 ),
               )),
           CustomDivider(height: 1),
           InkWell(
-              onTap: () {},
+              onTap: ()  async{
+                var result= await showResultBottomSheet(context,state.paymentMethods);
+                cubit(context).paymentMethods();
+                cubit(context).states.paymentMethods[result].isSelected=true;
+                cubit(context).setPaymentMethod(state.paymentMethods[result].name);
+              },
               child: Padding(
                 padding: EdgeInsets.all(16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Strings.paymentFilterPaymentMethod
-                        .w(400)
-                        .c(Colors.black)
-                        .s(12),
-                    Spacer(),
-                    Strings.paymentFilterAll.w(400).s(12).c(Color(0xFF9EABBE)),
-                    SizedBox(width: 16),
-                    Assets.images.icArrowRight.svg(width: 24, height: 24),
+                    if(cubit(context).states.paymentMethod.isNotEmpty)
+                    Strings.paymentFilterPaymentMethod.w(400).c(Color(0xFF9EABBE)).s(12),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        if(cubit(context).states.paymentMethod.isEmpty)
+                        Strings.paymentFilterPaymentMethod.w(400).c(Colors.black).s(14),
+                        if(cubit(context).states.paymentMethod.isNotEmpty)
+                          state.paymentMethod.w(400).c(Colors.black).s(14),
+                        Spacer(),
+                        Strings.paymentFilterAll.w(400).s(12).c(Color(0xFF9EABBE)),
+                        SizedBox(width: 16),
+                        Assets.images.icArrowRight.svg(width: 20, height: 20),
+                      ],
+                    ),
                   ],
                 ),
               )),
           CustomDivider(height: 1),
           InkWell(
-              onTap: () {},
+              onTap: () async{
+                var result= await showResultBottomSheet(context,state.transactionStates);
+                cubit(context).transactionStates();
+                cubit(context).states.transactionStates[result].isSelected=true;
+                cubit(context).setTransactionStates(state.transactionStates[result].name);
+              },
               child: Padding(
                 padding: EdgeInsets.all(16),
-                child: Row(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Strings.paymentFilterType.w(400).c(Colors.black).s(12),
-                    Spacer(),
-                    Strings.paymentFilterAll.w(400).s(12).c(Color(0xFF9EABBE)),
-                    SizedBox(width: 16),
-                    Assets.images.icArrowRight.svg(width: 24, height: 24)
-                  ],
-                ),
-              )),
-          CustomDivider(height: 1),
-          InkWell(
-              onTap: () {},
-              child: Padding(
-                padding: EdgeInsets.all(16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Strings.paymentFilterStatus.w(400).c(Colors.black).s(12),
-                    Spacer(),
-                    Strings.paymentFilterAll.w(400).s(12).c(Color(0xFF9EABBE)),
-                    SizedBox(width: 16),
-                    Assets.images.icArrowRight.svg(width: 24, height: 24)
+                    if(cubit(context).states.transactionState.isNotEmpty)
+                      Strings.paymentFilterStatus.w(400).c(Color(0xFF9EABBE)).s(12),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        if(cubit(context).states.transactionState.isEmpty)
+                        Strings.paymentFilterStatus.w(400).c(Colors.black).s(14),
+                        if(cubit(context).states.transactionState.isNotEmpty)
+                          state.transactionState.w(400).c(Colors.black).s(14),
+                        Spacer(),
+                        Strings.paymentFilterAll.w(400).s(12).c(Color(0xFF9EABBE)),
+                        SizedBox(width: 16),
+                        Assets.images.icArrowRight.svg(width: 20, height: 20)
+                      ],
+                    ),
                   ],
                 ),
               )),
@@ -164,7 +208,9 @@ class PaymentTransactionFilterPage
                     child: SizedBox(
                       child: CustomElevatedButton(
                         text: Strings.commonFilterReset,
-                        onPressed: () {},
+                        onPressed: () {
+                          cubit(context).clearAllFilter();
+                        },
                       ),
                     ),
                   ),
@@ -176,7 +222,13 @@ class PaymentTransactionFilterPage
                     child: SizedBox(
                       child: CustomElevatedButton(
                         text: Strings.commonApply,
-                        onPressed: () {},
+                        onPressed: () {
+                          if(_filterData(context).isEmpty){
+                             context.showCustomSnackBar(message: 'Transactions not found');
+                          }else{
+                            showFilterList(context,_filterData(context));
+                          }
+                        },
                       ),
                     ),
                   ),
@@ -188,5 +240,164 @@ class PaymentTransactionFilterPage
         ],
       ),
     );
+  }
+
+  Future<String> _showDatePicker(BuildContext context, String date) async {
+    if (date.isEmpty) {
+      date = DateFormat("dd.MM.yyyy").format(DateTime.now());
+    }
+    var result = await showDatePicker(
+      context: context,
+      initialDate: DateFormat("dd.MM.yyyy").parseStrict(date),
+      firstDate: DateTime(2020),
+      lastDate: DateTime(2025),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            primaryColor: Colors.black, // Set your primary color here
+            colorScheme: ColorScheme.light(primary: Color(0xFF5C6AC3)),
+            buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
+          ),
+          child: child!,
+        );
+      },
+
+    );
+    return DateFormat('dd.MM.yyyy').format(result!);
+  }
+
+  Future<int> showResultBottomSheet(BuildContext context, List<PaymentFilter> items) async {
+       var selectedIndex = 3;
+      await showModalBottomSheet(
+         context: context,
+         isScrollControlled: true,
+         useSafeArea: true,
+         backgroundColor: Colors.transparent,
+         builder: (context) =>
+             Container(
+               padding: EdgeInsets.symmetric(vertical: 20),
+               decoration: BoxDecoration(
+                 color: Colors.white,
+                 borderRadius: BorderRadius.only(
+                   topLeft: Radius.circular(10.0),
+                   // Adjust the radius as needed
+                   topRight: Radius.circular(
+                       10.0), // Adjust the radius as needed
+                 ),
+               ),
+               child:
+               ListView.separated(
+                 physics: BouncingScrollPhysics(),
+                 scrollDirection: Axis.vertical,
+                 shrinkWrap: true,
+                 itemCount: items.length,
+                 itemBuilder: (context, index) {
+                   var element = items[index];
+                   return SelectionListItem(
+                     item: element,
+                     title: element.name,
+                     isSelected: element.isSelected,
+                     onClicked: (dynamic item) async {
+                       selectedIndex = index;
+                       context.router.pop(item);
+                     },
+                   );
+                 },
+                 separatorBuilder: (BuildContext context, int index) {
+                   return CustomDivider(
+                       height: 2, startIndent: 20, endIndent: 20);
+                 },
+               ),
+             ),
+       );
+       return selectedIndex;
+
+  }
+
+  void showFilterList(
+      BuildContext context, List<PaymentTransactionResponse> items) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => InkWell(
+        onTap: () {
+          context.router.pop();
+        },
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.75,
+          padding: EdgeInsets.symmetric(vertical: 20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10.0), // Adjust the radius as needed
+              topRight: Radius.circular(10.0), // Adjust the radius as needed
+            ),
+          ),
+          child: ListView.builder(
+            physics: BouncingScrollPhysics(),
+            itemCount: items.length,
+            itemBuilder: (context, index) {
+              var item = items[index];
+              return TransactionWidget(transaction: item);
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  List<PaymentTransactionResponse> _filterData(BuildContext context) {
+    var response = cubit(context).states.transactionList;
+
+    if (cubit(context).states.paymentType == "Reklama") {
+      response = response.where((element) => element.type == "ADS").toList();
+    }
+    if (cubit(context).states.paymentType == "Hamyon") {
+      response = response.where((element) => element.type == "WALLET").toList();
+    }
+
+    if (cubit(context).states.paymentMethod == "Hamyon") {
+      response =
+          response.where((element) => element.pay_method == "WALLET").toList();
+    }
+    if (cubit(context).states.paymentMethod == "REALPAY") {
+      response =
+          response.where((element) => element.pay_method == "REALPAY").toList();
+    }
+
+    if (cubit(context).states.transactionState == "To'landi") {
+      response =
+          response.where((element) => element.pay_status == "PAID").toList();
+    }
+    if (cubit(context).states.transactionState == "To'lanmadi") {
+      response = response.where((element) => element.pay_status == "").toList();
+    }
+    if (cubit(context).states.fromDate.isNotEmpty) {
+      response = response
+          .where((element) =>
+              compareDate(element.pay_date, cubit(context).states.fromDate))
+          .toList();
+    }
+    if (cubit(context).states.toDate.isNotEmpty) {
+      response = response
+          .where((element) =>
+              compareDate(cubit(context).states.toDate, element.pay_date))
+          .toList();
+    }
+
+    return response;
+  }
+
+  bool compareDate(String str1, String str2) {
+    DateFormat format = DateFormat("dd.MM.yyyy");
+    DateTime date1 = format.parseStrict(str1.substring(0, 10));
+    DateTime date2 = format.parseStrict(str2.substring(0, 10));
+    if (date1.compareTo(date2) > 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

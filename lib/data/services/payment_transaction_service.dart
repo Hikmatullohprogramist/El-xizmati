@@ -17,4 +17,7 @@ class PaymentTransactionService {
   }) async {
     return _dio.get("v1/user/billings");
   }
+  Future<Response> getPaymentTransactionFilter() async {
+    return _dio.get("v1/user/billings");
+  }
 }

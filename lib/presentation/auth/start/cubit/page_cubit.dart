@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:external_app_launcher/external_app_launcher.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';

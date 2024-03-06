@@ -8,8 +8,11 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
+import 'package:onlinebozor/common/widgets/cart/cart_sub_widget_shimmer.dart';
 import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
+import 'package:shimmer/shimmer.dart';
 
+import '../../../../../../common/colors/static_colors.dart';
 import '../../../../../../common/constants.dart';
 import '../../../../../../common/core/base_page.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
@@ -622,11 +625,7 @@ class OrderCreatePage extends BasePage<PageCubit, PageState, PageEvent> {
             leading: IconButton(
                 onPressed: () => context.router.pop(),
                 icon: Assets.images.icArrowLeft.svg(height: 24, width: 24))),
-        body: Center(
-            child: CircularProgressIndicator(
-          backgroundColor: Colors.red,
-          strokeWidth: 8,
-        )),
+        body: detailShimmer(),
       );
     }
   }

@@ -1,12 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
+import 'package:onlinebozor/common/enum/enums.dart';
 import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 
 import '../../../../../common/widgets/category/category_widget.dart';
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../../../data/responses/category/category/category_response.dart';
 import '../../../common/widgets/app_bar/default_app_bar.dart';
+import '../../../common/widgets/category/category_shimmer.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -39,24 +41,49 @@ class SelectionNestedCategoryPage
       body: LoaderStateWidget(
         isFullScreen: true,
         loadingState: state.categoriesState,
-        successBody: ListView.separated(
-          physics: BouncingScrollPhysics(),
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          itemCount: state.visibleCategories.length,
-          itemBuilder: (context, index) {
-            return CategoryWidget(
-              category: state.visibleCategories[index],
-              onClicked: (CategoryResponse categoryResponse) {
-                cubit(context).selectCategory(categoryResponse);
-              },
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return CustomDivider(startIndent: 54, color: Color(0xFFE5E9F3));
-          },
+        successBody: Stack(
+          children: [
+            state.categoriesState == LoadingState.loading
+                ? _buildShimmerLoadingItems()
+                : _buildCategoryItems(state)
+          ],
         ),
       ),
+    );
+  }
+
+  ListView _buildShimmerLoadingItems() {
+    return ListView.separated(
+      physics: BouncingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: 20,
+      itemBuilder: (context, index) {
+        return CategoryShimmer();
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return CustomDivider(startIndent: 48, color: Color(0xFFE5E9F3));
+      },
+    );
+  }
+
+  ListView _buildCategoryItems(PageState state) {
+    return ListView.separated(
+      physics: BouncingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: state.visibleCategories.length,
+      itemBuilder: (context, index) {
+        return CategoryWidget(
+          category: state.visibleCategories[index],
+          onClicked: (CategoryResponse categoryResponse) {
+            cubit(context).selectCategory(categoryResponse);
+          },
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return CustomDivider(startIndent: 54, color: Color(0xFFE5E9F3));
+      },
     );
   }
 }

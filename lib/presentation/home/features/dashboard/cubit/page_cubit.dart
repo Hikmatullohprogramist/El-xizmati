@@ -130,7 +130,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           recentlyViewedAdsState: LoadingState.success,
         ),
       );
-      log.e(777);
     } on DioException catch (e, stackTrace) {
       updateState(
         (state) => state.copyWith(recentlyViewedAdsState: LoadingState.error),
@@ -144,7 +143,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   Future<void> getBanners() async {
-    log.e("kekf");
     try {
       final banners = await commonRepository.getBanner();
       updateState(
