@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -27,11 +28,12 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       if (districts != null) {
         List<District> selectedItems = [];
         selectedItems.addAll(districts);
-        updateState(
-          (state) => state.copyWith(
-            selectedItems: districts.map((e) => e.toRegionItem()).toList(),
-          ),
-        );
+        updateState((state) => state.copyWith(
+              initialSelectedItems: districts
+                  .map(
+                      (e) => e.toRegionItem(isSelected: true, isVisible: false))
+                  .toList(),
+            ));
       }
     } catch (e) {
       log.e(e.toString());
@@ -41,11 +43,37 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> getRegionAndDistricts() async {
     try {
       final response = await repository.getRegionAndDistricts();
+      var allRegions = response.regions;
+      var allDistricts = response.districts;
+      List<RegionItem> allItems = [];
+
+      var sd = states.initialSelectedItems;
+      for (var region in allRegions) {
+        var districts = allDistricts
+            .where((district) => district.regionId == region.id)
+            .map(
+              (district) => district.toRegionItem(
+                  isSelected:
+                      sd.firstWhereOrNull((e) => e.id == district.id) != null),
+            );
+
+        var isAllChildSelected =
+            districts.firstWhereOrNull((e) => e.isSelected == false) == null;
+        allItems.add(region.toRegionItem(
+          isSelected: isAllChildSelected,
+          isVisible: true,
+        ));
+        allItems.addAll(districts);
+      }
+
+      log.w("getRegionAndDistricts allItems length = ${allItems.length}");
+
       updateState(
         (state) => state.copyWith(
-          allRegions: response.regions,
-          allDistricts: response.districts,
-          visibleItems: response.regions.map((e) => e.toRegionItem()).toList(),
+          allRegions: allRegions,
+          allDistricts: allDistricts,
+          allItems: allItems,
+          visibleItems: allItems.where((e) => e.isVisible).toList(),
           loadState: LoadingState.success,
         ),
       );
@@ -60,19 +88,53 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     updateState((state) => state.copyWith(regionId: regionId));
   }
 
-  void updateSelectedItems(District district) {
+  void updateSelectedState(RegionItem regionItem) {
     try {
-      var selectedItems = List<RegionItem>.from(states.selectedItems);
-      var regionItem = district.toRegionItem();
-      if (states.selectedItems.contains(regionItem)) {
-        selectedItems.remove(regionItem);
-      } else {
-        selectedItems.add(regionItem);
-      }
+      if (states.visibleItems.contains(regionItem)) {
+        var allItems = List<RegionItem>.from(states.allItems);
 
-      updateState((state) => state.copyWith(selectedItems: selectedItems));
+        if (regionItem.isParent) {
+          allItems
+              .where((e) => e.parentId == regionItem.id)
+              .forEach((child) => child.isSelected = !regionItem.isSelected);
+
+          var index = allItems.indexOf(regionItem);
+          allItems[index].isSelected = !regionItem.isSelected;
+        } else {
+          var index = allItems.indexOf(regionItem);
+          allItems[index].isSelected = !regionItem.isSelected;
+
+          bool hasUnSelectedChild = allItems
+                  .where((e) => e.id == regionItem.id && !e.isSelected)
+                  .firstOrNull != null;
+
+          allItems
+              .firstWhereOrNull((e) => e.id == regionItem.parentId)
+              ?.isSelected = !hasUnSelectedChild;
+        }
+        updateState((state) => state.copyWith(
+              allItems: allItems,
+              visibleItems: allItems.where((e) => e.isVisible).toList(),
+            ));
+      }
     } catch (e) {
       log.e(e.toString());
     }
+  }
+
+  void openOrClose(RegionItem regionItem) {
+    var allItems = states.allItems;
+    allItems.where((element) => element.parentId == regionItem.id).forEach((e) {
+      e.isVisible = !e.isVisible;
+    });
+    allItems.firstWhere((e) => e.id == regionItem.id).isOpened =
+        !regionItem.isOpened;
+
+    updateState(
+      (state) => state.copyWith(
+        allItems: allItems,
+        visibleItems: allItems.where((e) => e.isVisible).toList(),
+      ),
+    );
   }
 }

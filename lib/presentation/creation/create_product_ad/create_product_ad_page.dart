@@ -573,7 +573,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               alignment: WrapAlignment.start,
               crossAxisAlignment: WrapCrossAlignment.start,
               runAlignment: WrapAlignment.start,
-              children: _buildDeliveryForFree(context, state),
+              children: _buildFreeDeliveryChips(context, state),
             ),
           ),
           SizedBox(height: 10),
@@ -604,7 +604,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               alignment: WrapAlignment.start,
               crossAxisAlignment: WrapCrossAlignment.start,
               runAlignment: WrapAlignment.start,
-              children: _buildDeliveryForFree(context, state),
+              children: _buildPaidDeliveryChips(context, state),
             ),
           ),
           SizedBox(height: 6),
@@ -782,12 +782,12 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         onAddClicked: () async {
           final pickupAddresses = await showModalBottomSheet(
             context: context,
-            isScrollControlled: true,
+            isScrollControlled: false,
             useSafeArea: true,
             backgroundColor: Colors.transparent,
             builder: (context) => SelectionUserWarehousePage(
               key: Key(""),
-              selectedItems: state.pickupAddresses,
+              selectedItems: state.pickupWarehouses,
             ),
           );
 
@@ -795,13 +795,13 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         },
       ),
     );
-    chips.addAll(state.pickupAddresses
+    chips.addAll(state.pickupWarehouses
         .map(
           (element) => ChipsItem(
             item: element,
             title: element.name ?? "",
             onRemoveClicked: (item) {
-              cubit(context).removeSelectedPickupAddress(element);
+              cubit(context).removePickupWarehouse(element);
             },
           ),
         )
@@ -809,32 +809,65 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     return chips;
   }
 
-  List<Widget> _buildDeliveryForFree(BuildContext context, PageState state) {
+  List<Widget> _buildFreeDeliveryChips(BuildContext context, PageState state) {
     List<Widget> chips = [];
     chips.add(
       ChipsAddItem(
         onAddClicked: () async {
-          final paymentTypes = await showModalBottomSheet(
+          final districts = await showModalBottomSheet(
             context: context,
             isScrollControlled: true,
             useSafeArea: true,
             backgroundColor: Colors.transparent,
             builder: (context) => SelectionAddressPage(
               key: Key(""),
-              selectedPaymentTypes: state.paymentType,
+              initialSelectedDistricts: state.freeDeliveryDistricts,
             ),
           );
-          cubit(context).setSelectedDeliveryForFree(paymentTypes);
+          cubit(context).setFreeDeliveryDistricts(districts);
         },
       ),
     );
-    chips.addAll(state.paymentType
+    chips.addAll(state.freeDeliveryDistricts
         .map(
           (element) => ChipsItem(
             item: element,
             title: element.name ?? "",
             onRemoveClicked: (item) {
-              cubit(context).removeSelectedDeliveryForFree(element);
+              cubit(context).removeFreeDeliveryDistrict(element);
+            },
+          ),
+        )
+        .toList());
+    return chips;
+  }
+
+  List<Widget> _buildPaidDeliveryChips(BuildContext context, PageState state) {
+    List<Widget> chips = [];
+    chips.add(
+      ChipsAddItem(
+        onAddClicked: () async {
+          final districts = await showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            useSafeArea: true,
+            backgroundColor: Colors.transparent,
+            builder: (context) => SelectionAddressPage(
+              key: Key(""),
+              initialSelectedDistricts: state.paidDeliveryDistricts,
+            ),
+          );
+          cubit(context).setPaidDeliveryDistricts(districts);
+        },
+      ),
+    );
+    chips.addAll(state.freeDeliveryDistricts
+        .map(
+          (element) => ChipsItem(
+            item: element,
+            title: element.name ?? "",
+            onRemoveClicked: (item) {
+              cubit(context).removePaidDeliveryDistrict(element);
             },
           ),
         )

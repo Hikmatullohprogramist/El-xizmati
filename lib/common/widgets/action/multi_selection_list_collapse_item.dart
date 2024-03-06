@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/vibrator/vibrator_extension.dart';
@@ -12,72 +11,90 @@ class MultiSelectionListCollapseItem extends StatelessWidget {
     required this.item,
     required this.title,
     required this.isSelected,
-    required this.onClicked,
+    required this.isOpened,
+    required this.isParent,
     required this.count,
+    required this.onCollapseClicked,
+    required this.onCheckboxClicked,
   });
 
   final dynamic item;
   final String title;
   final bool isSelected;
+  final bool isOpened;
+  final bool isParent;
   final String count;
-  final Function(dynamic item) onClicked;
+  final Function(dynamic item) onCollapseClicked;
+  final Function(dynamic item) onCheckboxClicked;
 
   @override
   Widget build(BuildContext context) {
-    bool checkbox = false;
-    return InkWell(
-      onTap: () {
-        onClicked(item);
-        vibrateAsHapticFeedback();
-      },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: EdgeInsets.only(top: 16, bottom: 16, right: 20, left: 20),
-            color: Colors.transparent,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(
-                        isSelected
-                            ? 'assets/images/ic_action_arrow_down.svg'
-                            : 'assets/images/ic_action_arrow_to_right.svg',
-                        // Replace with your SVG file path
-                        width: 10, // Set the width
-                        height: 10, // Set the height
-                        color: isSelected
-                            ? Colors.blueAccent
-                            : Colors.black, // Set the color
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      (title)
-                          .toString()
-                          .w(500)
-                          .s(16)
-                          .c(context.colors.textPrimary)
-                          .copyWith(
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                    ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () {
+                    onCollapseClicked(item);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        top: 16, bottom: 16, right: 20, left: 20),
+                    child: Row(
+                      children: [
+                        Visibility(
+                          visible: isParent,
+                          child: (isOpened
+                                  ? Assets.images.icArrowDown
+                                  : Assets.images.icArrowUp)
+                              .svg(),
+                        ),
+                        Visibility(
+                          visible: !isParent,
+                          child: SizedBox(width: 24),
+                        ),
+                        SizedBox(width: 15),
+                        ("$title$title$title")
+                            .toString()
+                            .w(500)
+                            .s(16)
+                            .c(context.colors.textPrimary)
+                            .copyWith(
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                      ],
+                    ),
                   ),
                 ),
-                (isSelected
-                        ? Assets.images.icCheckboxSelected
-                        : Assets.images.icCheckboxUnselected)
-                    .svg(height: 20, width: 20),
-              ],
+              ),
             ),
-          ),
-        ],
-      ),
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  onCheckboxClicked(item);
+                  vibrateAsHapticFeedback();
+                },
+                borderRadius: BorderRadius.circular(32),
+                child: Container(
+                  padding: EdgeInsets.only(
+                      top: 16, bottom: 16, right: 20, left: 20),
+                  child: (isSelected
+                          ? Assets.images.icCheckboxSelected
+                          : Assets.images.icCheckboxUnselected)
+                      .svg(height: 20, width: 20),
+                ),
+              ),
+            )
+          ],
+        ),
+      ],
     );
   }
 }

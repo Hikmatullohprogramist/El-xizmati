@@ -23,13 +23,14 @@ extension RegionResponseExts on RegionResponse {
 }
 
 extension RegionExts on Region {
-  RegionItem toRegionItem({bool isSelected = false}) {
+  RegionItem toRegionItem({bool isSelected = false, bool isVisible = false}) {
     return RegionItem(
       id: id,
       parentId: 0,
       name: name,
       isParent: true,
       isSelected: isSelected,
+      isVisible: isVisible,
     );
   }
 }
@@ -41,13 +42,14 @@ extension DistrictResponseExts on DistrictResponse {
 }
 
 extension DistrictExts on District {
-  RegionItem toRegionItem({bool isSelected = false}) {
+  RegionItem toRegionItem({bool isSelected = false, bool isVisible = false}) {
     return RegionItem(
       id: id,
       parentId: regionId,
       name: name,
       isParent: false,
       isSelected: isSelected,
+      isVisible: isVisible,
     );
   }
 }

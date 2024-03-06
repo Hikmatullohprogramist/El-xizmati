@@ -5,6 +5,8 @@ class RegionItem {
     required this.name,
     this.isParent = false,
     this.isSelected = false,
+    this.isVisible = false,
+    this.isOpened = true,
   });
 
   int id;
@@ -12,4 +14,6 @@ class RegionItem {
   String name;
   bool isParent;
   bool isSelected;
+  bool isVisible;
+  bool isOpened;
 }

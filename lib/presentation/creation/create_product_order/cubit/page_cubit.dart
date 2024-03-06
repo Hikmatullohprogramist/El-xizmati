@@ -2,12 +2,13 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/responses/address/user_address_response.dart';
+import 'package:onlinebozor/domain/models/district/district.dart';
 
 import '../../../../../../common/core/base_cubit.dart';
 import '../../../../../../data/responses/category/category/category_response.dart';
 import '../../../../data/responses/currencies/currency_response.dart';
 import '../../../../data/responses/payment_type/payment_type_response.dart';
-import '../../../../data/responses/region/region_response.dart';
+import '../../../../data/responses/region/region_root_response.dart';
 
 part 'page_cubit.freezed.dart';
 
@@ -90,7 +91,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         isPhoneValid;
   }
 
-  void setSelectedPaymentTypes(List<PaymentTypeResponse>? selectedPaymentTypes) {
+  void setSelectedPaymentTypes(
+      List<PaymentTypeResponse>? selectedPaymentTypes) {
     try {
       if (selectedPaymentTypes != null) {
         var paymentTypes = List<PaymentTypeResponse>.from(states.paymentTypes);
@@ -108,19 +110,17 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  void setSelectedDeleveryForFree(
-    List<RegionResponse>? selectedPaymentTypes,
-  ) {
+  void setSelectedFreeDelivery(List<District>? districts) {
     try {
-      if (selectedPaymentTypes != null) {
-        var paymentTypes = List<RegionResponse>.from(states.paymentType);
-        paymentTypes.clear();
+      if (districts != null) {
+        var selectedDistrict = List<District>.from(states.paymentType);
+        selectedDistrict.clear();
 
-        if (selectedPaymentTypes.isNotEmpty) {
-          paymentTypes.addAll(selectedPaymentTypes);
-          paymentTypes = paymentTypes.toSet().toList();
+        if (districts.isNotEmpty) {
+          selectedDistrict.addAll(districts);
+          selectedDistrict = selectedDistrict.toSet().toList();
         }
-        updateState((state) => state.copyWith(paymentType: paymentTypes));
+        updateState((state) => state.copyWith(paymentType: selectedDistrict));
       }
     } catch (e) {
       log.e(e.toString());

@@ -4,9 +4,10 @@ part of 'page_cubit.dart';
 class PageState with _$PageState {
   const factory PageState({
     @Default(LoadingState.loading) LoadingState loadState,
+    @Default([]) List<RegionItem> initialSelectedItems,
     @Default([]) List<Region> allRegions,
     @Default([]) List<District> allDistricts,
-    @Default([]) List<RegionItem> selectedItems,
+    @Default([]) List<RegionItem> allItems,
     @Default([]) List<RegionItem> visibleItems,
     int? regionId,
     int? districtId,

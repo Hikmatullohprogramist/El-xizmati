@@ -33,7 +33,7 @@ class SelectionAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return SizedBox(
       width: double.infinity,
-      height: MediaQuery.sizeOf(context).height * .9,
+      height: MediaQuery.sizeOf(context).height * 0.9,
       child: ClipRRect(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
@@ -65,70 +65,23 @@ class SelectionAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
                         itemCount: state.visibleItems.length,
                         itemBuilder: (context, index) {
                           var element = state.visibleItems[index];
-                          return Column(
-                            children: [
-                              MultiSelectionListCollapseItem(
-                                item: element,
-                                title: element.name,
-                                isSelected: element.isSelected,
-                                onClicked: (dynamic item) {
-                                  cubit(context).setRegion(element.id);
-                                  cubit(context).updateSelectedItems(item);
-
-                                  log("kkk");
-                                },
-                                count: '${state.selectedItems.where((elem) => elem.id/100==element.id).length}',
-                              ),
-                              Visibility(
-                                  visible:
-                                      state.selectedItems.contains(element),
-                                  child: LoaderStateWidget(
-                                    isFullScreen: false,
-                                    loadingState: state.loadState,
-                                    child: ListView.separated(
-                                      physics: BouncingScrollPhysics(),
-                                      scrollDirection: Axis.vertical,
-                                      shrinkWrap: true,
-                                      itemCount: state.allDistricts.length,
-                                      itemBuilder: (context, index) {
-                                        var element2 = state.allDistricts[index];
-                                        return Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 25),
-                                          child: MultiSelectionListItem(
-                                            item: element2,
-                                            title: element2.name,
-                                            isSelected: state.selectedItems
-                                                .contains(element2),
-                                            onClicked: (dynamic item2) {
-                                              log("oo");
-                                              log(element.name);
-                                              log(element2.name);
-
-
-                                              cubit(context)
-                                                  .updateSelectedItems(item2);
-
-                                             // selectedPaymentTypes.
-                                            },
-                                          ),
-                                        );
-                                      },
-                                      separatorBuilder:
-                                          (BuildContext context, int index) {
-                                        return CustomDivider(
-                                            height: 2,
-                                            startIndent: 20,
-                                            endIndent: 20);
-                                      },
-                                    ),
-                                  )),
-                            ],
+                          return MultiSelectionListCollapseItem(
+                            item: element,
+                            title: element.name,
+                            isSelected: element.isSelected,
+                            isOpened: element.isOpened,
+                            isParent: element.isParent,
+                            count: '${state.visibleItems.where((elem) => elem.id/100==element.id).length}',
+                            onCollapseClicked: (dynamic item) {
+                              cubit(context).openOrClose(item);
+                            },
+                            onCheckboxClicked: (item){
+                              cubit(context).updateSelectedState(item);
+                            },
                           );
                         },
                         separatorBuilder: (BuildContext context, int index) {
-                          return CustomDivider(
-                              height: 2, startIndent: 20, endIndent: 20);
+                          return CustomDivider(startIndent: 20, endIndent: 20);
                         },
                       ),
                     ),
@@ -142,7 +95,7 @@ class SelectionAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
               child: CustomElevatedButton(
                 text: Strings.commonSave,
                 onPressed: () {
-                  context.router.pop(state.selectedItems);
+                  context.router.pop(state.visibleItems);
                 },
               ),
             ),
