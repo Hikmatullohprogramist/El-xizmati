@@ -2,11 +2,13 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
+import 'package:onlinebozor/domain/mappers/region_mapper.dart';
+import 'package:onlinebozor/domain/models/district/district.dart';
+import 'package:onlinebozor/domain/models/region/region.dart';
+import 'package:onlinebozor/domain/models/region/region_item.dart';
 
 import '../../../../common/enum/enums.dart';
-import '../../../../data/repositories/ad_creation_repository.dart';
 import '../../../../data/repositories/user_repository.dart';
-import '../../../../data/responses/region/region_response.dart';
 
 part 'page_cubit.freezed.dart';
 
@@ -14,34 +16,36 @@ part 'page_state.dart';
 
 @Injectable()
 class PageCubit extends BaseCubit<PageState, PageEvent> {
-  PageCubit(this._repository, this._userRepository) : super(const PageState()){
-    getRegions();
-    //getDistrict();
+  PageCubit(this.repository) : super(const PageState()) {
+    getRegionAndDistricts();
   }
 
-  final AdCreationRepository _repository;
-  final UserRepository _userRepository;
+  final UserRepository repository;
 
-  Future<void> getRegions() async {
+  void setInitialParams(List<District>? districts) {
     try {
-      final response = await _userRepository.getRegions();
-      updateState((state) =>
-          state.copyWith(items: response, loadState: LoadingState.success));
-    } on DioException catch (exception) {
-      log.e(exception.toString());
-      updateState((state) => state.copyWith(loadState: LoadingState.error));
+      if (districts != null) {
+        List<District> selectedItems = [];
+        selectedItems.addAll(districts);
+        updateState(
+          (state) => state.copyWith(
+            selectedItems: districts.map((e) => e.toRegionItem()).toList(),
+          ),
+        );
+      }
+    } catch (e) {
+      log.e(e.toString());
     }
   }
 
-  Future<void> getDistrict() async {
-    final regionId = states.regionId;
-    log.w(regionId);
+  Future<void> getRegionAndDistricts() async {
     try {
-      final response = await _userRepository.getDistricts(regionId ?? 14);
-      log.w(response);
+      final response = await repository.getRegionAndDistricts();
       updateState(
         (state) => state.copyWith(
-          districts: response,
+          allRegions: response.regions,
+          allDistricts: response.districts,
+          visibleItems: response.regions.map((e) => e.toRegionItem()).toList(),
           loadState: LoadingState.success,
         ),
       );
@@ -51,52 +55,19 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  //Future<void> getItems() async {
-//  log.d("111");
-//  try {
-//    final paymentTypes = await _repository.getPaymentTypesForCreationAd();
-//    log.i(paymentTypes.toString());
-//    build((buildable) => buildable.copyWith(
-//        items: paymentTypes,
-//        loadState: LoadingState.success,
-//      ),
-//    );
-//  } on DioException catch (exception) {
-//    log.e(exception.toString());
-//    build(
-//          (buildable) => buildable.copyWith(
-//        loadState: LoadingState.error,
-//      ),
-//    );
-//  }
-//}
-
   void setRegion(int? regionId) {
     log.d(regionId);
     updateState((state) => state.copyWith(regionId: regionId));
-    getDistrict();
   }
 
-  void setInitialSelectedItems(List<RegionResponse>? paymentTypes) {
+  void updateSelectedItems(District district) {
     try {
-      if (paymentTypes != null) {
-        List<RegionResponse> selectedItems = [];
-        selectedItems.addAll(paymentTypes);
-        updateState((state) => state.copyWith(selectedItems: selectedItems));
-      }
-    } catch (e) {
-      log.e(e.toString());
-    }
-  }
-
-  void updateSelectedItems(RegionResponse paymentType) {
-    try {
-      var selectedItems = List<RegionResponse>.from(states.selectedItems);
-
-      if (states.selectedItems.contains(paymentType)) {
-        selectedItems.remove(paymentType);
+      var selectedItems = List<RegionItem>.from(states.selectedItems);
+      var regionItem = district.toRegionItem();
+      if (states.selectedItems.contains(regionItem)) {
+        selectedItems.remove(regionItem);
       } else {
-        selectedItems.add(paymentType);
+        selectedItems.add(regionItem);
       }
 
       updateState((state) => state.copyWith(selectedItems: selectedItems));

@@ -5,22 +5,6 @@ part 'region_response.freezed.dart';
 part 'region_response.g.dart';
 
 @freezed
-class RegionRootResponse with _$RegionRootResponse {
-  const factory RegionRootResponse({
-    dynamic error,
-    dynamic message,
-    dynamic timestamp,
-    int? status,
-    dynamic path,
-    required List<RegionResponse> data,
-    dynamic response,
-  }) = _RegionRootResponse;
-
-  factory RegionRootResponse.fromJson(Map<String, dynamic> json) =>
-      _$RegionRootResponseFromJson(json);
-}
-
-@freezed
 class RegionResponse with _$RegionResponse {
   const factory RegionResponse({
     required int id,

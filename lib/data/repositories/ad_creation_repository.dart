@@ -3,9 +3,11 @@ import 'package:onlinebozor/data/responses/category/category/category_response.d
 import 'package:onlinebozor/data/responses/category/category_selection/category_selection_response.dart';
 import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/services/ad_creation_service.dart';
+import 'package:onlinebozor/domain/models/district/district.dart';
 
 import '../responses/address/user_address_response.dart';
 import '../responses/payment_type/payment_type_response.dart';
+import '../responses/region/region_root_response.dart';
 import '../responses/unit/unit_response.dart';
 import '../storages/user_storage.dart';
 
@@ -55,9 +57,11 @@ class AdCreationRepository {
     required String title,
     required CategoryResponse category,
     required pickedImageIds,
+    required String videoUrl,
     required String desc,
     required int? warehouseCount,
     required UnitResponse? unit,
+    required int minAmount,
     required int? price,
     required CurrencyResponse? currency,
     required List<PaymentTypeResponse> paymentTypes,
@@ -68,7 +72,14 @@ class AdCreationRepository {
     required String contactPerson,
     required String phone,
     required String email,
-    required List<UserAddressResponse> pickupAddresses,
+    required bool isPickupEnabled,
+    required List<UserAddressResponse> pickupWarehouses,
+    required bool isFreeDeliveryEnabled,
+    required int freeDeliveryMaxDay,
+    required List<District> freeDeliveryDistricts,
+    required bool isPaidDeliveryEnabled,
+    required int paidDeliveryMaxDay,
+    required List<District> paidDeliveryDistricts,
     required bool isAutoRenewal,
     required bool isShowMySocialAccount,
   }) async {
@@ -76,9 +87,11 @@ class AdCreationRepository {
       title: title,
       categoryId: category.id,
       pickedImageIds: [],
+      videoUrl: videoUrl,
       desc: desc,
       warehouseCount: warehouseCount,
       unitId: unit?.id,
+      minAmount: minAmount,
       price: price,
       currency: currency?.id,
       paymentTypeIds: paymentTypes.map((e) => "${e.id}").toList(),
@@ -89,6 +102,14 @@ class AdCreationRepository {
       contactPerson: contactPerson,
       phone: phone,
       email: email,
+      isPickupEnabled: isPickupEnabled,
+      pickupWarehouses: pickupWarehouses.map((e) => e.id).toList(),
+      isFreeDeliveryEnabled: isFreeDeliveryEnabled,
+      freeDeliveryMaxDay: freeDeliveryMaxDay,
+      freeDeliveryDistricts: freeDeliveryDistricts.map((e) => e.id).toList(),
+      isPaidDeliveryEnabled: isPaidDeliveryEnabled,
+      paidDeliveryMaxDay: paidDeliveryMaxDay,
+      paidDeliveryDistricts: paidDeliveryDistricts.map((e) => e.id).toList(),
       isAutoRenewal: isAutoRenewal,
       isShowMySocialAccount: isShowMySocialAccount,
     );

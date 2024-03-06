@@ -2,10 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
+import 'package:onlinebozor/domain/models/district/district.dart';
+import 'package:onlinebozor/domain/models/region/region.dart';
+import 'package:onlinebozor/domain/models/street/street.dart';
 
 import '../../../../../../../../../common/core/base_cubit.dart';
 import '../../../../../../../../../data/repositories/user_repository.dart';
-import '../../../../../../../../../data/responses/region/region_response.dart';
 
 part 'page_cubit.freezed.dart';
 
@@ -41,7 +43,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             apartmentNumber: response.home_name ?? "",
             districtId: response.district_id,
             regionId: response.region_id,
-            streetId: response.mahalla_id,
+            neighborhoodId: response.mahalla_id,
             homeNumber: response.home_name.toString(),
             pinfl: response.pinfl,
             tin: response.tin,
@@ -73,11 +75,12 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     final response = await repository.getDistricts(regionId ?? 14);
     if (states.districtId != null) {
       updateState((state) => states.copyWith(
-          districts: response,
-          districtName: response
-              .where((element) => element.id == states.districtId)
-              .first
-              .name));
+            districts: response,
+            districtName: response
+                .where((element) => element.id == states.districtId)
+                .first
+                .name,
+          ));
     } else {
       updateState((state) => states.copyWith(districts: response));
     }
@@ -85,19 +88,22 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> getStreets() async {
     try {
-      final districtId = states.districtId;
-      final response = await repository.getStreets(districtId ?? 1419);
-      if (states.streetId != null) {
+      final districtId = states.districtId!;
+      final neighborhoods = await repository.getNeighborhoods(districtId);
+      if (states.neighborhoodId != null) {
         updateState((state) => states.copyWith(
-            streets: response,
-            streetName: response
-                .where((element) => element.id == states.streetId)
-                .first
-                .name,
-            isLoading: false));
+              neighborhoods: neighborhoods,
+              neighborhoodName: neighborhoods
+                  .where((element) => element.id == states.neighborhoodId)
+                  .first
+                  .name,
+              isLoading: false,
+            ));
       } else {
-        updateState(
-            (state) => states.copyWith(streets: response, isLoading: false));
+        updateState((state) => states.copyWith(
+              neighborhoods: neighborhoods,
+              isLoading: false,
+            ));
       }
     } catch (e) {
       display.error("street error $e");
@@ -111,7 +117,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   void setBiometricNumber(String number) {
     updateState(
-        (state) => states.copyWith(biometricNumber: number.replaceAll(" ", "")));
+      (state) => states.copyWith(biometricNumber: number.replaceAll(" ", "")),
+    );
   }
 
   void setBrithDate(String brithDate) {
@@ -123,44 +130,48 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         phoneNumber: phone.replaceAll(" ", "").replaceAll("+", "")));
   }
 
-  void setRegion(RegionResponse region) {
+  void setRegion(Region region) {
     updateState((state) => states.copyWith(
-        regionId: region.id,
-        regionName: region.name,
-        districtId: null,
-        districtName: "",
-        streetId: null,
-        streetName: ""));
+          regionId: region.id,
+          regionName: region.name,
+          districtId: null,
+          districtName: "",
+          neighborhoodId: null,
+          neighborhoodName: "",
+        ));
     getDistrict();
   }
 
-  void setDistrict(RegionResponse district) {
+  void setDistrict(District district) {
     updateState((state) => states.copyWith(
-        districtId: district.id,
-        districtName: district.name,
-        streetId: null,
-        streetName: ""));
+          districtId: district.id,
+          districtName: district.name,
+          neighborhoodId: null,
+          neighborhoodName: "",
+        ));
     getStreets();
   }
 
-  void setStreet(RegionResponse street) {
-    updateState((state) =>
-        states.copyWith(streetId: street.id, streetName: street.name));
+  void setStreet(Neighborhood neighborhood) {
+    updateState((state) => states.copyWith(
+          neighborhoodId: neighborhood.id,
+          neighborhoodName: neighborhood.name,
+        ));
   }
 
   Future<void> sendUserInfo() async {
     try {
       await repository.sendUserInformation(
-          email: states.email,
-          gender: states.gender ?? "",
-          homeName: states.streetName,
-          mahallaId: states.streetId ?? -1,
-          mobilePhone: states.mobileNumber ?? "",
-          photo: states.photo ?? "",
-          pinfl: states.pinfl ?? -1,
-          postName: states.postName ?? "",
-          phoneNumber: states.phoneNumber);
-      display.success("Muvaffaqiyatli saqlandi");
+        email: states.email,
+        gender: states.gender ?? "",
+        homeName: states.neighborhoodName,
+        mahallaId: states.neighborhoodId ?? -1,
+        mobilePhone: states.mobileNumber ?? "",
+        photo: states.photo ?? "",
+        pinfl: states.pinfl ?? -1,
+        postName: states.postName ?? "",
+        phoneNumber: states.phoneNumber,
+      );
     } catch (e) {
       display.error(Strings.loadingStateError);
     }

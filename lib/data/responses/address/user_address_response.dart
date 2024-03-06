@@ -21,21 +21,21 @@ class UserAddressRootResponse with _$UserAddressRootResponse {
 
 @freezed
 class UserAddressResponse with _$UserAddressResponse{
-  const UserAddressResponse._();
-
   const factory UserAddressResponse({
     required int id,
-    District? region,
-    District? district,
+    UserAddressItemResponse? region,
+    UserAddressItemResponse? district,
+    UserAddressItemResponse? mahalla,
     int? state,
     String? name,
-    District? mahalla,
     String? street_num,
     String? home_num,
     String? apartment_num,
     String? geo,
     bool? is_main,
   }) = _UserAddressResponse;
+
+  const UserAddressResponse._();
 
   String get fullAddress =>
      '${region?.name ?? ''} ${district?.name ?? ''} ${mahalla?.name ?? ''}, ${street_num ?? ''}, ${home_num ?? ''}, ${apartment_num ?? ''}';
@@ -45,12 +45,12 @@ class UserAddressResponse with _$UserAddressResponse{
 }
 
 @freezed
-class District with _$District {
-  const factory District({
+class UserAddressItemResponse with _$UserAddressItemResponse {
+  const factory UserAddressItemResponse({
     int? id,
     String? name,
   }) = _District;
 
-  factory District.fromJson(Map<String, dynamic> json) =>
-      _$DistrictFromJson(json);
+  factory UserAddressItemResponse.fromJson(Map<String, dynamic> json) =>
+      _$UserAddressItemResponseFromJson(json);
 }

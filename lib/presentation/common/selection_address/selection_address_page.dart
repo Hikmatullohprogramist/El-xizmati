@@ -4,28 +4,29 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
+import 'package:onlinebozor/domain/models/district/district.dart';
 
 import '../../../common/gen/localization/strings.dart';
 import '../../../common/widgets/action/multi_selection_list_item.dart';
-import '../../../common/widgets/action/multi_selection_list_item_for_adress.dart';
+import '../../../common/widgets/action/multi_selection_list_collapse_item.dart';
 import '../../../common/widgets/bottom_sheet/bottom_sheet_title.dart';
 import '../../../common/widgets/divider/custom_diverder.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
-import '../../../data/responses/region/region_response.dart';
+import '../../../data/responses/region/region_root_response.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
 class SelectionAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
   const SelectionAddressPage({
     super.key,
-    this.selectedPaymentTypes,
+    this.initialSelectedDistricts,
   });
 
-  final List<RegionResponse>? selectedPaymentTypes;
+  final List<District>? initialSelectedDistricts;
 
   @override
   void init(BuildContext context) {
-    cubit(context).setInitialSelectedItems(selectedPaymentTypes);
+    cubit(context).setInitialParams(initialSelectedDistricts);
   }
 
   @override
@@ -49,7 +50,7 @@ class SelectionAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
                   children: [
                     SizedBox(height: 20),
                     BottomSheetTitle(
-                      title: "Yetgazib berish maznili",
+                      title: "Выбор районов доставки",
                       onCloseClicked: () {
                         context.router.pop();
                       },
@@ -61,17 +62,16 @@ class SelectionAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
                         physics: BouncingScrollPhysics(),
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
-                        itemCount: state.items.length,
+                        itemCount: state.visibleItems.length,
                         itemBuilder: (context, index) {
-                          var element = state.items[index];
+                          var element = state.visibleItems[index];
                           return Column(
                             children: [
-                              MultiSelectionListItemForAddress(
+                              MultiSelectionListCollapseItem(
                                 item: element,
-                                title: element.name ?? "",
-                                isSelected: state.selectedItems.contains(element),
+                                title: element.name,
+                                isSelected: element.isSelected,
                                 onClicked: (dynamic item) {
-                                //  state.items.addAll(state.districts);
                                   cubit(context).setRegion(element.id);
                                   cubit(context).updateSelectedItems(item);
 
@@ -89,9 +89,9 @@ class SelectionAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
                                       physics: BouncingScrollPhysics(),
                                       scrollDirection: Axis.vertical,
                                       shrinkWrap: true,
-                                      itemCount: state.districts.length,
+                                      itemCount: state.allDistricts.length,
                                       itemBuilder: (context, index) {
-                                        var element2 = state.districts[index];
+                                        var element2 = state.allDistricts[index];
                                         return Padding(
                                           padding:
                                               const EdgeInsets.only(left: 25),

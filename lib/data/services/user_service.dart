@@ -72,6 +72,11 @@ class UserService {
     return response;
   }
 
+  Future<Response> getRegionAndDistricts() async {
+    final response = await _dio.get("v1/regions-districts");
+    return response;
+  }
+
   Future<Response> getRegions() async {
     final response = await _dio.get("v1/regions");
     return response;
