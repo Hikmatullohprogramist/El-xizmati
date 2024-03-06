@@ -13,8 +13,9 @@ import '../../../common/widgets/loading/loader_state_widget.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
-class SelectionAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
-  const SelectionAddressPage({
+class SelectionRegionAndDistrictPage
+    extends BasePage<PageCubit, PageState, PageEvent> {
+  const SelectionRegionAndDistrictPage({
     super.key,
     this.initialSelectedDistricts,
   });

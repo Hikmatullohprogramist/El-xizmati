@@ -13,6 +13,7 @@ import 'package:onlinebozor/common/widgets/switch/custom_toggle.dart';
 import 'package:onlinebozor/common/widgets/text_field/custom_dropdown_field.dart';
 import 'package:onlinebozor/common/widgets/text_field/label_text_field.dart';
 import 'package:onlinebozor/presentation/common/selection_currency/selection_currency_page.dart';
+import 'package:onlinebozor/presentation/common/selection_region_and_district/selection_region_and_district_page.dart';
 import 'package:onlinebozor/presentation/common/selection_unit/selection_unit_page.dart';
 import 'package:onlinebozor/presentation/common/selection_user_address/selection_user_address_page.dart';
 import 'package:onlinebozor/presentation/common/selection_user_warehouse/selection_user_warehouse_page.dart';
@@ -24,7 +25,6 @@ import '../../../common/router/app_router.dart';
 import '../../../common/vibrator/vibrator_extension.dart';
 import '../../../common/widgets/button/custom_elevated_button.dart';
 import '../../../common/widgets/text_field/common_text_field.dart';
-import '../../common/selection_address/selection_address_page.dart';
 import '../../common/selection_payment_type/selection_payment_type_page.dart';
 import '../../utils/mask_formatters.dart';
 import 'cubit/page_cubit.dart';
@@ -819,7 +819,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             isScrollControlled: true,
             useSafeArea: true,
             backgroundColor: Colors.transparent,
-            builder: (context) => SelectionAddressPage(
+            builder: (context) => SelectionRegionAndDistrictPage(
               key: Key(""),
               initialSelectedDistricts: state.freeDeliveryDistricts,
             ),
@@ -852,7 +852,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             isScrollControlled: true,
             useSafeArea: true,
             backgroundColor: Colors.transparent,
-            builder: (context) => SelectionAddressPage(
+            builder: (context) => SelectionRegionAndDistrictPage(
               key: Key(""),
               initialSelectedDistricts: state.paidDeliveryDistricts,
             ),

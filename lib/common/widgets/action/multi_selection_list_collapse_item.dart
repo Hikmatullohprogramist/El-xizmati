@@ -66,7 +66,7 @@ class MultiSelectionListCollapseItem extends StatelessWidget {
                         Expanded(
                           child: title
                               .toString()
-                              .w(500)
+                              .w(isSelected ? 600 : 400)
                               .s(16)
                               .c(context.colors.textPrimary)
                               .copyWith(
