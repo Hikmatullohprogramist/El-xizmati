@@ -66,12 +66,12 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _getBannersWidget(BuildContext context, PageState state) {
     return LoaderStateWidget(
-      onErrorToAgainRequest: () {
+      onRetryClicked: () {
         cubit(context).getBanners();
       },
       isFullScreen: false,
       loadingState: state.bannersState,
-      child: BannerWidget(
+      successBody: BannerWidget(
         list: state.banners,
         loadingState: state.bannersState,
       ),
@@ -90,12 +90,12 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
             title: Strings.categoriesTitle,
           ),
           LoaderStateWidget(
-            onErrorToAgainRequest: () {
+            onRetryClicked: () {
               cubit(context).getPopularCategories();
             },
             isFullScreen: false,
             loadingState: state.popularCategoriesState,
-            child: PopularCategoryListWidget(
+            successBody: PopularCategoryListWidget(
               categories: state.popularCategories,
               invoke: (popularCategories) {
                 context.router.push(
@@ -172,11 +172,11 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
           ),
           LoaderStateWidget(
             isFullScreen: false,
-            onErrorToAgainRequest: () {
+            onRetryClicked: () {
               cubit(context).getPopularProductAds();
             },
             loadingState: state.popularProductAdsState,
-            child: HorizontalAdListWidget(
+            successBody: HorizontalAdListWidget(
               ads: state.popularProductAds,
               onItemClicked: (Ad ad) {
                 context.router.push(AdDetailRoute(adId: ad.id));
@@ -212,11 +212,11 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
           ),
           LoaderStateWidget(
             isFullScreen: false,
-            onErrorToAgainRequest: () {
+            onRetryClicked: () {
               cubit(context).getPopularServiceAds();
             },
             loadingState: state.popularServiceAdsState,
-            child: HorizontalAdListWidget(
+            successBody: HorizontalAdListWidget(
               ads: state.popularServiceAds,
               onItemClicked: (Ad ad) {
                 context.router.push(AdDetailRoute(adId: ad.id));
@@ -235,11 +235,11 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget _getTopRatedAdsWidget(BuildContext context, PageState state) {
     return LoaderStateWidget(
       isFullScreen: false,
-      onErrorToAgainRequest: () {
+      onRetryClicked: () {
         cubit(context).getTopRatedAds();
       },
       loadingState: state.popularServiceAdsState,
-      child: TopRatedAdListWidget(
+      successBody: TopRatedAdListWidget(
         ads: state.topRatedAds,
         onItemClicked: (Ad ad) {
           context.router.push(AdDetailRoute(adId: ad.id));
@@ -283,11 +283,11 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
             ),
             LoaderStateWidget(
               isFullScreen: false,
-              onErrorToAgainRequest: () {
+              onRetryClicked: () {
                 cubit(context).getRecentlyViewedAds();
               },
               loadingState: state.recentlyViewedAdsState,
-              child: HorizontalAdListWidget(
+              successBody: HorizontalAdListWidget(
                 ads: state.recentlyViewedAds,
                 onItemClicked: (Ad ad) {
                   context.router.push(AdDetailRoute(adId: ad.id));

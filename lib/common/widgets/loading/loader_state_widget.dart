@@ -9,27 +9,30 @@ class LoaderStateWidget extends StatelessWidget {
     super.key,
     required this.isFullScreen,
     required this.loadingState,
-    required this.child,
-    this.onErrorToAgainRequest,
-    this.onStartWidget,
-    this.onEmptyWidget,
+    required this.successBody,
+    this.initialBody,
+    this.loadingBody,
+    this.emptyBody,
+    this.onRetryClicked,
   });
 
   final bool isFullScreen;
   final LoadingState loadingState;
-  final Widget child;
-  final Widget? onStartWidget;
-  final Widget? onEmptyWidget;
-  final VoidCallback? onErrorToAgainRequest;
+  final Widget successBody;
+  final Widget? initialBody;
+  final Widget? loadingBody;
+  final Widget? emptyBody;
+  final VoidCallback? onRetryClicked;
 
   @override
   Widget build(BuildContext context) {
     return switch (loadingState) {
-      LoadingState.loading => child,
+      LoadingState.loading =>
+        loadingBody ?? LoadingWidget(isFullScreen: isFullScreen),
       LoadingState.error => ErrorWidget(isFullScreen: isFullScreen),
-      LoadingState.success => child,
-      LoadingState.onStart => onStartWidget ?? Center(),
-      LoadingState.empty => onEmptyWidget ?? Center(),
+      LoadingState.success => successBody,
+      LoadingState.onStart => initialBody ?? Center(),
+      LoadingState.empty => emptyBody ?? Center(),
     };
   }
 }

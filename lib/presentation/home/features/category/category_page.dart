@@ -31,7 +31,7 @@ class CategoryPage extends BasePage<PageCubit, PageState, PageEvent> {
       body: LoaderStateWidget(
           isFullScreen: true,
           loadingState: state.loadState,
-          child: Stack(
+          successBody: Stack(
             children: [
               state.loadState == LoadingState.loading
                   ? _buildShimmerLoadingItems()

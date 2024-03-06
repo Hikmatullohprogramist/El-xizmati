@@ -848,11 +848,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
         ),
         LoaderStateWidget(
           isFullScreen: false,
-          onErrorToAgainRequest: () {
-            cubit(context).getSimilarAds();
-          },
           loadingState: state.similarAdsState,
-          child: HorizontalAdListWidget(
+          successBody: HorizontalAdListWidget(
             ads: state.similarAds,
             onItemClicked: (Ad ad) =>
                 context.router.push(AdDetailRoute(adId: ad.id)),
@@ -860,6 +857,9 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                 cubit(context).similarAdsAddFavorite(ad),
             loadingState: state.similarAdsState,
           ),
+          onRetryClicked: () {
+            cubit(context).getSimilarAds();
+          },
         ),
       ],
     );
@@ -887,11 +887,11 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
           ),
           LoaderStateWidget(
             isFullScreen: false,
-            onErrorToAgainRequest: () {
+            onRetryClicked: () {
               cubit(context).getOwnerOtherAds();
             },
             loadingState: state.ownerAdsState,
-            child: HorizontalAdListWidget(
+            successBody: HorizontalAdListWidget(
               ads: state.ownerAds,
               onItemClicked: (Ad ad) {
                 context.router.push(AdDetailRoute(adId: ad.id));
@@ -932,11 +932,11 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
           ),
           LoaderStateWidget(
             isFullScreen: false,
-            onErrorToAgainRequest: () {
+            onRetryClicked: () {
               cubit(context).getRecentlyViewedAds();
             },
             loadingState: state.recentlyViewedAdsState,
-            child: HorizontalAdListWidget(
+            successBody: HorizontalAdListWidget(
               ads: state.recentlyViewedAds,
               onItemClicked: (Ad ad) {
                 context.router.push(AdDetailRoute(adId: ad.id));
