@@ -44,7 +44,11 @@ class MultiSelectionListCollapseItem extends StatelessWidget {
                   },
                   child: Container(
                     padding: EdgeInsets.only(
-                        top: 16, bottom: 16, right: 20, left: 20),
+                      top: 16,
+                      bottom: 16,
+                      right: 8,
+                      left: 20,
+                    ),
                     child: Row(
                       children: [
                         Visibility(
@@ -56,18 +60,20 @@ class MultiSelectionListCollapseItem extends StatelessWidget {
                         ),
                         Visibility(
                           visible: !isParent,
-                          child: SizedBox(width: 24),
+                          child: SizedBox(width: 32),
                         ),
                         SizedBox(width: 15),
-                        ("$title$title$title")
-                            .toString()
-                            .w(500)
-                            .s(16)
-                            .c(context.colors.textPrimary)
-                            .copyWith(
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                        Expanded(
+                          child: title
+                              .toString()
+                              .w(500)
+                              .s(16)
+                              .c(context.colors.textPrimary)
+                              .copyWith(
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                        ),
                       ],
                     ),
                   ),
@@ -84,7 +90,11 @@ class MultiSelectionListCollapseItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(32),
                 child: Container(
                   padding: EdgeInsets.only(
-                      top: 16, bottom: 16, right: 20, left: 20),
+                    top: 16,
+                    bottom: 16,
+                    right: 20,
+                    left: 24,
+                  ),
                   child: (isSelected
                           ? Assets.images.icCheckboxSelected
                           : Assets.images.icCheckboxUnselected)
