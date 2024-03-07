@@ -48,7 +48,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
               _buildCardBlock(context, state),
               SizedBox(height: 8),
               _buildSettingsBlock(context, state),
-              SizedBox(height: 8),
+               SizedBox(height: 8),
               _buildLogoutBlock(context, state),
             ],
           )),
@@ -206,7 +206,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
     return Column(
       children: [
         Visibility(
-          visible: state.isLogin,
+          visible: false,
           child: ProfileItemWidget(
             name: Strings.profileSettings,
             icon: Assets.images.icProfileSettings,

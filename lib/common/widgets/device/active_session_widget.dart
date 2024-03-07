@@ -42,7 +42,10 @@ class ActiveSessionWidget extends StatelessWidget {
                     child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    "OnlineBozor app".w(700).s(12).c(Colors.black),
+                    if(session.isMobileBrowserOrApp())
+                    "Application ".w(700).s(12).c(Colors.black),
+                    if(!session.isMobileBrowserOrApp())
+                      "Web browser".w(700).s(12).c(Colors.black),
                     SizedBox(height: 6),
                     Flexible(
                         child: session.userAgent

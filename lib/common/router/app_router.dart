@@ -34,6 +34,7 @@ import '../../presentation/common/favorites/features/product/favorite_products_p
 import '../../presentation/common/favorites/features/service/favorite_services_page.dart';
 import '../../presentation/common/image_viewer/image_viewer_page.dart';
 import '../../presentation/common/image_viewer/locale_image_viewer_page.dart';
+import '../../presentation/common/intro/intro_page.dart';
 import '../../presentation/common/language/set_language/set_language_page.dart';
 import '../../presentation/common/notification/notification_list_page.dart';
 import '../../presentation/common/popular_categories/popular_categories_page.dart';
@@ -90,6 +91,13 @@ part 'app_router.gr.dart';
 class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
+        /// Intro
+        AutoRoute(
+          page: IntroRoute.page,
+          path: "/intro",
+          // initial: true,
+        ),
+
         /// Language
         AutoRoute(
           page: SetLanguageRoute.page,

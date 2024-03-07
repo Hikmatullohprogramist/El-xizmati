@@ -117,6 +117,8 @@ class MyApp extends StatelessWidget {
             if (isLogin) HomeRoute() else HomeRoute()
           else
             SetLanguageRoute()
+          
+           // IntroRoute()
         ], navigatorObservers: () => [ChuckerFlutter.navigatorObserver]),
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,

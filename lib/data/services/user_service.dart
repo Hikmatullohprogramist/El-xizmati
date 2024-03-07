@@ -72,6 +72,17 @@ class UserService {
     return response;
   }
 
+  Future<Response> sendMessageType({
+    required String messageType
+  }) async{
+    final  queryParameters={
+      RestQueryKeys.messageType:messageType
+    };
+    final response=
+        await _dio.patch("v1/user",data: queryParameters);
+    return response;
+}
+
   Future<Response> getRegions() async {
     final response = await _dio.get("v1/regions");
     return response;

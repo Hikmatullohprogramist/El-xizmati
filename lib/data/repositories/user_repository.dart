@@ -110,7 +110,6 @@ class UserRepository {
     required String phoneNumber,
   }) async {
     final userInfo = userInfoStorage.userInformation.call();
-
     await _userService.sendUserInformation(
         email: email,
         gender: gender,
@@ -122,6 +121,10 @@ class UserRepository {
         pinfl: pinfl,
         postName: postName,
         phoneNumber: phoneNumber);
+  }
+
+  Future<void> sendMessageType({required String messageType}) async {
+    await _userService.sendMessageType(messageType: messageType);
   }
 
   Future<bool> isFullRegister() async {

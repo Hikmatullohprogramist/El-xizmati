@@ -70,6 +70,7 @@ class Active with _$Active {
   factory Active.fromJson(Map<String, dynamic> json) => _$ActiveFromJson(json);
 }
 
+
 @freezed
 class UserDo with _$UserDo {
   const factory UserDo({

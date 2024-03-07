@@ -60,8 +60,15 @@ class TransactionWidget extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              transaction.type.w(500).s(12).c(Color(0xFF41455E)),
-              SizedBox(height: 13),
+              Text(
+                transaction.type == "ADS" ? "Advertisement" : transaction.type,
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12,
+                  color: Color(0xFF41455E),
+                ),
+              ),
+              SizedBox(height: 10),
               transaction.pay_date.w(500).s(12).c(Color(0xFF9EABBE))
             ],
           ),

@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
+import 'package:onlinebozor/domain/models/social/social_network.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../../../common/core/base_cubit.dart';
@@ -45,7 +47,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       updateState((state) => state.copyWith(isLoading: true));
 
       log.e("getUserInformation onLoading");
-
       final response = await _userRepository.getFullUserInfo();
       updateState(
         (state) => state.copyWith(
@@ -64,6 +65,9 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           districtId: response.district_id,
           gender: response.gender ?? "*",
           streetId: response.mahalla_id,
+          smsNotification: response.message_type.toString().contains("SMS"),
+          telegramNotification: response.message_type.toString().contains("TELEGRAM"),
+          emailNotification: response.message_type.toString().contains("EMAIL"),
         ),
       );
 
@@ -120,6 +124,10 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
+  Future<void> getSocial() async{
+
+  }
+
   Future<void> logOut() async {
     await _authRepository.logOut();
     emitEvent(PageEvent(PageEventType.onLogout));
@@ -127,21 +135,71 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   setSmsNotification() {
     updateState(
-      (state) => state.copyWith(smsNotification: !state.smsNotification),
-    );
-  }
-
-  setTelegramNotification() {
-    updateState(
-      (state) =>
-          state.copyWith(telegramNotification: !state.telegramNotification),
+      (state) => state.copyWith(
+          smsNotification: !state.smsNotification,
+          enableButton: [
+            !states.enableButton[0],
+            states.enableButton[1],
+            states.enableButton[2]
+          ]),
     );
   }
 
   setEmailNotification() {
     updateState(
-      (state) => state.copyWith(emailNotification: !state.emailNotification),
+      (state) => state.copyWith(
+          emailNotification: !state.emailNotification,
+          enableButton: [
+            states.enableButton[0],
+            !states.enableButton[1],
+            states.enableButton[2]
+          ]),
     );
+  }
+
+  setTelegramNotification() {
+    updateState(
+      (state) => state.copyWith(
+          telegramNotification: !state.telegramNotification,
+          enableButton: [
+            states.enableButton[0],
+            states.enableButton[1],
+            !states.enableButton[2]
+          ]),
+    );
+  }
+
+  bool getEnableButton() {
+    return states.enableButton.every((element) => element == false);
+  }
+
+  void clearList() {
+    updateState(
+      (state) => state.copyWith(enableButton: [false, false, false]),
+    );
+  }
+
+  Future<bool> setMessageType(String messageType) async {
+    if (states.smsNotification) {
+      messageType = "SMS";
+    }
+    if (states.emailNotification) {
+      messageType = "$messageType,EMAIL";
+    }
+    if (states.telegramNotification) {
+      messageType = "$messageType,TELEGRAM";
+    }
+    updateState((state) => state.copyWith(isLoadingNotification: true));
+    try {
+      log.w(messageType);
+      final response =
+          await _userRepository.sendMessageType(messageType: messageType);
+    } on DioException catch (error) {
+      return false;
+    } finally {
+      updateState((state) => state.copyWith(isLoadingNotification: false));
+    }
+    return true;
   }
 
   Future<void> openTelegram() async {

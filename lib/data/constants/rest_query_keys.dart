@@ -65,4 +65,6 @@ class RestQueryKeys {
 
   static String tin = "tin";
   static String type = "type";
+  static String messageType="message_type";
+
 }

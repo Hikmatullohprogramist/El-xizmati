@@ -16,6 +16,7 @@ import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/common/widgets/dashboard/see_all_widget.dart';
 import 'package:onlinebozor/common/widgets/device/active_session_widget.dart';
+import 'package:onlinebozor/common/widgets/snackbar/snackbar_widget.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 
 import '../../../../../../common/colors/static_colors.dart';
@@ -46,6 +47,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
+    TextEditingController _textEditingController = TextEditingController();
     try {
       return Scaffold(
           appBar: ActionAppBar(
@@ -80,6 +82,8 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                           height: 12,
                         ),
                         _buildNotificationBlock(context),
+                        SizedBox(height: 12),
+                        _buildSocialBlock(context),
                         SizedBox(height: 12),
                         _buildActiveDeviceBlock(context, state),
                         SizedBox(
@@ -398,8 +402,8 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                     .c(Color(0xFF41455E)),
                 Expanded(
                     child: SizedBox(
-                      height: 1,
-                    )),
+                  height: 1,
+                )),
                 CustomSwitch(
                   isChecked: cubit(context).states.smsNotification,
                   onChanged: (value) {
@@ -443,8 +447,8 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                     .c(Color(0xFF41455E)),
                 Expanded(
                     child: SizedBox(
-                      height: 1,
-                    )),
+                  height: 1,
+                )),
                 CustomSwitch(
                   isChecked: cubit(context).states.emailNotification,
                   onChanged: (value) {
@@ -473,14 +477,6 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: Row(children: [
                 Assets.images.icTelegram.svg(height: 32, width: 32),
-                // Container(
-                //   width: 32,
-                //   height: 32,
-                //   decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.circular(10),
-                //       color: Color(0xFF00A4DD)),
-                //   child: Center(child: Assets.images.icSms.svg()),
-                // ),
                 SizedBox(width: 16),
                 Strings.notificationReceiveTelegram
                     .w(600)
@@ -488,8 +484,8 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                     .c(Color(0xFF41455E)),
                 Expanded(
                     child: SizedBox(
-                      height: 1,
-                    )),
+                  height: 1,
+                )),
                 CustomSwitch(
                   isChecked: cubit(context).states.telegramNotification,
                   onChanged: (value) {
@@ -510,8 +506,8 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                     color: Color(0xFF9EABBE))),
             WidgetSpan(
                 child: SizedBox(
-                  width: 5,
-                )),
+              width: 5,
+            )),
             TextSpan(
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
@@ -524,6 +520,322 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                     fontSize: 12,
                     color: Color(0xFF5C6AC3)))
           ])),
+          SizedBox(height: 15),
+          CustomElevatedButton(
+            text: Strings.commonSave,
+            isLoading: cubit(context).states.isLoadingNotification,
+            isEnabled: !cubit(context)
+                .states
+                .enableButton
+                .every((element) => element == false),
+            onPressed: () async {
+              var result = await cubit(context).setMessageType("");
+              if (result) {
+                context.showCustomSnackBar(
+                    message: 'Saved!', backgroundColor: Colors.green.shade400);
+                cubit(context).clearList();
+              } else {
+                context.showCustomSnackBar(
+                    message: "Do'nt save",
+                    backgroundColor: Colors.red.shade400);
+              }
+            },
+            buttonHeight: 45,
+            textSize: 12,
+          ),
+          SizedBox(height: 18),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSocialBlock(BuildContext context) {
+    TextEditingController _textEditingController = TextEditingController();
+    // var a=state(context).telegram;
+    //_textEditingController.text="https://www.instagram.com/";
+    return Container(
+      color: Colors.white,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 18),
+          "Менинг ижтимоий тармоқларим".w(600).s(14).c(Color(0xFF41455E)),
+          SizedBox(height: 18),
+          SizedBox(height:5,),
+          Stack(
+            alignment: Alignment.centerRight,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 30),
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    side: BorderSide(
+                        color: cubit(context).states.smsNotification
+                            ? Color(0xFF5C6AC4)
+                            : Color(0xFFAEB2CD)),
+                  ),
+                  onPressed: () {
+                    // cubit(context).setSmsNotification();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 7),
+                    child: Row(children: [
+                      Container(
+                        width: 32,
+                        height: 32,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color(0xFF5C6AC3)),
+                        child: Center(child: Image(
+                          image: AssetImage('assets/images/png_images/instagram.png'),
+                        )),
+                      ),
+                      SizedBox(width: 16),
+                       Expanded(
+                         child: TextField(
+                           controller:_textEditingController,
+                           style: TextStyle(fontSize: 14),
+                           decoration: InputDecoration(
+                             border: InputBorder.none,
+                             hintText: "https://www.instagram.com/"
+                           ),
+                         ),
+                       ),
+                      Image.asset(
+                        'assets/images/clock_social.png',
+                        width: 24,
+                        height: 20,
+                      )
+                    ]),
+                  ),
+                ),
+              ),
+              SvgPicture.asset(
+                'assets/images/ic_minus.svg',
+                width: 26,
+                height: 26,
+              )
+            ],
+          ),
+          SizedBox(height: 10),
+          SizedBox(height:5,),
+          Stack(
+            alignment: Alignment.centerRight,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 30),
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    side: BorderSide(
+                        color: cubit(context).states.emailNotification
+                            ? Color(0xFF5C6AC4)
+                            : Color(0xFFAEB2CD)),
+                  ),
+                  onPressed: () {
+                    // cubit(context).setEmailNotification();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 7),
+                    child: Row(children: [
+                      Container(
+                        width: 32,
+                        height: 32,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Color(0xFFDFE2E9), width: 1),
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white),
+                        child: Center(child: Image(
+                          image: AssetImage('assets/images/png_images/telegramm.png'),
+                        )),
+                      ),
+                      SizedBox(width: 16),
+                      Expanded(
+                        child: TextField(
+                          controller:_textEditingController,
+                          style: TextStyle(fontSize: 14),
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "https://www.instagram.com/"
+                          ),
+                        ),
+                      ),
+                      Image.asset(
+                        'assets/images/clock_social.png',
+                        width: 24,
+                        height: 20,
+                      )
+                    ]),
+                  ),
+                ),
+              ),
+              SvgPicture.asset(
+                'assets/images/ic_minus.svg',
+                width: 26,
+                height: 26,
+              )
+            ],
+          ),
+          SizedBox(height: 10),
+          SizedBox(height:5,),
+          Stack(
+            alignment: Alignment.centerRight,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 30),
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    side: BorderSide(
+                        color: cubit(context).states.telegramNotification
+                            ? Color(0xFF5C6AC4)
+                            : Color(0xFFAEB2CD)),
+                  ),
+                  onPressed: () {
+                    // cubit(context).setTelegramNotification();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 7),
+                    child: Row(children: [
+                      Image(
+                        width: 32,
+                        height: 32,
+                        image: AssetImage('assets/images/png_images/facebook.png'
+                        ),
+                      ),
+                      // Container(
+                      //   width: 32,
+                      //   height: 32,
+                      //   decoration: BoxDecoration(
+                      //       borderRadius: BorderRadius.circular(10),
+                      //       color: Color(0xFF00A4DD)),
+                      //   child: Center(child: Assets.images.icSms.svg()),
+                      // ),
+                      SizedBox(width: 16),
+                      Expanded(
+                        child: TextField(
+                          controller:_textEditingController,
+                          style: TextStyle(fontSize: 14),
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "https://www.instagram.com/"
+                          ),
+                        ),
+                      ),
+                      Image.asset(
+                        'assets/images/clock_social.png',
+                        width: 24,
+                        height: 20,
+                      )
+                    ]),
+                  ),
+                ),
+              ),
+              SvgPicture.asset(
+                'assets/images/ic_minus.svg',
+                width: 26,
+                height: 26,
+              )
+            ],
+          ),
+          SizedBox(height: 12),
+          SizedBox(height:5,),
+          Stack(
+            alignment: Alignment.centerRight,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 30),
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    side: BorderSide(
+                        color: cubit(context).states.emailNotification
+                            ? Color(0xFF5C6AC4)
+                            : Color(0xFFAEB2CD)),
+                  ),
+                  onPressed: () {
+                    // cubit(context).setEmailNotification();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 7),
+                    child: Row(children: [
+                      Container(
+                        width: 32,
+                        height: 32,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Color(0xFFDFE2E9), width: 1),
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white),
+                        child: Center(child: Image(
+                          image: AssetImage('assets/images/png_images/youtube.png'),
+                        )),
+                      ),
+                      SizedBox(width: 16),
+                      Expanded(
+                        child: TextField(
+                          controller:_textEditingController,
+                          style: TextStyle(fontSize: 14),
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "https://www.instagram.com/"
+                          ),
+                        ),
+                      ),
+                      Image.asset(
+                        'assets/images/clock_social.png',
+                        width: 24,
+                        height: 20,
+                      )
+                    ]),
+                  ),
+                ),
+              ),
+              SvgPicture.asset(
+                'assets/images/ic_minus.svg',
+                width: 26,
+                height: 26,
+              )
+            ],
+          ),
+          SizedBox(height: 12),
+          Text.rich(TextSpan(children: [
+            TextSpan(
+                text: "Маҳсулотларингиз изоҳига ижтимоий тармоқдаги саҳифаларни қўшишингиз мумкин. Бу маҳсулотингиз тарғиботига ёрдам беради",
+                style: TextStyle(
+                    overflow: TextOverflow.ellipsis,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                    color: Color(0xFF9EABBE))),
+
+          ])),
+          SizedBox(height: 15),
+          CustomElevatedButton(
+            text: "Save",
+            onPressed: () {
+              //context.router.push(CreateProductAdRoute());
+              cubit(context).setMessageType("SMS");
+              context.showCustomSnackBar(
+                  message: 'Saved!',
+                  backgroundColor: Colors.green.shade400
+              );
+            },
+            buttonHeight: 45,
+            textSize: 12,
+          ),
           SizedBox(height: 18),
         ],
       ),
