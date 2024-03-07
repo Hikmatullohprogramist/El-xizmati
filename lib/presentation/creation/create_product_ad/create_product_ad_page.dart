@@ -6,6 +6,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/widgets/chips/chips_add_item.dart';
 import 'package:onlinebozor/common/widgets/chips/chips_item.dart';
+import 'package:onlinebozor/common/widgets/chips/chips_more_item.dart';
 import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/common/widgets/image/image_ad_list_widget.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_switch.dart';
@@ -717,16 +718,6 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   text: Strings.commonContinue,
                   onPressed: () {
                     vibrateAsHapticFeedback();
-                    var result = cubit(context).checkEnabledField();
-                    // if (result) {
-                    //    context.showResultButtomSheet();
-                    // } else {
-                    //   context.showCustomSnackBar(
-                    //     message: 'Please fill the required fields',
-                    //     behavior: SnackBarBehavior.floating,
-                    //     duration: Duration(seconds: 2),
-                    //   );
-                    // }
                     cubit(context).sendCreateProductAdRequest();
                   },
                   isLoading: state.isRequestSending,
@@ -746,7 +737,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     List<Widget> chips = [];
     chips.add(
       ChipsAddItem(
-        onAddClicked: () async {
+        onChipClicked: () async {
           final paymentTypes = await showModalBottomSheet(
             context: context,
             isScrollControlled: true,
@@ -766,7 +757,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           (element) => ChipsItem(
             item: element,
             title: element.name ?? "",
-            onRemoveClicked: (item) {
+            onActionClicked: (item) {
               cubit(context).removeSelectedPaymentType(element);
             },
           ),
@@ -779,100 +770,148 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     List<Widget> chips = [];
     chips.add(
       ChipsAddItem(
-        onAddClicked: () async {
-          final pickupAddresses = await showModalBottomSheet(
-            context: context,
-            isScrollControlled: false,
-            useSafeArea: true,
-            backgroundColor: Colors.transparent,
-            builder: (context) => SelectionUserWarehousePage(
-              key: Key(""),
-              selectedItems: state.pickupWarehouses,
-            ),
-          );
-
-          cubit(context).setSelectedPickupAddresses(pickupAddresses);
+        onChipClicked: () {
+          _showSelectionPickupAddresses(context, state);
         },
       ),
     );
-    chips.addAll(state.pickupWarehouses
+    var addresses = state.pickupWarehouses;
+    var totalCount = addresses.length;
+    chips.addAll((totalCount > 2 ? addresses.sublist(0, 2) : addresses)
         .map(
           (element) => ChipsItem(
             item: element,
             title: element.name ?? "",
-            onRemoveClicked: (item) {
-              cubit(context).removePickupWarehouse(element);
+            onChipClicked: (item) {
+              _showSelectionPickupAddresses(context, state);
+            },
+            onActionClicked: (item) {
+              cubit(context).removePickupWarehouse(item);
             },
           ),
         )
         .toList());
+
+    if (totalCount > 2) {
+      chips.add(
+        ChipsMoreItem(
+          count: totalCount - 2,
+          onChipClicked: () => _showSelectionFreeDistrict(context, state),
+        ),
+      );
+    }
     return chips;
+  }
+
+  Future<void> _showSelectionPickupAddresses(
+    BuildContext context,
+    PageState state,
+  ) async {
+    final pickupAddresses = await showModalBottomSheet(
+      context: context,
+      isScrollControlled: false,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => SelectionUserWarehousePage(
+        selectedItems: state.pickupWarehouses,
+      ),
+    );
+
+    cubit(context).setSelectedPickupAddresses(pickupAddresses);
   }
 
   List<Widget> _buildFreeDeliveryChips(BuildContext context, PageState state) {
     List<Widget> chips = [];
     chips.add(
       ChipsAddItem(
-        onAddClicked: () async {
-          final districts = await showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            useSafeArea: true,
-            backgroundColor: Colors.transparent,
-            builder: (context) => SelectionRegionAndDistrictPage(
-              key: Key(""),
-              initialSelectedDistricts: state.freeDeliveryDistricts,
-            ),
-          );
-          cubit(context).setFreeDeliveryDistricts(districts);
-        },
+        onChipClicked: () => _showSelectionFreeDistrict(context, state),
       ),
     );
-    chips.addAll(state.freeDeliveryDistricts
+    var districts = state.freeDeliveryDistricts;
+    var totalCount = districts.length;
+    chips.addAll((totalCount > 2 ? districts.sublist(0, 2) : districts)
         .map(
           (element) => ChipsItem(
             item: element,
-            title: element.name ?? "",
-            onRemoveClicked: (item) {
-              cubit(context).removeFreeDeliveryDistrict(element);
+            title: element.name,
+            onChipClicked: (item) => _showSelectionFreeDistrict(context, state),
+            onActionClicked: (item) {
+              cubit(context).removePaidDeliveryDistrict(item);
             },
           ),
         )
         .toList());
+    if (totalCount > 2) {
+      chips.add(
+        ChipsMoreItem(
+          count: totalCount - 2,
+          onChipClicked: () => _showSelectionFreeDistrict(context, state),
+        ),
+      );
+    }
     return chips;
+  }
+
+  Future<void> _showSelectionFreeDistrict(
+    BuildContext context,
+    PageState state,
+  ) async {
+    final districts = await showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => SelectionRegionAndDistrictPage(
+        initialSelectedDistricts: state.freeDeliveryDistricts,
+      ),
+    );
+    cubit(context).setFreeDeliveryDistricts(districts);
   }
 
   List<Widget> _buildPaidDeliveryChips(BuildContext context, PageState state) {
     List<Widget> chips = [];
     chips.add(
       ChipsAddItem(
-        onAddClicked: () async {
-          final districts = await showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            useSafeArea: true,
-            backgroundColor: Colors.transparent,
-            builder: (context) => SelectionRegionAndDistrictPage(
-              key: Key(""),
-              initialSelectedDistricts: state.paidDeliveryDistricts,
-            ),
-          );
-          cubit(context).setPaidDeliveryDistricts(districts);
-        },
+        onChipClicked: () => _showSelectionPaidDistrict(context, state),
       ),
     );
-    chips.addAll(state.freeDeliveryDistricts
+    var districts = state.paidDeliveryDistricts;
+    var totalCount = districts.length;
+    chips.addAll((totalCount > 2 ? districts.sublist(0, 2) : districts)
         .map(
           (element) => ChipsItem(
             item: element,
-            title: element.name ?? "",
-            onRemoveClicked: (item) {
-              cubit(context).removePaidDeliveryDistrict(element);
+            title: element.name,
+            onChipClicked: (item) => _showSelectionPaidDistrict(context, state),
+            onActionClicked: (item) {
+              cubit(context).removePaidDeliveryDistrict(item);
             },
           ),
         )
         .toList());
+    if (totalCount > 2) {
+      chips.add(ChipsMoreItem(
+        count: totalCount - 2,
+        onChipClicked: () => _showSelectionPaidDistrict(context, state),
+      ));
+    }
     return chips;
+  }
+
+  Future<void> _showSelectionPaidDistrict(
+    BuildContext context,
+    PageState state,
+  ) async {
+    final districts = await showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => SelectionRegionAndDistrictPage(
+        initialSelectedDistricts: state.paidDeliveryDistricts,
+      ),
+    );
+    cubit(context).setPaidDeliveryDistricts(districts);
   }
 
   Future<void> _showMaxCountError(BuildContext context, int maxCount) async {

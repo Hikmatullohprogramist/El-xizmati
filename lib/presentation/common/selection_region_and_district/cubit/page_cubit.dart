@@ -47,21 +47,21 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       var allDistricts = response.districts;
       List<RegionItem> allItems = [];
 
-      var sd = states.initialSelectedItems;
+      var selectedDistricts = states.initialSelectedItems;
       for (var region in allRegions) {
-        var districts = allDistricts
-            .where((district) => district.regionId == region.id)
-            .map(
+        var districts = allDistricts.where((d) => d.regionId == region.id).map(
               (district) => district.toRegionItem(
-                  isSelected:
-                      sd.firstWhereOrNull((e) => e.id == district.id) != null),
+                  isSelected: selectedDistricts
+                          .firstWhereOrNull((e) => e.id == district.id) !=
+                      null),
             );
 
-        var isAllChildSelected =
-            districts.firstWhereOrNull((e) => e.isSelected == false) == null;
+        var selectedChildCount = districts.where((e) => e.isSelected).length;
         allItems.add(region.toRegionItem(
-          isSelected: isAllChildSelected,
+          isSelected: selectedChildCount > 0,
           isVisible: true,
+          childCount: districts.length,
+          selectedChildCount: selectedChildCount,
         ));
         allItems.addAll(districts);
       }
@@ -83,40 +83,54 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  void setRegion(int? regionId) {
-    log.d(regionId);
-    updateState((state) => state.copyWith(regionId: regionId));
-  }
-
   void updateSelectedState(RegionItem regionItem) {
     try {
-      if (states.visibleItems.contains(regionItem)) {
-        var allItems = List<RegionItem>.from(states.allItems);
+      var allItems = List<RegionItem>.from(states.allItems);
 
-        if (regionItem.isParent) {
-          allItems
-              .where((e) => e.parentId == regionItem.id)
-              .forEach((child) => child.isSelected = !regionItem.isSelected);
+      var state = !regionItem.isSelected;
+      if (regionItem.isParent) {
+        allItems
+            .where((e) => e.parentId == regionItem.id || e.id == regionItem.id)
+            .forEach((child) => child.isSelected = state);
 
-          var index = allItems.indexOf(regionItem);
-          allItems[index].isSelected = !regionItem.isSelected;
-        } else {
-          var index = allItems.indexOf(regionItem);
-          allItems[index].isSelected = !regionItem.isSelected;
+        int selectedChildCount = allItems
+            .where((e) => e.parentId == regionItem.id && e.isSelected)
+            .length;
 
-          bool hasUnSelectedChild = allItems
-                  .where((e) => e.id == regionItem.id && !e.isSelected)
-                  .firstOrNull != null;
+        int totalChildCount =
+            allItems.where((e) => e.parentId == regionItem.id).length;
 
-          allItems
-              .firstWhereOrNull((e) => e.id == regionItem.parentId)
-              ?.isSelected = !hasUnSelectedChild;
-        }
-        updateState((state) => state.copyWith(
-              allItems: allItems,
-              visibleItems: allItems.where((e) => e.isVisible).toList(),
-            ));
+        allItems
+            .firstWhereOrNull((e) => e.id == regionItem.id)
+            ?.isSelected = totalChildCount == selectedChildCount;
+        allItems
+            .firstWhereOrNull((e) => e.id == regionItem.parentId)
+            ?.selectedChildCount = selectedChildCount;
+
+      } else {
+        allItems
+            .firstWhereOrNull((element) => element.id == regionItem.id)
+            ?.isSelected = state;
+
+        int selectedChildCount = allItems
+            .where((e) => e.parentId == regionItem.parentId && e.isSelected)
+            .length;
+
+        int totalChildCount =
+            allItems.where((e) => e.parentId == regionItem.parentId).length;
+
+        allItems
+            .firstWhereOrNull((e) => e.id == regionItem.parentId)
+            ?.isSelected = totalChildCount == selectedChildCount;
+        allItems
+            .firstWhereOrNull((e) => e.id == regionItem.parentId)
+            ?.selectedChildCount = selectedChildCount;
       }
+
+      updateState((state) => state.copyWith(
+            allItems: allItems,
+            visibleItems: allItems.where((e) => e.isVisible).toList(),
+          ));
     } catch (e) {
       log.e(e.toString());
     }

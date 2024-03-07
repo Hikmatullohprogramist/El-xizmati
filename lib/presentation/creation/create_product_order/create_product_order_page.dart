@@ -519,7 +519,7 @@ class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
     List<Widget> chips = [];
     chips.add(
       ChipsAddItem(
-        onAddClicked: () async {
+        onChipClicked: () async {
           final paymentTypes = await showModalBottomSheet(
             context: context,
             isScrollControlled: true,
@@ -539,7 +539,7 @@ class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
           (element) => ChipsItem(
             item: element,
             title: element.name ?? "",
-            onRemoveClicked: (item) {
+            onActionClicked: (item) {
               cubit(context).removeSelectedPaymentType(element);
             },
           ),

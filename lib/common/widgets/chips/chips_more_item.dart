@@ -1,28 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/vibrator/vibrator_extension.dart';
 
 import '../../gen/assets/assets.gen.dart';
 
-class ChipsItem extends StatelessWidget {
-  const ChipsItem({
+class ChipsMoreItem extends StatelessWidget {
+  const ChipsMoreItem({
     super.key,
-    required this.item,
-    required this.title,
+    required this.count,
     this.onChipClicked,
-    this.onActionClicked,
   });
 
-  final dynamic item;
-  final String title;
-  final Function(dynamic item)? onChipClicked;
-  final Function(dynamic item)? onActionClicked;
+  final int count;
+  final Function()? onChipClicked;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        if (onChipClicked != null) onChipClicked!(item);
+        if (onChipClicked != null) onChipClicked!();
       },
       child: Container(
         padding: EdgeInsets.only(left: 14, top: 10, right: 10, bottom: 10),
@@ -41,21 +38,19 @@ class ChipsItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              title
+              // Strings.commonMore(count: count)
+              Strings.commonMoreWithCount(count: count)
                   .w(600)
                   .s(13)
                   .c(Color(0xFF5C6AC4))
                   .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
               SizedBox(width: 14),
-              Visibility(
-                visible: onActionClicked != null,
-                child: InkWell(
-                  onTap: () {
-                    if (onActionClicked != null) onActionClicked!(item);
-                    vibrateAsHapticFeedback();
-                  },
-                  child: Assets.images.icChipClose.svg(height: 20, width: 20),
-                ),
+              InkWell(
+                onTap: () {
+                  if (onChipClicked != null) onChipClicked!();
+                  vibrateAsHapticFeedback();
+                },
+                child: Assets.images.icChipMore.svg(height: 20, width: 20),
               ),
             ],
           ),

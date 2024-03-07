@@ -22,16 +22,34 @@ extension RegionResponseExts on RegionResponse {
   }
 }
 
+// int id;
+// int parentId;
+// String name;
+// bool isParent;
+// int childCount;
+// int selectedChildCount;
+// bool isSelected;
+// bool isHasSelectedChild;
+// bool isVisible;
+// bool isOpened;
+
 extension RegionExts on Region {
-  RegionItem toRegionItem({bool isSelected = false, bool isVisible = false}) {
+  RegionItem toRegionItem({
+    bool isSelected = false,
+    bool isVisible = false,
+    int childCount = 0,
+    int selectedChildCount = 0,
+  }) {
     return RegionItem(
-      id: id,
-      parentId: 0,
-      name: name,
-      isParent: true,
-      isSelected: isSelected,
-      isVisible: isVisible,
-    );
+        id: id,
+        parentId: 0,
+        name: name,
+        isParent: true,
+        isSelected: isSelected,
+        totalChildCount: childCount,
+        selectedChildCount: selectedChildCount,
+        isVisible: isVisible,
+        isOpened: false);
   }
 }
 
@@ -48,8 +66,21 @@ extension DistrictExts on District {
       parentId: regionId,
       name: name,
       isParent: false,
+      totalChildCount: 0,
+      selectedChildCount: 0,
       isSelected: isSelected,
       isVisible: isVisible,
+      isOpened: false,
+    );
+  }
+}
+
+extension RegionItemExts on RegionItem {
+  District toDistrict() {
+    return District(
+      id: id,
+      regionId: parentId,
+      name: name,
     );
   }
 }
