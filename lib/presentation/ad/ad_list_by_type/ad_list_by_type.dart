@@ -78,7 +78,7 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                 LoaderStateWidget(
                     isFullScreen: false,
                     loadingState: state.cheapAdsState,
-                    child: HorizontalAdListWidget(
+                    successBody: HorizontalAdListWidget(
                       ads: state.cheapAds,
                       onItemClicked: (Ad result) {
                         context.router.push(AdDetailRoute(adId: result.id));
@@ -103,7 +103,7 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                 LoaderStateWidget(
                     isFullScreen: false,
                     loadingState: state.popularAdsState,
-                    child: HorizontalAdListWidget(
+                    successBody: HorizontalAdListWidget(
                       ads: state.popularAds,
                       onItemClicked: (Ad result) {
                         context.router.push(AdDetailRoute(adId: result.id));

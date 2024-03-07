@@ -1,10 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
+import 'package:onlinebozor/domain/models/district/district.dart';
+import 'package:onlinebozor/domain/models/region/region.dart';
 
 import '../../../../../../../../../common/core/base_cubit.dart';
 import '../../../../../../../../../data/repositories/user_repository.dart';
-import '../../../../../../../../../data/responses/region/region_response.dart';
+import '../../../../../../../../../domain/models/street/street.dart';
 
 part 'page_cubit.freezed.dart';
 
@@ -21,8 +23,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   void setBiometricNumber(String number) {
-    updateState(
-        (state) => states.copyWith(biometricNumber: number.replaceAll(" ", "")));
+    updateState((state) =>
+        states.copyWith(biometricNumber: number.replaceAll(" ", "")));
   }
 
   void setBrithDate(String brithDate) {
@@ -78,7 +80,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     await Future.wait([
       getRegions(),
       getDistrict(),
-      getStreets(),
+      getNeighborhoods(),
     ]);
   }
 
@@ -109,8 +111,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       await repository.sendUserInformation(
           email: states.email,
           gender: states.gender ?? "",
-          homeName: states.streetName,
-          mahallaId: states.streetId ?? -1,
+          homeName: states.neighborhoodName,
+          mahallaId: states.neighborhoodId ?? -1,
           mobilePhone: states.mobileNumber ?? "",
           photo: "",
           pinfl: states.pinfl ?? -1,
@@ -122,81 +124,83 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  void setRegion(RegionResponse region) {
+  void setRegion(Region region) {
     updateState((state) => states.copyWith(
-        regionId: region.id,
-        regionName: region.name,
-        districtId: null,
-        districtName: "",
-        streetId: null,
-        streetName: ""));
+          regionId: region.id,
+          regionName: region.name,
+          districtId: null,
+          districtName: "",
+          neighborhoodId: null,
+          neighborhoodName: "",
+        ));
     getDistrict();
   }
 
-  void setDistrict(RegionResponse district) {
+  void setDistrict(District district) {
     updateState((state) => states.copyWith(
-        districtId: district.id,
-        districtName: district.name,
-        streetId: null,
-        streetName: ""));
-    getStreets();
+          districtId: district.id,
+          districtName: district.name,
+          neighborhoodId: null,
+          neighborhoodName: "",
+        ));
+    getNeighborhoods();
   }
 
-  void setStreet(RegionResponse street) {
-    updateState((state) =>
-        states.copyWith(streetId: street.id, streetName: street.name));
+  void setNeighborhood(Neighborhood neighborhood) {
+    updateState((state) => states.copyWith(
+          neighborhoodId: neighborhood.id,
+          neighborhoodName: neighborhood.name,
+        ));
   }
 
   Future<void> getRegions() async {
-    final response = await repository.getRegions();
-    final regionList =
-        response.where((element) => element.id == states.regionId);
-    if (regionList.isNotEmpty) {
+    final regions = await repository.getRegions();
+    if (states.regionId != null) {
       updateState((state) => states.copyWith(
-          regions: response,
-          regionName: regionList.first.name,
-          isLoading: false));
+            regions: regions,
+            regionName:
+                regions.where((e) => e.id == states.regionId).first.name,
+            isLoading: false,
+          ));
     } else {
-      display.error("region is empty");
       updateState((state) => states.copyWith(regionName: "", isLoading: false));
     }
   }
 
   Future<void> getDistrict() async {
-    final regionId = states.regionId;
-    final response = await repository.getDistricts(regionId ?? 14);
+    final regionId = states.regionId!;
+    final response = await repository.getDistricts(regionId);
     if (states.districtId != null) {
       updateState((state) => states.copyWith(
-          districts: response,
-          districtName: response
-              .where((element) => element.id == states.districtId)
-              .first
-              .name));
+            districts: response,
+            districtName:
+                response.where((e) => e.id == states.districtId).first.name,
+          ));
     } else {
-      display.error("district is empty");
       updateState((state) => states.copyWith(districts: response));
     }
   }
 
-  Future<void> getStreets() async {
+  Future<void> getNeighborhoods() async {
     try {
-      final districtId = states.districtId;
-      final response = await repository.getStreets(districtId ?? 1419);
-      if (states.streetId != null) {
+      final districtId = states.districtId!;
+      final neighborhoods = await repository.getNeighborhoods(districtId);
+      if (states.neighborhoodId != null) {
         updateState((state) => states.copyWith(
-            streets: response,
-            streetName: response
-                .where((element) => element.id == states.streetId)
-                .first
-                .name,
-            isLoading: false));
+              neighborhoods: neighborhoods,
+              neighborhoodName: neighborhoods
+                  .where((e) => e.id == states.neighborhoodId)
+                  .first
+                  .name,
+              isLoading: false,
+            ));
       } else {
-        display.error("street is empty");
-        updateState(
-            (state) => states.copyWith(streets: response, isLoading: false));
+        updateState((state) => states.copyWith(
+              neighborhoods: neighborhoods,
+              isLoading: false,
+            ));
       }
     } catch (e) {
-      display.error("street error $e");
       updateState((state) => states.copyWith(isLoading: false));
     }
   }

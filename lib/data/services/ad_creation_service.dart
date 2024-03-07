@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
-import '../constants/rest_header_keys.dart';
 import '../storages/token_storage.dart';
 
 @lazySingleton
@@ -41,9 +40,11 @@ class AdCreationService {
     required String title,
     required int categoryId,
     required pickedImageIds,
+    required String videoUrl,
     required String desc,
     required int? warehouseCount,
     required int? unitId,
+    required int minAmount,
     required int? price,
     required String? currency,
     required List<String>? paymentTypeIds,
@@ -54,6 +55,14 @@ class AdCreationService {
     required String contactPerson,
     required String phone,
     required String email,
+    required bool isPickupEnabled,
+    required List<int> pickupWarehouses,
+    required bool isFreeDeliveryEnabled,
+    required int freeDeliveryMaxDay,
+    required List<int> freeDeliveryDistricts,
+    required bool isPaidDeliveryEnabled,
+    required int paidDeliveryMaxDay,
+    required List<int> paidDeliveryDistricts,
     required bool isAutoRenewal,
     required bool isShowMySocialAccount,
   }) {
@@ -88,10 +97,18 @@ class AdCreationService {
       "unit_id": unitId,
       "amount": warehouseCount,
       "sale_type": "PRODUCT", // todo use actual data ADS, PRODUCT, SERVICE
-      "video": "", // todo use actual data
-      "min_amount": 1, // todo use actual data
-      "delivery_types": ["2", "3"], // todo use actual data
+      "video": videoUrl,
+      "min_amount": minAmount,
+      // "delivery_types": ["2", "3"], // todo use actual data
       "has_discount": false,
+      "is_pickup_enabled": isPickupEnabled,
+      "pickup_address_ids": pickupWarehouses,
+      "is_free_delivery_enabled": isFreeDeliveryEnabled,
+      "free_delivery_district_ids": freeDeliveryDistricts,
+      "free_delivery_max_days": freeDeliveryMaxDay,
+      "is_paid_delivery_enabled": isPaidDeliveryEnabled,
+      "paid_delivery_district_ids": paidDeliveryDistricts,
+      "paid_delivery_max_days": paidDeliveryMaxDay,
       // "service_category_id": null,
       // "service_sub_category_id": null,
       "has_bidding": isAgreedPrice

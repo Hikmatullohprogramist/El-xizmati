@@ -112,7 +112,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> getStreets() async {
     try {
       final districtId = states.districtId;
-      final response = await _userRepository.getStreets(districtId ?? 1419);
+      final response = await _userRepository.getNeighborhoods(districtId ?? 1419);
       updateState((state) => state.copyWith(
           streetName: response
               .where((element) => element.id == states.streetId)

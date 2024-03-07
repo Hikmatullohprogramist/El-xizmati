@@ -13,6 +13,7 @@ import 'package:onlinebozor/common/widgets/switch/custom_toggle.dart';
 import 'package:onlinebozor/common/widgets/text_field/custom_dropdown_field.dart';
 import 'package:onlinebozor/common/widgets/text_field/label_text_field.dart';
 import 'package:onlinebozor/presentation/common/selection_currency/selection_currency_page.dart';
+import 'package:onlinebozor/presentation/common/selection_region_and_district/selection_region_and_district_page.dart';
 import 'package:onlinebozor/presentation/common/selection_unit/selection_unit_page.dart';
 import 'package:onlinebozor/presentation/common/selection_user_address/selection_user_address_page.dart';
 import 'package:onlinebozor/presentation/common/selection_user_warehouse/selection_user_warehouse_page.dart';
@@ -24,7 +25,6 @@ import '../../../common/router/app_router.dart';
 import '../../../common/vibrator/vibrator_extension.dart';
 import '../../../common/widgets/button/custom_elevated_button.dart';
 import '../../../common/widgets/text_field/common_text_field.dart';
-import '../../common/selection_address/selection_address_page.dart';
 import '../../common/selection_payment_type/selection_payment_type_page.dart';
 import '../../utils/mask_formatters.dart';
 import 'cubit/page_cubit.dart';
@@ -528,7 +528,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
               SizedBox(width: 16),
               Expanded(
-                child: "Самовывоз с адреса".w(400).s(15).c(Color(0xFF41455E)),
+                child: "Самовывоз с адреса".w(600).s(15).c(Color(0xFF41455E)),
               ),
             ],
           ),
@@ -559,7 +559,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
               SizedBox(width: 16),
               Expanded(
-                child: "Бесплатная доставка".w(400).s(14).c(Color(0xFF41455E)),
+                child: "Бесплатная доставка".w(600).s(15).c(Color(0xFF41455E)),
               ),
             ],
           ),
@@ -573,7 +573,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               alignment: WrapAlignment.start,
               crossAxisAlignment: WrapCrossAlignment.start,
               runAlignment: WrapAlignment.start,
-              children: _buildDeliveryForFree(context, state),
+              children: _buildFreeDeliveryChips(context, state),
             ),
           ),
           SizedBox(height: 10),
@@ -590,7 +590,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
               SizedBox(width: 16),
               Expanded(
-                child: "Платная доставка".w(400).s(14).c(Color(0xFF41455E)),
+                child: "Платная доставка".w(600).s(15).c(Color(0xFF41455E)),
               ),
             ],
           ),
@@ -604,7 +604,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               alignment: WrapAlignment.start,
               crossAxisAlignment: WrapCrossAlignment.start,
               runAlignment: WrapAlignment.start,
-              children: _buildDeliveryForFree(context, state),
+              children: _buildPaidDeliveryChips(context, state),
             ),
           ),
           SizedBox(height: 6),
@@ -782,12 +782,12 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         onAddClicked: () async {
           final pickupAddresses = await showModalBottomSheet(
             context: context,
-            isScrollControlled: true,
+            isScrollControlled: false,
             useSafeArea: true,
             backgroundColor: Colors.transparent,
             builder: (context) => SelectionUserWarehousePage(
               key: Key(""),
-              selectedItems: state.pickupAddresses,
+              selectedItems: state.pickupWarehouses,
             ),
           );
 
@@ -795,13 +795,13 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         },
       ),
     );
-    chips.addAll(state.pickupAddresses
+    chips.addAll(state.pickupWarehouses
         .map(
           (element) => ChipsItem(
             item: element,
             title: element.name ?? "",
             onRemoveClicked: (item) {
-              cubit(context).removeSelectedPickupAddress(element);
+              cubit(context).removePickupWarehouse(element);
             },
           ),
         )
@@ -809,32 +809,65 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     return chips;
   }
 
-  List<Widget> _buildDeliveryForFree(BuildContext context, PageState state) {
+  List<Widget> _buildFreeDeliveryChips(BuildContext context, PageState state) {
     List<Widget> chips = [];
     chips.add(
       ChipsAddItem(
         onAddClicked: () async {
-          final paymentTypes = await showModalBottomSheet(
+          final districts = await showModalBottomSheet(
             context: context,
             isScrollControlled: true,
             useSafeArea: true,
             backgroundColor: Colors.transparent,
-            builder: (context) => SelectionAddressPage(
+            builder: (context) => SelectionRegionAndDistrictPage(
               key: Key(""),
-              selectedPaymentTypes: state.paymentType,
+              initialSelectedDistricts: state.freeDeliveryDistricts,
             ),
           );
-          cubit(context).setSelectedDeliveryForFree(paymentTypes);
+          cubit(context).setFreeDeliveryDistricts(districts);
         },
       ),
     );
-    chips.addAll(state.paymentType
+    chips.addAll(state.freeDeliveryDistricts
         .map(
           (element) => ChipsItem(
             item: element,
             title: element.name ?? "",
             onRemoveClicked: (item) {
-              cubit(context).removeSelectedDeliveryForFree(element);
+              cubit(context).removeFreeDeliveryDistrict(element);
+            },
+          ),
+        )
+        .toList());
+    return chips;
+  }
+
+  List<Widget> _buildPaidDeliveryChips(BuildContext context, PageState state) {
+    List<Widget> chips = [];
+    chips.add(
+      ChipsAddItem(
+        onAddClicked: () async {
+          final districts = await showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            useSafeArea: true,
+            backgroundColor: Colors.transparent,
+            builder: (context) => SelectionRegionAndDistrictPage(
+              key: Key(""),
+              initialSelectedDistricts: state.paidDeliveryDistricts,
+            ),
+          );
+          cubit(context).setPaidDeliveryDistricts(districts);
+        },
+      ),
+    );
+    chips.addAll(state.freeDeliveryDistricts
+        .map(
+          (element) => ChipsItem(
+            item: element,
+            title: element.name ?? "",
+            onRemoveClicked: (item) {
+              cubit(context).removePaidDeliveryDistrict(element);
             },
           ),
         )

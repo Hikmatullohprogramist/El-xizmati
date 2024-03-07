@@ -7,12 +7,12 @@ import 'package:onlinebozor/data/responses/category/category/category_response.d
 import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/responses/payment_type/payment_type_response.dart';
 import 'package:onlinebozor/data/responses/unit/unit_response.dart';
+import 'package:onlinebozor/domain/models/district/district.dart';
 
 import '../../../../../../common/core/base_cubit.dart';
 import '../../../../common/enum/enums.dart';
 import '../../../../data/repositories/ad_creation_repository.dart';
 import '../../../../data/responses/address/user_address_response.dart';
-import '../../../../data/responses/region/region_response.dart';
 
 part 'page_cubit.freezed.dart';
 
@@ -31,9 +31,11 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         title: states.title,
         category: states.category!,
         pickedImageIds: [""],
+        videoUrl: states.videoUrl,
         desc: states.desc,
         warehouseCount: states.warehouseCount,
         unit: states.unit,
+        minAmount: states.minAmount,
         price: states.price,
         currency: states.currency,
         paymentTypes: states.paymentTypes,
@@ -44,7 +46,14 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         contactPerson: states.contactPerson,
         phone: states.phone.clearPhone(),
         email: states.email,
-        pickupAddresses: states.isPickupEnabled ? states.pickupAddresses : [],
+        isPickupEnabled: states.isPickupEnabled,
+        pickupWarehouses: states.pickupWarehouses,
+        isFreeDeliveryEnabled: states.isFreeDeliveryEnabled,
+        freeDeliveryMaxDay: states.freeDeliveryMaxDay,
+        freeDeliveryDistricts: states.freeDeliveryDistricts,
+        isPaidDeliveryEnabled: states.isPaidDeliveryEnabled,
+        paidDeliveryMaxDay: states.paidDeliveryMaxDay,
+        paidDeliveryDistricts: states.paidDeliveryDistricts,
         isAutoRenewal: states.isAutoRenewal,
         isShowMySocialAccount: states.isShowMySocialAccount,
       );
@@ -123,25 +132,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  void setSelectedDeliveryForFree(
-    List<RegionResponse>? selectedPaymentTypes,
-  ) {
-    try {
-      if (selectedPaymentTypes != null) {
-        var paymentTypes = List<RegionResponse>.from(states.paymentType);
-        paymentTypes.clear();
-
-        if (selectedPaymentTypes.isNotEmpty) {
-          paymentTypes.addAll(selectedPaymentTypes);
-          paymentTypes = paymentTypes.toSet().toList();
-        }
-        updateState((state) => state.copyWith(paymentType: paymentTypes));
-      }
-    } catch (e) {
-      log.e(e.toString());
-    }
-  }
-
   void removeSelectedPaymentType(PaymentTypeResponse paymentType) {
     try {
       var paymentTypes = List<PaymentTypeResponse>.from(states.paymentTypes);
@@ -184,23 +174,58 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     updateState((state) => state.copyWith(isPickupEnabled: isEnabled));
   }
 
-  void setSelectedPickupAddresses(
-    List<UserAddressResponse>? selectedPickupAddresses,
-  ) {
+  void setSelectedPickupAddresses(List<UserAddressResponse>? pickupAddresses) {
     try {
-      if (selectedPickupAddresses != null) {
-        var pickupAddresses =
-            List<UserAddressResponse>.from(states.pickupAddresses);
+      if (pickupAddresses != null) {
+        var selectedPickupAddresses =
+            List<UserAddressResponse>.from(states.pickupWarehouses);
+        selectedPickupAddresses.clear();
 
-        pickupAddresses.clear();
-
-        if (selectedPickupAddresses.isNotEmpty) {
-          pickupAddresses.addAll(selectedPickupAddresses);
-          pickupAddresses = pickupAddresses.toSet().toList();
+        if (pickupAddresses.isNotEmpty) {
+          selectedPickupAddresses.addAll(pickupAddresses);
+          selectedPickupAddresses = selectedPickupAddresses.toSet().toList();
         }
 
         updateState(
-          (state) => state.copyWith(pickupAddresses: pickupAddresses),
+          (state) => state.copyWith(pickupWarehouses: selectedPickupAddresses),
+        );
+      }
+    } catch (e) {
+      log.e(e.toString());
+    }
+  }
+
+  void setFreeDeliveryDistricts(List<District>? districts) {
+    try {
+      if (districts != null) {
+        var districts = List<District>.from(states.freeDeliveryDistricts);
+        districts.clear();
+
+        if (districts.isNotEmpty) {
+          districts.addAll(districts);
+          districts = districts.toSet().toList();
+        }
+        updateState(
+          (state) => state.copyWith(freeDeliveryDistricts: districts),
+        );
+      }
+    } catch (e) {
+      log.e(e.toString());
+    }
+  }
+
+  void setPaidDeliveryDistricts(List<District>? districts) {
+    try {
+      if (districts != null) {
+        var districts = List<District>.from(states.paidDeliveryDistricts);
+        districts.clear();
+
+        if (districts.isNotEmpty) {
+          districts.addAll(districts);
+          districts = districts.toSet().toList();
+        }
+        updateState(
+          (state) => state.copyWith(paidDeliveryDistricts: districts),
         );
       }
     } catch (e) {
@@ -236,22 +261,40 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  void removeSelectedPickupAddress(UserAddressResponse pickupAddress) {
+  void removePickupWarehouse(UserAddressResponse pickupAddress) {
     try {
-      var pickupAddresses =
-          List<UserAddressResponse>.from(states.pickupAddresses);
-      pickupAddresses.remove(pickupAddress);
-      updateState((state) => state.copyWith(pickupAddresses: pickupAddresses));
+      var pickupWarehouses =
+          List<UserAddressResponse>.from(states.pickupWarehouses);
+      pickupWarehouses.remove(pickupAddress);
+      updateState(
+        (state) => state.copyWith(pickupWarehouses: pickupWarehouses),
+      );
     } catch (e) {
       log.e(e.toString());
     }
   }
 
-  void removeSelectedDeliveryForFree(RegionResponse paymentType) {
+  void removeFreeDeliveryDistrict(District district) {
     try {
-      var paymentTypes = List<RegionResponse>.from(states.paymentType);
-      paymentTypes.remove(paymentType);
-      updateState((state) => state.copyWith(paymentType: paymentTypes));
+      var freeDeliveryDistricts =
+          List<District>.from(states.freeDeliveryDistricts);
+      freeDeliveryDistricts.remove(district);
+      updateState(
+        (state) => state.copyWith(freeDeliveryDistricts: freeDeliveryDistricts),
+      );
+    } catch (e) {
+      log.e(e.toString());
+    }
+  }
+
+  void removePaidDeliveryDistrict(District district) {
+    try {
+      var paidDeliveryDistricts =
+          List<District>.from(states.paidDeliveryDistricts);
+      paidDeliveryDistricts.remove(district);
+      updateState(
+        (state) => state.copyWith(paidDeliveryDistricts: paidDeliveryDistricts),
+      );
     } catch (e) {
       log.e(e.toString());
     }

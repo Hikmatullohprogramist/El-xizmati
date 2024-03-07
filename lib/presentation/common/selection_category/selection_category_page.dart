@@ -44,10 +44,10 @@ class SelectionCategoryPage extends BasePage<PageCubit, PageState, PageEvent> {
                 LoaderStateWidget(
                   isFullScreen: false,
                   loadingState: state.loadState,
-                  onErrorToAgainRequest: () {
+                  onRetryClicked: () {
                     cubit(context).getItems();
                   },
-                  child: ListView.separated(
+                  successBody: ListView.separated(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,

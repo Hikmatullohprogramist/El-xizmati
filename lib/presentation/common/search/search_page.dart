@@ -76,9 +76,9 @@ class SearchPage extends BasePage<PageCubit, PageState, PageEvent> {
       body: LoaderStateWidget(
         isFullScreen: false,
         loadingState: state.loadingState,
-        onStartWidget: Center(child: Text("Qidirishni boshlang")),
-        onEmptyWidget: Center(child: Text(Strings.loadingStateNoItemFound)),
-        child: ListView.builder(
+        initialBody: Center(child: Text("Qidirishni boshlang")),
+        emptyBody: Center(child: Text(Strings.loadingStateNoItemFound)),
+        successBody: ListView.builder(
           physics: BouncingScrollPhysics(),
           itemCount: state.searchResult.length,
           itemBuilder: (BuildContext context, int index) {

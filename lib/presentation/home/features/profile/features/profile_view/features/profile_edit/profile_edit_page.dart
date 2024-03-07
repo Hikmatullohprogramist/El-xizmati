@@ -302,19 +302,16 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
                             height: double.infinity,
                             child: ListView.builder(
                                 physics: BouncingScrollPhysics(),
-                                itemCount: state.streets.length,
-                                itemBuilder:
-                                    (BuildContext buildContext, int index) {
+                                itemCount: state.neighborhoods.length,
+                                itemBuilder: (BuildContext buildContext, int index) {
                                   return InkWell(
                                       onTap: () {
-                                        context
-                                            .read<PageCubit>()
-                                            .setStreet(state.streets[index]);
+                                        cubit(context).setStreet(state.neighborhoods[index]);
                                         Navigator.pop(buildContext);
                                       },
                                       child: Padding(
                                         padding: EdgeInsets.all(16),
-                                        child: state.streets[index].name.w(500),
+                                        child: state.neighborhoods[index].name.w(500),
                                       ));
                                 }),
                           );
@@ -323,7 +320,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
                   child: CommonTextField(
                     hint: Strings.profileEditNeighborhood,
                     readOnly: true,
-                    controller: TextEditingController(text: state.streetName),
+                    controller: TextEditingController(text: state.neighborhoodName),
                     enabled: false,
                     textInputAction: TextInputAction.next,
                     inputType: TextInputType.text,

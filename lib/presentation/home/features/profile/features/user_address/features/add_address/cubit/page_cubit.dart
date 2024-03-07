@@ -2,12 +2,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
+import 'package:onlinebozor/domain/models/district/district.dart';
+import 'package:onlinebozor/domain/models/region/region.dart';
+import 'package:onlinebozor/domain/models/street/street.dart';
 
 import '../../../../../../../../../common/core/base_cubit.dart';
 import '../../../../../../../../../data/repositories/user_address_repository.dart';
 import '../../../../../../../../../data/repositories/user_repository.dart';
 import '../../../../../../../../../data/responses/address/user_address_response.dart';
-import '../../../../../../../../../data/responses/region/region_response.dart';
 
 part 'page_cubit.freezed.dart';
 
@@ -15,12 +17,14 @@ part 'page_state.dart';
 
 @injectable
 class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
-  AddAddressCubit(this._userRepository, this.userAddressRepository)
-      : super(PageState()) {
+  AddAddressCubit(
+    this._userRepository,
+    this._userAddressRepository,
+  ) : super(PageState()) {
     getRegions();
   }
 
-  final UserAddressRepository userAddressRepository;
+  final UserAddressRepository _userAddressRepository;
   final UserRepository _userRepository;
 
   void setInitialParams(UserAddressResponse? address) {
@@ -53,7 +57,7 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
     updateState((state) => state.copyWith(addressName: addressName));
   }
 
-  void setSelectedRegion(RegionResponse region) {
+  void setSelectedRegion(Region region) {
     updateState(
       (state) => state.copyWith(
         regionId: region.id,
@@ -67,7 +71,7 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
     getDistrict();
   }
 
-  void setSelectedDistrict(RegionResponse district) {
+  void setSelectedDistrict(District district) {
     updateState(
       (state) => state.copyWith(
         districtId: district.id,
@@ -79,11 +83,11 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
     getStreets();
   }
 
-  void setSelectedNeighborhood(RegionResponse street) {
+  void setSelectedNeighborhood(Neighborhood neighborhood) {
     updateState(
       (state) => state.copyWith(
-        neighborhoodId: street.id,
-        neighborhoodName: street.name,
+        neighborhoodId: neighborhood.id,
+        neighborhoodName: neighborhood.name,
       ),
     );
   }
@@ -126,14 +130,14 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> addAddress() async {
     updateState((state) => state.copyWith(isLoading: true));
     try {
-      await userAddressRepository.addUserAddress(
+      await _userAddressRepository.addUserAddress(
         name: states.addressName!,
         regionId: states.regionId!,
         districtId: states.districtId!,
         neighborhoodId: states.neighborhoodId!,
-        homeNum: states.homeNumber ?? "",
-        apartmentNum: states.apartmentNum ?? "",
-        streetName: states.streetName ?? "",
+        homeNum: states.homeNumber?.trim() ?? "",
+        apartmentNum: states.apartmentNum?.trim() ?? "",
+        streetName: states.streetName?.trim() ?? "",
         isMain: states.isMain ?? false,
         geo: "${states.latitude},${states.longitude}",
       );
@@ -149,14 +153,14 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> updateAddress() async {
     updateState((state) => state.copyWith(isLoading: true));
     try {
-      await userAddressRepository.updateUserAddress(
+      await _userAddressRepository.updateUserAddress(
         name: states.addressName!,
         regionId: states.regionId!,
         districtId: states.districtId!,
         neighborhoodId: states.neighborhoodId!,
-        homeNum: states.homeNumber ?? "",
-        apartmentNum: states.apartmentNum ?? "",
-        streetName: states.streetName ?? "",
+        homeNum: states.homeNumber?.trim() ?? "",
+        apartmentNum: states.apartmentNum?.trim() ?? "",
+        streetName: states.streetName?.trim() ?? "",
         isMain: states.isMain ?? false,
         geo: "${states.latitude},${states.longitude}",
         id: states.addressId ?? -1,
@@ -199,7 +203,8 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> getStreets() async {
     try {
       final districtId = states.districtId;
-      final response = await _userRepository.getStreets(districtId ?? 1419);
+      final response =
+          await _userRepository.getNeighborhoods(districtId ?? 1419);
       if (states.neighborhoodId != null) {
         updateState(
           (state) => state.copyWith(
@@ -252,13 +257,11 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
             desiredAccuracy: LocationAccuracy.high);
         double lat = position.latitude;
         double long = position.longitude;
-        updateState(
-              (state) => state.copyWith(
-            latitude: lat,
-            longitude: long,
-            isLocationLoading: false,
-          ),
-        );
+        updateState((state) => state.copyWith(
+              latitude: lat,
+              longitude: long,
+              isLocationLoading: false,
+            ));
         print("Latitude: $lat and Longitude: $long");
       } catch (e) {
         log.e(e.toString());

@@ -1,16 +1,22 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/responses/active_sessions/active_session_response.dart';
+import 'package:onlinebozor/data/responses/region/region_and_district_response.dart';
 import 'package:onlinebozor/domain/mappers/active_session_mapper.dart';
+import 'package:onlinebozor/domain/mappers/region_mapper.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
+import 'package:onlinebozor/domain/models/district/district.dart';
+import 'package:onlinebozor/domain/models/region/region.dart';
+import 'package:onlinebozor/domain/models/region/region_and_district.dart';
 
 import '../../common/constants.dart';
 import '../../data/hive_objects/user/user_info_object.dart';
 import '../../data/responses/profile/biometric_info/biometric_info_response.dart';
 import '../../data/responses/profile/user/user_info_response.dart';
 import '../../data/responses/profile/user_full/user_full_info_response.dart';
-import '../../data/responses/region/region_response.dart';
+import '../../data/responses/region/region_root_response.dart';
 import '../../data/services/user_service.dart';
 import '../../data/storages/user_storage.dart';
+import '../../domain/models/street/street.dart';
 
 @LazySingleton()
 class UserRepository {
@@ -72,30 +78,40 @@ class UserRepository {
     return result;
   }
 
-  Future<UserInfoResponse> getUserInfo(
-      {required String phoneNumber, required String secretKey}) async {
+  Future<UserInfoResponse> getUserInfo({
+    required String phoneNumber,
+    required String secretKey,
+  }) async {
     final response = await _userService.getUserInfo(
-        secretKey: secretKey, phoneNumber: phoneNumber);
+      secretKey: secretKey,
+      phoneNumber: phoneNumber,
+    );
     final responseResult = UserInfoRootResponse.fromJson(response.data).data;
     return responseResult;
   }
 
-  Future<List<RegionResponse>> getRegions() async {
+  Future<RegionAndDistrict> getRegionAndDistricts() async {
+    final response = await _userService.getRegionAndDistricts();
+    final result = RegionAndDistrictRootResponse.fromJson(response.data).data;
+    return result.toMap();
+  }
+
+  Future<List<Region>> getRegions() async {
     final response = await _userService.getRegions();
     final result = RegionRootResponse.fromJson(response.data).data;
-    return result;
+    return result.map((e) => e.toRegion()).toList();
   }
 
-  Future<List<RegionResponse>> getDistricts(int regionId) async {
+  Future<List<District>> getDistricts(int regionId) async {
     final response = await _userService.getDistricts(regionId);
     final result = RegionRootResponse.fromJson(response.data).data;
-    return result;
+    return result.map((e) => e.toDistrict(regionId)).toList();
   }
 
-  Future<List<RegionResponse>> getStreets(int streetId) async {
+  Future<List<Neighborhood>> getNeighborhoods(int streetId) async {
     final response = await _userService.getStreets(streetId);
     final result = RegionRootResponse.fromJson(response.data).data;
-    return result;
+    return result.map((e) => e.toNeighborhood()).toList();
   }
 
   Future<void> sendUserInformation({

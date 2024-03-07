@@ -42,8 +42,8 @@ class AdDetailResponse with _$AdDetailResponse {
     bool? is_contract,
     String? route_type,
     String? property_status,
-    District? region,
-    District? district,
+    AdDistrictResponse? region,
+    AdDistrictResponse? district,
     dynamic email,
     String? phone_number,
     bool? is_autoRenew,
@@ -53,7 +53,7 @@ class AdDetailResponse with _$AdDetailResponse {
     Seller? seller,
     String? created_at,
     dynamic other_name,
-    District? other_category,
+    AdDistrictResponse? other_category,
     dynamic other_description,
     dynamic other_route_type,
     dynamic other_property_status,
@@ -80,8 +80,8 @@ class AdDetailResponse with _$AdDetailResponse {
     List<dynamic>? warehouses,
     List<dynamic>? shippings,
     List<Photo>? photos,
-    Address? address,
-    List<District>? payment_types,
+    AdAddressResponse? address,
+    List<AdDistrictResponse>? payment_types,
   }) = _AdDetailResponse;
 
   factory AdDetailResponse.fromJson(Map<String, dynamic> json) =>
@@ -89,33 +89,33 @@ class AdDetailResponse with _$AdDetailResponse {
 }
 
 @freezed
-class Address with _$Address {
-  const factory Address({
+class AdAddressResponse with _$AdAddressResponse {
+  const factory AdAddressResponse({
     int? id,
-    District? region,
-    District? district,
+    AdDistrictResponse? region,
+    AdDistrictResponse? district,
     String? name,
-    District? mahalla,
+    AdDistrictResponse? mahalla,
     dynamic home_num,
     dynamic street_num,
-    District? floor,
+    AdDistrictResponse? floor,
     dynamic apartment_num,
     String? geo,
   }) = _Address;
 
-  factory Address.fromJson(Map<String, dynamic> json) =>
-      _$AddressFromJson(json);
+  factory AdAddressResponse.fromJson(Map<String, dynamic> json) =>
+      _$AdAddressResponseFromJson(json);
 }
 
 @freezed
-class District with _$District {
-  const factory District({
+class AdDistrictResponse with _$AdDistrictResponse {
+  const factory AdDistrictResponse({
     int? id,
     String? name,
   }) = _District;
 
-  factory District.fromJson(Map<String, dynamic> json) =>
-      _$DistrictFromJson(json);
+  factory AdDistrictResponse.fromJson(Map<String, dynamic> json) =>
+      _$AdDistrictResponseFromJson(json);
 }
 
 @freezed

@@ -8,14 +8,15 @@ class PageState with _$PageState {
 //
     @Default(MAX_IMAGE_COUNT) int maxImageCount,
     List<XFile>? pickedImages,
+    @Default("") String videoUrl,
 //
     @Default("") String desc,
     int? warehouseCount,
     UnitResponse? unit,
+    @Default(1) int minAmount,
     int? price,
     CurrencyResponse? currency,
     @Default([]) List<PaymentTypeResponse> paymentTypes,
-    @Default([]) List<RegionResponse> paymentType,
     @Default(false) bool isAgreedPrice,
 //
     @Default(true) bool isNew,
@@ -27,16 +28,19 @@ class PageState with _$PageState {
     @Default("") String email,
 //
     @Default(false) bool isPickupEnabled,
-    @Default([]) List<UserAddressResponse> pickupAddresses,
+    @Default([]) List<UserAddressResponse> pickupWarehouses,
     @Default(false) bool isFreeDeliveryEnabled,
+    @Default(5) int freeDeliveryMaxDay,
+    @Default([]) List<District> freeDeliveryDistricts,
     @Default(false) bool isPaidDeliveryEnabled,
+    @Default(5) int paidDeliveryMaxDay,
+    @Default([]) List<District> paidDeliveryDistricts,
 //
     @Default(false) bool isAutoRenewal,
 //
     @Default(false) bool isShowMySocialAccount,
     @Default(false) bool isRequestSending,
 //
-    @Default(<RegionResponse>[]) List<RegionResponse> items,
     @Default(LoadingState.loading) LoadingState itemsLoadState,
   }) = _PageState;
 }

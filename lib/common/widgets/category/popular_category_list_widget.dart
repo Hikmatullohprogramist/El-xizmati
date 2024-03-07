@@ -19,14 +19,12 @@ class PopularCategoryListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (loadingState == LoadingState.loading) {
-      return _buildShimmerLoadingWidget();
-    } else {
-      return _buildCategoryListWidget();
-    }
+    return loadingState == LoadingState.loading
+        ? _buildLoadingBody()
+        : _buildSuccessBody();
   }
 
-  Widget _buildCategoryListWidget() {
+  Widget _buildSuccessBody() {
     return SizedBox(
       height: 154,
       child: ListView.separated(
@@ -48,7 +46,7 @@ class PopularCategoryListWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildShimmerLoadingWidget() {
+  Widget _buildLoadingBody() {
     return SizedBox(
       height: 154,
       child: ListView.separated(

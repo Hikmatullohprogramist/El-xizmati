@@ -23,11 +23,11 @@ class HorizontalAdListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return loadingState == LoadingState.loading
-        ? _buildShimmerLoadingItems()
-        : _buildHorizontalAdItems();
+        ? _buildLoadingBody()
+        : _buildSuccessBody();
   }
 
-  Widget _buildHorizontalAdItems() {
+  Widget _buildSuccessBody() {
     return SizedBox(
       height: 285,
       child: Align(
@@ -53,7 +53,7 @@ class HorizontalAdListWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildShimmerLoadingItems() {
+  Widget _buildLoadingBody() {
     return SizedBox(
       height: 285,
       child: Align(

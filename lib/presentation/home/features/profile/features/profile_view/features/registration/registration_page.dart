@@ -351,20 +351,19 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
                                   height: double.infinity,
                                   child: ListView.builder(
                                       physics: BouncingScrollPhysics(),
-                                      itemCount: state.streets.length,
+                                      itemCount: state.neighborhoods.length,
                                       itemBuilder: (BuildContext buildContext,
                                           int index) {
                                         return InkWell(
                                             onTap: () {
-                                              context
-                                                  .read<PageCubit>()
-                                                  .setStreet(
-                                                      state.streets[index]);
+                                             cubit(context)
+                                                  .setNeighborhood(
+                                                      state.neighborhoods[index]);
                                               Navigator.pop(buildContext);
                                             },
                                             child: Padding(
                                               padding: EdgeInsets.all(16),
-                                              child: state.streets[index].name
+                                              child: state.neighborhoods[index].name
                                                   .w(500),
                                             ));
                                       }),
@@ -375,7 +374,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
                           hint: Strings.profileEditNeighborhood,
                           readOnly: true,
                           controller:
-                              TextEditingController(text: state.streetName),
+                              TextEditingController(text: state.neighborhoodName),
                           enabled: false,
                           textInputAction: TextInputAction.next,
                           inputType: TextInputType.text,
