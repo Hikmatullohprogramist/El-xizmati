@@ -62,10 +62,10 @@ class UserService {
       RestQueryKeys.id: id,
       RestQueryKeys.neighborhoodId: mahallaId,
       RestQueryKeys.mobilePhone: mobilePhone,
+      RestQueryKeys.phoneNumber: phoneNumber,
       RestQueryKeys.photo: photo,
       RestQueryKeys.pinfl: pinfl,
       RestQueryKeys.postName: postName,
-      RestQueryKeys.phoneNumber: phoneNumber
     };
     final response =
         await _dio.put("v1/user/profile", queryParameters: queryParameters);

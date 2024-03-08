@@ -45,9 +45,9 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> getUserInformation() async {
     try {
       updateState((state) => state.copyWith(isLoading: true));
-
       log.e("getUserInformation onLoading");
       final response = await _userRepository.getFullUserInfo();
+     // log.w(response.socials);
       updateState(
         (state) => state.copyWith(
           isLoading: false,
@@ -68,11 +68,41 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           smsNotification: response.message_type.toString().contains("SMS"),
           telegramNotification: response.message_type.toString().contains("TELEGRAM"),
           emailNotification: response.message_type.toString().contains("EMAIL"),
+          instagramSocial: SocialElement(
+              type: response.socials?[0].type??"",
+              link: response.socials?[0].link??"",
+              status: response.socials?[0].status??"",
+              isLink: false,
+              id:response.socials?[0].id??0,
+              tin: response.socials?[0].tin??0,
+              viewNote: response.socials?[0].viewNote),
+          telegramSocial: SocialElement(
+              type: response.socials?[1].type??"",
+              link: response.socials?[1].link??"",
+              status: response.socials?[1].status??"",
+              isLink: false,
+              id:response.socials?[1].id??0,
+              tin: response.socials?[1].tin??0,
+              viewNote: response.socials?[1].viewNote),
+          facebookSocial: SocialElement(
+              type: response.socials?[2].type??"",
+              link: response.socials?[2].link??"",
+              status: response.socials?[2].status??"",
+              isLink: false,
+              id:response.socials?[2].id??0,
+              tin: response.socials?[2].tin??0,
+              viewNote: response.socials?[2].viewNote),
+          youtubeSocial: SocialElement(
+              type: response.socials?[3].type??"",
+              link: response.socials?[3].link??"",
+              status: response.socials?[3].status??"",
+              isLink: false,
+              id:response.socials?[3].id??0,
+              tin: response.socials?[3].tin??0,
+              viewNote: response.socials?[3].viewNote),
         ),
       );
-
       log.e("getUserInformation onSuccess");
-
       await getUser();
     } on DioException catch (e) {
       log.e("getUserInformation onFailure error = ${e.toString()}");
@@ -85,6 +115,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       // display.error(e.toString());
     }
   }
+
 
   Future<void> getRegions() async {
     final response = await _userRepository.getRegions();

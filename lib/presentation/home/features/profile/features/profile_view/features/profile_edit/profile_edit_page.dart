@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +8,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/app_bar/action_app_bar.dart';
 import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
+import 'package:onlinebozor/common/widgets/snackbar/snackbar_widget.dart';
 import 'package:onlinebozor/common/widgets/text_field/common_text_field.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/profile_view/features/profile_edit/cubit/page_cubit.dart';
 
@@ -17,6 +20,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
+    String email="";
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: ActionAppBar(
@@ -25,7 +29,20 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
         actions: [
           CustomTextButton(
             text: Strings.commonSave,
-            onPressed: () => cubit(context).sendUserInfo(),
+            onPressed: () {
+              if(email.isNotEmpty)cubit(context).setEmail(email);
+              cubit(context).sendUserInfo().then((value) {
+               if(value){
+                 context.showCustomSnackBar(
+                     message: 'Saved!', backgroundColor: Colors.green.shade400);
+                 context.router.pop();
+               }else{
+                 context.showCustomSnackBar(
+                     message: "Do'nt save",
+                     backgroundColor: Colors.red.shade400);
+               }
+              });
+            },
           )
         ],
       ),
@@ -63,9 +80,13 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
               padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
               child: CommonTextField(
                 hint: "example@gmail.com",
-                controller: TextEditingController(text: state.email),
+                controller:TextEditingController(text: state.email),
                 textInputAction: TextInputAction.next,
                 inputType: TextInputType.emailAddress,
+                onChanged: (value){
+                  ///cubit(context).setEmail(value);
+                  email=value;
+                },
               ),
             ),
             Padding(
@@ -174,41 +195,40 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
                 padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
                 child: InkWell(
                   onTap: () {
-                    showModalBottomSheet(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        backgroundColor: Colors.white,
-                        context: context,
-                        builder: (BuildContext buildContext) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20.0),
-                                topRight: Radius.circular(20.0),
-                              ),
-                            ),
-                            height: double.infinity,
-                            child: ListView.builder(
-                                physics: BouncingScrollPhysics(),
-                                itemCount: state.regions.length,
-                                itemBuilder:
-                                    (BuildContext buildContext, int index) {
-                                  return InkWell(
-                                      onTap: () {
-                                        context
-                                            .read<PageCubit>()
-                                            .setRegion(state.regions[index]);
-                                        Navigator.pop(buildContext);
-                                      },
-                                      child: Padding(
-                                        padding: EdgeInsets.all(16),
-                                        child: state.regions[index].name.w(500),
-                                      ));
-                                }),
-                          );
-                        });
+                  // showModalBottomSheet(
+                  //     shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(10.0),
+                  //     ),
+                  //     backgroundColor: Colors.white,
+                  //     context: context,
+                  //     builder: (BuildContext buildContext) {
+                  //       return Container(
+                  //         decoration: BoxDecoration(
+                  //           color: Colors.white,
+                  //           borderRadius: BorderRadius.only(
+                  //             topLeft: Radius.circular(20.0),
+                  //             topRight: Radius.circular(20.0),
+                  //           ),
+                  //         ),
+                  //         height: double.infinity,
+                  //         child: ListView.builder(
+                  //             physics: BouncingScrollPhysics(),
+                  //             itemCount: state.regions.length,
+                  //             itemBuilder:
+                  //                 (BuildContext buildContext, int index) {
+                  //               return InkWell(
+                  //                   onTap: () {
+                  //                    // context.read<PageCubit>().setRegion(state.regions[index]);
+                  //                     cubit(context).setRegion(state.regions[index]);
+                  //                     Navigator.pop(buildContext);
+                  //                   },
+                  //                   child: Padding(
+                  //                     padding: EdgeInsets.all(16),
+                  //                     child: state.regions[index].name.w(500),
+                  //                   ));
+                  //             }),
+                  //       );
+                  //     });
                   },
                   child: CommonTextField(
                     hint: Strings.profileEditRegion,
@@ -228,41 +248,41 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
                 padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
                 child: InkWell(
                   onTap: () {
-                    showModalBottomSheet(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        backgroundColor: Colors.white,
-                        context: context,
-                        builder: (BuildContext buildContext) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20.0),
-                                topRight: Radius.circular(20.0),
-                              ),
-                            ),
-                            height: double.infinity,
-                            child: ListView.builder(
-                                physics: BouncingScrollPhysics(),
-                                itemCount: state.districts.length,
-                                itemBuilder:
-                                    (BuildContext buildContext, int index) {
-                                  return InkWell(
-                                      onTap: () {
-                                        cubit(context).setDistrict(
-                                            state.districts[index]);
-                                        Navigator.pop(buildContext);
-                                      },
-                                      child: Padding(
-                                        padding: EdgeInsets.all(16),
-                                        child:
-                                            state.districts[index].name.w(500),
-                                      ));
-                                }),
-                          );
-                        });
+                  // showModalBottomSheet(
+                  //     shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(10.0),
+                  //     ),
+                  //     backgroundColor: Colors.white,
+                  //     context: context,
+                  //     builder: (BuildContext buildContext) {
+                  //       return Container(
+                  //         decoration: BoxDecoration(
+                  //           color: Colors.white,
+                  //           borderRadius: BorderRadius.only(
+                  //             topLeft: Radius.circular(20.0),
+                  //             topRight: Radius.circular(20.0),
+                  //           ),
+                  //         ),
+                  //         height: double.infinity,
+                  //         child: ListView.builder(
+                  //             physics: BouncingScrollPhysics(),
+                  //             itemCount: state.districts.length,
+                  //             itemBuilder:
+                  //                 (BuildContext buildContext, int index) {
+                  //               return InkWell(
+                  //                   onTap: () {
+                  //                     cubit(context).setDistrict(
+                  //                         state.districts[index]);
+                  //                     Navigator.pop(buildContext);
+                  //                   },
+                  //                   child: Padding(
+                  //                     padding: EdgeInsets.all(16),
+                  //                     child:
+                  //                         state.districts[index].name.w(500),
+                  //                   ));
+                  //             }),
+                  //       );
+                  //     });
                   },
                   child: CommonTextField(
                       hint: Strings.profileEditDistrict,

@@ -47,7 +47,7 @@ class UserFullInfoResponse with _$UserFullInfoResponse {
     String? type_activity,
     String? mobile_phone,
     List<Active>? actives,
-    List<dynamic>? socials,
+    List<Socials>? socials,
     UserDo? userDo,
   }) = _UserFullInfoResponse;
 
@@ -68,6 +68,20 @@ class Active with _$Active {
   }) = _Active;
 
   factory Active.fromJson(Map<String, dynamic> json) => _$ActiveFromJson(json);
+}
+
+@freezed
+class Socials with _$Socials{
+  const factory Socials({
+    int? id,
+    String? type,
+    String? link,
+    String? status,
+    int? tin,
+    String? viewNote,
+  })= _Socials;
+
+  factory Socials.fromJson(Map<String, dynamic> json) => _$SocialsFromJson(json);
 }
 
 
