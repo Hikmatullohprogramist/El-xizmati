@@ -111,11 +111,13 @@ common_floor,Qavat,Этаж,Қават
 common_home_number,Uy raqami,Номер дома,Уй рақами
 common_main,Asosiy,Основной,Асосий
 common_more,Ko‘proq,Подробнее,Кўпроқ
+common_more,Yana {count} ta,Ещё {count},Яна {count} та
 common_neighborhood,Mahalla,Махалля,Маҳалла
 common_no,Yo‘q,Нет,Йўқ
 common_phone_number,Telefon raqami,Номер телефона,Телефон рақами
 common_region,Viloyat,Регион,Вилоят
 common_save,Saqlash,Сохранить,Сақлаш
+common_save_changes,O‘zgarishlarni saqlash,Сохранить изменения,Ўзгаришларни сақлаш
 common_street,Ko'cha,Улица,Кўча
 common_total_cost,Umumiy narx,Общая стоимость,Умумий нарх
 common_unfind,topilmadi,не найдено,топилмади
@@ -236,6 +238,8 @@ profile_user_region,Viloyat,Регион,Вилоят
 profile_view_titlle,Profil,Профиль,Профил
 recently_viewed_title,Yaqinda ko‘rilgan,Недавно посмотренные,Яқинда кўрилган
 request_title,So‘rovlar,Запросы,Сўровлар
+selection_delivery_districts_title,Yetkazib berish hududlarini tanlang,Выберите регионы доставки,Етказиб бериш ҳудудларини танланг
+selection_pickup_addresses_title,Olib ketish manzillarini tanlang,Выберите адреса самовывоза,Олиб кетиш манзилларини танланг
 services_title,Xizmatlar,Услуги,Хизматлар
 settings_active_devices,Faol qurilmalar,Активные устройства,Фаол қурилмалар
 settings_change_password,Parolni o‘zgartirish,Поменять пароль,Паролни ўзгартириш
