@@ -24,7 +24,7 @@ class SelectionRegionAndDistrictPage
   final List<District>? initialSelectedDistricts;
 
   @override
-  void init(BuildContext context) {
+  void onWidgetCreated(BuildContext context) {
     cubit(context).setInitialParams(initialSelectedDistricts);
   }
 

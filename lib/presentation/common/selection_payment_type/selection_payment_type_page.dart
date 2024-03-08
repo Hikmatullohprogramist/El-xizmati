@@ -37,38 +37,43 @@ class SelectionPaymentTypePage
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
-        child: Container(
-          color: Colors.white,
-          child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: Column(
-              children: [
-                SizedBox(height: 20),
-                BottomSheetTitle(
-                  title: "Выберите типы оплаты",
-                  onCloseClicked: () {
-                    context.router.pop();
-                  },
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Container(
+              color: Colors.white,
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    SizedBox(height: 20),
+                    BottomSheetTitle(
+                      title: "Выберите типы оплаты",
+                      onCloseClicked: () {
+                        context.router.pop();
+                      },
+                    ),
+                    LoaderStateWidget(
+                      isFullScreen: false,
+                      loadingState: state.loadState,
+                      loadingBody: _buildLoadingBody(),
+                      successBody: _buildSuccessBody(state),
+                    ),
+                    SizedBox(height: 72),
+                  ],
                 ),
-                LoaderStateWidget(
-                  isFullScreen: false,
-                  loadingState: state.loadState,
-                  loadingBody: _buildLoadingBody(),
-                  successBody: _buildSuccessBody(state),
-                ),
-                SizedBox(height: 16),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: CustomElevatedButton(
-                    text: Strings.commonSave,
-                    onPressed: () {
-                      context.router.pop(state.selectedItems);
-                    },
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: CustomElevatedButton(
+                text: Strings.commonSave,
+                onPressed: () {
+                  context.router.pop(state.selectedItems);
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
