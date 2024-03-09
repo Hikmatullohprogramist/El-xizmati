@@ -532,7 +532,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               chips: _buildPickupAddressChips(context, state),
               isShowAll: state.isShowAllPickupAddresses,
               onClickedAdd: () {
-                _showSelectionPickupAddress(context, state);
+                _showSelectionPickup(context, state);
               },
               onClickedShowLess: () => cubit(context).showHideAddresses(),
               onClickedShowMore: () => cubit(context).showHideAddresses(),
@@ -798,18 +798,14 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           (element) => ChipItem(
             item: element,
             title: element.name ?? "",
-            onChipClicked: (item) {
-              _showSelectionPickupAddress(context, state);
-            },
-            onActionClicked: (item) {
-              cubit(context).removePickupWarehouse(item);
-            },
+            onChipClicked: (item) => _showSelectionPickup(context, state),
+            onActionClicked: (item) => cubit(context).removePickupAddress(item),
           ),
         )
         .toList();
   }
 
-  void _showSelectionPickupAddress(
+  void _showSelectionPickup(
     BuildContext context,
     PageState state,
   ) async {
@@ -833,9 +829,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             item: element,
             title: element.name,
             onChipClicked: (item) => _showSelectionFreeDistrict(context, state),
-            onActionClicked: (item) {
-              cubit(context).removePaidDeliveryDistrict(item);
-            },
+            onActionClicked: (item) => cubit(context).removeFreeDelivery(item),
           ),
         )
         .toList();
@@ -865,7 +859,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             title: element.name,
             onChipClicked: (item) => _showSelectionPaidDistrict(context, state),
             onActionClicked: (item) {
-              cubit(context).removePaidDeliveryDistrict(item);
+              cubit(context).removePaidDelivery(item);
             },
           ),
         )

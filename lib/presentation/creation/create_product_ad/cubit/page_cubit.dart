@@ -259,7 +259,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  void removePickupWarehouse(UserAddressResponse pickupAddress) {
+  void removePickupAddress(UserAddressResponse pickupAddress) {
     try {
       var pickupWarehouses =
           List<UserAddressResponse>.from(states.pickupWarehouses);
@@ -272,7 +272,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  void removeFreeDeliveryDistrict(District district) {
+  void removeFreeDelivery(District district) {
     try {
       var freeDeliveryDistricts =
           List<District>.from(states.freeDeliveryDistricts);
@@ -285,7 +285,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  void removePaidDeliveryDistrict(District district) {
+  void removePaidDelivery(District district) {
     try {
       var paidDeliveryDistricts =
           List<District>.from(states.paidDeliveryDistricts);
