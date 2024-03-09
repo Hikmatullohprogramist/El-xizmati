@@ -125,10 +125,18 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     updateState((state) => states.copyWith(brithDate: brithDate));
   }
 
+
+  void setEmail(String email) {
+    updateState((state) => states.copyWith(
+      email: email
+        ));
+  }
+
   void setPhoneNumber(String phone) {
     updateState((state) => states.copyWith(
         phoneNumber: phone.replaceAll(" ", "").replaceAll("+", "")));
   }
+
 
   void setRegion(Region region) {
     updateState((state) => states.copyWith(
@@ -159,21 +167,23 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         ));
   }
 
-  Future<void> sendUserInfo() async {
+  Future<bool> sendUserInfo() async {
     try {
       await repository.sendUserInformation(
-        email: states.email,
+        email:  states.email,
         gender: states.gender ?? "",
         homeName: states.neighborhoodName,
         mahallaId: states.neighborhoodId ?? -1,
         mobilePhone: states.mobileNumber ?? "",
+        phoneNumber: states.phoneNumber,
         photo: states.photo ?? "",
         pinfl: states.pinfl ?? -1,
         postName: states.postName ?? "",
-        phoneNumber: states.phoneNumber,
       );
+      return true;
     } catch (e) {
       display.error(Strings.loadingStateError);
+      return false;
     }
   }
 }

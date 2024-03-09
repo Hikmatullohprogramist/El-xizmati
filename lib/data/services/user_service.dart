@@ -62,10 +62,10 @@ class UserService {
       RestQueryKeys.id: id,
       RestQueryKeys.neighborhoodId: mahallaId,
       RestQueryKeys.mobilePhone: mobilePhone,
+      RestQueryKeys.phoneNumber: phoneNumber,
       RestQueryKeys.photo: photo,
       RestQueryKeys.pinfl: pinfl,
       RestQueryKeys.postName: postName,
-      RestQueryKeys.phoneNumber: phoneNumber
     };
     final response =
         await _dio.put("v1/user/profile", queryParameters: queryParameters);
@@ -88,6 +88,11 @@ class UserService {
     return response;
   }
 
+  Future<Response> getRegionAndDistricts() async {
+    final response = await _dio.get("v1/regions-districts");
+    return response;
+  }
+
   Future<Response> getDistricts(int regionId) async {
     final queryParameters = {RestQueryKeys.regionId: regionId};
     final response =
@@ -104,6 +109,17 @@ class UserService {
 
   Future<Response> getActiveDevices() async {
     final response = await _dio.get("v1/profile/active");
+    return response;
+  }
+
+  Future<Response> sendMessageType({
+    required String messageType
+  }) async{
+    final  queryParameters={
+      RestQueryKeys.messageType:messageType
+    };
+    final response=
+    await _dio.patch("v1/user",data: queryParameters);
     return response;
   }
 

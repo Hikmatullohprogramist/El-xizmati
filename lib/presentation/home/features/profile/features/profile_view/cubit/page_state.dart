@@ -32,10 +32,10 @@ class PageState with _$PageState {
 
     @Default(<bool>[false,false,false]) List<bool> enableButton,
 
-    @Default(<Social>[]) List<Social> instagramSocial,
-    @Default(<Social>[]) List<Social> telegramSocial,
-    @Default(<Social>[]) List<Social> facebookSocial,
-    @Default(<Social>[]) List<Social> youtubeSocial,
+    SocialElement? instagramSocial,
+    SocialElement? telegramSocial,
+    SocialElement? facebookSocial,
+    SocialElement? youtubeSocial,
 
     PagingController<int, ActiveSession>? controller,
   }) = _PageState;
