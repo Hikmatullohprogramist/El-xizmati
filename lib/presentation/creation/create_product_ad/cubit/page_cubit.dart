@@ -187,6 +187,12 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
+  void showHideAddresses() {
+    updateState((state) => state.copyWith(
+          isShowAllPickupAddresses: !states.isShowAllPickupAddresses,
+        ));
+  }
+
   void setFreeDeliveryDistricts(List<District>? districts) {
     try {
       if (districts != null) {
@@ -200,6 +206,12 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
+  void showHideFreeDistricts() {
+    updateState((state) => state.copyWith(
+      isShowAllFreeDeliveryDistricts: !states.isShowAllFreeDeliveryDistricts,
+    ));
+  }
+
   void setPaidDeliveryDistricts(List<District>? districts) {
     try {
       if (districts != null) {
@@ -211,6 +223,12 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     } catch (e) {
       log.e(e.toString());
     }
+  }
+
+  void showHidePaidDistricts() {
+    updateState((state) => state.copyWith(
+      isShowAllPaidDeliveryDistricts: !states.isShowAllPaidDeliveryDistricts,
+    ));
   }
 
   bool checkEnabledField() {

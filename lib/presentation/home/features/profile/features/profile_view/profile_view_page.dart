@@ -47,7 +47,6 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
-    TextEditingController _textEditingController = TextEditingController();
     try {
       return Scaffold(
           appBar: ActionAppBar(
@@ -78,9 +77,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                         _getHeaderBlock(context, state),
                         SizedBox(height: 12),
                         _getBioBlock(context, state),
-                        SizedBox(
-                          height: 12,
-                        ),
+                        SizedBox(height: 12),
                         _buildNotificationBlock(context),
                         SizedBox(height: 12),
                         _buildSocialBlock(context),
@@ -522,7 +519,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
           ])),
           SizedBox(height: 15),
           CustomElevatedButton(
-            text: Strings.commonSave,
+            text: Strings.commonSaveChanges,
             isLoading: cubit(context).states.isLoadingNotification,
             isEnabled: !cubit(context)
                 .states
@@ -824,7 +821,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
           ])),
           SizedBox(height: 15),
           CustomElevatedButton(
-            text: "Save",
+            text: Strings.commonSaveChanges,
             onPressed: () {
               //context.router.push(CreateProductAdRoute());
               cubit(context).setMessageType("SMS");

@@ -4,10 +4,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/common/widgets/chips/chips_add_item.dart';
-import 'package:onlinebozor/common/widgets/chips/chips_item.dart';
-import 'package:onlinebozor/common/widgets/chips/chips_more_item.dart';
-import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
+import 'package:onlinebozor/common/widgets/chips/chip_add_item.dart';
+import 'package:onlinebozor/common/widgets/chips/chip_item.dart';
+import 'package:onlinebozor/common/widgets/chips/chip_list.dart';
 import 'package:onlinebozor/common/widgets/image/image_ad_list_widget.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_switch.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_toggle.dart';
@@ -75,7 +74,11 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             SizedBox(height: 16),
             _buildContactsBlock(context, state),
             SizedBox(height: 16),
-            _buildDeliveryBlock(context, state),
+            _buildPickupBlock(context, state),
+            SizedBox(height: 4),
+            _buildFreeDeliveryBlock(context, state),
+            SizedBox(height: 4),
+            _buildPaidDeliveryBlock(context, state),
             SizedBox(height: 16),
             _buildAutoContinueBlock(context, state),
             SizedBox(height: 16),
@@ -142,20 +145,6 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 }),
               );
             },
-            // onTap: () async {
-            // final category = await showModalBottomSheet(
-            //   context: context,
-            //   isScrollControlled: true,
-            //   useSafeArea: true,
-            //   backgroundColor: Colors.transparent,
-            //   builder: (context) => SelectionCategoryPage(
-            //     key: Key(""),
-            //     initialSelectedItem: state.category,
-            //   ),
-            // );
-            //
-            // cubit(context).setSelectedCategory(category);
-            // },
           ),
         ],
       ),
@@ -505,7 +494,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildDeliveryBlock(
+  Widget _buildPickupBlock(
     BuildContext context,
     PageState state,
   ) {
@@ -516,7 +505,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 8),
-          "Способы приема".w(700).s(16).c(Color(0xFF41455E)),
+          "Способы приема".w(600).s(14).c(Color(0xFF41455E)),
           SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -529,26 +518,43 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
               SizedBox(width: 16),
               Expanded(
-                child: "Самовывоз с адреса".w(600).s(15).c(Color(0xFF41455E)),
+                child: "Самовывоз с адреса".w(600).s(14).c(Color(0xFF41455E)),
               ),
             ],
           ),
-          SizedBox(height: 8),
           Visibility(
             visible: state.isPickupEnabled,
-            child: Wrap(
-              direction: Axis.horizontal,
-              spacing: 8,
-              runSpacing: 8,
-              alignment: WrapAlignment.start,
-              crossAxisAlignment: WrapCrossAlignment.start,
-              runAlignment: WrapAlignment.start,
-              children: _buildPickupAddressChips(context, state),
+            child: SizedBox(height: 12),
+          ),
+          Visibility(
+            visible: state.isPickupEnabled,
+            child: ChipList(
+              chips: _buildPickupAddressChips(context, state),
+              isShowAll: state.isShowAllPickupAddresses,
+              onClickedAdd: () {
+                _showSelectionPickupAddress(context, state);
+              },
+              onClickedShowLess: () => cubit(context).showHideAddresses(),
+              onClickedShowMore: () => cubit(context).showHideAddresses(),
             ),
           ),
-          SizedBox(height: 10),
-          CustomDivider(thickness: 1),
-          SizedBox(height: 10),
+          SizedBox(height: 6),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFreeDeliveryBlock(
+    BuildContext context,
+    PageState state,
+  ) {
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -560,26 +566,43 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
               SizedBox(width: 16),
               Expanded(
-                child: "Бесплатная доставка".w(600).s(15).c(Color(0xFF41455E)),
+                child: "Бесплатная доставка".w(600).s(14).c(Color(0xFF41455E)),
               ),
             ],
           ),
-          SizedBox(height: 8),
           Visibility(
             visible: state.isFreeDeliveryEnabled,
-            child: Wrap(
-              direction: Axis.horizontal,
-              spacing: 8,
-              runSpacing: 8,
-              alignment: WrapAlignment.start,
-              crossAxisAlignment: WrapCrossAlignment.start,
-              runAlignment: WrapAlignment.start,
-              children: _buildFreeDeliveryChips(context, state),
+            child: SizedBox(height: 12),
+          ),
+          Visibility(
+            visible: state.isFreeDeliveryEnabled,
+            child: ChipList(
+              chips: _buildFreeDeliveryChips(context, state),
+              isShowAll: state.isShowAllFreeDeliveryDistricts,
+              onClickedAdd: () {
+                _showSelectionFreeDistrict(context, state);
+              },
+              onClickedShowLess: () => cubit(context).showHideFreeDistricts(),
+              onClickedShowMore: () => cubit(context).showHideFreeDistricts(),
             ),
           ),
-          SizedBox(height: 10),
-          CustomDivider(thickness: 1),
-          SizedBox(height: 10),
+          SizedBox(height: 6),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPaidDeliveryBlock(
+    BuildContext context,
+    PageState state,
+  ) {
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -591,21 +614,24 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
               SizedBox(width: 16),
               Expanded(
-                child: "Платная доставка".w(600).s(15).c(Color(0xFF41455E)),
+                child: "Платная доставка".w(600).s(14).c(Color(0xFF41455E)),
               ),
             ],
           ),
-          SizedBox(height: 8),
           Visibility(
             visible: state.isPaidDeliveryEnabled,
-            child: Wrap(
-              direction: Axis.horizontal,
-              spacing: 8,
-              runSpacing: 8,
-              alignment: WrapAlignment.start,
-              crossAxisAlignment: WrapCrossAlignment.start,
-              runAlignment: WrapAlignment.start,
-              children: _buildPaidDeliveryChips(context, state),
+            child: SizedBox(height: 12),
+          ),
+          Visibility(
+            visible: state.isPaidDeliveryEnabled,
+            child: ChipList(
+              chips: _buildPaidDeliveryChips(context, state),
+              isShowAll: state.isShowAllPaidDeliveryDistricts,
+              onClickedAdd: () {
+                _showSelectionPaidDistrict(context, state);
+              },
+              onClickedShowLess: () => cubit(context).showHidePaidDistricts(),
+              onClickedShowMore: () => cubit(context).showHidePaidDistricts(),
             ),
           ),
           SizedBox(height: 6),
@@ -736,8 +762,8 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
   ) {
     List<Widget> chips = [];
     chips.add(
-      ChipsAddItem(
-        onChipClicked: () async {
+      ChipAddItem(
+        onClicked: () async {
           final paymentTypes = await showModalBottomSheet(
             context: context,
             isScrollControlled: true,
@@ -754,7 +780,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
     chips.addAll(state.paymentTypes
         .map(
-          (element) => ChipsItem(
+          (element) => ChipItem(
             item: element,
             title: element.name ?? "",
             onActionClicked: (item) {
@@ -767,43 +793,23 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   List<Widget> _buildPickupAddressChips(BuildContext context, PageState state) {
-    List<Widget> chips = [];
-    chips.add(
-      ChipsAddItem(
-        onChipClicked: () {
-          _showSelectionPickupAddresses(context, state);
-        },
-      ),
-    );
-    var addresses = state.pickupWarehouses;
-    var totalCount = addresses.length;
-    chips.addAll((totalCount > 2 ? addresses.sublist(0, 2) : addresses)
+    return state.pickupWarehouses
         .map(
-          (element) => ChipsItem(
+          (element) => ChipItem(
             item: element,
             title: element.name ?? "",
             onChipClicked: (item) {
-              _showSelectionPickupAddresses(context, state);
+              _showSelectionPickupAddress(context, state);
             },
             onActionClicked: (item) {
               cubit(context).removePickupWarehouse(item);
             },
           ),
         )
-        .toList());
-
-    if (totalCount > 2) {
-      chips.add(
-        ChipsMoreItem(
-          count: totalCount - 2,
-          onChipClicked: () => _showSelectionFreeDistrict(context, state),
-        ),
-      );
-    }
-    return chips;
+        .toList();
   }
 
-  Future<void> _showSelectionPickupAddresses(
+  void _showSelectionPickupAddress(
     BuildContext context,
     PageState state,
   ) async {
@@ -821,17 +827,9 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   List<Widget> _buildFreeDeliveryChips(BuildContext context, PageState state) {
-    List<Widget> chips = [];
-    chips.add(
-      ChipsAddItem(
-        onChipClicked: () => _showSelectionFreeDistrict(context, state),
-      ),
-    );
-    var districts = state.freeDeliveryDistricts;
-    var totalCount = districts.length;
-    chips.addAll((totalCount > 2 ? districts.sublist(0, 2) : districts)
+    return state.freeDeliveryDistricts
         .map(
-          (element) => ChipsItem(
+          (element) => ChipItem(
             item: element,
             title: element.name,
             onChipClicked: (item) => _showSelectionFreeDistrict(context, state),
@@ -840,16 +838,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
           ),
         )
-        .toList());
-    if (totalCount > 2) {
-      chips.add(
-        ChipsMoreItem(
-          count: totalCount - 2,
-          onChipClicked: () => _showSelectionFreeDistrict(context, state),
-        ),
-      );
-    }
-    return chips;
+        .toList();
   }
 
   Future<void> _showSelectionFreeDistrict(
@@ -869,17 +858,9 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   List<Widget> _buildPaidDeliveryChips(BuildContext context, PageState state) {
-    List<Widget> chips = [];
-    chips.add(
-      ChipsAddItem(
-        onChipClicked: () => _showSelectionPaidDistrict(context, state),
-      ),
-    );
-    var districts = state.paidDeliveryDistricts;
-    var totalCount = districts.length;
-    chips.addAll((totalCount > 2 ? districts.sublist(0, 2) : districts)
+    return state.paidDeliveryDistricts
         .map(
-          (element) => ChipsItem(
+          (element) => ChipItem(
             item: element,
             title: element.name,
             onChipClicked: (item) => _showSelectionPaidDistrict(context, state),
@@ -888,14 +869,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
           ),
         )
-        .toList());
-    if (totalCount > 2) {
-      chips.add(ChipsMoreItem(
-        count: totalCount - 2,
-        onChipClicked: () => _showSelectionPaidDistrict(context, state),
-      ));
-    }
-    return chips;
+        .toList();
   }
 
   Future<void> _showSelectionPaidDistrict(

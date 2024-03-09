@@ -16,8 +16,8 @@ import '../../../common/colors/static_colors.dart';
 import '../../../common/vibrator/vibrator_extension.dart';
 import '../../../common/widgets/button/custom_elevated_button.dart';
 import '../../../common/widgets/button/custom_outlined_button.dart';
-import '../../../common/widgets/chips/chips_add_item.dart';
-import '../../../common/widgets/chips/chips_item.dart';
+import '../../../common/widgets/chips/chip_add_item.dart';
+import '../../../common/widgets/chips/chip_item.dart';
 import '../../../common/widgets/image/image_ad_list_widget.dart';
 import '../../../common/widgets/switch/custom_switch.dart';
 import '../../common/selection_currency/selection_currency_page.dart';
@@ -518,8 +518,8 @@ class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
   ) {
     List<Widget> chips = [];
     chips.add(
-      ChipsAddItem(
-        onChipClicked: () async {
+      ChipAddItem(
+        onClicked: () async {
           final paymentTypes = await showModalBottomSheet(
             context: context,
             isScrollControlled: true,
@@ -536,7 +536,7 @@ class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
     chips.addAll(state.paymentTypes
         .map(
-          (element) => ChipsItem(
+          (element) => ChipItem(
             item: element,
             title: element.name ?? "",
             onActionClicked: (item) {

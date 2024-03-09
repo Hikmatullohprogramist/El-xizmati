@@ -9,8 +9,8 @@ import '../../../common/colors/static_colors.dart';
 import '../../../common/gen/assets/assets.gen.dart';
 import '../../../common/gen/localization/strings.dart';
 import '../../../common/router/app_router.dart';
-import '../../../common/widgets/chips/chips_add_item.dart';
-import '../../../common/widgets/chips/chips_item.dart';
+import '../../../common/widgets/chips/chip_add_item.dart';
+import '../../../common/widgets/chips/chip_item.dart';
 import '../../../common/widgets/image/image_ad_list_widget.dart';
 import '../../../common/widgets/switch/custom_switch.dart';
 import '../../../common/widgets/text_field/common_text_field.dart';
@@ -495,8 +495,8 @@ class CreateServiceOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
   ) {
     List<Widget> chips = [];
     chips.add(
-      ChipsAddItem(
-        onChipClicked: () async {
+      ChipAddItem(
+        onClicked: () async {
           final paymentTypes = await showModalBottomSheet(
             context: context,
             isScrollControlled: true,
@@ -513,7 +513,7 @@ class CreateServiceOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
     chips.addAll(state.paymentTypes
         .map(
-          (element) => ChipsItem(
+          (element) => ChipItem(
             item: element,
             title: element.name ?? "",
             onActionClicked: (item) {
