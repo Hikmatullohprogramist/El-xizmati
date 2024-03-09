@@ -72,12 +72,6 @@ class UserService {
     return response;
   }
 
-  Future<Response> sendMessageType({required String messageType}) async {
-    final queryParameters = {RestQueryKeys.messageType: messageType};
-    final response = await _dio.patch("v1/user", data: queryParameters);
-    return response;
-  }
-
   Future<Response> getRegionAndDistricts() async {
     final response = await _dio.get("v1/regions-districts");
     return response;
@@ -85,11 +79,6 @@ class UserService {
 
   Future<Response> getRegions() async {
     final response = await _dio.get("v1/regions");
-    return response;
-  }
-
-  Future<Response> getRegionAndDistricts() async {
-    final response = await _dio.get("v1/regions-districts");
     return response;
   }
 
@@ -112,14 +101,9 @@ class UserService {
     return response;
   }
 
-  Future<Response> sendMessageType({
-    required String messageType
-  }) async{
-    final  queryParameters={
-      RestQueryKeys.messageType:messageType
-    };
-    final response=
-    await _dio.patch("v1/user",data: queryParameters);
+  Future<Response> sendMessageType({required String messageType}) async {
+    final queryParameters = {RestQueryKeys.messageType: messageType};
+    final response = await _dio.patch("v1/user", data: queryParameters);
     return response;
   }
 

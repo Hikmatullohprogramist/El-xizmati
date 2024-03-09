@@ -524,7 +524,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           ),
           Visibility(
             visible: state.isPickupEnabled,
-            child: SizedBox(height: 12),
+            child: SizedBox(height: 24),
           ),
           Visibility(
             visible: state.isPickupEnabled,
@@ -572,7 +572,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           ),
           Visibility(
             visible: state.isFreeDeliveryEnabled,
-            child: SizedBox(height: 12),
+            child: SizedBox(height: 24),
           ),
           Visibility(
             visible: state.isFreeDeliveryEnabled,
@@ -620,7 +620,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           ),
           Visibility(
             visible: state.isPaidDeliveryEnabled,
-            child: SizedBox(height: 12),
+            child: SizedBox(height: 24),
           ),
           Visibility(
             visible: state.isPaidDeliveryEnabled,
