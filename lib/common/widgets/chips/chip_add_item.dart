@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-class ChipsAddItem extends StatelessWidget {
-  const ChipsAddItem({
+class ChipAddItem extends StatelessWidget {
+  const ChipAddItem({
     super.key,
-    required this.onChipClicked,
+    required this.onClicked,
   });
 
-  final Function() onChipClicked;
+  final Function() onClicked;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        onChipClicked();
+        onClicked();
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),

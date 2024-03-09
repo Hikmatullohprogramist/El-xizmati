@@ -115,6 +115,8 @@ common_more_with_count,Yana {count} ta,Ещё {count},Яна {count} та
 common_neighborhood,Mahalla,Махалля,Маҳалла
 common_no,Yo‘q,Нет,Йўқ
 common_phone_number,Telefon raqami,Номер телефона,Телефон рақами
+common_show_more,Ko‘proq ko‘rsatish,Показать больше,Кўпроқ кўрсатиш
+common_show_less,Kamroq ko‘rsatish,Показать меньше,Камроқ кўрсатиш
 common_region,Viloyat,Регион,Вилоят
 common_save,Saqlash,Сохранить,Сақлаш
 common_save_changes,O‘zgarishlarni saqlash,Сохранить изменения,Ўзгаришларни сақлаш
