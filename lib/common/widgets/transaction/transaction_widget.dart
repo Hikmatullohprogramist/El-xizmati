@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/data/responses/transaction/payment_transaction_response.dart';
@@ -39,21 +40,31 @@ class TransactionWidget extends StatelessWidget {
                 color: Color(0xFFDFE2E9),
               ),
             ),
-            child: CachedNetworkImage(
-              imageUrl: Constants.baseUrlForImage,
-              imageBuilder: (context, imageProvider) => Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6),
-                  image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.cover,
-                      colorFilter:
-                          ColorFilter.mode(Colors.white, BlendMode.colorBurn)),
-                ),
-              ),
-              placeholder: (context, url) => Center(),
-              errorWidget: (context, url, error) =>
-                  Center(child: Assets.images.icPaymentTransactionWallet.svg()),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                if (transaction.pay_method == "REALPAY")
+                  SvgPicture.asset(
+                    'assets/images/real_pay.svg',
+                  )
+                else
+                  CachedNetworkImage(
+                    imageUrl: Constants.baseUrlForImage,
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                            colorFilter: ColorFilter.mode(
+                                Colors.white, BlendMode.colorBurn)),
+                      ),
+                    ),
+                    placeholder: (context, url) => Center(),
+                    errorWidget: (context, url, error) => Center(
+                        child: Assets.images.icPaymentTransactionWallet.svg()),
+                  )
+              ],
             ),
           ),
           SizedBox(width: 12),
