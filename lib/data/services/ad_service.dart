@@ -19,7 +19,7 @@ class AdsService {
       RestQueryKeys.limit: limit,
       RestQueryKeys.keyWord: keyWord
     };
-    return _dio.get('v1/home/ads?', queryParameters: queryParameters);
+    return _dio.get('api/mobile/v1/home/ads?', queryParameters: queryParameters);
   }
 
   Future<Response> getHomePopularAds(
@@ -30,12 +30,12 @@ class AdsService {
       RestQueryKeys.page: page,
       RestQueryKeys.limit: limit
     };
-    return _dio.get('v1/popular/ads', queryParameters: queryParameters);
+    return _dio.get('api/mobile/v1/popular/ads', queryParameters: queryParameters);
   }
 
   Future<Response> getAdDetail(int adId) {
     final queryParameters = {RestQueryKeys.id: adId};
-    return _dio.get('v1/ads/detail/', queryParameters: queryParameters);
+    return _dio.get('api/mobile/v1/ads/detail/', queryParameters: queryParameters);
   }
 
   Future<Response> getAdsByAdType(AdType adType, int page, int limit) {
@@ -45,7 +45,7 @@ class AdsService {
       RestQueryKeys.limit: limit,
       RestQueryKeys.adType: param
     };
-    return _dio.get("v1/home/ads", queryParameters: queryParameters);
+    return _dio.get("api/mobile/v1/home/ads", queryParameters: queryParameters);
   }
 
   Future<Response> getDashboardAdsByType({required AdType adType}) {
@@ -56,7 +56,7 @@ class AdsService {
       RestQueryKeys.page: 1,
       RestQueryKeys.limit: 10,
     };
-    return _dio.get("v1/dashboard/popular/ads",
+    return _dio.get("api/mobile/v1/dashboard/popular/ads",
         queryParameters: queryParameters);
   }
 
@@ -66,7 +66,7 @@ class AdsService {
       RestQueryKeys.limit: 10,
     };
     // https://api.online-bozor.uz/api/mobile/v1/banner/ads
-    return _dio.get("/v1/banner/ads", queryParameters: queryParameters);
+    return _dio.get("api/mobile/v1/banner/ads", queryParameters: queryParameters);
   }
 
   Future<Response> getPopularAdsByType({
@@ -81,14 +81,14 @@ class AdsService {
       RestQueryKeys.page: page,
       RestQueryKeys.limit: limit,
     };
-    return _dio.get("v1/popular/ads", queryParameters: queryParameters);
+    return _dio.get("api/mobile/v1/popular/ads", queryParameters: queryParameters);
   }
 
   Future<Response> getRecentlyAdsByAdType(AdType adType) {
     String param;
     param = AdType.product == adType ? "ADA" : "SERVICE";
     final queryParameters = {RestQueryKeys.adType: param};
-    return _dio.get("v1/home/ads", queryParameters: queryParameters);
+    return _dio.get("api/mobile/v1/home/ads", queryParameters: queryParameters);
   }
 
   Future<Response> getCheapAdsByAdType({
@@ -103,12 +103,12 @@ class AdsService {
       RestQueryKeys.page: page,
       RestQueryKeys.limit: limit,
     };
-    return _dio.get("v1/home/cheap/ads", queryParameters: queryParameters);
+    return _dio.get("api/mobile/v1/home/cheap/ads", queryParameters: queryParameters);
   }
 
   Future<Response> getSearchAd(String query) {
     final queryParameters = {RestQueryKeys.searchQuery: query};
-    return _dio.get('v1/search', queryParameters: queryParameters);
+    return _dio.get('api/mobile/v1/search', queryParameters: queryParameters);
   }
 
   Future<Response> getAdsByUser({
@@ -121,8 +121,7 @@ class AdsService {
       RestQueryKeys.page: page,
       RestQueryKeys.limit: limit
     };
-    return _dio.get(
-      'v1/seller/get-ads',
+    return _dio.get('api/mobile/v1/seller/get-ads',
       queryParameters: queryParameters,
     );
   }
@@ -137,7 +136,7 @@ class AdsService {
       RestQueryKeys.page: page,
       RestQueryKeys.limit: limit
     };
-    return _dio.get('v1/ads/details/similar', queryParameters: queryParameters);
+    return _dio.get('api/mobile/v1/ads/details/similar', queryParameters: queryParameters);
   }
 
   Future<Response> increaseAdStats({
@@ -148,7 +147,7 @@ class AdsService {
       RestQueryKeys.adsId: adId,
       RestQueryKeys.type: type.name
     };
-    return _dio.put('v1/ads/details', queryParameters: queryParameters);
+    return _dio.put('api/mobile/v1/ads/details', queryParameters: queryParameters);
   }
 
   Future<Response> addAdToRecentlyViewed({
@@ -156,7 +155,7 @@ class AdsService {
   }) async {
     final queryParameters = {RestQueryKeys.adId: adId};
     return _dio.post(
-      'v1/recently-viewed/add',
+      'api/mobile/v1/recently-viewed/add',
       queryParameters: queryParameters,
     );
   }
@@ -170,7 +169,7 @@ class AdsService {
       RestQueryKeys.limit: limit
     };
     return _dio.get(
-      'v1/recently-viewed/getAds',
+      'api/mobile/v1/recently-viewed/getAds',
       queryParameters: queryParameters,
     );
   }

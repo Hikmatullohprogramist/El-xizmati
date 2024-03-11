@@ -11,29 +11,29 @@ class AdCreationService {
   AdCreationService(this.dio, this.tokenStorage);
 
   Future<Response> getCategoriesForCreationAd() {
-    return dio.get('v1/get-categories-for-create-ad');
+    return dio.get('api/mobile/v1/get-categories-for-create-ad');
   }
 
   Future<Response> getCurrenciesForCreationAd() {
-    return dio.get('v1/get-currencies-for-create-ad');
+    return dio.get('api/mobile/v1/get-currencies-for-create-ad');
   }
 
   Future<Response> getDeliveryTypesForCreationAd() {
-    return dio.get('v1/get-delivery-types-for-create-ad');
+    return dio.get('api/mobile/v1/get-delivery-types-for-create-ad');
   }
 
   Future<Response> getPaymentTypesForCreationAd() {
-    return dio.get('v1/get-payment-types-for-create-ad');
+    return dio.get('api/mobile/v1/get-payment-types-for-create-ad');
   }
 
   Future<Response> getWarehousesForCreationAd({required int tinOrPinfl}) {
     final Map<String, dynamic> query = {};
     query["org_id"] = tinOrPinfl;
-    return dio.get('v1/get-warehouses-for-create-ad', queryParameters: query);
+    return dio.get('api/mobile/v1/get-warehouses-for-create-ad', queryParameters: query);
   }
 
   Future<Response> getUnitsForCreationAd() {
-    return dio.get('v1/get-untis-for-create-ad');
+    return dio.get('api/mobile/v1/get-untis-for-create-ad');
   }
 
   Future<Response> createProductAd({
@@ -115,7 +115,7 @@ class AdCreationService {
     };
 
     return dio.post(
-      'v1/create-ad',
+      'api/mobile/v1/create-ad',
       data: body,
     );
   }

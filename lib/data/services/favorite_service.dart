@@ -22,7 +22,7 @@ class FavoriteService {
       RestQueryKeys.number: 1,
       RestQueryKeys.type: "SELECTED"
     };
-    return _dio.post("v1/buyer/product", queryParameters: queryParameters);
+    return _dio.post("api/mobile/v1/buyer/product", queryParameters: queryParameters);
   }
 
   Future<Response> deleteFavorite(int backedId) {
@@ -30,12 +30,12 @@ class FavoriteService {
       RestQueryKeys.productId: backedId,
       RestQueryKeys.type: "SELECTED"
     };
-    return _dio.delete("v1/buyer/product", queryParameters: queryParameters);
+    return _dio.delete("api/mobile/v1/buyer/product", queryParameters: queryParameters);
   }
 
   Future<Response> getFavoriteAds() {
     final queryParameters = {RestQueryKeys.type: "SELECTED"};
-    return _dio.get("v1/buyer/products", queryParameters: queryParameters);
+    return _dio.get("api/mobile/v1/buyer/products", queryParameters: queryParameters);
   }
 
   Future<Response> sendAllFavoriteAds(List<Ad> ads) {
@@ -52,6 +52,6 @@ class FavoriteService {
     });
 
     final data = {RestQueryKeys.products: jsonEncode(adsRequest)};
-    return _dio.post("v1/buyer/products", data: data);
+    return _dio.post("api/mobile/v1/buyer/products", data: data);
   }
 }

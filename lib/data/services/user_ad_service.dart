@@ -22,6 +22,6 @@ class UserAdService {
       RestQueryKeys.page: page,
       RestQueryKeys.status: userAdType.name.toUpperCase()
     };
-    return _dio.get("v1/user/adsList", queryParameters: queryParameters);
+    return _dio.get("api/mobile/v1/user/adsList", queryParameters: queryParameters);
   }
 }

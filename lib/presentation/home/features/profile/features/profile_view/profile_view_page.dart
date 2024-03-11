@@ -891,7 +891,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 15),
           CustomElevatedButton(
             text: Strings.commonSaveChanges,
-            isEnabled: true,
+            isEnabled: cubit(context).states.instagramSocial!=null,
             isLoading: cubit(context).states.isLoadingSocial,
             onPressed: () async {
               var result= await cubit(context).sendSocials();

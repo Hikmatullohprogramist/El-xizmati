@@ -109,6 +109,7 @@ class UserActiveSessionsPage extends BasePage<PageCubit, PageState, PageEvent> {
               session: item,
               onClicked: (session) {
                 cubit(context).removeActiveDevice(session);
+                cubit(context).states.controller?.refresh();
               },
             );
           },

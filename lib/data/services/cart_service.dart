@@ -18,7 +18,7 @@ class CartService {
       RestQueryKeys.number: 1,
       RestQueryKeys.type: "BASKET"
     };
-    return _dio.post("v1/buyer/product", queryParameters: queryParameters);
+    return _dio.post("api/mobile/v1/buyer/product", queryParameters: queryParameters);
   }
 
   Future<Response> removeCart({required int adId}) {
@@ -26,12 +26,12 @@ class CartService {
       RestQueryKeys.productId: adId,
       RestQueryKeys.type: "BASKET"
     };
-    return _dio.delete("v1/buyer/product", queryParameters: queryParameters);
+    return _dio.delete("api/mobile/v1/buyer/product", queryParameters: queryParameters);
   }
 
   Future<Response> getCartAllAds() {
     final queryParameters = {RestQueryKeys.type: 'BASKET'};
-    return _dio.get("v1/buyer/products", queryParameters: queryParameters);
+    return _dio.get("api/mobile/v1/buyer/products", queryParameters: queryParameters);
   }
 
   Future<Response> orderCreate({
@@ -52,11 +52,11 @@ class CartService {
         }
       ]
     };
-    return _dio.post('v1/buyer/order', data: data);
+    return _dio.post('api/mobile/v1/buyer/order', data: data);
   }
 
   Future<Response> removeOrder({required int tin}) {
     final queryParameters = {RestQueryKeys.tin: tin};
-    return _dio.delete("v1/buyer/products_seller", queryParameters: queryParameters);
+    return _dio.delete("api/mobile/v1/buyer/products_seller", queryParameters: queryParameters);
   }
 }
