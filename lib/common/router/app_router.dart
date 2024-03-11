@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:onlinebozor/presentation/common/language/change_language/change_language_page.dart';
+import 'package:onlinebozor/presentation/creation/create_order/create_order_page.dart';
 import 'package:onlinebozor/presentation/home/home_page.dart';
 
 import '../../data/responses/address/user_address_response.dart';
@@ -52,7 +53,6 @@ import '../../presentation/creation/create_request_start/create_request_start_pa
 import '../../presentation/creation/create_service_ad/create_service_ad_page.dart';
 import '../../presentation/creation/create_service_request/create_service_request_page.dart';
 import '../../presentation/home/features/cart/cart_page.dart';
-import '../../presentation/home/features/cart/features/order_create/order_create_page.dart';
 import '../../presentation/home/features/category/category_page.dart';
 import '../../presentation/home/features/category/features/sub_category_page.dart';
 import '../../presentation/home/features/create_ad_chooser/create_ad_chooser_page.dart';
@@ -194,7 +194,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: SubCategoryRoute.page, path: "/sub_category"),
 
         /// order create
-        AutoRoute(page: OrderCreateRoute.page, path: '/order_create'),
+        AutoRoute(page: CreateOrderRoute.page, path: '/create_order'),
 
         /// Ads collections
         AutoRoute(

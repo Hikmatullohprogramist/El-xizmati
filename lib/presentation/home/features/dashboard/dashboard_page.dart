@@ -252,7 +252,7 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
           context.router.push(AdDetailRoute(adId: ad.id));
         },
         onOnClickBuyClicked: (Ad ad) {
-          context.router.push(OrderCreateRoute(adId: ad.id));
+          context.router.push(CreateOrderRoute(adId: ad.id));
         },
         onFavoriteClicked: (Ad ad) {
           cubit(context).topRatedAdsAddFavorite(ad);

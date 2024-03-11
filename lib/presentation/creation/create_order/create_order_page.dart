@@ -17,8 +17,8 @@ import '../../../../../../common/widgets/dashboard/app_image_widget.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
-class OrderCreatePage extends BasePage<PageCubit, PageState, PageEvent> {
-  const OrderCreatePage(this.adId, {super.key});
+class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
+  const CreateOrderPage(this.adId, {super.key});
 
   final int adId;
 

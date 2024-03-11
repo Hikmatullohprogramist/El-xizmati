@@ -101,7 +101,7 @@ class CartPage extends BasePage<PageCubit, PageState, PageEvent> {
               onDeleteClicked: (Ad ad) => cubit(context).removeCart(ad),
               onFavoriteClicked: (Ad ad) => cubit(context).addFavorite(ad),
               onOrderClicked: (Ad ad) {
-                context.router.push(OrderCreateRoute(adId: ad.id));
+                context.router.push(CreateOrderRoute(adId: ad.id));
               },
             );
           },
