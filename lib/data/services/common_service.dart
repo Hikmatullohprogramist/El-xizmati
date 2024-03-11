@@ -9,11 +9,11 @@ class CommonService {
   CommonService(this._dio);
 
   Future<Response> getBanners() {
-    return _dio.get('v1/home/banners');
+    return _dio.get('api/mobile/v1/home/banners');
   }
 
   Future<Response> getCategories() {
-    return _dio.get('v1/categories');
+    return _dio.get('api/mobile/v1/categories');
   }
 
   Future<Response> getPopularCategories(int pageIndex, int pageSize) {
@@ -21,11 +21,11 @@ class CommonService {
       RestQueryKeys.page: pageIndex,
       RestQueryKeys.limit: pageSize
     };
-    return _dio.get("v1/popular/categories", queryParameters: queryParameters);
+    return _dio.get("api/mobile/v1/popular/categories", queryParameters: queryParameters);
   }
 
   Future<Response> getCurrencies() {
-    return _dio.get('v1/currencies');
+    return _dio.get('api/mobile/v1/currencies');
   }
 
 

@@ -12,7 +12,7 @@ class UserAddressService {
   UserAddressService(this._dio, this.tokenStorage);
 
   Future<Response> getUserAddresses() async {
-    return _dio.get("v1/user/address");
+    return _dio.get("api/mobile/v1/user/address");
   }
 
   Future<Response> addUserAddress({
@@ -37,7 +37,7 @@ class UserAddressService {
       RestQueryKeys.isMain: isMain,
       RestQueryKeys.geo: geo,
     };
-    return _dio.post('v1/user/address', data: data);
+    return _dio.post('api/mobile/v1/user/address', data: data);
   }
 
   Future<Response> updateUserAddress({
@@ -66,7 +66,7 @@ class UserAddressService {
       RestQueryKeys.id: id,
       RestQueryKeys.state: 1
     };
-    return _dio.put('v1/user/address', data: data);
+    return _dio.put('api/mobile/v1/user/address', data: data);
   }
 
   Future<Response> deleteUserAddress({required int userAddressId}) async {
@@ -74,7 +74,7 @@ class UserAddressService {
       RestQueryKeys.id: userAddressId,
       RestQueryKeys.type: "SELECTED"
     };
-    return _dio.delete("v1/user/address", queryParameters: data);
+    return _dio.delete("api/mobile/v1/user/address", queryParameters: data);
   }
 
   Future<Response> updateMainAddress({
@@ -85,6 +85,6 @@ class UserAddressService {
       RestQueryKeys.id: userAddressId,
       RestQueryKeys.isMain: isMain
     };
-    return _dio.patch("v1/user/address", queryParameters: data);
+    return _dio.patch("api/mobile/v1/user/address", queryParameters: data);
   }
 }

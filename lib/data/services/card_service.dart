@@ -13,6 +13,6 @@ class CardService {
   // mobile/v1/user/billings
 
   Future<Response> getUserBillings() async{
-    return _dio.get("v1/user/billings");
+    return _dio.get("api/mobile/v1/user/billings");
   }
 }

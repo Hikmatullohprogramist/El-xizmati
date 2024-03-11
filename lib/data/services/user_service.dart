@@ -15,7 +15,7 @@ class UserService {
   UserService(this._dio, this.tokenStorage);
 
   Future<Response> getFullUserInfo() {
-    final response = _dio.get("v1/user/profile");
+    final response = _dio.get("api/mobile/v1/user/profile");
     return response;
   }
 
@@ -31,7 +31,7 @@ class UserService {
       RestQueryKeys.passportNumber: biometricNumber,
       RestQueryKeys.brithDate: brithDate
     };
-    return _dio.post('v1/user/profile', data: data);
+    return _dio.post('api/mobile/v1/user/profile', data: data);
   }
 
   Future<Response> getUserInfo({
@@ -42,7 +42,7 @@ class UserService {
       RestQueryKeys.secretKey: secretKey,
       RestQueryKeys.phoneNumber: phoneNumber
     };
-    return _dio.post('v1/user/profile/verify/in_progress', data: data);
+    return _dio.post('api/mobile/v1/user/profile/verify/in_progress', data: data);
   }
 
   Future<Response> sendUserInformation({
@@ -70,42 +70,42 @@ class UserService {
       RestQueryKeys.postName: postName,
     };
     final response =
-        await _dio.put("v1/user/profile", queryParameters: queryParameters);
+        await _dio.put("api/mobile/v1/user/profile", queryParameters: queryParameters);
     return response;
   }
 
   Future<Response> getRegionAndDistricts() async {
-    final response = await _dio.get("v1/regions-districts");
+    final response = await _dio.get("api/mobile/v1/regions-districts");
     return response;
   }
 
   Future<Response> getRegions() async {
-    final response = await _dio.get("v1/regions");
+    final response = await _dio.get("api/mobile/v1/regions");
     return response;
   }
 
   Future<Response> getDistricts(int regionId) async {
     final queryParameters = {RestQueryKeys.regionId: regionId};
     final response =
-        await _dio.get("v1/districts/list", queryParameters: queryParameters);
+        await _dio.get("api/mobile/v1/districts/list", queryParameters: queryParameters);
     return response;
   }
 
   Future<Response> getStreets(int districtId) async {
     final queryParameters = {RestQueryKeys.districtId: districtId};
     final response =
-        await _dio.get('v1/street/list', queryParameters: queryParameters);
+        await _dio.get('api/mobile/v1/street/list', queryParameters: queryParameters);
     return response;
   }
 
   Future<Response> getActiveDevices() async {
-    final response = await _dio.get("v1/profile/active");
+    final response = await _dio.get("api/mobile/v1/profile/active");
     return response;
   }
 
   Future<Response> sendMessageType({required String messageType}) async {
     final queryParameters = {RestQueryKeys.messageType: messageType};
-    final response = await _dio.patch("v1/user", data: queryParameters);
+    final response = await _dio.patch("api/v1/user", data: queryParameters);
     return response;
   }
 
@@ -125,18 +125,18 @@ class UserService {
     };
 
     final response=
-    await _dio.patch("v1/user/profile",data: payload);
+    await _dio.patch("api/v1/user/profile",data: payload);
     return response;
   }
 
   Future<void> removeActiveDevice(ActiveSession session) async {
     final queryParameters = {RestQueryKeys.id: session.id};
-    await _dio.delete("v1/user/active?id= ", queryParameters: queryParameters);
+    await _dio.delete("api/v1/user/active", queryParameters: queryParameters);
     return;
   }
 
   Future<Response> getSocialNetwork() async {
-    final response = await _dio.get("v1/profile/social_medias");
+    final response = await _dio.get("api/mobile/v1/profile/social_medias");
     return response;
   }
 }

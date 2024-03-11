@@ -15,9 +15,9 @@ class PaymentTransactionService {
     required int pageSize,
     required pageIndex,
   }) async {
-    return _dio.get("v1/user/billings");
+    return _dio.get("api/mobile/v1/user/billings");
   }
   Future<Response> getPaymentTransactionFilter() async {
-    return _dio.get("v1/user/billings");
+    return _dio.get("api/mobile/v1/user/billings");
   }
 }

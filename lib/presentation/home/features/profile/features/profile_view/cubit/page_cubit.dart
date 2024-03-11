@@ -20,6 +20,7 @@ part 'page_state.dart';
 class PageCubit extends BaseCubit<PageState, PageEvent> {
   PageCubit(this._authRepository, this._userRepository) : super(PageState()) {
     getActiveDeviceController();
+    getSocial();
   }
 
   final AuthRepository _authRepository;
@@ -72,42 +73,42 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           smsNotification: response.message_type.toString().contains("SMS"),
           telegramNotification: response.message_type.toString().contains("TELEGRAM"),
           emailNotification: response.message_type.toString().contains("EMAIL"),
-          instagramSocial: SocialElement(
-            type: instagram?[0].type ?? "",
-            link: instagram?[0].link ?? "",
-            status: instagram?[0].status ?? "",
-            isLink: true,
-            id: instagram?[0].id ?? 0,
-            tin: instagram?[0].tin ?? 0,
-            viewNote: instagram?[0].viewNote,
-          ),
-          telegramSocial: SocialElement(
-            type: telegram?[0].type ?? "",
-            link: telegram?[0].link ?? "",
-            status: telegram?[0].status ?? "",
-            isLink: true,
-            id: telegram?[0].id ?? 0,
-            tin: telegram?[0].tin ?? 0,
-            viewNote: telegram?[0].viewNote,
-          ),
-          facebookSocial: SocialElement(
-            type: facebook?[0].type ?? "",
-            link: facebook?[0].link ?? "",
-            status: facebook?[0].status ?? "",
-            isLink: true,
-            id: facebook?[0].id ?? 0,
-            tin: facebook?[0].tin ?? 0,
-            viewNote: facebook?[0].viewNote,
-          ),
-          youtubeSocial: SocialElement(
-            type: youtube?[0].type ?? "",
-            link: youtube?[0].link ?? "",
-            status: youtube?[0].status ?? "",
-            isLink: true,
-            id: youtube?[0].id ?? 0,
-            tin: youtube?[0].tin ?? 0,
-            viewNote: youtube?[0].viewNote,
-          ),
+        //  instagramSocial: SocialElement(
+        //    type: instagram?[0].type ?? "",
+        //    link: instagram?[0].link ?? "",
+        //    status: instagram?[0].status ?? "",
+        //    isLink: true,
+        //    id: instagram?[0].id ?? 0,
+        //    tin: instagram?[0].tin ?? 0,
+        //    viewNote: instagram?[0].viewNote,
+        //  ),
+      ///  telegramSocial: SocialElement(
+      ///    type: telegram?[0].type ?? "",
+      ///    link: telegram?[0].link ?? "",
+      ///    status: telegram?[0].status ?? "",
+      ///    isLink: true,
+      ///    id: telegram?[0].id ?? 0,
+      ///    tin: telegram?[0].tin ?? 0,
+      ///    viewNote: telegram?[0].viewNote,
+      ///  ),
+      ///  facebookSocial: SocialElement(
+      ///    type: facebook?[0].type ?? "",
+      ///    link: facebook?[0].link ?? "",
+      ///    status: facebook?[0].status ?? "",
+      ///    isLink: true,
+      ///    id: facebook?[0].id ?? 0,
+      ///    tin: facebook?[0].tin ?? 0,
+      ///    viewNote: facebook?[0].viewNote,
+      ///  ),
+      ///  youtubeSocial: SocialElement(
+      ///    type: youtube?[0].type ?? "",
+      ///    link: youtube?[0].link ?? "",
+      ///    status: youtube?[0].status ?? "",
+      ///    isLink: true,
+      ///    id: youtube?[0].id ?? 0,
+      ///    tin: youtube?[0].tin ?? 0,
+      ///    viewNote: youtube?[0].viewNote,
+      ///  ),
         ),
       );
       log.e("getUserInformation onSuccess");
@@ -164,8 +165,69 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   Future<void> getSocial() async{
+    try {
+      updateState((state) => state.copyWith(isLoading: true));
+      log.e("getUserInformation onLoading");
+      final response = await _userRepository.getFullUserInfo();
+      var instagram=response.socials?.where((element) => element.type=="INSTAGRAM").toList();
+      var telegram=response.socials?.where((element) => element.type=="TELEGRAM").toList();
+      var facebook=response.socials?.where((element) => element.type=="FACEBOOK").toList();
+      var youtube=response.socials?.where((element) => element.type=="YOUTUBE").toList();
+       if(instagram!=null && telegram!=null && facebook!=null){
+         updateState(
+               (state) => state.copyWith(
+             instagramSocial: SocialElement(
+               type: instagram?[0].type ?? "",
+               link: instagram?[0].link ?? "",
+               status: instagram?[0].status ?? "",
+               isLink: true,
+               id: instagram?[0].id ?? 0,
+               tin: instagram?[0].tin ?? 0,
+               viewNote: instagram?[0].viewNote,
+             ),
+             telegramSocial: SocialElement(
+               type: telegram?[0].type ?? "",
+               link: telegram?[0].link ?? "",
+               status: telegram?[0].status ?? "",
+               isLink: true,
+               id: telegram?[0].id ?? 0,
+               tin: telegram?[0].tin ?? 0,
+               viewNote: telegram?[0].viewNote,
+             ),
+             facebookSocial: SocialElement(
+               type: facebook?[0].type ?? "",
+               link: facebook?[0].link ?? "",
+               status: facebook?[0].status ?? "",
+               isLink: true,
+               id: facebook?[0].id ?? 0,
+               tin: facebook?[0].tin ?? 0,
+               viewNote: facebook?[0].viewNote,
+             ),
+             youtubeSocial: SocialElement(
+               type: youtube?[0].type ?? "",
+               link: youtube?[0].link ?? "",
+               status: youtube?[0].status ?? "",
+               isLink: true,
+               id: youtube?[0].id ?? 0,
+               tin: youtube?[0].tin ?? 0,
+               viewNote: youtube?[0].viewNote,
+             ),
+           ),
+         );
+       }
 
+      log.e("getUserInformation onSuccess");
+      await getUser();
+    } on DioException catch (e) {
+      log.e("getUserInformation onFailure error = ${e.toString()}");
+      updateState((state) => state.copyWith(isLoading: false));
+      if (e.response?.statusCode == 401) {
+        logOut();
+      }
+      // display.error(e.toString());
+    }
   }
+
 
   Future<void> logOut() async {
     await _authRepository.logOut();

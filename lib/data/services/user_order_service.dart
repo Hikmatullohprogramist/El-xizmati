@@ -24,9 +24,9 @@ class UserOrderService {
       RestQueryKeys.status: userOrderStatus.name.toUpperCase()
     };
     if (orderType == OrderType.sell) {
-      return _dio.get("v1/seller/orders", queryParameters: queryParameters);
+      return _dio.get("api/mobile/v1/seller/orders", queryParameters: queryParameters);
     } else {
-      return _dio.get("v1/buyer/orders", queryParameters: queryParameters);
+      return _dio.get("api/mobile/v1/buyer/orders", queryParameters: queryParameters);
     }
   }
 
@@ -40,7 +40,7 @@ class UserOrderService {
       RestQueryKeys.status: userOrderStatus.name.toUpperCase()
     };
     final queryParameters = {RestQueryKeys.id: orderId};
-    return _dio.put("mobile/v1/buyer/order",
+    return _dio.put("api/mobile/v1/buyer/order",
         data: data, queryParameters: queryParameters);
   }
 }
