@@ -36,6 +36,8 @@ class PageState with _$PageState {
     SocialElement? telegramSocial,
     SocialElement? facebookSocial,
     SocialElement? youtubeSocial,
+    @Default(false) bool isLoadingSocial,
+
 
     PagingController<int, ActiveSession>? controller,
   }) = _PageState;

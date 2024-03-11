@@ -139,7 +139,7 @@ class CartWidget extends StatelessWidget {
                         buttonWidth:90,
                         buttonHeight: 38,
                         textSize: 12,
-                        text: Strings.cartProductClearance,
+                        text: Strings.cartMakeOrder,
                         onPressed: () {
                           invoke(ad);
                         },

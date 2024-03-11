@@ -91,7 +91,7 @@ card_expiry_date_title,Kartaning amal qilish muddati,Срок действия �
 card_name_hint,Masalan: Asosiy,Например: Основная,Масалан: Асосий
 card_name_title,Karta nomi,Название карты,Карта номи
 card_number_title,Karta raqami,Номер карты,Карта рақами
-cart_product_clearance,Rasmiylashtirish,оформление,Расмийлаштириш
+cart_make_order,Rasmiylashtirish,Оформить,Расмийлаштириш
 categories_title,Ommabop kategoriyalar,Популярные категории,Оммабоп категориялар
 category_ads_count,ta e‘lon,объявлений,та эълон
 close_title,Yopish,Закрыть,Ёпиш
@@ -111,10 +111,12 @@ common_floor,Qavat,Этаж,Қават
 common_home_number,Uy raqami,Номер дома,Уй рақами
 common_main,Asosiy,Основной,Асосий
 common_more,Ko‘proq,Подробнее,Кўпроқ
-common_more,Yana {count} ta,Ещё {count},Яна {count} та
+common_more_with_count,Yana {count} ta,Ещё {count},Яна {count} та
 common_neighborhood,Mahalla,Махалля,Маҳалла
 common_no,Yo‘q,Нет,Йўқ
 common_phone_number,Telefon raqami,Номер телефона,Телефон рақами
+common_show_more,Ko‘proq ko‘rsatish,Показать больше,Кўпроқ кўрсатиш
+common_show_less,Kamroq ko‘rsatish,Показать меньше,Камроқ кўрсатиш
 common_region,Viloyat,Регион,Вилоят
 common_save,Saqlash,Сохранить,Сақлаш
 common_save_changes,O‘zgarishlarni saqlash,Сохранить изменения,Ўзгаришларни сақлаш
