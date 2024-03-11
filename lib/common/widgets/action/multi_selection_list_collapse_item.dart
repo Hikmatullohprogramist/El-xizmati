@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/vibrator/vibrator_extension.dart';
 
+import '../../di/injection.dart';
 import '../../gen/assets/assets.gen.dart';
 
 class MultiSelectionListCollapseItem extends StatelessWidget {
@@ -10,25 +12,32 @@ class MultiSelectionListCollapseItem extends StatelessWidget {
     super.key,
     required this.item,
     required this.title,
-    required this.isSelected,
     required this.isOpened,
     required this.isParent,
-    required this.count,
+    required this.totalChildCount,
+    required this.selectedChildCount,
     required this.onCollapseClicked,
     required this.onCheckboxClicked,
   });
 
   final dynamic item;
   final String title;
-  final bool isSelected;
   final bool isOpened;
   final bool isParent;
-  final String count;
+  final int totalChildCount;
+  final int selectedChildCount;
   final Function(dynamic item) onCollapseClicked;
   final Function(dynamic item) onCheckboxClicked;
 
   @override
   Widget build(BuildContext context) {
+    var isSelected = totalChildCount == selectedChildCount;
+    var isHasSelectedChild = selectedChildCount > 0;
+
+    if (isParent) {
+      getIt<Logger>().e(
+          "$title, isSelected = $isSelected, isOpened = $isOpened, totalChildCount = $totalChildCount, selectedChildCount = $selectedChildCount");
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -97,7 +106,9 @@ class MultiSelectionListCollapseItem extends StatelessWidget {
                   ),
                   child: (isSelected
                           ? Assets.images.icCheckboxSelected
-                          : Assets.images.icCheckboxUnselected)
+                          : isHasSelectedChild
+                              ? Assets.images.icCheckboxHalfSelected
+                              : Assets.images.icCheckboxUnselected)
                       .svg(height: 20, width: 20),
                 ),
               ),

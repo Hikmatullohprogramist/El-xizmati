@@ -18,39 +18,43 @@ class CardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap:listener,
-        child: Stack(
-          children: [
-            Container(
-              height: 160,
-              margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-              child: CachedNetworkImage(
-                imageUrl: "${Constants.baseUrlForImage}$image",
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
-                    image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.fill,
-                        colorFilter:
-                            ColorFilter.mode(Colors.grey, BlendMode.colorBurn)),
+      onTap: listener,
+      child: Stack(
+        children: [
+          Container(
+            height: 160,
+            margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+            child: CachedNetworkImage(
+              imageUrl: "${Constants.baseUrlForImage}$image",
+              imageBuilder: (context, imageProvider) => Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6),
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.fill,
+                    colorFilter: ColorFilter.mode(
+                      Colors.grey,
+                      BlendMode.colorBurn,
+                    ),
                   ),
                 ),
-                placeholder: (context, url) => Center(),
-                errorWidget: (context, url, error) => Icon(Icons.error),
+              ),
+              placeholder: (context, url) => Center(),
+              errorWidget: (context, url, error) => Icon(Icons.error),
+            ),
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: Container(
+              margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              child: IconButton(
+                icon: Assets.images.icSetting.svg(height: 24, width: 24),
+                onPressed: listenerEdit,
               ),
             ),
-            Align(
-              alignment: Alignment.topRight,
-              child: Container(
-                margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                child: IconButton(
-                  icon: Assets.images.icSetting.svg(height: 24, width: 24),
-                  onPressed:listenerEdit,
-                ),
-              ),
-            ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }

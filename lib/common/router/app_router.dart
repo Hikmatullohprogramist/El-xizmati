@@ -2,15 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:onlinebozor/presentation/common/language/change_language/change_language_page.dart';
-import 'package:onlinebozor/presentation/creation/create_product_order/create_product_order_page.dart';
-import 'package:onlinebozor/presentation/creation/create_service_order/create_service_order_page.dart';
+import 'package:onlinebozor/presentation/creation/create_order/create_order_page.dart';
 import 'package:onlinebozor/presentation/home/home_page.dart';
 
 import '../../data/responses/address/user_address_response.dart';
 import '../../data/responses/category/category/category_response.dart';
 import '../../data/responses/currencies/currency_response.dart';
 import '../../data/responses/payment_type/payment_type_response.dart';
-import '../../data/responses/region/region_root_response.dart';
 import '../../data/responses/unit/unit_response.dart';
 import '../../data/responses/user_ad/user_ad_response.dart';
 import '../../domain/models/ad/ad_list_type.dart';
@@ -49,11 +47,12 @@ import '../../presentation/common/selection_unit/selection_unit_page.dart';
 import '../../presentation/common/selection_user_address/selection_user_address_page.dart';
 import '../../presentation/common/selection_user_warehouse/selection_user_warehouse_page.dart';
 import '../../presentation/creation/create_ad_start/create_ad_start_page.dart';
-import '../../presentation/creation/create_order_start/create_order_start_page.dart';
 import '../../presentation/creation/create_product_ad/create_product_ad_page.dart';
+import '../../presentation/creation/create_product_request/create_product_request_page.dart';
+import '../../presentation/creation/create_request_start/create_request_start_page.dart';
 import '../../presentation/creation/create_service_ad/create_service_ad_page.dart';
+import '../../presentation/creation/create_service_request/create_service_request_page.dart';
 import '../../presentation/home/features/cart/cart_page.dart';
-import '../../presentation/home/features/cart/features/order_create/order_create_page.dart';
 import '../../presentation/home/features/category/category_page.dart';
 import '../../presentation/home/features/category/features/sub_category_page.dart';
 import '../../presentation/home/features/create_ad_chooser/create_ad_chooser_page.dart';
@@ -169,19 +168,19 @@ class AppRouter extends _$AppRouter {
 
         /// create request start
         AutoRoute(
-          page: CreateOrderStartRoute.page,
+          page: CreateRequestStartRoute.page,
           path: "/create_request_start",
         ),
 
         /// create product request
         AutoRoute(
-          page: CreateProductOrderRoute.page,
+          page: CreateProductRequestRoute.page,
           path: "/create_product_request",
         ),
 
         /// create service request
         AutoRoute(
-          page: CreateServiceOrderRoute.page,
+          page: CreateServiceRequestRoute.page,
           path: '/create_service_request',
         ),
 
@@ -195,7 +194,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: SubCategoryRoute.page, path: "/sub_category"),
 
         /// order create
-        AutoRoute(page: OrderCreateRoute.page, path: '/order_create'),
+        AutoRoute(page: CreateOrderRoute.page, path: '/create_order'),
 
         /// Ads collections
         AutoRoute(

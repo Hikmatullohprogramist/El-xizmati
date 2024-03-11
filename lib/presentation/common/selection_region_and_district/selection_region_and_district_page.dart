@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/widgets/action/action_item_shimmer.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
+import 'package:onlinebozor/domain/mappers/region_mapper.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 
 import '../../../common/gen/localization/strings.dart';
@@ -23,7 +24,7 @@ class SelectionRegionAndDistrictPage
   final List<District>? initialSelectedDistricts;
 
   @override
-  void init(BuildContext context) {
+  void onWidgetCreated(BuildContext context) {
     cubit(context).setInitialParams(initialSelectedDistricts);
   }
 
@@ -48,7 +49,7 @@ class SelectionRegionAndDistrictPage
                   children: [
                     SizedBox(height: 20),
                     BottomSheetTitle(
-                      title: "Выбор районов доставки",
+                      title: Strings.selectionDeliveryDistrictsTitle,
                       onCloseClicked: () {
                         context.router.pop();
                       },
@@ -69,7 +70,11 @@ class SelectionRegionAndDistrictPage
               child: CustomElevatedButton(
                 text: Strings.commonSave,
                 onPressed: () {
-                  context.router.pop(state.visibleItems);
+                  List<District> districts = state.allItems
+                      .where((e) => !e.isParent && e.isSelected)
+                      .map((e) => e.toDistrict())
+                      .toList();
+                  context.router.pop(districts);
                 },
               ),
             ),
@@ -105,12 +110,11 @@ class SelectionRegionAndDistrictPage
         return MultiSelectionListCollapseItem(
           item: element,
           title: element.name,
-          isSelected: element.isSelected,
           isOpened: element.isOpened,
           isParent: element.isParent,
-          count:
-              '${state.visibleItems.where((elem) => elem.id / 100 == element.id).length}',
-          onCollapseClicked: (dynamic item) {
+          totalChildCount: element.totalChildCount,
+          selectedChildCount: element.selectedChildCount,
+          onCollapseClicked: (item) {
             cubit(context).openOrClose(item);
           },
           onCheckboxClicked: (item) {

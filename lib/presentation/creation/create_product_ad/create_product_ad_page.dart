@@ -4,9 +4,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/common/widgets/chips/chips_add_item.dart';
-import 'package:onlinebozor/common/widgets/chips/chips_item.dart';
-import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
+import 'package:onlinebozor/common/widgets/chips/chip_add_item.dart';
+import 'package:onlinebozor/common/widgets/chips/chip_item.dart';
+import 'package:onlinebozor/common/widgets/chips/chip_list.dart';
 import 'package:onlinebozor/common/widgets/image/image_ad_list_widget.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_switch.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_toggle.dart';
@@ -74,7 +74,11 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             SizedBox(height: 16),
             _buildContactsBlock(context, state),
             SizedBox(height: 16),
-            _buildDeliveryBlock(context, state),
+            _buildPickupBlock(context, state),
+            SizedBox(height: 4),
+            _buildFreeDeliveryBlock(context, state),
+            SizedBox(height: 4),
+            _buildPaidDeliveryBlock(context, state),
             SizedBox(height: 16),
             _buildAutoContinueBlock(context, state),
             SizedBox(height: 16),
@@ -141,20 +145,6 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 }),
               );
             },
-            // onTap: () async {
-            // final category = await showModalBottomSheet(
-            //   context: context,
-            //   isScrollControlled: true,
-            //   useSafeArea: true,
-            //   backgroundColor: Colors.transparent,
-            //   builder: (context) => SelectionCategoryPage(
-            //     key: Key(""),
-            //     initialSelectedItem: state.category,
-            //   ),
-            // );
-            //
-            // cubit(context).setSelectedCategory(category);
-            // },
           ),
         ],
       ),
@@ -504,7 +494,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildDeliveryBlock(
+  Widget _buildPickupBlock(
     BuildContext context,
     PageState state,
   ) {
@@ -515,7 +505,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 8),
-          "Способы приема".w(700).s(16).c(Color(0xFF41455E)),
+          "Способы приема".w(600).s(14).c(Color(0xFF41455E)),
           SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -528,26 +518,43 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
               SizedBox(width: 16),
               Expanded(
-                child: "Самовывоз с адреса".w(600).s(15).c(Color(0xFF41455E)),
+                child: "Самовывоз с адреса".w(600).s(14).c(Color(0xFF41455E)),
               ),
             ],
           ),
-          SizedBox(height: 8),
           Visibility(
             visible: state.isPickupEnabled,
-            child: Wrap(
-              direction: Axis.horizontal,
-              spacing: 8,
-              runSpacing: 8,
-              alignment: WrapAlignment.start,
-              crossAxisAlignment: WrapCrossAlignment.start,
-              runAlignment: WrapAlignment.start,
-              children: _buildPickupAddressChips(context, state),
+            child: SizedBox(height: 24),
+          ),
+          Visibility(
+            visible: state.isPickupEnabled,
+            child: ChipList(
+              chips: _buildPickupAddressChips(context, state),
+              isShowAll: state.isShowAllPickupAddresses,
+              onClickedAdd: () {
+                _showSelectionPickup(context, state);
+              },
+              onClickedShowLess: () => cubit(context).showHideAddresses(),
+              onClickedShowMore: () => cubit(context).showHideAddresses(),
             ),
           ),
-          SizedBox(height: 10),
-          CustomDivider(thickness: 1),
-          SizedBox(height: 10),
+          SizedBox(height: 6),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFreeDeliveryBlock(
+    BuildContext context,
+    PageState state,
+  ) {
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -559,26 +566,43 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
               SizedBox(width: 16),
               Expanded(
-                child: "Бесплатная доставка".w(600).s(15).c(Color(0xFF41455E)),
+                child: "Бесплатная доставка".w(600).s(14).c(Color(0xFF41455E)),
               ),
             ],
           ),
-          SizedBox(height: 8),
           Visibility(
             visible: state.isFreeDeliveryEnabled,
-            child: Wrap(
-              direction: Axis.horizontal,
-              spacing: 8,
-              runSpacing: 8,
-              alignment: WrapAlignment.start,
-              crossAxisAlignment: WrapCrossAlignment.start,
-              runAlignment: WrapAlignment.start,
-              children: _buildFreeDeliveryChips(context, state),
+            child: SizedBox(height: 24),
+          ),
+          Visibility(
+            visible: state.isFreeDeliveryEnabled,
+            child: ChipList(
+              chips: _buildFreeDeliveryChips(context, state),
+              isShowAll: state.isShowAllFreeDeliveryDistricts,
+              onClickedAdd: () {
+                _showSelectionFreeDistrict(context, state);
+              },
+              onClickedShowLess: () => cubit(context).showHideFreeDistricts(),
+              onClickedShowMore: () => cubit(context).showHideFreeDistricts(),
             ),
           ),
-          SizedBox(height: 10),
-          CustomDivider(thickness: 1),
-          SizedBox(height: 10),
+          SizedBox(height: 6),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPaidDeliveryBlock(
+    BuildContext context,
+    PageState state,
+  ) {
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -590,21 +614,24 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
               SizedBox(width: 16),
               Expanded(
-                child: "Платная доставка".w(600).s(15).c(Color(0xFF41455E)),
+                child: "Платная доставка".w(600).s(14).c(Color(0xFF41455E)),
               ),
             ],
           ),
-          SizedBox(height: 8),
           Visibility(
             visible: state.isPaidDeliveryEnabled,
-            child: Wrap(
-              direction: Axis.horizontal,
-              spacing: 8,
-              runSpacing: 8,
-              alignment: WrapAlignment.start,
-              crossAxisAlignment: WrapCrossAlignment.start,
-              runAlignment: WrapAlignment.start,
-              children: _buildPaidDeliveryChips(context, state),
+            child: SizedBox(height: 24),
+          ),
+          Visibility(
+            visible: state.isPaidDeliveryEnabled,
+            child: ChipList(
+              chips: _buildPaidDeliveryChips(context, state),
+              isShowAll: state.isShowAllPaidDeliveryDistricts,
+              onClickedAdd: () {
+                _showSelectionPaidDistrict(context, state);
+              },
+              onClickedShowLess: () => cubit(context).showHidePaidDistricts(),
+              onClickedShowMore: () => cubit(context).showHidePaidDistricts(),
             ),
           ),
           SizedBox(height: 6),
@@ -717,16 +744,6 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   text: Strings.commonContinue,
                   onPressed: () {
                     vibrateAsHapticFeedback();
-                    var result = cubit(context).checkEnabledField();
-                    // if (result) {
-                    //    context.showResultButtomSheet();
-                    // } else {
-                    //   context.showCustomSnackBar(
-                    //     message: 'Please fill the required fields',
-                    //     behavior: SnackBarBehavior.floating,
-                    //     duration: Duration(seconds: 2),
-                    //   );
-                    // }
                     cubit(context).sendCreateProductAdRequest();
                   },
                   isLoading: state.isRequestSending,
@@ -745,8 +762,8 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
   ) {
     List<Widget> chips = [];
     chips.add(
-      ChipsAddItem(
-        onAddClicked: () async {
+      ChipAddItem(
+        onClicked: () async {
           final paymentTypes = await showModalBottomSheet(
             context: context,
             isScrollControlled: true,
@@ -763,10 +780,10 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
     chips.addAll(state.paymentTypes
         .map(
-          (element) => ChipsItem(
+          (element) => ChipItem(
             item: element,
             title: element.name ?? "",
-            onRemoveClicked: (item) {
+            onActionClicked: (item) {
               cubit(context).removeSelectedPaymentType(element);
             },
           ),
@@ -776,103 +793,93 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   List<Widget> _buildPickupAddressChips(BuildContext context, PageState state) {
-    List<Widget> chips = [];
-    chips.add(
-      ChipsAddItem(
-        onAddClicked: () async {
-          final pickupAddresses = await showModalBottomSheet(
-            context: context,
-            isScrollControlled: false,
-            useSafeArea: true,
-            backgroundColor: Colors.transparent,
-            builder: (context) => SelectionUserWarehousePage(
-              key: Key(""),
-              selectedItems: state.pickupWarehouses,
-            ),
-          );
-
-          cubit(context).setSelectedPickupAddresses(pickupAddresses);
-        },
-      ),
-    );
-    chips.addAll(state.pickupWarehouses
+    return state.pickupWarehouses
         .map(
-          (element) => ChipsItem(
+          (element) => ChipItem(
             item: element,
             title: element.name ?? "",
-            onRemoveClicked: (item) {
-              cubit(context).removePickupWarehouse(element);
-            },
+            onChipClicked: (item) => _showSelectionPickup(context, state),
+            onActionClicked: (item) => cubit(context).removePickupAddress(item),
           ),
         )
-        .toList());
-    return chips;
+        .toList();
+  }
+
+  void _showSelectionPickup(
+    BuildContext context,
+    PageState state,
+  ) async {
+    final pickupAddresses = await showModalBottomSheet(
+      context: context,
+      isScrollControlled: false,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => SelectionUserWarehousePage(
+        selectedItems: state.pickupWarehouses,
+      ),
+    );
+
+    cubit(context).setSelectedPickupAddresses(pickupAddresses);
   }
 
   List<Widget> _buildFreeDeliveryChips(BuildContext context, PageState state) {
-    List<Widget> chips = [];
-    chips.add(
-      ChipsAddItem(
-        onAddClicked: () async {
-          final districts = await showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            useSafeArea: true,
-            backgroundColor: Colors.transparent,
-            builder: (context) => SelectionRegionAndDistrictPage(
-              key: Key(""),
-              initialSelectedDistricts: state.freeDeliveryDistricts,
-            ),
-          );
-          cubit(context).setFreeDeliveryDistricts(districts);
-        },
-      ),
-    );
-    chips.addAll(state.freeDeliveryDistricts
+    return state.freeDeliveryDistricts
         .map(
-          (element) => ChipsItem(
+          (element) => ChipItem(
             item: element,
-            title: element.name ?? "",
-            onRemoveClicked: (item) {
-              cubit(context).removeFreeDeliveryDistrict(element);
-            },
+            title: element.name,
+            onChipClicked: (item) => _showSelectionFreeDistrict(context, state),
+            onActionClicked: (item) => cubit(context).removeFreeDelivery(item),
           ),
         )
-        .toList());
-    return chips;
+        .toList();
+  }
+
+  Future<void> _showSelectionFreeDistrict(
+    BuildContext context,
+    PageState state,
+  ) async {
+    final districts = await showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => SelectionRegionAndDistrictPage(
+        initialSelectedDistricts: state.freeDeliveryDistricts,
+      ),
+    );
+    cubit(context).setFreeDeliveryDistricts(districts);
   }
 
   List<Widget> _buildPaidDeliveryChips(BuildContext context, PageState state) {
-    List<Widget> chips = [];
-    chips.add(
-      ChipsAddItem(
-        onAddClicked: () async {
-          final districts = await showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            useSafeArea: true,
-            backgroundColor: Colors.transparent,
-            builder: (context) => SelectionRegionAndDistrictPage(
-              key: Key(""),
-              initialSelectedDistricts: state.paidDeliveryDistricts,
-            ),
-          );
-          cubit(context).setPaidDeliveryDistricts(districts);
-        },
-      ),
-    );
-    chips.addAll(state.freeDeliveryDistricts
+    return state.paidDeliveryDistricts
         .map(
-          (element) => ChipsItem(
+          (element) => ChipItem(
             item: element,
-            title: element.name ?? "",
-            onRemoveClicked: (item) {
-              cubit(context).removePaidDeliveryDistrict(element);
+            title: element.name,
+            onChipClicked: (item) => _showSelectionPaidDistrict(context, state),
+            onActionClicked: (item) {
+              cubit(context).removePaidDelivery(item);
             },
           ),
         )
-        .toList());
-    return chips;
+        .toList();
+  }
+
+  Future<void> _showSelectionPaidDistrict(
+    BuildContext context,
+    PageState state,
+  ) async {
+    final districts = await showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => SelectionRegionAndDistrictPage(
+        initialSelectedDistricts: state.paidDeliveryDistricts,
+      ),
+    );
+    cubit(context).setPaidDeliveryDistricts(districts);
   }
 
   Future<void> _showMaxCountError(BuildContext context, int maxCount) async {

@@ -1,18 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/currency_extensions.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/cart/cart_sub_widget_shimmer.dart';
 import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
-import 'package:shimmer/shimmer.dart';
 
-import '../../../../../../common/colors/static_colors.dart';
 import '../../../../../../common/constants.dart';
 import '../../../../../../common/core/base_page.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
@@ -20,8 +17,8 @@ import '../../../../../../common/widgets/dashboard/app_image_widget.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
-class OrderCreatePage extends BasePage<PageCubit, PageState, PageEvent> {
-  const OrderCreatePage(this.adId, {super.key});
+class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
+  const CreateOrderPage(this.adId, {super.key});
 
   final int adId;
 
@@ -55,39 +52,32 @@ class OrderCreatePage extends BasePage<PageCubit, PageState, PageEvent> {
 
     if (state.adDetail != null) {
       return Scaffold(
+          appBar: DefaultAppBar(
+            state.adDetail?.adName ?? "",
+            () => context.router.pop(),
+          ),
           bottomNavigationBar: Padding(
             padding: EdgeInsets.symmetric(vertical: 12),
-            child: Row(children: [
-              SizedBox(width: 16),
-              Strings.priceTwoDot.w(400).s(12).c(Color(0xFF9EABBE)),
-              SizedBox(width: 8),
-              "${formatter.format(state.adDetail!.price * state.count).replaceAll(',', ' ')} ${state.adDetail!.currency.getName}"
-                  .w(800)
-                  .s(16)
-                  .c(Color(0xFF5C6AC3))
-                  .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
-              Spacer(),
-             CustomElevatedButton(
-               buttonWidth: 100,
-               buttonHeight: 42,
-               text: Strings.orderCreateRegister,
-               onPressed: () => cubit(context).orderCreate(),
-             ),
-             SizedBox(width: 16)
-            ]),
-          ),
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            title: state.adDetail?.adName
-                .w(500)
-                .s(14)
-                .c(context.colors.textPrimary),
-            centerTitle: true,
-            leading: IconButton(
-              icon: Assets.images.icArrowLeft.svg(),
-              onPressed: () => context.router.pop(),
+            child: Row(
+              children: [
+                SizedBox(width: 16),
+                Strings.priceTwoDot.w(400).s(12).c(Color(0xFF9EABBE)),
+                SizedBox(width: 8),
+                "${formatter.format(state.adDetail!.price * state.count).replaceAll(',', ' ')} ${state.adDetail!.currency.getName}"
+                    .w(800)
+                    .s(16)
+                    .c(Color(0xFF5C6AC3))
+                    .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
+                Spacer(),
+                CustomElevatedButton(
+                  buttonWidth: 120,
+                  buttonHeight: 42,
+                  text: Strings.cartMakeOrder,
+                  onPressed: () => cubit(context).orderCreate(),
+                ),
+                SizedBox(width: 16)
+              ],
             ),
-            elevation: 0.5,
           ),
           body: SafeArea(
             bottom: true,
@@ -145,11 +135,12 @@ class OrderCreatePage extends BasePage<PageCubit, PageState, PageEvent> {
                                 .c(Color(0xFF9EABBE)),
                             SizedBox(width: 4),
                             Expanded(
-                                child: (state.adDetail?.categoryName ?? "")
-                                    .w(500)
-                                    .s(14)
-                                    .c(Color(0xFF41455E))
-                                    .copyWith(overflow: TextOverflow.ellipsis))
+                              child: (state.adDetail?.categoryName ?? "")
+                                  .w(500)
+                                  .s(14)
+                                  .c(Color(0xFF41455E))
+                                  .copyWith(overflow: TextOverflow.ellipsis),
+                            )
                           ],
                         ),
                         SizedBox(height: 8),
@@ -183,20 +174,20 @@ class OrderCreatePage extends BasePage<PageCubit, PageState, PageEvent> {
                         Row(
                           children: [
                             InkWell(
-                                borderRadius: BorderRadius.circular(6),
-                                onTap: () {
-                                  cubit(context).addFavorite();
-                                },
-                                child: Container(
-                                    padding: EdgeInsets.all(5),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(6),
-                                        border: Border.all(
-                                            width: 1,
-                                            color: Color(0xFFDFE2E9))),
-                                    height: 44,
-                                    width: 44,
-                                    child: liked(state.favorite))),
+                              borderRadius: BorderRadius.circular(6),
+                              onTap: () {
+                                cubit(context).addFavorite();
+                              },
+                              child: Container(
+                                  padding: EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(6),
+                                      border: Border.all(
+                                          width: 1, color: Color(0xFFDFE2E9))),
+                                  height: 44,
+                                  width: 44,
+                                  child: liked(state.favorite)),
+                            ),
                             SizedBox(width: 16),
                             InkWell(
                                 onTap: () {
@@ -619,12 +610,7 @@ class OrderCreatePage extends BasePage<PageCubit, PageState, PageEvent> {
           ));
     } else {
       return Scaffold(
-        appBar: AppBar(
-            backgroundColor: Colors.white,
-            elevation: 1,
-            leading: IconButton(
-                onPressed: () => context.router.pop(),
-                icon: Assets.images.icArrowLeft.svg(height: 24, width: 24))),
+        appBar: DefaultAppBar("", () => context.router.pop()),
         body: detailShimmer(),
       );
     }

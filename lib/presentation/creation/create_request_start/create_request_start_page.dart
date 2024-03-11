@@ -10,8 +10,8 @@ import '../../../common/colors/static_colors.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
-class CreateOrderStartPage extends BasePage<PageCubit, PageState, PageEvent> {
-  const CreateOrderStartPage({super.key});
+class CreateRequestStartPage extends BasePage<PageCubit, PageState, PageEvent> {
+  const CreateRequestStartPage({super.key});
 
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
@@ -40,7 +40,7 @@ class CreateOrderStartPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Expanded(
       child: InkWell(
         onTap: () {
-          context.router.push(CreateProductOrderRoute());
+          context.router.push(CreateProductRequestRoute());
         },
         child: Container(
           margin: EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
@@ -70,7 +70,7 @@ class CreateOrderStartPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Expanded(
       child: InkWell(
         onTap: () {
-          context.router.push(CreateServiceOrderRoute());
+          context.router.push(CreateServiceRequestRoute());
         },
         child: Container(
           margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),

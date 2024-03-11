@@ -2,24 +2,20 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/common/gen/localization/strings.dart';
-import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/common/widgets/bottom_sheet/botton_sheet_for_result.dart';
-import 'package:onlinebozor/common/widgets/snackbar/snackbar_widget.dart';
-import 'package:onlinebozor/common/widgets/text_field/common_text_field.dart';
-import 'package:onlinebozor/common/widgets/text_field/custom_dropdown_field.dart';
-import 'package:onlinebozor/common/widgets/text_field/label_text_field.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 
 import '../../../../../common/core/base_page.dart';
 import '../../../common/colors/static_colors.dart';
-import '../../../common/vibrator/vibrator_extension.dart';
-import '../../../common/widgets/button/custom_elevated_button.dart';
-import '../../../common/widgets/button/custom_outlined_button.dart';
-import '../../../common/widgets/chips/chips_add_item.dart';
-import '../../../common/widgets/chips/chips_item.dart';
+import '../../../common/gen/assets/assets.gen.dart';
+import '../../../common/gen/localization/strings.dart';
+import '../../../common/router/app_router.dart';
+import '../../../common/widgets/chips/chip_add_item.dart';
+import '../../../common/widgets/chips/chip_item.dart';
 import '../../../common/widgets/image/image_ad_list_widget.dart';
 import '../../../common/widgets/switch/custom_switch.dart';
+import '../../../common/widgets/text_field/common_text_field.dart';
+import '../../../common/widgets/text_field/custom_dropdown_field.dart';
+import '../../../common/widgets/text_field/label_text_field.dart';
 import '../../common/selection_currency/selection_currency_page.dart';
 import '../../common/selection_payment_type/selection_payment_type_page.dart';
 import '../../common/selection_user_address/selection_user_address_page.dart';
@@ -27,8 +23,8 @@ import '../../utils/mask_formatters.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
-class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
-  CreateProductOrderPage({super.key});
+class CreateServiceRequestPage extends BasePage<PageCubit, PageState, PageEvent> {
+  CreateServiceRequestPage({super.key});
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descController = TextEditingController();
@@ -40,7 +36,7 @@ class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   void onEventEmitted(BuildContext context, PageEvent event) {
     switch (event.type) {
-      case PageEventType.onOverMaxCount:
+      case PageEventType.success:
         _showMaxCountError(context, event.maxImageCount);
     }
   }
@@ -101,8 +97,10 @@ class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
       backgroundColor: Colors.white,
       centerTitle: true,
       bottomOpacity: 1,
-      title:
-          Strings.createRequestTitle.w(500).s(16).c(context.colors.textPrimary),
+      title: Strings.adCreateServiceTitle
+          .w(500)
+          .s(16)
+          .c(context.colors.textPrimary),
     );
   }
 
@@ -115,15 +113,14 @@ class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       child: Column(
         children: [
-          LabelTextField(text: "Название товара ", isRequired: true),
+          LabelTextField(text: "Название услуги", isRequired: true),
           SizedBox(height: 8),
           CommonTextField(
-            hint: "Название товара",
+            hint: "Название услуги",
             onChanged: (value) {
               cubit(context).setName(value);
             },
             controller: titleController,
-            onFieldSubmitted1: (val) {},
           ),
           SizedBox(height: 12),
           LabelTextField(text: "Категория", isRequired: true),
@@ -185,7 +182,7 @@ class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          LabelTextField(text: 'Описание товара'),
+          LabelTextField(text: 'Описание услуги'),
           SizedBox(height: 8),
           CommonTextField(
             height: null,
@@ -198,9 +195,7 @@ class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
                 'Подумайте, какие подробности вы хотели бы узнать из объявления. И добавьте их в описание',
             textInputAction: TextInputAction.next,
             controller: descController,
-            onChanged: (value) {
-              cubit(context).setDescription(value);
-            },
+            onChanged: (value) {},
           ),
           SizedBox(height: 12),
           LabelTextField(text: "Цена", isRequired: true),
@@ -257,7 +252,7 @@ class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
               },
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 12),
           LabelTextField(text: 'Способ оплаты', isRequired: true),
           SizedBox(height: 16),
           Wrap(
@@ -269,9 +264,7 @@ class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
             runAlignment: WrapAlignment.start,
             children: _buildPaymentTypeChips(context, state),
           ),
-          SizedBox(
-            height: 25,
-          ),
+          SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -300,7 +293,7 @@ class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 8),
-          "Контактная информация".w(700).s(16).c(Color(0xFF41455E)),
+          "Контакты для связи".w(700).s(16).c(Color(0xFF41455E)),
           SizedBox(height: 20),
           //  "Контактное лицо".w(500).s(14).c(Color(0xFF41455E)),
           //  SizedBox(height: 8),
@@ -326,12 +319,9 @@ class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
             inputType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             hint: "Эл. почта",
-            validateType: "email",
             maxLines: 1,
             controller: emailController,
-            onChanged: (value) {
-              cubit(context).setEmail(value);
-            },
+            onChanged: (value) {},
           ),
           SizedBox(height: 12),
           "Номер телефона".w(500).s(14).c(Color(0xFF41455E)),
@@ -341,11 +331,10 @@ class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
             keyboardType: TextInputType.phone,
             maxLines: 1,
             prefixText: "+998 ",
-            validateType: "phone",
             inputType: TextInputType.phone,
             textInputAction: TextInputAction.next,
             controller: phoneController,
-            inputFormatters: phoneMaskFormatter,
+            // inputFormatters: phoneMaskFormatter,
             onChanged: (value) {
               cubit(context).setPhoneNumber(value);
             },
@@ -397,9 +386,9 @@ class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
             text: state.userAddressResponse?.name ?? "",
             hint: "Где искать?",
             onTap: () {
-              // context.router.push(
-              //   SelectionUserAddressRoute(),
-              // );
+              context.router.push(
+                SelectionUserAddressRoute(),
+              );
             },
           ),
         ],
@@ -415,7 +404,7 @@ class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            "Автопродление".w(600).s(14).c(Color(0xFF41455E)),
+            "Автоматическое обновление".w(600).s(14).c(Color(0xFF41455E)),
             SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -464,19 +453,7 @@ class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 16),
           CustomElevatedButton(
             text: Strings.commonContinue,
-            onPressed: () {
-              vibrateAsHapticFeedback();
-              var result = cubit(context).validateFieldData();
-              if (result) {
-                context.showResultButtomSheet();
-              } else {
-                context.showCustomSnackBar(
-                  message: 'Please fill the required fields',
-                  behavior: SnackBarBehavior.floating,
-                  duration: Duration(seconds: 2),
-                );
-              }
-            },
+            onPressed: () {},
           ),
         ],
       ),
@@ -518,8 +495,8 @@ class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
   ) {
     List<Widget> chips = [];
     chips.add(
-      ChipsAddItem(
-        onAddClicked: () async {
+      ChipAddItem(
+        onClicked: () async {
           final paymentTypes = await showModalBottomSheet(
             context: context,
             isScrollControlled: true,
@@ -536,10 +513,10 @@ class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
     chips.addAll(state.paymentTypes
         .map(
-          (element) => ChipsItem(
+          (element) => ChipItem(
             item: element,
             title: element.name ?? "",
-            onRemoveClicked: (item) {
+            onActionClicked: (item) {
               cubit(context).removeSelectedPaymentType(element);
             },
           ),
@@ -547,5 +524,4 @@ class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
         .toList());
     return chips;
   }
-
 }

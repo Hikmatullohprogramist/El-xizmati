@@ -14,22 +14,16 @@ import '../../gen/assets/assets.gen.dart';
 class CartWidget extends StatelessWidget {
   const CartWidget({
     super.key,
-    required this.invokeAdd,
-    required this.invokeMinus,
-    required this.invokeDelete,
-    required this.invokeFavoriteDelete,
     required this.ad,
-    required this.invoke,
+    required this.onDeleteClicked,
+    required this.onFavoriteClicked,
+    required this.onOrderClicked,
   });
 
-  //
   final Ad ad;
-  final Function(Ad ad) invokeAdd;
-  final Function(Ad ad) invoke;
-
-  final Function(Ad ad) invokeMinus;
-  final Function(Ad ad) invokeDelete;
-  final Function(Ad ad) invokeFavoriteDelete;
+  final Function(Ad ad) onDeleteClicked;
+  final Function(Ad ad) onFavoriteClicked;
+  final Function(Ad ad) onOrderClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -106,42 +100,46 @@ class CartWidget extends StatelessWidget {
                   Row(
                     children: [
                       InkWell(
-                          borderRadius: BorderRadius.circular(6),
-                          onTap: () {
-                            invokeFavoriteDelete(ad);
-                          },
-                          child: Container(
-                              padding: EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  border: Border.all(
-                                      width: 1, color: Color(0xFFDFE2E9))),
-                              height: 28,
-                              width: 28,
-                              child: liked(ad.favorite))),
+                        borderRadius: BorderRadius.circular(6),
+                        onTap: () {
+                          onFavoriteClicked(ad);
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              border: Border.all(
+                                  width: 1, color: Color(0xFFDFE2E9))),
+                          height: 28,
+                          width: 28,
+                          child: liked(ad.favorite),
+                        ),
+                      ),
                       SizedBox(width: 8),
                       InkWell(
-                          onTap: () {
-                            invokeDelete(ad);
-                          },
-                          borderRadius: BorderRadius.circular(6),
-                          child: Container(
-                              padding: EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  border: Border.all(
-                                      width: 1, color: Color(0xFFDFE2E9))),
-                              height: 28,
-                              width: 28,
-                              child: Assets.images.icDelete.svg())),
+                        onTap: () {
+                          onDeleteClicked(ad);
+                        },
+                        borderRadius: BorderRadius.circular(6),
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              border: Border.all(
+                                  width: 1, color: Color(0xFFDFE2E9))),
+                          height: 28,
+                          width: 28,
+                          child: Assets.images.icDelete.svg(),
+                        ),
+                      ),
                       Spacer(),
                       CustomElevatedButton(
-                        buttonWidth:90,
+                        buttonWidth: 120,
                         buttonHeight: 38,
                         textSize: 12,
                         text: Strings.cartMakeOrder,
                         onPressed: () {
-                          invoke(ad);
+                          onOrderClicked(ad);
                         },
                       ),
                     ],
@@ -152,7 +150,7 @@ class CartWidget extends StatelessWidget {
           ],
         ),
         onTap: () {
-          invoke(ad);
+          onOrderClicked(ad);
         },
       ),
     );

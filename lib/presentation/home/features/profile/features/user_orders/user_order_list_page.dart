@@ -39,9 +39,9 @@ class UserOrderListPage extends BasePage<PageCubit, PageState, PageEvent> {
                 text: Strings.createRequestTitle,
                 onPressed: () {
                   if (orderType == OrderType.buy) {
-                    context.router.push(CreateProductOrderRoute());
+                    context.router.push(CreateProductRequestRoute());
                   } else if (orderType == OrderType.sell) {
-                    context.router.push(CreateServiceOrderRoute());
+                    context.router.push(CreateServiceRequestRoute());
                   }
                 },
               )

@@ -174,63 +174,61 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     updateState((state) => state.copyWith(isPickupEnabled: isEnabled));
   }
 
-  void setSelectedPickupAddresses(List<UserAddressResponse>? pickupAddresses) {
+  void setSelectedPickupAddresses(List<UserAddressResponse>? addresses) {
     try {
-      if (pickupAddresses != null) {
-        var selectedPickupAddresses =
-            List<UserAddressResponse>.from(states.pickupWarehouses);
-        selectedPickupAddresses.clear();
-
-        if (pickupAddresses.isNotEmpty) {
-          selectedPickupAddresses.addAll(pickupAddresses);
-          selectedPickupAddresses = selectedPickupAddresses.toSet().toList();
-        }
-
-        updateState(
-          (state) => state.copyWith(pickupWarehouses: selectedPickupAddresses),
-        );
+      if (addresses != null) {
+        var items = List<UserAddressResponse>.from(states.pickupWarehouses);
+        items.clear();
+        items.addAll(addresses);
+        updateState((state) => state.copyWith(pickupWarehouses: items));
       }
     } catch (e) {
       log.e(e.toString());
     }
+  }
+
+  void showHideAddresses() {
+    updateState((state) => state.copyWith(
+          isShowAllPickupAddresses: !states.isShowAllPickupAddresses,
+        ));
   }
 
   void setFreeDeliveryDistricts(List<District>? districts) {
     try {
       if (districts != null) {
-        var districts = List<District>.from(states.freeDeliveryDistricts);
-        districts.clear();
-
-        if (districts.isNotEmpty) {
-          districts.addAll(districts);
-          districts = districts.toSet().toList();
-        }
-        updateState(
-          (state) => state.copyWith(freeDeliveryDistricts: districts),
-        );
+        var items = List<District>.from(states.freeDeliveryDistricts);
+        items.clear();
+        items.addAll(districts);
+        updateState((state) => state.copyWith(freeDeliveryDistricts: items));
       }
     } catch (e) {
       log.e(e.toString());
     }
   }
 
+  void showHideFreeDistricts() {
+    updateState((state) => state.copyWith(
+      isShowAllFreeDeliveryDistricts: !states.isShowAllFreeDeliveryDistricts,
+    ));
+  }
+
   void setPaidDeliveryDistricts(List<District>? districts) {
     try {
       if (districts != null) {
-        var districts = List<District>.from(states.paidDeliveryDistricts);
-        districts.clear();
-
-        if (districts.isNotEmpty) {
-          districts.addAll(districts);
-          districts = districts.toSet().toList();
-        }
-        updateState(
-          (state) => state.copyWith(paidDeliveryDistricts: districts),
-        );
+        var items = List<District>.from(states.paidDeliveryDistricts);
+        items.clear();
+        items.addAll(districts);
+        updateState((state) => state.copyWith(paidDeliveryDistricts: items));
       }
     } catch (e) {
       log.e(e.toString());
     }
+  }
+
+  void showHidePaidDistricts() {
+    updateState((state) => state.copyWith(
+      isShowAllPaidDeliveryDistricts: !states.isShowAllPaidDeliveryDistricts,
+    ));
   }
 
   bool checkEnabledField() {
@@ -261,7 +259,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  void removePickupWarehouse(UserAddressResponse pickupAddress) {
+  void removePickupAddress(UserAddressResponse pickupAddress) {
     try {
       var pickupWarehouses =
           List<UserAddressResponse>.from(states.pickupWarehouses);
@@ -274,7 +272,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  void removeFreeDeliveryDistrict(District district) {
+  void removeFreeDelivery(District district) {
     try {
       var freeDeliveryDistricts =
           List<District>.from(states.freeDeliveryDistricts);
@@ -287,7 +285,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  void removePaidDeliveryDistrict(District district) {
+  void removePaidDelivery(District district) {
     try {
       var paidDeliveryDistricts =
           List<District>.from(states.paidDeliveryDistricts);
