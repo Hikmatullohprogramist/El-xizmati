@@ -8,10 +8,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
+import 'package:onlinebozor/common/enum/social_enum.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/app_bar/action_app_bar.dart';
+import 'package:onlinebozor/common/widgets/bottom_sheet/bottom_sheet_for_social_direction.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/common/widgets/dashboard/see_all_widget.dart';
@@ -19,14 +21,14 @@ import 'package:onlinebozor/common/widgets/device/active_session_widget.dart';
 import 'package:onlinebozor/common/widgets/profile/profil_view_shimmer.dart';
 import 'package:onlinebozor/common/widgets/snackbar/snackbar_widget.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../common/colors/static_colors.dart';
 import '../../../../../../common/constants.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
+import '../../../../../../common/vibrator/vibrator_extension.dart';
+import '../../../../../../common/widgets/button/custom_outlined_button.dart';
 import '../../../../../../common/widgets/device/active_session_shimmer.dart';
 import '../../../../../../common/widgets/divider/custom_diverder.dart';
-import '../../../../../../common/widgets/profile/profile_item_widget.dart';
 import '../../../../../../common/widgets/switch/custom_switch.dart';
 import 'cubit/page_cubit.dart';
 
@@ -67,28 +69,31 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
           backgroundColor: StaticColors.backgroundColor,
           body: Stack(
             children: [
-              SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 12),
-                    _getHeaderBlock(context, state),
-                    SizedBox(height: 12),
-                    _getBioBlock(context, state),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    _buildNotificationBlock(context),
-                    SizedBox(height: 12),
-                    _buildSocialBlock(context),
-                    SizedBox(height: 12),
-                    _buildActiveDeviceBlock(context, state),
-                    SizedBox(
-                      height: 12,
-                    ),
-                  ],
+              Visibility(
+                visible: !state.isLoading,
+                child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 12),
+                      _getHeaderBlock(context, state),
+                      SizedBox(height: 12),
+                      _getBioBlock(context, state),
+                      SizedBox(
+                        height: 12,
+                      ),
+                      _buildNotificationBlock(context),
+                      SizedBox(height: 12),
+                      _buildSocialBlock(context),
+                      SizedBox(height: 12),
+                      _buildActiveDeviceBlock(context, state),
+                      SizedBox(
+                        height: 12,
+                      ),
+                    ],
+                  ),
                 ),
               ),
               /// build shimmer
@@ -300,7 +305,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
         SizedBox(height: 8),
         CustomDivider(),
         SizedBox(height: 8),
-        "Manzil".w(400).s(14).c(Color(0xFF9EABBE)),
+        Strings.adDetailLocation.w(400).s(14).c(Color(0xFF9EABBE)),
         SizedBox(height: 6),
         Row(
           children: [
@@ -329,7 +334,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 18),
-          "Способ получения уведомления".w(600).s(14).c(Color(0xFF41455E)),
+          Strings.settingsReceiveNotification.w(600).s(14).c(Color(0xFF41455E)),
           SizedBox(height: 18),
           OutlinedButton(
             style: OutlinedButton.styleFrom(
@@ -483,7 +488,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
           ])),
           SizedBox(height: 15),
           CustomElevatedButton(
-            text: Strings.commonSave,
+            text: Strings.commonSaveChanges,
             isLoading: cubit(context).states.isLoadingNotification,
             isEnabled: !cubit(context)
                 .states
@@ -493,12 +498,10 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
               var result = await cubit(context).setMessageType("");
               if (result) {
                 context.showCustomSnackBar(
-                    message: 'Saved!', backgroundColor: Colors.green.shade400);
+                    message: 'Saqlandi', backgroundColor: Colors.green.shade400);
                 cubit(context).clearList();
               } else {
-                context.showCustomSnackBar(
-                    message: "Do'nt save",
-                    backgroundColor: Colors.red.shade400);
+                _showErrorBottomSheet(context);
               }
             },
             buttonHeight: 45,
@@ -541,7 +544,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 18),
-          "Менинг ижтимоий тармоқларим".w(600).s(14).c(Color(0xFF41455E)),
+          Strings.settingsSocialNetwork.w(600).s(14).c(Color(0xFF41455E)),
           SizedBox(height: 18),
           SizedBox(
             height: 5,
@@ -550,7 +553,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
             alignment: Alignment.centerRight,
             children: [
               Padding(
-                padding: const EdgeInsets.only(right: 30),
+                padding: const EdgeInsets.only(right:30),
                 child: OutlinedButton(
                   style: OutlinedButton.styleFrom(
                     foregroundColor: Colors.white,
@@ -558,7 +561,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     side: BorderSide(
-                        color: false ? Color(0xFF5C6AC4) : Color(0xFFAEB2CD)),
+                        color: cubit(context).states.instagramSocial?.status =="WAIT" ? Color(0xFF5C6AC4) : Color(0xFFAEB2CD)),
                   ),
                   onPressed: () {
                     // cubit(context).setSmsNotification();
@@ -586,43 +589,45 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "https://www.instagram.com/"),
+                          onChanged: (value){
+                            cubit(context).states.instagramSocial?.link=value;
+                          },
                         ),
                       ),
                       SizedBox(
                         width: 10,
                       ),
-                      Visibility(
-                        visible:
-                            cubit(context).states.instagramSocial?.status ==
-                                "WAIT",
-                        child: Image.asset(
-                          'assets/images/clock_social.png',
-                          width: 24,
-                          height: 20,
-                        ),
+                      CustomSwitch(
+                        isChecked:cubit(context).states.instagramSocial?.status =="WAIT",
+                        onChanged: (value) {
+                          // cubit(context).setSmsNotification();
+                          cubit(context).setInstagramSocial("");
+                          vibrateAsHapticFeedback();
+                        },
                       ),
-                      Visibility(
-                        visible:
-                            cubit(context).states.instagramSocial?.status ==
-                                "REJECTED",
-                        child: Image.asset(
-                          'assets/images/mark.png',
-                          width: 24,
-                          height: 24,
-                        ),
-                      )
                     ]),
                   ),
                 ),
               ),
-              SvgPicture.asset(
-                'assets/images/ic_minus.svg',
-                width: 26,
-                height: 26,
+              InkWell(
+                onTap: (){
+                  context.showSocialDirectionButtomSheet(context,SocialType.instagram);
+                },
+                child: Container(
+                  width: 28,
+                  height: 28,
+                  child: Center(
+                      child: SvgPicture.asset(
+                        'assets/images/ic_quesstion.svg',
+                        color: Color(0xFFAEB2CD),
+                        // Replace with your SVG file path or provide SVG data directly
+                      ),
+                  ),
+                ),
               ),
+
             ],
           ),
-
           ///instagram
           SizedBox(height: 10),
           SizedBox(
@@ -640,7 +645,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     side: BorderSide(
-                        color: false ? Color(0xFF5C6AC4) : Color(0xFFAEB2CD)),
+                        color:cubit(context).states.telegramSocial?.status =="WAIT" ? Color(0xFF5C6AC4) : Color(0xFFAEB2CD)),
                   ),
                   onPressed: () {
                     // cubit(context).setEmailNotification();
@@ -670,41 +675,47 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "https://www.instagram.com/"),
+                          onChanged: (value){
+                            cubit(context).states.telegramSocial?.link=value;
+                          },
                         ),
                       ),
                       SizedBox(
                         width: 10,
                       ),
-                      Visibility(
-                        visible: cubit(context).states.telegramSocial?.status ==
-                            "WAIT",
-                        child: Image.asset(
-                          'assets/images/clock_social.png',
-                          width: 24,
-                          height: 20,
-                        ),
+                      CustomSwitch(
+                        isChecked:cubit(context).states.telegramSocial?.status =="WAIT",
+                        onChanged: (value) {
+                          cubit(context).setTelegramSocial("");
+                          vibrateAsHapticFeedback();
+                        },
                       ),
-                      Visibility(
-                        visible: cubit(context).states.telegramSocial?.status ==
-                            "REJECTED",
-                        child: Image.asset(
-                          'assets/images/mark.png',
-                          width: 24,
-                          height: 24,
-                        ),
-                      )
                     ]),
                   ),
                 ),
               ),
-              SvgPicture.asset(
-                'assets/images/ic_minus.svg',
-                width: 26,
-                height: 26,
-              )
+              InkWell(
+                onTap: (){
+                  context.showSocialDirectionButtomSheet(context,SocialType.telegram);
+                },
+                child: Container(
+                  width: 28,
+                  height: 28,
+                  child: Container(
+                    width: 28,
+                    height: 28,
+                    child: Center(
+                      child: SvgPicture.asset(
+                        'assets/images/ic_quesstion.svg',
+                        color: Color(0xFFAEB2CD),
+                        // Replace with your SVG file path or provide SVG data directly
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
-
           ///telegram
           SizedBox(height: 10),
           SizedBox(
@@ -714,7 +725,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
             alignment: Alignment.centerRight,
             children: [
               Padding(
-                padding: const EdgeInsets.only(right: 30),
+                padding: const EdgeInsets.only(right:30),
                 child: OutlinedButton(
                   style: OutlinedButton.styleFrom(
                     foregroundColor: Colors.white,
@@ -722,7 +733,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     side: BorderSide(
-                        color: false ? Color(0xFF5C6AC4) : Color(0xFFAEB2CD)),
+                        color: cubit(context).states.facebookSocial?.status =="WAIT" ? Color(0xFF5C6AC4) : Color(0xFFAEB2CD)),
                   ),
                   onPressed: () {
                     // cubit(context).setTelegramNotification();
@@ -744,41 +755,43 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "https://www.instagram.com/"),
+                          onChanged: (value){
+                            cubit(context).states.facebookSocial?.link=value;
+                          },
                         ),
                       ),
                       SizedBox(
                         width: 10,
                       ),
-                      Visibility(
-                        visible: cubit(context).states.facebookSocial?.status ==
-                            "WAIT",
-                        child: Image.asset(
-                          'assets/images/clock_social.png',
-                          width: 24,
-                          height: 20,
-                        ),
+                      CustomSwitch(
+                        isChecked:cubit(context).states.facebookSocial?.status =="WAIT",
+                        onChanged: (value) {
+                           cubit(context).setFacebookSocial("");
+                           vibrateAsHapticFeedback();
+                        },
                       ),
-                      Visibility(
-                        visible: cubit(context).states.facebookSocial?.status ==
-                            "REJECTED",
-                        child: Image.asset(
-                          'assets/images/mark.png',
-                          width: 24,
-                          height: 24,
-                        ),
-                      )
                     ]),
                   ),
                 ),
               ),
-              SvgPicture.asset(
-                'assets/images/ic_minus.svg',
-                width: 26,
-                height: 26,
-              )
+              InkWell(
+                onTap: (){
+                  context.showSocialDirectionButtomSheet(context,SocialType.facebook);
+                },
+                child: Container(
+                  width: 28,
+                  height: 28,
+                  child: Center(
+                    child: SvgPicture.asset(
+                      'assets/images/ic_quesstion.svg',
+                      color: Color(0xFFAEB2CD),
+                      // Replace with your SVG file path or provide SVG data directly
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
-
           ///facebook
           SizedBox(height: 12),
           SizedBox(
@@ -796,7 +809,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     side: BorderSide(
-                        color: false ? Color(0xFF5C6AC4) : Color(0xFFAEB2CD)),
+                        color: cubit(context).states.youtubeSocial?.status =="WAIT" ? Color(0xFF5C6AC4) : Color(0xFFAEB2CD)),
                   ),
                   onPressed: () {
                     // cubit(context).setEmailNotification();
@@ -826,41 +839,43 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "https://www.instagram.com/"),
+                          onChanged: (value){
+                            cubit(context).states.youtubeSocial?.link=value;
+                          },
                         ),
                       ),
                       SizedBox(
                         width: 10,
                       ),
-                      Visibility(
-                        visible: cubit(context).states.youtubeSocial?.status ==
-                            "WAIT",
-                        child: Image.asset(
-                          'assets/images/clock_social.png',
-                          width: 24,
-                          height: 20,
-                        ),
+                      CustomSwitch(
+                        isChecked:cubit(context).states.youtubeSocial?.status =="WAIT",
+                        onChanged: (value) {
+                           cubit(context).setYoutubeSocial("");
+                           vibrateAsHapticFeedback();
+                        },
                       ),
-                      Visibility(
-                        visible: cubit(context).states.youtubeSocial?.status ==
-                            "REJECTED",
-                        child: Image.asset(
-                          'assets/images/mark.png',
-                          width: 24,
-                          height: 24,
-                        ),
-                      )
                     ]),
                   ),
                 ),
               ),
-              SvgPicture.asset(
-                'assets/images/ic_minus.svg',
-                width: 26,
-                height: 26,
-              )
+              InkWell(
+                onTap: (){
+                  context.showSocialDirectionButtomSheet(context,SocialType.youtube);
+                },
+                  child: Container(
+                    width: 28,
+                    height: 28,
+                    child: Center(
+                      child: SvgPicture.asset(
+                        'assets/images/ic_quesstion.svg',
+                        color: Color(0xFFAEB2CD),
+                        // Replace with your SVG file path or provide SVG data directly
+                      ),
+                    ),
+                  ),
+              ),
             ],
           ),
-
           ///youtube
           SizedBox(height: 12),
           Text.rich(TextSpan(children: [
@@ -875,9 +890,19 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
           ])),
           SizedBox(height: 15),
           CustomElevatedButton(
-            text: Strings.commonSave,
-            isEnabled: false,
-            onPressed: () {},
+            text: Strings.commonSaveChanges,
+            isEnabled: true,
+            isLoading: cubit(context).states.isLoadingSocial,
+            onPressed: () async {
+              var result= await cubit(context).sendSocials();
+              if(result){
+                vibrateAsHapticFeedback();
+                context.showCustomSnackBar(
+                    message: 'Saqlandi', backgroundColor: Colors.green.shade400);
+              }else{
+                _showErrorBottomSheet(context);
+              }
+            },
             buttonHeight: 45,
             textSize: 12,
           ),
@@ -987,4 +1012,60 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
       ],
     );
   }
+
+  void _showErrorBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext bc) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(height: 30),
+              Center(child: "Saqlanmadi".s(22).w(600)),
+              SizedBox(height: 14),
+              Container(
+                child: Center(
+                  child: SvgPicture.asset(
+                    'assets/images/ic_error.svg',
+                    color: Colors.red,
+                    width: 55,
+                    height: 55,
+                    // Replace with your SVG file path or provide SVG data directly
+                  ),
+                ),
+              ),
+              SizedBox(height: 14),
+              Center(child: "Saqlashda xatolik yuz berdi".s(16).w(500)),
+              SizedBox(height: 32),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal:120),
+                child: CustomOutlinedButton(
+                  text: Strings.closeTitle,
+                  strokeColor: Colors.red,
+                  onPressed: () {
+                   // cubit(context).logOut();
+                    Navigator.pop(context);
+                    vibrateAsHapticFeedback();
+                  },
+                ),
+              ),
+              SizedBox(height: 24),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
 }

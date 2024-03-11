@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/constants/rest_query_keys.dart';
+import 'package:onlinebozor/data/responses/profile/user_full/user_full_info_response.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
+import 'package:onlinebozor/domain/models/social/social_network.dart';
 
 import '../storages/token_storage.dart';
 
@@ -104,6 +106,26 @@ class UserService {
   Future<Response> sendMessageType({required String messageType}) async {
     final queryParameters = {RestQueryKeys.messageType: messageType};
     final response = await _dio.patch("v1/user", data: queryParameters);
+    return response;
+  }
+
+  Future<Response> sendSocials({
+    required Social social
+  }) async{
+    final Map<String, dynamic> payload = {
+      'socials': social.socials.map((element) => {
+        RestQueryKeys.socialId: element.id,
+        RestQueryKeys.socialIsLink: element.isLink,
+        RestQueryKeys.socialLink: element.link,
+        RestQueryKeys.socialStatus: element.status,
+        RestQueryKeys.socialTin: element.tin,
+        RestQueryKeys.socialType: element.type,
+        RestQueryKeys.socialViewNote: element.viewNote,
+      }).toList()
+    };
+
+    final response=
+    await _dio.patch("v1/user/profile",data: payload);
     return response;
   }
 

@@ -66,5 +66,12 @@ class RestQueryKeys {
   static String tin = "tin";
   static String type = "type";
   static String messageType="message_type";
+  static String socialId="id";
+  static String socialIsLink="is_link";
+  static String socialLink="link";
+  static String socialStatus="status";
+  static String socialTin="tin";
+  static String socialType="type";
+  static String socialViewNote="view_note";
 
 }

@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/data/responses/profile/user_full/user_full_info_response.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 import 'package:onlinebozor/domain/models/social/social_network.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -47,7 +48,10 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       updateState((state) => state.copyWith(isLoading: true));
       log.e("getUserInformation onLoading");
       final response = await _userRepository.getFullUserInfo();
-     // log.w(response.socials);
+      var instagram=response.socials?.where((element) => element.type=="INSTAGRAM").toList();
+      var telegram=response.socials?.where((element) => element.type=="TELEGRAM").toList();
+      var facebook=response.socials?.where((element) => element.type=="FACEBOOK").toList();
+      var youtube=response.socials?.where((element) => element.type=="YOUTUBE").toList();
       updateState(
         (state) => state.copyWith(
           isLoading: false,
@@ -69,37 +73,41 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           telegramNotification: response.message_type.toString().contains("TELEGRAM"),
           emailNotification: response.message_type.toString().contains("EMAIL"),
           instagramSocial: SocialElement(
-              type: response.socials?[0].type??"",
-              link: response.socials?[0].link??"",
-              status: response.socials?[0].status??"",
-              isLink: false,
-              id:response.socials?[0].id??0,
-              tin: response.socials?[0].tin??0,
-              viewNote: response.socials?[0].viewNote),
+            type: instagram?[0].type ?? "",
+            link: instagram?[0].link ?? "",
+            status: instagram?[0].status ?? "",
+            isLink: true,
+            id: instagram?[0].id ?? 0,
+            tin: instagram?[0].tin ?? 0,
+            viewNote: instagram?[0].viewNote,
+          ),
           telegramSocial: SocialElement(
-              type: response.socials?[1].type??"",
-              link: response.socials?[1].link??"",
-              status: response.socials?[1].status??"",
-              isLink: false,
-              id:response.socials?[1].id??0,
-              tin: response.socials?[1].tin??0,
-              viewNote: response.socials?[1].viewNote),
+            type: telegram?[0].type ?? "",
+            link: telegram?[0].link ?? "",
+            status: telegram?[0].status ?? "",
+            isLink: true,
+            id: telegram?[0].id ?? 0,
+            tin: telegram?[0].tin ?? 0,
+            viewNote: telegram?[0].viewNote,
+          ),
           facebookSocial: SocialElement(
-              type: response.socials?[2].type??"",
-              link: response.socials?[2].link??"",
-              status: response.socials?[2].status??"",
-              isLink: false,
-              id:response.socials?[2].id??0,
-              tin: response.socials?[2].tin??0,
-              viewNote: response.socials?[2].viewNote),
+            type: facebook?[0].type ?? "",
+            link: facebook?[0].link ?? "",
+            status: facebook?[0].status ?? "",
+            isLink: true,
+            id: facebook?[0].id ?? 0,
+            tin: facebook?[0].tin ?? 0,
+            viewNote: facebook?[0].viewNote,
+          ),
           youtubeSocial: SocialElement(
-              type: response.socials?[3].type??"",
-              link: response.socials?[3].link??"",
-              status: response.socials?[3].status??"",
-              isLink: false,
-              id:response.socials?[3].id??0,
-              tin: response.socials?[3].tin??0,
-              viewNote: response.socials?[3].viewNote),
+            type: youtube?[0].type ?? "",
+            link: youtube?[0].link ?? "",
+            status: youtube?[0].status ?? "",
+            isLink: true,
+            id: youtube?[0].id ?? 0,
+            tin: youtube?[0].tin ?? 0,
+            viewNote: youtube?[0].viewNote,
+          ),
         ),
       );
       log.e("getUserInformation onSuccess");
@@ -204,6 +212,82 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     return states.enableButton.every((element) => element == false);
   }
 
+  setInstagramSocial(String status) {
+    if (states.instagramSocial?.status == "REJECTED") {
+      status = "WAIT";
+    } else {
+      status = "REJECTED";
+    }
+    updateState((state) => state.copyWith(
+          instagramSocial: SocialElement(
+            type: states.instagramSocial?.type ?? "",
+            link: states.instagramSocial?.link ?? "",
+            status: status,
+            isLink: false,
+            id: states.instagramSocial?.id ?? 0,
+            tin: states.instagramSocial?.tin ?? 0,
+            viewNote: states.instagramSocial?.viewNote,
+          ),
+        ));
+  }
+
+  setTelegramSocial(String status) {
+    if (states.telegramSocial?.status == "REJECTED") {
+      status = "WAIT";
+    } else {
+      status = "REJECTED";
+    }
+    updateState((state) => state.copyWith(
+          telegramSocial: SocialElement(
+            type: states.telegramSocial?.type ?? "",
+            link: states.telegramSocial?.link ?? "",
+            status: status,
+            isLink: false,
+            id: states.telegramSocial?.id ?? 0,
+            tin: states.telegramSocial?.tin ?? 0,
+            viewNote: states.telegramSocial?.viewNote,
+          ),
+        ));
+  }
+
+  setFacebookSocial(String status) {
+    if (states.facebookSocial?.status == "REJECTED") {
+      status = "WAIT";
+    } else {
+      status = "REJECTED";
+    }
+    updateState((state) => state.copyWith(
+          facebookSocial: SocialElement(
+            type: states.facebookSocial?.type ?? "",
+            link: states.facebookSocial?.link ?? "",
+            status: status,
+            isLink: false,
+            id: states.facebookSocial?.id ?? 0,
+            tin: states.facebookSocial?.tin ?? 0,
+            viewNote: states.facebookSocial?.viewNote,
+          ),
+        ));
+  }
+
+  setYoutubeSocial(String status) {
+    if (states.youtubeSocial?.status == "REJECTED") {
+      status = "WAIT";
+    } else {
+      status = "REJECTED";
+    }
+    updateState((state) => state.copyWith(
+          youtubeSocial: SocialElement(
+            type: states.youtubeSocial?.type ?? "",
+            link: states.youtubeSocial?.link ?? "",
+            status: status,
+            isLink: false,
+            id: states.youtubeSocial?.id ?? 0,
+            tin: states.youtubeSocial?.tin ?? 0,
+            viewNote: states.youtubeSocial?.viewNote,
+          ),
+        ));
+  }
+
   void clearList() {
     updateState(
       (state) => state.copyWith(enableButton: [false, false, false]),
@@ -229,6 +313,24 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       return false;
     } finally {
       updateState((state) => state.copyWith(isLoadingNotification: false));
+    }
+    return true;
+  }
+
+  Future<bool> sendSocials() async {
+    Social socials = Social(socials: [
+      states.instagramSocial!,
+      states.telegramSocial!,
+      states.facebookSocial!,
+      states.youtubeSocial!,
+    ]);
+    updateState((state) => state.copyWith(isLoadingSocial: true));
+    try {
+      final response = await _userRepository.sendSocials(social: socials);
+    } on DioException catch (error) {
+      return false;
+    } finally {
+      updateState((state) => state.copyWith(isLoadingSocial: false));
     }
     return true;
   }

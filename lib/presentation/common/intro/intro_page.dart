@@ -14,8 +14,6 @@ import 'package:onlinebozor/presentation/common/intro/cubit/page_cubit.dart';
 import 'features/intro_page_2.dart';
 import 'features/intro_page_3.dart';
 
-
-
 @RoutePage()
 class IntroPage extends BasePage<PageCubit, PageState, PageEvent> {
   const IntroPage({

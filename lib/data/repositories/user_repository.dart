@@ -7,6 +7,7 @@ import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/region/region.dart';
 import 'package:onlinebozor/domain/models/region/region_and_district.dart';
+import 'package:onlinebozor/domain/models/social/social_network.dart';
 
 import '../../common/constants.dart';
 import '../../data/hive_objects/user/user_info_object.dart';
@@ -141,6 +142,10 @@ class UserRepository {
 
   Future<void> sendMessageType({required String messageType}) async {
     await _userService.sendMessageType(messageType: messageType);
+  }
+
+  Future<void> sendSocials({required Social social}) async {
+    await _userService.sendSocials(social: social);
   }
 
   Future<bool> isFullRegister() async {
