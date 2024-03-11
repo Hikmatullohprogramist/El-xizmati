@@ -110,6 +110,7 @@ class SelectionRegionAndDistrictPage
         return MultiSelectionListCollapseItem(
           item: element,
           title: element.name,
+          isSelected: element.isSelected,
           isOpened: element.isOpened,
           isParent: element.isParent,
           totalChildCount: element.totalChildCount,

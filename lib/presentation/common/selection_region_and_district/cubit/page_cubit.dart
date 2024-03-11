@@ -5,7 +5,6 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
 import 'package:onlinebozor/domain/mappers/region_mapper.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
-import 'package:onlinebozor/domain/models/region/region.dart';
 import 'package:onlinebozor/domain/models/region/region_item.dart';
 
 import '../../../../common/enum/enums.dart';
@@ -26,14 +25,13 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   void setInitialParams(List<District>? districts) {
     try {
       if (districts != null) {
-        List<District> selectedItems = [];
-        selectedItems.addAll(districts);
-        updateState((state) => state.copyWith(
-              initialSelectedItems: districts
-                  .map(
-                      (e) => e.toRegionItem(isSelected: true, isVisible: false))
-                  .toList(),
-            ));
+        List<RegionItem> initialSelectedItems = districts
+            .map((e) => e.toRegionItem(isSelected: false, isVisible: false))
+            .toList();
+
+        updateState(
+          (state) => state.copyWith(initialSelectedItems: initialSelectedItems),
+        );
       }
     } catch (e) {
       log.e(e.toString());
@@ -47,34 +45,35 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       var allDistricts = response.districts;
       List<RegionItem> allItems = [];
 
-      var selectedDistricts = states.initialSelectedItems;
+      var items = states.initialSelectedItems;
       for (var region in allRegions) {
-        var districts = allDistricts.where((d) => d.regionId == region.id).map(
-              (district) => district.toRegionItem(
-                  isSelected: selectedDistricts
-                          .firstWhereOrNull((e) => e.id == district.id) !=
-                      null),
+        var regionDistricts = allDistricts
+            .where((d) => d.regionId == region.id)
+            .map(
+              (d) => d.toRegionItem(
+                isSelected: items.firstWhereOrNull((e) => e.id == d.id) != null,
+              ),
             );
 
-        var selectedChildCount = districts.where((e) => e.isSelected).length;
+        var selectedCount = regionDistricts.where((e) => e.isSelected).length;
+        var totalChildCount = regionDistricts.length;
         allItems.add(region.toRegionItem(
-          isSelected: selectedChildCount > 0,
+          isSelected: selectedCount == totalChildCount,
           isVisible: true,
-          childCount: districts.length,
-          selectedChildCount: selectedChildCount,
+          childCount: totalChildCount,
+          selectedChildCount: selectedCount,
         ));
-        allItems.addAll(districts);
+
+        allItems.addAll(regionDistricts);
       }
 
       log.w("getRegionAndDistricts allItems length = ${allItems.length}");
 
       updateState(
         (state) => state.copyWith(
-          allRegions: allRegions,
-          allDistricts: allDistricts,
+          loadState: LoadingState.success,
           allItems: allItems,
           visibleItems: allItems.where((e) => e.isVisible).toList(),
-          loadState: LoadingState.success,
         ),
       );
     } on DioException catch (exception) {
@@ -100,13 +99,12 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         int totalChildCount =
             allItems.where((e) => e.parentId == regionItem.id).length;
 
-        allItems
-            .firstWhereOrNull((e) => e.id == regionItem.id)
-            ?.isSelected = totalChildCount == selectedChildCount;
+        allItems.firstWhereOrNull((e) => e.id == regionItem.id)?.isSelected =
+            totalChildCount == selectedChildCount;
+
         allItems
             .firstWhereOrNull((e) => e.id == regionItem.parentId)
             ?.selectedChildCount = selectedChildCount;
-
       } else {
         allItems
             .firstWhereOrNull((element) => element.id == regionItem.id)
@@ -132,13 +130,13 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             visibleItems: allItems.where((e) => e.isVisible).toList(),
           ));
     } catch (e) {
-      log.e(e.toString());
+      log.e("update-selected-state error = ${e.toString()}");
     }
   }
 
   void openOrClose(RegionItem regionItem) {
     var allItems = states.allItems;
-    allItems.where((element) => element.parentId == regionItem.id).forEach((e) {
+    allItems.where((e) => e.parentId == regionItem.id).forEach((e) {
       e.isVisible = !e.isVisible;
     });
     allItems.firstWhere((e) => e.id == regionItem.id).isOpened =
