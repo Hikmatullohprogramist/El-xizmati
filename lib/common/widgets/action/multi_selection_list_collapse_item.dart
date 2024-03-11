@@ -12,6 +12,7 @@ class MultiSelectionListCollapseItem extends StatelessWidget {
     super.key,
     required this.item,
     required this.title,
+    required this.isSelected,
     required this.isOpened,
     required this.isParent,
     required this.totalChildCount,
@@ -22,6 +23,7 @@ class MultiSelectionListCollapseItem extends StatelessWidget {
 
   final dynamic item;
   final String title;
+  final bool isSelected;
   final bool isOpened;
   final bool isParent;
   final int totalChildCount;
@@ -31,7 +33,6 @@ class MultiSelectionListCollapseItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var isSelected = totalChildCount == selectedChildCount;
     var isHasSelectedChild = selectedChildCount > 0;
 
     if (isParent) {
