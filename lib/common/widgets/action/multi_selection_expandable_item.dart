@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/vibrator/vibrator_extension.dart';
 
-import '../../di/injection.dart';
 import '../../gen/assets/assets.gen.dart';
 
-class MultiSelectionListCollapseItem extends StatelessWidget {
-  const MultiSelectionListCollapseItem({
+class MultiSelectionExpandableItem extends StatelessWidget {
+  const MultiSelectionExpandableItem({
     super.key,
     required this.item,
     required this.title,
@@ -35,10 +33,6 @@ class MultiSelectionListCollapseItem extends StatelessWidget {
   Widget build(BuildContext context) {
     var isHasSelectedChild = selectedChildCount > 0;
 
-    if (isParent) {
-      getIt<Logger>().e(
-          "$title, isSelected = $isSelected, isOpened = $isOpened, totalChildCount = $totalChildCount, selectedChildCount = $selectedChildCount");
-    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

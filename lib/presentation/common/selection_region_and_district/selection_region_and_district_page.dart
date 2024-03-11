@@ -2,12 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/widgets/action/action_item_shimmer.dart';
+import 'package:onlinebozor/common/widgets/action/multi_selection_expandable_item.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/domain/mappers/region_mapper.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 
 import '../../../common/gen/localization/strings.dart';
-import '../../../common/widgets/action/multi_selection_list_collapse_item.dart';
+import '../../../common/widgets/action/multi_selection_expandable_list.dart';
 import '../../../common/widgets/bottom_sheet/bottom_sheet_title.dart';
 import '../../../common/widgets/divider/custom_diverder.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
@@ -107,7 +108,7 @@ class SelectionRegionAndDistrictPage
       itemCount: state.visibleItems.length,
       itemBuilder: (context, index) {
         var element = state.visibleItems[index];
-        return MultiSelectionListCollapseItem(
+        return MultiSelectionExpandableItem(
           item: element,
           title: element.name,
           isSelected: element.isSelected,

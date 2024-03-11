@@ -1,5 +1,6 @@
-class RegionItem {
-  RegionItem({
+class ExpandableListItem {
+  ExpandableListItem({
+    required this.item,
     required this.id,
     required this.parentId,
     required this.name,
@@ -11,6 +12,7 @@ class RegionItem {
     required this.isOpened,
   });
 
+  dynamic item;
   int id;
   int parentId;
   String name;

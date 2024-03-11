@@ -3,10 +3,10 @@ part of 'page_cubit.dart';
 @freezed
 class PageState with _$PageState {
   const factory PageState({
-    @Default([]) List<RegionItem> initialSelectedItems,
+    @Default([]) List<ExpandableListItem> initialSelectedItems,
     @Default(LoadingState.loading) LoadingState loadState,
-    @Default([]) List<RegionItem> allItems,
-    @Default([]) List<RegionItem> visibleItems,
+    @Default([]) List<ExpandableListItem> allItems,
+    @Default([]) List<ExpandableListItem> visibleItems,
     int? regionId,
     int? districtId,
   }) = _PageState;

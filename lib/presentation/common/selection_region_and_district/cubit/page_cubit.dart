@@ -3,9 +3,9 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
-import 'package:onlinebozor/domain/mappers/region_mapper.dart';
+import 'package:onlinebozor/domain/mappers/item_mapper.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
-import 'package:onlinebozor/domain/models/region/region_item.dart';
+import 'package:onlinebozor/domain/models/list/expandable_list_item.dart';
 
 import '../../../../common/enum/enums.dart';
 import '../../../../data/repositories/user_repository.dart';
@@ -25,8 +25,9 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   void setInitialParams(List<District>? districts) {
     try {
       if (districts != null) {
-        List<RegionItem> initialSelectedItems = districts
-            .map((e) => e.toRegionItem(isSelected: false, isVisible: false))
+        List<ExpandableListItem> initialSelectedItems = districts
+            .map((e) =>
+                e.toExpandableListItem(isSelected: false, isVisible: false))
             .toList();
 
         updateState(
@@ -43,21 +44,21 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       final response = await repository.getRegionAndDistricts();
       var allRegions = response.regions;
       var allDistricts = response.districts;
-      List<RegionItem> allItems = [];
+      List<ExpandableListItem> allItems = [];
 
       var items = states.initialSelectedItems;
       for (var region in allRegions) {
         var regionDistricts = allDistricts
             .where((d) => d.regionId == region.id)
             .map(
-              (d) => d.toRegionItem(
+              (d) => d.toExpandableListItem(
                 isSelected: items.firstWhereOrNull((e) => e.id == d.id) != null,
               ),
             );
 
         var selectedCount = regionDistricts.where((e) => e.isSelected).length;
         var totalChildCount = regionDistricts.length;
-        allItems.add(region.toRegionItem(
+        allItems.add(region.toExpandableListItem(
           isSelected: selectedCount == totalChildCount,
           isVisible: true,
           childCount: totalChildCount,
@@ -82,9 +83,9 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  void updateSelectedState(RegionItem regionItem) {
+  void updateSelectedState(ExpandableListItem regionItem) {
     try {
-      var allItems = List<RegionItem>.from(states.allItems);
+      var allItems = List<ExpandableListItem>.from(states.allItems);
 
       var state = !regionItem.isSelected;
       if (regionItem.isParent) {
@@ -134,7 +135,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  void openOrClose(RegionItem regionItem) {
+  void openOrClose(ExpandableListItem regionItem) {
     var allItems = states.allItems;
     allItems.where((e) => e.parentId == regionItem.id).forEach((e) {
       e.isVisible = !e.isVisible;
