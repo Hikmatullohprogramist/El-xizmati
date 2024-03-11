@@ -15,7 +15,6 @@ import '../../../../../common/core/base_page.dart';
 import '../../../common/colors/static_colors.dart';
 import '../../../common/vibrator/vibrator_extension.dart';
 import '../../../common/widgets/button/custom_elevated_button.dart';
-import '../../../common/widgets/button/custom_outlined_button.dart';
 import '../../../common/widgets/chips/chip_add_item.dart';
 import '../../../common/widgets/chips/chip_item.dart';
 import '../../../common/widgets/image/image_ad_list_widget.dart';
@@ -27,8 +26,9 @@ import '../../utils/mask_formatters.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
-class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
-  CreateProductOrderPage({super.key});
+class CreateProductRequestPage
+    extends BasePage<PageCubit, PageState, PageEvent> {
+  CreateProductRequestPage({super.key});
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descController = TextEditingController();
@@ -547,5 +547,4 @@ class CreateProductOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
         .toList());
     return chips;
   }
-
 }

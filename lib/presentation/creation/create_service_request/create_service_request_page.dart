@@ -23,8 +23,8 @@ import '../../utils/mask_formatters.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
-class CreateServiceOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
-  CreateServiceOrderPage({super.key});
+class CreateServiceRequestPage extends BasePage<PageCubit, PageState, PageEvent> {
+  CreateServiceRequestPage({super.key});
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descController = TextEditingController();
