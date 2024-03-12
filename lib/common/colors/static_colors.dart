@@ -15,7 +15,13 @@ abstract class StaticColors {
 
   static const textColorPrimary = Color(0xFF41455F);
   static const textColorSecondary = Color(0xFF5A5D83);
+
   static const shimmerBaseColor = Color(0xFFE8E6E8);
   static const shimmerHighLightColor = Color(0xFAFAFAFF);
+
   static const backgroundColor = Color(0xFFF2F4FB);
+
+  static const toastDefaultBackgroundColor = Color(0xFF5C6AC4);
+  static const toastSuccessBackgroundColor = Color(0xFF54931B);
+  static const toastErrorBackgroundColor = Color(0xFFA93232);
 }
