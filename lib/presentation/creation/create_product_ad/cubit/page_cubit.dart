@@ -24,7 +24,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   final AdCreationRepository repository;
 
-  Future<void> sendCreateProductAdRequest() async {
+  Future<void> createProductAd() async {
     updateState((state) => state.copyWith(isRequestSending: true));
     try {
       final response = await repository.createProductAd(
