@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/ad/top_rated_ad_list_widget.dart';
+import 'package:onlinebozor/common/widgets/dashboard/banner_list_shimmer.dart';
 
 import '../../../../common/colors/static_colors.dart';
 import '../../../../common/enum/enums.dart';
@@ -13,7 +14,7 @@ import '../../../../common/gen/localization/strings.dart';
 import '../../../../common/widgets/ad/horizontal_ad_list_widget.dart';
 import '../../../../common/widgets/app_bar/search_app_bar.dart';
 import '../../../../common/widgets/category/popular_category_list_widget.dart';
-import '../../../../common/widgets/dashboard/banner_widget.dart';
+import '../../../../common/widgets/dashboard/banner_list_widget.dart';
 import '../../../../common/widgets/dashboard/product_or_service.dart';
 import '../../../../common/widgets/dashboard/see_all_widget.dart';
 import '../../../../common/widgets/loading/loader_state_widget.dart';
@@ -78,10 +79,8 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
       },
       isFullScreen: false,
       loadingState: state.bannersState,
-      successBody: BannerWidget(
-        list: state.banners,
-        loadingState: state.bannersState,
-      ),
+      loadingBody: BannerListShimmer(),
+      successBody: BannerListWidget(list: state.banners),
     );
   }
 

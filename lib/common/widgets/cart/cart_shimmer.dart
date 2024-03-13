@@ -3,14 +3,13 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../colors/static_colors.dart';
 
-class CartWidgetShimmer extends StatelessWidget {
-  const CartWidgetShimmer({
+class CartShimmer extends StatelessWidget {
+  const CartShimmer({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       padding: const EdgeInsets.all(12),
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
@@ -36,10 +35,10 @@ class CartWidgetShimmer extends StatelessWidget {
           ),
           SizedBox(width: 12),
           Expanded(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
                 Shimmer.fromColors(
                   baseColor: StaticColors.shimmerBaseColor,
                   highlightColor: StaticColors.shimmerHighLightColor,
@@ -78,7 +77,9 @@ class CartWidgetShimmer extends StatelessWidget {
                     ),
                   ),
                 ),
-              ])),
+              ],
+            ),
+          ),
         ],
       ),
     );
