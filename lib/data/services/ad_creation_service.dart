@@ -99,15 +99,14 @@ class AdCreationService {
       "sale_type": "PRODUCT", // todo use actual data ADS, PRODUCT, SERVICE
       "video": videoUrl,
       "min_amount": minAmount,
-      // "delivery_types": ["2", "3"], // todo use actual data
       "has_discount": false,
       "is_pickup_enabled": isPickupEnabled,
-      "pickup_address_ids": pickupWarehouses,
+      "pickup_address_ids": pickupWarehouses.map((id) => {'district_id': id}).toList(),
       "is_free_delivery_enabled": isFreeDeliveryEnabled,
-      "free_delivery_district_ids": freeDeliveryDistricts,
+      "free_delivery_district_ids": freeDeliveryDistricts.map((id) => {'district_id': id}).toList(),
       "free_delivery_max_days": freeDeliveryMaxDay,
       "is_paid_delivery_enabled": isPaidDeliveryEnabled,
-      "paid_delivery_district_ids": paidDeliveryDistricts,
+      "paid_delivery_district_ids": paidDeliveryDistricts.map((id) => {'district_id': id}).toList(),
       "paid_delivery_max_days": paidDeliveryMaxDay,
       // "service_category_id": null,
       // "service_sub_category_id": null,
