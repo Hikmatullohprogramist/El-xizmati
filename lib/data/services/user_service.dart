@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/constants/rest_query_keys.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
-import 'package:onlinebozor/domain/models/social/social_account_info_response.dart';
 
+import '../../domain/models/social_account/social_account_info.dart';
 import '../storages/token_storage.dart';
 
 @lazySingleton
@@ -111,8 +111,8 @@ class UserService {
     return;
   }
 
-  Future<Response> sendMessageType({required String messageType}) async {
-    final data = {RestQueryKeys.messageType: messageType};
+  Future<Response> updateNotificationSources({required String sources}) async {
+    final data = {RestQueryKeys.messageType: sources};
     final response = await _dio.patch(
       "api/v1/mobile/user/update-notification-sources",
       data: data,
@@ -120,9 +120,11 @@ class UserService {
     return response;
   }
 
-  Future<Response> saveSocialAccountInfo({required Social social}) async {
+  Future<Response> updateSocialAccountInfo({
+    required List<SocialAccountInfo> socials,
+  }) async {
     final Map<String, dynamic> data = {
-      'socials': social.socials
+      'socials': socials
           .map((element) => {
                 RestQueryKeys.socialId: element.id,
                 RestQueryKeys.socialIsLink: element.isLink,
