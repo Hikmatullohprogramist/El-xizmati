@@ -1,3 +1,4 @@
+import 'package:dio/src/response.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../data/hive_objects/user/user_info_object.dart';
@@ -8,6 +9,8 @@ import '../../data/services/auth_service.dart';
 import '../../data/storages/language_storage.dart';
 import '../../data/storages/token_storage.dart';
 import '../../data/storages/user_storage.dart';
+import '../../domain/models/face_id/by_passport.dart';
+import '../../domain/models/face_id/by_passportResponse.dart';
 
 @LazySingleton()
 class AuthRepository {
@@ -34,10 +37,8 @@ class AuthRepository {
   }
 
   Future<void> verification(String phone, String password) async {
-    final response =
-        await _authService.verification(phone: phone, password: password);
-    final verificationResponse =
-        ConfirmRootResponse.fromJson(response.data).data;
+    final response = await _authService.verification(phone: phone, password: password);
+    final verificationResponse = ConfirmRootResponse.fromJson(response.data).data;
     if (verificationResponse.token != null) {
       await tokenStorage.token.set(verificationResponse.token ?? "");
       await tokenStorage.isLogin.set(true);
@@ -119,6 +120,51 @@ class AuthRepository {
     await _authService.registerOrResetPassword(
         password: password, repeatPassword: repeatPassword);
     return;
+  }
+
+  Future<Response> byPassport(ByPassportModel byPassportModel) async{
+    final response=await _authService.byPassport(byPassportModel: byPassportModel);
+    return response;
+  }
+
+  Future<Response> byPassportPinfl(String pinfl) async{
+    final response=await _authService.byPassportPinfl(pinfl: pinfl);
+    return response;
+  }
+
+  Future<void> sendImage(String image,String secretKey) async{
+    final response=await _authService.sendImage(image: image, secretKey: secretKey);
+    final verificationResponse = ConfirmRootResponse.fromJson(response.data).data;
+    if (verificationResponse.token != null) {
+      await tokenStorage.token.set(verificationResponse.token ?? "");
+      await tokenStorage.isLogin.set(true);
+      final user = verificationResponse.user;
+      userInfoStorage.userInformation.set(UserInfoObject(
+          districtId: user?.districtId,
+          fullName: user?.fullName,
+          email: user?.email,
+          tin: user?.tin,
+          id: user?.id,
+          apartmentName: user?.apartmentName,
+          areaId: user?.areaId,
+          username: user?.username,
+          birthDate: user?.birthDate,
+          eimzoAllowToLogin: user?.eimzoAllowToLogin,
+          gender: user?.gender,
+          homeName: user?.homeName,
+          isPassword: user?.isPassword,
+          isRegistered: user?.isRegistered,
+          mobilePhone: user?.mobilePhone,
+          oblId: user?.oblId,
+          passportNumber: user?.passportNumber,
+          passportSerial: user?.passportSerial,
+          photo: user?.photo,
+          pinfl: user?.pinfl,
+          postName: user?.username,
+          registeredWithEimzo: user?.registeredWithEimzo,
+          state: user?.state));
+      // await favoriteRepository.pushAllFavoriteAds();
+    }
   }
 
   Future<void> recoveryConfirm(String phone, String code) async {

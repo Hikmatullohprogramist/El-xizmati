@@ -9,6 +9,7 @@ class RestQueryKeys {
   static String apartmentNumber = "apartment_num";
 
   static String brithDate = "birth_date";
+  static String imageData = "image_data";
 
   static String cancelNote = "cancel_note";
   static String confirmPassword = "repeat_password";

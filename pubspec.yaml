@@ -65,6 +65,8 @@ dependencies:
   flutter_date_pickers: ^0.4.2
   uuid: ^4.1.0
   flutter_speed_dial: ^7.0.0
+  camerapreview: ^0.0.1
+  flutter_image_compress: ^2.1.0
 
 dev_dependencies:
   flutter_test:

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
 import '../../gen/localization/strings.dart';
+import '../../vibrator/vibrator_extension.dart';
 import '../button/custom_outlined_button.dart';
 
 extension ShowResultButtomSheet on BuildContext {
@@ -48,6 +50,66 @@ extension ShowResultButtomSheet on BuildContext {
                   ),
                   SizedBox(width: 16),
                 ],
+              ),
+              SizedBox(height: 24),
+            ],
+          ),
+        );
+      },
+    );
+  }
+  void showErrorBottomSheet(BuildContext context,String title,String description) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext bc) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(height: 30),
+              Center(child: title.s(22).w(600)),
+              SizedBox(height: 14),
+              Container(
+                child: Center(
+                  child: SvgPicture.asset(
+                    'assets/images/ic_error.svg',
+                    color: Colors.red,
+                    width: 55,
+                    height: 55,
+                    // Replace with your SVG file path or provide SVG data directly
+                  ),
+                ),
+              ),
+              SizedBox(height: 14),
+              Text(description,
+                maxLines: 3,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16),),
+              SizedBox(height: 32),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal:120),
+                child: CustomOutlinedButton(
+                  text: Strings.closeTitle,
+                  strokeColor: Colors.red,
+                  onPressed: () {
+                    // cubit(context).logOut();
+                    Navigator.pop(context);
+                    vibrateAsHapticFeedback();
+                  },
+                ),
               ),
               SizedBox(height: 24),
             ],
