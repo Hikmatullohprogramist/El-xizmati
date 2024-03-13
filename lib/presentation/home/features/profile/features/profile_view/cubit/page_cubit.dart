@@ -66,7 +66,14 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           ?.where((element) => element.type == "YOUTUBE")
           .map((e) => e.toMap())
           .toList();
-
+      if (telegram!.isNotEmpty) {
+        updateState((state) => state.copyWith(
+              instagramInfo: instagram?[0],
+              telegramInfo: telegram?[0],
+              facebookInfo: facebook?[0],
+              youtubeInfo: youtube?[0],
+            ));
+      }
       updateState(
         (state) => state.copyWith(
           isLoading: false,
@@ -90,12 +97,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
               response.message_type.toString().contains("TELEGRAM"),
           actualSmsState: response.message_type.toString().contains("SMS"),
           actualEmailState: response.message_type.toString().contains("EMAIL"),
-          actualTelegramState:
-              response.message_type.toString().contains("TELEGRAM"),
-          instagramInfo: instagram?[0],
-          telegramInfo: telegram?[0],
-          facebookInfo: facebook?[0],
-          youtubeInfo: youtube?[0],
+          actualTelegramState: response.message_type.toString().contains("TELEGRAM"),
         ),
       );
       log.e("getUserInformation onSuccess");

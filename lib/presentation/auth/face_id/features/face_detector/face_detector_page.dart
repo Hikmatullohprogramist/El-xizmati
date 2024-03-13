@@ -44,7 +44,7 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
       case PageEventType.navigationHome:
         context.router.replace(HomeRoute());
       case PageEventType.error:
-      context.showErrorBottomSheet(context, "Xatolik",
+      context.showErrorBottomSheet(context, Strings.loadingStateError,
           "Sizning shaxsingiz tasdiqlanmadi!");
     }
   }
@@ -90,8 +90,8 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
                       final takeImage = File(value.path);
                       Uint8List imageBytes = await takeImage.readAsBytes();
                       String croppedImage = await croppImage(imageBytes);
-                      cubit(context).sendImage(
-                          croppedImage, cubit(context).states.secretKey);
+                      log(croppedImage);
+                      cubit(context).sendImage(croppedImage, cubit(context).states.secretKey);
                     });
                   },
                   backgroundColor: context.colors.buttonPrimary,

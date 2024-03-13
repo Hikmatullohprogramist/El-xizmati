@@ -17,6 +17,7 @@ import '../../../common/gen/localization/strings.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/widgets/app_bar/default_app_bar.dart';
 import '../../../common/widgets/button/custom_elevated_button.dart';
+import '../../../common/widgets/switch/custom_toggle.dart';
 import '../../../common/widgets/text_field/common_text_field.dart';
 
 @RoutePage()
@@ -32,10 +33,10 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
         context.router.push(
             FaceDetectorRoute(secretKey: cubit(context).states.secretKey));
       case PageEventType.error:
-        context.showErrorBottomSheet(context, "Xatolik",
+        context.showErrorBottomSheet(context, Strings.loadingStateError,
             "Туғилган сана ва паспорт серия-рақамлари мувофиқ эмас");
       case PageEventType.errorPinfl:
-        context.showErrorBottomSheet(context, "Xatolik",
+        context.showErrorBottomSheet(context, Strings.loadingStateError,
             "Bunday JSHSHIRga ega shaxs topilmadi!");
     }
   }
@@ -46,162 +47,171 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: DefaultAppBar("", () => context.router.pop()),
-      backgroundColor: Color(0xFFF1F4FB),
+      appBar: DefaultAppBar(
+          "Face-ID orqali tizimga kirish", () => context.router.pop()),
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
-      body: Stack(
+      body: Column(
         children: [
+          SizedBox(height: 80),
+          CustomToggle(
+            width: 240,
+            isChecked: true,
+            onChanged: (isChecked) {
+              cubit(context).nextState();
+            },
+            negativeTitle: "JSHSHIR",
+            positiveTitle: "Series",
+          ),
           if (cubit(context).states.nextState)
             Visibility(
               visible: true,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 100,
-                    ),
-                    "Face-ID orqali tizimga kirish"
-                        .w(700)
-                        .s(22)
-                        .c(Colors.black),
-                    SizedBox(
-                      height: 70,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        cubit(context).nextState();
-                      },
-                      child: Container(
-                        height: 48,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFFBFAFF),
-                          borderRadius: BorderRadius.circular(7),
-                          border: Border.all(
-                            color: Color(0xFFDFE2E9),
-                            width: 1.0,
-                          ),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.start,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 30,
+                  ),
+                  SizedBox(
+                    height: 70,
+                  ),
+                  //   InkWell(
+                  //    onTap: () {
+                  //      cubit(context).nextState();
+                  //    },
+                  //    child: Container(
+                  //      height: 48,
+                  //      width: double.infinity,
+                  //      decoration: BoxDecoration(
+                  //        color: Color(0xFFFBFAFF),
+                  //        borderRadius: BorderRadius.circular(7),
+                  //        border: Border.all(
+                  //          color: Color(0xFFDFE2E9),
+                  //          width: 1.0,
+                  //        ),
+                  //      ),
+                  //      child: Row(
+                  //        crossAxisAlignment: CrossAxisAlignment.center,
+                  //        mainAxisAlignment: MainAxisAlignment.start,
+                  //        children: [
+                  //          Checkbox(
+                  //            value: true,
+                  //            activeColor: StaticColors.slateBlue,
+                  //            onChanged: (value) {
+                  //              cubit(context).nextState();
+                  //            },
+                  //            checkColor: Colors.white,
+                  //          ),
+                  //          "Passport seriya va raqami bilan kirish"
+                  //              .w(400)
+                  //              .s(16)
+                  //              .c(Colors.black),
+                  //        ],
+                  //      ),
+                  //    ),
+                  //  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    width: double.infinity,
+                    color: Colors.white,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 35),
+                        "Passport ma'lumotlari".w(450).s(16).c(Colors.black),
+                        SizedBox(height: 8),
+                        Row(
                           children: [
-                            Checkbox(
-                              value: true,
-                              activeColor: StaticColors.slateBlue,
-                              onChanged: (value) {
-                                cubit(context).nextState();
-                              },
-                              checkColor: Colors.white,
+                            SizedBox(
+                              width: 60,
+                              child: CommonTextField(
+                                autofillHints: const [
+                                  AutofillHints.telephoneNumber
+                                ],
+                                inputType: TextInputType.text,
+                                keyboardType: TextInputType.phone,
+                                maxLines: 1,
+                                hint: "AA",
+                                maxLength: 2,
+                                controller: passportSeries,
+                                textCapitalization: TextCapitalization.characters,
+                                textInputAction: TextInputAction.done,
+                                onChanged: (value) {
+                                  cubit(context).setPassportSeries(value);
+                                },
+                              ),
                             ),
-                            "Passport seriya va raqami bilan kirish"
-                                .w(400)
-                                .s(16)
-                                .c(Colors.black),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Expanded(
+                              child: CommonTextField(
+                                autofillHints: const [
+                                  AutofillHints.telephoneNumber
+                                ],
+                                inputType: TextInputType.number,
+                                keyboardType: TextInputType.phone,
+                                maxLines: 1,
+                                maxLength: 7,
+                                controller: passportNumber,
+                                hint: "*******",
+                                onChanged: (value) {
+                                  cubit(context).setPassportNumber(value);
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
                           ],
                         ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 35,
-                    ),
-                    "Passport ma'lumotlari".w(450).s(16).c(Colors.black),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 60,
-                          child: CommonTextField(
-                            autofillHints: const [
-                              AutofillHints.telephoneNumber
-                            ],
-                            inputType: TextInputType.text,
-                            keyboardType: TextInputType.phone,
-                            maxLines: 1,
-                            hint: "AA",
-                            maxLength: 2,
-                            controller: passportSeries,
-                            textCapitalization: TextCapitalization.characters,
-                            textInputAction: TextInputAction.done,
-                            onChanged: (value) {
-                              cubit(context).setPassportSeries(value);
-                            },
+                        SizedBox(height: 10),
+                        "Tug'ulgan sana".w(400).s(16).c(Colors.black),
+                        SizedBox(height: 10),
+                        InkWell(
+                          onTap: () {
+                            showDatePickerDialog(context);
+                          },
+                          child: Container(
+                            height: 48,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFFBFAFF),
+                              borderRadius: BorderRadius.circular(7),
+                              border: Border.all(
+                                color: Color(0xFFDFE2E9),
+                                width: 1.0,
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                Assets.images.icCalendar.svg(height: 24, width: 24),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                cubit(context)
+                                    .states
+                                    .birthDate
+                                    .w(500)
+                                    .s(16)
+                                    .c(Color(0xFF9EABBE)),
+                              ],
+                            ),
                           ),
                         ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Expanded(
-                          child: CommonTextField(
-                            autofillHints: const [
-                              AutofillHints.telephoneNumber
-                            ],
-                            inputType: TextInputType.number,
-                            keyboardType: TextInputType.phone,
-                            maxLines: 1,
-                            maxLength: 7,
-                            controller: passportNumber,
-                            hint: "*******",
-                            onChanged: (value) {
-                              cubit(context).setPassportNumber(value);
-                            },
-                          ),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
+                        SizedBox(height: 80),
                       ],
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    "Tug'ulgan sana".w(400).s(16).c(Colors.black),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        showDatePickerDialog(context);
-                      },
-                      child: Container(
-                        height: 48,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFFBFAFF),
-                          borderRadius: BorderRadius.circular(7),
-                          border: Border.all(
-                            color: Color(0xFFDFE2E9),
-                            width: 1.0,
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: 15,
-                            ),
-                            Assets.images.icCalendar.svg(height: 24, width: 24),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            cubit(context)
-                                .states
-                                .birthDate
-                                .w(500)
-                                .s(16)
-                                .c(Color(0xFF9EABBE)),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 80,
-                    ),
-                    CustomElevatedButton(
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal:20),
+                    child: CustomElevatedButton(
                       text: Strings.commonContinue,
                       onPressed: () {
                         cubit(context).validation();
@@ -209,11 +219,12 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
                       backgroundColor: context.colors.buttonPrimary,
                       isEnabled: cubit(context).enableButton(),
                       isLoading: cubit(context).states.loading,
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
             ),
+
           ///
           if (!cubit(context).states.nextState)
             Padding(
@@ -222,20 +233,12 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: 100,
-                  ),
-                  "Face-ID orqali tizimga kirish".w(700).s(22).c(Colors.black),
-                  SizedBox(
-                    height: 70,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  SizedBox(height: 100),
+                //  "Face-ID orqali tizimga kirish".w(700).s(22).c(Colors.black),
+                  SizedBox(height: 70),
+                  SizedBox(height: 10),
                   "PINFL".w(500).s(16).c(Colors.black),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  SizedBox(height: 10),
                   Row(
                     children: [
                       Expanded(
@@ -248,50 +251,48 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
                           hint: "00000000000000",
                           textInputAction: TextInputAction.done,
                           onChanged: (value) {
-                             cubit(context).setPassportPinfl(value);
+                            cubit(context).setPassportPinfl(value);
                           },
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  Container(
-                    height: 48,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFFBFAFF),
-                      borderRadius: BorderRadius.circular(7),
-                      border: Border.all(
-                        color: Color(0xFFDFE2E9),
-                        width: 1.0,
-                      ),
-                    ),
-                    child: InkWell(
-                      onTap: () {
-                        cubit(context).nextState();
-                      },
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Checkbox(
-                            value: false,
-                            activeColor: StaticColors.slateBlue,
-                            onChanged: (value) {
-                              cubit(context).nextState();
-                            },
-                            checkColor: Colors.white,
-                          ),
-                          "Passport seriya va raqami bilan kirish"
-                              .w(400)
-                              .s(16)
-                              .c(Colors.black),
-                        ],
-                      ),
-                    ),
-                  ),
+                  SizedBox(height: 40),
+               //  Container(
+               //    height: 48,
+               //    width: double.infinity,
+               //    decoration: BoxDecoration(
+               //      color: Color(0xFFFBFAFF),
+               //      borderRadius: BorderRadius.circular(7),
+               //      border: Border.all(
+               //        color: Color(0xFFDFE2E9),
+               //        width: 1.0,
+               //      ),
+               //    ),
+               //    child: InkWell(
+               //      onTap: () {
+               //        cubit(context).nextState();
+               //      },
+               //      child: Row(
+               //        crossAxisAlignment: CrossAxisAlignment.center,
+               //        mainAxisAlignment: MainAxisAlignment.start,
+               //        children: [
+               //          Checkbox(
+               //            value: false,
+               //            activeColor: StaticColors.slateBlue,
+               //            onChanged: (value) {
+               //              cubit(context).nextState();
+               //            },
+               //            checkColor: Colors.white,
+               //          ),
+               //          "Passport seriya va raqami bilan kirish"
+               //              .w(400)
+               //              .s(16)
+               //              .c(Colors.black),
+               //        ],
+               //      ),
+               //    ),
+               //  ),
                   SizedBox(
                     height: 60,
                   ),
