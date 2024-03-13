@@ -30,6 +30,7 @@ class CommonTextField extends StatefulWidget {
     this.textAlign = TextAlign.start,
     this.onFieldSubmitted1,
     this.validateType,
+    this.textCapitalization,
   }) : super(key: key);
 
   final double? height;
@@ -48,12 +49,14 @@ class CommonTextField extends StatefulWidget {
   final int? maxLines;
   final int maxLength;
   final bool enabled;
+  final TextCapitalization? textCapitalization;
   final TextAlign textAlign;
   final Color? disabledColor;
   final TextInputAction? textInputAction;
   final TextInputFormatter? inputFormatters;
   final Function(String text)? onChanged;
   final Function(bool val)? onFieldSubmitted1;
+
 
   @override
   State<CommonTextField> createState() => _CommonTextFieldState();
@@ -144,6 +147,8 @@ class _CommonTextFieldState extends State<CommonTextField> {
             fontWeight: FontWeight.w400,
             color: Color(0xFF41455F),
           ),
+
+          textCapitalization:widget.textCapitalization??TextCapitalization.none,
           controller:widget.controller,
           keyboardType: widget.inputType,
           minLines: widget.minLines,
