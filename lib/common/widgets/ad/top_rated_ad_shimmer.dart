@@ -12,7 +12,7 @@ class TopRatedAdWidgetShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 248,
-      padding: EdgeInsets.only(left: 12, top: 12, right: 0),
+      padding: EdgeInsets.only(left: 12, top: 4, right: 0),
       decoration: _getBackgroundGradient(),
       child: InkWell(
         onTap: () {},
@@ -27,7 +27,6 @@ class TopRatedAdWidgetShimmer extends StatelessWidget {
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(height: 8),
                       Shimmer.fromColors(
@@ -48,7 +47,20 @@ class TopRatedAdWidgetShimmer extends StatelessWidget {
                         highlightColor: StaticColors.shimmerHighLightColor,
                         child: Container(
                           height: 15,
-                          width: 100,
+                          width: 105,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(7),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Shimmer.fromColors(
+                        baseColor: StaticColors.shimmerBaseColor,
+                        highlightColor: StaticColors.shimmerHighLightColor,
+                        child: Container(
+                          height: 15,
+                          width: 90,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(7),
@@ -61,18 +73,34 @@ class TopRatedAdWidgetShimmer extends StatelessWidget {
                 SizedBox(width: 12),
               ],
             ),
-            Shimmer.fromColors(
-              baseColor: StaticColors.shimmerBaseColor,
-              highlightColor: StaticColors.shimmerHighLightColor,
-              child: Container(
-                margin: EdgeInsets.only(left: 20),
-                height: 26,
-                width: 120,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(6),
+            Row(
+              children: [
+                Shimmer.fromColors(
+                  baseColor: StaticColors.shimmerBaseColor,
+                  highlightColor: StaticColors.shimmerHighLightColor,
+                  child: Container(
+                    height: 26,
+                    width: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                  ),
                 ),
-              ),
+                SizedBox(width: 16),
+                Shimmer.fromColors(
+                  baseColor: StaticColors.shimmerBaseColor,
+                  highlightColor: StaticColors.shimmerHighLightColor,
+                  child: Container(
+                    height: 26,
+                    width: 48,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                  ),
+                ),
+              ],
             )
           ],
         ),
@@ -99,11 +127,11 @@ class TopRatedAdWidgetShimmer extends StatelessWidget {
 
   Decoration _getBackgroundGradient() {
     return ShapeDecoration(
-      gradient: LinearGradient(
-        begin: Alignment(0, -1),
-        end: Alignment(1, 1),
-        colors: const [Color(0xFF9570FF), Color(0xFFF0C49A)],
-      ),
+      // gradient: LinearGradient(
+      //   begin: Alignment(0, -1),
+      //   end: Alignment(1, 1),
+      //   colors: const [Color(0xFF9570FF), Color(0xFFF0C49A)],
+      // ),
       shape: RoundedRectangleBorder(
         side: BorderSide(width: 0.50, color: Color(0xFFB9A0FF)),
         borderRadius: BorderRadius.circular(8),

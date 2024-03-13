@@ -49,7 +49,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       updateState(
         (state) => state.copyWith(
           popularCategories: popularCategories,
-          popularCategoriesState: LoadingState.success,
+          // popularCategoriesState: LoadingState.success,
         ),
       );
     } on DioException catch (e, stackTrace) {
@@ -71,7 +71,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       updateState(
         (state) => state.copyWith(
           popularProductAds: ads,
-          popularProductAdsState: LoadingState.success,
+          // popularProductAdsState: LoadingState.success,
         ),
       );
     } on DioException catch (e, stackTrace) {
@@ -91,7 +91,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       updateState(
         (state) => state.copyWith(
           popularServiceAds: ads,
-          popularServiceAdsState: LoadingState.success,
+          // popularServiceAdsState: LoadingState.success,
         ),
       );
     } on DioException catch (e, stackTrace) {
@@ -108,7 +108,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       updateState(
         (state) => state.copyWith(
           topRatedAds: ads,
-          topRatedAdsState: LoadingState.success,
+          // topRatedAdsState: LoadingState.success,
         ),
       );
     } on DioException catch (e, stackTrace) {
@@ -126,7 +126,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       updateState(
         (state) => state.copyWith(
           recentlyViewedAds: ads,
-          recentlyViewedAdsState: LoadingState.success,
+          // recentlyViewedAdsState: LoadingState.success,
         ),
       );
     } on DioException catch (e, stackTrace) {
@@ -146,7 +146,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       final banners = await commonRepository.getBanner();
       updateState((state) => state.copyWith(
             banners: banners,
-            bannersState: LoadingState.success,
+            // bannersState: LoadingState.success,
           ));
       log.i("getBanners success = ${states.banners}");
     } on DioException catch (e, stackTrace) {

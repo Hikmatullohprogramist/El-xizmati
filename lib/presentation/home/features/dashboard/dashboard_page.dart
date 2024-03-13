@@ -1,9 +1,10 @@
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/ad/horizontal_ad_list_shimmer.dart';
+import 'package:onlinebozor/common/widgets/ad/top_rated_ad_list_shimmer.dart';
 import 'package:onlinebozor/common/widgets/ad/top_rated_ad_list_widget.dart';
 import 'package:onlinebozor/common/widgets/dashboard/banner_list_shimmer.dart';
 
@@ -13,6 +14,7 @@ import '../../../../common/gen/assets/assets.gen.dart';
 import '../../../../common/gen/localization/strings.dart';
 import '../../../../common/widgets/ad/horizontal_ad_list_widget.dart';
 import '../../../../common/widgets/app_bar/search_app_bar.dart';
+import '../../../../common/widgets/category/popular_category_list_shimmer.dart';
 import '../../../../common/widgets/category/popular_category_list_widget.dart';
 import '../../../../common/widgets/dashboard/banner_list_widget.dart';
 import '../../../../common/widgets/dashboard/product_or_service.dart';
@@ -26,6 +28,7 @@ import 'cubit/page_cubit.dart';
 @RoutePage()
 class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
   const DashboardPage({super.key});
+
   @override
   void onWidgetCreated(BuildContext context) {
     cubit(context).getRecentlyViewedAds();
@@ -46,8 +49,8 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
         displacement: 160,
         strokeWidth: 3,
         color: Color(0xFF586BC2),
-        onRefresh: () async{
-            cubit(context).getInitialData();
+        onRefresh: () async {
+          cubit(context).getInitialData();
         },
         child: CustomScrollView(
           physics: BouncingScrollPhysics(),
@@ -101,9 +104,10 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
             isFullScreen: false,
             loadingState: state.popularCategoriesState,
+            loadingBody: PopularCategoryListShimmer(),
             successBody: PopularCategoryListWidget(
               categories: state.popularCategories,
-              invoke: (popularCategories) {
+              onCategoryClicked: (popularCategories) {
                 context.router.push(
                   AdListRoute(
                     adListType: AdListType.homeList,
@@ -113,7 +117,6 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
                   ),
                 );
               },
-              loadingState: state.popularCategoriesState,
             ),
           ),
         ],
@@ -182,16 +185,15 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
               cubit(context).getPopularProductAds();
             },
             loadingState: state.popularProductAdsState,
+            loadingBody: HorizontalAdListShimmer(),
             successBody: HorizontalAdListWidget(
-              ads: state.popularProductAds,
-              onItemClicked: (Ad ad) {
-                context.router.push(AdDetailRoute(adId: ad.id));
-              },
-              onFavoriteClicked: (Ad ad) {
-                cubit(context).popularProductAdsAddFavorite(ad);
-              },
-              loadingState: state.popularProductAdsState,
-            ),
+                ads: state.popularProductAds,
+                onItemClicked: (Ad ad) {
+                  context.router.push(AdDetailRoute(adId: ad.id));
+                },
+                onFavoriteClicked: (Ad ad) {
+                  cubit(context).popularProductAdsAddFavorite(ad);
+                }),
           ),
         ],
       ),
@@ -222,6 +224,7 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
               cubit(context).getPopularServiceAds();
             },
             loadingState: state.popularServiceAdsState,
+            loadingBody: HorizontalAdListShimmer(),
             successBody: HorizontalAdListWidget(
               ads: state.popularServiceAds,
               onItemClicked: (Ad ad) {
@@ -230,7 +233,6 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
               onFavoriteClicked: (Ad ad) {
                 cubit(context).popularServiceAdsAddFavorite(ad);
               },
-              loadingState: state.popularServiceAdsState,
             ),
           ),
         ],
@@ -245,6 +247,7 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
         cubit(context).getTopRatedAds();
       },
       loadingState: state.popularServiceAdsState,
+      loadingBody: TopRatedAdListShimmer(),
       successBody: TopRatedAdListWidget(
         ads: state.topRatedAds,
         onItemClicked: (Ad ad) {
@@ -256,7 +259,6 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
         onFavoriteClicked: (Ad ad) {
           cubit(context).topRatedAdsAddFavorite(ad);
         },
-        loadingState: state.popularServiceAdsState,
       ),
     );
   }
@@ -266,10 +268,9 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
     PageState state,
   ) {
     return Visibility(
-      visible:
-     state.recentlyViewedAdsState != LoadingState.loading &&
-         (state.recentlyViewedAdsState ==
-             LoadingState.success && state.recentlyViewedAds.isNotEmpty),
+      visible: state.recentlyViewedAdsState == LoadingState.loading ||
+          (state.recentlyViewedAdsState == LoadingState.success &&
+              state.recentlyViewedAds.isNotEmpty),
       child: Container(
         color: Colors.white,
         child: Column(
@@ -293,6 +294,7 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
                 cubit(context).getRecentlyViewedAds();
               },
               loadingState: state.recentlyViewedAdsState,
+              loadingBody: HorizontalAdListShimmer(),
               successBody: HorizontalAdListWidget(
                 ads: state.recentlyViewedAds,
                 onItemClicked: (Ad ad) {
@@ -301,7 +303,6 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
                 onFavoriteClicked: (Ad ad) {
                   context.read<PageCubit>().recentlyViewAdAddToFavorite(ad);
                 },
-                loadingState: state.recentlyViewedAdsState,
               ),
             ),
           ],
