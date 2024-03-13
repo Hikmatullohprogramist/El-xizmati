@@ -12,7 +12,7 @@ import 'package:onlinebozor/common/widgets/favorite/favorite_empty_widget.dart';
 
 import '../../../../common/colors/static_colors.dart';
 import '../../../../common/widgets/cart/cart_widget.dart';
-import '../../../../common/widgets/cart/cart_widget_shimmer.dart';
+import '../../../../common/widgets/cart/cart_shimmer.dart';
 import '../../../../domain/models/ad/ad.dart';
 import 'cubit/page_cubit.dart';
 
@@ -64,7 +64,7 @@ class CartPage extends BasePage<PageCubit, PageState, PageEvent> {
                 shrinkWrap: true,
                 itemCount: 5,
                 itemBuilder: (BuildContext context, int index) {
-                  return CartWidgetShimmer();
+                  return CartShimmer();
                 },
               ),
             );

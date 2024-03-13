@@ -1,26 +1,24 @@
 import 'package:dio/dio.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/responses/profile/user_full/user_full_info_response.dart';
+import 'package:onlinebozor/domain/mappers/social_account_mapper.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
-import 'package:onlinebozor/domain/models/social/social_network.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../../../common/core/base_cubit.dart';
 import '../../../../../../../data/repositories/auth_repository.dart';
 import '../../../../../../../data/repositories/user_repository.dart';
+import '../../../../../../../domain/models/social_account/social_account_info.dart';
 
 part 'page_cubit.freezed.dart';
-
 part 'page_state.dart';
 
 @injectable
 class PageCubit extends BaseCubit<PageState, PageEvent> {
   PageCubit(this._authRepository, this._userRepository) : super(PageState()) {
     getActiveDeviceController();
-    getSocial();
+    getSocialAccountInfo();
   }
 
   final AuthRepository _authRepository;
@@ -47,12 +45,28 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> getUserInformation() async {
     try {
       updateState((state) => state.copyWith(isLoading: true));
-      log.e("getUserInformation onLoading");
+
       final response = await _userRepository.getFullUserInfo();
-      var instagram=response.socials?.where((element) => element.type=="INSTAGRAM").toList();
-      var telegram=response.socials?.where((element) => element.type=="TELEGRAM").toList();
-      var facebook=response.socials?.where((element) => element.type=="FACEBOOK").toList();
-      var youtube=response.socials?.where((element) => element.type=="YOUTUBE").toList();
+      List<SocialAccountInfo>? instagram = response.socials
+          ?.where((element) => element.type == "INSTAGRAM")
+          .map((e) => e.toMap())
+          .toList();
+
+      var telegram = response.socials
+          ?.where((element) => element.type == "TELEGRAM")
+          .map((e) => e.toMap())
+          .toList();
+
+      var facebook = response.socials
+          ?.where((element) => element.type == "FACEBOOK")
+          .map((e) => e.toMap())
+          .toList();
+
+      var youtube = response.socials
+          ?.where((element) => element.type == "YOUTUBE")
+          .map((e) => e.toMap())
+          .toList();
+
       updateState(
         (state) => state.copyWith(
           isLoading: false,
@@ -70,45 +84,18 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           districtId: response.district_id,
           gender: response.gender ?? "*",
           streetId: response.mahalla_id,
-          smsNotification: response.message_type.toString().contains("SMS"),
-          telegramNotification: response.message_type.toString().contains("TELEGRAM"),
-          emailNotification: response.message_type.toString().contains("EMAIL"),
-        //  instagramSocial: SocialElement(
-        //    type: instagram?[0].type ?? "",
-        //    link: instagram?[0].link ?? "",
-        //    status: instagram?[0].status ?? "",
-        //    isLink: true,
-        //    id: instagram?[0].id ?? 0,
-        //    tin: instagram?[0].tin ?? 0,
-        //    viewNote: instagram?[0].viewNote,
-        //  ),
-      ///  telegramSocial: SocialElement(
-      ///    type: telegram?[0].type ?? "",
-      ///    link: telegram?[0].link ?? "",
-      ///    status: telegram?[0].status ?? "",
-      ///    isLink: true,
-      ///    id: telegram?[0].id ?? 0,
-      ///    tin: telegram?[0].tin ?? 0,
-      ///    viewNote: telegram?[0].viewNote,
-      ///  ),
-      ///  facebookSocial: SocialElement(
-      ///    type: facebook?[0].type ?? "",
-      ///    link: facebook?[0].link ?? "",
-      ///    status: facebook?[0].status ?? "",
-      ///    isLink: true,
-      ///    id: facebook?[0].id ?? 0,
-      ///    tin: facebook?[0].tin ?? 0,
-      ///    viewNote: facebook?[0].viewNote,
-      ///  ),
-      ///  youtubeSocial: SocialElement(
-      ///    type: youtube?[0].type ?? "",
-      ///    link: youtube?[0].link ?? "",
-      ///    status: youtube?[0].status ?? "",
-      ///    isLink: true,
-      ///    id: youtube?[0].id ?? 0,
-      ///    tin: youtube?[0].tin ?? 0,
-      ///    viewNote: youtube?[0].viewNote,
-      ///  ),
+          savedSmsState: response.message_type.toString().contains("SMS"),
+          savedEmailState: response.message_type.toString().contains("EMAIL"),
+          savedTelegramState:
+              response.message_type.toString().contains("TELEGRAM"),
+          actualSmsState: response.message_type.toString().contains("SMS"),
+          actualEmailState: response.message_type.toString().contains("EMAIL"),
+          actualTelegramState:
+              response.message_type.toString().contains("TELEGRAM"),
+          instagramInfo: instagram?[0],
+          telegramInfo: telegram?[0],
+          facebookInfo: facebook?[0],
+          youtubeInfo: youtube?[0],
         ),
       );
       log.e("getUserInformation onSuccess");
@@ -124,7 +111,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       // display.error(e.toString());
     }
   }
-
 
   Future<void> getRegions() async {
     final response = await _userRepository.getRegions();
@@ -152,7 +138,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> getStreets() async {
     try {
       final districtId = states.districtId;
-      final response = await _userRepository.getNeighborhoods(districtId ?? 1419);
+      final response =
+          await _userRepository.getNeighborhoods(districtId ?? 1419);
       updateState((state) => state.copyWith(
           streetName: response
               .where((element) => element.id == states.streetId)
@@ -164,57 +151,37 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  Future<void> getSocial() async{
+  Future<void> getSocialAccountInfo() async {
     try {
       updateState((state) => state.copyWith(isLoading: true));
       log.e("getUserInformation onLoading");
       final response = await _userRepository.getFullUserInfo();
-      var instagram=response.socials?.where((element) => element.type=="INSTAGRAM").toList();
-      var telegram=response.socials?.where((element) => element.type=="TELEGRAM").toList();
-      var facebook=response.socials?.where((element) => element.type=="FACEBOOK").toList();
-      var youtube=response.socials?.where((element) => element.type=="YOUTUBE").toList();
-       if(instagram!=null && telegram!=null && facebook!=null){
-         updateState(
-               (state) => state.copyWith(
-             instagramSocial: SocialElement(
-               type: instagram?[0].type ?? "",
-               link: instagram?[0].link ?? "",
-               status: instagram?[0].status ?? "",
-               isLink: true,
-               id: instagram?[0].id ?? 0,
-               tin: instagram?[0].tin ?? 0,
-               viewNote: instagram?[0].viewNote,
-             ),
-             telegramSocial: SocialElement(
-               type: telegram?[0].type ?? "",
-               link: telegram?[0].link ?? "",
-               status: telegram?[0].status ?? "",
-               isLink: true,
-               id: telegram?[0].id ?? 0,
-               tin: telegram?[0].tin ?? 0,
-               viewNote: telegram?[0].viewNote,
-             ),
-             facebookSocial: SocialElement(
-               type: facebook?[0].type ?? "",
-               link: facebook?[0].link ?? "",
-               status: facebook?[0].status ?? "",
-               isLink: true,
-               id: facebook?[0].id ?? 0,
-               tin: facebook?[0].tin ?? 0,
-               viewNote: facebook?[0].viewNote,
-             ),
-             youtubeSocial: SocialElement(
-               type: youtube?[0].type ?? "",
-               link: youtube?[0].link ?? "",
-               status: youtube?[0].status ?? "",
-               isLink: true,
-               id: youtube?[0].id ?? 0,
-               tin: youtube?[0].tin ?? 0,
-               viewNote: youtube?[0].viewNote,
-             ),
-           ),
-         );
-       }
+      var instagram = response.socials
+          ?.where((element) => element.type == "INSTAGRAM")
+          .map((e) => e.toMap())
+          .toList();
+      var telegram = response.socials
+          ?.where((element) => element.type == "TELEGRAM")
+          .map((e) => e.toMap())
+          .toList();
+      var facebook = response.socials
+          ?.where((element) => element.type == "FACEBOOK")
+          .map((e) => e.toMap())
+          .toList();
+      var youtube = response.socials
+          ?.where((element) => element.type == "YOUTUBE")
+          .map((e) => e.toMap())
+          .toList();
+      if (instagram != null && telegram != null && facebook != null) {
+        updateState(
+          (state) => state.copyWith(
+            instagramInfo: instagram[0],
+            telegramInfo: telegram[0],
+            facebookInfo: facebook[0],
+            youtubeInfo: youtube?[0],
+          ),
+        );
+      }
 
       log.e("getUserInformation onSuccess");
       await getUser();
@@ -228,173 +195,118 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-
-  Future<void> logOut() async {
-    await _authRepository.logOut();
-    emitEvent(PageEvent(PageEventType.onLogout));
+  changeSmsNotificationState() {
+    updateState((state) => state.copyWith(
+          actualSmsState: !states.actualSmsState,
+        ));
   }
 
-  setSmsNotification() {
-    updateState(
-      (state) => state.copyWith(
-          smsNotification: !state.smsNotification,
-          enableButton: [
-            !states.enableButton[0],
-            states.enableButton[1],
-            states.enableButton[2]
-          ]),
-    );
+  changeEmailNotificationState() {
+    updateState((state) => state.copyWith(
+          actualEmailState: !states.actualEmailState,
+        ));
   }
 
-  setEmailNotification() {
-    updateState(
-      (state) => state.copyWith(
-          emailNotification: !state.emailNotification,
-          enableButton: [
-            states.enableButton[0],
-            !states.enableButton[1],
-            states.enableButton[2]
-          ]),
-    );
+  changeTelegramNotificationState() {
+    updateState((state) => state.copyWith(
+          actualTelegramState: !states.actualTelegramState,
+        ));
   }
 
-  setTelegramNotification() {
-    updateState(
-      (state) => state.copyWith(
-          telegramNotification: !state.telegramNotification,
-          enableButton: [
-            states.enableButton[0],
-            states.enableButton[1],
-            !states.enableButton[2]
-          ]),
-    );
-  }
-
-  bool getEnableButton() {
-    return states.enableButton.every((element) => element == false);
+  bool hasNotSavedNotificationChanges() {
+    return states.savedSmsState != states.actualSmsState ||
+        states.savedEmailState != states.actualEmailState ||
+        states.savedTelegramState != states.actualTelegramState;
   }
 
   setInstagramSocial(String status) {
-    if (states.instagramSocial?.status == "REJECTED") {
+    if (states.instagramInfo?.status == "REJECTED") {
       status = "WAIT";
     } else {
       status = "REJECTED";
     }
     updateState((state) => state.copyWith(
-          instagramSocial: SocialElement(
-            type: states.instagramSocial?.type ?? "",
-            link: states.instagramSocial?.link ?? "",
-            status: status,
-            isLink: false,
-            id: states.instagramSocial?.id ?? 0,
-            tin: states.instagramSocial?.tin ?? 0,
-            viewNote: states.instagramSocial?.viewNote,
-          ),
+          instagramInfo: states.instagramInfo?..status = status,
         ));
   }
 
   setTelegramSocial(String status) {
-    if (states.telegramSocial?.status == "REJECTED") {
+    if (states.telegramInfo?.status == "REJECTED") {
       status = "WAIT";
     } else {
       status = "REJECTED";
     }
     updateState((state) => state.copyWith(
-          telegramSocial: SocialElement(
-            type: states.telegramSocial?.type ?? "",
-            link: states.telegramSocial?.link ?? "",
-            status: status,
-            isLink: false,
-            id: states.telegramSocial?.id ?? 0,
-            tin: states.telegramSocial?.tin ?? 0,
-            viewNote: states.telegramSocial?.viewNote,
-          ),
+          telegramInfo: states.instagramInfo?..status = status,
         ));
   }
 
   setFacebookSocial(String status) {
-    if (states.facebookSocial?.status == "REJECTED") {
+    if (states.facebookInfo?.status == "REJECTED") {
       status = "WAIT";
     } else {
       status = "REJECTED";
     }
     updateState((state) => state.copyWith(
-          facebookSocial: SocialElement(
-            type: states.facebookSocial?.type ?? "",
-            link: states.facebookSocial?.link ?? "",
-            status: status,
-            isLink: false,
-            id: states.facebookSocial?.id ?? 0,
-            tin: states.facebookSocial?.tin ?? 0,
-            viewNote: states.facebookSocial?.viewNote,
-          ),
+          facebookInfo: state.facebookInfo?..status = status,
         ));
   }
 
   setYoutubeSocial(String status) {
-    if (states.youtubeSocial?.status == "REJECTED") {
+    if (states.youtubeInfo?.status == "REJECTED") {
       status = "WAIT";
     } else {
       status = "REJECTED";
     }
     updateState((state) => state.copyWith(
-          youtubeSocial: SocialElement(
-            type: states.youtubeSocial?.type ?? "",
-            link: states.youtubeSocial?.link ?? "",
-            status: status,
-            isLink: false,
-            id: states.youtubeSocial?.id ?? 0,
-            tin: states.youtubeSocial?.tin ?? 0,
-            viewNote: states.youtubeSocial?.viewNote,
-          ),
+          youtubeInfo: state.youtubeInfo?..status = status,
         ));
   }
 
-  void clearList() {
-    updateState(
-      (state) => state.copyWith(enableButton: [false, false, false]),
-    );
+  Future<void> setMessageType() async {
+    var sources = "";
+    if (states.actualSmsState) {
+      sources = "SMS";
+    }
+    if (states.actualEmailState) {
+      sources = "$sources,EMAIL";
+    }
+    if (states.actualTelegramState) {
+      sources = "$sources,TELEGRAM";
+    }
+    updateState((state) => state.copyWith(isUpdatingNotification: true));
+    try {
+      log.w(sources);
+      await _userRepository.updateNotificationSources(sources: sources);
+
+      updateState((state) => state.copyWith(
+            isUpdatingNotification: false,
+            savedSmsState: state.actualSmsState,
+            savedEmailState: state.actualEmailState,
+            savedTelegramState: state.actualTelegramState,
+          ));
+
+      emitEvent(PageEvent(PageEventType.onSuccessUpdateNotification));
+    } catch (error) {
+      updateState((state) => state.copyWith(isUpdatingNotification: false));
+      emitEvent(PageEvent(PageEventType.onFailedUpdateNotification));
+    }
   }
 
-  Future<bool> setMessageType(String messageType) async {
-    if (states.smsNotification) {
-      messageType = "SMS";
-    }
-    if (states.emailNotification) {
-      messageType = "$messageType,EMAIL";
-    }
-    if (states.telegramNotification) {
-      messageType = "$messageType,TELEGRAM";
-    }
-    updateState((state) => state.copyWith(isLoadingNotification: true));
+  Future<void> updateSocialAccountInfo() async {
+    var socials = [
+      states.instagramInfo!,
+      states.telegramInfo!,
+      states.facebookInfo!,
+      states.youtubeInfo!,
+    ];
+    updateState((state) => state.copyWith(isUpdatingSocialInfo: true));
     try {
-      log.w(messageType);
-      final response =
-          await _userRepository.sendMessageType(messageType: messageType);
-    } on DioException catch (error) {
-      return false;
-    } finally {
-      updateState((state) => state.copyWith(isLoadingNotification: false));
+      await _userRepository.updateSocialAccountInfo(socials: socials);
+      updateState((state) => state.copyWith(isUpdatingSocialInfo: false));
+    } catch (error) {
+      updateState((state) => state.copyWith(isUpdatingSocialInfo: false));
     }
-    return true;
-  }
-
-  Future<bool> sendSocials() async {
-    Social socials = Social(socials: [
-      states.instagramSocial!,
-      states.telegramSocial!,
-      states.facebookSocial!,
-      states.youtubeSocial!,
-    ]);
-    updateState((state) => state.copyWith(isLoadingSocial: true));
-    try {
-      final response = await _userRepository.sendSocials(social: socials);
-    } on DioException catch (error) {
-      return false;
-    } finally {
-      updateState((state) => state.copyWith(isLoadingSocial: false));
-    }
-    return true;
   }
 
   Future<void> openTelegram() async {
@@ -452,5 +364,10 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     } catch (error) {
       log.e(error.toString());
     }
+  }
+
+  Future<void> logOut() async {
+    await _authRepository.logOut();
+    emitEvent(PageEvent(PageEventType.onLogout));
   }
 }

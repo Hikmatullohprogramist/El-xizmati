@@ -7,7 +7,6 @@ import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/region/region.dart';
 import 'package:onlinebozor/domain/models/region/region_and_district.dart';
-import 'package:onlinebozor/domain/models/social/social_network.dart';
 
 import '../../common/constants.dart';
 import '../../data/hive_objects/user/user_info_object.dart';
@@ -17,6 +16,7 @@ import '../../data/responses/profile/user_full/user_full_info_response.dart';
 import '../../data/responses/region/region_root_response.dart';
 import '../../data/services/user_service.dart';
 import '../../data/storages/user_storage.dart';
+import '../../domain/models/social_account/social_account_info.dart';
 import '../../domain/models/street/street.dart';
 
 @LazySingleton()
@@ -140,18 +140,18 @@ class UserRepository {
         phoneNumber: phoneNumber);
   }
 
-  Future<void> sendMessageType({required String messageType}) async {
-    await _userService.sendMessageType(messageType: messageType);
+  Future<void> updateNotificationSources({required String sources}) async {
+    await _userService.updateNotificationSources(sources: sources);
   }
 
-  Future<void> sendSocials({required Social social}) async {
-    await _userService.sendSocials(social: social);
+  Future<void> updateSocialAccountInfo({
+    required List<SocialAccountInfo> socials,
+  }) async {
+    await _userService.updateSocialAccountInfo(socials: socials);
   }
 
   Future<bool> isFullRegister() async {
-    final isRegister =
-        userInfoStorage.userInformation.call()?.isRegistered ?? false;
-    return isRegister;
+    return userInfoStorage.userInformation.call()?.isRegistered ?? false;
   }
 
   Future<List<ActiveSession>> getActiveDevice() async {
@@ -159,27 +159,12 @@ class UserRepository {
     final root = ActiveSessionsRootResponse.fromJson(deviceResponse.data).data;
     final userAgent = DeviceInfo.userAgent;
     final items = root.map((e) => e.toMap(e.user_agent == userAgent)).toList();
-    items.sort(
-      (a, b) {
-        int currentSessionComparison =
-            b.isCurrentSession ? 1 : 0 - (a.isCurrentSession ? 1 : 0);
-
-        int dateComparison = a.lastActivityAt == null
-            ? 1
-            : b.lastActivityAt == null
-                ? -1
-                : (a.lastActivityAt?.compareTo(b.lastActivityAt!) ?? 1) -
-                    (b.lastActivityAt?.compareTo(a.lastActivityAt!) ?? 1);
-
-        return currentSessionComparison == 0 && dateComparison == 0
-            ? 0
-            : currentSessionComparison == 1
-                ? 1
-                : currentSessionComparison == 1
-                    ? -1
-                    : dateComparison;
-      },
-    );
+    items.sort((a, b) {
+      if (a.isCurrentSession == b.isCurrentSession) {
+        return b.lastActivityAt?.compareTo(a.lastActivityAt ?? '') ?? -1;
+      }
+      return a.isCurrentSession ? -1 : 1;
+    });
     return items;
   }
 

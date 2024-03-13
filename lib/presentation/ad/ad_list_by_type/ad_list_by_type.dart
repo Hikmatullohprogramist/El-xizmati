@@ -13,6 +13,7 @@ import 'package:onlinebozor/common/widgets/dashboard/see_all_widget.dart';
 import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 
 import '../../../common/core/base_page.dart';
+import '../../../common/widgets/ad/horizontal_ad_list_shimmer.dart';
 import '../../../common/widgets/ad/vertical_ad_widget.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../domain/models/ad/ad.dart';
@@ -76,43 +77,45 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                     },
                     title: "eng arzonlari"),
                 LoaderStateWidget(
-                    isFullScreen: false,
-                    loadingState: state.cheapAdsState,
-                    successBody: HorizontalAdListWidget(
-                      ads: state.cheapAds,
-                      onItemClicked: (Ad result) {
-                        context.router.push(AdDetailRoute(adId: result.id));
-                      },
-                      onFavoriteClicked: (Ad result) =>
-                          cubit(context).cheapAdsAddFavorite(result),
-                      loadingState: state.cheapAdsState,
-                    )),
+                  isFullScreen: false,
+                  loadingState: state.cheapAdsState,
+                  loadingBody: HorizontalAdListShimmer(),
+                  successBody: HorizontalAdListWidget(
+                    ads: state.cheapAds,
+                    onItemClicked: (Ad result) {
+                      context.router.push(AdDetailRoute(adId: result.id));
+                    },
+                    onFavoriteClicked: (Ad result) =>
+                        cubit(context).cheapAdsAddFavorite(result),
+                  ),
+                ),
                 SizedBox(height: 6),
                 CustomDivider(height: 3),
                 SeeAllWidget(
-                    onClicked: () {
-                      context.router.push(AdListRoute(
-                        adType: state.adType,
-                        adListType: AdListType.popularAdsByAdType,
-                        keyWord: '',
-                        title: Strings.adCollectivePopular,
-                      ));
-                    },
-                    title: Strings.adCollectivePopular),
+                  onClicked: () {
+                    context.router.push(AdListRoute(
+                      adType: state.adType,
+                      adListType: AdListType.popularAdsByAdType,
+                      keyWord: '',
+                      title: Strings.adCollectivePopular,
+                    ));
+                  },
+                  title: Strings.adCollectivePopular,
+                ),
                 SizedBox(height: 6),
                 LoaderStateWidget(
-                    isFullScreen: false,
-                    loadingState: state.popularAdsState,
-                    successBody: HorizontalAdListWidget(
-                      ads: state.popularAds,
-                      onItemClicked: (Ad result) {
-                        context.router.push(AdDetailRoute(adId: result.id));
-                      },
-                      onFavoriteClicked: (Ad result) => context
-                          .read<PageCubit>()
-                          .popularAdsAddFavorite(result),
-                      loadingState: state.popularAdsState,
-                    )),
+                  isFullScreen: false,
+                  loadingState: state.popularAdsState,
+                  loadingBody: HorizontalAdListShimmer(),
+                  successBody: HorizontalAdListWidget(
+                    ads: state.popularAds,
+                    onItemClicked: (Ad result) {
+                      context.router.push(AdDetailRoute(adId: result.id));
+                    },
+                    onFavoriteClicked: (Ad result) =>
+                        context.read<PageCubit>().popularAdsAddFavorite(result),
+                  ),
+                ),
                 SizedBox(height: 6),
                 CustomDivider(height: 3),
                 SizedBox(height: 24)

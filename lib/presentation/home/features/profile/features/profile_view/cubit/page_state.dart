@@ -4,7 +4,9 @@ part of 'page_cubit.dart';
 class PageState with _$PageState {
   const factory PageState({
     @Default(false) bool isRegistered,
+//
     @Default(false) bool isLoading,
+//
     @Default("*") String userName,
     @Default("*") String fullName,
     @Default("*") String brithDate,
@@ -19,26 +21,27 @@ class PageState with _$PageState {
     int? regionId,
     int? districtId,
     int? streetId,
-    @Default(false) bool smsNotification,
-    @Default(false) bool telegramNotification,
-    @Default(false) bool emailNotification,
-    @Default(false) bool isLoadingNotification,
-
-
-    @Default("https://www.instagram.com/") String instagram,
-    @Default("https://t.me/") String telegram,
-    @Default("https://www.facebook.com/") String facebook,
-    @Default("https://www.youtube.com/") String youtube,
-
-    @Default(<bool>[false,false,false]) List<bool> enableButton,
-
-    SocialElement? instagramSocial,
-    SocialElement? telegramSocial,
-    SocialElement? facebookSocial,
-    SocialElement? youtubeSocial,
-    @Default(false) bool isLoadingSocial,
-
-
+//
+    @Default(false) bool savedSmsState,
+    @Default(false) bool savedTelegramState,
+    @Default(false) bool savedEmailState,
+//
+    @Default(false) bool actualSmsState,
+    @Default(false) bool actualTelegramState,
+    @Default(false) bool actualEmailState,
+    @Default(false) bool isUpdatingNotification,
+//
+    SocialAccountInfo? instagramInfo,
+    SocialAccountInfo? telegramInfo,
+    SocialAccountInfo? facebookInfo,
+    SocialAccountInfo? youtubeInfo,
+//
+    @Default("") String instagram,
+    @Default("") String telegram,
+    @Default("") String facebook,
+    @Default("") String youtube,
+    @Default(false) bool isUpdatingSocialInfo,
+//
     PagingController<int, ActiveSession>? controller,
   }) = _PageState;
 }
@@ -48,4 +51,10 @@ class PageEvent with _$PageEvent {
   const factory PageEvent(PageEventType type) = _PageEvent;
 }
 
-enum PageEventType { onLogout }
+enum PageEventType {
+  onLogout,
+  onSuccessUpdateNotification,
+  onFailedUpdateNotification,
+  onSuccessUpdateSocial,
+  onFailedUpdateSocial,
+}

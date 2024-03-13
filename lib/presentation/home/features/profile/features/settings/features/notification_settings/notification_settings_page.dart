@@ -60,7 +60,7 @@ class NotificationSettingsPage
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Color(0xFF5C6AC3)),
-                    child: Center(child: Assets.images.icMessage.svg()),
+                    child: Center(child: Assets.images.icNotificationSms.svg()),
                   ),
                   SizedBox(width: 16),
                   Strings.notificationReceiveSms
@@ -95,7 +95,7 @@ class NotificationSettingsPage
                         border: Border.all(color: Color(0xFFDFE2E9), width: 1),
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.white),
-                    child: Center(child: Assets.images.icSms.svg()),
+                    child: Center(child: Assets.images.icNotificationEmail.svg()),
                   ),
                   SizedBox(width: 16),
                   Strings.notificationReceiveEmail
@@ -123,15 +123,7 @@ class NotificationSettingsPage
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 child: Row(children: [
-                  Assets.images.icTelegram.svg(height: 32, width: 32),
-                  // Container(
-                  //   width: 32,
-                  //   height: 32,
-                  //   decoration: BoxDecoration(
-                  //       borderRadius: BorderRadius.circular(10),
-                  //       color: Color(0xFF00A4DD)),
-                  //   child: Center(child: Assets.images.icSms.svg()),
-                  // ),
+                  Assets.images.icNotificationTelegram.svg(height: 32, width: 32),
                   SizedBox(width: 16),
                   Strings.notificationReceiveTelegram
                       .w(600)

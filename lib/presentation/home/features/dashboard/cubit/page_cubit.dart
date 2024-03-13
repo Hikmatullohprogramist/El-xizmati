@@ -14,7 +14,6 @@ import '../../../../../domain/models/ad/ad.dart';
 import '../../../../../domain/models/ad/ad_type.dart';
 
 part 'page_cubit.freezed.dart';
-
 part 'page_state.dart';
 
 @injectable
@@ -131,29 +130,25 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         ),
       );
     } on DioException catch (e, stackTrace) {
-      updateState(
-        (state) => state.copyWith(recentlyViewedAdsState: LoadingState.error),
-      );
+      updateState((state) => state.copyWith(
+            recentlyViewedAdsState: LoadingState.error,
+          ));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
-    } finally {
-    //  updateState(
-    //    (state) => state.copyWith(recentlyViewedAdsState: LoadingState.success),
-    //  );
     }
   }
 
   Future<void> getBanners() async {
     try {
       final banners = await commonRepository.getBanner();
-      updateState(
-        (state) => state.copyWith(
-            banners: banners, bannersState: LoadingState.success),
-      );
+      updateState((state) => state.copyWith(
+            banners: banners,
+            bannersState: LoadingState.success,
+          ));
       log.i("getBanners success = ${states.banners}");
     } on DioException catch (e, stackTrace) {
-      updateState(
-        (state) => state.copyWith(bannersState: LoadingState.error),
-      );
+      updateState((state) => state.copyWith(
+            bannersState: LoadingState.error,
+          ));
       log.e("getBanners e = ${e.toString()}", error: e, stackTrace: stackTrace);
     }
   }
@@ -243,7 +238,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             ..backendId = backendId,
         );
       } else {
-
         await favoriteRepository.removeFavorite(ad);
         final index = states.recentlyViewedAds.indexOf(ad);
         final item = states.recentlyViewedAds.elementAt(index);

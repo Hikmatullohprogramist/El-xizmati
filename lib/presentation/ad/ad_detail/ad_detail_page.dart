@@ -5,6 +5,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/ad/detail_price_text_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/horizontal_ad_list_shimmer.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/cart/cart_sub_widget_shimmer.dart';
 import 'package:onlinebozor/common/widgets/dashboard/see_all_widget.dart';
@@ -562,13 +563,13 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
         LoaderStateWidget(
           isFullScreen: false,
           loadingState: state.similarAdsState,
+          loadingBody: HorizontalAdListShimmer(),
           successBody: HorizontalAdListWidget(
             ads: state.similarAds,
             onItemClicked: (Ad ad) =>
                 context.router.push(AdDetailRoute(adId: ad.id)),
             onFavoriteClicked: (Ad ad) =>
                 cubit(context).similarAdsAddFavorite(ad),
-            loadingState: state.similarAdsState,
           ),
           onRetryClicked: () {
             cubit(context).getSimilarAds();
@@ -604,6 +605,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
               cubit(context).getOwnerOtherAds();
             },
             loadingState: state.ownerAdsState,
+            loadingBody: HorizontalAdListShimmer(),
             successBody: HorizontalAdListWidget(
               ads: state.ownerAds,
               onItemClicked: (Ad ad) {
@@ -612,7 +614,6 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
               onFavoriteClicked: (Ad ad) {
                 cubit(context).ownerAdAddToFavorite(ad);
               },
-              loadingState: state.ownerAdsState,
             ),
           ),
         ],
@@ -649,6 +650,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
               cubit(context).getRecentlyViewedAds();
             },
             loadingState: state.recentlyViewedAdsState,
+            loadingBody: HorizontalAdListShimmer(),
             successBody: HorizontalAdListWidget(
               ads: state.recentlyViewedAds,
               onItemClicked: (Ad ad) {
@@ -657,7 +659,6 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
               onFavoriteClicked: (Ad ad) {
                 cubit(context).recentlyViewAdAddToFavorite(ad);
               },
-              loadingState: state.recentlyViewedAdsState,
             ),
           ),
         ],
