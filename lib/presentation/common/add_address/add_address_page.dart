@@ -35,10 +35,10 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
     switch (event.type) {
       case PageEventType.backOnSuccess:
         context.router.pop(true);
-      case PageEventType.onStartLoading:
-        showProgressDialog(context);
-      case PageEventType.onFinishLoading:
-        Navigator.pop(context);
+      // case PageEventType.onStartLoading:
+      //   showProgressDialog(context);
+      // case PageEventType.onFinishLoading:
+      //   Navigator.pop(context);
     }
   }
 

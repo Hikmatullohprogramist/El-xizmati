@@ -34,4 +34,8 @@ class PageEvent with _$PageEvent {
   const factory PageEvent(PageEventType type) = _PageEvent;
 }
 
-enum PageEventType { onStartLoading, onFinishLoading, backOnSuccess }
+enum PageEventType {
+  // onStartLoading,
+  // onFinishLoading,
+  backOnSuccess,
+}
