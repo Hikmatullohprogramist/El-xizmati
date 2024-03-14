@@ -12,6 +12,7 @@ import 'package:flutter/widgets.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/enum/enums.dart';
 import 'package:onlinebozor/common/widgets/bottom_sheet/botton_sheet_for_result.dart';
+import 'package:onlinebozor/common/widgets/camera/camera_selfi_painter.dart';
 import 'package:onlinebozor/presentation/auth/face_id/features/face_detector/widget/face_detector_frame.dart';
 
 import '../../../../../common/colors/static_colors.dart';
@@ -23,6 +24,7 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import '../../../../../common/gen/localization/strings.dart';
 import '../../../../../common/router/app_router.dart';
 import '../../../../../common/widgets/button/custom_elevated_button.dart';
+import '../../../../../common/widgets/camera/camera_preview_selfi_frame.dart';
 
 @RoutePage()
 class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
@@ -44,8 +46,8 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
       case PageEventType.navigationHome:
         context.router.replace(HomeRoute());
       case PageEventType.error:
-      context.showErrorBottomSheet(context, Strings.loadingStateError,
-          "Sizning shaxsingiz tasdiqlanmadi!");
+        context.showErrorBottomSheet(context, Strings.loadingStateError,
+            "Sizning shaxsingiz tasdiqlanmadi!");
     }
   }
 
@@ -56,9 +58,10 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
         if (cubit(context).states.loadState == LoadingState.loading)
           Center(
               child: CircularProgressIndicator(
-                backgroundColor: Colors.grey[300], // Set the background color
-                valueColor: AlwaysStoppedAnimation<Color>(StaticColors.slateBlue), // Set the progress color
-              )),
+            backgroundColor: Colors.grey[300], // Set the background color
+            valueColor: AlwaysStoppedAnimation<Color>(
+                StaticColors.slateBlue), // Set the progress color
+          )),
         if (cubit(context).states.loadState == LoadingState.success)
           ClipRect(
             clipper: _MediaSizeClipper(MediaQuery.of(context).size),
@@ -69,7 +72,10 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
                 alignment: Alignment.topCenter,
                 child: CameraPreview(cubit(context).states.cameraController!)),
           ),
-        Center(child: FaceDetectorFrame()),
+        CustomPaint(
+          size: Size.infinite,
+          painter: CameraSelfiPainter(),
+        ),
         Positioned(
           bottom: 60,
           left: 10,
@@ -91,7 +97,8 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
                       Uint8List imageBytes = await takeImage.readAsBytes();
                       String croppedImage = await croppImage(imageBytes);
                       log(croppedImage);
-                      cubit(context).sendImage(croppedImage, cubit(context).states.secretKey);
+                      cubit(context).sendImage(
+                          croppedImage, cubit(context).states.secretKey);
                     });
                   },
                   backgroundColor: context.colors.buttonPrimary,
