@@ -7,6 +7,8 @@ import 'package:onlinebozor/common/widgets/address/user_address_shimmer.dart';
 
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../../../data/responses/address/user_address_response.dart';
+import '../../../common/router/app_router.dart';
+import '../../../common/widgets/address/user_address_empty_widget.dart';
 import '../../../common/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'cubit/page_cubit.dart';
 
@@ -48,6 +50,14 @@ class SelectionUserAddressPage
                   loadingState: state.loadState,
                   loadingBody: _buildLoadingBody(),
                   successBody: _buildSuccessBody(state),
+                  emptyBody: UserAddressEmptyWidget(
+                    onActionClicked: () async {
+                      final isAdded = await context.router.push(AddAddressRoute());
+                      if (isAdded is bool && isAdded == true) {
+                        cubit(context).getItems();
+                      }
+                    },
+                  ),
                   onRetryClicked: () {
                     cubit(context).getItems();
                   },

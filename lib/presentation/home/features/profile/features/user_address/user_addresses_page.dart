@@ -36,9 +36,7 @@ class UserAddressesPage extends BasePage<PageCubit, PageState, PageEvent> {
           CustomTextButton(
             text: Strings.commonAdd,
             onPressed: () async {
-              final isAdded =
-                  await context.router.push(AddAddressRoute(address: null));
-
+              final isAdded = await context.router.push(AddAddressRoute());
               if (isAdded is bool && isAdded == true) {
                 cubit(context).getController(true);
               }
@@ -96,8 +94,11 @@ class UserAddressesPage extends BasePage<PageCubit, PageState, PageEvent> {
             );
           },
           noItemsFoundIndicatorBuilder: (_) {
-            return UserAddressEmptyWidget(onActionClicked: () {
-              context.router.push(AddAddressRoute());
+            return UserAddressEmptyWidget(onActionClicked: () async {
+              final isAdded = await context.router.push(AddAddressRoute());
+              if (isAdded is bool && isAdded == true) {
+                cubit(context).getController(true);
+              }
             });
           },
           newPageProgressIndicatorBuilder: (_) {
