@@ -6,6 +6,7 @@ class PageState with _$PageState {
   const factory PageState({
     @Default(LoadingState.loading) LoadingState loadState,
     @Default(false) bool loading,
+    @Default(true) bool introState,
     @Default(<CameraDescription>[]) List<CameraDescription> cameras,
     CameraController? cameraController,
     @Default("") String secretKey,
