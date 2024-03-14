@@ -10,7 +10,6 @@ import 'package:camera/camera.dart';
 import '../../../../../../common/enum/enums.dart';
 import '../../../../../../data/repositories/auth_repository.dart';
 import '../../../../../../data/repositories/favorite_repository.dart';
-import '../../../../../ad/ad_list/cubit/page_cubit.dart';
 
 part 'page_cubit.freezed.dart';
 

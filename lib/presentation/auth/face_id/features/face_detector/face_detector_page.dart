@@ -90,7 +90,6 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
                       final takeImage = File(value.path);
                       Uint8List imageBytes = await takeImage.readAsBytes();
                       String croppedImage = await croppImage(imageBytes);
-                      log(croppedImage);
                       cubit(context).sendImage(croppedImage, cubit(context).states.secretKey);
                     });
                   },
@@ -119,18 +118,15 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
   Future<String> croppImage(Uint8List image2) async {
     List<int> compressedBytes = await FlutterImageCompress.compressWithList(
       image2,
-      quality: 90, //
+      quality: 80, //
       minHeight: 400, //
       minWidth: 300, //
     );
-
     String compressedBase64 = base64.encode(compressedBytes);
     final Uint8List imageBytesLast = base64Decode(compressedBase64);
     final img.Image? image = img.decodeImage(imageBytesLast);
-    final img.Image croppedImage =
-        img.copyResize(image!, width: 300, height: 400);
-    String base64StringSecond = base64Encode(
-        Uint8List.fromList(img.encodeJpg(croppedImage, quality: 100)));
+    final img.Image croppedImage = img.copyResize(image!, width: 300, height: 400);
+    String base64StringSecond = base64Encode(Uint8List.fromList(img.encodeJpg(croppedImage, quality: 80)));
     log(base64StringSecond);
     return base64StringSecond;
   }

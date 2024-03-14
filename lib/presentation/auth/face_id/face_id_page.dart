@@ -303,7 +303,7 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
                     },
                     backgroundColor: context.colors.buttonPrimary,
                     isEnabled: cubit(context).enableButtonPinfl(),
-                    isLoading: cubit(context).states.loading,
+                    isLoading: state.loading
                   )
                 ],
               ),
