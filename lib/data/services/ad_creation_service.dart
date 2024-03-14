@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../domain/models/image/uploadable_file.dart';
 import '../storages/token_storage.dart';
 
 @lazySingleton
@@ -34,6 +36,46 @@ class AdCreationService {
 
   Future<Response> getUnitsForCreationAd() {
     return dio.get('api/mobile/v1/get-untis-for-create-ad');
+  }
+
+   Future<Response> imageUpload(XFile xFile)  {
+    // val requestBodyBuilder: MultipartBody.Builder = MultipartBody.Builder()
+    //     .setType(MultipartBody.FORM)
+    //     .addFormDataPart("form_element_id", params.elementId.toString())
+    //     .addFormDataPart("form_element_project_id", params.projectId.toString())
+    //
+    // val file = File(applicationContext.cacheDir, "/${params.uri.lastPathSegment}")
+
+    // var url = 'https://api.online-ijara.uz/web/v1/public/files/upload/category/photos';
+    var url = 'files/upload/form';
+
+    var formData = FormData.fromMap({
+      'name': 'dio',
+      'form_element_id': "2588L",
+      'form_element_project_id': "2588L",
+      'date': DateTime.now().toIso8601String(),
+      'file': MultipartFile.fromFile(xFile.path, filename: xFile.name),
+    });
+
+    return dio.post(url, data: formData);
+
+    // var response = await dio.post(url, data: formData);
+    //
+    // // if (context.mounted) Navigator.of(context).pop();
+    //
+    // var id = response.data['id'];
+    // String? extension = response.data['extension'];
+    //
+    // if (id is String) {
+    //   return UploadedFileInfo(
+    //     id: id,
+    //     name: xFile.name,
+    //     localPath: xFile.path,
+    //     extension: extension,
+    //   );
+    // }
+    //
+    // throw Exception("Rasm yuklashda xatolik");
   }
 
   Future<Response> createProductAd({

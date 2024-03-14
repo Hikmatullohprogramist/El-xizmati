@@ -1,3 +1,4 @@
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/responses/category/category/category_response.dart';
 import 'package:onlinebozor/data/responses/category/category_selection/category_selection_response.dart';
@@ -5,9 +6,9 @@ import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/services/ad_creation_service.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 
+import '../../domain/models/image/uploadable_file.dart';
 import '../responses/address/user_address_response.dart';
 import '../responses/payment_type/payment_type_response.dart';
-import '../responses/region/region_root_response.dart';
 import '../responses/unit/unit_response.dart';
 import '../storages/user_storage.dart';
 
@@ -51,6 +52,25 @@ class AdCreationRepository {
     final response = await _adCreationService.getUnitsForCreationAd();
     final units = UnitRootResponse.fromJson(response.data).data;
     return units;
+  }
+
+   Future<UploadableFile> imageUpload(XFile xFile) async {
+
+    var response = await _adCreationService.imageUpload(xFile);
+    var id = response.data['id'];
+    String? extension = response.data['extension'];
+
+    if (id is String) {
+      return UploadableFile(
+        id: id,
+        name: xFile.name,
+        localPath: xFile.path,
+        extension: extension,
+        xFile: xFile
+      );
+    }
+
+    throw Exception("Rasm yuklashda xatolik");
   }
 
   Future<String> createProductAd({

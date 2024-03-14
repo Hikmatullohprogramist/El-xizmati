@@ -30,12 +30,12 @@ class PageState with _$PageState {
     @Default(false) bool isPickupEnabled,
     @Default(false) bool isShowAllPickupAddresses,
     @Default([]) List<UserAddressResponse> pickupWarehouses,
-    //
+//
     @Default(false) bool isFreeDeliveryEnabled,
     @Default(false) bool isShowAllFreeDeliveryDistricts,
     @Default(5) int freeDeliveryMaxDay,
     @Default([]) List<District> freeDeliveryDistricts,
-    //
+//
     @Default(false) bool isPaidDeliveryEnabled,
     @Default(false) bool isShowAllPaidDeliveryDistricts,
     @Default(5) int paidDeliveryMaxDay,
