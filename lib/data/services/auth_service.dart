@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/constants/rest_query_keys.dart';
 
-import '../../domain/models/face_id/by_passport.dart';
+import '../responses/face_id/validate_bio_doc_request.dart';
 import '../storages/token_storage.dart';
 
 @lazySingleton
@@ -27,25 +27,28 @@ class AuthService {
       RestQueryKeys.sessionToken: sessionToken,
       RestQueryKeys.securityCode: code
     };
-    return _dio.post('api/mobile/v1/auth/phone/verification/register', data: body);
+    return _dio.post('api/mobile/v1/auth/phone/verification/register',
+        data: body);
   }
 
-  Future<Response> byPassport({required ByPassportModel byPassportModel}){
+  Future<Response> validateByBioDoc({required ValidateBioDocRequest request}) {
     final body = {
-      RestQueryKeys.brithDate: byPassportModel.birthDate,
-      RestQueryKeys.passportNumber: byPassportModel.passportNumber,
-      RestQueryKeys.passportSerial: byPassportModel.passportSerial,
+      RestQueryKeys.brithDate: request.birthDate,
+      RestQueryKeys.passportNumber: request.bioDocNumber,
+      RestQueryKeys.passportSerial: request.bioDocSerial,
     };
     return _dio.post('api/v1/auth/face_id/by_passport', data: body);
   }
-  Future<Response> byPassportPinfl({required String pinfl}){
-    final body = {
-      RestQueryKeys.pinfl:pinfl,
-    };
+
+  Future<Response> validateByPinfl({required String pinfl}) {
+    final body = {RestQueryKeys.pinfl: pinfl};
     return _dio.post('api/v1/auth/face_id/by_pinfl', data: body);
   }
 
-  Future<Response> sendImage({required String image, required String secretKey}){
+  Future<Response> sendImage({
+    required String image,
+    required String secretKey,
+  }) {
     final body = {
       RestQueryKeys.imageData: image,
       RestQueryKeys.secretKey: secretKey,
@@ -66,7 +69,8 @@ class AuthService {
 
   Future<Response> forgetPassword({required String phone}) {
     final body = {RestQueryKeys.phoneNumber: phone};
-    return _dio.post('api/mobile/v1/auth/phone/verification/recovery', data: body);
+    return _dio.post('api/mobile/v1/auth/phone/verification/recovery',
+        data: body);
   }
 
   Future<Response> recoveryConfirm(

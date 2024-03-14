@@ -9,8 +9,7 @@ import '../../data/services/auth_service.dart';
 import '../../data/storages/language_storage.dart';
 import '../../data/storages/token_storage.dart';
 import '../../data/storages/user_storage.dart';
-import '../../domain/models/face_id/by_passport.dart';
-import '../../domain/models/face_id/by_passportResponse.dart';
+import '../responses/face_id/validate_bio_doc_request.dart';
 
 @LazySingleton()
 class AuthRepository {
@@ -37,8 +36,10 @@ class AuthRepository {
   }
 
   Future<void> verification(String phone, String password) async {
-    final response = await _authService.verification(phone: phone, password: password);
-    final verificationResponse = ConfirmRootResponse.fromJson(response.data).data;
+    final response =
+        await _authService.verification(phone: phone, password: password);
+    final verificationResponse =
+        ConfirmRootResponse.fromJson(response.data).data;
     if (verificationResponse.token != null) {
       await tokenStorage.token.set(verificationResponse.token ?? "");
       await tokenStorage.isLogin.set(true);
@@ -122,23 +123,26 @@ class AuthRepository {
     return;
   }
 
-  Future<Response> byPassport(ByPassportModel byPassportModel) async{
-    final response=await _authService.byPassport(byPassportModel: byPassportModel);
+  Future<Response> validateByBioDoc(ValidateBioDocRequest request) async {
+    final response = await _authService.validateByBioDoc(request: request);
     return response;
   }
 
-  Future<Response> byPassportPinfl(String pinfl) async{
-    final response=await _authService.byPassportPinfl(pinfl: pinfl);
+  Future<Response> validateByPinfl(String pinfl) async {
+    final response = await _authService.validateByPinfl(pinfl: pinfl);
     return response;
   }
 
-  Future<void> sendImage(String image,String secretKey) async{
-    final response=await _authService.sendImage(image: image, secretKey: secretKey);
-    final verificationResponse = ConfirmRootResponse.fromJson(response.data).data;
-    if (verificationResponse.token != null) {
-      await tokenStorage.token.set(verificationResponse.token ?? "");
+  Future<void> sendImage(String image, String secretKey) async {
+    final rootResponse = await _authService.sendImage(
+      image: image,
+      secretKey: secretKey,
+    );
+    final response = ConfirmRootResponse.fromJson(rootResponse.data).data;
+    if (response.token != null) {
+      await tokenStorage.token.set(response.token ?? "");
       await tokenStorage.isLogin.set(true);
-      final user = verificationResponse.user;
+      final user = response.user;
       userInfoStorage.userInformation.set(UserInfoObject(
           districtId: user?.districtId,
           fullName: user?.fullName,
