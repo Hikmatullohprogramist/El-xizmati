@@ -84,7 +84,7 @@ class AuthConfirmPage extends BasePage<PageCubit, PageState, PageEvent> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: state.phone.w(500).s(14),
+                    child: "+998 ${state.phone}".w(500).s(14),
                   ),
                 ],
               ),
@@ -102,7 +102,6 @@ class AuthConfirmPage extends BasePage<PageCubit, PageState, PageEvent> {
             CommonTextField(
               inputType: TextInputType.number,
               maxLines: 1,
-              prefixText: "+998 ",
               textInputAction: TextInputAction.done,
               onChanged: (value) {
                 cubit(context).setCode(value);

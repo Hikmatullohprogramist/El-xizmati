@@ -13,26 +13,28 @@ part 'page_state.dart';
 @Injectable()
 class PageCubit extends BaseCubit<PageState, PageEvent> {
   PageCubit(
-    this._repository,
+    this._authRepository,
     this._favoriteRepository,
   ) : super(const PageState());
 
-  final AuthRepository _repository;
+  final AuthRepository _authRepository;
   final FavoriteRepository _favoriteRepository;
+
+  void hideLoading() {
+    updateState((state) => state.copyWith(isLoading: false));
+  }
 
   Future<void> loginWithOneId(String url) async {
     try {
       final uri = Uri.parse(url);
-      await _repository.loginWithOneId(uri.queryParameters['code'] ?? "");
-      emitEvent(PageEvent(PageEventType.navigationHome));
-      await sendAllFavoriteAds();
+      final code = uri.queryParameters['code'] ?? "";
+      if (code.isNotEmpty) {
+        await _authRepository.loginWithOneId(code);
+        await sendAllFavoriteAds();
+      } else {}
     } on DioException catch (e) {
       display.error(e.toString());
     } finally {}
-  }
-
-  void hideLoading() {
-    updateState((state) => state.copyWith(isLoading: false));
   }
 
   Future<void> sendAllFavoriteAds() async {
@@ -40,7 +42,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       await _favoriteRepository.pushAllFavoriteAds();
     } catch (error) {
       display.error("Xatolik yuz berdi");
-      emitEvent(PageEvent(PageEventType.navigationHome));
+    } finally {
+      emitEvent(PageEvent(PageEventType.onSuccessLogin));
     }
   }
 }

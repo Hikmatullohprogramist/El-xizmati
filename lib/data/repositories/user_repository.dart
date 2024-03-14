@@ -40,7 +40,7 @@ class UserRepository {
         pinfl: result.pinfl ?? userInfo?.pinfl,
         isRegistered: result.is_registered ?? userInfo?.isRegistered,
         state: userInfo?.state,
-        registeredWithEimzo: userInfo?.registeredWithEimzo,
+        // registeredWithEimzo: userInfo?.registeredWithEimzo,
         photo: result.photo ?? userInfo?.photo,
         passportSerial: result.passport_serial ?? userInfo?.passportSerial,
         passportNumber: result.passport_number ?? userInfo?.passportNumber,
@@ -65,11 +65,12 @@ class UserRepository {
     return result;
   }
 
-  Future<BiometricInfoResponse> getBiometricInfo(
-      {required String phoneNumber,
-      required String biometricSerial,
-      required String biometricNumber,
-      required String brithDate}) async {
+  Future<BiometricInfoResponse> getBiometricInfo({
+    required String phoneNumber,
+    required String biometricSerial,
+    required String biometricNumber,
+    required String brithDate,
+  }) async {
     final response = await _userService.getBiometricInfo(
         phoneNumber: phoneNumber,
         biometricSerial: biometricSerial,
