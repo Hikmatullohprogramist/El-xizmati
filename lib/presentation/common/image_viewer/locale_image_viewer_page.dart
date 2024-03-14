@@ -9,6 +9,8 @@ import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
+import '../../../common/gen/localization/strings.dart';
+
 @RoutePage()
 class LocaleImageViewerPage extends StatefulWidget {
   const LocaleImageViewerPage({
@@ -137,9 +139,10 @@ class _LocaleImageViewerPageState extends State<LocaleImageViewerPage> {
                     Expanded(
                       child: CustomElevatedButton(
                         buttonHeight: 32,
-                        text: (currentIndex == 0
-                            ? "Главное фото"
-                            : "Сделать главным"),
+                        text: (
+                          currentIndex == 0
+                              ? Strings.commonMainPhoto
+                              : Strings.commonMakeMainPhoto),
                         isEnabled: currentIndex != 0,
                         onPressed: () {
                           setState(() {
@@ -156,7 +159,8 @@ class _LocaleImageViewerPageState extends State<LocaleImageViewerPage> {
                     SizedBox(width: 12),
                     Expanded(
                       child: CustomElevatedButton(
-                        text: "Удалить",
+                        buttonHeight: 32,
+                        text: Strings.commonDelete,
                         onPressed: () {
                           setState(() {
                             widget.images.removeAt(currentIndex);

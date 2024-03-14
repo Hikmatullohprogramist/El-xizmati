@@ -110,16 +110,19 @@ common_filter_reset,Tozalash,Сброс,Тозалаш
 common_floor,Qavat,Этаж,Қават
 common_home_number,Uy raqami,Номер дома,Уй рақами
 common_main,Asosiy,Основной,Асосий
+common_main_photo,Asosiy rasm,Главное фото,Асосий расм
+common_make_main_photo,Asosiy qilish,Сделать главным,Асосий қилиш
 common_more,Ko‘proq,Подробнее,Кўпроқ
 common_more_with_count,Yana {count} ta,Ещё {count},Яна {count} та
 common_neighborhood,Mahalla,Махалля,Маҳалла
 common_no,Yo‘q,Нет,Йўқ
 common_phone_number,Telefon raqami,Номер телефона,Телефон рақами
-common_show_more,Ko‘proq ko‘rsatish,Показать больше,Кўпроқ кўрсатиш
-common_show_less,Kamroq ko‘rsatish,Показать меньше,Камроқ кўрсатиш
+common_pinfl,JShShIR,ПИНФЛ,ЖШШИР
 common_region,Viloyat,Регион,Вилоят
 common_save,Saqlash,Сохранить,Сақлаш
 common_save_changes,O‘zgarishlarni saqlash,Сохранить изменения,Ўзгаришларни сақлаш
+common_show_less,Kamroq ko‘rsatish,Показать меньше,Камроқ кўрсатиш
+common_show_more,Ko‘proq ko‘rsatish,Показать больше,Кўпроқ кўрсатиш
 common_street,Ko'cha,Улица,Кўча
 common_total_cost,Umumiy narx,Общая стоимость,Умумий нарх
 common_unfind,topilmadi,не найдено,топилмади
@@ -127,6 +130,12 @@ common_yes,Ha,Да,Ҳа
 create_request_title,So‘rov yaratish,Создать запрос,Сўров яратиш
 currency_uzb,so‘m,сўм,сўм
 edit_title,Tahrirlash,Редактировать,Таҳрирлаш
+face_id_check,Tekshirish,Проверить,Текшириш
+face_id_doc_not_matched,Tug‘ilgan sana va pasport seriya-raqamlari muvofiq emas,Дата рождения и серийный номер паспорта не совпадают,Туғилган сана ва паспорт серия-рақамлари мувофиқ эмас
+face_id_identity_not_verified,Sizning shaxsingiz tasdiqlanmadi!,Ваша личность не подтверждена!,Сизнинг шахсингиз тасдиқланмади!
+face_id_log_by_bio_doc,Passport seriya va raqami bilan kirish,Войти по серии и номеру паспорта,Пасспорт серия ва рақами билан кириш
+face_id_pinfl_not_found,Bunday JShShIRga ega shaxs topilmadi!,Ни одного человека с таким ПИНФЛом не нашлось!,Бундай ЖШШИРга эга шахс топилмади!
+face_id_title,Face-ID orqali tizimga kirish,Войти с помощью Face-ID,Face-ID орқали тизимга кириш
 favorite_empty_description,Asosiy sahifaga o‘tish,Перейдите на главную страницу и нажмите,Асосий саҳифага ўтиш
 favorite_empty_title,O‘zingiz yoqtirgan narsani qo‘shing,"Добавьте то, что понравилось",Ўзингиз ёқтирган нарсани қўшинг
 favorite_empty_to_main,Asosiy  oynaga,На главную,Асосий  ойнага
@@ -149,6 +158,8 @@ link_title,link,связь,линк
 loading_state_error,Xatolik yuz berdi,Произошла ошибка,Хатолик юз берди
 loading_state_no_item_found,Hech qanday element topilmadi,No items found,Ҳеч қандай элемент топилмади
 loading_state_retry,Qayta urinish,Повторить попытку,Қайта уриниш
+message_changes_saving_failed,O‘zgarishlarni saqlashda xatolik yuz berdi,Произошла ошибка при сохранении изменений,Ўзгаришларни сақлашда хатолик юз берди
+message_changes_saving_success,O‘zgarishlar muvaffaqiyatli saqlandi,Изменения успешно сохранены,Ўзгаришлар муваффақиятли сақланди
 my_card_title,Mening kartalarim,Мои карты,Менинг карталарим
 my_requests_title,Mening so‘rovlarim,Мои Запросы,Менинг сўровларим
 no_have_notification,Sizda hech qanday bildirishnoma yoʻq,У вас нет уведомлений,Сизда ҳеч қандай билдиришнома йўқ
@@ -271,5 +282,3 @@ user_request_canceled_title,Bekor qilingan,Отменено,Бекор қили�
 user_request_pending_title,Kutulmoqda,Ожидающий,Кутулмоқда
 user_request_rejaction_title,Rad etilgan,Отклоненный,Рад этилган
 user_request_review_title,Ko‘rib chiqilmoqda,На рассмотрении,Кўриб чиқилмоқда
-message_changes_saving_success,O‘zgarishlar muvaffaqiyatli saqlandi,Изменения успешно сохранены,Ўзгаришлар муваффақиятли сақланди
-message_changes_saving_failed,O‘zgarishlarni saqlashda xatolik yuz berdi,Произошла ошибка при сохранении изменений,Ўзгаришларни сақлашда хатолик юз берди
