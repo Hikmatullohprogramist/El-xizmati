@@ -75,4 +75,12 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       emitEvent(PageEvent(PageEventType.navigationHome));
     }
   }
+
+  void closeIntroPage(){
+    updateState((state) => state.copyWith(
+      introState: false
+    ));
+  }
+
+
 }

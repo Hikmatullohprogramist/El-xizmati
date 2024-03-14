@@ -84,7 +84,7 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 cubit(context).validateEnteredData();
               },
               backgroundColor: context.colors.buttonPrimary,
-              isEnabled: cubit(context).enableButtonPinfl(),
+              isEnabled: cubit(context).getButtonEnableState(),
               isLoading: state.isRequestInProcess,
             ),
           )

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:image/image.dart' as img;
 
 import 'package:auto_route/annotations.dart';
@@ -11,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/enum/enums.dart';
+import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/bottom_sheet/botton_sheet_for_result.dart';
 import 'package:onlinebozor/presentation/auth/face_id/features/face_detector/widget/face_detector_frame.dart';
 
@@ -20,8 +22,10 @@ import 'package:onlinebozor/presentation/auth/face_id/features/face_detector/cub
 import 'package:camera/camera.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 
+import '../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../common/gen/localization/strings.dart';
 import '../../../../../common/router/app_router.dart';
+import '../../../../../common/widgets/app_bar/default_app_bar.dart';
 import '../../../../../common/widgets/button/custom_elevated_button.dart';
 
 @RoutePage()
@@ -51,25 +55,30 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double containerSize = 200;
+    double frameWidth = 20; // Width of the circular frame
+    Color frameColor = Colors.blue;
     return Stack(
       children: [
-        if (cubit(context).states.loadState == LoadingState.loading)
+        if (state.loadState == LoadingState.loading)
           Center(
               child: CircularProgressIndicator(
                 backgroundColor: Colors.grey[300], // Set the background color
                 valueColor: AlwaysStoppedAnimation<Color>(StaticColors.slateBlue), // Set the progress color
               )),
-        if (cubit(context).states.loadState == LoadingState.success)
-          ClipRect(
-            clipper: _MediaSizeClipper(MediaQuery.of(context).size),
-            child: Transform.scale(
-                scale: 1 /
-                    (cubit(context).states.cameraController!.value.aspectRatio *
-                        MediaQuery.of(context).size.aspectRatio),
-                alignment: Alignment.topCenter,
-                child: CameraPreview(cubit(context).states.cameraController!)),
-          ),
-        Center(child: FaceDetectorFrame()),
+        if (state.loadState == LoadingState.success&&(state.introState==false))
+        ClipRect(
+          clipper: _MediaSizeClipper(MediaQuery.of(context).size),
+          child: Transform.scale(
+              scale: 1 / (cubit(context).states.cameraController!.value.aspectRatio *
+                      MediaQuery.of(context).size.aspectRatio),
+              alignment: Alignment.topCenter,
+              child: CameraPreview(cubit(context).states.cameraController!)),
+        ),
+        Center(child:FaceDetectorFrame(),),
+      //  Center(child: FaceDetectorFrame()),
         Positioned(
           bottom: 60,
           left: 10,
@@ -111,6 +120,119 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
             ),
           ),
         ),
+
+        if (state.introState)
+          Scaffold(
+              appBar: DefaultAppBar(
+            "Face-ID",
+            () => context.router.pop()),
+            body: Padding(
+              padding: EdgeInsets.symmetric(horizontal:45),
+              child: Column(
+                children: [
+                  SizedBox(height: 100),
+                  Stack(
+                    alignment: Alignment.bottomRight,
+                    children: [
+                      SvgPicture.asset('assets/images/face_in_intro.svg',
+                          height: 149, width: 149),
+                      SvgPicture.asset('assets/images/ic_red_error.svg',
+                          height: 32, width: 32),
+                    ],
+                  ),
+                  SizedBox(height: 35,),
+                  Text("Перед тем как сделать снимок,  убедитесь в том, что:",
+                   maxLines: 2,
+                    textAlign: TextAlign.center,
+                  ).w(600).s(16).c(context.colors.textPrimary),
+                  SizedBox(height: 40,),
+                  Row(
+                    children: [
+                      Container(
+                        width: 5, // Diameter of the spot (2 * radius)
+                        height: 5, // Diameter of the spot (2 * radius)
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Color(0xFF9EABBE),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "Лицо полностью вписывается в указанную \n рамку:",
+                        maxLines: 2,
+                        textAlign: TextAlign.start,
+                      ).w(400).s(12).c(Color(0xFF9EABBE))
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Container(
+                        width: 5, // Diameter of the spot (2 * radius)
+                        height: 5, // Diameter of the spot (2 * radius)
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Color(0xFF9EABBE),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "Лицо не перекрыто посторонними объектами \n (Очки, головной убор и т.д)",
+                        maxLines: 2,
+                        textAlign: TextAlign.start,
+                      ).w(400).s(12).c(Color(0xFF9EABBE))
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Container(
+                        width: 5, // Diameter of the spot (2 * radius)
+                        height: 5, // Diameter of the spot (2 * radius)
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle, color: Color(0xFF9EABBE)),
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "Лицо освещено равномерно)",
+                        maxLines: 2,
+                        textAlign: TextAlign.start,
+                      ).w(400).s(12).c(Color(0xFF9EABBE))
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Container(
+                        width: 5,  // Diameter of the spot (2 * radius)
+                        height: 5, // Diameter of the spot (2 * radius)
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color:Color(0xFF9EABBE),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Text("Камера расположена строго перед лицом)",
+                        maxLines: 2,
+                        textAlign: TextAlign.start,
+                      ).w(400).s(12).c(Color(0xFF9EABBE))
+                    ],
+                  ),
+                  Expanded(child: SizedBox(width: 1,)),
+                  CustomElevatedButton(
+                    text: "Продолжить",
+                    onPressed: () {
+                     cubit(context).closeIntroPage();
+                    },
+                    backgroundColor: context.colors.buttonPrimary,
+                  ),
+                  SizedBox(height: 25,)
+                ],
+              ),
+            ),
+
+          )
+
       ],
     );
   }
