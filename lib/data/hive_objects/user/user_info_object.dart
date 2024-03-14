@@ -25,7 +25,7 @@ class UserInfoObject extends HiveObject {
     this.email,
     this.isPassword,
     this.fullName,
-    this.registeredWithEimzo,
+    // this.registeredWithEimzo,
     this.areaId,
     this.areaName,
     this.apartmentName,
@@ -95,8 +95,8 @@ class UserInfoObject extends HiveObject {
   @HiveField(20)
   String? fullName;
 
-  @HiveField(21)
-  String? registeredWithEimzo;
+  // @HiveField(21)
+  // String? registeredWithEimzo;
 
   @HiveField(22)
   int? areaId;

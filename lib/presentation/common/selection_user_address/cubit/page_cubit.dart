@@ -8,7 +8,6 @@ import '../../../../../../common/enum/enums.dart';
 import '../../../../data/repositories/user_address_repository.dart';
 
 part 'page_cubit.freezed.dart';
-
 part 'page_state.dart';
 
 @Injectable()
@@ -20,11 +19,12 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   final UserAddressRepository repository;
 
   Future<void> getItems() async {
-    log.d("77");
+    updateState((state) => state.copyWith(loadState: LoadingState.loading));
     try {
       final items = await repository.getUserAddresses();
+      var isEmpty = items.isEmpty;
       updateState((state) => state.copyWith(
-            loadState: LoadingState.success,
+            loadState: isEmpty ? LoadingState.empty : LoadingState.success,
             items: items,
           ));
     } on DioException catch (exception) {

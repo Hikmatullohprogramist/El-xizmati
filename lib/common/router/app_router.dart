@@ -30,6 +30,7 @@ import '../../presentation/auth/one_id/auth_with_one_id_page.dart';
 import '../../presentation/auth/set_password/set_password_page.dart';
 import '../../presentation/auth/start/auth_start_page.dart';
 import '../../presentation/auth/verification/auth_verification_page.dart';
+import '../../presentation/common/add_address/add_address_page.dart';
 import '../../presentation/common/favorites/favorite_list_page.dart';
 import '../../presentation/common/favorites/features/product/favorite_products_page.dart';
 import '../../presentation/common/favorites/features/service/favorite_services_page.dart';
@@ -75,7 +76,6 @@ import '../../presentation/home/features/profile/features/settings/features/noti
 import '../../presentation/home/features/profile/features/settings/features/user_active_device/user_action_sessions_page.dart';
 import '../../presentation/home/features/profile/features/settings/features/user_social_network/user_social_accounts_page.dart';
 import '../../presentation/home/features/profile/features/settings/settings_page.dart';
-import '../../presentation/home/features/profile/features/user_address/features/add_address/add_address_page.dart';
 import '../../presentation/home/features/profile/features/user_address/user_addresses_page.dart';
 import '../../presentation/home/features/profile/features/user_ads/features/ad_list/user_ads_page.dart';
 import '../../presentation/home/features/profile/features/user_ads/user_ad_list_page.dart';
@@ -106,6 +106,9 @@ class AppRouter extends _$AppRouter {
           path: "/set_language",
           initial: true,
         ),
+
+        /// Add address
+        AutoRoute(page: AddAddressRoute.page, path: '/add_address'),
 
         /// Auth
         AutoRoute(page: AuthStartRoute.page, path: "/auth_start"),
@@ -238,8 +241,6 @@ class AppRouter extends _$AppRouter {
         //   profile page
         AutoRoute(page: WalletFillingRoute.page, path: '/wallet_filling'),
         AutoRoute(page: ProfileViewRoute.page, path: '/profile_viewer'),
-        AutoRoute(page: AddAddressRoute.page, path: '/add_address'),
-
         AutoRoute(page: UserAddressesRoute.page, path: '/my_addresses'),
 
         /// user ads

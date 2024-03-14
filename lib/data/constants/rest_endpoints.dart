@@ -1,3 +1,3 @@
-class RestEndPoint {
+class RestEndpoints {
   static String allUser = "";
 }

@@ -13,4 +13,4 @@ class PageEvent with _$PageEvent {
       {String? message}) = _PageEvent;
 }
 
-enum PageEventType { navigationHome }
+enum PageEventType { onSuccessLogin }

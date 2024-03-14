@@ -44,7 +44,8 @@ class AuthRepository {
       await tokenStorage.token.set(verificationResponse.token ?? "");
       await tokenStorage.isLogin.set(true);
       final user = verificationResponse.user;
-      userInfoStorage.userInformation.set(UserInfoObject(
+      userInfoStorage.userInformation.set(
+        UserInfoObject(
           districtId: user?.districtId,
           fullName: user?.fullName,
           email: user?.email,
@@ -66,8 +67,10 @@ class AuthRepository {
           photo: user?.photo,
           pinfl: user?.pinfl,
           postName: user?.username,
-          registeredWithEimzo: user?.registeredWithEimzo,
-          state: user?.state));
+          // registeredWithEimzo: user?.registeredWithEimzo,
+          state: user?.state,
+        ),
+      );
       // await favoriteRepository.pushAllFavoriteAds();
     }
     return;
@@ -81,7 +84,8 @@ class AuthRepository {
       await tokenStorage.token.set(confirmResponse.token ?? "");
       await tokenStorage.isLogin.set(true);
       final user = confirmResponse.user;
-      userInfoStorage.userInformation.set(UserInfoObject(
+      userInfoStorage.userInformation.set(
+        UserInfoObject(
           districtId: user?.districtId,
           fullName: user?.fullName,
           email: user?.email,
@@ -103,8 +107,10 @@ class AuthRepository {
           photo: user?.photo,
           pinfl: user?.pinfl,
           postName: user?.username,
-          registeredWithEimzo: user?.registeredWithEimzo,
-          state: user?.state));
+          // registeredWithEimzo: user?.registeredWithEimzo,
+          state: user?.state,
+        ),
+      );
       return;
     }
   }
@@ -143,7 +149,8 @@ class AuthRepository {
       await tokenStorage.token.set(response.token ?? "");
       await tokenStorage.isLogin.set(true);
       final user = response.user;
-      userInfoStorage.userInformation.set(UserInfoObject(
+      userInfoStorage.userInformation.set(
+        UserInfoObject(
           districtId: user?.districtId,
           fullName: user?.fullName,
           email: user?.email,
@@ -165,8 +172,10 @@ class AuthRepository {
           photo: user?.photo,
           pinfl: user?.pinfl,
           postName: user?.username,
-          registeredWithEimzo: user?.registeredWithEimzo,
-          state: user?.state));
+          // registeredWithEimzo: user?.registeredWithEimzo,
+          state: user?.state,
+        ),
+      );
       // await favoriteRepository.pushAllFavoriteAds();
     }
   }
@@ -201,7 +210,7 @@ class AuthRepository {
           photo: user?.photo,
           pinfl: user?.pinfl,
           postName: user?.username,
-          registeredWithEimzo: user?.registeredWithEimzo,
+          // registeredWithEimzo: user?.registeredWithEimzo,
           state: user?.state));
       return;
     }
@@ -221,7 +230,8 @@ class AuthRepository {
         await tokenStorage.token.set(loginResponse.token ?? "");
         await tokenStorage.isLogin.set(true);
         final user = loginResponse.user;
-        userInfoStorage.userInformation.set(UserInfoObject(
+        userInfoStorage.userInformation.set(
+          UserInfoObject(
             districtId: user?.districtId,
             fullName: user?.fullName,
             email: user?.email,
@@ -243,8 +253,10 @@ class AuthRepository {
             photo: user?.photo,
             pinfl: user?.pinfl,
             postName: user?.username,
-            registeredWithEimzo: user?.registeredWithEimzo,
-            state: user?.state));
+            // registeredWithEimzo: user?.registeredWithEimzo,
+            state: user?.state,
+          ),
+        );
       }
       return;
     }
