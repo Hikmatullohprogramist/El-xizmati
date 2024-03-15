@@ -16,6 +16,7 @@ import '../../domain/models/ad/ad_list_type.dart';
 import '../../domain/models/ad/ad_type.dart';
 import '../../domain/models/ad/user_ad_status.dart';
 import '../../domain/models/district/district.dart';
+import '../../domain/models/image/uploadable_file.dart';
 import '../../domain/models/order/order_type.dart';
 import '../../domain/models/order/user_order_status.dart';
 import '../../presentation/ad/ad_detail/ad_detail_page.dart';

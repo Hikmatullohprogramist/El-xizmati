@@ -7,7 +7,7 @@ class PageState with _$PageState {
     CategoryResponse? category,
 //
     @Default(MAX_IMAGE_COUNT) int maxImageCount,
-    List<XFile>? pickedImages,
+    List<UploadableFile>? pickedImages,
     @Default("") String videoUrl,
 //
     @Default("") String desc,

@@ -12,6 +12,7 @@ import 'package:onlinebozor/common/widgets/switch/custom_switch.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_toggle.dart';
 import 'package:onlinebozor/common/widgets/text_field/custom_dropdown_field.dart';
 import 'package:onlinebozor/common/widgets/text_field/label_text_field.dart';
+import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 import 'package:onlinebozor/presentation/common/selection_currency/selection_currency_page.dart';
 import 'package:onlinebozor/presentation/common/selection_region_and_district/selection_region_and_district_page.dart';
 import 'package:onlinebozor/presentation/common/selection_unit/selection_unit_page.dart';
@@ -177,7 +178,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               );
 
               if (result != null) {
-                cubit(context).setChangedImageList(result as List<XFile>);
+                cubit(context).setChangedImageList(result as List<UploadableFile>);
               }
             },
             onRemoveClicked: (imagePath) {
@@ -744,7 +745,8 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   text: Strings.commonContinue,
                   onPressed: () {
                     vibrateAsHapticFeedback();
-                    cubit(context).createProductAd();
+                    // cubit(context).createProductAd();
+                    cubit(context).uploadImage();
                   },
                   isLoading: state.isRequestSending,
                 ),

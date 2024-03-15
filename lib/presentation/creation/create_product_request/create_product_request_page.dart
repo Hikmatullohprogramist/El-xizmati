@@ -153,7 +153,7 @@ class CreateProductRequestPage
       child: Column(
         children: [
           ImageAdListWidget(
-            imagePaths: state.pickedImages ?? [],
+            imagePaths: [],
             maxCount: state.maxImageCount,
             onTakePhotoClicked: () {
               cubit(context).takeImage();

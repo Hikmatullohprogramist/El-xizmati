@@ -1,4 +1,4 @@
-import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/responses/category/category/category_response.dart';
 import 'package:onlinebozor/data/responses/category/category_selection/category_selection_response.dart';
@@ -54,20 +54,16 @@ class AdCreationRepository {
     return units;
   }
 
-   Future<UploadableFile> imageUpload(XFile xFile) async {
-
-    var response = await _adCreationService.imageUpload(xFile);
+  Future<UploadableFile> uploadImage(UploadableFile uploadableFile) async {
+    var xFile = uploadableFile.xFile;
+    // var multipartFile =
+    //     await MultipartFile.fromFile(xFile.path, filename: xFile.name);
+    var response = await _adCreationService.uploadImage(xFile);
     var id = response.data['id'];
-    String? extension = response.data['extension'];
+    // String? extension = response.data['extension'];
 
     if (id is String) {
-      return UploadableFile(
-        id: id,
-        name: xFile.name,
-        localPath: xFile.path,
-        extension: extension,
-        xFile: xFile
-      );
+      return uploadableFile..id = id;
     }
 
     throw Exception("Rasm yuklashda xatolik");

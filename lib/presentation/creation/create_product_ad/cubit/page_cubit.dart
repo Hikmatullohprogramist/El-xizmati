@@ -8,6 +8,8 @@ import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/responses/payment_type/payment_type_response.dart';
 import 'package:onlinebozor/data/responses/unit/unit_response.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
+import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
+import 'package:onlinebozor/presentation/utils/xfile_mapper.dart';
 
 import '../../../../../../common/core/base_cubit.dart';
 import '../../../../common/enum/enums.dart';
@@ -15,7 +17,6 @@ import '../../../../data/repositories/ad_creation_repository.dart';
 import '../../../../data/responses/address/user_address_response.dart';
 
 part 'page_cubit.freezed.dart';
-
 part 'page_state.dart';
 
 @Injectable()
@@ -57,6 +58,20 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         isAutoRenewal: states.isAutoRenewal,
         isShowMySocialAccount: states.isShowMySocialAccount,
       );
+      log.i(response.toString());
+
+      updateState((state) => state.copyWith(isRequestSending: false));
+    } on DioException catch (exception) {
+      log.e(exception.toString());
+      updateState((state) => state.copyWith(isRequestSending: false));
+    }
+  }
+
+  Future<void> uploadImage() async {
+    updateState((state) => state.copyWith(isRequestSending: true));
+    try {
+      var uploadableFile = states.pickedImages!.first;
+      final response = await repository.uploadImage(uploadableFile);
       log.i(response.toString());
 
       updateState((state) => state.copyWith(isRequestSending: false));
@@ -208,8 +223,9 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   void showHideFreeDistricts() {
     updateState((state) => state.copyWith(
-      isShowAllFreeDeliveryDistricts: !states.isShowAllFreeDeliveryDistricts,
-    ));
+          isShowAllFreeDeliveryDistricts:
+              !states.isShowAllFreeDeliveryDistricts,
+        ));
   }
 
   void setPaidDeliveryDistricts(List<District>? districts) {
@@ -227,8 +243,9 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   void showHidePaidDistricts() {
     updateState((state) => state.copyWith(
-      isShowAllPaidDeliveryDistricts: !states.isShowAllPaidDeliveryDistricts,
-    ));
+          isShowAllPaidDeliveryDistricts:
+              !states.isShowAllPaidDeliveryDistricts,
+        ));
   }
 
   bool checkEnabledField() {
@@ -323,10 +340,11 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
       log.w("pickImageFromGallery result = ${newImages.length}");
       if (newImages.isNotEmpty) {
-        List<XFile> addedImages = states.pickedImages != null
-            ? List<XFile>.from(states.pickedImages!)
-            : [];
-        List<XFile> changedImages = [];
+        List<UploadableFile> addedImages = [];
+        if (states.pickedImages?.isNotEmpty == true) {
+          addedImages.addAll(states.pickedImages!);
+        }
+        // List<UploadableFile> changedImages = [];
 
         var addedCount = addedImages.length;
         var newCount = newImages.length;
@@ -340,13 +358,15 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           emitEvent(PageEvent(PageEventType.onOverMaxCount,
               maxImageCount: states.maxImageCount));
 
-          addedImages.addAll(newImages.sublist(0, maxCount - addedCount));
-          changedImages.addAll(addedImages);
-          updateState((state) => state.copyWith(pickedImages: changedImages));
+          addedImages.addAll(newImages
+              .sublist(0, maxCount - addedCount)
+              .map((e) => e.toUploadableFile()));
+          // changedImages.addAll(addedImages);
+          updateState((state) => state.copyWith(pickedImages: addedImages));
         } else {
-          addedImages.addAll(newImages);
-          changedImages.addAll(addedImages);
-          updateState((state) => state.copyWith(pickedImages: changedImages));
+          addedImages.addAll(newImages.map((e) => e.toUploadableFile()));
+          // changedImages.addAll(addedImages);
+          updateState((state) => state.copyWith(pickedImages: addedImages));
         }
       }
     } catch (e) {
@@ -361,14 +381,15 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
       log.w("pickImageFromGallery result = $image");
       if (image != null) {
-        List<XFile> imageList = states.pickedImages != null
-            ? List<XFile>.from(states.pickedImages!)
-            : [];
+        List<UploadableFile> imageList = [];
+        if (states.pickedImages?.isNotEmpty == true) {
+          imageList.addAll(states.pickedImages!);
+        }
 
-        imageList.add(image);
-        List<XFile> newImageList = [];
-        newImageList.addAll(imageList);
-        updateState((state) => state.copyWith(pickedImages: newImageList));
+        imageList.add(image.toUploadableFile());
+        // List<XFile> newImageList = [];
+        // newImageList.addAll(imageList);
+        updateState((state) => state.copyWith(pickedImages: imageList));
       }
     } catch (e) {
       log.e(e.toString());
@@ -377,46 +398,48 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   void removeImage(String imagePath) {
     try {
-      List<XFile> imageList = states.pickedImages != null
-          ? List<XFile>.from(states.pickedImages!)
-          : [];
+      List<UploadableFile> imageList = [];
+      if (states.pickedImages?.isNotEmpty == true) {
+        imageList.addAll(states.pickedImages!);
+      }
 
-      imageList.removeWhere((element) => element.path == imagePath);
-      List<XFile> newImageList = [];
-      newImageList.addAll(imageList);
-      updateState((state) => state.copyWith(pickedImages: newImageList));
+      imageList.removeWhere((element) => element.xFile.path == imagePath);
+      // List<XFile> newImageList = [];
+      // newImageList.addAll(imageList);
+      updateState((state) => state.copyWith(pickedImages: imageList));
     } catch (e) {
       log.e(e.toString());
     }
   }
 
-  List<XFile> getImages() {
-    return (states.pickedImages ?? []).map((e) => e).toList();
+  List<UploadableFile> getImages() {
+    return (states.pickedImages ?? []).toList();
   }
 
   void onReorder(int oldIndex, int newIndex) {
     try {
-      List<XFile> imageList = states.pickedImages != null
-          ? List<XFile>.from(states.pickedImages!)
-          : [];
+      List<UploadableFile> imageList = [];
+      if (states.pickedImages?.isNotEmpty == true) {
+        imageList.addAll(states.pickedImages!);
+      }
 
       var item = imageList[oldIndex];
       imageList.removeAt(oldIndex);
       imageList.insert(newIndex, item);
 
-      List<XFile> newImageList = [];
-      newImageList.addAll(imageList);
-      updateState((state) => state.copyWith(pickedImages: newImageList));
+      // List<XFile> newImageList = [];
+      // newImageList.addAll(imageList);
+      updateState((state) => state.copyWith(pickedImages: imageList));
     } catch (e) {
       log.e(e.toString());
     }
   }
 
-  void setChangedImageList(List<XFile> images) {
+  void setChangedImageList(List<UploadableFile> images) {
     try {
-      List<XFile> newImageList = [];
-      newImageList.addAll(images);
-      updateState((state) => state.copyWith(pickedImages: newImageList));
+      // List<UploadableFile> newImageList = [];
+      // newImageList.addAll(images);
+      updateState((state) => state.copyWith(pickedImages: images));
     } catch (e) {
       log.e(e.toString());
     }
