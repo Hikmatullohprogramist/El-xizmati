@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/image/add_image_widget.dart';
 import 'package:onlinebozor/common/widgets/image/added_image_widget.dart';
+import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 
 import '../../gen/assets/assets.gen.dart';
 import '../../gen/localization/strings.dart';
@@ -23,7 +24,7 @@ class ImageAdListWidget extends StatelessWidget {
     required this.onReorder,
   });
 
-  final List<XFile> imagePaths;
+  final List<UploadableFile> imagePaths;
   final int maxCount;
   final Function() onTakePhotoClicked;
   final Function() onPickImageClicked;
@@ -96,12 +97,12 @@ class ImageAdListWidget extends StatelessWidget {
                             child: AddedImageWidget(
                               key: ValueKey(element),
                               index: index,
-                              imagePath: element.path,
+                              imagePath: element.xFile.path,
                               onImageClicked: () {
                                 onImageClicked(index);
                               },
                               onRemoveClicked: (imagePath) {
-                                onRemoveClicked(element.path);
+                                onRemoveClicked(element.xFile.path);
                               },
                             ),
                           ),

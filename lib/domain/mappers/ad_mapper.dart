@@ -162,7 +162,7 @@ extension AdDetailExtension on AdDetail {
         adPropertyStatus: AdItemCondition.fresh,
         adRouteType: adAuthorType,
         adStatus: adPriorityLevel ?? AdPriorityLevel.standard,
-        adTypeStatus: adTransactionType ?? AdTransactionType.sell,
+        adTypeStatus: adTransactionType ?? AdTransactionType.SELL,
         currency: currency,
         isCheck: false,
         isSell: true,

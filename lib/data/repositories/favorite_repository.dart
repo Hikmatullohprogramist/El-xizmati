@@ -84,10 +84,10 @@ class FavoriteRepository {
       final result = favoriteStorage.allItems;
       return result
           .map((item) => item.toMap(favorite: true))
-          .where((element) => (element.adTypeStatus == AdTransactionType.sell ||
-              element.adTypeStatus == AdTransactionType.free ||
-              element.adTypeStatus == AdTransactionType.exchange ||
-              element.adTypeStatus == AdTransactionType.buy))
+          .where((element) => (element.adTypeStatus == AdTransactionType.SELL ||
+              element.adTypeStatus == AdTransactionType.FREE ||
+              element.adTypeStatus == AdTransactionType.EXCHANGE ||
+              element.adTypeStatus == AdTransactionType.BUY))
           .toList();
     } catch (e) {
       return List.empty();
@@ -114,8 +114,8 @@ class FavoriteRepository {
       return result
           .map((e) => e.toMap(favorite: true))
           .where((element) =>
-              (element.adTypeStatus == AdTransactionType.service ||
-                  element.adTypeStatus == AdTransactionType.buyService))
+              (element.adTypeStatus == AdTransactionType.SERVICE ||
+                  element.adTypeStatus == AdTransactionType.BUY_SERVICE))
           .toList();
     } catch (e) {
       return List.empty();

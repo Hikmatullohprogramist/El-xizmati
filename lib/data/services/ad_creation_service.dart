@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/data/utils/rest_mappers.dart';
 
 import '../storages/token_storage.dart';
 
@@ -29,11 +31,25 @@ class AdCreationService {
   Future<Response> getWarehousesForCreationAd({required int tinOrPinfl}) {
     final Map<String, dynamic> query = {};
     query["org_id"] = tinOrPinfl;
-    return dio.get('api/mobile/v1/get-warehouses-for-create-ad', queryParameters: query);
+    return dio.get('api/mobile/v1/get-warehouses-for-create-ad',
+        queryParameters: query);
   }
 
   Future<Response> getUnitsForCreationAd() {
     return dio.get('api/mobile/v1/get-untis-for-create-ad');
+  }
+
+  Future<Response> uploadImage(XFile xFile) async {
+    // var url = 'https://api.online-ijara.uz/web/v1/public/files/upload/category/photos';
+    var url = 'files/upload/form';
+
+    var formData = FormData.fromMap({
+      'form_element_id': 2588,
+      'form_element_project_id': 34,
+      'file': await MultipartFile.fromFile(xFile.path, filename: xFile.name),
+    });
+
+    return await dio.post(url, data: formData);
   }
 
   Future<Response> createProductAd({
@@ -101,12 +117,12 @@ class AdCreationService {
       "min_amount": minAmount,
       "has_discount": false,
       "is_pickup_enabled": isPickupEnabled,
-      "pickup_address_ids": pickupWarehouses.map((id) => {'district_id': id}).toList(),
+      "pickup_address_ids": pickupWarehouses.toMap(),
       "is_free_delivery_enabled": isFreeDeliveryEnabled,
-      "free_delivery_district_ids": freeDeliveryDistricts.map((id) => {'district_id': id}).toList(),
+      "free_delivery_district_ids": freeDeliveryDistricts.toMap(),
       "free_delivery_max_days": freeDeliveryMaxDay,
       "is_paid_delivery_enabled": isPaidDeliveryEnabled,
-      "paid_delivery_district_ids": paidDeliveryDistricts.map((id) => {'district_id': id}).toList(),
+      "paid_delivery_district_ids": paidDeliveryDistricts.toMap(),
       "paid_delivery_max_days": paidDeliveryMaxDay,
       // "service_category_id": null,
       // "service_sub_category_id": null,

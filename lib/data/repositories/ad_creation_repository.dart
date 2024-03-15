@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/responses/category/category/category_response.dart';
 import 'package:onlinebozor/data/responses/category/category_selection/category_selection_response.dart';
@@ -5,9 +6,9 @@ import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/services/ad_creation_service.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 
+import '../../domain/models/image/uploadable_file.dart';
 import '../responses/address/user_address_response.dart';
 import '../responses/payment_type/payment_type_response.dart';
-import '../responses/region/region_root_response.dart';
 import '../responses/unit/unit_response.dart';
 import '../storages/user_storage.dart';
 
@@ -51,6 +52,21 @@ class AdCreationRepository {
     final response = await _adCreationService.getUnitsForCreationAd();
     final units = UnitRootResponse.fromJson(response.data).data;
     return units;
+  }
+
+  Future<UploadableFile> uploadImage(UploadableFile uploadableFile) async {
+    var xFile = uploadableFile.xFile;
+    // var multipartFile =
+    //     await MultipartFile.fromFile(xFile.path, filename: xFile.name);
+    var response = await _adCreationService.uploadImage(xFile);
+    var id = response.data['id'];
+    // String? extension = response.data['extension'];
+
+    if (id is String) {
+      return uploadableFile..id = id;
+    }
+
+    throw Exception("Rasm yuklashda xatolik");
   }
 
   Future<String> createProductAd({

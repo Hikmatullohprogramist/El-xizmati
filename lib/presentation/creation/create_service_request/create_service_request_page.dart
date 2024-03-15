@@ -23,7 +23,8 @@ import '../../utils/mask_formatters.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
-class CreateServiceRequestPage extends BasePage<PageCubit, PageState, PageEvent> {
+class CreateServiceRequestPage
+    extends BasePage<PageCubit, PageState, PageEvent> {
   CreateServiceRequestPage({super.key});
 
   final TextEditingController titleController = TextEditingController();
@@ -150,7 +151,7 @@ class CreateServiceRequestPage extends BasePage<PageCubit, PageState, PageEvent>
       child: Column(
         children: [
           ImageAdListWidget(
-            imagePaths: state.pickedImages ?? [],
+            imagePaths: [],
             maxCount: state.maxImageCount,
             onTakePhotoClicked: () {
               cubit(context).takeImage();
