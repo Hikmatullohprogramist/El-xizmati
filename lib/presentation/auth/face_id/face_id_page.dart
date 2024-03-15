@@ -36,13 +36,13 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
         context.showErrorBottomSheet(
           context,
           Strings.loadingStateError,
-          "Туғилган сана ва паспорт серия-рақамлари мувофиқ эмас",
+          Strings.faceIdDocNotMatched,
         );
       case PageEventType.onPinflNotFound:
         context.showErrorBottomSheet(
           context,
           Strings.loadingStateError,
-          "Bunday JShShIRga ega shaxs topilmadi!",
+         Strings.faceIdPinflNotFound,
         );
     }
   }
@@ -55,7 +55,7 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
     return Scaffold(
       appBar: DefaultAppBar(
-        "Face-ID orqali tizimga kirish",
+        Strings.faceIdTitle,
         () => context.router.pop(),
       ),
       backgroundColor: Colors.white,
@@ -70,7 +70,7 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 cubit(context).changePinflEnabledState(isChecked);
               },
               negativeTitle: "Series",
-              positiveTitle: "JShShIR",
+              positiveTitle: Strings.commonPinfl,
             ),
           ),
           state.isFaceIdByPinflEnabled
@@ -103,7 +103,7 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 100),
           SizedBox(height: 70),
           SizedBox(height: 10),
-          "JShShIR".w(500).s(16).c(Colors.black),
+          Strings.commonPinfl.w(500).s(16).c(Colors.black),
           SizedBox(height: 10),
           Row(
             children: [
@@ -143,7 +143,7 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 35),
-              "Passport ma'lumotlari".w(450).s(16).c(Colors.black),
+              Strings.profileUserDateOfDocValidity.w(450).s(16).c(Colors.black),
               SizedBox(height: 8),
               Row(
                 children: [
@@ -187,7 +187,7 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 ],
               ),
               SizedBox(height: 10),
-              "Tug'ulgan sana".w(400).s(16).c(Colors.black),
+              Strings.profileUserDateOfBirth.w(400).s(16).c(Colors.black),
               SizedBox(height: 10),
               InkWell(
                 onTap: () {
