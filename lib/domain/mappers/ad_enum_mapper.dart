@@ -1,5 +1,3 @@
-
-
 import '../models/ad/ad_author_type.dart';
 import '../models/ad/ad_item_condition.dart';
 import '../models/ad/ad_priority_level.dart';
@@ -9,55 +7,39 @@ import '../models/currency/currency.dart';
 
 extension AdEnumMapper on String? {
   AdItemCondition toAdPropertyStatus() {
-    switch (this) {
-      case "NEW":
-        return AdItemCondition.fresh;
-      case "USED":
-        AdItemCondition.used;
-        return AdItemCondition.used;
-      default:
-        return AdItemCondition.fresh;
-    }
+    return this?.contains("USED") == true
+        ? AdItemCondition.used
+        : AdItemCondition.fresh;
   }
 
   AdAuthorType toAdRouteType() {
-    switch (this) {
-      case "PRIVATE":
-        return AdAuthorType.private;
-      case "BUSINESS":
-        return AdAuthorType.business;
-      default:
-        return AdAuthorType.private;
-    }
+    return this?.contains("BUSINESS") == true
+        ? AdAuthorType.business
+        : AdAuthorType.private;
+  }
+
+  AdPriorityLevel toAdStatus() {
+    return this?.contains("TOP") == true
+        ? AdPriorityLevel.top
+        : AdPriorityLevel.standard;
   }
 
   AdTransactionType toAdTypeStatus() {
     switch (this) {
       case "SELL":
-        return AdTransactionType.sell;
+        return AdTransactionType.SELL;
       case "FREE":
-        return AdTransactionType.free;
+        return AdTransactionType.FREE;
       case "EXCHANGE":
-        return AdTransactionType.exchange;
+        return AdTransactionType.EXCHANGE;
       case "SERVICE":
-        return AdTransactionType.service;
+        return AdTransactionType.SERVICE;
       case "BUY":
-        return AdTransactionType.buy;
+        return AdTransactionType.BUY;
       case "BUY_SERVICE":
-        return AdTransactionType.buyService;
+        return AdTransactionType.BUY_SERVICE;
       default:
-        return AdTransactionType.sell;
-    }
-  }
-
-  AdPriorityLevel toAdStatus() {
-    switch (this) {
-      case "TOP":
-        return AdPriorityLevel.top;
-      case "STANDARD":
-        return AdPriorityLevel.standard;
-      default:
-        return AdPriorityLevel.standard;
+        return AdTransactionType.SELL;
     }
   }
 
@@ -99,42 +81,6 @@ extension AdRouteTypeToStringExtension on AdAuthorType {
   }
 }
 
-extension AdTypeStatusToStringExtension on AdTransactionType {
-  String adTypeStatusToString() {
-    switch (this) {
-      case AdTransactionType.sell:
-        return "SELL";
-      case AdTransactionType.free:
-        return "FREE";
-      case AdTransactionType.exchange:
-        return "EXCHANGE";
-      case AdTransactionType.service:
-        return "SERVICE";
-      case AdTransactionType.buy:
-        return "BUY";
-      case AdTransactionType.buyService:
-        return "BUY_SERVICE";
-    }
-  }
-
-  AdType adType() {
-    switch (this) {
-      case AdTransactionType.sell:
-        return AdType.product;
-      case AdTransactionType.free:
-        return AdType.product;
-      case AdTransactionType.exchange:
-        return AdType.product;
-      case AdTransactionType.service:
-        return AdType.service;
-      case AdTransactionType.buy:
-        return AdType.product;
-      case AdTransactionType.buyService:
-        return AdType.service;
-    }
-  }
-}
-
 extension AdStatusTypeToStringExtension on AdPriorityLevel {
   String adStatusToString() {
     switch (this) {
@@ -142,6 +88,42 @@ extension AdStatusTypeToStringExtension on AdPriorityLevel {
         return "TOP";
       case AdPriorityLevel.standard:
         return "STANDARD";
+    }
+  }
+}
+
+extension AdTypeStatusToStringExtension on AdTransactionType {
+  String adTypeStatusToString() {
+    switch (this) {
+      case AdTransactionType.SELL:
+        return "SELL";
+      case AdTransactionType.FREE:
+        return "FREE";
+      case AdTransactionType.EXCHANGE:
+        return "EXCHANGE";
+      case AdTransactionType.SERVICE:
+        return "SERVICE";
+      case AdTransactionType.BUY:
+        return "BUY";
+      case AdTransactionType.BUY_SERVICE:
+        return "BUY_SERVICE";
+    }
+  }
+
+  AdType adType() {
+    switch (this) {
+      case AdTransactionType.SELL:
+        return AdType.product;
+      case AdTransactionType.FREE:
+        return AdType.product;
+      case AdTransactionType.EXCHANGE:
+        return AdType.product;
+      case AdTransactionType.SERVICE:
+        return AdType.service;
+      case AdTransactionType.BUY:
+        return AdType.product;
+      case AdTransactionType.BUY_SERVICE:
+        return AdType.service;
     }
   }
 }

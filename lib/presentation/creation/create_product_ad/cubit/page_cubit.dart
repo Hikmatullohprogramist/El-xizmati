@@ -7,6 +7,7 @@ import 'package:onlinebozor/data/responses/category/category/category_response.d
 import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/responses/payment_type/payment_type_response.dart';
 import 'package:onlinebozor/data/responses/unit/unit_response.dart';
+import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 import 'package:onlinebozor/presentation/utils/xfile_mapper.dart';
@@ -87,6 +88,10 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   void setSelectedCategory(CategoryResponse category) {
     updateState((state) => state.copyWith(category: category));
+  }
+
+  void setSelectedAdTransactionType(AdTransactionType type){
+    updateState((state) => state.copyWith(adTransactionType: type));
   }
 
   void setEnteredDesc(String desc) {

@@ -47,6 +47,12 @@ ad_search_hint,Mahsulotlar va kategoriyalar qidiring,Искать товары �
 ad_status_new,Yangi,Новый,Янги
 ad_status_old,I/B,Б/У,И/Б
 ad_status_title,Holati:,Cтатус:,Ҳолати:
+ad_transaction_type_buy,Mahsulot,Продукт,Маҳсулот
+ad_transaction_type_buy_service,Xizmat,Услуга,Хизмат
+ad_transaction_type_exchange,Ayirboshlash,Обмен,Айирбошлаш
+ad_transaction_type_free,Bepul,Бесплатно,Бепул
+ad_transaction_type_sell,Mahsulot,Продукт,Маҳсулот
+ad_transaction_type_service,Xizmat,Услуга,Хизмат
 ad_type_product_title,Mahsulot,Продукт,Маҳсулот
 ad_type_service_title,Xizmat,Услуга,Хизмат
 address_add_title,Manzil qo‘shish,Добавить адрес,Манзил қўшиш

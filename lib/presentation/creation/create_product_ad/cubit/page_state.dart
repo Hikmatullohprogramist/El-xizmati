@@ -5,6 +5,7 @@ class PageState with _$PageState {
   const factory PageState({
     @Default("") String title,
     CategoryResponse? category,
+    @Default(AdTransactionType.SELL) AdTransactionType adTransactionType,
 //
     @Default(MAX_IMAGE_COUNT) int maxImageCount,
     List<UploadableFile>? pickedImages,

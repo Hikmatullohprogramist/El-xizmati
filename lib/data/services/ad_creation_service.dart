@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/data/utils/rest_mappers.dart';
 
 import '../storages/token_storage.dart';
 
@@ -116,15 +117,12 @@ class AdCreationService {
       "min_amount": minAmount,
       "has_discount": false,
       "is_pickup_enabled": isPickupEnabled,
-      "pickup_address_ids":
-          pickupWarehouses.map((id) => {'district_id': id}).toList(),
+      "pickup_address_ids": pickupWarehouses.toMap(),
       "is_free_delivery_enabled": isFreeDeliveryEnabled,
-      "free_delivery_district_ids":
-          freeDeliveryDistricts.map((id) => {'district_id': id}).toList(),
+      "free_delivery_district_ids": freeDeliveryDistricts.toMap(),
       "free_delivery_max_days": freeDeliveryMaxDay,
       "is_paid_delivery_enabled": isPaidDeliveryEnabled,
-      "paid_delivery_district_ids":
-          paidDeliveryDistricts.map((id) => {'district_id': id}).toList(),
+      "paid_delivery_district_ids": paidDeliveryDistricts.toMap(),
       "paid_delivery_max_days": paidDeliveryMaxDay,
       // "service_category_id": null,
       // "service_sub_category_id": null,

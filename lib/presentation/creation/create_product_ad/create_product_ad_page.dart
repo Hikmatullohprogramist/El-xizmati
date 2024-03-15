@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
+import 'package:onlinebozor/common/controller/controller_exts.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/widgets/chips/chip_add_item.dart';
@@ -12,6 +13,7 @@ import 'package:onlinebozor/common/widgets/switch/custom_switch.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_toggle.dart';
 import 'package:onlinebozor/common/widgets/text_field/custom_dropdown_field.dart';
 import 'package:onlinebozor/common/widgets/text_field/label_text_field.dart';
+import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 import 'package:onlinebozor/presentation/common/selection_currency/selection_currency_page.dart';
 import 'package:onlinebozor/presentation/common/selection_region_and_district/selection_region_and_district_page.dart';
@@ -24,7 +26,10 @@ import '../../../../../common/gen/localization/strings.dart';
 import '../../../common/colors/static_colors.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/vibrator/vibrator_extension.dart';
+import '../../../common/widgets/action/selection_list_item.dart';
+import '../../../common/widgets/bottom_sheet/bottom_sheet_title.dart';
 import '../../../common/widgets/button/custom_elevated_button.dart';
+import '../../../common/widgets/divider/custom_diverder.dart';
 import '../../../common/widgets/text_field/common_text_field.dart';
 import '../../common/selection_payment_type/selection_payment_type_page.dart';
 import '../../utils/mask_formatters.dart';
@@ -53,8 +58,12 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
-    // priceController =
-    //     TextEditingController(text: currencyFormatter.format(text));
+    titleController.updateOnRestore(state.title);
+    descController.updateOnRestore(state.desc);
+    warehouseController.updateOnRestore(state.warehouseCount.toString());
+    contactPersonController.updateOnRestore(state.contactPerson);
+    phoneController.updateOnRestore(state.phone);
+    emailController.updateOnRestore(state.email);
 
     return Scaffold(
       appBar: _buildAppBar(context),
@@ -147,6 +156,16 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               );
             },
           ),
+          SizedBox(height: 16),
+          LabelTextField(text: 'Тип объявления'),
+          SizedBox(height: 6),
+          CustomDropdownField(
+            text: state.category?.name ?? "",
+            hint: "Тип объявления",
+            onTap: () {
+              _showAdTransactionTypeSelectionBottomSheet(context, state);
+            },
+          ),
         ],
       ),
     );
@@ -178,7 +197,8 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               );
 
               if (result != null) {
-                cubit(context).setChangedImageList(result as List<UploadableFile>);
+                cubit(context)
+                    .setChangedImageList(result as List<UploadableFile>);
               }
             },
             onRemoveClicked: (imagePath) {
@@ -755,6 +775,73 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           ),
         ],
       ),
+    );
+  }
+
+  void _showAdTransactionTypeSelectionBottomSheet(
+    BuildContext context,
+    PageState state,
+  ) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext bc) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              SizedBox(height: 12),
+              BottomSheetTitle(
+                title: "Выберите тип объявления",
+                onCloseClicked: () {
+                  context.router.pop();
+                },
+              ),
+              SizedBox(height: 16),
+              SelectionListItem(
+                item: AdTransactionType.SELL,
+                title: Strings.adTransactionTypeSell,
+                isSelected: state.adTransactionType == AdTransactionType.SELL,
+                onClicked: (item) {
+                  cubit(context).setSelectedAdTransactionType(item);
+                  context.router.pop();
+                },
+              ),
+              CustomDivider(height: 2, startIndent: 20, endIndent: 20),
+              SelectionListItem(
+                item: AdTransactionType.FREE,
+                title: Strings.adTransactionTypeFree,
+                isSelected: state.adTransactionType == AdTransactionType.FREE,
+                onClicked: (item) {
+                  cubit(context).setSelectedAdTransactionType(item);
+                  context.router.pop();
+                },
+              ),
+              CustomDivider(height: 2, startIndent: 20, endIndent: 20),
+              SelectionListItem(
+                item: AdTransactionType.EXCHANGE,
+                title: Strings.adTransactionTypeExchange,
+                isSelected:
+                    state.adTransactionType == AdTransactionType.EXCHANGE,
+                onClicked: (item) {
+                  cubit(context).setSelectedAdTransactionType(item);
+                  context.router.pop();
+                },
+              ),
+              SizedBox(height: 32)
+            ],
+          ),
+        );
+      },
     );
   }
 
