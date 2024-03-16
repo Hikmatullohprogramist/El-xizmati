@@ -7,6 +7,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image/image.dart' as img;
 
+
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -65,36 +66,19 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
           )),
         if (state.loadState == LoadingState.success &&
             (state.introState == false))
-          cameraPreView(context),
+          _buildCameraPreView(context),
         CustomPaint(
           size: Size.infinite,
           painter: CameraSelfiPainter(),
         ),
-        faceDetectorDescription(context),
+        _buildFaceDetectorConstruction(context),
         checkActionButton(context, state),
-        if (state.introState) faceDetectorIntroPage(context),
+        if (state.introState) _buildFaceDetectorIntroPage(context),
       ],
     );
   }
 
-  Future<String> cropImage(Uint8List image2) async {
-    List<int> compressedBytes = await FlutterImageCompress.compressWithList(
-      image2,
-      quality: 80,
-      minHeight: 400,
-      minWidth: 300,
-    );
-    String compressedBase64 = base64.encode(compressedBytes);
-    final Uint8List imageBytesLast = base64Decode(compressedBase64);
-    final img.Image? image = img.decodeImage(imageBytesLast);
-    final img.Image croppedImage =
-        img.copyResize(image!, width: 300, height: 400);
-    String base64StringSecond = base64Encode(
-        Uint8List.fromList(img.encodeJpg(croppedImage, quality: 80)));
-    return base64StringSecond;
-  }
-
-  Widget faceDetectorIntroPage(BuildContext context){
+  Widget _buildFaceDetectorIntroPage(BuildContext context){
     return  Scaffold(
       appBar: DefaultAppBar("Face-ID", () => context.router.pop()),
       body: Padding(
@@ -215,7 +199,7 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget faceDetectorDescription(BuildContext context){
+  Widget _buildFaceDetectorConstruction(BuildContext context){
     return Scaffold(
         backgroundColor: Colors.transparent,
         body: Column(
@@ -250,7 +234,7 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
         ));
   }
 
-  Widget cameraPreView(BuildContext context){
+  Widget _buildCameraPreView(BuildContext context){
     return  ClipRect(
       clipper: _MediaSizeClipper(MediaQuery.of(context).size),
       child: Transform.scale(
@@ -306,6 +290,24 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
       ),
     );
   }
+
+  Future<String> cropImage(Uint8List image2) async {
+    List<int> compressedBytes = await FlutterImageCompress.compressWithList(
+      image2,
+      quality: 80,
+      minHeight: 400,
+      minWidth: 300,
+    );
+    String compressedBase64 = base64.encode(compressedBytes);
+    final Uint8List imageBytesLast = base64Decode(compressedBase64);
+    final img.Image? image = img.decodeImage(imageBytesLast);
+    final img.Image croppedImage =
+    img.copyResize(image!, width: 300, height: 400);
+    String base64StringSecond = base64Encode(
+        Uint8List.fromList(img.encodeJpg(croppedImage, quality: 80)));
+    return base64StringSecond;
+  }
+
 }
 
 class _MediaSizeClipper extends CustomClipper<Rect> {

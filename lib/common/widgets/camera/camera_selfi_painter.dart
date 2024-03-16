@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
+
+import 'package:flutter_launcher_icons/xml_templates.dart';
+
+
 
 class CameraSelfiPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
+    var paint = Paint()
       ..color = Colors.white.withOpacity(1); // Semi-transparent black
     // Draw the background
-    canvas.drawRect(Offset.zero & size, paint);
+      canvas.drawRect(Offset.zero & size, paint);
 
     // Define the frame size
     final frameSize = Size(size.width * 0.65, size.height * 0.4);
-    final frameRect = Offset((size.width - frameSize.width) / 2,
-            (size.height - frameSize.height) / 2.6) &
-        frameSize;
+    final frameRect = Offset((size.width - frameSize.width) / 2, (size.height - frameSize.height) / 2.6) & frameSize;
 
     // Clear the frame area
-   paint.blendMode = BlendMode.clear;
+    paint.blendMode = BlendMode.clear;
+
    canvas.drawRRect(
        RRect.fromRectAndCorners(
          frameRect,
@@ -25,8 +29,10 @@ class CameraSelfiPainter extends CustomPainter {
          bottomLeft: Radius.circular(150),
        ),
        paint);
+
   }
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
+
