@@ -7,7 +7,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image/image.dart' as img;
 
-
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -57,15 +56,11 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Stack(
       children: [
-        if (state.loadState == LoadingState.loading)
-          Center(
-              child: CircularProgressIndicator(
-            backgroundColor: Colors.grey[300],
-            valueColor: AlwaysStoppedAnimation<Color>(
-                StaticColors.slateBlue),
-          )),
-        if (state.loadState == LoadingState.success &&
-            (state.introState == false))
+        _buildConditionalWidget(
+          state.loadState == LoadingState.loading,
+          progressIndicator(),
+        ),
+        if (state.loadState == LoadingState.success && (!state.introState))
           _buildCameraPreView(context),
         CustomPaint(
           size: Size.infinite,
@@ -73,13 +68,17 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
         ),
         _buildFaceDetectorConstruction(context),
         checkActionButton(context, state),
-        if (state.introState) _buildFaceDetectorIntroPage(context),
+        _buildConditionalWidget(
+            state.introState, _buildFaceDetectorIntroPage(context))
       ],
     );
   }
 
-  Widget _buildFaceDetectorIntroPage(BuildContext context){
-    return  Scaffold(
+  Widget _buildConditionalWidget(bool condition, Widget widget) =>
+      condition ? widget : SizedBox.shrink();
+
+  Widget _buildFaceDetectorIntroPage(BuildContext context) {
+    return Scaffold(
       appBar: DefaultAppBar("Face-ID", () => context.router.pop()),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 35),
@@ -97,7 +96,7 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
             ),
             SizedBox(height: 35),
             Text("Перед тем как сделать снимок,  убедитесь в том, что:",
-                maxLines: 2, textAlign: TextAlign.center)
+                    maxLines: 2, textAlign: TextAlign.center)
                 .w(600)
                 .s(17)
                 .c(context.colors.textPrimary),
@@ -108,8 +107,7 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
                     width: 5, // Diameter of the spot (2 * radius)
                     height: 5, // Diameter of the spot (2 * radius)
                     decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Color(0xFF9EABBE))),
+                        shape: BoxShape.circle, color: Color(0xFF9EABBE))),
                 SizedBox(width: 10),
                 SizedBox(
                   width: 300,
@@ -199,7 +197,7 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildFaceDetectorConstruction(BuildContext context){
+  Widget _buildFaceDetectorConstruction(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.transparent,
         body: Column(
@@ -234,8 +232,8 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
         ));
   }
 
-  Widget _buildCameraPreView(BuildContext context){
-    return  ClipRect(
+  Widget _buildCameraPreView(BuildContext context) {
+    return ClipRect(
       clipper: _MediaSizeClipper(MediaQuery.of(context).size),
       child: Transform.scale(
           scale: 1 /
@@ -246,8 +244,8 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget checkActionButton(BuildContext context,PageState state){
-    return  Positioned(
+  Widget checkActionButton(BuildContext context, PageState state) {
+    return Positioned(
       bottom: 60,
       left: 10,
       right: 10,
@@ -267,8 +265,8 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
                   final takeImage = File(value.path);
                   Uint8List imageBytes = await takeImage.readAsBytes();
                   String croppedImage = await cropImage(imageBytes);
-                  cubit(context).sendImage(
-                      croppedImage, cubit(context).states.secretKey);
+                  cubit(context)
+                      .sendImage(croppedImage, cubit(context).states.secretKey);
                 });
               },
               backgroundColor: context.colors.buttonPrimary,
@@ -291,6 +289,14 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
+  Widget progressIndicator() {
+    return Center(
+        child: CircularProgressIndicator(
+      backgroundColor: Colors.grey[300],
+      valueColor: AlwaysStoppedAnimation<Color>(StaticColors.slateBlue),
+    ));
+  }
+
   Future<String> cropImage(Uint8List image2) async {
     List<int> compressedBytes = await FlutterImageCompress.compressWithList(
       image2,
@@ -302,12 +308,11 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
     final Uint8List imageBytesLast = base64Decode(compressedBase64);
     final img.Image? image = img.decodeImage(imageBytesLast);
     final img.Image croppedImage =
-    img.copyResize(image!, width: 300, height: 400);
+        img.copyResize(image!, width: 300, height: 400);
     String base64StringSecond = base64Encode(
         Uint8List.fromList(img.encodeJpg(croppedImage, quality: 80)));
     return base64StringSecond;
   }
-
 }
 
 class _MediaSizeClipper extends CustomClipper<Rect> {

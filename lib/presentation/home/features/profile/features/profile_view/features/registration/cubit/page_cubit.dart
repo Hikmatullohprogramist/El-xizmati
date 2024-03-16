@@ -14,9 +14,21 @@ part 'page_state.dart';
 
 @Injectable()
 class PageCubit extends BaseCubit<PageState, PageEvent> {
-  PageCubit(this.repository) : super(const PageState());
+  PageCubit(this.repository) : super(const PageState()){
+    getUserInformation();
+    getUser();
+  }
 
   final UserRepository repository;
+
+
+  Future<void> getUser() async {
+    await Future.wait([
+      getRegions(),
+      getDistrict(),
+     // getStreets(),
+    ]);
+  }
 
   void setBiometricSerial(String serial) {
     updateState((state) => states.copyWith(biometricSerial: serial));
@@ -35,6 +47,10 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     updateState((state) => states.copyWith(
         mobileNumber: phone,
         phoneNumber: phone.replaceAll(" ", "").replaceAll("+", "")));
+  }
+
+  void setFullName(String fullName) {
+    updateState((state) => states.copyWith(fullName: fullName));
   }
 
   Future<void> validationAndRequest() async {
@@ -146,6 +162,13 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     getNeighborhoods();
   }
 
+  void setStreet(Neighborhood neighborhood) {
+    updateState((state) => states.copyWith(
+      neighborhoodId: neighborhood.id,
+      neighborhoodName: neighborhood.name,
+    ));
+  }
+
   void setNeighborhood(Neighborhood neighborhood) {
     updateState((state) => states.copyWith(
           neighborhoodId: neighborhood.id,
@@ -154,28 +177,30 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   Future<void> getRegions() async {
-    final regions = await repository.getRegions();
-    if (states.regionId != null) {
+    final response = await repository.getRegions();
+    final regionList =
+    response.where((element) => element.id == states.regionId);
+    if (regionList.isNotEmpty) {
       updateState((state) => states.copyWith(
-            regions: regions,
-            regionName:
-                regions.where((e) => e.id == states.regionId).first.name,
-            isLoading: false,
-          ));
+          regions: response,
+          regionName: regionList.first.name,
+          isLoading: false));
     } else {
       updateState((state) => states.copyWith(regionName: "", isLoading: false));
     }
   }
 
   Future<void> getDistrict() async {
-    final regionId = states.regionId!;
-    final response = await repository.getDistricts(regionId);
+    final regionId = states.regionId;
+    final response = await repository.getDistricts(regionId ?? 14);
     if (states.districtId != null) {
       updateState((state) => states.copyWith(
-            districts: response,
-            districtName:
-                response.where((e) => e.id == states.districtId).first.name,
-          ));
+        districts: response,
+        districtName: response
+            .where((element) => element.id == states.districtId)
+            .first
+            .name,
+      ));
     } else {
       updateState((state) => states.copyWith(districts: response));
     }

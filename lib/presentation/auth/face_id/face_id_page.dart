@@ -158,7 +158,7 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
                       maxLength: 2,
                       controller: bioDocSerialController,
                       textCapitalization: TextCapitalization.characters,
-                      textInputAction: TextInputAction.done,
+                      textInputAction: TextInputAction.next,
                       onChanged: (value) {
                         cubit(context).setEnteredBioDocSerial(value);
                       },
@@ -175,6 +175,7 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
                       maxLines: 1,
                       maxLength: 7,
                       controller: bioDocNumberController,
+                      textInputAction: TextInputAction.done,
                       hint: "*******",
                       onChanged: (value) {
                         cubit(context).setEnteredBioDocNumber(value);
@@ -213,9 +214,7 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
                       SizedBox(
                         width: 10,
                       ),
-                      cubit(context)
-                          .states
-                          .birthDate
+                      state.birthDate
                           .w(500)
                           .s(16)
                           .c(Color(0xFF9EABBE)),

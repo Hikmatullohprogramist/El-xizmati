@@ -69,7 +69,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                     CustomTextButton(
                       text: Strings.commonEdit,
                       onPressed: () =>
-                          context.router.replace(ProfileEditRoute()),
+                          context.router.push(ProfileEditRoute()),
                     )
                   ]
                 : [],
@@ -240,7 +240,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                   text: Strings.profileIdentify,
                   onPressed: state.isRegistered
                       ? null
-                      : () => context.router.replace(RegistrationRoute()),
+                      : () => context.router.push(RegistrationRoute()),
                   buttonWidth: 120,
                 )
               ],
