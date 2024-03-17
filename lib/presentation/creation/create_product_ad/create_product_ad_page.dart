@@ -20,6 +20,7 @@ import 'package:onlinebozor/presentation/common/selection_region_and_district/se
 import 'package:onlinebozor/presentation/common/selection_unit/selection_unit_page.dart';
 import 'package:onlinebozor/presentation/common/selection_user_address/selection_user_address_page.dart';
 import 'package:onlinebozor/presentation/common/selection_user_warehouse/selection_user_warehouse_page.dart';
+import 'package:onlinebozor/presentation/utils/enum_resource_exts.dart';
 
 import '../../../../../common/core/base_page.dart';
 import '../../../../../common/gen/localization/strings.dart';
@@ -160,7 +161,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           LabelTextField(text: 'Тип объявления'),
           SizedBox(height: 6),
           CustomDropdownField(
-            text: state.category?.name ?? "",
+            text: state.adTransactionType.name,
             hint: "Тип объявления",
             onTap: () {
               _showAdTransactionTypeSelectionBottomSheet(context, state);
@@ -819,7 +820,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               CustomDivider(height: 2, startIndent: 20, endIndent: 20),
               SelectionListItem(
                 item: AdTransactionType.FREE,
-                title: Strings.adTransactionTypeFree,
+                title: state.adTransactionType.getString(),
                 isSelected: state.adTransactionType == AdTransactionType.FREE,
                 onClicked: (item) {
                   cubit(context).setSelectedAdTransactionType(item);
