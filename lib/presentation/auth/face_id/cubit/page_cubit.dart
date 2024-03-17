@@ -24,17 +24,17 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         var response = await _repository.validateByPinfl(states.pinfl);
         if (response.statusCode == 200) {
           secretKey =
-              ValidateBioDocResponse.fromJson(response.data).data.secretKey;
+              ValidateBioDocResponse.fromJson(response.data).data.secret_key;
         }
       } else {
         var response = await _repository.validateByBioDoc(ValidateBioDocRequest(
-          bioDocSerial: states.bioDocSerial,
-          bioDocNumber: states.bioDocNumber,
-          birthDate: states.birthDate,
+          passport_serial: states.bioDocSerial,
+          passport_number: states.bioDocNumber,
+          birth_date: states.birthDate,
         ));
         if (response.statusCode == 200) {
           secretKey =
-              ValidateBioDocResponse.fromJson(response.data).data.secretKey;
+              ValidateBioDocResponse.fromJson(response.data).data.secret_key;
         }
       }
 

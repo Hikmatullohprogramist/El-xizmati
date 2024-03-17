@@ -33,9 +33,9 @@ class AuthService {
 
   Future<Response> validateByBioDoc({required ValidateBioDocRequest request}) {
     final body = {
-      RestQueryKeys.brithDate: request.birthDate,
-      RestQueryKeys.passportNumber: request.bioDocNumber,
-      RestQueryKeys.passportSerial: request.bioDocSerial,
+      RestQueryKeys.brithDate: request.birth_date,
+      RestQueryKeys.passportNumber: request.passport_number,
+      RestQueryKeys.passportSerial: request.passport_serial,
     };
     return _dio.post('api/v1/auth/face_id/by_passport', data: body);
   }
