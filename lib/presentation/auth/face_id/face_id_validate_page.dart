@@ -18,8 +18,8 @@ import '../../../common/widgets/switch/custom_toggle.dart';
 import '../../../common/widgets/text_field/common_text_field.dart';
 
 @RoutePage()
-class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
-  FaceIdPage({super.key});
+class FaceIdValidate extends BasePage<PageCubit, PageState, PageEvent> {
+  FaceIdValidate({super.key});
 
   final bioDocNumberController = TextEditingController();
   final bioDocSerialController = TextEditingController();

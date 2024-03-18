@@ -18,7 +18,7 @@ import 'package:onlinebozor/common/widgets/camera/camera_selfi_painter.dart';
 
 import '../../../../../common/colors/static_colors.dart';
 import '../../../../../common/core/base_page.dart';
-import 'package:onlinebozor/presentation/auth/face_id/features/face_detector/cubit/page_cubit.dart';
+import 'package:onlinebozor/presentation/auth/face_id/features/identity_verification/cubit/page_cubit.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 
@@ -28,8 +28,8 @@ import '../../../../../common/widgets/app_bar/default_app_bar.dart';
 import '../../../../../common/widgets/button/custom_elevated_button.dart';
 
 @RoutePage()
-class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
-  const FaceDetectorPage(
+class FaceIdIdentity extends BasePage<PageCubit, PageState, PageEvent> {
+  const FaceIdIdentity(
     this.secretKey, {
     super.key,
   });
@@ -44,9 +44,9 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   void onEventEmitted(BuildContext context, PageEvent event) {
     switch (event.type) {
-      case PageEventType.navigationHome:
+      case PageEventType.onSuccess:
         context.router.replace(HomeRoute());
-      case PageEventType.error:
+      case PageEventType.onFailure:
         context.showErrorBottomSheet(context, Strings.loadingStateError,
             Strings.faceIdIdentityNotVerified);
     }
@@ -64,7 +64,7 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
           _buildCameraPreView(context),
         CustomPaint(
           size: Size.infinite,
-          painter: CameraSelfiPainter(),
+          painter: CameraSelfiePainter(),
         ),
         _buildFaceDetectorConstruction(context),
         checkActionButton(context, state),
