@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CameraSelfiePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    var paint = Paint()..color = Colors.white.withOpacity(.85);
+    var paint = Paint()..color = Colors.white.withOpacity(1);
     // Draw the background
     canvas.drawRect(Offset.zero & size, paint);
 

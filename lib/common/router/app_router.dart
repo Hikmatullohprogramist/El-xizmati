@@ -117,7 +117,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: SetPasswordRoute.page, path: '/set_password'),
         AutoRoute(page: AuthWithEdsRoute.page, path: '/eds'),
         AutoRoute(page: AuthWithOneIdRoute.page, path: "/login_with_one_id"),
-        AutoRoute(page: FaceIdValidate.page, path: "/face_id_validate"),
+        AutoRoute(page: FaceIdValidateRoute.page, path: "/face_id_validate"),
         AutoRoute(page: FaceIdIdentityRoute.page, path: "/face_id_identity"),
 
         /// home

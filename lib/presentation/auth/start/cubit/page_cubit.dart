@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../data/repositories/auth_repository.dart';
 
@@ -47,5 +48,13 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
   void setOriflameCheckBox(value){
     updateState((state) => state.copyWith(oriflameCheckBox:value ));
+  }
+  Future<void> openTelegram() async {
+    try {
+      var url = Uri.parse("https://t.me/online_bozor_rs_bot");
+      await launchUrl(url);
+    } catch (error) {
+      log.e(error.toString());
+    }
   }
 }

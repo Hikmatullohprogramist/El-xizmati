@@ -1,15 +1,13 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
-import 'dart:ui';
+
 import 'package:auto_route/auto_route.dart';
+import 'package:camera/camera.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image/image.dart' as img;
-
-import 'package:auto_route/annotations.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/enum/enums.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
@@ -18,18 +16,16 @@ import 'package:onlinebozor/common/widgets/camera/camera_selfi_painter.dart';
 
 import '../../../../../common/colors/static_colors.dart';
 import '../../../../../common/core/base_page.dart';
-import 'package:onlinebozor/presentation/auth/face_id/features/identity_verification/cubit/page_cubit.dart';
-import 'package:camera/camera.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
-
+import '../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../common/gen/localization/strings.dart';
 import '../../../../../common/router/app_router.dart';
 import '../../../../../common/widgets/app_bar/default_app_bar.dart';
 import '../../../../../common/widgets/button/custom_elevated_button.dart';
+import 'cubit/page_cubit.dart';
 
 @RoutePage()
-class FaceIdIdentity extends BasePage<PageCubit, PageState, PageEvent> {
-  const FaceIdIdentity(
+class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
+  const FaceIdIdentityPage(
     this.secretKey, {
     super.key,
   });
@@ -67,9 +63,8 @@ class FaceIdIdentity extends BasePage<PageCubit, PageState, PageEvent> {
           painter: CameraSelfiePainter(),
         ),
         _buildFaceDetectorConstruction(context),
-        checkActionButton(context, state),
-        _buildConditionalWidget(
-            state.introState, _buildFaceDetectorIntroPage(context))
+        _buildActionButton(context, state),
+        _buildConditionalWidget(state.introState, _buildFaceDetectorIntroPage(context))
       ],
     );
   }
@@ -79,118 +74,125 @@ class FaceIdIdentity extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildFaceDetectorIntroPage(BuildContext context) {
     return Scaffold(
-      appBar: DefaultAppBar("Face-ID", () => context.router.pop()),
+      appBar: DefaultAppBar(Strings.profileIdentify, () => context.router.pop()),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 35),
-        child: Column(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: Stack(
+          alignment: Alignment.bottomCenter,
           children: [
-            SizedBox(height: 100),
-            Stack(
-              alignment: Alignment.bottomRight,
-              children: [
-                SvgPicture.asset('assets/images/face_in_intro.svg',
-                    height: 149, width: 149),
-                SvgPicture.asset('assets/images/ic_red_error.svg',
-                    height: 32, width: 32),
-              ],
-            ),
-            SizedBox(height: 35),
-            Text("Перед тем как сделать снимок,  убедитесь в том, что:",
-                    maxLines: 2, textAlign: TextAlign.center)
-                .w(600)
-                .s(17)
-                .c(context.colors.textPrimary),
-            SizedBox(height: 40),
-            Row(
-              children: [
-                Container(
-                    width: 5, // Diameter of the spot (2 * radius)
-                    height: 5, // Diameter of the spot (2 * radius)
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle, color: Color(0xFF9EABBE))),
-                SizedBox(width: 10),
-                SizedBox(
-                  width: 300,
-                  child: Text(
-                    "Лицо полностью вписывается в указанную рамку:",
-                    maxLines: 2,
-                    textAlign: TextAlign.start,
-                  ).w(400).s(15).c(Color(0xFF9EABBE)),
-                )
-              ],
-            ),
-            SizedBox(height: 8),
-            Row(
-              children: [
-                Container(
-                  width: 5, // Diameter of the spot (2 * radius)
-                  height: 5, // Diameter of the spot (2 * radius)
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Color(0xFF9EABBE),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 35),
+              child: Column(
+                children: [
+                  SizedBox(height: 100),
+                  Stack(
+                    alignment: Alignment.bottomRight,
+                    children: [
+                      SvgPicture.asset('assets/images/face_in_intro.svg',
+                          height: 149, width: 149),
+                      SvgPicture.asset('assets/images/ic_red_error.svg',
+                          height: 32, width: 32),
+                    ],
                   ),
-                ),
-                SizedBox(width: 10),
-                SizedBox(
-                  width: 300,
-                  child: Text(
-                    "Лицо не перекрыто посторонними объектами (Очки, головной убор и т.д)",
-                    maxLines: 2,
-                    textAlign: TextAlign.start,
-                  ).w(400).s(15).c(Color(0xFF9EABBE)),
-                )
-              ],
-            ),
-            SizedBox(height: 8),
-            Row(
-              children: [
-                Container(
-                  width: 5, // Diameter of the spot (2 * radius)
-                  height: 5, // Diameter of the spot (2 * radius)
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: Color(0xFF9EABBE)),
-                ),
-                SizedBox(width: 10),
-                SizedBox(
-                  width: 250,
-                  child: Text(
-                    "Лицо освещено равномерно",
-                    maxLines: 2,
-                    textAlign: TextAlign.start,
-                  ).w(400).s(15).c(Color(0xFF9EABBE)),
-                )
-              ],
-            ),
-            SizedBox(height: 8),
-            Row(
-              children: [
-                Container(
-                  width: 5, // Diameter of the spot (2 * radius)
-                  height: 5, // Diameter of the spot (2 * radius)
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Color(0xFF9EABBE),
+                  SizedBox(height: 35),
+                  Text(Strings.faceIdIntroTitle,
+                      maxLines: 2, textAlign: TextAlign.center).w(600).s(17).c(context.colors.textPrimary),
+                  SizedBox(height: 40),
+                  Row(
+                    children: [
+                      Container(
+                          width: 5, // Diameter of the spot (2 * radius)
+                          height: 5, // Diameter of the spot (2 * radius)
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle, color: Color(0xFF9EABBE))),
+                      SizedBox(width: 10),
+                      SizedBox(
+                        width: 300,
+                        child: Text(
+                          Strings.faceIdIntroFaceFrame,
+                          maxLines: 2,
+                          textAlign: TextAlign.start,
+                        ).w(400).s(15).c(Colors.black87),
+                      )
+                    ],
                   ),
-                ),
-                SizedBox(width: 10),
-                SizedBox(
-                  width: 250,
-                  child: Text(
-                    "Камера расположена строго перед лицом)",
-                    maxLines: 2,
-                    textAlign: TextAlign.start,
-                  ).w(400).s(15).c(Color(0xFF9EABBE)),
-                )
-              ],
+                  SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Container(
+                        width: 5, // Diameter of the spot (2 * radius)
+                        height: 5, // Diameter of the spot (2 * radius)
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Color(0xFF9EABBE),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      SizedBox(
+                        width: 300,
+                        child: Text(
+                          Strings.faceIdIntroFaceBlock,
+                          maxLines: 2,
+                          textAlign: TextAlign.start,
+                        ).w(400).s(15).c(Colors.black87),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Container(
+                        width: 5, // Diameter of the spot (2 * radius)
+                        height: 5, // Diameter of the spot (2 * radius)
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle, color: Color(0xFF9EABBE)),
+                      ),
+                      SizedBox(width: 10),
+                      SizedBox(
+                        width: 250,
+                        child: Text(
+                            Strings.faceIdIntroFaceIllumination,
+                          maxLines: 2,
+                          textAlign: TextAlign.start,
+                        ).w(400).s(15).c(Colors.black87),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Container(
+                        width: 5, // Diameter of the spot (2 * radius)
+                        height: 5, // Diameter of the spot (2 * radius)
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Color(0xFF9EABBE),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      SizedBox(
+                        width: 250,
+                        child: Text(
+                            Strings.faceIdIntroCameraPosition,
+                          maxLines: 2,
+                          textAlign: TextAlign.start,
+                        ).w(400).s(15).c(Colors.black87),
+                      )
+                    ],
+                  ),
+                  Expanded(child: SizedBox(width: 1)),
+                ],
+              ),
             ),
-            Expanded(child: SizedBox(width: 1)),
-            CustomElevatedButton(
-                text: "Продолжить",
-                onPressed: () {
-                  cubit(context).closeIntroPage();
-                },
-                backgroundColor: context.colors.buttonPrimary),
-            SizedBox(height: 25)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: CustomElevatedButton(
+                  text: Strings.commonContinue,
+                  onPressed: () {
+                    cubit(context).closeIntroPage();
+                  },
+                  backgroundColor: context.colors.buttonPrimary),
+            ),
           ],
         ),
       ),
@@ -202,18 +204,28 @@ class FaceIdIdentity extends BasePage<PageCubit, PageState, PageEvent> {
         backgroundColor: Colors.transparent,
         body: Column(
           children: [
-            SizedBox(height: 120),
+            SizedBox(height: 35),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                "Face ID".w(600).s(22).c(context.colors.textPrimary),
+                IconButton(
+                  onPressed: (){
+                    context.navigateBack();
+                  },
+                  icon: Assets.images.icArrowLeft.svg(),
+                ),
+                Expanded(child: SizedBox()),
+                Strings.profileIdentify.w(600).s(18).c(context.colors.textPrimary),
+                Expanded(child: SizedBox()),
+                SizedBox(width: 25)
+
               ],
             ),
             Expanded(child: SizedBox()),
             SizedBox(
                 width: 253,
                 child: Text(
-                  "Смотрите на камеру и нажмите снять фото",
+                  Strings.faceIdIndentityInfo,
                   textAlign: TextAlign.center,
                 ).w(600).s(16).c(context.colors.textPrimary)),
             SizedBox(
@@ -222,7 +234,7 @@ class FaceIdIdentity extends BasePage<PageCubit, PageState, PageEvent> {
             SizedBox(
                 width: 253,
                 child: Text(
-                  "Все части лица должны вписаться в область камеры",
+                  Strings.faceIdIndentityDesc,
                   textAlign: TextAlign.center,
                 ).w(400).s(12).c(Color(0xFF9EABBE))),
             SizedBox(
@@ -244,18 +256,18 @@ class FaceIdIdentity extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget checkActionButton(BuildContext context, PageState state) {
+  Widget _buildActionButton(BuildContext context, PageState state) {
     return Positioned(
-      bottom: 60,
+      bottom:10,
       left: 10,
       right: 10,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Stack(
           alignment: Alignment.centerLeft,
           children: [
             CustomElevatedButton(
-              text: "Tekshirish",
+              text: Strings.faceIdCheck,
               onPressed: () {
                 cubit(context)
                     .states
@@ -274,13 +286,12 @@ class FaceIdIdentity extends BasePage<PageCubit, PageState, PageEvent> {
               isLoading: state.loading,
             ),
             Container(
-              margin: EdgeInsets.only(left: 10),
-              width: 50, // Set the desired width
-              height: 50, // Set the desired height
-              child: Icon(
-                Icons.camera_alt_outlined,
-                size: 30,
-                color: Colors.white, // Set the desired icon size
+              margin: EdgeInsets.only(left: 25),
+              width: 32, // Set the desired width
+              height: 32, // Set the desired height
+              child: SvgPicture.asset(
+                'assets/images/ic_add_image_camera.svg',
+                color: Colors.white,
               ),
             ),
           ],
@@ -292,9 +303,9 @@ class FaceIdIdentity extends BasePage<PageCubit, PageState, PageEvent> {
   Widget progressIndicator() {
     return Center(
         child: CircularProgressIndicator(
-      backgroundColor: Colors.grey[300],
-      valueColor: AlwaysStoppedAnimation<Color>(StaticColors.slateBlue),
-    ));
+          backgroundColor: Colors.grey[300],
+          valueColor: AlwaysStoppedAnimation<Color>(StaticColors.slateBlue),
+        ));
   }
 
   Future<String> cropImage(Uint8List image2) async {
@@ -308,7 +319,7 @@ class FaceIdIdentity extends BasePage<PageCubit, PageState, PageEvent> {
     final Uint8List imageBytesLast = base64Decode(compressedBase64);
     final img.Image? image = img.decodeImage(imageBytesLast);
     final img.Image croppedImage =
-        img.copyResize(image!, width: 300, height: 400);
+    img.copyResize(image!, width: 300, height: 400);
     String base64StringSecond = base64Encode(
         Uint8List.fromList(img.encodeJpg(croppedImage, quality: 80)));
     return base64StringSecond;
