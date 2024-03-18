@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
@@ -11,6 +12,7 @@ import 'package:onlinebozor/common/widgets/button/custom_outlined_button.dart';
 import 'package:onlinebozor/common/widgets/text_field/common_text_field.dart';
 import 'package:onlinebozor/presentation/auth/confirm/auth_confirm_page.dart';
 import 'package:onlinebozor/presentation/auth/start/cubit/page_cubit.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../common/widgets/app_bar/default_app_bar.dart';
 import '../../utils/mask_formatters.dart';
@@ -104,28 +106,39 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
                 rightIcon: Assets.images.icOneId.svg(),
               ),
               SizedBox(height: 24),
-              Row(
-                children: [
-                  Checkbox(
-                      activeColor: context.colors.buttonPrimary,
-                      value: state.oriflameCheckBox,
-                      onChanged: (value) {
-                        cubit(context).setOriflameCheckBox(value);
-                      }),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      "Согласен с обработкой персональных данных"
-                          .s(12)
-                          .w(400)
-                          .c(Color(0xFF9EABBE)),
-                      "на условиях пользовательского соглашения"
-                          .s(12)
-                          .w(400)
-                          .c(Color(0xFF5C6AC4)),
-                    ],
-                  ),
-                ],
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text:   Strings.authPricePoliceStart,
+                      style: TextStyle(
+                        color: Color(0xFF9EABBE),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400
+                      ),
+                    ),
+                    TextSpan(text: " "),
+                    TextSpan(
+                      text: Strings.authPricePoliceAction,
+                      style: TextStyle(
+                          color: Color(0xFF5C6AC4),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400
+                      ),
+                      recognizer: TapGestureRecognizer()..onTap = _handleTextClick,
+                    ),
+                    TextSpan(text: " "),
+                    TextSpan(
+                      text: Strings.authPricePoliceEnd,
+                      style: TextStyle(
+                          color: Color(0xFF9EABBE),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400
+                      ),
+                    ),
+
+                  ],
+                ),
               ),
               SizedBox(height: 10,),
               CustomElevatedButton(
@@ -140,5 +153,12 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
         ),
       ),
     );
+  }
+  void _handleTextClick() async{
+    try {
+      var url = Uri.parse("https://online-bozor.uz/uz/page/privacy");
+      await launchUrl(url);
+    } catch (error) {
+    }
   }
 }

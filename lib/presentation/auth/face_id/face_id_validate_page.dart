@@ -18,8 +18,8 @@ import '../../../common/widgets/switch/custom_toggle.dart';
 import '../../../common/widgets/text_field/common_text_field.dart';
 
 @RoutePage()
-class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
-  FaceIdPage({super.key});
+class FaceIdValidatePage extends BasePage<PageCubit, PageState, PageEvent> {
+  FaceIdValidatePage({super.key});
 
   final bioDocNumberController = TextEditingController();
   final bioDocSerialController = TextEditingController();
@@ -30,7 +30,7 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
     switch (event.type) {
       case PageEventType.onVerificationSuccess:
         context.router.push(
-          FaceDetectorRoute(secretKey: cubit(context).states.secretKey),
+          FaceIdIdentityRoute(secretKey: cubit(context).states.secretKey),
         );
       case PageEventType.onBioDocNotFound:
         context.showErrorBottomSheet(
@@ -42,7 +42,7 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
         context.showErrorBottomSheet(
           context,
           Strings.loadingStateError,
-         Strings.faceIdPinflNotFound,
+          Strings.faceIdPinflNotFound,
         );
     }
   }
@@ -69,25 +69,33 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
               onChanged: (isChecked) {
                 cubit(context).changePinflEnabledState(isChecked);
               },
-              negativeTitle: "Series",
+              negativeTitle: Strings.commonBioDocSeries,
               positiveTitle: Strings.commonPinfl,
             ),
           ),
           state.isFaceIdByPinflEnabled
               ? _buildPinflFields(context, state)
               : _buildBioDocFields(context, state),
+          Expanded(child: Container()),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: CustomElevatedButton(
               text: Strings.commonContinue,
               onPressed: () {
-                cubit(context).validateEnteredData();
+                if(!cubit(context).getButtonEnableState()){
+                  context.showErrorBottomSheet(
+                      context,
+                      Strings.loadingStateError,
+                      Strings.faceIdErrorInvalidFields);
+                }else{
+                  cubit(context).validateEnteredData();
+                }
               },
               backgroundColor: context.colors.buttonPrimary,
-              isEnabled: cubit(context).getButtonEnableState(),
               isLoading: state.isRequestInProcess,
             ),
-          )
+          ),
+          SizedBox(height: 10,)
         ],
       ),
     );
@@ -115,7 +123,7 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   controller: pinflController,
                   maxLines: 1,
                   maxLength: 14,
-                  hint: "00000000000000",
+                  hint: Strings.commonPinflHint,
                   textInputAction: TextInputAction.done,
                   onChanged: (value) => cubit(context).setEnteredPinfl(value),
                 ),
@@ -176,7 +184,7 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
                       maxLength: 7,
                       controller: bioDocNumberController,
                       textInputAction: TextInputAction.done,
-                      hint: "*******",
+                      hint: "0123456",
                       onChanged: (value) {
                         cubit(context).setEnteredBioDocNumber(value);
                       },
@@ -214,10 +222,11 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
                       SizedBox(
                         width: 10,
                       ),
-                      state.birthDate
-                          .w(500)
-                          .s(16)
-                          .c(Color(0xFF9EABBE)),
+                      if(state.birthDate=="dd.mm.yyyy")
+                        state.birthDate.w(500).s(16).c(Color(0xFF9EABBE)),
+                      if(state.birthDate!="dd.mm.yyyy")
+                        state.birthDate.w(400).s(15).c(Colors.black87),
+
                     ],
                   ),
                 ),
@@ -239,12 +248,18 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
           alignment: Alignment.bottomCenter,
           children: [
             Container(
-              color: Colors.white,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(25),
+                  topLeft: Radius.circular(25),
+                ),
+              ),
               height: 350.0,
               child: CupertinoDatePicker(
                 mode: CupertinoDatePickerMode.date,
                 initialDateTime: DateTime(2000),
-                minimumYear: 1930,
+                minimumYear: 1945,
                 maximumYear: 2024,
                 onDateTimeChanged: (DateTime newDateTime) {
                   final formattedDate =
@@ -254,7 +269,7 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: CustomElevatedButton(
                 text: Strings.commonSave,
                 onPressed: () {

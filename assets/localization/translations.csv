@@ -66,6 +66,7 @@ auth_confirm_corfimation_code,Tasdiqlash kodi,КОД подтверждения,
 auth_confirm_sent_sms_your_phone,Biz sizga {phone} raqamiga kod bilan SMS yubordik,Мы отправили вам СМС с кодом на номер {phone},Биз сизга {phone} рақамига код билан СМС юбордик
 auth_person_policy,siyosat shaxsiy ma‘lumotlarni qayta ishlash,политикой nобработки персональных данных,сиёсат шахсий маълумотларни қайта ишлаш
 auth_policy_agree,Tizimga kirish orqali siz rozilik bildirasiz,"Авторизуясь, вы соглашаетесь с ",Тизимга кириш орқали сиз розилик билдирасиз
+auth_price_police,Tizimga kirish orqali siz shaxsiy ma'lumotlarni saqlash va qayta ishlash shartlariga rozilik bildirasiz.,"lАвторизуясь, вы соглашаетесь с условиями хранения и обработки персональных данных.",Тизимга кириш орқали сиз шахсий маълумотларни сақлаш ва қайта ишлаш шартларига розилик билдирасиз.
 auth_recomment_action,Tizimga kirish,Войти в систему,Тизимга кириш
 auth_recomment_desc,E’lon berish uchun tizimga kirishingiz zarur,"Войдите в систему, чтобы опубликовать объявление",Эълон бериш учун тизимга киришингиз зарур
 auth_recomment_title,E’lon bermoqchimisiz?,Хотите опубликовать объявление?,Эълон бермоқчимисиз?
@@ -104,6 +105,7 @@ close_title,Yopish,Закрыть,Ёпиш
 common_add,Qo‘shish,Добавить,Қўшиш
 common_apartment,Kvartira,Квартира,Квартира
 common_apply,Qo‘llash,Применять,Қўллаш
+common_bio_doc_series,Pasport seriyasi,Паспорт серии,Паспорт серияси
 common_close,Yopish,Закрыть,Ёпиш
 common_continue,Davom etish,Продолжить,Давом этиш
 common_date,Sana,Дата,Сана
@@ -124,6 +126,7 @@ common_neighborhood,Mahalla,Махалля,Маҳалла
 common_no,Yo‘q,Нет,Йўқ
 common_phone_number,Telefon raqami,Номер телефона,Телефон рақами
 common_pinfl,JShShIR,ПИНФЛ,ЖШШИР
+common_pinfl_hint,14 belgi,14 символов,14 белги
 common_region,Viloyat,Регион,Вилоят
 common_save,Saqlash,Сохранить,Сақлаш
 common_save_changes,O‘zgarishlarni saqlash,Сохранить изменения,Ўзгаришларни сақлаш
@@ -138,7 +141,15 @@ currency_uzb,so‘m,сўм,сўм
 edit_title,Tahrirlash,Редактировать,Таҳрирлаш
 face_id_check,Tekshirish,Проверить,Текшириш
 face_id_doc_not_matched,Tug‘ilgan sana va pasport seriya-raqamlari muvofiq emas,Дата рождения и серийный номер паспорта не совпадают,Туғилган сана ва паспорт серия-рақамлари мувофиқ эмас
+face_id_error_invalid_fields,Ma'lumotlar to‘gri ekanligiga ishonch hosil qiling.,"Убедитесь, что информация верна.",Маълумотлар тўгри эканлигига ишонч ҳосил қилинг.
 face_id_identity_not_verified,Sizning shaxsingiz tasdiqlanmadi!,Ваша личность не подтверждена!,Сизнинг шахсингиз тасдиқланмади!
+face_id_indentity_desc,Yuzning barcha qismlari kamera maydoniga to‘g‘ri kelishi kerak,Все части лица должны вписаться в область камеры,Юзнинг барча қисмлари камера майдонига тўғри келиши керак
+face_id_indentity_info,Kameraga qarang va suratga olish tugmasini bosing,Смотрите на камеру и нажмите снять фото,Камерага қаранг ва суратга олиш тугмасини босинг
+face_id_intro_camera_position,Kamerani yuzingiz to‘g‘risida turganligiga,Камера расположена строго перед лицом,Камерани юзингиз тўғрисида турганлигига
+face_id_intro_face_block,"Yuzingizni to‘sib qo‘yishi mumkin bo‘lgan buyumlarni yechib qo‘ying (ko‘zoynak, bosh kiyim va boshqalar).","Лицо не перекрыто посторонними объектами (Очки, головной убор и т.д).","Лицо не перекрыто посторонними объектами (Очки, головной убор и т.д)."
+face_id_intro_face_frame,Yuzingiz belgilangan ramkaga to‘liq joylashsin.,Лицо полностью вписывается в указанную рамку.,Юзингиз белгиланган рамкага тўлиқ жойлашсин.
+face_id_intro_face_illumination,Yuzingizni bir tekis yoritilganligiga,Лицо освещено равномерно,Юзингизни бир текис ёритилганлигига
+face_id_intro_title,Suratga olishdan oldin quyidagilarga ishonch hosil qiling.,"Перед тем как сделать снимок,  убедитесь в том, что.",Суратга олишдан олдин қуйидагиларга ишонч ҳосил қилинг.
 face_id_log_by_bio_doc,Passport seriya va raqami bilan kirish,Войти по серии и номеру паспорта,Пасспорт серия ва рақами билан кириш
 face_id_pinfl_not_found,Bunday JShShIRga ega shaxs topilmadi!,Ни одного человека с таким ПИНФЛом не нашлось!,Бундай ЖШШИРга эга шахс топилмади!
 face_id_title,Face-ID orqali tizimga kirish,Войти с помощью Face-ID,Face-ID орқали тизимга кириш
@@ -288,3 +299,6 @@ user_request_canceled_title,Bekor qilingan,Отменено,Бекор қили�
 user_request_pending_title,Kutulmoqda,Ожидающий,Кутулмоқда
 user_request_rejaction_title,Rad etilgan,Отклоненный,Рад этилган
 user_request_review_title,Ko‘rib chiqilmoqda,На рассмотрении,Кўриб чиқилмоқда
+auth_price_police_start,Tizimga kirish orqali siz,"Авторизуясь, вы соглашаетесь с",Тизимга кириш орқали сиз 
+auth_price_police_action,shaxsiy ma'lumotlarni saqlash va qayta ishlash shartlariga,условиями хранения и обработки персональных данных.,шахсий маълумотларни сақлаш ва қайта ишлаш шартларига
+auth_price_police_end,rozilik bildirasiz.,     ,розилик билдирасиз.
