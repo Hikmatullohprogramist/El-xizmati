@@ -56,7 +56,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
           progressIndicator(),
         ),
         if (state.loadState == LoadingState.success && (!state.introState))
-          _buildCameraPreView(context),
+          _buildCameraPreView(context, state),
         CustomPaint(
           size: Size.infinite,
           painter: CameraSelfiePainter(),
@@ -231,15 +231,15 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildCameraPreView(BuildContext context) {
+  Widget _buildCameraPreView(BuildContext context, PageState state) {
     return ClipRect(
       clipper: _MediaSizeClipper(MediaQuery.of(context).size),
       child: Transform.scale(
         scale: 1 /
-            (cubit(context).states.cameraController!.value.aspectRatio *
+            (state.cameraController!.value.aspectRatio *
                 MediaQuery.of(context).size.aspectRatio),
         alignment: Alignment.topCenter,
-        child: CameraPreview(cubit(context).states.cameraController!),
+        child: CameraPreview(state.cameraController!),
       ),
     );
   }
@@ -257,7 +257,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
             CustomElevatedButton(
               text: "Tekshirish",
               onPressed: () {
-                cubit(context).states.cameraController?.takePicture().then(
+                state.cameraController?.takePicture().then(
                   (value) async {
                     final takeImage = File(value.path);
                     Uint8List imageBytes = await takeImage.readAsBytes();
@@ -265,7 +265,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
 
                     cubit(context).sendImage(
                       croppedImage,
-                      cubit(context).states.secretKey,
+                      state.secretKey,
                     );
                   },
                 );
