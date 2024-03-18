@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
@@ -31,7 +30,10 @@ class SetPasswordPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Scaffold(
       backgroundColor: context.colors.colorBackgroundPrimary,
       resizeToAvoidBottomInset: false,
-      appBar: DefaultAppBar("", () => context.router.pop()),
+      appBar: DefaultAppBar(
+        Strings.authRegisterRegister,
+        () => context.router.pop(),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: AutofillGroup(
@@ -39,11 +41,6 @@ class SetPasswordPage extends BasePage<PageCubit, PageState, PageEvent> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 42),
-              Strings.authRegisterRegister
-                  .w(500)
-                  .s(24)
-                  .c(context.colors.textPrimary),
               SizedBox(height: 42),
               Align(
                   alignment: Alignment.centerLeft,
