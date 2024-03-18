@@ -141,12 +141,30 @@ class UserRepository {
         phoneNumber: phoneNumber);
   }
 
+
+
+  Future<BiometricInfoRootResponse> checkAvailableNumber({
+    required String phoneNumber,
+    required String biometricSerial,
+    required String biometricNumber,
+    required String brithDate,
+  }) async {
+    final response = await _userService.getBiometricInfo(
+        phoneNumber: phoneNumber,
+        biometricSerial: biometricSerial,
+        biometricNumber: biometricNumber,
+        brithDate: brithDate);
+    final result = BiometricInfoRootResponse.fromJson(response.data);
+    return result;
+  }
+
+
   Future<void> updateNotificationSources({required String sources}) async {
     await _userService.updateNotificationSources(sources: sources);
   }
 
   Future<void> updateSocialAccountInfo({
-    required List<SocialAccountInfo> socials,
+    required List<SocialAccountInfo?> socials,
   }) async {
     await _userService.updateSocialAccountInfo(socials: socials);
   }

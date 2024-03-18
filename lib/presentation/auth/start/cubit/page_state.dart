@@ -5,7 +5,9 @@ class PageState with _$PageState {
   const factory PageState(
       {@Default("") String phone,
       @Default(false) bool validation,
-      @Default(false) bool loading}) = _PageState;
+        @Default(false) bool oriflameCheckBox,
+
+        @Default(false) bool loading}) = _PageState;
 }
 
 @freezed

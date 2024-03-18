@@ -104,6 +104,30 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
                 rightIcon: Assets.images.icOneId.svg(),
               ),
               SizedBox(height: 24),
+              Row(
+                children: [
+                  Checkbox(
+                      activeColor: context.colors.buttonPrimary,
+                      value: state.oriflameCheckBox,
+                      onChanged: (value) {
+                        cubit(context).setOriflameCheckBox(value);
+                      }),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      "Согласен с обработкой персональных данных"
+                          .s(12)
+                          .w(400)
+                          .c(Color(0xFF9EABBE)),
+                      "на условиях пользовательского соглашения"
+                          .s(12)
+                          .w(400)
+                          .c(Color(0xFF5C6AC4)),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: 10,),
               CustomElevatedButton(
                 text: Strings.commonContinue,
                 onPressed: () => cubit(context).validation(),
