@@ -1,27 +1,22 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
-import 'dart:ui';
+
 import 'package:auto_route/auto_route.dart';
+import 'package:camera/camera.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image/image.dart' as img;
-
-import 'package:auto_route/annotations.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/enum/enums.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/bottom_sheet/botton_sheet_for_result.dart';
 import 'package:onlinebozor/common/widgets/camera/camera_selfi_painter.dart';
+import 'package:onlinebozor/presentation/auth/face_id/features/face_detector/cubit/page_cubit.dart';
 
 import '../../../../../common/colors/static_colors.dart';
 import '../../../../../common/core/base_page.dart';
-import 'package:onlinebozor/presentation/auth/face_id/features/face_detector/cubit/page_cubit.dart';
-import 'package:camera/camera.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
-
 import '../../../../../common/gen/localization/strings.dart';
 import '../../../../../common/router/app_router.dart';
 import '../../../../../common/widgets/app_bar/default_app_bar.dart';
@@ -64,7 +59,7 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
           _buildCameraPreView(context),
         CustomPaint(
           size: Size.infinite,
-          painter: CameraSelfiPainter(),
+          painter: CameraSelfiePainter(),
         ),
         _buildFaceDetectorConstruction(context),
         checkActionButton(context, state),
@@ -104,10 +99,11 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
             Row(
               children: [
                 Container(
-                    width: 5, // Diameter of the spot (2 * radius)
-                    height: 5, // Diameter of the spot (2 * radius)
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle, color: Color(0xFF9EABBE))),
+                  width: 5, // Diameter of the spot (2 * radius)
+                  height: 5, // Diameter of the spot (2 * radius)
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: Color(0xFF9EABBE)),
+                ),
                 SizedBox(width: 10),
                 SizedBox(
                   width: 300,
@@ -148,7 +144,9 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
                   width: 5, // Diameter of the spot (2 * radius)
                   height: 5, // Diameter of the spot (2 * radius)
                   decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: Color(0xFF9EABBE)),
+                    shape: BoxShape.circle,
+                    color: Color(0xFF9EABBE),
+                  ),
                 ),
                 SizedBox(width: 10),
                 SizedBox(
@@ -185,11 +183,12 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
             ),
             Expanded(child: SizedBox(width: 1)),
             CustomElevatedButton(
-                text: "Продолжить",
-                onPressed: () {
-                  cubit(context).closeIntroPage();
-                },
-                backgroundColor: context.colors.buttonPrimary),
+              text: "Продолжить",
+              onPressed: () {
+                cubit(context).closeIntroPage();
+              },
+              backgroundColor: context.colors.buttonPrimary,
+            ),
             SizedBox(height: 25)
           ],
         ),
@@ -199,48 +198,50 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildFaceDetectorConstruction(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Column(
-          children: [
-            SizedBox(height: 120),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                "Face ID".w(600).s(22).c(context.colors.textPrimary),
-              ],
-            ),
-            Expanded(child: SizedBox()),
-            SizedBox(
-                width: 253,
-                child: Text(
-                  "Смотрите на камеру и нажмите снять фото",
-                  textAlign: TextAlign.center,
-                ).w(600).s(16).c(context.colors.textPrimary)),
-            SizedBox(
-              height: 15,
-            ),
-            SizedBox(
-                width: 253,
-                child: Text(
-                  "Все части лица должны вписаться в область камеры",
-                  textAlign: TextAlign.center,
-                ).w(400).s(12).c(Color(0xFF9EABBE))),
-            SizedBox(
-              height: 160,
-            )
-          ],
-        ));
+      backgroundColor: Colors.transparent,
+      body: Column(
+        children: [
+          SizedBox(height: 120),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              "Face ID".w(600).s(22).c(context.colors.textPrimary),
+            ],
+          ),
+          Expanded(child: SizedBox()),
+          SizedBox(
+            width: 253,
+            child: Text(
+              "Смотрите на камеру и нажмите снять фото",
+              textAlign: TextAlign.center,
+            ).w(600).s(16).c(context.colors.textPrimary),
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          SizedBox(
+            width: 253,
+            child: Text(
+              "Все части лица должны вписаться в область камеры",
+              textAlign: TextAlign.center,
+            ).w(400).s(12).c(Color(0xFF9EABBE)),
+          ),
+          SizedBox(height: 160)
+        ],
+      ),
+    );
   }
 
   Widget _buildCameraPreView(BuildContext context) {
     return ClipRect(
       clipper: _MediaSizeClipper(MediaQuery.of(context).size),
       child: Transform.scale(
-          scale: 1 /
-              (cubit(context).states.cameraController!.value.aspectRatio *
-                  MediaQuery.of(context).size.aspectRatio),
-          alignment: Alignment.topCenter,
-          child: CameraPreview(cubit(context).states.cameraController!)),
+        scale: 1 /
+            (cubit(context).states.cameraController!.value.aspectRatio *
+                MediaQuery.of(context).size.aspectRatio),
+        alignment: Alignment.topCenter,
+        child: CameraPreview(cubit(context).states.cameraController!),
+      ),
     );
   }
 
@@ -257,17 +258,18 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
             CustomElevatedButton(
               text: "Tekshirish",
               onPressed: () {
-                cubit(context)
-                    .states
-                    .cameraController
-                    ?.takePicture()
-                    .then((value) async {
-                  final takeImage = File(value.path);
-                  Uint8List imageBytes = await takeImage.readAsBytes();
-                  String croppedImage = await cropImage(imageBytes);
-                  cubit(context)
-                      .sendImage(croppedImage, cubit(context).states.secretKey);
-                });
+                cubit(context).states.cameraController?.takePicture().then(
+                  (value) async {
+                    final takeImage = File(value.path);
+                    Uint8List imageBytes = await takeImage.readAsBytes();
+                    String croppedImage = await cropImage(imageBytes);
+
+                    cubit(context).sendImage(
+                      croppedImage,
+                      cubit(context).states.secretKey,
+                    );
+                  },
+                );
               },
               backgroundColor: context.colors.buttonPrimary,
               isEnabled: true,
@@ -291,10 +293,11 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget progressIndicator() {
     return Center(
-        child: CircularProgressIndicator(
-      backgroundColor: Colors.grey[300],
-      valueColor: AlwaysStoppedAnimation<Color>(StaticColors.slateBlue),
-    ));
+      child: CircularProgressIndicator(
+        backgroundColor: Colors.grey[300],
+        valueColor: AlwaysStoppedAnimation<Color>(StaticColors.slateBlue),
+      ),
+    );
   }
 
   Future<String> cropImage(Uint8List image2) async {
@@ -310,7 +313,8 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
     final img.Image croppedImage =
         img.copyResize(image!, width: 300, height: 400);
     String base64StringSecond = base64Encode(
-        Uint8List.fromList(img.encodeJpg(croppedImage, quality: 80)));
+      Uint8List.fromList(img.encodeJpg(croppedImage, quality: 80)),
+    );
     return base64StringSecond;
   }
 }
