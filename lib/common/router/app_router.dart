@@ -1,7 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:onlinebozor/presentation/auth/face_id/features/face_detector/face_detector_page.dart';
 import 'package:onlinebozor/presentation/common/language/change_language/change_language_page.dart';
 import 'package:onlinebozor/presentation/creation/create_order/create_order_page.dart';
 import 'package:onlinebozor/presentation/home/home_page.dart';
@@ -26,7 +24,8 @@ import '../../presentation/ad/ad_list_by_type/ad_list_by_type.dart';
 import '../../presentation/ad/user_ad_detail/user_ad_detail.dart';
 import '../../presentation/auth/confirm/auth_confirm_page.dart';
 import '../../presentation/auth/eds/auth_with_eds_page.dart';
-import '../../presentation/auth/face_id/face_id_page.dart';
+import '../../presentation/auth/face_id/face_id_validate_page.dart';
+import '../../presentation/auth/face_id/features/identity_verification/face_id_identity_page.dart';
 import '../../presentation/auth/one_id/auth_with_one_id_page.dart';
 import '../../presentation/auth/set_password/set_password_page.dart';
 import '../../presentation/auth/start/auth_start_page.dart';
@@ -118,8 +117,8 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: SetPasswordRoute.page, path: '/set_password'),
         AutoRoute(page: AuthWithEdsRoute.page, path: '/eds'),
         AutoRoute(page: AuthWithOneIdRoute.page, path: "/login_with_one_id"),
-        AutoRoute(page: FaceIdRoute.page, path: "/face_id"),
-        AutoRoute(page: FaceDetectorRoute.page, path: "/face_derector"),
+        AutoRoute(page: FaceIdValidateRoute.page, path: "/face_id_validate"),
+        AutoRoute(page: FaceIdIdentityRoute.page, path: "/face_id_identity"),
 
         /// home
         AutoRoute(page: HomeRoute.page),

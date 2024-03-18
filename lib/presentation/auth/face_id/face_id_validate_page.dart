@@ -76,26 +76,18 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
           state.isFaceIdByPinflEnabled
               ? _buildPinflFields(context, state)
               : _buildBioDocFields(context, state),
-          Expanded(child: Container()),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: CustomElevatedButton(
               text: Strings.commonContinue,
               onPressed: () {
-                if(!cubit(context).getButtonEnableState()){
-                  context.showErrorBottomSheet(
-                      context,
-                      Strings.loadingStateError,
-                      "Ma'lumotlar to'gri ekanligiga ishonch hosil qiling");
-                }else{
-                  cubit(context).validateEnteredData();
-                }
+                cubit(context).validateEnteredData();
               },
               backgroundColor: context.colors.buttonPrimary,
+              isEnabled: cubit(context).getButtonEnableState(),
               isLoading: state.isRequestInProcess,
             ),
-          ),
-          SizedBox(height: 10,)
+          )
         ],
       ),
     );
@@ -123,7 +115,7 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   controller: pinflController,
                   maxLines: 1,
                   maxLength: 14,
-                  hint: "14 символов",
+                  hint: "00000000000000",
                   textInputAction: TextInputAction.done,
                   onChanged: (value) => cubit(context).setEnteredPinfl(value),
                 ),
@@ -184,7 +176,7 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
                       maxLength: 7,
                       controller: bioDocNumberController,
                       textInputAction: TextInputAction.done,
-                      hint: "0123456",
+                      hint: "*******",
                       onChanged: (value) {
                         cubit(context).setEnteredBioDocNumber(value);
                       },
@@ -222,11 +214,10 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
                       SizedBox(
                         width: 10,
                       ),
-                      if(state.birthDate=="dd.mm.yyyy")
-                      state.birthDate.w(500).s(16).c(Color(0xFF9EABBE)),
-                      if(state.birthDate!="dd.mm.yyyy")
-                      state.birthDate.w(400).s(15).c(Colors.black87),
-
+                      state.birthDate
+                          .w(500)
+                          .s(16)
+                          .c(Color(0xFF9EABBE)),
                     ],
                   ),
                 ),
@@ -239,7 +230,7 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-    showDatePickerDialog(BuildContext context) {
+  void showDatePickerDialog(BuildContext context) {
     var parentContext = context;
     showCupertinoModalPopup(
       context: context,
@@ -248,19 +239,12 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
           alignment: Alignment.bottomCenter,
           children: [
             Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(25),
-                    topLeft: Radius.circular(25),
-                ),
-              ),
+              color: Colors.white,
               height: 350.0,
               child: CupertinoDatePicker(
-
                 mode: CupertinoDatePickerMode.date,
                 initialDateTime: DateTime(2000),
-                minimumYear: 1940,
+                minimumYear: 1930,
                 maximumYear: 2024,
                 onDateTimeChanged: (DateTime newDateTime) {
                   final formattedDate =
@@ -270,7 +254,7 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: CustomElevatedButton(
                 text: Strings.commonSave,
                 onPressed: () {

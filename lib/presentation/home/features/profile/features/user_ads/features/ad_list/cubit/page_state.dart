@@ -5,8 +5,7 @@ class PageState with _$PageState {
   const factory PageState({
     @Default("") String keyWord,
     @Default(UserAdStatus.all) UserAdStatus userAdStatus,
-    @Default(LoadingState.loading) LoadingState loadState,
-    PagingController<int, UserAdResponse>? controller,
+    PagingController<int, UserAdResponse>? pagingController,
   }) = _PageState;
 }
 

@@ -1,16 +1,13 @@
-import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
 
-import '../../../../../../../../../common/enum/enums.dart';
 import '../../../../../../../../../data/repositories/user_ad_repository.dart';
 import '../../../../../../../../../data/responses/user_ad/user_ad_response.dart';
 import '../../../../../../../../../domain/models/ad/user_ad_status.dart';
 
 part 'page_cubit.freezed.dart';
-
 part 'page_state.dart';
 
 @Injectable()
@@ -27,13 +24,10 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> getController() async {
     try {
-      final controller = states.controller ?? getAdsController(status: 1);
-      updateState((state) => state.copyWith(controller: controller));
-    } on DioException catch (e, stackTrace) {
+      final controller = states.pagingController ?? getAdsController(status: 1);
+      updateState((state) => state.copyWith(pagingController: controller));
+    } catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
-      display.error(e.toString());
-    } finally {
-      log.i(states.controller);
     }
   }
 
@@ -44,22 +38,23 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       firstPageKey: 1,
       invisibleItemsThreshold: 100,
     );
-    log.i(states.controller);
 
     adController.addPageRequestListener(
       (pageKey) async {
-        final adsList = await userAdRepository.getUserAds(
-          limit: 20,
-          page: pageKey,
-          userAdStatus: states.userAdStatus,
-        );
-        if (adsList.length <= 19) {
-          adController.appendLastPage(adsList);
-          log.i(states.controller);
-          return;
+        try {
+          final adsList = await userAdRepository.getUserAds(
+            limit: 20,
+            page: pageKey,
+            userAdStatus: states.userAdStatus,
+          );
+          if (adsList.length < 20) {
+            adController.appendLastPage(adsList);
+            return;
+          }
+          adController.appendPage(adsList, pageKey + 1);
+        } catch (error) {
+          adController.error = error;
         }
-        adController.appendPage(adsList, pageKey + 1);
-        log.i(states.controller);
       },
     );
     return adController;

@@ -41,7 +41,7 @@ class UserAdsPage extends BasePage<PageCubit, PageState, PageEvent> {
         shrinkWrap: true,
         addAutomaticKeepAlives: true,
         physics: BouncingScrollPhysics(),
-        pagingController: state.controller!,
+        pagingController: state.pagingController!,
         padding: EdgeInsets.only(top: 12, bottom: 12),
         builderDelegate: PagedChildBuilderDelegate<UserAdResponse>(
           firstPageErrorIndicatorBuilder: (_) {
