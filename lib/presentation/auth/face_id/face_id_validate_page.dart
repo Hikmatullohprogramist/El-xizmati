@@ -18,8 +18,8 @@ import '../../../common/widgets/switch/custom_toggle.dart';
 import '../../../common/widgets/text_field/common_text_field.dart';
 
 @RoutePage()
-class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
-  FaceIdPage({super.key});
+class FaceIdValidatePage extends BasePage<PageCubit, PageState, PageEvent> {
+  FaceIdValidatePage({super.key});
 
   final bioDocNumberController = TextEditingController();
   final bioDocSerialController = TextEditingController();
@@ -30,7 +30,7 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
     switch (event.type) {
       case PageEventType.onVerificationSuccess:
         context.router.push(
-          FaceDetectorRoute(secretKey: cubit(context).states.secretKey),
+          FaceIdIdentityRoute(secretKey: cubit(context).states.secretKey),
         );
       case PageEventType.onBioDocNotFound:
         context.showErrorBottomSheet(
@@ -42,7 +42,7 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
         context.showErrorBottomSheet(
           context,
           Strings.loadingStateError,
-         Strings.faceIdPinflNotFound,
+          Strings.faceIdPinflNotFound,
         );
     }
   }
@@ -214,10 +214,7 @@ class FaceIdPage extends BasePage<PageCubit, PageState, PageEvent> {
                       SizedBox(
                         width: 10,
                       ),
-                      state.birthDate
-                          .w(500)
-                          .s(16)
-                          .c(Color(0xFF9EABBE)),
+                      state.birthDate.w(500).s(16).c(Color(0xFF9EABBE)),
                     ],
                   ),
                 ),

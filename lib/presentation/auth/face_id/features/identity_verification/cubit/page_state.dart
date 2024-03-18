@@ -1,4 +1,3 @@
-
 part of 'page_cubit.dart';
 
 @freezed
@@ -10,7 +9,6 @@ class PageState with _$PageState {
     @Default(<CameraDescription>[]) List<CameraDescription> cameras,
     CameraController? cameraController,
     @Default("") String secretKey,
-
   }) = _PageState;
 }
 
@@ -18,5 +16,5 @@ class PageState with _$PageState {
 class PageEvent with _$PageEvent {
   const factory PageEvent(PageEventType type) = _PageEvent;
 }
-enum PageEventType { navigationHome,error}
 
+enum PageEventType { onSuccess, onFailure }

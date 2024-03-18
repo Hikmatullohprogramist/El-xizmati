@@ -13,7 +13,6 @@ import 'package:onlinebozor/common/enum/enums.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/bottom_sheet/botton_sheet_for_result.dart';
 import 'package:onlinebozor/common/widgets/camera/camera_selfi_painter.dart';
-import 'package:onlinebozor/presentation/auth/face_id/features/face_detector/cubit/page_cubit.dart';
 
 import '../../../../../common/colors/static_colors.dart';
 import '../../../../../common/core/base_page.dart';
@@ -21,10 +20,11 @@ import '../../../../../common/gen/localization/strings.dart';
 import '../../../../../common/router/app_router.dart';
 import '../../../../../common/widgets/app_bar/default_app_bar.dart';
 import '../../../../../common/widgets/button/custom_elevated_button.dart';
+import 'cubit/page_cubit.dart';
 
 @RoutePage()
-class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
-  const FaceDetectorPage(
+class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
+  const FaceIdIdentityPage(
     this.secretKey, {
     super.key,
   });
@@ -39,9 +39,9 @@ class FaceDetectorPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   void onEventEmitted(BuildContext context, PageEvent event) {
     switch (event.type) {
-      case PageEventType.navigationHome:
+      case PageEventType.onSuccess:
         context.router.replace(HomeRoute());
-      case PageEventType.error:
+      case PageEventType.onFailure:
         context.showErrorBottomSheet(context, Strings.loadingStateError,
             Strings.faceIdIdentityNotVerified);
     }

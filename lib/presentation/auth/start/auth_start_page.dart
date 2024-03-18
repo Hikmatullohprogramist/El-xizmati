@@ -84,7 +84,7 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
               CustomOutlinedButton(
                 text: Strings.authStartLoginWithFaceId,
                 onPressed: () {
-                 context.router.push(FaceIdRoute());
+                 context.router.push(FaceIdValidateRoute());
                 },
                 strokeColor: context.colors.borderColor,
                 rightIcon: Assets.images.icFaceId.svg(),
