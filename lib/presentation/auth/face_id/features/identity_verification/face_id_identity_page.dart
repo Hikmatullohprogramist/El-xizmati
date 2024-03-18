@@ -62,9 +62,8 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
           painter: CameraSelfiePainter(),
         ),
         _buildFaceDetectorConstruction(context),
-        checkActionButton(context, state),
-        _buildConditionalWidget(
-            state.introState, _buildFaceDetectorIntroPage(context))
+        _buildActionButton(context, state),
+        _buildConditionalWidget(state.introState, _buildIntroWidget(context))
       ],
     );
   }
@@ -72,7 +71,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget _buildConditionalWidget(bool condition, Widget widget) =>
       condition ? widget : SizedBox.shrink();
 
-  Widget _buildFaceDetectorIntroPage(BuildContext context) {
+  Widget _buildIntroWidget(BuildContext context) {
     return Scaffold(
       appBar: DefaultAppBar("Face-ID", () => context.router.pop()),
       body: Padding(
@@ -245,7 +244,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget checkActionButton(BuildContext context, PageState state) {
+  Widget _buildActionButton(BuildContext context, PageState state) {
     return Positioned(
       bottom: 60,
       left: 10,
