@@ -363,6 +363,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> removeActiveDevice(ActiveSession session) async {
     try {
       await _userRepository.removeActiveResponse(session);
+      states.controller?.itemList?.remove(session);
+      states.controller?.notifyListeners();
     } catch (error) {
       log.e(error.toString());
     }

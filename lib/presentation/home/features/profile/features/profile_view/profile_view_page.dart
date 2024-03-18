@@ -92,7 +92,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                       SizedBox(height: 12),
                       _buildNotificationBlock(context, state),
                       SizedBox(height: 12),
-                      _buildSocialBlock(context),
+                      _buildSocialBlock(context, state),
                       SizedBox(height: 12),
                       _buildActiveDeviceBlock(context, state),
                       SizedBox(
@@ -343,7 +343,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                 borderRadius: BorderRadius.circular(10),
               ),
               side: BorderSide(
-                  color: cubit(context).states.actualSmsState
+                  color: state.actualSmsState
                       ? Color(0xFF5C6AC4)
                       : Color(0xFFAEB2CD)),
             ),
@@ -367,12 +367,9 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                     .w(600)
                     .s(14)
                     .c(Color(0xFF41455E)),
-                Expanded(
-                    child: SizedBox(
-                      height: 1,
-                    )),
+                Expanded(child: SizedBox(height: 1)),
                 CustomSwitch(
-                  isChecked: cubit(context).states.actualSmsState,
+                  isChecked: state.actualSmsState,
                   onChanged: (value) {
                     cubit(context).changeSmsNotificationState();
                   },
@@ -387,7 +384,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
               side: BorderSide(
-                  color: cubit(context).states.actualEmailState
+                  color: state.actualEmailState
                       ? Color(0xFF5C6AC4)
                       : Color(0xFFAEB2CD)),
             ),
@@ -412,12 +409,9 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                     .w(600)
                     .s(14)
                     .c(Color(0xFF41455E)),
-                Expanded(
-                    child: SizedBox(
-                      height: 1,
-                    )),
+                Expanded(child: SizedBox(height: 1)),
                 CustomSwitch(
-                  isChecked: cubit(context).states.actualEmailState,
+                  isChecked: state.actualEmailState,
                   onChanged: (value) {
                     cubit(context).changeEmailNotificationState();
                   },
@@ -433,7 +427,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                 borderRadius: BorderRadius.circular(10),
               ),
               side: BorderSide(
-                  color: cubit(context).states.actualTelegramState
+                  color: state.actualTelegramState
                       ? Color(0xFF5C6AC4)
                       : Color(0xFFAEB2CD)),
             ),
@@ -449,12 +443,9 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                     .w(600)
                     .s(14)
                     .c(Color(0xFF41455E)),
-                Expanded(
-                    child: SizedBox(
-                      height: 1,
-                    )),
+                Expanded(child: SizedBox(height: 1)),
                 CustomSwitch(
-                  isChecked: cubit(context).states.actualTelegramState,
+                  isChecked: state.actualTelegramState,
                   onChanged: (value) {
                     cubit(context).changeTelegramNotificationState();
                   },
@@ -471,10 +462,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                     fontWeight: FontWeight.w400,
                     fontSize: 12,
                     color: Color(0xFF9EABBE))),
-            WidgetSpan(
-                child: SizedBox(
-                  width: 5,
-                )),
+            WidgetSpan(child: SizedBox(width: 5)),
             TextSpan(
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
@@ -504,15 +492,15 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildSocialBlock(BuildContext context) {
+  Widget _buildSocialBlock(BuildContext context, PageState state) {
     TextEditingController instagramController = TextEditingController();
     TextEditingController telegramController = TextEditingController();
     TextEditingController facebookController = TextEditingController();
     TextEditingController youtubeController = TextEditingController();
-    instagramController.text = cubit(context).states.instagramInfo?.link ?? "";
-    telegramController.text = cubit(context).states.telegramInfo?.link ?? "";
-    facebookController.text = cubit(context).states.facebookInfo?.link ?? "";
-    youtubeController.text = cubit(context).states.youtubeInfo?.link ?? "";
+    instagramController.text = state.instagramInfo?.link ?? "";
+    telegramController.text = state.telegramInfo?.link ?? "";
+    facebookController.text = state.facebookInfo?.link ?? "";
+    youtubeController.text = state.youtubeInfo?.link ?? "";
 
     instagramController.selection = TextSelection.fromPosition(
       TextPosition(offset: instagramController.text.length),
@@ -551,8 +539,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     side: BorderSide(
-                        color: cubit(context).states.instagramInfo?.status ==
-                            "WAIT"
+                        color: state.instagramInfo?.status == "WAIT"
                             ? Color(0xFF5C6AC4)
                             : Color(0xFFAEB2CD)),
                   ),
@@ -570,9 +557,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                             color: Color(0xFF5C6AC3)),
                         child: Center(
                             child: Image(
-                              image: AssetImage(
-                                  'assets/images/png_images/instagram.png'),
-                            )),
+                              image: AssetImage('assets/images/png_images/instagram.png'))),
                       ),
                       SizedBox(width: 16),
                       Expanded(
@@ -583,7 +568,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                               border: InputBorder.none,
                               hintText: "https://www.instagram.com/"),
                           onChanged: (value) {
-                            cubit(context).states.instagramInfo?.link = value;
+                            state.instagramInfo?.link = value;
                           },
                         ),
                       ),
@@ -592,8 +577,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                       ),
                       CustomSwitch(
                         isChecked:
-                        cubit(context).states.instagramInfo?.status ==
-                            "WAIT",
+                        state.instagramInfo?.status == "WAIT",
                         onChanged: (value) {
                           // cubit(context).setSmsNotification();
                           cubit(context).setInstagramSocial("");
@@ -642,7 +626,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                     ),
                     side: BorderSide(
                         color:
-                        cubit(context).states.telegramInfo?.status == "WAIT"
+                        state.telegramInfo?.status == "WAIT"
                             ? Color(0xFF5C6AC4)
                             : Color(0xFFAEB2CD)),
                   ),
@@ -663,7 +647,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                         child: Center(
                             child: Image(
                               image: AssetImage(
-                                  'assets/images/png_images/telegramm.png'),
+                                  'assets/images/png_images/telegramm.png')
                             )),
                       ),
                       SizedBox(width: 16),
@@ -675,7 +659,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                               border: InputBorder.none,
                               hintText: "https://www.instagram.com/"),
                           onChanged: (value) {
-                            cubit(context).states.telegramInfo?.link = value;
+                            state.telegramInfo?.link = value;
                           },
                         ),
                       ),
@@ -683,7 +667,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                         width: 10,
                       ),
                       CustomSwitch(
-                        isChecked: cubit(context).states.telegramInfo?.status ==
+                        isChecked: state.telegramInfo?.status ==
                             "WAIT",
                         onChanged: (value) {
                           cubit(context).setTelegramSocial("");
@@ -736,7 +720,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                     ),
                     side: BorderSide(
                         color:
-                        cubit(context).states.facebookInfo?.status == "WAIT"
+                        state.facebookInfo?.status == "WAIT"
                             ? Color(0xFF5C6AC4)
                             : Color(0xFFAEB2CD)),
                   ),
@@ -761,7 +745,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                               border: InputBorder.none,
                               hintText: "https://www.instagram.com/"),
                           onChanged: (value) {
-                            cubit(context).states.facebookInfo?.link = value;
+                            state.facebookInfo?.link = value;
                           },
                         ),
                       ),
@@ -769,7 +753,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                         width: 10,
                       ),
                       CustomSwitch(
-                        isChecked: cubit(context).states.facebookInfo?.status ==
+                        isChecked: state.facebookInfo?.status ==
                             "WAIT",
                         onChanged: (value) {
                           cubit(context).setFacebookSocial("");
@@ -818,7 +802,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                     ),
                     side: BorderSide(
                         color:
-                        cubit(context).states.youtubeInfo?.status == "WAIT"
+                        state.youtubeInfo?.status == "WAIT"
                             ? Color(0xFF5C6AC4)
                             : Color(0xFFAEB2CD)),
                   ),
@@ -839,7 +823,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                         child: Center(
                             child: Image(
                               image: AssetImage(
-                                  'assets/images/png_images/youtube.png'),
+                                  'assets/images/png_images/youtube.png')
                             )),
                       ),
                       SizedBox(width: 16),
@@ -851,7 +835,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                               border: InputBorder.none,
                               hintText: "https://www.instagram.com/"),
                           onChanged: (value) {
-                            cubit(context).states.youtubeInfo?.link = value;
+                            state.youtubeInfo?.link = value;
                           },
                         ),
                       ),
@@ -860,7 +844,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                       ),
                       CustomSwitch(
                         isChecked:
-                        cubit(context).states.youtubeInfo?.status == "WAIT",
+                        state.youtubeInfo?.status == "WAIT",
                         onChanged: (value) {
                           cubit(context).setYoutubeSocial("");
                           vibrateAsHapticFeedback();
@@ -905,8 +889,8 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 15),
           CustomElevatedButton(
             text: Strings.commonSaveChanges,
-            isEnabled: cubit(context).states.instagramInfo != null,
-            isLoading: cubit(context).states.isUpdatingSocialInfo,
+            isEnabled: state.instagramInfo != null,
+            isLoading: state.isUpdatingSocialInfo,
             onPressed: () async {
               await cubit(context).updateSocialAccountInfo();
             },
