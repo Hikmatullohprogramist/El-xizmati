@@ -195,40 +195,40 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
                 padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
                 child: InkWell(
                   onTap: () {
-                  // showModalBottomSheet(
-                  //     shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.circular(10.0),
-                  //     ),
-                  //     backgroundColor: Colors.white,
-                  //     context: context,
-                  //     builder: (BuildContext buildContext) {
-                  //       return Container(
-                  //         decoration: BoxDecoration(
-                  //           color: Colors.white,
-                  //           borderRadius: BorderRadius.only(
-                  //             topLeft: Radius.circular(20.0),
-                  //             topRight: Radius.circular(20.0),
-                  //           ),
-                  //         ),
-                  //         height: double.infinity,
-                  //         child: ListView.builder(
-                  //             physics: BouncingScrollPhysics(),
-                  //             itemCount: state.regions.length,
-                  //             itemBuilder:
-                  //                 (BuildContext buildContext, int index) {
-                  //               return InkWell(
-                  //                   onTap: () {
-                  //                    // context.read<PageCubit>().setRegion(state.regions[index]);
-                  //                     cubit(context).setRegion(state.regions[index]);
-                  //                     Navigator.pop(buildContext);
-                  //                   },
-                  //                   child: Padding(
-                  //                     padding: EdgeInsets.all(16),
-                  //                     child: state.regions[index].name.w(500),
-                  //                   ));
-                  //             }),
-                  //       );
-                  //     });
+                   showModalBottomSheet(
+                       shape: RoundedRectangleBorder(
+                         borderRadius: BorderRadius.circular(10.0),
+                       ),
+                       backgroundColor: Colors.white,
+                       context: context,
+                       builder: (BuildContext buildContext) {
+                         return Container(
+                           decoration: BoxDecoration(
+                             color: Colors.white,
+                             borderRadius: BorderRadius.only(
+                               topLeft: Radius.circular(20.0),
+                               topRight: Radius.circular(20.0),
+                             ),
+                           ),
+                           height: double.infinity,
+                           child: ListView.builder(
+                               physics: BouncingScrollPhysics(),
+                               itemCount: state.regions.length,
+                               itemBuilder:
+                                   (BuildContext buildContext, int index) {
+                                 return InkWell(
+                                     onTap: () {
+                                      // context.read<PageCubit>().setRegion(state.regions[index]);
+                                       cubit(context).setRegion(state.regions[index]);
+                                       Navigator.pop(buildContext);
+                                     },
+                                     child: Padding(
+                                       padding: EdgeInsets.all(16),
+                                       child: state.regions[index].name.w(500),
+                                     ));
+                               }),
+                         );
+                       });
                   },
                   child: CommonTextField(
                     hint: Strings.profileEditRegion,
@@ -248,41 +248,41 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
                 padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
                 child: InkWell(
                   onTap: () {
-                  // showModalBottomSheet(
-                  //     shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.circular(10.0),
-                  //     ),
-                  //     backgroundColor: Colors.white,
-                  //     context: context,
-                  //     builder: (BuildContext buildContext) {
-                  //       return Container(
-                  //         decoration: BoxDecoration(
-                  //           color: Colors.white,
-                  //           borderRadius: BorderRadius.only(
-                  //             topLeft: Radius.circular(20.0),
-                  //             topRight: Radius.circular(20.0),
-                  //           ),
-                  //         ),
-                  //         height: double.infinity,
-                  //         child: ListView.builder(
-                  //             physics: BouncingScrollPhysics(),
-                  //             itemCount: state.districts.length,
-                  //             itemBuilder:
-                  //                 (BuildContext buildContext, int index) {
-                  //               return InkWell(
-                  //                   onTap: () {
-                  //                     cubit(context).setDistrict(
-                  //                         state.districts[index]);
-                  //                     Navigator.pop(buildContext);
-                  //                   },
-                  //                   child: Padding(
-                  //                     padding: EdgeInsets.all(16),
-                  //                     child:
-                  //                         state.districts[index].name.w(500),
-                  //                   ));
-                  //             }),
-                  //       );
-                  //     });
+                   showModalBottomSheet(
+                       shape: RoundedRectangleBorder(
+                         borderRadius: BorderRadius.circular(10.0),
+                       ),
+                       backgroundColor: Colors.white,
+                       context: context,
+                       builder: (BuildContext buildContext) {
+                         return Container(
+                           decoration: BoxDecoration(
+                             color: Colors.white,
+                             borderRadius: BorderRadius.only(
+                               topLeft: Radius.circular(20.0),
+                               topRight: Radius.circular(20.0),
+                             ),
+                           ),
+                           height: double.infinity,
+                           child: ListView.builder(
+                               physics: BouncingScrollPhysics(),
+                               itemCount: state.districts.length,
+                               itemBuilder:
+                                   (BuildContext buildContext, int index) {
+                                 return InkWell(
+                                     onTap: () {
+                                       cubit(context).setDistrict(
+                                           state.districts[index]);
+                                       Navigator.pop(buildContext);
+                                     },
+                                     child: Padding(
+                                       padding: EdgeInsets.all(16),
+                                       child:
+                                           state.districts[index].name.w(500),
+                                     ));
+                               }),
+                         );
+                       });
                   },
                   child: CommonTextField(
                       hint: Strings.profileEditDistrict,

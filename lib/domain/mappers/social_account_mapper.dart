@@ -7,7 +7,7 @@ extension SocialAccountInfoResponseExtension on SocialAccountInfoResponse {
     return SocialAccountInfo(
       id: id ?? 0,
       type: type ?? "",
-      link: link ?? "",
+      link: link ?? "https://www",
       status: status ?? "",
       isLink: is_link ?? link?.isNotEmpty == true,
       tin: tin ?? 0,

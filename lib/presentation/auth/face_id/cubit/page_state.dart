@@ -6,7 +6,7 @@ class PageState with _$PageState {
     @Default(true) bool isFaceIdByPinflEnabled,
     @Default(false) bool isAllDataValid,
     @Default(false) bool isRequestInProcess,
-    @Default("dd.MM.yyyy") String birthDate,
+    @Default("dd.mm.yyyy") String birthDate,
     @Default("") String bioDocSerial,
     @Default("") String bioDocNumber,
     @Default("") String pinfl,

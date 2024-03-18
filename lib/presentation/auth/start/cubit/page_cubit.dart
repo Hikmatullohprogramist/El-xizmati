@@ -45,4 +45,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       updateState((state) => state.copyWith(loading: false));
     }
   }
+  void setOriflameCheckBox(value){
+    updateState((state) => state.copyWith(oriflameCheckBox:value ));
+  }
 }

@@ -74,6 +74,24 @@ class UserService {
     return response;
   }
 
+  Future<Response> checkAvailableNumber({
+    required String birthDate,
+    required String bioDocNumber,
+    required String bioDocSeries,
+    required String phoneNumber,
+  }) async {
+    final data = {
+      RestQueryKeys.brithDate: birthDate,
+      RestQueryKeys.passportNumber: bioDocNumber,
+      RestQueryKeys.passportSerial: bioDocSeries,
+      RestQueryKeys.phoneNumber:phoneNumber,
+    };
+    final response = await _dio.post("api/v2/user/profile",
+        data: data);
+    return response;
+  }
+
+
   Future<Response> getRegionAndDistricts() async {
     final response = await _dio.get("api/mobile/v1/regions-districts");
     return response;
@@ -121,18 +139,18 @@ class UserService {
   }
 
   Future<Response> updateSocialAccountInfo({
-    required List<SocialAccountInfo> socials,
+    required List<SocialAccountInfo?> socials,
   }) async {
     final Map<String, dynamic> data = {
       'socials': socials
           .map((element) => {
-                RestQueryKeys.socialId: element.id,
-                RestQueryKeys.socialIsLink: element.isLink,
-                RestQueryKeys.socialLink: element.link,
-                RestQueryKeys.socialStatus: element.status,
-                RestQueryKeys.socialTin: element.tin,
-                RestQueryKeys.socialType: element.type,
-                RestQueryKeys.socialViewNote: element.viewNote,
+                RestQueryKeys.socialId: element?.id,
+                RestQueryKeys.socialIsLink: element?.isLink,
+                RestQueryKeys.socialLink: element?.link,
+                RestQueryKeys.socialStatus: element?.status,
+                RestQueryKeys.socialTin: element?.tin,
+                RestQueryKeys.socialType: element?.type,
+                RestQueryKeys.socialViewNote: element?.viewNote,
               })
           .toList()
     };

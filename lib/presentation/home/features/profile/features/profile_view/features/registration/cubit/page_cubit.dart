@@ -1,12 +1,16 @@
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
+import 'package:onlinebozor/data/responses/profile/biometric_info/biometric_info_response.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/region/region.dart';
 
 import '../../../../../../../../../common/core/base_cubit.dart';
 import '../../../../../../../../../data/repositories/user_repository.dart';
+import '../../../../../../../../../data/responses/profile/user_full/user_full_info_response.dart';
 import '../../../../../../../../../domain/models/street/street.dart';
+import '../../../../../../../../ad/ad_list/cubit/page_cubit.dart';
 
 part 'page_cubit.freezed.dart';
 
@@ -14,9 +18,10 @@ part 'page_state.dart';
 
 @Injectable()
 class PageCubit extends BaseCubit<PageState, PageEvent> {
-  PageCubit(this.repository) : super(const PageState()){
-    getUserInformation();
-    getUser();
+  PageCubit(this.repository) : super(const PageState()) {
+    // getUserInformation();
+    getUserNumber();
+    getField();
   }
 
   final UserRepository repository;
@@ -26,7 +31,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     await Future.wait([
       getRegions(),
       getDistrict(),
-     // getStreets(),
+      // getStreets(),
     ]);
   }
 
@@ -63,6 +68,17 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       display.error(Strings.profileEditUnfullInformation);
     }
   }
+
+  Future<void> getUserNumber() async {
+    try {
+      final response = await repository.getFullUserInfo();
+      log.w(response.passport_number.toString());
+    } on DioException catch (e) {
+      display.error(e.toString());
+    }
+  }
+
+
 
   Future<void> getUserInformation() async {
     try {
@@ -140,6 +156,47 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
+  Future<void> checkAvailableNumber() async {
+    BiometricInfoRootResponse response;
+    updateState((state) => state.copyWith(isLoading: true));
+    try {
+        response = await repository.checkAvailableNumber(
+          phoneNumber: "998${states.phoneNumber}",
+          biometricSerial: states.biometricSerial.trim(),
+          biometricNumber: states.biometricNumber.trim(),
+          brithDate: states.brithDate.trim());
+          resultBottomSheet(response);
+
+
+
+    } catch (e) {
+      emitEvent(PageEvent(PageEventType.notFound));
+      display.error(e.toString());
+    }
+    finally {
+      updateState((state) => state.copyWith(isLoading:false));
+    }
+  }
+
+  void resultBottomSheet(BiometricInfoRootResponse response){
+     if(response.data.status=="REJECTED"){
+       emitEvent(PageEvent(PageEventType.rejected));
+     }
+     if(response.data.status=="ACCEPTED"){
+       emitEvent(PageEvent(PageEventType.success));
+       updateState((state) => state.copyWith(
+         isRegistration: true,
+         districtId:response.data.passportInfo?.district_id,
+         fullName: response.data.passportInfo?.full_name??"",
+         regionName: states.regions.where((element) => element.id==response.data.passportInfo?.region_id,).first.name,
+         districtName:states.districts.where((element) => element.id==response.data.passportInfo?.district_id,).first.name,
+       ));
+       getNeighborhoods();
+     }
+
+
+  }
+
   void setRegion(Region region) {
     updateState((state) => states.copyWith(
           regionId: region.id,
@@ -164,9 +221,9 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   void setStreet(Neighborhood neighborhood) {
     updateState((state) => states.copyWith(
-      neighborhoodId: neighborhood.id,
-      neighborhoodName: neighborhood.name,
-    ));
+          neighborhoodId: neighborhood.id,
+          neighborhoodName: neighborhood.name,
+        ));
   }
 
   void setNeighborhood(Neighborhood neighborhood) {
@@ -178,53 +235,50 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> getRegions() async {
     final response = await repository.getRegions();
-    final regionList =
-    response.where((element) => element.id == states.regionId);
-    if (regionList.isNotEmpty) {
-      updateState((state) => states.copyWith(
-          regions: response,
-          regionName: regionList.first.name,
-          isLoading: false));
-    } else {
-      updateState((state) => states.copyWith(regionName: "", isLoading: false));
-    }
+    updateState((state) =>
+        states.copyWith(regions: response, regionName: "", isLoading: false));
   }
 
   Future<void> getDistrict() async {
     final regionId = states.regionId;
     final response = await repository.getDistricts(regionId ?? 14);
-    if (states.districtId != null) {
-      updateState((state) => states.copyWith(
-        districts: response,
-        districtName: response
-            .where((element) => element.id == states.districtId)
-            .first
-            .name,
-      ));
-    } else {
-      updateState((state) => states.copyWith(districts: response));
-    }
+    updateState((state) => states.copyWith(districts: response));
+    // if (states.districtId != null) {
+    //   updateState((state) => states.copyWith(
+    //     districts: response,
+    //     districtName: response
+    //         .where((element) => element.id == states.districtId)
+    //         .first
+    //         .name,
+    //   ));
+    // } else {
+    //   updateState((state) => states.copyWith(districts: response));
+    // }
   }
 
   Future<void> getNeighborhoods() async {
     try {
       final districtId = states.districtId!;
       final neighborhoods = await repository.getNeighborhoods(districtId);
-      if (states.neighborhoodId != null) {
-        updateState((state) => states.copyWith(
-              neighborhoods: neighborhoods,
-              neighborhoodName: neighborhoods
-                  .where((e) => e.id == states.neighborhoodId)
-                  .first
-                  .name,
-              isLoading: false,
-            ));
-      } else {
-        updateState((state) => states.copyWith(
-              neighborhoods: neighborhoods,
-              isLoading: false,
-            ));
-      }
+      updateState((state) => states.copyWith(
+            neighborhoods: neighborhoods,
+            isLoading: false,
+          ));
+      //  if (states.neighborhoodId != null) {
+      //    updateState((state) => states.copyWith(
+      //          neighborhoods: neighborhoods,
+      //          neighborhoodName: neighborhoods
+      //              .where((e) => e.id == states.neighborhoodId)
+      //              .first
+      //              .name,
+      //          isLoading: false,
+      //        ));
+      //  } else {
+      //    updateState((state) => states.copyWith(
+      //          neighborhoods: neighborhoods,
+      //          isLoading: false,
+      //        ));
+      //  }
     } catch (e) {
       updateState((state) => states.copyWith(isLoading: false));
     }

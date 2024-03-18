@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
 import '../../gen/localization/strings.dart';
 import '../../vibrator/vibrator_extension.dart';
+import '../button/custom_elevated_button.dart';
 import '../button/custom_outlined_button.dart';
 
 extension ShowResultButtomSheet on BuildContext {
@@ -58,6 +60,7 @@ extension ShowResultButtomSheet on BuildContext {
       },
     );
   }
+
   void showErrorBottomSheet(BuildContext context,String title,String description) {
     showModalBottomSheet(
       context: context,
@@ -99,19 +102,15 @@ extension ShowResultButtomSheet on BuildContext {
                   fontWeight: FontWeight.w500,
                   fontSize: 16),),
               SizedBox(height: 32),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal:120),
-                child: CustomOutlinedButton(
-                  text: Strings.closeTitle,
-                  strokeColor: Colors.red,
-                  onPressed: () {
-                    // cubit(context).logOut();
-                    Navigator.pop(context);
-                    vibrateAsHapticFeedback();
-                  },
-                ),
+              CustomElevatedButton(
+                text: Strings.closeTitle,
+                onPressed: () {
+                  Navigator.pop(context);
+                  vibrateAsHapticFeedback();
+                },
+                backgroundColor: context.colors.buttonPrimary,
               ),
-              SizedBox(height: 24),
+              SizedBox(height:10),
             ],
           ),
         );

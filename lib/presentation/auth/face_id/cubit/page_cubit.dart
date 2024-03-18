@@ -89,6 +89,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
+
   bool enableButtonPinfl() {
     if (states.pinfl.length == 14) {
       return true;
