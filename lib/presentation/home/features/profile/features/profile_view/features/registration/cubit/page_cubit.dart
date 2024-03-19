@@ -31,9 +31,96 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     await Future.wait([
       getRegions(),
       getDistrict(),
-      // getStreets(),
     ]);
   }
+///
+  Future<void> validateWithBioDocs() async {
+    BiometricInfoRootResponse response;
+    updateState((state) => state.copyWith(isLoading: true));
+    try {
+      response = await repository.validateWithBioDocs(
+        phoneNumber: "998${states.phoneNumber}",
+        biometricSerial: states.biometricSerial.trim(),
+        biometricNumber: states.biometricNumber.trim(),
+        brithDate: states.brithDate.trim(),
+      );
+      validateBioDocsResultBottomSheet(response);
+    } catch (e) {
+      emitEvent(PageEvent(PageEventType.notFound));
+      display.error(e.toString());
+    }
+    finally {
+      updateState((state) => state.copyWith(isLoading: false));
+    }
+  }
+
+  Future<void> validateUser() async {
+    BiometricInfoRootResponse response;
+    try {
+      var response = await repository.validateUser(
+          birthDate:states.brithDate,
+          districtId: states.districtId??0,
+          email: states.email,
+          fullName: states.fullName,
+          gender: states.gender??"",
+          homeName: states.apartmentNumber,
+          id: states.id??0,
+          mahallaId: states.neighborhoodId??0,
+          mobilePhone:states.phoneNumber,
+          passportNumber: states.biometricNumber,
+          passportSeries: states.biometricSerial,
+          phoneNumber: states.phoneNumber,
+          photo: "",
+          pinfl: states.pinfl??0,
+          postName: "",
+          region_Id:states.regionId??0
+      );
+
+    } catch (e) {
+      emitEvent(PageEvent(PageEventType.notFound));
+      display.error(e.toString());
+    }
+    finally {
+      updateState((state) => state.copyWith(isLoading: false));
+    }
+  }
+
+  bool saveEnableButton() {
+    if (states.neighborhoodName.isNotEmpty &&
+        states.apartmentNumber.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void validateBioDocsResultBottomSheet(BiometricInfoRootResponse response) {
+    if (response.data.status == "REJECTED") {
+      emitEvent(PageEvent(PageEventType.rejected));
+    }
+    if (response.data.status == "ACCEPTED") {
+      emitEvent(PageEvent(PageEventType.success));
+      updateState((state) =>
+          state.copyWith(
+              isRegistration: true,
+              districtId: response.data.passportInfo?.district_id,
+              fullName: response.data.passportInfo?.full_name ?? "",
+              regionName: states.regions.where((element) =>
+              element.id == response.data.passportInfo?.region_id,).first.name,
+              districtName: states.districts.where((element) => element.id == response.data.passportInfo?.district_id,)
+                  .first
+                  .name,
+              gender: response.data.passportInfo?.gender??"",
+              pinfl:response.data.passportInfo?.pinfl,
+              id: response.data.passportInfo?.tin,
+              regionId:response.data.passportInfo?.region_id
+
+          ));
+      getNeighborhoods();
+    }
+  }
+
+  ///
 
   void setBiometricSerial(String serial) {
     updateState((state) => states.copyWith(biometricSerial: serial));
@@ -49,9 +136,10 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   void setPhoneNumber(String phone) {
-    updateState((state) => states.copyWith(
-        mobileNumber: phone,
-        phoneNumber: phone.replaceAll(" ", "").replaceAll("+", "")));
+    updateState((state) =>
+        states.copyWith(
+            mobileNumber: phone,
+            phoneNumber: phone.replaceAll(" ", "").replaceAll("+", "")));
   }
 
   void setFullName(String fullName) {
@@ -79,7 +167,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
 
-
   Future<void> getUserInformation() async {
     try {
       final response = await repository.getBiometricInfo(
@@ -88,17 +175,18 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           biometricNumber: states.biometricNumber,
           brithDate: states.brithDate);
       if (response.status != "IN_PROCESS") {
-        updateState((state) => states.copyWith(
-            gender: response.passportInfo?.gender ?? "",
-            userName: response.passportInfo?.full_name ?? "",
-            biometricSerial: response.passportInfo?.series ?? "",
-            biometricNumber: response.passportInfo?.number ?? "",
-            fullName: response.passportInfo?.full_name ?? "",
-            brithDate: response.passportInfo?.birth_date ?? "",
-            regionId: response.passportInfo?.region_id,
-            districtId: response.passportInfo?.district_id,
-            pinfl: response.passportInfo?.pinfl ?? -1,
-            isRegistration: true));
+        updateState((state) =>
+            states.copyWith(
+                gender: response.passportInfo?.gender ?? "",
+                userName: response.passportInfo?.full_name ?? "",
+                biometricSerial: response.passportInfo?.series ?? "",
+                biometricNumber: response.passportInfo?.number ?? "",
+                fullName: response.passportInfo?.full_name ?? "",
+                brithDate: response.passportInfo?.birth_date ?? "",
+                regionId: response.passportInfo?.region_id,
+                districtId: response.passportInfo?.district_id,
+                pinfl: response.passportInfo?.pinfl ?? -1,
+                isRegistration: true));
       } else {
         await getUserInfo(response.secret_key ?? "", states.phoneNumber);
       }
@@ -120,7 +208,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     try {
       final response = await repository.getUserInfo(
           phoneNumber: phoneNumber, secretKey: secretKey);
-      updateState((state) => states.copyWith(
+      updateState((state) =>
+          states.copyWith(
             gender: response.userInfo.gender,
             userName: response.userInfo.full_name ?? "",
             fullName: response.userInfo.full_name ?? "",
@@ -156,49 +245,9 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  Future<void> checkAvailableNumber() async {
-    BiometricInfoRootResponse response;
-    updateState((state) => state.copyWith(isLoading: true));
-    try {
-        response = await repository.checkAvailableNumber(
-          phoneNumber: "998${states.phoneNumber}",
-          biometricSerial: states.biometricSerial.trim(),
-          biometricNumber: states.biometricNumber.trim(),
-          brithDate: states.brithDate.trim());
-          resultBottomSheet(response);
-
-
-
-    } catch (e) {
-      emitEvent(PageEvent(PageEventType.notFound));
-      display.error(e.toString());
-    }
-    finally {
-      updateState((state) => state.copyWith(isLoading:false));
-    }
-  }
-
-  void resultBottomSheet(BiometricInfoRootResponse response){
-     if(response.data.status=="REJECTED"){
-       emitEvent(PageEvent(PageEventType.rejected));
-     }
-     if(response.data.status=="ACCEPTED"){
-       emitEvent(PageEvent(PageEventType.success));
-       updateState((state) => state.copyWith(
-         isRegistration: true,
-         districtId:response.data.passportInfo?.district_id,
-         fullName: response.data.passportInfo?.full_name??"",
-         regionName: states.regions.where((element) => element.id==response.data.passportInfo?.region_id,).first.name,
-         districtName:states.districts.where((element) => element.id==response.data.passportInfo?.district_id,).first.name,
-       ));
-       getNeighborhoods();
-     }
-
-
-  }
-
   void setRegion(Region region) {
-    updateState((state) => states.copyWith(
+    updateState((state) =>
+        states.copyWith(
           regionId: region.id,
           regionName: region.name,
           districtId: null,
@@ -210,7 +259,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   void setDistrict(District district) {
-    updateState((state) => states.copyWith(
+    updateState((state) =>
+        states.copyWith(
           districtId: district.id,
           districtName: district.name,
           neighborhoodId: null,
@@ -220,14 +270,16 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   void setStreet(Neighborhood neighborhood) {
-    updateState((state) => states.copyWith(
+    updateState((state) =>
+        states.copyWith(
           neighborhoodId: neighborhood.id,
           neighborhoodName: neighborhood.name,
         ));
   }
 
   void setNeighborhood(Neighborhood neighborhood) {
-    updateState((state) => states.copyWith(
+    updateState((state) =>
+        states.copyWith(
           neighborhoodId: neighborhood.id,
           neighborhoodName: neighborhood.name,
         ));
@@ -260,7 +312,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     try {
       final districtId = states.districtId!;
       final neighborhoods = await repository.getNeighborhoods(districtId);
-      updateState((state) => states.copyWith(
+      updateState((state) =>
+          states.copyWith(
             neighborhoods: neighborhoods,
             isLoading: false,
           ));
@@ -288,8 +341,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     updateState((state) => states.copyWith(homeNumber: homeNumber));
   }
 
-  Future<void> setApartmentNumber(String homeNumber) async {
-    updateState((state) => states.copyWith(homeNumber: homeNumber));
+  Future<void> setApartmentNumber(String apartmentNumber) async {
+    updateState((state) => states.copyWith(apartmentNumber: apartmentNumber));
   }
 
   Future<void> setEmailAddress(String email) async {

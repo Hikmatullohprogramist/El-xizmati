@@ -40,8 +40,6 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
     switch(event.type){
 
       case PageEventType.success:
-        context.showErrorBottomSheet(context, Strings.loadingStateError,
-            "Davom etishingz mumkin");
 
       case PageEventType.rejected:
       context.showErrorBottomSheet(context, Strings.loadingStateError,
@@ -83,612 +81,375 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Visibility(
-               visible: !state.isRegistration,
-                child: SizedBox(height: 100,)),
-           ///title
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 16, top: 20, right: 16, bottom: 12),
-              child: "Изменить личные данные"
-                  .w(700)
-                  .s(16)
-                  .c(Color(0xFF41455E)),
+            _buildValidateBlock(context),
+           _userAddressBlock(context, state),
+           _buildContinueButton(context, state),
+
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildValidateBlock(BuildContext context){
+    return Column(
+      crossAxisAlignment:CrossAxisAlignment.start,
+      children: [
+        ///title
+        Padding(
+          padding: const EdgeInsets.only(
+              left: 16, top: 20, right: 16, bottom: 12),
+          child: "Изменить личные данные"
+              .w(700)
+              .s(16)
+              .c(Color(0xFF41455E)),
+        ),
+        ///bioDoc
+        Padding(
+            padding:
+            EdgeInsets.only(left: 16, top: 12, right: 16, bottom: 6),
+            child: Strings.profileEditBiometricInformation
+                .w(500)
+                .s(12)
+                .c(Color(0xFF41455E))),
+        Padding(
+          padding: const EdgeInsets.only(
+              right: 16, left: 16, bottom: 12, top: 6),
+          child: Row(children: [
+            SizedBox(
+              width: 60,
+              child: CommonTextField(
+                  onChanged: (value) {
+                    cubit(context).setBiometricSerial(value);
+                  },
+                  inputType: TextInputType.text,
+                  maxLength: 2,
+                  hint: "AA",
+                  textCapitalization: TextCapitalization.characters,
+                  textInputAction: TextInputAction.next),
             ),
-            ///bioDoc
-            Padding(
-                padding:
-                EdgeInsets.only(left: 16, top: 12, right: 16, bottom: 6),
-                child: Strings.profileEditBiometricInformation
-                    .w(500)
-                    .s(12)
-                    .c(Color(0xFF41455E))),
-            Padding(
-              padding: const EdgeInsets.only(
-                  right: 16, left: 16, bottom: 12, top: 6),
-              child: Row(children: [
-                SizedBox(
-                  width: 60,
-                  child: CommonTextField(
-                      onChanged: (value) {
-                        cubit(context).setBiometricSerial(value);
+            SizedBox(width: 12),
+            Flexible(
+              child: CommonTextField(
+                maxLength: 9,
+                onChanged: (value) {
+                  cubit(context).setBiometricNumber(value);
+                },
+                inputFormatters: biometricNumberMaskFormatter,
+                textInputAction: TextInputAction.next,
+                inputType: TextInputType.number,
+                hint: "0123456",
+              ),
+            ),
+          ]),
+        ),
+        ///date picker
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: Strings.profileEditBrithDate
+              .w(500)
+              .s(12)
+              .c(Color(0xFF41455E)),
+        ),
+        Padding(
+          padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
+          child: Stack(
+            alignment: Alignment.centerRight,
+            children: [
+              CommonTextField(
+                onChanged: (value) {
+                  cubit(context).setBrithDate(value);
+                },
+                inputType: TextInputType.number,
+                textInputAction: TextInputAction.next,
+                inputFormatters: brithMaskFormatter,
+                maxLength: 12,
+                controller:datePickerController,
+                hint: "2004-11-28",
+              ),
+              Container(
+                  margin: EdgeInsets.only(right: 15),
+                  child: InkWell(
+                      onTap: (){
+                        showDatePickerDialog(context);
                       },
-                      inputType: TextInputType.text,
-                      maxLength: 2,
-                      hint: "AA",
-                      textCapitalization: TextCapitalization.characters,
-                      textInputAction: TextInputAction.next),
-                ),
-                SizedBox(width: 12),
-                Flexible(
-                  child: CommonTextField(
-                    maxLength: 9,
-                    onChanged: (value) {
-                      cubit(context).setBiometricNumber(value);
-                    },
-                    inputFormatters: biometricNumberMaskFormatter,
-                    textInputAction: TextInputAction.next,
-                    inputType: TextInputType.number,
-                    hint: Strings.profileEditBiometricInformation,
-                  ),
-                ),
-              ]),
-            ),
-            ///date picker
+                      child: Assets.images.icCalendar.svg(height: 28, width:28))),
+            ],
+          ),
+        ),
+        /// telephone number
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: Strings.profileEditPhone.w(500).s(12).c(Color(0xFF41455E)),
+        ),
+        Padding(
+          padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
+          child: CommonTextField(
+            autofillHints: const [AutofillHints.telephoneNumber],
+            inputType: TextInputType.phone,
+            keyboardType: TextInputType.phone,
+            maxLines: 1,
+            prefixText: "+998 ",
+            enabled: false,
+            controller: TextEditingController(text: phoneNumber),
+            textInputAction: TextInputAction.next,
+            //controller: phoneController,
+            inputFormatters: phoneMaskFormatter,
+            onChanged: (value) {
+              cubit(context).setPhoneNumber(value);
+            },
+          ),
+        ),
+        Padding(
+            padding:
+            EdgeInsets.only(left: 16, top: 8, right: 16, bottom: 19),
+            child: "Укажите номер и серия паспорта, дата рождения"
+                .w(500)
+                .s(12)
+                .c(Color(0xFF41455E))),
+
+        SizedBox(height: 10),
+      ],
+    );
+  }
+
+  Widget _buildContinueButton(BuildContext context,PageState state){
+    return Visibility(
+      visible: !state.isRegistration,
+      child: Container(
+        height: 48,
+        margin: EdgeInsets.all(16),
+        width: double.infinity,
+        child: CustomElevatedButton(
+          text: Strings.commonContinue,
+          isLoading: state.isLoading,
+          onPressed: () {
+            cubit(context).validateWithBioDocs();
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _userAddressBlock(BuildContext context,PageState state){
+    return  Visibility(
+        visible: state.isRegistration,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ///   Divider
+            CustomDivider(),
+            ///FullName
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: Strings.profileEditBrithDate
+              child: Strings.profileUserName.w(500).s(12).c(Color(0xFF41455E)),
+            ),
+            Padding(
+              padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
+              child: CommonTextField(
+                controller: TextEditingController(text: state.fullName),
+                enabled: false,
+                hint: Strings.profileUserName,
+                textInputAction: TextInputAction.next,
+                onChanged: (value){
+                  cubit(context).setFullName(value);
+                },
+              ),
+            ),
+            ///email
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              child: Strings.profileUserEmail.w(500).s(12).c(Color(0xFF41455E)),
+            ),
+            Padding(
+              padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
+              child: CommonTextField(
+                hint: "example@gmail.com",
+                controller:emailController,
+                textInputAction: TextInputAction.next,
+                inputType: TextInputType.emailAddress,
+                onChanged: (value){
+                  cubit(context).setEmailAddress(value);
+                },
+              ),
+            ),
+
+            ///username
+            //   Padding(
+            //     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            //     child: "User name".w(500).s(12).c(Color(0xFF41455E)),
+            //   ),
+            //   Padding(
+            //    padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
+            //    child: CommonTextField(
+            //      hint: "User name",
+            //      textInputAction: TextInputAction.next,
+            //      onChanged: (value){
+            //        cubit(context).setFullName(value);
+            //      },
+            //    ),
+            //  ),
+
+            /// region
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: Strings.profileEditRegion.w(500).s(12).c(Color(0xFF41455E)),
+            ),
+            Padding(
+                padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
+                child: CommonTextField(
+                  hint: Strings.profileEditRegion,
+                  readOnly: true,
+                  enabled: false,
+                  controller: TextEditingController(text: state.regionName),
+                  inputType: TextInputType.text,
+                  textInputAction: TextInputAction.next,
+                )),
+            /// district
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child:
+              Strings.profileEditDistrict.w(500).s(12).c(Color(0xFF41455E)),
+            ),
+            Padding(
+                padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
+                child: CommonTextField(
+                    hint: Strings.profileEditDistrict,
+                    readOnly: true,
+                    enabled: false,
+                    controller:
+                    TextEditingController(text: state.districtName),
+                    inputType: TextInputType.text,
+                    textInputAction: TextInputAction.next)),
+            ///Neighborhood
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              child: Strings.profileEditNeighborhood
                   .w(500)
                   .s(12)
                   .c(Color(0xFF41455E)),
             ),
             Padding(
               padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-              child: Stack(
-                alignment: Alignment.centerRight,
-                children: [
-                  CommonTextField(
-                    onChanged: (value) {
-                      cubit(context).setBrithDate(value);
-                    },
-                    inputType: TextInputType.number,
+              child: InkWell(
+                  onTap: () {
+                    log(state.districtId.toString());
+                    showModalBottomSheet(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        backgroundColor: Colors.white,
+                        context: context,
+                        builder: (BuildContext buildContext) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20.0),
+                                topRight: Radius.circular(20.0),
+                              ),
+                            ),
+                            height: double.infinity,
+                            child: ListView.builder(
+                                physics: BouncingScrollPhysics(),
+                                itemCount: state.neighborhoods.length,
+                                itemBuilder: (BuildContext buildContext, int index) {
+                                  return InkWell(
+                                      onTap: () {
+                                        cubit(context).setStreet(state.neighborhoods[index]);
+                                        Navigator.pop(buildContext);
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsets.all(16),
+                                        child: state.neighborhoods[index].name.w(500),
+                                      ));
+                                }),
+                          );
+                        });
+                  },
+                  child: CommonTextField(
+                    hint: Strings.profileEditNeighborhood,
+                    readOnly: true,
+                    controller: TextEditingController(text: state.neighborhoodName),
+                    enabled: false,
                     textInputAction: TextInputAction.next,
-                    inputFormatters: brithMaskFormatter,
-                    maxLength: 12,
-                    controller:datePickerController,
-                    hint: "2004-11-28",
-                  ),
-                  Container(
-                      margin: EdgeInsets.only(right: 15),
-                      child: InkWell(
-                          onTap: (){
-                            cubit(context).checkAvailableNumber();
-                            //showDatePickerDialog(context);
-                          },
-                          child: Assets.images.icCalendar.svg(height: 28, width:28))),
+                    inputType: TextInputType.text,
+                  )),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Flexible(
+                      flex: 1,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Strings.profileEditHouse
+                              .w(500)
+                              .s(12)
+                              .c(Color(0xFF41455E)),
+                          SizedBox(height: 12),
+                          CommonTextField(
+                            textInputAction: TextInputAction.next,
+                            inputType: TextInputType.number,
+                            maxLength: 5,
+                            onChanged: (value){
+                              cubit(context).setApartmentNumber(value);
+                            },
+                          ),
+                        ],
+                      )),
+                  SizedBox(width: 16),
+                  Flexible(
+                      flex: 1,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Strings.profileEditApartment
+                              .w(500)
+                              .s(12)
+                              .c(Color(0xFF41455E)),
+                          SizedBox(height: 12),
+                          CommonTextField(
+                            textInputAction: TextInputAction.done,
+                            inputType: TextInputType.number,
+                            maxLength: 5,
+                            onChanged: (value) {
+                              cubit(context).setApartmentNumber(value);
+                            },
+                          ),
+                        ],
+                      )),
                 ],
               ),
             ),
-            /// telephone number
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: Strings.profileEditPhone.w(500).s(12).c(Color(0xFF41455E)),
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-              child: CommonTextField(
-                autofillHints: const [AutofillHints.telephoneNumber],
-                inputType: TextInputType.phone,
-                keyboardType: TextInputType.phone,
-                maxLines: 1,
-                prefixText: "+998 ",
-                enabled: false,
-                controller: TextEditingController(text: phoneNumber),
-                textInputAction: TextInputAction.next,
-                //controller: phoneController,
-                inputFormatters: phoneMaskFormatter,
-                onChanged: (value) {
-                  cubit(context).setPhoneNumber(value);
-                },
-              ),
-            ),
-            Padding(
-                padding:
-                EdgeInsets.only(left: 16, top: 8, right: 16, bottom: 19),
-                child: "Укажите номер и серия паспорта, дата рождения"
-                    .w(500)
-                    .s(12)
-                    .c(Color(0xFF41455E))),
-            ///   Divider
-            CustomDivider(),
-            SizedBox(height: 10,),
+            ///
             Visibility(
               visible: state.isRegistration,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ///FullName
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  child: Strings.profileUserName.w(500).s(12).c(Color(0xFF41455E)),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                  child: CommonTextField(
-                    controller: TextEditingController(text: state.fullName),
-                    enabled: false,
-                    hint: Strings.profileUserName,
-                    textInputAction: TextInputAction.next,
-                    onChanged: (value){
-                      cubit(context).checkAvailableNumber();
-                      cubit(context).setFullName(value);
-                    },
-                  ),
-                ),
-                ///email
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                  child: Strings.profileUserEmail.w(500).s(12).c(Color(0xFF41455E)),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                  child: CommonTextField(
-                    hint: "example@gmail.com",
-                    controller:emailController,
-                    textInputAction: TextInputAction.next,
-                    inputType: TextInputType.emailAddress,
-                    onChanged: (value){
-                      cubit(context).setEmailAddress(value);
-                    },
-                  ),
-                ),
-
-                ///username
-                //   Padding(
-                //     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                //     child: "User name".w(500).s(12).c(Color(0xFF41455E)),
-                //   ),
-                //   Padding(
-                //    padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                //    child: CommonTextField(
-                //      hint: "User name",
-                //      textInputAction: TextInputAction.next,
-                //      onChanged: (value){
-                //        cubit(context).setFullName(value);
-                //      },
-                //    ),
-                //  ),
-
-                /// region
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  child: Strings.profileEditRegion.w(500).s(12).c(Color(0xFF41455E)),
-                ),
-                Padding(
-                    padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                    child: CommonTextField(
-                      hint: Strings.profileEditRegion,
-                      readOnly: true,
-                      enabled: false,
-                      controller: TextEditingController(text: state.regionName),
-                      inputType: TextInputType.text,
-                      textInputAction: TextInputAction.next,
-                    )),
-                /// district
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  child:
-                  Strings.profileEditDistrict.w(500).s(12).c(Color(0xFF41455E)),
-                ),
-                Padding(
-                    padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                    child: CommonTextField(
-                        hint: Strings.profileEditDistrict,
-                        readOnly: true,
-                        enabled: false,
-                        controller:
-                        TextEditingController(text: state.districtName),
-                        inputType: TextInputType.text,
-                        textInputAction: TextInputAction.next)),
-                ///Neighborhood
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                  child: Strings.profileEditNeighborhood
-                      .w(500)
-                      .s(12)
-                      .c(Color(0xFF41455E)),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                  child: InkWell(
-                      onTap: () {
-                        log(state.districtId.toString());
-                        showModalBottomSheet(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            backgroundColor: Colors.white,
-                            context: context,
-                            builder: (BuildContext buildContext) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20.0),
-                                    topRight: Radius.circular(20.0),
-                                  ),
-                                ),
-                                height: double.infinity,
-                                child: ListView.builder(
-                                    physics: BouncingScrollPhysics(),
-                                    itemCount: state.neighborhoods.length,
-                                    itemBuilder: (BuildContext buildContext, int index) {
-                                      return InkWell(
-                                          onTap: () {
-                                            cubit(context).setStreet(state.neighborhoods[index]);
-                                            Navigator.pop(buildContext);
-                                          },
-                                          child: Padding(
-                                            padding: EdgeInsets.all(16),
-                                            child: state.neighborhoods[index].name.w(500),
-                                          ));
-                                    }),
-                              );
-                            });
-                      },
-                      child: CommonTextField(
-                        hint: Strings.profileEditNeighborhood,
-                        readOnly: true,
-                        controller: TextEditingController(text: state.neighborhoodName),
-                        enabled: false,
-                        textInputAction: TextInputAction.next,
-                        inputType: TextInputType.text,
-                      )),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Flexible(
-                          flex: 1,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Strings.profileEditHouse
-                                  .w(500)
-                                  .s(12)
-                                  .c(Color(0xFF41455E)),
-                              SizedBox(height: 12),
-                              CommonTextField(
-                                textInputAction: TextInputAction.next,
-                                inputType: TextInputType.number,
-                              ),
-                            ],
-                          )),
-                      SizedBox(width: 16),
-                      Flexible(
-                          flex: 1,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Strings.profileEditApartment
-                                  .w(500)
-                                  .s(12)
-                                  .c(Color(0xFF41455E)),
-                              SizedBox(height: 12),
-                              CommonTextField(
-                                textInputAction: TextInputAction.done,
-                                inputType: TextInputType.number,
-                                onChanged: (value) {},
-                              ),
-                            ],
-                          ))
-                    ],
-                  ),
-                ),
-                ///
-              ],
-            )),
-
-            Visibility(
-              visible: !state.isRegistration,
               child: Container(
                 height: 48,
                 margin: EdgeInsets.all(16),
                 width: double.infinity,
                 child: CustomElevatedButton(
-                  text: Strings.commonContinue,
+                  text: Strings.commonSave,
                   isLoading: state.isLoading,
                   onPressed: () {
-                    cubit(context).checkAvailableNumber();
+                    var result= cubit(context).saveEnableButton();
+                    if(!result){
+                      context.showErrorBottomSheet(context,Strings.loadingStateError,"Manzilingizni to'liq kiriting");
+                    }else{
+                      cubit(context).validateUser();
+                    }
                   },
                 ),
               ),
             ),
-            Visibility(
-              visible: false,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    child: Strings.profileEditUserName
-                        .w(500)
-                        .s(12)
-                        .c(Color(0xFF41455E)),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                    child: CommonTextField(
-                        readOnly: true,
-                        enabled: false,
-                        controller: TextEditingController(text: state.fullName),
-                        hint: Strings.profileEditUserName,
-                        textInputAction: TextInputAction.next),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    child: Strings.profileEditUserUsername
-                        .w(500)
-                        .s(12)
-                        .c(Color(0xFF41455E)),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                    child: CommonTextField(
-                        hint: Strings.profileEditUserUsername,
-                        readOnly: true,
-                        enabled: false,
-                        controller: TextEditingController(text: state.userName),
-                        textInputAction: TextInputAction.next,
-                        inputType: TextInputType.text),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    child: Strings.profileEditUserEmail
-                        .w(500)
-                        .s(12)
-                        .c(Color(0xFF41455E)),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                    child: CommonTextField(
-                      hint: "example@gmail.com",
-                      textInputAction: TextInputAction.next,
-                      inputType: TextInputType.emailAddress,
-                      onChanged: (value) {},
-                      controller: TextEditingController(text: state.email),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    child: Strings.profileEditRegion
-                        .w(500)
-                        .s(12)
-                        .c(Color(0xFF41455E)),
-                  ),
-                  Padding(
-                      padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                      child: InkWell(
-                        onTap: () {
-                          showModalBottomSheet(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              backgroundColor: Colors.white,
-                              context: context,
-                              builder: (BuildContext buildContext) {
-                                return Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(20.0),
-                                      topRight: Radius.circular(20.0),
-                                    ),
-                                  ),
-                                  height: double.infinity,
-                                  child: ListView.builder(
-                                      physics: BouncingScrollPhysics(),
-                                      itemCount: state.regions.length,
-                                      itemBuilder: (BuildContext buildContext,
-                                          int index) {
-                                        return InkWell(
-                                            onTap: () {
-                                              context
-                                                  .read<PageCubit>()
-                                                  .setRegion(
-                                                      state.regions[index]);
-                                              Navigator.pop(buildContext);
-                                            },
-                                            child: Padding(
-                                              padding: EdgeInsets.all(16),
-                                              child: state.regions[index].name
-                                                  .w(500),
-                                            ));
-                                      }),
-                                );
-                              });
-                        },
-                        child: CommonTextField(
-                          hint: Strings.profileEditDistrict,
-                          readOnly: true,
-                          enabled: false,
-                          controller:
-                              TextEditingController(text: state.regionName),
-                          inputType: TextInputType.text,
-                          textInputAction: TextInputAction.next,
-                        ),
-                      )),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    child: Strings.profileEditDistrict
-                        .w(500)
-                        .s(12)
-                        .c(Color(0xFF41455E)),
-                  ),
-                  Padding(
-                      padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                      child: InkWell(
-                        onTap: () {
-                          showModalBottomSheet(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              backgroundColor: Colors.white,
-                              context: context,
-                              builder: (BuildContext buildContext) {
-                                return Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(20.0),
-                                      topRight: Radius.circular(20.0),
-                                    ),
-                                  ),
-                                  height: double.infinity,
-                                  child: ListView.builder(
-                                      physics: BouncingScrollPhysics(),
-                                      itemCount: state.districts.length,
-                                      itemBuilder: (BuildContext buildContext,
-                                          int index) {
-                                        return InkWell(
-                                            onTap: () {
-                                              context
-                                                  .read<PageCubit>()
-                                                  .setDistrict(
-                                                      state.districts[index]);
-                                              Navigator.pop(buildContext);
-                                            },
-                                            child: Padding(
-                                              padding: EdgeInsets.all(16),
-                                              child: state.districts[index].name
-                                                  .w(500),
-                                            ));
-                                      }),
-                                );
-                              });
-                        },
-                        child: CommonTextField(
-                            hint: Strings.profileEditDistrict,
-                            readOnly: true,
-                            enabled: false,
-                            controller:
-                                TextEditingController(text: state.districtName),
-                            inputType: TextInputType.text,
-                            textInputAction: TextInputAction.next),
-                      )),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    child: Strings.profileEditNeighborhood
-                        .w(500)
-                        .s(12)
-                        .c(Color(0xFF41455E)),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                    child: InkWell(
-                        onTap: () {
-                          showModalBottomSheet(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              backgroundColor: Colors.white,
-                              context: context,
-                              builder: (BuildContext buildContext) {
-                                return Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(20.0),
-                                      topRight: Radius.circular(20.0),
-                                    ),
-                                  ),
-                                  height: double.infinity,
-                                  child: ListView.builder(
-                                      physics: BouncingScrollPhysics(),
-                                      itemCount: state.neighborhoods.length,
-                                      itemBuilder: (BuildContext buildContext,
-                                          int index) {
-                                        return InkWell(
-                                            onTap: () {
-                                             cubit(context)
-                                                  .setNeighborhood(
-                                                      state.neighborhoods[index]);
-                                              Navigator.pop(buildContext);
-                                            },
-                                            child: Padding(
-                                              padding: EdgeInsets.all(16),
-                                              child: state.neighborhoods[index].name
-                                                  .w(500),
-                                            ));
-                                      }),
-                                );
-                              });
-                        },
-                        child: CommonTextField(
-                          hint: Strings.profileEditNeighborhood,
-                          readOnly: true,
-                          controller:
-                              TextEditingController(text: state.neighborhoodName),
-                          enabled: false,
-                          textInputAction: TextInputAction.next,
-                          inputType: TextInputType.text,
-                        )),
-                  ),
-                  SizedBox(height: 24),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 12),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Flexible(
-                            flex: 1,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Strings.profileEditHouse
-                                    .w(500)
-                                    .s(12)
-                                    .c(Color(0xFF41455E)),
-                                SizedBox(height: 12),
-                                CommonTextField(
-                                  textInputAction: TextInputAction.next,
-                                  inputType: TextInputType.number,
-                                ),
-                              ],
-                            )),
-                        SizedBox(width: 16),
-                        Flexible(
-                          flex: 1,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Strings.profileEditApartment
-                                  .w(500)
-                                  .s(12)
-                                  .c(Color(0xFF41455E)),
-                              SizedBox(height: 12),
-                              CommonTextField(
-                                textInputAction: TextInputAction.done,
-                                inputType: TextInputType.number,
-                                onChanged: (value) {},
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
           ],
-        ),
-      ),
-    );
+        ));
   }
+
   void showDatePickerDialog(BuildContext context) {
     var parentContext = context;
     showCupertinoModalPopup(

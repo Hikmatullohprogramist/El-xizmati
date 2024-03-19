@@ -57,7 +57,7 @@ class UserService {
     required String postName,
     required String phoneNumber,
   }) async {
-    final queryParameters = {
+    final data = {
       RestQueryKeys.email: email,
       RestQueryKeys.gender: gender,
       RestQueryKeys.homeName: homeName,
@@ -69,10 +69,51 @@ class UserService {
       RestQueryKeys.pinfl: pinfl,
       RestQueryKeys.postName: postName,
     };
+    final response = await _dio.post("api/mobile/v1/user/profile",
+        queryParameters: data);
+    return response;
+  }
+  Future<Response> validateUser({
+    required String birthDate,
+    required int districtId,
+    required String email,
+    required String fullName,
+    required String gender,
+    required String homeName,
+    required int id,
+    required int mahallaId,
+    required String mobilePhone,
+    required String passportNumber,
+    required String passportSeries,
+    required String phoneNumber,
+    required String photo,
+    required int pinfl,
+    required String postName,
+    required int region_Id,
+  }) async {
+    final queryParameters = {
+      RestQueryKeys.brithDate: birthDate,
+      RestQueryKeys.districtId: districtId,
+      RestQueryKeys.email: email,
+      RestQueryKeys.fullName: fullName,
+      RestQueryKeys.gender: gender,
+      RestQueryKeys.homeName: homeName,
+      RestQueryKeys.id: id,
+      RestQueryKeys.neighborhoodId: mahallaId,
+      RestQueryKeys.mobilePhone: mobilePhone,
+      RestQueryKeys.passportNumber: passportNumber,
+      RestQueryKeys.passportSerial: passportSeries,
+      RestQueryKeys.phoneNumber: phoneNumber,
+      RestQueryKeys.photo: photo,
+      RestQueryKeys.pinfl: pinfl,
+      RestQueryKeys.postName: postName,
+      RestQueryKeys.regionId: region_Id,
+    };
     final response = await _dio.put("api/mobile/v1/user/profile",
         queryParameters: queryParameters);
     return response;
   }
+
 
   Future<Response> checkAvailableNumber({
     required String birthDate,

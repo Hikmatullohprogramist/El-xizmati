@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -64,7 +65,9 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
         ),
         _buildFaceDetectorConstruction(context),
         _buildActionButton(context, state),
+        _buildActionButtonForTest(context, state),
         _buildConditionalWidget(state.introState, _buildFaceDetectorIntroPage(context))
+
       ],
     );
   }
@@ -277,8 +280,8 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
                   final takeImage = File(value.path);
                   Uint8List imageBytes = await takeImage.readAsBytes();
                   String croppedImage = await cropImage(imageBytes);
-                  cubit(context)
-                      .sendImage(croppedImage, cubit(context).states.secretKey);
+                    cubit(context).sendImage(croppedImage, cubit(context).states.secretKey);
+
                 });
               },
               backgroundColor: context.colors.buttonPrimary,
@@ -300,12 +303,67 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
+  Widget _buildActionButtonForTest(BuildContext context, PageState state) {
+    return Positioned(
+      bottom:85,
+      left: 10,
+      right: 10,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 55),
+        child: CustomElevatedButton(
+          text: "Test cropped image",
+          onPressed: () {
+            cubit(context)
+                .states
+                .cameraController
+                ?.takePicture()
+                .then((value) async {
+              final takeImage = File(value.path);
+              Uint8List imageBytes = await takeImage.readAsBytes();
+              String croppedImage = await cropImage(imageBytes);
+              var result= showAlertDialog(context,croppedImage);
+            });
+          },
+          backgroundColor: context.colors.buttonPrimary,
+          isEnabled: true,
+          isLoading: state.loading,
+        ),
+      ),
+    );
+  }
+  
   Widget progressIndicator() {
     return Center(
         child: CircularProgressIndicator(
           backgroundColor: Colors.grey[300],
           valueColor: AlwaysStoppedAnimation<Color>(StaticColors.slateBlue),
         ));
+  }
+
+  void showAlertDialog(BuildContext context,String image) {
+
+    final decodedBytes = base64Decode(image);
+    final photo = img.decodeImage(decodedBytes);
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return dialog content
+        return AlertDialog(
+          title: Text('${photo?.width}x${photo?.height}  size=>${(image.length*1.5/1024/2).floor()} kb').s(16),
+          content:Image.memory(
+            base64Decode(image),
+            fit: BoxFit.cover,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('Bekor qilish'),
+            ),
+          ],
+        );
+      },
+    );
+
   }
 
   Future<String> cropImage(Uint8List image2) async {
