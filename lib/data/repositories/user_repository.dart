@@ -141,9 +141,46 @@ class UserRepository {
         phoneNumber: phoneNumber);
   }
 
+Future<void> validateUser({
+    required String birthDate,
+    required int districtId,
+    required String email,
+    required String fullName,
+    required String gender,
+    required String homeName,
+    required int id,
+    required int mahallaId,
+    required String mobilePhone,
+    required String passportNumber,
+    required String passportSeries,
+    required String phoneNumber,
+    required String photo,
+    required int pinfl,
+    required String postName,
+    required int region_Id,
+  }) async {
+    await _userService.validateUser(
+        birthDate: birthDate,
+        districtId: districtId,
+        email: email,
+        fullName: fullName,
+        gender: gender,
+        homeName: homeName,
+        id: id,
+        mahallaId: mahallaId,
+        mobilePhone: mobilePhone,
+        passportNumber: passportNumber,
+        passportSeries: passportSeries,
+        phoneNumber: phoneNumber,
+        photo: photo,
+        pinfl: pinfl,
+        postName: postName,
+        region_Id: region_Id);
+
+  }
 
 
-  Future<BiometricInfoRootResponse> checkAvailableNumber({
+  Future<BiometricInfoRootResponse> validateWithBioDocs({
     required String phoneNumber,
     required String biometricSerial,
     required String biometricNumber,

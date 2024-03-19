@@ -331,7 +331,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
       ),
     );
   }
-
+  
   Widget progressIndicator() {
     return Center(
         child: CircularProgressIndicator(

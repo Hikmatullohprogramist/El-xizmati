@@ -35,6 +35,7 @@ class RestQueryKeys {
   static String mobilePhone = "mobile_number";
 
   static String name = "name";
+  static String fullName = "full_name";
   static String neighborhoodId = "mahalla_id";
   static String number = "num";
 
