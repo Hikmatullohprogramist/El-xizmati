@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/controller/controller_exts.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
@@ -161,7 +160,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           LabelTextField(text: 'Тип объявления'),
           SizedBox(height: 6),
           CustomDropdownField(
-            text: state.adTransactionType.name,
+            text: state.adTransactionType.getString(),
             hint: "Тип объявления",
             onTap: () {
               _showAdTransactionTypeSelectionBottomSheet(context, state);
@@ -243,145 +242,175 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               cubit(context).setEnteredDesc(value);
             },
           ),
-          SizedBox(height: 16),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Flexible(
-                flex: 5,
-                child: Column(
-                  children: [
-                    LabelTextField(text: 'Кол-во на складе'),
-                    SizedBox(height: 6),
-                    CommonTextField(
-                      autofillHints: const [AutofillHints.telephoneNumber],
-                      inputType: TextInputType.number,
-                      keyboardType: TextInputType.number,
-                      maxLines: 1,
-                      minLines: 1,
-                      hint: '-',
-                      textInputAction: TextInputAction.next,
-                      controller: warehouseController,
-                      inputFormatters: quantityMaskFormatter,
-                      onChanged: (value) {
-                        cubit(context).setEnteredWarehouseCount(value);
-                      },
-                    )
-                  ],
+          Visibility(
+            visible: state.adTransactionType != AdTransactionType.FREE,
+            child: SizedBox(height: 16),
+          ),
+          Visibility(
+            visible: state.adTransactionType != AdTransactionType.FREE,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Flexible(
+                  flex: 5,
+                  child: Column(
+                    children: [
+                      LabelTextField(text: 'Кол-во на складе'),
+                      SizedBox(height: 6),
+                      CommonTextField(
+                        autofillHints: const [AutofillHints.telephoneNumber],
+                        inputType: TextInputType.number,
+                        keyboardType: TextInputType.number,
+                        maxLines: 1,
+                        minLines: 1,
+                        hint: '-',
+                        textInputAction: TextInputAction.next,
+                        controller: warehouseController,
+                        inputFormatters: quantityMaskFormatter,
+                        onChanged: (value) {
+                          cubit(context).setEnteredWarehouseCount(value);
+                        },
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(width: 16),
-              Flexible(
+                SizedBox(width: 16),
+                Flexible(
+                    flex: 4,
+                    child: Column(
+                      children: [
+                        LabelTextField(text: 'Тип', isRequired: false),
+                        SizedBox(height: 6),
+                        CustomDropdownField(
+                          text: state.unit?.name ?? "",
+                          hint: "-",
+                          onTap: () async {
+                            final unit = await showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              useSafeArea: true,
+                              backgroundColor: Colors.transparent,
+                              builder: (context) => SelectionUnitPage(
+                                key: Key(""),
+                                selectedUnit: state.unit,
+                              ),
+                            );
+
+                            cubit(context).setSelectedUnit(unit);
+                          },
+                        ),
+                      ],
+                    ))
+              ],
+            ),
+          ),
+          Visibility(
+            visible: state.adTransactionType != AdTransactionType.FREE,
+            child: SizedBox(height: 16),
+          ),
+          Visibility(
+            visible: state.adTransactionType != AdTransactionType.FREE,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Flexible(
+                  flex: 5,
+                  child: Column(
+                    children: [
+                      LabelTextField(text: 'Цена'),
+                      SizedBox(height: 6),
+                      CommonTextField(
+                        autofillHints: const [AutofillHints.transactionAmount],
+                        inputType: TextInputType.number,
+                        keyboardType: TextInputType.number,
+                        maxLines: 1,
+                        minLines: 1,
+                        hint: '-',
+                        textInputAction: TextInputAction.next,
+                        controller: priceController,
+                        inputFormatters: amountMaskFormatter,
+                        onChanged: (value) {
+                          cubit(context).setEnteredPrice(value);
+                        },
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(width: 16),
+                Flexible(
                   flex: 4,
                   child: Column(
                     children: [
-                      LabelTextField(text: 'Тип', isRequired: false),
+                      LabelTextField(text: 'Валюта', isRequired: false),
                       SizedBox(height: 6),
                       CustomDropdownField(
-                        text: state.unit?.name ?? "",
+                        text: state.currency?.name ?? "",
                         hint: "-",
                         onTap: () async {
-                          final unit = await showModalBottomSheet(
+                          final currency = await showModalBottomSheet(
                             context: context,
                             isScrollControlled: true,
                             useSafeArea: true,
                             backgroundColor: Colors.transparent,
-                            builder: (context) => SelectionUnitPage(
+                            builder: (context) => SelectionCurrencyPage(
                               key: Key(""),
-                              selectedUnit: state.unit,
+                              initialSelectedItem: state.currency,
                             ),
                           );
-
-                          cubit(context).setSelectedUnit(unit);
+                          cubit(context).setSelectedCurrency(currency);
                         },
                       ),
                     ],
-                  ))
-            ],
+                  ),
+                )
+              ],
+            ),
           ),
-          SizedBox(height: 16),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Flexible(
-                flex: 5,
-                child: Column(
-                  children: [
-                    LabelTextField(text: 'Цена'),
-                    SizedBox(height: 6),
-                    CommonTextField(
-                      autofillHints: const [AutofillHints.transactionAmount],
-                      inputType: TextInputType.number,
-                      keyboardType: TextInputType.number,
-                      maxLines: 1,
-                      minLines: 1,
-                      hint: '-',
-                      textInputAction: TextInputAction.next,
-                      controller: priceController,
-                      inputFormatters: amountMaskFormatter,
-                      onChanged: (value) {
-                        cubit(context).setEnteredPrice(value);
-                      },
-                    )
-                  ],
+          Visibility(
+            visible: state.adTransactionType != AdTransactionType.FREE,
+            child: SizedBox(height: 8),
+          ),
+          Visibility(
+            visible: state.adTransactionType != AdTransactionType.FREE,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                CustomSwitch(
+                  isChecked: state.isAgreedPrice,
+                  onChanged: (value) {
+                    cubit(context).setAgreedPrice(value);
+                  },
                 ),
-              ),
-              SizedBox(width: 16),
-              Flexible(
-                flex: 4,
-                child: Column(
-                  children: [
-                    LabelTextField(text: 'Валюта', isRequired: false),
-                    SizedBox(height: 6),
-                    CustomDropdownField(
-                      text: state.currency?.name ?? "",
-                      hint: "-",
-                      onTap: () async {
-                        final currency = await showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true,
-                          useSafeArea: true,
-                          backgroundColor: Colors.transparent,
-                          builder: (context) => SelectionCurrencyPage(
-                            key: Key(""),
-                            initialSelectedItem: state.currency,
-                          ),
-                        );
-                        cubit(context).setSelectedCurrency(currency);
-                      },
-                    ),
-                  ],
+                SizedBox(width: 16),
+                Expanded(
+                  child: "Договорная".w(400).s(14).c(Color(0xFF41455E)),
                 ),
-              )
-            ],
+              ],
+            ),
           ),
-          SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              CustomSwitch(
-                isChecked: state.isAgreedPrice,
-                onChanged: (value) {
-                  cubit(context).setAgreedPrice(value);
-                },
-              ),
-              SizedBox(width: 16),
-              Expanded(
-                child: "Договорная".w(400).s(14).c(Color(0xFF41455E)),
-              ),
-            ],
+          Visibility(
+            visible: state.adTransactionType != AdTransactionType.FREE,
+            child: SizedBox(height: 24),
           ),
-          SizedBox(height: 24),
-          LabelTextField(text: 'Способ оплаты', isRequired: true),
-          SizedBox(height: 16),
-          Wrap(
-            direction: Axis.horizontal,
-            spacing: 8,
-            runSpacing: 8,
-            alignment: WrapAlignment.start,
-            crossAxisAlignment: WrapCrossAlignment.start,
-            runAlignment: WrapAlignment.start,
-            children: _buildPaymentTypeChips(context, state),
+          Visibility(
+            visible: state.adTransactionType != AdTransactionType.FREE,
+            child: LabelTextField(text: 'Способ оплаты', isRequired: true),
+          ),
+          Visibility(
+            visible: state.adTransactionType != AdTransactionType.FREE,
+            child: SizedBox(height: 16),
+          ),
+          Visibility(
+            visible: state.adTransactionType != AdTransactionType.FREE,
+            child: Wrap(
+              direction: Axis.horizontal,
+              spacing: 8,
+              runSpacing: 8,
+              alignment: WrapAlignment.start,
+              crossAxisAlignment: WrapCrossAlignment.start,
+              runAlignment: WrapAlignment.start,
+              children: _buildPaymentTypeChips(context, state),
+            ),
           ),
         ],
       ),
@@ -820,7 +849,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               CustomDivider(height: 2, startIndent: 20, endIndent: 20),
               SelectionListItem(
                 item: AdTransactionType.FREE,
-                title: state.adTransactionType.getString(),
+                title: Strings.adTransactionTypeFree,
                 isSelected: state.adTransactionType == AdTransactionType.FREE,
                 onClicked: (item) {
                   cubit(context).setSelectedAdTransactionType(item);
