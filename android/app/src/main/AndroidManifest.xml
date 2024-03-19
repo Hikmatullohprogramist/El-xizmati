@@ -12,7 +12,9 @@
     <application
         android:label="Online-bozor"
         android:name="${applicationName}"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_rounded_launcher"
+        >
         <activity
             android:name=".MainActivity"
             android:exported="true"
