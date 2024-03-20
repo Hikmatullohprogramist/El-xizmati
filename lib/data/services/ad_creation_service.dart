@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/utils/rest_mappers.dart';
+import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 
 import '../storages/token_storage.dart';
 
@@ -55,7 +56,9 @@ class AdCreationService {
   Future<Response> createProductAd({
     required String title,
     required int categoryId,
-    required pickedImageIds,
+    required AdTransactionType adTransactionType,
+    required String mainImageId,
+    required List<String> pickedImageIds,
     required String videoUrl,
     required String desc,
     required int? warehouseCount,
@@ -82,11 +85,11 @@ class AdCreationService {
     required bool isAutoRenewal,
     required bool isShowMySocialAccount,
   }) {
-    final body = {
+    var body = {
       "name": title,
       "category_id": categoryId,
-      // "main_photo": "",
-      // "photos": ["", ""],
+      "main_photo": mainImageId,
+      "photos": pickedImageIds,
       "description": desc,
       "price": price,
       "currency": currency,
@@ -97,19 +100,12 @@ class AdCreationService {
       "email": email,
       "phone_number": phone,
       "is_auto_renew": isAutoRenewal,
-      "type_status": "SELL",
-      // "other_name": "Iphone 12 pro",
-      // "other_category_id": 10,
-      // "other_description": "Sifati yaxshi bo'lsin",
-      // "other_route_type": "PRIVATE",
-      // "other_property_status": "USED",
-      // "from_price": 0,
-      // "to_price": 0,
+      "type_status": adTransactionType.name,
       "payment_types": paymentTypeIds,
       "show_social": isShowMySocialAccount,
       "has_shipping": false,
       "has_free_shipping": false,
-      "main_type_status": "SELL", // todo use actual data
+      "main_type_status": adTransactionType.name,
       "unit_id": unitId,
       "amount": warehouseCount,
       "sale_type": "PRODUCT", // todo use actual data ADS, PRODUCT, SERVICE
@@ -128,6 +124,22 @@ class AdCreationService {
       // "service_sub_category_id": null,
       "has_bidding": isAgreedPrice
     };
+
+    if(adTransactionType == AdTransactionType.EXCHANGE){
+      // body[""] = "";
+      // "other_name": "Iphone 12 pro",
+      // "other_category_id": 10,
+      // "other_description": "Sifati yaxshi bo'lsin",
+      // "other_route_type": "PRIVATE",
+      // "other_property_status": "USED",
+      // "from_price": 0,
+      // "to_price": 0,
+    }
+
+    if(adTransactionType == AdTransactionType.FREE){
+
+    }
+
 
     return dio.post(
       'api/mobile/v1/create-ad',

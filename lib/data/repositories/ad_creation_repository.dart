@@ -1,9 +1,9 @@
-import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/responses/category/category/category_response.dart';
 import 'package:onlinebozor/data/responses/category/category_selection/category_selection_response.dart';
 import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/services/ad_creation_service.dart';
+import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 
 import '../../domain/models/image/uploadable_file.dart';
@@ -68,7 +68,9 @@ class AdCreationRepository {
   Future<String> createProductAd({
     required String title,
     required CategoryResponse category,
-    required pickedImageIds,
+    required AdTransactionType adTransactionType,
+    required String mainImageId,
+    required List<String> pickedImageIds,
     required String videoUrl,
     required String desc,
     required int? warehouseCount,
@@ -98,7 +100,9 @@ class AdCreationRepository {
     final response = await _adCreationService.createProductAd(
       title: title,
       categoryId: category.id,
-      pickedImageIds: [],
+      adTransactionType: adTransactionType,
+      mainImageId: mainImageId,
+      pickedImageIds: pickedImageIds,
       videoUrl: videoUrl,
       desc: desc,
       warehouseCount: warehouseCount,

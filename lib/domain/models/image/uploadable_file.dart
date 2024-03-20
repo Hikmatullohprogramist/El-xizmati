@@ -14,4 +14,12 @@ class UploadableFile {
   String? localPath;
   String? extension;
   XFile xFile;
+
+  bool isUploaded() {
+    return id?.isNotEmpty == true;
+  }
+
+  bool isNotUploaded() {
+    return id == null || id?.isEmpty == true;
+  }
 }

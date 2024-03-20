@@ -795,8 +795,8 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   text: Strings.commonContinue,
                   onPressed: () {
                     vibrateAsHapticFeedback();
-                    // cubit(context).createProductAd();
-                    cubit(context).uploadImage();
+                    cubit(context).createProductAd();
+                    // cubit(context).uploadImage();
                   },
                   isLoading: state.isRequestSending,
                 ),

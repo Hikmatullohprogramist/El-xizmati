@@ -18,6 +18,7 @@ import '../../../../data/repositories/ad_creation_repository.dart';
 import '../../../../data/responses/address/user_address_response.dart';
 
 part 'page_cubit.freezed.dart';
+
 part 'page_state.dart';
 
 @Injectable()
@@ -28,11 +29,16 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> createProductAd() async {
     updateState((state) => state.copyWith(isRequestSending: true));
+
+    await uploadImages();
+
     try {
       final response = await repository.createProductAd(
         title: states.title,
         category: states.category!,
-        pickedImageIds: [""],
+        adTransactionType: states.adTransactionType,
+        mainImageId: states.pickedImages!.map((e) => e.id).first!,
+        pickedImageIds: states.pickedImages!.map((e) => e.id!).toList(),
         videoUrl: states.videoUrl,
         desc: states.desc,
         warehouseCount: states.warehouseCount,
@@ -68,18 +74,21 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  Future<void> uploadImage() async {
-    updateState((state) => state.copyWith(isRequestSending: true));
-    try {
-      var uploadableFile = states.pickedImages!.first;
-      log.w("uploadableFile path = ${uploadableFile.xFile.path}, name = ${uploadableFile.xFile.name}");
-      final response = await repository.uploadImage(uploadableFile);
-      log.i(response.toString());
-
-      updateState((state) => state.copyWith(isRequestSending: false));
-    } catch (exception) {
-      log.e(exception.toString());
-      updateState((state) => state.copyWith(isRequestSending: false));
+  Future<void> uploadImages()  async {
+    var images =
+        states.pickedImages?.where((e) => e.isNotUploaded()).toList() ?? [];
+    if(images.isNotEmpty) {
+      try {
+        for (var image in images) {
+          final uploadableFile = await repository.uploadImage(image);
+          image.id = uploadableFile.id;
+        }
+      } catch (exception) {
+        log.e(exception.toString());
+        updateState((state) => state.copyWith(isRequestSending: false));
+      } finally {
+        updateState((state) => state.copyWith(pickedImages: images));
+      }
     }
   }
 
@@ -91,7 +100,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     updateState((state) => state.copyWith(category: category));
   }
 
-  void setSelectedAdTransactionType(AdTransactionType type){
+  void setSelectedAdTransactionType(AdTransactionType type) {
     updateState((state) => state.copyWith(adTransactionType: type));
   }
 
@@ -101,7 +110,9 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   void setEnteredWarehouseCount(String warehouseCount) {
     int warehouseCountInt = 14000;
-    if (warehouseCount.trim().isNotEmpty) {
+    if (warehouseCount
+        .trim()
+        .isNotEmpty) {
       try {
         warehouseCountInt = int.parse(warehouseCount.clearPrice());
       } catch (e) {
@@ -118,7 +129,9 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   void setEnteredPrice(String price) {
     int priceInt = 125000;
-    if (price.trim().isNotEmpty) {
+    if (price
+        .trim()
+        .isNotEmpty) {
       try {
         priceInt = int.parse(price.clearPrice());
       } catch (e) {
@@ -134,8 +147,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   void setSelectedPaymentTypes(
-    List<PaymentTypeResponse>? selectedPaymentTypes,
-  ) {
+      List<PaymentTypeResponse>? selectedPaymentTypes,) {
     try {
       if (selectedPaymentTypes != null) {
         var paymentTypes = List<PaymentTypeResponse>.from(states.paymentTypes);
@@ -209,7 +221,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   void showHideAddresses() {
-    updateState((state) => state.copyWith(
+    updateState((state) =>
+        state.copyWith(
           isShowAllPickupAddresses: !states.isShowAllPickupAddresses,
         ));
   }
@@ -228,9 +241,10 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   void showHideFreeDistricts() {
-    updateState((state) => state.copyWith(
+    updateState((state) =>
+        state.copyWith(
           isShowAllFreeDeliveryDistricts:
-              !states.isShowAllFreeDeliveryDistricts,
+          !states.isShowAllFreeDeliveryDistricts,
         ));
   }
 
@@ -248,9 +262,10 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   void showHidePaidDistricts() {
-    updateState((state) => state.copyWith(
+    updateState((state) =>
+        state.copyWith(
           isShowAllPaidDeliveryDistricts:
-              !states.isShowAllPaidDeliveryDistricts,
+          !states.isShowAllPaidDeliveryDistricts,
         ));
   }
 
@@ -259,9 +274,13 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     var category = (state.state?.category?.name?.isNotEmpty) ?? false;
     var description = (state.state?.desc.isNotEmpty) ?? false;
     var warehouseCount =
-        (state.state?.warehouseCount.toString()?.isNotEmpty) ?? false;
+        (state.state?.warehouseCount
+            .toString()
+            ?.isNotEmpty) ?? false;
     var unit = (state.state?.unit?.name?.isNotEmpty) ?? false;
-    var price = (state.state?.price.toString().isNotEmpty) ?? false;
+    var price = (state.state?.price
+        .toString()
+        .isNotEmpty) ?? false;
     var currency = (state.state?.currency?.name?.isNotEmpty) ?? false;
     var contactPerson = (state.state?.contactPerson.isNotEmpty) ?? false;
     var phoneNumber = (state.state?.phone.isNotEmpty) ?? false;
@@ -285,10 +304,10 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   void removePickupAddress(UserAddressResponse pickupAddress) {
     try {
       var pickupWarehouses =
-          List<UserAddressResponse>.from(states.pickupWarehouses);
+      List<UserAddressResponse>.from(states.pickupWarehouses);
       pickupWarehouses.remove(pickupAddress);
       updateState(
-        (state) => state.copyWith(pickupWarehouses: pickupWarehouses),
+            (state) => state.copyWith(pickupWarehouses: pickupWarehouses),
       );
     } catch (e) {
       log.e(e.toString());
@@ -298,10 +317,11 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   void removeFreeDelivery(District district) {
     try {
       var freeDeliveryDistricts =
-          List<District>.from(states.freeDeliveryDistricts);
+      List<District>.from(states.freeDeliveryDistricts);
       freeDeliveryDistricts.remove(district);
       updateState(
-        (state) => state.copyWith(freeDeliveryDistricts: freeDeliveryDistricts),
+            (state) =>
+            state.copyWith(freeDeliveryDistricts: freeDeliveryDistricts),
       );
     } catch (e) {
       log.e(e.toString());
@@ -311,10 +331,11 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   void removePaidDelivery(District district) {
     try {
       var paidDeliveryDistricts =
-          List<District>.from(states.paidDeliveryDistricts);
+      List<District>.from(states.paidDeliveryDistricts);
       paidDeliveryDistricts.remove(district);
       updateState(
-        (state) => state.copyWith(paidDeliveryDistricts: paidDeliveryDistricts),
+            (state) =>
+            state.copyWith(paidDeliveryDistricts: paidDeliveryDistricts),
       );
     } catch (e) {
       log.e(e.toString());
@@ -335,7 +356,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   void setShowMySocialAccounts(bool isShowMySocialAccount) {
     updateState(
-      (state) => state.copyWith(isShowMySocialAccount: isShowMySocialAccount),
+          (state) =>
+          state.copyWith(isShowMySocialAccount: isShowMySocialAccount),
     );
   }
 
