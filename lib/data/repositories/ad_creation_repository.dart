@@ -56,12 +56,8 @@ class AdCreationRepository {
 
   Future<UploadableFile> uploadImage(UploadableFile uploadableFile) async {
     var xFile = uploadableFile.xFile;
-    // var multipartFile =
-    //     await MultipartFile.fromFile(xFile.path, filename: xFile.name);
     var response = await _adCreationService.uploadImage(xFile);
     var id = response.data['id'];
-    // String? extension = response.data['extension'];
-
     if (id is String) {
       return uploadableFile..id = id;
     }

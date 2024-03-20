@@ -72,11 +72,12 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     updateState((state) => state.copyWith(isRequestSending: true));
     try {
       var uploadableFile = states.pickedImages!.first;
+      log.w("uploadableFile path = ${uploadableFile.xFile.path}, name = ${uploadableFile.xFile.name}");
       final response = await repository.uploadImage(uploadableFile);
       log.i(response.toString());
 
       updateState((state) => state.copyWith(isRequestSending: false));
-    } on DioException catch (exception) {
+    } catch (exception) {
       log.e(exception.toString());
       updateState((state) => state.copyWith(isRequestSending: false));
     }

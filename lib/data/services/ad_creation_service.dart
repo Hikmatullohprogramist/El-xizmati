@@ -40,16 +40,16 @@ class AdCreationService {
   }
 
   Future<Response> uploadImage(XFile xFile) async {
-    // var url = 'https://api.online-ijara.uz/web/v1/public/files/upload/category/photos';
-    var url = 'files/upload/form';
-
     var formData = FormData.fromMap({
       'form_element_id': 2588,
       'form_element_project_id': 34,
       'file': await MultipartFile.fromFile(xFile.path, filename: xFile.name),
     });
 
-    return await dio.post(url, data: formData);
+    return await dio.post(
+      'https://online-bozor.uz/files/upload/category/ads',
+      data: formData,
+    );
   }
 
   Future<Response> createProductAd({
