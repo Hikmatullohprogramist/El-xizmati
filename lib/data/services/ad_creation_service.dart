@@ -85,15 +85,13 @@ class AdCreationService {
     required bool isAutoRenewal,
     required bool isShowMySocialAccount,
   }) {
-    var body = {
+    Map<String, Object?> commonBody = {
       "name": title,
       "category_id": categoryId,
       "main_photo": mainImageId,
       "photos": pickedImageIds,
       "description": desc,
-      "price": price,
-      "currency": currency,
-      "is_contract": isAgreedPrice,
+
       "route_type": isBusiness ? "BUSINESS" : "PRIVATE",
       "property_status": isNew ? "NEW" : "USED",
       "contact_name": contactPerson,
@@ -101,17 +99,16 @@ class AdCreationService {
       "phone_number": phone,
       "is_auto_renew": isAutoRenewal,
       "type_status": adTransactionType.name,
-      "payment_types": paymentTypeIds,
+
       "show_social": isShowMySocialAccount,
-      "has_shipping": false,
-      "has_free_shipping": false,
+      "has_shipping": isPaidDeliveryEnabled,
+      "has_free_shipping": isFreeDeliveryEnabled,
       "main_type_status": adTransactionType.name,
-      "unit_id": unitId,
-      "amount": warehouseCount,
+
       "sale_type": "PRODUCT", // todo use actual data ADS, PRODUCT, SERVICE
       "video": videoUrl,
       "min_amount": minAmount,
-      "has_discount": false,
+
       "is_pickup_enabled": isPickupEnabled,
       "pickup_address_ids": pickupWarehouses.toMap(),
       "is_free_delivery_enabled": isFreeDeliveryEnabled,
@@ -122,11 +119,24 @@ class AdCreationService {
       "paid_delivery_max_days": paidDeliveryMaxDay,
       // "service_category_id": null,
       // "service_sub_category_id": null,
-      "has_bidding": isAgreedPrice
+
     };
 
-    if(adTransactionType == AdTransactionType.EXCHANGE){
-      // body[""] = "";
+    if (adTransactionType != AdTransactionType.FREE) {
+      final notFreeBody = {
+        "price": price,
+        "currency": currency,
+        "is_contract": isAgreedPrice,
+        "unit_id": unitId,
+        "amount": warehouseCount,
+        "payment_types": paymentTypeIds,
+        "has_discount": false,
+        "has_bidding": isAgreedPrice
+      };
+
+      commonBody.addAll(notFreeBody);
+    }
+    if (adTransactionType == AdTransactionType.EXCHANGE) {
       // "other_name": "Iphone 12 pro",
       // "other_category_id": 10,
       // "other_description": "Sifati yaxshi bo'lsin",
@@ -136,14 +146,12 @@ class AdCreationService {
       // "to_price": 0,
     }
 
-    if(adTransactionType == AdTransactionType.FREE){
-
-    }
+    if (adTransactionType == AdTransactionType.FREE) {}
 
 
     return dio.post(
       'api/mobile/v1/create-ad',
-      data: body,
+      data: commonBody,
     );
   }
 
