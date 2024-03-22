@@ -119,7 +119,6 @@ class AdCreationService {
       "paid_delivery_max_days": paidDeliveryMaxDay,
       // "service_category_id": null,
       // "service_sub_category_id": null,
-
     };
 
     if (adTransactionType != AdTransactionType.FREE) {
@@ -136,18 +135,17 @@ class AdCreationService {
 
       commonBody.addAll(notFreeBody);
     }
-    if (adTransactionType == AdTransactionType.EXCHANGE) {
-      // "other_name": "Iphone 12 pro",
-      // "other_category_id": 10,
-      // "other_description": "Sifati yaxshi bo'lsin",
-      // "other_route_type": "PRIVATE",
-      // "other_property_status": "USED",
-      // "from_price": 0,
-      // "to_price": 0,
-    }
-
-    if (adTransactionType == AdTransactionType.FREE) {}
-
+    // if (adTransactionType == AdTransactionType.EXCHANGE) {
+      // final exchangeBody = {
+      //   "other_name": "Iphone 12 pro",
+      //   "other_category_id": 10,
+      //   "other_description": "Sifati yaxshi bo'lsin",
+      //   "other_route_type": "PRIVATE",
+      //   "other_property_status": "USED",
+      //   "from_price": 0,
+      //   "to_price": 0,
+      // };
+    // }
 
     return dio.post(
       'api/mobile/v1/create-ad',

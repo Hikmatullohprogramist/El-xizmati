@@ -60,7 +60,8 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget onWidgetBuild(BuildContext context, PageState state) {
     titleController.updateOnRestore(state.title);
     descController.updateOnRestore(state.desc);
-    warehouseController.updateOnRestore(state.warehouseCount.toString());
+    warehouseController.updateOnRestore(state.warehouseCount?.toString());
+    priceController.updateOnRestore(state.price?.toString());
     contactPersonController.updateOnRestore(state.contactPerson);
     phoneController.updateOnRestore(state.phone);
     emailController.updateOnRestore(state.email);
