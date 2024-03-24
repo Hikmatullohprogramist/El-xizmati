@@ -12,13 +12,28 @@ extension TextStringExtensions on String {
     if (clearedPhone.length == 9) {
       clearedPhone = "998$clearedPhone";
     }
-
     return clearedPhone;
   }
 
+  String clearCountryCode() {
+    String countryCode = "998";
+    if (length > 9 && contains(countryCode)) {
+      return substring(countryCode.length);
+    } else {
+      return this;
+    }
+  }
+
   String clearPrice() {
-    var clearedPrice = replaceAll(RegExp(r"[^\d+\.]"), '');
-    return clearedPrice;
+    return replaceAll(RegExp(r"[^\d+\.]"), '');
+  }
+
+  String capitalizeFullName() {
+    return trim()
+        .toLowerCase()
+        .split(RegExp(r'\s+'))
+        .map((word) => word[0].toUpperCase() + word.substring(1))
+        .join(' ');
   }
 }
 

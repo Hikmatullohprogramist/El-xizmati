@@ -15,6 +15,7 @@ import 'package:onlinebozor/presentation/utils/xfile_mapper.dart';
 import '../../../../../../common/core/base_cubit.dart';
 import '../../../../common/enum/enums.dart';
 import '../../../../data/repositories/ad_creation_repository.dart';
+import '../../../../data/repositories/user_repository.dart';
 import '../../../../data/responses/address/user_address_response.dart';
 
 part 'page_cubit.freezed.dart';
@@ -22,9 +23,23 @@ part 'page_state.dart';
 
 @Injectable()
 class PageCubit extends BaseCubit<PageState, PageEvent> {
-  PageCubit(this.repository) : super(const PageState());
+  PageCubit(
+    this._adCreationRepository,
+    this._userRepository,
+  ) : super(const PageState());
 
-  final AdCreationRepository repository;
+  final AdCreationRepository _adCreationRepository;
+  final UserRepository _userRepository;
+
+  Future<void> getInitialData() async {
+    final user = _userRepository.userInfoStorage.userInformation.call();
+    updateState((state) => state.copyWith(
+          // contactPerson: user?.fullName?.capitalizeFullName() ?? "",
+          contactPerson: "ESONALIYEV   ABRORBEK SAMSAG'ALI O'G'LI   "?.capitalizeFullName() ?? "",
+          phone: user?.mobilePhone?.clearCountryCode() ?? "",
+          email: user?.email ?? "",
+        ));
+  }
 
   Future<void> createProductAd() async {
     updateState((state) => state.copyWith(isRequestSending: true));
@@ -32,7 +47,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     await uploadImages();
 
     try {
-      final response = await repository.createProductAd(
+      final response = await _adCreationRepository.createProductAd(
         title: states.title,
         category: states.category!,
         adTransactionType: states.adTransactionType,
@@ -79,7 +94,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     if (images.isNotEmpty) {
       try {
         for (var image in images) {
-          final uploadableFile = await repository.uploadImage(image);
+          final uploadableFile = await _adCreationRepository.uploadImage(image);
           image.id = uploadableFile.id;
         }
       } catch (exception) {

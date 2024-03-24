@@ -57,6 +57,11 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   @override
+  void onWidgetCreated(BuildContext context) {
+    cubit(context).getInitialData();
+  }
+
+  @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     titleController.updateOnRestore(state.title);
     descController.updateOnRestore(state.desc);
@@ -493,7 +498,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
           ),
           SizedBox(height: 12),
-          "Контактное лицо".w(500).s(14).c(Color(0xFF41455E)),
+          LabelTextField(text: "Контактное лицо"),
           SizedBox(height: 8),
           CommonTextField(
             autofillHints: const [AutofillHints.name],
@@ -508,7 +513,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
           ),
           SizedBox(height: 12),
-          "Номер телефона".w(500).s(14).c(Color(0xFF41455E)),
+          LabelTextField(text: "Номер телефона"),
           SizedBox(height: 8),
           CommonTextField(
             autofillHints: const [AutofillHints.telephoneNumber],
@@ -526,7 +531,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
           ),
           SizedBox(height: 12),
-          "Эл. почта".w(500).s(14).c(Color(0xFF41455E)),
+          LabelTextField(text: "Эл. почта"),
           SizedBox(height: 8),
           CommonTextField(
             autofillHints: const [AutofillHints.email],
