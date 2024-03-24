@@ -20,7 +20,7 @@ class ChipShowMoreItem extends StatelessWidget {
         padding: EdgeInsets.only(left: 14, top: 10, right: 10, bottom: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
-          border: Border.all(width: 1, color: Color(0xFF5C6AC4)),
+          border: Border.all(width: 1, color: Color(0xFF5C6AC4).withAlpha(64)),
         ),
         child: Expanded(
           child: Row(

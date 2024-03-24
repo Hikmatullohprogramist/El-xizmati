@@ -67,6 +67,9 @@ auth_confirm_sent_sms_your_phone,Biz sizga {phone} raqamiga kod bilan SMS yubord
 auth_person_policy,siyosat shaxsiy ma‘lumotlarni qayta ishlash,политикой nобработки персональных данных,сиёсат шахсий маълумотларни қайта ишлаш
 auth_policy_agree,Tizimga kirish orqali siz rozilik bildirasiz,"Авторизуясь, вы соглашаетесь с ",Тизимга кириш орқали сиз розилик билдирасиз
 auth_price_police,Tizimga kirish orqali siz shaxsiy ma'lumotlarni saqlash va qayta ishlash shartlariga rozilik bildirasiz.,"lАвторизуясь, вы соглашаетесь с условиями хранения и обработки персональных данных.",Тизимга кириш орқали сиз шахсий маълумотларни сақлаш ва қайта ишлаш шартларига розилик билдирасиз.
+auth_price_police_action,shaxsiy ma'lumotlarni saqlash va qayta ishlash shartlariga,условиями хранения и обработки персональных данных.,шахсий маълумотларни сақлаш ва қайта ишлаш шартларига
+auth_price_police_end,rozilik bildirasiz.,     ,розилик билдирасиз.
+auth_price_police_start,Tizimga kirish orqali siz,"Авторизуясь, вы соглашаетесь с",Тизимга кириш орқали сиз 
 auth_recomment_action,Tizimga kirish,Войти в систему,Тизимга кириш
 auth_recomment_desc,E’lon berish uchun tizimga kirishingiz zarur,"Войдите в систему, чтобы опубликовать объявление",Эълон бериш учун тизимга киришингиз зарур
 auth_recomment_title,E’lon bermoqchimisiz?,Хотите опубликовать объявление?,Эълон бермоқчимисиз?
@@ -106,6 +109,7 @@ common_add,Qo‘shish,Добавить,Қўшиш
 common_apartment,Kvartira,Квартира,Квартира
 common_apply,Qo‘llash,Применять,Қўллаш
 common_bio_doc_series,Pasport seriyasi,Паспорт серии,Паспорт серияси
+common_choose,Tanlash,Выбрать,Танлаш
 common_close,Yopish,Закрыть,Ёпиш
 common_continue,Davom etish,Продолжить,Давом этиш
 common_date,Sana,Дата,Сана
@@ -299,6 +303,3 @@ user_request_canceled_title,Bekor qilingan,Отменено,Бекор қили�
 user_request_pending_title,Kutulmoqda,Ожидающий,Кутулмоқда
 user_request_rejaction_title,Rad etilgan,Отклоненный,Рад этилган
 user_request_review_title,Ko‘rib chiqilmoqda,На рассмотрении,Кўриб чиқилмоқда
-auth_price_police_start,Tizimga kirish orqali siz,"Авторизуясь, вы соглашаетесь с",Тизимга кириш орқали сиз 
-auth_price_police_action,shaxsiy ma'lumotlarni saqlash va qayta ishlash shartlariga,условиями хранения и обработки персональных данных.,шахсий маълумотларни сақлаш ва қайта ишлаш шартларига
-auth_price_police_end,rozilik bildirasiz.,     ,розилик билдирасиз.
