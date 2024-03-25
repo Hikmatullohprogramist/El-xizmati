@@ -68,61 +68,55 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         allItems.addAll(regionDistricts);
       }
 
-      log.w("getRegionAndDistricts allItems length = ${allItems.length}");
-
-      updateState(
-        (state) => state.copyWith(
-          loadState: LoadingState.success,
-          allItems: allItems,
-          visibleItems: allItems.where((e) => e.isVisible).toList(),
-        ),
-      );
+      updateState((state) => state.copyWith(
+            loadState: LoadingState.success,
+            allItems: allItems,
+            visibleItems: allItems.where((e) => e.isVisible).toList(),
+          ));
     } on DioException catch (exception) {
       log.e(exception.toString());
       updateState((state) => state.copyWith(loadState: LoadingState.error));
     }
   }
 
-  void updateSelectedState(ExpandableListItem regionItem) {
+  void updateSelectedState(ExpandableListItem item) {
     try {
-      var allItems = List<ExpandableListItem>.from(states.allItems);
-
-      var state = !regionItem.isSelected;
-      if (regionItem.isParent) {
+      var allItems = states.allItems.map((e) => e.copy()).toList();
+      bool state = !item.isSelected;
+      if (item.isParent) {
         allItems
-            .where((e) => e.parentId == regionItem.id || e.id == regionItem.id)
+            .where((e) => e.parentId == item.id || e.id == item.id)
             .forEach((child) => child.isSelected = state);
 
-        int selectedChildCount = allItems
-            .where((e) => e.parentId == regionItem.id && e.isSelected)
-            .length;
+        int selectedChildCount =
+            allItems.where((e) => e.parentId == item.id && e.isSelected).length;
 
         int totalChildCount =
-            allItems.where((e) => e.parentId == regionItem.id).length;
+            allItems.where((e) => e.parentId == item.id).length;
 
-        allItems.firstWhereOrNull((e) => e.id == regionItem.id)?.isSelected =
+        allItems.firstWhereOrNull((e) => e.id == item.id)?.isSelected =
             totalChildCount == selectedChildCount;
 
         allItems
-            .firstWhereOrNull((e) => e.id == regionItem.parentId)
+            .firstWhereOrNull((e) => e.id == item.parentId)
             ?.selectedChildCount = selectedChildCount;
       } else {
         allItems
-            .firstWhereOrNull((element) => element.id == regionItem.id)
+            .firstWhereOrNull((element) => element.id == item.id)
             ?.isSelected = state;
 
         int selectedChildCount = allItems
-            .where((e) => e.parentId == regionItem.parentId && e.isSelected)
+            .where((e) => e.parentId == item.parentId && e.isSelected)
             .length;
 
         int totalChildCount =
-            allItems.where((e) => e.parentId == regionItem.parentId).length;
+            allItems.where((e) => e.parentId == item.parentId).length;
+
+        allItems.firstWhereOrNull((e) => e.id == item.parentId)?.isSelected =
+            totalChildCount == selectedChildCount;
 
         allItems
-            .firstWhereOrNull((e) => e.id == regionItem.parentId)
-            ?.isSelected = totalChildCount == selectedChildCount;
-        allItems
-            .firstWhereOrNull((e) => e.id == regionItem.parentId)
+            .firstWhereOrNull((e) => e.id == item.parentId)
             ?.selectedChildCount = selectedChildCount;
       }
 
@@ -131,7 +125,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             visibleItems: allItems.where((e) => e.isVisible).toList(),
           ));
     } catch (e) {
-      log.e("update-selected-state error = ${e.toString()}");
+      log.e("update-selected-state ERROR = ${e.toString()}");
     }
   }
 

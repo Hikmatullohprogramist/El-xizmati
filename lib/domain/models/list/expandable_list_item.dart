@@ -12,6 +12,21 @@ class ExpandableListItem {
     required this.isOpened,
   });
 
+  ExpandableListItem copy() {
+    return ExpandableListItem(
+      item: item,
+      id: id,
+      parentId: parentId,
+      name: name,
+      isParent: isParent,
+      totalChildCount: totalChildCount,
+      selectedChildCount: selectedChildCount,
+      isSelected: isSelected,
+      isVisible: isVisible,
+      isOpened: isOpened,
+    );
+  }
+
   dynamic item;
   int id;
   int parentId;
