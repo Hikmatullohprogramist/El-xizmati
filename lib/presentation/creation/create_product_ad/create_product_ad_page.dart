@@ -41,6 +41,8 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descController = TextEditingController();
+  final TextEditingController anotherTitleController = TextEditingController();
+  final TextEditingController anotherDescController = TextEditingController();
   final TextEditingController warehouseController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
 
@@ -65,6 +67,8 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget onWidgetBuild(BuildContext context, PageState state) {
     titleController.updateOnRestore(state.title);
     descController.updateOnRestore(state.desc);
+    anotherTitleController.updateOnRestore(state.anotherTitle);
+    anotherDescController.updateOnRestore(state.anotherDesc);
     warehouseController.updateOnRestore(state.warehouseCount?.toString());
     priceController.updateOnRestore(state.price?.toString());
     contactPersonController.updateOnRestore(state.contactPerson);
@@ -87,6 +91,8 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             _buildDescAndPriceBlock(context, state),
             SizedBox(height: 16),
             _buildAdditionalInfoBlock(context, state),
+            SizedBox(height: 16),
+            _buildAnotherAdBlock(context, state),
             SizedBox(height: 16),
             _buildContactsBlock(context, state),
             SizedBox(height: 16),
@@ -467,6 +473,81 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             isChecked: state.isNew,
             onChanged: (isChecked) {
               cubit(context).setIsNew(isChecked);
+            },
+            negativeTitle: Strings.createAdStateUsedLabel,
+            positiveTitle: Strings.createAdStateNewLabel,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAnotherAdBlock(
+      BuildContext context,
+      PageState state,
+      ) {
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Strings.createAdExchangeLabel.w(700).s(16).c(Color(0xFF41455E)),
+          SizedBox(height: 20),
+          LabelTextField(text: Strings.createAdNameLabel),
+          SizedBox(height: 6),
+          CommonTextField(
+            autofillHints: const [AutofillHints.name],
+            inputType: TextInputType.name,
+            keyboardType: TextInputType.name,
+            minLines: 1,
+            maxLines: 3,
+            hint: Strings.createAdNameLabel,
+            textInputAction: TextInputAction.next,
+            controller: anotherTitleController,
+            onChanged: (value) {
+              cubit(context).setEnteredAnotherTitle(value);
+            },
+          ),
+          SizedBox(height: 16),
+          LabelTextField(text: Strings.createAdCategoryLabel),
+          SizedBox(height: 6),
+          CustomDropdownField(
+            text: state.anotherCategory?.name ?? "",
+            hint: Strings.createAdCategoryLabel,
+            onTap: () {
+              context.router.push(
+                SelectionNestedCategoryRoute(onResult: (categoryResponse) {
+                  cubit(context).setSelectedAnotherCategory(categoryResponse);
+                }),
+              );
+            },
+          ),
+          SizedBox(height: 16),
+          LabelTextField(text: Strings.createAdDescLabel),
+          SizedBox(height: 6),
+          CommonTextField(
+            height: null,
+            autofillHints: const [AutofillHints.name],
+            inputType: TextInputType.name,
+            keyboardType: TextInputType.name,
+            maxLines: 5,
+            minLines: 3,
+            hint: Strings.createAdDescLabel,
+            textInputAction: TextInputAction.next,
+            controller: anotherDescController,
+            onChanged: (value) {
+              cubit(context).setEnteredAnotherDesc(value);
+            },
+          ),
+          SizedBox(height: 16),
+          LabelTextField(text: Strings.createAdStateLabel, isRequired: false),
+          SizedBox(height: 8),
+          CustomToggle(
+            width: 240,
+            isChecked: state.isAnotherNew,
+            onChanged: (isChecked) {
+              cubit(context).setAnotherIsNew(isChecked);
             },
             negativeTitle: Strings.createAdStateUsedLabel,
             positiveTitle: Strings.createAdStateNewLabel,

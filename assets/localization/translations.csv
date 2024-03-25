@@ -155,6 +155,7 @@ create_ad_currency_label,Pul birligi,Валюта,Пул бирлиги
 create_ad_desc_hint,E’loningizni tushunarli qiladigan va topishni osonlashtiradigan tafsilotlarni o‘ylab ko‘ring. Va ularni tavsifga qo‘shing,"Подумайте, какие подробности вы хотели бы узнать из объявления. И добавьте их в описание",Эълонингизни тушунарли қиладиган ва топишни осонлаштирадиган тафсилотларни ўйлаб кўринг. Ва уларни тавсифга қўшинг
 create_ad_desc_label,Mahsulot tavsifi,Описание товара,Маҳсулот тавсифи
 create_ad_error_field_is_required,Maydon to‘ldirilishi majburiy,Это поле обязательно,Сатр тўлдирилиши мажбурий
+create_ad_exchange_label,Almashaman,Обменяю,Алмашаман
 create_ad_free_delivery_label,Bepul yetkazib berish,Бесплатная доставка,Бепул етказиб бериш
 create_ad_name_label,Mahsulot nomi,Название товара,Маҳсулот номи
 create_ad_negotiable_label,Kelishish mumkin,Договорная,Келишиш мумкин

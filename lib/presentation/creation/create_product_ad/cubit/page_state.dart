@@ -23,6 +23,11 @@ class PageState with _$PageState {
     @Default(true) bool isNew,
     @Default(false) bool isBusiness,
 //
+    @Default("") String anotherTitle,
+    @Default("") String anotherDesc,
+    CategoryResponse? anotherCategory,
+    @Default(true) bool isAnotherNew,
+//
     UserAddressResponse? address,
     @Default("") String contactPerson,
     @Default("") String phone,

@@ -190,12 +190,28 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     updateState((state) => state.copyWith(isAgreedPrice: isAgreedPrice));
   }
 
+  void setIsBusiness(bool isBusiness) {
+    updateState((state) => state.copyWith(isBusiness: isBusiness));
+  }
+
   void setIsNew(bool isNew) {
     updateState((state) => state.copyWith(isNew: isNew));
   }
 
-  void setIsBusiness(bool isBusiness) {
-    updateState((state) => state.copyWith(isBusiness: isBusiness));
+  void setEnteredAnotherTitle(String title) {
+    updateState((state) => state.copyWith(anotherTitle: title));
+  }
+
+  void setSelectedAnotherCategory(CategoryResponse category) {
+    updateState((state) => state.copyWith(anotherCategory: category));
+  }
+
+  void setEnteredAnotherDesc(String desc) {
+    updateState((state) => state.copyWith(anotherDesc: desc));
+  }
+
+  void setAnotherIsNew(bool isNew) {
+    updateState((state) => state.copyWith(isAnotherNew: isNew));
   }
 
   void setSelectedAddress(UserAddressResponse address) {
