@@ -5,21 +5,21 @@ import 'package:onlinebozor/common/vibrator/vibrator_extension.dart';
 
 import '../../gen/assets/assets.gen.dart';
 
-class ChipMoreCountItem extends StatelessWidget {
-  const ChipMoreCountItem({
+class ChipCountItem extends StatelessWidget {
+  const ChipCountItem(
+    this.count, {
     super.key,
-    required this.count,
-    this.onChipClicked,
+    this.onClicked,
   });
 
   final int count;
-  final Function()? onChipClicked;
+  final Function()? onClicked;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        if (onChipClicked != null) onChipClicked!();
+        if (onClicked != null) onClicked!();
       },
       child: Container(
         padding: EdgeInsets.only(left: 14, top: 10, right: 10, bottom: 10),
@@ -41,10 +41,10 @@ class ChipMoreCountItem extends StatelessWidget {
               SizedBox(width: 14),
               InkWell(
                 onTap: () {
-                  if (onChipClicked != null) onChipClicked!();
+                  if (onClicked != null) onClicked!();
                   vibrateAsHapticFeedback();
                 },
-                child: Assets.images.icChipMore.svg(height: 20, width: 20),
+                child: Assets.images.icChipExpand.svg(height: 20, width: 20),
               ),
             ],
           ),
