@@ -48,7 +48,7 @@ class SelectionPaymentTypePage
                   children: [
                     SizedBox(height: 20),
                     BottomSheetTitle(
-                      title: "Выберите типы оплаты",
+                      title: Strings.selectionPaymentTypeTitle,
                       onCloseClicked: () {
                         context.router.pop();
                       },

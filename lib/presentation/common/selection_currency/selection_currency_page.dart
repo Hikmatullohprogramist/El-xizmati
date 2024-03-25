@@ -6,6 +6,7 @@ import 'package:onlinebozor/common/widgets/bottom_sheet/bottom_sheet_title.dart'
 import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
 
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
+import '../../../common/gen/localization/strings.dart';
 import '../../../common/widgets/action/action_item_shimmer.dart';
 import '../../../common/widgets/divider/custom_diverder.dart';
 import 'cubit/page_cubit.dart';
@@ -37,7 +38,7 @@ class SelectionCurrencyPage extends BasePage<PageCubit, PageState, PageEvent> {
               children: [
                 SizedBox(height: 20),
                 BottomSheetTitle(
-                  title: "Выберите валюту",
+                  title: Strings.selectionCurrencyTitle,
                   onCloseClicked: () {
                     context.router.pop();
                   },

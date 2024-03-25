@@ -133,7 +133,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       child: Column(
         children: [
-          LabelTextField(text: 'Название товара '),
+          LabelTextField(text: Strings.createAdNameLabel),
           SizedBox(height: 6),
           CommonTextField(
             autofillHints: const [AutofillHints.name],
@@ -141,7 +141,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             keyboardType: TextInputType.name,
             minLines: 1,
             maxLines: 3,
-            hint: 'Название товара',
+            hint: Strings.createAdNameLabel,
             textInputAction: TextInputAction.next,
             controller: titleController,
             onChanged: (value) {
@@ -149,11 +149,11 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
           ),
           SizedBox(height: 16),
-          LabelTextField(text: 'Категория'),
+          LabelTextField(text: Strings.createAdCategoryLabel),
           SizedBox(height: 6),
           CustomDropdownField(
             text: state.category?.name ?? "",
-            hint: "Категория",
+            hint: Strings.createAdCategoryLabel,
             onTap: () {
               context.router.push(
                 SelectionNestedCategoryRoute(onResult: (categoryResponse) {
@@ -163,11 +163,11 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
           ),
           SizedBox(height: 16),
-          LabelTextField(text: 'Тип объявления'),
+          LabelTextField(text: Strings.createAdTransactionTypeLabel),
           SizedBox(height: 6),
           CustomDropdownField(
             text: state.adTransactionType.getString(),
-            hint: "Тип объявления",
+            hint: Strings.createAdTransactionTypeLabel,
             onTap: () {
               _showAdTransactionTypeSelectionBottomSheet(context, state);
             },
@@ -231,7 +231,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          LabelTextField(text: 'Описание товара'),
+          LabelTextField(text: Strings.createAdDescLabel),
           SizedBox(height: 6),
           CommonTextField(
             height: null,
@@ -240,8 +240,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             keyboardType: TextInputType.name,
             maxLines: 5,
             minLines: 3,
-            hint:
-                'Подумайте, какие подробности вы хотели бы узнать из объявления. И добавьте их в описание',
+            hint: Strings.createAdDescHint,
             textInputAction: TextInputAction.next,
             controller: descController,
             onChanged: (value) {
@@ -261,7 +260,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   flex: 5,
                   child: Column(
                     children: [
-                      LabelTextField(text: 'Кол-во на складе'),
+                      LabelTextField(text: Strings.createAdWarehouseCountLabel),
                       SizedBox(height: 6),
                       CommonTextField(
                         autofillHints: const [AutofillHints.telephoneNumber],
@@ -269,7 +268,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                         keyboardType: TextInputType.number,
                         maxLines: 1,
                         minLines: 1,
-                        hint: '-',
+                        hint: "-",
                         textInputAction: TextInputAction.next,
                         controller: warehouseController,
                         inputFormatters: quantityMaskFormatter,
@@ -285,7 +284,10 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                     flex: 4,
                     child: Column(
                       children: [
-                        LabelTextField(text: 'Тип', isRequired: false),
+                        LabelTextField(
+                          text: Strings.createAdWarehouseUnitLabel,
+                          isRequired: false,
+                        ),
                         SizedBox(height: 6),
                         CustomDropdownField(
                           text: state.unit?.name ?? "",
@@ -297,7 +299,6 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                               useSafeArea: true,
                               backgroundColor: Colors.transparent,
                               builder: (context) => SelectionUnitPage(
-                                key: Key(""),
                                 selectedUnit: state.unit,
                               ),
                             );
@@ -323,7 +324,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   flex: 5,
                   child: Column(
                     children: [
-                      LabelTextField(text: 'Цена'),
+                      LabelTextField(text: Strings.createAdPriceLabel),
                       SizedBox(height: 6),
                       CommonTextField(
                         autofillHints: const [AutofillHints.transactionAmount],
@@ -331,7 +332,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                         keyboardType: TextInputType.number,
                         maxLines: 1,
                         minLines: 1,
-                        hint: '-',
+                        hint: "-",
                         textInputAction: TextInputAction.next,
                         controller: priceController,
                         inputFormatters: amountMaskFormatter,
@@ -347,7 +348,10 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   flex: 4,
                   child: Column(
                     children: [
-                      LabelTextField(text: 'Валюта', isRequired: false),
+                      LabelTextField(
+                        text: Strings.createAdCurrencyLabel,
+                        isRequired: false,
+                      ),
                       SizedBox(height: 6),
                       CustomDropdownField(
                         text: state.currency?.name ?? "",
@@ -359,7 +363,6 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                             useSafeArea: true,
                             backgroundColor: Colors.transparent,
                             builder: (context) => SelectionCurrencyPage(
-                              key: Key(""),
                               initialSelectedItem: state.currency,
                             ),
                           );
@@ -389,7 +392,10 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 ),
                 SizedBox(width: 16),
                 Expanded(
-                  child: "Договорная".w(400).s(14).c(Color(0xFF41455E)),
+                  child: Strings.createAdNegotiableLabel
+                      .w(400)
+                      .s(14)
+                      .c(Color(0xFF41455E)),
                 ),
               ],
             ),
@@ -400,7 +406,10 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           ),
           Visibility(
             visible: state.adTransactionType != AdTransactionType.FREE,
-            child: LabelTextField(text: 'Способ оплаты', isRequired: true),
+            child: LabelTextField(
+              text: Strings.createAdPaymentTypeLabel,
+              isRequired: true,
+            ),
           ),
           Visibility(
             visible: state.adTransactionType != AdTransactionType.FREE,
@@ -434,9 +443,12 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 8),
-          "Дополнительная информация".w(700).s(16).c(Color(0xFF41455E)),
+          Strings.createAdAdditionalInfoLabel.w(700).s(16).c(Color(0xFF41455E)),
           SizedBox(height: 20),
-          LabelTextField(text: "Бизнес или личное", isRequired: false),
+          LabelTextField(
+            text: Strings.createAdPersonalOrBusinessLabel,
+            isRequired: false,
+          ),
           SizedBox(height: 8),
           CustomToggle(
             width: 240,
@@ -444,11 +456,11 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             onChanged: (isChecked) {
               cubit(context).setIsBusiness(isChecked);
             },
-            negativeTitle: "Личное",
-            positiveTitle: "Бизнес",
+            negativeTitle: Strings.createAdPersonalLabel,
+            positiveTitle: Strings.createAdBusinessLabel,
           ),
           SizedBox(height: 16),
-          LabelTextField(text: "Состояние", isRequired: false),
+          LabelTextField(text: Strings.createAdStateLabel, isRequired: false),
           SizedBox(height: 8),
           CustomToggle(
             width: 240,
@@ -456,8 +468,8 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             onChanged: (isChecked) {
               cubit(context).setIsNew(isChecked);
             },
-            negativeTitle: "Б / У",
-            positiveTitle: "Новый",
+            negativeTitle: Strings.createAdStateUsedLabel,
+            positiveTitle: Strings.createAdStateNewLabel,
           ),
         ],
       ),
@@ -475,13 +487,13 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 8),
-          "Контактная информация".w(700).s(16).c(Color(0xFF41455E)),
+          Strings.createAdContactInfoLabel.w(700).s(16).c(Color(0xFF41455E)),
           SizedBox(height: 20),
-          LabelTextField(text: "Местоположение"),
+          LabelTextField(text: Strings.createAdAddressLabel),
           SizedBox(height: 8),
           CustomDropdownField(
             text: state.address?.name ?? "",
-            hint: "Местоположение",
+            hint: Strings.createAdAddressLabel,
             onTap: () async {
               final address = await showModalBottomSheet(
                 context: context,
@@ -489,7 +501,6 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 useSafeArea: true,
                 backgroundColor: Colors.transparent,
                 builder: (context) => SelectionUserAddressPage(
-                  key: Key(""),
                   selectedAddress: state.address,
                 ),
               );
@@ -498,13 +509,13 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
           ),
           SizedBox(height: 12),
-          LabelTextField(text: "Контактное лицо"),
+          LabelTextField(text: Strings.createAdContactPersonLabel),
           SizedBox(height: 8),
           CommonTextField(
             autofillHints: const [AutofillHints.name],
             keyboardType: TextInputType.name,
             maxLines: 1,
-            hint: 'Контактное лицо',
+            hint: Strings.createAdContactPersonLabel,
             inputType: TextInputType.name,
             textInputAction: TextInputAction.next,
             controller: contactPersonController,
@@ -513,13 +524,13 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
           ),
           SizedBox(height: 12),
-          LabelTextField(text: "Номер телефона"),
+          LabelTextField(text: Strings.createAdContactPhoneLabel),
           SizedBox(height: 8),
           CommonTextField(
             autofillHints: const [AutofillHints.telephoneNumber],
             keyboardType: TextInputType.phone,
             maxLines: 1,
-            hint: '',
+            hint: "",
             prefixText: "+998",
             validateType: "phone",
             inputType: TextInputType.phone,
@@ -531,14 +542,14 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
           ),
           SizedBox(height: 12),
-          LabelTextField(text: "Эл. почта"),
+          LabelTextField(text: Strings.createAdContactEmailLabel),
           SizedBox(height: 8),
           CommonTextField(
             autofillHints: const [AutofillHints.email],
             keyboardType: TextInputType.emailAddress,
             inputType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
-            hint: "Эл. почта",
+            hint: Strings.createAdContactEmailLabel,
             validateType: "email",
             maxLines: 1,
             controller: emailController,
@@ -562,7 +573,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 8),
-          "Способы приема".w(600).s(14).c(Color(0xFF41455E)),
+          Strings.createAdReceiveTypesLabel.w(600).s(16).c(Color(0xFF41455E)),
           SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -575,7 +586,10 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
               SizedBox(width: 16),
               Expanded(
-                child: "Самовывоз с адреса".w(600).s(14).c(Color(0xFF41455E)),
+                child: Strings.createAdPickupLabel
+                    .w(600)
+                    .s(14)
+                    .c(Color(0xFF41455E)),
               ),
             ],
           ),
@@ -623,7 +637,10 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
               SizedBox(width: 16),
               Expanded(
-                child: "Бесплатная доставка".w(600).s(14).c(Color(0xFF41455E)),
+                child: Strings.createAdFreeDeliveryLabel
+                    .w(600)
+                    .s(14)
+                    .c(Color(0xFF41455E)),
               ),
             ],
           ),
@@ -671,7 +688,10 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
               SizedBox(width: 16),
               Expanded(
-                child: "Платная доставка".w(600).s(14).c(Color(0xFF41455E)),
+                child: Strings.createAdPaidDeliveryLabel
+                    .w(600)
+                    .s(14)
+                    .c(Color(0xFF41455E)),
               ),
             ],
           ),
@@ -708,7 +728,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            "Автопродление".w(600).s(14).c(Color(0xFF41455E)),
+            Strings.createAdAutoRenewLabel.w(600).s(14).c(Color(0xFF41455E)),
             SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -721,7 +741,9 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 ),
                 SizedBox(width: 16),
                 Expanded(
-                  child: "Объявление будет деактивировано через 15 дней"
+                  child: (state.isAutoRenewal
+                          ? Strings.createAdAutoRenewOnDesc
+                          : Strings.createAdAutoRenewOffDesc)
                       .w(400)
                       .s(14)
                       .c(Color(0xFF41455E)),
@@ -745,7 +767,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          "Мои соц. сети".w(600).s(14).c(Color(0xFF41455E)),
+          Strings.createAdUsefulLinkLabel.w(600).s(14).c(Color(0xFF41455E)),
           SizedBox(height: 24),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -758,7 +780,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
               SizedBox(width: 16),
               Expanded(
-                child: "Показать мои соц. сети на описание товара"
+                child: Strings.createAdShowMySocialAccountsLabel
                     .w(400)
                     .s(14)
                     .c(Color(0xFF41455E)),
@@ -786,7 +808,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               Assets.images.icRequiredField.svg(),
               SizedBox(width: 8),
               Expanded(
-                child: "Необходимо заполнить все поля отмеченный звездочкой "
+                child: Strings.createAdRequiredFieldsLabel
                     .w(300)
                     .s(13)
                     .c(context.colors.textSecondary),
@@ -837,7 +859,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             children: [
               SizedBox(height: 12),
               BottomSheetTitle(
-                title: "Выберите тип объявления",
+                title: Strings.selectionAdTransactionTypeTitle,
                 onCloseClicked: () {
                   context.router.pop();
                 },
@@ -895,7 +917,6 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             useSafeArea: true,
             backgroundColor: Colors.transparent,
             builder: (context) => SelectionPaymentTypePage(
-              key: Key(""),
               selectedPaymentTypes: state.paymentTypes,
             ),
           );

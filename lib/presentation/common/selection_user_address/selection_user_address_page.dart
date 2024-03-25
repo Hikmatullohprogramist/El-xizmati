@@ -7,6 +7,7 @@ import 'package:onlinebozor/common/widgets/address/user_address_shimmer.dart';
 
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../../../data/responses/address/user_address_response.dart';
+import '../../../common/gen/localization/strings.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/widgets/address/user_address_empty_widget.dart';
 import '../../../common/widgets/bottom_sheet/bottom_sheet_title.dart';
@@ -40,7 +41,7 @@ class SelectionUserAddressPage
               children: [
                 SizedBox(height: 20),
                 BottomSheetTitle(
-                  title: "Выберите адрес",
+                  title: Strings.selectionUserAddressTitle,
                   onCloseClicked: () {
                     context.router.pop();
                   },

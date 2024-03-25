@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/widgets/action/action_list_item.dart';
 import 'package:onlinebozor/common/widgets/image/add_image_widget.dart';
 import 'package:onlinebozor/common/widgets/image/added_image_widget.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
@@ -136,7 +136,7 @@ class ImageAdListWidget extends StatelessWidget {
               topRight: Radius.circular(20),
             ),
           ),
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          // padding: EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,42 +149,23 @@ class ImageAdListWidget extends StatelessWidget {
                 },
               ),
               SizedBox(height: 16),
-              InkWell(
-                onTap: () {
+              ActionListItem(
+                item: "",
+                title: Strings.imageListAddTakePhoto,
+                icon: Assets.images.icAddImageCamera,
+                onClicked: (item) {
                   onTakePhotoClicked();
                   Navigator.pop(context);
-                  vibrateAsHapticFeedback();
                 },
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 12, bottom: 4),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Assets.images.icAddImageCamera.svg(),
-                      SizedBox(width: 24),
-                      Strings.imageListAddTakePhoto.s(16).w(400),
-                    ],
-                  ),
-                ),
               ),
-              SizedBox(height: 24),
-              InkWell(
-                onTap: () {
+              ActionListItem(
+                item: "",
+                title: Strings.imageListAddPickImage,
+                icon: Assets.images.icAddImageGallery,
+                onClicked: (item) {
                   onPickImageClicked();
                   Navigator.pop(context);
-                  vibrateAsHapticFeedback();
                 },
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 4, bottom: 12),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Assets.images.icAddImageGallery.svg(),
-                      SizedBox(width: 24),
-                      Strings.imageListAddPickImage.s(16).w(400),
-                    ],
-                  ),
-                ),
               ),
               SizedBox(height: 32),
             ],

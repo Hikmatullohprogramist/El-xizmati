@@ -57,13 +57,17 @@ class SelectionUserWarehousePage
                       successBody: _buildSuccessBody(state),
                     ),
                     SizedBox(height: 72),
+                    Visibility(
+                      visible: state.items.length < 3,
+                      child: SizedBox(height: 160),
+                    )
                   ],
                 ),
               ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 12),
-              child:  CustomElevatedButton(
+              child: CustomElevatedButton(
                 text: Strings.commonSave,
                 onPressed: () {
                   context.router.pop(state.selectedItems);
