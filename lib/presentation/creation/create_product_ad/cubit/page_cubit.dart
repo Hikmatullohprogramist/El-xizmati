@@ -52,7 +52,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         adTransactionType: states.adTransactionType,
         mainImageId: states.pickedImages!.map((e) => e.id).first!,
         pickedImageIds: states.pickedImages!.map((e) => e.id!).toList(),
-        videoUrl: states.videoUrl,
         desc: states.desc,
         //
         warehouseCount: states.warehouseCount,
@@ -88,6 +87,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         //
         isAutoRenewal: states.isAutoRenewal,
         isShowMySocialAccount: states.isShowMySocialAccount,
+        videoUrl: states.videoUrl,
       );
       log.i(response.toString());
 
@@ -341,12 +341,9 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   void removePickupAddress(UserAddressResponse pickupAddress) {
     try {
-      var pickupWarehouses =
-          List<UserAddressResponse>.from(states.pickupWarehouses);
-      pickupWarehouses.remove(pickupAddress);
-      updateState(
-        (state) => state.copyWith(pickupWarehouses: pickupWarehouses),
-      );
+      var warehouses = List<UserAddressResponse>.from(states.pickupWarehouses);
+      warehouses.remove(pickupAddress);
+      updateState((state) => state.copyWith(pickupWarehouses: warehouses));
     } catch (e) {
       log.e(e.toString());
     }
@@ -354,12 +351,9 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   void removeFreeDelivery(District district) {
     try {
-      var freeDeliveryDistricts =
-          List<District>.from(states.freeDeliveryDistricts);
-      freeDeliveryDistricts.remove(district);
-      updateState(
-        (state) => state.copyWith(freeDeliveryDistricts: freeDeliveryDistricts),
-      );
+      var districts = List<District>.from(states.freeDeliveryDistricts);
+      districts.remove(district);
+      updateState((state) => state.copyWith(freeDeliveryDistricts: districts));
     } catch (e) {
       log.e(e.toString());
     }
@@ -367,12 +361,9 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   void removePaidDelivery(District district) {
     try {
-      var paidDeliveryDistricts =
-          List<District>.from(states.paidDeliveryDistricts);
-      paidDeliveryDistricts.remove(district);
-      updateState(
-        (state) => state.copyWith(paidDeliveryDistricts: paidDeliveryDistricts),
-      );
+      var districts = List<District>.from(states.paidDeliveryDistricts);
+      districts.remove(district);
+      updateState((state) => state.copyWith(paidDeliveryDistricts: districts));
     } catch (e) {
       log.e(e.toString());
     }
@@ -388,6 +379,10 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   void setAutoRenewal(bool isAutoRenewal) {
     updateState((state) => state.copyWith(isAutoRenewal: isAutoRenewal));
+  }
+
+  void setEnteredVideoUrl(String videoUrl) {
+    updateState((state) => state.copyWith(videoUrl: videoUrl));
   }
 
   void setShowMySocialAccounts(bool isShowMySocialAccount) {

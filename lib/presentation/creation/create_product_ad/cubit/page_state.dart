@@ -9,7 +9,6 @@ class PageState with _$PageState {
 //
     @Default(MAX_IMAGE_COUNT) int maxImageCount,
     List<UploadableFile>? pickedImages,
-    @Default("") String videoUrl,
 //
     @Default("") String desc,
     int? warehouseCount,
@@ -50,8 +49,9 @@ class PageState with _$PageState {
     @Default([]) List<District> paidDeliveryDistricts,
 //
     @Default(false) bool isAutoRenewal,
-//
     @Default(false) bool isShowMySocialAccount,
+    @Default("") String videoUrl,
+//
     @Default(false) bool isRequestSending,
 //
     @Default(LoadingState.loading) LoadingState itemsLoadState,

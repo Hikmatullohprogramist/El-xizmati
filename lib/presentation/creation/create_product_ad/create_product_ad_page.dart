@@ -49,6 +49,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
   final TextEditingController contactPersonController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController videoUrlController = TextEditingController();
 
   @override
   void onEventEmitted(BuildContext context, PageEvent event) {
@@ -74,6 +75,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     contactPersonController.updateOnRestore(state.contactPerson);
     phoneController.updateOnRestore(state.phone);
     emailController.updateOnRestore(state.email);
+    videoUrlController.updateOnRestore(state.videoUrl);
 
     return Scaffold(
       appBar: DefaultAppBar(Strings.adCreateTitle, () => context.router.pop()),
@@ -105,7 +107,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             SizedBox(height: 16),
             _buildAutoContinueBlock(context, state),
             SizedBox(height: 16),
-            _buildPinMySocialAccountsBlock(context, state),
+            _buildUsefulLinkBlock(context, state),
             SizedBox(height: 16),
             _buildFooterBlock(context, state),
             SizedBox(height: 24),
@@ -822,7 +824,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildPinMySocialAccountsBlock(
+  Widget _buildUsefulLinkBlock(
     BuildContext context,
     PageState state,
   ) {
@@ -833,7 +835,22 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Strings.createAdUsefulLinkLabel.w(600).s(14).c(Color(0xFF41455E)),
-          SizedBox(height: 24),
+          SizedBox(height: 20),
+          LabelTextField(Strings.createAdVideoUlrLabel, isRequired: false),
+          SizedBox(height: 6),
+          CommonTextField(
+            autofillHints: const [AutofillHints.url],
+            keyboardType: TextInputType.url,
+            maxLines: 1,
+            hint: Strings.createAdVideoUlrLabel,
+            inputType: TextInputType.url,
+            textInputAction: TextInputAction.done,
+            controller: videoUrlController,
+            onChanged: (value) {
+              cubit(context).setEnteredVideoUrl(value);
+            },
+          ),
+          SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -852,7 +869,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
             ],
           ),
-          SizedBox(height: 6),
+          SizedBox(height: 8),
         ],
       ),
     );
