@@ -83,6 +83,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         freeDeliveryDistricts: states.freeDeliveryDistricts,
         isPaidDeliveryEnabled: states.isPaidDeliveryEnabled,
         paidDeliveryMaxDay: states.paidDeliveryMaxDay,
+        paidDeliveryPrice: states.paidDeliveryPrice,
         paidDeliveryDistricts: states.paidDeliveryDistricts,
         //
         isAutoRenewal: states.isAutoRenewal,
@@ -158,15 +159,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   void setEnteredPrice(String price) {
-    int? priceInt;
-    if (price.trim().isNotEmpty) {
-      try {
-        priceInt = int.parse(price.clearPrice());
-      } catch (e) {
-        priceInt = null;
-        log.e(e.toString());
-      }
-    }
+    int? priceInt = int.tryParse(price.clearPrice());
     updateState((state) => state.copyWith(price: priceInt));
   }
 
@@ -265,10 +258,24 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
+  void removePickupAddress(UserAddressResponse pickupAddress) {
+    try {
+      var warehouses = List<UserAddressResponse>.from(states.pickupWarehouses);
+      warehouses.remove(pickupAddress);
+      updateState((state) => state.copyWith(pickupWarehouses: warehouses));
+    } catch (e) {
+      log.e(e.toString());
+    }
+  }
+
   void showHideAddresses() {
     updateState((state) => state.copyWith(
           isShowAllPickupAddresses: !states.isShowAllPickupAddresses,
         ));
+  }
+
+  void setFreeDeliveryEnabling(bool isEnabled) {
+    updateState((state) => state.copyWith(isFreeDeliveryEnabled: isEnabled));
   }
 
   void setFreeDeliveryDistricts(List<District>? districts) {
@@ -284,11 +291,30 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
+  void removeFreeDelivery(District district) {
+    try {
+      var districts = List<District>.from(states.freeDeliveryDistricts);
+      districts.remove(district);
+      updateState((state) => state.copyWith(freeDeliveryDistricts: districts));
+    } catch (e) {
+      log.e(e.toString());
+    }
+  }
+
   void showHideFreeDistricts() {
     updateState((state) => state.copyWith(
           isShowAllFreeDeliveryDistricts:
               !states.isShowAllFreeDeliveryDistricts,
         ));
+  }
+
+  void setPaidDeliveryEnabling(bool isEnabled) {
+    updateState((state) => state.copyWith(isPaidDeliveryEnabled: isEnabled));
+  }
+
+  void setEnteredPaidDeliveryPrice(String price) {
+    int? priceInt = int.tryParse(price.clearPrice());
+    updateState((state) => state.copyWith(paidDeliveryPrice: priceInt));
   }
 
   void setPaidDeliveryDistricts(List<District>? districts) {
@@ -299,6 +325,16 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         items.addAll(districts);
         updateState((state) => state.copyWith(paidDeliveryDistricts: items));
       }
+    } catch (e) {
+      log.e(e.toString());
+    }
+  }
+
+  void removePaidDelivery(District district) {
+    try {
+      var districts = List<District>.from(states.paidDeliveryDistricts);
+      districts.remove(district);
+      updateState((state) => state.copyWith(paidDeliveryDistricts: districts));
     } catch (e) {
       log.e(e.toString());
     }
@@ -337,44 +373,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     } else {
       return false;
     }
-  }
-
-  void removePickupAddress(UserAddressResponse pickupAddress) {
-    try {
-      var warehouses = List<UserAddressResponse>.from(states.pickupWarehouses);
-      warehouses.remove(pickupAddress);
-      updateState((state) => state.copyWith(pickupWarehouses: warehouses));
-    } catch (e) {
-      log.e(e.toString());
-    }
-  }
-
-  void removeFreeDelivery(District district) {
-    try {
-      var districts = List<District>.from(states.freeDeliveryDistricts);
-      districts.remove(district);
-      updateState((state) => state.copyWith(freeDeliveryDistricts: districts));
-    } catch (e) {
-      log.e(e.toString());
-    }
-  }
-
-  void removePaidDelivery(District district) {
-    try {
-      var districts = List<District>.from(states.paidDeliveryDistricts);
-      districts.remove(district);
-      updateState((state) => state.copyWith(paidDeliveryDistricts: districts));
-    } catch (e) {
-      log.e(e.toString());
-    }
-  }
-
-  void setFreeDeliveryEnabling(bool isEnabled) {
-    updateState((state) => state.copyWith(isFreeDeliveryEnabled: isEnabled));
-  }
-
-  void setPaidDeliveryEnabling(bool isEnabled) {
-    updateState((state) => state.copyWith(isPaidDeliveryEnabled: isEnabled));
   }
 
   void setAutoRenewal(bool isAutoRenewal) {

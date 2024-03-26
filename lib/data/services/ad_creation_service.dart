@@ -86,6 +86,7 @@ class AdCreationService {
     required List<int> freeDeliveryDistricts,
     required bool isPaidDeliveryEnabled,
     required int paidDeliveryMaxDay,
+    required int? paidDeliveryPrice,
     required List<int> paidDeliveryDistricts,
     required bool isAutoRenewal,
     required bool isShowMySocialAccount,
@@ -125,6 +126,8 @@ class AdCreationService {
       "is_paid_delivery_enabled": isPaidDeliveryEnabled,
       "paid_delivery_district_ids": paidDeliveryDistricts.toMap(),
       "paid_delivery_max_days": paidDeliveryMaxDay,
+      "shipping_price": paidDeliveryPrice,
+      "shipping_unit_id": 12, // km unit id 12
       // "service_category_id": null,
       // "service_sub_category_id": null,
     };

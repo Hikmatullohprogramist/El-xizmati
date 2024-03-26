@@ -98,6 +98,7 @@ class AdCreationRepository {
     required List<District> freeDeliveryDistricts,
     required bool isPaidDeliveryEnabled,
     required int paidDeliveryMaxDay,
+    required int? paidDeliveryPrice,
     required List<District> paidDeliveryDistricts,
     required bool isAutoRenewal,
     required bool isShowMySocialAccount,
@@ -140,6 +141,7 @@ class AdCreationRepository {
       freeDeliveryDistricts: freeDeliveryDistricts.map((e) => e.id).toList(),
       isPaidDeliveryEnabled: isPaidDeliveryEnabled,
       paidDeliveryMaxDay: paidDeliveryMaxDay,
+      paidDeliveryPrice: paidDeliveryPrice,
       paidDeliveryDistricts: paidDeliveryDistricts.map((e) => e.id).toList(),
       //
       isAutoRenewal: isAutoRenewal,

@@ -45,7 +45,7 @@ class PageState with _$PageState {
     @Default(false) bool isPaidDeliveryEnabled,
     @Default(false) bool isShowAllPaidDeliveryDistricts,
     @Default(5) int paidDeliveryMaxDay,
-    int? paidDeliveryPricePerKm,
+    int? paidDeliveryPrice,
     @Default([]) List<District> paidDeliveryDistricts,
 //
     @Default(false) bool isAutoRenewal,

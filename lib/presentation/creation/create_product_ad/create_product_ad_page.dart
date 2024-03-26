@@ -49,6 +49,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
   final TextEditingController contactPersonController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController paidDelPriceController = TextEditingController();
   final TextEditingController videoUrlController = TextEditingController();
 
   @override
@@ -75,6 +76,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     contactPersonController.updateOnRestore(state.contactPerson);
     phoneController.updateOnRestore(state.phone);
     emailController.updateOnRestore(state.email);
+    paidDelPriceController.updateOnRestore(state.paidDeliveryPrice?.toString());
     videoUrlController.updateOnRestore(state.videoUrl);
 
     return Scaffold(
@@ -765,6 +767,35 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           Visibility(
             visible: state.isPaidDeliveryEnabled,
             child: SizedBox(height: 24),
+          ),
+          Visibility(
+            visible: state.isPaidDeliveryEnabled,
+            child: LabelTextField(Strings.createAdPriceLabel),
+          ),
+          Visibility(
+            visible: state.isPaidDeliveryEnabled,
+            child: SizedBox(height: 6),
+          ),
+          Visibility(
+            visible: state.isPaidDeliveryEnabled,
+            child: CommonTextField(
+              autofillHints: const [AutofillHints.transactionAmount],
+              inputType: TextInputType.number,
+              keyboardType: TextInputType.number,
+              maxLines: 1,
+              minLines: 1,
+              hint: "-",
+              textInputAction: TextInputAction.done,
+              controller: paidDelPriceController,
+              inputFormatters: amountMaskFormatter,
+              onChanged: (value) {
+                cubit(context).setEnteredPaidDeliveryPrice(value);
+              },
+            ),
+          ),
+          Visibility(
+            visible: state.isPaidDeliveryEnabled,
+            child: SizedBox(height: 12),
           ),
           Visibility(
             visible: state.isPaidDeliveryEnabled,
