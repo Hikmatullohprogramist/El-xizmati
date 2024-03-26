@@ -27,17 +27,19 @@ class LocaleImageViewerPage extends StatefulWidget {
 
 class _LocaleImageViewerPageState extends State<LocaleImageViewerPage> {
   late int currentIndex;
+  List<UploadableFile> images = [];
 
   @override
   void initState() {
     super.initState();
     currentIndex = widget.initialIndex;
+    images.addAll(widget.images.map((e) => e.copy()).toList());
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent, // Desired status bar color
-          statusBarIconBrightness: Brightness.light // Status bar icon color
-          ));
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+      ));
     });
   }
 
@@ -51,10 +53,9 @@ class _LocaleImageViewerPageState extends State<LocaleImageViewerPage> {
   void dispose() {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-          statusBarColor: Colors.white, // Default status bar color
-          statusBarIconBrightness:
-              Brightness.dark // Default status bar icon color
-          ),
+        statusBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark,
+      ),
     );
     super.dispose();
   }
@@ -66,11 +67,11 @@ class _LocaleImageViewerPageState extends State<LocaleImageViewerPage> {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
 
-    var pageController = PageController(initialPage: widget.initialIndex);
+    var pageController = PageController(initialPage: currentIndex);
 
     return WillPopScope(
       onWillPop: () async {
-        context.router.pop(widget.images);
+        context.router.pop(images);
         return true;
       },
       child: Scaffold(
@@ -78,8 +79,8 @@ class _LocaleImageViewerPageState extends State<LocaleImageViewerPage> {
         body: PopScope(
           onPopInvoked: (didPop) {
             // if (didPop) {
-            //   // context.router.pop(widget.images);
-            //   AutoRouter.of(context).pop(widget.images);
+            //   // context.router.pop(images);
+            //   AutoRouter.of(context).pop(images);
             // }
           },
           child: Stack(
@@ -105,12 +106,12 @@ class _LocaleImageViewerPageState extends State<LocaleImageViewerPage> {
       scrollPhysics: const BouncingScrollPhysics(),
       builder: (BuildContext context, int index) {
         return PhotoViewGalleryPageOptions(
-          imageProvider: widget.images[index].xFile.toFileImage(),
+          imageProvider: images[index].xFile.toFileImage(),
           initialScale: PhotoViewComputedScale.contained * 1,
-          heroAttributes: PhotoViewHeroAttributes(tag: widget.images[index]),
+          heroAttributes: PhotoViewHeroAttributes(tag: images[index]),
         );
       },
-      itemCount: widget.images.length,
+      itemCount: images.length,
       loadingBuilder: (context, event) => Center(
         child: SizedBox(
           width: double.infinity,
@@ -137,7 +138,7 @@ class _LocaleImageViewerPageState extends State<LocaleImageViewerPage> {
           ),
           child: IconButton(
             onPressed: () {
-              context.router.pop(widget.images);
+              context.router.pop(images);
             },
             icon: Assets.images.icArrowLeft.svg(color: Colors.white),
           ),
@@ -165,10 +166,13 @@ class _LocaleImageViewerPageState extends State<LocaleImageViewerPage> {
                   : Strings.commonMakeMainPhoto),
               isEnabled: currentIndex != 0,
               onPressed: () {
+                var item = images.removeAt(currentIndex);
+                images.insert(0, item);
                 setState(() {
-                  var item = widget.images.removeAt(currentIndex);
-                  currentIndex = -1;
-                  widget.images.insert(0, item);
+                  images = images;
+                });
+                // if (pageController.hasClients) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
                   pageController.jumpToPage(0);
                 });
               },
@@ -183,9 +187,9 @@ class _LocaleImageViewerPageState extends State<LocaleImageViewerPage> {
               text: Strings.commonDelete,
               onPressed: () {
                 setState(() {
-                  widget.images.removeAt(currentIndex);
-                  if (widget.images.isEmpty) {
-                    context.router.pop(widget.images);
+                  images.removeAt(currentIndex);
+                  if (images.isEmpty) {
+                    context.router.pop(images);
                   }
                 });
               },

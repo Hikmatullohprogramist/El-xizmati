@@ -770,7 +770,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           ),
           Visibility(
             visible: state.isPaidDeliveryEnabled,
-            child: LabelTextField(Strings.createAdPriceLabel),
+            child: LabelTextField(Strings.createAdPaidDeliveryPriceLabel),
           ),
           Visibility(
             visible: state.isPaidDeliveryEnabled,

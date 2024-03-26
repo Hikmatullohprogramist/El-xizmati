@@ -9,6 +9,16 @@ class UploadableFile {
     required this.xFile,
   });
 
+  UploadableFile copy() {
+    return UploadableFile(
+      id: id,
+      name: name,
+      localPath: localPath,
+      extension: extension,
+      xFile: xFile,
+    );
+  }
+
   String? id;
   String? name;
   String? localPath;
