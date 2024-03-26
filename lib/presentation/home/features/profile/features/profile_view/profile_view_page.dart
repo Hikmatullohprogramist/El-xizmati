@@ -166,9 +166,9 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                   SizedBox(height: 8),
                   Row(
                     children: [
-                      state.fullName
+                      state.fullName.capitalizeFullName()
                           .w(600)
-                          .s(12)
+                          .s(14)
                           .c(Colors.black)
                           .copyWith(overflow: TextOverflow.ellipsis),
                       SizedBox(width: 8),

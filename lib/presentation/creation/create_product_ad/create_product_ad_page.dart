@@ -4,6 +4,7 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/controller/controller_exts.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/common/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/common/widgets/chips/chip_add_item.dart';
 import 'package:onlinebozor/common/widgets/chips/chip_item.dart';
 import 'package:onlinebozor/common/widgets/chips/chip_list.dart';
@@ -41,11 +42,10 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descController = TextEditingController();
-  final TextEditingController anotherTitleController = TextEditingController();
-  final TextEditingController anotherDescController = TextEditingController();
   final TextEditingController warehouseController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
-
+  final TextEditingController exchangeTitleController = TextEditingController();
+  final TextEditingController exchangeDescController = TextEditingController();
   final TextEditingController contactPersonController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -67,16 +67,16 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget onWidgetBuild(BuildContext context, PageState state) {
     titleController.updateOnRestore(state.title);
     descController.updateOnRestore(state.desc);
-    anotherTitleController.updateOnRestore(state.anotherTitle);
-    anotherDescController.updateOnRestore(state.anotherDesc);
     warehouseController.updateOnRestore(state.warehouseCount?.toString());
     priceController.updateOnRestore(state.price?.toString());
+    exchangeTitleController.updateOnRestore(state.exchangeTitle);
+    exchangeDescController.updateOnRestore(state.exchangeDesc);
     contactPersonController.updateOnRestore(state.contactPerson);
     phoneController.updateOnRestore(state.phone);
     emailController.updateOnRestore(state.email);
 
     return Scaffold(
-      appBar: _buildAppBar(context),
+      appBar: DefaultAppBar(Strings.adCreateTitle, () => context.router.pop()),
       backgroundColor: StaticColors.backgroundColor,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
@@ -88,11 +88,12 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             SizedBox(height: 12),
             _buildImageListBlock(context, state),
             SizedBox(height: 16),
-            _buildDescAndPriceBlock(context, state),
+            _buildDescBlock(context, state),
+            _buildPriceBlock(context, state),
             SizedBox(height: 16),
             _buildAdditionalInfoBlock(context, state),
-            SizedBox(height: 16),
-            _buildAnotherAdBlock(context, state),
+            SizedBox(height: cubit(context).isExchangeMode() ? 16 : 0),
+            _buildExchangeAdBlock(context, state),
             SizedBox(height: 16),
             _buildContactsBlock(context, state),
             SizedBox(height: 16),
@@ -114,20 +115,6 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  AppBar _buildAppBar(BuildContext context) {
-    return AppBar(
-      leading: IconButton(
-        icon: Assets.images.icArrowLeft.svg(),
-        onPressed: () => context.router.pop(),
-      ),
-      elevation: 0.5,
-      backgroundColor: Colors.white,
-      centerTitle: true,
-      bottomOpacity: 1,
-      title: Strings.adCreateTitle.w(500).s(16).c(context.colors.textPrimary),
-    );
-  }
-
   /// Build block methods
 
   Widget _buildTitleAndCategoryBlock(
@@ -139,7 +126,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       child: Column(
         children: [
-          LabelTextField(text: Strings.createAdNameLabel),
+          LabelTextField(Strings.createAdNameLabel),
           SizedBox(height: 6),
           CommonTextField(
             autofillHints: const [AutofillHints.name],
@@ -155,7 +142,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
           ),
           SizedBox(height: 16),
-          LabelTextField(text: Strings.createAdCategoryLabel),
+          LabelTextField(Strings.createAdCategoryLabel),
           SizedBox(height: 6),
           CustomDropdownField(
             text: state.category?.name ?? "",
@@ -169,7 +156,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
           ),
           SizedBox(height: 16),
-          LabelTextField(text: Strings.createAdTransactionTypeLabel),
+          LabelTextField(Strings.createAdTransactionTypeLabel),
           SizedBox(height: 6),
           CustomDropdownField(
             text: state.adTransactionType.getString(),
@@ -226,18 +213,19 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildDescAndPriceBlock(
+  Widget _buildDescBlock(
     BuildContext context,
     PageState state,
   ) {
     return Container(
       color: Colors.white,
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          LabelTextField(text: Strings.createAdDescLabel),
+          SizedBox(height: 24),
+          LabelTextField(Strings.createAdDescLabel),
           SizedBox(height: 6),
           CommonTextField(
             height: null,
@@ -253,189 +241,181 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               cubit(context).setEnteredDesc(value);
             },
           ),
-          Visibility(
-            visible: state.adTransactionType != AdTransactionType.FREE,
-            child: SizedBox(height: 16),
-          ),
-          Visibility(
-            visible: state.adTransactionType != AdTransactionType.FREE,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Flexible(
-                  flex: 5,
-                  child: Column(
-                    children: [
-                      LabelTextField(text: Strings.createAdWarehouseCountLabel),
-                      SizedBox(height: 6),
-                      CommonTextField(
-                        autofillHints: const [AutofillHints.telephoneNumber],
-                        inputType: TextInputType.number,
-                        keyboardType: TextInputType.number,
-                        maxLines: 1,
-                        minLines: 1,
-                        hint: "-",
-                        textInputAction: TextInputAction.next,
-                        controller: warehouseController,
-                        inputFormatters: quantityMaskFormatter,
-                        onChanged: (value) {
-                          cubit(context).setEnteredWarehouseCount(value);
-                        },
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(width: 16),
-                Flexible(
-                    flex: 4,
-                    child: Column(
-                      children: [
-                        LabelTextField(
-                          text: Strings.createAdWarehouseUnitLabel,
-                          isRequired: false,
-                        ),
-                        SizedBox(height: 6),
-                        CustomDropdownField(
-                          text: state.unit?.name ?? "",
-                          hint: "-",
-                          onTap: () async {
-                            final unit = await showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              useSafeArea: true,
-                              backgroundColor: Colors.transparent,
-                              builder: (context) => SelectionUnitPage(
-                                selectedUnit: state.unit,
-                              ),
-                            );
-
-                            cubit(context).setSelectedUnit(unit);
-                          },
-                        ),
-                      ],
-                    ))
-              ],
-            ),
-          ),
-          Visibility(
-            visible: state.adTransactionType != AdTransactionType.FREE,
-            child: SizedBox(height: 16),
-          ),
-          Visibility(
-            visible: state.adTransactionType != AdTransactionType.FREE,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Flexible(
-                  flex: 5,
-                  child: Column(
-                    children: [
-                      LabelTextField(text: Strings.createAdPriceLabel),
-                      SizedBox(height: 6),
-                      CommonTextField(
-                        autofillHints: const [AutofillHints.transactionAmount],
-                        inputType: TextInputType.number,
-                        keyboardType: TextInputType.number,
-                        maxLines: 1,
-                        minLines: 1,
-                        hint: "-",
-                        textInputAction: TextInputAction.next,
-                        controller: priceController,
-                        inputFormatters: amountMaskFormatter,
-                        onChanged: (value) {
-                          cubit(context).setEnteredPrice(value);
-                        },
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(width: 16),
-                Flexible(
-                  flex: 4,
-                  child: Column(
-                    children: [
-                      LabelTextField(
-                        text: Strings.createAdCurrencyLabel,
-                        isRequired: false,
-                      ),
-                      SizedBox(height: 6),
-                      CustomDropdownField(
-                        text: state.currency?.name ?? "",
-                        hint: "-",
-                        onTap: () async {
-                          final currency = await showModalBottomSheet(
-                            context: context,
-                            isScrollControlled: true,
-                            useSafeArea: true,
-                            backgroundColor: Colors.transparent,
-                            builder: (context) => SelectionCurrencyPage(
-                              initialSelectedItem: state.currency,
-                            ),
-                          );
-                          cubit(context).setSelectedCurrency(currency);
-                        },
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          Visibility(
-            visible: state.adTransactionType != AdTransactionType.FREE,
-            child: SizedBox(height: 8),
-          ),
-          Visibility(
-            visible: state.adTransactionType != AdTransactionType.FREE,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                CustomSwitch(
-                  isChecked: state.isAgreedPrice,
-                  onChanged: (value) {
-                    cubit(context).setAgreedPrice(value);
-                  },
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: Strings.createAdNegotiableLabel
-                      .w(400)
-                      .s(14)
-                      .c(Color(0xFF41455E)),
-                ),
-              ],
-            ),
-          ),
-          Visibility(
-            visible: state.adTransactionType != AdTransactionType.FREE,
-            child: SizedBox(height: 24),
-          ),
-          Visibility(
-            visible: state.adTransactionType != AdTransactionType.FREE,
-            child: LabelTextField(
-              text: Strings.createAdPaymentTypeLabel,
-              isRequired: true,
-            ),
-          ),
-          Visibility(
-            visible: state.adTransactionType != AdTransactionType.FREE,
-            child: SizedBox(height: 16),
-          ),
-          Visibility(
-            visible: state.adTransactionType != AdTransactionType.FREE,
-            child: Wrap(
-              direction: Axis.horizontal,
-              spacing: 8,
-              runSpacing: 8,
-              alignment: WrapAlignment.start,
-              crossAxisAlignment: WrapCrossAlignment.start,
-              runAlignment: WrapAlignment.start,
-              children: _buildPaymentTypeChips(context, state),
-            ),
-          ),
+          SizedBox(height: cubit(context).isFreeAdMode() ? 24 : 0),
         ],
       ),
     );
+  }
+
+  Widget _buildPriceBlock(BuildContext context, PageState state) {
+    return cubit(context).isFreeAdMode()
+        ? SizedBox(height: 0, width: 0)
+        : Container(
+            color: Colors.white,
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 16),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Flexible(
+                      flex: 5,
+                      child: Column(
+                        children: [
+                          LabelTextField(Strings.createAdWarehouseCountLabel),
+                          SizedBox(height: 6),
+                          CommonTextField(
+                            autofillHints: const [
+                              AutofillHints.telephoneNumber
+                            ],
+                            inputType: TextInputType.number,
+                            keyboardType: TextInputType.number,
+                            maxLines: 1,
+                            minLines: 1,
+                            hint: "-",
+                            textInputAction: TextInputAction.next,
+                            controller: warehouseController,
+                            inputFormatters: quantityMaskFormatter,
+                            onChanged: (value) {
+                              cubit(context).setEnteredWarehouseCount(value);
+                            },
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: 16),
+                    Flexible(
+                      flex: 4,
+                      child: Column(
+                        children: [
+                          LabelTextField(
+                            Strings.createAdWarehouseUnitLabel,
+                            isRequired: false,
+                          ),
+                          SizedBox(height: 6),
+                          CustomDropdownField(
+                            text: state.unit?.name ?? "",
+                            hint: "-",
+                            onTap: () async {
+                              final unit = await showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                useSafeArea: true,
+                                backgroundColor: Colors.transparent,
+                                builder: (context) => SelectionUnitPage(
+                                  selectedUnit: state.unit,
+                                ),
+                              );
+
+                              cubit(context).setSelectedUnit(unit);
+                            },
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(height: 16),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Flexible(
+                      flex: 5,
+                      child: Column(
+                        children: [
+                          LabelTextField(Strings.createAdPriceLabel),
+                          SizedBox(height: 6),
+                          CommonTextField(
+                            autofillHints: const [
+                              AutofillHints.transactionAmount
+                            ],
+                            inputType: TextInputType.number,
+                            keyboardType: TextInputType.number,
+                            maxLines: 1,
+                            minLines: 1,
+                            hint: "-",
+                            textInputAction: TextInputAction.next,
+                            controller: priceController,
+                            inputFormatters: amountMaskFormatter,
+                            onChanged: (value) {
+                              cubit(context).setEnteredPrice(value);
+                            },
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: 16),
+                    Flexible(
+                      flex: 4,
+                      child: Column(
+                        children: [
+                          LabelTextField(
+                            Strings.createAdCurrencyLabel,
+                            isRequired: false,
+                          ),
+                          SizedBox(height: 6),
+                          CustomDropdownField(
+                            text: state.currency?.name ?? "",
+                            hint: "-",
+                            onTap: () async {
+                              final currency = await showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                useSafeArea: true,
+                                backgroundColor: Colors.transparent,
+                                builder: (context) => SelectionCurrencyPage(
+                                  initialSelectedItem: state.currency,
+                                ),
+                              );
+                              cubit(context).setSelectedCurrency(currency);
+                            },
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    CustomSwitch(
+                      isChecked: state.isAgreedPrice,
+                      onChanged: (value) {
+                        cubit(context).setAgreedPrice(value);
+                      },
+                    ),
+                    SizedBox(width: 16),
+                    Expanded(
+                      child: Strings.createAdNegotiableLabel
+                          .w(400)
+                          .s(14)
+                          .c(Color(0xFF41455E)),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 24),
+                LabelTextField(
+                  Strings.createAdPaymentTypeLabel,
+                  isRequired: true,
+                ),
+                SizedBox(height: 16),
+                Wrap(
+                  direction: Axis.horizontal,
+                  spacing: 8,
+                  runSpacing: 8,
+                  alignment: WrapAlignment.start,
+                  crossAxisAlignment: WrapCrossAlignment.start,
+                  runAlignment: WrapAlignment.start,
+                  children: _buildPaymentTypeChips(context, state),
+                ),
+                SizedBox(height: 24),
+              ],
+            ),
+          );
   }
 
   Widget _buildAdditionalInfoBlock(
@@ -452,7 +432,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           Strings.createAdAdditionalInfoLabel.w(700).s(16).c(Color(0xFF41455E)),
           SizedBox(height: 20),
           LabelTextField(
-            text: Strings.createAdPersonalOrBusinessLabel,
+            Strings.createAdPersonalOrBusinessLabel,
             isRequired: false,
           ),
           SizedBox(height: 8),
@@ -466,7 +446,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             positiveTitle: Strings.createAdBusinessLabel,
           ),
           SizedBox(height: 16),
-          LabelTextField(text: Strings.createAdStateLabel, isRequired: false),
+          LabelTextField(Strings.createAdStateLabel, isRequired: false),
           SizedBox(height: 8),
           CustomToggle(
             width: 240,
@@ -482,79 +462,83 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildAnotherAdBlock(
-      BuildContext context,
-      PageState state,
-      ) {
-    return Container(
-      color: Colors.white,
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Strings.createAdExchangeLabel.w(700).s(16).c(Color(0xFF41455E)),
-          SizedBox(height: 20),
-          LabelTextField(text: Strings.createAdNameLabel),
-          SizedBox(height: 6),
-          CommonTextField(
-            autofillHints: const [AutofillHints.name],
-            inputType: TextInputType.name,
-            keyboardType: TextInputType.name,
-            minLines: 1,
-            maxLines: 3,
-            hint: Strings.createAdNameLabel,
-            textInputAction: TextInputAction.next,
-            controller: anotherTitleController,
-            onChanged: (value) {
-              cubit(context).setEnteredAnotherTitle(value);
-            },
-          ),
-          SizedBox(height: 16),
-          LabelTextField(text: Strings.createAdCategoryLabel),
-          SizedBox(height: 6),
-          CustomDropdownField(
-            text: state.anotherCategory?.name ?? "",
-            hint: Strings.createAdCategoryLabel,
-            onTap: () {
-              context.router.push(
-                SelectionNestedCategoryRoute(onResult: (categoryResponse) {
-                  cubit(context).setSelectedAnotherCategory(categoryResponse);
-                }),
-              );
-            },
-          ),
-          SizedBox(height: 16),
-          LabelTextField(text: Strings.createAdDescLabel),
-          SizedBox(height: 6),
-          CommonTextField(
-            height: null,
-            autofillHints: const [AutofillHints.name],
-            inputType: TextInputType.name,
-            keyboardType: TextInputType.name,
-            maxLines: 5,
-            minLines: 3,
-            hint: Strings.createAdDescLabel,
-            textInputAction: TextInputAction.next,
-            controller: anotherDescController,
-            onChanged: (value) {
-              cubit(context).setEnteredAnotherDesc(value);
-            },
-          ),
-          SizedBox(height: 16),
-          LabelTextField(text: Strings.createAdStateLabel, isRequired: false),
-          SizedBox(height: 8),
-          CustomToggle(
-            width: 240,
-            isChecked: state.isAnotherNew,
-            onChanged: (isChecked) {
-              cubit(context).setAnotherIsNew(isChecked);
-            },
-            negativeTitle: Strings.createAdStateUsedLabel,
-            positiveTitle: Strings.createAdStateNewLabel,
-          ),
-        ],
-      ),
-    );
+  Widget _buildExchangeAdBlock(
+    BuildContext context,
+    PageState state,
+  ) {
+    return !cubit(context).isExchangeMode()
+        ? SizedBox(height: 0, width: 0)
+        : Container(
+            color: Colors.white,
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Strings.createAdExchangeLabel.w(700).s(16).c(Color(0xFF41455E)),
+                SizedBox(height: 20),
+                LabelTextField(Strings.createAdNameLabel),
+                SizedBox(height: 6),
+                CommonTextField(
+                  autofillHints: const [AutofillHints.name],
+                  inputType: TextInputType.name,
+                  keyboardType: TextInputType.name,
+                  minLines: 1,
+                  maxLines: 3,
+                  hint: Strings.createAdNameLabel,
+                  textInputAction: TextInputAction.next,
+                  controller: exchangeTitleController,
+                  onChanged: (value) {
+                    cubit(context).setEnteredAnotherTitle(value);
+                  },
+                ),
+                SizedBox(height: 16),
+                LabelTextField(Strings.createAdCategoryLabel),
+                SizedBox(height: 6),
+                CustomDropdownField(
+                  text: state.exchangeCategory?.name ?? "",
+                  hint: Strings.createAdCategoryLabel,
+                  onTap: () {
+                    context.router.push(
+                      SelectionNestedCategoryRoute(
+                          onResult: (categoryResponse) {
+                        cubit(context)
+                            .setSelectedAnotherCategory(categoryResponse);
+                      }),
+                    );
+                  },
+                ),
+                SizedBox(height: 16),
+                LabelTextField(Strings.createAdDescLabel),
+                SizedBox(height: 6),
+                CommonTextField(
+                  height: null,
+                  autofillHints: const [AutofillHints.name],
+                  inputType: TextInputType.name,
+                  keyboardType: TextInputType.name,
+                  maxLines: 5,
+                  minLines: 3,
+                  hint: Strings.createAdDescLabel,
+                  textInputAction: TextInputAction.next,
+                  controller: exchangeDescController,
+                  onChanged: (value) {
+                    cubit(context).setEnteredAnotherDesc(value);
+                  },
+                ),
+                SizedBox(height: 16),
+                LabelTextField(Strings.createAdStateLabel, isRequired: false),
+                SizedBox(height: 8),
+                CustomToggle(
+                  width: 240,
+                  isChecked: state.isExchangeNew,
+                  onChanged: (isChecked) {
+                    cubit(context).setAnotherIsNew(isChecked);
+                  },
+                  negativeTitle: Strings.createAdStateUsedLabel,
+                  positiveTitle: Strings.createAdStateNewLabel,
+                ),
+              ],
+            ),
+          );
   }
 
   Widget _buildContactsBlock(
@@ -570,7 +554,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 8),
           Strings.createAdContactInfoLabel.w(700).s(16).c(Color(0xFF41455E)),
           SizedBox(height: 20),
-          LabelTextField(text: Strings.createAdAddressLabel),
+          LabelTextField(Strings.createAdAddressLabel),
           SizedBox(height: 8),
           CustomDropdownField(
             text: state.address?.name ?? "",
@@ -590,7 +574,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
           ),
           SizedBox(height: 12),
-          LabelTextField(text: Strings.createAdContactPersonLabel),
+          LabelTextField(Strings.createAdContactPersonLabel),
           SizedBox(height: 8),
           CommonTextField(
             autofillHints: const [AutofillHints.name],
@@ -605,7 +589,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
           ),
           SizedBox(height: 12),
-          LabelTextField(text: Strings.createAdContactPhoneLabel),
+          LabelTextField(Strings.createAdContactPhoneLabel),
           SizedBox(height: 8),
           CommonTextField(
             autofillHints: const [AutofillHints.telephoneNumber],
@@ -623,7 +607,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
           ),
           SizedBox(height: 12),
-          LabelTextField(text: Strings.createAdContactEmailLabel),
+          LabelTextField(Strings.createAdContactEmailLabel),
           SizedBox(height: 8),
           CommonTextField(
             autofillHints: const [AutofillHints.email],

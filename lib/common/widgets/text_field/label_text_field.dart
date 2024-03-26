@@ -4,9 +4,8 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import '../../gen/assets/assets.gen.dart';
 
 class LabelTextField extends StatelessWidget {
-  const LabelTextField({
+  const LabelTextField(this.text,{
     super.key,
-    required this.text,
     this.isRequired = true,
   });
 

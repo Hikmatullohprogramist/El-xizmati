@@ -34,8 +34,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> getInitialData() async {
     final user = _userRepository.userInfoStorage.userInformation.call();
     updateState((state) => state.copyWith(
-          // contactPerson: user?.fullName?.capitalizeFullName() ?? "",
-          contactPerson: "ESONALIYEV   ABRORBEK SAMSAG'ALI O'G'LI   "?.capitalizeFullName() ?? "",
+          contactPerson: user?.fullName?.capitalizeFullName() ?? "",
           phone: user?.mobilePhone?.clearCountryCode() ?? "",
           email: user?.email ?? "",
         ));
@@ -55,6 +54,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         pickedImageIds: states.pickedImages!.map((e) => e.id!).toList(),
         videoUrl: states.videoUrl,
         desc: states.desc,
+        //
         warehouseCount: states.warehouseCount,
         unit: states.unit,
         minAmount: states.minAmount,
@@ -62,12 +62,21 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         currency: states.currency,
         paymentTypes: states.paymentTypes,
         isAgreedPrice: states.isAgreedPrice,
-        isNew: states.isNew,
-        isBusiness: states.isBusiness,
+        //
+        propertyStatus: states.isNew ? "NEW" : "USED",
+        accountType: states.isBusiness ? "BUSINESS" : "PRIVATE",
+        //
+        exchangeTitle: states.exchangeTitle,
+        exchangeCategory: states.exchangeCategory,
+        exchangeDesc: states.exchangeDesc,
+        exchangePropertyStatus: states.isExchangeNew ? "NEW" : "USED",
+        exchangeAccountType: states.isExchangeBusiness ? "BUSINESS" : "PRIVATE",
+        //
         address: states.address,
         contactPerson: states.contactPerson,
         phone: states.phone.clearPhone(),
         email: states.email,
+        //
         isPickupEnabled: states.isPickupEnabled,
         pickupWarehouses: states.pickupWarehouses,
         isFreeDeliveryEnabled: states.isFreeDeliveryEnabled,
@@ -76,6 +85,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         isPaidDeliveryEnabled: states.isPaidDeliveryEnabled,
         paidDeliveryMaxDay: states.paidDeliveryMaxDay,
         paidDeliveryDistricts: states.paidDeliveryDistricts,
+        //
         isAutoRenewal: states.isAutoRenewal,
         isShowMySocialAccount: states.isShowMySocialAccount,
       );
@@ -104,6 +114,14 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         updateState((state) => state.copyWith(pickedImages: images));
       }
     }
+  }
+
+  bool isExchangeMode() {
+    return states.adTransactionType == AdTransactionType.EXCHANGE;
+  }
+
+  bool isFreeAdMode() {
+    return states.adTransactionType == AdTransactionType.FREE;
   }
 
   void setEnteredTitle(String title) {
@@ -199,19 +217,19 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   void setEnteredAnotherTitle(String title) {
-    updateState((state) => state.copyWith(anotherTitle: title));
+    updateState((state) => state.copyWith(exchangeTitle: title));
   }
 
   void setSelectedAnotherCategory(CategoryResponse category) {
-    updateState((state) => state.copyWith(anotherCategory: category));
+    updateState((state) => state.copyWith(exchangeCategory: category));
   }
 
   void setEnteredAnotherDesc(String desc) {
-    updateState((state) => state.copyWith(anotherDesc: desc));
+    updateState((state) => state.copyWith(exchangeDesc: desc));
   }
 
   void setAnotherIsNew(bool isNew) {
-    updateState((state) => state.copyWith(isAnotherNew: isNew));
+    updateState((state) => state.copyWith(isExchangeNew: isNew));
   }
 
   void setSelectedAddress(UserAddressResponse address) {

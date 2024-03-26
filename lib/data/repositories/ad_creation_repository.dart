@@ -80,8 +80,13 @@ class AdCreationRepository {
     required CurrencyResponse? currency,
     required List<PaymentTypeResponse> paymentTypes,
     required bool isAgreedPrice,
-    required bool isNew,
-    required bool isBusiness,
+    required String propertyStatus,
+    required String accountType,
+    required String exchangeTitle,
+    required String exchangeDesc,
+    required CategoryResponse? exchangeCategory,
+    required String exchangeAccountType,
+    required String exchangePropertyStatus,
     required UserAddressResponse? address,
     required String contactPerson,
     required String phone,
@@ -101,9 +106,10 @@ class AdCreationRepository {
       title: title,
       categoryId: category.id,
       adTransactionType: adTransactionType,
+      //
       mainImageId: mainImageId,
       pickedImageIds: pickedImageIds,
-      videoUrl: videoUrl,
+      //
       desc: desc,
       warehouseCount: warehouseCount,
       unitId: unit?.id,
@@ -112,12 +118,21 @@ class AdCreationRepository {
       currency: currency?.id,
       paymentTypeIds: paymentTypes.map((e) => "${e.id}").toList(),
       isAgreedPrice: isAgreedPrice,
-      isNew: isNew,
-      isBusiness: isBusiness,
+      //
+      propertyStatus: propertyStatus,
+      accountType: accountType,
+      //
+      exchangeTitle: exchangeTitle,
+      exchangeCategoryId: exchangeCategory?.id,
+      exchangeDesc: exchangeDesc,
+      exchangePropertyStatus: exchangePropertyStatus,
+      exchangeAccountType: exchangeAccountType,
+      //
       addressId: address?.id,
       contactPerson: contactPerson,
       phone: phone,
       email: email,
+      //
       isPickupEnabled: isPickupEnabled,
       pickupWarehouses: pickupWarehouses.map((e) => e.id).toList(),
       isFreeDeliveryEnabled: isFreeDeliveryEnabled,
@@ -126,8 +141,10 @@ class AdCreationRepository {
       isPaidDeliveryEnabled: isPaidDeliveryEnabled,
       paidDeliveryMaxDay: paidDeliveryMaxDay,
       paidDeliveryDistricts: paidDeliveryDistricts.map((e) => e.id).toList(),
+      //
       isAutoRenewal: isAutoRenewal,
       isShowMySocialAccount: isShowMySocialAccount,
+      videoUrl: videoUrl,
     );
 
     return "";

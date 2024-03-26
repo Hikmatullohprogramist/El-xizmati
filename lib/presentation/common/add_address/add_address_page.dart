@@ -88,7 +88,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Column(
         children: [
-          LabelTextField(text: Strings.userAddressAddress),
+          LabelTextField(Strings.userAddressAddress),
           SizedBox(height: 12),
           CommonTextField(
             controller: addressController,
@@ -109,7 +109,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Column(
         children: [
-          LabelTextField(text: Strings.commonRegion),
+          LabelTextField(Strings.commonRegion),
           SizedBox(height: 8),
           CustomDropdownField(
             hint: Strings.commonRegion,
@@ -119,7 +119,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
             },
           ),
           SizedBox(height: 12),
-          LabelTextField(text: Strings.commonDistrict),
+          LabelTextField(Strings.commonDistrict),
           SizedBox(height: 8),
           CustomDropdownField(
             hint: Strings.commonDistrict,
@@ -129,7 +129,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
             },
           ),
           SizedBox(height: 12),
-          LabelTextField(text: Strings.commonNeighborhood),
+          LabelTextField(Strings.commonNeighborhood),
           SizedBox(height: 8),
           CustomDropdownField(
             hint: Strings.commonNeighborhood,
@@ -155,10 +155,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
               Expanded(
                 child: Column(
                   children: [
-                    LabelTextField(
-                      text: Strings.commonStreet,
-                      isRequired: false,
-                    ),
+                    LabelTextField(Strings.commonStreet, isRequired: false),
                     SizedBox(height: 8),
                     CommonTextField(
                       controller: streetController,
@@ -179,10 +176,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
               Expanded(
                 child: Column(
                   children: [
-                    LabelTextField(
-                      text: Strings.commonHomeNumber,
-                      isRequired: false,
-                    ),
+                    LabelTextField(Strings.commonHomeNumber, isRequired: false),
                     SizedBox(height: 8),
                     CommonTextField(
                       hint: Strings.commonHomeNumber,
@@ -199,10 +193,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
               Expanded(
                 child: Column(
                   children: [
-                    LabelTextField(
-                      text: Strings.commonApartment,
-                      isRequired: false,
-                    ),
+                    LabelTextField(Strings.commonApartment, isRequired: false),
                     SizedBox(height: 8),
                     CommonTextField(
                       hint: Strings.commonApartment,
@@ -231,8 +222,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
         children: [
           Strings.userAddressLocation.w(600).s(16),
           SizedBox(height: 12),
-          LabelTextField(
-              text: Strings.userAddressTakenLocation, isRequired: true),
+          LabelTextField(Strings.userAddressTakenLocation, isRequired: true),
           SizedBox(height: 8),
           Text("${state.latitude}, ${state.longitude},"),
           SizedBox(height: 8),

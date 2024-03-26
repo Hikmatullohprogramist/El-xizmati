@@ -68,8 +68,13 @@ class AdCreationService {
     required String? currency,
     required List<String>? paymentTypeIds,
     required bool isAgreedPrice,
-    required bool isNew,
-    required bool isBusiness,
+    required String propertyStatus,
+    required String accountType,
+    required String exchangeTitle,
+    required String exchangeDesc,
+    required int? exchangeCategoryId,
+    required String exchangePropertyStatus,
+    required String exchangeAccountType,
     required int? addressId,
     required String contactPerson,
     required String phone,
@@ -92,8 +97,8 @@ class AdCreationService {
       "photos": pickedImageIds,
       "description": desc,
 
-      "route_type": isBusiness ? "BUSINESS" : "PRIVATE",
-      "property_status": isNew ? "NEW" : "USED",
+      "route_type": accountType,
+      "property_status": propertyStatus,
       "contact_name": contactPerson,
       "email": email,
       "phone_number": phone,
@@ -105,9 +110,12 @@ class AdCreationService {
       "has_free_shipping": isFreeDeliveryEnabled,
       "main_type_status": adTransactionType.name,
 
-      "sale_type": "PRODUCT", // todo use actual data ADS, PRODUCT, SERVICE
+      "sale_type": "PRODUCT",
       "video": videoUrl,
       "min_amount": minAmount,
+
+      // "from_price": 0,
+      // "to_price": 0,
 
       "is_pickup_enabled": isPickupEnabled,
       "pickup_address_ids": pickupWarehouses.toMap(),
@@ -135,17 +143,17 @@ class AdCreationService {
 
       commonBody.addAll(notFreeBody);
     }
-    // if (adTransactionType == AdTransactionType.EXCHANGE) {
-      // final exchangeBody = {
-      //   "other_name": "Iphone 12 pro",
-      //   "other_category_id": 10,
-      //   "other_description": "Sifati yaxshi bo'lsin",
-      //   "other_route_type": "PRIVATE",
-      //   "other_property_status": "USED",
-      //   "from_price": 0,
-      //   "to_price": 0,
-      // };
-    // }
+    if (adTransactionType == AdTransactionType.EXCHANGE) {
+      final exchangeBody = {
+        "other_name": exchangeTitle,
+        "other_category_id": exchangeCategoryId!,
+        "other_description": exchangeDesc,
+        "other_route_type": exchangeAccountType,
+        "other_property_status": exchangePropertyStatus,
+      };
+
+      commonBody.addAll(exchangeBody);
+    }
 
     return dio.post(
       'api/mobile/v1/create-ad',

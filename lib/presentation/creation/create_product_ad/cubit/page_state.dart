@@ -23,10 +23,11 @@ class PageState with _$PageState {
     @Default(true) bool isNew,
     @Default(false) bool isBusiness,
 //
-    @Default("") String anotherTitle,
-    @Default("") String anotherDesc,
-    CategoryResponse? anotherCategory,
-    @Default(true) bool isAnotherNew,
+    @Default("") String exchangeTitle,
+    @Default("") String exchangeDesc,
+    CategoryResponse? exchangeCategory,
+    @Default(true) bool isExchangeNew,
+    @Default(false) bool isExchangeBusiness,
 //
     UserAddressResponse? address,
     @Default("") String contactPerson,
@@ -45,6 +46,7 @@ class PageState with _$PageState {
     @Default(false) bool isPaidDeliveryEnabled,
     @Default(false) bool isShowAllPaidDeliveryDistricts,
     @Default(5) int paidDeliveryMaxDay,
+    int? paidDeliveryPricePerKm,
     @Default([]) List<District> paidDeliveryDistricts,
 //
     @Default(false) bool isAutoRenewal,

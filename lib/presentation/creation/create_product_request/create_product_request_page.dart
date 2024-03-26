@@ -115,7 +115,7 @@ class CreateProductRequestPage
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       child: Column(
         children: [
-          LabelTextField(text: "Название товара ", isRequired: true),
+          LabelTextField("Название товара ", isRequired: true),
           SizedBox(height: 8),
           CommonTextField(
             hint: "Название товара",
@@ -126,7 +126,7 @@ class CreateProductRequestPage
             onFieldSubmitted1: (val) {},
           ),
           SizedBox(height: 12),
-          LabelTextField(text: "Категория", isRequired: true),
+          LabelTextField("Категория", isRequired: true),
           SizedBox(height: 8),
           CustomDropdownField(
             text: state.categoryResponse?.name ?? "",
@@ -185,7 +185,7 @@ class CreateProductRequestPage
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          LabelTextField(text: 'Описание товара'),
+          LabelTextField('Описание товара'),
           SizedBox(height: 8),
           CommonTextField(
             height: null,
@@ -203,7 +203,7 @@ class CreateProductRequestPage
             },
           ),
           SizedBox(height: 12),
-          LabelTextField(text: "Цена", isRequired: true),
+          LabelTextField("Цена", isRequired: true),
           SizedBox(height: 8),
           Row(
             children: [
@@ -234,7 +234,7 @@ class CreateProductRequestPage
             ],
           ),
           SizedBox(height: 12),
-          LabelTextField(text: "Валюта"),
+          LabelTextField("Валюта"),
           SizedBox(height: 8),
           SizedBox(
             width: 150,
@@ -258,7 +258,7 @@ class CreateProductRequestPage
             ),
           ),
           SizedBox(height: 20),
-          LabelTextField(text: 'Способ оплаты', isRequired: true),
+          LabelTextField('Способ оплаты', isRequired: true),
           SizedBox(height: 16),
           Wrap(
             direction: Axis.horizontal,
@@ -367,7 +367,7 @@ class CreateProductRequestPage
         children: [
           "По какому адресу?".w(700).s(15).c(Color(0xFF41455E)),
           SizedBox(height: 16),
-          LabelTextField(text: "Моё местоположения", isRequired: true),
+          LabelTextField("Моё местоположения", isRequired: true),
           SizedBox(height: 8),
           "Город, улица, дом".w(500).s(14).c(Color(0xFF9EABBE)),
           SizedBox(height: 8),
@@ -389,7 +389,7 @@ class CreateProductRequestPage
             },
           ),
           SizedBox(height: 16),
-          LabelTextField(text: "Где искать?", isRequired: true),
+          LabelTextField("Где искать?", isRequired: true),
           SizedBox(height: 16),
           "Город, улица, дом".w(500).s(14).c(Color(0xFF9EABBE)),
           SizedBox(height: 12),
