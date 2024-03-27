@@ -931,20 +931,13 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             ],
           ),
           SizedBox(height: 16),
-          Row(
-            children: [
-              Expanded(
-                child: CustomElevatedButton(
-                  text: Strings.commonContinue,
-                  onPressed: () {
-                    vibrateAsHapticFeedback();
-                    cubit(context).createProductAd();
-                    // cubit(context).uploadImage();
-                  },
-                  isLoading: state.isRequestSending,
-                ),
-              ),
-            ],
+          CustomElevatedButton(
+            text: Strings.commonContinue,
+            onPressed: () {
+              vibrateAsHapticFeedback();
+              cubit(context).createProductAd();
+            },
+            isLoading: state.isRequestSending,
           ),
         ],
       ),
