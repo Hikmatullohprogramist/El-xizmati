@@ -9,7 +9,7 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/button/custom_outlined_button.dart';
-import 'package:onlinebozor/common/widgets/text_field/common_text_field.dart';
+import 'package:onlinebozor/common/widgets/text_field/custom_text_field.dart';
 import 'package:onlinebozor/presentation/auth/confirm/auth_confirm_page.dart';
 import 'package:onlinebozor/presentation/auth/start/cubit/page_cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -69,7 +69,7 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
                       .s(14)
                       .c(context.colors.textPrimary)),
               SizedBox(height: 10),
-              CommonTextField(
+              CustomTextField(
                 autofillHints: const [AutofillHints.telephoneNumber],
                 inputType: TextInputType.phone,
                 keyboardType: TextInputType.phone,

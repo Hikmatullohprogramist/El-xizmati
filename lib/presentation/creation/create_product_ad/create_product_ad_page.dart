@@ -31,7 +31,7 @@ import '../../../common/widgets/action/selection_list_item.dart';
 import '../../../common/widgets/bottom_sheet/bottom_sheet_title.dart';
 import '../../../common/widgets/button/custom_elevated_button.dart';
 import '../../../common/widgets/divider/custom_diverder.dart';
-import '../../../common/widgets/text_field/common_text_field.dart';
+import '../../../common/widgets/text_field/custom_text_field.dart';
 import '../../common/selection_payment_type/selection_payment_type_page.dart';
 import '../../utils/mask_formatters.dart';
 import 'cubit/page_cubit.dart';
@@ -134,7 +134,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         children: [
           LabelTextField(Strings.createAdNameLabel),
           SizedBox(height: 6),
-          CommonTextField(
+          CustomTextField(
             autofillHints: const [AutofillHints.name],
             inputType: TextInputType.name,
             keyboardType: TextInputType.name,
@@ -233,7 +233,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 24),
           LabelTextField(Strings.createAdDescLabel),
           SizedBox(height: 6),
-          CommonTextField(
+          CustomTextField(
             height: null,
             autofillHints: const [AutofillHints.name],
             inputType: TextInputType.name,
@@ -273,7 +273,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                         children: [
                           LabelTextField(Strings.createAdWarehouseCountLabel),
                           SizedBox(height: 6),
-                          CommonTextField(
+                          CustomTextField(
                             autofillHints: const [
                               AutofillHints.telephoneNumber
                             ],
@@ -334,7 +334,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                         children: [
                           LabelTextField(Strings.createAdPriceLabel),
                           SizedBox(height: 6),
-                          CommonTextField(
+                          CustomTextField(
                             autofillHints: const [
                               AutofillHints.transactionAmount
                             ],
@@ -484,7 +484,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 SizedBox(height: 20),
                 LabelTextField(Strings.createAdNameLabel),
                 SizedBox(height: 6),
-                CommonTextField(
+                CustomTextField(
                   autofillHints: const [AutofillHints.name],
                   inputType: TextInputType.name,
                   keyboardType: TextInputType.name,
@@ -516,7 +516,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 SizedBox(height: 16),
                 LabelTextField(Strings.createAdDescLabel),
                 SizedBox(height: 6),
-                CommonTextField(
+                CustomTextField(
                   height: null,
                   autofillHints: const [AutofillHints.name],
                   inputType: TextInputType.name,
@@ -582,7 +582,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 12),
           LabelTextField(Strings.createAdContactPersonLabel),
           SizedBox(height: 8),
-          CommonTextField(
+          CustomTextField(
             autofillHints: const [AutofillHints.name],
             keyboardType: TextInputType.name,
             maxLines: 1,
@@ -597,7 +597,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 12),
           LabelTextField(Strings.createAdContactPhoneLabel),
           SizedBox(height: 8),
-          CommonTextField(
+          CustomTextField(
             autofillHints: const [AutofillHints.telephoneNumber],
             keyboardType: TextInputType.phone,
             maxLines: 1,
@@ -615,7 +615,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 12),
           LabelTextField(Strings.createAdContactEmailLabel),
           SizedBox(height: 8),
-          CommonTextField(
+          CustomTextField(
             autofillHints: const [AutofillHints.email],
             keyboardType: TextInputType.emailAddress,
             inputType: TextInputType.emailAddress,
@@ -780,7 +780,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           ),
           Visibility(
             visible: state.isPaidDeliveryEnabled,
-            child: CommonTextField(
+            child: CustomTextField(
               autofillHints: const [AutofillHints.transactionAmount],
               inputType: TextInputType.number,
               keyboardType: TextInputType.number,
@@ -871,7 +871,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 20),
           LabelTextField(Strings.createAdVideoUlrLabel, isRequired: false),
           SizedBox(height: 6),
-          CommonTextField(
+          CustomTextField(
             autofillHints: const [AutofillHints.url],
             keyboardType: TextInputType.url,
             maxLines: 1,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 
-class CommonDropDownTextField extends StatefulWidget {
-  const CommonDropDownTextField({
+class CustomDropDownTextField extends StatefulWidget {
+  const CustomDropDownTextField({
     Key? key,
     required this.onTap,
     this.autofillHints,
@@ -33,11 +33,11 @@ class CommonDropDownTextField extends StatefulWidget {
   final Function(String text)? onChanged;
 
   @override
-  State<CommonDropDownTextField> createState() =>
-      _CommonDropDownTextFieldState();
+  State<CustomDropDownTextField> createState() =>
+      _CustomDropDownTextFieldState();
 }
 
-class _CommonDropDownTextFieldState extends State<CommonDropDownTextField> {
+class _CustomDropDownTextFieldState extends State<CustomDropDownTextField> {
   @override
   void initState() {
     super.initState();

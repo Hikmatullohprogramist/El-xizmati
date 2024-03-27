@@ -13,7 +13,7 @@ import 'package:onlinebozor/presentation/auth/confirm/cubit/page_cubit.dart';
 
 import '../../../common/gen/localization/strings.dart';
 import '../../../common/widgets/app_bar/default_app_bar.dart';
-import '../../../common/widgets/text_field/common_text_field.dart';
+import '../../../common/widgets/text_field/custom_text_field.dart';
 
 @RoutePage()
 class AuthConfirmPage extends BasePage<PageCubit, PageState, PageEvent> {
@@ -99,7 +99,7 @@ class AuthConfirmPage extends BasePage<PageCubit, PageState, PageEvent> {
                   .copyWith(overflow: TextOverflow.ellipsis),
             ),
             SizedBox(height: 10),
-            CommonTextField(
+            CustomTextField(
               inputType: TextInputType.number,
               maxLines: 1,
               textInputAction: TextInputAction.done,

@@ -12,7 +12,7 @@ import 'package:onlinebozor/common/widgets/text_field/label_text_field.dart';
 
 import '../../../../../../../../common/colors/static_colors.dart';
 import '../../../../../../../../common/widgets/switch/custom_switch.dart';
-import '../../../../../../../../common/widgets/text_field/common_text_field.dart';
+import '../../../../../../../../common/widgets/text_field/custom_text_field.dart';
 import '../../../../../../../../common/widgets/text_field/custom_dropdown_field.dart';
 import '../../../../../../../../data/responses/address/user_address_response.dart';
 import 'cubit/page_cubit.dart';
@@ -90,7 +90,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
         children: [
           LabelTextField(Strings.userAddressAddress),
           SizedBox(height: 12),
-          CommonTextField(
+          CustomTextField(
             controller: addressController,
             hint: Strings.userAddressAddress,
             onChanged: (value) {
@@ -157,7 +157,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
                   children: [
                     LabelTextField(Strings.commonStreet, isRequired: false),
                     SizedBox(height: 8),
-                    CommonTextField(
+                    CustomTextField(
                       controller: streetController,
                       hint: Strings.commonStreet,
                       onChanged: (value) {
@@ -178,7 +178,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
                   children: [
                     LabelTextField(Strings.commonHomeNumber, isRequired: false),
                     SizedBox(height: 8),
-                    CommonTextField(
+                    CustomTextField(
                       hint: Strings.commonHomeNumber,
                       onChanged: (value) {
                         cubit(context).setHomeNumber(value);
@@ -195,7 +195,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
                   children: [
                     LabelTextField(Strings.commonApartment, isRequired: false),
                     SizedBox(height: 8),
-                    CommonTextField(
+                    CustomTextField(
                       hint: Strings.commonApartment,
                       onChanged: (value) {
                         cubit(context).setApartmentNumber(value);

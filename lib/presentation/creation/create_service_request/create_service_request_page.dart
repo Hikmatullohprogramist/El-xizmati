@@ -13,7 +13,7 @@ import '../../../common/widgets/chips/chip_add_item.dart';
 import '../../../common/widgets/chips/chip_item.dart';
 import '../../../common/widgets/image/image_ad_list_widget.dart';
 import '../../../common/widgets/switch/custom_switch.dart';
-import '../../../common/widgets/text_field/common_text_field.dart';
+import '../../../common/widgets/text_field/custom_text_field.dart';
 import '../../../common/widgets/text_field/custom_dropdown_field.dart';
 import '../../../common/widgets/text_field/label_text_field.dart';
 import '../../common/selection_currency/selection_currency_page.dart';
@@ -116,7 +116,7 @@ class CreateServiceRequestPage
         children: [
           LabelTextField("Название услуги", isRequired: true),
           SizedBox(height: 8),
-          CommonTextField(
+          CustomTextField(
             hint: "Название услуги",
             onChanged: (value) {
               cubit(context).setName(value);
@@ -185,7 +185,7 @@ class CreateServiceRequestPage
         children: [
           LabelTextField('Описание услуги'),
           SizedBox(height: 8),
-          CommonTextField(
+          CustomTextField(
             height: null,
             autofillHints: const [AutofillHints.name],
             inputType: TextInputType.name,
@@ -204,7 +204,7 @@ class CreateServiceRequestPage
           Row(
             children: [
               Expanded(
-                child: CommonTextField(
+                child: CustomTextField(
                   hint: "От",
                   controller: fromPriceController,
                   inputType: TextInputType.number,
@@ -217,7 +217,7 @@ class CreateServiceRequestPage
               ),
               SizedBox(width: 12),
               Expanded(
-                child: CommonTextField(
+                child: CustomTextField(
                   hint: "До",
                   controller: toPriceController,
                   inputType: TextInputType.number,
@@ -314,7 +314,7 @@ class CreateServiceRequestPage
           SizedBox(height: 12),
           "Эл. почта".w(500).s(14).c(Color(0xFF41455E)),
           SizedBox(height: 8),
-          CommonTextField(
+          CustomTextField(
             autofillHints: const [AutofillHints.telephoneNumber],
             keyboardType: TextInputType.phone,
             inputType: TextInputType.emailAddress,
@@ -327,7 +327,7 @@ class CreateServiceRequestPage
           SizedBox(height: 12),
           "Номер телефона".w(500).s(14).c(Color(0xFF41455E)),
           SizedBox(height: 8),
-          CommonTextField(
+          CustomTextField(
             autofillHints: const [AutofillHints.telephoneNumber],
             keyboardType: TextInputType.phone,
             maxLines: 1,

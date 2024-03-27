@@ -7,7 +7,7 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/bottom_sheet/botton_sheet_for_result.dart';
 import 'package:onlinebozor/common/widgets/snackbar/snackbar_widget.dart';
-import 'package:onlinebozor/common/widgets/text_field/common_text_field.dart';
+import 'package:onlinebozor/common/widgets/text_field/custom_text_field.dart';
 import 'package:onlinebozor/common/widgets/text_field/custom_dropdown_field.dart';
 import 'package:onlinebozor/common/widgets/text_field/label_text_field.dart';
 
@@ -117,7 +117,7 @@ class CreateProductRequestPage
         children: [
           LabelTextField("Название товара ", isRequired: true),
           SizedBox(height: 8),
-          CommonTextField(
+          CustomTextField(
             hint: "Название товара",
             onChanged: (value) {
               cubit(context).setName(value);
@@ -187,7 +187,7 @@ class CreateProductRequestPage
         children: [
           LabelTextField('Описание товара'),
           SizedBox(height: 8),
-          CommonTextField(
+          CustomTextField(
             height: null,
             autofillHints: const [AutofillHints.name],
             inputType: TextInputType.name,
@@ -208,7 +208,7 @@ class CreateProductRequestPage
           Row(
             children: [
               Expanded(
-                child: CommonTextField(
+                child: CustomTextField(
                   hint: "От",
                   controller: fromPriceController,
                   inputType: TextInputType.number,
@@ -221,7 +221,7 @@ class CreateProductRequestPage
               ),
               SizedBox(width: 12),
               Expanded(
-                child: CommonTextField(
+                child: CustomTextField(
                   hint: "До",
                   controller: toPriceController,
                   inputType: TextInputType.number,
@@ -320,7 +320,7 @@ class CreateProductRequestPage
           SizedBox(height: 12),
           "Эл. почта".w(500).s(14).c(Color(0xFF41455E)),
           SizedBox(height: 8),
-          CommonTextField(
+          CustomTextField(
             autofillHints: const [AutofillHints.telephoneNumber],
             keyboardType: TextInputType.phone,
             inputType: TextInputType.emailAddress,
@@ -336,7 +336,7 @@ class CreateProductRequestPage
           SizedBox(height: 12),
           "Номер телефона".w(500).s(14).c(Color(0xFF41455E)),
           SizedBox(height: 8),
-          CommonTextField(
+          CustomTextField(
             autofillHints: const [AutofillHints.telephoneNumber],
             keyboardType: TextInputType.phone,
             maxLines: 1,

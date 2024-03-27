@@ -15,7 +15,7 @@ import '../../../common/router/app_router.dart';
 import '../../../common/widgets/app_bar/default_app_bar.dart';
 import '../../../common/widgets/button/custom_elevated_button.dart';
 import '../../../common/widgets/switch/custom_toggle.dart';
-import '../../../common/widgets/text_field/common_text_field.dart';
+import '../../../common/widgets/text_field/custom_text_field.dart';
 
 @RoutePage()
 class FaceIdValidatePage extends BasePage<PageCubit, PageState, PageEvent> {
@@ -116,7 +116,7 @@ class FaceIdValidatePage extends BasePage<PageCubit, PageState, PageEvent> {
           Row(
             children: [
               Expanded(
-                child: CommonTextField(
+                child: CustomTextField(
                   autofillHints: const [AutofillHints.telephoneNumber],
                   inputType: TextInputType.number,
                   keyboardType: TextInputType.phone,
@@ -157,7 +157,7 @@ class FaceIdValidatePage extends BasePage<PageCubit, PageState, PageEvent> {
                 children: [
                   SizedBox(
                     width: 60,
-                    child: CommonTextField(
+                    child: CustomTextField(
                       autofillHints: const [AutofillHints.telephoneNumber],
                       inputType: TextInputType.text,
                       keyboardType: TextInputType.phone,
@@ -176,7 +176,7 @@ class FaceIdValidatePage extends BasePage<PageCubit, PageState, PageEvent> {
                     width: 20,
                   ),
                   Expanded(
-                    child: CommonTextField(
+                    child: CustomTextField(
                       autofillHints: const [AutofillHints.telephoneNumber],
                       inputType: TextInputType.number,
                       keyboardType: TextInputType.phone,
