@@ -109,28 +109,41 @@ class AdCreationService {
       "show_social": isShowMySocialAccount,
       "has_shipping": isPaidDeliveryEnabled,
       "has_free_shipping": isFreeDeliveryEnabled,
-      "main_type_status": adTransactionType.name,
+      "main_type_status": AdTransactionType.SELL.name, // will be constant
 
       "sale_type": "PRODUCT",
       "video": videoUrl,
       "min_amount": minAmount,
 
-      // "from_price": 0,
-      // "to_price": 0,
-
       "is_pickup_enabled": isPickupEnabled,
-      "pickup_address_ids": pickupWarehouses.toMap(),
       "is_free_delivery_enabled": isFreeDeliveryEnabled,
-      "free_delivery_district_ids": freeDeliveryDistricts.toMap(),
-      "free_delivery_max_days": freeDeliveryMaxDay,
       "is_paid_delivery_enabled": isPaidDeliveryEnabled,
-      "paid_delivery_district_ids": paidDeliveryDistricts.toMap(),
-      "paid_delivery_max_days": paidDeliveryMaxDay,
-      "shipping_price": paidDeliveryPrice,
-      "shipping_unit_id": 12, // km unit id 12
-      // "service_category_id": null,
-      // "service_sub_category_id": null,
     };
+
+    if (isPickupEnabled) {
+      final pickupBody = {
+        "pickup_address_ids": pickupWarehouses.toMap("warehouse_id"),
+      };
+      commonBody.addAll(pickupBody);
+    }
+
+    if (isFreeDeliveryEnabled) {
+      final freeDeliveryBody = {
+        "free_delivery_district_ids": freeDeliveryDistricts.toMap("district_id"),
+        "free_delivery_max_days": freeDeliveryMaxDay,
+      };
+      commonBody.addAll(freeDeliveryBody);
+    }
+
+    if (isPaidDeliveryEnabled) {
+      final paidDeliveryBody = {
+        "paid_delivery_district_ids": paidDeliveryDistricts.toMap("district_id"),
+        "paid_delivery_max_days": paidDeliveryMaxDay,
+        "shipping_price": paidDeliveryPrice,
+        "shipping_unit_id": 12, // km unit id 12
+      };
+      commonBody.addAll(paidDeliveryBody);
+    }
 
     if (adTransactionType != AdTransactionType.FREE) {
       final notFreeBody = {
@@ -143,9 +156,9 @@ class AdCreationService {
         "has_discount": false,
         "has_bidding": isAgreedPrice
       };
-
       commonBody.addAll(notFreeBody);
     }
+
     if (adTransactionType == AdTransactionType.EXCHANGE) {
       final exchangeBody = {
         "other_name": exchangeTitle,
@@ -154,7 +167,6 @@ class AdCreationService {
         "other_route_type": exchangeAccountType,
         "other_property_status": exchangePropertyStatus,
       };
-
       commonBody.addAll(exchangeBody);
     }
 
