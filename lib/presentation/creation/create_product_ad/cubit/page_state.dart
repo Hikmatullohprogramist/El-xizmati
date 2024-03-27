@@ -66,6 +66,6 @@ class PageEvent with _$PageEvent {
   }) = _PageEvent;
 }
 
-enum PageEventType { onOverMaxCount }
+enum PageEventType { onOverMaxCount, onAdCreated }
 
 const int MAX_IMAGE_COUNT = 5;

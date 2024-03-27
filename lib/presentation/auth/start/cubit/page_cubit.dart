@@ -32,13 +32,9 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     try {
       var res = await _repository.authStart(states.phone.clearPhone());
       if (res.data.is_registered == true) {
-        emitEvent(
-          PageEvent(PageEventType.verification, phone: states.phone),
-        );
+        emitEvent(PageEvent(PageEventType.verification, phone: states.phone));
       } else {
-        emitEvent(
-          PageEvent(PageEventType.confirmation, phone: states.phone),
-        );
+        emitEvent(PageEvent(PageEventType.confirmation, phone: states.phone));
       }
     } on DioException catch (e) {
       display.error(e.toString());

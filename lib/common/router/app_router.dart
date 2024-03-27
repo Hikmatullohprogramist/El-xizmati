@@ -49,6 +49,7 @@ import '../../presentation/common/selection_region_and_district/selection_region
 import '../../presentation/common/selection_unit/selection_unit_page.dart';
 import '../../presentation/common/selection_user_address/selection_user_address_page.dart';
 import '../../presentation/common/selection_user_warehouse/selection_user_warehouse_page.dart';
+import '../../presentation/creation/create_ad_result/create_ad_result_page.dart';
 import '../../presentation/creation/create_ad_start/create_ad_start_page.dart';
 import '../../presentation/creation/create_product_ad/create_product_ad_page.dart';
 import '../../presentation/creation/create_product_request/create_product_request_page.dart';
@@ -171,6 +172,12 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           page: CreateServiceAdRoute.page,
           path: '/create_service_ad',
+        ),
+
+        /// create service ad
+        AutoRoute(
+          page: CreateAdResultRoute.page,
+          path: '/create_ad_result',
         ),
 
         /// create request start

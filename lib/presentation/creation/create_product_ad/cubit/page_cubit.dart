@@ -93,7 +93,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       log.i(response.toString());
 
       updateState((state) => state.copyWith(isRequestSending: false));
-    } on DioException catch (exception) {
+      emitEvent(PageEvent(PageEventType.onAdCreated));
+    } catch (exception) {
       log.e(exception.toString());
       updateState((state) => state.copyWith(isRequestSending: false));
     }

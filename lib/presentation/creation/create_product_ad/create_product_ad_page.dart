@@ -57,6 +57,8 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     switch (event.type) {
       case PageEventType.onOverMaxCount:
         _showMaxCountError(context, event.maxImageCount);
+      case PageEventType.onAdCreated:
+        context.router.replace(CreateAdResultRoute());
     }
   }
 
