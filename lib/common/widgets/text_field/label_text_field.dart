@@ -4,7 +4,8 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import '../../gen/assets/assets.gen.dart';
 
 class LabelTextField extends StatelessWidget {
-  const LabelTextField(this.text,{
+  const LabelTextField(
+    this.text, {
     super.key,
     this.isRequired = true,
   });
@@ -18,7 +19,13 @@ class LabelTextField extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        text.w(500).s(14).copyWith(textAlign: TextAlign.left),
+        Flexible(
+          child: text.w(500).s(14).copyWith(
+                textAlign: TextAlign.left,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+        ),
         SizedBox(width: 8),
         Visibility(
           visible: isRequired,

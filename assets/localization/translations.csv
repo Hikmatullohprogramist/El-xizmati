@@ -157,6 +157,7 @@ create_ad_desc_label,Mahsulot tavsifi,Описание товара,Маҳсул
 create_ad_error_field_is_required,Maydon to‘ldirilishi majburiy,Это поле обязательно,Сатр тўлдирилиши мажбурий
 create_ad_exchange_label,Almashaman,Обменяю,Алмашаман
 create_ad_free_delivery_label,Bepul yetkazib berish,Бесплатная доставка,Бепул етказиб бериш
+create_ad_from_price_label,dan,с,дан
 create_ad_name_label,Mahsulot nomi,Название товара,Маҳсулот номи
 create_ad_negotiable_label,Kelishish mumkin,Договорная,Келишиш мумкин
 create_ad_paid_delivery_label,Pullik yetkazib berish,Платная доставка,Пуллик етказиб бериш
@@ -177,6 +178,7 @@ create_ad_show_my_social_accounts_label,Mening ijtimoiy tarmoqlarim mahsulot tav
 create_ad_state_label,Holati,Состояние,Ҳолати
 create_ad_state_new_label,Yangi,Новый,Янги
 create_ad_state_used_label,Ishlatilgan,Б / У,Ишлатилган
+create_ad_to_price_label,gacha,до,гача
 create_ad_transaction_type_label,E’lon turi,Тип объявления,Эълон тури
 create_ad_useful_link_label,Foydali havolalar,Полезные ссылки,Фойдали ҳаволалар
 create_ad_video_ulr_label,Video,Видео,Видео

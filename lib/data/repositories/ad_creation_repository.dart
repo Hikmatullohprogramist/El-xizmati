@@ -69,9 +69,10 @@ class AdCreationRepository {
     required String title,
     required CategoryResponse category,
     required AdTransactionType adTransactionType,
+    //
     required String mainImageId,
     required List<String> pickedImageIds,
-    required String videoUrl,
+    //
     required String desc,
     required int? warehouseCount,
     required UnitResponse? unit,
@@ -80,17 +81,21 @@ class AdCreationRepository {
     required CurrencyResponse? currency,
     required List<PaymentTypeResponse> paymentTypes,
     required bool isAgreedPrice,
+    //
     required String propertyStatus,
     required String accountType,
+    //
     required String exchangeTitle,
     required String exchangeDesc,
     required CategoryResponse? exchangeCategory,
     required String exchangeAccountType,
     required String exchangePropertyStatus,
+    //
     required UserAddressResponse? address,
     required String contactPerson,
     required String phone,
     required String email,
+    //
     required bool isPickupEnabled,
     required List<UserAddressResponse> pickupWarehouses,
     required bool isFreeDeliveryEnabled,
@@ -100,8 +105,10 @@ class AdCreationRepository {
     required int paidDeliveryMaxDay,
     required int? paidDeliveryPrice,
     required List<District> paidDeliveryDistricts,
+    //
     required bool isAutoRenewal,
     required bool isShowMySocialAccount,
+    required String videoUrl,
   }) async {
     final response = await _adCreationService.createProductAd(
       title: title,
@@ -143,6 +150,62 @@ class AdCreationRepository {
       paidDeliveryMaxDay: paidDeliveryMaxDay,
       paidDeliveryPrice: paidDeliveryPrice,
       paidDeliveryDistricts: paidDeliveryDistricts.map((e) => e.id).toList(),
+      //
+      isAutoRenewal: isAutoRenewal,
+      isShowMySocialAccount: isShowMySocialAccount,
+      videoUrl: videoUrl,
+    );
+
+    return "";
+  }
+
+  Future<String> createServiceAd({
+    required String title,
+    required CategoryResponse category,
+    //
+    required String mainImageId,
+    required List<String> pickedImageIds,
+    required String desc,
+    //
+    required int fromPrice,
+    required int toPrice,
+    required CurrencyResponse currency,
+    required List<PaymentTypeResponse> paymentTypes,
+    required bool isAgreedPrice,
+    //
+    required String accountType,
+    required List<District> serviceDistricts,
+    //
+    required UserAddressResponse address,
+    required String contactPerson,
+    required String phone,
+    required String email,
+    //
+    required bool isAutoRenewal,
+    required bool isShowMySocialAccount,
+    required String videoUrl,
+  }) async {
+    final response = await _adCreationService.createServiceAd(
+      title: title,
+      categoryId: category.id,
+      //
+      mainImageId: mainImageId,
+      pickedImageIds: pickedImageIds,
+      //
+      desc: desc,
+      fromPrice: fromPrice,
+      toPrice: toPrice,
+      currency: currency.id,
+      paymentTypeIds: paymentTypes.map((e) => "${e.id}").toList(),
+      isAgreedPrice: isAgreedPrice,
+      //
+      accountType: accountType,
+      serviceDistricts: serviceDistricts.map((e) => e.id).toList(),
+      //
+      addressId: address.id,
+      contactPerson: contactPerson,
+      phone: phone,
+      email: email,
       //
       isAutoRenewal: isAutoRenewal,
       isShowMySocialAccount: isShowMySocialAccount,

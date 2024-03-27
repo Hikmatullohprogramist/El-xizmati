@@ -143,15 +143,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   void setEnteredWarehouseCount(String warehouseCount) {
-    int? warehouseCountInt;
-    if (warehouseCount.trim().isNotEmpty) {
-      try {
-        warehouseCountInt = int.parse(warehouseCount.clearPrice());
-      } catch (e) {
-        warehouseCountInt = null;
-        log.e(e.toString());
-      }
-    }
+    int? warehouseCountInt = int.tryParse(warehouseCount.clearPrice());
     updateState((state) => state.copyWith(warehouseCount: warehouseCountInt));
   }
 

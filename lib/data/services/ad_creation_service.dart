@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/utils/rest_mappers.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 
+import '../../domain/models/ad/ad_type.dart';
 import '../storages/token_storage.dart';
 
 @lazySingleton
@@ -57,9 +58,10 @@ class AdCreationService {
     required String title,
     required int categoryId,
     required AdTransactionType adTransactionType,
+    //
     required String mainImageId,
     required List<String> pickedImageIds,
-    required String videoUrl,
+    //
     required String desc,
     required int? warehouseCount,
     required int? unitId,
@@ -68,17 +70,21 @@ class AdCreationService {
     required String? currency,
     required List<String>? paymentTypeIds,
     required bool isAgreedPrice,
+    //
     required String propertyStatus,
     required String accountType,
+    //
     required String exchangeTitle,
     required String exchangeDesc,
     required int? exchangeCategoryId,
     required String exchangePropertyStatus,
     required String exchangeAccountType,
+    //
     required int? addressId,
     required String contactPerson,
     required String phone,
     required String email,
+    //
     required bool isPickupEnabled,
     required List<int> pickupWarehouses,
     required bool isFreeDeliveryEnabled,
@@ -88,48 +94,54 @@ class AdCreationService {
     required int paidDeliveryMaxDay,
     required int? paidDeliveryPrice,
     required List<int> paidDeliveryDistricts,
+    //
     required bool isAutoRenewal,
     required bool isShowMySocialAccount,
+    required String videoUrl,
   }) {
     Map<String, Object?> commonBody = {
       "name": title,
       "category_id": categoryId,
+      "type_status": adTransactionType.name,
+
       "main_photo": mainImageId,
       "photos": pickedImageIds,
-      "description": desc,
 
-      "route_type": accountType,
-      "property_status": propertyStatus,
+      "description": desc,
       "contact_name": contactPerson,
       "email": email,
       "phone_number": phone,
-      "is_auto_renew": isAutoRenewal,
-      "type_status": adTransactionType.name,
+
+      "route_type": accountType,
+      "property_status": propertyStatus,
 
       "show_social": isShowMySocialAccount,
       "has_shipping": isPaidDeliveryEnabled,
       "has_free_shipping": isFreeDeliveryEnabled,
       "main_type_status": AdTransactionType.SELL.name, // will be constant
 
-      "sale_type": "PRODUCT",
+      "sale_type": AdType.product.name.toUpperCase(),
       "video": videoUrl,
       "min_amount": minAmount,
 
       "is_pickup_enabled": isPickupEnabled,
       "is_free_delivery_enabled": isFreeDeliveryEnabled,
       "is_paid_delivery_enabled": isPaidDeliveryEnabled,
+
+      "is_auto_renew": isAutoRenewal,
     };
 
     if (isPickupEnabled) {
       final pickupBody = {
-        "pickup_address_ids": pickupWarehouses.toMap("warehouse_id"),
+        "pickup_address_ids": pickupWarehouses.toMapList("warehouse_id"),
       };
       commonBody.addAll(pickupBody);
     }
 
     if (isFreeDeliveryEnabled) {
       final freeDeliveryBody = {
-        "free_delivery_district_ids": freeDeliveryDistricts.toMap("district_id"),
+        "free_delivery_district_ids":
+            freeDeliveryDistricts.toMapList("district_id"),
         "free_delivery_max_days": freeDeliveryMaxDay,
       };
       commonBody.addAll(freeDeliveryBody);
@@ -137,7 +149,8 @@ class AdCreationService {
 
     if (isPaidDeliveryEnabled) {
       final paidDeliveryBody = {
-        "paid_delivery_district_ids": paidDeliveryDistricts.toMap("district_id"),
+        "paid_delivery_district_ids":
+            paidDeliveryDistricts.toMapList("district_id"),
         "paid_delivery_max_days": paidDeliveryMaxDay,
         "shipping_price": paidDeliveryPrice,
         "shipping_unit_id": 12, // km unit id 12
@@ -169,6 +182,66 @@ class AdCreationService {
       };
       commonBody.addAll(exchangeBody);
     }
+
+    return dio.post(
+      'api/mobile/v1/create-ad',
+      data: commonBody,
+    );
+  }
+
+  Future<Response> createServiceAd({
+    required String title,
+    required int categoryId,
+    //
+    required String mainImageId,
+    required List<String> pickedImageIds,
+    required String desc,
+    //
+    required int fromPrice,
+    required int toPrice,
+    required String currency,
+    required List<String> paymentTypeIds,
+    required bool isAgreedPrice,
+    //
+    required String accountType,
+    required List<int> serviceDistricts,
+    //
+    required int addressId,
+    required String contactPerson,
+    required String phone,
+    required String email,
+    //
+    required bool isAutoRenewal,
+    required bool isShowMySocialAccount,
+    required String videoUrl,
+  }) {
+    Map<String, Object?> commonBody = {
+      "name": title,
+      "category_id": categoryId,
+      "service_category_id": categoryId,
+      "service_sub_category_id": categoryId,
+      "main_photo": mainImageId,
+      "photos": pickedImageIds.map((e) => e).toList(),
+      "description": desc,
+      "contact_name": contactPerson,
+      "email": email,
+      "phone_number": phone,
+      "from_price": fromPrice,
+      "to_price": toPrice,
+      "currency": currency,
+      "is_contract": isAgreedPrice,
+      "payment_types": paymentTypeIds,
+      "has_discount": false,
+      "has_bidding": isAgreedPrice,
+      "route_type": accountType,
+      "delivery_types": serviceDistricts.toMapList("district_id"),
+      "type_status": AdTransactionType.SERVICE.name,
+      "main_type_status": AdTransactionType.SELL.name,
+      "sale_type": AdType.service.name.toUpperCase(),
+      "is_auto_renew": isAutoRenewal,
+      "show_social": isShowMySocialAccount,
+      "video": videoUrl,
+    };
 
     return dio.post(
       'api/mobile/v1/create-ad',

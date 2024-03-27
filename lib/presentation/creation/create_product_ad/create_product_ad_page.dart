@@ -89,32 +89,32 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(height: 12),
+            SizedBox(height: 20),
             _buildTitleAndCategoryBlock(context, state),
-            SizedBox(height: 12),
+            SizedBox(height: 20),
             _buildImageListBlock(context, state),
-            SizedBox(height: 16),
+            SizedBox(height: 20),
             _buildDescBlock(context, state),
             _buildPriceBlock(context, state),
-            SizedBox(height: 16),
+            SizedBox(height: 20),
             _buildAdditionalInfoBlock(context, state),
             SizedBox(height: cubit(context).isExchangeMode() ? 16 : 0),
             _buildExchangeAdBlock(context, state),
-            SizedBox(height: 16),
+            SizedBox(height: 20),
             _buildContactsBlock(context, state),
-            SizedBox(height: 16),
+            SizedBox(height: 20),
             _buildPickupBlock(context, state),
             SizedBox(height: 4),
             _buildFreeDeliveryBlock(context, state),
             SizedBox(height: 4),
             _buildPaidDeliveryBlock(context, state),
-            SizedBox(height: 16),
+            SizedBox(height: 20),
             _buildAutoContinueBlock(context, state),
-            SizedBox(height: 16),
+            SizedBox(height: 20),
             _buildUsefulLinkBlock(context, state),
-            SizedBox(height: 16),
+            SizedBox(height: 20),
             _buildFooterBlock(context, state),
-            SizedBox(height: 24),
+            SizedBox(height: 20),
           ],
         ),
       ),
@@ -358,10 +358,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                       flex: 4,
                       child: Column(
                         children: [
-                          LabelTextField(
-                            Strings.createAdCurrencyLabel,
-                            isRequired: false,
-                          ),
+                          LabelTextField(Strings.createAdCurrencyLabel),
                           SizedBox(height: 6),
                           CustomDropdownField(
                             text: state.currency?.name ?? "",
@@ -857,61 +854,68 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildUsefulLinkBlock(
-    BuildContext context,
-    PageState state,
-  ) {
-    return Container(
-      color: Colors.white,
-      padding: EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Strings.createAdUsefulLinkLabel.w(600).s(14).c(Color(0xFF41455E)),
-          SizedBox(height: 20),
-          LabelTextField(Strings.createAdVideoUlrLabel, isRequired: false),
-          SizedBox(height: 6),
-          CustomTextField(
-            autofillHints: const [AutofillHints.url],
-            keyboardType: TextInputType.url,
-            maxLines: 1,
-            hint: Strings.createAdVideoUlrLabel,
-            inputType: TextInputType.url,
-            textInputAction: TextInputAction.done,
-            controller: videoUrlController,
-            onChanged: (value) {
-              cubit(context).setEnteredVideoUrl(value);
-            },
-          ),
-          SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+  Widget _buildUsefulLinkBlock(BuildContext context, PageState state) {
+    return Column(
+      children: [
+        Container(
+          color: Colors.white,
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomSwitch(
-                isChecked: state.isShowMySocialAccount,
+              SizedBox(height: 16),
+              Strings.createAdUsefulLinkLabel.w(600).s(14).c(Color(0xFF41455E)),
+              SizedBox(height: 20),
+              LabelTextField(Strings.createAdVideoUlrLabel, isRequired: false),
+              SizedBox(height: 6),
+              CustomTextField(
+                autofillHints: const [AutofillHints.url],
+                keyboardType: TextInputType.url,
+                maxLines: 1,
+                hint: Strings.createAdVideoUlrLabel,
+                inputType: TextInputType.url,
+                textInputAction: TextInputAction.done,
+                controller: videoUrlController,
                 onChanged: (value) {
-                  cubit(context).setShowMySocialAccounts(value);
+                  cubit(context).setEnteredVideoUrl(value);
                 },
               ),
-              SizedBox(width: 16),
-              Expanded(
-                child: Strings.createAdShowMySocialAccountsLabel
-                    .w(400)
-                    .s(14)
-                    .c(Color(0xFF41455E)),
+              SizedBox(height: 8),
+            ],
+          ),
+        ),
+        SizedBox(height: 4),
+        Container(
+          color: Colors.white,
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CustomSwitch(
+                    isChecked: state.isShowMySocialAccount,
+                    onChanged: (value) {
+                      cubit(context).setShowMySocialAccounts(value);
+                    },
+                  ),
+                  SizedBox(width: 16),
+                  Expanded(
+                    child: Strings.createAdShowMySocialAccountsLabel
+                        .w(400)
+                        .s(14)
+                        .c(Color(0xFF41455E)),
+                  ),
+                ],
               ),
             ],
           ),
-          SizedBox(height: 8),
-        ],
-      ),
+        )
+      ],
     );
   }
 
-  Widget _buildFooterBlock(
-    BuildContext context,
-    PageState state,
-  ) {
+  Widget _buildFooterBlock(BuildContext context, PageState state) {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.all(16),
