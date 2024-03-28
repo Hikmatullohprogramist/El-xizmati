@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
@@ -13,42 +12,45 @@ part 'page_state.dart';
 
 @Injectable()
 class PageCubit extends BaseCubit<PageState, PageEvent> {
-  PageCubit(this._repository) : super(PageState()) {
-    getItems();
-  }
+  PageCubit(this._repository) : super(PageState());
 
   final AdCreationRepository _repository;
 
+  void setInitialParams(AdType adType) {
+    updateState((state) => state.copyWith(adType: adType));
+
+    getItems();
+  }
+
   Future<void> getItems() async {
     try {
-      final allCategories = await _repository.getCategoriesForCreationAd(
-        AdType.product.name.toUpperCase(),
-      );
-      final categories = allCategories.where((e) => e.parent_id == 0).toList();
-      log.i(allCategories.toString());
-      updateState(
-        (state) => state.copyWith(
-          visibleCategories: categories,
-          allCategories: allCategories,
-          categoriesState: LoadingState.success,
-        ),
-      );
-    } on DioException catch (exception) {
+      final allItems = await _repository
+          .getCategoriesForCreationAd(states.adType.name.toUpperCase());
+
+      final visibleItems = allItems.where((e) => e.parent_id == 0).toList();
+      log.i(allItems.toString());
+      updateState((state) => state.copyWith(
+            allItems: allItems,
+            visibleItems: visibleItems,
+            loadState: LoadingState.success,
+          ));
+    } catch (exception) {
       log.e(exception.toString());
+      updateState((state) => state.copyWith(loadState: LoadingState.error));
     }
   }
 
   Future<void> selectCategory(CategoryResponse category) async {
-    updateState((state) => state.copyWith(selectedCategory: category));
+    updateState((state) => state.copyWith(selectedItem: category));
 
-    final categories = states.allCategories
+    final visibleItems = states.allItems
         .where((element) => element.parent_id == category.id)
         .toList();
 
-    if (categories.isEmpty) {
+    if (visibleItems.isEmpty) {
       emitEvent(PageEvent(PageEventType.closePage, category: category));
     } else {
-      updateState((state) => state.copyWith(visibleCategories: categories));
+      updateState((state) => state.copyWith(visibleItems: visibleItems));
     }
   }
 

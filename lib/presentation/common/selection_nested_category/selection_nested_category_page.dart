@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
+import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 
 import '../../../../../common/widgets/category/category_widget.dart';
 import '../../../../../common/widgets/loading/loader_state_widget.dart';
@@ -13,9 +14,15 @@ import 'cubit/page_cubit.dart';
 @RoutePage()
 class SelectionNestedCategoryPage
     extends BasePage<PageCubit, PageState, PageEvent> {
-  const SelectionNestedCategoryPage(this.onResult, {super.key});
+  const SelectionNestedCategoryPage(this.adType, this.onResult, {super.key});
 
+  final AdType adType;
   final void Function(CategoryResponse categoryResponse) onResult;
+
+  @override
+  void onWidgetCreated(BuildContext context) {
+    cubit(context).setInitialParams(adType);
+  }
 
   @override
   void onEventEmitted(BuildContext context, PageEvent event) {
@@ -34,12 +41,12 @@ class SelectionNestedCategoryPage
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
       appBar: DefaultAppBar(
-        state.selectedCategory?.name ?? "",
+        state.selectedItem?.name ?? "",
         () => cubit(context).backWithoutSelectedCategory(),
       ),
       body: LoaderStateWidget(
         isFullScreen: true,
-        loadingState: state.categoriesState,
+        loadingState: state.loadState,
         loadingBody: _buildLoadingBody(),
         successBody: _buildCategoryItems(state),
       ),
@@ -66,10 +73,10 @@ class SelectionNestedCategoryPage
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
-      itemCount: state.visibleCategories.length,
+      itemCount: state.visibleItems.length,
       itemBuilder: (context, index) {
         return CategoryWidget(
-          category: state.visibleCategories[index],
+          category: state.visibleItems[index],
           onClicked: (CategoryResponse categoryResponse) {
             cubit(context).selectCategory(categoryResponse);
           },
