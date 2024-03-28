@@ -11,8 +11,7 @@ import '../../../common/widgets/app_bar/default_app_bar.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
-class CreateAdStartPage
-    extends BasePage<PageCubit, PageState, PageEvent> {
+class CreateAdStartPage extends BasePage<PageCubit, PageState, PageEvent> {
   const CreateAdStartPage({super.key});
 
   @override
@@ -38,9 +37,10 @@ class CreateAdStartPage
         child: Container(
           margin: EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
           decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: Color(0xFFE5E9F3), width: 1)),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: Color(0xFFE5E9F3), width: 1),
+          ),
           child: SizedBox(
             width: double.infinity,
             child: Column(

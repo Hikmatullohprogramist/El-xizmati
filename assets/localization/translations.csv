@@ -172,8 +172,8 @@ create_ad_required_fields_label,Yulduzcha bilan belgilangan barcha maydonlar to�
 create_ad_result_add_another_ad,Yangi e’lon qo‘shish,Добавить новое объявление,Янги эълон қўшиш
 create_ad_result_desc,E’lon o‘zgarishlari ko‘rib chiqish uchun yuborildi,Изменения объявления отправлены на проверку,Эълон ўзгаришлари кўриб чиқиш учун юборилди
 create_ad_result_edit_current_ad,E’lonni tahrirlash,Редактирование объявления,Эълонни таҳрирлаш
-create_ad_result_message,O‘zgarishlar muvaffaqiyatli saqlandi,Изменения успешно сохранены,Ўзгаришлар муваффақиятли сақланди
-create_ad_result_open_profile,Profilga o‘tish,Перейти в профиль,Профилга ўтиш
+create_ad_result_message,O‘zgarishlar saqlandi,Изменения сохранены,Ўзгаришлар сақланди
+create_ad_result_open_dashboard,Asosiy oynaga o‘tish,Перейти на главную,Асосий ойнага ўтиш
 create_ad_show_my_social_accounts_label,Mening ijtimoiy tarmoqlarim mahsulot tavsifi ko‘rsatilsin,Показать мои соц. сети на описание товара,Менинг ижтимоий тармоқларим маҳсулот тавсифи кўрсатилсин
 create_ad_state_label,Holati,Состояние,Ҳолати
 create_ad_state_new_label,Yangi,Новый,Янги
