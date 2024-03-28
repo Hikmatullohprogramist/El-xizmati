@@ -133,8 +133,8 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             hint: Strings.createAdCategoryLabel,
             onTap: () {
               context.router.push(
-                SelectionNestedCategoryRoute(onResult: (categoryResponse) {
-                  cubit(context).setSelectedCategory(categoryResponse);
+                SelectionNestedCategoryRoute(onResult: (category) {
+                  cubit(context).setSelectedCategory(category);
                 }),
               );
             },

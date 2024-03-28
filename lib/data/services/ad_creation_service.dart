@@ -14,8 +14,13 @@ class AdCreationService {
 
   AdCreationService(this.dio, this.tokenStorage);
 
-  Future<Response> getCategoriesForCreationAd() {
-    return dio.get('api/mobile/v1/get-categories-for-create-ad');
+  Future<Response> getCategoriesForCreationAd(String type) {
+    // return dio.get('api/mobile/v1/get-categories-for-create-ad');
+    final Map<String, dynamic> query = {"type": type};
+    return dio.get(
+      'api/mobile/v1/get-categories-for-create-ad',
+      queryParameters: query,
+    );
   }
 
   Future<Response> getCurrenciesForCreationAd() {
@@ -33,8 +38,10 @@ class AdCreationService {
   Future<Response> getWarehousesForCreationAd({required int tinOrPinfl}) {
     final Map<String, dynamic> query = {};
     query["org_id"] = tinOrPinfl;
-    return dio.get('api/mobile/v1/get-warehouses-for-create-ad',
-        queryParameters: query);
+    return dio.get(
+      'api/mobile/v1/get-warehouses-for-create-ad',
+      queryParameters: query,
+    );
   }
 
   Future<Response> getUnitsForCreationAd() {
@@ -103,7 +110,7 @@ class AdCreationService {
       "name": title,
       "category_id": categoryId,
       "type_status": adTransactionType.name,
-
+      //
       "main_photo": mainImageId,
       "photos": pickedImageIds,
 
@@ -192,6 +199,8 @@ class AdCreationService {
   Future<Response> createServiceAd({
     required String title,
     required int categoryId,
+    required int serviceCategoryId,
+    required int serviceSubCategoryId,
     //
     required String mainImageId,
     required List<String> pickedImageIds,
@@ -218,14 +227,17 @@ class AdCreationService {
     Map<String, Object?> commonBody = {
       "name": title,
       "category_id": categoryId,
-      "service_category_id": categoryId,
-      "service_sub_category_id": categoryId,
+      "service_category_id": serviceCategoryId,
+      "service_sub_category_id": serviceSubCategoryId,
+      //
       "main_photo": mainImageId,
       "photos": pickedImageIds.map((e) => e).toList(),
+
       "description": desc,
       "contact_name": contactPerson,
       "email": email,
       "phone_number": phone,
+
       "from_price": fromPrice,
       "to_price": toPrice,
       "currency": currency,
@@ -233,14 +245,17 @@ class AdCreationService {
       "payment_types": paymentTypeIds,
       "has_discount": false,
       "has_bidding": isAgreedPrice,
+
       "route_type": accountType,
       "delivery_types": serviceDistricts.toMapList("district_id"),
+
       "type_status": AdTransactionType.SERVICE.name,
       "main_type_status": AdTransactionType.SELL.name,
       "sale_type": AdType.service.name.toUpperCase(),
+
       "is_auto_renew": isAutoRenewal,
       "show_social": isShowMySocialAccount,
-      "video": videoUrl,
+      "video": videoUrl
     };
 
     return dio.post(

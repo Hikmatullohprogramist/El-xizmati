@@ -1,6 +1,5 @@
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/responses/category/category/category_response.dart';
-import 'package:onlinebozor/data/responses/category/category_selection/category_selection_response.dart';
 import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/services/ad_creation_service.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
@@ -19,10 +18,14 @@ class AdCreationRepository {
 
   AdCreationRepository(this._adCreationService, this._userInfoStorage);
 
-  Future<List<CategorySelectionResponse>> getCategoriesForCreationAd() async {
-    final response = await _adCreationService.getCategoriesForCreationAd();
-    final categories =
-        CategorySelectionRootResponse.fromJson(response.data).data;
+  // Future<List<CategorySelectionResponse>> getCategoriesForCreationAd() async {
+  // final response = await _adCreationService.getCategoriesForCreationAd();
+  // final categories = CategorySelectionRootResponse.fromJson(response.data).data;
+  // return categories;
+  // }
+  Future<List<CategoryResponse>> getCategoriesForCreationAd(String type) async {
+    final response = await _adCreationService.getCategoriesForCreationAd(type);
+    final categories = CategoryRootResponse.fromJson(response.data).data;
     return categories;
   }
 
@@ -161,7 +164,9 @@ class AdCreationRepository {
 
   Future<String> createServiceAd({
     required String title,
-    required CategoryResponse category,
+    required int categoryId,
+    required int serviceCategoryId,
+    required int serviceSubCategoryId,
     //
     required String mainImageId,
     required List<String> pickedImageIds,
@@ -187,7 +192,9 @@ class AdCreationRepository {
   }) async {
     final response = await _adCreationService.createServiceAd(
       title: title,
-      categoryId: category.id,
+      categoryId: categoryId,
+      serviceCategoryId: serviceCategoryId,
+      serviceSubCategoryId: serviceSubCategoryId,
       //
       mainImageId: mainImageId,
       pickedImageIds: pickedImageIds,

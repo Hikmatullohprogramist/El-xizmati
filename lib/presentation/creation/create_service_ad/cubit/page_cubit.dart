@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
@@ -6,8 +5,6 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/data/responses/category/category/category_response.dart';
 import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/responses/payment_type/payment_type_response.dart';
-import 'package:onlinebozor/data/responses/unit/unit_response.dart';
-import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 import 'package:onlinebozor/presentation/utils/xfile_mapper.dart';
@@ -24,9 +21,9 @@ part 'page_state.dart';
 @Injectable()
 class PageCubit extends BaseCubit<PageState, PageEvent> {
   PageCubit(
-      this._adCreationRepository,
-      this._userRepository,
-      ) : super(const PageState());
+    this._adCreationRepository,
+    this._userRepository,
+  ) : super(const PageState());
 
   final AdCreationRepository _adCreationRepository;
   final UserRepository _userRepository;
@@ -34,10 +31,10 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> getInitialData() async {
     final user = _userRepository.userInfoStorage.userInformation.call();
     updateState((state) => state.copyWith(
-      contactPerson: user?.fullName?.capitalizeFullName() ?? "",
-      phone: user?.mobilePhone?.clearCountryCode() ?? "",
-      email: user?.email ?? "",
-    ));
+          contactPerson: user?.fullName?.capitalizeFullName() ?? "",
+          phone: user?.mobilePhone?.clearCountryCode() ?? "",
+          email: user?.email ?? "",
+        ));
   }
 
   Future<void> createProductAd() async {
@@ -48,7 +45,9 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     try {
       final response = await _adCreationRepository.createServiceAd(
         title: states.title,
-        category: states.category!,
+        categoryId: states.category!.id,
+        serviceCategoryId: states.category!.parent_id ?? states.category!.id,
+        serviceSubCategoryId: states.category!.id,
         mainImageId: states.pickedImages!.map((e) => e.id).first!,
         pickedImageIds: states.pickedImages!.map((e) => e.id!).toList(),
         desc: states.desc,
@@ -126,8 +125,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   void setSelectedPaymentTypes(
-      List<PaymentTypeResponse>? selectedPaymentTypes,
-      ) {
+    List<PaymentTypeResponse>? selectedPaymentTypes,
+  ) {
     try {
       if (selectedPaymentTypes != null) {
         var paymentTypes = List<PaymentTypeResponse>.from(states.paymentTypes);
@@ -204,9 +203,9 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   void showHideFreeDistricts() {
     updateState((state) => state.copyWith(
-      isShowAllFreeDeliveryDistricts:
-      !states.isShowAllFreeDeliveryDistricts,
-    ));
+          isShowAllFreeDeliveryDistricts:
+              !states.isShowAllFreeDeliveryDistricts,
+        ));
   }
 
   void setAutoRenewal(bool isAutoRenewal) {
@@ -219,7 +218,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   void setShowMySocialAccounts(bool isShowMySocialAccount) {
     updateState(
-          (state) => state.copyWith(isShowMySocialAccount: isShowMySocialAccount),
+      (state) => state.copyWith(isShowMySocialAccount: isShowMySocialAccount),
     );
   }
 
