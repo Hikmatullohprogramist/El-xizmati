@@ -15,7 +15,6 @@ class AdCreationService {
   AdCreationService(this.dio, this.tokenStorage);
 
   Future<Response> getCategoriesForCreationAd(String type) {
-    // return dio.get('api/mobile/v1/get-categories-for-create-ad');
     final Map<String, dynamic> query = {"type": type};
     return dio.get(
       'api/mobile/v1/get-categories-for-create-ad',
@@ -263,6 +262,136 @@ class AdCreationService {
       data: commonBody,
     );
   }
+
+// { XIZMAT SOTAMAN SO'ROVI
+//   "name": "Test Xizmat bor",
+//   "category_id": 1262,
+//   "main_photo": "ff8081818278445ed39fb9ea",
+//   "photos": [
+//   "ff8081818278445ed39fb9ea",
+//   "ff80818144013d02d3f1ba01"
+//   ],
+//   "description": "test",
+//   "price": 0,
+//   "currency": "860",
+//   "is_contract": true,
+//   "route_type": "PRIVATE",
+//   "property_status": "NEW",
+//   "email": "abror.esonaliyev@gmail.com",
+//   "phone_number": "998977521770",
+//   "type_status": "SERVICE",
+//   "is_auto_renew": true,
+//   "to_price": 25000,
+//   "from_price": 12343,
+//   "video": null,
+//   "address_id": 6047,
+//   "show_social": true,
+//   "is_work_share": true,
+//   "delivery_types": [
+//   {
+//   "district_id": 2603,
+//   "type": "SERVICE_RADIUS"
+//   }
+//   ],
+//   "payment_types": [1,6 ],
+//   "values": []
+// }
+
+  Future<Response> createRequestAd({
+    required String title,
+    required int categoryId,
+    required AdType adType,
+    required AdTransactionType adTransactionType,
+    //
+    required String mainImageId,
+    required List<String> pickedImageIds,
+    required String desc,
+    //
+    required int fromPrice,
+    required int toPrice,
+    required String currency,
+    required List<String> paymentTypeIds,
+    required bool isAgreedPrice,
+    //
+    required List<int> requestDistricts,
+    //
+    required int addressId,
+    required String contactPerson,
+    required String phone,
+    required String email,
+    //
+    required bool isAutoRenewal,
+  }) {
+    Map<String, Object?> commonBody = {
+      "name": title,
+      "category_id": categoryId,
+      //
+      "main_photo": mainImageId,
+      "photos": pickedImageIds.map((e) => e).toList(),
+
+      "description": desc,
+      "contact_name": contactPerson,
+      "email": email,
+      "phone_number": phone,
+
+      "from_price": fromPrice,
+      "to_price": toPrice,
+      "currency": currency,
+      "is_contract": isAgreedPrice,
+      "payment_types": paymentTypeIds,
+      "has_discount": false,
+      "has_bidding": isAgreedPrice,
+
+      "property_status": "NEW", // fixme remove this field
+      "min_amount": 1, // fixme remove this field
+      "delivery_types": requestDistricts.toMapList("district_id"),
+
+      "type_status": adTransactionType.name,
+      "main_type_status": adTransactionType.name,
+      "sale_type": adType.name.toUpperCase(),
+
+      "is_auto_renew": isAutoRenewal,
+    };
+
+    return dio.post(
+      'api/mobile/v1/create-ad',
+      data: commonBody,
+    );
+  }
+
+// { XIZMAT KERAK SO'ROVI
+//   "name": "Test Xizmat Kerak",
+//   "category_id": 2044,
+//   "main_photo": "ff80818195c5ffeed4081213",
+//   "photos": [
+//   "ff80818195c5ffeed4081213",
+//   "ff808181fedd036cd3dc9933",
+//   "ff8081816db902e7d43f7d6d"
+//   ],
+//   "description": "test",
+//   "currency": "860",
+//   "is_contract": true,
+//   "property_status": "NEW",
+//   "email": "abror.esonaliyev@gmail.com",
+//   "phone_number": "998977521770",
+//   "type_status": "BUY_SERVICE",
+//   "to_price": 2343453,
+//   "from_price": 123454,
+//   "address_id": 6047,
+//   "is_auto_renew": true,
+//   "show_social": false,
+//   "delivery_types": [
+//   {
+//   "district_id": 2603,
+//   "type": "REQUEST"
+//   }
+//   ],
+//   "payment_types": [
+//   1,
+//   6
+//   ],
+//   "values": []
+// }
 
 //
 // {

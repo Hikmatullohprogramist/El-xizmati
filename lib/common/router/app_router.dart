@@ -52,10 +52,9 @@ import '../../presentation/common/selection_user_warehouse/selection_user_wareho
 import '../../presentation/creation/create_ad_result/create_ad_result_page.dart';
 import '../../presentation/creation/create_ad_start/create_ad_start_page.dart';
 import '../../presentation/creation/create_product_ad/create_product_ad_page.dart';
-import '../../presentation/creation/create_product_request/create_product_request_page.dart';
+import '../../presentation/creation/create_request_ad/create_request_ad_page.dart';
 import '../../presentation/creation/create_request_start/create_request_start_page.dart';
 import '../../presentation/creation/create_service_ad/create_service_ad_page.dart';
-import '../../presentation/creation/create_service_request/create_service_request_page.dart';
 import '../../presentation/home/features/cart/cart_page.dart';
 import '../../presentation/home/features/category/category_page.dart';
 import '../../presentation/home/features/category/features/sub_category_page.dart';
@@ -186,16 +185,10 @@ class AppRouter extends _$AppRouter {
           path: "/create_request_start",
         ),
 
-        /// create product request
+        /// create request ad
         AutoRoute(
-          page: CreateProductRequestRoute.page,
-          path: "/create_product_request",
-        ),
-
-        /// create service request
-        AutoRoute(
-          page: CreateServiceRequestRoute.page,
-          path: '/create_service_request',
+          page: CreateRequestAdRoute.page,
+          path: "/create_request_ad",
         ),
 
         /// create service request

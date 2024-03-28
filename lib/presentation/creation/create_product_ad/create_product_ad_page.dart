@@ -32,6 +32,7 @@ import '../../../common/widgets/bottom_sheet/bottom_sheet_title.dart';
 import '../../../common/widgets/button/custom_elevated_button.dart';
 import '../../../common/widgets/divider/custom_diverder.dart';
 import '../../../common/widgets/text_field/custom_text_field.dart';
+import '../../../domain/models/ad/ad_type.dart';
 import '../../common/selection_payment_type/selection_payment_type_page.dart';
 import '../../utils/mask_formatters.dart';
 import 'cubit/page_cubit.dart';
@@ -155,9 +156,12 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             hint: Strings.createAdCategoryLabel,
             onTap: () {
               context.router.push(
-                SelectionNestedCategoryRoute(onResult: (category) {
-                  cubit(context).setSelectedCategory(category);
-                }),
+                SelectionNestedCategoryRoute(
+                  adType: AdType.product,
+                  onResult: (category) {
+                    cubit(context).setSelectedCategory(category);
+                  },
+                ),
               );
             },
           ),
@@ -502,9 +506,12 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   hint: Strings.createAdCategoryLabel,
                   onTap: () {
                     context.router.push(
-                      SelectionNestedCategoryRoute(onResult: (category) {
-                        cubit(context).setSelectedAnotherCategory(category);
-                      }),
+                      SelectionNestedCategoryRoute(
+                        adType: AdType.product,
+                        onResult: (category) {
+                          cubit(context).setSelectedAnotherCategory(category);
+                        },
+                      ),
                     );
                   },
                 ),

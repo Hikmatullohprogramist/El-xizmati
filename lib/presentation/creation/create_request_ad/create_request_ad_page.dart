@@ -4,35 +4,36 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/controller/controller_exts.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/common/widgets/app_bar/default_app_bar.dart';
-import 'package:onlinebozor/common/widgets/chips/chip_add_item.dart';
-import 'package:onlinebozor/common/widgets/chips/chip_item.dart';
-import 'package:onlinebozor/common/widgets/chips/chip_list.dart';
-import 'package:onlinebozor/common/widgets/image/image_ad_list_widget.dart';
-import 'package:onlinebozor/common/widgets/switch/custom_switch.dart';
-import 'package:onlinebozor/common/widgets/switch/custom_toggle.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
+import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/text_field/custom_dropdown_field.dart';
+import 'package:onlinebozor/common/widgets/text_field/custom_text_field.dart';
 import 'package:onlinebozor/common/widgets/text_field/label_text_field.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
-import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
-import 'package:onlinebozor/presentation/common/selection_currency/selection_currency_page.dart';
-import 'package:onlinebozor/presentation/common/selection_region_and_district/selection_region_and_district_page.dart';
-import 'package:onlinebozor/presentation/common/selection_user_address/selection_user_address_page.dart';
 
 import '../../../../../common/core/base_page.dart';
-import '../../../../../common/gen/localization/strings.dart';
 import '../../../common/colors/static_colors.dart';
-import '../../../common/router/app_router.dart';
 import '../../../common/vibrator/vibrator_extension.dart';
+import '../../../common/widgets/app_bar/default_app_bar.dart';
 import '../../../common/widgets/button/custom_elevated_button.dart';
-import '../../../common/widgets/text_field/custom_text_field.dart';
+import '../../../common/widgets/chips/chip_add_item.dart';
+import '../../../common/widgets/chips/chip_item.dart';
+import '../../../common/widgets/chips/chip_list.dart';
+import '../../../common/widgets/image/image_ad_list_widget.dart';
+import '../../../common/widgets/switch/custom_switch.dart';
+import '../../../domain/models/image/uploadable_file.dart';
+import '../../common/selection_currency/selection_currency_page.dart';
 import '../../common/selection_payment_type/selection_payment_type_page.dart';
+import '../../common/selection_region_and_district/selection_region_and_district_page.dart';
+import '../../common/selection_user_address/selection_user_address_page.dart';
 import '../../utils/mask_formatters.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
-class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
-  CreateServiceAdPage({super.key});
+class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
+  CreateRequestAdPage(this.adType, {super.key});
+
+  final AdType adType;
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descController = TextEditingController();
@@ -41,7 +42,6 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
   final TextEditingController contactPersonController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController videoUrlController = TextEditingController();
 
   @override
   void onEventEmitted(BuildContext context, PageEvent event) {
@@ -67,7 +67,6 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     contactPersonController.updateOnRestore(state.contactPerson);
     phoneController.updateOnRestore(state.phone);
     emailController.updateOnRestore(state.email);
-    videoUrlController.updateOnRestore(state.videoUrl);
 
     return Scaffold(
       appBar: DefaultAppBar(Strings.adCreateTitle, () => context.router.pop()),
@@ -84,13 +83,11 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             SizedBox(height: 20),
             _buildDescAndPriceBlock(context, state),
             SizedBox(height: 20),
-            _buildAdditionalInfoBlock(context, state),
-            SizedBox(height: 20),
             _buildContactsBlock(context, state),
             SizedBox(height: 20),
-            _buildAutoContinueBlock(context, state),
+            _buildAddressBlock(context, state),
             SizedBox(height: 20),
-            _buildUsefulLinkBlock(context, state),
+            _buildAutoContinueBlock(context, state),
             SizedBox(height: 20),
             _buildFooterBlock(context, state),
             SizedBox(height: 20),
@@ -132,7 +129,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             onTap: () {
               context.router.push(
                 SelectionNestedCategoryRoute(
-                  adType: AdType.service,
+                  adType: state.adType,
                   onResult: (category) {
                     cubit(context).setSelectedCategory(category);
                   },
@@ -373,48 +370,6 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildAdditionalInfoBlock(BuildContext context, PageState state) {
-    return Container(
-      color: Colors.white,
-      padding: EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 8),
-          Strings.createAdAdditionalInfoLabel.w(700).s(16).c(Color(0xFF41455E)),
-          SizedBox(height: 20),
-          LabelTextField(
-            Strings.createAdPersonalOrBusinessLabel,
-            isRequired: false,
-          ),
-          SizedBox(height: 8),
-          CustomToggle(
-            width: 240,
-            isChecked: state.isBusiness,
-            onChanged: (isChecked) {
-              cubit(context).setIsBusiness(isChecked);
-            },
-            negativeTitle: Strings.createAdPersonalLabel,
-            positiveTitle: Strings.createAdBusinessLabel,
-          ),
-          SizedBox(height: 16),
-          LabelTextField(Strings.createAdAddressLabel),
-          SizedBox(height: 8),
-          ChipList(
-            chips: _buildServiceAddressChips(context, state),
-            isShowAll: state.isShowAllServiceDistricts,
-            onClickedAdd: () {
-              _showSelectionServiceAddress(context, state);
-            },
-            onClickedShowLess: () => cubit(context).showHideServiceDistricts(),
-            onClickedShowMore: () => cubit(context).showHideServiceDistricts(),
-          ),
-          SizedBox(height: 16),
-        ],
-      ),
-    );
-  }
-
   Widget _buildContactsBlock(BuildContext context, PageState state) {
     return Container(
       color: Colors.white,
@@ -424,26 +379,6 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         children: [
           SizedBox(height: 8),
           Strings.createAdContactInfoLabel.w(700).s(16).c(Color(0xFF41455E)),
-          SizedBox(height: 20),
-          LabelTextField(Strings.createAdAddressLabel),
-          SizedBox(height: 8),
-          CustomDropdownField(
-            text: state.address?.name ?? "",
-            hint: Strings.createAdAddressLabel,
-            onTap: () async {
-              final address = await showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                useSafeArea: true,
-                backgroundColor: Colors.transparent,
-                builder: (context) => SelectionUserAddressPage(
-                  selectedAddress: state.address,
-                ),
-              );
-
-              cubit(context).setSelectedAddress(address);
-            },
-          ),
           SizedBox(height: 12),
           LabelTextField(Strings.createAdContactPersonLabel),
           SizedBox(height: 8),
@@ -498,6 +433,53 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
+  Widget _buildAddressBlock(BuildContext context, PageState state) {
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 8),
+          Strings.createAdAdditionalInfoLabel.w(700).s(16).c(Color(0xFF41455E)),
+          SizedBox(height: 20),
+          LabelTextField(Strings.createAdAddressLabel),
+          SizedBox(height: 8),
+          CustomDropdownField(
+            text: state.address?.name ?? "",
+            hint: Strings.createAdAddressLabel,
+            onTap: () async {
+              final address = await showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                useSafeArea: true,
+                backgroundColor: Colors.transparent,
+                builder: (context) => SelectionUserAddressPage(
+                  selectedAddress: state.address,
+                ),
+              );
+
+              cubit(context).setSelectedAddress(address);
+            },
+          ),
+          SizedBox(height: 16),
+          LabelTextField(Strings.createAdAddressLabel),
+          SizedBox(height: 8),
+          ChipList(
+            chips: _buildRequestAddressChips(context, state),
+            isShowAll: state.isShowAllRequestDistricts,
+            onClickedAdd: () {
+              _showSelectionRequestAddress(context, state);
+            },
+            onClickedShowLess: () => cubit(context).showHideRequestDistricts(),
+            onClickedShowMore: () => cubit(context).showHideRequestDistricts(),
+          ),
+          SizedBox(height: 16),
+        ],
+      ),
+    );
+  }
+
   Widget _buildAutoContinueBlock(BuildContext context, PageState state) {
     return Container(
       color: Colors.white,
@@ -532,67 +514,6 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildUsefulLinkBlock(BuildContext context, PageState state) {
-    return Column(
-      children: [
-        Container(
-          color: Colors.white,
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 16),
-              Strings.createAdUsefulLinkLabel.w(600).s(14).c(Color(0xFF41455E)),
-              SizedBox(height: 20),
-              LabelTextField(Strings.createAdVideoUlrLabel, isRequired: false),
-              SizedBox(height: 6),
-              CustomTextField(
-                autofillHints: const [AutofillHints.url],
-                keyboardType: TextInputType.url,
-                maxLines: 1,
-                hint: Strings.createAdVideoUlrLabel,
-                inputType: TextInputType.url,
-                textInputAction: TextInputAction.done,
-                controller: videoUrlController,
-                onChanged: (value) {
-                  cubit(context).setEnteredVideoUrl(value);
-                },
-              ),
-              SizedBox(height: 8),
-            ],
-          ),
-        ),
-        SizedBox(height: 4),
-        Container(
-          color: Colors.white,
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  CustomSwitch(
-                    isChecked: state.isShowMySocialAccount,
-                    onChanged: (value) {
-                      cubit(context).setShowMySocialAccounts(value);
-                    },
-                  ),
-                  SizedBox(width: 16),
-                  Expanded(
-                    child: Strings.createAdShowMySocialAccountsLabel
-                        .w(400)
-                        .s(14)
-                        .c(Color(0xFF41455E)),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        )
-      ],
     );
   }
 
@@ -661,23 +582,22 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     return chips;
   }
 
-  List<Widget> _buildServiceAddressChips(
+  List<Widget> _buildRequestAddressChips(
       BuildContext context, PageState state) {
-    return state.serviceDistricts
+    return state.requestDistricts
         .map(
           (element) => ChipItem(
             item: element,
             title: element.name,
             onChipClicked: (item) =>
-                _showSelectionServiceAddress(context, state),
-            onActionClicked: (item) =>
-                cubit(context).removeRequestAddress(item),
+                _showSelectionRequestAddress(context, state),
+            onActionClicked: (item) => cubit(context).removeAddress(item),
           ),
         )
         .toList();
   }
 
-  Future<void> _showSelectionServiceAddress(
+  Future<void> _showSelectionRequestAddress(
     BuildContext context,
     PageState state,
   ) async {
@@ -687,10 +607,10 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
       useSafeArea: true,
       backgroundColor: Colors.transparent,
       builder: (context) => SelectionRegionAndDistrictPage(
-        initialSelectedDistricts: state.serviceDistricts,
+        initialSelectedDistricts: state.requestDistricts,
       ),
     );
-    cubit(context).setServiceDistricts(districts);
+    cubit(context).setFreeDeliveryDistricts(districts);
   }
 
   Future<void> _showMaxCountError(BuildContext context, int maxCount) async {

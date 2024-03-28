@@ -14,6 +14,7 @@ import '../../../../../../../../common/widgets/ad/user_ad_empty_widget.dart';
 import '../../../../../../../../common/widgets/order/user_order.dart';
 import '../../../../../../../../common/widgets/order/user_order_shimmer.dart';
 import '../../../../../../../../data/responses/user_order/user_order_response.dart';
+import '../../../../../../../../domain/models/ad/ad_type.dart';
 import '../../../../../../../../domain/models/order/order_type.dart';
 import '../../../../../../../../domain/models/order/user_order_status.dart';
 
@@ -100,9 +101,9 @@ class UserOrdersPage extends BasePage<PageCubit, PageState, PageEvent> {
         noItemsFoundIndicatorBuilder: (_) {
           return UserAdEmptyWidget(onActionClicked: () {
             if (type == OrderType.buy) {
-              context.router.push(CreateProductRequestRoute());
+              context.router.push(CreateRequestAdRoute(adType: AdType.product));
             } else if (type == OrderType.sell) {
-              context.router.push(CreateServiceRequestRoute());
+              context.router.push(CreateRequestAdRoute(adType: AdType.service));
             }
           });
         },

@@ -10,6 +10,7 @@ import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../common/vibrator/vibrator_extension.dart';
+import '../../../../domain/models/ad/ad_type.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -29,8 +30,8 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: state.isLogin
               ? [
-                  _buildSaleBlock(context),
-                  _buildBuyBlock(context),
+                  _buildAdCreationBlock(context),
+                  _buildRequestCreationBlock(context),
                 ]
               : [
                   _buildAuthBlock(context),
@@ -40,7 +41,7 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildSaleBlock(BuildContext context) {
+  Widget _buildAdCreationBlock(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 8),
       padding: EdgeInsets.all(16),
@@ -99,7 +100,7 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildBuyBlock(BuildContext context) {
+  Widget _buildRequestCreationBlock(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),
       padding: EdgeInsets.all(16),
@@ -133,7 +134,8 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
                   child: CustomElevatedButton(
                     text: Strings.adCreationStartBuyProduct,
                     onPressed: () {
-                      context.router.push(CreateProductRequestRoute());
+                      context.router
+                          .push(CreateRequestAdRoute(adType: AdType.product));
                     },
                     buttonHeight: 36,
                     textSize: 12,
@@ -144,7 +146,8 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
                   child: CustomElevatedButton(
                     text: Strings.adCreationStartBuyService,
                     onPressed: () {
-                      context.router.push(CreateServiceRequestRoute());
+                      context.router
+                          .push(CreateRequestAdRoute(adType: AdType.service));
                     },
                     buttonHeight: 36,
                     textSize: 12,

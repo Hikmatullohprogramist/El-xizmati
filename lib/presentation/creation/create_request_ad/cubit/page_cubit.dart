@@ -5,6 +5,8 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/data/responses/category/category/category_response.dart';
 import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/responses/payment_type/payment_type_response.dart';
+import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
+import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 import 'package:onlinebozor/presentation/utils/xfile_mapper.dart';
@@ -28,6 +30,15 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   final AdCreationRepository _adCreationRepository;
   final UserRepository _userRepository;
 
+  void setInitialParams(AdType adType) {
+    updateState((state) => state.copyWith(
+          adType: adType,
+          adTransactionType: adType == AdType.product
+              ? AdTransactionType.BUY
+              : AdTransactionType.BUY_SERVICE,
+        ));
+  }
+
   Future<void> getInitialData() async {
     final user = _userRepository.userInfoStorage.userInformation.call();
     updateState((state) => state.copyWith(
@@ -43,23 +54,23 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     await uploadImages();
 
     try {
-      final response = await _adCreationRepository.createServiceAd(
+      final response = await _adCreationRepository.createRequestAd(
         title: states.title,
         categoryId: states.category!.id,
-        serviceCategoryId: states.category!.parent_id ?? states.category!.id,
-        serviceSubCategoryId: states.category!.id,
+        adType: states.adType,
+        adTransactionType: states.adTransactionType,
+        //
         mainImageId: states.pickedImages!.map((e) => e.id).first!,
         pickedImageIds: states.pickedImages!.map((e) => e.id!).toList(),
-        desc: states.desc,
         //
+        desc: states.desc,
         fromPrice: states.fromPrice!,
         toPrice: states.toPrice!,
         currency: states.currency!,
-        paymentTypes: states.paymentTypes!,
+        paymentTypes: states.paymentTypes,
         isAgreedPrice: states.isAgreedPrice,
         //
-        accountType: states.isBusiness ? "BUSINESS" : "PRIVATE",
-        serviceDistricts: states.serviceDistricts,
+        requestDistricts: states.requestDistricts,
         //
         address: states.address!,
         contactPerson: states.contactPerson,
@@ -67,8 +78,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         email: states.email,
         //
         isAutoRenewal: states.isAutoRenewal,
-        isShowMySocialAccount: states.isShowMySocialAccount,
-        videoUrl: states.videoUrl,
       );
       log.i(response.toString());
 
@@ -158,10 +167,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     updateState((state) => state.copyWith(isAgreedPrice: isAgreedPrice));
   }
 
-  void setIsBusiness(bool isBusiness) {
-    updateState((state) => state.copyWith(isBusiness: isBusiness));
-  }
-
   void setSelectedAddress(UserAddressResponse address) {
     updateState((state) => state.copyWith(address: address));
   }
@@ -178,47 +183,37 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     updateState((state) => state.copyWith(email: email));
   }
 
-  void setServiceDistricts(List<District>? districts) {
+  void setFreeDeliveryDistricts(List<District>? districts) {
     try {
       if (districts != null) {
-        var items = List<District>.from(states.serviceDistricts);
+        var items = List<District>.from(states.requestDistricts);
         items.clear();
         items.addAll(districts);
-        updateState((state) => state.copyWith(serviceDistricts: items));
+        updateState((state) => state.copyWith(requestDistricts: items));
       }
     } catch (e) {
       log.e(e.toString());
     }
   }
 
-  void removeRequestAddress(District district) {
+  void removeAddress(District district) {
     try {
-      var districts = List<District>.from(states.serviceDistricts);
+      var districts = List<District>.from(states.requestDistricts);
       districts.remove(district);
-      updateState((state) => state.copyWith(serviceDistricts: districts));
+      updateState((state) => state.copyWith(requestDistricts: districts));
     } catch (e) {
       log.e(e.toString());
     }
   }
 
-  void showHideServiceDistricts() {
+  void showHideRequestDistricts() {
     updateState((state) => state.copyWith(
-          isShowAllServiceDistricts: !states.isShowAllServiceDistricts,
+          isShowAllRequestDistricts: !states.isShowAllRequestDistricts,
         ));
   }
 
   void setAutoRenewal(bool isAutoRenewal) {
     updateState((state) => state.copyWith(isAutoRenewal: isAutoRenewal));
-  }
-
-  void setEnteredVideoUrl(String videoUrl) {
-    updateState((state) => state.copyWith(videoUrl: videoUrl));
-  }
-
-  void setShowMySocialAccounts(bool isShowMySocialAccount) {
-    updateState(
-      (state) => state.copyWith(isShowMySocialAccount: isShowMySocialAccount),
-    );
   }
 
   Future<void> pickImage() async {

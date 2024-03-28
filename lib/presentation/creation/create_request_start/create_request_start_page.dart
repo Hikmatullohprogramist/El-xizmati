@@ -7,6 +7,7 @@ import 'package:onlinebozor/common/router/app_router.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../common/colors/static_colors.dart';
+import '../../../domain/models/ad/ad_type.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -40,7 +41,7 @@ class CreateRequestStartPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Expanded(
       child: InkWell(
         onTap: () {
-          context.router.push(CreateProductRequestRoute());
+          context.router.push(CreateRequestAdRoute(adType: AdType.product));
         },
         child: Container(
           margin: EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
@@ -70,7 +71,7 @@ class CreateRequestStartPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Expanded(
       child: InkWell(
         onTap: () {
-          context.router.push(CreateServiceRequestRoute());
+          context.router.push(CreateRequestAdRoute(adType: AdType.service));
         },
         child: Container(
           margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),

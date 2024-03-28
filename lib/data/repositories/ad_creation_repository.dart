@@ -3,6 +3,7 @@ import 'package:onlinebozor/data/responses/category/category/category_response.d
 import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/services/ad_creation_service.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
+import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 
 import '../../domain/models/image/uploadable_file.dart';
@@ -217,6 +218,60 @@ class AdCreationRepository {
       isAutoRenewal: isAutoRenewal,
       isShowMySocialAccount: isShowMySocialAccount,
       videoUrl: videoUrl,
+    );
+
+    return "";
+  }
+
+  Future<String> createRequestAd({
+    required String title,
+    required int categoryId,
+    required AdType adType,
+    required AdTransactionType adTransactionType,
+    //
+    required String mainImageId,
+    required List<String> pickedImageIds,
+    required String desc,
+    //
+    required int fromPrice,
+    required int toPrice,
+    required CurrencyResponse currency,
+    required List<PaymentTypeResponse> paymentTypes,
+    required bool isAgreedPrice,
+    //
+    required List<District> requestDistricts,
+    //
+    required UserAddressResponse address,
+    required String contactPerson,
+    required String phone,
+    required String email,
+    //
+    required bool isAutoRenewal,
+  }) async {
+    final response = await _adCreationService.createRequestAd(
+      title: title,
+      categoryId: categoryId,
+      adType: adType,
+      adTransactionType: adTransactionType,
+      //
+      mainImageId: mainImageId,
+      pickedImageIds: pickedImageIds,
+      //
+      desc: desc,
+      fromPrice: fromPrice,
+      toPrice: toPrice,
+      currency: currency.id,
+      paymentTypeIds: paymentTypes.map((e) => "${e.id}").toList(),
+      isAgreedPrice: isAgreedPrice,
+      //
+      requestDistricts: requestDistricts.map((e) => e.id).toList(),
+      //
+      addressId: address.id,
+      contactPerson: contactPerson,
+      phone: phone,
+      email: email,
+      //
+      isAutoRenewal: isAutoRenewal,
     );
 
     return "";

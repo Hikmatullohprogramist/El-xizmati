@@ -3,6 +3,9 @@ part of 'page_cubit.dart';
 @freezed
 class PageState with _$PageState {
   const factory PageState({
+    @Default(AdType.product) AdType adType,
+    @Default(AdTransactionType.BUY) AdTransactionType adTransactionType,
+//
     @Default("") String title,
     CategoryResponse? category,
 //
@@ -16,19 +19,15 @@ class PageState with _$PageState {
     @Default([]) List<PaymentTypeResponse> paymentTypes,
     @Default(false) bool isAgreedPrice,
 //
-    @Default(false) bool isBusiness,
-//
     UserAddressResponse? address,
     @Default("") String contactPerson,
     @Default("") String phone,
     @Default("") String email,
 //
-    @Default(false) bool isShowAllServiceDistricts,
-    @Default([]) List<District> serviceDistricts,
+    @Default(false) bool isShowAllRequestDistricts,
+    @Default([]) List<District> requestDistricts,
 //
     @Default(false) bool isAutoRenewal,
-    @Default(false) bool isShowMySocialAccount,
-    @Default("") String videoUrl,
 //
     @Default(false) bool isRequestSending,
 //

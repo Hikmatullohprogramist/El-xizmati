@@ -10,6 +10,7 @@ import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
 import '../../../../../../common/core/base_page.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
+import '../../../../../../domain/models/ad/ad_type.dart';
 import '../../../../../../domain/models/order/order_type.dart';
 import '../../../../../../domain/models/order/user_order_status.dart';
 
@@ -39,9 +40,11 @@ class UserOrderListPage extends BasePage<PageCubit, PageState, PageEvent> {
                 text: Strings.createRequestTitle,
                 onPressed: () {
                   if (orderType == OrderType.buy) {
-                    context.router.push(CreateProductRequestRoute());
+                    context.router
+                        .push(CreateRequestAdRoute(adType: AdType.product));
                   } else if (orderType == OrderType.sell) {
-                    context.router.push(CreateServiceRequestRoute());
+                    context.router
+                        .push(CreateRequestAdRoute(adType: AdType.service));
                   }
                 },
               )
