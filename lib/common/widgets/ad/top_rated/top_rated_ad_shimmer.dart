@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../colors/static_colors.dart';
+import '../../../colors/static_colors.dart';
 
 class TopRatedAdWidgetShimmer extends StatelessWidget {
   const TopRatedAdWidgetShimmer({

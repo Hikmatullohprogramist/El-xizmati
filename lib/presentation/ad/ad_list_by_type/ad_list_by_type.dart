@@ -6,15 +6,15 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/common/widgets/ad/horizontal_ad_list_widget.dart';
 import 'package:onlinebozor/common/widgets/app_bar/active_search_app_bar.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/dashboard/see_all_widget.dart';
 import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 
 import '../../../common/core/base_page.dart';
-import '../../../common/widgets/ad/horizontal_ad_list_shimmer.dart';
-import '../../../common/widgets/ad/vertical_ad_widget.dart';
+import '../../../common/widgets/ad/horizontal/horizontal_ad_list_shimmer.dart';
+import '../../../common/widgets/ad/horizontal/horizontal_ad_list_widget.dart';
+import '../../../common/widgets/ad/vertical/vertical_ad_widget.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../domain/models/ad/ad.dart';
 import '../../../domain/models/ad/ad_list_type.dart';
@@ -85,8 +85,9 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                     onItemClicked: (Ad result) {
                       context.router.push(AdDetailRoute(adId: result.id));
                     },
-                    onFavoriteClicked: (Ad result) =>
-                        cubit(context).cheapAdsAddFavorite(result),
+                    onFavoriteClicked: (Ad result) {
+                      cubit(context).cheapAdsAddFavorite(result);
+                    },
                   ),
                 ),
                 SizedBox(height: 6),

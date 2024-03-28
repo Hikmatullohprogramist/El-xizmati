@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/common/widgets/ad/horizontal_ad_shimmer.dart';
 
-class HorizontalAdListShimmer extends StatelessWidget {
-  const HorizontalAdListShimmer({super.key});
+import '../../../../domain/models/ad/ad.dart';
+import 'horizontal_ad_widget.dart';
+
+class HorizontalAdListWidget extends StatelessWidget {
+  const HorizontalAdListWidget({
+    super.key,
+    required this.ads,
+    required this.onItemClicked,
+    required this.onFavoriteClicked,
+  });
+
+  final List<Ad> ads;
+  final Function(Ad ad) onItemClicked;
+  final Function(Ad ad) onFavoriteClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -14,10 +25,14 @@ class HorizontalAdListShimmer extends StatelessWidget {
           physics: BouncingScrollPhysics(),
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
-          itemCount: 5,
+          itemCount: ads.length,
           padding: EdgeInsets.only(left: 16, right: 16),
           itemBuilder: (context, index) {
-            return HorizontalAddListShimmer();
+            return HorizontalAdWidget(
+              ad: ads[index],
+              onItemClicked: onItemClicked,
+              onFavoriteClicked: onFavoriteClicked,
+            );
           },
           separatorBuilder: (BuildContext context, int index) {
             return SizedBox(width: 8);

@@ -4,22 +4,20 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/common/widgets/ad/detail_price_text_widget.dart';
-import 'package:onlinebozor/common/widgets/ad/horizontal_ad_list_shimmer.dart';
+import 'package:onlinebozor/common/widgets/ad/detail/detail_price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/cart/cart_sub_widget_shimmer.dart';
 import 'package:onlinebozor/common/widgets/dashboard/see_all_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite/ad_detail_favorite_widget.dart';
 import 'package:onlinebozor/presentation/ad/ad_detail/cubit/page_cubit.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../common/colors/static_colors.dart';
 import '../../../common/core/base_page.dart';
 import '../../../common/enum/enums.dart';
 import '../../../common/gen/assets/assets.gen.dart';
-import '../../../common/widgets/ad/horizontal_ad_list_widget.dart';
+import '../../../common/widgets/ad/horizontal/horizontal_ad_list_shimmer.dart';
+import '../../../common/widgets/ad/horizontal/horizontal_ad_list_widget.dart';
 import '../../../common/widgets/dashboard/app_image_widget.dart';
 import '../../../common/widgets/divider/custom_diverder.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
@@ -566,10 +564,12 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
           loadingBody: HorizontalAdListShimmer(),
           successBody: HorizontalAdListWidget(
             ads: state.similarAds,
-            onItemClicked: (Ad ad) =>
-                context.router.push(AdDetailRoute(adId: ad.id)),
-            onFavoriteClicked: (Ad ad) =>
-                cubit(context).similarAdsAddFavorite(ad),
+            onItemClicked: (Ad ad) {
+              context.router.push(AdDetailRoute(adId: ad.id));
+            },
+            onFavoriteClicked: (Ad ad) {
+              cubit(context).similarAdsAddFavorite(ad);
+            },
           ),
           onRetryClicked: () {
             cubit(context).getSimilarAds();

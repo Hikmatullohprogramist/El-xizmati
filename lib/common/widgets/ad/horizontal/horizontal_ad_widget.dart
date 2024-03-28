@@ -11,10 +11,10 @@ import 'package:onlinebozor/common/widgets/ad/view_count_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite/ad_favorite_widget.dart';
 import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
 
-import '../../../domain/models/ad/ad.dart';
-import '../../../domain/models/ad/ad_priority_level.dart';
-import '../../constants.dart';
-import '../../gen/assets/assets.gen.dart';
+import '../../../../domain/models/ad/ad.dart';
+import '../../../../domain/models/ad/ad_priority_level.dart';
+import '../../../constants.dart';
+import '../../../gen/assets/assets.gen.dart';
 
 class HorizontalAdWidget extends StatelessWidget {
   const HorizontalAdWidget({

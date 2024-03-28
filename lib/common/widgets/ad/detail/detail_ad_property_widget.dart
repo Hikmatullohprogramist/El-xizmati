@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
-import '../../../domain/models/ad/ad_item_condition.dart';
-import '../../gen/localization/strings.dart';
+import '../../../../domain/models/ad/ad_item_condition.dart';
+import '../../../gen/localization/strings.dart';
 
 class DetailAdPropertyWidget extends StatelessWidget {
   const DetailAdPropertyWidget({super.key, required this.adItemCondition});

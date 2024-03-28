@@ -5,13 +5,13 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/ad/vertical/vertical_ad_shimmer.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 
 import '../../../../../../common/gen/localization/strings.dart';
-import '../../../../../../common/widgets/ad/vertical_ad_widget.dart';
 import '../../../../../../common/widgets/favorite/favorite_empty_widget.dart';
 import '../../../../../../domain/models/ad/ad.dart';
-import '../../../../../common/widgets/ad/horizontal_ad_shimmer.dart';
+import '../../../../../common/widgets/ad/vertical/vertical_ad_widget.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -66,9 +66,8 @@ class FavoriteServicesPage extends BasePage<PageCubit, PageState, PageEvent> {
                 mainAxisSpacing: 1.0,
               ),
               itemCount: 10,
-              // Number of items in the grid
               itemBuilder: (context, index) {
-                return HorizontalAddListShimmer();
+                return VerticalAdShimmer();
               },
             );
           },
@@ -99,7 +98,7 @@ class FavoriteServicesPage extends BasePage<PageCubit, PageState, PageEvent> {
           },
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) => VerticalAdWidget(
-            favoriteBeChange: false,
+            isCanChangeFavorite: false,
             ad: item,
             onFavoriteClicked: (value) => cubit(context).removeFavorite(value),
             onClicked: (value) {

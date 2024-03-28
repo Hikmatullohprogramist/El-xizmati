@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/extensions/currency_extensions.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
-import '../../../domain/models/currency/currency.dart';
+import '../../../../domain/models/currency/currency.dart';
 
 class DetailPriceTextWidget extends StatelessWidget {
   DetailPriceTextWidget(

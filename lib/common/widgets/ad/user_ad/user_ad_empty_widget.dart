@@ -4,7 +4,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 
-import '../../gen/assets/assets.gen.dart';
+import '../../../gen/assets/assets.gen.dart';
 
 class UserAdEmptyWidget extends StatelessWidget {
   const UserAdEmptyWidget({super.key, required this.onActionClicked});

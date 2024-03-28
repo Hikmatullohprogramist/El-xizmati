@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../colors/static_colors.dart';
+import '../../../colors/static_colors.dart';
 
-class HorizontalAddListShimmer extends StatelessWidget {
-  const HorizontalAddListShimmer({super.key});
+class VerticalAdShimmer extends StatelessWidget {
+  const VerticalAdShimmer({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 342,
-      width: 140,
+      height: MediaQuery.of(context).size.height,
+      width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 165,
-            height: 160,
+            height: 168,
             decoration: BoxDecoration(
               color: Color(0xFFF6F7FC),
               borderRadius: BorderRadius.circular(12),

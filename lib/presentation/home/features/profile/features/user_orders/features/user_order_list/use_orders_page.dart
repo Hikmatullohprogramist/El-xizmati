@@ -10,7 +10,7 @@ import 'package:onlinebozor/presentation/home/features/profile/features/user_ord
 
 import '../../../../../../../../common/colors/static_colors.dart';
 import '../../../../../../../../common/gen/localization/strings.dart';
-import '../../../../../../../../common/widgets/ad/user_ad_empty_widget.dart';
+import '../../../../../../../../common/widgets/ad/user_ad/user_ad_empty_widget.dart';
 import '../../../../../../../../common/widgets/order/user_order.dart';
 import '../../../../../../../../common/widgets/order/user_order_shimmer.dart';
 import '../../../../../../../../data/responses/user_order/user_order_response.dart';

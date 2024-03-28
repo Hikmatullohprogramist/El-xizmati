@@ -5,7 +5,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/common/widgets/ad/detail_price_text_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/detail/detail_price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/data/responses/user_ad/user_ad_response.dart';

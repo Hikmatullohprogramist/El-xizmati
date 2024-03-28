@@ -4,11 +4,11 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/common/widgets/ad/list_price_text_widget.dart';
-import 'package:onlinebozor/common/widgets/ad/user_ad_stats_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/user_ad/user_ad_stats_widget.dart';
 import 'package:onlinebozor/data/responses/user_ad/user_ad_response.dart';
 import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
 
-import '../../constants.dart';
+import '../../../constants.dart';
 
 class UserAdWidget extends StatelessWidget {
   const UserAdWidget({

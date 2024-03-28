@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
-import '../../../domain/models/ad/ad_author_type.dart';
-import '../../gen/localization/strings.dart';
+import '../../../../domain/models/ad/ad_author_type.dart';
+import '../../../gen/localization/strings.dart';
 
 class DetailAdAuthorTypeWidget extends StatelessWidget {
   const DetailAdAuthorTypeWidget({super.key, required this.adAuthorType});

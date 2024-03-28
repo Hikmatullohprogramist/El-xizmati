@@ -11,26 +11,30 @@ import 'package:onlinebozor/common/widgets/favorite/ad_favorite_widget.dart';
 import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 
-import '../../gen/assets/assets.gen.dart';
-import 'ad_type_widget.dart';
-import 'list_ad_author_type_widget.dart';
+import '../../../gen/assets/assets.gen.dart';
+import '../ad_type_widget.dart';
+import '../list_ad_author_type_widget.dart';
 
 class VerticalAdWidget extends StatelessWidget {
-  VerticalAdWidget(
-      {super.key,
-      required this.onFavoriteClicked,
-      required this.onClicked,
-      required this.ad,
-      this.favoriteBeChange = true});
+  VerticalAdWidget({
+    super.key,
+    required this.ad,
+    required this.onClicked,
+    required this.onFavoriteClicked,
+    this.isCanChangeFavorite = true,
+  });
 
   final Ad ad;
   final Function(Ad ad) onClicked;
   final Function(Ad ad) onFavoriteClicked;
-  bool favoriteBeChange;
+  bool isCanChangeFavorite;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return Material(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.all(Radius.circular(12)),
+      child: InkWell(
         onTap: () {
           onClicked(ad);
         },
@@ -41,24 +45,28 @@ class VerticalAdWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                  width: double.infinity,
-                  height: 168,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
-                    border: Border.all(width: 0.50, color: Color(0xFFE5E9F3)),
-                    color: Color(0xFFF6F7FC),
-                  ),
-                  child: Stack(children: [
+                width: double.infinity,
+                height: 168,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6),
+                  border: Border.all(width: 0.50, color: Color(0xFFE5E9F3)),
+                  color: Color(0xFFF6F7FC),
+                ),
+                child: Stack(
+                  children: [
                     CachedNetworkImage(
                       imageUrl: "${Constants.baseUrlForImage}${ad.photo}",
                       imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6),
                           image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
-                              colorFilter: ColorFilter.mode(
-                                  Colors.white, BlendMode.colorBurn)),
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                            colorFilter: ColorFilter.mode(
+                              Colors.white,
+                              BlendMode.colorBurn,
+                            ),
+                          ),
                         ),
                       ),
                       placeholder: (context, url) => Center(),
@@ -69,7 +77,7 @@ class VerticalAdWidget extends StatelessWidget {
                     Align(
                         alignment: Alignment.topRight,
                         child: AdFavoriteWidget(
-                          isChangeAvailable: favoriteBeChange,
+                          isChangeAvailable: isCanChangeFavorite,
                           isSelected: ad.favorite,
                           invoke: () => onFavoriteClicked(ad),
                         )),
@@ -81,7 +89,9 @@ class VerticalAdWidget extends StatelessWidget {
                       alignment: Alignment.bottomRight,
                       child: ViewCountWidget(viewCount: ad.view),
                     ),
-                  ])),
+                  ],
+                ),
+              ),
               SizedBox(height: 12),
               SizedBox(
                 height: 32,
@@ -98,30 +108,42 @@ class VerticalAdWidget extends StatelessWidget {
                   fromPrice: ad.fromPrice,
                   currency: ad.currency),
               SizedBox(height: 14),
-              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                Assets.images.icLocation.svg(width: 12, height: 12),
-                SizedBox(width: 4),
-                Expanded(
-                  child: "${ad.region} ${ad.district}"
-                      .w(400)
-                      .s(12)
-                      .c(context.colors.textSecondary)
-                      .copyWith(
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: false,
-                      ),
-                )
-              ]),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Assets.images.icLocation.svg(width: 12, height: 12),
+                  SizedBox(width: 4),
+                  Expanded(
+                    child: "${ad.region} ${ad.district}"
+                        .w(400)
+                        .s(12)
+                        .c(context.colors.textSecondary)
+                        .copyWith(
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: false,
+                        ),
+                  )
+                ],
+              ),
               SizedBox(height: 12),
-              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                ListAdAuthorTypeChipWidget(
-                    isHorizontal: false, adAuthorType: ad.adRouteType),
-                SizedBox(width: 5),
-                ListAdPropertyWidget(
-                    isHorizontal: false, adPropertyType: ad.adPropertyStatus)
-              ])
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  ListAdAuthorTypeChipWidget(
+                    adAuthorType: ad.adRouteType,
+                    isHorizontal: false,
+                  ),
+                  SizedBox(width: 5),
+                  ListAdPropertyWidget(
+                    adPropertyType: ad.adPropertyStatus,
+                    isHorizontal: false,
+                  )
+                ],
+              )
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

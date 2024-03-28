@@ -13,9 +13,9 @@ import 'package:onlinebozor/presentation/ad/ad_list_actions/ad_list_actions.dart
 
 import '../../../../../../../../common/colors/static_colors.dart';
 import '../../../../../../../../common/gen/localization/strings.dart';
-import '../../../../../../../../common/widgets/ad/user_ad.dart';
-import '../../../../../../../../common/widgets/ad/user_ad_empty_widget.dart';
-import '../../../../../../../../common/widgets/ad/user_ad_shimmer.dart';
+import '../../../../../../../../common/widgets/ad/user_ad/user_ad.dart';
+import '../../../../../../../../common/widgets/ad/user_ad/user_ad_empty_widget.dart';
+import '../../../../../../../../common/widgets/ad/user_ad/user_ad_shimmer.dart';
 import '../../../../../../../../data/responses/user_ad/user_ad_response.dart';
 import 'cubit/page_cubit.dart';
 

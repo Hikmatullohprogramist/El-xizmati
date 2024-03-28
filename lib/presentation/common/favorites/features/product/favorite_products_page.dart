@@ -5,14 +5,15 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/widgets/ad/vertical/vertical_ad_shimmer.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 
 import '../../../../../../common/gen/localization/strings.dart';
 import '../../../../../../common/router/app_router.dart';
-import '../../../../../../common/widgets/ad/vertical_ad_widget.dart';
+import '../../../../../common/widgets/ad/vertical/vertical_ad_widget.dart';
 import '../../../../../../common/widgets/favorite/favorite_empty_widget.dart';
 import '../../../../../../domain/models/ad/ad.dart';
-import '../../../../../common/widgets/ad/horizontal_ad_shimmer.dart';
+import '../../../../../common/widgets/ad/horizontal/horizontal_ad_shimmer.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -79,7 +80,7 @@ class FavoriteProductsPage extends BasePage<PageCubit, PageState, PageEvent> {
               itemCount: 10,
               // Number of items in the grid
               itemBuilder: (context, index) {
-                return HorizontalAddListShimmer();
+                return VerticalAdShimmer();
               },
             );
           },
@@ -110,7 +111,7 @@ class FavoriteProductsPage extends BasePage<PageCubit, PageState, PageEvent> {
           },
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) => VerticalAdWidget(
-            favoriteBeChange: false,
+            isCanChangeFavorite: false,
             ad: item,
             onFavoriteClicked: (value) =>
                 cubit(context).removeFavorite(value),
