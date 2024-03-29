@@ -117,6 +117,10 @@ common_delete,O‘chirish,Удалить,Ўчириш
 common_district,Tuman,Район,Туман
 common_edit,Tahrirlash,Редактировать,Таҳрирлаш
 common_entrance,Kirish,Подъезд,Кириш
+common_error_email_not_valid,To‘g‘ri e-pochta manzilini kiriting,Введите действительный адрес эл. почты,Тўғри э-почта манзилини киритинг
+common_error_field_is_required,Maydon to‘ldirilishi majburiy,Это поле обязательно,Майдон тўлдирилиши мажбурий
+common_error_phone_not_valid,To‘g‘ri telefon raqamini kiriting,Введите действительный номер телефона,Тўғри телефон рақамини киритинг
+common_error_price_not_valid,To‘g‘ri narx kiriting,Введите действительную цену,Тўғри нарх киритинг
 common_filter,Filtr,Фильтр,Фильтр
 common_filter_reset,Tozalash,Сброс,Тозалаш
 common_floor,Qavat,Этаж,Қават
@@ -154,7 +158,6 @@ create_ad_contact_phone_label,Telefon raqami,Номер телефона,Тел�
 create_ad_currency_label,Pul birligi,Валюта,Пул бирлиги
 create_ad_desc_hint,E’loningizni tushunarli qiladigan va topishni osonlashtiradigan tafsilotlarni o‘ylab ko‘ring. Va ularni tavsifga qo‘shing,"Подумайте, какие подробности вы хотели бы узнать из объявления. И добавьте их в описание",Эълонингизни тушунарли қиладиган ва топишни осонлаштирадиган тафсилотларни ўйлаб кўринг. Ва уларни тавсифга қўшинг
 create_ad_desc_label,Mahsulot tavsifi,Описание товара,Маҳсулот тавсифи
-common_error_field_is_required,Maydon to‘ldirilishi majburiy,Это поле обязательно,Майдон тўлдирилиши мажбурий
 create_ad_exchange_label,Almashaman,Обменяю,Алмашаман
 create_ad_free_delivery_label,Bepul yetkazib berish,Бесплатная доставка,Бепул етказиб бериш
 create_ad_from_price_label,dan,с,дан
@@ -352,5 +355,3 @@ user_request_canceled_title,Bekor qilingan,Отменено,Бекор қили�
 user_request_pending_title,Kutulmoqda,Ожидающий,Кутулмоқда
 user_request_rejaction_title,Rad etilgan,Отклоненный,Рад этилган
 user_request_review_title,Ko‘rib chiqilmoqda,На рассмотрении,Кўриб чиқилмоқда
-common_error_phone_not_valid,To‘g‘ri telefon raqamini kiriting,Введите действительный номер телефона,Тўғри телефон рақамини киритинг
-common_error_email_not_valid,To‘g‘ri e-pochta manzilini kiriting,Введите действительный адрес эл. почты,Тўғри э-почта манзилини киритинг

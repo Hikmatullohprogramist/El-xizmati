@@ -24,7 +24,7 @@ class ThemeColors {
 
   Color get iconGrey => StaticColors.cadetBlue;
 
-  Color get buttonPrimary => StaticColors.slateBlue;
+  Color get buttonPrimary => StaticColors.buttonDefaultBackgroundColor;
 
   Color get adStatusBackground => StaticColors.bondiBlue;
 

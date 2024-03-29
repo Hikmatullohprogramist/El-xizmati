@@ -178,7 +178,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
             borderRadius: BorderRadius.circular(8),
           ),
           errorBorder: OutlineInputBorder(
-
             borderSide: BorderSide(color: Colors.red.shade200),
             borderRadius: BorderRadius.circular(8),
           ),
