@@ -242,24 +242,27 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   Widget _getTopRatedAdsWidget(BuildContext context, PageState state) {
-    return LoaderStateWidget(
-      isFullScreen: false,
-      onRetryClicked: () {
-        cubit(context).getTopRatedAds();
-      },
-      loadingState: state.popularServiceAdsState,
-      loadingBody: TopRatedAdListShimmer(),
-      successBody: TopRatedAdListWidget(
-        ads: state.topRatedAds,
-        onItemClicked: (Ad ad) {
-          context.router.push(AdDetailRoute(adId: ad.id));
+    return Container(
+      color: Colors.white,
+      child: LoaderStateWidget(
+        isFullScreen: false,
+        onRetryClicked: () {
+          cubit(context).getTopRatedAds();
         },
-        onOnClickBuyClicked: (Ad ad) {
-          context.router.push(CreateOrderRoute(adId: ad.id));
-        },
-        onFavoriteClicked: (Ad ad) {
-          cubit(context).topRatedAdsAddFavorite(ad);
-        },
+        loadingState: state.popularServiceAdsState,
+        loadingBody: TopRatedAdListShimmer(),
+        successBody: TopRatedAdListWidget(
+          ads: state.topRatedAds,
+          onItemClicked: (Ad ad) {
+            context.router.push(AdDetailRoute(adId: ad.id));
+          },
+          onOnClickBuyClicked: (Ad ad) {
+            context.router.push(CreateOrderRoute(adId: ad.id));
+          },
+          onFavoriteClicked: (Ad ad) {
+            cubit(context).topRatedAdsAddFavorite(ad);
+          },
+        ),
       ),
     );
   }

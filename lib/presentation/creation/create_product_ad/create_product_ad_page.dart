@@ -605,7 +605,6 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             maxLines: 1,
             hint: "",
             prefixText: "+998",
-            validateType: "phone",
             inputType: TextInputType.phone,
             textInputAction: TextInputAction.next,
             controller: phoneController,
@@ -623,7 +622,6 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             inputType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             hint: Strings.createAdContactEmailLabel,
-            validateType: "email",
             maxLines: 1,
             controller: emailController,
             onChanged: (value) {

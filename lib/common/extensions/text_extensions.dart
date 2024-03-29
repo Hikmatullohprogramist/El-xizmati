@@ -7,7 +7,7 @@ extension TextStringExtensions on String {
 
   Text c(Color color) => Text(this).c(color);
 
-  String clearPhone() {
+  String clearPhoneNumberWithCode() {
     var clearedPhone = replaceAll(RegExp(r"[^\d+\.]"), '');
     if (clearedPhone.length == 9) {
       clearedPhone = "998$clearedPhone";
@@ -15,13 +15,18 @@ extension TextStringExtensions on String {
     return clearedPhone;
   }
 
-  String clearCountryCode() {
+  String clearPhoneNumberWithoutCode() {
     String countryCode = "998";
     if (length > 9 && contains(countryCode)) {
       return substring(countryCode.length);
     } else {
       return this;
     }
+  }
+
+  String clearPhoneNumber() {
+    var clearedPhone = replaceAll(RegExp(r"[^\d+\.]"), '');
+    return clearedPhone;
   }
 
   String clearPrice() {

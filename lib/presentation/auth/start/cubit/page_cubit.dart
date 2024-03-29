@@ -30,7 +30,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   void validation() async {
     updateState((state) => state.copyWith(loading: true));
     try {
-      var res = await _repository.authStart(states.phone.clearPhone());
+      var res = await _repository.authStart(states.phone.clearPhoneNumberWithCode());
       if (res.data.is_registered == true) {
         emitEvent(PageEvent(PageEventType.verification, phone: states.phone));
       } else {
