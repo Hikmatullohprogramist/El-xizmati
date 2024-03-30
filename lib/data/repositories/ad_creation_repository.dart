@@ -19,11 +19,6 @@ class AdCreationRepository {
 
   AdCreationRepository(this._adCreationService, this._userInfoStorage);
 
-  // Future<List<CategorySelectionResponse>> getCategoriesForCreationAd() async {
-  // final response = await _adCreationService.getCategoriesForCreationAd();
-  // final categories = CategorySelectionRootResponse.fromJson(response.data).data;
-  // return categories;
-  // }
   Future<List<CategoryResponse>> getCategoriesForCreationAd(String type) async {
     final response = await _adCreationService.getCategoriesForCreationAd(type);
     final categories = CategoryRootResponse.fromJson(response.data).data;

@@ -27,8 +27,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       final allItems = await _repository
           .getCategoriesForCreationAd(states.adType.name.toUpperCase());
 
-      final visibleItems = allItems.where((e) => e.parent_id == 0).toList();
-      log.i(allItems.toString());
+      final visibleItems = allItems.where((e) => e.isParent).toList();
+      log.e(allItems.toString());
       updateState((state) => state.copyWith(
             allItems: allItems,
             visibleItems: visibleItems,

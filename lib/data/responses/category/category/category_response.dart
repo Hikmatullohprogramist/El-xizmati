@@ -35,6 +35,11 @@ class CategoryResponse with _$CategoryResponse {
     @HiveField(9) int? amount,
   }) = _CategoryResponse;
 
+  const CategoryResponse._();
+
+  bool get isParent => parent_id == null || parent_id == 0;
+  bool get hasAmount => amount != null && amount! > 0;
+
   factory CategoryResponse.fromJson(Map<String, dynamic> json) =>
       _$CategoryResponseFromJson(json);
 }
