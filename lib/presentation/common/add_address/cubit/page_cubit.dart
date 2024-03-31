@@ -12,6 +12,7 @@ import '../../../../../../../../../data/repositories/user_repository.dart';
 import '../../../../../../../../../data/responses/address/user_address_response.dart';
 
 part 'page_cubit.freezed.dart';
+
 part 'page_state.dart';
 
 @injectable
@@ -57,38 +58,32 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   void setSelectedRegion(Region region) {
-    updateState(
-      (state) => state.copyWith(
-        regionId: region.id,
-        regionName: region.name,
-        districtId: null,
-        districtName: Strings.commonDistrict,
-        neighborhoodId: null,
-        neighborhoodName: Strings.commonNeighborhood,
-      ),
-    );
+    updateState((state) => state.copyWith(
+          regionId: region.id,
+          regionName: region.name,
+          districtId: null,
+          districtName: null,
+          neighborhoodId: null,
+          neighborhoodName: null,
+        ));
     getDistrict();
   }
 
   void setSelectedDistrict(District district) {
-    updateState(
-      (state) => state.copyWith(
-        districtId: district.id,
-        districtName: district.name,
-        neighborhoodId: null,
-        neighborhoodName: Strings.commonNeighborhood,
-      ),
-    );
-    getStreets();
+    updateState((state) => state.copyWith(
+          districtId: district.id,
+          districtName: district.name,
+          neighborhoodId: null,
+          neighborhoodName: null,
+        ));
+    getNeighborhoods();
   }
 
   void setSelectedNeighborhood(Neighborhood neighborhood) {
-    updateState(
-      (state) => state.copyWith(
-        neighborhoodId: neighborhood.id,
-        neighborhoodName: neighborhood.name,
-      ),
-    );
+    updateState((state) => state.copyWith(
+          neighborhoodId: neighborhood.id,
+          neighborhoodName: neighborhood.name,
+        ));
   }
 
   void setStreetName(String value) {
@@ -142,6 +137,7 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
     updateState((state) => state.copyWith(isLoading: true));
     try {
       await _userAddressRepository.updateUserAddress(
+        id: states.addressId!,
         name: states.addressName!,
         regionId: states.regionId!,
         districtId: states.districtId!,
@@ -151,7 +147,6 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
         streetName: states.streetName?.trim() ?? "",
         isMain: states.isMain ?? false,
         geo: "${states.latitude},${states.longitude}",
-        id: states.addressId ?? -1,
         state: '',
       );
 
@@ -165,8 +160,8 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> getRegions() async {
     try {
-      final response = await _userRepository.getRegions();
-      updateState((state) => state.copyWith(regions: response));
+      final regions = await _userRepository.getRegions();
+      updateState((state) => state.copyWith(regions: regions));
     } catch (e) {
       display.error("street error $e");
       updateState((state) => state.copyWith());
@@ -175,35 +170,32 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> getDistrict() async {
     final regionId = states.regionId;
-    final response = await _userRepository.getDistricts(regionId ?? 14);
+    final districts = await _userRepository.getDistricts(regionId!);
+    String? name;
     if (states.districtId != null) {
-      updateState((state) => state.copyWith(
-          districts: response,
-          districtName: response
-              .where((element) => element.id == state.districtId)
-              .first
-              .name));
-    } else {
-      updateState((state) => state.copyWith(districts: response));
+      name = districts.where((e) => e.id == states.districtId).first.name;
     }
+    updateState((state) => state.copyWith(
+          districts: districts,
+          districtName: name,
+        ));
   }
 
-  Future<void> getStreets() async {
+  Future<void> getNeighborhoods() async {
     try {
       final districtId = states.districtId;
-      final response =
-          await _userRepository.getNeighborhoods(districtId ?? 1419);
+      final neighborhoods = await _userRepository.getNeighborhoods(districtId!);
+      String? name;
       if (states.neighborhoodId != null) {
-        updateState(
-          (state) => state.copyWith(
-            neighborhoods: response,
-            neighborhoodName:
-                response.where((e) => e.id == state.neighborhoodId).first.name,
-          ),
-        );
-      } else {
-        updateState((state) => state.copyWith(neighborhoods: response));
+        name = neighborhoods
+            .where((e) => e.id == states.neighborhoodId)
+            .first
+            .name;
       }
+      updateState((state) => state.copyWith(
+            neighborhoods: neighborhoods,
+            neighborhoodName: name,
+          ));
     } catch (e) {
       display.error("street error $e");
       updateState((state) => state.copyWith());

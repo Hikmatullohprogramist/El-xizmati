@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:onlinebozor/common/colors/static_colors.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
@@ -21,11 +22,19 @@ class CustomDropdownFormField extends FormField<String> {
     this.autoValidateMode,
     this.validator,
   }) : super(
-          onSaved: (value) {},
-          initialValue: null,
-          validator: validator,
+          onSaved: (value) {
+            Logger().w("CustomDropdownFormField onSaved value = $value");
+            if (validator != null) validator(value);
+          },
+          initialValue: value,
           autovalidateMode: autoValidateMode,
+          validator: (value) {
+            Logger().w("CustomDropdownFormField validator value = $value");
+            return validator != null ? validator(value) : null;
+          },
           builder: (state) {
+            Logger().w("CustomDropdownFormField builder value = $value");
+            if (validator != null) validator(value);
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [

@@ -128,7 +128,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
           CustomDropdownFormField(
             hint: Strings.commonDistrict,
             value: state.districtName ?? "",
-            validator: (value) => DefaultValidator.validate(value),
+            // validator: (value) => DefaultValidator.validate(value),
             onTap: () {
               _showDistrictSelection(context, state);
             },
@@ -139,7 +139,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
           CustomDropdownFormField(
             hint: Strings.commonNeighborhood,
             value: state.neighborhoodName ?? "",
-            validator: (value) => DefaultValidator.validate(value),
+            // validator: (value) => DefaultValidator.validate(value),
             onTap: () {
               _showNeighborhoodSelection(context, state);
             },
