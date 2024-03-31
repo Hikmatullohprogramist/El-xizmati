@@ -8,7 +8,6 @@ import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
 import '../../../../../../common/enum/enums.dart';
 
 part 'page_cubit.freezed.dart';
-
 part 'page_state.dart';
 
 @Injectable()
@@ -26,18 +25,19 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         userAdResponse: userAdResponse,
         userAdStatus: userAdStatus,
         isEditEnabled: true,
-        isAdvertiseEnabled:
-            [UserAdStatus.active, UserAdStatus.all].contains(userAdStatus),
+        // isAdvertiseEnabled: [UserAdStatus.active, UserAdStatus.all,].contains(userAdStatus),
+        isAdvertiseEnabled: false,
         isActivateEnabled: [
           UserAdStatus.inactive,
           UserAdStatus.canceled,
-          UserAdStatus.rejected
+          UserAdStatus.rejected,
         ].contains(userAdStatus),
-        isDeactivateEnabled:
-            [UserAdStatus.active, UserAdStatus.all].contains(userAdStatus),
+        isDeactivateEnabled: [
+          UserAdStatus.active,
+          UserAdStatus.all,
+        ].contains(userAdStatus),
         isDeleteEnabled: userAdStatus == UserAdStatus.inactive,
       ),
     );
-
   }
 }

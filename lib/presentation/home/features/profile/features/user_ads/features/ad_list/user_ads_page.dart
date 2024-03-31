@@ -102,7 +102,6 @@ class UserAdsPage extends BasePage<PageCubit, PageState, PageEvent> {
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) => UserAdWidget(
             onActionClicked: () async {
-              // _showAdActions(context);
              final action = await showModalBottomSheet(
                context: context,
                isScrollControlled: true,

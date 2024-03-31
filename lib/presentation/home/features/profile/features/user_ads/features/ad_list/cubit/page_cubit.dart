@@ -5,6 +5,7 @@ import 'package:onlinebozor/common/core/base_cubit.dart';
 
 import '../../../../../../../../../data/repositories/user_ad_repository.dart';
 import '../../../../../../../../../data/responses/user_ad/user_ad_response.dart';
+import '../../../../../../../../../domain/models/ad/ad.dart';
 import '../../../../../../../../../domain/models/ad/user_ad_status.dart';
 
 part 'page_cubit.freezed.dart';
@@ -58,5 +59,33 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       },
     );
     return adController;
+  }
+
+  Future<void> removeAd(Ad ad) async {
+    // try {
+    //   final backendId = await userAdRepository.remove(ad);
+    //   final index = states.controller?.itemList?.indexOf(ad) ?? 0;
+    //   final item = states.controller?.itemList?.elementAt(index);
+    //   if (item != null) {
+    //     states.controller?.itemList?.insert(
+    //         index,
+    //         item
+    //           ..favorite = true
+    //           ..backendId = backendId);
+    //     states.controller?.itemList?.removeAt(index);
+    //     states.controller?.notifyListeners();
+    //   }
+    // } catch (error) {
+    //   display.error("xatolik yuz  berdi");
+    //   log.w(error.toString());
+    // }
+  }
+
+  Future<void> deactivateAd(Ad ad) async {
+
+  }
+
+  Future<void> activateAd(Ad ad) async {
+
   }
 }
