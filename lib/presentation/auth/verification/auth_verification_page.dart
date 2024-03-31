@@ -12,7 +12,7 @@ import 'package:onlinebozor/presentation/auth/confirm/auth_confirm_page.dart';
 import 'package:onlinebozor/presentation/auth/verification/cubit/page_cubit.dart';
 
 import '../../../common/gen/localization/strings.dart';
-import '../../../common/widgets/text_field/custom_text_field.dart';
+import '../../../common/widgets/text_field/custom_text_form_field.dart';
 
 @RoutePage()
 class AuthVerificationPage extends BasePage<PageCubit, PageState, PageEvent> {
@@ -77,7 +77,7 @@ class AuthVerificationPage extends BasePage<PageCubit, PageState, PageEvent> {
                       .c(context.colors.textPrimary),
                 ),
                 SizedBox(height: 10),
-                CustomTextField(
+                CustomTextFormField(
                   autofillHints: const [AutofillHints.telephoneNumber],
                   enabled: false,
                   readOnly: true,
@@ -95,7 +95,7 @@ class AuthVerificationPage extends BasePage<PageCubit, PageState, PageEvent> {
                       .c(context.colors.textPrimary),
                 ),
                 SizedBox(height: 10),
-                CustomTextField(
+                CustomTextFormField(
                   autofillHints: const [AutofillHints.password],
                   enableSuggestions: true,
                   inputType: TextInputType.visiblePassword,

@@ -6,7 +6,7 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
-import 'package:onlinebozor/common/widgets/text_field/custom_text_field.dart';
+import 'package:onlinebozor/common/widgets/text_field/custom_text_form_field.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_cards/features/add_card/cubit/page_cubit.dart';
 import 'package:onlinebozor/presentation/utils/mask_formatters.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -73,7 +73,7 @@ class AddCardPage extends BasePage<PageCubit, PageState, PageEvent> {
                           .s(14)
                           .c(Color(0xFF41455E)),
                       SizedBox(height: 16),
-                      CustomTextField(
+                      CustomTextFormField(
                         inputType: TextInputType.number,
                         maxLines: 1,
                         textInputAction: TextInputAction.done,
@@ -186,7 +186,7 @@ class AddCardPage extends BasePage<PageCubit, PageState, PageEvent> {
               children: [
                 Strings.cardNameTitle.w(500).s(14).c(Color(0xFF41455E)),
                 SizedBox(height: 10),
-                CustomTextField(
+                CustomTextFormField(
                   inputType: TextInputType.text,
                   textInputAction: TextInputAction.next,
                   maxLength: 25,
@@ -198,7 +198,7 @@ class AddCardPage extends BasePage<PageCubit, PageState, PageEvent> {
                 SizedBox(height: 20),
                 Strings.cardNumberTitle.w(500).s(14).c(Color(0xFF41455E)),
                 SizedBox(height: 10),
-                CustomTextField(
+                CustomTextFormField(
                   maxLength: 19,
                   textInputAction: TextInputAction.next,
                   inputType: TextInputType.number,
@@ -211,7 +211,7 @@ class AddCardPage extends BasePage<PageCubit, PageState, PageEvent> {
                 SizedBox(height: 20),
                 Strings.cardExpiryDateTitle.w(500).s(14).c(Color(0xFF41455E)),
                 SizedBox(height: 10),
-                CustomTextField(
+                CustomTextFormField(
                   textInputAction: TextInputAction.done,
                   inputType: TextInputType.number,
                   inputFormatters: cardExpiredMaskFormatter,

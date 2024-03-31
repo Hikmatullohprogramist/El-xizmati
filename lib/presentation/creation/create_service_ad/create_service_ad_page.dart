@@ -11,12 +11,11 @@ import 'package:onlinebozor/common/widgets/chips/chip_list.dart';
 import 'package:onlinebozor/common/widgets/image/image_ad_list_widget.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_switch.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_toggle.dart';
-import 'package:onlinebozor/common/widgets/text_field/custom_dropdown_field.dart';
-import 'package:onlinebozor/common/widgets/text_field/custom_dropdown_text_field.dart';
 import 'package:onlinebozor/common/widgets/text_field/label_text_field.dart';
 import 'package:onlinebozor/common/widgets/text_field/validator/email_validator.dart';
 import 'package:onlinebozor/common/widgets/text_field/validator/phone_number_validator.dart';
-import 'package:onlinebozor/common/widgets/text_field/validator/title_validator.dart';
+import 'package:onlinebozor/common/widgets/text_field/validator/price_validator.dart';
+import 'package:onlinebozor/common/widgets/text_field/validator/default_validator.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 import 'package:onlinebozor/presentation/common/selection_currency/selection_currency_page.dart';
@@ -29,7 +28,8 @@ import '../../../common/colors/static_colors.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/vibrator/vibrator_extension.dart';
 import '../../../common/widgets/button/custom_elevated_button.dart';
-import '../../../common/widgets/text_field/custom_text_field.dart';
+import '../../../common/widgets/text_field/custom_dropdown_form_field.dart';
+import '../../../common/widgets/text_field/custom_text_form_field.dart';
 import '../../common/selection_payment_type/selection_payment_type_page.dart';
 import '../../utils/mask_formatters.dart';
 import 'cubit/page_cubit.dart';
@@ -96,7 +96,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               SizedBox(height: 20),
               _buildContactsBlock(context, state),
               SizedBox(height: 20),
-              _buildAutoContinueBlock(context, state),
+              _buildAutoRenewBlock(context, state),
               SizedBox(height: 20),
               _buildUsefulLinkBlock(context, state),
               SizedBox(height: 20),
@@ -120,7 +120,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           children: [
             LabelTextField(Strings.createAdNameLabel),
             SizedBox(height: 6),
-            CustomTextField(
+            CustomTextFormField(
               autofillHints: const [AutofillHints.name],
               inputType: TextInputType.name,
               keyboardType: TextInputType.name,
@@ -129,7 +129,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               hint: Strings.createAdNameLabel,
               textInputAction: TextInputAction.next,
               controller: titleController,
-              validator: (value) => TitleValidator.validate(value),
+              validator: (value) => DefaultValidator.validate(value),
               onChanged: (value) {
                 cubit(context).setEnteredTitle(value);
               },
@@ -137,24 +137,11 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             SizedBox(height: 16),
             LabelTextField(Strings.createAdCategoryLabel),
             SizedBox(height: 6),
-            CustomDropdownField(
-              text: state.category?.name ?? "",
-              hint: Strings.createAdCategoryLabel,
-              onTap: () {
-                context.router.push(
-                  SelectionNestedCategoryRoute(
-                    adType: AdType.service,
-                    onResult: (category) {
-                      cubit(context).setSelectedCategory(category);
-                    },
-                  ),
-                );
-              },
-            ),
             SizedBox(height: 6),
-            CustomDropDownTextField(
+            CustomDropdownFormField(
               value: state.category?.name ?? "",
               hint: Strings.createAdCategoryLabel,
+              validator: (value) => DefaultValidator.validate(value),
               onTap: () {
                 context.router.push(
                   SelectionNestedCategoryRoute(
@@ -225,7 +212,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               SizedBox(height: 24),
               LabelTextField(Strings.createAdDescLabel),
               SizedBox(height: 8),
-              CustomTextField(
+              CustomTextFormField(
                 height: null,
                 autofillHints: const [AutofillHints.name],
                 inputType: TextInputType.name,
@@ -235,7 +222,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 hint: Strings.createAdDescHint,
                 textInputAction: TextInputAction.next,
                 controller: descController,
-                validator: (value) => TitleValidator.validate(value),
+                validator: (value) => DefaultValidator.validate(value),
                 onChanged: (value) {
                   cubit(context).setEnteredDesc(value);
                 },
@@ -264,7 +251,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                       children: [
                         LabelTextField(Strings.createAdFromPriceLabel),
                         SizedBox(height: 6),
-                        CustomTextField(
+                        CustomTextFormField(
                           autofillHints: const [
                             AutofillHints.transactionAmount
                           ],
@@ -276,6 +263,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                           textInputAction: TextInputAction.next,
                           controller: fromPriceController,
                           inputFormatters: amountMaskFormatter,
+                          validator: (value) => PriceValidator.validate(value),
                           onChanged: (value) {
                             cubit(context).setEnteredFromPrice(value);
                           },
@@ -290,7 +278,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                       children: [
                         LabelTextField(Strings.createAdToPriceLabel),
                         SizedBox(height: 6),
-                        CustomTextField(
+                        CustomTextFormField(
                           autofillHints: const [
                             AutofillHints.transactionAmount
                           ],
@@ -302,6 +290,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                           textInputAction: TextInputAction.next,
                           controller: toPriceController,
                           inputFormatters: amountMaskFormatter,
+                          validator: (value) => PriceValidator.validate(value),
                           onChanged: (value) {
                             cubit(context).setEnteredToPrice(value);
                           },
@@ -321,9 +310,10 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                       children: [
                         LabelTextField(Strings.createAdCurrencyLabel),
                         SizedBox(height: 6),
-                        CustomDropdownField(
-                          text: state.currency?.name ?? "",
+                        CustomDropdownFormField(
+                          value: state.currency?.name ?? "",
                           hint: "-",
+                          validator: (value) => DefaultValidator.validate(value),
                           onTap: () async {
                             final currency = await showModalBottomSheet(
                               context: context,
@@ -455,9 +445,10 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 20),
           LabelTextField(Strings.createAdAddressLabel),
           SizedBox(height: 8),
-          CustomDropdownField(
-            text: state.address?.name ?? "",
+          CustomDropdownFormField(
+            value: state.address?.name ?? "",
             hint: Strings.createAdAddressLabel,
+            validator: (value) => DefaultValidator.validate(value),
             onTap: () async {
               final address = await showModalBottomSheet(
                 context: context,
@@ -475,7 +466,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 12),
           LabelTextField(Strings.createAdContactPersonLabel),
           SizedBox(height: 8),
-          CustomTextField(
+          CustomTextFormField(
             autofillHints: const [AutofillHints.name],
             keyboardType: TextInputType.name,
             maxLines: 1,
@@ -490,7 +481,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 12),
           LabelTextField(Strings.createAdContactPhoneLabel),
           SizedBox(height: 8),
-          CustomTextField(
+          CustomTextFormField(
             autofillHints: const [AutofillHints.telephoneNumber],
             keyboardType: TextInputType.phone,
             maxLines: 1,
@@ -508,7 +499,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 12),
           LabelTextField(Strings.createAdContactEmailLabel),
           SizedBox(height: 8),
-          CustomTextField(
+          CustomTextFormField(
             autofillHints: const [AutofillHints.email],
             keyboardType: TextInputType.emailAddress,
             inputType: TextInputType.emailAddress,
@@ -526,7 +517,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildAutoContinueBlock(BuildContext context, PageState state) {
+  Widget _buildAutoRenewBlock(BuildContext context, PageState state) {
     return Container(
       color: Colors.white,
       child: Padding(
@@ -577,7 +568,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               SizedBox(height: 20),
               LabelTextField(Strings.createAdVideoUlrLabel, isRequired: false),
               SizedBox(height: 6),
-              CustomTextField(
+              CustomTextFormField(
                 autofillHints: const [AutofillHints.url],
                 keyboardType: TextInputType.url,
                 maxLines: 1,

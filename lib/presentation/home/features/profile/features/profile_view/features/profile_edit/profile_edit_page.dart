@@ -9,7 +9,7 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/app_bar/action_app_bar.dart';
 import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/common/widgets/snackbar/snackbar_widget.dart';
-import 'package:onlinebozor/common/widgets/text_field/custom_text_field.dart';
+import 'package:onlinebozor/common/widgets/text_field/custom_text_form_field.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/profile_view/features/profile_edit/cubit/page_cubit.dart';
 
 import '../../../../../../../utils/mask_formatters.dart';
@@ -65,7 +65,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
             ),
             Padding(
               padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-              child: CustomTextField(
+              child: CustomTextFormField(
                   controller: TextEditingController(text: state.fullName.capitalizeFullName()),
                   hint: Strings.profileUserName,
                   enabled: false,
@@ -78,7 +78,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
             ),
             Padding(
               padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-              child: CustomTextField(
+              child: CustomTextFormField(
                 hint: "example@gmail.com",
                 controller:TextEditingController(text: state.email),
                 textInputAction: TextInputAction.next,
@@ -95,7 +95,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
             ),
             Padding(
               padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-              child: CustomTextField(
+              child: CustomTextFormField(
                   hint: "+998",
                   readOnly: true,
                   enabled: false,
@@ -113,7 +113,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
             ),
             Padding(
               padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-              child: CustomTextField(
+              child: CustomTextFormField(
                   hint: Strings.profileEditUserUsername,
                   controller: TextEditingController(text: state.userName),
                   textInputAction: TextInputAction.next,
@@ -128,7 +128,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
             ),
             Padding(
               padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-              child: CustomTextField(
+              child: CustomTextFormField(
                 onChanged: (value) {
                   cubit(context).setBrithDate(value);
                 },
@@ -155,7 +155,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
               child: Row(children: [
                 SizedBox(
                   width: 60,
-                  child: CustomTextField(
+                  child: CustomTextFormField(
                       readOnly: true,
                       enabled: false,
                       onChanged: (value) {
@@ -169,7 +169,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
                 ),
                 SizedBox(width: 12),
                 Flexible(
-                  child: CustomTextField(
+                  child: CustomTextFormField(
                     maxLength: 9,
                     readOnly: true,
                     enabled: false,
@@ -230,7 +230,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
                          );
                        });
                   },
-                  child: CustomTextField(
+                  child: CustomTextFormField(
                     hint: Strings.profileEditRegion,
                     readOnly: true,
                     enabled: false,
@@ -284,7 +284,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
                          );
                        });
                   },
-                  child: CustomTextField(
+                  child: CustomTextFormField(
                       hint: Strings.profileEditDistrict,
                       readOnly: true,
                       enabled: false,
@@ -337,7 +337,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
                           );
                         });
                   },
-                  child: CustomTextField(
+                  child: CustomTextFormField(
                     hint: Strings.profileEditNeighborhood,
                     readOnly: true,
                     controller: TextEditingController(text: state.neighborhoodName),
@@ -362,7 +362,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
                               .s(12)
                               .c(Color(0xFF41455E)),
                           SizedBox(height: 12),
-                          CustomTextField(
+                          CustomTextFormField(
                             textInputAction: TextInputAction.next,
                             inputType: TextInputType.number,
                           ),
@@ -379,7 +379,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
                               .s(12)
                               .c(Color(0xFF41455E)),
                           SizedBox(height: 12),
-                          CustomTextField(
+                          CustomTextFormField(
                             textInputAction: TextInputAction.done,
                             inputType: TextInputType.number,
                             onChanged: (value) {},

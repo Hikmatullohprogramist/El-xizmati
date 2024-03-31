@@ -12,9 +12,9 @@ import 'package:onlinebozor/common/widgets/text_field/label_text_field.dart';
 
 import '../../../../../../../../common/colors/static_colors.dart';
 import '../../../../../../../../common/widgets/switch/custom_switch.dart';
-import '../../../../../../../../common/widgets/text_field/custom_text_field.dart';
-import '../../../../../../../../common/widgets/text_field/custom_dropdown_field.dart';
+import '../../../../../../../../common/widgets/text_field/custom_text_form_field.dart';
 import '../../../../../../../../data/responses/address/user_address_response.dart';
+import '../../../common/widgets/text_field/custom_dropdown_form_field.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -90,7 +90,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
         children: [
           LabelTextField(Strings.userAddressAddress),
           SizedBox(height: 12),
-          CustomTextField(
+          CustomTextFormField(
             controller: addressController,
             hint: Strings.userAddressAddress,
             onChanged: (value) {
@@ -111,9 +111,9 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
         children: [
           LabelTextField(Strings.commonRegion),
           SizedBox(height: 8),
-          CustomDropdownField(
+          CustomDropdownFormField(
             hint: Strings.commonRegion,
-            text: state.regionName ?? "",
+            value: state.regionName ?? "",
             onTap: () {
               _showRegionSelection(context, state);
             },
@@ -121,9 +121,9 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
           SizedBox(height: 12),
           LabelTextField(Strings.commonDistrict),
           SizedBox(height: 8),
-          CustomDropdownField(
+          CustomDropdownFormField(
             hint: Strings.commonDistrict,
-            text: state.districtName ?? "",
+            value: state.districtName ?? "",
             onTap: () {
               _showDistrictSelection(context, state);
             },
@@ -131,9 +131,9 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
           SizedBox(height: 12),
           LabelTextField(Strings.commonNeighborhood),
           SizedBox(height: 8),
-          CustomDropdownField(
+          CustomDropdownFormField(
             hint: Strings.commonNeighborhood,
-            text: state.neighborhoodName ?? "",
+            value: state.neighborhoodName ?? "",
             onTap: () {
               _showNeighborhoodSelection(context, state);
             },
@@ -157,7 +157,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
                   children: [
                     LabelTextField(Strings.commonStreet, isRequired: false),
                     SizedBox(height: 8),
-                    CustomTextField(
+                    CustomTextFormField(
                       controller: streetController,
                       hint: Strings.commonStreet,
                       onChanged: (value) {
@@ -178,7 +178,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
                   children: [
                     LabelTextField(Strings.commonHomeNumber, isRequired: false),
                     SizedBox(height: 8),
-                    CustomTextField(
+                    CustomTextFormField(
                       hint: Strings.commonHomeNumber,
                       onChanged: (value) {
                         cubit(context).setHomeNumber(value);
@@ -195,7 +195,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
                   children: [
                     LabelTextField(Strings.commonApartment, isRequired: false),
                     SizedBox(height: 8),
-                    CustomTextField(
+                    CustomTextFormField(
                       hint: Strings.commonApartment,
                       onChanged: (value) {
                         cubit(context).setApartmentNumber(value);

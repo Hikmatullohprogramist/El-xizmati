@@ -11,7 +11,6 @@ import 'package:onlinebozor/common/widgets/chips/chip_list.dart';
 import 'package:onlinebozor/common/widgets/image/image_ad_list_widget.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_switch.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_toggle.dart';
-import 'package:onlinebozor/common/widgets/text_field/custom_dropdown_field.dart';
 import 'package:onlinebozor/common/widgets/text_field/label_text_field.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
@@ -31,7 +30,8 @@ import '../../../common/widgets/action/selection_list_item.dart';
 import '../../../common/widgets/bottom_sheet/bottom_sheet_title.dart';
 import '../../../common/widgets/button/custom_elevated_button.dart';
 import '../../../common/widgets/divider/custom_diverder.dart';
-import '../../../common/widgets/text_field/custom_text_field.dart';
+import '../../../common/widgets/text_field/custom_dropdown_form_field.dart';
+import '../../../common/widgets/text_field/custom_text_form_field.dart';
 import '../../../domain/models/ad/ad_type.dart';
 import '../../common/selection_payment_type/selection_payment_type_page.dart';
 import '../../utils/mask_formatters.dart';
@@ -52,6 +52,8 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController paidDelPriceController = TextEditingController();
   final TextEditingController videoUrlController = TextEditingController();
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void onEventEmitted(BuildContext context, PageEvent event) {
@@ -87,36 +89,39 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
       backgroundColor: StaticColors.backgroundColor,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SizedBox(height: 20),
-            _buildTitleAndCategoryBlock(context, state),
-            SizedBox(height: 20),
-            _buildImageListBlock(context, state),
-            SizedBox(height: 20),
-            _buildDescBlock(context, state),
-            _buildPriceBlock(context, state),
-            SizedBox(height: 20),
-            _buildAdditionalInfoBlock(context, state),
-            SizedBox(height: cubit(context).isExchangeMode() ? 16 : 0),
-            _buildExchangeAdBlock(context, state),
-            SizedBox(height: 20),
-            _buildContactsBlock(context, state),
-            SizedBox(height: 20),
-            _buildPickupBlock(context, state),
-            SizedBox(height: 4),
-            _buildFreeDeliveryBlock(context, state),
-            SizedBox(height: 4),
-            _buildPaidDeliveryBlock(context, state),
-            SizedBox(height: 20),
-            _buildAutoContinueBlock(context, state),
-            SizedBox(height: 20),
-            _buildUsefulLinkBlock(context, state),
-            SizedBox(height: 20),
-            _buildFooterBlock(context, state),
-            SizedBox(height: 20),
-          ],
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(height: 20),
+              _buildTitleAndCategoryBlock(context, state),
+              SizedBox(height: 20),
+              _buildImageListBlock(context, state),
+              SizedBox(height: 20),
+              _buildDescBlock(context, state),
+              _buildPriceBlock(context, state),
+              SizedBox(height: 20),
+              _buildAdditionalInfoBlock(context, state),
+              SizedBox(height: cubit(context).isExchangeMode() ? 16 : 0),
+              _buildExchangeAdBlock(context, state),
+              SizedBox(height: 20),
+              _buildContactsBlock(context, state),
+              SizedBox(height: 20),
+              _buildPickupBlock(context, state),
+              SizedBox(height: 4),
+              _buildFreeDeliveryBlock(context, state),
+              SizedBox(height: 4),
+              _buildPaidDeliveryBlock(context, state),
+              SizedBox(height: 20),
+              _buildAutoContinueBlock(context, state),
+              SizedBox(height: 20),
+              _buildUsefulLinkBlock(context, state),
+              SizedBox(height: 20),
+              _buildFooterBlock(context, state),
+              SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );
@@ -135,7 +140,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         children: [
           LabelTextField(Strings.createAdNameLabel),
           SizedBox(height: 6),
-          CustomTextField(
+          CustomTextFormField(
             autofillHints: const [AutofillHints.name],
             inputType: TextInputType.name,
             keyboardType: TextInputType.name,
@@ -151,8 +156,8 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 16),
           LabelTextField(Strings.createAdCategoryLabel),
           SizedBox(height: 6),
-          CustomDropdownField(
-            text: state.category?.name ?? "",
+          CustomDropdownFormField(
+            value: state.category?.name ?? "",
             hint: Strings.createAdCategoryLabel,
             onTap: () {
               context.router.push(
@@ -168,8 +173,8 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 16),
           LabelTextField(Strings.createAdTransactionTypeLabel),
           SizedBox(height: 6),
-          CustomDropdownField(
-            text: state.adTransactionType.getString(),
+          CustomDropdownFormField(
+            value: state.adTransactionType.getString(),
             hint: Strings.createAdTransactionTypeLabel,
             onTap: () {
               _showAdTransactionTypeSelectionBottomSheet(context, state);
@@ -237,7 +242,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 24),
           LabelTextField(Strings.createAdDescLabel),
           SizedBox(height: 6),
-          CustomTextField(
+          CustomTextFormField(
             height: null,
             autofillHints: const [AutofillHints.name],
             inputType: TextInputType.name,
@@ -277,7 +282,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                         children: [
                           LabelTextField(Strings.createAdWarehouseCountLabel),
                           SizedBox(height: 6),
-                          CustomTextField(
+                          CustomTextFormField(
                             autofillHints: const [
                               AutofillHints.telephoneNumber
                             ],
@@ -306,8 +311,8 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                             isRequired: false,
                           ),
                           SizedBox(height: 6),
-                          CustomDropdownField(
-                            text: state.unit?.name ?? "",
+                          CustomDropdownFormField(
+                            value: state.unit?.name ?? "",
                             hint: "-",
                             onTap: () async {
                               final unit = await showModalBottomSheet(
@@ -338,7 +343,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                         children: [
                           LabelTextField(Strings.createAdPriceLabel),
                           SizedBox(height: 6),
-                          CustomTextField(
+                          CustomTextFormField(
                             autofillHints: const [
                               AutofillHints.transactionAmount
                             ],
@@ -364,8 +369,8 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                         children: [
                           LabelTextField(Strings.createAdCurrencyLabel),
                           SizedBox(height: 6),
-                          CustomDropdownField(
-                            text: state.currency?.name ?? "",
+                          CustomDropdownFormField(
+                            value: state.currency?.name ?? "",
                             hint: "-",
                             onTap: () async {
                               final currency = await showModalBottomSheet(
@@ -485,7 +490,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 SizedBox(height: 20),
                 LabelTextField(Strings.createAdNameLabel),
                 SizedBox(height: 6),
-                CustomTextField(
+                CustomTextFormField(
                   autofillHints: const [AutofillHints.name],
                   inputType: TextInputType.name,
                   keyboardType: TextInputType.name,
@@ -501,8 +506,8 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 SizedBox(height: 16),
                 LabelTextField(Strings.createAdCategoryLabel),
                 SizedBox(height: 6),
-                CustomDropdownField(
-                  text: state.exchangeCategory?.name ?? "",
+                CustomDropdownFormField(
+                  value: state.exchangeCategory?.name ?? "",
                   hint: Strings.createAdCategoryLabel,
                   onTap: () {
                     context.router.push(
@@ -518,7 +523,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 SizedBox(height: 16),
                 LabelTextField(Strings.createAdDescLabel),
                 SizedBox(height: 6),
-                CustomTextField(
+                CustomTextFormField(
                   height: null,
                   autofillHints: const [AutofillHints.name],
                   inputType: TextInputType.name,
@@ -564,8 +569,8 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 20),
           LabelTextField(Strings.createAdAddressLabel),
           SizedBox(height: 8),
-          CustomDropdownField(
-            text: state.address?.name ?? "",
+          CustomDropdownFormField(
+            value: state.address?.name ?? "",
             hint: Strings.createAdAddressLabel,
             onTap: () async {
               final address = await showModalBottomSheet(
@@ -584,7 +589,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 12),
           LabelTextField(Strings.createAdContactPersonLabel),
           SizedBox(height: 8),
-          CustomTextField(
+          CustomTextFormField(
             autofillHints: const [AutofillHints.name],
             keyboardType: TextInputType.name,
             maxLines: 1,
@@ -599,7 +604,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 12),
           LabelTextField(Strings.createAdContactPhoneLabel),
           SizedBox(height: 8),
-          CustomTextField(
+          CustomTextFormField(
             autofillHints: const [AutofillHints.telephoneNumber],
             keyboardType: TextInputType.phone,
             maxLines: 1,
@@ -616,7 +621,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 12),
           LabelTextField(Strings.createAdContactEmailLabel),
           SizedBox(height: 8),
-          CustomTextField(
+          CustomTextFormField(
             autofillHints: const [AutofillHints.email],
             keyboardType: TextInputType.emailAddress,
             inputType: TextInputType.emailAddress,
@@ -780,7 +785,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           ),
           Visibility(
             visible: state.isPaidDeliveryEnabled,
-            child: CustomTextField(
+            child: CustomTextFormField(
               autofillHints: const [AutofillHints.transactionAmount],
               inputType: TextInputType.number,
               keyboardType: TextInputType.number,
@@ -871,7 +876,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               SizedBox(height: 20),
               LabelTextField(Strings.createAdVideoUlrLabel, isRequired: false),
               SizedBox(height: 6),
-              CustomTextField(
+              CustomTextFormField(
                 autofillHints: const [AutofillHints.url],
                 keyboardType: TextInputType.url,
                 maxLines: 1,
@@ -942,7 +947,9 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             text: Strings.commonContinue,
             onPressed: () {
               vibrateAsHapticFeedback();
-              cubit(context).createProductAd();
+              if (_formKey.currentState!.validate()) {
+                cubit(context).createProductAd();
+              }
             },
             isLoading: state.isRequestSending,
           ),

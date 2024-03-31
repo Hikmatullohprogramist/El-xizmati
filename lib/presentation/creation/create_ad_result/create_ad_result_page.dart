@@ -60,7 +60,7 @@ class CreateAdResultPage extends BasePage<PageCubit, PageState, PageEvent> {
             SizedBox(height: 20),
             CustomElevatedButton(
               text: Strings.createAdResultOpenDashboard,
-              backgroundColor: StaticColors.slateBlue.withOpacity(0.8),
+              backgroundColor: StaticColors.buttonDefaultBackgroundColor.withOpacity(0.8),
               rightIcon: Assets.images.bottomBar.dashboard.svg(color: Colors.white),
               onPressed: () async {
                 context.router.replace(DashboardRoute());

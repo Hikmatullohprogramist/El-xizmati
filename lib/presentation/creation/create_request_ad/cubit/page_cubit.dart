@@ -48,7 +48,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         ));
   }
 
-  Future<void> createProductAd() async {
+  Future<void> createRequestAd() async {
     updateState((state) => state.copyWith(isRequestSending: true));
 
     await uploadImages();

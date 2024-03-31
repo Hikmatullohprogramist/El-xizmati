@@ -336,7 +336,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Center(
         child: CircularProgressIndicator(
           backgroundColor: Colors.grey[300],
-          valueColor: AlwaysStoppedAnimation<Color>(StaticColors.slateBlue),
+          valueColor: AlwaysStoppedAnimation<Color>(StaticColors.buttonDefaultBackgroundColor),
         ));
   }
 

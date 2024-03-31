@@ -6,9 +6,11 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/common/widgets/text_field/custom_dropdown_field.dart';
-import 'package:onlinebozor/common/widgets/text_field/custom_text_field.dart';
+import 'package:onlinebozor/common/widgets/text_field/custom_text_form_field.dart';
 import 'package:onlinebozor/common/widgets/text_field/label_text_field.dart';
+import 'package:onlinebozor/common/widgets/text_field/validator/email_validator.dart';
+import 'package:onlinebozor/common/widgets/text_field/validator/phone_number_validator.dart';
+import 'package:onlinebozor/common/widgets/text_field/validator/default_validator.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 
 import '../../../../../common/core/base_page.dart';
@@ -21,6 +23,8 @@ import '../../../common/widgets/chips/chip_item.dart';
 import '../../../common/widgets/chips/chip_list.dart';
 import '../../../common/widgets/image/image_ad_list_widget.dart';
 import '../../../common/widgets/switch/custom_switch.dart';
+import '../../../common/widgets/text_field/custom_dropdown_form_field.dart';
+import '../../../common/widgets/text_field/validator/price_validator.dart';
 import '../../../domain/models/image/uploadable_file.dart';
 import '../../common/selection_currency/selection_currency_page.dart';
 import '../../common/selection_payment_type/selection_payment_type_page.dart';
@@ -42,6 +46,8 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
   final TextEditingController contactPersonController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void onEventEmitted(BuildContext context, PageEvent event) {
@@ -73,25 +79,28 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
       backgroundColor: StaticColors.backgroundColor,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SizedBox(height: 20),
-            _buildTitleAndCategoryBlock(context, state),
-            SizedBox(height: 20),
-            _buildImageListBlock(context, state),
-            SizedBox(height: 20),
-            _buildDescAndPriceBlock(context, state),
-            SizedBox(height: 20),
-            _buildContactsBlock(context, state),
-            SizedBox(height: 20),
-            _buildAddressBlock(context, state),
-            SizedBox(height: 20),
-            _buildAutoContinueBlock(context, state),
-            SizedBox(height: 20),
-            _buildFooterBlock(context, state),
-            SizedBox(height: 20),
-          ],
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(height: 20),
+              _buildTitleAndCategoryBlock(context, state),
+              SizedBox(height: 20),
+              _buildImageListBlock(context, state),
+              SizedBox(height: 20),
+              _buildDescAndPriceBlock(context, state),
+              SizedBox(height: 20),
+              _buildContactsBlock(context, state),
+              SizedBox(height: 20),
+              _buildAddressBlock(context, state),
+              SizedBox(height: 20),
+              _buildAutoContinueBlock(context, state),
+              SizedBox(height: 20),
+              _buildFooterBlock(context, state),
+              SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );
@@ -107,7 +116,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         children: [
           LabelTextField(Strings.createAdNameLabel),
           SizedBox(height: 6),
-          CustomTextField(
+          CustomTextFormField(
             autofillHints: const [AutofillHints.name],
             inputType: TextInputType.name,
             keyboardType: TextInputType.name,
@@ -116,6 +125,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             hint: Strings.createAdNameLabel,
             textInputAction: TextInputAction.next,
             controller: titleController,
+            validator: (value) => DefaultValidator.validate(value),
             onChanged: (value) {
               cubit(context).setEnteredTitle(value);
             },
@@ -123,9 +133,10 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 16),
           LabelTextField(Strings.createAdCategoryLabel),
           SizedBox(height: 6),
-          CustomDropdownField(
-            text: state.category?.name ?? "",
+          CustomDropdownFormField(
+            value: state.category?.name ?? "",
             hint: Strings.createAdCategoryLabel,
+            validator: (value) => DefaultValidator.validate(value),
             onTap: () {
               context.router.push(
                 SelectionNestedCategoryRoute(
@@ -195,7 +206,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               SizedBox(height: 24),
               LabelTextField(Strings.createAdDescLabel),
               SizedBox(height: 8),
-              CustomTextField(
+              CustomTextFormField(
                 height: null,
                 autofillHints: const [AutofillHints.name],
                 inputType: TextInputType.name,
@@ -205,6 +216,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 hint: Strings.createAdDescHint,
                 textInputAction: TextInputAction.next,
                 controller: descController,
+                validator: (value) => DefaultValidator.validate(value),
                 onChanged: (value) {
                   cubit(context).setEnteredDesc(value);
                 },
@@ -233,7 +245,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                       children: [
                         LabelTextField(Strings.createAdFromPriceLabel),
                         SizedBox(height: 6),
-                        CustomTextField(
+                        CustomTextFormField(
                           autofillHints: const [
                             AutofillHints.transactionAmount
                           ],
@@ -245,6 +257,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                           textInputAction: TextInputAction.next,
                           controller: fromPriceController,
                           inputFormatters: amountMaskFormatter,
+                          validator: (value) => PriceValidator.validate(value),
                           onChanged: (value) {
                             cubit(context).setEnteredFromPrice(value);
                           },
@@ -259,7 +272,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                       children: [
                         LabelTextField(Strings.createAdToPriceLabel),
                         SizedBox(height: 6),
-                        CustomTextField(
+                        CustomTextFormField(
                           autofillHints: const [
                             AutofillHints.transactionAmount
                           ],
@@ -271,6 +284,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                           textInputAction: TextInputAction.next,
                           controller: toPriceController,
                           inputFormatters: amountMaskFormatter,
+                          validator: (value) => PriceValidator.validate(value),
                           onChanged: (value) {
                             cubit(context).setEnteredToPrice(value);
                           },
@@ -290,9 +304,11 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                       children: [
                         LabelTextField(Strings.createAdCurrencyLabel),
                         SizedBox(height: 6),
-                        CustomDropdownField(
-                          text: state.currency?.name ?? "",
+                        CustomDropdownFormField(
+                          value: state.currency?.name ?? "",
                           hint: "-",
+                          validator: (value) =>
+                              DefaultValidator.validate(value),
                           onTap: () async {
                             final currency = await showModalBottomSheet(
                               context: context,
@@ -382,7 +398,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 12),
           LabelTextField(Strings.createAdContactPersonLabel),
           SizedBox(height: 8),
-          CustomTextField(
+          CustomTextFormField(
             autofillHints: const [AutofillHints.name],
             keyboardType: TextInputType.name,
             maxLines: 1,
@@ -390,6 +406,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             inputType: TextInputType.name,
             textInputAction: TextInputAction.next,
             controller: contactPersonController,
+            validator: (value) => DefaultValidator.validate(value),
             onChanged: (value) {
               cubit(context).setEnteredContactPerson(value);
             },
@@ -397,7 +414,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 12),
           LabelTextField(Strings.createAdContactPhoneLabel),
           SizedBox(height: 8),
-          CustomTextField(
+          CustomTextFormField(
             autofillHints: const [AutofillHints.telephoneNumber],
             keyboardType: TextInputType.phone,
             maxLines: 1,
@@ -407,6 +424,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             textInputAction: TextInputAction.next,
             controller: phoneController,
             inputFormatters: phoneMaskFormatter,
+            validator: (value) => PhoneNumberValidator.validate(value),
             onChanged: (value) {
               cubit(context).setEnteredPhone(value);
             },
@@ -414,7 +432,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 12),
           LabelTextField(Strings.createAdContactEmailLabel),
           SizedBox(height: 8),
-          CustomTextField(
+          CustomTextFormField(
             autofillHints: const [AutofillHints.email],
             keyboardType: TextInputType.emailAddress,
             inputType: TextInputType.emailAddress,
@@ -422,6 +440,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             hint: Strings.createAdContactEmailLabel,
             maxLines: 1,
             controller: emailController,
+            validator: (value) => EmailValidator.validate(value),
             onChanged: (value) {
               cubit(context).setEnteredEmail(value);
             },
@@ -439,13 +458,14 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 8),
-          Strings.createAdAdditionalInfoLabel.w(700).s(16).c(Color(0xFF41455E)),
+          Strings.createAdAddressesInfoLabel.w(700).s(16).c(Color(0xFF41455E)),
           SizedBox(height: 20),
           LabelTextField(Strings.createAdAddressLabel),
           SizedBox(height: 8),
-          CustomDropdownField(
-            text: state.address?.name ?? "",
+          CustomDropdownFormField(
+            value: state.address?.name ?? "",
             hint: Strings.createAdAddressLabel,
+            validator: (value) => DefaultValidator.validate(value),
             onTap: () async {
               final address = await showModalBottomSheet(
                 context: context,
@@ -461,7 +481,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
           ),
           SizedBox(height: 16),
-          LabelTextField(Strings.createAdAddressLabel),
+          LabelTextField(Strings.createAdSearchAddressLabel),
           SizedBox(height: 8),
           ChipList(
             chips: _buildRequestAddressChips(context, state),
@@ -539,7 +559,9 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             text: Strings.commonContinue,
             onPressed: () {
               vibrateAsHapticFeedback();
-              cubit(context).createProductAd();
+              if (_formKey.currentState!.validate()) {
+                cubit(context).createRequestAd();
+              }
             },
             isLoading: state.isRequestSending,
           ),

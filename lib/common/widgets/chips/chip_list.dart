@@ -14,7 +14,7 @@ class ChipList extends StatelessWidget {
     required this.onClickedShowLess,
     required this.onClickedShowMore,
     this.minCount = 3,
-    this.isShowCountChip = true,
+    this.isShowChildrenCount = true,
   });
 
   final List<Widget> chips;
@@ -22,7 +22,7 @@ class ChipList extends StatelessWidget {
   final Function() onClickedShowLess;
   final Function() onClickedShowMore;
   final bool isShowAll;
-  final bool isShowCountChip;
+  final bool isShowChildrenCount;
   final int minCount;
 
   @override
@@ -50,11 +50,10 @@ class ChipList extends StatelessWidget {
         actualChips.add(ChipShowLessItem(onClicked: onClickedShowLess));
       } else {
         actualChips.addAll(chips.sublist(0, minCount));
-        if(isShowCountChip) {
+        if (isShowChildrenCount) {
           var count = chips.length - minCount;
           actualChips.add(ChipCountItem(count, onClicked: onClickedShowMore));
-        }
-        else{
+        } else {
           actualChips.add(ChipShowMoreItem(onClicked: onClickedShowMore));
         }
       }

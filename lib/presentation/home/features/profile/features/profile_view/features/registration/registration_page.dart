@@ -17,7 +17,7 @@ import 'package:onlinebozor/presentation/home/features/profile/features/profile_
 
 import '../../../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../../../common/widgets/divider/custom_diverder.dart';
-import '../../../../../../../../common/widgets/text_field/custom_text_field.dart';
+import '../../../../../../../../common/widgets/text_field/custom_text_form_field.dart';
 import '../../../../../../../utils/mask_formatters.dart';
 
 @RoutePage()
@@ -118,7 +118,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
           child: Row(children: [
             SizedBox(
               width: 60,
-              child: CustomTextField(
+              child: CustomTextFormField(
                   onChanged: (value) {
                     cubit(context).setBiometricSerial(value);
                   },
@@ -130,7 +130,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
             ),
             SizedBox(width: 12),
             Flexible(
-              child: CustomTextField(
+              child: CustomTextFormField(
                 maxLength: 9,
                 onChanged: (value) {
                   cubit(context).setBiometricNumber(value);
@@ -156,7 +156,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
           child: Stack(
             alignment: Alignment.centerRight,
             children: [
-              CustomTextField(
+              CustomTextFormField(
                 onChanged: (value) {
                   cubit(context).setBrithDate(value);
                 },
@@ -184,7 +184,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
         ),
         Padding(
           padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-          child: CustomTextField(
+          child: CustomTextFormField(
             autofillHints: const [AutofillHints.telephoneNumber],
             inputType: TextInputType.phone,
             keyboardType: TextInputType.phone,
@@ -246,7 +246,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
             ),
             Padding(
               padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-              child: CustomTextField(
+              child: CustomTextFormField(
                 controller: TextEditingController(text: state.fullName),
                 enabled: false,
                 hint: Strings.profileUserName,
@@ -263,7 +263,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
             ),
             Padding(
               padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-              child: CustomTextField(
+              child: CustomTextFormField(
                 hint: "example@gmail.com",
                 controller:emailController,
                 textInputAction: TextInputAction.next,
@@ -297,7 +297,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
             ),
             Padding(
                 padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                child: CustomTextField(
+                child: CustomTextFormField(
                   hint: Strings.profileEditRegion,
                   readOnly: true,
                   enabled: false,
@@ -313,7 +313,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
             ),
             Padding(
                 padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                child: CustomTextField(
+                child: CustomTextFormField(
                     hint: Strings.profileEditDistrict,
                     readOnly: true,
                     enabled: false,
@@ -367,7 +367,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
                           );
                         });
                   },
-                  child: CustomTextField(
+                  child: CustomTextFormField(
                     hint: Strings.profileEditNeighborhood,
                     readOnly: true,
                     controller: TextEditingController(text: state.neighborhoodName),
@@ -391,7 +391,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
                               .s(12)
                               .c(Color(0xFF41455E)),
                           SizedBox(height: 12),
-                          CustomTextField(
+                          CustomTextFormField(
                             textInputAction: TextInputAction.next,
                             inputType: TextInputType.number,
                             maxLength: 5,
@@ -412,7 +412,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
                               .s(12)
                               .c(Color(0xFF41455E)),
                           SizedBox(height: 12),
-                          CustomTextField(
+                          CustomTextFormField(
                             textInputAction: TextInputAction.done,
                             inputType: TextInputType.number,
                             maxLength: 5,

@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/static_colors.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
+import '../../gen/assets/assets.gen.dart';
+
 class CustomDropdownFormField extends FormField<String> {
   final double height;
   final String value;
   final String hint;
   final Function() onTap;
+  final AutovalidateMode? autoValidateMode;
+  final String? Function(String? text)? validator;
 
   CustomDropdownFormField({
     super.key,
@@ -14,15 +18,16 @@ class CustomDropdownFormField extends FormField<String> {
     this.value = "",
     required this.hint,
     required this.onTap,
-    validator,
-    autovalidateMode,
+    this.autoValidateMode,
+    this.validator,
   }) : super(
-          // onSaved: onSaved,
-          initialValue: value,
+          onSaved: (value) {},
+          initialValue: null,
           validator: validator,
-          autovalidateMode: autovalidateMode,
+          autovalidateMode: autoValidateMode,
           builder: (state) {
             return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
                   height: height,
@@ -39,7 +44,9 @@ class CustomDropdownFormField extends FormField<String> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: InkWell(
-                      onTap: onTap,
+                      onTap: () {
+                        onTap();
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -51,21 +58,23 @@ class CustomDropdownFormField extends FormField<String> {
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis),
                           ),
-                          Icon(Icons.keyboard_arrow_down,
-                              color: Color(0xFF9EABBE))
+                          Assets.images.icDropdown.svg()
                         ],
                       ),
                     ),
                   ),
                 ),
-                // if (state.hasError)
-                SizedBox(height: 8),
-                // if (state.hasError)
-                (state.errorText ?? "test").s(12).c(Colors.red).copyWith(
-                      textAlign: TextAlign.start,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                if (state.hasError) SizedBox(height: 8),
+                if (state.hasError)
+                  Row(
+                    children: [
+                      SizedBox(width: 16),
+                      (state.errorText!).s(12).c(Colors.red).copyWith(
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                    ],
+                  ),
               ],
             );
           },

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 
-class CustomTextField extends StatefulWidget {
-  const CustomTextField({
+class CustomTextFormField extends StatefulWidget {
+  const CustomTextFormField({
     Key? key,
     this.height = 58,
     this.autofillHints,
@@ -57,10 +57,10 @@ class CustomTextField extends StatefulWidget {
   final String? Function(String? text)? validator;
 
   @override
-  State<CustomTextField> createState() => _CustomTextFieldState();
+  State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
 
-class _CustomTextFieldState extends State<CustomTextField> {
+class _CustomTextFormFieldState extends State<CustomTextFormField> {
   final FocusNode _focusNode = FocusNode();
   bool _isFocused = false;
   bool _passwordVisible = true;
