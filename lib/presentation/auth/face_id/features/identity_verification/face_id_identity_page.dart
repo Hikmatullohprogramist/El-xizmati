@@ -51,6 +51,9 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
+    final Size screenSize = MediaQuery.of(context).size;
+    final double screenWidth = screenSize.width;
+    final double screenHeight = screenSize.height;
     return Stack(
       children: [
         _buildConditionalWidget(
@@ -60,12 +63,13 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
         if (state.loadState == LoadingState.success && (!state.introState))
           _buildCameraPreView(context),
         CustomPaint(
-          size: Size.infinite,
-          painter: CameraSelfiePainter(),
+          painter: OverlayPainter(screenWidth: screenWidth, screenHeight: screenHeight),
+
         ),
+
         _buildFaceDetectorConstruction(context),
         _buildActionButton(context, state),
-        _buildActionButtonForTest(context, state),
+       // _buildActionButtonForTest(context, state),
         _buildConditionalWidget(state.introState, _buildFaceDetectorIntroPage(context))
 
       ],
@@ -370,7 +374,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
     List<int> compressedBytes = await FlutterImageCompress.compressWithList(
       image2,
       quality: 80,
-      minHeight: 400,
+      minHeight: 553,
       minWidth: 300,
     );
     String compressedBase64 = base64.encode(compressedBytes);
