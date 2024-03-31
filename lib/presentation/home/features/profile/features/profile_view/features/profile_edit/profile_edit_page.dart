@@ -1,17 +1,14 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/app_bar/action_app_bar.dart';
 import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/common/widgets/snackbar/snackbar_widget.dart';
-import 'package:onlinebozor/common/widgets/text_field/custom_text_form_field.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/profile_view/features/profile_edit/cubit/page_cubit.dart';
 
+import '../../../../../../../../common/widgets/form_field/custom_text_form_field.dart';
 import '../../../../../../../utils/mask_formatters.dart';
 
 @RoutePage()
@@ -20,7 +17,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
-    String email="";
+    String email = "";
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: ActionAppBar(
@@ -30,17 +27,18 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
           CustomTextButton(
             text: Strings.commonSave,
             onPressed: () {
-              if(email.isNotEmpty)cubit(context).setEmail(email);
+              if (email.isNotEmpty) cubit(context).setEmail(email);
               cubit(context).sendUserInfo().then((value) {
-               if(value){
-                 context.showCustomSnackBar(
-                     message: 'Saved!', backgroundColor: Colors.green.shade400);
-                 context.router.pop();
-               }else{
-                 context.showCustomSnackBar(
-                     message: "Do'nt save",
-                     backgroundColor: Colors.red.shade400);
-               }
+                if (value) {
+                  context.showCustomSnackBar(
+                      message: 'Saved!',
+                      backgroundColor: Colors.green.shade400);
+                  context.router.pop();
+                } else {
+                  context.showCustomSnackBar(
+                      message: "Do'nt save",
+                      backgroundColor: Colors.red.shade400);
+                }
               });
             },
           )
@@ -66,7 +64,8 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
             Padding(
               padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
               child: CustomTextFormField(
-                  controller: TextEditingController(text: state.fullName.capitalizeFullName()),
+                  controller: TextEditingController(
+                      text: state.fullName.capitalizeFullName()),
                   hint: Strings.profileUserName,
                   enabled: false,
                   readOnly: true,
@@ -80,12 +79,12 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
               padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
               child: CustomTextFormField(
                 hint: "example@gmail.com",
-                controller:TextEditingController(text: state.email),
+                controller: TextEditingController(text: state.email),
                 textInputAction: TextInputAction.next,
                 inputType: TextInputType.emailAddress,
-                onChanged: (value){
+                onChanged: (value) {
                   ///cubit(context).setEmail(value);
-                  email=value;
+                  email = value;
                 },
               ),
             ),
@@ -195,40 +194,41 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
                 padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
                 child: InkWell(
                   onTap: () {
-                   showModalBottomSheet(
-                       shape: RoundedRectangleBorder(
-                         borderRadius: BorderRadius.circular(10.0),
-                       ),
-                       backgroundColor: Colors.white,
-                       context: context,
-                       builder: (BuildContext buildContext) {
-                         return Container(
-                           decoration: BoxDecoration(
-                             color: Colors.white,
-                             borderRadius: BorderRadius.only(
-                               topLeft: Radius.circular(20.0),
-                               topRight: Radius.circular(20.0),
-                             ),
-                           ),
-                           height: double.infinity,
-                           child: ListView.builder(
-                               physics: BouncingScrollPhysics(),
-                               itemCount: state.regions.length,
-                               itemBuilder:
-                                   (BuildContext buildContext, int index) {
-                                 return InkWell(
-                                     onTap: () {
-                                      // context.read<PageCubit>().setRegion(state.regions[index]);
-                                       cubit(context).setRegion(state.regions[index]);
-                                       Navigator.pop(buildContext);
-                                     },
-                                     child: Padding(
-                                       padding: EdgeInsets.all(16),
-                                       child: state.regions[index].name.w(500),
-                                     ));
-                               }),
-                         );
-                       });
+                    showModalBottomSheet(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        backgroundColor: Colors.white,
+                        context: context,
+                        builder: (BuildContext buildContext) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20.0),
+                                topRight: Radius.circular(20.0),
+                              ),
+                            ),
+                            height: double.infinity,
+                            child: ListView.builder(
+                                physics: BouncingScrollPhysics(),
+                                itemCount: state.regions.length,
+                                itemBuilder:
+                                    (BuildContext buildContext, int index) {
+                                  return InkWell(
+                                      onTap: () {
+                                        // context.read<PageCubit>().setRegion(state.regions[index]);
+                                        cubit(context)
+                                            .setRegion(state.regions[index]);
+                                        Navigator.pop(buildContext);
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsets.all(16),
+                                        child: state.regions[index].name.w(500),
+                                      ));
+                                }),
+                          );
+                        });
                   },
                   child: CustomTextFormField(
                     hint: Strings.profileEditRegion,
@@ -248,41 +248,41 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
                 padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
                 child: InkWell(
                   onTap: () {
-                   showModalBottomSheet(
-                       shape: RoundedRectangleBorder(
-                         borderRadius: BorderRadius.circular(10.0),
-                       ),
-                       backgroundColor: Colors.white,
-                       context: context,
-                       builder: (BuildContext buildContext) {
-                         return Container(
-                           decoration: BoxDecoration(
-                             color: Colors.white,
-                             borderRadius: BorderRadius.only(
-                               topLeft: Radius.circular(20.0),
-                               topRight: Radius.circular(20.0),
-                             ),
-                           ),
-                           height: double.infinity,
-                           child: ListView.builder(
-                               physics: BouncingScrollPhysics(),
-                               itemCount: state.districts.length,
-                               itemBuilder:
-                                   (BuildContext buildContext, int index) {
-                                 return InkWell(
-                                     onTap: () {
-                                       cubit(context).setDistrict(
-                                           state.districts[index]);
-                                       Navigator.pop(buildContext);
-                                     },
-                                     child: Padding(
-                                       padding: EdgeInsets.all(16),
-                                       child:
-                                           state.districts[index].name.w(500),
-                                     ));
-                               }),
-                         );
-                       });
+                    showModalBottomSheet(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        backgroundColor: Colors.white,
+                        context: context,
+                        builder: (BuildContext buildContext) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20.0),
+                                topRight: Radius.circular(20.0),
+                              ),
+                            ),
+                            height: double.infinity,
+                            child: ListView.builder(
+                                physics: BouncingScrollPhysics(),
+                                itemCount: state.districts.length,
+                                itemBuilder:
+                                    (BuildContext buildContext, int index) {
+                                  return InkWell(
+                                      onTap: () {
+                                        cubit(context).setDistrict(
+                                            state.districts[index]);
+                                        Navigator.pop(buildContext);
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsets.all(16),
+                                        child:
+                                            state.districts[index].name.w(500),
+                                      ));
+                                }),
+                          );
+                        });
                   },
                   child: CustomTextFormField(
                       hint: Strings.profileEditDistrict,
@@ -323,15 +323,18 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
                             child: ListView.builder(
                                 physics: BouncingScrollPhysics(),
                                 itemCount: state.neighborhoods.length,
-                                itemBuilder: (BuildContext buildContext, int index) {
+                                itemBuilder:
+                                    (BuildContext buildContext, int index) {
                                   return InkWell(
                                       onTap: () {
-                                        cubit(context).setStreet(state.neighborhoods[index]);
+                                        cubit(context).setStreet(
+                                            state.neighborhoods[index]);
                                         Navigator.pop(buildContext);
                                       },
                                       child: Padding(
                                         padding: EdgeInsets.all(16),
-                                        child: state.neighborhoods[index].name.w(500),
+                                        child: state.neighborhoods[index].name
+                                            .w(500),
                                       ));
                                 }),
                           );
@@ -340,7 +343,8 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
                   child: CustomTextFormField(
                     hint: Strings.profileEditNeighborhood,
                     readOnly: true,
-                    controller: TextEditingController(text: state.neighborhoodName),
+                    controller:
+                        TextEditingController(text: state.neighborhoodName),
                     enabled: false,
                     textInputAction: TextInputAction.next,
                     inputType: TextInputType.text,

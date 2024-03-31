@@ -11,7 +11,7 @@ import 'package:onlinebozor/presentation/auth/set_password/cubit/page_cubit.dart
 
 import '../../../common/gen/localization/strings.dart';
 import '../../../common/widgets/app_bar/default_app_bar.dart';
-import '../../../common/widgets/text_field/custom_text_form_field.dart';
+import '../../../common/widgets/form_field/custom_text_form_field.dart';
 
 @RoutePage()
 class SetPasswordPage extends BasePage<PageCubit, PageState, PageEvent> {

@@ -8,13 +8,15 @@ import 'package:onlinebozor/common/widgets/action/selection_list_item.dart';
 import 'package:onlinebozor/common/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/button/custom_outlined_button.dart';
-import 'package:onlinebozor/common/widgets/text_field/label_text_field.dart';
 
 import '../../../../../../../../common/colors/static_colors.dart';
 import '../../../../../../../../common/widgets/switch/custom_switch.dart';
-import '../../../../../../../../common/widgets/text_field/custom_text_form_field.dart';
 import '../../../../../../../../data/responses/address/user_address_response.dart';
-import '../../../common/widgets/text_field/custom_dropdown_form_field.dart';
+import '../../../common/vibrator/vibrator_extension.dart';
+import '../../../common/widgets/form_field/custom_dropdown_form_field.dart';
+import '../../../common/widgets/form_field/custom_text_form_field.dart';
+import '../../../common/widgets/form_field/label_text_field.dart';
+import '../../../common/widgets/form_field/validator/default_validator.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -22,6 +24,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
   AddAddressPage({super.key, this.address});
 
   final UserAddressResponse? address;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void onWidgetCreated(BuildContext context) {
@@ -35,10 +38,6 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
     switch (event.type) {
       case PageEventType.backOnSuccess:
         context.router.pop(true);
-      // case PageEventType.onStartLoading:
-      //   showProgressDialog(context);
-      // case PageEventType.onFinishLoading:
-      //   Navigator.pop(context);
     }
   }
 
@@ -62,21 +61,24 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
           () => context.router.pop(false),
         ),
         backgroundColor: StaticColors.backgroundColor,
-        body: ListView(
-          physics: BouncingScrollPhysics(),
-          children: [
-            SizedBox(height: 16),
-            _buildAddressNameBlock(context),
-            SizedBox(height: 12),
-            _buildRegionBlock(context, state),
-            SizedBox(height: 12),
-            _buildAdditionalInfo(context, state),
-            SizedBox(height: 12),
-            _buildLocationBlock(context, state),
-            SizedBox(height: 12),
-            _buildFooterBlock(context, state),
-            SizedBox(height: 16)
-          ],
+        body: Form(
+          key: _formKey,
+          child: ListView(
+            physics: BouncingScrollPhysics(),
+            children: [
+              SizedBox(height: 16),
+              _buildAddressNameBlock(context),
+              SizedBox(height: 12),
+              _buildRegionBlock(context, state),
+              SizedBox(height: 12),
+              _buildAdditionalInfo(context, state),
+              SizedBox(height: 12),
+              _buildLocationBlock(context, state),
+              SizedBox(height: 12),
+              _buildFooterBlock(context, state),
+              SizedBox(height: 16)
+            ],
+          ),
         ));
   }
 
@@ -93,6 +95,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
           CustomTextFormField(
             controller: addressController,
             hint: Strings.userAddressAddress,
+            validator: (value) => DefaultValidator.validate(value),
             onChanged: (value) {
               cubit(context).setEnteredAddressName(value);
             },
@@ -114,6 +117,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
           CustomDropdownFormField(
             hint: Strings.commonRegion,
             value: state.regionName ?? "",
+            validator: (value) => DefaultValidator.validate(value),
             onTap: () {
               _showRegionSelection(context, state);
             },
@@ -124,6 +128,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
           CustomDropdownFormField(
             hint: Strings.commonDistrict,
             value: state.districtName ?? "",
+            validator: (value) => DefaultValidator.validate(value),
             onTap: () {
               _showDistrictSelection(context, state);
             },
@@ -134,6 +139,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
           CustomDropdownFormField(
             hint: Strings.commonNeighborhood,
             value: state.neighborhoodName ?? "",
+            validator: (value) => DefaultValidator.validate(value),
             onTap: () {
               _showNeighborhoodSelection(context, state);
             },
@@ -266,7 +272,10 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
             child: CustomElevatedButton(
               text: (state.isEditing ? Strings.commonSave : Strings.commonAdd),
               onPressed: () {
-                cubit(context).validationDate();
+                vibrateAsHapticFeedback();
+                if (_formKey.currentState!.validate()) {
+                  cubit(context).addOrUpdateAddress();
+                }
               },
             ),
           ),

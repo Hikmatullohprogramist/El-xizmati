@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
@@ -13,7 +12,7 @@ import 'package:onlinebozor/presentation/auth/confirm/cubit/page_cubit.dart';
 
 import '../../../common/gen/localization/strings.dart';
 import '../../../common/widgets/app_bar/default_app_bar.dart';
-import '../../../common/widgets/text_field/custom_text_form_field.dart';
+import '../../../common/widgets/form_field/custom_text_form_field.dart';
 
 @RoutePage()
 class AuthConfirmPage extends BasePage<PageCubit, PageState, PageEvent> {

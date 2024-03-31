@@ -6,7 +6,7 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
-import 'package:onlinebozor/common/widgets/text_field/custom_text_form_field.dart';
+import 'package:onlinebozor/common/widgets/form_field/custom_text_form_field.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_cards/features/add_card/cubit/page_cubit.dart';
 import 'package:onlinebozor/presentation/utils/mask_formatters.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';

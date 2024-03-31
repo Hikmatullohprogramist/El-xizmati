@@ -12,7 +12,7 @@ import 'package:onlinebozor/presentation/auth/confirm/auth_confirm_page.dart';
 import 'package:onlinebozor/presentation/auth/verification/cubit/page_cubit.dart';
 
 import '../../../common/gen/localization/strings.dart';
-import '../../../common/widgets/text_field/custom_text_form_field.dart';
+import '../../../common/widgets/form_field/custom_text_form_field.dart';
 
 @RoutePage()
 class AuthVerificationPage extends BasePage<PageCubit, PageState, PageEvent> {

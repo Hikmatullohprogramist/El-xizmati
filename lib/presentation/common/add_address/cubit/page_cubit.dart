@@ -12,7 +12,6 @@ import '../../../../../../../../../data/repositories/user_repository.dart';
 import '../../../../../../../../../data/responses/address/user_address_response.dart';
 
 part 'page_cubit.freezed.dart';
-
 part 'page_state.dart';
 
 @injectable
@@ -108,22 +107,11 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
     updateState((state) => state.copyWith(isMain: isMain));
   }
 
-  Future<void> validationDate() async {
-    if (states.addressName != null &&
-        (states.addressName ?? "").length > 3 &&
-        states.regionId != null &&
-        states.districtId != null &&
-        states.neighborhoodId != null &&
-        states.homeNumber != null &&
-        (states.geo != null ||
-            (states.latitude != null && states.latitude != null))) {
-      if (states.isEditing) {
-        await updateAddress();
-      } else {
-        await addAddress();
-      }
+  Future<void> addOrUpdateAddress() async {
+    if (states.isEditing) {
+      await updateAddress();
     } else {
-      display.error("Ma'lumotlarni to'liq kiriting");
+      await addAddress();
     }
   }
 

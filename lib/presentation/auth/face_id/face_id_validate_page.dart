@@ -15,7 +15,7 @@ import '../../../common/router/app_router.dart';
 import '../../../common/widgets/app_bar/default_app_bar.dart';
 import '../../../common/widgets/button/custom_elevated_button.dart';
 import '../../../common/widgets/switch/custom_toggle.dart';
-import '../../../common/widgets/text_field/custom_text_form_field.dart';
+import '../../../common/widgets/form_field/custom_text_form_field.dart';
 
 @RoutePage()
 class FaceIdValidatePage extends BasePage<PageCubit, PageState, PageEvent> {
