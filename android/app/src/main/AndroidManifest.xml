@@ -9,6 +9,11 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <queries>
+        <package android:name="net.pulsesecure.pulsesecure" />
+        <package android:name="uz.yt.idcard.eimzo" />
+    </queries>
+
     <application
         android:label="Online-bozor"
         android:name="${applicationName}"

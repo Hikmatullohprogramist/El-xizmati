@@ -78,6 +78,8 @@ auth_register_password_contain_least_characters,Parol kamida 8 ta belgidan ibora
 auth_register_register,Roʻyxatdan oʻtish,Зарегистрироваться,Рўйхатдан ўтиш
 auth_register_repeat_password,Parolni qayta kiriting,Повторить пароль,Паролни қайта киритинг
 auth_singin_title,Tizimga kirish,Войти,Тизимга кириш
+auth_start_login_with_e_imzo,E-imzo bilan kirish,Войти с помощью ЭЦП,Э-имзо билан кириш
+auth_start_login_with_e_imzo_error,Tizimda kirishda xatolik.Qaytadan urinib ko'ring,При входе произошла ошибка. Повторите попытку,Тизимда киришда хатолик.Қайтадан уриниб кўринг
 auth_start_login_with_eds,E-Imzo yordamida tizimga kiring,Войти с помощью ЭЦП,E-imzo ёрдамида тизимга киринг
 auth_start_login_with_face_id,FaceID bilan tizimga kiring,Войти с помощью FaceID,FaceId билан тизимга киринг
 auth_start_login_with_id_card,ID-Card bilan kirish,Войти с помощью ID-Card,ID-Card билан кириш
@@ -146,6 +148,7 @@ common_unfind,topilmadi,не найдено,топилмади
 common_yes,Ha,Да,Ҳа
 create_ad_additional_info_label,Qo‘shimcha ma’lumot,Дополнительная информация,Қўшимча маълумот
 create_ad_address_label,Mening manzilim,Мои адрес,Менинг манзилим
+create_ad_addresses_info_label,Manzillar,Адреса,Манзиллар
 create_ad_auto_renew_label,Avtomatik uzaytirish,Автопродление,Автоматик узайтириш
 create_ad_auto_renew_off_desc,E’lon 15 kundan keyin faolsizlantiriladi,Объявление будет деактивировано через 15 дней,Эълон 15 кундан кейин фаолсизлантирилади
 create_ad_auto_renew_on_desc,E’lon har 15 kunda avtomatik uzaytiriladi,Автоматически продлевать объявление каждые 15 дней,Эълон ҳар 15 кунда автоматик узайтирилади
@@ -177,6 +180,7 @@ create_ad_result_desc,E’lon o‘zgarishlari ko‘rib chiqish uchun yuborildi,�
 create_ad_result_edit_current_ad,E’lonni tahrirlash,Редактирование объявления,Эълонни таҳрирлаш
 create_ad_result_message,O‘zgarishlar saqlandi,Изменения сохранены,Ўзгаришлар сақланди
 create_ad_result_open_dashboard,Asosiy oynaga o‘tish,Перейти на главную,Асосий ойнага ўтиш
+create_ad_search_address_label,Qayerdan kerak,Откуда вам нужен,Қаердан керак
 create_ad_show_my_social_accounts_label,Mening ijtimoiy tarmoqlarim mahsulot tavsifi ko‘rsatilsin,Показать мои соц. сети на описание товара,Менинг ижтимоий тармоқларим маҳсулот тавсифи кўрсатилсин
 create_ad_state_label,Holati,Состояние,Ҳолати
 create_ad_state_new_label,Yangi,Новый,Янги
@@ -355,5 +359,3 @@ user_request_canceled_title,Bekor qilingan,Отменено,Бекор қили�
 user_request_pending_title,Kutulmoqda,Ожидающий,Кутулмоқда
 user_request_rejaction_title,Rad etilgan,Отклоненный,Рад этилган
 user_request_review_title,Ko‘rib chiqilmoqda,На рассмотрении,Кўриб чиқилмоқда
-create_ad_addresses_info_label,Manzillar,Адреса,Манзиллар
-create_ad_search_address_label,Qayerdan kerak,Откуда вам нужен,Қаердан керак

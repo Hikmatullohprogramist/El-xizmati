@@ -11,7 +11,7 @@ class CameraSelfiePainter extends CustomPainter {
     final frameSize = Size(size.width * 0.65, size.height * 0.4);
     final offset = Offset(
       (size.width - frameSize.width) / 2,
-      (size.height - frameSize.height) / 2.6,
+      (size.height - frameSize.height) / 2.4,
     );
     final frameRect = offset & frameSize;
 

@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/constants/rest_query_keys.dart';
 
 import '../responses/face_id/validate_bio_doc_request.dart';
 import '../storages/token_storage.dart';
+import 'package:http/http.dart' as http;
 
 @lazySingleton
 class AuthService {
@@ -16,6 +19,41 @@ class AuthService {
     final body = {RestQueryKeys.phoneNumber: phone};
     return _dio.post('api/mobile/v1/auth/phone/verification', data: body);
   }
+
+
+  Future<http.Response> eImzoLogin() async {
+    final response = await http.post(
+      Uri.parse('https://hujjat.uz/mobile-id/frontend/mobile/auth'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    );
+    return response;
+  }
+
+  Future<http.Response> eImzoLoginCheck(String documentId, Timer? _timer) async {
+    final response = await http.post(
+      Uri.parse(
+          'https://hujjat.uz/mobile-id/frontend/mobile/status?documentId=${documentId}'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    );
+    return response;
+  }
+
+
+  Future<Response> getUserByEImzo({
+    required String sign,
+  }) async {
+    final body = {
+      RestQueryKeys.accessToken: sign,
+    };
+    return _dio.post('api/v2/mobile/auth/e-imzo/login', queryParameters: body);
+  }
+
 
   Future<Response> confirm({
     required String phone,

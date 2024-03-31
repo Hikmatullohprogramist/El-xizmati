@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:dio/src/response.dart';
 import 'package:injectable/injectable.dart';
 
@@ -9,6 +12,7 @@ import '../../data/services/auth_service.dart';
 import '../../data/storages/language_storage.dart';
 import '../../data/storages/token_storage.dart';
 import '../../data/storages/user_storage.dart';
+import '../responses/e_imzo_response/e_imzo_response.dart';
 import '../responses/face_id/validate_bio_doc_request.dart';
 
 @LazySingleton()
@@ -75,6 +79,63 @@ class AuthRepository {
     }
     return;
   }
+
+
+  Future<EImzoModel?> eImzoLogin() async {
+    EImzoModel? eImzoModel;
+    final response=await _authService.eImzoLogin();
+
+    final int statusCode = response.statusCode;
+    final resultClass = json.decode(utf8.decode(response.bodyBytes));
+    if (statusCode == 200) {
+      eImzoModel = EImzoModel.fromJson(resultClass);
+    }
+    return eImzoModel ;
+  }
+
+  Future<int?> eImzoLoginCheck(String documentId, Timer? _timer) async {
+    final response =await _authService.eImzoLoginCheck(documentId, _timer);
+
+    final int statusCode = response.statusCode;
+    final resultClass = json.decode(utf8.decode(response.bodyBytes));
+    if (statusCode == 200) {
+      if (resultClass["status"] == 1) {
+        _timer?.cancel();
+      }
+      return resultClass["status"];
+    }
+    return resultClass["status"];
+  }
+
+  Future<AuthStartResponse> getUserByEImzo(String sign) async {
+    final response = await _authService.getUserByEImzo(sign: sign);
+    final authStartResponse = AuthStartResponse.fromJson(response.data);
+    final loginResponse = ConfirmRootResponse.fromJson(response.data).data;
+    if (loginResponse.token != null) {
+      await tokenStorage.token.set(loginResponse.token ?? "");
+      await tokenStorage.isLogin.set(true);
+      final user = loginResponse.user;
+      userInfoStorage.userInformation.set(
+        UserInfoObject(
+          fullName: user?.fullName,
+          email: user?.email,
+          tin: user?.tin,
+          id: user?.id,
+          areaId: user?.areaId,
+          username: user?.username,
+          eimzoAllowToLogin: user?.eimzoAllowToLogin,
+          mobilePhone: user?.mobilePhone,
+          oblId: user?.oblId,
+          photo: user?.photo,
+          pinfl: user?.pinfl,
+          postName: user?.username,
+          state: user?.state,
+        ),
+      );
+    }
+    return authStartResponse;
+  }
+
 
   Future<void> confirm(String phone, String code) async {
     final response = await _authService.confirm(
