@@ -145,7 +145,7 @@ common_total_cost,Umumiy narx,Общая стоимость,Умумий нар�
 common_unfind,topilmadi,не найдено,топилмади
 common_yes,Ha,Да,Ҳа
 create_ad_additional_info_label,Qo‘shimcha ma’lumot,Дополнительная информация,Қўшимча маълумот
-create_ad_address_label,Manzil,Местоположение,Манзил
+create_ad_address_label,Mening manzilim,Мои адрес,Менинг манзилим
 create_ad_auto_renew_label,Avtomatik uzaytirish,Автопродление,Автоматик узайтириш
 create_ad_auto_renew_off_desc,E’lon 15 kundan keyin faolsizlantiriladi,Объявление будет деактивировано через 15 дней,Эълон 15 кундан кейин фаолсизлантирилади
 create_ad_auto_renew_on_desc,E’lon har 15 kunda avtomatik uzaytiriladi,Автоматически продлевать объявление каждые 15 дней,Эълон ҳар 15 кунда автоматик узайтирилади
@@ -355,3 +355,5 @@ user_request_canceled_title,Bekor qilingan,Отменено,Бекор қили�
 user_request_pending_title,Kutulmoqda,Ожидающий,Кутулмоқда
 user_request_rejaction_title,Rad etilgan,Отклоненный,Рад этилган
 user_request_review_title,Ko‘rib chiqilmoqda,На рассмотрении,Кўриб чиқилмоқда
+create_ad_addresses_info_label,Manzillar,Адреса,Манзиллар
+create_ad_search_address_label,Qayerdan kerak,Откуда вам нужен,Қаердан керак

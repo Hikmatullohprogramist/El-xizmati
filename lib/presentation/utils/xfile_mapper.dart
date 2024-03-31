@@ -16,4 +16,14 @@ extension XFileExtension on XFile {
   FileImage toFileImage() {
     return FileImage(File(path));
   }
+
+  Future<XFile> compressImage({int quality = 30}) async {
+    final file = toFile();
+    final compressedFile = await FlutterImageCompress.compressAndGetFile(
+      file.absolute.path,
+      '${file.absolute.path}_compressed.jpg',
+      quality: quality > 0 && quality <= 100 ? quality : 50,
+    );
+    return compressedFile!;
+  }
 }

@@ -262,16 +262,13 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       final ImagePicker picker = ImagePicker();
       final XFile? image = await picker.pickImage(source: ImageSource.camera);
 
-      log.w("pickImageFromGallery result = $image");
       if (image != null) {
         List<UploadableFile> imageList = [];
         if (states.pickedImages?.isNotEmpty == true) {
           imageList.addAll(states.pickedImages!);
         }
-
-        imageList.add(image.toUploadableFile());
-        // List<XFile> newImageList = [];
-        // newImageList.addAll(imageList);
+        XFile compressedImage = await image.compressImage();
+        imageList.add(compressedImage.toUploadableFile());
         updateState((state) => state.copyWith(pickedImages: imageList));
       }
     } catch (e) {
@@ -287,8 +284,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       }
 
       imageList.removeWhere((element) => element.xFile.path == imagePath);
-      // List<XFile> newImageList = [];
-      // newImageList.addAll(imageList);
       updateState((state) => state.copyWith(pickedImages: imageList));
     } catch (e) {
       log.e(e.toString());
