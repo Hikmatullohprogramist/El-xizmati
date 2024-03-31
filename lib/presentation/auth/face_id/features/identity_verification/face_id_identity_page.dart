@@ -20,8 +20,10 @@ import '../../../../../common/core/base_page.dart';
 import '../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../common/gen/localization/strings.dart';
 import '../../../../../common/router/app_router.dart';
+import '../../../../../common/vibrator/vibrator_extension.dart';
 import '../../../../../common/widgets/app_bar/default_app_bar.dart';
 import '../../../../../common/widgets/button/custom_elevated_button.dart';
+import '../../../../../common/widgets/button/custom_outlined_button.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -69,9 +71,9 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
 
         _buildFaceDetectorConstruction(context),
         _buildActionButton(context, state),
-       // _buildActionButtonForTest(context, state),
-        _buildConditionalWidget(state.introState, _buildFaceDetectorIntroPage(context))
-
+        _buildConditionalWidget(state.introState, _buildFaceDetectorIntroPage(context)),
+        if(state.showPicture)
+          _buildShowPicture(context, state)
       ],
     );
   }
@@ -283,14 +285,14 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
                     .then((value) async {
                   final takeImage = File(value.path);
                   Uint8List imageBytes = await takeImage.readAsBytes();
-                  String croppedImage = await cropImage(imageBytes);
-                    cubit(context).sendImage(croppedImage, cubit(context).states.secretKey);
+                   String croppedImage = await cropImage(imageBytes);
+                   cubit(context).croppedImage(croppedImage);
+                   cubit(context).showPicture(true);
 
                 });
               },
               backgroundColor: context.colors.buttonPrimary,
               isEnabled: true,
-              isLoading: state.loading,
             ),
             Container(
               margin: EdgeInsets.only(left: 25),
@@ -307,34 +309,81 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildActionButtonForTest(BuildContext context, PageState state) {
-    return Positioned(
-      bottom:85,
-      left: 10,
-      right: 10,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 55),
-        child: CustomElevatedButton(
-          text: "Test cropped image",
-          onPressed: () {
-            cubit(context)
-                .states
-                .cameraController
-                ?.takePicture()
-                .then((value) async {
-              final takeImage = File(value.path);
-              Uint8List imageBytes = await takeImage.readAsBytes();
-              String croppedImage = await cropImage(imageBytes);
-              var result= showAlertDialog(context,croppedImage);
-            });
-          },
-          backgroundColor: context.colors.buttonPrimary,
-          isEnabled: true,
-          isLoading: state.loading,
+  Widget _buildShowPicture(BuildContext context,PageState state){
+    return Scaffold(
+      backgroundColor: Colors.black54,
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            width: MediaQuery.of(context).size.width,
+            height:500,
+            decoration:BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15)
+            ),
+            child: Column(
+              children: [
+                SizedBox(height: 20),
+                Strings.authFaceIdImageQuality.w(500).s(16).c(Colors.black),
+                SizedBox(height: 20),
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Image.memory(
+                        base64Decode(state.cropperImage),
+                        fit: BoxFit.cover,
+                        height: 330,
+                        width: 250,
+                      ),
+                    ),
+                    Visibility(
+                      visible: state.loading,
+                      child: CircularProgressIndicator(color: StaticColors.slateBlue,
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(height: 25),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: CustomOutlinedButton(
+                          text: Strings.loadingStateRetry,
+                          strokeColor: Colors.red,
+                          onPressed: () {
+                            cubit(context).showPicture(false);
+                            vibrateAsHapticFeedback();
+                          },
+                        ),
+                      ),
+                      SizedBox(width: 20),
+                      Expanded(
+                        child: CustomOutlinedButton(
+                          text: Strings.commonContinue,
+                          strokeColor: Colors.green,
+                          onPressed: () {
+                            vibrateAsHapticFeedback();
+                            cubit(context).sendImage(state.cropperImage, cubit(context).states.secretKey);
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
+
   
   Widget progressIndicator() {
     return Center(
@@ -368,6 +417,73 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
       },
     );
 
+  }
+  void fullscree(BuildContext context,String image){
+    var parentContext=context;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height:500,
+            decoration:BoxDecoration(
+                color: Colors.white,
+              borderRadius: BorderRadius.circular(15)
+            ),
+            child: Column(
+              children: [
+                SizedBox(height: 20),
+                "Rasm sifatiga ishonch hosil qiling".w(500).s(16).c(Colors.black),
+                SizedBox(height: 20),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: Image.memory(
+                    base64Decode(image),
+                    fit: BoxFit.cover,
+                    height: 330,
+                    width: 250,
+                  ),
+                ),
+                SizedBox(height: 25),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: CustomOutlinedButton(
+                          text: "Qayta tushish",
+                          strokeColor: Colors.red,
+                          onPressed: () {
+                            Navigator.pop(context);
+                            vibrateAsHapticFeedback();
+                          },
+                        ),
+                      ),
+                      SizedBox(width: 20),
+                      Expanded(
+                        child: CustomOutlinedButton(
+                          text: "Davom etish",
+                          strokeColor: Colors.green,
+                          onPressed: () {
+                            vibrateAsHapticFeedback();
+
+                            cubit(parentContext).sendImage(image, cubit(context).states.secretKey);
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   Future<String> cropImage(Uint8List image2) async {

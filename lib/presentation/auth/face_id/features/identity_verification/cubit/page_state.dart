@@ -6,9 +6,12 @@ class PageState with _$PageState {
     @Default(LoadingState.loading) LoadingState loadState,
     @Default(false) bool loading,
     @Default(true) bool introState,
+    @Default(false) bool showPicture,
     @Default(<CameraDescription>[]) List<CameraDescription> cameras,
     CameraController? cameraController,
     @Default("") String secretKey,
+    @Default("") String cropperImage,
+
   }) = _PageState;
 }
 
