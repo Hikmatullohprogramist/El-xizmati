@@ -58,6 +58,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       sendAllFavoriteAds();
       emitEvent(PageEvent(PageEventType.onSuccess));
     } on DioException catch (e) {
+      updateState((state) => states.copyWith(showPicture: false));
       emitEvent(PageEvent(PageEventType.onFailure));
       display.error(e.toString());
     } finally {
@@ -77,4 +78,12 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   void closeIntroPage() {
     updateState((state) => state.copyWith(introState: false));
   }
+
+  void showPicture(bool value) {
+    updateState((state) => state.copyWith(showPicture: value));
+  }
+  void croppedImage(String value) {
+    updateState((state) => state.copyWith(cropperImage: value));
+  }
+
 }

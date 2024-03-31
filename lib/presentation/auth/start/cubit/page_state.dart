@@ -15,4 +15,5 @@ class PageEvent with _$PageEvent {
   const factory PageEvent(PageEventType type, {String? phone}) = _PageEvent;
 }
 
-enum PageEventType { verification, confirmation }
+enum PageEventType { verification, confirmation,onFailureEImzo,navigationHome}
+

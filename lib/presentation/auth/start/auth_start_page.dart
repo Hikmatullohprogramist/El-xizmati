@@ -1,4 +1,9 @@
+
+import 'dart:io';
+
+
 import 'package:auto_route/auto_route.dart';
+import 'package:external_app_launcher/external_app_launcher.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
@@ -7,15 +12,20 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/bottom_sheet/botton_sheet_for_result.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/button/custom_outlined_button.dart';
 import 'package:onlinebozor/common/widgets/form_field/custom_text_form_field.dart';
 import 'package:onlinebozor/presentation/auth/confirm/auth_confirm_page.dart';
+import 'package:onlinebozor/presentation/auth/e_imzo/e-imzo_enter/crc32.dart';
+import 'package:onlinebozor/presentation/auth/e_imzo/e-imzo_enter/gost_hash.dart';
 import 'package:onlinebozor/presentation/auth/start/cubit/page_cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../common/widgets/app_bar/default_app_bar.dart';
 import '../../utils/mask_formatters.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 @RoutePage()
 class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
@@ -33,12 +43,16 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
             confirmType: ConfirmType.confirm,
           ),
         );
+      case PageEventType.onFailureEImzo:
+        context.showErrorBottomSheet(context,Strings.loadingStateError,Strings.authStartLoginWithEImzoError);
+      case PageEventType.navigationHome:
+        context.router.replace(HomeRoute());
     }
   }
 
   @override
   void onWidgetCreated(BuildContext context) {
-    // phoneController.text = "+998 ";
+
   }
 
   final TextEditingController phoneController = TextEditingController();
@@ -86,7 +100,7 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
               CustomOutlinedButton(
                 text: Strings.authStartLoginWithFaceId,
                 onPressed: () {
-                 context.router.push(FaceIdValidateRoute());
+                  context.router.push(FaceIdValidateRoute());
                 },
                 strokeColor: context.colors.borderColor,
                 rightIcon: Assets.images.icFaceId.svg(),
@@ -100,10 +114,14 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
               SizedBox(height: 10),
               CustomOutlinedButton(
-                text: Strings.authStartLoginWithMobileId,
-                onPressed: () => context.router.push(AuthWithOneIdRoute()),
+                text: Strings.authStartLoginWithEImzo,
+                onPressed: () {
+                  cubit(context).loginWithEImzo().then((value) {
+                    enter(value?.challange??"", value?.siteId??"", value?.documentId??"", context);
+                  });
+                },
                 strokeColor: context.colors.borderColor,
-                rightIcon: Assets.images.icOneId.svg(),
+                rightIcon: Assets.images.pngImages.eImzo.image(),
               ),
               SizedBox(height: 24),
               RichText(
@@ -112,9 +130,9 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
                     TextSpan(
                       text:   Strings.authPricePoliceStart,
                       style: TextStyle(
-                        color: Color(0xFF9EABBE),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400
+                          color: Color(0xFF9EABBE),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400
                       ),
                     ),
                     TextSpan(text: " "),
@@ -161,4 +179,52 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
     } catch (error) {
     }
   }
+
+  void enterWithEimzo(String code) async {
+    await LaunchApp.openApp(
+      iosUrlScheme: 'eimzo://sign?qc=$code',
+      appStoreLink:
+      'itms-apps://itunes.apple.com/us/app/e-imzo-id-карта/id1563416406',
+      // openStore: false
+    );
+  }
+
+  void getAppPlayMarket() async {
+    await LaunchApp.openApp(
+      androidPackageName: 'uz.yt.idcard.eimzo',
+      iosUrlScheme: 'eimzo://',
+      appStoreLink:
+      'itms-apps://itunes.apple.com/us/app/e-imzo-id-карта/id1563416406',
+      // openStore: false
+    );
+  }
+
+  void enter(String challange, String siteId, String documentId, BuildContext context) {
+    var docHash = GostHash.hashGost(challange);
+    var code = siteId + documentId + docHash;
+    var crc32 = Crc32.calcHex(code);
+    code += crc32;
+    if (Platform.isAndroid) {
+      var _deepLink = 'eimzo://sign?qc=$code';
+      _launchURL(_deepLink);
+      cubit(context).checkStatusEImzo(documentId);
+    } else {
+      enterWithEimzo(code);
+    }
+  }
+
+  void _launchURL(String url) async {
+    if (await canLaunchUrl(
+      Uri.parse(url),
+    )) {
+      await launchUrl(
+        Uri.parse(url),
+        mode: LaunchMode.externalApplication,
+      );
+    } else {
+      getAppPlayMarket();
+      throw 'Ишга туширилмади $url';
+    }
+  }
+
 }
