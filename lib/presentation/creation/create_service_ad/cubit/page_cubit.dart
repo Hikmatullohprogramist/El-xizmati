@@ -33,8 +33,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     final user = _userRepository.userInfoStorage.userInformation.call();
     updateState((state) => state.copyWith(
           contactPerson: user?.fullName?.capitalizeFullName() ?? "",
-          // phone: user?.mobilePhone?.clearCountryCode() ?? "",
-          // email: user?.email ?? "",
+          phone: user?.mobilePhone?.clearPhoneNumberWithoutCode() ?? "",
+          email: user?.email ?? "",
         ));
   }
 

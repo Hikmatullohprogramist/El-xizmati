@@ -189,7 +189,7 @@ class AdCreationService {
       commonBody.addAll(exchangeBody);
     }
 
-    var endPoint = "api/mobile/v1/create-ad";
+    var endPoint = "api/mobile/v1/create-product-ad";
     if (adTransactionType == AdTransactionType.FREE) {
       endPoint = "api/mobile/v1/create-free-product-ad";
     } else if (adTransactionType == AdTransactionType.EXCHANGE) {
@@ -252,10 +252,11 @@ class AdCreationService {
       "has_bidding": isAgreedPrice,
 
       "route_type": accountType,
-      "delivery_types": serviceDistricts.toMapList("district_id"),
+      // "deliveries": serviceDistricts.toMapList("district_id"),
+      "deliveries": serviceDistricts,
 
-      "type_status": AdTransactionType.SERVICE.name,
-      "main_type_status": AdTransactionType.SELL.name,
+      // "type_status": AdTransactionType.SERVICE.name,
+      // "main_type_status": AdTransactionType.SELL.name,
       "sale_type": AdType.service.name.toUpperCase(),
 
       "is_auto_renew": isAutoRenewal,
@@ -311,12 +312,12 @@ class AdCreationService {
       "has_discount": false,
       "has_bidding": isAgreedPrice,
 
-      "property_status": "NEW", // fixme remove this field
-      "min_amount": 1, // fixme remove this field
-      "delivery_types": requestDistricts.toMapList("district_id"),
+      // "property_status": "NEW", // fixme remove this field
+      // "min_amount": 1, // fixme remove this field
+      "deliveries": requestDistricts,
 
-      "type_status": adTransactionType.name,
-      "main_type_status": adTransactionType.name,
+      // "type_status": adTransactionType.name,
+      // "main_type_status": adTransactionType.name,
       "sale_type": adType.name.toUpperCase(),
 
       "is_auto_renew": isAutoRenewal,

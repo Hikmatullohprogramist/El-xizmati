@@ -240,7 +240,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 24),
-          LabelTextField(Strings.createAdDescLabel),
+          LabelTextField(Strings.createAdDescLabel, isRequired: false),
           SizedBox(height: 6),
           CustomTextFormField(
             height: null,
@@ -521,7 +521,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   },
                 ),
                 SizedBox(height: 16),
-                LabelTextField(Strings.createAdDescLabel),
+                LabelTextField(Strings.createAdDescLabel, isRequired: false),
                 SizedBox(height: 6),
                 CustomTextFormField(
                   height: null,

@@ -210,7 +210,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 24),
-              LabelTextField(Strings.createAdDescLabel),
+              LabelTextField(Strings.createAdDescLabel, isRequired: false),
               SizedBox(height: 8),
               CustomTextFormField(
                 height: null,
@@ -222,7 +222,6 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 hint: Strings.createAdDescHint,
                 textInputAction: TextInputAction.next,
                 controller: descController,
-                validator: (value) => DefaultValidator.validate(value),
                 onChanged: (value) {
                   cubit(context).setEnteredDesc(value);
                 },
