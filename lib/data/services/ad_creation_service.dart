@@ -252,8 +252,7 @@ class AdCreationService {
       "has_bidding": isAgreedPrice,
 
       "route_type": accountType,
-      // "deliveries": serviceDistricts.toMapList("district_id"),
-      "deliveries": serviceDistricts,
+      "deliveries": serviceDistricts.toMapList("district_id"),
 
       // "type_status": AdTransactionType.SERVICE.name,
       // "main_type_status": AdTransactionType.SELL.name,
@@ -314,7 +313,7 @@ class AdCreationService {
 
       // "property_status": "NEW", // fixme remove this field
       // "min_amount": 1, // fixme remove this field
-      "deliveries": requestDistricts,
+      "deliveries": requestDistricts.toMapList("district_id"),
 
       // "type_status": adTransactionType.name,
       // "main_type_status": adTransactionType.name,
