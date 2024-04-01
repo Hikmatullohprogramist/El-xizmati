@@ -6,9 +6,9 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import '../../../../../common/core/base_cubit.dart';
 import '../../../../../data/repositories/auth_repository.dart';
 import '../../../../../data/repositories/state_repository.dart';
+import '../../../../../domain/models/language/language.dart';
 
 part 'page_cubit.freezed.dart';
-
 part 'page_state.dart';
 
 @injectable
@@ -26,19 +26,11 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> getLanguage() async {
     try {
-      final languageName = await stateRepository.getLanguageName();
-      late Language language;
-      if (languageName == 'uz') {
-        language = Language.uzbekLatin;
-      } else {
-        if (languageName == 'ru') {
-          language = Language.russian;
-        } else {
-          language = Language.uzbekCyrill;
-        }
-      }
+      final language = await stateRepository.getLanguage();
       updateState((state) => state.copyWith(language: language));
-    } catch (e) {}
+    } catch (e) {
+      log.w(e);
+    }
   }
 
   Future<void> selectLanguage(Language language, String languageName) async {
@@ -62,5 +54,3 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     updateState((state) => state.copyWith(isLogin: isLogin));
   }
 }
-
-enum Language { uzbekLatin, russian, uzbekCyrill }

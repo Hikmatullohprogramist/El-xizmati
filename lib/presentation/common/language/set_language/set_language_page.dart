@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
@@ -10,6 +9,7 @@ import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/button/custom_outlined_button.dart';
 
 import '../../../../common/gen/assets/assets.gen.dart';
+import '../../../../domain/models/language/language.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -57,7 +57,7 @@ class SetLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
                 text: Strings.languageRus,
                 onPressed: () {
                   EasyLocalization.of(context)?.setLocale(Locale('ru', 'RU'));
-                  cubit(context).setLanguage(Language.ru);
+                  cubit(context).setLanguage(Language.russian);
                 },
                 strokeColor: Color(0xFFE5E9F3),
                 rightIcon: Assets.images.pngImages.flagRu.image(),
@@ -67,7 +67,7 @@ class SetLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
                 text: Strings.languageUzLat,
                 onPressed: () {
                   EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZ'));
-                  cubit(context).setLanguage(Language.uz);
+                  cubit(context).setLanguage(Language.uzbekLatin);
                 },
                 strokeColor: Color(0xFFE5E9F3),
                 rightIcon: Assets.images.pngImages.flagUz.image(),
@@ -76,7 +76,7 @@ class SetLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
               CustomOutlinedButton(
                 onPressed: () {
                   EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZK'));
-                  cubit(context).setLanguage(Language.kr);
+                  cubit(context).setLanguage(Language.uzbekCyrill);
                 },
                 strokeColor: Color(0xFFE5E9F3),
                 rightIcon: Assets.images.pngImages.flagUz.image(),

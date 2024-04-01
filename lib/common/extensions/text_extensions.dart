@@ -33,6 +33,10 @@ extension TextStringExtensions on String {
     return replaceAll(RegExp(r"[^\d+\.]"), '');
   }
 
+  String clearCharacters() {
+    return replaceAll(RegExp(r"[^\d+\.]"), '');
+  }
+
   String capitalizeFullName() {
     return trim()
         .toLowerCase()

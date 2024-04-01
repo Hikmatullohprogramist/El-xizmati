@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/data/utils/rest_mappers.dart';
 
 import '../../../data/storages/language_storage.dart';
+import '../../../domain/models/language/language.dart';
 
 @lazySingleton
 class LanguageInterceptor extends QueuedInterceptor {
@@ -11,16 +13,22 @@ class LanguageInterceptor extends QueuedInterceptor {
 
   @override
   void onRequest(
-      RequestOptions options, RequestInterceptorHandler handler) async {
-    String languageName =languageStorage.languageName() ?? 'uz';
-    if (languageName == 'uz') {
-      languageName = "la";
-    } else {
-      if (languageName == 'uzk') languageName = "uz";
-    }
-    final headers = {'lang': languageName};
-    final queryParameters = {'lang': languageName};
-    headers['AcceptLanguage'] = languageName;
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
+    var languageName = languageStorage.languageName.call();
+    Language language = Language.uzbekLatin;
+
+    language = languageName == Language.uzbekCyrill.name
+        ? Language.uzbekCyrill
+        : languageName == Language.russian.name
+            ? Language.russian
+            : Language.uzbekLatin;
+    var restCode = language.getRestCode();
+
+    final headers = {'lang': restCode};
+    final queryParameters = {'lang': restCode};
+    headers['AcceptLanguage'] = restCode;
     options.headers.addAll(headers);
     options.queryParameters.addAll(queryParameters);
     handler.next(options);

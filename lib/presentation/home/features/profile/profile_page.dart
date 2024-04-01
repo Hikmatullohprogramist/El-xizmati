@@ -17,6 +17,7 @@ import 'package:onlinebozor/presentation/home/features/profile/cubit/page_cubit.
 
 import '../../../../common/colors/static_colors.dart';
 import '../../../../common/vibrator/vibrator_extension.dart';
+import '../../../../domain/models/language/language.dart';
 
 @RoutePage()
 class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {

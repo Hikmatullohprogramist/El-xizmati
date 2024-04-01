@@ -16,8 +16,17 @@ class StateRepository {
   final TokenStorage tokenStorage;
   final CategoriesStorage categoriesStorage;
 
-  Future<String?> getLanguageName() async {
-    return languageStorage.languageName.call();
+  Future<Language> getLanguage() async {
+    var languageName = languageStorage.languageName.call();
+    Language language = Language.uzbekLatin;
+
+    language = languageName == Language.uzbekCyrill.name
+        ? Language.uzbekCyrill
+        : languageName == Language.russian.name
+            ? Language.russian
+            : Language.uzbekLatin;
+
+    return language;
   }
 
   Future<bool?> isLanguageSelection() async {

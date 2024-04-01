@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import '../../common/gen/localization/strings.dart';
 import '../../domain/models/ad/ad_transaction_type.dart';
+import '../../domain/models/language/language.dart';
 
 extension AdTransactionTypeResExts on AdTransactionType {
   String getString() {
@@ -17,5 +20,15 @@ extension AdTransactionTypeResExts on AdTransactionType {
       case AdTransactionType.BUY_SERVICE:
         return Strings.adTransactionTypeBuyService;
     }
+  }
+}
+
+extension LanguageExts on Language {
+  Locale getLocale() {
+    return switch (this) {
+      Language.uzbekLatin => Locale('uz', 'UZ'),
+      Language.russian => Locale('ru', 'RU'),
+      Language.uzbekCyrill => Locale('uz', 'UZK'),
+    };
   }
 }

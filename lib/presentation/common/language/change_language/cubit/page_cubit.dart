@@ -3,9 +3,9 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../../../common/core/base_cubit.dart';
 import '../../../../../data/repositories/state_repository.dart';
+import '../../../../../domain/models/language/language.dart';
 
 part 'page_cubit.freezed.dart';
-
 part 'page_state.dart';
 
 @Injectable()
@@ -23,28 +23,10 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> getLanguage() async {
     try {
-      final languageName = await repository.getLanguageName();
-      late Language language;
-      if (languageName == 'uz') {
-        language = Language.uzbekLatin;
-      } else {
-        if (languageName == 'ru') {
-          language = Language.russian;
-        } else {
-          language = Language.uzbekCyrill;
-        }
-      }
+      final language = await repository.getLanguage();
       updateState((state) => state.copyWith(language: language));
-    } catch (e) {}
+    } catch (e) {
+      log.w(e);
+    }
   }
-
-// Future<void> saveSelectedLanguage() async {
-//   try {
-//     if (state.language != null) {
-//       // invoke(ChangeLanguageListenable(ChangeLanguageEffect.backTo));
-//     }
-//   } catch (e) {}
-// }
 }
-
-enum Language { uzbekLatin, russian, uzbekCyrill }

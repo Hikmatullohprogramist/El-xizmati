@@ -6,10 +6,12 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/button/custom_outlined_button.dart';
 import 'package:onlinebozor/presentation/common/language/change_language/cubit/page_cubit.dart';
+import 'package:onlinebozor/presentation/utils/enum_resource_exts.dart';
 
 import '../../../../../common/core/base_page.dart';
 import '../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../common/gen/localization/strings.dart';
+import '../../../../domain/models/language/language.dart';
 
 @RoutePage()
 class ChangeLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
@@ -47,22 +49,11 @@ class ChangeLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomOutlinedButton(
-              text: Strings.languageRus,
-              onPressed: () {
-                EasyLocalization.of(context)?.setLocale(Locale('ru', 'RU'));
-                cubit(context).selectLanguage(Language.russian);
-              },
-              strokeColor: (state.language == Language.russian
-                  ? context.colors.primary
-                  : Color(0xFFE5E9F3)),
-              rightIcon: Assets.images.pngImages.flagRu.image(),
-            ),
-            SizedBox(height: 6),
-            CustomOutlinedButton(
               text: Strings.languageUzLat,
               onPressed: () {
-                EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZ'));
-                cubit(context).selectLanguage(Language.uzbekLatin);
+                const language = Language.uzbekLatin;
+                EasyLocalization.of(context)?.setLocale(language.getLocale());
+                cubit(context).selectLanguage(language);
               },
               strokeColor: (state.language == Language.uzbekLatin
                   ? context.colors.primary
@@ -71,10 +62,24 @@ class ChangeLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
             ),
             SizedBox(height: 6),
             CustomOutlinedButton(
+              text: Strings.languageRus,
+              onPressed: () {
+                const language = Language.russian;
+                EasyLocalization.of(context)?.setLocale(language.getLocale());
+                cubit(context).selectLanguage(language);
+              },
+              strokeColor: (state.language == Language.russian
+                  ? context.colors.primary
+                  : Color(0xFFE5E9F3)),
+              rightIcon: Assets.images.pngImages.flagRu.image(),
+            ),
+            SizedBox(height: 6),
+            CustomOutlinedButton(
               text: Strings.languageUzCyr,
               onPressed: () {
-                EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZK'));
-                cubit(context).selectLanguage(Language.uzbekCyrill);
+                const language = Language.uzbekCyrill;
+                EasyLocalization.of(context)?.setLocale(language.getLocale());
+                cubit(context).selectLanguage(language);
               },
               strokeColor: (state.language == Language.uzbekCyrill
                   ? context.colors.primary
