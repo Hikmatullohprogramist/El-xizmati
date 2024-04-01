@@ -11,7 +11,6 @@ import '../../../../data/repositories/auth_repository.dart';
 import '../../../../data/responses/e_imzo_response/e_imzo_response.dart';
 
 part 'page_cubit.freezed.dart';
-
 part 'page_state.dart';
 
 @injectable
@@ -22,19 +21,18 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   void setPhone(String phone) {
     log.i(phone);
-    updateState(
-          (state) => state.copyWith(
-        phone: phone,
-        validation: phone.length >= 9,
-      ),
-    );
+    updateState((state) => state.copyWith(
+          phone: phone,
+          validation: phone.length >= 9,
+        ));
   }
 
   void validation() async {
     updateState((state) => state.copyWith(loading: true));
     try {
-      var res = await _repository.authStart(states.phone.clearPhoneNumber());
-      if (res.data.is_registered == true) {
+      var response =
+          await _repository.authStart(states.phone.clearPhoneNumberWithCode());
+      if (response.data.is_registered == true) {
         emitEvent(
           PageEvent(PageEventType.verification, phone: states.phone),
         );
@@ -51,14 +49,14 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   Future<EImzoModel?> loginWithEImzo() async {
-   // updateState((state) => state.copyWith(loading: true));
+    // updateState((state) => state.copyWith(loading: true));
     try {
       final result = await _repository.eImzoLogin();
       return result;
     } on DioException catch (e) {
       emitEvent(PageEvent(PageEventType.onFailureEImzo));
     } finally {
-     // updateState((state) => state.copyWith(loading: false));
+      // updateState((state) => state.copyWith(loading: false));
     }
   }
 
@@ -89,7 +87,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     try {
       log.e(documentId);
       var res = await _repository.getUserByEImzo(documentId);
-      if(res.status==200){
+      if (res.status == 200) {
         getUserByEImzo(documentId).whenComplete(() {
           emitEvent(
             PageEvent(PageEventType.navigationHome),
@@ -105,8 +103,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       updateState((state) => state.copyWith(loading: false));
     }
   }
-
-
 
   Future<void> openTelegram() async {
     try {
