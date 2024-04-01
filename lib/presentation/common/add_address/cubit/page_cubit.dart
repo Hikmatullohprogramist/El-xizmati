@@ -12,7 +12,6 @@ import '../../../../../../../../../data/repositories/user_repository.dart';
 import '../../../../../../../../../data/responses/address/user_address_response.dart';
 
 part 'page_cubit.freezed.dart';
-
 part 'page_state.dart';
 
 @injectable
@@ -200,6 +199,12 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
       display.error("street error $e");
       updateState((state) => state.copyWith());
     }
+  }
+
+  String getFormattedLocation() {
+    return states.latitude == null || states.longitude == null
+        ? ""
+        : "${states.latitude}, ${states.longitude}";
   }
 
   Future<void> getCurrentLocation() async {

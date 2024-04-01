@@ -95,7 +95,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
           CustomTextFormField(
             controller: addressController,
             hint: Strings.userAddressAddress,
-            validator: (value) => DefaultValidator.validate(value),
+            validator: (value) => NotEmptyValidator.validate(value),
             onChanged: (value) {
               cubit(context).setEnteredAddressName(value);
             },
@@ -117,7 +117,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
           CustomDropdownFormField(
             hint: Strings.commonRegion,
             value: state.regionName ?? "",
-            validator: (value) => DefaultValidator.validate(value),
+            validator: (value) => NotEmptyValidator.validate(value),
             onTap: () {
               _showRegionSelection(context, state);
             },
@@ -128,7 +128,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
           CustomDropdownFormField(
             hint: Strings.commonDistrict,
             value: state.districtName ?? "",
-            // validator: (value) => DefaultValidator.validate(value),
+            validator: (value) => NotEmptyValidator.validate(value),
             onTap: () {
               _showDistrictSelection(context, state);
             },
@@ -139,7 +139,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
           CustomDropdownFormField(
             hint: Strings.commonNeighborhood,
             value: state.neighborhoodName ?? "",
-            // validator: (value) => DefaultValidator.validate(value),
+            validator: (value) => NotEmptyValidator.validate(value),
             onTap: () {
               _showNeighborhoodSelection(context, state);
             },
@@ -230,7 +230,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
           SizedBox(height: 12),
           LabelTextField(Strings.userAddressTakenLocation, isRequired: true),
           SizedBox(height: 8),
-          Text("${state.latitude}, ${state.longitude},"),
+          Text(cubit(context).getFormattedLocation()),
           SizedBox(height: 8),
           CustomOutlinedButton(
             text: Strings.userAddressGetLocation,
