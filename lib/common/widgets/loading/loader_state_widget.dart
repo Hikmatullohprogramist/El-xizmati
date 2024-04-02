@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/enum/enums.dart';
-import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
+import 'package:onlinebozor/common/widgets/loading/default_error_widget.dart';
+
+import 'default_loading_widget.dart';
 
 class LoaderStateWidget extends StatelessWidget {
   const LoaderStateWidget({
     super.key,
-    required this.isFullScreen,
     required this.loadingState,
-    required this.successBody,
     this.initialBody,
     this.loadingBody,
+    required this.successBody,
     this.emptyBody,
+    this.errorBody,
     this.onRetryClicked,
+    this.isFullScreen = false,
   });
 
   final bool isFullScreen;
@@ -22,89 +23,33 @@ class LoaderStateWidget extends StatelessWidget {
   final Widget? initialBody;
   final Widget? loadingBody;
   final Widget? emptyBody;
+  final Widget? errorBody;
   final VoidCallback? onRetryClicked;
 
   @override
   Widget build(BuildContext context) {
     return switch (loadingState) {
-      LoadingState.loading =>
-        loadingBody ?? LoadingWidget(isFullScreen: isFullScreen),
-      LoadingState.error => ErrorWidget(isFullScreen: isFullScreen),
+      LoadingState.onStart => initialBody ?? _buildDefaultInitialBody(),
+      LoadingState.loading => loadingBody ?? _buildDefaultLoadingBody(),
       LoadingState.success => successBody,
-      LoadingState.onStart => initialBody ?? Center(),
-      LoadingState.empty => emptyBody ?? Center(),
+      LoadingState.empty => emptyBody ?? _buildDefaultEmptyBody(),
+      LoadingState.error => errorBody ?? _buildDefaultErrorBody(),
     };
   }
-}
 
-class LoadingWidget extends StatelessWidget {
-  const LoadingWidget({super.key, required this.isFullScreen});
-
-  final bool isFullScreen;
-
-  @override
-  Widget build(BuildContext context) {
-    return isFullScreen
-        ? Center(
-            child: CircularProgressIndicator(
-              color: Colors.blue,
-            ),
-          )
-        : SizedBox(
-            height: 160,
-            child: Center(
-              child: CircularProgressIndicator(
-                color: Colors.blue,
-              ),
-            ),
-          );
+  Widget _buildDefaultInitialBody() {
+    return Center();
   }
-}
 
-class ErrorWidget extends StatelessWidget {
-  const ErrorWidget({
-    super.key,
-    required this.isFullScreen,
-    this.onErrorToAgainRequest,
-  });
+  Widget _buildDefaultLoadingBody() {
+    return DefaultErrorWidget(isFullScreen: isFullScreen);
+  }
 
-  final bool isFullScreen;
-  final VoidCallback? onErrorToAgainRequest;
+  Widget _buildDefaultEmptyBody() {
+    return Center();
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    return isFullScreen
-        ? Center(
-            child: Column(
-              children: [
-                "Xatolik yuz berdi?".w(400).s(14).c(context.colors.textPrimary),
-                SizedBox(height: 12),
-                CustomElevatedButton(
-                  text: "Qayta urinish",
-                  onPressed: () => onErrorToAgainRequest,
-                  buttonWidth: 180,
-                )
-              ],
-            ),
-          )
-        : Center(
-            child: SizedBox(
-              height: 160,
-              child: Column(
-                children: [
-                  "Xatolik yuz berdi?"
-                      .w(400)
-                      .s(14)
-                      .c(context.colors.textPrimary),
-                  SizedBox(height: 12),
-                  CustomElevatedButton(
-                    text: "Qayta urinish",
-                    onPressed: () => onErrorToAgainRequest,
-                    buttonWidth: 180,
-                  )
-                ],
-              ),
-            ),
-          );
+  Widget _buildDefaultErrorBody() {
+    return DefaultLoadingWidget(isFullScreen: isFullScreen);
   }
 }
