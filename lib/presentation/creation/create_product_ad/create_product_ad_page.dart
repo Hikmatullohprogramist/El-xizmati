@@ -5,10 +5,10 @@ import 'package:onlinebozor/common/controller/controller_exts.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/widgets/app_bar/default_app_bar.dart';
-import 'package:onlinebozor/common/widgets/chips/chip_add_item.dart';
 import 'package:onlinebozor/common/widgets/chips/chip_item.dart';
 import 'package:onlinebozor/common/widgets/chips/chip_list.dart';
-import 'package:onlinebozor/common/widgets/image/image_ad_list_widget.dart';
+import 'package:onlinebozor/common/widgets/form_field/validator/default_validator.dart';
+import 'package:onlinebozor/common/widgets/image_list/ad_image_list_widget.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_switch.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_toggle.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
@@ -29,9 +29,10 @@ import '../../../common/widgets/action/selection_list_item.dart';
 import '../../../common/widgets/bottom_sheet/bottom_sheet_title.dart';
 import '../../../common/widgets/button/custom_elevated_button.dart';
 import '../../../common/widgets/divider/custom_diverder.dart';
-import '../../../common/widgets/form_field/label_text_field.dart';
 import '../../../common/widgets/form_field/custom_dropdown_form_field.dart';
 import '../../../common/widgets/form_field/custom_text_form_field.dart';
+import '../../../common/widgets/form_field/label_text_field.dart';
+import '../../../common/widgets/form_field/validator/count_validator.dart';
 import '../../../domain/models/ad/ad_type.dart';
 import '../../common/selection_payment_type/selection_payment_type_page.dart';
 import '../../utils/mask_formatters.dart';
@@ -129,15 +130,23 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   /// Build block methods
 
-  Widget _buildTitleAndCategoryBlock(
-    BuildContext context,
-    PageState state,
-  ) {
+  Widget _buildTitleAndCategoryBlock(BuildContext context, PageState state) {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       child: Column(
         children: [
+          LabelTextField(Strings.createAdTransactionTypeLabel),
+          SizedBox(height: 6),
+          CustomDropdownFormField(
+            value: state.adTransactionType.getString(),
+            hint: Strings.createAdTransactionTypeLabel,
+            validator: (value) => NotEmptyValidator.validate(value),
+            onTap: () {
+              _showAdTransactionTypeSelectionBottomSheet(context, state);
+            },
+          ),
+          SizedBox(height: 16),
           LabelTextField(Strings.createAdNameLabel),
           SizedBox(height: 6),
           CustomTextFormField(
@@ -149,6 +158,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             hint: Strings.createAdNameLabel,
             textInputAction: TextInputAction.next,
             controller: titleController,
+            validator: (value) => NotEmptyValidator.validate(value),
             onChanged: (value) {
               cubit(context).setEnteredTitle(value);
             },
@@ -159,6 +169,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           CustomDropdownFormField(
             value: state.category?.name ?? "",
             hint: Strings.createAdCategoryLabel,
+            validator: (value) => NotEmptyValidator.validate(value),
             onTap: () {
               context.router.push(
                 SelectionNestedCategoryRoute(
@@ -170,38 +181,24 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               );
             },
           ),
-          SizedBox(height: 16),
-          LabelTextField(Strings.createAdTransactionTypeLabel),
-          SizedBox(height: 6),
-          CustomDropdownFormField(
-            value: state.adTransactionType.getString(),
-            hint: Strings.createAdTransactionTypeLabel,
-            onTap: () {
-              _showAdTransactionTypeSelectionBottomSheet(context, state);
-            },
-          ),
         ],
       ),
     );
   }
 
-  Widget _buildImageListBlock(
-    BuildContext context,
-    PageState state,
-  ) {
+  Widget _buildImageListBlock(BuildContext context, PageState state) {
     return Container(
       color: Colors.white,
       child: Column(
         children: [
-          ImageAdListWidget(
+          AdImageListWidget(
             imagePaths: cubit(context).getImages(),
             maxCount: state.maxImageCount,
-            onTakePhotoClicked: () {
-              cubit(context).takeImage();
-            },
-            onPickImageClicked: () {
-              cubit(context).pickImage();
-            },
+            validator: (value) => CountValidator.validate(value),
+            onTakePhotoClicked: () => cubit(context).takeImage(),
+            onPickImageClicked: () => cubit(context).pickImage(),
+            onRemoveClicked: (path) => cubit(context).removeImage(path),
+            onReorder: (i, j) => cubit(context).onReorder(i, j),
             onImageClicked: (index) async {
               final result = await context.router.push(
                 LocaleImageViewerRoute(
@@ -215,12 +212,6 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                     .setChangedImageList(result as List<UploadableFile>);
               }
             },
-            onRemoveClicked: (imagePath) {
-              cubit(context).removeImage(imagePath);
-            },
-            onReorder: (oldIndex, newIndex) {
-              cubit(context).onReorder(oldIndex, newIndex);
-            },
           ),
           SizedBox(height: 16),
         ],
@@ -228,10 +219,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildDescBlock(
-    BuildContext context,
-    PageState state,
-  ) {
+  Widget _buildDescBlock(BuildContext context, PageState state) {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
@@ -294,6 +282,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                             textInputAction: TextInputAction.next,
                             controller: warehouseController,
                             inputFormatters: quantityMaskFormatter,
+                            validator: (v) => NotEmptyValidator.validate(v),
                             onChanged: (value) {
                               cubit(context).setEnteredWarehouseCount(value);
                             },
@@ -314,6 +303,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                           CustomDropdownFormField(
                             value: state.unit?.name ?? "",
                             hint: "-",
+                            validator: (v) => NotEmptyValidator.validate(v),
                             onTap: () async {
                               final unit = await showModalBottomSheet(
                                 context: context,
@@ -353,8 +343,9 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                             minLines: 1,
                             hint: "-",
                             textInputAction: TextInputAction.next,
-                            controller: priceController,
                             inputFormatters: amountMaskFormatter,
+                            controller: priceController,
+                            validator: (v) => NotEmptyValidator.validate(v),
                             onChanged: (value) {
                               cubit(context).setEnteredPrice(value);
                             },
@@ -372,6 +363,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                           CustomDropdownFormField(
                             value: state.currency?.name ?? "",
                             hint: "-",
+                            validator: (v) => NotEmptyValidator.validate(v),
                             onTap: () async {
                               final currency = await showModalBottomSheet(
                                 context: context,
@@ -415,14 +407,25 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   isRequired: true,
                 ),
                 SizedBox(height: 16),
-                Wrap(
-                  direction: Axis.horizontal,
-                  spacing: 8,
-                  runSpacing: 8,
-                  alignment: WrapAlignment.start,
-                  crossAxisAlignment: WrapCrossAlignment.start,
-                  runAlignment: WrapAlignment.start,
-                  children: _buildPaymentTypeChips(context, state),
+                ChipList(
+                  chips: _buildPaymentTypeChips(context, state),
+                  isShowAll: true,
+                  isShowChildrenCount: false,
+                  validator: (value) => CountValidator.validate(value),
+                  onClickedAdd: () async {
+                    final paymentTypes = await showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      useSafeArea: true,
+                      backgroundColor: Colors.transparent,
+                      builder: (context) => SelectionPaymentTypePage(
+                        selectedPaymentTypes: state.paymentTypes,
+                      ),
+                    );
+                    cubit(context).setSelectedPaymentTypes(paymentTypes);
+                  },
+                  onClickedShowLess: () {},
+                  onClickedShowMore: () {},
                 ),
                 SizedBox(height: 24),
               ],
@@ -430,10 +433,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           );
   }
 
-  Widget _buildAdditionalInfoBlock(
-    BuildContext context,
-    PageState state,
-  ) {
+  Widget _buildAdditionalInfoBlock(BuildContext context, PageState state) {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.all(16),
@@ -474,10 +474,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildExchangeAdBlock(
-    BuildContext context,
-    PageState state,
-  ) {
+  Widget _buildExchangeAdBlock(BuildContext context, PageState state) {
     return !cubit(context).isExchangeMode()
         ? SizedBox(height: 0, width: 0)
         : Container(
@@ -499,6 +496,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   hint: Strings.createAdNameLabel,
                   textInputAction: TextInputAction.next,
                   controller: exchangeTitleController,
+                  validator: (value) => NotEmptyValidator.validate(value),
                   onChanged: (value) {
                     cubit(context).setEnteredAnotherTitle(value);
                   },
@@ -509,6 +507,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 CustomDropdownFormField(
                   value: state.exchangeCategory?.name ?? "",
                   hint: Strings.createAdCategoryLabel,
+                  validator: (value) => NotEmptyValidator.validate(value),
                   onTap: () {
                     context.router.push(
                       SelectionNestedCategoryRoute(
@@ -572,6 +571,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           CustomDropdownFormField(
             value: state.address?.name ?? "",
             hint: Strings.createAdAddressLabel,
+            validator: (value) => NotEmptyValidator.validate(value),
             onTap: () async {
               final address = await showModalBottomSheet(
                 context: context,
@@ -597,6 +597,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             inputType: TextInputType.name,
             textInputAction: TextInputAction.next,
             controller: contactPersonController,
+            validator: (value) => NotEmptyValidator.validate(value),
             onChanged: (value) {
               cubit(context).setEnteredContactPerson(value);
             },
@@ -614,6 +615,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             textInputAction: TextInputAction.next,
             controller: phoneController,
             inputFormatters: phoneMaskFormatter,
+            validator: (value) => NotEmptyValidator.validate(value),
             onChanged: (value) {
               cubit(context).setEnteredPhone(value);
             },
@@ -629,6 +631,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             hint: Strings.createAdContactEmailLabel,
             maxLines: 1,
             controller: emailController,
+            validator: (value) => NotEmptyValidator.validate(value),
             onChanged: (value) {
               cubit(context).setEnteredEmail(value);
             },
@@ -669,22 +672,18 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
             ],
           ),
-          Visibility(
-            visible: state.isPickupEnabled,
-            child: SizedBox(height: 24),
-          ),
-          Visibility(
-            visible: state.isPickupEnabled,
-            child: ChipList(
+          if (state.isPickupEnabled) SizedBox(height: 24),
+          if (state.isPickupEnabled)
+            ChipList(
               chips: _buildPickupAddressChips(context, state),
               isShowAll: state.isShowAllPickupAddresses,
+              validator: (value) => CountValidator.validate(value),
               onClickedAdd: () {
                 _showSelectionPickup(context, state);
               },
               onClickedShowLess: () => cubit(context).showHideAddresses(),
               onClickedShowMore: () => cubit(context).showHideAddresses(),
             ),
-          ),
           SizedBox(height: 6),
         ],
       ),
@@ -720,22 +719,18 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
             ],
           ),
-          Visibility(
-            visible: state.isFreeDeliveryEnabled,
-            child: SizedBox(height: 24),
-          ),
-          Visibility(
-            visible: state.isFreeDeliveryEnabled,
-            child: ChipList(
+          if (state.isFreeDeliveryEnabled) SizedBox(height: 24),
+          if (state.isFreeDeliveryEnabled)
+            ChipList(
               chips: _buildFreeDeliveryChips(context, state),
               isShowAll: state.isShowAllFreeDeliveryDistricts,
+              validator: (value) => CountValidator.validate(value),
               onClickedAdd: () {
                 _showSelectionFreeDistrict(context, state);
               },
               onClickedShowLess: () => cubit(context).showHideFreeDistricts(),
               onClickedShowMore: () => cubit(context).showHideFreeDistricts(),
             ),
-          ),
           SizedBox(height: 6),
         ],
       ),
@@ -771,21 +766,12 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
             ],
           ),
-          Visibility(
-            visible: state.isPaidDeliveryEnabled,
-            child: SizedBox(height: 24),
-          ),
-          Visibility(
-            visible: state.isPaidDeliveryEnabled,
-            child: LabelTextField(Strings.createAdPaidDeliveryPriceLabel),
-          ),
-          Visibility(
-            visible: state.isPaidDeliveryEnabled,
-            child: SizedBox(height: 6),
-          ),
-          Visibility(
-            visible: state.isPaidDeliveryEnabled,
-            child: CustomTextFormField(
+          if (state.isPaidDeliveryEnabled) SizedBox(height: 24),
+          if (state.isPaidDeliveryEnabled)
+            LabelTextField(Strings.createAdPaidDeliveryPriceLabel),
+          if (state.isPaidDeliveryEnabled) SizedBox(height: 6),
+          if (state.isPaidDeliveryEnabled)
+            CustomTextFormField(
               autofillHints: const [AutofillHints.transactionAmount],
               inputType: TextInputType.number,
               keyboardType: TextInputType.number,
@@ -795,27 +781,23 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               textInputAction: TextInputAction.done,
               controller: paidDelPriceController,
               inputFormatters: amountMaskFormatter,
+              validator: (value) => NotEmptyValidator.validate(value),
               onChanged: (value) {
                 cubit(context).setEnteredPaidDeliveryPrice(value);
               },
             ),
-          ),
-          Visibility(
-            visible: state.isPaidDeliveryEnabled,
-            child: SizedBox(height: 12),
-          ),
-          Visibility(
-            visible: state.isPaidDeliveryEnabled,
-            child: ChipList(
+          if (state.isPaidDeliveryEnabled) SizedBox(height: 12),
+          if (state.isPaidDeliveryEnabled)
+            ChipList(
               chips: _buildPaidDeliveryChips(context, state),
               isShowAll: state.isShowAllPaidDeliveryDistricts,
+              validator: (value) => CountValidator.validate(value),
               onClickedAdd: () {
                 _showSelectionPaidDistrict(context, state);
               },
               onClickedShowLess: () => cubit(context).showHidePaidDistricts(),
               onClickedShowMore: () => cubit(context).showHidePaidDistricts(),
             ),
-          ),
           SizedBox(height: 6),
         ],
       ),
@@ -1025,28 +1007,8 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  List<Widget> _buildPaymentTypeChips(
-    BuildContext context,
-    PageState state,
-  ) {
-    List<Widget> chips = [];
-    chips.add(
-      ChipAddItem(
-        onClicked: () async {
-          final paymentTypes = await showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            useSafeArea: true,
-            backgroundColor: Colors.transparent,
-            builder: (context) => SelectionPaymentTypePage(
-              selectedPaymentTypes: state.paymentTypes,
-            ),
-          );
-          cubit(context).setSelectedPaymentTypes(paymentTypes);
-        },
-      ),
-    );
-    chips.addAll(state.paymentTypes
+  List<Widget> _buildPaymentTypeChips(BuildContext context, PageState state) {
+    return state.paymentTypes
         .map(
           (element) => ChipItem(
             item: element,
@@ -1056,8 +1018,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
           ),
         )
-        .toList());
-    return chips;
+        .toList();
   }
 
   List<Widget> _buildPickupAddressChips(BuildContext context, PageState state) {
