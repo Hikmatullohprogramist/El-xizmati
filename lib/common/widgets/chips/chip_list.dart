@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/chips/chip_add_item.dart';
 import 'package:onlinebozor/common/widgets/chips/chip_count_item.dart';
 import 'package:onlinebozor/common/widgets/chips/chip_show_less_item.dart';
@@ -15,6 +16,8 @@ class ChipList extends StatelessWidget {
     required this.onClickedShowMore,
     this.minCount = 3,
     this.isShowChildrenCount = true,
+    this.autoValidateMode,
+    this.validator,
   });
 
   final List<Widget> chips;
@@ -24,17 +27,44 @@ class ChipList extends StatelessWidget {
   final bool isShowAll;
   final bool isShowChildrenCount;
   final int minCount;
+  final AutovalidateMode? autoValidateMode;
+  final String? Function(int count)? validator;
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      direction: Axis.horizontal,
-      spacing: 8,
-      runSpacing: 8,
-      alignment: WrapAlignment.start,
-      crossAxisAlignment: WrapCrossAlignment.start,
-      runAlignment: WrapAlignment.start,
-      children: _getActualChips(),
+    return FormField(
+      validator: (value) {
+        return validator != null ? validator!(chips.length) : null;
+      },
+      builder: (state) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Wrap(
+              direction: Axis.horizontal,
+              spacing: 8,
+              runSpacing: 8,
+              alignment: WrapAlignment.start,
+              crossAxisAlignment: WrapCrossAlignment.start,
+              runAlignment: WrapAlignment.start,
+              children: _getActualChips(),
+            ),
+            if (state.hasError) SizedBox(height: 8),
+            if (state.hasError)
+              Row(
+                children: [
+                  SizedBox(width: 16),
+                  (state.errorText!).s(12).c(Colors.red).copyWith(
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+          ],
+        );
+      },
     );
   }
 
