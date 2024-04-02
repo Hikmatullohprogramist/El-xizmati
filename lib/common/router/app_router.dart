@@ -128,17 +128,31 @@ class AppRouter extends _$AppRouter {
           initial: false,
           children: [
             AutoRoute(
-              page: DashboardRoute.page,
-              path: 'dashboard',
-              maintainState: false,
+                page: DashboardRoute.page,
+                path: 'dashboard',
+                maintainState: true,
+                keepHistory: true),
+            AutoRoute(
+              page: CategoryRoute.page,
+              path: 'category',
+              keepHistory: true,
             ),
-            AutoRoute(page: CategoryRoute.page, path: 'category'),
             AutoRoute(
               page: CreateAdChooserRoute.page,
               path: 'create_ad_chooser',
+              keepHistory: false,
             ),
-            AutoRoute(page: CartRoute.page, path: 'cart', maintainState: false),
-            AutoRoute(page: ProfileRoute.page, path: 'profile')
+            AutoRoute(
+              page: CartRoute.page,
+              path: 'cart',
+              maintainState: false,
+              keepHistory: false,
+            ),
+            AutoRoute(
+              page: ProfileRoute.page,
+              path: 'profile',
+              keepHistory: false,
+            )
           ],
         ),
 
@@ -152,11 +166,13 @@ class AppRouter extends _$AppRouter {
               page: FavoriteProductsRoute.page,
               path: 'favorites_products',
               maintainState: false,
+              keepHistory: false,
             ),
             AutoRoute(
               page: FavoriteServicesRoute.page,
               path: 'favorites_services',
               maintainState: false,
+              keepHistory: false,
             )
           ],
         ),
