@@ -5,10 +5,10 @@ import 'package:onlinebozor/common/controller/controller_exts.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/widgets/app_bar/default_app_bar.dart';
-import 'package:onlinebozor/common/widgets/chips/chip_add_item.dart';
 import 'package:onlinebozor/common/widgets/chips/chip_item.dart';
 import 'package:onlinebozor/common/widgets/chips/chip_list.dart';
-import 'package:onlinebozor/common/widgets/image/image_ad_list_widget.dart';
+import 'package:onlinebozor/common/widgets/form_field/validator/count_validator.dart';
+import 'package:onlinebozor/common/widgets/image_list/ad_image_list_widget.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_switch.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_toggle.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
@@ -115,46 +115,44 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-      child: Form(
-        child: Column(
-          children: [
-            LabelTextField(Strings.createAdNameLabel),
-            SizedBox(height: 6),
-            CustomTextFormField(
-              autofillHints: const [AutofillHints.name],
-              inputType: TextInputType.name,
-              keyboardType: TextInputType.name,
-              minLines: 1,
-              maxLines: 3,
-              hint: Strings.createAdNameLabel,
-              textInputAction: TextInputAction.next,
-              controller: titleController,
-              validator: (value) => DefaultValidator.validate(value),
-              onChanged: (value) {
-                cubit(context).setEnteredTitle(value);
-              },
-            ),
-            SizedBox(height: 16),
-            LabelTextField(Strings.createAdCategoryLabel),
-            SizedBox(height: 6),
-            SizedBox(height: 6),
-            CustomDropdownFormField(
-              value: state.category?.name ?? "",
-              hint: Strings.createAdCategoryLabel,
-              validator: (value) => DefaultValidator.validate(value),
-              onTap: () {
-                context.router.push(
-                  SelectionNestedCategoryRoute(
-                    adType: AdType.service,
-                    onResult: (category) {
-                      cubit(context).setSelectedCategory(category);
-                    },
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
+      child: Column(
+        children: [
+          LabelTextField(Strings.createAdNameLabel),
+          SizedBox(height: 6),
+          CustomTextFormField(
+            autofillHints: const [AutofillHints.name],
+            inputType: TextInputType.name,
+            keyboardType: TextInputType.name,
+            minLines: 1,
+            maxLines: 3,
+            hint: Strings.createAdNameLabel,
+            textInputAction: TextInputAction.next,
+            controller: titleController,
+            validator: (value) => NotEmptyValidator.validate(value),
+            onChanged: (value) {
+              cubit(context).setEnteredTitle(value);
+            },
+          ),
+          SizedBox(height: 16),
+          LabelTextField(Strings.createAdCategoryLabel),
+          SizedBox(height: 6),
+          SizedBox(height: 6),
+          CustomDropdownFormField(
+            value: state.category?.name ?? "",
+            hint: Strings.createAdCategoryLabel,
+            validator: (value) => NotEmptyValidator.validate(value),
+            onTap: () {
+              context.router.push(
+                SelectionNestedCategoryRoute(
+                  adType: AdType.service,
+                  onResult: (category) {
+                    cubit(context).setSelectedCategory(category);
+                  },
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }
@@ -164,15 +162,14 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
       color: Colors.white,
       child: Column(
         children: [
-          ImageAdListWidget(
+          AdImageListWidget(
             imagePaths: cubit(context).getImages(),
             maxCount: state.maxImageCount,
-            onTakePhotoClicked: () {
-              cubit(context).takeImage();
-            },
-            onPickImageClicked: () {
-              cubit(context).pickImage();
-            },
+            validator: (value) => CountValidator.validate(value),
+            onTakePhotoClicked: () => cubit(context).takeImage(),
+            onPickImageClicked: () => cubit(context).pickImage(),
+            onRemoveClicked: (path) => cubit(context).removeImage(path),
+            onReorder: (i, j) => cubit(context).onReorder(i, j),
             onImageClicked: (index) async {
               final result = await context.router.push(
                 LocaleImageViewerRoute(
@@ -185,12 +182,6 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 cubit(context)
                     .setChangedImageList(result as List<UploadableFile>);
               }
-            },
-            onRemoveClicked: (imagePath) {
-              cubit(context).removeImage(imagePath);
-            },
-            onReorder: (oldIndex, newIndex) {
-              cubit(context).onReorder(oldIndex, newIndex);
             },
           ),
           SizedBox(height: 16),
@@ -312,7 +303,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                         CustomDropdownFormField(
                           value: state.currency?.name ?? "",
                           hint: "-",
-                          validator: (value) => DefaultValidator.validate(value),
+                          validator: (v) => NotEmptyValidator.validate(v),
                           onTap: () async {
                             final currency = await showModalBottomSheet(
                               context: context,
@@ -373,14 +364,25 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 isRequired: true,
               ),
               SizedBox(height: 16),
-              Wrap(
-                direction: Axis.horizontal,
-                spacing: 8,
-                runSpacing: 8,
-                alignment: WrapAlignment.start,
-                crossAxisAlignment: WrapCrossAlignment.start,
-                runAlignment: WrapAlignment.start,
-                children: _buildPaymentTypeChips(context, state),
+              ChipList(
+                chips: _buildPaymentTypeChips(context, state),
+                isShowAll: true,
+                isShowChildrenCount: false,
+                validator: (value) => CountValidator.validate(value),
+                onClickedAdd: () async {
+                  final paymentTypes = await showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    useSafeArea: true,
+                    backgroundColor: Colors.transparent,
+                    builder: (context) => SelectionPaymentTypePage(
+                      selectedPaymentTypes: state.paymentTypes,
+                    ),
+                  );
+                  cubit(context).setSelectedPaymentTypes(paymentTypes);
+                },
+                onClickedShowLess: () {},
+                onClickedShowMore: () {},
               ),
               SizedBox(height: 24),
             ],
@@ -420,6 +422,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           ChipList(
             chips: _buildServiceAddressChips(context, state),
             isShowAll: state.isShowAllServiceDistricts,
+            validator: (value) => CountValidator.validate(value),
             onClickedAdd: () {
               _showSelectionServiceAddress(context, state);
             },
@@ -447,7 +450,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           CustomDropdownFormField(
             value: state.address?.name ?? "",
             hint: Strings.createAdAddressLabel,
-            validator: (value) => DefaultValidator.validate(value),
+            validator: (value) => NotEmptyValidator.validate(value),
             onTap: () async {
               final address = await showModalBottomSheet(
                 context: context,
@@ -650,50 +653,30 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   List<Widget> _buildPaymentTypeChips(BuildContext context, PageState state) {
-    List<Widget> chips = [];
-    chips.add(
-      ChipAddItem(
-        onClicked: () async {
-          final paymentTypes = await showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            useSafeArea: true,
-            backgroundColor: Colors.transparent,
-            builder: (context) => SelectionPaymentTypePage(
-              selectedPaymentTypes: state.paymentTypes,
-            ),
-          );
-          cubit(context).setSelectedPaymentTypes(paymentTypes);
-        },
-      ),
-    );
-    chips.addAll(state.paymentTypes
-        .map(
-          (element) => ChipItem(
-            item: element,
-            title: element.name ?? "",
-            onActionClicked: (item) {
-              cubit(context).removeSelectedPaymentType(element);
-            },
-          ),
-        )
-        .toList());
-    return chips;
+    return state.paymentTypes
+        .map((element) => ChipItem(
+              item: element,
+              title: element.name ?? "",
+              onActionClicked: (item) {
+                cubit(context).removeSelectedPaymentType(element);
+              },
+            ))
+        .toList();
   }
 
   List<Widget> _buildServiceAddressChips(
-      BuildContext context, PageState state) {
+    BuildContext context,
+    PageState state,
+  ) {
     return state.serviceDistricts
-        .map(
-          (element) => ChipItem(
-            item: element,
-            title: element.name,
-            onChipClicked: (item) =>
-                _showSelectionServiceAddress(context, state),
-            onActionClicked: (item) =>
-                cubit(context).removeRequestAddress(item),
-          ),
-        )
+        .map((element) => ChipItem(
+              item: element,
+              title: element.name,
+              onChipClicked: (item) =>
+                  _showSelectionServiceAddress(context, state),
+              onActionClicked: (item) =>
+                  cubit(context).removeRequestAddress(item),
+            ))
         .toList();
   }
 
