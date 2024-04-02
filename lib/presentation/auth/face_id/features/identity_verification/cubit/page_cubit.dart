@@ -57,7 +57,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       updateState((state) => state.copyWith(loadState: LoadingState.success));
       sendAllFavoriteAds();
       emitEvent(PageEvent(PageEventType.onSuccess));
-    } on DioException catch (e) {
+    } catch (e) {
       updateState((state) => states.copyWith(showPicture: false));
       emitEvent(PageEvent(PageEventType.onFailure));
       display.error(e.toString());

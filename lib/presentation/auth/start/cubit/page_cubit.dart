@@ -41,7 +41,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           PageEvent(PageEventType.confirmation, phone: states.phone),
         );
       }
-    } on DioException catch (e) {
+    } catch (e) {
       display.error(e.toString());
     } finally {
       updateState((state) => state.copyWith(loading: false));
@@ -53,7 +53,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     try {
       final result = await _repository.eImzoLogin();
       return result;
-    } on DioException catch (e) {
+    } catch (e) {
       emitEvent(PageEvent(PageEventType.onFailureEImzo));
     } finally {
       // updateState((state) => state.copyWith(loading: false));
@@ -94,7 +94,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           );
         });
       }
-    } on DioException catch (e) {
+    } catch (e) {
       updateState((state) => state.copyWith(loading: false));
       emitEvent(
         PageEvent(PageEventType.onFailureEImzo),

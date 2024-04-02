@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -32,7 +31,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         await _authRepository.loginWithOneId(code);
         await sendAllFavoriteAds();
       } else {}
-    } on DioException catch (e) {
+    } catch (e) {
       display.error(e.toString());
     } finally {}
   }

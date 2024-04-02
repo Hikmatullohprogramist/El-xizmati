@@ -73,7 +73,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             allItems: allItems,
             visibleItems: allItems.where((e) => e.isVisible).toList(),
           ));
-    } on DioException catch (exception) {
+    } catch (exception) {
       log.e(exception.toString());
       updateState((state) => state.copyWith(loadState: LoadingState.error));
     }

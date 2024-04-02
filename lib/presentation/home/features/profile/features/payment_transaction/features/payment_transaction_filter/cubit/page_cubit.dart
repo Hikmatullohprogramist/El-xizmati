@@ -29,7 +29,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           await paymentTransactionRepository.getPaymentTransactionsFilter();
       log.d(response.toString());
       updateState((state) => state.copyWith(transactionList: response));
-    } on DioException catch (e, stackTrace) {}
+    } catch (e, stackTrace) {}
   }
 
   void fromDate(String fromDate) {

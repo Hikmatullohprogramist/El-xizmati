@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
@@ -52,7 +51,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           popularCategoriesState: LoadingState.success,
         ),
       );
-    } on DioException catch (e, stackTrace) {
+    } catch (e, stackTrace) {
       updateState(
         (state) => state.copyWith(popularCategoriesState: LoadingState.error),
       );
@@ -74,7 +73,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           popularProductAdsState: LoadingState.success,
         ),
       );
-    } on DioException catch (e, stackTrace) {
+    } catch (e, stackTrace) {
       updateState(
         (state) => state.copyWith(popularProductAdsState: LoadingState.error),
       );
@@ -94,7 +93,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           popularServiceAdsState: LoadingState.success,
         ),
       );
-    } on DioException catch (e, stackTrace) {
+    } catch (e, stackTrace) {
       updateState((state) =>
           state.copyWith(popularServiceAdsState: LoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
@@ -111,7 +110,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           topRatedAdsState: LoadingState.success,
         ),
       );
-    } on DioException catch (e, stackTrace) {
+    } catch (e, stackTrace) {
       updateState(
         (state) => state.copyWith(topRatedAdsState: LoadingState.error),
       );
@@ -129,7 +128,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           recentlyViewedAdsState: LoadingState.success,
         ),
       );
-    } on DioException catch (e, stackTrace) {
+    } catch (e, stackTrace) {
       updateState((state) => state.copyWith(
             recentlyViewedAdsState: LoadingState.error,
           ));
@@ -145,7 +144,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             bannersState: LoadingState.success,
           ));
       log.i("getBanners success = ${states.banners}");
-    } on DioException catch (e, stackTrace) {
+    } catch (e, stackTrace) {
       updateState((state) => state.copyWith(
             bannersState: LoadingState.error,
           ));
@@ -171,7 +170,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         final item = states.popularProductAds.elementAt(index);
         states.popularProductAds.insert(index, item..favorite = false);
       }
-    } on DioException catch (error) {
+    } catch (error) {
       display.error("serverda xatolik yuz  berdi");
       log.e(error.toString());
     }
@@ -195,7 +194,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         final item = states.popularServiceAds.elementAt(index);
         states.popularServiceAds.insert(index, item..favorite = false);
       }
-    } on DioException catch (error) {
+    } catch (error) {
       display.error("serverda xatolik yuz  berdi");
       log.e(error.toString());
     }
@@ -219,7 +218,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         final item = states.topRatedAds.elementAt(index);
         states.topRatedAds.insert(index, item..favorite = false);
       }
-    } on DioException catch (error) {
+    } catch (error) {
       display.error("serverda xatolik yuz  berdi");
       log.e(error.toString());
     }
@@ -243,7 +242,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         final item = states.recentlyViewedAds.elementAt(index);
         states.recentlyViewedAds.insert(index, item..favorite = false);
       }
-    } on DioException catch (error) {
+    } catch (error) {
       display.error("serverda xatolik yuz  berdi");
       log.e(error.toString());
     }

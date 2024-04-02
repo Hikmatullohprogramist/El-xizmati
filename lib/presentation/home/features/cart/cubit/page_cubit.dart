@@ -27,7 +27,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     try {
       final controller = states.controller ?? getAdsController(status: 1);
       updateState((state) => state.copyWith(controller: controller));
-    } on DioException catch (e, stackTrace) {
+    } catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
@@ -64,7 +64,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       await repository.removeCart(ad);
       states.controller?.itemList?.remove(ad);
       states.controller?.notifyListeners();
-    } on DioException catch (e) {
+    } catch (e) {
       display.error(e.toString());
     }
   }
@@ -83,7 +83,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         states.controller?.itemList?.insert(index, newAd);
         states.controller?.notifyListeners();
       }
-    } on DioException catch (e) {
+    } catch (e) {
       display.error(e.toString());
     }
   }

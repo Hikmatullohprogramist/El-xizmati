@@ -57,7 +57,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           log.i(states.controller);
         },
       );
-    } on DioException catch (exception) {
+    } catch (exception) {
       log.e(exception.toString());
       display.error("server xatolik yuz beradi");
     }

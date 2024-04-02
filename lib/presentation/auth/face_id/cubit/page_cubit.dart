@@ -48,7 +48,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
               : PageEventType.onBioDocNotFound,
         ));
       }
-    } on DioException catch (e) {
+    } catch (e) {
       emitEvent(PageEvent(
         states.isFaceIdByPinflEnabled
             ? PageEventType.onPinflNotFound

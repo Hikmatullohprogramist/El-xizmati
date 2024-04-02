@@ -54,7 +54,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     try {
       final controller = states.controller ?? getAdsController(status: 1);
       updateState((state) => state.copyWith(controller: controller));
-    } on DioException catch (e, stackTrace) {
+    } catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
@@ -165,7 +165,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           states.controller?.notifyListeners();
         }
       }
-    } on DioException catch (error) {
+    } catch (error) {
       display.error("xatolik yuz  berdi");
       log.w(error.toString());
     }

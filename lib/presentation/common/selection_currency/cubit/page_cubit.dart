@@ -29,7 +29,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           loadState: LoadingState.success,
         ),
       );
-    } on DioException catch (exception) {
+    } catch (exception) {
       log.e(exception.toString());
       updateState((state) => state.copyWith(loadState: LoadingState.error));
     }

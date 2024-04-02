@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
@@ -44,7 +43,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       await authRepository.logOut();
       updateState((state) => state.copyWith(isLogin: false));
       emitEvent(PageEvent(PageEventType.onLogOut));
-    } on DioException {
+    } catch (e) {
       display.error(Strings.loadingStateError);
     }
   }

@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
@@ -10,7 +9,6 @@ import '../../../../../../common/core/base_cubit.dart';
 import '../../../../../../data/repositories/favorite_repository.dart';
 
 part 'page_cubit.freezed.dart';
-
 part 'page_state.dart';
 
 @injectable
@@ -25,7 +23,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     try {
       final controller = states.controller ?? getAdsController(status: 1);
       updateState((state) => state.copyWith(controller: controller));
-    } on DioException catch (e, stackTrace) {
+    } catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
@@ -63,8 +61,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       await _favoriteRepository.removeFavorite(ad);
       states.controller?.itemList?.remove(ad);
       states.controller?.notifyListeners();
-    } on DioException {
-      display.error("xatolik yuz berdi");
+    } catch (e) {
+      log.w(e);
     }
   }
 }

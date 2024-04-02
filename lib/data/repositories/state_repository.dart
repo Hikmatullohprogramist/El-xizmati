@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/domain/models/language/language.dart';
 
 import '../../data/storages/categories_storage.dart';
 import '../../data/storages/language_storage.dart';

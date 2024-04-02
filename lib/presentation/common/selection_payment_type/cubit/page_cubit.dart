@@ -32,6 +32,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   Future<void> getItems() async {
+    updateState((state) => state.copyWith(loadState: LoadingState.loading));
     try {
       final paymentTypes = await _repository.getPaymentTypesForCreationAd();
       log.i(paymentTypes.toString());
@@ -41,7 +42,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           loadState: LoadingState.success,
         ),
       );
-    } on DioException catch (exception) {
+    } catch (exception) {
       log.e(exception.toString());
       updateState((state) => state.copyWith(loadState: LoadingState.error));
     }

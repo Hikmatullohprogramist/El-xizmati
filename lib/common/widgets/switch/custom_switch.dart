@@ -23,7 +23,7 @@ class _CustomSwitchState extends State<CustomSwitch> {
       },
       child: Container(
         width: 55,
-        height: 31, // Assuming this is the height from your image
+        height: 31,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
           color: switchColor.withAlpha(30),
@@ -41,8 +41,8 @@ class _CustomSwitchState extends State<CustomSwitch> {
             duration: Duration(milliseconds: 300),
             curve: Curves.easeIn,
             child: Container(
-              width: 22, // Thumb width
-              height: 22, // Thumb height
+              width: 22,
+              height: 22,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: switchColor,

@@ -9,7 +9,6 @@ import '../../../../data/repositories/auth_repository.dart';
 import '../../../../data/repositories/favorite_repository.dart';
 
 part 'page_cubit.freezed.dart';
-
 part 'page_state.dart';
 
 @injectable
@@ -60,6 +59,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         display.error("Qayta urinib ko'ring (${e.response?.statusCode ?? ""})",
             "Xatolik  yuz berdi");
       }
+    } catch (e, stackTrace) {
+      log.w("${e.toString()} ${stackTrace.toString()}");
     } finally {
       updateState((state) => state.copyWith(loading: false));
     }
@@ -69,9 +70,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     try {
       await _repository.forgetPassword(states.phone.clearPhoneNumberWithCode());
       emitEvent(PageEvent(PageEventType.navigationToConfirm));
-    } on DioException {
-      display.error(
-          "xatolik yuz berdi qayta urinib ko'ring", "Xatolik  yuz berdi");
+    } catch (e) {
+      log.w(e);
     }
   }
 

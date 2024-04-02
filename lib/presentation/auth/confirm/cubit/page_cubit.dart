@@ -71,7 +71,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     try {
       var url = Uri.parse("https://online-bozor.uz/page/privacy");
       await launchUrl(url);
-    } on DioException catch (e) {
+    } catch (e) {
       display.error(e.toString(), "Urlni parse qilishda xatolik yuz berdi");
     }
   }
@@ -83,7 +83,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       _timer?.cancel();
       sendAllFavoriteAds();
       emitEvent(PageEvent(PageEventType.setPassword));
-    } on DioException catch (e, stackTrace) {
+    } catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
@@ -98,7 +98,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       _timer?.cancel();
       await sendAllFavoriteAds();
       emitEvent(PageEvent(PageEventType.setPassword));
-    } on DioException catch (e, stackTrace) {
+    } catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       emitEvent(PageEvent(PageEventType.setPassword));
       display.error(e.toString());

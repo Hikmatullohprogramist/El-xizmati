@@ -161,7 +161,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     try {
       final response = await repository.getFullUserInfo();
       log.w(response.passport_number.toString());
-    } on DioException catch (e) {
+    } catch (e) {
       display.error(e.toString());
     }
   }

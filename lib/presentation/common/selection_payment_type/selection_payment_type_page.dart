@@ -58,6 +58,7 @@ class SelectionPaymentTypePage
                       loadingState: state.loadState,
                       loadingBody: _buildLoadingBody(),
                       successBody: _buildSuccessBody(state),
+                      onRetryClicked: () => cubit(context).getItems(),
                     ),
                     SizedBox(height: 72),
                   ],

@@ -46,7 +46,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         states.repeatPassword,
       );
       emitEvent(PageEvent(PageEventType.navigationToHome));
-    } on DioException catch (e, stackTrace) {
+    } catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
     } finally {
       updateState((state) => state.copyWith(loading: false));

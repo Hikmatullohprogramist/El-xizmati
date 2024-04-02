@@ -35,7 +35,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           (state) => state.copyWith(loadingState: LoadingState.empty),
         );
       }
-    } on DioException catch (e, stackTrace) {
+    } catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     }

@@ -51,7 +51,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             postName: response.post_name,
           ));
       await getUser();
-    } on DioException catch (e) {
+    } catch (e) {
       display.error(e.toString());
     }
   }

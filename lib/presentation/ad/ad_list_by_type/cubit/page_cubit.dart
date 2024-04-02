@@ -54,7 +54,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           cheapAdsState: LoadingState.success,
         ),
       );
-    } on DioException catch (e, stackTrace) {
+    } catch (e, stackTrace) {
       updateState(
         (state) => state.copyWith(cheapAdsState: LoadingState.error),
       );
@@ -76,7 +76,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           popularAdsState: LoadingState.success,
         ),
       );
-    } on DioException catch (e, stackTrace) {
+    } catch (e, stackTrace) {
       updateState(
           (state) => state.copyWith(popularAdsState: LoadingState.error));
       log.e(e.toString(), error: e, stackTrace: stackTrace);
@@ -88,7 +88,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     try {
       final controller = states.controller ?? getAdsController(status: 1);
       updateState((state) => state.copyWith(controller: controller));
-    } on DioException catch (e, stackTrace) {
+    } catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
@@ -141,7 +141,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         final item = states.popularAds.elementAt(index);
         states.popularAds.insert(index, item..favorite = false);
       }
-    } on DioException catch (error) {
+    } catch (error) {
       display.error("xatolik yuz  berdi");
       log.e(error.toString());
     }
@@ -164,7 +164,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         final item = states.cheapAds.elementAt(index);
         states.cheapAds.insert(index, item..favorite = false);
       }
-    } on DioException catch (error) {
+    } catch (error) {
       display.error("xatolik yuz  berdi");
       log.e(error.toString());
     }
@@ -195,7 +195,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           states.controller?.notifyListeners();
         }
       }
-    } on DioException catch (error) {
+    } catch (error) {
       display.error("xatolik yuz  berdi");
       log.e(error.toString());
     }

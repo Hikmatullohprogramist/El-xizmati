@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
@@ -34,6 +33,10 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   Future<void> loginWithEds(String url) async {
-    try {} on DioException {}
+    try {
+
+    } catch (e) {
+      log.w(e);
+    }
   }
 }
