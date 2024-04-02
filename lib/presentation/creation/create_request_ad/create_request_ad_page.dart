@@ -7,6 +7,7 @@ import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/form_field/custom_text_form_field.dart';
+import 'package:onlinebozor/common/widgets/image_list/ad_image_list_widget.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 
 import '../../../../../common/core/base_page.dart';
@@ -14,16 +15,15 @@ import '../../../common/colors/static_colors.dart';
 import '../../../common/vibrator/vibrator_extension.dart';
 import '../../../common/widgets/app_bar/default_app_bar.dart';
 import '../../../common/widgets/button/custom_elevated_button.dart';
-import '../../../common/widgets/chips/chip_add_item.dart';
 import '../../../common/widgets/chips/chip_item.dart';
 import '../../../common/widgets/chips/chip_list.dart';
 import '../../../common/widgets/form_field/custom_dropdown_form_field.dart';
 import '../../../common/widgets/form_field/label_text_field.dart';
+import '../../../common/widgets/form_field/validator/count_validator.dart';
 import '../../../common/widgets/form_field/validator/default_validator.dart';
 import '../../../common/widgets/form_field/validator/email_validator.dart';
 import '../../../common/widgets/form_field/validator/phone_number_validator.dart';
 import '../../../common/widgets/form_field/validator/price_validator.dart';
-import '../../../common/widgets/image/image_ad_list_widget.dart';
 import '../../../common/widgets/switch/custom_switch.dart';
 import '../../../domain/models/image/uploadable_file.dart';
 import '../../common/selection_currency/selection_currency_page.dart';
@@ -125,7 +125,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             hint: Strings.createAdNameLabel,
             textInputAction: TextInputAction.next,
             controller: titleController,
-            validator: (value) => DefaultValidator.validate(value),
+            validator: (value) => NotEmptyValidator.validate(value),
             onChanged: (value) {
               cubit(context).setEnteredTitle(value);
             },
@@ -136,7 +136,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           CustomDropdownFormField(
             value: state.category?.name ?? "",
             hint: Strings.createAdCategoryLabel,
-            validator: (value) => DefaultValidator.validate(value),
+            validator: (value) => NotEmptyValidator.validate(value),
             onTap: () {
               context.router.push(
                 SelectionNestedCategoryRoute(
@@ -158,15 +158,14 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
       color: Colors.white,
       child: Column(
         children: [
-          ImageAdListWidget(
+          AdImageListWidget(
             imagePaths: cubit(context).getImages(),
             maxCount: state.maxImageCount,
-            onTakePhotoClicked: () {
-              cubit(context).takeImage();
-            },
-            onPickImageClicked: () {
-              cubit(context).pickImage();
-            },
+            validator: (value) => CountValidator.validate(value),
+            onTakePhotoClicked: () => cubit(context).takeImage(),
+            onPickImageClicked: () => cubit(context).pickImage(),
+            onRemoveClicked: (path) => cubit(context).removeImage(path),
+            onReorder: (i, j) => cubit(context).onReorder(i, j),
             onImageClicked: (index) async {
               final result = await context.router.push(
                 LocaleImageViewerRoute(
@@ -179,12 +178,6 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 cubit(context)
                     .setChangedImageList(result as List<UploadableFile>);
               }
-            },
-            onRemoveClicked: (imagePath) {
-              cubit(context).removeImage(imagePath);
-            },
-            onReorder: (oldIndex, newIndex) {
-              cubit(context).onReorder(oldIndex, newIndex);
             },
           ),
           SizedBox(height: 16),
@@ -307,7 +300,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                           value: state.currency?.name ?? "",
                           hint: "-",
                           validator: (value) =>
-                              DefaultValidator.validate(value),
+                              NotEmptyValidator.validate(value),
                           onTap: () async {
                             final currency = await showModalBottomSheet(
                               context: context,
@@ -368,14 +361,25 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 isRequired: true,
               ),
               SizedBox(height: 16),
-              Wrap(
-                direction: Axis.horizontal,
-                spacing: 8,
-                runSpacing: 8,
-                alignment: WrapAlignment.start,
-                crossAxisAlignment: WrapCrossAlignment.start,
-                runAlignment: WrapAlignment.start,
-                children: _buildPaymentTypeChips(context, state),
+              ChipList(
+                chips: _buildPaymentTypeChips(context, state),
+                isShowAll: true,
+                isShowChildrenCount: false,
+                validator: (value) => CountValidator.validate(value),
+                onClickedAdd: () async {
+                  final paymentTypes = await showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    useSafeArea: true,
+                    backgroundColor: Colors.transparent,
+                    builder: (context) => SelectionPaymentTypePage(
+                      selectedPaymentTypes: state.paymentTypes,
+                    ),
+                  );
+                  cubit(context).setSelectedPaymentTypes(paymentTypes);
+                },
+                onClickedShowLess: () {},
+                onClickedShowMore: () {},
               ),
               SizedBox(height: 24),
             ],
@@ -405,7 +409,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             inputType: TextInputType.name,
             textInputAction: TextInputAction.next,
             controller: contactPersonController,
-            validator: (value) => DefaultValidator.validate(value),
+            validator: (value) => NotEmptyValidator.validate(value),
             onChanged: (value) {
               cubit(context).setEnteredContactPerson(value);
             },
@@ -464,7 +468,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           CustomDropdownFormField(
             value: state.address?.name ?? "",
             hint: Strings.createAdAddressLabel,
-            validator: (value) => DefaultValidator.validate(value),
+            validator: (value) => NotEmptyValidator.validate(value),
             onTap: () async {
               final address = await showModalBottomSheet(
                 context: context,
@@ -485,6 +489,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           ChipList(
             chips: _buildRequestAddressChips(context, state),
             isShowAll: state.isShowAllRequestDistricts,
+            validator: (value) => CountValidator.validate(value),
             onClickedAdd: () {
               _showSelectionRequestAddress(context, state);
             },
@@ -570,24 +575,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   List<Widget> _buildPaymentTypeChips(BuildContext context, PageState state) {
-    List<Widget> chips = [];
-    chips.add(
-      ChipAddItem(
-        onClicked: () async {
-          final paymentTypes = await showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            useSafeArea: true,
-            backgroundColor: Colors.transparent,
-            builder: (context) => SelectionPaymentTypePage(
-              selectedPaymentTypes: state.paymentTypes,
-            ),
-          );
-          cubit(context).setSelectedPaymentTypes(paymentTypes);
-        },
-      ),
-    );
-    chips.addAll(state.paymentTypes
+    return state.paymentTypes
         .map(
           (element) => ChipItem(
             item: element,
@@ -597,8 +585,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
           ),
         )
-        .toList());
-    return chips;
+        .toList();
   }
 
   List<Widget> _buildRequestAddressChips(
