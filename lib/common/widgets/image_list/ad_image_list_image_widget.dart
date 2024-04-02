@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import '../../gen/assets/assets.gen.dart';
 import '../../vibrator/vibrator_extension.dart';
 
-class AddedImageWidget extends StatelessWidget {
-  const AddedImageWidget({
+class AdImageListImageWidget extends StatelessWidget {
+  const AdImageListImageWidget({
     super.key,
     required this.index,
     required this.imagePath,
