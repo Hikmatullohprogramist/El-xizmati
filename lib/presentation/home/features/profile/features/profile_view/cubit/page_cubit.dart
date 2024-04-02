@@ -68,14 +68,14 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           .toList();
       if (telegram!.isNotEmpty) {
         updateState((state) => state.copyWith(
-          instagramInfo: instagram?[0],
-          telegramInfo: telegram?[0],
-          facebookInfo: facebook?[0],
-          youtubeInfo: youtube?[0],
-        ));
+              instagramInfo: instagram?[0],
+              telegramInfo: telegram?[0],
+              facebookInfo: facebook?[0],
+              youtubeInfo: youtube?[0],
+            ));
       }
       updateState(
-            (state) => state.copyWith(
+        (state) => state.copyWith(
           isLoading: false,
           userName: (response.full_name ?? "*"),
           fullName: response.full_name ?? "*",
@@ -83,7 +83,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           email: response.email ?? "*",
           photo: response.photo ?? "",
           biometricInformation:
-          "${response.passport_serial ?? ""} ${response.passport_number ?? ""}",
+              "${response.passport_serial ?? ""} ${response.passport_number ?? ""}",
           brithDate: response.birth_date ?? "*",
           districtName: (response.district_id ?? "*").toString(),
           isRegistered: response.is_registered ?? false,
@@ -94,23 +94,25 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           savedSmsState: response.message_type.toString().contains("SMS"),
           savedEmailState: response.message_type.toString().contains("EMAIL"),
           savedTelegramState:
-          response.message_type.toString().contains("TELEGRAM"),
+              response.message_type.toString().contains("TELEGRAM"),
           actualSmsState: response.message_type.toString().contains("SMS"),
           actualEmailState: response.message_type.toString().contains("EMAIL"),
-          actualTelegramState: response.message_type.toString().contains("TELEGRAM"),
+          actualTelegramState:
+              response.message_type.toString().contains("TELEGRAM"),
         ),
       );
       log.e("getUserInformation onSuccess");
       await getUser();
     } on DioException catch (e) {
       log.e("getUserInformation onFailure error = ${e.toString()}");
-
       updateState((state) => state.copyWith(isLoading: false));
-
       if (e.response?.statusCode == 401) {
         logOut();
       }
       // display.error(e.toString());
+    } catch (e) {
+      log.e("getUserInformation onFailure error = ${e.toString()}");
+      updateState((state) => state.copyWith(isLoading: false));
     }
   }
 
@@ -122,7 +124,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           state.copyWith(regionName: regionList.first.name, isLoading: false));
     } else {
       updateState(
-            (state) => state.copyWith(regionName: "topilmadi", isLoading: false),
+        (state) => state.copyWith(regionName: "topilmadi", isLoading: false),
       );
     }
   }
@@ -141,7 +143,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     try {
       final districtId = states.districtId;
       final response =
-      await _userRepository.getNeighborhoods(districtId ?? 1419);
+          await _userRepository.getNeighborhoods(districtId ?? 1419);
       updateState((state) => state.copyWith(
           streetName: response
               .where((element) => element.id == states.streetId)
@@ -176,7 +178,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           .toList();
       if (instagram != null && telegram != null && facebook != null) {
         updateState(
-              (state) => state.copyWith(
+          (state) => state.copyWith(
             instagramInfo: instagram[0],
             telegramInfo: telegram[0],
             facebookInfo: facebook[0],
@@ -193,26 +195,28 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       if (e.response?.statusCode == 401) {
         logOut();
       }
-      // display.error(e.toString());
+    } catch (e) {
+      log.e("getUserInformation onFailure error = ${e.toString()}");
+      updateState((state) => state.copyWith(isLoading: false));
     }
   }
 
   changeSmsNotificationState() {
     updateState((state) => state.copyWith(
-      actualSmsState: !states.actualSmsState,
-    ));
+          actualSmsState: !states.actualSmsState,
+        ));
   }
 
   changeEmailNotificationState() {
     updateState((state) => state.copyWith(
-      actualEmailState: !states.actualEmailState,
-    ));
+          actualEmailState: !states.actualEmailState,
+        ));
   }
 
   changeTelegramNotificationState() {
     updateState((state) => state.copyWith(
-      actualTelegramState: !states.actualTelegramState,
-    ));
+          actualTelegramState: !states.actualTelegramState,
+        ));
   }
 
   bool hasNotSavedNotificationChanges() {
@@ -228,8 +232,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       status = "REJECTED";
     }
     updateState((state) => state.copyWith(
-      instagramInfo: states.instagramInfo?..status = status,
-    ));
+          instagramInfo: states.instagramInfo?..status = status,
+        ));
   }
 
   setTelegramSocial(String status) {
@@ -239,8 +243,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       status = "REJECTED";
     }
     updateState((state) => state.copyWith(
-      telegramInfo: states.instagramInfo?..status = status,
-    ));
+          telegramInfo: states.instagramInfo?..status = status,
+        ));
   }
 
   setFacebookSocial(String status) {
@@ -250,8 +254,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       status = "REJECTED";
     }
     updateState((state) => state.copyWith(
-      facebookInfo: state.facebookInfo?..status = status,
-    ));
+          facebookInfo: state.facebookInfo?..status = status,
+        ));
   }
 
   setYoutubeSocial(String status) {
@@ -261,8 +265,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       status = "REJECTED";
     }
     updateState((state) => state.copyWith(
-      youtubeInfo: state.youtubeInfo?..status = status,
-    ));
+          youtubeInfo: state.youtubeInfo?..status = status,
+        ));
   }
 
   Future<void> setMessageType() async {
@@ -282,11 +286,11 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       await _userRepository.updateNotificationSources(sources: sources);
 
       updateState((state) => state.copyWith(
-        isUpdatingNotification: false,
-        savedSmsState: state.actualSmsState,
-        savedEmailState: state.actualEmailState,
-        savedTelegramState: state.actualTelegramState,
-      ));
+            isUpdatingNotification: false,
+            savedSmsState: state.actualSmsState,
+            savedEmailState: state.actualEmailState,
+            savedTelegramState: state.actualTelegramState,
+          ));
 
       emitEvent(PageEvent(PageEventType.onSuccessUpdateNotification));
     } catch (error) {
@@ -324,7 +328,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     try {
       final controller = states.controller ?? getActiveDevices(status: 1);
       updateState((state) => state.copyWith(controller: controller));
-    } on DioException catch (e, stackTrace) {
+    } catch (e, stackTrace) {
       log.e(e.toString(), error: e, stackTrace: stackTrace);
       display.error(e.toString());
     } finally {
@@ -342,7 +346,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     log.i(states.controller);
 
     controller.addPageRequestListener(
-          (pageKey) async {
+      (pageKey) async {
         final items = await _userRepository.getActiveDevice();
         if (items.length <= 1000) {
           if (items.length > 2) {
