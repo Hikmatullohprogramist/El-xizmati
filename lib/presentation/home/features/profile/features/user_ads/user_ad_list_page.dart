@@ -63,11 +63,11 @@ class UserAdListPage extends BasePage<PageCubit, PageState, PageEvent> {
               indicatorColor: context.colors.textPrimary,
               controller: controller,
               tabs: [
-                Tab(text: Strings.userAdsAllTitle),
-                Tab(text: Strings.userAdsActiveTitle),
-                Tab(text: Strings.userAdsPendingTitle),
-                Tab(text: Strings.userAdsInactiveTitle),
-                Tab(text: Strings.userAdsCanceledTitle)
+                Tab(text: Strings.userAdsAllLabel),
+                Tab(text: Strings.userAdsActiveLabel),
+                Tab(text: Strings.userAdsPendingLabel),
+                Tab(text: Strings.userAdsInactiveLabel),
+                Tab(text: Strings.userAdsCanceledLabel)
               ],
             ),
           ),

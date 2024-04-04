@@ -10,7 +10,7 @@ import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
 import '../../../../../../common/core/base_page.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
-import '../../../../../../domain/models/ad/ad_type.dart';
+import '../../../../../../domain/models/ad/ad_transaction_type.dart';
 import '../../../../../../domain/models/order/order_type.dart';
 import '../../../../../../domain/models/order/user_order_status.dart';
 
@@ -40,11 +40,13 @@ class UserOrderListPage extends BasePage<PageCubit, PageState, PageEvent> {
                 text: Strings.createRequestTitle,
                 onPressed: () {
                   if (orderType == OrderType.buy) {
-                    context.router
-                        .push(CreateRequestAdRoute(adType: AdType.product));
+                    context.router.push(CreateRequestAdRoute(
+                      adTransactionType: AdTransactionType.BUY,
+                    ));
                   } else if (orderType == OrderType.sell) {
-                    context.router
-                        .push(CreateRequestAdRoute(adType: AdType.service));
+                    context.router.push(CreateRequestAdRoute(
+                      adTransactionType: AdTransactionType.BUY_SERVICE,
+                    ));
                   }
                 },
               )
@@ -78,12 +80,12 @@ class UserOrderListPage extends BasePage<PageCubit, PageState, PageEvent> {
               indicatorColor: context.colors.textPrimary,
               controller: controller,
               tabs: [
-                Tab(text: Strings.userRequestAllTitle),
-                Tab(text: Strings.userRequestPendingTitle),
-                Tab(text: Strings.userRequestRejactionTitle),
-                Tab(text: Strings.userRequestCanceledTitle),
-                Tab(text: Strings.userRequestReviewTitle),
-                Tab(text: Strings.userRequestAcceptTitle)
+                Tab(text: Strings.userRequestAllLabel),
+                Tab(text: Strings.userRequestPendingLabel),
+                Tab(text: Strings.userRequestRejactedLabel),
+                Tab(text: Strings.userRequestCanceledLabel),
+                Tab(text: Strings.userRequestReviewLabel),
+                Tab(text: Strings.userRequestAcceptedLabel)
               ],
             ),
           ),

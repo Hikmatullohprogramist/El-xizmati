@@ -8,12 +8,15 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
+import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
+import 'package:onlinebozor/domain/models/ad/ad_action.dart';
+import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
 import 'package:onlinebozor/presentation/ad/ad_list_actions/ad_list_actions.dart';
 
 import '../../../../../../../../common/colors/static_colors.dart';
 import '../../../../../../../../common/gen/localization/strings.dart';
-import '../../../../../../../../common/widgets/ad/user_ad/user_ad.dart';
+import '../../../../../../../../common/widgets/ad/user_ad/user_ad_widget.dart';
 import '../../../../../../../../common/widgets/ad/user_ad/user_ad_empty_widget.dart';
 import '../../../../../../../../common/widgets/ad/user_ad/user_ad_shimmer.dart';
 import '../../../../../../../../data/responses/user_ad/user_ad_response.dart';
@@ -102,19 +105,65 @@ class UserAdsPage extends BasePage<PageCubit, PageState, PageEvent> {
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) => UserAdWidget(
             onActionClicked: () async {
-             final action = await showModalBottomSheet(
-               context: context,
-               isScrollControlled: true,
-               useSafeArea: true,
-               backgroundColor: Colors.transparent,
-               builder: (context) => AdListActionsPage(
-                 key: Key(""),
-                 userAdResponse: item,
-                 userAdStatus: state.userAdStatus,
-               ),
-             );
-             log(action.toString());
-              // cubit(context).getAdsController(status: )
+              AdAction? action = await showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                useSafeArea: true,
+                backgroundColor: Colors.transparent,
+                builder: (context) => AdListActionsPage(
+                  key: Key(""),
+                  userAdResponse: item,
+                  userAdStatus: state.userAdStatus,
+                ),
+              );
+              log("ad action clicked =  ${action.toString()}");
+              if (action != null) {
+                AdTransactionType type = item.type_status.toAdTypeStatus();
+                switch (action) {
+                  case AdAction.ACTION_EDIT:
+                    {
+                      switch (type) {
+                        case AdTransactionType.SELL:
+                          context.router.push(CreateProductAdRoute(
+                            adId: item.id,
+                            adTransactionType: type,
+                          ));
+                        case AdTransactionType.FREE:
+                          context.router.push(CreateProductAdRoute(
+                            adId: item.id,
+                            adTransactionType: type,
+                          ));
+                        case AdTransactionType.EXCHANGE:
+                          context.router.push(CreateProductAdRoute(
+                            adId: item.id,
+                            adTransactionType: type,
+                          ));
+                        case AdTransactionType.SERVICE:
+                          context.router.push(CreateServiceAdRoute(
+                            adId: item.id,
+                          ));
+                        case AdTransactionType.BUY:
+                          context.router.push(CreateRequestAdRoute(
+                            adId: item.id,
+                            adTransactionType: type,
+                          ));
+                        case AdTransactionType.BUY_SERVICE:
+                          context.router.push(CreateRequestAdRoute(
+                            adId: item.id,
+                            adTransactionType: type,
+                          ));
+                      }
+                    }
+                  case AdAction.ACTION_ADVERTISE:
+                    {}
+                  case AdAction.ACTION_DEACTIVATE:
+                    {}
+                  case AdAction.ACTION_ACTIVATE:
+                    {}
+                  case AdAction.ACTION_DELETE:
+                    {}
+                }
+              }
             },
             onItemClicked: () {
               context.router.push(UserAdDetailRoute(userAdResponse: item));
