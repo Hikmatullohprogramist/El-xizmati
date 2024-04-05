@@ -11,6 +11,7 @@ import 'package:onlinebozor/common/widgets/form_field/validator/count_validator.
 import 'package:onlinebozor/common/widgets/image_list/ad_image_list_widget.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_switch.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_toggle.dart';
+import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 import 'package:onlinebozor/presentation/common/selection_currency/selection_currency_page.dart';
@@ -36,7 +37,9 @@ import 'cubit/page_cubit.dart';
 
 @RoutePage()
 class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
-  CreateServiceAdPage({super.key});
+  CreateServiceAdPage({super.key, this.adId});
+
+  final int? adId;
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descController = TextEditingController();
@@ -50,18 +53,21 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
+  void onWidgetCreated(BuildContext context) {
+    cubit(context).setInitialParams(adId);
+  }
+
+  @override
   void onEventEmitted(BuildContext context, PageEvent event) {
     switch (event.type) {
       case PageEventType.onOverMaxCount:
         _showMaxCountError(context, event.maxImageCount);
       case PageEventType.onAdCreated:
-        context.router.replace(CreateAdResultRoute());
+        context.router.replace(CreateAdResultRoute(
+          adId: cubit(context).states.adId!,
+          adTransactionType: AdTransactionType.SERVICE,
+        ));
     }
-  }
-
-  @override
-  void onWidgetCreated(BuildContext context) {
-    cubit(context).getInitialData();
   }
 
   @override
@@ -76,7 +82,10 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     videoUrlController.updateOnRestore(state.videoUrl);
 
     return Scaffold(
-      appBar: DefaultAppBar(Strings.adCreateTitle, () => context.router.pop()),
+      appBar: DefaultAppBar(
+        state.isEditing ? Strings.adEditTitle : Strings.adCreateTitle,
+        () => context.router.pop(),
+      ),
       backgroundColor: StaticColors.backgroundColor,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),

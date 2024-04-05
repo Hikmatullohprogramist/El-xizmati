@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
@@ -29,6 +28,11 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   final AdCreationRepository _adCreationRepository;
   final UserRepository _userRepository;
 
+  void setInitialParams(int? adId) {
+    updateState((state) => state.copyWith(adId: adId, isEditing: adId != null));
+    getInitialData();
+  }
+
   Future<void> getInitialData() async {
     final user = _userRepository.userInfoStorage.userInformation.call();
     updateState((state) => state.copyWith(
@@ -44,15 +48,18 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     await uploadImages();
 
     try {
-      final response = await _adCreationRepository.createServiceAd(
+      final adId = await _adCreationRepository.createServiceAd(
+        adId: states.adId,
+        //
         title: states.title,
         categoryId: states.category!.id,
         serviceCategoryId: states.category!.parent_id ?? states.category!.id,
         serviceSubCategoryId: states.category!.id,
+        //
         mainImageId: states.pickedImages!.map((e) => e.id).first!,
         pickedImageIds: states.pickedImages!.map((e) => e.id!).toList(),
-        desc: states.desc,
         //
+        desc: states.desc,
         fromPrice: states.fromPrice!,
         toPrice: states.toPrice!,
         currency: states.currency!,
@@ -71,9 +78,11 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         isShowMySocialAccount: states.isShowMySocialAccount,
         videoUrl: states.videoUrl,
       );
-      log.i(response.toString());
 
       updateState((state) => state.copyWith(isRequestSending: false));
+      if (!states.isEditing) {
+        updateState((state) => state.copyWith(adId: adId));
+      }
       emitEvent(PageEvent(PageEventType.onAdCreated));
     } catch (exception) {
       log.e(exception.toString());
@@ -284,14 +293,14 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  void removeImage(String imagePath) {
+  void removeImage(UploadableFile file) {
     try {
       List<UploadableFile> imageList = [];
       if (states.pickedImages?.isNotEmpty == true) {
         imageList.addAll(states.pickedImages!);
       }
 
-      imageList.removeWhere((element) => element.xFile.path == imagePath);
+      imageList.removeWhere((element) => element.isSame(file));
       updateState((state) => state.copyWith(pickedImages: imageList));
     } catch (e) {
       log.e(e.toString());

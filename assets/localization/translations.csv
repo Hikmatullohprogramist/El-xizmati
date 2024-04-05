@@ -9,8 +9,6 @@ action_title,Harakat,Действие,Ҳаракат
 active_device_current_device,Joriy sessiya,Текущий сеанс,Жорий сессия
 active_device_remove_device,Seansni tugatish,Завершить сеанс,Сеансни тугатиш
 ad_buy_by_one_click,Bir klikda sotib olish,Купить в один клик,Бир кликда сотиб олиш
-ad_collective_discounts,Chegirmalar,Скидки,Чегирмалар
-ad_collective_popular,Ommaboplar,Популярные,Оммабоплар
 ad_create_exchange_title,Almashish,Обмен,Алмашиш
 ad_create_free_title,Bepul,Бесплатно,Бепул
 ad_create_product_title,Mahsulot,Продукт,Маҳсулот
@@ -39,8 +37,11 @@ ad_detail_show_more,Ko‘proq ko‘rsatish,Показать больше,Кўп�
 ad_detail_show_phone,Qo‘ng‘iroq,Позвонить,Қўнғироқ
 ad_detail_towritemessge,Sms,Sms,Sms
 ad_detail_view_count_title,Ko‘rishlar:,Просмотров:,Кўришлар:
+ad_edit_title,E’lon tahrirlash,Редактировать объявление,Эълон таҳрирлаш
 ad_empty_description,Bu e‘lonlar hamma uchun ko‘rinadi. Ularning amal qilish muddati faollashtirilgan kundan boshlab 30 kun.,Эти объявления видны всем. Срок их действия - 30 дней с момента активации.,Бу эълонлар ҳамма учун кўринади. Уларнинг амал қилиш муддати фаоллаштирилган кундан бошлаб 30 кун.
 ad_empty_title,Sizda hali hech qanday faol e‘lon yo‘q!,У вас пока нету активных объявлений!,Сизда ҳали ҳеч қандай фаол эълон йўқ!
+ad_list_low_prices_label,Arzon narxlar,Низкие цены ,Арзон нархлар
+ad_list_popular_label,Ommaboplar,Популярные,Оммабоплар
 ad_property_biznes,Biznes,Бизнес,Бизнес
 ad_property_personal,Shaxsiy,Частное,Шахсий
 ad_search_hint,Mahsulotlar va kategoriyalar qidiring,Искать товары и категории,Маҳсулотлар ва категорийлар қидиринг
@@ -64,6 +65,7 @@ auth_common_your_processing_policy,shaxsiy \nma‘lumotlarni qayta ishlash siyos
 auth_confirm_again_sent_sms_your_phone,Yana yuboring,Отправить еще раз,Яна юборинг
 auth_confirm_corfimation_code,Tasdiqlash kodi,КОД подтверждения,Тасдиқлаш коди
 auth_confirm_sent_sms_your_phone,Biz sizga {phone} raqamiga kod bilan SMS yubordik,Мы отправили вам СМС с кодом на номер {phone},Биз сизга {phone} рақамига код билан СМС юбордик
+auth_face_id_image_quality,Rasm sifatiga ishonch hosil qiling,"Убедитесь, что качество изображения",Расм сифатига ишонч ҳосил қилинг
 auth_person_policy,siyosat shaxsiy ma‘lumotlarni qayta ishlash,политикой nобработки персональных данных,сиёсат шахсий маълумотларни қайта ишлаш
 auth_policy_agree,Tizimga kirish orqali siz rozilik bildirasiz,"Авторизуясь, вы соглашаетесь с ",Тизимга кириш орқали сиз розилик билдирасиз
 auth_price_police,Tizimga kirish orqali siz shaxsiy ma'lumotlarni saqlash va qayta ishlash shartlariga rozilik bildirasiz.,"lАвторизуясь, вы соглашаетесь с условиями хранения и обработки персональных данных.",Тизимга кириш орқали сиз шахсий маълумотларни сақлаш ва қайта ишлаш шартларига розилик билдирасиз.
@@ -225,7 +227,7 @@ language_rus,Русский,Русский,Русский
 language_set_title,Ilova tilini tanlang,Выберите язык приложения,Илова тилини танланг
 language_uz_cyr,Ўзбекча,Ўзбекча,Ўзбекча
 language_uz_lat,O’zbekcha,O’zbekcha,O’zbekcha
-language_welcome,xush kelibsiz,Добро пожаловать,хуш келибсиз
+language_welcome,Xush kelibsiz,Добро пожаловать,Xуш келибсиз
 link_title,link,связь,линк
 loading_state_error,Xatolik yuz berdi,Произошла ошибка,Хатолик юз берди
 loading_state_no_item_found,Hech qanday element topilmadi,No items found,Ҳеч қандай элемент топилмади
@@ -347,16 +349,16 @@ user_address_location,Joylashuvni tanlang,Выберите локацию,Жой
 user_address_my_address,Mening manzillarim,Мои адреса,Менинг манзилларим
 user_address_name,Manzil nomi,Название адреса,Манзил номи
 user_address_taken_location,Aniqlangan joylashuv,Полученный местоположения,Аниқланган жойлашув
-user_ads_active_title,Faol,Активный,Фаол
-user_ads_all_title,Barchasi,Все,Барчаси
-user_ads_canceled_title,Bekor qilingan,Отменено,Бекор қилинган
-user_ads_inactive_title,Faol emas,Не активен,Фаол эмас
-user_ads_pending_title,Kutulmoqda,Ожидающий,Кутулмоқда
+user_ads_active_label,Faol,Активный,Фаол
+user_ads_all_label,Barchasi,Все,Барчаси
+user_ads_canceled_label,Bekor qilingan,Отменено,Бекор қилинган
+user_ads_inactive_label,Faol emas,Не активен,Фаол эмас
+user_ads_pending_label,Kutulmoqda,Ожидающий,Кутулмоқда
+user_ads_rejected_label,Rad etilgan,Отклоненный,Рад этилган
 user_ads_title,E‘lonlar,Объявления,Эълонлар
-user_request_accept_title,Qabul qilingan,Принял,Қабул қилинган
-user_request_all_title,Barchasi,Все,Барчаси
-user_request_canceled_title,Bekor qilingan,Отменено,Бекор қилинган
-user_request_pending_title,Kutulmoqda,Ожидающий,Кутулмоқда
-user_request_rejaction_title,Rad etilgan,Отклоненный,Рад этилган
-user_request_review_title,Ko‘rib chiqilmoqda,На рассмотрении,Кўриб чиқилмоқда
-auth_face_id_image_quality,Rasm sifatiga ishonch hosil qiling,"Убедитесь, что качество изображения",Расм сифатига ишонч ҳосил қилинг
+user_request_accepted_label,Qabul qilingan,Принял,Қабул қилинган
+user_request_all_label,Barchasi,Все,Барчаси
+user_request_canceled_label,Bekor qilingan,Отменено,Бекор қилинган
+user_request_pending_label,Kutulmoqda,Ожидающий,Кутулмоқда
+user_request_rejacted_label,Rad etilgan,Отклоненный,Рад этилган
+user_request_review_label,Ko‘rib chiqilmoqda,На рассмотрении,Кўриб чиқилмоқда

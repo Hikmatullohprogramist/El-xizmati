@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 
+import '../../constants.dart';
 import '../../gen/assets/assets.gen.dart';
 import '../../vibrator/vibrator_extension.dart';
 
@@ -9,23 +12,23 @@ class AdImageListImageWidget extends StatelessWidget {
   const AdImageListImageWidget({
     super.key,
     required this.index,
-    required this.imagePath,
+    required this.uploadableFile,
     required this.onImageClicked,
     required this.onRemoveClicked,
   });
 
   final int index;
-  final String imagePath;
+  final UploadableFile uploadableFile;
   final Function() onImageClicked;
-  final Function(String imagePath) onRemoveClicked;
+  final Function(UploadableFile uploadableFile) onRemoveClicked;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
-      key: ValueKey(imagePath),
+      key: ValueKey(uploadableFile),
       children: [
         InkWell(
-          key: ValueKey(imagePath),
+          key: ValueKey(uploadableFile),
           onTap: () {
             onImageClicked();
             vibrateAsHapticFeedback();
@@ -45,10 +48,32 @@ class AdImageListImageWidget extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
               // This should match the Container's borderRadius
-              child: Image.file(
-                File(imagePath),
-                fit: BoxFit.cover,
-              ),
+              child: uploadableFile.isNotUploaded()
+                  ? Image.file(
+                      File(uploadableFile.xFile?.path ?? ""),
+                      fit: BoxFit.cover,
+                    )
+                  : CachedNetworkImage(
+                      imageUrl:
+                          "${Constants.baseUrlForImage}${uploadableFile.id!}",
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                            colorFilter: ColorFilter.mode(
+                              Colors.white,
+                              BlendMode.colorBurn,
+                            ),
+                          ),
+                        ),
+                      ),
+                      placeholder: (context, url) => Center(),
+                      errorWidget: (context, url, error) => Center(
+                        child: Icon(Icons.error),
+                      ),
+                    ),
             ),
           ),
         ),
@@ -57,7 +82,7 @@ class AdImageListImageWidget extends StatelessWidget {
           right: 6,
           child: InkWell(
             onTap: () {
-              onRemoveClicked(imagePath);
+              onRemoveClicked(uploadableFile);
               vibrateAsHapticFeedback();
             },
             child: Container(

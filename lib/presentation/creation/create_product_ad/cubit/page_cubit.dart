@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
@@ -31,7 +30,72 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   final AdCreationRepository _adCreationRepository;
   final UserRepository _userRepository;
 
-  Future<void> getInitialData() async {
+  void setInitialParams(int? adId, AdTransactionType adTransactionType) {
+    log.w(
+        "create-product-ad adId = $adId, adTransactionType = $adTransactionType");
+    updateState((state) => state.copyWith(
+          adId: adId,
+          isEditing: adId != null,
+          isNotPrepared: adId != null,
+          adTransactionType: adTransactionType,
+        ));
+
+    if (states.isEditing) {
+      getEditingInitialData();
+    } else {
+      getCreatingInitialData();
+    }
+  }
+
+  Future<void> getEditingInitialData() async {
+    updateState((state) => state.copyWith(isPreparingInProcess: true));
+    try {
+      final ad =
+          await _adCreationRepository.getProductAdForEdit(adId: states.adId!);
+
+      updateState((state) => state.copyWith(
+            isNotPrepared: false,
+            isPreparingInProcess: false,
+            title: ad.name,
+            category: ad.getCategory(),
+            pickedImages: ad.getPhotos(),
+            desc: ad.description ?? "",
+            warehouseCount: ad.warehouseCount,
+            unit: ad.getUnit(),
+            price: ad.price,
+            currency: ad.getCurrency(),
+            paymentTypes:ad.getPaymentTypes(),
+            isBusiness: ad.getIsBusiness(),
+            isNew: ad.getIsNew(),
+            isAgreedPrice: ad.isContract,
+            address: ad.getUserAddress(),
+            contactPerson: ad.contactName,
+            phone: ad.phoneNumber,
+            email: ad.email,
+            exchangeTitle: ad.otherName ?? "",
+            exchangeDesc: ad.otherDescription ?? "",
+            isExchangeNew: ad.getIsOtherNew(),
+            exchangeCategory:ad.getOtherCategory(),
+            isPickupEnabled: ad.pickupEnabled ?? false,
+            pickupWarehouses: ad.getWarehouses(),
+            isFreeDeliveryEnabled: ad.freeDeliveryEnabled ?? false,
+            freeDeliveryDistricts: ad.getFreeDeliveryDistricts(),
+            isPaidDeliveryEnabled: ad.paidDeliveryEnabled ?? false,
+            paidDeliveryDistricts: ad.getPaidDeliveryDistricts(),
+            isAutoRenewal: ad.isAutoRenew,
+            videoUrl: ad.video,
+            isShowMySocialAccount: ad.showSocial,
+          ));
+    } catch (e) {
+      log.w("getEditingInitialData error = $e");
+      updateState((state) => state.copyWith(
+            isPreparingInProcess: false,
+            isNotPrepared: true,
+          ));
+    }
+  }
+
+  Future<void> getCreatingInitialData() async {
     final user = _userRepository.userInfoStorage.userInformation.call();
     updateState((state) => state.copyWith(
           contactPerson: user?.fullName?.capitalizeFullName() ?? "",
@@ -46,14 +110,17 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     await uploadImages();
 
     try {
-      final response = await _adCreationRepository.createProductAd(
+      final adId = await _adCreationRepository.createProductAd(
+        adId: states.adId,
+        //
         title: states.title,
         category: states.category!,
         adTransactionType: states.adTransactionType,
+        //
         mainImageId: states.pickedImages!.map((e) => e.id).first!,
         pickedImageIds: states.pickedImages!.map((e) => e.id!).toList(),
-        desc: states.desc,
         //
+        desc: states.desc,
         warehouseCount: states.warehouseCount,
         unit: states.unit,
         minAmount: states.minAmount,
@@ -90,9 +157,11 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         isShowMySocialAccount: states.isShowMySocialAccount,
         videoUrl: states.videoUrl,
       );
-      log.i(response.toString());
 
       updateState((state) => state.copyWith(isRequestSending: false));
+      if (!states.isEditing) {
+        updateState((state) => state.copyWith(adId: adId));
+      }
       emitEvent(PageEvent(PageEventType.onAdCreated));
     } catch (exception) {
       log.e(exception.toString());
@@ -442,14 +511,14 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  void removeImage(String imagePath) {
+  void removeImage(UploadableFile file) {
     try {
       List<UploadableFile> imageList = [];
       if (states.pickedImages?.isNotEmpty == true) {
         imageList.addAll(states.pickedImages!);
       }
 
-      imageList.removeWhere((element) => element.xFile.path == imagePath);
+      imageList.removeWhere((element) => element.isSame(file));
       updateState((state) => state.copyWith(pickedImages: imageList));
     } catch (e) {
       log.e(e.toString());

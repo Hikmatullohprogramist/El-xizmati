@@ -9,11 +9,11 @@ class DefaultErrorWidget extends StatelessWidget {
   const DefaultErrorWidget({
     super.key,
     required this.isFullScreen,
-    this.onErrorToAgainRequest,
+    this.retryAction,
   });
 
   final bool isFullScreen;
-  final VoidCallback? onErrorToAgainRequest;
+  final VoidCallback? retryAction;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class DefaultErrorWidget extends StatelessWidget {
           SizedBox(height: 12),
           CustomElevatedButton(
             text: Strings.languageSetTitle,
-            onPressed: () => onErrorToAgainRequest,
+            onPressed: () => retryAction,
             buttonWidth: 180,
           )
         ],
@@ -36,14 +36,14 @@ class DefaultErrorWidget extends StatelessWidget {
         height: 160,
         child: Column(
           children: [
-            "Xatolik yuz berdi?"
+            Strings.loadingStateError
                 .w(400)
                 .s(14)
                 .c(context.colors.textPrimary),
             SizedBox(height: 12),
             CustomElevatedButton(
-              text: "Qayta urinish",
-              onPressed: () => onErrorToAgainRequest,
+              text: Strings.loadingStateRetry,
+              onPressed: () => retryAction,
               buttonWidth: 180,
             )
           ],

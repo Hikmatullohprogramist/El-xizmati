@@ -3,8 +3,13 @@ part of 'page_cubit.dart';
 @freezed
 class PageState with _$PageState {
   const factory PageState({
-    @Default(AdType.product) AdType adType,
+    int? adId,
+    @Default(false) bool isEditing,
+    @Default(false) bool isPrepared,
+    @Default(false) bool isPreparingInProcess,
+    //
     @Default(AdTransactionType.BUY) AdTransactionType adTransactionType,
+    @Default(AdType.product) AdType adType,
 //
     @Default("") String title,
     CategoryResponse? category,

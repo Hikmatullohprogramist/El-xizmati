@@ -4,6 +4,7 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/colors/static_colors.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 
 import '../../../../../common/core/base_page.dart';
 import '../../../common/gen/assets/assets.gen.dart';
@@ -14,7 +15,15 @@ import 'cubit/page_cubit.dart';
 
 @RoutePage()
 class CreateAdResultPage extends BasePage<PageCubit, PageState, PageEvent> {
-  const CreateAdResultPage({super.key});
+  const CreateAdResultPage(this.adId, this.adTransactionType, {super.key});
+
+  final int adId;
+  final AdTransactionType adTransactionType;
+
+  @override
+  void onWidgetCreated(BuildContext context) {
+    cubit(context).setInitialParams(adId, adTransactionType);
+  }
 
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
@@ -45,7 +54,35 @@ class CreateAdResultPage extends BasePage<PageCubit, PageState, PageEvent> {
               backgroundColor: StaticColors.bondiBlue.withOpacity(0.8),
               rightIcon: Assets.images.icActionEdit.svg(color: Colors.white),
               onPressed: () async {
-                context.router.replace(UserAdListRoute());
+                switch (adTransactionType) {
+                  case AdTransactionType.SELL:
+                    context.router.replace(CreateProductAdRoute(
+                      adId: adId,
+                      adTransactionType: adTransactionType,
+                    ));
+                  case AdTransactionType.FREE:
+                    context.router.replace(CreateProductAdRoute(
+                      adId: adId,
+                      adTransactionType: adTransactionType,
+                    ));
+                  case AdTransactionType.EXCHANGE:
+                    context.router.replace(CreateProductAdRoute(
+                      adId: adId,
+                      adTransactionType: adTransactionType,
+                    ));
+                  case AdTransactionType.SERVICE:
+                    context.router.replace(CreateServiceAdRoute(adId: adId));
+                  case AdTransactionType.BUY:
+                    context.router.replace(CreateRequestAdRoute(
+                      adId: adId,
+                      adTransactionType: adTransactionType,
+                    ));
+                  case AdTransactionType.BUY_SERVICE:
+                    context.router.replace(CreateRequestAdRoute(
+                      adId: adId,
+                      adTransactionType: adTransactionType,
+                    ));
+                }
               },
             ),
             SizedBox(height: 20),
@@ -60,8 +97,10 @@ class CreateAdResultPage extends BasePage<PageCubit, PageState, PageEvent> {
             SizedBox(height: 20),
             CustomElevatedButton(
               text: Strings.createAdResultOpenDashboard,
-              backgroundColor: StaticColors.buttonDefaultBackgroundColor.withOpacity(0.8),
-              rightIcon: Assets.images.bottomBar.dashboard.svg(color: Colors.white),
+              backgroundColor:
+                  StaticColors.buttonDefaultBackgroundColor.withOpacity(0.8),
+              rightIcon:
+                  Assets.images.bottomBar.dashboard.svg(color: Colors.white),
               onPressed: () async {
                 context.router.replace(DashboardRoute());
               },

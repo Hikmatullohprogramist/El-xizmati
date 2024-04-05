@@ -106,7 +106,7 @@ class _LocaleImageViewerPageState extends State<LocaleImageViewerPage> {
       scrollPhysics: const BouncingScrollPhysics(),
       builder: (BuildContext context, int index) {
         return PhotoViewGalleryPageOptions(
-          imageProvider: images[index].xFile.toFileImage(),
+          imageProvider: images[index].xFile!.toFileImage(),
           initialScale: PhotoViewComputedScale.contained * 1,
           heroAttributes: PhotoViewHeroAttributes(tag: images[index]),
         );

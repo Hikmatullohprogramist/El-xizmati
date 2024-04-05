@@ -4,10 +4,10 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../common/colors/static_colors.dart';
-import '../../../domain/models/ad/ad_type.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -41,7 +41,9 @@ class CreateRequestStartPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Expanded(
       child: InkWell(
         onTap: () {
-          context.router.push(CreateRequestAdRoute(adType: AdType.product));
+          context.router.push(CreateRequestAdRoute(
+            adTransactionType: AdTransactionType.BUY,
+          ));
         },
         child: Container(
           margin: EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
@@ -71,7 +73,9 @@ class CreateRequestStartPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Expanded(
       child: InkWell(
         onTap: () {
-          context.router.push(CreateRequestAdRoute(adType: AdType.service));
+          context.router.push(CreateRequestAdRoute(
+            adTransactionType: AdTransactionType.BUY_SERVICE,
+          ));
         },
         child: Container(
           margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),

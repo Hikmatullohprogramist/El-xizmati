@@ -30,16 +30,25 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   final AdCreationRepository _adCreationRepository;
   final UserRepository _userRepository;
 
-  void setInitialParams(AdType adType) {
+  void setInitialParams(int? adId, AdTransactionType adTransactionType) {
     updateState((state) => state.copyWith(
-          adType: adType,
-          adTransactionType: adType == AdType.product
-              ? AdTransactionType.BUY
-              : AdTransactionType.BUY_SERVICE,
+          adId: adId,
+          isPrepared: adId == null,
+          isEditing: adId != null,
+          adTransactionType: adTransactionType,
+          adType: adTransactionType == AdTransactionType.BUY
+              ? AdType.product
+              : AdType.service,
         ));
+
+    if (states.isEditing) {
+      getEditingInitialData();
+    } else {
+      getCreatingInitialData();
+    }
   }
 
-  Future<void> getInitialData() async {
+  Future<void> getCreatingInitialData() async {
     final user = _userRepository.userInfoStorage.userInformation.call();
     updateState((state) => state.copyWith(
           contactPerson: user?.fullName?.capitalizeFullName() ?? "",
@@ -48,13 +57,52 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         ));
   }
 
+  Future<void> getEditingInitialData() async {
+    try {
+      updateState((state) => state.copyWith(isPreparingInProcess: true));
+      final ad =
+          await _adCreationRepository.getRequestAdForEdit(adId: states.adId!);
+
+      updateState((state) => state.copyWith(
+            isPrepared: true,
+            title: ad.name,
+            category:
+                CategoryResponse(id: ad.categoryId, name: ad.categoryName),
+            // pickedImages: ad.photos.map((e) => UploadableFile(xFile: e.image)),
+            desc: ad.description,
+            fromPrice: ad.fromPrice,
+            toPrice: ad.toPrice,
+            currency:
+                CurrencyResponse(id: "${ad.currencyId}", name: ad.currencyName),
+            paymentTypes: ad.paymentTypes
+                .map((e) => PaymentTypeResponse(id: e.id, name: e.name))
+                .toList(),
+            isAgreedPrice: ad.isContract,
+            address: UserAddressResponse(id: ad.id, name: ad.addressName),
+            contactPerson: ad.contactName,
+            phone: ad.phoneNumber,
+            email: ad.email,
+            requestDistricts: ad.deliveries
+                .map((e) => District(id: e.id, regionId: 0, name: e.name??""))
+                .toList(),
+            isAutoRenewal: ad.isAutoRenew,
+          ));
+      updateState((state) => state.copyWith(isPreparingInProcess: false));
+    } catch (e) {
+      log.w(e);
+      updateState((state) => state.copyWith(isPreparingInProcess: false));
+    }
+  }
+
   Future<void> createRequestAd() async {
     updateState((state) => state.copyWith(isRequestSending: true));
 
     await uploadImages();
 
     try {
-      final response = await _adCreationRepository.createRequestAd(
+      final adId = await _adCreationRepository.createRequestAd(
+        adId: states.adId,
+        //
         title: states.title,
         categoryId: states.category!.id,
         adType: states.adType,
@@ -79,9 +127,11 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         //
         isAutoRenewal: states.isAutoRenewal,
       );
-      log.i(response.toString());
 
       updateState((state) => state.copyWith(isRequestSending: false));
+      if (!states.isEditing) {
+        updateState((state) => state.copyWith(adId: adId));
+      }
       emitEvent(PageEvent(PageEventType.onAdCreated));
     } catch (exception) {
       log.e(exception.toString());
@@ -276,14 +326,14 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  void removeImage(String imagePath) {
+  void removeImage(UploadableFile file) {
     try {
       List<UploadableFile> imageList = [];
       if (states.pickedImages?.isNotEmpty == true) {
         imageList.addAll(states.pickedImages!);
       }
 
-      imageList.removeWhere((element) => element.xFile.path == imagePath);
+      imageList.removeWhere((element) => element.isSame(file));
       updateState((state) => state.copyWith(pickedImages: imageList));
     } catch (e) {
       log.e(e.toString());

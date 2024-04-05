@@ -7,10 +7,10 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/app_bar/empty_app_bar.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
+import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 
 import '../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../common/vibrator/vibrator_extension.dart';
-import '../../../../domain/models/ad/ad_type.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -134,8 +134,9 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
                   child: CustomElevatedButton(
                     text: Strings.adCreationStartBuyProduct,
                     onPressed: () {
-                      context.router
-                          .push(CreateRequestAdRoute(adType: AdType.product));
+                      context.router.push(CreateRequestAdRoute(
+                        adTransactionType: AdTransactionType.BUY,
+                      ));
                     },
                     buttonHeight: 36,
                     textSize: 12,
@@ -146,8 +147,9 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
                   child: CustomElevatedButton(
                     text: Strings.adCreationStartBuyService,
                     onPressed: () {
-                      context.router
-                          .push(CreateRequestAdRoute(adType: AdType.service));
+                      context.router.push(CreateRequestAdRoute(
+                        adTransactionType: AdTransactionType.BUY_SERVICE,
+                      ));
                     },
                     buttonHeight: 36,
                     textSize: 12,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/colors/static_colors.dart';
 
 class DefaultLoadingWidget extends StatelessWidget {
   const DefaultLoadingWidget({super.key, required this.isFullScreen});
@@ -10,14 +11,14 @@ class DefaultLoadingWidget extends StatelessWidget {
     return isFullScreen
         ? Center(
             child: CircularProgressIndicator(
-              color: Colors.blue,
+              color: StaticColors.buttonDefaultBackgroundColor,
             ),
           )
         : SizedBox(
             height: 160,
             child: Center(
               child: CircularProgressIndicator(
-                color: Colors.blue,
+                color: StaticColors.buttonDefaultBackgroundColor,
               ),
             ),
           );

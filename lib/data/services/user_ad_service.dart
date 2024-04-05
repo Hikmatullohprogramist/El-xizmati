@@ -24,4 +24,19 @@ class UserAdService {
     };
     return _dio.get("api/mobile/v1/user/adsList", queryParameters: queryParameters);
   }
+
+  Future<Response> deactivateAd(int adId) async {
+    final query = {RestQueryKeys.adId: adId};
+    return _dio.put("api/mobile/v1/deactivate-ad", queryParameters: query);
+  }
+
+  Future<Response> activateAd(int adId) async {
+    final query = {RestQueryKeys.adId: adId};
+    return _dio.put("api/mobile/v1/activate-ad", queryParameters: query);
+  }
+
+  Future<Response> deleteAd(int adId) async {
+    final query = {RestQueryKeys.adId: adId};
+    return _dio.put("api/mobile/v1/delete-ad", queryParameters: query);
+  }
 }

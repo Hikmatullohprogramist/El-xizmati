@@ -3,6 +3,9 @@ part of 'page_cubit.dart';
 @freezed
 class PageState with _$PageState {
   const factory PageState({
+    int? adId,
+    @Default(false) bool isEditing,
+//
     @Default("") String title,
     CategoryResponse? category,
 //

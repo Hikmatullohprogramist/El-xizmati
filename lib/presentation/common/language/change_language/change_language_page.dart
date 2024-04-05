@@ -6,7 +6,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/button/custom_outlined_button.dart';
 import 'package:onlinebozor/presentation/common/language/change_language/cubit/page_cubit.dart';
-import 'package:onlinebozor/presentation/utils/enum_resource_exts.dart';
+import 'package:onlinebozor/presentation/utils/resource_exts.dart';
 
 import '../../../../../common/core/base_page.dart';
 import '../../../../../common/gen/assets/assets.gen.dart';

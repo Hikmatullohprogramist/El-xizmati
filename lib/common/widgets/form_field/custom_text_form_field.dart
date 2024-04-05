@@ -129,22 +129,20 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           // prefixText: widget.prefixText,
           prefix: widget.prefixText == null
               ? null
-              : Expanded(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        widget.prefixText ?? "",
-                      ),
-                      Container(
-                        width: 1,
-                        margin: EdgeInsets.fromLTRB(6, 5, 10, 4),
-                        color:
-                            _isFocused ? Color(0xFF5C6AC4) : Color(0xFFDFE2E9),
-                      )
-                    ],
+              : Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    widget.prefixText ?? "",
                   ),
-                ),
+                  Container(
+                    width: 1,
+                    margin: EdgeInsets.fromLTRB(6, 5, 10, 4),
+                    color:
+                        _isFocused ? Color(0xFF5C6AC4) : Color(0xFFDFE2E9),
+                  )
+                ],
+              ),
           prefixStyle: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w400,

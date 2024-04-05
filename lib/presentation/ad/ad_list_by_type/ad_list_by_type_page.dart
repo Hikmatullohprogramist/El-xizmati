@@ -42,10 +42,11 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: ActiveSearchAppBar(
-            listener: () => context.router.pop(),
-            listenerSearch: () => context.router.push(SearchRoute()),
-            listenerNotification: () =>
-                context.router.push(NotificationListRoute())),
+          listener: () => context.router.pop(),
+          listenerSearch: () => context.router.push(SearchRoute()),
+          listenerNotification: () =>
+              context.router.push(NotificationListRoute()),
+        ),
         body: CustomScrollView(
           physics: BouncingScrollPhysics(),
           slivers: [
@@ -53,29 +54,32 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                 child: Column(
               children: [
                 Padding(
-                    padding: EdgeInsets.only(right: 16, left: 16, top: 16),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: switch (adType) {
-                        AdType.product => Strings.favoriteProductTitle
-                            .w(700)
-                            .s(16)
-                            .c(context.colors.textPrimary),
-                        AdType.service => Strings.favoriteServiceTitle
-                            .w(700)
-                            .s(16)
-                            .c(context.colors.textPrimary),
-                      },
-                    )),
-                SeeAllWidget(
-                    onClicked: () {
-                      context.router.push(AdListRoute(
-                          adType: state.adType,
-                          adListType: AdListType.cheaperAdsByAdType,
-                          keyWord: '',
-                          title: "eng arzonlari"));
+                  padding: EdgeInsets.only(right: 16, left: 16, top: 16),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: switch (adType) {
+                      AdType.product => Strings.favoriteProductTitle
+                          .w(700)
+                          .s(16)
+                          .c(context.colors.textPrimary),
+                      AdType.service => Strings.favoriteServiceTitle
+                          .w(700)
+                          .s(16)
+                          .c(context.colors.textPrimary),
                     },
-                    title: "eng arzonlari"),
+                  ),
+                ),
+                SeeAllWidget(
+                  onClicked: () {
+                    context.router.push(AdListRoute(
+                      adType: state.adType,
+                      adListType: AdListType.cheaperAdsByAdType,
+                      keyWord: '',
+                      title: Strings.adListLowPricesLabel,
+                    ));
+                  },
+                  title: Strings.adListLowPricesLabel,
+                ),
                 LoaderStateWidget(
                   isFullScreen: false,
                   loadingState: state.cheapAdsState,
@@ -98,10 +102,10 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                       adType: state.adType,
                       adListType: AdListType.popularAdsByAdType,
                       keyWord: '',
-                      title: Strings.adCollectivePopular,
+                      title: Strings.adListPopularLabel,
                     ));
                   },
-                  title: Strings.adCollectivePopular,
+                  title: Strings.adListPopularLabel,
                 ),
                 SizedBox(height: 6),
                 LoaderStateWidget(

@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
-import 'package:onlinebozor/data/repositories/ad_creation_repository.dart';
 import 'package:onlinebozor/data/responses/user_ad/user_ad_response.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
 
@@ -12,9 +11,7 @@ part 'page_state.dart';
 
 @Injectable()
 class PageCubit extends BaseCubit<PageState, PageEvent> {
-  PageCubit(this._repository) : super(PageState());
-
-  final AdCreationRepository _repository;
+  PageCubit() : super(PageState());
 
   void setInitialParams(
     UserAdResponse? userAdResponse,
@@ -36,7 +33,11 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           UserAdStatus.active,
           UserAdStatus.all,
         ].contains(userAdStatus),
-        isDeleteEnabled: userAdStatus == UserAdStatus.inactive,
+        isDeleteEnabled: [
+          UserAdStatus.inactive,
+          UserAdStatus.rejected,
+          UserAdStatus.canceled,
+        ].contains(userAdStatus),
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/chips/chip_add_item.dart';
 import 'package:onlinebozor/common/widgets/chips/chip_count_item.dart';
+import 'package:onlinebozor/common/widgets/chips/chip_show_less_item.dart';
 
 import 'chip_show_more_item.dart';
 
@@ -76,6 +77,9 @@ class ChipList extends StatelessWidget {
     } else {
       if (isShowAll) {
         actualChips.addAll(chips);
+        if (isShowChildrenCount) {
+          actualChips.add(ChipShowLessItem(onClicked: onClickedShowLess));
+        }
       } else {
         actualChips.addAll(chips.sublist(0, minCount));
         if (isShowChildrenCount) {

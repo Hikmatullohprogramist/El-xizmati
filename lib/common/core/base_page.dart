@@ -40,9 +40,9 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
     return context.read<CUBIT>();
   }
 
-  STATE state(BuildContext context) {
-    return context.read<STATE>();
-  }
+  // STATE state(BuildContext context) {
+  //   return context.read<STATE>();
+  // }
 
   EVENT event(BuildContext context) {
     return context.read<EVENT>();

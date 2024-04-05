@@ -18,7 +18,7 @@ import 'package:onlinebozor/presentation/common/selection_region_and_district/se
 import 'package:onlinebozor/presentation/common/selection_unit/selection_unit_page.dart';
 import 'package:onlinebozor/presentation/common/selection_user_address/selection_user_address_page.dart';
 import 'package:onlinebozor/presentation/common/selection_user_warehouse/selection_user_warehouse_page.dart';
-import 'package:onlinebozor/presentation/utils/enum_resource_exts.dart';
+import 'package:onlinebozor/presentation/utils/resource_exts.dart';
 
 import '../../../../../common/core/base_page.dart';
 import '../../../../../common/gen/localization/strings.dart';
@@ -33,6 +33,8 @@ import '../../../common/widgets/form_field/custom_dropdown_form_field.dart';
 import '../../../common/widgets/form_field/custom_text_form_field.dart';
 import '../../../common/widgets/form_field/label_text_field.dart';
 import '../../../common/widgets/form_field/validator/count_validator.dart';
+import '../../../common/widgets/loading/default_error_widget.dart';
+import '../../../common/widgets/loading/default_loading_widget.dart';
 import '../../../domain/models/ad/ad_type.dart';
 import '../../common/selection_payment_type/selection_payment_type_page.dart';
 import '../../utils/mask_formatters.dart';
@@ -40,7 +42,14 @@ import 'cubit/page_cubit.dart';
 
 @RoutePage()
 class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
-  CreateProductAdPage({super.key});
+  CreateProductAdPage({
+    super.key,
+    this.adId,
+    this.adTransactionType = AdTransactionType.SELL,
+  });
+
+  int? adId;
+  final AdTransactionType adTransactionType;
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descController = TextEditingController();
@@ -57,18 +66,21 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
+  void onWidgetCreated(BuildContext context) {
+    cubit(context).setInitialParams(adId, adTransactionType);
+  }
+
+  @override
   void onEventEmitted(BuildContext context, PageEvent event) {
     switch (event.type) {
       case PageEventType.onOverMaxCount:
         _showMaxCountError(context, event.maxImageCount);
       case PageEventType.onAdCreated:
-        context.router.replace(CreateAdResultRoute());
+        context.router.replace(CreateAdResultRoute(
+          adId: cubit(context).states.adId!,
+          adTransactionType: cubit(context).states.adTransactionType,
+        ));
     }
-  }
-
-  @override
-  void onWidgetCreated(BuildContext context) {
-    cubit(context).getInitialData();
   }
 
   @override
@@ -86,45 +98,57 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     videoUrlController.updateOnRestore(state.videoUrl);
 
     return Scaffold(
-      appBar: DefaultAppBar(Strings.adCreateTitle, () => context.router.pop()),
-      backgroundColor: StaticColors.backgroundColor,
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              SizedBox(height: 20),
-              _buildTitleAndCategoryBlock(context, state),
-              SizedBox(height: 20),
-              _buildImageListBlock(context, state),
-              SizedBox(height: 20),
-              _buildDescBlock(context, state),
-              _buildPriceBlock(context, state),
-              SizedBox(height: 20),
-              _buildAdditionalInfoBlock(context, state),
-              SizedBox(height: cubit(context).isExchangeMode() ? 16 : 0),
-              _buildExchangeAdBlock(context, state),
-              SizedBox(height: 20),
-              _buildContactsBlock(context, state),
-              SizedBox(height: 20),
-              _buildPickupBlock(context, state),
-              SizedBox(height: 4),
-              _buildFreeDeliveryBlock(context, state),
-              SizedBox(height: 4),
-              _buildPaidDeliveryBlock(context, state),
-              SizedBox(height: 20),
-              _buildAutoContinueBlock(context, state),
-              SizedBox(height: 20),
-              _buildUsefulLinkBlock(context, state),
-              SizedBox(height: 20),
-              _buildFooterBlock(context, state),
-              SizedBox(height: 20),
-            ],
-          ),
-        ),
+      appBar: DefaultAppBar(
+        state.isEditing ? Strings.adEditTitle : Strings.adCreateTitle,
+        () => context.router.pop(),
       ),
+      backgroundColor: StaticColors.backgroundColor,
+      body: state.isNotPrepared
+          ? Container(
+              child: state.isPreparingInProcess
+                  ? DefaultLoadingWidget(isFullScreen: true)
+                  : DefaultErrorWidget(
+                      isFullScreen: true,
+                      retryAction: () => cubit(context).getEditingInitialData(),
+                    ),
+            )
+          : SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(height: 20),
+                    _buildTitleAndCategoryBlock(context, state),
+                    SizedBox(height: 20),
+                    _buildImageListBlock(context, state),
+                    SizedBox(height: 20),
+                    _buildDescBlock(context, state),
+                    _buildPriceBlock(context, state),
+                    SizedBox(height: 20),
+                    _buildAdditionalInfoBlock(context, state),
+                    SizedBox(height: cubit(context).isExchangeMode() ? 16 : 0),
+                    _buildExchangeAdBlock(context, state),
+                    SizedBox(height: 20),
+                    _buildContactsBlock(context, state),
+                    SizedBox(height: 20),
+                    _buildPickupBlock(context, state),
+                    SizedBox(height: 4),
+                    _buildFreeDeliveryBlock(context, state),
+                    SizedBox(height: 4),
+                    _buildPaidDeliveryBlock(context, state),
+                    SizedBox(height: 20),
+                    _buildAutoContinueBlock(context, state),
+                    SizedBox(height: 20),
+                    _buildUsefulLinkBlock(context, state),
+                    SizedBox(height: 20),
+                    _buildFooterBlock(context, state),
+                    SizedBox(height: 20),
+                  ],
+                ),
+              ),
+            ),
     );
   }
 
@@ -139,7 +163,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           LabelTextField(Strings.createAdTransactionTypeLabel),
           SizedBox(height: 6),
           CustomDropdownFormField(
-            value: state.adTransactionType.getString(),
+            value: state.adTransactionType.getLocalizedName(),
             hint: Strings.createAdTransactionTypeLabel,
             validator: (value) => NotEmptyValidator.validate(value),
             onTap: () {
@@ -197,7 +221,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             validator: (value) => CountValidator.validate(value),
             onTakePhotoClicked: () => cubit(context).takeImage(),
             onPickImageClicked: () => cubit(context).pickImage(),
-            onRemoveClicked: (path) => cubit(context).removeImage(path),
+            onRemoveClicked: (file) => cubit(context).removeImage(file),
             onReorder: (i, j) => cubit(context).onReorder(i, j),
             onImageClicked: (index) async {
               final result = await context.router.push(

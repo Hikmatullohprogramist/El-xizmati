@@ -5,6 +5,7 @@ import 'package:onlinebozor/data/utils/rest_mappers.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 
 import '../../domain/models/ad/ad_type.dart';
+import '../constants/rest_query_keys.dart';
 import '../storages/token_storage.dart';
 
 @lazySingleton
@@ -61,6 +62,8 @@ class AdCreationService {
   }
 
   Future<Response> createProductAd({
+    required int? adId,
+    //
     required String title,
     required int categoryId,
     required AdTransactionType adTransactionType,
@@ -158,8 +161,8 @@ class AdCreationService {
         "paid_delivery_district_ids":
             paidDeliveryDistricts.toMapList("district_id"),
         "paid_delivery_max_days": paidDeliveryMaxDay,
-        "shipping_price": paidDeliveryPrice,
-        "shipping_unit_id": 12, // km unit id 12
+        "paid_delivery_price": paidDeliveryPrice,
+        "paid_delivery_unit_id": 12, // km unit id 12
       };
       commonBody.addAll(paidDeliveryBody);
     }
@@ -189,19 +192,36 @@ class AdCreationService {
       commonBody.addAll(exchangeBody);
     }
 
-    var endPoint = "api/mobile/v1/create-product-ad";
-    if (adTransactionType == AdTransactionType.FREE) {
-      endPoint = "api/mobile/v1/create-free-product-ad";
-    } else if (adTransactionType == AdTransactionType.EXCHANGE) {
-      endPoint = "api/mobile/v1/create-exchange-product-ad";
-    } else {
-      endPoint = "api/mobile/v1/create-product-ad";
+    if (adId != null) {
+      final updateBody = {
+        RestQueryKeys.adId: adId,
+      };
+      commonBody.addAll(updateBody);
     }
 
-    return dio.post(endPoint, data: commonBody);
+    var endPoint = "api/mobile/v1/create-product-ad";
+    if (adTransactionType == AdTransactionType.FREE) {
+      endPoint = adId != null
+          ? "api/mobile/v1/update-free-product-ad"
+          : "api/mobile/v1/create-free-product-ad";
+    } else if (adTransactionType == AdTransactionType.EXCHANGE) {
+      endPoint = adId != null
+          ? "api/mobile/v1/update-exchange-product-ad"
+          : "api/mobile/v1/create-exchange-product-ad";
+    } else {
+      endPoint = adId != null
+          ? "api/mobile/v1/update-product-ad"
+          : "api/mobile/v1/create-product-ad";
+    }
+
+    return adId != null
+        ? dio.put(endPoint, data: commonBody)
+        : dio.post(endPoint, data: commonBody);
   }
 
   Future<Response> createServiceAd({
+    required int? adId,
+    //
     required String title,
     required int categoryId,
     required int serviceCategoryId,
@@ -263,10 +283,23 @@ class AdCreationService {
       "video": videoUrl
     };
 
-    return dio.post('api/mobile/v1/create-service-ad', data: commonBody);
+    if (adId != null) {
+      final updateBody = {
+        RestQueryKeys.adId: adId,
+      };
+      commonBody.addAll(updateBody);
+    }
+
+    const endPoint = 'api/mobile/v1/create-service-ad';
+
+    return adId != null
+        ? dio.put(endPoint, data: commonBody)
+        : dio.post(endPoint, data: commonBody);
   }
 
   Future<Response> createRequestAd({
+    required int? adId,
+    //
     required String title,
     required int categoryId,
     required AdType adType,
@@ -322,9 +355,43 @@ class AdCreationService {
       "is_auto_renew": isAutoRenewal,
     };
 
+    if (adId != null) {
+      final updateBody = {
+        RestQueryKeys.adId: adId,
+      };
+      commonBody.addAll(updateBody);
+    }
+
     final endPoint = adType == AdType.product
         ? "api/mobile/v1/create-product-request"
         : "api/mobile/v1/create-service-request";
-    return dio.post(endPoint, data: commonBody);
+
+    return adId != null
+        ? dio.put(endPoint, data: commonBody)
+        : dio.post(endPoint, data: commonBody);
+  }
+
+  Future<Response> getProductAdForEdit({required int adId}) {
+    final queryParameters = {RestQueryKeys.adId: adId};
+    return dio.get(
+      "api/mobile/v1/get-product-ad-details-for-edit",
+      queryParameters: queryParameters,
+    );
+  }
+
+  Future<Response> getServiceAdForEdit({required int adId}) {
+    final queryParameters = {RestQueryKeys.adId: adId};
+    return dio.get(
+      "api/mobile/v1/get-service-ad-details-for-edit",
+      queryParameters: queryParameters,
+    );
+  }
+
+  Future<Response> getRequestAdForEdit({required int adId}) {
+    final queryParameters = {RestQueryKeys.adId: adId};
+    return dio.get(
+      "api/mobile/v1/get-request-ad-details-for-edit",
+      queryParameters: queryParameters,
+    );
   }
 }

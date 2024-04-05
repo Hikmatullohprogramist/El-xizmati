@@ -6,7 +6,7 @@ class UploadableFile {
     this.name,
     this.localPath,
     this.extension,
-    required this.xFile,
+    this.xFile,
   });
 
   UploadableFile copy() {
@@ -23,10 +23,14 @@ class UploadableFile {
   String? name;
   String? localPath;
   String? extension;
-  XFile xFile;
+  XFile? xFile;
 
   bool isUploaded() {
     return id?.isNotEmpty == true;
+  }
+
+  bool isSame(UploadableFile other) {
+    return id == other.id || xFile?.path == other.xFile?.path;
   }
 
   bool isNotUploaded() {

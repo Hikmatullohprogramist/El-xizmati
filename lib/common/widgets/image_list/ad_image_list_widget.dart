@@ -31,7 +31,7 @@ class AdImageListWidget extends StatelessWidget {
   final Function() onTakePhotoClicked;
   final Function() onPickImageClicked;
   final Function(int index) onImageClicked;
-  final Function(String imagePath) onRemoveClicked;
+  final Function(UploadableFile file) onRemoveClicked;
   final Function(int oldIndex, int newIndex) onReorder;
   final AutovalidateMode? autoValidateMode;
   final String? Function(int count)? validator;
@@ -107,12 +107,12 @@ class AdImageListWidget extends StatelessWidget {
                                 child: AdImageListImageWidget(
                                   key: ValueKey(element),
                                   index: index,
-                                  imagePath: element.xFile.path,
+                                  uploadableFile: element,
                                   onImageClicked: () {
                                     onImageClicked(index);
                                   },
-                                  onRemoveClicked: (imagePath) {
-                                    onRemoveClicked(element.xFile.path);
+                                  onRemoveClicked: (file) {
+                                    onRemoveClicked(file);
                                   },
                                 ),
                               ),

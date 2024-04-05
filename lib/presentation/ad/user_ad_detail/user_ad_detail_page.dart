@@ -23,6 +23,11 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
   final UserAdResponse userAdResponse;
 
   @override
+  void onWidgetCreated(BuildContext context) {
+    cubit(context).setInitialParams(userAdResponse);
+  }
+
+  @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
       appBar: DefaultAppBar("", () => context.router.pop()),

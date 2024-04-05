@@ -1,4 +1,8 @@
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/data/responses/ad/creation/ad_creation_response.dart';
+import 'package:onlinebozor/data/responses/ad/edit/product_ad_response.dart';
+import 'package:onlinebozor/data/responses/ad/edit/request_ad_response.dart';
+import 'package:onlinebozor/data/responses/ad/edit/service_ad_response.dart';
 import 'package:onlinebozor/data/responses/category/category/category_response.dart';
 import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/services/ad_creation_service.dart';
@@ -53,18 +57,19 @@ class AdCreationRepository {
     return units;
   }
 
-  Future<UploadableFile> uploadImage(UploadableFile uploadableFile) async {
-    var xFile = uploadableFile.xFile;
-    var response = await _adCreationService.uploadImage(xFile);
+  Future<UploadableFile> uploadImage(UploadableFile file) async {
+    var response = await _adCreationService.uploadImage(file.xFile!);
     var id = response.data['id'];
     if (id is String) {
-      return uploadableFile..id = id;
+      return file..id = id;
     }
 
     throw Exception("Rasm yuklashda xatolik");
   }
 
-  Future<String> createProductAd({
+  Future<int> createProductAd({
+    required int? adId,
+    //
     required String title,
     required CategoryResponse category,
     required AdTransactionType adTransactionType,
@@ -110,6 +115,8 @@ class AdCreationRepository {
     required String videoUrl,
   }) async {
     final response = await _adCreationService.createProductAd(
+      adId: adId,
+      //
       title: title,
       categoryId: category.id,
       adTransactionType: adTransactionType,
@@ -155,10 +162,13 @@ class AdCreationRepository {
       videoUrl: videoUrl,
     );
 
-    return "";
+    final id = AdCreationRootResponse.fromJson(response.data).data.ad.id;
+    return id;
   }
 
-  Future<String> createServiceAd({
+  Future<int> createServiceAd({
+    required int? adId,
+    //
     required String title,
     required int categoryId,
     required int serviceCategoryId,
@@ -187,6 +197,8 @@ class AdCreationRepository {
     required String videoUrl,
   }) async {
     final response = await _adCreationService.createServiceAd(
+      adId: adId,
+      //
       title: title,
       categoryId: categoryId,
       serviceCategoryId: serviceCategoryId,
@@ -215,10 +227,13 @@ class AdCreationRepository {
       videoUrl: videoUrl,
     );
 
-    return "";
+    final id = AdCreationRootResponse.fromJson(response.data).data.ad.id;
+    return id;
   }
 
-  Future<String> createRequestAd({
+  Future<int> createRequestAd({
+    required int? adId,
+    //
     required String title,
     required int categoryId,
     required AdType adType,
@@ -244,6 +259,8 @@ class AdCreationRepository {
     required bool isAutoRenewal,
   }) async {
     final response = await _adCreationService.createRequestAd(
+      adId: adId,
+      //
       title: title,
       categoryId: categoryId,
       adType: adType,
@@ -269,6 +286,25 @@ class AdCreationRepository {
       isAutoRenewal: isAutoRenewal,
     );
 
-    return "";
+    final id = AdCreationRootResponse.fromJson(response.data).data.ad.id;
+    return id;
+  }
+
+  Future<ProductAdResponse> getProductAdForEdit({required int adId}) async {
+    final response = await _adCreationService.getProductAdForEdit(adId: adId);
+    final adsResponse = ProductAdRootResponse.fromJson(response.data).data;
+    return adsResponse;
+  }
+
+  Future<ServiceAdResponse> getServiceAdForEdit({required int adId}) async {
+    final response = await _adCreationService.getServiceAdForEdit(adId: adId);
+    final adsResponse = ServiceAdRootResponse.fromJson(response.data).data;
+    return adsResponse;
+  }
+
+  Future<RequestAdResponse> getRequestAdForEdit({required int adId}) async {
+    final response = await _adCreationService.getRequestAdForEdit(adId: adId);
+    final adsResponse = RequestAdRootResponse.fromJson(response.data).data;
+    return adsResponse;
   }
 }

@@ -8,7 +8,7 @@ import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/form_field/custom_text_form_field.dart';
 import 'package:onlinebozor/common/widgets/image_list/ad_image_list_widget.dart';
-import 'package:onlinebozor/domain/models/ad/ad_type.dart';
+import 'package:onlinebozor/common/widgets/loading/default_loading_widget.dart';
 
 import '../../../../../common/core/base_page.dart';
 import '../../../common/colors/static_colors.dart';
@@ -24,7 +24,9 @@ import '../../../common/widgets/form_field/validator/default_validator.dart';
 import '../../../common/widgets/form_field/validator/email_validator.dart';
 import '../../../common/widgets/form_field/validator/phone_number_validator.dart';
 import '../../../common/widgets/form_field/validator/price_validator.dart';
+import '../../../common/widgets/loading/default_error_widget.dart';
 import '../../../common/widgets/switch/custom_switch.dart';
+import '../../../domain/models/ad/ad_transaction_type.dart';
 import '../../../domain/models/image/uploadable_file.dart';
 import '../../common/selection_currency/selection_currency_page.dart';
 import '../../common/selection_payment_type/selection_payment_type_page.dart';
@@ -35,9 +37,14 @@ import 'cubit/page_cubit.dart';
 
 @RoutePage()
 class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
-  CreateRequestAdPage(this.adType, {super.key});
+  CreateRequestAdPage({
+    super.key,
+    this.adId,
+    required this.adTransactionType,
+  });
 
-  final AdType adType;
+  int? adId;
+  final AdTransactionType adTransactionType;
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descController = TextEditingController();
@@ -50,18 +57,21 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
+  void onWidgetCreated(BuildContext context) {
+    cubit(context).setInitialParams(adId, adTransactionType);
+  }
+
+  @override
   void onEventEmitted(BuildContext context, PageEvent event) {
     switch (event.type) {
       case PageEventType.onOverMaxCount:
         _showMaxCountError(context, event.maxImageCount);
       case PageEventType.onAdCreated:
-        context.router.replace(CreateAdResultRoute());
+        context.router.replace(CreateAdResultRoute(
+          adId: cubit(context).states.adId!,
+          adTransactionType: cubit(context).states.adTransactionType,
+        ));
     }
-  }
-
-  @override
-  void onWidgetCreated(BuildContext context) {
-    cubit(context).getInitialData();
   }
 
   @override
@@ -75,34 +85,46 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     emailController.updateOnRestore(state.email);
 
     return Scaffold(
-      appBar: DefaultAppBar(Strings.adCreateTitle, () => context.router.pop()),
-      backgroundColor: StaticColors.backgroundColor,
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              SizedBox(height: 20),
-              _buildTitleAndCategoryBlock(context, state),
-              SizedBox(height: 20),
-              _buildImageListBlock(context, state),
-              SizedBox(height: 20),
-              _buildDescAndPriceBlock(context, state),
-              SizedBox(height: 20),
-              _buildContactsBlock(context, state),
-              SizedBox(height: 20),
-              _buildAddressBlock(context, state),
-              SizedBox(height: 20),
-              _buildAutoContinueBlock(context, state),
-              SizedBox(height: 20),
-              _buildFooterBlock(context, state),
-              SizedBox(height: 20),
-            ],
-          ),
-        ),
+      appBar: DefaultAppBar(
+        state.isEditing ? Strings.adEditTitle : Strings.adCreateTitle,
+        () => context.router.pop(),
       ),
+      backgroundColor: StaticColors.backgroundColor,
+      body: state.isPrepared
+          ? Container(
+              child: state.isPreparingInProcess
+                  ? DefaultLoadingWidget(isFullScreen: true)
+                  : DefaultErrorWidget(
+                      isFullScreen: true,
+                      retryAction: () => cubit(context).getEditingInitialData(),
+                    ),
+            )
+          : SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(height: 20),
+                    _buildTitleAndCategoryBlock(context, state),
+                    SizedBox(height: 20),
+                    _buildImageListBlock(context, state),
+                    SizedBox(height: 20),
+                    _buildDescAndPriceBlock(context, state),
+                    SizedBox(height: 20),
+                    _buildContactsBlock(context, state),
+                    SizedBox(height: 20),
+                    _buildAddressBlock(context, state),
+                    SizedBox(height: 20),
+                    _buildAutoContinueBlock(context, state),
+                    SizedBox(height: 20),
+                    _buildFooterBlock(context, state),
+                    SizedBox(height: 20),
+                  ],
+                ),
+              ),
+            ),
     );
   }
 
@@ -164,7 +186,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             validator: (value) => CountValidator.validate(value),
             onTakePhotoClicked: () => cubit(context).takeImage(),
             onPickImageClicked: () => cubit(context).pickImage(),
-            onRemoveClicked: (path) => cubit(context).removeImage(path),
+            onRemoveClicked: (file) => cubit(context).removeImage(file),
             onReorder: (i, j) => cubit(context).onReorder(i, j),
             onImageClicked: (index) async {
               final result = await context.router.push(
