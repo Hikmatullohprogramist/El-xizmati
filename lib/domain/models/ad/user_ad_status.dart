@@ -1,9 +1,9 @@
 enum UserAdStatus {
-  all,
-  active,
-  wait,
-  inactive,
-  rejected,
-  canceled,
-  sysCanceled
+  ALL,
+  ACTIVE,
+  WAIT,
+  INACTIVE,
+  REJECTED,
+  CANCELLED,
+  SYS_CANCELLED
 }

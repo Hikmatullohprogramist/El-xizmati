@@ -15,16 +15,17 @@ import 'package:onlinebozor/presentation/ad/user_ad_detail/cubit/page_cubit.dart
 import '../../../common/constants.dart';
 import '../../../common/core/base_page.dart';
 import '../../../common/widgets/dashboard/app_image_widget.dart';
+import '../../../domain/models/ad/user_ad.dart';
 
 @RoutePage()
 class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
-  const UserAdDetailPage({super.key, required this.userAdResponse});
+  const UserAdDetailPage({super.key, required this.userAd});
 
-  final UserAdResponse userAdResponse;
+  final UserAd userAd;
 
   @override
   void onWidgetCreated(BuildContext context) {
-    cubit(context).setInitialParams(userAdResponse);
+    cubit(context).setInitialParams(userAd);
   }
 
   @override
@@ -38,7 +39,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
           physics: BouncingScrollPhysics(),
           children: [
             AppImageWidget(
-              images: ([userAdResponse.main_photo])
+              images: ([userAd.mainPhoto])
                   .map((e) => "${Constants.baseUrlForImage}$e")
                   .toList(),
               onClicked: (int position) {
@@ -57,7 +58,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
               padding: EdgeInsets.symmetric(
                 horizontal: 16,
               ),
-              child: (userAdResponse.name ?? "")
+              child: (userAd.name ?? "")
                   .w(600)
                   .s(14)
                   .c(Color(0xFF41455E))
@@ -86,10 +87,10 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 22),
               child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 DetailPriceTextWidget(
-                  price: userAdResponse.price ?? 0,
-                  toPrice: userAdResponse.to_price ?? 0,
-                  fromPrice: userAdResponse.from_price ?? 0,
-                  currency: userAdResponse.currency.toCurrency(),
+                  price: userAd.price ?? 0,
+                  toPrice: userAd.toPrice ?? 0,
+                  fromPrice: userAd.fromPrice ?? 0,
+                  currency: userAd.currency.toCurrency(),
                 ),
                 // "473 769 560 сум".w(700).s(16).c(Color(0xFF5C6AC3))
               ]),
@@ -102,7 +103,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                 children: [
                   Assets.images.icCalendar.svg(width: 24, height: 24),
                   SizedBox(width: 8),
-                  ("${userAdResponse.begin_date ?? ""}-${userAdResponse.end_date ?? ""}")
+                  ("${userAd.beginDate ?? ""}-${userAd.endDate ?? ""}")
                       .w(500)
                       .s(12)
                       .c(Color(0xFF9EABBE)),
@@ -117,7 +118,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                 children: [
                   Assets.images.icLocation.svg(height: 24, width: 24),
                   SizedBox(width: 6),
-                  ("${userAdResponse.region ?? " "} ${userAdResponse.district ?? ""}")
+                  ("${userAd.region ?? " "} ${userAd.district ?? ""}")
                       .w(400)
                       .s(12)
                       .c(Color(0xFF9EABBE))
@@ -155,7 +156,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                               width: 12,
                               color: context.colors.iconGrey),
                           SizedBox(width: 8),
-                          (userAdResponse.view ?? 0)
+                          (userAd.viewedCount ?? 0)
                               .toString()
                               .w(600)
                               .s(10)
@@ -177,7 +178,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                               width: 12,
                               color: context.colors.iconGrey),
                           SizedBox(width: 8),
-                          (userAdResponse.selected ?? 0)
+                          (userAd.selectedCount ?? 0)
                               .toString()
                               .w(600)
                               .s(10)
@@ -199,7 +200,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                               width: 12,
                               color: context.colors.iconGrey),
                           SizedBox(width: 8),
-                          (userAdResponse.phone_view ?? 0)
+                          (userAd.phoneViewedCount ?? 0)
                               .toString()
                               .w(600)
                               .s(10)
@@ -221,7 +222,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                               width: 12,
                               color: context.colors.iconGrey),
                           SizedBox(width: 8),
-                          (userAdResponse.message_number ?? 0)
+                          (userAd.messageViewedCount ?? 0)
                               .toString()
                               .w(600)
                               .s(10)

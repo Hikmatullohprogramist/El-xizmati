@@ -21,11 +21,11 @@ class UserAdListPage extends BasePage<PageCubit, PageState, PageEvent> {
     return AutoTabsRouter.tabBar(
       physics: BouncingScrollPhysics(),
       routes: [
-        UserAdsRoute(userAdStatus: UserAdStatus.all),
-        UserAdsRoute(userAdStatus: UserAdStatus.active),
-        UserAdsRoute(userAdStatus: UserAdStatus.wait),
-        UserAdsRoute(userAdStatus: UserAdStatus.inactive),
-        UserAdsRoute(userAdStatus: UserAdStatus.canceled),
+        UserAdsRoute(userAdStatus: UserAdStatus.ALL),
+        UserAdsRoute(userAdStatus: UserAdStatus.ACTIVE),
+        UserAdsRoute(userAdStatus: UserAdStatus.WAIT),
+        UserAdsRoute(userAdStatus: UserAdStatus.INACTIVE),
+        UserAdsRoute(userAdStatus: UserAdStatus.CANCELLED),
       ],
       builder: (context, child, controller) {
         return Scaffold(

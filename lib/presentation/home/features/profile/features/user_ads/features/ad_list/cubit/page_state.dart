@@ -4,8 +4,8 @@ part of 'page_cubit.dart';
 class PageState with _$PageState {
   const factory PageState({
     @Default("") String keyWord,
-    @Default(UserAdStatus.all) UserAdStatus userAdStatus,
-    PagingController<int, UserAdResponse>? pagingController,
+    @Default(UserAdStatus.ALL) UserAdStatus userAdStatus,
+    PagingController<int, UserAd>? controller,
   }) = _PageState;
 }
 

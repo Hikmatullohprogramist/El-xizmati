@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -7,19 +5,20 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/action/action_list_item.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
-import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/ad_action.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
-import 'package:onlinebozor/presentation/ad/ad_list_actions/ad_list_actions.dart';
+import 'package:onlinebozor/presentation/utils/resource_exts.dart';
 
 import '../../../../../../../../common/colors/static_colors.dart';
 import '../../../../../../../../common/gen/localization/strings.dart';
-import '../../../../../../../../common/widgets/ad/user_ad/user_ad_widget.dart';
 import '../../../../../../../../common/widgets/ad/user_ad/user_ad_empty_widget.dart';
 import '../../../../../../../../common/widgets/ad/user_ad/user_ad_shimmer.dart';
-import '../../../../../../../../data/responses/user_ad/user_ad_response.dart';
+import '../../../../../../../../common/widgets/ad/user_ad/user_ad_widget.dart';
+import '../../../../../../../../common/widgets/bottom_sheet/bottom_sheet_title.dart';
+import '../../../../../../../../domain/models/ad/user_ad.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
@@ -40,13 +39,13 @@ class UserAdsPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
       backgroundColor: StaticColors.backgroundColor,
-      body: PagedListView<int, UserAdResponse>(
+      body: PagedListView<int, UserAd>(
         shrinkWrap: true,
         addAutomaticKeepAlives: true,
         physics: BouncingScrollPhysics(),
-        pagingController: state.pagingController!,
+        pagingController: state.controller!,
         padding: EdgeInsets.only(top: 12, bottom: 12),
-        builderDelegate: PagedChildBuilderDelegate<UserAdResponse>(
+        builderDelegate: PagedChildBuilderDelegate<UserAd>(
           firstPageErrorIndicatorBuilder: (_) {
             return SizedBox(
               height: 100,
@@ -104,74 +103,135 @@ class UserAdsPage extends BasePage<PageCubit, PageState, PageEvent> {
           },
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) => UserAdWidget(
-            onActionClicked: () async {
-              AdAction? action = await showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                useSafeArea: true,
-                backgroundColor: Colors.transparent,
-                builder: (context) => AdListActionsPage(
-                  key: Key(""),
-                  userAdResponse: item,
-                  userAdStatus: state.userAdStatus,
-                ),
-              );
-              log("ad action clicked =  ${action.toString()}");
-              if (action != null) {
-                AdTransactionType type = item.type_status.toAdTypeStatus();
-                switch (action) {
-                  case AdAction.ACTION_EDIT:
-                    {
-                      switch (type) {
-                        case AdTransactionType.SELL:
-                          context.router.push(CreateProductAdRoute(
-                            adId: item.id,
-                            adTransactionType: type,
-                          ));
-                        case AdTransactionType.FREE:
-                          context.router.push(CreateProductAdRoute(
-                            adId: item.id,
-                            adTransactionType: type,
-                          ));
-                        case AdTransactionType.EXCHANGE:
-                          context.router.push(CreateProductAdRoute(
-                            adId: item.id,
-                            adTransactionType: type,
-                          ));
-                        case AdTransactionType.SERVICE:
-                          context.router.push(CreateServiceAdRoute(
-                            adId: item.id,
-                          ));
-                        case AdTransactionType.BUY:
-                          context.router.push(CreateRequestAdRoute(
-                            adId: item.id,
-                            adTransactionType: type,
-                          ));
-                        case AdTransactionType.BUY_SERVICE:
-                          context.router.push(CreateRequestAdRoute(
-                            adId: item.id,
-                            adTransactionType: type,
-                          ));
-                      }
-                    }
-                  case AdAction.ACTION_ADVERTISE:
-                    {}
-                  case AdAction.ACTION_DEACTIVATE:
-                    {}
-                  case AdAction.ACTION_ACTIVATE:
-                    {}
-                  case AdAction.ACTION_DELETE:
-                    {}
-                }
-              }
+            onActionClicked: () {
+              _showActionsBottomSheet(context, item);
             },
             onItemClicked: () {
-              context.router.push(UserAdDetailRoute(userAdResponse: item));
+              context.router.push(UserAdDetailRoute(userAd: item));
             },
-            response: item,
+            userAd: item,
           ),
         ),
       ),
+    );
+  }
+
+  void _showActionsBottomSheet(BuildContext context, UserAd ad) {
+    // AdTransactionType type = ad.type_status.toAdTypeStatus();
+    AdTransactionType type = ad.adTransactionType ?? AdTransactionType.SELL;
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext bc) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              SizedBox(height: 12),
+              BottomSheetTitle(
+                title: Strings.actionTitle,
+                onCloseClicked: () {
+                  context.router.pop();
+                },
+              ),
+              SizedBox(height: 16),
+              ActionListItem(
+                item: AdAction.ACTION_EDIT,
+                title: AdAction.ACTION_EDIT.getLocalizedName(),
+                icon: AdAction.ACTION_EDIT.getActionIcon(),
+                onClicked: (item) {
+                  context.router.pop();
+
+                  switch (type) {
+                    case AdTransactionType.SELL:
+                      context.router.push(CreateProductAdRoute(
+                        adId: ad.id,
+                        adTransactionType: type,
+                      ));
+                    case AdTransactionType.FREE:
+                      context.router.push(CreateProductAdRoute(
+                        adId: ad.id,
+                        adTransactionType: type,
+                      ));
+                    case AdTransactionType.EXCHANGE:
+                      context.router.push(CreateProductAdRoute(
+                        adId: ad.id,
+                        adTransactionType: type,
+                      ));
+                    case AdTransactionType.SERVICE:
+                      context.router.push(CreateServiceAdRoute(
+                        adId: ad.id,
+                      ));
+                    case AdTransactionType.BUY:
+                      context.router.push(CreateRequestAdRoute(
+                        adId: ad.id,
+                        adTransactionType: type,
+                      ));
+                    case AdTransactionType.BUY_SERVICE:
+                      context.router.push(CreateRequestAdRoute(
+                        adId: ad.id,
+                        adTransactionType: type,
+                      ));
+                  }
+                },
+              ),
+              if (ad.isCanAdvertise())
+                ActionListItem(
+                  item: AdAction.ACTION_ADVERTISE,
+                  title: AdAction.ACTION_ADVERTISE.getLocalizedName(),
+                  icon: AdAction.ACTION_ADVERTISE.getActionIcon(),
+                  color: Colors.purpleAccent,
+                  onClicked: (item) {
+                    context.router.pop();
+                  },
+                ),
+              if (ad.isCanDeactivate())
+                ActionListItem(
+                  item: AdAction.ACTION_DEACTIVATE,
+                  title: AdAction.ACTION_DEACTIVATE.getLocalizedName(),
+                  icon: AdAction.ACTION_DEACTIVATE.getActionIcon(),
+                  color: Color(0xFFFA6F5D),
+                  onClicked: (item) {
+                    context.router.pop();
+                    cubit(context).deactivateAd(ad);
+                  },
+                ),
+              if (ad.isCanActivate())
+                ActionListItem(
+                  item: AdAction.ACTION_ACTIVATE,
+                  title: AdAction.ACTION_ACTIVATE.getLocalizedName(),
+                  icon: AdAction.ACTION_ACTIVATE.getActionIcon(),
+                  onClicked: (item) {
+                    context.router.pop();
+                    cubit(context).activateAd(ad);
+                  },
+                ),
+              if (ad.isCanDelete())
+                ActionListItem(
+                  item: AdAction.ACTION_DELETE,
+                  title: AdAction.ACTION_DELETE.getLocalizedName(),
+                  icon: AdAction.ACTION_DELETE.getActionIcon(),
+                  color: Color(0xFFFA6F5D),
+                  onClicked: (item) {
+                    context.router.pop();
+                    cubit(context).deleteAd(ad);
+                  },
+                ),
+              SizedBox(height: 20)
+            ],
+          ),
+        );
+      },
     );
   }
 }

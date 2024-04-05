@@ -5,9 +5,9 @@ import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/common/widgets/ad/list_price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/user_ad/user_ad_stats_widget.dart';
-import 'package:onlinebozor/data/responses/user_ad/user_ad_response.dart';
 import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
 
+import '../../../../domain/models/ad/user_ad.dart';
 import '../../../constants.dart';
 
 class UserAdWidget extends StatelessWidget {
@@ -15,10 +15,10 @@ class UserAdWidget extends StatelessWidget {
     super.key,
     required this.onActionClicked,
     required this.onItemClicked,
-    required this.response,
+    required this.userAd,
   });
 
-  final UserAdResponse response;
+  final UserAd userAd;
   final VoidCallback onActionClicked;
   final VoidCallback onItemClicked;
 
@@ -58,14 +58,14 @@ class UserAdWidget extends StatelessWidget {
                           child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          (response.name ?? "")
+                          (userAd.name ?? "")
                               .w(600)
                               .s(14)
                               .c(Color(0xFF41455E))
                               .copyWith(
                                   maxLines: 3, overflow: TextOverflow.ellipsis),
                           SizedBox(height: 4),
-                          (response.category?.name ?? "*")
+                          (userAd.category?.name ?? "*")
                               .w(500)
                               .s(14)
                               .c(Color(0xFF9EABBE))
@@ -75,10 +75,11 @@ class UserAdWidget extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(0.0),
                             child: ListPriceTextWidget(
-                                price: response.price ?? 0,
-                                toPrice: response.to_price ?? 0,
-                                fromPrice: response.from_price ?? 0,
-                                currency: response.currency.toCurrency()),
+                              price: userAd.price ?? 0,
+                              toPrice: userAd.toPrice ?? 0,
+                              fromPrice: userAd.fromPrice ?? 0,
+                              currency: userAd.currency.toCurrency(),
+                            ),
                           ),
                         ],
                       ))
@@ -89,20 +90,24 @@ class UserAdWidget extends StatelessWidget {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       AdStatsWidget(
-                          icon: Assets.images.icViewCount,
-                          count: response.view),
+                        icon: Assets.images.icViewCount,
+                        count: userAd.viewedCount,
+                      ),
                       SizedBox(width: 8),
                       AdStatsWidget(
-                          icon: Assets.images.icFavoriteRemove,
-                          count: response.selected),
+                        icon: Assets.images.icFavoriteRemove,
+                        count: userAd.selectedCount,
+                      ),
                       SizedBox(width: 6),
                       AdStatsWidget(
-                          icon: Assets.images.icCall,
-                          count: response.phone_view),
+                        icon: Assets.images.icCall,
+                        count: userAd.phoneViewedCount,
+                      ),
                       SizedBox(width: 6),
                       AdStatsWidget(
-                          icon: Assets.images.icAdMessage,
-                          count: response.message_number),
+                        icon: Assets.images.icAdMessage,
+                        count: userAd.messageViewedCount,
+                      ),
                       Expanded(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -129,14 +134,15 @@ class UserAdWidget extends StatelessWidget {
 
   Widget _getAdImageWidget() {
     return CachedNetworkImage(
-      imageUrl: "${Constants.baseUrlForImage}${response.main_photo ?? ""}",
+      imageUrl: "${Constants.baseUrlForImage}${userAd.mainPhoto ?? ""}",
       imageBuilder: (context, imageProvider) => Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(6),
           image: DecorationImage(
-              image: imageProvider,
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(Colors.white, BlendMode.colorBurn)),
+            image: imageProvider,
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(Colors.white, BlendMode.colorBurn),
+          ),
         ),
       ),
       placeholder: (context, url) => Center(),

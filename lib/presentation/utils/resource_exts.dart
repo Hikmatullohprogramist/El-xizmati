@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/domain/models/ad/ad_action.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
 
@@ -37,22 +39,54 @@ extension AdTypeResExts on AdType {
   }
 }
 
+extension AdActionResExts on AdAction {
+  String getLocalizedName() {
+    switch (this) {
+      case AdAction.ACTION_EDIT:
+        return Strings.actionEdit;
+      case AdAction.ACTION_ADVERTISE:
+        return Strings.actionAdvertise;
+      case AdAction.ACTION_DEACTIVATE:
+        return Strings.actionDeactivate;
+      case AdAction.ACTION_ACTIVATE:
+        return Strings.actionActivate;
+      case AdAction.ACTION_DELETE:
+        return Strings.actionDelete;
+    }
+  }
+
+  SvgGenImage getActionIcon() {
+    switch (this) {
+      case AdAction.ACTION_EDIT:
+        return Assets.images.icActionEdit;
+      case AdAction.ACTION_ADVERTISE:
+        return Assets.images.icActionEdit;
+      case AdAction.ACTION_DEACTIVATE:
+        return Assets.images.icActionDeactivate;
+      case AdAction.ACTION_ACTIVATE:
+        return Assets.images.icActionActivate;
+      case AdAction.ACTION_DELETE:
+        return Assets.images.icActionDelete;
+    }
+  }
+}
+
 extension UserAdStatusResExts on UserAdStatus {
   String getLocalizedName() {
     switch (this) {
-      case UserAdStatus.all:
+      case UserAdStatus.ALL:
         return Strings.userAdsAllLabel;
-      case UserAdStatus.active:
+      case UserAdStatus.ACTIVE:
         return Strings.userAdsActiveLabel;
-      case UserAdStatus.wait:
+      case UserAdStatus.WAIT:
         return Strings.userAdsPendingLabel;
-      case UserAdStatus.inactive:
+      case UserAdStatus.INACTIVE:
         return Strings.userAdsInactiveLabel;
-      case UserAdStatus.rejected:
+      case UserAdStatus.REJECTED:
         return Strings.userAdsRejectedLabel;
-      case UserAdStatus.canceled:
+      case UserAdStatus.CANCELLED:
         return Strings.userAdsCanceledLabel;
-      case UserAdStatus.sysCanceled:
+      case UserAdStatus.SYS_CANCELLED:
         return Strings.userAdsCanceledLabel;
     }
   }

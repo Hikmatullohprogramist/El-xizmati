@@ -1,3 +1,5 @@
+import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
+
 import '../models/ad/ad_author_type.dart';
 import '../models/ad/ad_item_condition.dart';
 import '../models/ad/ad_priority_level.dart';
@@ -5,42 +7,35 @@ import '../models/ad/ad_transaction_type.dart';
 import '../models/ad/ad_type.dart';
 import '../models/currency/currency.dart';
 
-extension AdEnumMapper on String? {
+extension StringAdMapper on String? {
   AdItemCondition toAdPropertyStatus() {
     return this?.contains("USED") == true
         ? AdItemCondition.used
         : AdItemCondition.fresh;
   }
 
-  AdAuthorType toAdRouteType() {
+  AdAuthorType toAdAuthorType() {
     return this?.contains("BUSINESS") == true
         ? AdAuthorType.business
         : AdAuthorType.private;
   }
 
-  AdPriorityLevel toAdStatus() {
+  AdPriorityLevel toAdPriorityLevel() {
     return this?.contains("TOP") == true
         ? AdPriorityLevel.top
         : AdPriorityLevel.standard;
   }
 
   AdTransactionType toAdTypeStatus() {
-    switch (this) {
-      case "SELL":
-        return AdTransactionType.SELL;
-      case "FREE":
-        return AdTransactionType.FREE;
-      case "EXCHANGE":
-        return AdTransactionType.EXCHANGE;
-      case "SERVICE":
-        return AdTransactionType.SERVICE;
-      case "BUY":
-        return AdTransactionType.BUY;
-      case "BUY_SERVICE":
-        return AdTransactionType.BUY_SERVICE;
-      default:
-        return AdTransactionType.SELL;
-    }
+    return AdTransactionType.values.firstWhere(
+        (e) => e.name.toUpperCase() == this?.toUpperCase(),
+        orElse: () => AdTransactionType.SELL);
+  }
+
+  UserAdStatus toUserAdStatus() {
+    return UserAdStatus.values.firstWhere(
+        (e) => e.name.toUpperCase() == this?.toUpperCase(),
+        orElse: () => UserAdStatus.WAIT);
   }
 
   Currency toCurrency() {

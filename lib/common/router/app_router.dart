@@ -13,6 +13,7 @@ import '../../data/responses/user_ad/user_ad_response.dart';
 import '../../domain/models/ad/ad_list_type.dart';
 import '../../domain/models/ad/ad_transaction_type.dart';
 import '../../domain/models/ad/ad_type.dart';
+import '../../domain/models/ad/user_ad.dart';
 import '../../domain/models/ad/user_ad_status.dart';
 import '../../domain/models/district/district.dart';
 import '../../domain/models/image/uploadable_file.dart';
@@ -129,14 +130,15 @@ class AppRouter extends _$AppRouter {
           initial: false,
           children: [
             AutoRoute(
-                page: DashboardRoute.page,
-                path: 'dashboard',
-                maintainState: true,
-                keepHistory: true),
+              page: DashboardRoute.page,
+              path: 'dashboard',
+              maintainState: true,
+              keepHistory: false,
+            ),
             AutoRoute(
               page: CategoryRoute.page,
               path: 'category',
-              keepHistory: true,
+              keepHistory: false,
             ),
             AutoRoute(
               page: CreateAdChooserRoute.page,

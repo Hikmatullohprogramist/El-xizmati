@@ -25,18 +25,18 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         // isAdvertiseEnabled: [UserAdStatus.active, UserAdStatus.all,].contains(userAdStatus),
         isAdvertiseEnabled: false,
         isActivateEnabled: [
-          UserAdStatus.inactive,
-          UserAdStatus.canceled,
-          UserAdStatus.rejected,
+          UserAdStatus.INACTIVE,
+          UserAdStatus.CANCELLED,
+          UserAdStatus.REJECTED,
         ].contains(userAdStatus),
         isDeactivateEnabled: [
-          UserAdStatus.active,
-          UserAdStatus.all,
+          UserAdStatus.ACTIVE,
+          UserAdStatus.ALL,
         ].contains(userAdStatus),
         isDeleteEnabled: [
-          UserAdStatus.inactive,
-          UserAdStatus.rejected,
-          UserAdStatus.canceled,
+          UserAdStatus.INACTIVE,
+          UserAdStatus.REJECTED,
+          UserAdStatus.CANCELLED,
         ].contains(userAdStatus),
       ),
     );

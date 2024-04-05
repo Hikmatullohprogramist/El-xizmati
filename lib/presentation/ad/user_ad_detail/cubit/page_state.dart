@@ -3,7 +3,7 @@ part of 'page_cubit.dart';
 @freezed
 class PageState with _$PageState {
   const factory PageState({
-    UserAdResponse? userAdResponse,
+    UserAd? userAd,
   }) = _PageState;
 }
 

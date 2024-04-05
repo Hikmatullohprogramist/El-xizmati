@@ -1,5 +1,7 @@
+import 'package:onlinebozor/data/responses/user_ad/user_ad_response.dart';
 import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
+import 'package:onlinebozor/domain/models/ad/user_ad.dart';
 
 import '../../data/hive_objects/ad/ad_object.dart';
 import '../../data/responses/ad/ad/ad_response.dart';
@@ -19,9 +21,9 @@ extension AdResponseExtension on AdResponse {
         currency: currency.toCurrency(),
         region: region ?? "",
         district: district ?? "",
-        adRouteType: route_type.toAdRouteType(),
+        adRouteType: route_type.toAdAuthorType(),
         adPropertyStatus: property_status.toAdPropertyStatus(),
-        adStatus: type.toAdStatus(),
+        adStatus: type.toAdPriorityLevel(),
         adTypeStatus: type_status.toAdTypeStatus(),
         fromPrice: from_price ?? 0,
         toPrice: to_price ?? 0,
@@ -65,11 +67,11 @@ extension AdDetailResponseExtension on AdDetailResponse {
         price: price ?? 0,
         currency: currency.toCurrency(),
         isContract: is_contract ?? false,
-        adAuthorType: route_type.toAdRouteType(),
+        adAuthorType: route_type.toAdAuthorType(),
         adItemCondition: property_status.toAdPropertyStatus(),
         isAutoRenew: is_autoRenew ?? false,
         adTransactionType: type_status.toAdTypeStatus(),
-        adPriorityLevel: type.toAdStatus(),
+        adPriorityLevel: type.toAdPriorityLevel(),
         showSocial: show_social ?? false,
         view: view ?? 0,
         addressId: address?.id,
@@ -126,9 +128,9 @@ extension AdObjectExtension on AdObject {
         currency: currency.toCurrency(),
         region: region,
         district: district,
-        adRouteType: adRouteType.toAdRouteType(),
+        adRouteType: adRouteType.toAdAuthorType(),
         adPropertyStatus: adPropertyStatus.toAdPropertyStatus(),
-        adStatus: adStatus.toAdStatus(),
+        adStatus: adStatus.toAdPriorityLevel(),
         adTypeStatus: adTypeStatus.toAdTypeStatus(),
         fromPrice: fromPrice,
         toPrice: toPrice,
@@ -203,6 +205,37 @@ extension AdExtension on Ad {
       sellerName: sellerName,
       backendId: this.backendId ?? backendId,
       view: view,
+    );
+  }
+}
+
+extension UserAdExtension on UserAdResponse {
+  UserAd toMap({int? backendId, bool? favorite}) {
+    return UserAd(
+      id: id,
+      name: name,
+      price: price,
+      fromPrice: from_price,
+      toPrice: to_price,
+      currency: currency,
+      isContract: is_contract,
+      saleType: sale_type,
+      mainPhoto: main_photo,
+      beginDate: begin_date,
+      endDate: end_date,
+      adAuthorType: route_type.toAdAuthorType(),
+      adItemCondition: property_status.toAdPropertyStatus(),
+      adPriorityLevel: type.toAdPriorityLevel(),
+      category: category,
+      parentCategory: parent_category,
+      viewedCount: view,
+      selectedCount: selected,
+      phoneViewedCount: phone_view,
+      messageViewedCount: message_number,
+      status: status.toUserAdStatus(),
+      isSell: false,
+      moderatorNote: moderator_note,
+      moderatorNoteType: moderator_note_type,
     );
   }
 }

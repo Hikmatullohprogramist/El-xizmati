@@ -2,9 +2,10 @@ import 'package:onlinebozor/domain/models/ad/ad_author_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_item_condition.dart';
 import 'package:onlinebozor/domain/models/ad/ad_priority_level.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
+import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
 import 'package:onlinebozor/domain/models/order/order_type.dart';
 
-import '../../../data/responses/ad/ad/ad_response.dart';
+import '../../../data/responses/user_ad/user_ad_response.dart';
 
 class UserAd {
   UserAd({
@@ -19,12 +20,12 @@ class UserAd {
     this.isContract,
     this.saleType,
     this.mainPhoto,
+    this.region,
+    this.district,
+    this.beginDate,
+    this.endDate,
     this.adAuthorType,
     this.adItemCondition,
-    // this.begin_date,
-    // this.end_date,
-    // this.region,
-    // this.district,
     this.adPriorityLevel,
     this.category,
     this.parentCategory,
@@ -32,7 +33,7 @@ class UserAd {
     this.selectedCount,
     this.phoneViewedCount,
     this.messageViewedCount,
-    this.status,
+    required this.status,
     this.isSell,
     this.moderatorNote,
     this.moderatorNoteType,
@@ -49,12 +50,12 @@ class UserAd {
   bool? isContract;
   String? saleType;
   String? mainPhoto;
+  String? beginDate;
+  String? region;
+  String? district;
+  String? endDate;
   AdAuthorType? adAuthorType;
   AdItemCondition? adItemCondition;
-  // String? begin_date;
-  // String? end_date;
-  // String? region;
-  // String? district;
   AdPriorityLevel? adPriorityLevel;
   Category? category;
   Category? parentCategory;
@@ -62,8 +63,33 @@ class UserAd {
   int? selectedCount;
   int? phoneViewedCount;
   int? messageViewedCount;
-  String? status;
+  UserAdStatus status;
   bool? isSell;
   dynamic moderatorNote;
   String? moderatorNoteType;
+
+  bool isCanActivate() {
+    return status == UserAdStatus.INACTIVE;
+  }
+
+  bool isCanDeactivate() {
+    return [
+      UserAdStatus.ALL,
+      UserAdStatus.ACTIVE,
+      UserAdStatus.WAIT,
+    ].contains(status);
+  }
+
+  bool isCanDelete() {
+    return [
+      UserAdStatus.INACTIVE,
+      UserAdStatus.REJECTED,
+      UserAdStatus.CANCELLED,
+    ].contains(status);
+  }
+
+  bool isCanAdvertise() {
+    return false;
+  }
+
 }
