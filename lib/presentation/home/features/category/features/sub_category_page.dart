@@ -15,14 +15,20 @@ import '../../../../../domain/models/ad/ad_list_type.dart';
 
 @RoutePage()
 class SubCategoryPage extends BasePage<PageCubit, PageState, PageEvent> {
-  const SubCategoryPage(this.subCategoryId, this.title, {super.key});
+  const SubCategoryPage({
+    super.key,
+    required this.title,
+    required this.parentId,
+    required this.categories,
+  });
 
-  final int subCategoryId;
   final String title;
+  final int parentId;
+  final List<CategoryResponse> categories;
 
   @override
   void onWidgetCreated(BuildContext context) {
-    cubit(context).getCategories(subCategoryId);
+    cubit(context).setInitialParams(parentId, categories);
   }
 
   @override

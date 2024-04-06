@@ -10,11 +10,38 @@ import 'package:onlinebozor/common/widgets/loading/loader_state_widget.dart';
 import '../../../../common/colors/static_colors.dart';
 import '../../../../common/widgets/category/category_shimmer.dart';
 import '../../../../data/responses/category/category/category_response.dart';
+import '../../../../domain/models/ad/ad_list_type.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
 class CategoryPage extends BasePage<PageCubit, PageState, PageEvent> {
   const CategoryPage({super.key});
+
+  @override
+  void onEventEmitted(BuildContext context, PageEvent event) {
+    switch (event.type) {
+      case PageEventType.onOpenSubCategory:
+        {
+          context.router.push(
+            SubCategoryRoute(
+                title: event.category!.name ?? "",
+                parentId: event.category!.id,
+                categories: event.categories!),
+          );
+        }
+      case PageEventType.onOpenProductList:
+        {
+          context.router.push(
+            AdListRoute(
+              adListType: AdListType.popularCategoryAds,
+              keyWord: event.category!.key_word,
+              title: event.category!.name,
+              sellerTin: null,
+            ),
+          );
+        }
+    }
+  }
 
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
@@ -32,6 +59,7 @@ class CategoryPage extends BasePage<PageCubit, PageState, PageEvent> {
         loadingState: state.loadState,
         loadingBody: _buildShimmerLoadingItems(),
         successBody: _buildCategoryItems(state),
+        onRetryClicked: () => cubit(context).getCategories(),
       ),
     );
   }
@@ -56,17 +84,13 @@ class CategoryPage extends BasePage<PageCubit, PageState, PageEvent> {
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
-      itemCount: state.items.length,
+      itemCount: state.visibleItems.length,
       itemBuilder: (context, index) {
         return CategoryWidget(
-          onClicked: (CategoryResponse categoryResponse) {
-            context.router.push(
-              SubCategoryRoute(
-                  subCategoryId: categoryResponse.id,
-                  title: categoryResponse.name ?? ""),
-            );
+          onClicked: (CategoryResponse category) {
+            cubit(context).setSelectedCategory(category);
           },
-          category: state.items[index],
+          category: state.visibleItems[index],
         );
       },
       separatorBuilder: (BuildContext context, int index) {

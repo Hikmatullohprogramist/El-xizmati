@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/enum/enums.dart';
@@ -8,7 +7,6 @@ import '../../../../../data/repositories/common_repository.dart';
 import '../../../../../data/responses/category/category/category_response.dart';
 
 part 'page_cubit.freezed.dart';
-
 part 'page_state.dart';
 
 @injectable
@@ -20,18 +18,40 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   final CommonRepository repository;
 
   Future<void> getCategories() async {
+    updateState((state) => state.copyWith(loadState: LoadingState.loading));
     try {
-      final allCategories = await repository.getCategories();
-      final categories = allCategories.where((e) => e.parent_id == 0).toList();
-      log.i(allCategories.toString());
-      updateState((state) => state.copyWith(
-          items: categories,
+      final allItems = await repository.getCategories();
+      final parents = allItems.where((e) => e.isParent).toList();
+      updateState(
+        (state) => state.copyWith(
+          allItems: allItems,
+          visibleItems: parents,
           loadState: LoadingState.success,
         ),
       );
     } catch (exception) {
       log.e(exception.toString());
       updateState((state) => state.copyWith(loadState: LoadingState.error));
+    }
+  }
+
+  void setSelectedCategory(CategoryResponse category) {
+    var categories = states.allItems
+        .where((element) => element.parent_id == category.id)
+        .toList();
+
+    if (categories.isNotEmpty) {
+      emitEvent(PageEvent(
+        PageEventType.onOpenSubCategory,
+        categories: categories,
+        category: category,
+      ));
+    } else {
+      emitEvent(PageEvent(
+        PageEventType.onOpenProductList,
+        categories: categories,
+        category: category,
+      ));
     }
   }
 }

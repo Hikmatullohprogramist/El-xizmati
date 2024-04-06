@@ -19,36 +19,44 @@ class DefaultErrorWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return isFullScreen
         ? Center(
-      child: Column(
-        children: [
-          Strings.loadingStateError.w(400).s(14).c(context.colors.textPrimary),
-          SizedBox(height: 12),
-          CustomElevatedButton(
-            text: Strings.languageSetTitle,
-            onPressed: () => retryAction,
-            buttonWidth: 180,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Strings.loadingStateError
+                    .w(400)
+                    .s(14)
+                    .c(context.colors.textPrimary),
+                SizedBox(height: 12),
+                CustomElevatedButton(
+                  text: Strings.loadingStateRetry,
+                  onPressed: () {
+                    if (retryAction != null) retryAction!();
+                  },
+                  buttonWidth: 180,
+                )
+              ],
+            ),
           )
-        ],
-      ),
-    )
         : Center(
-      child: SizedBox(
-        height: 160,
-        child: Column(
-          children: [
-            Strings.loadingStateError
-                .w(400)
-                .s(14)
-                .c(context.colors.textPrimary),
-            SizedBox(height: 12),
-            CustomElevatedButton(
-              text: Strings.loadingStateRetry,
-              onPressed: () => retryAction,
-              buttonWidth: 180,
-            )
-          ],
-        ),
-      ),
-    );
+            child: SizedBox(
+              height: 160,
+              child: Column(
+                children: [
+                  Strings.loadingStateError
+                      .w(400)
+                      .s(14)
+                      .c(context.colors.textPrimary),
+                  SizedBox(height: 12),
+                  CustomElevatedButton(
+                    text: Strings.loadingStateRetry,
+                    onPressed: () {
+                      if (retryAction != null) retryAction!();
+                    },
+                    buttonWidth: 180,
+                  )
+                ],
+              ),
+            ),
+          );
   }
 }
