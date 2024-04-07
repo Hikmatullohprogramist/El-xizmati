@@ -4,10 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
-import 'package:onlinebozor/presentation/utils/xfile_mapper.dart';
+import 'package:onlinebozor/presentation/utils/xfile_exts.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
+import '../../../common/constants.dart';
 import '../../../common/gen/localization/strings.dart';
 
 @RoutePage()
@@ -105,8 +106,16 @@ class _LocaleImageViewerPageState extends State<LocaleImageViewerPage> {
       pageController: pageController,
       scrollPhysics: const BouncingScrollPhysics(),
       builder: (BuildContext context, int index) {
+        ImageProvider imageProvider;
+        if (images[index].isUploaded()) {
+          imageProvider =
+              NetworkImage("${Constants.baseUrlForImage}${images[index].id!}");
+        } else {
+          imageProvider = images[index].xFile!.toFileImage();
+        }
+
         return PhotoViewGalleryPageOptions(
-          imageProvider: images[index].xFile!.toFileImage(),
+          imageProvider: imageProvider,
           initialScale: PhotoViewComputedScale.contained * 1,
           heroAttributes: PhotoViewHeroAttributes(tag: images[index]),
         );
