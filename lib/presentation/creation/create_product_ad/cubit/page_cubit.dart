@@ -9,7 +9,8 @@ import 'package:onlinebozor/data/responses/unit/unit_response.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
-import 'package:onlinebozor/presentation/utils/xfile_mapper.dart';
+import 'package:onlinebozor/presentation/utils/compressing_exts.dart';
+import 'package:onlinebozor/presentation/utils/xfile_exts.dart';
 
 import '../../../../../../common/core/base_cubit.dart';
 import '../../../../common/enum/enums.dart';
@@ -170,11 +171,15 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   Future<void> uploadImages() async {
-    var images =
-        states.pickedImages?.where((e) => e.isNotUploaded()).toList() ?? [];
-    if (images.isNotEmpty) {
+    final hasNotUploadedImages =
+        states.pickedImages?.any((e) => e.isNotUploaded()) ?? false;
+
+    if (hasNotUploadedImages) {
+      var images = states.pickedImages ?? [];
       try {
         for (var image in images) {
+          if (image.isUploaded()) continue;
+
           final uploadableFile = await _adCreationRepository.uploadImage(image);
           image.id = uploadableFile.id;
         }
