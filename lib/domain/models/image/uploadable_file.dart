@@ -30,7 +30,8 @@ class UploadableFile {
   }
 
   bool isSame(UploadableFile other) {
-    return id == other.id || xFile?.path == other.xFile?.path;
+    return (id != null && id == other.id) ||
+        (xFile?.path != null && xFile?.path == other.xFile?.path);
   }
 
   bool isNotUploaded() {

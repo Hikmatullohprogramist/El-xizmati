@@ -66,7 +66,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     try {
       final response = await userAdRepository.deactivateAd(ad.id);
       if (states.userAdStatus == UserAdStatus.ALL) {
-        states.controller?.itemList?.remove(ad);
+        // states.controller?.itemList?.remove(ad);
       } else {
         states.controller?.itemList?.remove(ad);
       }
@@ -79,7 +79,11 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> activateAd(UserAd ad) async {
     try {
       final response = await userAdRepository.activateAd(ad.id);
-      states.controller?.itemList?.remove(ad);
+      if (states.userAdStatus == UserAdStatus.ALL) {
+        // states.controller?.itemList?.remove(ad);
+      } else {
+        states.controller?.itemList?.remove(ad);
+      }
       states.controller?.notifyListeners();
     } catch (error) {
       log.w(error.toString());

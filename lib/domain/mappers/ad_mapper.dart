@@ -24,7 +24,7 @@ extension AdResponseExtension on AdResponse {
         adRouteType: route_type.toAdAuthorType(),
         adPropertyStatus: property_status.toAdPropertyStatus(),
         adStatus: type.toAdPriorityLevel(),
-        adTypeStatus: type_status.toAdTypeStatus(),
+        adTypeStatus: type_status.toAdTransactionType(),
         fromPrice: from_price ?? 0,
         toPrice: to_price ?? 0,
         categoryId: category?.id ?? -1,
@@ -70,7 +70,7 @@ extension AdDetailResponseExtension on AdDetailResponse {
         adAuthorType: route_type.toAdAuthorType(),
         adItemCondition: property_status.toAdPropertyStatus(),
         isAutoRenew: is_autoRenew ?? false,
-        adTransactionType: type_status.toAdTypeStatus(),
+        adTransactionType: type_status.toAdTransactionType(),
         adPriorityLevel: type.toAdPriorityLevel(),
         showSocial: show_social ?? false,
         view: view ?? 0,
@@ -131,7 +131,7 @@ extension AdObjectExtension on AdObject {
         adRouteType: adRouteType.toAdAuthorType(),
         adPropertyStatus: adPropertyStatus.toAdPropertyStatus(),
         adStatus: adStatus.toAdPriorityLevel(),
-        adTypeStatus: adTypeStatus.toAdTypeStatus(),
+        adTypeStatus: adTypeStatus.toAdTransactionType(),
         fromPrice: fromPrice,
         toPrice: toPrice,
         categoryId: categoryId,
@@ -210,10 +210,12 @@ extension AdExtension on Ad {
 }
 
 extension UserAdExtension on UserAdResponse {
-  UserAd toMap({int? backendId, bool? favorite}) {
+  UserAd toMap() {
     return UserAd(
       id: id,
       name: name,
+      adTransactionType:
+          type_status?.toAdTransactionType() ?? AdTransactionType.SELL,
       price: price,
       fromPrice: from_price,
       toPrice: to_price,

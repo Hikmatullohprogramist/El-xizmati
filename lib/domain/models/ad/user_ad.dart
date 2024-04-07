@@ -12,7 +12,7 @@ class UserAd {
     required this.id,
     this.name,
     this.orderType,
-    this.adTransactionType,
+    required this.adTransactionType,
     this.price,
     this.toPrice,
     this.fromPrice,
@@ -42,7 +42,7 @@ class UserAd {
   int id;
   String? name;
   OrderType? orderType;
-  AdTransactionType? adTransactionType;
+  AdTransactionType adTransactionType;
   int? price;
   int? toPrice;
   int? fromPrice;

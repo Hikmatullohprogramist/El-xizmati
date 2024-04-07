@@ -26,7 +26,7 @@ extension StringAdMapper on String? {
         : AdPriorityLevel.standard;
   }
 
-  AdTransactionType toAdTypeStatus() {
+  AdTransactionType toAdTransactionType() {
     return AdTransactionType.values.firstWhere(
         (e) => e.name.toUpperCase() == this?.toUpperCase(),
         orElse: () => AdTransactionType.SELL);

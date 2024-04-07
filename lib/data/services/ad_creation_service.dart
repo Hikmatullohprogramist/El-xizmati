@@ -61,7 +61,7 @@ class AdCreationService {
     );
   }
 
-  Future<Response> createProductAd({
+  Future<Response> createOrUpdateProductAd({
     required int? adId,
     //
     required String title,
@@ -219,7 +219,7 @@ class AdCreationService {
         : dio.post(endPoint, data: commonBody);
   }
 
-  Future<Response> createServiceAd({
+  Future<Response> createOrUpdateServiceAd({
     required int? adId,
     //
     required String title,
@@ -290,14 +290,16 @@ class AdCreationService {
       commonBody.addAll(updateBody);
     }
 
-    const endPoint = 'api/mobile/v1/create-service-ad';
+    final endPoint = adId != null
+        ? 'api/mobile/v1/update-service-ad'
+        : 'api/mobile/v1/create-service-ad';
 
     return adId != null
         ? dio.put(endPoint, data: commonBody)
         : dio.post(endPoint, data: commonBody);
   }
 
-  Future<Response> createRequestAd({
+  Future<Response> createOrUpdateRequestAd({
     required int? adId,
     //
     required String title,
@@ -363,8 +365,12 @@ class AdCreationService {
     }
 
     final endPoint = adType == AdType.product
-        ? "api/mobile/v1/create-product-request"
-        : "api/mobile/v1/create-service-request";
+        ? adId != null
+            ? "api/mobile/v1/update-product-request"
+            : "api/mobile/v1/create-product-request"
+        : adId != null
+            ? "api/mobile/v1/update-service-request"
+            : "api/mobile/v1/create-service-request";
 
     return adId != null
         ? dio.put(endPoint, data: commonBody)
