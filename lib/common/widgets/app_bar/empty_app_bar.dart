@@ -4,7 +4,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 class EmptyAppBar extends AppBar implements PreferredSizeWidget {
   final String titleText;
 
-  EmptyAppBar({super.key, this.titleText = ""})
+  EmptyAppBar(this.titleText, {super.key})
       : super(
           backgroundColor: Colors.white,
           elevation: 0.0,

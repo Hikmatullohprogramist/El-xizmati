@@ -20,7 +20,7 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: EmptyAppBar(),
+      appBar: EmptyAppBar(""),
       backgroundColor: state.isLogin ? Color(0xFFF2F4FB) : Colors.white,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),

@@ -1,14 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/action/selection_list_item.dart';
+import 'package:onlinebozor/common/widgets/app_bar/empty_app_bar.dart';
 import 'package:onlinebozor/common/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'package:onlinebozor/common/widgets/button/custom_outlined_button.dart';
 import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
@@ -34,7 +33,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: _buildAppBar(context),
+      appBar: EmptyAppBar(Strings.profileViewTitlle),
       backgroundColor: StaticColors.backgroundColor,
       body: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
@@ -46,54 +45,48 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
               _buildProfileBlock(state, context),
               SizedBox(height: 8),
               _buildOrderBlock(context, state),
+              SizedBox(height: 8),
               _buildCardBlock(context, state),
               SizedBox(height: 8),
               _buildSettingsBlock(context, state),
-               SizedBox(height: 8),
+              SizedBox(height: 8),
               _buildLogoutBlock(context, state),
             ],
           )),
     );
   }
 
-  AppBar _buildAppBar(BuildContext context) {
-    return AppBar(
-      backgroundColor: Colors.white,
-      elevation: 0,
-      centerTitle: true,
-      title:
-          Strings.profileViewTitlle.w(500).s(16).c(context.colors.textPrimary),
-    );
-  }
-
   /// Block builder methods
 
   Widget _buildProfileBlock(PageState state, BuildContext context) {
-    return Column(
-      children: [
-        Visibility(
-          visible: state.isLogin,
-          child: ProfileItemWidget(
-            name: Strings.profileTitle,
-            icon: Assets.images.icUserAvatar,
-            invoke: () {
-              context.router.push(ProfileViewRoute());
-              vibrateAsHapticFeedback();
-            },
+    return Container(
+      color: Colors.white,
+      child: Column(
+        children: [
+          Visibility(
+            visible: state.isLogin,
+            child: ProfileItemWidget(
+              name: Strings.profileTitle,
+              icon: Assets.images.icUserAvatar,
+              onClicked: () {
+                context.router.push(ProfileViewRoute());
+                vibrateAsHapticFeedback();
+              },
+            ),
           ),
-        ),
-        Visibility(
-          visible: !state.isLogin,
-          child: ProfileItemWidget(
-            name: Strings.authSinginTitle,
-            icon: Assets.images.icUserAvatar,
-            invoke: () {
-              context.router.push(AuthStartRoute());
-              vibrateAsHapticFeedback();
-            },
+          Visibility(
+            visible: !state.isLogin,
+            child: ProfileItemWidget(
+              name: Strings.authSinginTitle,
+              icon: Assets.images.icUserAvatar,
+              onClicked: () {
+                context.router.push(AuthStartRoute());
+                vibrateAsHapticFeedback();
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -101,54 +94,53 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
     BuildContext context,
     PageState state,
   ) {
-    return Column(
-      children: [
-        Visibility(
-          visible: state.isLogin,
-          child: ProfileItemWidget(
-            name: Strings.profileMyAds,
-            icon: Assets.images.icProfileMyAds,
-            invoke: () {
-              context.router.push(UserAdListRoute());
-              vibrateAsHapticFeedback();
-            },
+    return Container(
+      color: Colors.white,
+      child: Column(
+        children: [
+          Visibility(
+            visible: state.isLogin,
+            child: ProfileItemWidget(
+              name: Strings.profileMyAds,
+              icon: Assets.images.icProfileMyAds,
+              onClicked: () {
+                context.router.push(UserAdListRoute());
+                vibrateAsHapticFeedback();
+              },
+            ),
           ),
-        ),
-        Visibility(
-          visible: state.isLogin,
-          child: Divider(indent: 46, height: 1),
-        ),
-        Visibility(
-          visible: state.isLogin,
-          child: ProfileItemWidget(
-            name: Strings.profileOrders,
-            icon: Assets.images.icProfileOrder,
-            invoke: () {
-              context.router.push(UserOrderTypeRoute());
-              vibrateAsHapticFeedback();
-            },
+          Visibility(
+            visible: state.isLogin,
+            child: Divider(indent: 46, height: 1),
           ),
-        ),
-        Visibility(
-          visible: state.isLogin,
-          child: Divider(indent: 46, height: 1),
-        ),
-        Visibility(
-          visible: state.isLogin,
-          child: ProfileItemWidget(
-            name: Strings.profilePayment,
-            icon: Assets.images.icProfilePayment,
-            invoke: () {
-              context.router.push(PaymentTransactionRoute());
-              vibrateAsHapticFeedback();
-            },
+          Visibility(
+            visible: state.isLogin,
+            child: ProfileItemWidget(
+              name: Strings.profileOrders,
+              icon: Assets.images.icProfileOrder,
+              onClicked: () {
+                context.router.push(UserOrderTypeRoute());
+                vibrateAsHapticFeedback();
+              },
+            ),
           ),
-        ),
-        Visibility(
-          visible: state.isLogin,
-          child: SizedBox(height: 8),
-        ),
-      ],
+          Visibility(
+            visible: state.isLogin,
+            child: Divider(indent: 46, height: 1),
+          ),
+          Visibility(
+            visible: state.isLogin,
+            child: ProfileItemWidget(
+              name: Strings.profilePayment,
+              icon: Assets.images.icProfilePayment,
+              onClicked: () {
+                context.router.push(PaymentTransactionRoute());
+                vibrateAsHapticFeedback();
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -156,47 +148,50 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
     BuildContext context,
     PageState state,
   ) {
-    return Column(
-      children: [
-        Visibility(
-          visible: state.isLogin,
-          child: ProfileItemWidget(
-            name: Strings.profileMyCard,
-            icon: Assets.images.icCard,
-            invoke: () {
-              context.router.push(UserCardListRoute());
+    return Container(
+      color: Colors.white,
+      child: Column(
+        children: [
+          Visibility(
+            visible: state.isLogin,
+            child: ProfileItemWidget(
+              name: Strings.profileMyCard,
+              icon: Assets.images.icCard,
+              onClicked: () {
+                context.router.push(UserCardListRoute());
+                vibrateAsHapticFeedback();
+              },
+            ),
+          ),
+          Visibility(
+            visible: state.isLogin,
+            child: Divider(indent: 46, height: 1),
+          ),
+          Visibility(
+            visible: state.isLogin,
+            child: ProfileItemWidget(
+              name: Strings.profileMyAddress,
+              icon: Assets.images.icProfileLocation,
+              onClicked: () {
+                context.router.push(UserAddressesRoute());
+                vibrateAsHapticFeedback();
+              },
+            ),
+          ),
+          Visibility(
+            visible: state.isLogin,
+            child: Divider(indent: 46, height: 1),
+          ),
+          ProfileItemWidget(
+            name: Strings.bottomNavigationFavorite,
+            icon: Assets.images.bottomBar.favorite,
+            onClicked: () {
+              context.router.push(FavoriteListRoute());
               vibrateAsHapticFeedback();
             },
           ),
-        ),
-        Visibility(
-          visible: state.isLogin,
-          child: Divider(indent: 46, height: 1),
-        ),
-        Visibility(
-          visible: state.isLogin,
-          child: ProfileItemWidget(
-            name: Strings.profileMyAddress,
-            icon: Assets.images.icProfileLocation,
-            invoke: () {
-              context.router.push(UserAddressesRoute());
-              vibrateAsHapticFeedback();
-            },
-          ),
-        ),
-        Visibility(
-          visible: state.isLogin,
-          child: Divider(indent: 46, height: 1),
-        ),
-        ProfileItemWidget(
-          name: Strings.bottomNavigationFavorite,
-          icon: Assets.images.bottomBar.favorite,
-          invoke: () {
-            context.router.push(FavoriteListRoute());
-            vibrateAsHapticFeedback();
-          },
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -204,32 +199,35 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
     BuildContext context,
     PageState state,
   ) {
-    return Column(
-      children: [
-        Visibility(
-          visible: false,
-          child: ProfileItemWidget(
-            name: Strings.profileSettings,
-            icon: Assets.images.icProfileSettings,
-            invoke: () {
-              context.router.push(SettingRoute());
+    return Container(
+      color: Colors.white,
+      child: Column(
+        children: [
+          Visibility(
+            visible: false,
+            child: ProfileItemWidget(
+              name: Strings.profileSettings,
+              icon: Assets.images.icProfileSettings,
+              onClicked: () {
+                context.router.push(SettingRoute());
+                vibrateAsHapticFeedback();
+              },
+            ),
+          ),
+          Visibility(
+            visible: state.isLogin,
+            child: Divider(indent: 46, height: 1),
+          ),
+          ProfileItemWidget(
+            name: Strings.profileChangeLanguage,
+            icon: Assets.images.icProfileLanguage,
+            onClicked: () {
+              _showChangeLanguageBottomSheet(context, state);
               vibrateAsHapticFeedback();
             },
           ),
-        ),
-        Visibility(
-          visible: state.isLogin,
-          child: Divider(indent: 46, height: 1),
-        ),
-        ProfileItemWidget(
-          name: Strings.profileChangeLanguage,
-          icon: Assets.images.icProfileLanguage,
-          invoke: () {
-            _showChangeLanguageBottomSheet(context, state);
-            vibrateAsHapticFeedback();
-          },
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -238,31 +236,24 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
     PageState state,
   ) {
     return Visibility(
-        visible: state.isLogin,
-        child: InkWell(
-            onTap: () {
-              _showLogoutBottomSheet(context);
-              vibrateAsHapticFeedback();
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-              color: Colors.white,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Assets.images.icProfileLogout.svg(),
-                      SizedBox(width: 16),
-                      Strings.profileLogout.w(500).s(14).c(Color(0xFFF66412))
-                    ],
-                  ),
-                  Assets.images.icArrowRight.svg(height: 16, width: 16)
-                ],
-              ),
-            )));
+      visible: state.isLogin,
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          children: [
+            ProfileItemWidget(
+              name: Strings.profileLogout,
+              icon: Assets.images.icProfileLogout,
+              color: Color(0xFFF66412),
+              onClicked: () {
+                _showLogoutBottomSheet(context);
+                vibrateAsHapticFeedback();
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   /// Bottom sheet showing methods

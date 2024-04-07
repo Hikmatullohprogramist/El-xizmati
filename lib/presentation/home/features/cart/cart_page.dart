@@ -23,7 +23,7 @@ class CartPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: EmptyAppBar(titleText: Strings.bottomNavigationCart),
+      appBar: EmptyAppBar(Strings.bottomNavigationCart),
       backgroundColor: StaticColors.backgroundColor,
       body: PagedGridView<int, Ad>(
         shrinkWrap: true,

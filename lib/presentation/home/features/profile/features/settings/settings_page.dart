@@ -38,13 +38,13 @@ class SettingPage
               ProfileItemWidget(
                 name: Strings.settingsReceiveNotification,
                 icon: Assets.images.icProfileNotification,
-                invoke: () => context.router.push(NotificationSettingsRoute()),
+                onClicked: () => context.router.push(NotificationSettingsRoute()),
               ),
               Divider(indent: 46, height: 1),
               ProfileItemWidget(
                 name: Strings.settingsSocialNetwork,
                 icon: Assets.images.icSocialNetwork,
-                invoke: () {
+                onClicked: () {
                   // context.router.push(UserSocialNetworkRoute())
                 },
               ),
@@ -52,7 +52,7 @@ class SettingPage
               ProfileItemWidget(
                 name: Strings.settingsActiveDevices,
                 icon: Assets.images.icActiveDevice,
-                invoke: () => context.router.push(UserActiveSessionsRoute()),
+                onClicked: () => context.router.push(UserActiveSessionsRoute()),
               ),
               // Divider(indent: 46, height: 1),
               // ProfileItemWidget(
