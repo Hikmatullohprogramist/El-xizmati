@@ -2,11 +2,15 @@ import 'dart:convert';
 
 import 'package:onlinebozor/data/responses/ad/edit/ad_field_response.dart';
 
+import '../../../../domain/models/district/district.dart';
+import '../../../../domain/models/image/uploadable_file.dart';
+import '../../address/user_address_response.dart';
+import '../../category/category/category_response.dart';
+import '../../currencies/currency_response.dart';
+import '../../payment_type/payment_type_response.dart';
+
 RequestAdRootResponse requestAdResultResponseFromJson(String str) =>
     RequestAdRootResponse.fromJson(json.decode(str));
-
-String requestAdResultResponseToJson(RequestAdRootResponse data) =>
-    json.encode(data.toJson());
 
 class RequestAdRootResponse {
   dynamic error;
@@ -37,42 +41,32 @@ class RequestAdRootResponse {
         data: RequestAdResponse.fromJson(json["data"]),
         response: json["response"],
       );
-
-  Map<String, dynamic> toJson() => {
-        "error": error,
-        "message": message,
-        "timestamp": timestamp,
-        "status": status,
-        "path": path,
-        "data": data.toJson(),
-        "response": response,
-      };
 }
 
 class RequestAdResponse {
   int id;
   String name;
   String adType;
-  int categoryId;
-  String categoryName;
-  String description;
-  int toPrice;
-  int fromPrice;
-  int currencyId;
-  String currencyName;
-  bool isContract;
+  int? categoryId;
+  String? categoryName;
+  String? description;
+  int? toPrice;
+  int? fromPrice;
+  int? currencyId;
+  String? currencyName;
+  bool? isContract;
   String routeType;
-  int addressId;
-  String addressName;
-  String email;
-  String contactName;
-  String phoneNumber;
-  bool isAutoRenew;
-  String video;
-  List<AdPhotoResponse> photos;
-  bool showSocial;
-  List<AdPaymentTypeResponse> paymentTypes;
-  List<AdAddressResponse> deliveries;
+  int? addressId;
+  String? addressName;
+  String? email;
+  String? contactName;
+  String? phoneNumber;
+  bool? isAutoRenew;
+  String? video;
+  List<AdPhotoResponse>? photos;
+  bool? showSocial;
+  List<AdPaymentTypeResponse>? paymentTypes;
+  List<AdAddressResponse>? deliveries;
 
   RequestAdResponse({
     required this.id,
@@ -130,30 +124,54 @@ class RequestAdResponse {
             json["deliveries"].map((x) => AdAddressResponse.fromJson(x))),
       );
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "ad_type": adType,
-        "category_id": categoryId,
-        "category_name": categoryName,
-        "description": description,
-        "to_price": toPrice,
-        "from_price": fromPrice,
-        "currency_id": currencyId,
-        "currency_name": currencyName,
-        "is_contract": isContract,
-        "route_type": routeType,
-        "address_id": addressId,
-        "address_name": addressName,
-        "email": email,
-        "contact_name": contactName,
-        "phone_number": phoneNumber,
-        "is_auto_renew": isAutoRenew,
-        "video": video,
-        "photos": List<dynamic>.from(photos.map((x) => x.toJson())),
-        "show_social": showSocial,
-        "payment_types":
-            List<dynamic>.from(paymentTypes.map((x) => x.toJson())),
-        "deliveries": List<dynamic>.from(deliveries.map((x) => x.toJson())),
-      };
+  CategoryResponse? getCategory() {
+    return categoryId == null
+        ? null
+        : CategoryResponse(id: categoryId!, name: categoryName);
+  }
+
+  // CategoryResponse? getSubCategory() {
+  //   return subCategoryId == null
+  //       ? null
+  //       : CategoryResponse(id: subCategoryId!, name: subCategoryName);
+  // }
+
+  List<UploadableFile> getPhotos() {
+    return photos
+            ?.map((e) => e.image)
+            .toSet()
+            .map((e) => UploadableFile(id: e))
+            .toList() ??
+        [];
+  }
+
+  CurrencyResponse? getCurrency() {
+    return currencyId == null
+        ? null
+        : CurrencyResponse(id: "$currencyId", name: currencyName);
+  }
+
+  List<PaymentTypeResponse> getPaymentTypes() {
+    return paymentTypes
+            ?.map((e) => PaymentTypeResponse(id: e.id, name: e.name))
+            .toList() ??
+        [];
+  }
+
+  bool getIsBusiness() {
+    return routeType.toUpperCase().contains("BUSINESS");
+  }
+
+  UserAddressResponse? getUserAddress() {
+    return addressId == null
+        ? null
+        : UserAddressResponse(id: addressId!, name: addressName);
+  }
+
+  List<District> getRequestDistricts() {
+    return deliveries
+            ?.map((e) => District(id: e.id, regionId: 0, name: e.name ?? ""))
+            .toList() ??
+        [];
+  }
 }

@@ -34,7 +34,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   void setInitialParams(int? adId, AdTransactionType adTransactionType) {
     updateState((state) => state.copyWith(
           adId: adId,
-          isPrepared: adId == null,
+          isNotPrepared: adId != null,
           isEditing: adId != null,
           adTransactionType: adTransactionType,
           adType: adTransactionType == AdTransactionType.BUY
@@ -65,43 +65,37 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           await _adCreationRepository.getRequestAdForEdit(adId: states.adId!);
 
       updateState((state) => state.copyWith(
-            isPrepared: true,
+            isNotPrepared: false,
+            isPreparingInProcess: false,
             title: ad.name,
-            category:
-                CategoryResponse(id: ad.categoryId, name: ad.categoryName),
-            // pickedImages: ad.photos.map((e) => UploadableFile(xFile: e.image)),
-            desc: ad.description,
+            category: ad.getCategory(),
+            pickedImages: ad.getPhotos(),
+            desc: ad.description ?? "",
             fromPrice: ad.fromPrice,
             toPrice: ad.toPrice,
-            currency:
-                CurrencyResponse(id: "${ad.currencyId}", name: ad.currencyName),
-            paymentTypes: ad.paymentTypes
-                .map((e) => PaymentTypeResponse(id: e.id, name: e.name))
-                .toList(),
-            isAgreedPrice: ad.isContract,
+            currency: ad.getCurrency(),
+            paymentTypes: ad.getPaymentTypes(),
+            isAgreedPrice: ad.isContract ?? false,
             address: UserAddressResponse(id: ad.id, name: ad.addressName),
-            contactPerson: ad.contactName,
-            phone: ad.phoneNumber,
-            email: ad.email,
-            requestDistricts: ad.deliveries
-                .map((e) => District(id: e.id, regionId: 0, name: e.name??""))
-                .toList(),
-            isAutoRenewal: ad.isAutoRenew,
+            contactPerson: ad.contactName ?? "",
+            phone: ad.phoneNumber?.clearPhoneNumberWithoutCode() ?? "",
+            email: ad.email ?? "",
+            requestDistricts: ad.getRequestDistricts(),
+            isAutoRenewal: ad.isAutoRenew ?? false,
           ));
-      updateState((state) => state.copyWith(isPreparingInProcess: false));
     } catch (e) {
       log.w(e);
       updateState((state) => state.copyWith(isPreparingInProcess: false));
     }
   }
 
-  Future<void> createRequestAd() async {
+  Future<void> createOrUpdateRequestAd() async {
     updateState((state) => state.copyWith(isRequestSending: true));
 
     await uploadImages();
 
     try {
-      final adId = await _adCreationRepository.createRequestAd(
+      final adId = await _adCreationRepository.createOrUpdateRequestAd(
         adId: states.adId,
         //
         title: states.title,
@@ -282,30 +276,37 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         if (states.pickedImages?.isNotEmpty == true) {
           addedImages.addAll(states.pickedImages!);
         }
-        // List<UploadableFile> changedImages = [];
 
         var addedCount = addedImages.length;
         var newCount = newImages.length;
         var maxCount = state.state!.maxImageCount;
 
         if (addedCount >= maxCount) {
-          emitEvent(PageEvent(PageEventType.onOverMaxCount,
-              maxImageCount: states.maxImageCount));
+          emitEvent(PageEvent(
+            PageEventType.onOverMaxCount,
+            maxImageCount: states.maxImageCount,
+          ));
         }
+        List<XFile> neededImages = [];
         if ((addedCount + newCount) > maxCount) {
-          emitEvent(PageEvent(PageEventType.onOverMaxCount,
-              maxImageCount: states.maxImageCount));
+          emitEvent(PageEvent(
+            PageEventType.onOverMaxCount,
+            maxImageCount: states.maxImageCount,
+          ));
 
-          addedImages.addAll(newImages
-              .sublist(0, maxCount - addedCount)
-              .map((e) => e.toUploadableFile()));
-          // changedImages.addAll(addedImages);
-          updateState((state) => state.copyWith(pickedImages: addedImages));
+          neededImages.addAll(newImages.sublist(0, maxCount - addedCount));
         } else {
-          addedImages.addAll(newImages.map((e) => e.toUploadableFile()));
-          // changedImages.addAll(addedImages);
-          updateState((state) => state.copyWith(pickedImages: addedImages));
+          neededImages.addAll(newImages);
         }
+        List<UploadableFile> compressedImages = [];
+
+        for (var image in neededImages) {
+          final compressed = await image.compressImage();
+          compressedImages.add(compressed.toUploadableFile());
+        }
+
+        addedImages.addAll(compressedImages);
+        updateState((state) => state.copyWith(pickedImages: addedImages));
       }
     } catch (e) {
       log.e(e.toString());

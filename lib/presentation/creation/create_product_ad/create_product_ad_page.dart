@@ -954,7 +954,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             onPressed: () {
               vibrateAsHapticFeedback();
               if (_formKey.currentState!.validate()) {
-                cubit(context).createProductAd();
+                cubit(context).createOrUpdateProductAd();
               }
             },
             isLoading: state.isRequestSending,

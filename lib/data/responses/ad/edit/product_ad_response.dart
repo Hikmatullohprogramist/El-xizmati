@@ -59,12 +59,12 @@ class ProductAdResponse {
   String propertyStatus;
   int? addressId;
   String? addressName;
-  String email;
-  String contactName;
-  String phoneNumber;
-  bool isAutoRenew;
-  String video;
-  List<AdPhotoResponse> photos;
+  String? email;
+  String? contactName;
+  String? phoneNumber;
+  bool? isAutoRenew;
+  String? video;
+  List<AdPhotoResponse>? photos;
   String? otherName;
   int? otherCategoryId;
   String? otherCategoryName;
@@ -184,8 +184,13 @@ class ProductAdResponse {
     return CategoryResponse(id: categoryId, name: categoryName);
   }
 
-  List<UploadableFile> getPhotos(){
-    return photos.map((e) => UploadableFile(id: e.image)).toList();
+  List<UploadableFile> getPhotos() {
+    return photos
+        ?.map((e) => e.image)
+        .toSet()
+        .map((e) => UploadableFile(id: e))
+        .toList() ??
+        [];
   }
 
   UnitResponse? getUnit() {
@@ -223,8 +228,10 @@ class ProductAdResponse {
         : CategoryResponse(id: otherCategoryId!, name: otherCategoryName);
   }
 
-  UserAddressResponse getUserAddress(){
-    return UserAddressResponse(id: id, name: addressName);
+  UserAddressResponse? getUserAddress() {
+    return addressId == null
+        ? null
+        : UserAddressResponse(id: addressId!, name: addressName);
   }
 
   List<UserAddressResponse> getWarehouses() {

@@ -90,7 +90,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         () => context.router.pop(),
       ),
       backgroundColor: StaticColors.backgroundColor,
-      body: state.isPrepared
+      body: state.isNotPrepared
           ? Container(
               child: state.isPreparingInProcess
                   ? DefaultLoadingWidget(isFullScreen: true)
@@ -586,7 +586,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             onPressed: () {
               vibrateAsHapticFeedback();
               if (_formKey.currentState!.validate()) {
-                cubit(context).createRequestAd();
+                cubit(context).createOrUpdateRequestAd();
               }
             },
             isLoading: state.isRequestSending,

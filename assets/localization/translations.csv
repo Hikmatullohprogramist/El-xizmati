@@ -183,6 +183,7 @@ create_ad_result_edit_current_ad,E’lonni tahrirlash,Редактировани
 create_ad_result_message,O‘zgarishlar saqlandi,Изменения сохранены,Ўзгаришлар сақланди
 create_ad_result_open_dashboard,Asosiy oynaga o‘tish,Перейти на главную,Асосий ойнага ўтиш
 create_ad_search_address_label,Qayerdan kerak,Откуда вам нужен,Қаердан керак
+create_ad_service_addresses,Xizmat ko‘rsatish manzillari,Адреса услуг,Хизмат кўрсатиш манзиллари
 create_ad_show_my_social_accounts_label,Mening ijtimoiy tarmoqlarim mahsulot tavsifi ko‘rsatilsin,Показать мои соц. сети на описание товара,Менинг ижтимоий тармоқларим маҳсулот тавсифи кўрсатилсин
 create_ad_state_label,Holati,Состояние,Ҳолати
 create_ad_state_new_label,Yangi,Новый,Янги

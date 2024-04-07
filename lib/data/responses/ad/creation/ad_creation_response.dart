@@ -3,9 +3,6 @@ import 'dart:convert';
 AdCreationRootResponse adCreationResponseFromJson(String str) =>
     AdCreationRootResponse.fromJson(json.decode(str));
 
-String adCreationResponseToJson(AdCreationRootResponse data) =>
-    json.encode(data.toJson());
-
 class AdCreationRootResponse {
   dynamic error;
   dynamic message;
@@ -35,27 +32,21 @@ class AdCreationRootResponse {
         data: Data.fromJson(json["data"]),
         response: json["response"],
       );
-
-  Map<String, dynamic> toJson() => {
-        "error": error,
-        "message": message,
-        "timestamp": timestamp,
-        "status": status,
-        "path": path,
-        "data": data.toJson(),
-        "response": response,
-      };
 }
 
 class Data {
-  AdCreationResponse ad;
+  AdCreationResponse? insertedAd;
+  AdCreationResponse? updatedAd;
 
-  Data({required this.ad});
+  Data({
+    required this.insertedAd,
+    required this.updatedAd,
+  });
 
-  factory Data.fromJson(Map<String, dynamic> json) =>
-      Data(ad: AdCreationResponse.fromJson(json["insert_ad"]));
-
-  Map<String, dynamic> toJson() => {"insert_ad": ad.toJson()};
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+        insertedAd: AdCreationResponse.fromJson(json["insert_ad"]),
+        updatedAd: AdCreationResponse.fromJson(json["update_ad"]),
+      );
 }
 
 class AdCreationResponse {

@@ -5,7 +5,7 @@ class PageState with _$PageState {
   const factory PageState({
     int? adId,
     @Default(false) bool isEditing,
-    @Default(false) bool isPrepared,
+    @Default(true) bool isNotPrepared,
     @Default(false) bool isPreparingInProcess,
     //
     @Default(AdTransactionType.BUY) AdTransactionType adTransactionType,

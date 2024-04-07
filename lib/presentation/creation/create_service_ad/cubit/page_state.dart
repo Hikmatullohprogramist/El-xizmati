@@ -5,6 +5,8 @@ class PageState with _$PageState {
   const factory PageState({
     int? adId,
     @Default(false) bool isEditing,
+    @Default(true) bool isNotPrepared,
+    @Default(false) bool isPreparingInProcess,
 //
     @Default("") String title,
     CategoryResponse? category,

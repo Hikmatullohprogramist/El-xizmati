@@ -30,11 +30,20 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   final UserRepository _userRepository;
 
   void setInitialParams(int? adId) {
-    updateState((state) => state.copyWith(adId: adId, isEditing: adId != null));
-    getInitialData();
+    updateState((state) => state.copyWith(
+          adId: adId,
+          isEditing: adId != null,
+          isNotPrepared: adId != null,
+        ));
+
+    if (states.isEditing) {
+      getEditingInitialData();
+    } else {
+      getCreatingInitialData();
+    }
   }
 
-  Future<void> getInitialData() async {
+  Future<void> getCreatingInitialData() async {
     final user = _userRepository.userInfoStorage.userInformation.call();
     updateState((state) => state.copyWith(
           contactPerson: user?.fullName?.capitalizeFullName() ?? "",
@@ -43,13 +52,49 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         ));
   }
 
-  Future<void> createServiceAd() async {
+  Future<void> getEditingInitialData() async {
+    updateState((state) => state.copyWith(isPreparingInProcess: true));
+    try {
+      final ad =
+          await _adCreationRepository.getServiceAdForEdit(adId: states.adId!);
+
+      updateState((state) => state.copyWith(
+            isNotPrepared: false,
+            isPreparingInProcess: false,
+            title: ad.name,
+            category: ad.getSubCategory(),
+            pickedImages: ad.getPhotos(),
+            desc: ad.description ?? "",
+            toPrice: ad.toPrice,
+            fromPrice: ad.fromPrice,
+            currency: ad.getCurrency(),
+            paymentTypes: ad.getPaymentTypes(),
+            isBusiness: ad.getIsBusiness(),
+            isAgreedPrice: ad.isContract,
+            address: ad.getUserAddress(),
+            contactPerson: ad.contactName ?? "",
+            phone: ad.phoneNumber?.clearPhoneNumberWithoutCode() ?? "",
+            email: ad.email ?? "",
+            isAutoRenewal: ad.isAutoRenew ?? false,
+            videoUrl: ad.video ?? "",
+            isShowMySocialAccount: ad.showSocial ?? false,
+          ));
+    } catch (e) {
+      log.w("getEditingInitialData error = $e");
+      updateState((state) => state.copyWith(
+            isPreparingInProcess: false,
+            isNotPrepared: true,
+          ));
+    }
+  }
+
+  Future<void> createOrUpdateServiceAd() async {
     updateState((state) => state.copyWith(isRequestSending: true));
 
     await uploadImages();
 
     try {
-      final adId = await _adCreationRepository.createServiceAd(
+      final adId = await _adCreationRepository.createOrUpdateServiceAd(
         adId: states.adId,
         //
         title: states.title,
@@ -247,30 +292,37 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         if (states.pickedImages?.isNotEmpty == true) {
           addedImages.addAll(states.pickedImages!);
         }
-        // List<UploadableFile> changedImages = [];
 
         var addedCount = addedImages.length;
         var newCount = newImages.length;
         var maxCount = state.state!.maxImageCount;
 
         if (addedCount >= maxCount) {
-          emitEvent(PageEvent(PageEventType.onOverMaxCount,
-              maxImageCount: states.maxImageCount));
+          emitEvent(PageEvent(
+            PageEventType.onOverMaxCount,
+            maxImageCount: states.maxImageCount,
+          ));
         }
+        List<XFile> neededImages = [];
         if ((addedCount + newCount) > maxCount) {
-          emitEvent(PageEvent(PageEventType.onOverMaxCount,
-              maxImageCount: states.maxImageCount));
+          emitEvent(PageEvent(
+            PageEventType.onOverMaxCount,
+            maxImageCount: states.maxImageCount,
+          ));
 
-          addedImages.addAll(newImages
-              .sublist(0, maxCount - addedCount)
-              .map((e) => e.toUploadableFile()));
-          // changedImages.addAll(addedImages);
-          updateState((state) => state.copyWith(pickedImages: addedImages));
+          neededImages.addAll(newImages.sublist(0, maxCount - addedCount));
         } else {
-          addedImages.addAll(newImages.map((e) => e.toUploadableFile()));
-          // changedImages.addAll(addedImages);
-          updateState((state) => state.copyWith(pickedImages: addedImages));
+          neededImages.addAll(newImages);
         }
+        List<UploadableFile> compressedImages = [];
+
+        for (var image in neededImages) {
+          final compressed = await image.compressImage();
+          compressedImages.add(compressed.toUploadableFile());
+        }
+
+        addedImages.addAll(compressedImages);
+        updateState((state) => state.copyWith(pickedImages: addedImages));
       }
     } catch (e) {
       log.e(e.toString());

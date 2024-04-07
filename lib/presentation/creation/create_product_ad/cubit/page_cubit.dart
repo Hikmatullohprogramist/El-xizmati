@@ -65,26 +65,26 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             unit: ad.getUnit(),
             price: ad.price,
             currency: ad.getCurrency(),
-            paymentTypes:ad.getPaymentTypes(),
+            paymentTypes: ad.getPaymentTypes(),
             isBusiness: ad.getIsBusiness(),
             isNew: ad.getIsNew(),
             isAgreedPrice: ad.isContract,
             address: ad.getUserAddress(),
-            contactPerson: ad.contactName,
-            phone: ad.phoneNumber,
-            email: ad.email,
+            contactPerson: ad.contactName ?? "",
+            phone: ad.phoneNumber?.clearPhoneNumberWithoutCode() ?? "",
+            email: ad.email ?? "",
             exchangeTitle: ad.otherName ?? "",
             exchangeDesc: ad.otherDescription ?? "",
             isExchangeNew: ad.getIsOtherNew(),
-            exchangeCategory:ad.getOtherCategory(),
+            exchangeCategory: ad.getOtherCategory(),
             isPickupEnabled: ad.pickupEnabled ?? false,
             pickupWarehouses: ad.getWarehouses(),
             isFreeDeliveryEnabled: ad.freeDeliveryEnabled ?? false,
             freeDeliveryDistricts: ad.getFreeDeliveryDistricts(),
             isPaidDeliveryEnabled: ad.paidDeliveryEnabled ?? false,
             paidDeliveryDistricts: ad.getPaidDeliveryDistricts(),
-            isAutoRenewal: ad.isAutoRenew,
-            videoUrl: ad.video,
+            isAutoRenewal: ad.isAutoRenew ?? false,
+            videoUrl: ad.video ?? "",
             isShowMySocialAccount: ad.showSocial,
           ));
     } catch (e) {
@@ -105,13 +105,13 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         ));
   }
 
-  Future<void> createProductAd() async {
+  Future<void> createOrUpdateProductAd() async {
     updateState((state) => state.copyWith(isRequestSending: true));
 
     await uploadImages();
 
     try {
-      final adId = await _adCreationRepository.createProductAd(
+      final adId = await _adCreationRepository.createOrUpdateProductAd(
         adId: states.adId,
         //
         title: states.title,
@@ -467,30 +467,37 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         if (states.pickedImages?.isNotEmpty == true) {
           addedImages.addAll(states.pickedImages!);
         }
-        // List<UploadableFile> changedImages = [];
 
         var addedCount = addedImages.length;
         var newCount = newImages.length;
         var maxCount = state.state!.maxImageCount;
 
         if (addedCount >= maxCount) {
-          emitEvent(PageEvent(PageEventType.onOverMaxCount,
-              maxImageCount: states.maxImageCount));
+          emitEvent(PageEvent(
+            PageEventType.onOverMaxCount,
+            maxImageCount: states.maxImageCount,
+          ));
         }
+        List<XFile> neededImages = [];
         if ((addedCount + newCount) > maxCount) {
-          emitEvent(PageEvent(PageEventType.onOverMaxCount,
-              maxImageCount: states.maxImageCount));
+          emitEvent(PageEvent(
+            PageEventType.onOverMaxCount,
+            maxImageCount: states.maxImageCount,
+          ));
 
-          addedImages.addAll(newImages
-              .sublist(0, maxCount - addedCount)
-              .map((e) => e.toUploadableFile()));
-          // changedImages.addAll(addedImages);
-          updateState((state) => state.copyWith(pickedImages: addedImages));
+          neededImages.addAll(newImages.sublist(0, maxCount - addedCount));
         } else {
-          addedImages.addAll(newImages.map((e) => e.toUploadableFile()));
-          // changedImages.addAll(addedImages);
-          updateState((state) => state.copyWith(pickedImages: addedImages));
+          neededImages.addAll(newImages);
         }
+        List<UploadableFile> compressedImages = [];
+
+        for (var image in neededImages) {
+          final compressed = await image.compressImage();
+          compressedImages.add(compressed.toUploadableFile());
+        }
+
+        addedImages.addAll(compressedImages);
+        updateState((state) => state.copyWith(pickedImages: addedImages));
       }
     } catch (e) {
       log.e(e.toString());

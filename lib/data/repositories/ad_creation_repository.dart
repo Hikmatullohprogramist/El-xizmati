@@ -67,7 +67,7 @@ class AdCreationRepository {
     throw Exception("Rasm yuklashda xatolik");
   }
 
-  Future<int> createProductAd({
+  Future<int> createOrUpdateProductAd({
     required int? adId,
     //
     required String title,
@@ -114,7 +114,7 @@ class AdCreationRepository {
     required bool isShowMySocialAccount,
     required String videoUrl,
   }) async {
-    final response = await _adCreationService.createProductAd(
+    final response = await _adCreationService.createOrUpdateProductAd(
       adId: adId,
       //
       title: title,
@@ -162,11 +162,13 @@ class AdCreationRepository {
       videoUrl: videoUrl,
     );
 
-    final id = AdCreationRootResponse.fromJson(response.data).data.ad.id;
+    final id = adId ??
+        AdCreationRootResponse.fromJson(response.data).data.insertedAd?.id ??
+        -1;
     return id;
   }
 
-  Future<int> createServiceAd({
+  Future<int> createOrUpdateServiceAd({
     required int? adId,
     //
     required String title,
@@ -196,7 +198,7 @@ class AdCreationRepository {
     required bool isShowMySocialAccount,
     required String videoUrl,
   }) async {
-    final response = await _adCreationService.createServiceAd(
+    final response = await _adCreationService.createOrUpdateServiceAd(
       adId: adId,
       //
       title: title,
@@ -227,11 +229,13 @@ class AdCreationRepository {
       videoUrl: videoUrl,
     );
 
-    final id = AdCreationRootResponse.fromJson(response.data).data.ad.id;
+    final id = adId ??
+        AdCreationRootResponse.fromJson(response.data).data.insertedAd?.id ??
+        -1;
     return id;
   }
 
-  Future<int> createRequestAd({
+  Future<int> createOrUpdateRequestAd({
     required int? adId,
     //
     required String title,
@@ -258,7 +262,7 @@ class AdCreationRepository {
     //
     required bool isAutoRenewal,
   }) async {
-    final response = await _adCreationService.createRequestAd(
+    final response = await _adCreationService.createOrUpdateRequestAd(
       adId: adId,
       //
       title: title,
@@ -286,7 +290,9 @@ class AdCreationRepository {
       isAutoRenewal: isAutoRenewal,
     );
 
-    final id = AdCreationRootResponse.fromJson(response.data).data.ad.id;
+    final id = adId ??
+        AdCreationRootResponse.fromJson(response.data).data.insertedAd?.id ??
+        -1;
     return id;
   }
 

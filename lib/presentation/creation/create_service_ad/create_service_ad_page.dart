@@ -31,6 +31,8 @@ import '../../../common/widgets/form_field/validator/default_validator.dart';
 import '../../../common/widgets/form_field/validator/email_validator.dart';
 import '../../../common/widgets/form_field/validator/phone_number_validator.dart';
 import '../../../common/widgets/form_field/validator/price_validator.dart';
+import '../../../common/widgets/loading/default_error_widget.dart';
+import '../../../common/widgets/loading/default_loading_widget.dart';
 import '../../common/selection_payment_type/selection_payment_type_page.dart';
 import '../../utils/mask_formatters.dart';
 import 'cubit/page_cubit.dart';
@@ -87,34 +89,43 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         () => context.router.pop(),
       ),
       backgroundColor: StaticColors.backgroundColor,
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              SizedBox(height: 20),
-              _buildTitleAndCategoryBlock(context, state),
-              SizedBox(height: 20),
-              _buildImageListBlock(context, state),
-              SizedBox(height: 20),
-              _buildDescAndPriceBlock(context, state),
-              SizedBox(height: 20),
-              _buildAdditionalInfoBlock(context, state),
-              SizedBox(height: 20),
-              _buildContactsBlock(context, state),
-              SizedBox(height: 20),
-              _buildAutoRenewBlock(context, state),
-              SizedBox(height: 20),
-              _buildUsefulLinkBlock(context, state),
-              SizedBox(height: 20),
-              _buildFooterBlock(context, state),
-              SizedBox(height: 20),
-            ],
-          ),
-        ),
-      ),
+      body: state.isNotPrepared
+          ? Container(
+              child: state.isPreparingInProcess
+                  ? DefaultLoadingWidget(isFullScreen: true)
+                  : DefaultErrorWidget(
+                      isFullScreen: true,
+                      retryAction: () => cubit(context).getEditingInitialData(),
+                    ),
+            )
+          : SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(height: 20),
+                    _buildTitleAndCategoryBlock(context, state),
+                    SizedBox(height: 20),
+                    _buildImageListBlock(context, state),
+                    SizedBox(height: 20),
+                    _buildDescAndPriceBlock(context, state),
+                    SizedBox(height: 20),
+                    _buildAdditionalInfoBlock(context, state),
+                    SizedBox(height: 20),
+                    _buildContactsBlock(context, state),
+                    SizedBox(height: 20),
+                    _buildAutoRenewBlock(context, state),
+                    SizedBox(height: 20),
+                    _buildUsefulLinkBlock(context, state),
+                    SizedBox(height: 20),
+                    _buildFooterBlock(context, state),
+                    SizedBox(height: 20),
+                  ],
+                ),
+              ),
+            ),
     );
   }
 
@@ -426,7 +437,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             positiveTitle: Strings.createAdBusinessLabel,
           ),
           SizedBox(height: 16),
-          LabelTextField(Strings.createAdAddressLabel),
+          LabelTextField(Strings.createAdServiceAddresses),
           SizedBox(height: 8),
           ChipList(
             chips: _buildServiceAddressChips(context, state),
@@ -651,7 +662,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             onPressed: () {
               vibrateAsHapticFeedback();
               if (_formKey.currentState!.validate()) {
-                cubit(context).createServiceAd();
+                cubit(context).createOrUpdateServiceAd();
               }
             },
             isLoading: state.isRequestSending,
