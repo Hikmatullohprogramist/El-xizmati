@@ -1,195 +1,107 @@
 import 'dart:convert';
 
-import 'package:onlinebozor/data/responses/ad/edit/ad_field_response.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:onlinebozor/data/responses/ad/ad/ad_response.dart';
+import 'package:onlinebozor/data/responses/ad/edit/ad_address_response.dart';
+import 'package:onlinebozor/data/responses/ad/edit/ad_payment_type_response.dart';
 import 'package:onlinebozor/data/responses/address/user_address_response.dart';
 import 'package:onlinebozor/data/responses/category/category/category_response.dart';
 import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/responses/payment_type/payment_type_response.dart';
 import 'package:onlinebozor/data/responses/unit/unit_response.dart';
+import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 
-import '../../../../domain/models/district/district.dart';
+part 'product_ad_response.freezed.dart';
+part 'product_ad_response.g.dart';
 
-ProductAdRootResponse productAdResultResponseFromJson(String str) =>
+ProductAdRootResponse productAdResponseFromJson(String str) =>
     ProductAdRootResponse.fromJson(json.decode(str));
 
-class ProductAdRootResponse {
-  dynamic error;
-  dynamic message;
-  String timestamp;
-  int status;
-  dynamic path;
-  ProductAdResponse data;
-  dynamic response;
+String productAdResponseToJson(ProductAdRootResponse data) =>
+    json.encode(data.toJson());
 
-  ProductAdRootResponse({
-    required this.error,
-    required this.message,
-    required this.timestamp,
-    required this.status,
-    required this.path,
-    required this.data,
-    required this.response,
-  });
+@freezed
+class ProductAdRootResponse with _$ProductAdRootResponse {
+  const factory ProductAdRootResponse({
+    @JsonKey(name: "error") required dynamic error,
+    @JsonKey(name: "message") required dynamic message,
+    @JsonKey(name: "timestamp") required String timestamp,
+    @JsonKey(name: "status") required int status,
+    @JsonKey(name: "path") required dynamic path,
+    @JsonKey(name: "data") required ProductAdResponse data,
+    @JsonKey(name: "response") required dynamic response,
+  }) = _ProductAdRootResponse;
 
   factory ProductAdRootResponse.fromJson(Map<String, dynamic> json) =>
-      ProductAdRootResponse(
-        error: json["error"],
-        message: json["message"],
-        timestamp: json["timestamp"],
-        status: json["status"],
-        path: json["path"],
-        data: ProductAdResponse.fromJson(json["data"]),
-        response: json["response"],
-      );
+      _$ProductAdRootResponseFromJson(json);
 }
 
-class ProductAdResponse {
-  int id;
-  String name;
-  String adType;
-  int categoryId;
-  String categoryName;
-  String? description;
-  int? price;
-  int? currencyId;
-  String? currencyName;
-  bool isContract;
-  String routeType;
-  String propertyStatus;
-  int? addressId;
-  String? addressName;
-  String? email;
-  String? contactName;
-  String? phoneNumber;
-  bool? isAutoRenew;
-  String? video;
-  List<AdPhotoResponse>? photos;
-  String? otherName;
-  int? otherCategoryId;
-  String? otherCategoryName;
-  String? otherDescription;
-  String? otherPropertyStatus;
-  bool showSocial;
-  int? unitId;
-  String? unitName;
-  int? warehouseCount;
-  List<AdPaymentTypeResponse>? paymentTypes;
-  bool? pickupEnabled;
-  List<AdAddressResponse>? pickupWarehouses;
-  bool? freeDeliveryEnabled;
-  int? freeDeliveryMaxDays;
-  List<AdAddressResponse>? freeDeliveryDistricts;
-  bool? paidDeliveryEnabled;
-  int? paidDeliveryMaxDays;
-  int? paidDeliveryPrice;
-  int? paidDeliveryUnitId;
-  List<AdAddressResponse>? paidDeliveryDistricts;
+@freezed
+class ProductAdResponse with _$ProductAdResponse {
+  const factory ProductAdResponse({
+    @JsonKey(name: "id") required int id,
+    @JsonKey(name: "amount") required int? warehouseCount,
+    @JsonKey(name: "name") required String? name,
+    @JsonKey(name: "ad_type") required String? adType,
+    @JsonKey(name: "category_id") required int? categoryId,
+    @JsonKey(name: "category_name") required String? categoryName,
+    @JsonKey(name: "description") required String? description,
+    @JsonKey(name: "price") required int? price,
+    @JsonKey(name: "currency_id") required int? currencyId,
+    @JsonKey(name: "currency_name") required String? currencyName,
+    @JsonKey(name: "is_contract") required bool? isContract,
+    @JsonKey(name: "route_type") required String? routeType,
+    @JsonKey(name: "property_status") required String? propertyStatus,
+    @JsonKey(name: "address_id") required int? addressId,
+    @JsonKey(name: "address_name") required String? addressName,
+    @JsonKey(name: "email") required String? email,
+    @JsonKey(name: "contact_name") required String? contactName,
+    @JsonKey(name: "phone_number") required String? phoneNumber,
+    @JsonKey(name: "is_auto_renew") required bool? isAutoRenew,
+    @JsonKey(name: "video") required String? video,
+    @JsonKey(name: "other_name") required String? otherName,
+    @JsonKey(name: "other_category_id") required int? otherCategoryId,
+    @JsonKey(name: "other_category_name") required String? otherCategoryName,
+    @JsonKey(name: "other_description") required String? otherDescription,
+    @JsonKey(name: "other_route_type") required String? otherRouteType,
+    @JsonKey(name: "other_property_status")
+    required String? otherPropertyStatus,
+    @JsonKey(name: "show_social") required bool? showSocial,
+    @JsonKey(name: "unit_id") required int? unitId,
+    @JsonKey(name: "unit_name") required String? unitName,
+    @JsonKey(name: "free_delivery_enabled") required bool? freeDeliveryEnabled,
+    @JsonKey(name: "paid_delivery_enabled") required bool? paidDeliveryEnabled,
+    @JsonKey(name: "pickup_enabled") required bool? pickupEnabled,
+    @JsonKey(name: "paid_delivery_price") required int? paidDeliveryPrice,
+    @JsonKey(name: "paid_delivery_unit_id") required int? paidDeliveryUnitId,
+    @JsonKey(name: "photos") required List<AdPhotoResponse>? photos,
+    @JsonKey(name: "payment_types")
+    required List<AdPaymentTypeResponse>? paymentTypes,
+    @JsonKey(name: "pickup_warehouses")
+    required List<AdAddressResponse>? pickupWarehouses,
+    @JsonKey(name: "free_delivery_districts")
+    required List<AdAddressResponse>? freeDeliveryDistricts,
+    @JsonKey(name: "paid_delivery_districts")
+    required List<AdAddressResponse>? paidDeliveryDistricts,
+  }) = _ProductAdResponse;
 
-  ProductAdResponse({
-    required this.id,
-    required this.name,
-    required this.adType,
-    required this.categoryId,
-    required this.categoryName,
-    required this.description,
-    required this.price,
-    required this.currencyId,
-    required this.currencyName,
-    required this.isContract,
-    required this.routeType,
-    required this.propertyStatus,
-    required this.addressId,
-    required this.addressName,
-    required this.email,
-    required this.contactName,
-    required this.phoneNumber,
-    required this.isAutoRenew,
-    required this.video,
-    required this.photos,
-    required this.otherName,
-    required this.otherCategoryId,
-    required this.otherCategoryName,
-    required this.otherDescription,
-    required this.otherPropertyStatus,
-    required this.showSocial,
-    required this.unitId,
-    required this.unitName,
-    required this.warehouseCount,
-    required this.paymentTypes,
-    required this.pickupEnabled,
-    required this.pickupWarehouses,
-    required this.freeDeliveryEnabled,
-    required this.freeDeliveryMaxDays,
-    required this.freeDeliveryDistricts,
-    required this.paidDeliveryEnabled,
-    required this.paidDeliveryMaxDays,
-    required this.paidDeliveryPrice,
-    required this.paidDeliveryUnitId,
-    required this.paidDeliveryDistricts,
-  });
+  factory ProductAdResponse.fromJson(Map<String, dynamic> json) => _$ProductAdResponseFromJson(json);
 
-  factory ProductAdResponse.fromJson(Map<String, dynamic> json) =>
-      ProductAdResponse(
-        id: json["id"],
-        name: json["name"],
-        adType: json["ad_type"],
-        categoryId: json["category_id"],
-        categoryName: json["category_name"],
-        description: json["description"],
-        price: json["price"],
-        currencyId: json["currency_id"],
-        currencyName: json["currency_name"],
-        isContract: json["is_contract"],
-        routeType: json["route_type"],
-        propertyStatus: json["property_status"],
-        addressId: json["address_id"],
-        addressName: json["address_name"],
-        email: json["email"],
-        contactName: json["contact_name"],
-        phoneNumber: json["phone_number"],
-        isAutoRenew: json["is_auto_renew"],
-        video: json["video"],
-        photos: List<AdPhotoResponse>.from(
-            json["photos"].map((x) => AdPhotoResponse.fromJson(x))),
-        otherName: json["other_name"],
-        otherCategoryId: json["other_category_id"],
-        otherCategoryName: json["other_category_name"],
-        otherDescription: json["other_description"],
-        otherPropertyStatus: json["other_property_status"],
-        showSocial: json["show_social"],
-        unitId: json["unit_id"],
-        unitName: json["unit_name"],
-        warehouseCount: json["warehouse_count"],
-        paymentTypes: List<AdPaymentTypeResponse>.from(json["payment_types"]
-            .map((x) => AdPaymentTypeResponse.fromJson(x))),
-        pickupEnabled: json["pickup_enabled"],
-        pickupWarehouses: List<AdAddressResponse>.from(json["pickup_warehouses"]
-            .map((x) => AdAddressResponse.fromJson(x))),
-        freeDeliveryEnabled: json["free_delivery_enabled"],
-        freeDeliveryMaxDays: json["free_delivery_max_days"],
-        freeDeliveryDistricts: List<AdAddressResponse>.from(
-            json["free_delivery_districts"]
-                .map((x) => AdAddressResponse.fromJson(x))),
-        paidDeliveryEnabled: json["paid_delivery_enabled"],
-        paidDeliveryMaxDays: json["paid_delivery_max_days"],
-        paidDeliveryPrice: json["paid_delivery_price"],
-        paidDeliveryUnitId: json["paid_delivery_unit_id"],
-        paidDeliveryDistricts: List<AdAddressResponse>.from(
-            json["paid_delivery_districts"]
-                .map((x) => AdAddressResponse.fromJson(x))),
-      );
+  const ProductAdResponse._();
 
   CategoryResponse? getCategory() {
-    return CategoryResponse(id: categoryId, name: categoryName);
+    return categoryId == null
+        ? null
+        : CategoryResponse(id: categoryId!, name: categoryName);
   }
 
   List<UploadableFile> getPhotos() {
     return photos
-        ?.map((e) => e.image)
-        .toSet()
-        .map((e) => UploadableFile(id: e))
-        .toList() ??
+            ?.map((e) => e.image)
+            .toSet()
+            .map((e) => UploadableFile(id: e))
+            .toList() ??
         [];
   }
 
@@ -211,11 +123,11 @@ class ProductAdResponse {
   }
 
   bool getIsBusiness() {
-    return routeType.toUpperCase().contains("BUSINESS");
+    return routeType?.toUpperCase().contains("BUSINESS") == true;
   }
 
   bool getIsNew() {
-    return propertyStatus.toUpperCase().contains("FRESH");
+    return propertyStatus?.toUpperCase().contains("FRESH") == true;
   }
 
   bool getIsOtherNew() {

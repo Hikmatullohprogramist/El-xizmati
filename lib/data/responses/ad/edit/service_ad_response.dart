@@ -1,137 +1,103 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'dart:convert';
 
-import 'package:onlinebozor/data/responses/ad/edit/ad_field_response.dart';
+import 'package:onlinebozor/data/responses/ad/ad/ad_response.dart';
+import 'package:onlinebozor/data/responses/ad/edit/ad_address_response.dart';
+import 'package:onlinebozor/data/responses/ad/edit/ad_payment_type_response.dart';
+import 'package:onlinebozor/data/responses/address/user_address_response.dart';
+import 'package:onlinebozor/data/responses/category/category/category_response.dart';
+import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
+import 'package:onlinebozor/data/responses/payment_type/payment_type_response.dart';
+import 'package:onlinebozor/domain/models/district/district.dart';
+import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 
-import '../../../../domain/models/district/district.dart';
-import '../../../../domain/models/image/uploadable_file.dart';
-import '../../address/user_address_response.dart';
-import '../../category/category/category_response.dart';
-import '../../currencies/currency_response.dart';
-import '../../payment_type/payment_type_response.dart';
+part 'service_ad_response.freezed.dart';
+part 'service_ad_response.g.dart';
 
-ServiceAdRootResponse serviceAdResultResponseFromJson(String str) =>
-    ServiceAdRootResponse.fromJson(json.decode(str));
+ServiceAdRootResponse serviceAdResponseFromJson(String str) => ServiceAdRootResponse.fromJson(json.decode(str));
 
-class ServiceAdRootResponse {
-  dynamic error;
-  dynamic message;
-  String timestamp;
-  int status;
-  dynamic path;
-  ServiceAdResponse data;
-  dynamic response;
+String serviceAdResponseToJson(ServiceAdRootResponse data) => json.encode(data.toJson());
 
-  ServiceAdRootResponse({
-    required this.error,
-    required this.message,
-    required this.timestamp,
-    required this.status,
-    required this.path,
-    required this.data,
-    required this.response,
-  });
+@freezed
+class ServiceAdRootResponse with _$ServiceAdRootResponse {
+  const factory ServiceAdRootResponse({
+    @JsonKey(name: "error")
+    required dynamic error,
+    @JsonKey(name: "message")
+    required dynamic message,
+    @JsonKey(name: "timestamp")
+    required String timestamp,
+    @JsonKey(name: "status")
+    required int status,
+    @JsonKey(name: "path")
+    required dynamic path,
+    @JsonKey(name: "data")
+    required ServiceAdResponse data,
+    @JsonKey(name: "response")
+    required dynamic response,
+  }) = _ServiceAdRootResponse;
 
-  factory ServiceAdRootResponse.fromJson(Map<String, dynamic> json) =>
-      ServiceAdRootResponse(
-        error: json["error"],
-        message: json["message"],
-        timestamp: json["timestamp"],
-        status: json["status"],
-        path: json["path"],
-        data: ServiceAdResponse.fromJson(json["data"]),
-        response: json["response"],
-      );
+  factory ServiceAdRootResponse.fromJson(Map<String, dynamic> json) => _$ServiceAdRootResponseFromJson(json);
 }
 
-class ServiceAdResponse {
-  int id;
-  String name;
-  String adType;
-  int? categoryId;
-  String? categoryName;
-  int? subCategoryId;
-  String? subCategoryName;
-  String? description;
-  int? toPrice;
-  int? fromPrice;
-  int? currencyId;
-  String? currencyName;
-  bool isContract;
-  String routeType;
-  int? addressId;
-  String? addressName;
-  String? email;
-  String? contactName;
-  String? phoneNumber;
-  bool? isAutoRenew;
-  String? video;
-  List<AdPhotoResponse>? photos;
-  bool? showSocial;
-  List<AdPaymentTypeResponse>? paymentTypes;
-  List<AdAddressResponse>? serviceDeliveries;
+@freezed
+class ServiceAdResponse with _$ServiceAdResponse {
+  const factory ServiceAdResponse({
+    @JsonKey(name: "id")
+    required int id,
+    @JsonKey(name: "name")
+    required String? name,
+    @JsonKey(name: "ad_type")
+    required String? adType,
+    @JsonKey(name: "category_id")
+    required int? categoryId,
+    @JsonKey(name: "category_name")
+    required String? categoryName,
+    @JsonKey(name: "sub_category_id")
+    required int? subCategoryId,
+    @JsonKey(name: "sub_category_name")
+    required String? subCategoryName,
+    @JsonKey(name: "description")
+    required String? description,
+    @JsonKey(name: "to_price")
+    required int? toPrice,
+    @JsonKey(name: "from_price")
+    required int? fromPrice,
+    @JsonKey(name: "currency_id")
+    required int? currencyId,
+    @JsonKey(name: "currency_name")
+    required String? currencyName,
+    @JsonKey(name: "is_contract")
+    required bool? isContract,
+    @JsonKey(name: "route_type")
+    required String? routeType,
+    @JsonKey(name: "address_id")
+    required int? addressId,
+    @JsonKey(name: "address_name")
+    required String? addressName,
+    @JsonKey(name: "email")
+    required String? email,
+    @JsonKey(name: "contact_name")
+    required String? contactName,
+    @JsonKey(name: "phone_number")
+    required String? phoneNumber,
+    @JsonKey(name: "is_auto_renew")
+    required bool? isAutoRenew,
+    @JsonKey(name: "video")
+    required String? video,
+    @JsonKey(name: "show_social")
+    required bool? showSocial,
+    @JsonKey(name: "photos")
+    required List<AdPhotoResponse>? photos,
+    @JsonKey(name: "payment_types")
+    required List<AdPaymentTypeResponse>? paymentTypes,
+    @JsonKey(name: "service_deliveries")
+    required List<AdAddressResponse>? serviceDeliveries,
+  }) = _ServiceAdResponse;
 
-  ServiceAdResponse({
-    required this.id,
-    required this.name,
-    required this.adType,
-    required this.categoryId,
-    required this.categoryName,
-    required this.subCategoryId,
-    required this.subCategoryName,
-    required this.description,
-    required this.toPrice,
-    required this.fromPrice,
-    required this.currencyId,
-    required this.currencyName,
-    required this.isContract,
-    required this.routeType,
-    required this.addressId,
-    required this.addressName,
-    required this.email,
-    required this.contactName,
-    required this.phoneNumber,
-    required this.isAutoRenew,
-    required this.video,
-    required this.photos,
-    required this.showSocial,
-    required this.paymentTypes,
-    required this.serviceDeliveries,
-  });
+  const ServiceAdResponse._();
 
-  factory ServiceAdResponse.fromJson(Map<String, dynamic> json) =>
-      ServiceAdResponse(
-        id: json["id"],
-        name: json["name"],
-        adType: json["ad_type"],
-        categoryId: json["category_id"],
-        categoryName: json["category_name"],
-        subCategoryId: json["sub_category_id"],
-        subCategoryName: json["sub_category_name"],
-        description: json["description"],
-        toPrice: json["to_price"],
-        fromPrice: json["from_price"],
-        currencyId: json["currency_id"],
-        currencyName: json["currency_name"],
-        isContract: json["is_contract"],
-        routeType: json["route_type"],
-        addressId: json["address_id"],
-        addressName: json["address_name"],
-        email: json["email"],
-        contactName: json["contact_name"],
-        phoneNumber: json["phone_number"],
-        isAutoRenew: json["is_auto_renew"],
-        video: json["video"],
-        photos: List<AdPhotoResponse>.from(
-          json["photos"].map((x) => AdPhotoResponse.fromJson(x)),
-        ),
-        showSocial: json["show_social"],
-        paymentTypes: List<AdPaymentTypeResponse>.from(
-          json["payment_types"].map((x) => AdPaymentTypeResponse.fromJson(x)),
-        ),
-        serviceDeliveries: List<AdAddressResponse>.from(
-          json["service_deliveries"].map((x) => AdAddressResponse.fromJson(x)),
-        ),
-      );
+  factory ServiceAdResponse.fromJson(Map<String, dynamic> json) => _$ServiceAdResponseFromJson(json);
 
   CategoryResponse? getCategory() {
     return categoryId == null
@@ -162,13 +128,13 @@ class ServiceAdResponse {
 
   List<PaymentTypeResponse> getPaymentTypes() {
     return paymentTypes
-            ?.map((e) => PaymentTypeResponse(id: e.id, name: e.name))
-            .toList() ??
+        ?.map((e) => PaymentTypeResponse(id: e.id, name: e.name))
+        .toList() ??
         [];
   }
 
   bool getIsBusiness() {
-    return routeType.toUpperCase().contains("BUSINESS");
+    return routeType?.toUpperCase().contains("BUSINESS") == true;
   }
 
   UserAddressResponse? getUserAddress() {
@@ -179,8 +145,8 @@ class ServiceAdResponse {
 
   List<District> getServiceDistricts() {
     return serviceDeliveries
-            ?.map((e) => District(id: e.id, regionId: 0, name: e.name ?? ""))
-            .toList() ??
+        ?.map((e) => District(id: e.id, regionId: 0, name: e.name ?? ""))
+        .toList() ??
         [];
   }
 }

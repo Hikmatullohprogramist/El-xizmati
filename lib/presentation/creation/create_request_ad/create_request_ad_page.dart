@@ -6,8 +6,8 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/ad/image_list/ad_image_list_widget.dart';
 import 'package:onlinebozor/common/widgets/form_field/custom_text_form_field.dart';
-import 'package:onlinebozor/common/widgets/image_list/ad_image_list_widget.dart';
 import 'package:onlinebozor/common/widgets/loading/default_loading_widget.dart';
 
 import '../../../../../common/core/base_page.dart';
@@ -96,7 +96,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   ? DefaultLoadingWidget(isFullScreen: true)
                   : DefaultErrorWidget(
                       isFullScreen: true,
-                      retryAction: () => cubit(context).getEditingInitialData(),
+                      onRetryClicked: () => cubit(context).getEditingInitialData(),
                     ),
             )
           : SingleChildScrollView(
@@ -582,7 +582,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           ),
           SizedBox(height: 16),
           CustomElevatedButton(
-            text: Strings.commonContinue,
+            text: Strings.commonSave,
             onPressed: () {
               vibrateAsHapticFeedback();
               if (_formKey.currentState!.validate()) {

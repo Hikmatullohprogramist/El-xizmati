@@ -4,11 +4,11 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/controller/controller_exts.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/common/widgets/ad/image_list/ad_image_list_widget.dart';
 import 'package:onlinebozor/common/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/common/widgets/chips/chip_item.dart';
 import 'package:onlinebozor/common/widgets/chips/chip_list.dart';
 import 'package:onlinebozor/common/widgets/form_field/validator/count_validator.dart';
-import 'package:onlinebozor/common/widgets/image_list/ad_image_list_widget.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_switch.dart';
 import 'package:onlinebozor/common/widgets/switch/custom_toggle.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
@@ -95,7 +95,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   ? DefaultLoadingWidget(isFullScreen: true)
                   : DefaultErrorWidget(
                       isFullScreen: true,
-                      retryAction: () => cubit(context).getEditingInitialData(),
+                      onRetryClicked: () => cubit(context).getEditingInitialData(),
                     ),
             )
           : SingleChildScrollView(
@@ -203,6 +203,28 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                     .setChangedImageList(result as List<UploadableFile>);
               }
             },
+          ),
+          SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              children: [
+                LabelTextField(Strings.createAdVideoUlrLabel, isRequired: false),
+                SizedBox(height: 6),
+                CustomTextFormField(
+                  autofillHints: const [AutofillHints.url],
+                  keyboardType: TextInputType.url,
+                  maxLines: 1,
+                  hint: Strings.createAdVideoUlrLabel,
+                  inputType: TextInputType.url,
+                  textInputAction: TextInputAction.done,
+                  controller: videoUrlController,
+                  onChanged: (value) {
+                    cubit(context).setEnteredVideoUrl(value);
+                  },
+                ),
+              ],
+            ),
           ),
           SizedBox(height: 16),
         ],
@@ -587,31 +609,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             children: [
               SizedBox(height: 16),
               Strings.createAdUsefulLinkLabel.w(600).s(14).c(Color(0xFF41455E)),
-              SizedBox(height: 20),
-              LabelTextField(Strings.createAdVideoUlrLabel, isRequired: false),
-              SizedBox(height: 6),
-              CustomTextFormField(
-                autofillHints: const [AutofillHints.url],
-                keyboardType: TextInputType.url,
-                maxLines: 1,
-                hint: Strings.createAdVideoUlrLabel,
-                inputType: TextInputType.url,
-                textInputAction: TextInputAction.done,
-                controller: videoUrlController,
-                onChanged: (value) {
-                  cubit(context).setEnteredVideoUrl(value);
-                },
-              ),
-              SizedBox(height: 8),
-            ],
-          ),
-        ),
-        SizedBox(height: 4),
-        Container(
-          color: Colors.white,
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-          child: Column(
-            children: [
+              SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -630,6 +628,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   ),
                 ],
               ),
+              SizedBox(height: 20),
             ],
           ),
         )
@@ -658,7 +657,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
           ),
           SizedBox(height: 16),
           CustomElevatedButton(
-            text: Strings.commonContinue,
+            text: Strings.commonSave,
             onPressed: () {
               vibrateAsHapticFeedback();
               if (_formKey.currentState!.validate()) {

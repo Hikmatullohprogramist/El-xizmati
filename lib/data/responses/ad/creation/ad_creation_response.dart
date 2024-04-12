@@ -1,61 +1,40 @@
-import 'dart:convert';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-AdCreationRootResponse adCreationResponseFromJson(String str) =>
-    AdCreationRootResponse.fromJson(json.decode(str));
+part 'ad_creation_response.freezed.dart';
+part 'ad_creation_response.g.dart';
 
-class AdCreationRootResponse {
-  dynamic error;
-  dynamic message;
-  String timestamp;
-  int status;
-  dynamic path;
-  Data data;
-  dynamic response;
-
-  AdCreationRootResponse({
-    required this.error,
-    required this.message,
-    required this.timestamp,
-    required this.status,
-    required this.path,
-    required this.data,
-    required this.response,
-  });
+@freezed
+class AdCreationRootResponse with _$AdCreationRootResponse {
+  const factory AdCreationRootResponse({
+    dynamic error,
+    dynamic message,
+    dynamic timestamp,
+    int? status,
+    dynamic path,
+    required Data data,
+    dynamic response,
+  }) = _AdCreationRootResponse;
 
   factory AdCreationRootResponse.fromJson(Map<String, dynamic> json) =>
-      AdCreationRootResponse(
-        error: json["error"],
-        message: json["message"],
-        timestamp: json["timestamp"],
-        status: json["status"],
-        path: json["path"],
-        data: Data.fromJson(json["data"]),
-        response: json["response"],
-      );
+      _$AdCreationRootResponseFromJson(json);
 }
 
-class Data {
-  AdCreationResponse? insertedAd;
-  AdCreationResponse? updatedAd;
+@freezed
+class Data with _$Data {
+  const factory Data({
+    required AdCreationResponse? insert_ad,
+    required AdCreationResponse? updated_ad,
+  }) = _Data;
 
-  Data({
-    required this.insertedAd,
-    required this.updatedAd,
-  });
-
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-        insertedAd: AdCreationResponse.fromJson(json["insert_ad"]),
-        updatedAd: AdCreationResponse.fromJson(json["update_ad"]),
-      );
+  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 }
 
-class AdCreationResponse {
-  int id;
-
-  AdCreationResponse({required this.id});
+@freezed
+class AdCreationResponse with _$AdCreationResponse {
+  const factory AdCreationResponse({
+    required int id,
+  }) = _AdCreationResponse;
 
   factory AdCreationResponse.fromJson(Map<String, dynamic> json) =>
-      AdCreationResponse(id: json["id"]);
-
-  Map<String, dynamic> toJson() => {"id": id};
+      _$AdCreationResponseFromJson(json);
 }

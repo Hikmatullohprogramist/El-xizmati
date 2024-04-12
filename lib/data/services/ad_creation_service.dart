@@ -117,6 +117,8 @@ class AdCreationService {
       "photos": pickedImageIds,
 
       "description": desc,
+
+      "address_id": addressId,
       "contact_name": contactPerson,
       "email": email,
       "phone_number": phone,
@@ -259,6 +261,8 @@ class AdCreationService {
       "photos": pickedImageIds.map((e) => e).toList(),
 
       "description": desc,
+
+      "address_id": addressId,
       "contact_name": contactPerson,
       "email": email,
       "phone_number": phone,
@@ -304,6 +308,9 @@ class AdCreationService {
     //
     required String title,
     required int categoryId,
+    required int serviceCategoryId,
+    required int serviceSubCategoryId,
+    //
     required AdType adType,
     required AdTransactionType adTransactionType,
     //
@@ -329,6 +336,8 @@ class AdCreationService {
     Map<String, Object?> commonBody = {
       "name": title,
       "category_id": categoryId,
+      "service_category_id": serviceCategoryId,
+      "service_sub_category_id": serviceSubCategoryId,
       //
       "main_photo": mainImageId,
       "photos": pickedImageIds.map((e) => e).toList(),
@@ -346,12 +355,9 @@ class AdCreationService {
       "has_discount": false,
       "has_bidding": isAgreedPrice,
 
-      // "property_status": "NEW", // fixme remove this field
-      // "min_amount": 1, // fixme remove this field
+      "address_id": addressId,
       "deliveries": requestDistricts.toMapList("district_id"),
 
-      // "type_status": adTransactionType.name,
-      // "main_type_status": adTransactionType.name,
       "sale_type": adType.name.toUpperCase(),
 
       "is_auto_renew": isAutoRenewal,

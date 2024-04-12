@@ -67,20 +67,27 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       updateState((state) => state.copyWith(
             isNotPrepared: false,
             isPreparingInProcess: false,
-            title: ad.name,
+            //
+            title: ad.name ?? "",
             category: ad.getCategory(),
+            //
             pickedImages: ad.getPhotos(),
+            //
             desc: ad.description ?? "",
+            //
             fromPrice: ad.fromPrice,
             toPrice: ad.toPrice,
             currency: ad.getCurrency(),
             paymentTypes: ad.getPaymentTypes(),
             isAgreedPrice: ad.isContract ?? false,
-            address: UserAddressResponse(id: ad.id, name: ad.addressName),
+            //
             contactPerson: ad.contactName ?? "",
             phone: ad.phoneNumber?.clearPhoneNumberWithoutCode() ?? "",
             email: ad.email ?? "",
+            //
+            address: ad.getUserAddress(),
             requestDistricts: ad.getRequestDistricts(),
+            //
             isAutoRenewal: ad.isAutoRenew ?? false,
           ));
     } catch (e) {
@@ -100,6 +107,9 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         //
         title: states.title,
         categoryId: states.category!.id,
+        serviceCategoryId: states.category!.parent_id ?? states.category!.id,
+        serviceSubCategoryId: states.category!.id,
+        //
         adType: states.adType,
         adTransactionType: states.adTransactionType,
         //

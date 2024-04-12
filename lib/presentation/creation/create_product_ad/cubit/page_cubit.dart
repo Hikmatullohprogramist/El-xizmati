@@ -57,7 +57,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       updateState((state) => state.copyWith(
             isNotPrepared: false,
             isPreparingInProcess: false,
-            title: ad.name,
+            title: ad.name ?? "",
             category: ad.getCategory(),
             pickedImages: ad.getPhotos(),
             desc: ad.description ?? "",
@@ -68,7 +68,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             paymentTypes: ad.getPaymentTypes(),
             isBusiness: ad.getIsBusiness(),
             isNew: ad.getIsNew(),
-            isAgreedPrice: ad.isContract,
+            isAgreedPrice: ad.isContract ?? false,
             address: ad.getUserAddress(),
             contactPerson: ad.contactName ?? "",
             phone: ad.phoneNumber?.clearPhoneNumberWithoutCode() ?? "",
@@ -83,9 +83,10 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             freeDeliveryDistricts: ad.getFreeDeliveryDistricts(),
             isPaidDeliveryEnabled: ad.paidDeliveryEnabled ?? false,
             paidDeliveryDistricts: ad.getPaidDeliveryDistricts(),
+            paidDeliveryPrice: ad.paidDeliveryPrice,
             isAutoRenewal: ad.isAutoRenew ?? false,
             videoUrl: ad.video ?? "",
-            isShowMySocialAccount: ad.showSocial,
+            isShowMySocialAccount: ad.showSocial ?? false,
           ));
     } catch (e) {
       log.w("getEditingInitialData error = $e");

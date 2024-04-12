@@ -120,8 +120,8 @@ class AdDetail {
   List<dynamic>? warehouses;
   List<dynamic>? shippings;
   List<Photo>? photos;
-  AdAddressResponse? address;
-  List<AdDistrictResponse>? paymentTypes;
+  AdDetailAddressResponse? address;
+  List<AdDetailDistrictResponse>? paymentTypes;
   bool favorite;
   bool isAddCart;
 

@@ -24,11 +24,11 @@ class PageState with _$PageState {
     @Default([]) List<PaymentTypeResponse> paymentTypes,
     @Default(false) bool isAgreedPrice,
 //
-    UserAddressResponse? address,
     @Default("") String contactPerson,
     @Default("") String phone,
     @Default("") String email,
 //
+    UserAddressResponse? address,
     @Default(false) bool isShowAllRequestDistricts,
     @Default([]) List<District> requestDistricts,
 //
