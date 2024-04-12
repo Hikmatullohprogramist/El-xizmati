@@ -22,7 +22,7 @@ ad_creation_start_sale_desc,Siz bizning platformamizda mahsulotlar va xizmatlarn
 ad_creation_start_sale_product,Mahsulot soting,Продавайте товар,Маҳсулот сотинг
 ad_creation_start_sale_service,Xizmat soting,Продавайте услугу,Хизмат сотинг
 ad_creation_start_sale_title,Sotmoqchimisiz ?,Хочу продать ?,Сотмоқчимисиз ?
-ad_detail_addtocart,Savatchaga qo‘shish,В корзину,Саватчага қўшиш
+ad_detail_add_to_cart,Savatga qo‘shish,В корзину,Саватга қўшиш
 ad_detail_author,Muallif,Автор,Муаллиф
 ad_detail_author_ads,Muallifning boshqa e‘lonlari,Другие объявления автора,Муаллифнинг бошқа эълонлари
 ad_detail_characteristics,Xususiyatlari,Характеристики,Хусусиятлари
@@ -32,6 +32,7 @@ ad_detail_feedback,Sharhlar,Отзывы,Шарҳлар
 ad_detail_location,Manzil,Местоположение,Манзил
 ad_detail_number_views,Ko‘rishlar soni,Количество просмотров,Кўришлар сони
 ad_detail_on_online_bozor,OnlineBozorda,на OnlineBozor с,OnlineBozorда
+ad_detail_open_cart,Savatni ko‘rish,Посмотреть корзину,Саватни кўриш
 ad_detail_published_date,Nashr etilgan:,Опубликовано:,Нашр этилган:
 ad_detail_show_more,Ko‘proq ko‘rsatish,Показать больше,Кўпроқ кўрсатиш
 ad_detail_show_phone,Qo‘ng‘iroq,Позвонить,Қўнғироқ
@@ -106,7 +107,8 @@ card_name_hint,Masalan: Asosiy,Например: Основная,Масалан
 card_name_title,Karta nomi,Название карты,Карта номи
 card_number_title,Karta raqami,Номер карты,Карта рақами
 cart_make_order,Rasmiylashtirish,Оформить,Расмийлаштириш
-categories_title,Ommabop kategoriyalar,Популярные категории,Оммабоп категориялар
+category_list_search_hint,Turkum bo‘yicha izlash,Поиск по категории,Туркум бўйича излаш
+popular_categories_title,Ommabop kategoriyalar,Популярные категории,Оммабоп категориялар
 category_ads_count,ta e‘lon,объявлений,та эълон
 close_title,Yopish,Закрыть,Ёпиш
 common_add,Qo‘shish,Добавить,Қўшиш
@@ -251,12 +253,16 @@ order_create_category,Kategorya,Категория,Категоря
 order_create_online_description,RealPay orqali onlayn to‘lov,Онлайн оплата через RealPay,RealPay орқали онлайн тўлов
 order_create_online_payment,Onlayn to‘lov,Онлайн оплата,Онлайн тўлов
 order_create_payment_method,To‘lov usuli,Способ оплаты,Тўлов усули
-order_create_price,narxi:,Цена:,нархи:
+order_create_price,Narxi,Цена,Нархи
 order_create_register,Rasmiylashtirish,оформление,Расмийлаштириш
 order_create_terminal_description,Toʻlov UzCard va Humo bank kartalari orqali qabul qilinadi,Оплата принимается через банковские карты UzCard и Humo,Тўлов УзCард ва Ҳумо банк карталари орқали қабул қилинади
 order_create_terminal_payment,Terminal orqali to‘lov,Оплата по терминалу,Терминал орқали тўлов
+order_create_total_price,Jami,Итого,Жами
 order_create_transfer_discription,To‘lov bank o‘tkazmalari orqali qabul qilinadi,Оплата принимается через банковские расчеты,Тўлов банк ўтказмалари орқали қабул қилинади
 order_create_transfer_payment,Transfer,Перечисления,Трансфер
+order_list_title,Buyurtmalarim,Мои заказы,Буюртмаларим
+order_list_type_buy,Sotib olaman,Куплю,Сотиб оламан
+order_list_type_sell,Sotaman,Продаю,Сотаман
 order_need_product,Mahsulot kerak,Нужен товар,Маҳсулот керак
 order_need_service,Xizmat kerak,Нужна услуга,Хизмат керак
 payment_filter_all,Hammasi,Все,Ҳаммаси
@@ -363,3 +369,8 @@ user_request_canceled_label,Bekor qilingan,Отменено,Бекор қили�
 user_request_pending_label,Kutulmoqda,Ожидающий,Кутулмоқда
 user_request_rejacted_label,Rad etilgan,Отклоненный,Рад этилган
 user_request_review_label,Ko‘rib chiqilmoqda,На рассмотрении,Кўриб чиқилмоқда
+verify_identity_error_data_already_linked,Ushbu shaxsiy ma’lumotlar boshqa telefon raqamiga bog‘langan!,"Это персональные данные, привязанные к другому номеру телефона!",Ушбу шахсий маълумотлар бошқа телефон рақамига боғланган!
+verify_identity_error_user_not_found,Bu ma’lumotlar bilan foydalanuvchi topilmadi,Пользователь не найден по этим данным,Бу маълумотлар билан фойдаланувчи топилмади
+verify_identity_personal_data,Shaxsiy ma’lumotlarni o‘zgartirish,Изменить личные данные,Шахсий маълумотларни ўзгартириш
+verify_identity_personal_data_desc,"Pasport raqami va seriyasini, tug‘ilgan sanangizni kiriting","Укажите номер и серия паспорта, дата рождения","Паспорт рақами ва сериясини, туғилган санангизни киритинг"
+verify_identity_title,Shaxsni tasdiqlash,Подтвердить личность,Шахсни тасдиқлаш

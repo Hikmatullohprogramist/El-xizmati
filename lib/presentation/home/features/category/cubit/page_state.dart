@@ -6,7 +6,7 @@ class PageState with _$PageState {
     @Default(<CategoryResponse>[]) List<CategoryResponse> allItems,
     @Default(<CategoryResponse>[]) List<CategoryResponse> visibleItems,
     @Default(LoadingState.loading) LoadingState loadState,
-    CategoryResponse? selectedItem,
+    String? searchQuery,
   }) = _PageState;
 }
 

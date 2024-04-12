@@ -35,6 +35,27 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
+  void setSearchQuery(String? query) {
+    if (query == null || query.trim().isEmpty) {
+      final parentItems =
+      states.allItems.where((element) => element.isParent).toList();
+
+      updateState((state) => state.copyWith(visibleItems: parentItems));
+    } else {
+      final searchQuery = query.trim().toUpperCase();
+      final searchResults = states.allItems
+          .where((e) => e.name?.toUpperCase().contains(searchQuery) == true)
+          .toList();
+
+      updateState((state) => state.copyWith(
+        visibleItems: searchResults,
+        loadState: searchResults.isNotEmpty
+            ? LoadingState.success
+            : LoadingState.empty,
+      ));
+    }
+  }
+
   void setSelectedCategory(CategoryResponse category) {
     var categories = states.allItems
         .where((element) => element.parent_id == category.id)

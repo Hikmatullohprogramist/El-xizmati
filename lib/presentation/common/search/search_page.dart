@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
@@ -34,25 +33,26 @@ class SearchPage extends BasePage<PageCubit, PageState, PageEvent> {
           ),
           child: Row(children: [
             Expanded(
-                child: TextField(
-              autofocus: true,
-              onSubmitted: (value) {
-                cubit(context).getSearchResult(value);
-              },
-              style: TextStyle(
-                color: context.colors.textPrimary,
-                fontSize: 14,
+              child: TextField(
+                autofocus: true,
+                onSubmitted: (value) {
+                  cubit(context).getSearchResult(value);
+                },
+                style: TextStyle(
+                  color: context.colors.textPrimary,
+                  fontSize: 14,
+                ),
+                decoration: InputDecoration.collapsed(
+                    hintText: Strings.adSearchHint,
+                    hintStyle: TextStyle(
+                      color: context.colors.textSecondary,
+                      fontSize: 12,
+                    )),
+                controller: textController,
+                cursorColor: Colors.black,
+                keyboardType: TextInputType.text,
               ),
-              decoration: InputDecoration.collapsed(
-                  hintText: Strings.adSearchHint,
-                  hintStyle: TextStyle(
-                    color: context.colors.textSecondary,
-                    fontSize: 12,
-                  )),
-              controller: textController,
-              cursorColor: Colors.black,
-              keyboardType: TextInputType.text,
-            )),
+            ),
             InkWell(
                 onTap: () {
                   final value = textController.text;

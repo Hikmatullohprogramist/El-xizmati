@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/enum/enums.dart';
+import 'package:onlinebozor/common/widgets/loading/default_empty_widget.dart';
 import 'package:onlinebozor/common/widgets/loading/default_error_widget.dart';
-
-import 'default_loading_widget.dart';
 
 class LoaderStateWidget extends StatelessWidget {
   const LoaderStateWidget({
@@ -14,6 +13,7 @@ class LoaderStateWidget extends StatelessWidget {
     this.emptyBody,
     this.errorBody,
     this.onRetryClicked,
+    this.onReloadClicked,
     this.isFullScreen = false,
   });
 
@@ -25,6 +25,7 @@ class LoaderStateWidget extends StatelessWidget {
   final Widget? emptyBody;
   final Widget? errorBody;
   final VoidCallback? onRetryClicked;
+  final VoidCallback? onReloadClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +47,16 @@ class LoaderStateWidget extends StatelessWidget {
   }
 
   Widget _buildDefaultEmptyBody() {
-    return Center();
+    return DefaultEmptyWidget(
+      isFullScreen: isFullScreen,
+      onReloadClicked: onReloadClicked,
+    );
   }
 
   Widget _buildDefaultErrorBody() {
-    return DefaultLoadingWidget(isFullScreen: isFullScreen);
+    return DefaultErrorWidget(
+      isFullScreen: isFullScreen,
+      onRetryClicked: onRetryClicked,
+    );
   }
 }

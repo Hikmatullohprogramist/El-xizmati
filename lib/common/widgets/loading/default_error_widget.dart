@@ -9,11 +9,11 @@ class DefaultErrorWidget extends StatelessWidget {
   const DefaultErrorWidget({
     super.key,
     required this.isFullScreen,
-    this.retryAction,
+    this.onRetryClicked,
   });
 
   final bool isFullScreen;
-  final VoidCallback? retryAction;
+  final VoidCallback? onRetryClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +27,14 @@ class DefaultErrorWidget extends StatelessWidget {
                     .s(14)
                     .c(context.colors.textPrimary),
                 SizedBox(height: 12),
-                CustomElevatedButton(
-                  text: Strings.loadingStateRetry,
-                  onPressed: () {
-                    if (retryAction != null) retryAction!();
-                  },
-                  buttonWidth: 180,
-                )
+                if (onRetryClicked != null)
+                  CustomElevatedButton(
+                    text: Strings.loadingStateRetry,
+                    buttonWidth: 180,
+                    onPressed: () {
+                      if (onRetryClicked != null) onRetryClicked!();
+                    },
+                  )
               ],
             ),
           )
@@ -50,7 +51,7 @@ class DefaultErrorWidget extends StatelessWidget {
                   CustomElevatedButton(
                     text: Strings.loadingStateRetry,
                     onPressed: () {
-                      if (retryAction != null) retryAction!();
+                      if (onRetryClicked != null) onRetryClicked!();
                     },
                     buttonWidth: 180,
                   )
