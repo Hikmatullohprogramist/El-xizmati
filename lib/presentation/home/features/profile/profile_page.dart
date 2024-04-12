@@ -12,6 +12,7 @@ import 'package:onlinebozor/common/widgets/bottom_sheet/bottom_sheet_title.dart'
 import 'package:onlinebozor/common/widgets/button/custom_outlined_button.dart';
 import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/common/widgets/profile/profile_item_widget.dart';
+import 'package:onlinebozor/domain/models/order/order_type.dart';
 import 'package:onlinebozor/presentation/home/features/profile/cubit/page_cubit.dart';
 
 import '../../../../common/colors/static_colors.dart';
@@ -119,7 +120,10 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
               name: Strings.profileOrders,
               icon: Assets.images.icProfileOrder,
               onClicked: () {
-                context.router.push(UserOrderTypeRoute());
+                // context.router.push(UserOrderTypeRoute());
+                context.router.push(
+                  UserOrderListRoute(orderType: OrderType.buy),
+                );
                 vibrateAsHapticFeedback();
               },
             ),

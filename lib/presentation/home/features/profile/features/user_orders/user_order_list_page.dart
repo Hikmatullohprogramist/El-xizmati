@@ -10,7 +10,6 @@ import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
 import '../../../../../../common/core/base_page.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
-import '../../../../../../domain/models/ad/ad_transaction_type.dart';
 import '../../../../../../domain/models/order/order_type.dart';
 import '../../../../../../domain/models/order/user_order_status.dart';
 
@@ -21,33 +20,45 @@ class UserOrderListPage extends BasePage<PageCubit, PageState, PageEvent> {
   final OrderType orderType;
 
   @override
+  void onWidgetCreated(BuildContext context) {
+    cubit(context).setInitialParams(orderType);
+  }
+
+  @override
+  void onEventEmitted(BuildContext context, PageEvent event) {
+    {
+      switch (event.type) {
+        case PageEventType.onOrderTypeChange:
+          context.router.pop();
+          context.router.push(
+            UserOrderListRoute(orderType: cubit(context).states.orderType),
+          );
+      }
+    }
+  }
+
+  @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return AutoTabsRouter.tabBar(
       physics: BouncingScrollPhysics(),
       routes: [
-        UserOrdersRoute(type: orderType, status: UserOrderStatus.all),
-        UserOrdersRoute(type: orderType, status: UserOrderStatus.wait),
-        UserOrdersRoute(type: orderType, status: UserOrderStatus.rejected),
-        UserOrdersRoute(type: orderType, status: UserOrderStatus.canceled),
-        UserOrdersRoute(type: orderType, status: UserOrderStatus.review),
-        UserOrdersRoute(type: orderType, status: UserOrderStatus.accept),
+        UserOrdersRoute(type: state.orderType, status: UserOrderStatus.all),
+        UserOrdersRoute(type: state.orderType, status: UserOrderStatus.wait),
+        UserOrdersRoute(type: state.orderType, status: UserOrderStatus.rejected),
+        UserOrdersRoute(type: state.orderType, status: UserOrderStatus.canceled),
+        UserOrdersRoute(type: state.orderType, status: UserOrderStatus.review),
+        UserOrdersRoute(type: state.orderType, status: UserOrderStatus.accept),
       ],
       builder: (context, child, controller) {
         return Scaffold(
           appBar: AppBar(
             actions: [
               CustomTextButton(
-                text: Strings.createRequestTitle,
+                text: state.orderType == OrderType.sell
+                    ? Strings.orderListTypeSell
+                    : Strings.orderListTypeBuy,
                 onPressed: () {
-                  if (orderType == OrderType.buy) {
-                    context.router.push(CreateRequestAdRoute(
-                      adTransactionType: AdTransactionType.BUY,
-                    ));
-                  } else if (orderType == OrderType.sell) {
-                    context.router.push(CreateRequestAdRoute(
-                      adTransactionType: AdTransactionType.BUY_SERVICE,
-                    ));
-                  }
+                  cubit(context).changeOrderType();
                 },
               )
             ],
@@ -59,7 +70,7 @@ class UserOrderListPage extends BasePage<PageCubit, PageState, PageEvent> {
             backgroundColor: Colors.white,
             centerTitle: true,
             bottomOpacity: 1,
-            title: Strings.myRequestsTitle
+            title: Strings.orderListTitle
                 .w(500)
                 .s(16)
                 .c(context.colors.textPrimary),
