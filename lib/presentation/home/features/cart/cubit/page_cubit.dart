@@ -59,30 +59,31 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     return adController;
   }
 
-  Future<void> removeCart(Ad ad) async {
+  Future<void> removeFromCart(Ad ad) async {
     try {
       await repository.removeCart(ad);
-      states.controller?.itemList?.remove(ad);
-      states.controller?.notifyListeners();
+      final items = states.items.map((e) => e).toList();
+      items.removeWhere((e) => e.id == ad.id);
+      updateState((state) => state.copyWith(items: items));
     } catch (e) {
       display.error(e.toString());
     }
   }
 
-  Future<void> addFavorite(Ad ad) async {
+  Future<void> changeFavorite(Ad ad) async {
     try {
       if (!ad.favorite) {
-        await favoriteRepository.addFavorite(ad);
+        await favoriteRepository.removeFromFavorite(ad.id);
       } else {
-        await favoriteRepository.removeFavorite(ad);
+        await favoriteRepository.addToFavorite(ad);
       }
-      final index = states.controller?.itemList?.indexOf(ad);
-      if (index != null) {
-        final newAd = ad..favorite = !ad.favorite;
-        states.controller?.itemList?.remove(ad);
-        states.controller?.itemList?.insert(index, newAd);
-        states.controller?.notifyListeners();
-      }
+      final items = states.items.map((e) => e.copy()).toList();
+      final index = items.indexWhere((e) => e.id == ad.id);
+      final newAd = ad..favorite = !ad.favorite;
+      items.removeWhere((e) => e.id ==  ad.id);
+      items.insert(index, newAd);
+
+      updateState((state) => state.copyWith(items: items));
     } catch (e) {
       display.error(e.toString());
     }

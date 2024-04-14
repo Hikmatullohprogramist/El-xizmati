@@ -154,8 +154,13 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> popularProductAdsAddFavorite(Ad ad) async {
     try {
-      if (!ad.favorite) {
-        final backendId = await favoriteRepository.addFavorite(ad);
+      if (ad.favorite == true) {
+        await favoriteRepository.removeFromFavorite(ad.id);
+        final index = states.popularProductAds.indexOf(ad);
+        final item = states.popularProductAds.elementAt(index);
+        states.popularProductAds.insert(index, item..favorite = false);
+      } else {
+        final backendId = await favoriteRepository.addToFavorite(ad);
         final index = states.popularProductAds.indexOf(ad);
         final item = states.popularProductAds.elementAt(index);
         states.popularProductAds.insert(
@@ -164,11 +169,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             ..favorite = true
             ..backendId = backendId,
         );
-      } else {
-        await favoriteRepository.removeFavorite(ad);
-        final index = states.popularProductAds.indexOf(ad);
-        final item = states.popularProductAds.elementAt(index);
-        states.popularProductAds.insert(index, item..favorite = false);
       }
     } catch (error) {
       display.error("serverda xatolik yuz  berdi");
@@ -178,8 +178,13 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> popularServiceAdsAddFavorite(Ad ad) async {
     try {
-      if (!ad.favorite) {
-        final backendId = await favoriteRepository.addFavorite(ad);
+      if (ad.favorite == true) {
+        await favoriteRepository.removeFromFavorite(ad.id);
+        final index = states.popularServiceAds.indexOf(ad);
+        final item = states.popularServiceAds.elementAt(index);
+        states.popularServiceAds.insert(index, item..favorite = false);
+      } else {
+        final backendId = await favoriteRepository.addToFavorite(ad);
         final index = states.popularServiceAds.indexOf(ad);
         final item = states.popularServiceAds.elementAt(index);
         states.popularServiceAds.insert(
@@ -188,11 +193,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             ..favorite = true
             ..backendId = backendId,
         );
-      } else {
-        await favoriteRepository.removeFavorite(ad);
-        final index = states.popularServiceAds.indexOf(ad);
-        final item = states.popularServiceAds.elementAt(index);
-        states.popularServiceAds.insert(index, item..favorite = false);
       }
     } catch (error) {
       display.error("serverda xatolik yuz  berdi");
@@ -202,8 +202,13 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> topRatedAdsAddFavorite(Ad ad) async {
     try {
-      if (!ad.favorite) {
-        final backendId = await favoriteRepository.addFavorite(ad);
+      if (ad.favorite == true) {
+        await favoriteRepository.removeFromFavorite(ad.id);
+        final index = states.topRatedAds.indexOf(ad);
+        final item = states.topRatedAds.elementAt(index);
+        states.topRatedAds.insert(index, item..favorite = false);
+      } else {
+        final backendId = await favoriteRepository.addToFavorite(ad);
         final index = states.topRatedAds.indexOf(ad);
         final item = states.topRatedAds.elementAt(index);
         states.topRatedAds.insert(
@@ -212,11 +217,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             ..favorite = true
             ..backendId = backendId,
         );
-      } else {
-        await favoriteRepository.removeFavorite(ad);
-        final index = states.topRatedAds.indexOf(ad);
-        final item = states.topRatedAds.elementAt(index);
-        states.topRatedAds.insert(index, item..favorite = false);
       }
     } catch (error) {
       display.error("serverda xatolik yuz  berdi");
@@ -226,8 +226,13 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> recentlyViewAdAddToFavorite(Ad ad) async {
     try {
-      if (!ad.favorite) {
-        final backendId = await favoriteRepository.addFavorite(ad);
+      if (ad.favorite == true) {
+        await favoriteRepository.removeFromFavorite(ad.id);
+        final index = states.recentlyViewedAds.indexOf(ad);
+        final item = states.recentlyViewedAds.elementAt(index);
+        states.recentlyViewedAds.insert(index, item..favorite = false);
+      } else {
+        final backendId = await favoriteRepository.addToFavorite(ad);
         final index = states.recentlyViewedAds.indexOf(ad);
         final item = states.recentlyViewedAds.elementAt(index);
         states.recentlyViewedAds.insert(
@@ -236,11 +241,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             ..favorite = true
             ..backendId = backendId,
         );
-      } else {
-        await favoriteRepository.removeFavorite(ad);
-        final index = states.recentlyViewedAds.indexOf(ad);
-        final item = states.recentlyViewedAds.elementAt(index);
-        states.recentlyViewedAds.insert(index, item..favorite = false);
       }
     } catch (error) {
       display.error("serverda xatolik yuz  berdi");

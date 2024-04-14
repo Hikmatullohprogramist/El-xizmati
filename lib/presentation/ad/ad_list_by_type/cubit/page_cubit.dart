@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
@@ -125,8 +124,13 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> popularAdsAddFavorite(Ad ad) async {
     try {
-      if (!ad.favorite) {
-        final backendId = await favoriteRepository.addFavorite(ad);
+      if (ad.favorite == true) {
+        await favoriteRepository.removeFromFavorite(ad.id);
+        final index = states.popularAds.indexOf(ad);
+        final item = states.popularAds.elementAt(index);
+        states.popularAds.insert(index, item..favorite = false);
+      } else {
+        final backendId = await favoriteRepository.addToFavorite(ad);
         final index = states.popularAds.indexOf(ad);
         final item = states.popularAds.elementAt(index);
         states.popularAds.insert(
@@ -135,11 +139,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             ..favorite = true
             ..backendId = backendId,
         );
-      } else {
-        await favoriteRepository.removeFavorite(ad);
-        final index = states.popularAds.indexOf(ad);
-        final item = states.popularAds.elementAt(index);
-        states.popularAds.insert(index, item..favorite = false);
       }
     } catch (error) {
       display.error("xatolik yuz  berdi");
@@ -149,20 +148,21 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> cheapAdsAddFavorite(Ad ad) async {
     try {
-      if (!ad.favorite) {
-        final backendId = await favoriteRepository.addFavorite(ad);
-        final index = states.cheapAds.indexOf(ad);
-        final item = states.cheapAds.elementAt(index);
-        states.cheapAds.insert(
-            index,
-            item
-              ..favorite = true
-              ..backendId = backendId);
-      } else {
-        await favoriteRepository.removeFavorite(ad);
+      if (ad.favorite == true) {
+        await favoriteRepository.removeFromFavorite(ad.id);
         final index = states.cheapAds.indexOf(ad);
         final item = states.cheapAds.elementAt(index);
         states.cheapAds.insert(index, item..favorite = false);
+      } else {
+        final backendId = await favoriteRepository.addToFavorite(ad);
+        final index = states.cheapAds.indexOf(ad);
+        final item = states.cheapAds.elementAt(index);
+        states.cheapAds.insert(
+          index,
+          item
+            ..favorite = true
+            ..backendId = backendId,
+        );
       }
     } catch (error) {
       display.error("xatolik yuz  berdi");
@@ -172,25 +172,26 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> addFavorite(Ad ad) async {
     try {
-      if (!ad.favorite) {
-        final backendId = await favoriteRepository.addFavorite(ad);
-        final index = states.controller?.itemList?.indexOf(ad) ?? 0;
-        final item = states.controller?.itemList?.elementAt(index);
-        if (item != null) {
-          states.controller?.itemList?.insert(
-              index,
-              item
-                ..favorite = true
-                ..backendId = backendId);
-          states.controller?.itemList?.removeAt(index);
-          states.controller?.notifyListeners();
-        }
-      } else {
-        await favoriteRepository.removeFavorite(ad);
+      if (ad.favorite == true) {
+        await favoriteRepository.removeFromFavorite(ad.id);
         final index = states.controller?.itemList?.indexOf(ad) ?? 0;
         final item = states.controller?.itemList?.elementAt(index);
         if (item != null) {
           states.controller?.itemList?.insert(index, item..favorite = false);
+          states.controller?.itemList?.removeAt(index);
+          states.controller?.notifyListeners();
+        }
+      } else {
+        final backendId = await favoriteRepository.addToFavorite(ad);
+        final index = states.controller?.itemList?.indexOf(ad) ?? 0;
+        final item = states.controller?.itemList?.elementAt(index);
+        if (item != null) {
+          states.controller?.itemList?.insert(
+            index,
+            item
+              ..favorite = true
+              ..backendId = backendId,
+          );
           states.controller?.itemList?.removeAt(index);
           states.controller?.notifyListeners();
         }

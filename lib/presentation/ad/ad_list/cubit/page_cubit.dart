@@ -13,7 +13,6 @@ import '../../../../domain/models/ad/ad_list_type.dart';
 import '../../../../domain/models/ad/ad_type.dart';
 
 part 'page_cubit.freezed.dart';
-
 part 'page_state.dart';
 
 @injectable
@@ -140,10 +139,19 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     return adController;
   }
 
-  Future<void> addFavorite(Ad ad) async {
+  Future<void> changeFavorite(Ad ad) async {
     try {
-      if (!ad.favorite) {
-        final backendId = await favoriteRepository.addFavorite(ad);
+      if (ad.favorite == true) {
+        await favoriteRepository.removeFromFavorite(ad.id);
+        final index = states.controller?.itemList?.indexOf(ad) ?? 0;
+        final item = states.controller?.itemList?.elementAt(index);
+        if (item != null) {
+          states.controller?.itemList?.insert(index, item..favorite = false);
+          states.controller?.itemList?.removeAt(index);
+          states.controller?.notifyListeners();
+        }
+      } else {
+        final backendId = await favoriteRepository.addToFavorite(ad);
         final index = states.controller?.itemList?.indexOf(ad) ?? 0;
         final item = states.controller?.itemList?.elementAt(index);
         if (item != null) {
@@ -152,15 +160,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
               item
                 ..favorite = true
                 ..backendId = backendId);
-          states.controller?.itemList?.removeAt(index);
-          states.controller?.notifyListeners();
-        }
-      } else {
-        await favoriteRepository.removeFavorite(ad);
-        final index = states.controller?.itemList?.indexOf(ad) ?? 0;
-        final item = states.controller?.itemList?.elementAt(index);
-        if (item != null) {
-          states.controller?.itemList?.insert(index, item..favorite = false);
           states.controller?.itemList?.removeAt(index);
           states.controller?.notifyListeners();
         }

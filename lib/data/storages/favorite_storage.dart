@@ -11,10 +11,8 @@ class FavoriteStorage {
 
   final Box _box;
 
-  BaseStorage get favoriteAds => BaseStorage(
-        _box,
-        key: "key_favorites_storage",
-      );
+  BaseStorage get favoriteAds =>
+      BaseStorage(_box, key: "key_favorites_storage");
 
   @FactoryMethod(preResolve: true)
   static Future<FavoriteStorage> create() async {
@@ -30,9 +28,9 @@ class FavoriteStorage {
 
   List<AdObject> get allItems => _box.values.toList().cast<AdObject>();
 
-  Future<void> removeFavorite(int adId) async {
+  Future<void> removeFromFavorite(int adId) async {
     final allItem = _box.values.toList().cast<AdObject>();
-    final index = allItem.indexWhere((element) => element.id == adId);
+    final index = allItem.indexWhere((e) => e.id == adId);
     _box.deleteAt(index);
   }
 

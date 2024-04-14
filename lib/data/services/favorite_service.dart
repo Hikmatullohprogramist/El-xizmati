@@ -15,17 +15,17 @@ class FavoriteService {
 
   FavoriteService(this._dio, this.tokenStorage);
 
-  Future<Response> addFavorite({required String adType, required int id}) {
+  Future<Response> addToFavorite({required int adId}) {
     final queryParameters = {
       RestQueryKeys.productType: "ADS",
-      RestQueryKeys.productId: id,
+      RestQueryKeys.productId: adId,
       RestQueryKeys.number: 1,
       RestQueryKeys.type: "SELECTED"
     };
     return _dio.post("api/mobile/v1/buyer/product", queryParameters: queryParameters);
   }
 
-  Future<Response> deleteFavorite(int backedId) {
+  Future<Response> removeFromFavorite(int backedId) {
     final queryParameters = {
       RestQueryKeys.productId: backedId,
       RestQueryKeys.type: "SELECTED"

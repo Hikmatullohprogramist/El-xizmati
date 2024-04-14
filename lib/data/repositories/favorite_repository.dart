@@ -28,22 +28,19 @@ class FavoriteRepository {
     this.adService,
   );
 
-  Future<int> addFavorite(Ad ad) async {
+  Future<int> addToFavorite(Ad ad) async {
     final isLogin = tokenStorage.isLogin.call() ?? false;
     int resultId = ad.id;
     if (isLogin) {
-      // await adService.setViewAd(type: ViewType.selected, adId: ad.id);
-      final response = await _favoriteService.addFavorite(
-          adType: ad.adStatus.name, id: ad.id);
+      final response = await _favoriteService.addToFavorite(adId: ad.id);
       final addResultId =
           AddResultRootResponse.fromJson(response.data).data?.products?.id;
       resultId = addResultId ?? ad.id;
     } else {
       await syncStorage.isFavoriteSync.set(false);
     }
-    final allItem =
-        favoriteStorage.allItems.map((item) => item.toMap()).toList();
-    if (allItem.where((element) => element.id == ad.id).isEmpty) {
+    final allItem = favoriteStorage.allItems.map((e) => e.toMap()).toList();
+    if (allItem.where((e) => e.id == ad.id).isEmpty) {
       favoriteStorage.favoriteAds
           .add(ad.toMap(favorite: true, backendId: resultId));
     } else {
@@ -54,11 +51,11 @@ class FavoriteRepository {
     return resultId;
   }
 
-  Future<void> removeFavorite(Ad ad) async {
-    favoriteStorage.removeFavorite(ad.id);
+  Future<void> removeFromFavorite(int adId) async {
+    favoriteStorage.removeFromFavorite(adId);
     final isLogin = tokenStorage.isLogin.call() ?? false;
     if (isLogin) {
-      await _favoriteService.deleteFavorite(ad.id);
+      await _favoriteService.removeFromFavorite(adId);
     } else {
       await syncStorage.isFavoriteSync.set(false);
     }
