@@ -342,7 +342,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
                     ),
                     Visibility(
                       visible: state.loading,
-                      child: CircularProgressIndicator(color: StaticColors.slateBlue,
+                      child: CircularProgressIndicator(color: StaticColors.colorPrimary,
                       ),
                     )
                   ],

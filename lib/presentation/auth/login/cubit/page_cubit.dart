@@ -40,10 +40,10 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  Future<void> verification() async {
+  Future<void> login() async {
     updateState((state) => state.copyWith(loading: true));
     try {
-      await _repository.verification(
+      await _repository.login(
         states.phone.clearPhoneNumberWithCode(),
         states.password,
       );

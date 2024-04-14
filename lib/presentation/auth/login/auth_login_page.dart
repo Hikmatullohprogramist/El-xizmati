@@ -9,22 +9,22 @@ import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/presentation/auth/confirm/auth_confirm_page.dart';
-import 'package:onlinebozor/presentation/auth/verification/cubit/page_cubit.dart';
+import 'package:onlinebozor/presentation/auth/login/cubit/page_cubit.dart';
 
 import '../../../common/gen/localization/strings.dart';
 import '../../../common/widgets/form_field/custom_text_form_field.dart';
 
 @RoutePage()
-class AuthVerificationPage extends BasePage<PageCubit, PageState, PageEvent> {
-  AuthVerificationPage(this.phone, {super.key});
+class AuthLoginPage extends BasePage<PageCubit, PageState, PageEvent> {
+  AuthLoginPage(this.phone, {super.key});
 
-  final phone;
+  final String phone;
   final textEditingController = TextEditingController();
 
   @override
   void onWidgetCreated(BuildContext context) {
-    cubit(context).setPhone("998 $phone");
-    textEditingController.text = "998 $phone";
+    cubit(context).setPhone(phone.clearPhoneNumberWithCode());
+    textEditingController.text = phone.clearPhoneNumberWithCode();
   }
 
   @override
@@ -53,7 +53,7 @@ class AuthVerificationPage extends BasePage<PageCubit, PageState, PageEvent> {
                 color: context.colors.iconGrey,
               ),
               onPressed: () {
-                context.router.pop();
+                context.router.replace(AuthStartRoute(phone: state.phone));
               }),
         ),
         body: Padding(
@@ -120,7 +120,7 @@ class AuthVerificationPage extends BasePage<PageCubit, PageState, PageEvent> {
                   text: Strings.commonContinue,
                   onPressed: () {
                     TextInput.finishAutofillContext(shouldSave: true);
-                    cubit(context).verification();
+                    cubit(context).login();
                   },
                   isEnabled: state.enable,
                   isLoading: state.loading,

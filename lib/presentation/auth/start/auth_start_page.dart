@@ -1,6 +1,4 @@
-
 import 'dart:io';
-
 
 import 'package:auto_route/auto_route.dart';
 import 'package:external_app_launcher/external_app_launcher.dart';
@@ -24,38 +22,39 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../common/widgets/app_bar/default_app_bar.dart';
 import '../../utils/mask_formatters.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 
 @RoutePage()
 class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
-  AuthStartPage({super.key});
+  AuthStartPage({super.key, this.phone});
+
+  final String? phone;
+
+  final TextEditingController phoneController = TextEditingController();
+
+  @override
+  void onWidgetCreated(BuildContext context) {
+    cubit(context).setPhone(phone ?? "");
+  }
 
   @override
   void onEventEmitted(BuildContext context, PageEvent event) {
     switch (event.type) {
-      case PageEventType.verification:
-        context.router.push(AuthVerificationRoute(phone: event.phone!));
-      case PageEventType.confirmation:
+      case PageEventType.onOpenLogin:
+        context.router.replace(AuthLoginRoute(phone: event.phone!));
+      case PageEventType.onOpenConfirm:
         context.router.push(
           AuthConfirmRoute(
             phone: event.phone!,
             confirmType: ConfirmType.confirm,
           ),
         );
-      case PageEventType.onFailureEImzo:
-        context.showErrorBottomSheet(context,Strings.loadingStateError,Strings.authStartLoginWithEImzoError);
-      case PageEventType.navigationHome:
+      case PageEventType.onEdsLoginFailed:
+        context.showErrorBottomSheet(context, Strings.loadingStateError,
+            Strings.authStartLoginWithEImzoError);
+      case PageEventType.onOpenHome:
         context.router.replace(HomeRoute());
     }
   }
-
-  @override
-  void onWidgetCreated(BuildContext context) {
-
-  }
-
-  final TextEditingController phoneController = TextEditingController();
 
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
@@ -117,7 +116,8 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
                 text: Strings.authStartLoginWithEImzo,
                 onPressed: () {
                   cubit(context).loginWithEImzo().then((value) {
-                    enter(value?.challange??"", value?.siteId??"", value?.documentId??"", context);
+                    enter(value?.challange ?? "", value?.siteId ?? "",
+                        value?.documentId ?? "", context);
                   });
                 },
                 strokeColor: context.colors.borderColor,
@@ -128,12 +128,11 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text:   Strings.authPricePoliceStart,
+                      text: Strings.authPricePoliceStart,
                       style: TextStyle(
                           color: Color(0xFF9EABBE),
                           fontSize: 12,
-                          fontWeight: FontWeight.w400
-                      ),
+                          fontWeight: FontWeight.w400),
                     ),
                     TextSpan(text: " "),
                     TextSpan(
@@ -141,9 +140,9 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
                       style: TextStyle(
                           color: Color(0xFF5C6AC4),
                           fontSize: 12,
-                          fontWeight: FontWeight.w400
-                      ),
-                      recognizer: TapGestureRecognizer()..onTap = _handleTextClick,
+                          fontWeight: FontWeight.w400),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = _handleTextClick,
                     ),
                     TextSpan(text: " "),
                     TextSpan(
@@ -151,14 +150,14 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
                       style: TextStyle(
                           color: Color(0xFF9EABBE),
                           fontSize: 12,
-                          fontWeight: FontWeight.w400
-                      ),
+                          fontWeight: FontWeight.w400),
                     ),
-
                   ],
                 ),
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               CustomElevatedButton(
                 text: Strings.commonContinue,
                 onPressed: () => cubit(context).validation(),
@@ -172,19 +171,19 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
       ),
     );
   }
-  void _handleTextClick() async{
+
+  void _handleTextClick() async {
     try {
       var url = Uri.parse("https://online-bozor.uz/uz/page/privacy");
       await launchUrl(url);
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 
   void enterWithEimzo(String code) async {
     await LaunchApp.openApp(
       iosUrlScheme: 'eimzo://sign?qc=$code',
       appStoreLink:
-      'itms-apps://itunes.apple.com/us/app/e-imzo-id-карта/id1563416406',
+          'itms-apps://itunes.apple.com/us/app/e-imzo-id-карта/id1563416406',
       // openStore: false
     );
   }
@@ -194,12 +193,13 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
       androidPackageName: 'uz.yt.idcard.eimzo',
       iosUrlScheme: 'eimzo://',
       appStoreLink:
-      'itms-apps://itunes.apple.com/us/app/e-imzo-id-карта/id1563416406',
+          'itms-apps://itunes.apple.com/us/app/e-imzo-id-карта/id1563416406',
       // openStore: false
     );
   }
 
-  void enter(String challange, String siteId, String documentId, BuildContext context) {
+  void enter(String challange, String siteId, String documentId,
+      BuildContext context) {
     var docHash = GostHash.hashGost(challange);
     var code = siteId + documentId + docHash;
     var crc32 = Crc32.calcHex(code);
@@ -226,5 +226,4 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
       throw 'Ишга туширилмади $url';
     }
   }
-
 }

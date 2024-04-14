@@ -19,6 +19,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   final AuthRepository _repository;
 
+
+
   void setPhone(String phone) {
     log.i(phone);
     updateState((state) => state.copyWith(
@@ -34,11 +36,11 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           await _repository.authStart(states.phone.clearPhoneNumberWithCode());
       if (response.data.is_registered == true) {
         emitEvent(
-          PageEvent(PageEventType.verification, phone: states.phone),
+          PageEvent(PageEventType.onOpenLogin, phone: states.phone),
         );
       } else {
         emitEvent(
-          PageEvent(PageEventType.confirmation, phone: states.phone),
+          PageEvent(PageEventType.onOpenConfirm, phone: states.phone),
         );
       }
     } catch (e) {
@@ -54,7 +56,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       final result = await _repository.eImzoLogin();
       return result;
     } catch (e) {
-      emitEvent(PageEvent(PageEventType.onFailureEImzo));
+      emitEvent(PageEvent(PageEventType.onEdsLoginFailed));
     } finally {
       // updateState((state) => state.copyWith(loading: false));
     }
@@ -78,7 +80,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         }
       });
     } catch (e) {
-      emitEvent(PageEvent(PageEventType.onFailureEImzo));
+      emitEvent(PageEvent(PageEventType.onEdsLoginFailed));
     }
   }
 
@@ -90,14 +92,14 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       if (res.status == 200) {
         getUserByEImzo(documentId).whenComplete(() {
           emitEvent(
-            PageEvent(PageEventType.navigationHome),
+            PageEvent(PageEventType.onOpenHome),
           );
         });
       }
     } catch (e) {
       updateState((state) => state.copyWith(loading: false));
       emitEvent(
-        PageEvent(PageEventType.onFailureEImzo),
+        PageEvent(PageEventType.onEdsLoginFailed),
       );
     } finally {
       updateState((state) => state.copyWith(loading: false));
