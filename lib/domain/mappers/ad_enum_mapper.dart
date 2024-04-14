@@ -1,4 +1,5 @@
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
+import 'package:onlinebozor/domain/models/order/user_order_status.dart';
 
 import '../models/ad/ad_author_type.dart';
 import '../models/ad/ad_item_condition.dart';
@@ -28,14 +29,23 @@ extension StringAdMapper on String? {
 
   AdTransactionType toAdTransactionType() {
     return AdTransactionType.values.firstWhere(
-        (e) => e.name.toUpperCase() == this?.toUpperCase(),
-        orElse: () => AdTransactionType.SELL);
+      (e) => e.name.toUpperCase() == this?.toUpperCase(),
+      orElse: () => AdTransactionType.SELL,
+    );
   }
 
   UserAdStatus toUserAdStatus() {
     return UserAdStatus.values.firstWhere(
-        (e) => e.name.toUpperCase() == this?.toUpperCase(),
-        orElse: () => UserAdStatus.WAIT);
+      (e) => e.name.toUpperCase() == this?.toUpperCase(),
+      orElse: () => UserAdStatus.WAIT,
+    );
+  }
+
+  UserOrderStatus toUserOrderStatus() {
+    return UserOrderStatus.values.firstWhere(
+      (e) => e.name.toUpperCase() == this?.toUpperCase(),
+      orElse: () => UserOrderStatus.WAIT,
+    );
   }
 
   Currency toCurrency() {

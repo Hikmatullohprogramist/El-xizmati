@@ -4,6 +4,7 @@ import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/domain/models/ad/ad_action.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
+import 'package:onlinebozor/domain/models/order/user_order_status.dart';
 
 import '../../common/gen/localization/strings.dart';
 import '../../domain/models/ad/ad_transaction_type.dart';
@@ -75,19 +76,44 @@ extension UserAdStatusResExts on UserAdStatus {
   String getLocalizedName() {
     switch (this) {
       case UserAdStatus.ALL:
-        return Strings.userAdsAllLabel;
+        return Strings.userAdsAll;
       case UserAdStatus.ACTIVE:
-        return Strings.userAdsActiveLabel;
+        return Strings.userAdsActive;
       case UserAdStatus.WAIT:
-        return Strings.userAdsPendingLabel;
+        return Strings.userAdsWait;
       case UserAdStatus.INACTIVE:
-        return Strings.userAdsInactiveLabel;
+        return Strings.userAdsInactive;
       case UserAdStatus.REJECTED:
-        return Strings.userAdsRejectedLabel;
+        return Strings.userAdsRejected;
       case UserAdStatus.CANCELLED:
-        return Strings.userAdsCanceledLabel;
+        return Strings.userAdsCancelled;
       case UserAdStatus.SYS_CANCELLED:
-        return Strings.userAdsCanceledLabel;
+        return Strings.userAdsCancelled;
+    }
+  }
+}
+
+extension UserOrderResExts on UserOrderStatus {
+  String getLocalizedName() {
+    switch (this) {
+      case UserOrderStatus.ACCEPTED:
+        return Strings.userOrderAccepted;
+      case UserOrderStatus.ALL:
+        return Strings.userOrderAll;
+      case UserOrderStatus.ACTIVE:
+        return Strings.userOrderActive;
+      case UserOrderStatus.WAIT:
+        return Strings.userOrderWait;
+      case UserOrderStatus.INACTIVE:
+        return Strings.userOrderInactive;
+      case UserOrderStatus.REJECTED:
+        return Strings.userOrderRejected;
+      case UserOrderStatus.CANCELED:
+        return Strings.userOrderCancelled;
+      case UserOrderStatus.SYSCANCELED:
+        return Strings.userOrderCancelled;
+      case UserOrderStatus.IN_PROGRESS:
+        return Strings.userOrderInProgress;
     }
   }
 }

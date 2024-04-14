@@ -107,19 +107,20 @@ card_name_hint,Masalan: Asosiy,Например: Основная,Масалан
 card_name_title,Karta nomi,Название карты,Карта номи
 card_number_title,Karta raqami,Номер карты,Карта рақами
 cart_make_order,Rasmiylashtirish,Оформить,Расмийлаштириш
-category_list_search_hint,Turkum bo‘yicha izlash,Поиск по категории,Туркум бўйича излаш
-popular_categories_title,Ommabop kategoriyalar,Популярные категории,Оммабоп категориялар
 category_ads_count,ta e‘lon,объявлений,та эълон
+category_list_search_hint,Turkum bo‘yicha izlash,Поиск по категории,Туркум бўйича излаш
 close_title,Yopish,Закрыть,Ёпиш
 common_add,Qo‘shish,Добавить,Қўшиш
 common_apartment,Kvartira,Квартира,Квартира
 common_apply,Qo‘llash,Применять,Қўллаш
 common_bio_doc_series,Pasport seriyasi,Паспорт серии,Паспорт серияси
+common_cancel,Bekor qilish,Отменить,Бекор қилиш
 common_choose,Tanlash,Выбрать,Танлаш
 common_close,Yopish,Закрыть,Ёпиш
 common_continue,Davom etish,Продолжить,Давом этиш
 common_date,Sana,Дата,Сана
 common_delete,O‘chirish,Удалить,Ўчириш
+common_details,Batafsil,Подробно,Батафсил
 common_district,Tuman,Район,Туман
 common_edit,Tahrirlash,Редактировать,Таҳрирлаш
 common_entrance,Kirish,Подъезд,Кириш
@@ -141,6 +142,10 @@ common_no,Yo‘q,Нет,Йўқ
 common_phone_number,Telefon raqami,Номер телефона,Телефон рақами
 common_pinfl,JShShIR,ПИНФЛ,ЖШШИР
 common_pinfl_hint,14 belgi,14 символов,14 белги
+common_price,Narxi,Цена,Нархи
+common_price_from,{price}dan,От {price},{price}дан
+common_price_to,{price}gacha,До {price},{price}гача
+common_quantity,Soni,Количество,Сони
 common_region,Viloyat,Регион,Вилоят
 common_save,Saqlash,Сохранить,Сақлаш
 common_save_changes,O‘zgarishlarni saqlash,Сохранить изменения,Ўзгаришларни сақлаш
@@ -232,8 +237,8 @@ language_uz_cyr,Ўзбекча,Ўзбекча,Ўзбекча
 language_uz_lat,O’zbekcha,O’zbekcha,O’zbekcha
 language_welcome,Xush kelibsiz,Добро пожаловать,Xуш келибсиз
 link_title,link,связь,линк
+loading_state_empty,Hech qanday element topilmadi,No items found,Ҳеч қандай элемент топилмади
 loading_state_error,Xatolik yuz berdi,Произошла ошибка,Хатолик юз берди
-loading_state_no_item_found,Hech qanday element topilmadi,No items found,Ҳеч қандай элемент топилмади
 loading_state_retry,Qayta urinish,Повторить попытку,Қайта уриниш
 message_changes_saving_failed,O‘zgarishlarni saqlashda xatolik yuz berdi,Произошла ошибка при сохранении изменений,Ўзгаришларни сақлашда хатолик юз берди
 message_changes_saving_success,O‘zgarishlar muvaffaqiyatli saqlandi,Изменения успешно сохранены,Ўзгаришлар муваффақиятли сақланди
@@ -273,11 +278,9 @@ payment_filter_status,Holat,Статус,Ҳолат
 payment_filter_to_date,Gacha:,До:,Гача:
 payment_filter_type,Turi,Тип,Тури
 payment_title,To‘lovlar,Платежи,Тўловлар
+popular_categories_title,Ommabop kategoriyalar,Популярные категории,Оммабоп категориялар
 popular_products,Ommabop mahsulotlar,Популярные продукты,Оммабоп маҳсулотлар
 popular_services,Ommabop xizmatlar,Популярные услуги,Оммабоп хизматлар
-price_from,{price}dan,От {price},{price}дан
-price_to,{price}gacha,До {price},{price}гача
-price_two_dot,Narxi:,Цена:,Нархи:
 products_title,Mahsulotlar,Продукты,Маҳсулотлар
 profile_change_language,Tilni o‘zgartirish,Изменить язык,Тилни ўзгартириш
 profile_change_to_business,Biznesga o‘tish,Поменять на бизнес,Бизнесга ўтиш
@@ -356,19 +359,21 @@ user_address_location,Joylashuvni tanlang,Выберите локацию,Жой
 user_address_my_address,Mening manzillarim,Мои адреса,Менинг манзилларим
 user_address_name,Manzil nomi,Название адреса,Манзил номи
 user_address_taken_location,Aniqlangan joylashuv,Полученный местоположения,Аниқланган жойлашув
-user_ads_active_label,Faol,Активный,Фаол
-user_ads_all_label,Barchasi,Все,Барчаси
-user_ads_canceled_label,Bekor qilingan,Отменено,Бекор қилинган
-user_ads_inactive_label,Faol emas,Не активен,Фаол эмас
-user_ads_pending_label,Kutulmoqda,Ожидающий,Кутулмоқда
-user_ads_rejected_label,Rad etilgan,Отклоненный,Рад этилган
+user_ads_active,Faol,Активный,Фаол
+user_ads_all,Barchasi,Все,Барчаси
+user_ads_cancelled,Bekor qilingan,Отменено,Бекор қилинган
+user_ads_inactive,Nofaol,Неактивный,Нофаол
+user_ads_rejected,Rad etilgan,Отклоненный,Рад этилган
 user_ads_title,E‘lonlar,Объявления,Эълонлар
-user_request_accepted_label,Qabul qilingan,Принял,Қабул қилинган
-user_request_all_label,Barchasi,Все,Барчаси
-user_request_canceled_label,Bekor qilingan,Отменено,Бекор қилинган
-user_request_pending_label,Kutulmoqda,Ожидающий,Кутулмоқда
-user_request_rejacted_label,Rad etilgan,Отклоненный,Рад этилган
-user_request_review_label,Ko‘rib chiqilmoqda,На рассмотрении,Кўриб чиқилмоқда
+user_ads_wait,Kutulmoqda,В ожидании,Кутулмоқда
+user_order_accepted,Qabul qilingan,Принято,Қабул қилинган
+user_order_active,Faol,Активный,Фаол
+user_order_all,Barchasi,Все,Барчаси
+user_order_cancelled,Bekor qilingan,Отменено,Бекор қилинган
+user_order_inactive,Nofaol,Неактивный,Нофаол
+user_order_rejected,Rad etilgan,Отклоненный,Рад этилган
+user_order_in_progress,Ko‘rib chiqilmoqda,На рассмотрении,Кўриб чиқилмоқда
+user_order_wait,Kutulmoqda,В ожидании,Кутулмоқда
 verify_identity_error_data_already_linked,Ushbu shaxsiy ma’lumotlar boshqa telefon raqamiga bog‘langan!,"Это персональные данные, привязанные к другому номеру телефона!",Ушбу шахсий маълумотлар бошқа телефон рақамига боғланган!
 verify_identity_error_user_not_found,Bu ma’lumotlar bilan foydalanuvchi topilmadi,Пользователь не найден по этим данным,Бу маълумотлар билан фойдаланувчи топилмади
 verify_identity_personal_data,Shaxsiy ma’lumotlarni o‘zgartirish,Изменить личные данные,Шахсий маълумотларни ўзгартириш
