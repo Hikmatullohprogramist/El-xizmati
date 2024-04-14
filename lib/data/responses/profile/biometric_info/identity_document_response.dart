@@ -1,12 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'biometric_info_response.freezed.dart';
+part 'identity_document_response.freezed.dart';
 
-part 'biometric_info_response.g.dart';
+part 'identity_document_response.g.dart';
 
 @freezed
-class BiometricInfoRootResponse with _$BiometricInfoRootResponse {
-  const factory BiometricInfoRootResponse({
+class IdentityDocumentRootResponse with _$IdentityDocumentRootResponse {
+  const factory IdentityDocumentRootResponse({
     dynamic error,
     dynamic message,
     dynamic timestamp,
@@ -14,10 +14,10 @@ class BiometricInfoRootResponse with _$BiometricInfoRootResponse {
     dynamic path,
     required BiometricInfoResponse data,
     dynamic response,
-  }) = _BiometricInfoRootResponse;
+  }) = _IdentityDocumentRootResponse;
 
-  factory BiometricInfoRootResponse.fromJson(Map<String, dynamic> json) =>
-      _$BiometricInfoRootResponseFromJson(json);
+  factory IdentityDocumentRootResponse.fromJson(Map<String, dynamic> json) =>
+      _$IdentityDocumentRootResponseFromJson(json);
 }
 
 @freezed

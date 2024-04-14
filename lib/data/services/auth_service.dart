@@ -65,7 +65,7 @@ class AuthService {
       RestQueryKeys.sessionToken: sessionToken,
       RestQueryKeys.securityCode: code
     };
-    return _dio.post('api/mobile/v1/auth/phone/verification/register',
+    return _dio.post('api/mobile/v1/auth/phone/login/register',
         data: body);
   }
 
@@ -94,7 +94,7 @@ class AuthService {
     return _dio.post('api/v1/auth/face_id/by_image', data: body);
   }
 
-  Future<Response> verification({
+  Future<Response> login({
     required String phone,
     required String password,
   }) {
@@ -107,7 +107,7 @@ class AuthService {
 
   Future<Response> forgetPassword({required String phone}) {
     final body = {RestQueryKeys.phoneNumber: phone};
-    return _dio.post('api/mobile/v1/auth/phone/verification/recovery',
+    return _dio.post('api/mobile/v1/auth/phone/login/recovery',
         data: body);
   }
 
@@ -120,7 +120,7 @@ class AuthService {
       RestQueryKeys.sessionToken: sessionToken,
       RestQueryKeys.securityCode: code
     };
-    return _dio.post('api/mobile/v1/auth/phone/verification/recovery/password',
+    return _dio.post('api/mobile/v1/auth/phone/login/recovery/password',
         data: body);
   }
 

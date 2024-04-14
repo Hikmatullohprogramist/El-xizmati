@@ -10,7 +10,6 @@ import 'package:onlinebozor/domain/models/region/region_and_district.dart';
 
 import '../../common/constants.dart';
 import '../../data/hive_objects/user/user_info_object.dart';
-import '../../data/responses/profile/biometric_info/biometric_info_response.dart';
 import '../../data/responses/profile/user/user_info_response.dart';
 import '../../data/responses/profile/user_full/user_full_info_response.dart';
 import '../../data/responses/region/region_root_response.dart';
@@ -18,6 +17,7 @@ import '../../data/services/user_service.dart';
 import '../../data/storages/user_storage.dart';
 import '../../domain/models/social_account/social_account_info.dart';
 import '../../domain/models/street/street.dart';
+import '../responses/profile/verify_identity/identity_document_response.dart';
 
 @LazySingleton()
 class UserRepository {
@@ -65,26 +65,27 @@ class UserRepository {
     return result;
   }
 
-  Future<BiometricInfoResponse> getBiometricInfo({
+  Future<IdentityDocumentInfoResponse> getIdentityDocument({
     required String phoneNumber,
-    required String biometricSerial,
-    required String biometricNumber,
+    required String docSerial,
+    required String docNumber,
     required String brithDate,
   }) async {
-    final response = await _userService.getBiometricInfo(
-        phoneNumber: phoneNumber,
-        biometricSerial: biometricSerial,
-        biometricNumber: biometricNumber,
-        brithDate: brithDate);
-    final result = BiometricInfoRootResponse.fromJson(response.data).data;
+    final response = await _userService.getIdentityDocument(
+      phoneNumber: phoneNumber,
+      biometricSerial: docSerial,
+      biometricNumber: docNumber,
+      brithDate: brithDate,
+    );
+    final result = IdentityDocumentRootResponse.fromJson(response.data).data;
     return result;
   }
 
-  Future<UserInfoResponse> getUserInfo({
+  Future<UserInfoResponse> continueVerifyingIdentity({
     required String phoneNumber,
     required String secretKey,
   }) async {
-    final response = await _userService.getUserInfo(
+    final response = await _userService.continueVerifyingIdentity(
       secretKey: secretKey,
       phoneNumber: phoneNumber,
     );
@@ -141,7 +142,7 @@ class UserRepository {
         phoneNumber: phoneNumber);
   }
 
-Future<void> validateUser({
+  Future<void> validateUser({
     required String birthDate,
     required int districtId,
     required String email,
@@ -176,25 +177,7 @@ Future<void> validateUser({
         pinfl: pinfl,
         postName: postName,
         region_Id: region_Id);
-
   }
-
-
-  Future<BiometricInfoRootResponse> validateWithBioDocs({
-    required String phoneNumber,
-    required String biometricSerial,
-    required String biometricNumber,
-    required String brithDate,
-  }) async {
-    final response = await _userService.getBiometricInfo(
-        phoneNumber: phoneNumber,
-        biometricSerial: biometricSerial,
-        biometricNumber: biometricNumber,
-        brithDate: brithDate);
-    final result = BiometricInfoRootResponse.fromJson(response.data);
-    return result;
-  }
-
 
   Future<void> updateNotificationSources({required String sources}) async {
     await _userService.updateNotificationSources(sources: sources);

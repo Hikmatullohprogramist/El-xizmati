@@ -39,15 +39,13 @@ class AuthRepository {
     return authStartResponse;
   }
 
-  Future<void> verification(String phone, String password) async {
-    final response =
-        await _authService.verification(phone: phone, password: password);
-    final verificationResponse =
-        ConfirmRootResponse.fromJson(response.data).data;
-    if (verificationResponse.token != null) {
-      await tokenStorage.token.set(verificationResponse.token ?? "");
+  Future<void> login(String phone, String password) async {
+    final response = await _authService.login(phone: phone, password: password);
+    final loginResponse = ConfirmRootResponse.fromJson(response.data).data;
+    if (loginResponse.token != null) {
+      await tokenStorage.token.set(loginResponse.token ?? "");
       await tokenStorage.isLogin.set(true);
-      final user = verificationResponse.user;
+      final user = loginResponse.user;
       userInfoStorage.userInformation.set(
         UserInfoObject(
           districtId: user?.districtId,
@@ -80,21 +78,20 @@ class AuthRepository {
     return;
   }
 
-
   Future<EImzoModel?> eImzoLogin() async {
     EImzoModel? eImzoModel;
-    final response=await _authService.eImzoLogin();
+    final response = await _authService.eImzoLogin();
 
     final int statusCode = response.statusCode;
     final resultClass = json.decode(utf8.decode(response.bodyBytes));
     if (statusCode == 200) {
       eImzoModel = EImzoModel.fromJson(resultClass);
     }
-    return eImzoModel ;
+    return eImzoModel;
   }
 
   Future<int?> eImzoLoginCheck(String documentId, Timer? _timer) async {
-    final response =await _authService.eImzoLoginCheck(documentId, _timer);
+    final response = await _authService.eImzoLoginCheck(documentId, _timer);
 
     final int statusCode = response.statusCode;
     final resultClass = json.decode(utf8.decode(response.bodyBytes));
@@ -135,7 +132,6 @@ class AuthRepository {
     }
     return authStartResponse;
   }
-
 
   Future<void> confirm(String phone, String code) async {
     final response = await _authService.confirm(

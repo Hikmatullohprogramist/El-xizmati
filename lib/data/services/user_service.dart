@@ -18,7 +18,7 @@ class UserService {
     return response;
   }
 
-  Future<Response> getBiometricInfo({
+  Future<Response> getIdentityDocument({
     required String phoneNumber,
     required String biometricSerial,
     required String biometricNumber,
@@ -33,7 +33,7 @@ class UserService {
     return _dio.post('api/mobile/v1/user/profile', data: data);
   }
 
-  Future<Response> getUserInfo({
+  Future<Response> continueVerifyingIdentity({
     required String secretKey,
     required String phoneNumber,
   }) {
@@ -41,8 +41,10 @@ class UserService {
       RestQueryKeys.secretKey: secretKey,
       RestQueryKeys.phoneNumber: phoneNumber
     };
-    return _dio.post('api/mobile/v1/user/profile/verify/in_progress',
-        data: data);
+    return _dio.post(
+      'api/mobile/v1/user/profile/verify/in_progress',
+      data: data,
+    );
   }
 
   Future<Response> sendUserInformation({
@@ -69,10 +71,11 @@ class UserService {
       RestQueryKeys.pinfl: pinfl,
       RestQueryKeys.postName: postName,
     };
-    final response = await _dio.post("api/mobile/v1/user/profile",
-        queryParameters: data);
+    final response =
+        await _dio.post("api/mobile/v1/user/profile", queryParameters: data);
     return response;
   }
+
   Future<Response> validateUser({
     required String birthDate,
     required int districtId,
@@ -114,7 +117,6 @@ class UserService {
     return response;
   }
 
-
   Future<Response> checkAvailableNumber({
     required String birthDate,
     required String bioDocNumber,
@@ -125,13 +127,11 @@ class UserService {
       RestQueryKeys.brithDate: birthDate,
       RestQueryKeys.passportNumber: bioDocNumber,
       RestQueryKeys.passportSerial: bioDocSeries,
-      RestQueryKeys.phoneNumber:phoneNumber,
+      RestQueryKeys.phoneNumber: phoneNumber,
     };
-    final response = await _dio.post("api/v2/user/profile",
-        data: data);
+    final response = await _dio.post("api/v2/user/profile", data: data);
     return response;
   }
-
 
   Future<Response> getRegionAndDistricts() async {
     final response = await _dio.get("api/mobile/v1/regions-districts");
