@@ -87,14 +87,20 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget onWidgetBuild(BuildContext context, PageState state) {
     titleController.updateOnRestore(state.title);
     descController.updateOnRestore(state.desc);
-    warehouseController.updateOnRestore(state.warehouseCount?.toString());
-    priceController.updateOnRestore(state.price?.toString());
+    warehouseController.updateOnRestore(
+      quantityMaskFormatter.formatInt(state.warehouseCount),
+    );
+    priceController.updateOnRestore(priceMaskFormatter.formatInt(state.price));
     exchangeTitleController.updateOnRestore(state.exchangeTitle);
     exchangeDescController.updateOnRestore(state.exchangeDesc);
     contactPersonController.updateOnRestore(state.contactPerson);
-    phoneController.updateOnRestore(state.phone);
+    phoneController.updateOnRestore(
+      phoneMaskFormatter.formatString(state.phone),
+    );
     emailController.updateOnRestore(state.email);
-    paidDelPriceController.updateOnRestore(state.paidDeliveryPrice?.toString());
+    paidDelPriceController.updateOnRestore(
+      priceMaskFormatter.formatInt(state.paidDeliveryPrice),
+    );
     videoUrlController.updateOnRestore(state.videoUrl);
 
     return Scaffold(
@@ -109,7 +115,8 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   ? DefaultLoadingWidget(isFullScreen: true)
                   : DefaultErrorWidget(
                       isFullScreen: true,
-                      onRetryClicked: () => cubit(context).getEditingInitialData(),
+                      onRetryClicked: () =>
+                          cubit(context).getEditingInitialData(),
                     ),
             )
           : SingleChildScrollView(
@@ -242,7 +249,8 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               children: [
-                LabelTextField(Strings.createAdVideoUlrLabel, isRequired: false),
+                LabelTextField(Strings.createAdVideoUlrLabel,
+                    isRequired: false),
                 SizedBox(height: 6),
                 CustomTextFormField(
                   autofillHints: const [AutofillHints.url],
@@ -389,7 +397,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                             minLines: 1,
                             hint: "-",
                             textInputAction: TextInputAction.next,
-                            inputFormatters: amountMaskFormatter,
+                            inputFormatters: priceMaskFormatter,
                             controller: priceController,
                             validator: (v) => NotEmptyValidator.validate(v),
                             onChanged: (value) {
@@ -826,7 +834,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               hint: "-",
               textInputAction: TextInputAction.done,
               controller: paidDelPriceController,
-              inputFormatters: amountMaskFormatter,
+              inputFormatters: priceMaskFormatter,
               validator: (value) => NotEmptyValidator.validate(value),
               onChanged: (value) {
                 cubit(context).setEnteredPaidDeliveryPrice(value);

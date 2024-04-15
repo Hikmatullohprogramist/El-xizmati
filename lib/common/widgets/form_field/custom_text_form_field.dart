@@ -104,8 +104,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           fontWeight: FontWeight.w400,
           color: Color(0xFF41455F),
         ),
-        textCapitalization:widget.textCapitalization??TextCapitalization.none,
-        controller:widget.controller,
+        textCapitalization:
+            widget.textCapitalization ?? TextCapitalization.none,
+        controller: widget.controller,
         keyboardType: widget.inputType,
         minLines: widget.minLines,
         maxLines: widget.maxLines,
@@ -115,9 +116,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         enableSuggestions: widget.enableSuggestions ?? true,
         textInputAction: widget.textInputAction,
         onChanged: widget.onChanged,
-        inputFormatters: [
-          if (widget.inputFormatters != null) widget.inputFormatters!
-        ],
+        inputFormatters:
+            widget.inputFormatters != null ? [widget.inputFormatters!] : null,
         decoration: InputDecoration(
           filled: true,
           hintText: widget.hint,
@@ -130,19 +130,18 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           prefix: widget.prefixText == null
               ? null
               : Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    widget.prefixText ?? "",
-                  ),
-                  Container(
-                    width: 1,
-                    margin: EdgeInsets.fromLTRB(6, 5, 10, 4),
-                    color:
-                        _isFocused ? Color(0xFF5C6AC4) : Color(0xFFDFE2E9),
-                  )
-                ],
-              ),
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      widget.prefixText ?? "",
+                    ),
+                    Container(
+                      width: 1,
+                      margin: EdgeInsets.fromLTRB(6, 5, 10, 4),
+                      color: _isFocused ? Color(0xFF5C6AC4) : Color(0xFFDFE2E9),
+                    )
+                  ],
+                ),
           prefixStyle: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w400,

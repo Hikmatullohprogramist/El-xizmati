@@ -76,10 +76,16 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget onWidgetBuild(BuildContext context, PageState state) {
     titleController.updateOnRestore(state.title);
     descController.updateOnRestore(state.desc);
-    fromPriceController.updateOnRestore(state.fromPrice?.toString());
-    toPriceController.updateOnRestore(state.toPrice?.toString());
+    fromPriceController.updateOnRestore(
+      priceMaskFormatter.formatInt(state.fromPrice),
+    );
+    toPriceController.updateOnRestore(
+      priceMaskFormatter.formatInt(state.toPrice),
+    );
     contactPersonController.updateOnRestore(state.contactPerson);
-    phoneController.updateOnRestore(state.phone);
+    phoneController.updateOnRestore(
+      phoneMaskFormatter.formatString(state.phone),
+    );
     emailController.updateOnRestore(state.email);
     videoUrlController.updateOnRestore(state.videoUrl);
 
@@ -95,7 +101,8 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   ? DefaultLoadingWidget(isFullScreen: true)
                   : DefaultErrorWidget(
                       isFullScreen: true,
-                      onRetryClicked: () => cubit(context).getEditingInitialData(),
+                      onRetryClicked: () =>
+                          cubit(context).getEditingInitialData(),
                     ),
             )
           : SingleChildScrollView(
@@ -209,7 +216,8 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               children: [
-                LabelTextField(Strings.createAdVideoUlrLabel, isRequired: false),
+                LabelTextField(Strings.createAdVideoUlrLabel,
+                    isRequired: false),
                 SizedBox(height: 6),
                 CustomTextFormField(
                   autofillHints: const [AutofillHints.url],
@@ -294,7 +302,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                           hint: "-",
                           textInputAction: TextInputAction.next,
                           controller: fromPriceController,
-                          inputFormatters: amountMaskFormatter,
+                          inputFormatters: priceMaskFormatter,
                           validator: (value) => PriceValidator.validate(value),
                           onChanged: (value) {
                             cubit(context).setEnteredFromPrice(value);
@@ -321,7 +329,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                           hint: "-",
                           textInputAction: TextInputAction.next,
                           controller: toPriceController,
-                          inputFormatters: amountMaskFormatter,
+                          inputFormatters: priceMaskFormatter,
                           validator: (value) => PriceValidator.validate(value),
                           onChanged: (value) {
                             cubit(context).setEnteredToPrice(value);

@@ -31,7 +31,7 @@ var cardExpiredMaskFormatter = MaskTextInputFormatter(
   type: MaskAutoCompletionType.lazy,
 );
 
-var amountMaskFormatter = CurrencyTextInputFormatter(
+var priceMaskFormatter = CurrencyTextInputFormatter(
   decimalDigits: 0,
   enableNegative: true,
   inputDirection: InputDirection.right,
@@ -52,3 +52,19 @@ var quantityMaskFormatter = CurrencyTextInputFormatter(
   locale: 'uz',
   customPattern: null,
 );
+
+extension CurrencyTextInputFormatterMethodExts on CurrencyTextInputFormatter {
+  String? formatInt(int? value) {
+    return value == null ? null : format(value.toString());
+  }
+}
+
+extension MaskTextInputFormatterMethodExts on MaskTextInputFormatter {
+  String? formatInt(int? value) {
+    return value == null ? null : maskText(value.toString());
+  }
+
+  String? formatString(String? value) {
+    return value == null ? null : maskText(value);
+  }
+}
