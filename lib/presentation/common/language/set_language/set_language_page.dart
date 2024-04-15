@@ -6,6 +6,8 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/vibrator/vibrator_extension.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/button/custom_outlined_button.dart';
 
 import '../../../../common/gen/assets/assets.gen.dart';
@@ -56,6 +58,7 @@ class SetLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
               CustomOutlinedButton(
                 text: Strings.languageRus,
                 onPressed: () {
+                  vibrateAsHapticFeedback();
                   EasyLocalization.of(context)?.setLocale(Locale('ru', 'RU'));
                   cubit(context).setLanguage(Language.russian);
                 },
@@ -66,6 +69,7 @@ class SetLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
               CustomOutlinedButton(
                 text: Strings.languageUzLat,
                 onPressed: () {
+                  vibrateAsHapticFeedback();
                   EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZ'));
                   cubit(context).setLanguage(Language.uzbekLatin);
                 },
@@ -75,13 +79,21 @@ class SetLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
               SizedBox(height: 12),
               CustomOutlinedButton(
                 onPressed: () {
+                  vibrateAsHapticFeedback();
                   EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZK'));
                   cubit(context).setLanguage(Language.uzbekCyrill);
                 },
                 strokeColor: Color(0xFFE5E9F3),
                 rightIcon: Assets.images.pngImages.flagUz.image(),
                 text: Strings.languageUzCyr,
-              )
+              ),
+              SizedBox(height: 16),
+              CustomElevatedButton(
+                text: Strings.commonContinue,
+                onPressed: () {
+                  context.router.replace(HomeRoute());
+                },
+              ),
             ],
           ),
         ),

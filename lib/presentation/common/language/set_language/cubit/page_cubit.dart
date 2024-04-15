@@ -17,6 +17,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> setLanguage(Language language) async {
     await repository.languageSelection(true);
     await repository.setLanguage(language.name);
-    emitEvent(PageEvent(PageEventType.navigationAuthStart));
+    // emitEvent(PageEvent(PageEventType.navigationAuthStart));
   }
+
+
 }
