@@ -163,7 +163,7 @@ class AdCreationRepository {
     );
 
     final id = adId ??
-        AdCreationRootResponse.fromJson(response.data).data.insertedAd?.id ??
+        AdCreationRootResponse.fromJson(response.data).data.insert_ad?.id ??
         -1;
     return id;
   }
@@ -230,7 +230,7 @@ class AdCreationRepository {
     );
 
     final id = adId ??
-        AdCreationRootResponse.fromJson(response.data).data.insertedAd?.id ??
+        AdCreationRootResponse.fromJson(response.data).data.insert_ad?.id ??
         -1;
     return id;
   }
@@ -240,6 +240,9 @@ class AdCreationRepository {
     //
     required String title,
     required int categoryId,
+    required int serviceCategoryId,
+    required int serviceSubCategoryId,
+    //
     required AdType adType,
     required AdTransactionType adTransactionType,
     //
@@ -267,6 +270,9 @@ class AdCreationRepository {
       //
       title: title,
       categoryId: categoryId,
+      serviceCategoryId: serviceCategoryId,
+      serviceSubCategoryId: serviceSubCategoryId,
+      //
       adType: adType,
       adTransactionType: adTransactionType,
       //
@@ -291,7 +297,7 @@ class AdCreationRepository {
     );
 
     final id = adId ??
-        AdCreationRootResponse.fromJson(response.data).data.insertedAd?.id ??
+        AdCreationRootResponse.fromJson(response.data).data.insert_ad?.id ??
         -1;
     return id;
   }

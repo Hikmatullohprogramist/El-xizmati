@@ -4,15 +4,17 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/ad/detail/ad_detail_shimmer.dart';
 import 'package:onlinebozor/common/widgets/ad/detail/detail_price_text_widget.dart';
+import 'package:onlinebozor/common/widgets/app_bar/action_app_bar.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
-import 'package:onlinebozor/common/widgets/cart/cart_sub_widget_shimmer.dart';
 import 'package:onlinebozor/common/widgets/dashboard/see_all_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite/ad_detail_favorite_widget.dart';
 import 'package:onlinebozor/presentation/ad/ad_detail/cubit/page_cubit.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../common/colors/static_colors.dart';
 import '../../../common/core/base_page.dart';
 import '../../../common/enum/enums.dart';
 import '../../../common/gen/assets/assets.gen.dart';
@@ -55,7 +57,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
               onPressed: () => context.router.pop(),
               icon: Assets.images.icArrowLeft.svg(height: 24, width: 24)),
         ),
-        body: detailShimmer());
+        body: AdDetailShimmer());
   }
 
   Widget _getSuccessContent(BuildContext context, PageState state) {
@@ -152,28 +154,25 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   AppBar _getAppBar(BuildContext context, PageState state) {
-    return AppBar(
-        backgroundColor: Colors.white,
-        elevation: 1,
-        leading: IconButton(
-            onPressed: () => context.router.pop(),
-            icon: Assets.images.icArrowLeft.svg(height: 24, width: 24)),
-        actions: [
-          IconButton(
-            icon: Assets.images.icShare.svg(),
-            onPressed: () {
-              Share.share(
-                "https://online-bozor.uz/ads/${state.adId}",
-                // subject: state.adDetail?.adName.toString()
-              );
-            },
+    return ActionAppBar(
+      titleText: "",
+      onBackPressed: () => context.router.pop(),
+      actions: [
+        IconButton(
+          icon: Assets.images.icShare.svg(),
+          onPressed: () {
+            Share.share("https://online-bozor.uz/ads/${state.adId}");
+          },
+        ),
+        Padding(
+          padding: EdgeInsets.all(4),
+          child: AdDetailFavoriteWidget(
+            isFavorite: state.adDetail!.favorite,
+            onClicked: () => cubit(context).changeAdFavorite(),
           ),
-          Padding(
-              padding: EdgeInsets.all(4),
-              child: AdDetailFavoriteWidget(
-                  isSelected: state.adDetail!.favorite,
-                  invoke: () => cubit(context).addFavorite()))
-        ]);
+        )
+      ],
+    );
   }
 
   Widget _getBottomNavigationBar(BuildContext context, PageState state) {
@@ -181,36 +180,53 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
       visible: (state.adDetail!.mainTypeStatus == "SELL" ||
           state.adDetail!.mainTypeStatus == "FREE" ||
           state.adDetail!.mainTypeStatus == "EXCHANGE"),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CustomDivider(),
-          SizedBox(height: 16),
-          Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            SizedBox(width: 16),
-            DetailPriceTextWidget(
-              price: state.adDetail!.price,
-              toPrice: state.adDetail!.toPrice,
-              fromPrice: state.adDetail!.fromPrice,
-              currency: state.adDetail!.currency,
-            ),
-            SizedBox(width: 8),
-            Spacer(),
-            SizedBox(
-              height: 36,
-              child: CustomElevatedButton(
-                buttonWidth: 120,
-                text: Strings.adDetailAddtocart,
-                isEnabled: !state.isAddCart,
-                onPressed: () => cubit(context).addCart(),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Color(0xFFF2F4FB),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(16),
+          ),
+          border: Border.all(
+            color: Color(0xFF9EABBE),
+            width: .25,
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(height: 16),
+            Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+              SizedBox(width: 16),
+              Flexible(
+                child: CustomElevatedButton(
+                  text: Strings.adBuyByOneClick,
+                  backgroundColor: StaticColors.majorelleBlue.withOpacity(0.8),
+                  onPressed: () {
+                    context.router.push(CreateOrderRoute(adId: state.adId!));
+                  },
+                ),
               ),
-            ),
-            SizedBox(width: 16)
-          ]),
-          SizedBox(height: 16)
-        ],
+              SizedBox(width: 8),
+              Flexible(
+                child: CustomElevatedButton(
+                  text: !state.isAddCart
+                      ? Strings.adDetailAddToCart
+                      : Strings.adDetailOpenCart,
+                  onPressed: () {
+                    !state.isAddCart
+                        ? cubit(context).addCart()
+                        : context.router.push(CartRoute());
+                  },
+                ),
+              ),
+              SizedBox(width: 16)
+            ]),
+            SizedBox(height: 16)
+          ],
+        ),
       ),
     );
   }
@@ -459,6 +475,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
         Flexible(
           flex: 4,
           child: InkWell(
+              borderRadius: BorderRadius.circular(10),
               child: Container(
                 decoration: BoxDecoration(
                   color: Color(0x0a2d7cc7),
@@ -495,6 +512,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
         Flexible(
           flex: 5,
           child: InkWell(
+              borderRadius: BorderRadius.circular(10),
               child: Container(
                 decoration: BoxDecoration(
                   color: Color(0x0a6ca86b),
@@ -512,7 +530,9 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                     Flexible(
                       flex: 1,
                       child: (state.isPhoneVisible
-                              ? (state.adDetail?.phoneNumber ?? "")
+                              ? (state.adDetail?.phoneNumber
+                                      ?.getFormattedPhoneNumber() ??
+                                  "")
                               : Strings.adDetailShowPhone)
                           .w(500)
                           .s(16)
@@ -522,15 +542,11 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                   ],
                 ),
               ),
-              onDoubleTap: () {
-                try {
-                  launch("tel://${state.adDetail!.phoneNumber}");
-                } catch (e) {}
-              },
               onTap: () {
                 if (state.isPhoneVisible) {
                   try {
-                    launch("tel://${state.adDetail!.phoneNumber}");
+                    launch(
+                        "tel://${state.adDetail!.phoneNumber?.getFormattedPhoneNumber() ?? ""}");
                   } catch (e) {}
                 } else {
                   cubit(context).setPhotoView();

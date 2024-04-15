@@ -6,7 +6,10 @@ import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import '../../../gen/assets/assets.gen.dart';
 
 class UserAdEmptyWidget extends StatelessWidget {
-  const UserAdEmptyWidget({super.key, required this.onActionClicked});
+  const UserAdEmptyWidget({
+    super.key,
+    required this.onActionClicked,
+  });
 
   final VoidCallback onActionClicked;
 
@@ -39,7 +42,7 @@ class UserAdEmptyWidget extends StatelessWidget {
               width: double.maxFinite,
               child: CustomElevatedButton(
                 text: Strings.adCreateTitle,
-                onPressed: () => onActionClicked,
+                onPressed: () => onActionClicked(),
               ),
             )
           ],

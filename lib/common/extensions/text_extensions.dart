@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 
 extension TextStringExtensions on String {
   Text s(double size) => Text(this).s(size);
@@ -13,6 +14,17 @@ extension TextStringExtensions on String {
       clearedPhone = "998$clearedPhone";
     }
     return clearedPhone;
+  }
+
+  String getFormattedPhoneNumber() {
+    var clearedPhone = clearPhoneNumberWithCode();
+
+    String formattedNumber =
+        '+${clearedPhone.substring(0, 3)} ${clearedPhone.substring(3, 5)} ${clearedPhone.substring(5, 8)} ${clearedPhone.substring(8, 10)} ${clearedPhone.substring(10)}';
+    Logger().w(
+        "this = $this, formatted = $formattedNumber, cleared = $clearedPhone");
+
+    return formattedNumber;
   }
 
   String clearPhoneNumberWithoutCode() {
@@ -37,12 +49,26 @@ extension TextStringExtensions on String {
     return replaceAll(RegExp(r"[^\d+\.]"), '');
   }
 
-  String capitalizeFullName() {
-    return trim()
-        .toLowerCase()
-        .split(RegExp(r'\s+'))
-        .map((word) => word[0].toUpperCase() + word.substring(1))
-        .join(' ');
+  String capitalizePersonName() {
+    return trim().isEmpty
+        ? ""
+        : trim()
+            .toLowerCase()
+            .split(RegExp(r'\s+'))
+            .map((word) => word[0].toUpperCase() + word.substring(1))
+            .join(' ');
+  }
+
+  String capitalizeCompanyName() {
+    final RegExp quoteRegex = RegExp(r'"[^"]*"');
+    final RegExp wordRegex = RegExp(r'\b\w+\b');
+
+    return replaceAllMapped(quoteRegex, (quoteMatch) {
+      return quoteMatch.group(0)!;
+    }).replaceAllMapped(wordRegex, (wordMatch) {
+      String word = wordMatch.group(0)!;
+      return word[0].toUpperCase() + word.substring(1).toLowerCase();
+    });
   }
 }
 

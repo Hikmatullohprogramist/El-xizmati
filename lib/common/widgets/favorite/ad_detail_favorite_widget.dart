@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/common/colors/color_extension.dart';
 
 import '../../gen/assets/assets.gen.dart';
 import '../../vibrator/vibrator_extension.dart';
@@ -7,38 +6,34 @@ import '../../vibrator/vibrator_extension.dart';
 class AdDetailFavoriteWidget extends StatefulWidget {
   const AdDetailFavoriteWidget({
     super.key,
-    required this.isSelected,
-    required this.invoke,
-    this.isChangeAvailable = true,
+    required this.isFavorite,
+    required this.onClicked,
   });
 
-  final bool isSelected;
-  final VoidCallback invoke;
-  final bool isChangeAvailable;
+  final bool isFavorite;
+  final VoidCallback onClicked;
 
   @override
   State<StatefulWidget> createState() => _AdFavoriteWidget();
 }
 
 class _AdFavoriteWidget extends State<AdDetailFavoriteWidget> {
-  bool _isSelected = false;
+  bool _isFavorite = false;
 
   @override
   void initState() {
     super.initState();
-    _isSelected = widget.isSelected;
+    _isFavorite = widget.isFavorite;
   }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        widget.invoke();
-        if (widget.isChangeAvailable) {
-          setState(() {
-            _isSelected = !_isSelected;
-          });
-        }
+        widget.onClicked();
+        setState(() {
+          _isFavorite = !_isFavorite;
+        });
         vibrateAsHapticFeedback();
       },
       borderRadius: BorderRadius.circular(24),
@@ -46,7 +41,7 @@ class _AdFavoriteWidget extends State<AdDetailFavoriteWidget> {
         padding: const EdgeInsets.all(10),
         height: 56,
         width: 56,
-        child: _isSelected
+        child: _isFavorite
             ? Assets.images.icFavoriteRemoveDetail.svg()
             : Assets.images.icFavoriteAddDetail.svg(),
       ),

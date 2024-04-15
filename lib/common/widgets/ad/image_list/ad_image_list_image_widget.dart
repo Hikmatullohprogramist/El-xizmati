@@ -2,11 +2,10 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/constants.dart';
+import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/common/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
-
-import '../../constants.dart';
-import '../../gen/assets/assets.gen.dart';
-import '../../vibrator/vibrator_extension.dart';
 
 class AdImageListImageWidget extends StatelessWidget {
   const AdImageListImageWidget({
@@ -69,10 +68,15 @@ class AdImageListImageWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                      placeholder: (context, url) => Center(),
-                      errorWidget: (context, url, error) => Center(
-                        child: Icon(Icons.error),
-                      ),
+                placeholder: (context, url) => Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                ),
+                errorWidget: (context, url, error) => Container(
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
+                  child: Center(child: Icon(Icons.error)),
+                ),
                     ),
             ),
           ),

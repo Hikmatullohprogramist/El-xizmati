@@ -51,10 +51,18 @@ class PopularCategoryVertical extends StatelessWidget {
                       imageUrl:
                           "https://api.online-bozor.uz/uploads/images/${category.icon}",
                       imageBuilder: (context, imageProvider) => Container(
-                          decoration: _getImageDecoration(imageProvider)),
-                      placeholder: (context, url) => Center(),
-                      errorWidget: (context, url, error) =>
-                          Center(child: Icon(Icons.error)),
+                        decoration: _getImageDecoration(imageProvider),
+                      ),
+                      placeholder: (context, url) => Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                      ),
+                      errorWidget: (context, url, error) => Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(6)),
+                        child: Center(child: Icon(Icons.error)),
+                      ),
                     ),
                   ),
                   SizedBox(width: 10),

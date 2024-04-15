@@ -17,7 +17,7 @@ class HomePage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return AutoTabsRouter(
-      routes: const [
+      routes: [
         DashboardRoute(),
         CategoryRoute(),
         CreateAdChooserRoute(),

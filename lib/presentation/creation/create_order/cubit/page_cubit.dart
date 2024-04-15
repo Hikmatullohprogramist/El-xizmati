@@ -12,7 +12,6 @@ import '../../../../../../../data/repositories/user_repository.dart';
 import '../../../../../../../domain/models/ad/ad_detail.dart';
 
 part 'page_cubit.freezed.dart';
-
 part 'page_state.dart';
 
 @Injectable()
@@ -42,11 +41,11 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         .toList();
   }
 
-  void add() {
+  void increase() {
     updateState((state) => state.copyWith(count: state.count + 1));
   }
 
-  void minus() {
+  void decrease() {
     if (states.count > 1) {
       updateState((state) => state.copyWith(count: state.count - 1));
     }
@@ -76,21 +75,21 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     try {
       if (states.adId != null) {
         await _cartRepository.removeCart(states.adDetail!.toMap());
-        emitEvent(PageEvent(PageEventType.delete));
+        emitEvent(PageEvent(PageEventType.onBackAfterRemove));
       }
     } catch (e) {
       display.error(e.toString());
     }
   }
 
-  Future<void> addFavorite() async {
+  Future<void> changeFavorite() async {
     try {
-      if (!states.adDetail!.favorite) {
-        await favoriteRepository.addFavorite(states.adDetail!.toMap());
-        display.success("Success");
+      if (states.adDetail?.favorite == true) {
+        await favoriteRepository.removeFromFavorite(states.adDetail!.adId);
       } else {
-        await favoriteRepository.removeFavorite(states.adDetail!.toMap());
+        await favoriteRepository.addToFavorite(states.adDetail!.toMap());
       }
+
       final favorite = !states.favorite;
       updateState((state) => state.copyWith(favorite: favorite));
       display.success("succes");
@@ -115,7 +114,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             await _cartRepository.removeOrder(
               tin: states.adDetail?.sellerTin ?? -1,
             );
-            emitEvent(PageEvent(PageEventType.delete));
+            emitEvent(PageEvent(PageEventType.onOpenAfterCreation));
           } else {
             display.error("to'lov turi tanlanmagan");
           }
@@ -123,7 +122,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           display.error("To'liq ro'yxatdan o'tilmagan");
         }
       } else {
-        emitEvent(PageEvent(PageEventType.navigationAuthStart));
+        emitEvent(PageEvent(PageEventType.onOpenAuthStart));
       }
     } catch (e) {
       display.error("error");

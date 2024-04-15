@@ -75,14 +75,14 @@ class CategoryPage extends BasePage<PageCubit, PageState, PageEvent> {
       body: LoaderStateWidget(
         isFullScreen: true,
         loadingState: state.loadState,
-        loadingBody: _buildShimmerLoadingItems(),
-        successBody: _buildCategoryItems(state),
+        loadingBody: _buildLoadingBody(),
+        successBody: _buildSuccessBody(state),
         onRetryClicked: () => cubit(context).getCategories(),
       ),
     );
   }
 
-  ListView _buildShimmerLoadingItems() {
+  ListView _buildLoadingBody() {
     return ListView.separated(
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,
@@ -97,7 +97,7 @@ class CategoryPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  ListView _buildCategoryItems(PageState state) {
+  ListView _buildSuccessBody(PageState state) {
     return ListView.separated(
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,

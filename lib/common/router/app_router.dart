@@ -28,10 +28,10 @@ import '../../presentation/auth/confirm/auth_confirm_page.dart';
 import '../../presentation/auth/eds/auth_with_eds_page.dart';
 import '../../presentation/auth/face_id/face_id_validate_page.dart';
 import '../../presentation/auth/face_id/features/identity_verification/face_id_identity_page.dart';
+import '../../presentation/auth/login/auth_login_page.dart';
 import '../../presentation/auth/one_id/auth_with_one_id_page.dart';
 import '../../presentation/auth/set_password/set_password_page.dart';
 import '../../presentation/auth/start/auth_start_page.dart';
-import '../../presentation/auth/verification/auth_verification_page.dart';
 import '../../presentation/common/add_address/add_address_page.dart';
 import '../../presentation/common/favorites/favorite_list_page.dart';
 import '../../presentation/common/favorites/features/product/favorite_products_page.dart';
@@ -115,7 +115,7 @@ class AppRouter extends _$AppRouter {
         /// Auth
         AutoRoute(page: AuthStartRoute.page, path: "/auth_start"),
         AutoRoute(page: AuthConfirmRoute.page, path: '/auth_confirmation'),
-        AutoRoute(page: AuthVerificationRoute.page, path: '/auth_verification'),
+        AutoRoute(page: AuthLoginRoute.page, path: '/auth_verification'),
         AutoRoute(page: SetPasswordRoute.page, path: '/set_password'),
         AutoRoute(page: AuthWithEdsRoute.page, path: '/eds'),
         AutoRoute(page: AuthWithOneIdRoute.page, path: "/login_with_one_id"),

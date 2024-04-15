@@ -21,7 +21,7 @@ class DefaultEmptyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> getBodyItems() {
       return [
-        (message ?? Strings.loadingStateNoItemFound)
+        (message ?? Strings.loadingStateEmpty)
             .w(400)
             .s(14)
             .c(context.colors.textPrimary),

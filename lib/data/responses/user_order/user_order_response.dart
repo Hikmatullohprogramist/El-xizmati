@@ -1,7 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:onlinebozor/common/constants.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
+import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
+import 'package:onlinebozor/domain/models/order/user_order_status.dart';
 
 part 'user_order_response.freezed.dart';
-
 part 'user_order_response.g.dart';
 
 @freezed
@@ -25,58 +28,87 @@ class Data with _$Data {
   const factory Data({
     Valid? valid,
     int? count,
-    required List<UserOrderResponse> results,
+    required List<UserOrder> results,
   }) = _Data;
 
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 }
 
 @freezed
-class UserOrderResponse with _$UserOrderResponse {
-  const factory UserOrderResponse({
-    required int order_id,
+class UserOrder with _$UserOrder {
+  const factory UserOrder({
+    @JsonKey(name: "order_id") required int orderId,
     Seller? seller,
     String? status,
-    double? final_sum,
-    String? created_at,
-    String? cancel_note,
-    required List<UserOrderProductResponse> products,
-  }) = _UserOrderResponse;
+    @JsonKey(name: "final_sum") double? totalSum,
+    @JsonKey(name: "created_at") String? createdAt,
+    @JsonKey(name: "cancel_note") String? cancelNote,
+    List<UserOrderProduct>? products,
+  }) = _UserOrder;
 
-  factory UserOrderResponse.fromJson(Map<String, dynamic> json) =>
-      _$UserOrderResponseFromJson(json);
+  const UserOrder._();
+
+  factory UserOrder.fromJson(Map<String, dynamic> json) =>
+      _$UserOrderFromJson(json);
+
+  UserOrderProduct? get firstProduct {
+    return products?.firstOrNull;
+  }
+
+  String get formattedTotalSum {
+    return "${Constants.formatter.format(totalSum)} ${Strings.currencyUzb}"
+        .replaceAll(',', '\'');
+  }
+
+  String get formattedPrice {
+    return "${Constants.formatter.format(firstProduct?.price)} ${Strings.currencyUzb}"
+        .replaceAll(',', '\'');
+  }
+
+  UserOrderStatus? get orderStatus {
+    return status.toUserOrderStatus();
+  }
+
+  String get mainPhoto {
+    return products
+            ?.where((e) => e.mainPhoto != null)
+            .toList()
+            .firstOrNull
+            ?.mainPhoto ??
+        "";
+  }
 }
 
 @freezed
-class UserOrderProductResponse with _$UserOrderProductResponse {
-  const factory UserOrderProductResponse({
+class UserOrderProduct with _$UserOrderProduct {
+  const factory UserOrderProduct({
     int? id,
-    int? order_id,
-    int? amount,
+    @JsonKey(name: "order_id") int? orderId,
+    @JsonKey(name: "amount") int? quantity,
     int? price,
-    int? total_sum,
-    Delivery? product,
-    Delivery? payment_type,
-    Delivery? unit,
-    Delivery? shipping,
-    Delivery? delivery,
+    @JsonKey(name: "total_sum") int? totalSum,
+    UserOrderInfo? product,
+    @JsonKey(name: "payment_type") UserOrderInfo? paymentType,
+    UserOrderInfo? unit,
+    UserOrderInfo? shipping,
+    UserOrderInfo? delivery,
     String? status,
-    String? main_photo,
-  }) = _UserOrderProductResponse;
+    @JsonKey(name: "main_photo") String? mainPhoto,
+  }) = _UserOrderProduct;
 
-  factory UserOrderProductResponse.fromJson(Map<String, dynamic> json) =>
-      _$UserOrderProductResponseFromJson(json);
+  factory UserOrderProduct.fromJson(Map<String, dynamic> json) =>
+      _$UserOrderProductFromJson(json);
 }
 
 @freezed
-class Delivery with _$Delivery {
-  const factory Delivery({
+class UserOrderInfo with _$UserOrderInfo {
+  const factory UserOrderInfo({
     int? id,
     String? name,
-  }) = _Delivery;
+  }) = _UserOrderInfo;
 
-  factory Delivery.fromJson(Map<String, dynamic> json) =>
-      _$DeliveryFromJson(json);
+  factory UserOrderInfo.fromJson(Map<String, dynamic> json) =>
+      _$UserOrderInfoFromJson(json);
 }
 
 @freezed
@@ -85,7 +117,7 @@ class Seller with _$Seller {
     int? id,
     String? name,
     int? tin,
-    dynamic photo,
+    String? photo,
   }) = _Seller;
 
   factory Seller.fromJson(Map<String, dynamic> json) => _$SellerFromJson(json);

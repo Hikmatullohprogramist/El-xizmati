@@ -33,7 +33,7 @@ class UserAdListPage extends BasePage<PageCubit, PageState, PageEvent> {
             actions: [
               CustomTextButton(
                 text: Strings.adCreateTitle,
-                onPressed: () => context.router.push(CreateAdStartRoute()),
+                onPressed: () => context.router.push(CreateAdChooserRoute()),
               )
             ],
             leading: IconButton(
@@ -63,11 +63,11 @@ class UserAdListPage extends BasePage<PageCubit, PageState, PageEvent> {
               indicatorColor: context.colors.textPrimary,
               controller: controller,
               tabs: [
-                Tab(text: Strings.userAdsAllLabel),
-                Tab(text: Strings.userAdsActiveLabel),
-                Tab(text: Strings.userAdsPendingLabel),
-                Tab(text: Strings.userAdsInactiveLabel),
-                Tab(text: Strings.userAdsCanceledLabel)
+                Tab(text: Strings.userAdsAll),
+                Tab(text: Strings.userAdsActive),
+                Tab(text: Strings.userAdsWait),
+                Tab(text: Strings.userAdsInactive),
+                Tab(text: Strings.userAdsCancelled)
               ],
             ),
           ),

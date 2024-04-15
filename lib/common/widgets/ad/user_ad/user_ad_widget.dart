@@ -43,8 +43,8 @@ class UserAdWidget extends StatelessWidget {
                   Row(
                     children: [
                       Container(
-                        width: 110,
-                        height: 110,
+                        width: 130,
+                        height: 100,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6),
                           border:
@@ -82,7 +82,8 @@ class UserAdWidget extends StatelessWidget {
                             ),
                           ),
                         ],
-                      ))
+                      )),
+                      SizedBox(width: 12),
                     ],
                   ),
                   SizedBox(height: 2),
@@ -145,8 +146,15 @@ class UserAdWidget extends StatelessWidget {
           ),
         ),
       ),
-      placeholder: (context, url) => Center(),
-      errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
+      placeholder: (context, url) => Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(6),
+        ),
+      ),
+      errorWidget: (context, url, error) => Container(
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
+        child: Center(child: Icon(Icons.error)),
+      ),
     );
   }
 }

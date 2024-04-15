@@ -48,7 +48,7 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
       body: RefreshIndicator(
         displacement: 160,
         strokeWidth: 3,
-        color: Color(0xFF586BC2),
+        color: StaticColors.colorPrimary,
         onRefresh: () async {
           cubit(context).getInitialData();
         },
@@ -94,9 +94,9 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
         children: [
           SeeAllWidget(
             onClicked: () => context.router.push(
-              PopularCategoriesRoute(title: Strings.categoriesTitle),
+              PopularCategoriesRoute(title: Strings.popularCategoriesTitle),
             ),
-            title: Strings.categoriesTitle,
+            title: Strings.popularCategoriesTitle,
           ),
           LoaderStateWidget(
             onRetryClicked: () {

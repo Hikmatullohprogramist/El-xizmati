@@ -100,7 +100,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> getCreatingInitialData() async {
     final user = _userRepository.userInfoStorage.userInformation.call();
     updateState((state) => state.copyWith(
-          contactPerson: user?.fullName?.capitalizeFullName() ?? "",
+          contactPerson: user?.fullName?.capitalizePersonName() ?? "",
           phone: user?.mobilePhone?.clearPhoneNumberWithoutCode() ?? "",
           email: user?.email ?? "",
         ));

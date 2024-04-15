@@ -5,9 +5,9 @@ class PageState with _$PageState {
   const factory PageState({
     @Default("") String keyWord,
     @Default(LoadingState.loading) LoadingState userOrderState,
-    PagingController<int, UserOrderResponse>? controller,
+    PagingController<int, UserOrder>? controller,
     @Default(OrderType.buy) OrderType orderType,
-    @Default(UserOrderStatus.all) UserOrderStatus userOrderStatus,
+    @Default(UserOrderStatus.ALL) UserOrderStatus userOrderStatus,
   }) = _PageState;
 }
 

@@ -35,30 +35,28 @@ class ChipItem extends StatelessWidget {
           ),
           shape: BoxShape.rectangle,
         ),
-        child: Expanded(
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              title
-                  .w(600)
-                  .s(13)
-                  .c(Color(0xFF5C6AC4))
-                  .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
-              SizedBox(width: 14),
-              Visibility(
-                visible: onActionClicked != null,
-                child: InkWell(
-                  onTap: () {
-                    if (onActionClicked != null) onActionClicked!(item);
-                    vibrateAsHapticFeedback();
-                  },
-                  child: Assets.images.icChipClose.svg(height: 20, width: 20),
-                ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            title
+                .w(600)
+                .s(13)
+                .c(Color(0xFF5C6AC4))
+                .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
+            SizedBox(width: 14),
+            Visibility(
+              visible: onActionClicked != null,
+              child: InkWell(
+                onTap: () {
+                  if (onActionClicked != null) onActionClicked!(item);
+                  vibrateAsHapticFeedback();
+                },
+                child: Assets.images.icChipClose.svg(height: 20, width: 20),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -65,7 +65,8 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
               padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
               child: CustomTextFormField(
                   controller: TextEditingController(
-                      text: state.fullName.capitalizeFullName()),
+                    text: state.fullName.capitalizePersonName(),
+                  ),
                   hint: Strings.profileUserName,
                   enabled: false,
                   readOnly: true,

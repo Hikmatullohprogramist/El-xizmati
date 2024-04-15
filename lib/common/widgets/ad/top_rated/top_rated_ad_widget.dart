@@ -84,8 +84,15 @@ class TopRatedAdWidget extends StatelessWidget {
                     ColorFilter.mode(Colors.white, BlendMode.colorBurn)),
           ),
         ),
-        placeholder: (context, url) => Center(),
-        errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
+        placeholder: (context, url) => Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(6),
+          ),
+        ),
+        errorWidget: (context, url, error) => Container(
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
+          child: Center(child: Icon(Icons.error)),
+        ),
       ),
     );
   }

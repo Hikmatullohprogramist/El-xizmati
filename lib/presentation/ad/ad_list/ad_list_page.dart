@@ -114,7 +114,7 @@ class AdListPage extends BasePage<PageCubit, PageState, PageEvent> {
             return SizedBox(
               height: 200,
               width: double.infinity,
-              child: Center(child: Text(Strings.loadingStateNoItemFound)),
+              child: Center(child: Text(Strings.loadingStateEmpty)),
             );
           },
           newPageProgressIndicatorBuilder: (_) {
@@ -137,7 +137,7 @@ class AdListPage extends BasePage<PageCubit, PageState, PageEvent> {
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) => VerticalAdWidget(
             ad: item,
-            onFavoriteClicked: (value) => cubit(context).addFavorite(value),
+            onFavoriteClicked: (value) => cubit(context).changeFavorite(value),
             onClicked: (value) {
               context.router.push(AdDetailRoute(adId: value.id));
             },

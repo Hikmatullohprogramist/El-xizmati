@@ -1,12 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../colors/static_colors.dart';
-import '../divider/custom_diverder.dart';
+import '../../../colors/static_colors.dart';
+import '../../divider/custom_diverder.dart';
 
-extension DetailShimmer on Widget{
-  Widget detailShimmer(){
+class AdDetailShimmer extends StatelessWidget {
+  const AdDetailShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Column(
@@ -201,7 +203,7 @@ extension DetailShimmer on Widget{
                             Shimmer.fromColors(
                               baseColor: StaticColors.shimmerBaseColor,
                               highlightColor:
-                              StaticColors.shimmerHighLightColor,
+                                  StaticColors.shimmerHighLightColor,
                               child: Container(
                                 height: 15,
                                 decoration: BoxDecoration(
@@ -215,7 +217,7 @@ extension DetailShimmer on Widget{
                             Shimmer.fromColors(
                               baseColor: StaticColors.shimmerBaseColor,
                               highlightColor:
-                              StaticColors.shimmerHighLightColor,
+                                  StaticColors.shimmerHighLightColor,
                               child: Container(
                                 height: 15,
                                 margin: EdgeInsets.only(right: 55),

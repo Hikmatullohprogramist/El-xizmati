@@ -12,7 +12,7 @@ class UserOrderRepository {
   final UserOrderService userOrderService;
 
   @override
-  Future<List<UserOrderResponse>> getUserOrders({
+  Future<List<UserOrder>> getUserOrders({
     required int page,
     required int limit,
     required UserOrderStatus userOrderStatus,

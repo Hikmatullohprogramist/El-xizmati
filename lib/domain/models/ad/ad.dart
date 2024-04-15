@@ -32,6 +32,34 @@ class Ad {
     required this.view,
   });
 
+  Ad copy() {
+    return Ad(
+      id: id,
+      name: name,
+      price: price,
+      currency: currency,
+      region: region,
+      district: district,
+      adRouteType: adRouteType,
+      adPropertyStatus: adPropertyStatus,
+      adStatus: adStatus,
+      adTypeStatus: adTypeStatus,
+      fromPrice: fromPrice,
+      toPrice: toPrice,
+      categoryId: categoryId,
+      categoryName: categoryName,
+      sellerName: sellerName,
+      sellerId: sellerId,
+      photo: photo,
+      isCheck: isCheck,
+      favorite: favorite,
+      isSort: isSort,
+      isSell: isSell,
+      maxAmount: maxAmount,
+      view: view,
+    );
+  }
+
   int? backendId;
   final int id;
   final String name;

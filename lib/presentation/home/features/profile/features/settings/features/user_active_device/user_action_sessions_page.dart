@@ -81,7 +81,7 @@ class UserActiveSessionsPage extends BasePage<PageCubit, PageState, PageEvent> {
             );
           },
           noItemsFoundIndicatorBuilder: (_) {
-            return Center(child: Text(Strings.loadingStateNoItemFound));
+            return Center(child: Text(Strings.loadingStateEmpty));
           },
           newPageProgressIndicatorBuilder: (_) {
             return SizedBox(

@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/enum/enums.dart';
@@ -25,13 +24,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     this.cartRepository,
     this.favoriteRepository,
     this.tokenStorage,
-  ) : super(PageState()) {
-    // getInitialData();
-  }
-
-  // Future<void> getInitialData() async {
-  //   await Future.wait([getRecentlyViewedAds()]);
-  // }
+  ) : super(PageState()) {}
 
   final AdRepository adRepository;
   final CartRepository cartRepository;
@@ -74,32 +67,24 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   Future<void> setPhotoView() async {
-    await increaseAdStats(StatsType.phone);
     updateState((state) => state.copyWith(isPhoneVisible: true));
+    await increaseAdStats(StatsType.phone);
   }
 
-  Future<void> addFavorite() async {
+  Future<void> changeAdFavorite() async {
     try {
-      final ad = states.adDetail;
-      if (!(ad?.favorite ?? false)) {
-        final backendId =
-            await favoriteRepository.addFavorite(states.adDetail!.toMap());
-
-        updateState(
-          (state) => state.copyWith(
-            adDetail: state.adDetail
-              ?..favorite = true
-              ..backendId = backendId,
-            isAddCart: false,
-          ),
-        );
+      var ad = states.adDetail;
+      if (ad?.favorite == true) {
+        await favoriteRepository.removeFromFavorite(states.adDetail!.adId);
+        updateState((state) => state.copyWith(adDetail: ad?..favorite = false));
       } else {
-        await favoriteRepository.removeFavorite(states.adDetail!.toMap());
-        updateState(
-          (state) => state.copyWith(
-            adDetail: state.adDetail?..favorite = false,
-          ),
-        );
+        final backendId =
+            await favoriteRepository.addToFavorite(states.adDetail!.toMap());
+
+        ad?.favorite = true;
+        ad?.backendId = backendId;
+
+        updateState((state) => state.copyWith(adDetail: ad));
       }
     } catch (e) {
       display.error(e.toString());
@@ -108,8 +93,13 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> similarAdsAddFavorite(Ad ad) async {
     try {
-      if (!ad.favorite) {
-        final backendId = await favoriteRepository.addFavorite(ad);
+      if (ad.favorite == true) {
+        await favoriteRepository.removeFromFavorite(ad.id);
+        final index = states.similarAds.indexOf(ad);
+        final item = states.similarAds.elementAt(index);
+        states.similarAds.insert(index, item..favorite = false);
+      } else {
+        final backendId = await favoriteRepository.addToFavorite(ad);
         final index = states.similarAds.indexOf(ad);
         final item = states.similarAds.elementAt(index);
         states.similarAds.insert(
@@ -117,11 +107,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             item
               ..favorite = true
               ..backendId = backendId);
-      } else {
-        await favoriteRepository.removeFavorite(ad);
-        final index = states.similarAds.indexOf(ad);
-        final item = states.similarAds.elementAt(index);
-        states.similarAds.insert(index, item..favorite = false);
       }
     } catch (error) {
       display.error("xatolik yuz  berdi");
@@ -215,8 +200,13 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> ownerAdAddToFavorite(Ad ad) async {
     try {
-      if (!ad.favorite) {
-        final backendId = await favoriteRepository.addFavorite(ad);
+      if (ad.favorite == true) {
+        await favoriteRepository.removeFromFavorite(ad.id);
+        final index = states.ownerAds.indexOf(ad);
+        final item = states.ownerAds.elementAt(index);
+        states.ownerAds.insert(index, item..favorite = false);
+      } else {
+        final backendId = await favoriteRepository.addToFavorite(ad);
         final index = states.ownerAds.indexOf(ad);
         final item = states.ownerAds.elementAt(index);
         states.ownerAds.insert(
@@ -225,11 +215,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             ..favorite = true
             ..backendId = backendId,
         );
-      } else {
-        await favoriteRepository.removeFavorite(ad);
-        final index = states.ownerAds.indexOf(ad);
-        final item = states.ownerAds.elementAt(index);
-        states.ownerAds.insert(index, item..favorite = false);
       }
     } catch (error) {
       display.error("serverda xatolik yuz  berdi");
@@ -258,8 +243,13 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> recentlyViewAdAddToFavorite(Ad ad) async {
     try {
-      if (!ad.favorite) {
-        final backendId = await favoriteRepository.addFavorite(ad);
+      if (ad.favorite == true) {
+        await favoriteRepository.removeFromFavorite(ad.id);
+        final index = states.recentlyViewedAds.indexOf(ad);
+        final item = states.recentlyViewedAds.elementAt(index);
+        states.recentlyViewedAds.insert(index, item..favorite = false);
+      } else {
+        final backendId = await favoriteRepository.addToFavorite(ad);
         final index = states.recentlyViewedAds.indexOf(ad);
         final item = states.recentlyViewedAds.elementAt(index);
         states.recentlyViewedAds.insert(
@@ -268,11 +258,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             ..favorite = true
             ..backendId = backendId,
         );
-      } else {
-        await favoriteRepository.removeFavorite(ad);
-        final index = states.recentlyViewedAds.indexOf(ad);
-        final item = states.recentlyViewedAds.elementAt(index);
-        states.recentlyViewedAds.insert(index, item..favorite = false);
       }
     } catch (error) {
       display.error("serverda xatolik yuz  berdi");

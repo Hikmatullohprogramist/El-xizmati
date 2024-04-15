@@ -6,7 +6,7 @@ class PageState with _$PageState {
     int? adId,
     AdDetail? adDetail,
     @Default(false) bool favorite,
-    @Default(-1) int paymentId,
+    @Default(1) int paymentId,
     @Default(<int>[]) List<int> paymentType,
     @Default(1) int count,
   }) = _PageState;
@@ -17,4 +17,4 @@ class PageEvent with _$PageEvent {
   const factory PageEvent(PageEventType type) = _PageEvent;
 }
 
-enum PageEventType { delete, back, navigationAuthStart }
+enum PageEventType { onBackAfterRemove, onOpenAfterCreation, onOpenAuthStart }

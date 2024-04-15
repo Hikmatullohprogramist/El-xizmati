@@ -60,9 +60,15 @@ class TransactionWidget extends StatelessWidget {
                                 Colors.white, BlendMode.colorBurn)),
                       ),
                     ),
-                    placeholder: (context, url) => Center(),
-                    errorWidget: (context, url, error) => Center(
-                        child: Assets.images.icPaymentTransactionWallet.svg()),
+                    placeholder: (context, url) => Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                    ),
+                    errorWidget: (context, url, error) => Container(
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
+                      child: Center(child: Icon(Icons.error)),
+                    ),
                   )
               ],
             ),

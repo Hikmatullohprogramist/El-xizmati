@@ -42,12 +42,12 @@ class UserOrderListPage extends BasePage<PageCubit, PageState, PageEvent> {
     return AutoTabsRouter.tabBar(
       physics: BouncingScrollPhysics(),
       routes: [
-        UserOrdersRoute(type: state.orderType, status: UserOrderStatus.all),
-        UserOrdersRoute(type: state.orderType, status: UserOrderStatus.wait),
-        UserOrdersRoute(type: state.orderType, status: UserOrderStatus.rejected),
-        UserOrdersRoute(type: state.orderType, status: UserOrderStatus.canceled),
-        UserOrdersRoute(type: state.orderType, status: UserOrderStatus.review),
-        UserOrdersRoute(type: state.orderType, status: UserOrderStatus.accept),
+        UserOrdersRoute(type: state.orderType, status: UserOrderStatus.ALL),
+        UserOrdersRoute(type: state.orderType, status: UserOrderStatus.WAIT),
+        UserOrdersRoute(type: state.orderType, status: UserOrderStatus.REJECTED),
+        UserOrdersRoute(type: state.orderType, status: UserOrderStatus.CANCELED),
+        UserOrdersRoute(type: state.orderType, status: UserOrderStatus.IN_PROGRESS),
+        UserOrdersRoute(type: state.orderType, status: UserOrderStatus.ACCEPTED),
       ],
       builder: (context, child, controller) {
         return Scaffold(
@@ -91,12 +91,12 @@ class UserOrderListPage extends BasePage<PageCubit, PageState, PageEvent> {
               indicatorColor: context.colors.textPrimary,
               controller: controller,
               tabs: [
-                Tab(text: Strings.userRequestAllLabel),
-                Tab(text: Strings.userRequestPendingLabel),
-                Tab(text: Strings.userRequestRejactedLabel),
-                Tab(text: Strings.userRequestCanceledLabel),
-                Tab(text: Strings.userRequestReviewLabel),
-                Tab(text: Strings.userRequestAcceptedLabel)
+                Tab(text: Strings.userOrderAll),
+                Tab(text: Strings.userOrderWait),
+                Tab(text: Strings.userOrderRejected),
+                Tab(text: Strings.userOrderCancelled),
+                Tab(text: Strings.userOrderInProgress),
+                Tab(text: Strings.userOrderAccepted)
               ],
             ),
           ),

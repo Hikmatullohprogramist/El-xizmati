@@ -81,7 +81,7 @@ class UserAdsPage extends BasePage<PageCubit, PageState, PageEvent> {
           noItemsFoundIndicatorBuilder: (_) {
             return UserAdEmptyWidget(
               onActionClicked: () {
-                context.router.push(CreateAdStartRoute());
+                context.router.push(CreateAdChooserRoute());
               },
             );
           },

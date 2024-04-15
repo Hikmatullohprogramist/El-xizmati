@@ -54,7 +54,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> removeFavorite(Ad ad) async {
     try {
-      await _favoriteRepository.removeFavorite(ad);
+      await _favoriteRepository.removeFromFavorite(ad.id);
       states.controller?.itemList?.remove(ad);
       states.controller?.notifyListeners();
     } catch (e) {

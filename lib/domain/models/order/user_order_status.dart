@@ -1,11 +1,11 @@
 enum UserOrderStatus {
-  accept,
-  all,
-  active,
-  wait,
-  inactive,
-  rejected,
-  canceled,
-  sysCanceled,
-  review
+  ACCEPTED,
+  ALL,
+  ACTIVE,
+  WAIT,
+  INACTIVE,
+  REJECTED,
+  CANCELED,
+  SYSCANCELED,
+  IN_PROGRESS
 }

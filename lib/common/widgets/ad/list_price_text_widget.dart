@@ -46,7 +46,7 @@ class ListPriceTextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String priceStr = (price == 0)
-        ? Strings.priceFrom(price: "${f.format(fromPrice)} ${currency.getName}")
+        ? Strings.commonPriceFrom(price: "${f.format(fromPrice)} ${currency.getName}")
         : "${f.format(price)} ${currency.getName}";
 
     return priceStr

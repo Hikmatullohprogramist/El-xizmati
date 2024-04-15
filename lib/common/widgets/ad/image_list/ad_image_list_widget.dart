@@ -2,15 +2,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/common/gen/localization/strings.dart';
+import 'package:onlinebozor/common/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/common/widgets/action/action_list_item.dart';
-import 'package:onlinebozor/common/widgets/image_list/ad_image_list_add_widget.dart';
-import 'package:onlinebozor/common/widgets/image_list/ad_image_list_image_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/image_list/ad_image_list_add_widget.dart';
+import 'package:onlinebozor/common/widgets/ad/image_list/ad_image_list_image_widget.dart';
+import 'package:onlinebozor/common/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 
-import '../../gen/assets/assets.gen.dart';
-import '../../gen/localization/strings.dart';
-import '../../vibrator/vibrator_extension.dart';
-import '../bottom_sheet/bottom_sheet_title.dart';
 
 class AdImageListWidget extends StatelessWidget {
   const AdImageListWidget({

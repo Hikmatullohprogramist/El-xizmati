@@ -6,13 +6,13 @@ import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
+import 'package:onlinebozor/common/widgets/order/user_order_empty_widget.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_orders/features/user_order_list/cubit/page_cubit.dart';
 
 import '../../../../../../../../common/colors/static_colors.dart';
 import '../../../../../../../../common/gen/localization/strings.dart';
-import '../../../../../../../../common/widgets/ad/user_ad/user_ad_empty_widget.dart';
-import '../../../../../../../../common/widgets/order/user_order.dart';
 import '../../../../../../../../common/widgets/order/user_order_shimmer.dart';
+import '../../../../../../../../common/widgets/order/user_order_widget.dart';
 import '../../../../../../../../data/responses/user_order/user_order_response.dart';
 import '../../../../../../../../domain/models/ad/ad_transaction_type.dart';
 import '../../../../../../../../domain/models/order/order_type.dart';
@@ -36,105 +36,101 @@ class UserOrdersPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
-    double width;
-    double height;
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: StaticColors.backgroundColor,
-      body: _getOrderListWidget(context, state, width, height),
+      body: _buildBody(context, state),
     );
   }
 
-  Widget _getOrderListWidget(
-    BuildContext context,
-    PageState state,
-    double width,
-    double height,
-  ) {
-    return PagedGridView<int, UserOrderResponse>(
-      shrinkWrap: true,
-      padding: EdgeInsets.symmetric(vertical: 12),
-      addAutomaticKeepAlives: true,
-      physics: BouncingScrollPhysics(),
-      pagingController: state.controller!,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        childAspectRatio: width / height,
-        crossAxisSpacing: 16,
-        mainAxisExtent: 165,
-        crossAxisCount: 1,
-        mainAxisSpacing: 0,
-      ),
-      builderDelegate: PagedChildBuilderDelegate<UserOrderResponse>(
-        firstPageErrorIndicatorBuilder: (_) {
-          return SizedBox(
-            height: 100,
-            child: Center(
-              child: Column(
-                children: [
-                  Strings.loadingStateError
-                      .w(400)
-                      .s(14)
-                      .c(context.colors.textPrimary),
-                  SizedBox(height: 12),
-                  CustomElevatedButton(
-                    text: Strings.loadingStateRetry,
-                    onPressed: () {},
-                  )
-                ],
+  Widget _buildBody(BuildContext context, PageState state) {
+    return RefreshIndicator(
+      displacement: 160,
+      strokeWidth: 3,
+      color: StaticColors.colorPrimary,
+      onRefresh: () async {
+        cubit(context).states.controller!.refresh();
+      },
+      child: PagedListView<int, UserOrder>(
+        shrinkWrap: true,
+        addAutomaticKeepAlives: false,
+        physics: BouncingScrollPhysics(),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        pagingController: state.controller!,
+        builderDelegate: PagedChildBuilderDelegate<UserOrder>(
+          firstPageErrorIndicatorBuilder: (_) {
+            return SizedBox(
+              height: 100,
+              child: Center(
+                child: Column(
+                  children: [
+                    Strings.loadingStateError
+                        .w(400)
+                        .s(14)
+                        .c(context.colors.textPrimary),
+                    SizedBox(height: 12),
+                    CustomElevatedButton(
+                      text: Strings.loadingStateRetry,
+                      onPressed: () {
+                        cubit(context).states.controller?.refresh();
+                      },
+                    )
+                  ],
+                ),
               ),
-            ),
-          );
-        },
-        firstPageProgressIndicatorBuilder: (_) {
-          return SingleChildScrollView(
-            child: ListView.builder(
-              physics: BouncingScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: 15,
-              itemBuilder: (BuildContext context, int index) {
-                return UserOrderWidgetShimmer();
+            );
+          },
+          firstPageProgressIndicatorBuilder: (_) {
+            return SingleChildScrollView(
+              child: ListView.builder(
+                physics: BouncingScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: 15,
+                itemBuilder: (BuildContext context, int index) {
+                  return UserOrderWidgetShimmer();
+                },
+              ),
+            );
+          },
+          noItemsFoundIndicatorBuilder: (_) {
+            return UserOrderEmptyWidget(
+              onActionClicked: () {
+                if (type == OrderType.buy) {
+                  context.router.push(CreateRequestAdRoute(
+                    adTransactionType: AdTransactionType.BUY,
+                  ));
+                } else if (type == OrderType.sell) {
+                  context.router.push(CreateRequestAdRoute(
+                    adTransactionType: AdTransactionType.BUY_SERVICE,
+                  ));
+                }
               },
-            ),
-          );
-        },
-        noItemsFoundIndicatorBuilder: (_) {
-          return UserAdEmptyWidget(onActionClicked: () {
-            if (type == OrderType.buy) {
-              context.router.push(CreateRequestAdRoute(
-                adTransactionType: AdTransactionType.BUY,
-              ));
-            } else if (type == OrderType.sell) {
-              context.router.push(CreateRequestAdRoute(
-                adTransactionType: AdTransactionType.BUY_SERVICE,
-              ));
-            }
-          });
-        },
-        newPageProgressIndicatorBuilder: (_) {
-          return SizedBox(
-            height: 160,
-            child: Center(
-              child: CircularProgressIndicator(color: Colors.blue),
-            ),
-          );
-        },
-        newPageErrorIndicatorBuilder: (_) {
-          return SizedBox(
-            height: 160,
-            child: Center(
-              child: CircularProgressIndicator(color: Colors.blue),
-            ),
-          );
-        },
-        transitionDuration: Duration(milliseconds: 100),
-        itemBuilder: (context, item, index) {
-          return UserOrderWidget(
-            listenerAddressEdit: () {},
-            listener: () {},
-            response: item,
-          );
-        },
+            );
+          },
+          newPageProgressIndicatorBuilder: (_) {
+            return SizedBox(
+              height: 160,
+              child: Center(
+                child: CircularProgressIndicator(color: Colors.blue),
+              ),
+            );
+          },
+          newPageErrorIndicatorBuilder: (_) {
+            return SizedBox(
+              height: 160,
+              child: Center(
+                child: CircularProgressIndicator(color: Colors.blue),
+              ),
+            );
+          },
+          transitionDuration: Duration(milliseconds: 100),
+          itemBuilder: (context, item, index) {
+            return UserOrderWidget(
+              order: item,
+              onClicked: () {},
+              onRemoveClicked: () {},
+            );
+          },
+        ),
       ),
     );
   }

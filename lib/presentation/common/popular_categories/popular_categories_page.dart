@@ -70,7 +70,7 @@ class PopularCategoriesPage extends BasePage<PageCubit, PageState, PageEvent> {
                   },
                   noItemsFoundIndicatorBuilder: (_) {
                     return Center(
-                        child: Strings.loadingStateNoItemFound.w(400));
+                        child: Strings.loadingStateEmpty.w(400));
                   },
                   newPageProgressIndicatorBuilder: (_) {
                     return SizedBox(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../gen/assets/assets.gen.dart';
-import '../../vibrator/vibrator_extension.dart';
+import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/common/vibrator/vibrator_extension.dart';
 
 class AdImageListAddWidget extends StatelessWidget {
   const AdImageListAddWidget({
