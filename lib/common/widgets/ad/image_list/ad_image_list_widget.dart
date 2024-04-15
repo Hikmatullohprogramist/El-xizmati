@@ -9,6 +9,7 @@ import 'package:onlinebozor/common/widgets/action/action_list_item.dart';
 import 'package:onlinebozor/common/widgets/ad/image_list/ad_image_list_add_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/image_list/ad_image_list_image_widget.dart';
 import 'package:onlinebozor/common/widgets/bottom_sheet/bottom_sheet_title.dart';
+import 'package:onlinebozor/common/widgets/form_field/label_text_field.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 
 
@@ -52,9 +53,9 @@ class AdImageListWidget extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Strings.imageListTitle.w(500).s(14),
+                child: LabelTextField(Strings.imageListTitle),
               ),
-              SizedBox(height: 12),
+              SizedBox(height: 8),
               SizedBox(
                 height: 82,
                 child: SingleChildScrollView(

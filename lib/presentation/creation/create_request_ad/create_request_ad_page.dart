@@ -462,17 +462,16 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
           ),
           SizedBox(height: 12),
-          LabelTextField(Strings.createAdContactEmailLabel),
+          LabelTextField(Strings.commonEmail, isRequired: false),
           SizedBox(height: 8),
           CustomTextFormField(
             autofillHints: const [AutofillHints.email],
             keyboardType: TextInputType.emailAddress,
             inputType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
-            hint: Strings.createAdContactEmailLabel,
+            hint: Strings.commonEmail,
             maxLines: 1,
             controller: emailController,
-            validator: (value) => EmailValidator.validate(value),
             onChanged: (value) {
               cubit(context).setEnteredEmail(value);
             },

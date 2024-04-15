@@ -349,10 +349,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                       flex: 4,
                       child: Column(
                         children: [
-                          LabelTextField(
-                            Strings.createAdWarehouseUnitLabel,
-                            isRequired: false,
-                          ),
+                          LabelTextField(Strings.createAdWarehouseUnitLabel),
                           SizedBox(height: 6),
                           CustomDropdownFormField(
                             value: state.unit?.name ?? "",
@@ -675,17 +672,16 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
           ),
           SizedBox(height: 12),
-          LabelTextField(Strings.createAdContactEmailLabel),
+          LabelTextField(Strings.commonEmail, isRequired: false),
           SizedBox(height: 8),
           CustomTextFormField(
             autofillHints: const [AutofillHints.email],
             keyboardType: TextInputType.emailAddress,
             inputType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
-            hint: Strings.createAdContactEmailLabel,
+            hint: Strings.commonEmail,
             maxLines: 1,
             controller: emailController,
-            validator: (value) => NotEmptyValidator.validate(value),
             onChanged: (value) {
               cubit(context).setEnteredEmail(value);
             },

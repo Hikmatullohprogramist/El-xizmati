@@ -86,7 +86,8 @@ class ProductAdResponse with _$ProductAdResponse {
     required List<AdAddressResponse>? paidDeliveryDistricts,
   }) = _ProductAdResponse;
 
-  factory ProductAdResponse.fromJson(Map<String, dynamic> json) => _$ProductAdResponseFromJson(json);
+  factory ProductAdResponse.fromJson(Map<String, dynamic> json) =>
+      _$ProductAdResponseFromJson(json);
 
   const ProductAdResponse._();
 
@@ -127,11 +128,13 @@ class ProductAdResponse with _$ProductAdResponse {
   }
 
   bool getIsNew() {
-    return propertyStatus?.toUpperCase().contains("FRESH") == true;
+    return propertyStatus?.toUpperCase().contains("NEW") == true ||
+        propertyStatus?.toUpperCase().contains("FRESH") == true;
   }
 
   bool getIsOtherNew() {
-    return otherPropertyStatus?.toUpperCase().contains("FRESH") ?? false;
+    return otherPropertyStatus?.toUpperCase().contains("NEW") == true ||
+        otherPropertyStatus?.toUpperCase().contains("FRESH") == true;
   }
 
   CategoryResponse? getOtherCategory() {
