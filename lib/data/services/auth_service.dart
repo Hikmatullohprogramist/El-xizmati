@@ -107,7 +107,7 @@ class AuthService {
 
   Future<Response> forgetPassword({required String phone}) {
     final body = {RestQueryKeys.phoneNumber: phone};
-    return _dio.post('api/mobile/v1/auth/phone/login/recovery',
+    return _dio.post('api/mobile/v1/auth/phone/verification/recovery',
         data: body);
   }
 
@@ -120,7 +120,7 @@ class AuthService {
       RestQueryKeys.sessionToken: sessionToken,
       RestQueryKeys.securityCode: code
     };
-    return _dio.post('api/mobile/v1/auth/phone/login/recovery/password',
+    return _dio.post('api/mobile/v1/auth/phone/verification/recovery/password',
         data: body);
   }
 
