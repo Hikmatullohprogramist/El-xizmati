@@ -13,7 +13,7 @@ class CustomOutlinedButton extends StatelessWidget {
     this.isEnabled = true,
     this.isLoading = false,
     this.textColor = StaticColors.textColorPrimary,
-    this.strokeColor = StaticColors.dodgerBlue,
+    this.strokeColor = StaticColors.buttonDefaultBackgroundColor,
     this.rightIcon,
   }) : super(key: key);
 
