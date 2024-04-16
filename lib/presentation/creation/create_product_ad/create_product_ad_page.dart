@@ -190,6 +190,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             textInputAction: TextInputAction.next,
             controller: titleController,
             validator: (value) => NotEmptyValidator.validate(value),
+            textCapitalization: TextCapitalization.sentences,
             onChanged: (value) {
               cubit(context).setEnteredTitle(value);
             },
@@ -583,6 +584,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   hint: Strings.createAdDescLabel,
                   textInputAction: TextInputAction.next,
                   controller: exchangeDescController,
+                  textCapitalization: TextCapitalization.sentences,
                   onChanged: (value) {
                     cubit(context).setEnteredAnotherDesc(value);
                   },
@@ -649,6 +651,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             textInputAction: TextInputAction.next,
             controller: contactPersonController,
             validator: (value) => NotEmptyValidator.validate(value),
+            textCapitalization: TextCapitalization.words,
             onChanged: (value) {
               cubit(context).setEnteredContactPerson(value);
             },

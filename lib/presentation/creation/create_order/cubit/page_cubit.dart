@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 
 import '../../../../../../../common/constants.dart';
@@ -116,16 +117,16 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             );
             emitEvent(PageEvent(PageEventType.onOpenAfterCreation));
           } else {
-            display.error("to'lov turi tanlanmagan");
+            Logger().w("to'lov turi tanlanmagan");
           }
         } else {
-          display.error("To'liq ro'yxatdan o'tilmagan");
+          Logger().w("To'liq ro'yxatdan o'tilmagan");
         }
       } else {
         emitEvent(PageEvent(PageEventType.onOpenAuthStart));
       }
     } catch (e) {
-      display.error("error");
+      Logger().w("error = $e");
     }
   }
 }

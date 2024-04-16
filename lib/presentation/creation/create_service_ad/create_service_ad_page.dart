@@ -28,7 +28,6 @@ import '../../../common/widgets/form_field/custom_dropdown_form_field.dart';
 import '../../../common/widgets/form_field/custom_text_form_field.dart';
 import '../../../common/widgets/form_field/label_text_field.dart';
 import '../../../common/widgets/form_field/validator/default_validator.dart';
-import '../../../common/widgets/form_field/validator/email_validator.dart';
 import '../../../common/widgets/form_field/validator/phone_number_validator.dart';
 import '../../../common/widgets/form_field/validator/price_validator.dart';
 import '../../../common/widgets/loading/default_error_widget.dart';
@@ -156,6 +155,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             textInputAction: TextInputAction.next,
             controller: titleController,
             validator: (value) => NotEmptyValidator.validate(value),
+            textCapitalization: TextCapitalization.sentences,
             onChanged: (value) {
               cubit(context).setEnteredTitle(value);
             },
@@ -216,8 +216,10 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               children: [
-                LabelTextField(Strings.createAdVideoUlrLabel,
-                    isRequired: false),
+                LabelTextField(
+                  Strings.createAdVideoUlrLabel,
+                  isRequired: false,
+                ),
                 SizedBox(height: 6),
                 CustomTextFormField(
                   autofillHints: const [AutofillHints.url],
@@ -263,6 +265,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 hint: Strings.createAdDescHint,
                 textInputAction: TextInputAction.next,
                 controller: descController,
+                textCapitalization: TextCapitalization.sentences,
                 onChanged: (value) {
                   cubit(context).setEnteredDesc(value);
                 },
@@ -526,6 +529,8 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             inputType: TextInputType.name,
             textInputAction: TextInputAction.next,
             controller: contactPersonController,
+            textCapitalization: TextCapitalization.words,
+            validator: (value) => NotEmptyValidator.validate(value),
             onChanged: (value) {
               cubit(context).setEnteredContactPerson(value);
             },

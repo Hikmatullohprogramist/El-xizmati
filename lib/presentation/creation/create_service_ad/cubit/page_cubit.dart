@@ -47,7 +47,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     final user = _userRepository.userInfoStorage.userInformation.call();
     updateState((state) => state.copyWith(
           contactPerson: user?.fullName?.capitalizePersonName() ?? "",
-          phone: user?.mobilePhone?.clearPhoneNumberWithoutCode() ?? "",
+          phone: user?.mobilePhone?.clearPhoneWithoutCode() ?? "",
           email: user?.email ?? "",
         ));
   }
@@ -74,7 +74,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             address: ad.getUserAddress(),
             serviceDistricts: ad.getServiceDistricts(),
             contactPerson: ad.contactName ?? "",
-            phone: ad.phoneNumber?.clearPhoneNumberWithoutCode() ?? "",
+            phone: ad.phoneNumber?.clearPhoneWithoutCode() ?? "",
             email: ad.email ?? "",
             isAutoRenewal: ad.isAutoRenew ?? false,
             videoUrl: ad.video ?? "",
@@ -118,7 +118,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         //
         address: states.address!,
         contactPerson: states.contactPerson,
-        phone: states.phone.clearPhoneNumberWithCode(),
+        phone: states.phone.clearPhoneWithCode(),
         email: states.email,
         //
         isAutoRenewal: states.isAutoRenewal,

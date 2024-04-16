@@ -155,6 +155,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             textInputAction: TextInputAction.next,
             controller: titleController,
             validator: (value) => NotEmptyValidator.validate(value),
+            textCapitalization: TextCapitalization.sentences,
             onChanged: (value) {
               cubit(context).setEnteredTitle(value);
             },
@@ -238,6 +239,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 hint: Strings.createAdDescHint,
                 textInputAction: TextInputAction.next,
                 controller: descController,
+                textCapitalization: TextCapitalization.sentences,
                 onChanged: (value) {
                   cubit(context).setEnteredDesc(value);
                 },
@@ -439,6 +441,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             textInputAction: TextInputAction.next,
             controller: contactPersonController,
             validator: (value) => NotEmptyValidator.validate(value),
+            textCapitalization: TextCapitalization.words,
             onChanged: (value) {
               cubit(context).setEnteredContactPerson(value);
             },
@@ -450,7 +453,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             autofillHints: const [AutofillHints.telephoneNumber],
             keyboardType: TextInputType.phone,
             maxLines: 1,
-            hint: "",
+            hint: Strings.commonPhoneNumber,
             prefixText: "+998",
             inputType: TextInputType.phone,
             textInputAction: TextInputAction.next,
