@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/region/region.dart';
@@ -16,7 +17,7 @@ part 'page_state.dart';
 @injectable
 class PageCubit extends BaseCubit<PageState, PageEvent> {
   PageCubit(this.repository) : super(PageState()) {
-    getFullUserInfo();
+    getUserProfile();
   }
 
   final UserRepository repository;
@@ -29,17 +30,17 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     ]);
   }
 
-  Future<void> getFullUserInfo() async {
+  Future<void> getUserProfile() async {
     try {
       final response = await repository.getFullUserInfo();
       updateState((state) => states.copyWith(
             userName: response.username ?? "",
-            fullName: response.full_name ?? "",
-            phoneNumber: response.mobile_phone ?? "",
+            fullName: response.full_name?.capitalizePersonName() ?? "",
+            phoneNumber: response.mobile_phone?.clearPhoneWithoutCode() ?? "",
             email: response.email ?? "",
-            brithDate: response.birth_date ?? "",
-            biometricNumber: response.passport_number ?? "",
-            biometricSerial: response.passport_serial ?? "",
+            birthDate: response.birth_date ?? "",
+            docNumber: response.passport_number ?? "",
+            docSerial: response.passport_serial ?? "",
             apartmentNumber: response.home_name ?? "",
             districtId: response.district_id,
             regionId: response.region_id,
@@ -52,14 +53,36 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           ));
       await getUser();
     } catch (e) {
-      display.error(e.toString());
+      log.w("getUserProfile error = ${e.toString()}");
+    }
+  }
+
+  Future<bool> updateUserProfile() async {
+    try {
+      await repository.updateUserProfile(
+        email: states.email,
+        gender: states.gender ?? "",
+        homeName: states.neighborhoodName,
+        neighborhoodId: states.neighborhoodId ?? -1,
+        mobilePhone: states.mobileNumber?.clearPhoneWithCode() ?? "",
+        phoneNumber: states.phoneNumber.clearPhoneWithCode(),
+        photo: states.photo ?? "",
+        pinfl: states.pinfl ?? -1,
+        docSerial: states.docSerial.toUpperCase(),
+        docNumber: states.docNumber,
+        birthDate: states.birthDate,
+        postName: states.postName ?? "",
+      );
+      return true;
+    } catch (e) {
+      display.error(Strings.commonEmptyMessage);
+      return false;
     }
   }
 
   Future<void> getRegions() async {
     final response = await repository.getRegions();
-    final regionList =
-        response.where((element) => element.id == states.regionId);
+    final regionList = response.where((e) => e.id == states.regionId);
     if (regionList.isNotEmpty) {
       updateState((state) => states.copyWith(
           regions: response,
@@ -111,32 +134,28 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  void setBiometricSerial(String serial) {
-    updateState((state) => states.copyWith(biometricSerial: serial));
+  void setDocSerial(String serial) {
+    updateState((state) => states.copyWith(docSerial: serial));
   }
 
-  void setBiometricNumber(String number) {
-    updateState(
-      (state) => states.copyWith(biometricNumber: number.replaceAll(" ", "")),
-    );
+  void setDocNumber(String number) {
+    updateState((state) => states.copyWith(
+          docNumber: number.replaceAll(" ", ""),
+        ));
   }
 
   void setBrithDate(String brithDate) {
-    updateState((state) => states.copyWith(brithDate: brithDate));
+    updateState((state) => states.copyWith(birthDate: brithDate));
   }
 
-
   void setEmail(String email) {
-    updateState((state) => states.copyWith(
-      email: email
-        ));
+    updateState((state) => states.copyWith(email: email));
   }
 
   void setPhoneNumber(String phone) {
     updateState((state) => states.copyWith(
         phoneNumber: phone.replaceAll(" ", "").replaceAll("+", "")));
   }
-
 
   void setRegion(Region region) {
     updateState((state) => states.copyWith(
@@ -165,25 +184,5 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           neighborhoodId: neighborhood.id,
           neighborhoodName: neighborhood.name,
         ));
-  }
-
-  Future<bool> sendUserInfo() async {
-    try {
-      await repository.sendUserInformation(
-        email:  states.email,
-        gender: states.gender ?? "",
-        homeName: states.neighborhoodName,
-        mahallaId: states.neighborhoodId ?? -1,
-        mobilePhone: states.mobileNumber ?? "",
-        phoneNumber: states.phoneNumber,
-        photo: states.photo ?? "",
-        pinfl: states.pinfl ?? -1,
-        postName: states.postName ?? "",
-      );
-      return true;
-    } catch (e) {
-      display.error(Strings.loadingStateError);
-      return false;
-    }
   }
 }

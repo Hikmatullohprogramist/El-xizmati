@@ -79,7 +79,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> phoneConfirmByCode() async {
     updateState((state) => state.copyWith(isConfirmLoading: true));
     try {
-      await _repository.confirm(states.phone.clearPhoneNumberWithCode(), states.code);
+      await _repository.confirm(states.phone.clearPhoneWithCode(), states.code);
       _timer?.cancel();
       sendAllFavoriteAds();
       emitEvent(PageEvent(PageEventType.setPassword));
@@ -94,7 +94,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> recoveryPhoneConfirmByCode() async {
     updateState((state) => state.copyWith(isConfirmLoading: true));
     try {
-      await _repository.recoveryConfirm(states.phone.clearPhoneNumberWithCode(), states.code);
+      await _repository.recoveryConfirm(states.phone.clearPhoneWithCode(), states.code);
       _timer?.cancel();
       await sendAllFavoriteAds();
       emitEvent(PageEvent(PageEventType.setPassword));

@@ -42,14 +42,14 @@ class PopularCategoriesPage extends BasePage<PageCubit, PageState, PageEvent> {
                       child: Center(
                         child: Column(
                           children: [
-                            Strings.loadingStateError
+                            Strings.commonEmptyMessage
                                 .w(400)
                                 .s(14)
                                 .c(context.colors.textPrimary),
                             SizedBox(height: 12),
                             CustomElevatedButton(
                               onPressed: () {},
-                              text: Strings.loadingStateRetry,
+                              text: Strings.commonRetry,
                             )
                           ],
                         ),
@@ -70,7 +70,7 @@ class PopularCategoriesPage extends BasePage<PageCubit, PageState, PageEvent> {
                   },
                   noItemsFoundIndicatorBuilder: (_) {
                     return Center(
-                        child: Strings.loadingStateEmpty.w(400));
+                        child: Strings.commonEmptyMessage.w(400));
                   },
                   newPageProgressIndicatorBuilder: (_) {
                     return SizedBox(

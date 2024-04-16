@@ -7,13 +7,13 @@ var phoneMaskFormatter = MaskTextInputFormatter(
   type: MaskAutoCompletionType.lazy,
 );
 
-var brithMaskFormatter = MaskTextInputFormatter(
+var birthDateMaskFormatter = MaskTextInputFormatter(
   mask: '____-__-__',
   filter: {"_": RegExp(r'[0-9]')},
   type: MaskAutoCompletionType.lazy,
 );
 
-var biometricNumberMaskFormatter = MaskTextInputFormatter(
+var docNumberMaskFormatter = MaskTextInputFormatter(
   mask: '___ __ __',
   filter: {"_": RegExp(r'[0-9]')},
   type: MaskAutoCompletionType.lazy,

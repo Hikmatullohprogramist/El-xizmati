@@ -33,7 +33,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     updateState((state) => state.copyWith(loading: true));
     try {
       var response =
-          await _repository.authStart(states.phone.clearPhoneNumberWithCode());
+          await _repository.authStart(states.phone.clearPhoneWithCode());
       if (response.data.is_registered == true) {
         emitEvent(
           PageEvent(PageEventType.onOpenLogin, phone: states.phone),

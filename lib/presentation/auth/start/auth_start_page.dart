@@ -49,7 +49,7 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
           ),
         );
       case PageEventType.onEdsLoginFailed:
-        context.showErrorBottomSheet(context, Strings.loadingStateError,
+        context.showErrorBottomSheet(context, Strings.commonEmptyMessage,
             Strings.authStartLoginWithEImzoError);
       case PageEventType.onOpenHome:
         context.router.replace(HomeRoute());

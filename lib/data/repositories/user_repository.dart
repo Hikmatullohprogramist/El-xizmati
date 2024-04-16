@@ -117,29 +117,36 @@ class UserRepository {
     return result.map((e) => e.toNeighborhood()).toList();
   }
 
-  Future<void> sendUserInformation({
+  Future<void> updateUserProfile({
     required String email,
     required String gender,
     required String homeName,
-    required int mahallaId,
+    required int neighborhoodId,
     required String mobilePhone,
     required String photo,
     required int pinfl,
+    required String docSerial,
+    required String docNumber,
+    required String birthDate,
     required String postName,
     required String phoneNumber,
   }) async {
     final userInfo = userInfoStorage.userInformation.call();
     await _userService.sendUserInformation(
-        email: email,
-        gender: gender,
-        homeName: homeName,
-        id: userInfo?.id ?? -1,
-        mahallaId: mahallaId,
-        mobilePhone: mobilePhone,
-        photo: photo,
-        pinfl: pinfl,
-        postName: postName,
-        phoneNumber: phoneNumber);
+      email: email,
+      gender: gender,
+      homeName: homeName,
+      id: userInfo?.id ?? -1,
+      neighborhoodId: neighborhoodId,
+      mobilePhone: mobilePhone,
+      photo: photo,
+      pinfl: pinfl,
+      docSerial: docSerial,
+      docNumber: docNumber,
+      birthDate: birthDate,
+      postName: postName,
+      phoneNumber: phoneNumber,
+    );
   }
 
   Future<void> validateUser({

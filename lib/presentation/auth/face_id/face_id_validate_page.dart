@@ -35,13 +35,13 @@ class FaceIdValidatePage extends BasePage<PageCubit, PageState, PageEvent> {
       case PageEventType.onBioDocNotFound:
         context.showErrorBottomSheet(
           context,
-          Strings.loadingStateError,
+          Strings.commonEmptyMessage,
           Strings.faceIdDocNotMatched,
         );
       case PageEventType.onPinflNotFound:
         context.showErrorBottomSheet(
           context,
-          Strings.loadingStateError,
+          Strings.commonEmptyMessage,
           Strings.faceIdPinflNotFound,
         );
     }
@@ -85,7 +85,7 @@ class FaceIdValidatePage extends BasePage<PageCubit, PageState, PageEvent> {
                 if(!cubit(context).getButtonEnableState()){
                   context.showErrorBottomSheet(
                       context,
-                      Strings.loadingStateError,
+                      Strings.commonEmptyMessage,
                       Strings.faceIdErrorInvalidFields);
                 }else{
                   cubit(context).validateEnteredData();

@@ -4,9 +4,9 @@ part of 'page_cubit.dart';
 class PageState with _$PageState {
   const factory PageState({
     @Default(false) bool isLoading,
-    @Default("") String biometricSerial,
-    @Default("") String biometricNumber,
-    @Default("") String brithDate,
+    @Default("") String docSerial,
+    @Default("") String docNumber,
+    @Default("") String birthDate,
     @Default("") String phoneNumber,
     @Default("") String fullName,
     @Default("") String userName,

@@ -1,10 +1,21 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
+import 'package:onlinebozor/common/colors/static_colors.dart';
+import 'package:onlinebozor/common/controller/controller_exts.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
-import 'package:onlinebozor/common/widgets/app_bar/action_app_bar.dart';
-import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
+import 'package:onlinebozor/common/vibrator/vibrator_extension.dart';
+import 'package:onlinebozor/common/widgets/app_bar/default_app_bar.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
+import 'package:onlinebozor/common/widgets/form_field/custom_dropdown_form_field.dart';
+import 'package:onlinebozor/common/widgets/form_field/label_text_field.dart';
+import 'package:onlinebozor/common/widgets/form_field/validator/default_validator.dart';
+import 'package:onlinebozor/common/widgets/form_field/validator/email_validator.dart';
 import 'package:onlinebozor/common/widgets/snackbar/snackbar_widget.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/profile_view/features/profile_edit/cubit/page_cubit.dart';
 
@@ -13,390 +24,480 @@ import '../../../../../../../utils/mask_formatters.dart';
 
 @RoutePage()
 class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
-  const ProfileEditPage({super.key});
+  ProfileEditPage({super.key});
+
+  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _docSerialController = TextEditingController();
+  final TextEditingController _docNumberController = TextEditingController();
+  final TextEditingController _birthDateController = TextEditingController();
+  final TextEditingController _homeNumberController = TextEditingController();
 
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
+    _fullNameController.updateOnRestore(state.fullName);
+    _usernameController.updateOnRestore(state.userName);
+    _emailController.updateOnRestore(state.email);
+    _phoneController.updateOnRestore(
+      phoneMaskFormatter.formatString(state.phoneNumber),
+    );
+    _docSerialController.updateOnRestore(state.docSerial);
+    _docNumberController.updateOnRestore(
+      docNumberMaskFormatter.formatString(state.docNumber),
+    );
+    _birthDateController.updateOnRestore(
+      birthDateMaskFormatter.formatString(state.birthDate),
+    );
+    _homeNumberController.updateOnRestore(state.homeNumber);
+
     String email = "";
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: ActionAppBar(
-        titleText: Strings.profileEditTitle,
-        onBackPressed: () => context.router.pop(),
-        actions: [
-          CustomTextButton(
-            text: Strings.commonSave,
-            onPressed: () {
-              if (email.isNotEmpty) cubit(context).setEmail(email);
-              cubit(context).sendUserInfo().then((value) {
-                if (value) {
-                  context.showCustomSnackBar(
-                      message: 'Saved!',
-                      backgroundColor: Colors.green.shade400);
-                  context.router.pop();
-                } else {
-                  context.showCustomSnackBar(
-                      message: "Do'nt save",
-                      backgroundColor: Colors.red.shade400);
-                }
-              });
-            },
-          )
-        ],
+      appBar: DefaultAppBar(
+        Strings.profileEditTitle,
+        () => context.router.pop(),
       ),
+      backgroundColor: StaticColors.backgroundColor,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 16, top: 20, right: 16, bottom: 12),
-              child: Strings.profileEditChangePersonalData
-                  .w(700)
-                  .s(16)
-                  .c(Color(0xFF41455E)),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: Strings.profileUserName.w(500).s(12).c(Color(0xFF41455E)),
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-              child: CustomTextFormField(
-                  controller: TextEditingController(
-                    text: state.fullName.capitalizePersonName(),
-                  ),
-                  hint: Strings.profileUserName,
-                  enabled: false,
-                  readOnly: true,
-                  textInputAction: TextInputAction.next),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: Strings.profileUserEmail.w(500).s(12).c(Color(0xFF41455E)),
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-              child: CustomTextFormField(
-                hint: "example@gmail.com",
-                controller: TextEditingController(text: state.email),
-                textInputAction: TextInputAction.next,
-                inputType: TextInputType.emailAddress,
-                onChanged: (value) {
-                  ///cubit(context).setEmail(value);
-                  email = value;
-                },
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: Strings.profileEditPhone.w(500).s(12).c(Color(0xFF41455E)),
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-              child: CustomTextFormField(
-                  hint: "+998",
-                  readOnly: true,
-                  enabled: false,
-                  controller: TextEditingController(text: state.phoneNumber),
-                  inputFormatters: phoneMaskFormatter,
-                  inputType: TextInputType.phone,
-                  textInputAction: TextInputAction.next),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: Strings.profileEditUserUsername
-                  .w(500)
-                  .s(12)
-                  .c(Color(0xFF41455E)),
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-              child: CustomTextFormField(
-                  hint: Strings.profileEditUserUsername,
-                  controller: TextEditingController(text: state.userName),
-                  textInputAction: TextInputAction.next,
-                  inputType: TextInputType.text),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: Strings.profileEditBrithDate
-                  .w(500)
-                  .s(12)
-                  .c(Color(0xFF41455E)),
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-              child: CustomTextFormField(
-                onChanged: (value) {
-                  cubit(context).setBrithDate(value);
-                },
-                readOnly: true,
-                enabled: false,
-                inputType: TextInputType.number,
-                textInputAction: TextInputAction.next,
-                inputFormatters: brithMaskFormatter,
-                maxLength: 12,
-                controller: TextEditingController(text: state.brithDate),
-                hint: "2004-11-28",
-              ),
-            ),
-            Padding(
-                padding:
-                    EdgeInsets.only(left: 16, top: 12, right: 16, bottom: 6),
-                child: Strings.profileEditBiometricInformation
-                    .w(500)
-                    .s(12)
-                    .c(Color(0xFF41455E))),
-            Padding(
-              padding: const EdgeInsets.only(
-                  right: 16, left: 16, bottom: 12, top: 6),
-              child: Row(children: [
-                SizedBox(
-                  width: 60,
-                  child: CustomTextFormField(
-                      readOnly: true,
-                      enabled: false,
-                      onChanged: (value) {
-                        cubit(context).setBiometricSerial(value);
-                      },
-                      inputType: TextInputType.text,
-                      maxLength: 2,
-                      controller:
-                          TextEditingController(text: state.biometricSerial),
-                      textInputAction: TextInputAction.next),
-                ),
-                SizedBox(width: 12),
-                Flexible(
-                  child: CustomTextFormField(
-                    maxLength: 9,
-                    readOnly: true,
-                    enabled: false,
-                    onChanged: (value) {
-                      cubit(context).setBiometricNumber(value);
-                    },
-                    controller:
-                        TextEditingController(text: state.biometricNumber),
-                    inputFormatters: biometricNumberMaskFormatter,
-                    textInputAction: TextInputAction.next,
-                    inputType: TextInputType.number,
-                    hint: Strings.profileEditBiometricSerial,
-                  ),
-                ),
-              ]),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child:
-                  Strings.profileEditRegion.w(500).s(12).c(Color(0xFF41455E)),
-            ),
-            Padding(
-                padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                child: InkWell(
-                  onTap: () {
-                    showModalBottomSheet(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        backgroundColor: Colors.white,
-                        context: context,
-                        builder: (BuildContext buildContext) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20.0),
-                                topRight: Radius.circular(20.0),
-                              ),
-                            ),
-                            height: double.infinity,
-                            child: ListView.builder(
-                                physics: BouncingScrollPhysics(),
-                                itemCount: state.regions.length,
-                                itemBuilder:
-                                    (BuildContext buildContext, int index) {
-                                  return InkWell(
-                                      onTap: () {
-                                        // context.read<PageCubit>().setRegion(state.regions[index]);
-                                        cubit(context)
-                                            .setRegion(state.regions[index]);
-                                        Navigator.pop(buildContext);
-                                      },
-                                      child: Padding(
-                                        padding: EdgeInsets.all(16),
-                                        child: state.regions[index].name.w(500),
-                                      ));
-                                }),
-                          );
-                        });
-                  },
-                  child: CustomTextFormField(
-                    hint: Strings.profileEditRegion,
-                    readOnly: true,
-                    enabled: false,
-                    controller: TextEditingController(text: state.regionName),
-                    inputType: TextInputType.text,
-                    textInputAction: TextInputAction.next,
-                  ),
-                )),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child:
-                  Strings.profileEditDistrict.w(500).s(12).c(Color(0xFF41455E)),
-            ),
-            Padding(
-                padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-                child: InkWell(
-                  onTap: () {
-                    showModalBottomSheet(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        backgroundColor: Colors.white,
-                        context: context,
-                        builder: (BuildContext buildContext) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20.0),
-                                topRight: Radius.circular(20.0),
-                              ),
-                            ),
-                            height: double.infinity,
-                            child: ListView.builder(
-                                physics: BouncingScrollPhysics(),
-                                itemCount: state.districts.length,
-                                itemBuilder:
-                                    (BuildContext buildContext, int index) {
-                                  return InkWell(
-                                      onTap: () {
-                                        cubit(context).setDistrict(
-                                            state.districts[index]);
-                                        Navigator.pop(buildContext);
-                                      },
-                                      child: Padding(
-                                        padding: EdgeInsets.all(16),
-                                        child:
-                                            state.districts[index].name.w(500),
-                                      ));
-                                }),
-                          );
-                        });
-                  },
-                  child: CustomTextFormField(
-                      hint: Strings.profileEditDistrict,
-                      readOnly: true,
-                      enabled: false,
-                      controller:
-                          TextEditingController(text: state.districtName),
-                      inputType: TextInputType.text,
-                      textInputAction: TextInputAction.next),
-                )),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: Strings.profileEditNeighborhood
-                  .w(500)
-                  .s(12)
-                  .c(Color(0xFF41455E)),
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
-              child: InkWell(
-                  onTap: () {
-                    showModalBottomSheet(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        backgroundColor: Colors.white,
-                        context: context,
-                        builder: (BuildContext buildContext) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20.0),
-                                topRight: Radius.circular(20.0),
-                              ),
-                            ),
-                            height: double.infinity,
-                            child: ListView.builder(
-                                physics: BouncingScrollPhysics(),
-                                itemCount: state.neighborhoods.length,
-                                itemBuilder:
-                                    (BuildContext buildContext, int index) {
-                                  return InkWell(
-                                      onTap: () {
-                                        cubit(context).setStreet(
-                                            state.neighborhoods[index]);
-                                        Navigator.pop(buildContext);
-                                      },
-                                      child: Padding(
-                                        padding: EdgeInsets.all(16),
-                                        child: state.neighborhoods[index].name
-                                            .w(500),
-                                      ));
-                                }),
-                          );
-                        });
-                  },
-                  child: CustomTextFormField(
-                    hint: Strings.profileEditNeighborhood,
-                    readOnly: true,
-                    controller:
-                        TextEditingController(text: state.neighborhoodName),
-                    enabled: false,
-                    textInputAction: TextInputAction.next,
-                    inputType: TextInputType.text,
-                  )),
-            ),
-            SizedBox(height: 24),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Flexible(
-                      flex: 1,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Strings.profileEditHouse
-                              .w(500)
-                              .s(12)
-                              .c(Color(0xFF41455E)),
-                          SizedBox(height: 12),
-                          CustomTextFormField(
-                            textInputAction: TextInputAction.next,
-                            inputType: TextInputType.number,
-                          ),
-                        ],
-                      )),
-                  SizedBox(width: 16),
-                  Flexible(
-                      flex: 1,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Strings.profileEditApartment
-                              .w(500)
-                              .s(12)
-                              .c(Color(0xFF41455E)),
-                          SizedBox(height: 12),
-                          CustomTextFormField(
-                            textInputAction: TextInputAction.done,
-                            inputType: TextInputType.number,
-                            onChanged: (value) {},
-                          ),
-                        ],
-                      ))
-                ],
-              ),
-            ),
+            SizedBox(height: 20),
+            _buildNameBlock(context, state),
+            SizedBox(height: 16),
+            _buildContactsBlock(context, state),
+            SizedBox(height: 16),
+            _buildDocInfoBlock(context, state),
+            SizedBox(height: 16),
+            _buildRegionBlock(context, state),
+            SizedBox(height: 16),
+            _buildFooterBlock(state, email, context),
+            SizedBox(height: 20),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildNameBlock(BuildContext context, PageState state) {
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.only(left: 16, top: 20, right: 16, bottom: 16),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Strings.profileEditChangePersonalData
+              .w(700)
+              .s(16)
+              .c(Color(0xFF41455E)),
+          SizedBox(height: 16),
+          LabelTextField(Strings.profileUserName),
+          SizedBox(height: 6),
+          CustomTextFormField(
+            hint: Strings.profileUserName,
+            enabled: false,
+            readOnly: true,
+            textInputAction: TextInputAction.next,
+            controller: _fullNameController,
+            validator: (value) => NotEmptyValidator.validate(value),
+          ),
+          SizedBox(height: 8),
+          LabelTextField(Strings.profileEditUserUsername),
+          SizedBox(height: 6),
+          CustomTextFormField(
+            hint: Strings.profileEditUserUsername,
+            enabled: false,
+            readOnly: true,
+            textInputAction: TextInputAction.next,
+            inputType: TextInputType.text,
+            controller: _usernameController,
+            validator: (value) => NotEmptyValidator.validate(value),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildContactsBlock(BuildContext context, PageState state) {
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.only(left: 16, top: 20, right: 16, bottom: 16),
+      child: Column(
+        children: [
+          LabelTextField(Strings.commonEmail, isRequired: false),
+          SizedBox(height: 6),
+          CustomTextFormField(
+            hint: "example@gmail.com",
+            textInputAction: TextInputAction.next,
+            inputType: TextInputType.emailAddress,
+            controller: _emailController,
+            validator: (value) => EmailValidator.validate(value),
+            onChanged: (value) => cubit(context).setEmail(value),
+          ),
+          SizedBox(height: 8),
+          LabelTextField(Strings.commonPhoneNumber),
+          SizedBox(height: 6),
+          CustomTextFormField(
+            readOnly: true,
+            enabled: false,
+            inputType: TextInputType.phone,
+            textInputAction: TextInputAction.next,
+            hint: Strings.commonPhoneNumber,
+            prefixText: "+998",
+            inputFormatters: phoneMaskFormatter,
+            controller: _phoneController,
+            validator: (value) => NotEmptyValidator.validate(value),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDocInfoBlock(BuildContext context, PageState state) {
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.only(left: 16, top: 20, right: 16, bottom: 16),
+      child: Column(
+        children: [
+          LabelTextField(Strings.profileEditBrithDate),
+          SizedBox(height: 6),
+          Stack(
+            alignment: Alignment.centerRight,
+            children: [
+              CustomTextFormField(
+                readOnly: true,
+                enabled: false,
+                hint: "2004-11-28",
+                maxLength: 12,
+                inputType: TextInputType.number,
+                textInputAction: TextInputAction.next,
+                inputFormatters: birthDateMaskFormatter,
+                controller: _birthDateController,
+                validator: (value) => NotEmptyValidator.validate(value),
+                onChanged: (value) {
+                  cubit(context).setBrithDate(value);
+                },
+              ),
+              Container(
+                width: 42,
+                height: 42,
+                margin: EdgeInsets.only(right: 6, bottom: 6),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(6),
+                    onTap: () {
+                      showDatePickerDialog(context);
+                      vibrateAsHapticFeedback();
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(6),
+                      child: Assets.images.icCalendar.svg(
+                        width: 20,
+                        height: 20,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 8),
+          LabelTextField(Strings.profileEditBiometricInformation),
+          SizedBox(height: 6),
+          Row(
+            children: [
+              SizedBox(
+                width: 60,
+                child: CustomTextFormField(
+                  readOnly: true,
+                  enabled: false,
+                  inputType: TextInputType.text,
+                  maxLength: 2,
+                  textInputAction: TextInputAction.next,
+                  controller: _docSerialController,
+                  textCapitalization: TextCapitalization.characters,
+                  validator: (value) => NotEmptyValidator.validate(value),
+                  onChanged: (value) => cubit(context).setDocSerial(value),
+                ),
+              ),
+              SizedBox(width: 12),
+              Flexible(
+                child: CustomTextFormField(
+                  maxLength: 9,
+                  readOnly: true,
+                  enabled: false,
+                  hint: Strings.profileEditBiometricSerial,
+                  controller: _docNumberController,
+                  inputFormatters: docNumberMaskFormatter,
+                  textInputAction: TextInputAction.done,
+                  inputType: TextInputType.number,
+                  validator: (value) => NotEmptyValidator.validate(value),
+                  onChanged: (value) => cubit(context).setDocNumber(value),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRegionBlock(BuildContext context, PageState state) {
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.only(left: 16, top: 20, right: 16, bottom: 16),
+      child: Column(
+        children: [
+          LabelTextField(Strings.commonRegion),
+          SizedBox(height: 6),
+          CustomDropdownFormField(
+            value: state.regionName,
+            hint: Strings.commonRegion,
+            validator: (value) => NotEmptyValidator.validate(value),
+            onTap: () => _showRegionBottomSheet(context, state),
+          ),
+          SizedBox(height: 8),
+          LabelTextField(Strings.commonDistrict),
+          SizedBox(height: 6),
+          CustomDropdownFormField(
+            value: state.districtName,
+            hint: Strings.commonDistrict,
+            validator: (value) => NotEmptyValidator.validate(value),
+            onTap: () => _showDistrictBottomSheet(context, state),
+          ),
+          SizedBox(height: 8),
+          LabelTextField(Strings.commonNeighborhood),
+          SizedBox(height: 6),
+          CustomDropdownFormField(
+            value: state.neighborhoodName,
+            hint: Strings.commonNeighborhood,
+            validator: (value) => NotEmptyValidator.validate(value),
+            onTap: () => _showNeighborhoodBottomSheet(context, state),
+          ),
+          SizedBox(height: 8),
+          LabelTextField(Strings.commonHouse),
+          SizedBox(height: 6),
+          CustomTextFormField(
+            hint: Strings.commonHouse,
+            textInputAction: TextInputAction.done,
+            inputType: TextInputType.number,
+            controller: _homeNumberController,
+            validator: (value) => NotEmptyValidator.validate(value),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFooterBlock(
+      PageState state, String email, BuildContext context) {
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.all(16),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              SizedBox(width: 16),
+              Assets.images.icRequiredField.svg(),
+              SizedBox(width: 8),
+              Expanded(
+                child: Strings.createAdRequiredFieldsLabel
+                    .w(300)
+                    .s(13)
+                    .c(context.colors.textSecondary),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          CustomElevatedButton(
+            text: Strings.commonSave,
+            isLoading: state.isLoading,
+            onPressed: () {
+              vibrateAsHapticFeedback();
+              // if (_formKey.currentState!.validate()) {
+              //   cubit(context).createOrUpdateProductAd();
+              // }
+              if (email.isNotEmpty) cubit(context).setEmail(email);
+              cubit(context).updateUserProfile().then(
+                (value) {
+                  if (value) {
+                    context.showCustomSnackBar(
+                        message: 'Saved!',
+                        backgroundColor: Colors.green.shade400);
+                    context.router.pop();
+                  } else {
+                    context.showCustomSnackBar(
+                        message: "Do'nt save",
+                        backgroundColor: Colors.red.shade400);
+                  }
+                },
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  void showDatePickerDialog(BuildContext context) {
+    var parentContext = context;
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Container(
+              color: Colors.white,
+              height: 350.0,
+              child: CupertinoDatePicker(
+                mode: CupertinoDatePickerMode.date,
+                initialDateTime: DateTime(2000),
+                minimumYear: 1930,
+                maximumYear: 2024,
+                onDateTimeChanged: (DateTime newDateTime) {
+                  final formattedDate =
+                      DateFormat("yyyy-MM-dd").format(newDateTime);
+                  // cubit(parentContext).setBirthDate(formattedDate);
+                  cubit(parentContext).setBrithDate(formattedDate);
+                  _birthDateController.text = formattedDate;
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: CustomElevatedButton(
+                text: Strings.commonSave,
+                onPressed: () {
+                  //  cubit(parent).enableButton(passportSeries.text, passportNumber.text, birthDate);
+                  Navigator.of(context).pop();
+                },
+                backgroundColor: context.colors.buttonPrimary,
+                isEnabled: true,
+                isLoading: false,
+              ),
+            ),
+            SizedBox(height: 12),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showRegionBottomSheet(BuildContext context, PageState state) {
+    showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      backgroundColor: Colors.white,
+      context: context,
+      builder: (BuildContext buildContext) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.0),
+              topRight: Radius.circular(20.0),
+            ),
+          ),
+          height: double.infinity,
+          child: ListView.builder(
+            physics: BouncingScrollPhysics(),
+            itemCount: state.regions.length,
+            itemBuilder: (BuildContext buildContext, int index) {
+              return InkWell(
+                onTap: () {
+                  // context.read<PageCubit>().setRegion(state.regions[index]);
+                  cubit(context).setRegion(state.regions[index]);
+                  Navigator.pop(buildContext);
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: state.regions[index].name.w(500),
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  void _showDistrictBottomSheet(BuildContext context, PageState state) {
+    showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      backgroundColor: Colors.white,
+      context: context,
+      builder: (BuildContext buildContext) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.0),
+              topRight: Radius.circular(20.0),
+            ),
+          ),
+          height: double.infinity,
+          child: ListView.builder(
+            physics: BouncingScrollPhysics(),
+            itemCount: state.districts.length,
+            itemBuilder: (BuildContext buildContext, int index) {
+              return InkWell(
+                onTap: () {
+                  cubit(context).setDistrict(state.districts[index]);
+                  Navigator.pop(buildContext);
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: state.districts[index].name.w(500),
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  void _showNeighborhoodBottomSheet(BuildContext context, PageState state) {
+    showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      backgroundColor: Colors.white,
+      context: context,
+      builder: (BuildContext buildContext) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.0),
+              topRight: Radius.circular(20.0),
+            ),
+          ),
+          height: double.infinity,
+          child: ListView.builder(
+              physics: BouncingScrollPhysics(),
+              itemCount: state.neighborhoods.length,
+              itemBuilder: (BuildContext buildContext, int index) {
+                return InkWell(
+                    onTap: () {
+                      cubit(context).setStreet(state.neighborhoods[index]);
+                      Navigator.pop(buildContext);
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.all(16),
+                      child: state.neighborhoods[index].name.w(500),
+                    ));
+              }),
+        );
+      },
     );
   }
 }

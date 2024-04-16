@@ -11,7 +11,6 @@ import '../../../../../../../../../data/repositories/user_repository.dart';
 import '../../../../../../../../../domain/models/street/street.dart';
 
 part 'page_cubit.freezed.dart';
-
 part 'page_state.dart';
 
 @Injectable()
@@ -36,7 +35,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     updateState((state) => state.copyWith(isLoading: true));
     try {
       var response = await repository.getIdentityDocument(
-        phoneNumber: states.phoneNumber.clearPhoneNumberWithCode(),
+        phoneNumber: states.phoneNumber.clearPhoneWithCode(),
         docSerial: states.docSerial.trim(),
         docNumber: states.docNumber.trim(),
         brithDate: states.brithDate.trim(),
@@ -56,7 +55,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         birthDate: states.brithDate,
         districtId: states.districtId ?? 0,
         email: states.email,
-        fullName: states.fullName.capitalizePersonName(),
+        fullName: states.fullName,
         gender: states.gender ?? "",
         homeName: states.apartmentNumber,
         id: states.id ?? 0,
@@ -113,31 +112,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
       getNeighborhoods();
     }
-  }
-
-  ///
-
-  void setBiometricSerial(String serial) {
-    updateState((state) => states.copyWith(docSerial: serial));
-  }
-
-  void setBiometricNumber(String number) {
-    updateState(
-        (state) => states.copyWith(docNumber: number.replaceAll(" ", "")));
-  }
-
-  void setBrithDate(String brithDate) {
-    updateState((state) => states.copyWith(brithDate: brithDate));
-  }
-
-  void setPhoneNumber(String phone) {
-    updateState((state) => states.copyWith(
-        mobileNumber: phone,
-        phoneNumber: phone.replaceAll(" ", "").replaceAll("+", "")));
-  }
-
-  void setFullName(String fullName) {
-    updateState((state) => states.copyWith(fullName: fullName));
   }
 
   Future<void> validationAndRequest() async {
@@ -223,26 +197,54 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             regionId: response.userInfo.region_id,
           ));
     } catch (e) {
-      display.error(Strings.loadingStateError);
+      display.error(Strings.commonEmptyMessage);
     }
   }
 
-  Future<void> sendUserInfo() async {
+  Future<void> updateUserProfile() async {
     try {
-      await repository.sendUserInformation(
-          email: states.email,
-          gender: states.gender ?? "",
-          homeName: states.neighborhoodName,
-          mahallaId: states.neighborhoodId ?? -1,
-          mobilePhone: states.mobileNumber ?? "",
-          photo: "",
-          pinfl: states.pinfl ?? -1,
-          postName: states.postName ?? "",
-          phoneNumber: states.phoneNumber);
+      await repository.updateUserProfile(
+        email: states.email,
+        gender: states.gender ?? "",
+        homeName: states.neighborhoodName,
+        neighborhoodId: states.neighborhoodId ?? -1,
+        mobilePhone: states.mobileNumber?.clearPhoneWithCode() ?? "",
+        photo: "",
+        pinfl: states.pinfl ?? -1,
+        birthDate: states.brithDate,
+        docSerial: states.docSerial.toUpperCase(),
+        docNumber: states.docNumber,
+        postName: states.postName ?? "",
+        phoneNumber: states.phoneNumber,
+      );
       display.success("Muvaffaqiyatli saqlandi");
     } catch (e) {
-      display.error(Strings.loadingStateError);
+      display.error(Strings.commonEmptyMessage);
     }
+  }
+
+  void setBiometricSerial(String serial) {
+    updateState((state) => states.copyWith(docSerial: serial));
+  }
+
+  void setBiometricNumber(String number) {
+    updateState((state) => states.copyWith(
+          docNumber: number.replaceAll(" ", ""),
+        ));
+  }
+
+  void setBrithDate(String brithDate) {
+    updateState((state) => states.copyWith(brithDate: brithDate));
+  }
+
+  void setPhoneNumber(String phone) {
+    updateState((state) => states.copyWith(
+        mobileNumber: phone,
+        phoneNumber: phone.replaceAll(" ", "").replaceAll("+", "")));
+  }
+
+  void setFullName(String fullName) {
+    updateState((state) => states.copyWith(fullName: fullName));
   }
 
   void setRegion(Region region) {

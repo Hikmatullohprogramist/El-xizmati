@@ -29,7 +29,7 @@ class UserFullInfoResponse with _$UserFullInfoResponse {
     dynamic photo,
     String? username,
     dynamic district_id,
-    dynamic full_name,
+    String? full_name,
     dynamic region_id,
     dynamic post_name,
     dynamic email,

@@ -46,7 +46,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
       case PageEventType.onSuccess:
         context.router.replace(HomeRoute());
       case PageEventType.onFailure:
-        context.showErrorBottomSheet(context, Strings.loadingStateError,
+        context.showErrorBottomSheet(context, Strings.commonEmptyMessage,
             Strings.faceIdIdentityNotVerified);
     }
   }
@@ -354,7 +354,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
                     children: [
                       Expanded(
                         child: CustomOutlinedButton(
-                          text: Strings.loadingStateRetry,
+                          text: Strings.commonRetry,
                           strokeColor: Colors.red,
                           onPressed: () {
                             cubit(context).showPicture(false);

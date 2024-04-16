@@ -128,7 +128,7 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
       emitEvent(PageEvent(PageEventType.backOnSuccess));
     } catch (e) {
       updateState((state) => state.copyWith(isLoading: false));
-      display.error(Strings.loadingStateError);
+      display.error(Strings.commonEmptyMessage);
     }
   }
 
@@ -153,7 +153,7 @@ class AddAddressCubit extends BaseCubit<PageState, PageEvent> {
       emitEvent(PageEvent(PageEventType.backOnSuccess));
     } catch (e) {
       updateState((state) => state.copyWith(isLoading: false));
-      display.error(Strings.loadingStateError);
+      display.error(Strings.commonEmptyMessage);
     }
   }
 

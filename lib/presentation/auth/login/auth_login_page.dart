@@ -23,8 +23,8 @@ class AuthLoginPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   @override
   void onWidgetCreated(BuildContext context) {
-    cubit(context).setPhone(phone.clearPhoneNumberWithCode());
-    textEditingController.text = phone.clearPhoneNumberWithCode();
+    cubit(context).setPhone(phone.clearPhoneWithCode());
+    textEditingController.text = phone.clearPhoneWithCode();
   }
 
   @override
