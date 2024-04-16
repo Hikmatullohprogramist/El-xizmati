@@ -79,13 +79,13 @@ class AdListPage extends BasePage<PageCubit, PageState, PageEvent> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Strings.loadingStateError
+                    Strings.commonEmptyMessage
                         .w(400)
                         .s(14)
                         .c(context.colors.textPrimary),
                     SizedBox(height: 12),
                     CustomElevatedButton(
-                      text: Strings.loadingStateRetry,
+                      text: Strings.commonRetry,
                       onPressed: () {},
                     )
                   ],
@@ -114,7 +114,7 @@ class AdListPage extends BasePage<PageCubit, PageState, PageEvent> {
             return SizedBox(
               height: 200,
               width: double.infinity,
-              child: Center(child: Text(Strings.loadingStateEmpty)),
+              child: Center(child: Text(Strings.commonEmptyMessage)),
             );
           },
           newPageProgressIndicatorBuilder: (_) {

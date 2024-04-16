@@ -8,7 +8,7 @@ extension TextStringExtensions on String {
 
   Text c(Color color) => Text(this).c(color);
 
-  String clearPhoneNumberWithCode() {
+  String clearPhoneWithCode() {
     var clearedPhone = replaceAll(RegExp(r"[^\d+\.]"), '');
     if (clearedPhone.length == 9) {
       clearedPhone = "998$clearedPhone";
@@ -17,7 +17,7 @@ extension TextStringExtensions on String {
   }
 
   String getFormattedPhoneNumber() {
-    var clearedPhone = clearPhoneNumberWithCode();
+    var clearedPhone = clearPhoneWithCode();
 
     String formattedNumber =
         '+${clearedPhone.substring(0, 3)} ${clearedPhone.substring(3, 5)} ${clearedPhone.substring(5, 8)} ${clearedPhone.substring(8, 10)} ${clearedPhone.substring(10)}';
@@ -27,7 +27,7 @@ extension TextStringExtensions on String {
     return formattedNumber;
   }
 
-  String clearPhoneNumberWithoutCode() {
+  String clearPhoneWithoutCode() {
     String countryCode = "998";
     if (length > 9 && contains(countryCode)) {
       return substring(countryCode.length);
@@ -50,13 +50,11 @@ extension TextStringExtensions on String {
   }
 
   String capitalizePersonName() {
-    return trim().isEmpty
-        ? ""
-        : trim()
-            .toLowerCase()
-            .split(RegExp(r'\s+'))
-            .map((word) => word[0].toUpperCase() + word.substring(1))
-            .join(' ');
+    return trim()
+        .toLowerCase()
+        .split(RegExp(r'\s+'))
+        .map((word) => word[0].toUpperCase() + word.substring(1))
+        .join(' ');
   }
 
   String capitalizeCompanyName() {

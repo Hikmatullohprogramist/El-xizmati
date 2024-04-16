@@ -22,14 +22,14 @@ class DefaultErrorWidget extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Strings.loadingStateError
+                Strings.commonEmptyMessage
                     .w(400)
                     .s(14)
                     .c(context.colors.textPrimary),
                 SizedBox(height: 12),
                 if (onRetryClicked != null)
                   CustomElevatedButton(
-                    text: Strings.loadingStateRetry,
+                    text: Strings.commonRetry,
                     buttonWidth: 180,
                     onPressed: () {
                       if (onRetryClicked != null) onRetryClicked!();
@@ -43,13 +43,13 @@ class DefaultErrorWidget extends StatelessWidget {
               height: 160,
               child: Column(
                 children: [
-                  Strings.loadingStateError
+                  Strings.commonEmptyMessage
                       .w(400)
                       .s(14)
                       .c(context.colors.textPrimary),
                   SizedBox(height: 12),
                   CustomElevatedButton(
-                    text: Strings.loadingStateRetry,
+                    text: Strings.commonRetry,
                     onPressed: () {
                       if (onRetryClicked != null) onRetryClicked!();
                     },

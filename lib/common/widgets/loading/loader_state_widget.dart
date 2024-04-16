@@ -49,7 +49,7 @@ class LoaderStateWidget extends StatelessWidget {
   Widget _buildDefaultEmptyBody() {
     return DefaultEmptyWidget(
       isFullScreen: isFullScreen,
-      onReloadClicked: onReloadClicked,
+      onMainActionClicked: onReloadClicked,
     );
   }
 

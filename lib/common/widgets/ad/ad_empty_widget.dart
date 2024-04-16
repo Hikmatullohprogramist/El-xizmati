@@ -22,19 +22,11 @@ class AdEmptyWidget extends StatelessWidget {
             SizedBox(height: 100),
             Assets.images.pngImages.adEmpty.image(),
             SizedBox(height: 48),
-            Strings.adEmptyTitle.w(500).s(16).c(Color(0xFF41455E)).copyWith(
+            Strings.adEmptyMessageAll.w(500).s(16).c(Color(0xFF41455E)).copyWith(
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.start),
             SizedBox(height: 12),
-            Strings.adEmptyDescription
-                .w(400)
-                .s(12)
-                .c(Color(0xFF41455E))
-                .copyWith(
-                  maxLines: 2,
-                  textAlign: TextAlign.center,
-                ),
             SizedBox(height: 42),
             SizedBox(
               width: double.maxFinite,
