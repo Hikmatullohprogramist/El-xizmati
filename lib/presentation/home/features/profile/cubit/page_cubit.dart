@@ -44,7 +44,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       updateState((state) => state.copyWith(isLogin: false));
       emitEvent(PageEvent(PageEventType.onLogOut));
     } catch (e) {
-      display.error(Strings.loadingStateError);
+      display.error(Strings.commonEmptyMessage);
     }
   }
 

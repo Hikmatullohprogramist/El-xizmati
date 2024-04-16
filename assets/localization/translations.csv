@@ -39,8 +39,11 @@ ad_detail_show_phone,Qo‘ng‘iroq,Позвонить,Қўнғироқ
 ad_detail_towritemessge,Sms,Sms,Sms
 ad_detail_view_count_title,Ko‘rishlar:,Просмотров:,Кўришлар:
 ad_edit_title,E’lon tahrirlash,Редактировать объявление,Эълон таҳрирлаш
-ad_empty_description,Bu e‘lonlar hamma uchun ko‘rinadi. Ularning amal qilish muddati faollashtirilgan kundan boshlab 30 kun.,Эти объявления видны всем. Срок их действия - 30 дней с момента активации.,Бу эълонлар ҳамма учун кўринади. Уларнинг амал қилиш муддати фаоллаштирилган кундан бошлаб 30 кун.
-ad_empty_title,Sizda hali hech qanday faol e‘lon yo‘q!,У вас пока нету активных объявлений!,Сизда ҳали ҳеч қандай фаол эълон йўқ!
+ad_empty_message_active,Sizda hozircha faol e‘lon yo‘q!,У Вас пока нет активных объявлений!,Сизда ҳозирча фаол эълон йўқ!
+ad_empty_message_all,Siz hali birorta ham e’lon qo‘shmadingiz!,Вы еще не добавили объявлений!,Сиз ҳали бирорта ҳам эълон қўшмадингиз!
+ad_empty_message_cancelled,Sizda hozircha bekor qilingan e‘lon yo‘q!,У Вас нет отмененных объявлений!,Сизда ҳозирча бекор қилинган эълон йўқ!
+ad_empty_message_inactive,Sizda hozircha nofaol e‘lon yo‘q!,У Вас пока нет неактивных объявлений!,Сизда ҳозирча нофаол эълон йўқ!
+ad_empty_message_wait,Sizda hozircha ko‘rib chiqilayotgan e’lon yo‘q!,У Вас нет ожидающих объявлений!,Сизда ҳозирча кўриб чиқилаётган эълон йўқ!
 ad_list_low_prices_label,Arzon narxlar,Низкие цены ,Арзон нархлар
 ad_list_popular_label,Ommaboplar,Популярные,Оммабоплар
 ad_property_biznes,Biznes,Бизнес,Бизнес
@@ -123,15 +126,22 @@ common_delete,O‘chirish,Удалить,Ўчириш
 common_details,Batafsil,Подробно,Батафсил
 common_district,Tuman,Район,Туман
 common_edit,Tahrirlash,Редактировать,Таҳрирлаш
+common_email,Elektron pochta,Эл. почта,Электрон почта
+common_empty_message,Hech qanday element topilmadi,No items found,Ҳеч қандай элемент топилмади
 common_entrance,Kirish,Подъезд,Кириш
 common_error_email_not_valid,To‘g‘ri e-pochta manzilini kiriting,Введите действительный адрес эл. почты,Тўғри э-почта манзилини киритинг
 common_error_field_is_required,Maydon to‘ldirilishi majburiy,Это поле обязательно,Майдон тўлдирилиши мажбурий
+common_error_message,Xatolik yuz berdi,Произошла ошибка,Хатолик юз берди
 common_error_phone_not_valid,To‘g‘ri telefon raqamini kiriting,Введите действительный номер телефона,Тўғри телефон рақамини киритинг
 common_error_price_not_valid,To‘g‘ri narx kiriting,Введите действительную цену,Тўғри нарх киритинг
 common_filter,Filtr,Фильтр,Фильтр
 common_filter_reset,Tozalash,Сброс,Тозалаш
 common_floor,Qavat,Этаж,Қават
+common_gender,Jins,Пол,Жинс
+common_gender_female,Ayol,Жен.,Аёл
+common_gender_male,Erkak,Муж.,Эркак
 common_home_number,Uy raqami,Номер дома,Уй рақами
+common_house,Uy,Дом,Уй
 common_main,Asosiy,Основной,Асосий
 common_main_photo,Asosiy rasm,Главное фото,Асосий расм
 common_make_main_photo,Asosiy qilish,Сделать главным,Асосий қилиш
@@ -146,7 +156,10 @@ common_price,Narxi,Цена,Нархи
 common_price_from,{price}dan,От {price},{price}дан
 common_price_to,{price}gacha,До {price},{price}гача
 common_quantity,Soni,Количество,Сони
+common_refresh,Yangilash,Обновить,Янгилаш
 common_region,Viloyat,Регион,Вилоят
+common_reload,Qayta yuklash,Перезагрузить,Қайта юклаш
+common_retry,Qayta urinish,Повторить попытку,Қайта уриниш
 common_save,Saqlash,Сохранить,Сақлаш
 common_save_changes,O‘zgarishlarni saqlash,Сохранить изменения,Ўзгаришларни сақлаш
 common_show_less,Kamroq ko‘rsatish,Показать меньше,Камроқ кўрсатиш
@@ -163,7 +176,6 @@ create_ad_auto_renew_off_desc,E’lon 15 kundan keyin faolsizlantiriladi,Объ�
 create_ad_auto_renew_on_desc,E’lon har 15 kunda avtomatik uzaytiriladi,Автоматически продлевать объявление каждые 15 дней,Эълон ҳар 15 кунда автоматик узайтирилади
 create_ad_business_label,Biznes,Бизнес,Бизнес
 create_ad_category_label,Turkum,Категория,Туркум
-create_ad_contact_email_label,Elektron pochta,Эл. почта,Электрон почта
 create_ad_contact_info_label,Aloqa ma’lumotlari,Контактная информация,Алоқа маълумотлари
 create_ad_contact_person_label,Aloqa uchun shaxs,Контактное лицо,Алоқа учун шахс
 create_ad_contact_phone_label,Telefon raqami,Номер телефона,Телефон рақами
@@ -237,9 +249,6 @@ language_uz_cyr,Ўзбекча,Ўзбекча,Ўзбекча
 language_uz_lat,O’zbekcha,O’zbekcha,O’zbekcha
 language_welcome,Xush kelibsiz,Добро пожаловать,Xуш келибсиз
 link_title,link,связь,линк
-loading_state_empty,Hech qanday element topilmadi,No items found,Ҳеч қандай элемент топилмади
-loading_state_error,Xatolik yuz berdi,Произошла ошибка,Хатолик юз берди
-loading_state_retry,Qayta urinish,Повторить попытку,Қайта уриниш
 message_changes_saving_failed,O‘zgarishlarni saqlashda xatolik yuz berdi,Произошла ошибка при сохранении изменений,Ўзгаришларни сақлашда хатолик юз берди
 message_changes_saving_success,O‘zgarishlar muvaffaqiyatli saqlandi,Изменения успешно сохранены,Ўзгаришлар муваффақиятли сақланди
 my_card_title,Mening kartalarim,Мои карты,Менинг карталарим
@@ -253,8 +262,8 @@ notification_receive_telegram,Telegram boti,Телеграм бот,Телегр
 notification_title,Bildirishnoma,Уведомление,Билдиришнома
 order_create_address,Manzil,Адрес,Манзил
 order_create_cash_description,To‘lov o‘zbek so‘mida tovarni olgandan keyin qabul qilinadi,Оплата принимается в узбекских сумах при получении товара,Тўлов ўзбек сўмида товарни олгандан кейин қабул қилинади
-order_create_cash_payment,Naqt pul,Наличними,Нақт пул
-order_create_category,Kategorya,Категория,Категоря
+order_create_cash_payment,Naqd pul,Наличними,Нақд пул
+order_create_category,Turkum,Категория,Туркум
 order_create_online_description,RealPay orqali onlayn to‘lov,Онлайн оплата через RealPay,RealPay орқали онлайн тўлов
 order_create_online_payment,Onlayn to‘lov,Онлайн оплата,Онлайн тўлов
 order_create_payment_method,To‘lov usuli,Способ оплаты,Тўлов усули
@@ -290,17 +299,11 @@ profile_edit_biometric_information,Biometric ma‘lumotlar,Паспортные 
 profile_edit_biometric_serial,Biometric raqami,Номер паспорта,Биометриc рақами
 profile_edit_brith_date,Tug‘ilgan yil (2004-11-28),Дата рождения (2004-11-28),Туғилган йил (2004-11-28)
 profile_edit_change_personal_data,Shaxsiy ma‘lumotlarni o‘zgartiring,Изменить личные данные,Шахсий маълумотларни ўзгартиринг
-profile_edit_district,Tuman,Район,Туман
 profile_edit_full_biometric,"Pasport raqami va seriyasini, tug‘ilgan sanasini ko‘rsating","Укажите номер и серия паспорта, дата рождения","Паспорт рақами ва сериясини, туғилган санасини кўрсатинг"
-profile_edit_house,Uy,Дом,Уй
-profile_edit_neighborhood,Mahalla,Махалля,Маҳалла
-profile_edit_phone,Telefon raqami (+998 __ ___ __ __),Номер телефона (+998 __ ___ __ __),Телефон рақами (+998 __ ___ __ __)
-profile_edit_region,Viloyat,Регион,Вилоят
 profile_edit_title,Tahrirlash,Изменить,Таҳрирлаш
 profile_edit_unfull_information,Ma‘lumotlarni to‘liq kiriting,Введите данные полностью,Маълумотларни тўлиқ киритинг
-profile_edit_user_email,elektron pochta,электронная почта,электрон почта
 profile_edit_user_name,Ism,Имя,Исм
-profile_edit_user_username,foydalanuvchi nomi,имя пользователя,фойдаланувчи номи
+profile_edit_user_username,Foydalanuvchi nomi,Имя пользователя,Фойдаланувчи номи
 profile_fill_wallet,Hamyonni to‘ldiring,Наполните кошелек,Ҳамённи тўлдиринг
 profile_identified,Shaxsingiz tasdiqlangan,Идентифицирован,Шахсингиз тасдиқланган
 profile_identify,Shaxsni tasdiqlash,Идентифицировать,Шахсни тасдиқлаш
@@ -323,15 +326,8 @@ profile_settings,Sozlamalar,Настройки,Созламалар
 profile_title,Profil,Профиль,Профил
 profile_user_date_of_birth,Tug‘ilgan kuni,Дата рождения,Туғилган куни
 profile_user_date_of_doc_validity,Pasport ma‘lumoti,Паспортные данные,Паспорт маълумоти
-profile_user_district,Tuman,Район,Туман
-profile_user_email,Email,email,Эмаил
-profile_user_gender,Jins,Пол,Жинс
-profile_user_gender_boy,Erkak,Муж.,Эркак
-profile_user_gender_women,Ayol,Жен.,Аёл
 profile_user_name,Foydalanuvchi nomi,Имя пользователя,Фойдаланувчи номи
 profile_user_neighborhood,Turar joy,Махалля,Турар жой
-profile_user_phone,Telefon,Телефон,Телефон
-profile_user_region,Viloyat,Регион,Вилоят
 profile_view_titlle,Profil,Профиль,Профил
 recently_viewed_title,Yaqinda ko‘rilgan,Недавно посмотренные,Яқинда кўрилган
 request_title,So‘rovlar,Запросы,Сўровлар
@@ -365,15 +361,15 @@ user_ads_cancelled,Bekor qilingan,Отменено,Бекор қилинган
 user_ads_inactive,Nofaol,Неактивный,Нофаол
 user_ads_rejected,Rad etilgan,Отклоненный,Рад этилган
 user_ads_title,E‘lonlar,Объявления,Эълонлар
-user_ads_wait,Kutulmoqda,В ожидании,Кутулмоқда
+user_ads_wait,Kutilmoqda,В ожидании,Кутилмоқда
 user_order_accepted,Qabul qilingan,Принято,Қабул қилинган
 user_order_active,Faol,Активный,Фаол
 user_order_all,Barchasi,Все,Барчаси
 user_order_cancelled,Bekor qilingan,Отменено,Бекор қилинган
+user_order_in_progress,Ko‘rib chiqilmoqda,На рассмотрении,Кўриб чиқилмоқда
 user_order_inactive,Nofaol,Неактивный,Нофаол
 user_order_rejected,Rad etilgan,Отклоненный,Рад этилган
-user_order_in_progress,Ko‘rib chiqilmoqda,На рассмотрении,Кўриб чиқилмоқда
-user_order_wait,Kutulmoqda,В ожидании,Кутулмоқда
+user_order_wait,Kutilmoqda,В ожидании,Кутилмоқда
 verify_identity_error_data_already_linked,Ushbu shaxsiy ma’lumotlar boshqa telefon raqamiga bog‘langan!,"Это персональные данные, привязанные к другому номеру телефона!",Ушбу шахсий маълумотлар бошқа телефон рақамига боғланган!
 verify_identity_error_user_not_found,Bu ma’lumotlar bilan foydalanuvchi topilmadi,Пользователь не найден по этим данным,Бу маълумотлар билан фойдаланувчи топилмади
 verify_identity_personal_data,Shaxsiy ma’lumotlarni o‘zgartirish,Изменить личные данные,Шахсий маълумотларни ўзгартириш

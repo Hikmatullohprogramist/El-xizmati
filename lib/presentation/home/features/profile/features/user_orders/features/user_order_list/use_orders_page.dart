@@ -4,9 +4,10 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
-import 'package:onlinebozor/common/widgets/order/user_order_empty_widget.dart';
+import 'package:onlinebozor/common/widgets/loading/default_empty_widget.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_orders/features/user_order_list/cubit/page_cubit.dart';
 
 import '../../../../../../../../common/colors/static_colors.dart';
@@ -63,13 +64,13 @@ class UserOrdersPage extends BasePage<PageCubit, PageState, PageEvent> {
               child: Center(
                 child: Column(
                   children: [
-                    Strings.loadingStateError
+                    Strings.commonEmptyMessage
                         .w(400)
                         .s(14)
                         .c(context.colors.textPrimary),
                     SizedBox(height: 12),
                     CustomElevatedButton(
-                      text: Strings.loadingStateRetry,
+                      text: Strings.commonRetry,
                       onPressed: () {
                         cubit(context).states.controller?.refresh();
                       },
@@ -92,8 +93,11 @@ class UserOrdersPage extends BasePage<PageCubit, PageState, PageEvent> {
             );
           },
           noItemsFoundIndicatorBuilder: (_) {
-            return UserOrderEmptyWidget(
-              onActionClicked: () {
+            return DefaultEmptyWidget(
+              isFullScreen: true,
+              icon: Assets.images.pngImages.adEmpty.image(),
+              message: Strings.adEmptyMessageActive,
+              onMainActionClicked: () {
                 if (type == OrderType.buy) {
                   context.router.push(CreateRequestAdRoute(
                     adTransactionType: AdTransactionType.BUY,

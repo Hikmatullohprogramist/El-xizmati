@@ -9,7 +9,7 @@ import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/action/selection_list_item.dart';
 import 'package:onlinebozor/common/widgets/app_bar/empty_app_bar.dart';
 import 'package:onlinebozor/common/widgets/bottom_sheet/bottom_sheet_title.dart';
-import 'package:onlinebozor/common/widgets/button/custom_outlined_button.dart';
+import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/common/widgets/profile/profile_item_widget.dart';
 import 'package:onlinebozor/domain/models/order/order_type.dart';
@@ -352,9 +352,9 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
                 children: <Widget>[
                   SizedBox(width: 16),
                   Expanded(
-                    child: CustomOutlinedButton(
+                    child: CustomElevatedButton(
                       text: Strings.commonNo,
-                      strokeColor: Colors.blueAccent,
+                      // backgroundColor: Colors.blueAccent.shade200,
                       onPressed: () {
                         Navigator.pop(context);
                         vibrateAsHapticFeedback();
@@ -363,9 +363,9 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
                   ),
                   SizedBox(width: 16),
                   Expanded(
-                    child: CustomOutlinedButton(
+                    child: CustomElevatedButton(
                       text: Strings.commonYes,
-                      strokeColor: Colors.red,
+                      backgroundColor: Color(0xFFEB2F69),
                       onPressed: () {
                         cubit(context).logOut();
                         Navigator.pop(context);

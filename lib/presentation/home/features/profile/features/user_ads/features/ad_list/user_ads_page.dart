@@ -4,9 +4,11 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/action/action_list_item.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
+import 'package:onlinebozor/common/widgets/loading/default_empty_widget.dart';
 import 'package:onlinebozor/domain/models/ad/ad_action.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
@@ -14,7 +16,6 @@ import 'package:onlinebozor/presentation/utils/resource_exts.dart';
 
 import '../../../../../../../../common/colors/static_colors.dart';
 import '../../../../../../../../common/gen/localization/strings.dart';
-import '../../../../../../../../common/widgets/ad/user_ad/user_ad_empty_widget.dart';
 import '../../../../../../../../common/widgets/ad/user_ad/user_ad_shimmer.dart';
 import '../../../../../../../../common/widgets/ad/user_ad/user_ad_widget.dart';
 import '../../../../../../../../common/widgets/bottom_sheet/bottom_sheet_title.dart';
@@ -52,13 +53,13 @@ class UserAdsPage extends BasePage<PageCubit, PageState, PageEvent> {
               child: Center(
                 child: Column(
                   children: [
-                    Strings.loadingStateError
+                    Strings.commonEmptyMessage
                         .w(400)
                         .s(14)
                         .c(context.colors.textPrimary),
                     SizedBox(height: 12),
                     CustomElevatedButton(
-                      text: Strings.loadingStateRetry,
+                      text: Strings.commonRetry,
                       onPressed: () {},
                     )
                   ],
@@ -79,15 +80,22 @@ class UserAdsPage extends BasePage<PageCubit, PageState, PageEvent> {
             );
           },
           noItemsFoundIndicatorBuilder: (_) {
-            return UserAdEmptyWidget(
-              onActionClicked: () {
+            return DefaultEmptyWidget(
+              isFullScreen: true,
+              icon: Assets.images.pngImages.adEmpty.image(),
+              message: state.userAdStatus.getLocalizedEmptyMessage(),
+              mainActionLabel: Strings.adCreateTitle,
+              onMainActionClicked: () {
                 context.router.push(CreateAdChooserRoute());
+              },
+              onReloadClicked: (){
+                cubit(context).states.controller?.refresh();
               },
             );
           },
           newPageProgressIndicatorBuilder: (_) {
             return SizedBox(
-              height: 160,
+              height: 220,
               child: Center(
                 child: CircularProgressIndicator(color: Colors.blue),
               ),
@@ -95,7 +103,7 @@ class UserAdsPage extends BasePage<PageCubit, PageState, PageEvent> {
           },
           newPageErrorIndicatorBuilder: (_) {
             return SizedBox(
-              height: 160,
+              height: 220,
               child: Center(
                 child: CircularProgressIndicator(color: Colors.blue),
               ),

@@ -294,7 +294,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
         SizedBox(height: 8),
         CustomDivider(),
         SizedBox(height: 8),
-        Strings.profileUserEmail.w(400).s(14).c(Color(0xFF9EABBE)),
+        Strings.commonEmail.w(400).s(14).c(Color(0xFF9EABBE)),
         SizedBox(height: 6),
         //state.email.w(500).s(16).c(Color(0xFF41455E)),
         if (state.email.isNotEmpty)
@@ -303,7 +303,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
         SizedBox(height: 8),
         CustomDivider(),
         SizedBox(height: 8),
-        Strings.profileUserPhone.w(400).s(14).c(Color(0xFF9EABBE)),
+        Strings.commonPhoneNumber.w(400).s(14).c(Color(0xFF9EABBE)),
         SizedBox(height: 6),
         state.phoneNumber.w(500).s(16).c(Color(0xFF41455E)),
         SizedBox(height: 8),
@@ -929,13 +929,13 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                     child: Center(
                         child: Column(
                       children: [
-                        Strings.loadingStateError
+                        Strings.commonEmptyMessage
                             .w(400)
                             .s(14)
                             .c(context.colors.textPrimary),
                         SizedBox(height: 12),
                         CustomElevatedButton(
-                          text: Strings.loadingStateRetry,
+                          text: Strings.commonRetry,
                           onPressed: () {},
                         )
                       ],
@@ -954,7 +954,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                 );
               },
               noItemsFoundIndicatorBuilder: (_) {
-                return Center(child: Text(Strings.loadingStateEmpty));
+                return Center(child: Text(Strings.commonEmptyMessage));
               },
               newPageProgressIndicatorBuilder: (_) {
                 return SizedBox(

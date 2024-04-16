@@ -91,6 +91,25 @@ extension UserAdStatusResExts on UserAdStatus {
         return Strings.userAdsCancelled;
     }
   }
+
+  String getLocalizedEmptyMessage() {
+    switch (this) {
+      case UserAdStatus.ALL:
+        return Strings.adEmptyMessageAll;
+      case UserAdStatus.ACTIVE:
+        return Strings.adEmptyMessageActive;
+      case UserAdStatus.WAIT:
+        return Strings.adEmptyMessageWait;
+      case UserAdStatus.INACTIVE:
+        return Strings.adEmptyMessageInactive;
+      case UserAdStatus.REJECTED:
+        return Strings.adEmptyMessageCancelled;
+      case UserAdStatus.CANCELLED:
+        return Strings.adEmptyMessageCancelled;
+      case UserAdStatus.SYS_CANCELLED:
+        return Strings.adEmptyMessageCancelled;
+    }
+  }
 }
 
 extension UserOrderResExts on UserOrderStatus {

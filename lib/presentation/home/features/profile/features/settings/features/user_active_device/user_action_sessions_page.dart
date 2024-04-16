@@ -56,13 +56,13 @@ class UserActiveSessionsPage extends BasePage<PageCubit, PageState, PageEvent> {
                 child: Center(
                     child: Column(
                   children: [
-                    Strings.loadingStateError
+                    Strings.commonEmptyMessage
                         .w(400)
                         .s(14)
                         .c(context.colors.textPrimary),
                     SizedBox(height: 12),
                     CustomElevatedButton(
-                      text: Strings.loadingStateRetry,
+                      text: Strings.commonRetry,
                       onPressed: () {},
                     )
                   ],
@@ -81,7 +81,7 @@ class UserActiveSessionsPage extends BasePage<PageCubit, PageState, PageEvent> {
             );
           },
           noItemsFoundIndicatorBuilder: (_) {
-            return Center(child: Text(Strings.loadingStateEmpty));
+            return Center(child: Text(Strings.commonEmptyMessage));
           },
           newPageProgressIndicatorBuilder: (_) {
             return SizedBox(

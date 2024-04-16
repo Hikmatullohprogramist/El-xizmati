@@ -66,13 +66,13 @@ class UserAddressesPage extends BasePage<PageCubit, PageState, PageEvent> {
                 child: Center(
                   child: Column(
                     children: [
-                      Strings.loadingStateError
+                      Strings.commonEmptyMessage
                           .w(400)
                           .s(14)
                           .c(context.colors.textPrimary),
                       SizedBox(height: 12),
                       CustomElevatedButton(
-                        text: Strings.loadingStateRetry,
+                        text: Strings.commonRetry,
                         onPressed: () {},
                       )
                     ],
