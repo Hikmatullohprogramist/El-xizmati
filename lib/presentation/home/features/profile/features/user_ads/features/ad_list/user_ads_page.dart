@@ -40,84 +40,92 @@ class UserAdsPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
       backgroundColor: StaticColors.backgroundColor,
-      body: PagedListView<int, UserAd>(
-        shrinkWrap: true,
-        addAutomaticKeepAlives: true,
-        physics: BouncingScrollPhysics(),
-        pagingController: state.controller!,
-        padding: EdgeInsets.only(top: 12, bottom: 12),
-        builderDelegate: PagedChildBuilderDelegate<UserAd>(
-          firstPageErrorIndicatorBuilder: (_) {
-            return SizedBox(
-              height: 100,
-              child: Center(
-                child: Column(
-                  children: [
-                    Strings.commonEmptyMessage
-                        .w(400)
-                        .s(14)
-                        .c(context.colors.textPrimary),
-                    SizedBox(height: 12),
-                    CustomElevatedButton(
-                      text: Strings.commonRetry,
-                      onPressed: () {},
-                    )
-                  ],
+      body: RefreshIndicator(
+        displacement: 160,
+        strokeWidth: 3,
+        color: StaticColors.colorPrimary,
+        onRefresh: () async {
+          cubit(context).states.controller!.refresh();
+        },
+        child: PagedListView<int, UserAd>(
+          shrinkWrap: true,
+          addAutomaticKeepAlives: true,
+          physics: BouncingScrollPhysics(),
+          pagingController: state.controller!,
+          padding: EdgeInsets.only(top: 12, bottom: 12),
+          builderDelegate: PagedChildBuilderDelegate<UserAd>(
+            firstPageErrorIndicatorBuilder: (_) {
+              return SizedBox(
+                height: 100,
+                child: Center(
+                  child: Column(
+                    children: [
+                      Strings.commonEmptyMessage
+                          .w(400)
+                          .s(14)
+                          .c(context.colors.textPrimary),
+                      SizedBox(height: 12),
+                      CustomElevatedButton(
+                        text: Strings.commonRetry,
+                        onPressed: () {},
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
-          firstPageProgressIndicatorBuilder: (_) {
-            return SingleChildScrollView(
-              child: ListView.builder(
-                physics: BouncingScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 5,
-                itemBuilder: (BuildContext context, int index) {
-                  return UserAdWidgetShimmer();
+              );
+            },
+            firstPageProgressIndicatorBuilder: (_) {
+              return SingleChildScrollView(
+                child: ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: 5,
+                  itemBuilder: (BuildContext context, int index) {
+                    return UserAdWidgetShimmer();
+                  },
+                ),
+              );
+            },
+            noItemsFoundIndicatorBuilder: (_) {
+              return DefaultEmptyWidget(
+                isFullScreen: true,
+                icon: Assets.images.pngImages.adEmpty.image(),
+                message: state.userAdStatus.getLocalizedEmptyMessage(),
+                mainActionLabel: Strings.adCreateTitle,
+                onMainActionClicked: () {
+                  context.router.push(CreateAdChooserRoute());
                 },
-              ),
-            );
-          },
-          noItemsFoundIndicatorBuilder: (_) {
-            return DefaultEmptyWidget(
-              isFullScreen: true,
-              icon: Assets.images.pngImages.adEmpty.image(),
-              message: state.userAdStatus.getLocalizedEmptyMessage(),
-              mainActionLabel: Strings.adCreateTitle,
-              onMainActionClicked: () {
-                context.router.push(CreateAdChooserRoute());
-              },
-              onReloadClicked: (){
-                cubit(context).states.controller?.refresh();
-              },
-            );
-          },
-          newPageProgressIndicatorBuilder: (_) {
-            return SizedBox(
-              height: 220,
-              child: Center(
-                child: CircularProgressIndicator(color: Colors.blue),
-              ),
-            );
-          },
-          newPageErrorIndicatorBuilder: (_) {
-            return SizedBox(
-              height: 220,
-              child: Center(
-                child: CircularProgressIndicator(color: Colors.blue),
-              ),
-            );
-          },
-          transitionDuration: Duration(milliseconds: 100),
-          itemBuilder: (context, item, index) => UserAdWidget(
-            onActionClicked: () {
-              _showActionsBottomSheet(context, item);
+                onReloadClicked: () {
+                  cubit(context).states.controller?.refresh();
+                },
+              );
             },
-            onItemClicked: () {
-              context.router.push(UserAdDetailRoute(userAd: item));
+            newPageProgressIndicatorBuilder: (_) {
+              return SizedBox(
+                height: 220,
+                child: Center(
+                  child: CircularProgressIndicator(color: Colors.blue),
+                ),
+              );
             },
-            userAd: item,
+            newPageErrorIndicatorBuilder: (_) {
+              return SizedBox(
+                height: 220,
+                child: Center(
+                  child: CircularProgressIndicator(color: Colors.blue),
+                ),
+              );
+            },
+            transitionDuration: Duration(milliseconds: 100),
+            itemBuilder: (context, item, index) => UserAdWidget(
+              onActionClicked: () {
+                _showActionsBottomSheet(context, item);
+              },
+              onItemClicked: () {
+                context.router.push(UserAdDetailRoute(userAd: item));
+              },
+              userAd: item,
+            ),
           ),
         ),
       ),
