@@ -12,6 +12,7 @@ import '../../../../domain/models/ad/ad_list_type.dart';
 import '../../../../domain/models/ad/ad_type.dart';
 
 part 'page_cubit.freezed.dart';
+
 part 'page_state.dart';
 
 @injectable
@@ -76,7 +77,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             );
           case AdListType.homePopularAds:
             adsList = await adRepository.getPopularAdsByType(
-              adType: AdType.product,
+              adType: AdType.PRODUCT,
               page: pageKey,
               limit: _pageSize,
             );
@@ -84,13 +85,13 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             adsList = await adRepository.getAdsByUser(
               sellerTin: states.sellerTin ?? -1,
               page: pageKey,
-              limit: 20,
+              limit: _pageSize,
             );
           case AdListType.similarAds:
             adsList = await adRepository.getSimilarAds(
               adId: states.adId ?? 0,
               page: pageKey,
-              limit: 20,
+              limit: _pageSize,
             );
           case AdListType.popularCategoryAds:
             adsList = await adRepository.getHomeAds(
@@ -100,31 +101,34 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             );
           case AdListType.cheaperAdsByAdType:
             adsList = await adRepository.getCheapAdsByType(
-              adType: states.collectiveType ?? AdType.product,
+              adType: states.collectiveType ?? AdType.PRODUCT,
               page: pageKey,
-              limit: 20,
+              limit: _pageSize,
             );
           case AdListType.popularAdsByAdType:
             adsList = await adRepository.getPopularAdsByType(
-              adType: states.collectiveType ?? AdType.product,
+              adType: states.collectiveType ?? AdType.PRODUCT,
               page: pageKey,
-              limit: 20,
+              limit: _pageSize,
             );
           case AdListType.recentlyViewedAds:
             adsList = await adRepository.getRecentlyViewedAds(
-                page: pageKey, limit: 20);
+              page: pageKey,
+              limit: _pageSize,
+            );
         }
 
-        if (states.adListType == AdListType.homePopularAds ||
-            states.adListType == AdListType.cheaperAdsByAdType ||
-            states.adListType == AdListType.popularAdsByAdType ||
-            states.adListType == AdListType.popularCategoryAds ||
-            states.adListType == AdListType.adsByUser ||
-            states.adListType == AdListType.similarAds) {
-          adController.appendLastPage(adsList);
-          log.i(states.controller);
-          return;
-        } else {
+        // if (states.adListType == AdListType.homePopularAds ||
+        //     states.adListType == AdListType.cheaperAdsByAdType ||
+        //     states.adListType == AdListType.popularAdsByAdType ||
+        //     states.adListType == AdListType.popularCategoryAds ||
+        //     states.adListType == AdListType.adsByUser ||
+        //     states.adListType == AdListType.similarAds
+        // ) {
+        //   adController.appendLastPage(adsList);
+        //   log.i(states.controller);
+        //   return;
+        // } else {
           if (adsList.length <= 19) {
             adController.appendLastPage(adsList);
             log.i(states.controller);
@@ -132,7 +136,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           }
           adController.appendPage(adsList, pageKey + 1);
           log.i(states.controller);
-        }
+        // }
       },
     );
     return adController;
