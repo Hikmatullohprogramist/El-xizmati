@@ -4,8 +4,8 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 
 import '../../constants.dart';
 
-class RoundedCachedNetworkImage extends StatelessWidget {
-  const RoundedCachedNetworkImage({
+class CircleCachedNetworkImage extends StatelessWidget {
+  const CircleCachedNetworkImage({
     super.key,
     required this.imageId,
     this.imageWidth,
@@ -30,7 +30,7 @@ class RoundedCachedNetworkImage extends StatelessWidget {
       imageUrl: actualUrl,
       imageBuilder: (context, imageProvider) => Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(6),
+          shape: BoxShape.circle,
           image: DecorationImage(
             image: imageProvider,
             fit: BoxFit.cover,
@@ -44,13 +44,13 @@ class RoundedCachedNetworkImage extends StatelessWidget {
       placeholder: (context, url) => Container(
         decoration: BoxDecoration(
           color: context.cardColor,
-          borderRadius: BorderRadius.circular(6),
+          shape: BoxShape.circle,
         ),
       ),
       errorWidget: (context, url, error) => Container(
         decoration: BoxDecoration(
           color: context.cardColor,
-          borderRadius: BorderRadius.circular(6),
+          shape: BoxShape.circle,
         ),
         child: isShowError ? Center(child: Icon(Icons.error)) : Center(),
       ),
