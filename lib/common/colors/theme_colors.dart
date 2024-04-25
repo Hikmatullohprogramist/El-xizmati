@@ -4,7 +4,7 @@ import 'package:onlinebozor/common/colors/static_colors.dart';
 
 @lazySingleton
 class ThemeColors {
-  Color get colorBackgroundPrimary => StaticColors.white;
+  Color get backgroundColor => StaticColors.backgroundColor;
 
   Color get primary => StaticColors.dodgerBlue;
 
@@ -24,7 +24,7 @@ class ThemeColors {
 
   Color get iconGrey => StaticColors.cadetBlue;
 
-  Color get buttonPrimary => StaticColors.buttonDefaultBackgroundColor;
+  Color get buttonPrimary => StaticColors.buttonColor;
 
   Color get adStatusBackground => StaticColors.bondiBlue;
 

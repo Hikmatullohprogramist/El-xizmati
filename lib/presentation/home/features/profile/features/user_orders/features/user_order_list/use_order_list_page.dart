@@ -9,6 +9,7 @@ import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/loading/default_empty_widget.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_orders/features/user_order_cancel/user_order_cancel_page.dart';
+import 'package:onlinebozor/presentation/home/features/profile/features/user_orders/features/user_order_info/user_order_info_page.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_orders/features/user_order_list/cubit/page_cubit.dart';
 import 'package:onlinebozor/presentation/utils/resource_exts.dart';
 
@@ -17,7 +18,6 @@ import '../../../../../../../../common/gen/localization/strings.dart';
 import '../../../../../../../../common/widgets/order/user_order_shimmer.dart';
 import '../../../../../../../../common/widgets/order/user_order_widget.dart';
 import '../../../../../../../../data/responses/user_order/user_order_response.dart';
-import '../../../../../../../../domain/models/ad/ad_transaction_type.dart';
 import '../../../../../../../../domain/models/order/order_type.dart';
 import '../../../../../../../../domain/models/order/user_order_status.dart';
 
@@ -101,15 +101,7 @@ class UserOrderListPage extends BasePage<PageCubit, PageState, PageEvent> {
               message: state.userOrderStatus.getLocalizedEmptyMessage(),
               mainActionLabel: Strings.commonOpenMain,
               onMainActionClicked: () {
-                if (type == OrderType.buy) {
-                  context.router.push(CreateRequestAdRoute(
-                    adTransactionType: AdTransactionType.BUY,
-                  ));
-                } else if (type == OrderType.sell) {
-                  context.router.push(CreateRequestAdRoute(
-                    adTransactionType: AdTransactionType.BUY_SERVICE,
-                  ));
-                }
+                context.router.replace(DashboardRoute());
               },
               onReloadClicked: () {
                 cubit(context).states.controller?.refresh();
@@ -137,10 +129,8 @@ class UserOrderListPage extends BasePage<PageCubit, PageState, PageEvent> {
             return UserOrderWidget(
               order: item,
               onClicked: () {},
-              onCancelClicked: () {
-                _showOrderCancelPage(context, state, item);
-              },
-              onMoreClicked: () {},
+              onCancelClicked: () => _showOrderCancelPage(context, state, item),
+              onMoreClicked: () => _showOrderInfoPage(context, state, item),
             );
           },
         ),
@@ -159,10 +149,26 @@ class UserOrderListPage extends BasePage<PageCubit, PageState, PageEvent> {
       useSafeArea: true,
       backgroundColor: Colors.transparent,
       builder: (context) => UserOrderCancelPage(
-        userOrder: order,
+        order: order,
       ),
     );
 
     cubit(context).updateCancelledOrder(cancelledOrder);
+  }
+
+  void _showOrderInfoPage(
+    BuildContext context,
+    PageState state,
+    UserOrder order,
+  ) async {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => UserOrderInfoPage(
+        order: order,
+      ),
+    );
   }
 }

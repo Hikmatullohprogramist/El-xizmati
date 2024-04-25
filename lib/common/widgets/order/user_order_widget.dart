@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
-import 'package:onlinebozor/common/constants.dart';
+import 'package:onlinebozor/common/colors/static_colors.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
@@ -15,21 +16,23 @@ class UserOrderWidget extends StatelessWidget {
     super.key,
     required this.order,
     required this.onClicked,
-    required this.onRemoveClicked,
+    required this.onCancelClicked,
+    required this.onMoreClicked,
   });
 
   final UserOrder order;
   final VoidCallback onClicked;
-  final VoidCallback onRemoveClicked;
+  final VoidCallback onCancelClicked;
+  final VoidCallback onMoreClicked;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6),
       decoration: BoxDecoration(
-        color: Color(0xFFFFFFFF),
+        color: context.cardColor,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(width: 1, color: Color(0xFFE5E9F3)),
+        border: Border.all(width: 1, color: context.cardStrokeColor),
       ),
       child: Material(
         color: Colors.transparent,
@@ -52,14 +55,16 @@ class UserOrderWidget extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
                       decoration: BoxDecoration(
-                        color: Color(0x2D5C6AC4),
+                        color: order.orderStatus.getColor().withOpacity(.2),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: (order.orderStatus?.getLocalizedName() ?? "")
+                      child: (order.orderStatus.getLocalizedName() ?? "")
                           .s(13)
                           .w(400)
-                          .c(Color(0xFF5C6AC4)),
-                    )
+                          .c(order.orderStatus.getColor()),
+                    ),
+                    // SizedBox(width: 8),
+                    // Assets.images.icMoreVert.svg()
                   ],
                 ),
                 SizedBox(height: 12),
@@ -129,10 +134,7 @@ class UserOrderWidget extends StatelessWidget {
                                   .s(13)
                                   .c(context.colors.textPrimary),
                               SizedBox(width: 6),
-                              order.formattedPrice
-                                  .w(500)
-                                  .s(13)
-                                  .copyWith(
+                              order.formattedPrice.w(500).s(13).copyWith(
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -166,10 +168,7 @@ class UserOrderWidget extends StatelessWidget {
                                   .s(13)
                                   .c(context.colors.textPrimary),
                               SizedBox(width: 6),
-                              order.formattedTotalSum
-                                  .w(500)
-                                  .s(13)
-                                  .copyWith(
+                              order.formattedTotalSum.w(500).s(13).copyWith(
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -199,9 +198,10 @@ class UserOrderWidget extends StatelessWidget {
                       child: CustomElevatedButton(
                         buttonHeight: 32,
                         textSize: 12,
-                        text: Strings.commonDelete,
+                        text: Strings.commonCancel,
+                        isEnabled: order.isCanCancel,
                         backgroundColor: Colors.red.shade400,
-                        onPressed: () {},
+                        onPressed: () => onCancelClicked(),
                       ),
                     ),
                     SizedBox(width: 8),
@@ -210,7 +210,8 @@ class UserOrderWidget extends StatelessWidget {
                         buttonHeight: 32,
                         textSize: 12,
                         text: Strings.commonMore,
-                        onPressed: () {},
+                        backgroundColor: StaticColors.buttonColor,
+                        onPressed: () => onMoreClicked(),
                       ),
                     ),
                   ],

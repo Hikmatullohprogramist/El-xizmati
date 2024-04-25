@@ -6,7 +6,6 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/app_bar/default_app_bar.dart';
 
-import '../../../../../../common/colors/static_colors.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../domain/models/order/order_type.dart';
 import 'cubit/page_cubit.dart';
@@ -18,8 +17,12 @@ class UserOrderTypePage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: DefaultAppBar("", () => context.router.pop()),
-      backgroundColor: StaticColors.backgroundColor,
+      appBar: DefaultAppBar(
+        titleText: "",
+        backgroundColor: context.backgroundColor,
+        onBackPressed: () => context.router.pop(),
+      ),
+      backgroundColor: context.backgroundColor,
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -41,7 +44,7 @@ class UserOrderTypePage extends BasePage<PageCubit, PageState, PageEvent> {
         color: Colors.transparent,
         child: InkWell(
           onTap: () {
-            context.router.push(UserOrderListRoute(orderType: OrderType.buy));
+            context.router.push(UserOrdersRoute(orderType: OrderType.buy));
           },
           borderRadius: BorderRadius.circular(16),
           child: Container(
@@ -74,7 +77,7 @@ class UserOrderTypePage extends BasePage<PageCubit, PageState, PageEvent> {
         color: Colors.transparent,
         child: InkWell(
           onTap: () {
-            context.router.push(UserOrderListRoute(orderType: OrderType.sell));
+            context.router.push(UserOrdersRoute(orderType: OrderType.sell));
           },
           borderRadius: BorderRadius.circular(16),
           child: Container(

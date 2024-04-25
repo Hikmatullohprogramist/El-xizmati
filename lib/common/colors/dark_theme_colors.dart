@@ -1,5 +1,36 @@
+import 'dart:ui';
+
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/common/colors/static_colors.dart';
 import 'package:onlinebozor/common/colors/theme_colors.dart';
 
 @lazySingleton
-class DarkThemeColors extends ThemeColors {}
+class DarkThemeColors extends ThemeColors {
+  Color get backgroundColor => Color(0xFF1E1E1E);
+
+  Color get primary => StaticColors.dodgerBlue;
+
+  Color get onPrimary => StaticColors.white;
+
+  Color get textPrimary => StaticColors.white;
+
+  Color get textAccent => StaticColors.dodgerBlue;
+
+  Color get textSecondary => StaticColors.textColorSecondary;
+
+  Color get textTertiary => StaticColors.cadetBlue;
+
+  Color get textPrimaryInverse => StaticColors.white;
+
+  Color get borderColor => StaticColors.brightGray;
+
+  Color get iconGrey => StaticColors.cadetBlue;
+
+  Color get buttonPrimary => StaticColors.buttonColor;
+
+  Color get adStatusBackground => StaticColors.bondiBlue;
+
+  Color get adPropertyBusinessBackground => StaticColors.business;
+
+  Color get adPropertyPersonalBackground => StaticColors.manatee;
+}

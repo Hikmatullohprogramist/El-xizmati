@@ -18,16 +18,16 @@ import 'package:onlinebozor/presentation/utils/resource_exts.dart';
 class UserOrderCancelPage extends BasePage<PageCubit, PageState, PageEvent> {
   UserOrderCancelPage({
     super.key,
-    required this.userOrder,
+    required this.order,
   });
 
-  final UserOrder userOrder;
+  final UserOrder order;
 
   final TextEditingController commentController = TextEditingController();
 
   @override
   void onWidgetCreated(BuildContext context) {
-    cubit(context).setInitialParams(userOrder);
+    cubit(context).setInitialParams(order);
   }
 
   @override

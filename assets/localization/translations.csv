@@ -39,11 +39,11 @@ ad_detail_show_phone,Qo‘ng‘iroq,Позвонить,Қўнғироқ
 ad_detail_towritemessge,Sms,Sms,Sms
 ad_detail_view_count_title,Ko‘rishlar:,Просмотров:,Кўришлар:
 ad_edit_title,E’lon tahrirlash,Редактировать объявление,Эълон таҳрирлаш
-ad_empty_message_active,Sizda hozircha faol e‘lon yo‘q!,У Вас пока нет активных объявлений!,Сизда ҳозирча фаол эълон йўқ!
+ad_empty_message_active,Sizda hozircha faol e‘lon yo‘q!,У вас пока нет активных объявлений!,Сизда ҳозирча фаол эълон йўқ!
 ad_empty_message_all,Siz hali birorta ham e’lon qo‘shmadingiz!,Вы еще не добавили объявлений!,Сиз ҳали бирорта ҳам эълон қўшмадингиз!
-ad_empty_message_cancelled,Sizda hozircha bekor qilingan e‘lon yo‘q!,У Вас нет отмененных объявлений!,Сизда ҳозирча бекор қилинган эълон йўқ!
-ad_empty_message_inactive,Sizda hozircha nofaol e‘lon yo‘q!,У Вас пока нет неактивных объявлений!,Сизда ҳозирча нофаол эълон йўқ!
-ad_empty_message_wait,Sizda hozircha ko‘rib chiqilayotgan e’lon yo‘q!,У Вас нет ожидающих объявлений!,Сизда ҳозирча кўриб чиқилаётган эълон йўқ!
+ad_empty_message_cancelled,Sizda hozircha bekor qilingan e‘lon yo‘q!,У вас нет отмененных объявлений!,Сизда ҳозирча бекор қилинган эълон йўқ!
+ad_empty_message_inactive,Sizda hozircha nofaol e‘lon yo‘q!,У вас пока нет неактивных объявлений!,Сизда ҳозирча нофаол эълон йўқ!
+ad_empty_message_wait,Sizda hozircha ko‘rib chiqilayotgan e’lon yo‘q!,У вас нет ожидающих объявлений!,Сизда ҳозирча кўриб чиқилаётган эълон йўқ!
 ad_list_low_prices_label,Arzon narxlar,Низкие цены ,Арзон нархлар
 ad_list_popular_label,Ommaboplar,Популярные,Оммабоплар
 ad_property_biznes,Biznes,Бизнес,Бизнес
@@ -95,7 +95,7 @@ auth_start_singin,Tizimga kirish,Войти в систему,Тизимга к�
 auth_verification_forget_password,Parolni unutdingizmi?,Забыли пароль?,Паролни унутдингизми?
 bottom_navigation_add_ad,Yaratish,Создать,Яратиш
 bottom_navigation_cart,Savat,Корзина,Сават
-bottom_navigation_catalog,Kategoriyalar,Категории,Категориялар
+bottom_navigation_catalog,Turkumlar,Категории,Туркумлар
 bottom_navigation_favorite,Tanlanganlar,Избранные,Танланганлар
 bottom_navigation_home,Asosiy,Главная,Асосий
 bottom_navigation_more,Ko‘proq,Больше,Кўпроқ
@@ -120,6 +120,7 @@ common_bio_doc_series,Pasport seriyasi,Паспорт серии,Паспорт 
 common_cancel,Bekor qilish,Отменить,Бекор қилиш
 common_choose,Tanlash,Выбрать,Танлаш
 common_close,Yopish,Закрыть,Ёпиш
+common_comment,Izoh,Комментарий,Изоҳ
 common_continue,Davom etish,Продолжить,Давом этиш
 common_date,Sana,Дата,Сана
 common_delete,O‘chirish,Удалить,Ўчириш
@@ -149,6 +150,7 @@ common_more,Ko‘proq,Подробнее,Кўпроқ
 common_more_with_count,Yana {count} ta,Ещё {count},Яна {count} та
 common_neighborhood,Mahalla,Махалля,Маҳалла
 common_no,Yo‘q,Нет,Йўқ
+common_open_main,Asosiy  oynaga,На главную,Асосий  ойнага
 common_phone_number,Telefon raqami,Номер телефона,Телефон рақами
 common_pinfl,JShShIR,ПИНФЛ,ЖШШИР
 common_pinfl_hint,14 belgi,14 символов,14 белги
@@ -232,7 +234,6 @@ face_id_pinfl_not_found,Bunday JShShIRga ega shaxs topilmadi!,Ни одного 
 face_id_title,Face-ID orqali tizimga kirish,Войти с помощью Face-ID,Face-ID орқали тизимга кириш
 favorite_empty_description,Asosiy sahifaga o‘tish,Перейдите на главную страницу и нажмите,Асосий саҳифага ўтиш
 favorite_empty_title,O‘zingiz yoqtirgan narsani qo‘shing,"Добавьте то, что понравилось",Ўзингиз ёқтирган нарсани қўшинг
-favorite_empty_to_main,Asosiy  oynaga,На главную,Асосий  ойнага
 favorite_product_title,Mahsulotlar,Продукты,Маҳсулотлар
 favorite_service_title,Xizmatlar,Услуги,Хизматлар
 favorite_title,Sevimlilar,Мои желания,Севимлилар
@@ -260,6 +261,11 @@ notification_receive_email,Elektron pochta orqali,Через Эл. почту,Э
 notification_receive_sms,SMS xabar,СМС собщение,СМС хабар
 notification_receive_telegram,Telegram boti,Телеграм бот,Телеграм боти
 notification_title,Bildirishnoma,Уведомление,Билдиришнома
+order_cancel_changed_idea,Fikrim o‘zgarib qoldi,Я передумал,Фикрим ўзгариб қолди
+order_cancel_other_reason,Boshqa,Другой,Бошқа
+order_cancel_selected_infcorrected_ad,Adashib buyurtma beribman,Я заказал по ошибке,Адашиб буюртма берибман
+order_cancel_seller_not_answered,Ta’minotchi javob bermadi,Поставщик не ответил,Таъминотчи жавоб бермади
+order_cancel_title,Buyurtmani bekor qilish,Отменить заказ,Буюртмани бекор қилиш
 order_create_address,Manzil,Адрес,Манзил
 order_create_cash_description,To‘lov o‘zbek so‘mida tovarni olgandan keyin qabul qilinadi,Оплата принимается в узбекских сумах при получении товара,Тўлов ўзбек сўмида товарни олгандан кейин қабул қилинади
 order_create_cash_payment,Naqd pul,Наличними,Нақд пул
@@ -274,6 +280,12 @@ order_create_terminal_payment,Terminal orqali to‘lov,Оплата по тер�
 order_create_total_price,Jami,Итого,Жами
 order_create_transfer_discription,To‘lov bank o‘tkazmalari orqali qabul qilinadi,Оплата принимается через банковские расчеты,Тўлов банк ўтказмалари орқали қабул қилинади
 order_create_transfer_payment,Transfer,Перечисления,Трансфер
+order_empty_message_accepted,Sizda hozircha qabul qilingan buyurtma yo‘q!,У вас пока нет принятых заказов!,Сизда ҳозирча қабул қилинган буюртма йўқ!
+order_empty_message_all,Siz hali birorta ham buyurtma bermadingiz!,Вы ещё не сделали заказов!,Сиз ҳали бирорта ҳам буюртма бермадингиз!
+order_empty_message_cancelled,Sizda hozircha bekor qilingan buyurtma yo‘q!,У вас пока нет отмененных заказов!,Сизда ҳозирча бекор қилинган буюртма йўқ!
+order_empty_message_in_progress,Sizda hozircha ko‘rib chiqilayotgan buyurtma yo‘q!,У вас нет ожидающих объявлений!,Сизда ҳозирча кўриб чиқилаётган буюртма йўқ!
+order_empty_message_rejected,Sizda hozircha rad etilgan buyurtma yo‘q!,У вас еще нет отклоненных объявлений!,Сизда ҳозирча рад этилган буюртма йўқ!
+order_empty_message_wait,Sizda hozircha ko‘rib chiqilayotgan buyurtma yo‘q!,У вас пока нет объявлений на рассмотрении!,Сизда ҳозирча кўриб чиқилаётган буюртма йўқ!
 order_list_title,Buyurtmalarim,Мои заказы,Буюртмаларим
 order_list_type_buy,Sotib olaman,Куплю,Сотиб оламан
 order_list_type_sell,Sotaman,Продаю,Сотаман
@@ -294,6 +306,7 @@ products_title,Mahsulotlar,Продукты,Маҳсулотлар
 profile_change_language,Tilni o‘zgartirish,Изменить язык,Тилни ўзгартириш
 profile_change_to_business,Biznesga o‘tish,Поменять на бизнес,Бизнесга ўтиш
 profile_comparison,Taqqoslash ro‘yxati,Список сравнения,Таққослаш рўйхати
+profile_dark_mode,Tungi rejim,Ночной режим,Тунги режим
 profile_edit_apartment,Kvartira,Квартира,Квартира
 profile_edit_biometric_information,Biometric ma‘lumotlar,Паспортные данные,Биометриc маълумотлар
 profile_edit_biometric_serial,Biometric raqami,Номер паспорта,Биометриc рақами
