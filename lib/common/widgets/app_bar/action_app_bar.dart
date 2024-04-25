@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/colors/static_colors.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 
@@ -7,14 +8,17 @@ class ActionAppBar extends AppBar implements PreferredSizeWidget {
   final VoidCallback onBackPressed;
   @override
   final List<Widget>? actions;
+  @override
+  final Color backgroundColor;
 
   ActionAppBar({
     super.key,
     required this.titleText,
+    this.backgroundColor = StaticColors.backgroundColor,
     required this.onBackPressed,
     this.actions,
   }) : super(
-          backgroundColor: Colors.white,
+          // backgroundColor: backgroundColor,
           elevation: 0.5,
           centerTitle: true,
           toolbarHeight: 64,

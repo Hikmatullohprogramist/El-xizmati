@@ -20,7 +20,7 @@ class BannerListWidget extends StatelessWidget {
       items: list.map((i) {
         return Builder(
           builder: (BuildContext context) {
-            return BannerWidget(imageUrl: i.image ?? "");
+            return BannerWidget(imageId: i.image ?? "");
           },
         );
       }).toList(),

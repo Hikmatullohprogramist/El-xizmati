@@ -74,7 +74,7 @@
 //               ),
 //             ),
 //           ],
-//           backgroundColor: Colors.white,
+//           backgroundColor: context.themeOf.backgroundColor,
 //           elevation: 0.5,
 //           toolbarHeight: 64,
 //         );

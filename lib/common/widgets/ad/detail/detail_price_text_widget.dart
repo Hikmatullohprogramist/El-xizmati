@@ -29,10 +29,10 @@ class DetailPriceTextWidget extends StatelessWidget {
     if (price == 0) {
       priceStr =
       "${format.format(fromPrice).replaceAll(',', ' ')} - "
-          "${format.format(toPrice).replaceAll(',', ' ')} ${currency.getName}";
+          "${format.format(toPrice).replaceAll(',', ' ')} ${currency.getLocalizedName()}";
     } else {
       priceStr =
-      "${format.format(price).replaceAll(',', ' ')} ${currency.getName}";
+      "${format.format(price).replaceAll(',', ' ')} ${currency.getLocalizedName()}";
     }
 
     return priceStr

@@ -6,7 +6,7 @@ import 'package:onlinebozor/common/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/common/widgets/ad/list_price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/user_ad/user_ad_stats_widget.dart';
 import 'package:onlinebozor/common/widgets/image/rounded_cached_network_image_widget.dart';
-import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
+import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
 import 'package:onlinebozor/presentation/utils/resource_exts.dart';
 
 import '../../../../domain/models/ad/user_ad.dart';

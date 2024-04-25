@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
@@ -186,7 +187,7 @@ class _LocaleImageViewerPageState extends State<LocaleImageViewerPage> {
                 });
               },
               textColor: Colors.black,
-              backgroundColor: Colors.white,
+              backgroundColor: context.backgroundColor,
             ),
           ),
           SizedBox(width: 12),
@@ -203,7 +204,7 @@ class _LocaleImageViewerPageState extends State<LocaleImageViewerPage> {
                 });
               },
               textColor: Colors.black,
-              backgroundColor: Colors.white,
+              backgroundColor: context.backgroundColor,
             ),
           )
         ],

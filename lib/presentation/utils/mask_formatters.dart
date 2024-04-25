@@ -55,7 +55,7 @@ var quantityMaskFormatter = CurrencyTextInputFormatter(
 
 extension CurrencyTextInputFormatterMethodExts on CurrencyTextInputFormatter {
   String? formatInt(int? value) {
-    return value == null ? null : format(value.toString());
+    return value == null ? null : formatDouble(value.toDouble());
   }
 }
 

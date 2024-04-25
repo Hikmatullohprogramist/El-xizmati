@@ -14,7 +14,6 @@ import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_address/cubit/page_cubit.dart';
 
-import '../../../../../../common/colors/static_colors.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../common/widgets/address/user_address_shimmer.dart';
 import '../../../../../../common/widgets/bottom_sheet/bottom_sheet_title.dart';
@@ -29,9 +28,8 @@ class UserAddressesPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Scaffold(
       appBar: ActionAppBar(
         titleText: Strings.userAddressMyAddress,
-        onBackPressed: () {
-          context.router.pop();
-        },
+        backgroundColor: context.appBarColor,
+        onBackPressed: () => context.router.pop(),
         actions: [
           CustomTextButton(
             text: Strings.commonAdd,
@@ -44,7 +42,7 @@ class UserAddressesPage extends BasePage<PageCubit, PageState, PageEvent> {
           )
         ],
       ),
-      backgroundColor: StaticColors.backgroundColor,
+      backgroundColor: context.backgroundColor,
       body: PagedListView<int, UserAddressResponse>(
         shrinkWrap: true,
         addAutomaticKeepAlives: true,
@@ -142,12 +140,11 @@ class UserAddressesPage extends BasePage<PageCubit, PageState, PageEvent> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: context.backgroundColor,
         context: context,
         builder: (BuildContext buildContext) {
           return Container(
             decoration: BoxDecoration(
-              color: Colors.white,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20.0),
                 topRight: Radius.circular(20.0),

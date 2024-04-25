@@ -30,7 +30,7 @@ class ChatListPage extends BasePage<PageCubit, PageState, PageEvent> {
               onPressed: () => context.router.pop(),
             ),
             elevation: 0.5,
-            backgroundColor: Colors.white,
+            backgroundColor: context.backgroundColor,
             centerTitle: true,
             bottomOpacity: 1,
             title: "Сообщение".w(500).s(16).c(context.colors.textPrimary),

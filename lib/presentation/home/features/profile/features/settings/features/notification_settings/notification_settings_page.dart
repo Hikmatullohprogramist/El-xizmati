@@ -18,9 +18,9 @@ class NotificationSettingsPage
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.backgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: context.backgroundColor,
         title: Strings.settingsReceiveNotification
             .w(500)
             .s(14)

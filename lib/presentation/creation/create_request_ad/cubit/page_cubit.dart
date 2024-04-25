@@ -38,8 +38,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           isEditing: adId != null,
           adTransactionType: adTransactionType,
           adType: adTransactionType == AdTransactionType.BUY
-              ? AdType.product
-              : AdType.service,
+              ? AdType.PRODUCT
+              : AdType.SERVICE,
         ));
 
     if (states.isEditing) {

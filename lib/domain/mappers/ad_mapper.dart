@@ -1,5 +1,5 @@
 import 'package:onlinebozor/data/responses/user_ad/user_ad_response.dart';
-import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
+import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad.dart';
 

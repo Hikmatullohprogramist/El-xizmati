@@ -25,7 +25,7 @@ class UserActiveSessionsPage extends BasePage<PageCubit, PageState, PageEvent> {
     height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: context.backgroundColor,
         title: Strings.settingsActiveDevices
             .w(500)
             .s(14)

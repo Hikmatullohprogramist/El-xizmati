@@ -40,7 +40,7 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
     height = MediaQuery.of(context).size.height;
     return Center(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: context.backgroundColor,
         appBar: SearchAppBar2(
           listener: () => context.router.pop(),
           listenerSearch: () => context.router.push(SearchRoute()),
@@ -58,11 +58,11 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: switch (adType) {
-                        AdType.product => Strings.favoriteProductTitle
+                        AdType.PRODUCT => Strings.favoriteProductTitle
                             .w(700)
                             .s(16)
                             .c(context.colors.textPrimary),
-                        AdType.service => Strings.favoriteServiceTitle
+                        AdType.SERVICE => Strings.favoriteServiceTitle
                             .w(700)
                             .s(16)
                             .c(context.colors.textPrimary),

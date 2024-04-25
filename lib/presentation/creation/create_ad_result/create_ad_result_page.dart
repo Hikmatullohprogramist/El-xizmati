@@ -28,8 +28,12 @@ class CreateAdResultPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: DefaultAppBar("", () => context.router.pop()),
-      backgroundColor: Color(0xFFF2F4FB),
+      appBar: DefaultAppBar(
+        titleText: "",
+        backgroundColor: context.appBarColor,
+        onBackPressed: () => context.router.pop(),
+      ),
+      backgroundColor: context.backgroundColor,
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -97,8 +101,7 @@ class CreateAdResultPage extends BasePage<PageCubit, PageState, PageEvent> {
             SizedBox(height: 20),
             CustomElevatedButton(
               text: Strings.createAdResultOpenDashboard,
-              backgroundColor:
-                  StaticColors.buttonDefaultBackgroundColor.withOpacity(0.8),
+              backgroundColor: StaticColors.buttonColor.withOpacity(0.8),
               rightIcon:
                   Assets.images.bottomBar.dashboard.svg(color: Colors.white),
               onPressed: () async {

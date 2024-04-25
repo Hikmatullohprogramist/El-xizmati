@@ -3,7 +3,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
-import 'package:onlinebozor/common/colors/static_colors.dart';
 import 'package:onlinebozor/common/controller/controller_exts.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
@@ -55,10 +54,11 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
     String email = "";
     return Scaffold(
       appBar: DefaultAppBar(
-        Strings.profileEditTitle,
-        () => context.router.pop(),
+        titleText: Strings.profileEditTitle,
+        backgroundColor: context.backgroundColor,
+        onBackPressed: () => context.router.pop(),
       ),
-      backgroundColor: StaticColors.backgroundColor,
+      backgroundColor: context.backgroundColor,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
@@ -352,7 +352,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
           alignment: Alignment.bottomCenter,
           children: [
             Container(
-              color: Colors.white,
+              color: context.backgroundColor,
               height: 350.0,
               child: CupertinoDatePicker(
                 mode: CupertinoDatePickerMode.date,
@@ -393,7 +393,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: context.backgroundColor,
       context: context,
       builder: (BuildContext buildContext) {
         return Container(
@@ -432,7 +432,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: context.backgroundColor,
       context: context,
       builder: (BuildContext buildContext) {
         return Container(
@@ -470,7 +470,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: context.backgroundColor,
       context: context,
       builder: (BuildContext buildContext) {
         return Container(

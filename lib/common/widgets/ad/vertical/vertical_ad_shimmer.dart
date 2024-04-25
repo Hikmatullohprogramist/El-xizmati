@@ -26,33 +26,33 @@ class VerticalAdShimmer extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 8),
+        SizedBox(height: 20),
         Shimmer.fromColors(
           baseColor: StaticColors.shimmerBaseColor,
           highlightColor: StaticColors.shimmerHighLightColor,
           child: Container(
-            height: 12,
             width: 120,
+            height: 16,
             decoration: BoxDecoration(
               color: context.cardColor,
               borderRadius: BorderRadius.circular(8),
             ),
           ),
         ),
-        SizedBox(height: 8),
+        SizedBox(height: 12),
         Shimmer.fromColors(
           baseColor: StaticColors.shimmerBaseColor,
           highlightColor: StaticColors.shimmerHighLightColor,
           child: Container(
+            height: 16,
             margin: EdgeInsets.only(right: 28),
-            height: 12,
             decoration: BoxDecoration(
               color: context.cardColor,
               borderRadius: BorderRadius.circular(7),
             ),
           ),
         ),
-        SizedBox(height: 6),
+        SizedBox(height: 16),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -61,8 +61,8 @@ class VerticalAdShimmer extends StatelessWidget {
                 baseColor: StaticColors.shimmerBaseColor,
                 highlightColor: StaticColors.shimmerHighLightColor,
                 child: Container(
+                  height: 16,
                   margin: EdgeInsets.only(right: 58),
-                  height: 12,
                   decoration: BoxDecoration(
                     color: context.cardColor,
                     borderRadius: BorderRadius.circular(7),
@@ -72,7 +72,7 @@ class VerticalAdShimmer extends StatelessWidget {
             )
           ],
         ),
-        SizedBox(height: 6),
+        SizedBox(height: 16),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -80,8 +80,8 @@ class VerticalAdShimmer extends StatelessWidget {
               baseColor: StaticColors.shimmerBaseColor,
               highlightColor: StaticColors.shimmerHighLightColor,
               child: Container(
-                height: 12,
                 width: 45,
+                height: 16,
                 decoration: BoxDecoration(
                   color: context.cardColor,
                   borderRadius: BorderRadius.circular(8),
@@ -93,8 +93,8 @@ class VerticalAdShimmer extends StatelessWidget {
               baseColor: StaticColors.shimmerBaseColor,
               highlightColor: StaticColors.shimmerHighLightColor,
               child: Container(
-                height: 12,
                 width: 45,
+                height: 16,
                 decoration: BoxDecoration(
                   color: context.cardColor,
                   borderRadius: BorderRadius.circular(8),

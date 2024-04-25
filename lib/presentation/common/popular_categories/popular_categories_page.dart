@@ -24,7 +24,12 @@ class PopularCategoriesPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: DefaultAppBar(title ?? "", () => context.router.pop()),
+      appBar: DefaultAppBar(
+        titleText: title ?? "",
+        backgroundColor: context.backgroundColor,
+        onBackPressed: () => context.router.pop(),
+      ),
+      backgroundColor: context.backgroundColor,
       body: state.controller == null
           ? SizedBox()
           : SizedBox(
@@ -69,8 +74,7 @@ class PopularCategoriesPage extends BasePage<PageCubit, PageState, PageEvent> {
                     );
                   },
                   noItemsFoundIndicatorBuilder: (_) {
-                    return Center(
-                        child: Strings.commonEmptyMessage.w(400));
+                    return Center(child: Strings.commonEmptyMessage.w(400));
                   },
                   newPageProgressIndicatorBuilder: (_) {
                     return SizedBox(

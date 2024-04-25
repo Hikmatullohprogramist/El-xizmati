@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
-import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/common/widgets/image/rounded_cached_network_image_widget.dart';
 import 'package:onlinebozor/data/responses/transaction/payment_transaction_response.dart';
 
 import '../../constants.dart';
@@ -21,9 +21,9 @@ class TransactionWidget extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       margin: const EdgeInsets.all(6),
       decoration: BoxDecoration(
-        color: Color(0xFFFFFFFF),
+        color: context.cardColor,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(width: 1, color: Color(0xFFE5E9F3)),
+        border: Border.all(width: 1, color: context.cardStrokeColor),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -44,32 +44,9 @@ class TransactionWidget extends StatelessWidget {
               alignment: Alignment.center,
               children: [
                 if (transaction.pay_method == "REALPAY")
-                  SvgPicture.asset(
-                    'assets/images/real_pay.svg',
-                  )
+                  SvgPicture.asset('assets/images/real_pay.svg')
                 else
-                  CachedNetworkImage(
-                    imageUrl: Constants.baseUrlForImage,
-                    imageBuilder: (context, imageProvider) => Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                        image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                            colorFilter: ColorFilter.mode(
-                                Colors.white, BlendMode.colorBurn)),
-                      ),
-                    ),
-                    placeholder: (context, url) => Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                    ),
-                    errorWidget: (context, url, error) => Container(
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
-                      child: Center(child: Icon(Icons.error)),
-                    ),
-                  )
+                  RoundedCachedNetworkImage(imageId: Constants.baseUrlForImage)
               ],
             ),
           ),

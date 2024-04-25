@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../colors/static_colors.dart';
@@ -14,9 +15,9 @@ class CartShimmer extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12),
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       decoration: BoxDecoration(
-        color: Color(0xFFFFFFFF),
+        color: context.cardColor,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(width: 1, color: Color(0xFFE5E9F3)),
+        border: Border.all(width: 1, color: context.cardStrokeColor),
       ),
       child: Column(
         children: [
@@ -131,7 +132,7 @@ class CartShimmer extends StatelessWidget {
               SizedBox(width: 8),
               Flexible(
                 flex: 4,
-                child:Shimmer.fromColors(
+                child: Shimmer.fromColors(
                   baseColor: StaticColors.shimmerBaseColor,
                   highlightColor: StaticColors.shimmerHighLightColor,
                   child: Container(

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
@@ -25,10 +26,11 @@ class PaymentTransactionFilterPage
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.backgroundColor,
       appBar: DefaultAppBar(
-        Strings.commonFilter,
-        () => context.router.pop(),
+        titleText: Strings.commonFilter,
+        backgroundColor: context.backgroundColor,
+        onBackPressed: () => context.router.pop(),
       ),
       body: Column(
         children: [
@@ -263,7 +265,8 @@ class PaymentTransactionFilterPage
                             context.showCustomSnackBar(
                                 message: 'Transactions not found');
                           } else {
-                            showFilterList(context, _filterData(context, state));
+                            showFilterList(
+                                context, _filterData(context, state));
                           }
                         },
                       ),

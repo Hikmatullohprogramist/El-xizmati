@@ -20,12 +20,14 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: EmptyAppBar(""),
-      backgroundColor: state.isLogin ? Color(0xFFF2F4FB) : Colors.white,
+      appBar: EmptyAppBar(
+        titleText: "",
+        backgroundColor: context.backgroundColor,
+      ),
+      backgroundColor: context.backgroundColor,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
-          // mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: state.isLogin
@@ -46,9 +48,9 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
       margin: EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 8),
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.cardColor,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Color(0xFFE5E9F3), width: 1),
+        border: Border.all(color: context.cardStrokeColor, width: 1),
       ),
       child: SizedBox(
         width: double.infinity,
@@ -105,9 +107,9 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
       margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.cardColor,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Color(0xFFE5E9F3), width: 1),
+        border: Border.all(color: context.cardStrokeColor, width: 1),
       ),
       child: SizedBox(
         width: double.infinity,

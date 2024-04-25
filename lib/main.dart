@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/constants.dart';
 import 'package:onlinebozor/common/di/injection.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
@@ -105,20 +106,64 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = context.theme.brightness == Brightness.dark;
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: isDarkMode ? Color(0xffF4F4F4) : Colors.black12,
+      statusBarIconBrightness: context.theme.brightness,
+    ));
+    ThemeMode themeMode = ThemeMode.system;
+    ColorScheme lightColorScheme = ColorScheme(
+      brightness: Brightness.light,
+      primary: Color(0xFF5C6AC4),
+      onPrimary: Color(0xFFFFFFFF),
+      primaryContainer: Color(0xFFDFE2E9),
+      onPrimaryContainer: Color(0xFF000000),
+      secondaryContainer: Color(0xFFDFE2E9),
+      onSecondaryContainer: Color(0xFF000000),
+      secondary: Color(0xFF0096B2),
+      onSecondary: Color(0xFFFFFFFF),
+      error: Color(0xFFB00020),
+      onError: Color(0xFFFFFFFF),
+      background: Color(0xFFF2F4FB),
+      onBackground: Color(0xFF000000),
+      surface: Color(0xFFFFFFFF),
+      onSurface: Color(0xFF000000), // Black for text and icons on surface
+    );
+
+    ColorScheme darkColorScheme = ColorScheme(
+      brightness: Brightness.dark,
+      primary: Color(0xFF5C6AC4),
+      onPrimary: Color(0xFFDFE2E9),
+      primaryContainer: Color(0xFF404A80),
+      onPrimaryContainer: Color(0xFFDFE2E9),
+      secondaryContainer: Color(0xFF404A80),
+      onSecondaryContainer: Color(0xFFDFE2E9),
+      secondary: Color(0xFF007B92),
+      onSecondary: Color(0xFFDFE2E9),
+      error: Color(0xFFCF6679),
+      onError: Color(0xFF000000),
+      background: Color(0xFF121212),
+      onBackground: Color(0xFFE0E0E0),
+      surface: Color(0xFF333333),
+      onSurface: Color(0xFFE0E0E0),
+    );
+
     return DisplayWidget(
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'Inter',
-          useMaterial3: false
+          useMaterial3: false,
+          colorScheme: lightColorScheme,
         ),
+        darkTheme: ThemeData(
+          useMaterial3: false,
+          brightness: Brightness.dark,
+          colorScheme: darkColorScheme,
+        ),
+        themeMode: themeMode,
         routerConfig: _appRouter.config(initialRoutes: [
-          if (isLanguageSelection)
-            if (isLogin) HomeRoute() else HomeRoute()
-          else
-            SetLanguageRoute()
-          
-           // IntroRoute()
+          if (isLanguageSelection) HomeRoute() else SetLanguageRoute()
         ], navigatorObservers: () => [ChuckerFlutter.navigatorObserver]),
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,

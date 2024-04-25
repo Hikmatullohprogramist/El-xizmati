@@ -319,4 +319,10 @@ class AdCreationRepository {
     final adsResponse = RequestAdRootResponse.fromJson(response.data).data;
     return adsResponse;
   }
+
+  Future<RequestAdResponse> getUserAdDetail({required int adId}) async {
+    final response = await _adCreationService.getUserAdDetail(adId: adId);
+    final adsResponse = RequestAdRootResponse.fromJson(response.data).data;
+    return adsResponse;
+  }
 }

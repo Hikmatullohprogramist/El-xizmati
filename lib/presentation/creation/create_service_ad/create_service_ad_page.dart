@@ -20,7 +20,6 @@ import 'package:onlinebozor/presentation/common/selection_user_address/selection
 
 import '../../../../../common/core/base_page.dart';
 import '../../../../../common/gen/localization/strings.dart';
-import '../../../common/colors/static_colors.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/vibrator/vibrator_extension.dart';
 import '../../../common/widgets/button/custom_elevated_button.dart';
@@ -90,10 +89,12 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
     return Scaffold(
       appBar: DefaultAppBar(
-        state.isEditing ? Strings.adEditTitle : Strings.adCreateTitle,
-        () => context.router.pop(),
+        titleText:
+            state.isEditing ? Strings.adEditTitle : Strings.adCreateTitle,
+        backgroundColor: context.backgroundColor,
+        onBackPressed: () => context.router.pop(),
       ),
-      backgroundColor: StaticColors.backgroundColor,
+      backgroundColor: context.backgroundColor,
       body: state.isNotPrepared
           ? Container(
               child: state.isPreparingInProcess
@@ -139,7 +140,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildTitleAndCategoryBlock(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       child: Column(
         children: [
@@ -171,7 +172,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             onTap: () {
               context.router.push(
                 SelectionNestedCategoryRoute(
-                  adType: AdType.service,
+                  adType: AdType.SERVICE,
                   onResult: (category) {
                     cubit(context).setSelectedCategory(category);
                   },
@@ -186,7 +187,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildImageListBlock(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       child: Column(
         children: [
           AdImageListWidget(
@@ -246,7 +247,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Column(
       children: [
         Container(
-          color: Colors.white,
+          color: context.backgroundColor,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -276,7 +277,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         ),
         SizedBox(height: 4),
         Container(
-          color: Colors.white,
+          color: context.backgroundColor,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -405,7 +406,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         ),
         SizedBox(height: 4),
         Container(
-          color: Colors.white,
+          color: context.backgroundColor,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -447,7 +448,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildAdditionalInfoBlock(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -490,7 +491,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildContactsBlock(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -575,7 +576,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildAutoRenewBlock(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       child: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
@@ -614,7 +615,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Column(
       children: [
         Container(
-          color: Colors.white,
+          color: context.cardColor,
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -650,7 +651,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildFooterBlock(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.all(16),
       child: Column(
         children: [

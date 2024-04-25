@@ -38,6 +38,8 @@ class RestQueryKeys {
   static String fullName = "full_name";
   static String neighborhoodId = "mahalla_id";
   static String number = "num";
+  static String note = "note";
+  static String orderId = "order_id";
 
   static String page = "page";
   static String passportNumber = "passport_number";

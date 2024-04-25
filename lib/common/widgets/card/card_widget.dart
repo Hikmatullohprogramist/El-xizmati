@@ -1,7 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/widgets/image/rounded_cached_network_image_widget.dart';
 
-import '../../constants.dart';
 import '../../gen/assets/assets.gen.dart';
 
 class CardWidget extends StatelessWidget {
@@ -21,34 +20,9 @@ class CardWidget extends StatelessWidget {
       onTap: listener,
       child: Stack(
         children: [
-          Container(
-            height: 160,
-            margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            child: CachedNetworkImage(
-              imageUrl: "${Constants.baseUrlForImage}$image",
-              imageBuilder: (context, imageProvider) => Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6),
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.fill,
-                    colorFilter: ColorFilter.mode(
-                      Colors.grey,
-                      BlendMode.colorBurn,
-                    ),
-                  ),
-                ),
-              ),
-              placeholder: (context, url) => Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6),
-                ),
-              ),
-              errorWidget: (context, url, error) => Container(
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
-                child: Center(child: Icon(Icons.error)),
-              ),
-            ),
+          RoundedCachedNetworkImage(
+            imageId: image,
+            imageHeight: 160,
           ),
           Align(
             alignment: Alignment.topRight,

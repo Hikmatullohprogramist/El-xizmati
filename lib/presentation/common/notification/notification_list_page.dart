@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 
@@ -14,8 +15,9 @@ class NotificationListPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
       appBar: DefaultAppBar(
-        Strings.notificationTitle,
-        () => context.router.pop(),
+        titleText: Strings.notificationTitle,
+        backgroundColor: context.backgroundColor,
+        onBackPressed: () => context.router.pop(),
       ),
       body: Center(
         child: Text(Strings.noHaveNotification),

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/common/colors/static_colors.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
+import 'package:onlinebozor/common/controller/controller_exts.dart';
 import 'package:onlinebozor/common/extensions/currency_extensions.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
@@ -10,9 +10,15 @@ import 'package:onlinebozor/common/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/common/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/favorite/order_ad_favorite_widget.dart';
+import 'package:onlinebozor/common/widgets/favorite/order_ad_remove_widget.dart';
+import 'package:onlinebozor/common/widgets/form_field/custom_dropdown_form_field.dart';
+import 'package:onlinebozor/common/widgets/form_field/custom_text_form_field.dart';
+import 'package:onlinebozor/common/widgets/form_field/label_text_field.dart';
+import 'package:onlinebozor/common/widgets/form_field/validator/default_validator.dart';
+import 'package:onlinebozor/common/widgets/image/rounded_cached_network_image_widget.dart';
 import 'package:onlinebozor/common/widgets/order/create_order_shimmer.dart';
-import 'package:onlinebozor/common/widgets/image/order_detail_image_widget.dart';
 import 'package:onlinebozor/domain/models/order/order_type.dart';
+import 'package:onlinebozor/presentation/utils/mask_formatters.dart';
 
 import '../../../../../../common/core/base_page.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
@@ -20,9 +26,13 @@ import 'cubit/page_cubit.dart';
 
 @RoutePage()
 class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
-  const CreateOrderPage(this.adId, {super.key});
+  CreateOrderPage(this.adId, {super.key});
 
   final int adId;
+
+  final TextEditingController priceController = TextEditingController();
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void onWidgetCreated(BuildContext context) {
@@ -35,7 +45,7 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
       case PageEventType.onBackAfterRemove:
         context.router.replace(CartRoute());
       case PageEventType.onOpenAfterCreation:
-        context.router.replace(UserOrderListRoute(orderType: OrderType.buy));
+        context.router.replace(UserOrdersRoute(orderType: OrderType.buy));
       case PageEventType.onOpenAuthStart:
         context.router.push(AuthStartRoute());
     }
@@ -43,44 +53,52 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
-    var formatter = NumberFormat('###,000');
+    priceController.updateOnRestore(priceMaskFormatter.formatInt(state.price));
 
     return state.adDetail == null
         ? Scaffold(
             appBar: DefaultAppBar(
-              Strings.cartMakeOrder,
-              () => context.router.pop(),
+              titleText: Strings.cartMakeOrder,
+              backgroundColor: context.appBarColor,
+              onBackPressed: () => context.router.pop(),
             ),
             body: CreateOrderShimmer(),
           )
         : Scaffold(
             appBar: DefaultAppBar(
-              Strings.cartMakeOrder,
-              () => context.router.pop(),
+              titleText: Strings.cartMakeOrder,
+              backgroundColor: context.appBarColor,
+              onBackPressed: () => context.router.pop(),
             ),
-            backgroundColor: StaticColors.backgroundColor,
-            bottomNavigationBar: _buildBottomBar(context, state, formatter),
+            backgroundColor: context.backgroundColor,
+            bottomNavigationBar: _buildBottomBar(context, state),
             body: SafeArea(
               bottom: true,
-              child: ListView(
-                shrinkWrap: true,
+              child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
-                children: [
-                  SizedBox(height: 16),
-                  _buildImageList(state),
-                  SizedBox(height: 16),
-                  _buildInfoBlock(context, state, formatter),
-                  SizedBox(height: 16),
-                  _buildPaymentTypes(context, state),
-                ],
+                child:Form(
+                  key: _formKey,
+                  child: ListView(
+                    shrinkWrap: true,
+                    physics: BouncingScrollPhysics(),
+                    children: [
+                      SizedBox(height: 16),
+                      _buildImageList(context, state),
+                      SizedBox(height: 16),
+                      _buildInfoBlock(context, state),
+                      SizedBox(height: 16),
+                      _buildPaymentTypes(context, state),
+                    ],
+                  ),
+                ),
               ),
             ),
           );
   }
 
-  Widget _buildImageList(PageState state) {
+  Widget _buildImageList(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(vertical: 16),
       child: SizedBox(
         height: 100,
@@ -89,19 +107,22 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
           itemCount: state.adDetail?.photos?.length ?? 0,
-          padding: EdgeInsets.only(left: 10, right: 16),
+          padding: EdgeInsets.only(left: 16, right: 16),
           itemBuilder: (context, index) {
-            return OrderDetailImageWidget(
-              imageId: state.adDetail!.photos?[index].image ?? "",
-              onClicked: (imageId) {
-                context.router.push(
-                  ImageViewerRoute(
-                    images: cubit(context).getImages(),
-                    initialIndex: index,
-                  ),
-                );
-              },
-            );
+            return InkWell(
+                borderRadius: BorderRadius.circular(6),
+                child: RoundedCachedNetworkImage(
+                  imageId: state.adDetail!.photos?[index].image ?? "",
+                  imageWidth: 160,
+                ),
+                onTap: () {
+                  context.router.push(
+                    ImageViewerRoute(
+                      images: cubit(context).getImages(),
+                      initialIndex: index,
+                    ),
+                  );
+                });
           },
           separatorBuilder: (BuildContext context, int index) {
             return SizedBox(width: 10);
@@ -111,25 +132,24 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Container _buildInfoBlock(
-    BuildContext context,
-    PageState state,
-    NumberFormat formatter,
-  ) {
+  Widget _buildInfoBlock(BuildContext context, PageState state) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16),
-      color: Colors.white,
+      color: context.cardColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 16),
           Row(
             children: [
-              (state.adDetail?.adName ?? "")
-                  .w(600)
-                  .s(18)
-                  .c(Color(0xFF41455E))
-                  .copyWith(maxLines: 3, overflow: TextOverflow.ellipsis),
+              Expanded(
+                child: (state.adDetail?.adName ?? "")
+                    .w(600)
+                    .s(18)
+                    .c(Color(0xFF41455E))
+                    .copyWith(maxLines: 3, overflow: TextOverflow.ellipsis),
+              ),
             ],
           ),
           SizedBox(height: 12),
@@ -172,103 +192,136 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
             children: [
               "${Strings.orderCreatePrice}:".w(500).s(14).c(Color(0xFF9EABBE)),
               SizedBox(width: 4),
-              state.adDetail?.price == 0
-                  ? ("${formatter.format(state.adDetail?.toPrice).replaceAll(',', ' ')}-"
-                          "${formatter.format(state.adDetail?.fromPrice).replaceAll(',', ' ')} ${state.adDetail?.currency.getName}"
-                      .w(600)
-                      .s(16)
-                      .c(Color(0xFF5C6AC3))
-                      .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis))
-                  : ("${formatter.format(state.adDetail?.price).replaceAll(',', ' ')} ${state.adDetail?.currency.getName}"
-                      .w(600)
-                      .s(16)
-                      .c(Color(0xFF5C6AC3))
-                      .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis)),
+              cubit(context)
+                  .getProductPrice()
+                  .w(600)
+                  .s(16)
+                  .c(Color(0xFF5C6AC3))
+                  .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
             ],
           ),
-          SizedBox(height: 8),
+          SizedBox(height: 16),
           Row(
             children: [
               OrderAdFavoriteWidget(
+                size: 40,
                 isFavorite: state.favorite,
                 onClicked: () => cubit(context).changeFavorite(),
-                size: 40,
               ),
               SizedBox(width: 12),
-              Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: () {
-                    cubit(context).removeCart();
-                    vibrateAsHapticFeedback();
-                  },
-                  borderRadius: BorderRadius.circular(6),
-                  child: Container(
-                    height: 40,
-                    width: 40,
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      border: Border.all(width: 1, color: Color(0xFFDFE2E9)),
-                    ),
-                    child: Assets.images.icDelete.svg(),
+              OrderAdRemoveWidget(
+                size: 40,
+                onClicked: () => cubit(context).removeCart(),
+              ),
+              Spacer(),
+              IgnorePointer(
+                ignoring: (state.adDetail?.hasRangePrice() ?? true),
+                child: Container(
+                  height: 44,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6),
+                    border: Border.all(width: 1, color: Color(0xFFDFE2E9)),
+                  ),
+                  child: Row(
+                    children: [
+                      Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(6),
+                            bottomLeft: Radius.circular(6),
+                          ),
+                          onTap: () {
+                            cubit(context).decrease();
+                            vibrateAsHapticFeedback();
+                          },
+                          child: SizedBox(
+                            width: 44,
+                            height: 44,
+                            child: Icon(Icons.remove, size: 24),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 16),
+                      state.count.toString().w(600),
+                      SizedBox(width: 16),
+                      Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(6),
+                            bottomRight: Radius.circular(6),
+                          ),
+                          onTap: () {
+                            cubit(context).increase();
+                            vibrateAsHapticFeedback();
+                          },
+                          child: SizedBox(
+                            width: 44,
+                            height: 44,
+                            child: Icon(Icons.add, size: 24),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-              SizedBox(width: 16),
-              Spacer(),
-              Container(
-                height: 40,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6),
-                  border: Border.all(width: 1, color: Color(0xFFDFE2E9)),
-                ),
-                child: Row(
-                  children: [
-                    Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(6),
-                          bottomLeft: Radius.circular(6),
-                        ),
-                        onTap: () {
-                          cubit(context).decrease();
-                          vibrateAsHapticFeedback();
-                        },
-                        child: SizedBox(
-                          width: 44,
-                          height: 44,
-                          child: Icon(Icons.remove, size: 24),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 15),
-                    state.count.toString().w(600),
-                    SizedBox(width: 15),
-                    Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(6),
-                          bottomRight: Radius.circular(6),
-                        ),
-                        onTap: () {
-                          cubit(context).increase();
-                          vibrateAsHapticFeedback();
-                        },
-                        child: SizedBox(
-                          width: 44,
-                          height: 44,
-                          child: Icon(Icons.add, size: 24),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(width: 16)
+              // SizedBox(width: 16)
             ],
+          ),
+          Visibility(
+            visible: state.hasRangePrice,
+            child: SizedBox(height: 16),
+          ),
+          Visibility(
+            visible: state.hasRangePrice,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Flexible(
+                  flex: 5,
+                  child: Column(
+                    children: [
+                      LabelTextField(Strings.createAdPriceLabel),
+                      SizedBox(height: 6),
+                      CustomTextFormField(
+                        autofillHints: const [AutofillHints.transactionAmount],
+                        inputType: TextInputType.number,
+                        keyboardType: TextInputType.number,
+                        maxLines: 1,
+                        minLines: 1,
+                        hint: "-",
+                        textInputAction: TextInputAction.next,
+                        inputFormatters: priceMaskFormatter,
+                        controller: priceController,
+                        validator: (v) => NotEmptyValidator.validate(v),
+                        onChanged: (value) {
+                          cubit(context).setEnteredPrice(value);
+                        },
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(width: 16),
+                Flexible(
+                  flex: 4,
+                  child: Column(
+                    children: [
+                      LabelTextField(Strings.createAdCurrencyLabel),
+                      SizedBox(height: 6),
+                      CustomDropdownFormField(
+                        value:
+                            state.adDetail?.currency.getLocalizedName() ?? "",
+                        hint: "-",
+                        validator: (v) => NotEmptyValidator.validate(v),
+                        onTap: () {},
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
           SizedBox(height: 12)
         ],
@@ -278,7 +331,7 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildPaymentTypes(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -335,20 +388,16 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Container _buildBottomBar(
-    BuildContext context,
-    PageState state,
-    NumberFormat formatter,
-  ) {
+  Container _buildBottomBar(BuildContext context, PageState state) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.cardColor,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(16),
           topRight: Radius.circular(16),
         ),
         border: Border.all(
-          color: Color(0xFF9EABBE),
+          color: context.cardStrokeColor,
           width: .25,
         ),
       ),
@@ -362,7 +411,8 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
               SizedBox(width: 16),
               "${Strings.orderCreateTotalPrice}:".w(600).s(16),
               SizedBox(width: 8),
-              "${formatter.format(state.adDetail!.price * state.count).replaceAll(',', ' ')} ${state.adDetail!.currency.getName}"
+              cubit(context)
+                  .getOrderPrice()
                   .w(800)
                   .s(18)
                   .c(Color(0xFF5C6AC3))
@@ -377,7 +427,12 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
               Expanded(
                 child: CustomElevatedButton(
                   text: Strings.cartMakeOrder,
-                  onPressed: () => cubit(context).orderCreate(),
+                  onPressed: () {
+                    vibrateAsHapticFeedback();
+                    if (_formKey.currentState!.validate()) {
+                      cubit(context).orderCreate();
+                    }
+                  },
                 ),
               ),
               SizedBox(width: 16)

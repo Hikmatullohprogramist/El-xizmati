@@ -42,10 +42,10 @@ class AuthLoginPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-        backgroundColor: context.colors.colorBackgroundPrimary,
+        backgroundColor: context.colors.backgroundColor,
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: context.backgroundColor,
           elevation: 0,
           leading: IconButton(
               icon: Icon(

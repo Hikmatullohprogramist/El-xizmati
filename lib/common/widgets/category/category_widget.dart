@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/constants.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
@@ -31,7 +32,7 @@ class CategoryWidget extends StatelessWidget {
         },
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-          color: Colors.white,
+          color: context.cardColor,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,

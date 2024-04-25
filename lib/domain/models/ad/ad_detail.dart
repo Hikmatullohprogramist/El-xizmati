@@ -128,4 +128,8 @@ class AdDetail {
   bool hasDescription() {
     return description != null && description!.isNotEmpty;
   }
+
+  bool hasRangePrice() {
+    return fromPrice > 0 || toPrice > 0;
+  }
 }

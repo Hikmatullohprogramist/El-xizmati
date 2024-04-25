@@ -29,7 +29,7 @@ class ChangeLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: context.backgroundColor,
         title: Strings.profileChangeLanguage
             .w(500)
             .s(14)
@@ -41,7 +41,7 @@ class ChangeLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
           onPressed: () => context.router.push(ProfileRoute()),
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: context.backgroundColor,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

@@ -17,7 +17,11 @@ class CreateAdStartPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: DefaultAppBar(Strings.adCreateTitle, () => context.router.pop()),
+      appBar: DefaultAppBar(
+        titleText: Strings.adCreateTitle,
+        backgroundColor: context.backgroundColor,
+        onBackPressed: () => context.router.pop(),
+      ),
       body: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,

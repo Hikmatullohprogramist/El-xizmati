@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
 import '../../colors/static_colors.dart';
@@ -14,7 +15,7 @@ class CustomElevatedButton extends StatelessWidget {
     this.isLoading = false,
     this.textColor = Colors.white,
     this.textSize = 14,
-    this.backgroundColor = StaticColors.buttonDefaultBackgroundColor,
+    this.backgroundColor,
     this.rightIcon,
   }) : super(key: key);
 
@@ -26,7 +27,7 @@ class CustomElevatedButton extends StatelessWidget {
   final bool isEnabled;
   final Color textColor;
   final double textSize;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final Widget? rightIcon;
 
   bool isClickedRecently(DateTime? lastClickTime) {
@@ -53,8 +54,9 @@ class CustomElevatedButton extends StatelessWidget {
         : null;
 
     var actualTextColor = isEnabled ? textColor : textColor.withOpacity(0.75);
+    var backcolor = backgroundColor ?? context.colors.buttonPrimary;
     var actualBackgroundColor =
-        isEnabled ? backgroundColor : backgroundColor.withOpacity(0.75);
+        isEnabled ? backcolor : backcolor.withOpacity(0.75);
     var actualTextAlign = rightIcon != null ? TextAlign.left : TextAlign.center;
 
     return SizedBox(
@@ -67,7 +69,7 @@ class CustomElevatedButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(6),
           ),
           backgroundColor: actualBackgroundColor,
-          disabledBackgroundColor: backgroundColor.withAlpha(150),
+          disabledBackgroundColor: actualBackgroundColor.withAlpha(150),
           elevation: 0,
         ),
         child: SizedBox(

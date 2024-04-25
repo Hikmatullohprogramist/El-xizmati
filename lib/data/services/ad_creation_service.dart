@@ -131,7 +131,7 @@ class AdCreationService {
       "has_free_shipping": isFreeDeliveryEnabled,
       "main_type_status": AdTransactionType.SELL.name, // will be constant
 
-      "sale_type": AdType.product.name.toUpperCase(),
+      "sale_type": AdType.PRODUCT.name.toUpperCase(),
       "video": videoUrl,
       "min_amount": minAmount,
 
@@ -280,7 +280,7 @@ class AdCreationService {
 
       // "type_status": AdTransactionType.SERVICE.name,
       // "main_type_status": AdTransactionType.SELL.name,
-      "sale_type": AdType.service.name.toUpperCase(),
+      "sale_type": AdType.SERVICE.name.toUpperCase(),
 
       "is_auto_renew": isAutoRenewal,
       "show_social": isShowMySocialAccount,
@@ -370,7 +370,7 @@ class AdCreationService {
       commonBody.addAll(updateBody);
     }
 
-    final endPoint = adType == AdType.product
+    final endPoint = adType == AdType.PRODUCT
         ? adId != null
             ? "api/mobile/v1/update-product-request"
             : "api/mobile/v1/create-product-request"
@@ -403,6 +403,14 @@ class AdCreationService {
     final queryParameters = {RestQueryKeys.adId: adId};
     return dio.get(
       "api/mobile/v1/get-request-ad-details-for-edit",
+      queryParameters: queryParameters,
+    );
+  }
+
+  Future<Response> getUserAdDetail({required int adId}) {
+    final queryParameters = {RestQueryKeys.id: adId};
+    return dio.get(
+      "api/mobile/v1/ads/get-user-ad-detail",
       queryParameters: queryParameters,
     );
   }

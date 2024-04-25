@@ -57,7 +57,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      backgroundColor: StaticColors.backgroundColor,
+      backgroundColor: context.backgroundColor,
       appBar: ActionAppBar(
         titleText: Strings.verifyIdentityTitle,
         onBackPressed: () => context.router.pop(),
@@ -329,7 +329,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    backgroundColor: Colors.white,
+                    backgroundColor: context.backgroundColor,
                     context: context,
                     builder: (BuildContext buildContext) {
                       return Container(
@@ -459,7 +459,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
           alignment: Alignment.bottomCenter,
           children: [
             Container(
-              color: Colors.white,
+              color: context.backgroundColor,
               height: 350.0,
               child: CupertinoDatePicker(
                 mode: CupertinoDatePickerMode.date,

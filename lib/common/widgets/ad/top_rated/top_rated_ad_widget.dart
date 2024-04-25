@@ -5,6 +5,7 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/ad/list_price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite/ad_favorite_widget.dart';
+import 'package:onlinebozor/common/widgets/image/rounded_cached_network_image_widget.dart';
 
 import '../../../../domain/models/ad/ad.dart';
 import '../../../constants.dart';
@@ -69,31 +70,10 @@ class TopRatedAdWidget extends StatelessWidget {
   }
 
   Widget _getAdImageWidget() {
-    return SizedBox(
-      width: 72,
-      height: 72,
-      child: CachedNetworkImage(
-        imageUrl: "${Constants.baseUrlForImage}${ad.photo}",
-        imageBuilder: (context, imageProvider) => Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(6),
-            image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.cover,
-                colorFilter:
-                    ColorFilter.mode(Colors.white, BlendMode.colorBurn)),
-          ),
-        ),
-        placeholder: (context, url) => Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(6),
-          ),
-        ),
-        errorWidget: (context, url, error) => Container(
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
-          child: Center(child: Icon(Icons.error)),
-        ),
-      ),
+    return RoundedCachedNetworkImage(
+      imageId: ad.photo,
+      imageWidth: 72,
+      imageHeight: 72,
     );
   }
 

@@ -18,9 +18,9 @@ class SearchPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.backgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: context.backgroundColor,
         title: Container(
           height: 40,
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),

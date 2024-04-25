@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -65,15 +64,14 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
         if (state.loadState == LoadingState.success && (!state.introState))
           _buildCameraPreView(context),
         CustomPaint(
-          painter: OverlayPainter(screenWidth: screenWidth, screenHeight: screenHeight),
-
+          painter: OverlayPainter(
+              screenWidth: screenWidth, screenHeight: screenHeight),
         ),
-
         _buildFaceDetectorConstruction(context),
         _buildActionButton(context, state),
-        _buildConditionalWidget(state.introState, _buildFaceDetectorIntroPage(context)),
-        if(state.showPicture)
-          _buildShowPicture(context, state)
+        _buildConditionalWidget(
+            state.introState, _buildFaceDetectorIntroPage(context)),
+        if (state.showPicture) _buildShowPicture(context, state)
       ],
     );
   }
@@ -83,7 +81,11 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildFaceDetectorIntroPage(BuildContext context) {
     return Scaffold(
-      appBar: DefaultAppBar(Strings.profileIdentify, () => context.router.pop()),
+      appBar: DefaultAppBar(
+        titleText: Strings.profileIdentify,
+        backgroundColor: context.backgroundColor,
+        onBackPressed: () => context.router.pop(),
+      ),
       body: Padding(
         padding: const EdgeInsets.only(bottom: 10),
         child: Stack(
@@ -105,7 +107,10 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
                   ),
                   SizedBox(height: 35),
                   Text(Strings.faceIdIntroTitle,
-                      maxLines: 2, textAlign: TextAlign.center).w(600).s(17).c(context.colors.textPrimary),
+                          maxLines: 2, textAlign: TextAlign.center)
+                      .w(600)
+                      .s(17)
+                      .c(context.colors.textPrimary),
                   SizedBox(height: 40),
                   Row(
                     children: [
@@ -113,7 +118,8 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
                           width: 5, // Diameter of the spot (2 * radius)
                           height: 5, // Diameter of the spot (2 * radius)
                           decoration: BoxDecoration(
-                              shape: BoxShape.circle, color: Color(0xFF9EABBE))),
+                              shape: BoxShape.circle,
+                              color: Color(0xFF9EABBE))),
                       SizedBox(width: 10),
                       SizedBox(
                         width: 300,
@@ -160,7 +166,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
                       SizedBox(
                         width: 250,
                         child: Text(
-                            Strings.faceIdIntroFaceIllumination,
+                          Strings.faceIdIntroFaceIllumination,
                           maxLines: 2,
                           textAlign: TextAlign.start,
                         ).w(400).s(15).c(Colors.black87),
@@ -182,7 +188,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
                       SizedBox(
                         width: 250,
                         child: Text(
-                            Strings.faceIdIntroCameraPosition,
+                          Strings.faceIdIntroCameraPosition,
                           maxLines: 2,
                           textAlign: TextAlign.start,
                         ).w(400).s(15).c(Colors.black87),
@@ -218,16 +224,18 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 IconButton(
-                  onPressed: (){
+                  onPressed: () {
                     context.navigateBack();
                   },
                   icon: Assets.images.icArrowLeft.svg(),
                 ),
                 Expanded(child: SizedBox()),
-                Strings.profileIdentify.w(600).s(18).c(context.colors.textPrimary),
+                Strings.profileIdentify
+                    .w(600)
+                    .s(18)
+                    .c(context.colors.textPrimary),
                 Expanded(child: SizedBox()),
                 SizedBox(width: 25)
-
               ],
             ),
             Expanded(child: SizedBox()),
@@ -267,7 +275,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildActionButton(BuildContext context, PageState state) {
     return Positioned(
-      bottom:10,
+      bottom: 10,
       left: 10,
       right: 10,
       child: Padding(
@@ -285,10 +293,9 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
                     .then((value) async {
                   final takeImage = File(value.path);
                   Uint8List imageBytes = await takeImage.readAsBytes();
-                   String croppedImage = await cropImage(imageBytes);
-                   cubit(context).croppedImage(croppedImage);
-                   cubit(context).showPicture(true);
-
+                  String croppedImage = await cropImage(imageBytes);
+                  cubit(context).croppedImage(croppedImage);
+                  cubit(context).showPicture(true);
                 });
               },
               backgroundColor: context.colors.buttonPrimary,
@@ -309,7 +316,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildShowPicture(BuildContext context,PageState state){
+  Widget _buildShowPicture(BuildContext context, PageState state) {
     return Scaffold(
       backgroundColor: Colors.black54,
       body: Center(
@@ -318,11 +325,9 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 20),
             width: MediaQuery.of(context).size.width,
-            height:500,
-            decoration:BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15)
-            ),
+            height: 500,
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(15)),
             child: Column(
               children: [
                 SizedBox(height: 20),
@@ -342,7 +347,8 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
                     ),
                     Visibility(
                       visible: state.loading,
-                      child: CircularProgressIndicator(color: StaticColors.colorPrimary,
+                      child: CircularProgressIndicator(
+                        color: StaticColors.colorPrimary,
                       ),
                     )
                   ],
@@ -369,7 +375,8 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
                           strokeColor: Colors.green,
                           onPressed: () {
                             vibrateAsHapticFeedback();
-                            cubit(context).sendImage(state.cropperImage, cubit(context).states.secretKey);
+                            cubit(context).sendImage(state.cropperImage,
+                                cubit(context).states.secretKey);
                           },
                         ),
                       )
@@ -384,17 +391,15 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  
   Widget progressIndicator() {
     return Center(
         child: CircularProgressIndicator(
-          backgroundColor: Colors.grey[300],
-          valueColor: AlwaysStoppedAnimation<Color>(StaticColors.buttonDefaultBackgroundColor),
-        ));
+      backgroundColor: Colors.grey[300],
+      valueColor: AlwaysStoppedAnimation<Color>(StaticColors.buttonColor),
+    ));
   }
 
-  void showAlertDialog(BuildContext context,String image) {
-
+  void showAlertDialog(BuildContext context, String image) {
     final decodedBytes = base64Decode(image);
     final photo = img.decodeImage(decodedBytes);
     showDialog(
@@ -402,8 +407,10 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
       builder: (BuildContext context) {
         // return dialog content
         return AlertDialog(
-          title: Text('${photo?.width}x${photo?.height}  size=>${(image.length*1.5/1024/2).floor()} kb').s(16),
-          content:Image.memory(
+          title: Text(
+                  '${photo?.width}x${photo?.height}  size=>${(image.length * 1.5 / 1024 / 2).floor()} kb')
+              .s(16),
+          content: Image.memory(
             base64Decode(image),
             fit: BoxFit.cover,
           ),
@@ -416,10 +423,10 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
         );
       },
     );
-
   }
-  void fullscree(BuildContext context,String image){
-    var parentContext=context;
+
+  void fullscree(BuildContext context, String image) {
+    var parentContext = context;
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -429,15 +436,16 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
           ),
           child: Container(
             width: MediaQuery.of(context).size.width,
-            height:500,
-            decoration:BoxDecoration(
-                color: Colors.white,
-              borderRadius: BorderRadius.circular(15)
-            ),
+            height: 500,
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(15)),
             child: Column(
               children: [
                 SizedBox(height: 20),
-                "Rasm sifatiga ishonch hosil qiling".w(500).s(16).c(Colors.black),
+                "Rasm sifatiga ishonch hosil qiling"
+                    .w(500)
+                    .s(16)
+                    .c(Colors.black),
                 SizedBox(height: 20),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10.0),
@@ -471,7 +479,8 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
                           onPressed: () {
                             vibrateAsHapticFeedback();
 
-                            cubit(parentContext).sendImage(image, cubit(context).states.secretKey);
+                            cubit(parentContext).sendImage(
+                                image, cubit(context).states.secretKey);
                           },
                         ),
                       )
@@ -497,7 +506,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
     final Uint8List imageBytesLast = base64Decode(compressedBase64);
     final img.Image? image = img.decodeImage(imageBytesLast);
     final img.Image croppedImage =
-    img.copyResize(image!, width: 300, height: 400);
+        img.copyResize(image!, width: 300, height: 400);
     String base64StringSecond = base64Encode(
         Uint8List.fromList(img.encodeJpg(croppedImage, quality: 80)));
     return base64StringSecond;

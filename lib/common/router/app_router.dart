@@ -1,7 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/data/responses/user_order/user_order_response.dart';
 import 'package:onlinebozor/presentation/common/language/change_language/change_language_page.dart';
 import 'package:onlinebozor/presentation/creation/create_order/create_order_page.dart';
+import 'package:onlinebozor/presentation/home/features/profile/features/user_orders/features/user_order_cancel/user_order_cancel_page.dart';
+import 'package:onlinebozor/presentation/home/features/profile/features/user_orders/features/user_order_info/user_order_info_page.dart';
+// import 'package:onlinebozor/presentation/home/features/profile/features/user_orders/features/user_order_cancel/user_order_cancel_page.dart';
 import 'package:onlinebozor/presentation/home/home_page.dart';
 
 import '../../data/responses/address/user_address_response.dart';
@@ -79,13 +83,13 @@ import '../../presentation/home/features/profile/features/settings/features/user
 import '../../presentation/home/features/profile/features/settings/features/user_social_network/user_social_accounts_page.dart';
 import '../../presentation/home/features/profile/features/settings/settings_page.dart';
 import '../../presentation/home/features/profile/features/user_address/user_addresses_page.dart';
-import '../../presentation/home/features/profile/features/user_ads/features/ad_list/user_ads_page.dart';
-import '../../presentation/home/features/profile/features/user_ads/user_ad_list_page.dart';
+import '../../presentation/home/features/profile/features/user_ads/features/ad_list/user_ad_list_page.dart';
+import '../../presentation/home/features/profile/features/user_ads/user_ads_page.dart';
 import '../../presentation/home/features/profile/features/user_cards/features/add_card/add_card_page.dart';
 import '../../presentation/home/features/profile/features/user_cards/user_card_list_page.dart';
 import '../../presentation/home/features/profile/features/user_order_type/user_order_type_page.dart';
-import '../../presentation/home/features/profile/features/user_orders/features/user_order_list/use_orders_page.dart';
-import '../../presentation/home/features/profile/features/user_orders/user_order_list_page.dart';
+import '../../presentation/home/features/profile/features/user_orders/features/user_order_list/use_order_list_page.dart';
+import '../../presentation/home/features/profile/features/user_orders/user_orders_page.dart';
 import '../../presentation/home/features/profile/features/wallet_filling/page.dart';
 import '../../presentation/home/features/profile/profile_page.dart';
 
@@ -264,10 +268,10 @@ class AppRouter extends _$AppRouter {
 
         /// user ads
         AutoRoute(
-          page: UserAdListRoute.page,
-          path: '/user_ad_list',
+          page: UserAdsRoute.page,
+          path: '/user_ads',
           children: [
-            AutoRoute(page: UserAdsRoute.page, path: "user_ads"),
+            AutoRoute(page: UserAdListRoute.page, path: "user_ad_list"),
           ],
         ),
 
@@ -279,12 +283,12 @@ class AppRouter extends _$AppRouter {
         /// user orders
         AutoRoute(page: AddCardRoute.page, path: '/add_card'),
         AutoRoute(
-          page: UserOrderListRoute.page,
-          path: '/user_order_list',
+          page: UserOrdersRoute.page,
+          path: '/user_orders',
           children: [
             AutoRoute(
-              page: UserOrdersRoute.page,
-              path: 'user_orders',
+              page: UserOrderListRoute.page,
+              path: 'user_order_list',
             ),
           ],
         ),
@@ -321,9 +325,18 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: ComparisonDetailRoute.page, path: '/comparison_detail'),
         AutoRoute(page: PromotionRoute.page, path: '/promotion'),
         AutoRoute(page: SettingRoute.page, path: '/setting'),
+
         AutoRoute(
           page: UserActiveSessionsRoute.page,
           path: '/user_active_sessions',
+        ),
+        AutoRoute(
+          page: UserOrderCancelRoute.page,
+          path: '/user_order_cancel',
+        ),
+        AutoRoute(
+          page: UserOrderInfoRoute.page,
+          path: '/user_order_info',
         ),
         AutoRoute(
           page: UserSocialAccountsRoute.page,

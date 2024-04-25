@@ -31,7 +31,7 @@ class FavoriteEmptyWidget extends StatelessWidget {
             CustomElevatedButton(
               backgroundColor: context.colors.buttonPrimary,
               onPressed: onActionClicked,
-              text: Strings.favoriteEmptyToMain,
+              text: Strings.commonOpenMain,
             )
           ],
         ),

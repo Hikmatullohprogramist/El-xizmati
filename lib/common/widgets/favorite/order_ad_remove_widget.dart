@@ -3,15 +3,13 @@ import 'package:onlinebozor/common/vibrator/vibrator_extension.dart';
 
 import '../../gen/assets/assets.gen.dart';
 
-class OrderAdFavoriteWidget extends StatelessWidget {
-  const OrderAdFavoriteWidget({
+class OrderAdRemoveWidget extends StatelessWidget {
+  const OrderAdRemoveWidget({
     super.key,
-    required this.isFavorite,
     required this.onClicked,
     this.size = 32,
   });
 
-  final bool isFavorite;
   final VoidCallback onClicked;
   final double size;
 
@@ -36,9 +34,7 @@ class OrderAdFavoriteWidget extends StatelessWidget {
           ),
           height: size,
           width: size,
-          child: isFavorite
-              ? Assets.images.icFavoriteRemove.svg(color: Colors.red)
-              : Assets.images.icFavoriteAdd.svg(),
+          child: Assets.images.icDelete.svg(color: Colors.red),
         ),
       ),
     );

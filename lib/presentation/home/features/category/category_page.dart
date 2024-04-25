@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
@@ -48,10 +49,9 @@ class CategoryPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
-    // searchTextController.updateOnRestore(state.searchQuery);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: context.appBarColor,
         elevation: 0.5,
         toolbarHeight: 64,
         title: TextField(
@@ -71,7 +71,7 @@ class CategoryPage extends BasePage<PageCubit, PageState, PageEvent> {
           },
         ),
       ),
-      backgroundColor: StaticColors.backgroundColor,
+      backgroundColor: context.backgroundColor,
       body: LoaderStateWidget(
         isFullScreen: true,
         loadingState: state.loadState,

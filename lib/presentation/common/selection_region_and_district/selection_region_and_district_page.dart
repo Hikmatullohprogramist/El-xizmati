@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/widgets/action/action_item_shimmer.dart';
 import 'package:onlinebozor/common/widgets/action/multi_selection_expandable_item.dart';
@@ -43,7 +44,7 @@ class SelectionRegionAndDistrictPage
           alignment: Alignment.bottomCenter,
           children: [
             Container(
-              color: Colors.white,
+              color: context.bottomNavigationColor,
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
                 child: Column(

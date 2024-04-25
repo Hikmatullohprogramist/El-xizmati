@@ -11,7 +11,6 @@ import 'package:onlinebozor/common/widgets/form_field/custom_text_form_field.dar
 import 'package:onlinebozor/common/widgets/loading/default_loading_widget.dart';
 
 import '../../../../../common/core/base_page.dart';
-import '../../../common/colors/static_colors.dart';
 import '../../../common/vibrator/vibrator_extension.dart';
 import '../../../common/widgets/app_bar/default_app_bar.dart';
 import '../../../common/widgets/button/custom_elevated_button.dart';
@@ -21,7 +20,6 @@ import '../../../common/widgets/form_field/custom_dropdown_form_field.dart';
 import '../../../common/widgets/form_field/label_text_field.dart';
 import '../../../common/widgets/form_field/validator/count_validator.dart';
 import '../../../common/widgets/form_field/validator/default_validator.dart';
-import '../../../common/widgets/form_field/validator/email_validator.dart';
 import '../../../common/widgets/form_field/validator/phone_number_validator.dart';
 import '../../../common/widgets/form_field/validator/price_validator.dart';
 import '../../../common/widgets/loading/default_error_widget.dart';
@@ -92,10 +90,12 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
     return Scaffold(
       appBar: DefaultAppBar(
-        state.isEditing ? Strings.adEditTitle : Strings.adCreateTitle,
-        () => context.router.pop(),
+        titleText:
+            state.isEditing ? Strings.adEditTitle : Strings.adCreateTitle,
+        backgroundColor: context.appBarColor,
+        onBackPressed: () => context.router.pop(),
       ),
-      backgroundColor: StaticColors.backgroundColor,
+      backgroundColor: context.backgroundColor,
       body: state.isNotPrepared
           ? Container(
               child: state.isPreparingInProcess
@@ -139,7 +139,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildTitleAndCategoryBlock(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       child: Column(
         children: [
@@ -185,7 +185,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildImageListBlock(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       child: Column(
         children: [
           AdImageListWidget(
@@ -220,7 +220,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Column(
       children: [
         Container(
-          color: Colors.white,
+          color: context.cardColor,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -250,7 +250,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         ),
         SizedBox(height: 4),
         Container(
-          color: Colors.white,
+          color: context.cardColor,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -380,7 +380,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         ),
         SizedBox(height: 4),
         Container(
-          color: Colors.white,
+          color: context.cardColor,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -422,7 +422,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildContactsBlock(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -486,7 +486,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildAddressBlock(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -535,7 +535,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildAutoContinueBlock(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       child: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
@@ -572,7 +572,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildFooterBlock(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.all(16),
       child: Column(
         children: [

@@ -11,16 +11,21 @@ class SearchAppBar extends AppBar implements PreferredSizeWidget {
   final VoidCallback onFavoriteClicked;
   final VoidCallback onNotificationClicked;
 
+  @override
+  final Color backgroundColor;
+
   SearchAppBar({
     super.key,
     required this.onSearchClicked,
     required this.onMicrophoneClicked,
     required this.onFavoriteClicked,
     required this.onNotificationClicked,
+    required this.backgroundColor,
   }) : super(
-          backgroundColor: Colors.white,
+          backgroundColor: backgroundColor,
           elevation: 0.5,
           toolbarHeight: 72,
+
           actions: [
             _getSearchBar(onSearchClicked),
             _getFavoriteAction(onFavoriteClicked),
@@ -38,16 +43,16 @@ class SearchAppBar extends AppBar implements PreferredSizeWidget {
             width: double.maxFinite,
             height: 42,
             padding: EdgeInsets.symmetric(horizontal: 10),
-            decoration: ShapeDecoration(
-              color: Colors.white,
-              shape: RoundedRectangleBorder(
-                side: const BorderSide(
-                  width: 0.50,
-                  color: Color(0xFFE5E9F3),
-                ),
-                borderRadius: BorderRadius.circular(6),
-              ),
-            ),
+            // decoration: ShapeDecoration(
+              // color: Colors.white,
+              // shape: RoundedRectangleBorder(
+              //   side: const BorderSide(
+              //     width: 0.50,
+              //     color: Color(0xFFE5E9F3),
+              //   ),
+              //   borderRadius: BorderRadius.circular(6),
+              // ),
+            // ),
             child: Row(
               children: [
                 InkWell(

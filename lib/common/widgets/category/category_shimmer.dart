@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../colors/static_colors.dart';
@@ -14,7 +15,7 @@ class CategoryShimmer extends StatelessWidget {
       onTap: () {},
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-        color: Colors.white,
+        color: context.cardColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,

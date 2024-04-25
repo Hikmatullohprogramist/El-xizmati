@@ -68,10 +68,13 @@ class DefaultEmptyWidget extends StatelessWidget {
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          (message ?? Strings.commonEmptyMessage)
-              .w(500)
-              .s(16)
-              .c(context.colors.textPrimary),
+          Expanded(
+            child: (message ?? Strings.commonEmptyMessage)
+                .w(500)
+                .s(16)
+                .c(context.colors.textPrimary)
+                .copyWith(textAlign: TextAlign.center),
+          ),
         ],
       ),
       SizedBox(height: 20),

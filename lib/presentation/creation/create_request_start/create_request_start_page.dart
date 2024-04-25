@@ -18,7 +18,7 @@ class CreateRequestStartPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: context.appBarColor,
         centerTitle: true,
         elevation: 0.5,
         leading: IconButton(
@@ -26,7 +26,7 @@ class CreateRequestStartPage extends BasePage<PageCubit, PageState, PageEvent> {
           onPressed: () => context.router.pop(),
         ),
       ),
-      backgroundColor: StaticColors.backgroundColor,
+      backgroundColor: context.backgroundColor,
       body: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,

@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
-import 'package:onlinebozor/common/colors/static_colors.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
@@ -10,8 +9,8 @@ import 'package:onlinebozor/common/widgets/ad/detail/detail_price_text_widget.da
 import 'package:onlinebozor/common/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
-import 'package:onlinebozor/common/widgets/image/order_detail_image_widget.dart';
-import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
+import 'package:onlinebozor/common/widgets/image/rectangle_cached_network_image_widget.dart';
+import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
 import 'package:onlinebozor/presentation/ad/user_ad_detail/cubit/page_cubit.dart';
 
 import '../../../common/core/base_page.dart';
@@ -31,8 +30,12 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: DefaultAppBar("", () => context.router.pop()),
-      backgroundColor: StaticColors.backgroundColor,
+      appBar: DefaultAppBar(
+        titleText: "",
+        backgroundColor: context.backgroundColor,
+        onBackPressed: () => context.router.pop(),
+      ),
+      backgroundColor: context.backgroundColor,
       body: ListView(
         shrinkWrap: true,
         physics: BouncingScrollPhysics(),
@@ -62,9 +65,8 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
           itemCount: cubit(context).getAdImages().length,
           padding: EdgeInsets.only(left: 10, right: 16),
           itemBuilder: (context, index) {
-            return OrderDetailImageWidget(
-              imageId: cubit(context).getAdImages()[index],
-              onClicked: (imageId) {
+            return InkWell(
+              onTap: () {
                 context.router.push(
                   ImageViewerRoute(
                     images: cubit(context).getAdImages(),
@@ -72,6 +74,10 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                   ),
                 );
               },
+              child: RectangleCachedNetworkImage(
+                imageId: cubit(context).getAdImages()[index],
+                imageWidth: 160,
+              ),
             );
           },
           separatorBuilder: (BuildContext context, int index) {

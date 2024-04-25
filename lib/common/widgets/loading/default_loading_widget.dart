@@ -11,14 +11,14 @@ class DefaultLoadingWidget extends StatelessWidget {
     return isFullScreen
         ? Center(
             child: CircularProgressIndicator(
-              color: StaticColors.buttonDefaultBackgroundColor,
+              color: StaticColors.buttonColor,
             ),
           )
         : SizedBox(
             height: 160,
             child: Center(
               child: CircularProgressIndicator(
-                color: StaticColors.buttonDefaultBackgroundColor,
+                color: StaticColors.buttonColor,
               ),
             ),
           );

@@ -1,7 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
+import 'package:onlinebozor/common/extensions/currency_extensions.dart';
+import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
+import 'package:onlinebozor/presentation/utils/mask_formatters.dart';
 
 import '../../../../../../../common/constants.dart';
 import '../../../../../../../common/core/base_cubit.dart';
@@ -52,16 +55,37 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
+  void setEnteredPrice(String price) {
+    int? priceInt = int.tryParse(price.clearPrice());
+    updateState((state) => state.copyWith(price: priceInt));
+  }
+
+  String getProductPrice() {
+    var price = states.hasRangePrice
+        ? "${priceMaskFormatter.formatInt(states.adDetail?.fromPrice)} - ${priceMaskFormatter.formatInt(states.adDetail?.toPrice)}"
+        : "${priceMaskFormatter.formatInt(states.adDetail!.price)}";
+
+    return "$price ${states.adDetail!.currency.getLocalizedName()}";
+  }
+
+  String getOrderPrice() {
+    var price = states.hasRangePrice
+        ? states.price ?? 0
+        : states.count * states.adDetail!.price;
+    return "${priceMaskFormatter.formatInt(price)} ${states.adDetail!.currency.getLocalizedName()}";
+  }
+
   Future<void> getDetailResponse() async {
     try {
       final response = await _adRepository.getAdDetail(states.adId!);
       final paymentList =
-          response?.paymentTypes?.map((e) => e.id ?? -1).toList() ??
-              List.empty();
+          response?.paymentTypes?.map((e) => e.id ?? -1).toList() ?? [];
       updateState((state) => state.copyWith(
-          adDetail: response,
-          favorite: response?.favorite ?? false,
-          paymentType: paymentList));
+            adDetail: response,
+            favorite: response?.favorite ?? false,
+            hasRangePrice: response?.hasRangePrice() ?? false,
+            paymentType: paymentList,
+          ));
     } catch (e) {
       log.e(e.toString());
       display.error(e.toString());
@@ -99,26 +123,36 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
+  Future<void> removeFromCartAfterOrderCreation() async {
+    try {
+      if (states.adId != null) {
+        await _cartRepository.removeCart(states.adDetail!.toMap());
+      }
+    } catch (e) {
+      display.error(e.toString());
+    }
+  }
+
   Future<void> orderCreate() async {
     try {
       final isLogin = await stateRepository.isLogin() ?? false;
       final isFullRegister = await userRepository.isFullRegister();
       if (isLogin) {
         if (isFullRegister) {
-          if (states.paymentId > 0) {
-            await _cartRepository.orderCreate(
-              productId: states.adId ?? -1,
-              amount: states.count,
-              paymentTypeId: states.paymentId,
-              tin: states.adDetail?.sellerTin ?? -1,
-            );
-            await _cartRepository.removeOrder(
-              tin: states.adDetail?.sellerTin ?? -1,
-            );
-            emitEvent(PageEvent(PageEventType.onOpenAfterCreation));
-          } else {
-            Logger().w("to'lov turi tanlanmagan");
-          }
+          await _cartRepository.orderCreate(
+            productId: states.adId ?? -1,
+            amount: states.count,
+            paymentTypeId: states.paymentId,
+            tin: states.adDetail?.sellerTin ?? -1,
+            servicePrice: states.price,
+          );
+
+          await _cartRepository.removeOrder(
+            tin: states.adDetail?.sellerTin ?? -1,
+          );
+          await removeFromCartAfterOrderCreation();
+
+          emitEvent(PageEvent(PageEventType.onOpenAfterCreation));
         } else {
           Logger().w("To'liq ro'yxatdan o'tilmagan");
         }

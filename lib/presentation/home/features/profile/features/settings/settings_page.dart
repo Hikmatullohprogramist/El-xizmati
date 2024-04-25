@@ -18,9 +18,9 @@ class SettingPage
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: context.backgroundColor,
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: context.backgroundColor,
           title:
               Strings.settingsTitle.w(500).s(14).c(context.colors.textPrimary),
           centerTitle: true,

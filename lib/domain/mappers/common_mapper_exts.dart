@@ -1,5 +1,7 @@
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
+import 'package:onlinebozor/domain/models/order/order_cancel_reason.dart';
 import 'package:onlinebozor/domain/models/order/user_order_status.dart';
+import 'package:onlinebozor/presentation/utils/resource_exts.dart';
 
 import '../models/ad/ad_author_type.dart';
 import '../models/ad/ad_item_condition.dart';
@@ -8,7 +10,7 @@ import '../models/ad/ad_transaction_type.dart';
 import '../models/ad/ad_type.dart';
 import '../models/currency/currency.dart';
 
-extension StringAdMapper on String? {
+extension StringMapperExts on String? {
   AdItemCondition toAdPropertyStatus() {
     return this?.contains("USED") == true
         ? AdItemCondition.used
@@ -60,6 +62,21 @@ extension StringAdMapper on String? {
         return Currency.eur;
       default:
         return Currency.uzb;
+    }
+  }
+
+  String getCancelComment() {
+    switch (this) {
+      case "sellernone":
+        return OrderCancelReason.SELLER_NOT_ANSWERED.getLocalizedName();
+      case "changedidea":
+        return OrderCancelReason.CHANGED_IDEA.getLocalizedName();
+      case "selectedother":
+        return OrderCancelReason.SELECTED_INCORRECTED_AD.getLocalizedName();
+      case "other":
+        return OrderCancelReason.OTHER_REASON.getLocalizedName();
+      default:
+        return this ?? "";
     }
   }
 }
@@ -118,17 +135,17 @@ extension AdTypeStatusToStringExtension on AdTransactionType {
   AdType adType() {
     switch (this) {
       case AdTransactionType.SELL:
-        return AdType.product;
+        return AdType.PRODUCT;
       case AdTransactionType.FREE:
-        return AdType.product;
+        return AdType.PRODUCT;
       case AdTransactionType.EXCHANGE:
-        return AdType.product;
+        return AdType.PRODUCT;
       case AdTransactionType.SERVICE:
-        return AdType.service;
+        return AdType.SERVICE;
       case AdTransactionType.BUY:
-        return AdType.product;
+        return AdType.PRODUCT;
       case AdTransactionType.BUY_SERVICE:
-        return AdType.service;
+        return AdType.SERVICE;
     }
   }
 }
@@ -151,9 +168,9 @@ extension CurrencyToStringExtension on Currency {
 extension AdTypeExtension on AdType {
   String name() {
     switch (this) {
-      case AdType.product:
+      case AdType.PRODUCT:
         return "ADS";
-      case AdType.service:
+      case AdType.SERVICE:
         return "SERVICE";
     }
   }

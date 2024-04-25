@@ -1,10 +1,9 @@
 import 'dart:io';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/common/constants.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/vibrator/vibrator_extension.dart';
+import 'package:onlinebozor/common/widgets/image/rounded_cached_network_image_widget.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 
 class AdImageListImageWidget extends StatelessWidget {
@@ -52,32 +51,7 @@ class AdImageListImageWidget extends StatelessWidget {
                       File(uploadableFile.xFile?.path ?? ""),
                       fit: BoxFit.cover,
                     )
-                  : CachedNetworkImage(
-                      imageUrl:
-                          "${Constants.baseUrlForImage}${uploadableFile.id!}",
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                            colorFilter: ColorFilter.mode(
-                              Colors.white,
-                              BlendMode.colorBurn,
-                            ),
-                          ),
-                        ),
-                      ),
-                placeholder: (context, url) => Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                ),
-                errorWidget: (context, url, error) => Container(
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
-                  child: Center(child: Icon(Icons.error)),
-                ),
-                    ),
+                  : RoundedCachedNetworkImage(imageId: uploadableFile.id!),
             ),
           ),
         ),

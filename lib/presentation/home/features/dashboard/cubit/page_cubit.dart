@@ -64,7 +64,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> getPopularProductAds() async {
     try {
       final ads = await adRepository.getDashboardPopularAdsByType(
-        adType: AdType.product,
+        adType: AdType.PRODUCT,
       );
 
       updateState(
@@ -85,7 +85,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> getPopularServiceAds() async {
     try {
       final ads = await adRepository.getDashboardPopularAdsByType(
-        adType: AdType.service,
+        adType: AdType.SERVICE,
       );
       updateState(
         (state) => state.copyWith(

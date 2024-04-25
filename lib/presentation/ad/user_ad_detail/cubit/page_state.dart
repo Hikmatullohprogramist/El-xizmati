@@ -4,6 +4,7 @@ part of 'page_cubit.dart';
 class PageState with _$PageState {
   const factory PageState({
     UserAd? userAd,
+
   }) = _PageState;
 }
 

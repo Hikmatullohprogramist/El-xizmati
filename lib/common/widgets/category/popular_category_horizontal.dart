@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
+import 'package:onlinebozor/common/widgets/image/circle_cached_network_image_widget.dart';
 
 import '../../../data/responses/category/popular_category/popular_category_response.dart';
 import '../../gen/localization/strings.dart';
@@ -26,35 +28,19 @@ class PopularCategoryHorizontal extends StatelessWidget {
         child: Container(
           width: 124,
           decoration: BoxDecoration(
-            color: Color(0xFFF6F7FC),
+            color: context.cardColor,
             borderRadius: BorderRadius.circular(6),
-            border: Border.all(width: 0.90, color: Color(0xFFE5E9F3)),
+            // border: Border.all(width: 0.90, color: Color(0xFFE5E9F3)),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(height: 8),
-              Container(
-                width: 52,
-                height: 52,
-                decoration: ShapeDecoration(shape: OvalBorder()),
-                child: CachedNetworkImage(
-                  imageUrl:
-                      "https://api.online-bozor.uz/uploads/images/${category.icon}",
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: _getImageDecoration(imageProvider),
-                  ),
-                  placeholder: (context, url) => Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                  ),
-                  errorWidget: (context, url, error) => Container(
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
-                    child: Center(child: Icon(Icons.error)),
-                  ),
-                ),
+              CircleCachedNetworkImage(
+                imageId: category.icon ?? "",
+                imageWidth: 52,
+                imageHeight: 52,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 6),

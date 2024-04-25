@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/data/utils/rest_mappers.dart';
+import 'package:onlinebozor/domain/models/order/order_cancel_reason.dart';
 
 import '../../domain/models/order/order_type.dart';
 import '../../domain/models/order/user_order_status.dart';
@@ -24,23 +26,25 @@ class UserOrderService {
       RestQueryKeys.status: userOrderStatus.name.toUpperCase()
     };
     if (orderType == OrderType.sell) {
-      return _dio.get("api/mobile/v1/seller/orders", queryParameters: queryParameters);
+      return _dio.get("api/mobile/v1/seller/orders",
+          queryParameters: queryParameters);
     } else {
-      return _dio.get("api/mobile/v1/buyer/orders", queryParameters: queryParameters);
+      return _dio.get("api/mobile/v1/buyer/orders",
+          queryParameters: queryParameters);
     }
   }
 
-  Future<Response> orderCancel({
+  Future<Response> cancelOrder({
     required int orderId,
-    required UserOrderStatus userOrderStatus,
-    required String canceledNote,
+    required OrderCancelReason reason,
+    required String comment,
   }) async {
     final data = {
-      RestQueryKeys.cancelNote: canceledNote,
-      RestQueryKeys.status: userOrderStatus.name.toUpperCase()
+      RestQueryKeys.orderId: orderId,
+      RestQueryKeys.note: reason == OrderCancelReason.OTHER_REASON
+          ? comment
+          : reason.getRestCode(),
     };
-    final queryParameters = {RestQueryKeys.id: orderId};
-    return _dio.put("api/mobile/v1/buyer/order",
-        data: data, queryParameters: queryParameters);
+    return _dio.put("api/mobile/v1/order/cancel", data: data);
   }
 }

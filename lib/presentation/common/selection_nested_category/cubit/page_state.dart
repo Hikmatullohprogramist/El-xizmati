@@ -3,7 +3,7 @@ part of 'page_cubit.dart';
 @freezed
 class PageState with _$PageState {
   const factory PageState({
-    @Default(AdType.product) AdType adType,
+    @Default(AdType.PRODUCT) AdType adType,
     CategoryResponse? selectedItem,
     @Default([]) List<CategoryResponse> allItems,
     @Default([]) List<CategoryResponse> visibleItems,

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/home/cubit/page_cubit.dart';
@@ -45,7 +46,7 @@ class HomePage extends BasePage<PageCubit, PageState, PageEvent> {
               type: BottomNavigationBarType.fixed,
               elevation: 1,
               selectedItemColor: const Color(0xFF5C6AC3),
-              backgroundColor: Colors.white,
+              backgroundColor: context.bottomBarColor,
               currentIndex: tabsRouter.activeIndex,
               onTap: (index) {
                 tabsRouter.setActiveIndex(index);

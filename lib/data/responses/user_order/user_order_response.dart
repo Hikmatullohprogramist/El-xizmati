@@ -1,10 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:onlinebozor/common/constants.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
-import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
+import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
 import 'package:onlinebozor/domain/models/order/user_order_status.dart';
+import 'package:onlinebozor/presentation/utils/mask_formatters.dart';
 
 part 'user_order_response.freezed.dart';
+
 part 'user_order_response.g.dart';
 
 @freezed
@@ -56,25 +57,34 @@ class UserOrder with _$UserOrder {
   }
 
   String get formattedTotalSum {
-    return "${Constants.formatter.format(totalSum)} ${Strings.currencyUzb}"
-        .replaceAll(',', '\'');
+    return "${priceMaskFormatter.formatDouble(totalSum ?? 0.0)} ${Strings
+        .currencyUzb}";
   }
 
   String get formattedPrice {
-    return "${Constants.formatter.format(firstProduct?.price)} ${Strings.currencyUzb}"
-        .replaceAll(',', '\'');
+    return "${priceMaskFormatter.formatDouble(
+        firstProduct?.price?.toDouble() ?? 0.0)} ${Strings.currencyUzb}";
   }
 
-  UserOrderStatus? get orderStatus {
+  bool get isCanCancel {
+    return ![
+      UserOrderStatus.CANCELED,
+      UserOrderStatus.SYSCANCELED,
+      UserOrderStatus.REJECTED,
+      UserOrderStatus.ACCEPTED
+    ].contains(orderStatus);
+  }
+
+  UserOrderStatus get orderStatus {
     return status.toUserOrderStatus();
   }
 
   String get mainPhoto {
     return products
-            ?.where((e) => e.mainPhoto != null)
-            .toList()
-            .firstOrNull
-            ?.mainPhoto ??
+        ?.where((e) => e.mainPhoto != null)
+        .toList()
+        .firstOrNull
+        ?.mainPhoto ??
         "";
   }
 }

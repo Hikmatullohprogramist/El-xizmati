@@ -3,12 +3,18 @@ import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 
 class DefaultAppBar extends AppBar implements PreferredSizeWidget {
-  final VoidCallback onBackPressed;
   final String titleText;
+  final VoidCallback onBackPressed;
+  @override
+  final Color backgroundColor;
 
-  DefaultAppBar(this.titleText, this.onBackPressed, {super.key})
-      : super(
-          backgroundColor: Colors.white,
+  DefaultAppBar({
+    super.key,
+    required this.titleText,
+    required this.backgroundColor,
+    required this.onBackPressed,
+  }) : super(
+          backgroundColor: backgroundColor,
           elevation: 0.5,
           centerTitle: true,
           toolbarHeight: 64,

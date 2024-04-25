@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
@@ -21,8 +22,11 @@ class CartPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: EmptyAppBar(Strings.bottomNavigationCart),
-      backgroundColor: StaticColors.backgroundColor,
+      appBar: EmptyAppBar(
+        titleText: Strings.bottomNavigationCart,
+        backgroundColor: context.appBarColor,
+      ),
+      backgroundColor: context.backgroundColor,
       body: LoaderStateWidget(
         isFullScreen: true,
         loadingState: state.loadState,
@@ -89,88 +93,3 @@ class CartPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 }
-// body: PagedGridView<int, Ad>(
-//   shrinkWrap: true,
-//   addAutomaticKeepAlives: true,
-//   physics: BouncingScrollPhysics(),
-//   padding: EdgeInsets.symmetric(vertical: 16),
-//   pagingController: state.controller!,
-//   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//     childAspectRatio: 360 / 142,
-//     // mainAxisSpacing: 12,
-//     crossAxisCount: 1,
-//   ),
-//   builderDelegate: PagedChildBuilderDelegate<Ad>(
-//     firstPageErrorIndicatorBuilder: (_) {
-//       return SizedBox(
-//         height: 100,
-//         child: Center(
-//           child: Column(
-//             children: [
-//               Strings.commonEmptyMessage
-//                   .w(400)
-//                   .s(14)
-//                   .c(context.colors.textPrimary),
-//               SizedBox(height: 12),
-//               CustomElevatedButton(
-//                 text: Strings.commonRetry,
-//                 onPressed: () {},
-//               )
-//             ],
-//           ),
-//         ),
-//       );
-//     },
-//     firstPageProgressIndicatorBuilder: (_) {
-//       return SingleChildScrollView(
-//         child: ListView.builder(
-//           physics: BouncingScrollPhysics(),
-//           shrinkWrap: true,
-//           itemCount: 5,
-//           itemBuilder: (BuildContext context, int index) {
-//             return CartShimmer();
-//           },
-//         ),
-//       );
-//     },
-//     noItemsFoundIndicatorBuilder: (_) {
-//       return FavoriteEmptyWidget(
-//         onActionClicked: () => context.router.push(DashboardRoute()),
-//       );
-//     },
-//     newPageProgressIndicatorBuilder: (_) {
-//       return SizedBox(
-//         height: 160,
-//         child: Center(
-//           child: CircularProgressIndicator(
-//             color: Colors.blue,
-//           ),
-//         ),
-//       );
-//     },
-//     newPageErrorIndicatorBuilder: (_) {
-//       return SizedBox(
-//         height: 160,
-//         child: Center(
-//           child: CircularProgressIndicator(
-//             color: Colors.blue,
-//           ),
-//         ),
-//       );
-//     },
-//     transitionDuration: Duration(milliseconds: 100),
-//     itemBuilder: (context, item, index) {
-//       return CartWidget(
-//         ad: item,
-//         onDeleteClicked: (Ad ad) => cubit(context).removeCart(ad),
-//         onFavoriteClicked: (Ad ad) => cubit(context).addFavorite(ad),
-//         onProductClicked: (Ad ad) {
-//           context.router.push(CreateOrderRoute(adId: ad.id));
-//         },
-//       );
-//     },
-//   ),
-// ),
-//     );
-//   }
-// }

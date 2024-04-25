@@ -59,9 +59,13 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      backgroundColor: context.colors.colorBackgroundPrimary,
+      backgroundColor: context.colors.backgroundColor,
       resizeToAvoidBottomInset: false,
-      appBar: DefaultAppBar("", () => context.router.pop()),
+      appBar: DefaultAppBar(
+        titleText: "",
+        backgroundColor: context.backgroundColor,
+        onBackPressed: () => context.router.pop(),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: AutofillGroup(

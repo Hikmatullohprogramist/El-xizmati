@@ -1,10 +1,11 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/common/widgets/favorite/order_ad_favorite_widget.dart';
+import 'package:onlinebozor/common/widgets/favorite/order_ad_remove_widget.dart';
 import 'package:onlinebozor/common/widgets/image/rounded_cached_network_image_widget.dart';
 
 import '../../../domain/models/ad/ad.dart';
@@ -30,9 +31,9 @@ class CartWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xFFFFFFFF),
+        color: context.cardColor,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(width: 1, color: Color(0xFFE5E9F3)),
+        // border: Border.all(width: 1, color: Color(0xFFE5E9F3)),
       ),
       child: Material(
         color: Colors.transparent,
@@ -111,17 +112,10 @@ class CartWidget extends StatelessWidget {
                       onClicked: () => onFavoriteClicked(ad),
                     ),
                     SizedBox(width: 12),
-                    Flexible(
-                      flex: 3,
-                      child: CustomElevatedButton(
-                        buttonHeight: 32,
-                        text: Strings.commonDelete,
-                        textSize: 12,
-                        backgroundColor: Colors.red.shade300,
-                        onPressed: () => onDeleteClicked(ad),
-                      ),
+                    OrderAdRemoveWidget(
+                      onClicked: () => onDeleteClicked(ad),
                     ),
-                    SizedBox(width: 8),
+                    SizedBox(width: 20),
                     Flexible(
                       flex: 4,
                       child: CustomElevatedButton(

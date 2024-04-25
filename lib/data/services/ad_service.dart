@@ -39,7 +39,7 @@ class AdsService {
   }
 
   Future<Response> getAdsByAdType(AdType adType, int page, int limit) {
-    String param = AdType.product == adType ? "ADS" : "SERVICE";
+    String param = AdType.PRODUCT == adType ? "ADS" : "SERVICE";
     final queryParameters = {
       RestQueryKeys.page: page,
       RestQueryKeys.limit: limit,
@@ -50,7 +50,7 @@ class AdsService {
 
   Future<Response> getDashboardAdsByType({required AdType adType}) {
     String param;
-    param = AdType.product == adType ? "ADA" : "SERVICE";
+    param = AdType.PRODUCT == adType ? "ADA" : "SERVICE";
     final queryParameters = {
       RestQueryKeys.adType: param,
       RestQueryKeys.page: 1,
@@ -75,7 +75,7 @@ class AdsService {
     required int limit,
   }) {
     String param;
-    param = AdType.product == adType ? "ADA" : "SERVICE";
+    param = AdType.PRODUCT == adType ? "ADA" : "SERVICE";
     final queryParameters = {
       RestQueryKeys.adType: param,
       RestQueryKeys.page: page,
@@ -86,7 +86,7 @@ class AdsService {
 
   Future<Response> getRecentlyAdsByAdType(AdType adType) {
     String param;
-    param = AdType.product == adType ? "ADA" : "SERVICE";
+    param = AdType.PRODUCT == adType ? "ADA" : "SERVICE";
     final queryParameters = {RestQueryKeys.adType: param};
     return _dio.get("api/mobile/v1/home/ads", queryParameters: queryParameters);
   }
@@ -97,7 +97,7 @@ class AdsService {
     required int limit,
   }) {
     String param;
-    param = AdType.product == adType ? "ADA" : "SERVICE";
+    param = AdType.PRODUCT == adType ? "ADA" : "SERVICE";
     final queryParameters = {
       RestQueryKeys.adType: param,
       RestQueryKeys.page: page,

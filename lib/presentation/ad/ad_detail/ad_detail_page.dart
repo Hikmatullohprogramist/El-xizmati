@@ -20,7 +20,7 @@ import '../../../common/enum/enums.dart';
 import '../../../common/gen/assets/assets.gen.dart';
 import '../../../common/widgets/ad/horizontal/horizontal_ad_list_shimmer.dart';
 import '../../../common/widgets/ad/horizontal/horizontal_ad_list_widget.dart';
-import '../../../common/widgets/dashboard/app_image_widget.dart';
+import '../../../common/widgets/dashboard/ad_detail_image_widget.dart';
 import '../../../common/widgets/divider/custom_diverder.dart';
 import '../../../common/widgets/loading/loader_state_widget.dart';
 import '../../../domain/models/ad/ad.dart';
@@ -51,8 +51,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget _getLoadingContent(BuildContext context, PageState state) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 1,
+          backgroundColor: context.appBarColor,
+          elevation: 0.5,
           leading: IconButton(
               onPressed: () => context.router.pop(),
               icon: Assets.images.icArrowLeft.svg(height: 24, width: 24)),
@@ -64,7 +64,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Scaffold(
       appBar: _getAppBar(context, state),
       bottomNavigationBar: _getBottomNavigationBar(context, state),
-      backgroundColor: Colors.white,
+      backgroundColor: context.backgroundColor,
       body: SafeArea(
         bottom: true,
         child: _getBodyContent(context, state),
@@ -80,7 +80,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
         AnimatedContainer(
           duration: Duration(seconds: 1),
           curve: Curves.easeIn,
-          child: AppImageWidget(
+          child: AdDetailImageWidget(
             images: cubit(context).getImages(),
             onClicked: (int position) {
               context.router.push(
@@ -156,6 +156,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
   AppBar _getAppBar(BuildContext context, PageState state) {
     return ActionAppBar(
       titleText: "",
+      backgroundColor: context.appBarColor,
       onBackPressed: () => context.router.pop(),
       actions: [
         IconButton(
@@ -182,13 +183,13 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
           state.adDetail!.mainTypeStatus == "EXCHANGE"),
       child: Container(
         decoration: BoxDecoration(
-          color: Color(0xFFF2F4FB),
+          color: context.cardColor,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(16),
             topRight: Radius.circular(16),
           ),
           border: Border.all(
-            color: Color(0xFF9EABBE),
+            color: context.cardStrokeColor,
             width: .25,
           ),
         ),

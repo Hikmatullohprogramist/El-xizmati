@@ -9,6 +9,8 @@ class PageState with _$PageState {
     @Default(1) int paymentId,
     @Default(<int>[]) List<int> paymentType,
     @Default(1) int count,
+    @Default(false) bool hasRangePrice,
+    int? price,
   }) = _PageState;
 }
 

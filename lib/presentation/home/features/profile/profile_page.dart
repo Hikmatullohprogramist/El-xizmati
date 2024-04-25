@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
@@ -15,7 +16,6 @@ import 'package:onlinebozor/common/widgets/profile/profile_item_widget.dart';
 import 'package:onlinebozor/domain/models/order/order_type.dart';
 import 'package:onlinebozor/presentation/home/features/profile/cubit/page_cubit.dart';
 
-import '../../../../common/colors/static_colors.dart';
 import '../../../../common/vibrator/vibrator_extension.dart';
 import '../../../../domain/models/language/language.dart';
 
@@ -34,8 +34,11 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: EmptyAppBar(Strings.profileViewTitlle),
-      backgroundColor: StaticColors.backgroundColor,
+      appBar: EmptyAppBar(
+        titleText: Strings.profileViewTitlle,
+        backgroundColor: context.backgroundColor,
+      ),
+      backgroundColor: context.backgroundColor,
       body: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Column(
@@ -105,7 +108,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
               name: Strings.profileMyAds,
               icon: Assets.images.icProfileMyAds,
               onClicked: () {
-                context.router.push(UserAdListRoute());
+                context.router.push(UserAdsRoute());
                 vibrateAsHapticFeedback();
               },
             ),
@@ -121,9 +124,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
               icon: Assets.images.icProfileOrder,
               onClicked: () {
                 // context.router.push(UserOrderTypeRoute());
-                context.router.push(
-                  UserOrderListRoute(orderType: OrderType.buy),
-                );
+                context.router.push(UserOrdersRoute(orderType: OrderType.buy));
                 vibrateAsHapticFeedback();
               },
             ),
@@ -218,10 +219,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
               },
             ),
           ),
-          Visibility(
-            visible: state.isLogin,
-            child: Divider(indent: 46, height: 1),
-          ),
+          Visibility(visible: false, child: Divider(indent: 46, height: 1)),
           ProfileItemWidget(
             name: Strings.profileChangeLanguage,
             icon: Assets.images.icProfileLanguage,
@@ -229,6 +227,18 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
               _showChangeLanguageBottomSheet(context, state);
               vibrateAsHapticFeedback();
             },
+          ),
+          Visibility(visible: false, child: Divider(indent: 46, height: 1)),
+          Visibility(
+            visible: false,
+            child: ProfileItemWidget(
+              name: Strings.profileDarkMode,
+              icon: Assets.images.icProfileDarkMode,
+              onClicked: () {
+                _showChangeLanguageBottomSheet(context, state);
+                vibrateAsHapticFeedback();
+              },
+            ),
           ),
         ],
       ),
@@ -269,7 +279,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
       builder: (BuildContext bc) {
         return Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: context.backgroundColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
@@ -332,19 +342,24 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
       builder: (BuildContext bc) {
         return Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: context.backgroundColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
             ),
           ),
-          padding: EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              SizedBox(height: 32),
-              Center(child: Strings.profileLogoutTitle.s(22).w(600)),
+              SizedBox(height: 12),
+              BottomSheetTitle(
+                title: Strings.profileLogoutTitle,
+                onCloseClicked: () {
+                  context.router.pop();
+                },
+              ),
+              // Center(child: Strings.profileLogoutTitle.s(22).w(600)),
               SizedBox(height: 24),
               Center(child: Strings.profileLogoutDescription.s(16)),
               SizedBox(height: 32),

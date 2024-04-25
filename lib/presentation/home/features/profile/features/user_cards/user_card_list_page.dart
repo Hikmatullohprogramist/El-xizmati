@@ -21,7 +21,7 @@ class UserCardListPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.backgroundColor,
       appBar: ActionAppBar(
         titleText: Strings.myCardTitle,
         onBackPressed: () => context.router.pop(),
@@ -36,7 +36,6 @@ class UserCardListPage extends BasePage<PageCubit, PageState, PageEvent> {
         if (state.isEmpty)
           CardEmptyWidget(
             onActionClicked: () {
-              print("Card Empty Widget User cards call");
               context.router.push(AddCardRoute());
             },
           )
@@ -56,7 +55,7 @@ class UserCardListPage extends BasePage<PageCubit, PageState, PageEvent> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: context.backgroundColor,
         context: context,
         builder: (BuildContext buildContext) {
           return Container(

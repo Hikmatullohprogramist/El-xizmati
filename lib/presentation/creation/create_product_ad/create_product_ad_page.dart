@@ -22,7 +22,6 @@ import 'package:onlinebozor/presentation/utils/resource_exts.dart';
 
 import '../../../../../common/core/base_page.dart';
 import '../../../../../common/gen/localization/strings.dart';
-import '../../../common/colors/static_colors.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/vibrator/vibrator_extension.dart';
 import '../../../common/widgets/action/selection_list_item.dart';
@@ -105,10 +104,12 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
     return Scaffold(
       appBar: DefaultAppBar(
-        state.isEditing ? Strings.adEditTitle : Strings.adCreateTitle,
-        () => context.router.pop(),
+        titleText:
+            state.isEditing ? Strings.adEditTitle : Strings.adCreateTitle,
+        backgroundColor: context.appBarColor,
+        onBackPressed: () => context.router.pop(),
       ),
-      backgroundColor: StaticColors.backgroundColor,
+      backgroundColor: context.backgroundColor,
       body: state.isNotPrepared
           ? Container(
               child: state.isPreparingInProcess
@@ -163,7 +164,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildTitleAndCategoryBlock(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       child: Column(
         children: [
@@ -205,7 +206,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             onTap: () {
               context.router.push(
                 SelectionNestedCategoryRoute(
-                  adType: AdType.product,
+                  adType: AdType.PRODUCT,
                   onResult: (category) {
                     cubit(context).setSelectedCategory(category);
                   },
@@ -220,7 +221,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildImageListBlock(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       child: Column(
         children: [
           AdImageListWidget(
@@ -276,7 +277,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildDescBlock(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -309,7 +310,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     return cubit(context).isFreeAdMode()
         ? SizedBox(height: 0, width: 0)
         : Container(
-            color: Colors.white,
+            color: context.cardColor,
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -487,7 +488,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildAdditionalInfoBlock(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -530,7 +531,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     return !cubit(context).isExchangeMode()
         ? SizedBox(height: 0, width: 0)
         : Container(
-            color: Colors.white,
+            color: context.cardColor,
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -563,7 +564,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   onTap: () {
                     context.router.push(
                       SelectionNestedCategoryRoute(
-                        adType: AdType.product,
+                        adType: AdType.PRODUCT,
                         onResult: (category) {
                           cubit(context).setSelectedAnotherCategory(category);
                         },
@@ -611,7 +612,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     PageState state,
   ) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -699,7 +700,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     PageState state,
   ) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -748,7 +749,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     PageState state,
   ) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -795,7 +796,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     PageState state,
   ) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -862,7 +863,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     PageState state,
   ) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       child: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
@@ -901,7 +902,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Column(
       children: [
         Container(
-          color: Colors.white,
+          color: context.cardColor,
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -937,7 +938,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildFooterBlock(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.all(16),
       child: Column(
         children: [
@@ -980,7 +981,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
       builder: (BuildContext bc) {
         return Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: context.backgroundColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),

@@ -14,8 +14,8 @@ import '../../../common/gen/localization/strings.dart';
 import '../../../common/router/app_router.dart';
 import '../../../common/widgets/app_bar/default_app_bar.dart';
 import '../../../common/widgets/button/custom_elevated_button.dart';
-import '../../../common/widgets/switch/custom_toggle.dart';
 import '../../../common/widgets/form_field/custom_text_form_field.dart';
+import '../../../common/widgets/switch/custom_toggle.dart';
 
 @RoutePage()
 class FaceIdValidatePage extends BasePage<PageCubit, PageState, PageEvent> {
@@ -55,10 +55,11 @@ class FaceIdValidatePage extends BasePage<PageCubit, PageState, PageEvent> {
 
     return Scaffold(
       appBar: DefaultAppBar(
-        Strings.faceIdTitle,
-        () => context.router.pop(),
+        titleText: Strings.faceIdTitle,
+        backgroundColor: context.backgroundColor,
+        onBackPressed: () => context.router.pop(),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: context.backgroundColor,
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
@@ -82,12 +83,12 @@ class FaceIdValidatePage extends BasePage<PageCubit, PageState, PageEvent> {
             child: CustomElevatedButton(
               text: Strings.commonContinue,
               onPressed: () {
-                if(!cubit(context).getButtonEnableState()){
+                if (!cubit(context).getButtonEnableState()) {
                   context.showErrorBottomSheet(
                       context,
                       Strings.commonEmptyMessage,
                       Strings.faceIdErrorInvalidFields);
-                }else{
+                } else {
                   cubit(context).validateEnteredData();
                 }
               },
@@ -95,7 +96,9 @@ class FaceIdValidatePage extends BasePage<PageCubit, PageState, PageEvent> {
               isLoading: state.isRequestInProcess,
             ),
           ),
-          SizedBox(height: 10,)
+          SizedBox(
+            height: 10,
+          )
         ],
       ),
     );
@@ -222,11 +225,10 @@ class FaceIdValidatePage extends BasePage<PageCubit, PageState, PageEvent> {
                       SizedBox(
                         width: 10,
                       ),
-                      if(state.birthDate=="dd.mm.yyyy")
+                      if (state.birthDate == "dd.mm.yyyy")
                         state.birthDate.w(500).s(16).c(Color(0xFF9EABBE)),
-                      if(state.birthDate!="dd.mm.yyyy")
+                      if (state.birthDate != "dd.mm.yyyy")
                         state.birthDate.w(400).s(15).c(Colors.black87),
-
                     ],
                   ),
                 ),

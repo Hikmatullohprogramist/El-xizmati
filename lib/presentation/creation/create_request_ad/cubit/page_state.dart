@@ -9,7 +9,7 @@ class PageState with _$PageState {
     @Default(false) bool isPreparingInProcess,
     //
     @Default(AdTransactionType.BUY) AdTransactionType adTransactionType,
-    @Default(AdType.product) AdType adType,
+    @Default(AdType.PRODUCT) AdType adType,
 //
     @Default("") String title,
     CategoryResponse? category,

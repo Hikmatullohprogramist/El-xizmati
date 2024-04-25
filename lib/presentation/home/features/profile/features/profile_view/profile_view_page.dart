@@ -73,7 +73,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                   ]
                 : [],
           ),
-          backgroundColor: StaticColors.backgroundColor,
+          backgroundColor: context.backgroundColor,
           body: Stack(
             children: [
               Visibility(
@@ -903,7 +903,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Column(
       children: [
         Container(
-          color: Colors.white,
+              color: context.backgroundColor,
           padding: EdgeInsets.only(top: 8),
           child: SeeAllWidget(
             title: "Активные сеансы",

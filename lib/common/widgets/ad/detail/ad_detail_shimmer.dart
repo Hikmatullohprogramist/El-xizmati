@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../colors/static_colors.dart';
@@ -17,7 +18,7 @@ class AdDetailShimmer extends StatelessWidget {
             baseColor: StaticColors.shimmerBaseColor,
             highlightColor: StaticColors.shimmerHighLightColor,
             child: Container(
-              color: Colors.white,
+              color: context.cardColor,
               width: double.infinity,
               height: 350,
             ),

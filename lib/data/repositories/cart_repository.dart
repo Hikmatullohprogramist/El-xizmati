@@ -91,16 +91,20 @@ class CartRepository {
     }
   }
 
-  Future<void> orderCreate(
-      {required int productId,
-      required int amount,
-      required int paymentTypeId,
-      required int tin}) async {
+  Future<void> orderCreate({
+    required int productId,
+    required int amount,
+    required int paymentTypeId,
+    required int tin,
+    required int? servicePrice,
+  }) async {
     _cartService.orderCreate(
-        productId: productId,
-        amount: amount,
-        paymentTypeId: paymentTypeId,
-        tin: tin);
+      productId: productId,
+      amount: amount,
+      paymentTypeId: paymentTypeId,
+      tin: tin,
+      servicePrice: servicePrice,
+    );
     return;
   }
 

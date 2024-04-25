@@ -75,7 +75,7 @@ class SearchAppBar2 extends AppBar implements PreferredSizeWidget {
               ),
             )
           ],
-          backgroundColor: Colors.white,
+          // backgroundColor: context.themeOf.backgroundColor,
           elevation: 0.5,
           toolbarHeight: 64,
         );

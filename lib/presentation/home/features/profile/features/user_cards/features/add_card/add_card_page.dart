@@ -36,7 +36,7 @@ class AddCardPage extends BasePage<PageCubit, PageState, PageEvent> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
           ),
-          backgroundColor: Colors.white,
+          backgroundColor: context.backgroundColor,
           context: context,
           builder: (BuildContext buildContext) {
             return Container(
@@ -111,9 +111,9 @@ class AddCardPage extends BasePage<PageCubit, PageState, PageEvent> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.backgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: context.backgroundColor,
         title:
             Strings.cardAddCardTitle.w(500).s(14).c(context.colors.textPrimary),
         centerTitle: true,

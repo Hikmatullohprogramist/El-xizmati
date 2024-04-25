@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/controller/controller_exts.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
@@ -9,7 +10,6 @@ import 'package:onlinebozor/common/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/button/custom_outlined_button.dart';
 
-import '../../../../../../../../common/colors/static_colors.dart';
 import '../../../../../../../../common/widgets/switch/custom_switch.dart';
 import '../../../../../../../../data/responses/address/user_address_response.dart';
 import '../../../common/vibrator/vibrator_extension.dart';
@@ -55,12 +55,13 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
 
     return Scaffold(
         appBar: DefaultAppBar(
-          state.isEditing
+          titleText: state.isEditing
               ? Strings.userAddressEditTitle
               : Strings.userAddressAddTitle,
-          () => context.router.pop(false),
+          backgroundColor: context.appBarColor,
+          onBackPressed: () => context.router.pop(false),
         ),
-        backgroundColor: StaticColors.backgroundColor,
+        backgroundColor: context.backgroundColor,
         body: Form(
           key: _formKey,
           child: ListView(
@@ -86,7 +87,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
 
   Widget _buildAddressNameBlock(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Column(
         children: [
@@ -108,7 +109,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
 
   Widget _buildRegionBlock(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Column(
         children: [
@@ -151,7 +152,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
 
   Widget _buildAdditionalInfo(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,7 +222,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
 
   Widget _buildLocationBlock(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -246,7 +247,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
 
   _buildFooterBlock(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Column(
         children: [
@@ -294,7 +295,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
         return Container(
           height: double.infinity,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: context.bottomNavigationColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
@@ -330,7 +331,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
         return Container(
           height: double.infinity,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: context.bottomNavigationColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
@@ -366,7 +367,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
         return Container(
           height: double.infinity,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: context.bottomNavigationColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),

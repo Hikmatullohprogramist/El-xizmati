@@ -56,8 +56,12 @@ class AdListPage extends BasePage<PageCubit, PageState, PageEvent> {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: DefaultAppBar(title ?? "", () => context.router.pop()),
-      backgroundColor: Colors.white,
+      appBar: DefaultAppBar(
+        titleText: title ?? "",
+        backgroundColor: context.appBarColor,
+        onBackPressed: () => context.router.pop(),
+      ),
+      backgroundColor: context.backgroundColor,
       body: PagedGridView<int, Ad>(
         shrinkWrap: true,
         addAutomaticKeepAlives: true,
@@ -66,10 +70,10 @@ class AdListPage extends BasePage<PageCubit, PageState, PageEvent> {
         pagingController: state.controller!,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: width / height,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 24,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
           crossAxisCount: 2,
-          mainAxisExtent: 315,
+          mainAxisExtent: 256,
         ),
         builderDelegate: PagedChildBuilderDelegate<Ad>(
           firstPageErrorIndicatorBuilder: (_) {
@@ -135,12 +139,15 @@ class AdListPage extends BasePage<PageCubit, PageState, PageEvent> {
             );
           },
           transitionDuration: Duration(milliseconds: 100),
-          itemBuilder: (context, item, index) => VerticalAdWidget(
-            ad: item,
-            onFavoriteClicked: (value) => cubit(context).changeFavorite(value),
-            onClicked: (value) {
-              context.router.push(AdDetailRoute(adId: value.id));
-            },
+          itemBuilder: (context, item, index) => SizedBox(
+            height: 90,
+            child: VerticalAdWidget(
+              ad: item,
+              onFavoriteClicked: (value) => cubit(context).changeFavorite(value),
+              onClicked: (value) {
+                context.router.push(AdDetailRoute(adId: value.id));
+              },
+            ),
           ),
         ),
       ),

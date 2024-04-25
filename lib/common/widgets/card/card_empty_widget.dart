@@ -38,7 +38,7 @@ class CardEmptyWidget extends StatelessWidget {
             CustomElevatedButton(
               buttonWidth: double.infinity,
               text: Strings.cardAddCardTitle,
-              onPressed: () => onActionClicked,
+              onPressed: () => onActionClicked(),
             )
           ],
         ),

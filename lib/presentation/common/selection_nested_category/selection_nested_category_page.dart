@@ -50,7 +50,7 @@ class SelectionNestedCategoryPage
           onPressed: () => cubit(context).backWithoutSelectedCategory(),
           icon: Assets.images.icArrowLeft.svg(),
         ),
-        backgroundColor: Colors.white,
+        // backgroundColor: context.themeOf.backgroundColor,
         elevation: 0.5,
         toolbarHeight: 64,
         title: TextField(

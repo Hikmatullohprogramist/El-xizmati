@@ -16,20 +16,24 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   void setInitialParams(UserAd userAd) {
     updateState((state) => state.copyWith(userAd: userAd));
-    getAdsDetailForEdit();
+    getUserAdDetail();
   }
 
   List<String> getAdImages() {
     List<String> images = [];
-    if(states.userAd?.mainPhoto!=null){
+    if (states.userAd?.mainPhoto != null) {
       images.add(states.userAd!.mainPhoto!);
     }
     return images;
   }
 
-  Future<void> getAdsDetailForEdit() async {
-    // final user = adCreationRepository.getAdDetailsForEdit(
-    //   adId: states.userAdResponse!.id,
-    // );
+  Future<void> getUserAdDetail() async {
+    final ad = await adCreationRepository.getServiceAdForEdit(
+      adId: states.userAd!.id,
+    );
+
+    // updateState((state) => state.copyWith(
+    //
+    // ))
   }
 }

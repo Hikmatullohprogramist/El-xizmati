@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/core/base_cubit.dart';
@@ -12,7 +11,6 @@ import '../../../../data/repositories/auth_repository.dart';
 import '../../../../data/repositories/favorite_repository.dart';
 
 part 'page_cubit.freezed.dart';
-
 part 'page_state.dart';
 
 @injectable
@@ -36,6 +34,11 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     );
   }
 
+  // Future<String> getAppSignature() async {
+  //   final signature = await SmsAutoFill().getAppSignature;
+  //   return signature;
+  // }
+
   void startTimer() {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       updateState(
@@ -55,9 +58,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     updateState((state) => state.copyWith(code: code));
   }
 
-  void resendCode(){
-
-  }
+  void resendCode() {}
 
   void confirmCode() {
     if (ConfirmType.confirm == state.state?.confirmType) {
@@ -94,7 +95,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> recoveryPhoneConfirmByCode() async {
     updateState((state) => state.copyWith(isConfirmLoading: true));
     try {
-      await _repository.recoveryConfirm(states.phone.clearPhoneWithCode(), states.code);
+      await _repository.recoveryConfirm(
+          states.phone.clearPhoneWithCode(), states.code);
       _timer?.cancel();
       await sendAllFavoriteAds();
       emitEvent(PageEvent(PageEventType.setPassword));

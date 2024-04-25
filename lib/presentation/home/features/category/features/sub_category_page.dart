@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/presentation/home/features/category/features/cubit/page_cubit.dart';
 
-import '../../../../../common/colors/static_colors.dart';
 import '../../../../../common/router/app_router.dart';
 import '../../../../../common/widgets/app_bar/default_app_bar.dart';
 import '../../../../../common/widgets/category/category_shimmer.dart';
@@ -34,8 +34,12 @@ class SubCategoryPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: DefaultAppBar(title, () => context.router.pop()),
-      backgroundColor: StaticColors.backgroundColor,
+      appBar: DefaultAppBar(
+        titleText: title,
+        backgroundColor: context.backgroundColor,
+        onBackPressed: () => context.router.pop(),
+      ),
+      backgroundColor: context.backgroundColor,
       body: LoaderStateWidget(
         isFullScreen: true,
         loadingState: state.loadState,
