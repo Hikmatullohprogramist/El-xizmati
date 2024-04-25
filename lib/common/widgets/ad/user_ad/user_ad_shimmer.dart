@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../colors/static_colors.dart';
@@ -13,9 +14,9 @@ class UserAdWidgetShimmer extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 14, vertical: 6),
       decoration: BoxDecoration(
-        color: Color(0xFFFFFFFF),
+        color: context.cardColor,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(width: 1, color: Color(0xFFE5E9F3)),
+        border: Border.all(width: 1, color: context.cardStrokeColor),
       ),
       child: Material(
         color: Colors.transparent,

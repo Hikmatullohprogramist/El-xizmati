@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
@@ -9,11 +8,11 @@ import 'package:onlinebozor/common/widgets/ad/list_ad_property_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/list_price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/view_count_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite/ad_favorite_widget.dart';
+import 'package:onlinebozor/common/widgets/image/rounded_cached_network_image_widget.dart';
 import 'package:onlinebozor/domain/mappers/ad_enum_mapper.dart';
 
 import '../../../../domain/models/ad/ad.dart';
 import '../../../../domain/models/ad/ad_priority_level.dart';
-import '../../../constants.dart';
 import '../../../gen/assets/assets.gen.dart';
 
 class HorizontalAdWidget extends StatelessWidget {
@@ -40,57 +39,34 @@ class HorizontalAdWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: 140,
-              height: 140,
-              decoration: BoxDecoration(color: Color(0xFFF6F7FC)),
-              child: Stack(
-                children: [
-                  CachedNetworkImage(
-                    imageUrl: "${Constants.baseUrlForImage}${ad.photo}",
-                    imageBuilder: (context, imageProvider) => Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                        image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.cover,
-                          colorFilter: ColorFilter.mode(
-                            Colors.white,
-                            BlendMode.colorBurn,
-                          ),
-                        ),
-                      ),
-                    ),
-                    placeholder: (context, url) => Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                    ),
-                    errorWidget: (context, url, error) => Container(
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
-                      child: Center(child: Icon(Icons.error)),
-                    ),
+            Stack(
+              children: [
+                RoundedCachedNetworkImage(
+                  imageId: ad.photo,
+                  imageWidth: 140,
+                  imageHeight: 140,
+                ),
+                AppAdStatusWidget(adStatus: AdPriorityLevel.standard),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: AdFavoriteWidget(
+                    isSelected: ad.favorite,
+                    invoke: () => onFavoriteClicked(ad),
                   ),
-                  AppAdStatusWidget(adStatus: AdPriorityLevel.standard),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: AdFavoriteWidget(
-                      isSelected: ad.favorite,
-                      invoke: () => onFavoriteClicked(ad),
-                    ),
+                ),
+                Positioned(
+                  left: 0,
+                  bottom: 0,
+                  child: AdTypeWidget(
+                    adType: ad.adTypeStatus.adType(),
                   ),
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: AdTypeWidget(
-                      adType: ad.adTypeStatus.adType(),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: ViewCountWidget(viewCount: ad.view),
-                  ),
-                ],
-              ),
+                ),
+                Positioned(
+                  right: 0,
+                  bottom: 0,
+                  child: ViewCountWidget(viewCount: ad.view),
+                ),
+              ],
             ),
             SizedBox(height: 12),
             SizedBox(

@@ -31,7 +31,7 @@ class FavoriteProductsPage extends BasePage<PageCubit, PageState, PageEvent> {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.backgroundColor,
       body: RefreshIndicator(
         displacement: 160,
         strokeWidth: 3,
@@ -47,10 +47,10 @@ class FavoriteProductsPage extends BasePage<PageCubit, PageState, PageEvent> {
           pagingController: state.controller!,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: width / height,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 24,
-            mainAxisExtent: 315,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
             crossAxisCount: 2,
+            mainAxisExtent: 256,
           ),
           builderDelegate: PagedChildBuilderDelegate<Ad>(
             firstPageErrorIndicatorBuilder: (_) {
@@ -119,8 +119,9 @@ class FavoriteProductsPage extends BasePage<PageCubit, PageState, PageEvent> {
             itemBuilder: (context, item, index) => VerticalAdWidget(
               isCanChangeFavorite: false,
               ad: item,
-              onFavoriteClicked: (value) =>
-                  cubit(context).removeFavorite(value),
+              onFavoriteClicked: (value) {
+                cubit(context).removeFavorite(value);
+              },
               onClicked: (value) {
                 context.router.push(AdDetailRoute(adId: value.id));
               },
