@@ -40,13 +40,13 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   PagingController<int, UserOrder> getOrderController({required int status}) {
-    final adController = PagingController<int, UserOrder>(
+    final controller = PagingController<int, UserOrder>(
       firstPageKey: 1,
       invisibleItemsThreshold: 100,
     );
     log.i(states.controller);
 
-    adController.addPageRequestListener(
+    controller.addPageRequestListener(
       (pageKey) async {
         try {
           final orderList = await userOrderRepository.getUserOrders(
@@ -56,17 +56,29 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             orderType: states.orderType,
           );
           if (orderList.length <= 19) {
-            adController.appendLastPage(orderList);
+            controller.appendLastPage(orderList);
             log.i(states.controller);
             return;
           }
-          adController.appendPage(orderList, pageKey + 1);
+          controller.appendPage(orderList, pageKey + 1);
         } catch (e) {
-          log.i("pageKey = $pageKey, orderType = ${states.orderType}, error = $e");
-          adController.error(e);
+          log.i(
+              "pageKey = $pageKey, orderType = ${states.orderType}, error = $e");
+          controller.error(e);
         }
       },
     );
-    return adController;
+    return controller;
+  }
+
+  void updateCancelledOrder(UserOrder order) {
+    final index = states.controller?.itemList?.indexOf(order) ?? 0;
+    final item = states.controller?.itemList?.elementAt(index);
+    if (item != null) {
+      states.controller?.itemList?.removeAt(index);
+      states.controller?.itemList
+          ?.insert(index, item.copyWith(status: UserOrderStatus.CANCELED.name));
+      states.controller?.notifyListeners();
+    }
   }
 }

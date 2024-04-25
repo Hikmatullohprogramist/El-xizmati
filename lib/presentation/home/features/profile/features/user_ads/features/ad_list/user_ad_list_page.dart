@@ -23,8 +23,8 @@ import '../../../../../../../../domain/models/ad/user_ad.dart';
 import 'cubit/page_cubit.dart';
 
 @RoutePage()
-class UserAdsPage extends BasePage<PageCubit, PageState, PageEvent> {
-  const UserAdsPage({
+class UserAdListPage extends BasePage<PageCubit, PageState, PageEvent> {
+  const UserAdListPage({
     super.key,
     required this.userAdStatus,
   });
@@ -39,7 +39,7 @@ class UserAdsPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      backgroundColor: StaticColors.backgroundColor,
+      backgroundColor: context.backgroundColor,
       body: RefreshIndicator(
         displacement: 160,
         strokeWidth: 3,

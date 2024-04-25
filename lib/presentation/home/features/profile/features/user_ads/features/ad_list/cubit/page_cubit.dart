@@ -66,7 +66,13 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     try {
       final response = await userAdRepository.deactivateAd(ad.id);
       if (states.userAdStatus == UserAdStatus.ALL) {
-        // states.controller?.itemList?.remove(ad);
+        final index = states.controller?.itemList?.indexOf(ad) ?? 0;
+        final item = states.controller?.itemList?.elementAt(index);
+        if (item != null) {
+          states.controller?.itemList?.removeAt(index);
+          states.controller?.itemList
+              ?.insert(index, item..status = UserAdStatus.INACTIVE);
+        }
       } else {
         states.controller?.itemList?.remove(ad);
       }
@@ -80,7 +86,13 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     try {
       final response = await userAdRepository.activateAd(ad.id);
       if (states.userAdStatus == UserAdStatus.ALL) {
-        // states.controller?.itemList?.remove(ad);
+        final index = states.controller?.itemList?.indexOf(ad) ?? 0;
+        final item = states.controller?.itemList?.elementAt(index);
+        if (item != null) {
+          states.controller?.itemList?.removeAt(index);
+          states.controller?.itemList
+              ?.insert(index, item..status = UserAdStatus.WAIT);
+        }
       } else {
         states.controller?.itemList?.remove(ad);
       }

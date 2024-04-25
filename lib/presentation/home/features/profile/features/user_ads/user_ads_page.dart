@@ -13,19 +13,19 @@ import '../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../domain/models/ad/user_ad_status.dart';
 
 @RoutePage()
-class UserAdListPage extends BasePage<PageCubit, PageState, PageEvent> {
-  const UserAdListPage({super.key});
+class UserAdsPage extends BasePage<PageCubit, PageState, PageEvent> {
+  const UserAdsPage({super.key});
 
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return AutoTabsRouter.tabBar(
       physics: BouncingScrollPhysics(),
       routes: [
-        UserAdsRoute(userAdStatus: UserAdStatus.ALL),
-        UserAdsRoute(userAdStatus: UserAdStatus.ACTIVE),
-        UserAdsRoute(userAdStatus: UserAdStatus.WAIT),
-        UserAdsRoute(userAdStatus: UserAdStatus.INACTIVE),
-        UserAdsRoute(userAdStatus: UserAdStatus.CANCELLED),
+        UserAdListRoute(userAdStatus: UserAdStatus.ALL),
+        UserAdListRoute(userAdStatus: UserAdStatus.ACTIVE),
+        UserAdListRoute(userAdStatus: UserAdStatus.WAIT),
+        UserAdListRoute(userAdStatus: UserAdStatus.INACTIVE),
+        UserAdListRoute(userAdStatus: UserAdStatus.CANCELLED),
       ],
       builder: (context, child, controller) {
         return Scaffold(
@@ -41,7 +41,7 @@ class UserAdListPage extends BasePage<PageCubit, PageState, PageEvent> {
               onPressed: () => context.router.pop(),
             ),
             elevation: 0.5,
-            backgroundColor: Colors.white,
+            backgroundColor: context.backgroundColor,
             centerTitle: true,
             bottomOpacity: 1,
             title:

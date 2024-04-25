@@ -14,8 +14,8 @@ import '../../../../../../domain/models/order/order_type.dart';
 import '../../../../../../domain/models/order/user_order_status.dart';
 
 @RoutePage()
-class UserOrderListPage extends BasePage<PageCubit, PageState, PageEvent> {
-  const UserOrderListPage(this.orderType, {super.key});
+class UserOrdersPage extends BasePage<PageCubit, PageState, PageEvent> {
+  const UserOrdersPage(this.orderType, {super.key});
 
   final OrderType orderType;
 
@@ -31,7 +31,7 @@ class UserOrderListPage extends BasePage<PageCubit, PageState, PageEvent> {
         case PageEventType.onOrderTypeChange:
           context.router.pop();
           context.router.push(
-            UserOrderListRoute(orderType: cubit(context).states.orderType),
+            UserOrdersRoute(orderType: cubit(context).states.orderType),
           );
       }
     }
@@ -42,12 +42,12 @@ class UserOrderListPage extends BasePage<PageCubit, PageState, PageEvent> {
     return AutoTabsRouter.tabBar(
       physics: BouncingScrollPhysics(),
       routes: [
-        UserOrdersRoute(type: state.orderType, status: UserOrderStatus.ALL),
-        UserOrdersRoute(type: state.orderType, status: UserOrderStatus.WAIT),
-        UserOrdersRoute(type: state.orderType, status: UserOrderStatus.REJECTED),
-        UserOrdersRoute(type: state.orderType, status: UserOrderStatus.CANCELED),
-        UserOrdersRoute(type: state.orderType, status: UserOrderStatus.IN_PROGRESS),
-        UserOrdersRoute(type: state.orderType, status: UserOrderStatus.ACCEPTED),
+        UserOrderListRoute(type: state.orderType, status: UserOrderStatus.ALL),
+        UserOrderListRoute(type: state.orderType, status: UserOrderStatus.WAIT),
+        UserOrderListRoute(type: state.orderType, status: UserOrderStatus.REJECTED),
+        UserOrderListRoute(type: state.orderType, status: UserOrderStatus.CANCELED),
+        UserOrderListRoute(type: state.orderType, status: UserOrderStatus.IN_PROGRESS),
+        UserOrderListRoute(type: state.orderType, status: UserOrderStatus.ACCEPTED),
       ],
       builder: (context, child, controller) {
         return Scaffold(
@@ -67,7 +67,7 @@ class UserOrderListPage extends BasePage<PageCubit, PageState, PageEvent> {
               onPressed: () => context.router.pop(),
             ),
             elevation: 0.5,
-            backgroundColor: Colors.white,
+            backgroundColor: context.backgroundColor,
             centerTitle: true,
             bottomOpacity: 1,
             title: Strings.orderListTitle
