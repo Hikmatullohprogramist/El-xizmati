@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:dio/src/response.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/data/responses/auth/eds/eds_sign_in_response.dart';
 
 import '../../data/hive_objects/user/user_info_object.dart';
 import '../../data/responses/auth/auth_start/auth_start_response.dart';
@@ -78,9 +79,9 @@ class AuthRepository {
     return;
   }
 
-  Future<EImzoModel?> eImzoLogin() async {
+  Future<EImzoModel?> edsAuth() async {
     EImzoModel? eImzoModel;
-    final response = await _authService.eImzoLogin();
+    final response = await _authService.edsAuth();
 
     final int statusCode = response.statusCode;
     final resultClass = json.decode(utf8.decode(response.bodyBytes));
@@ -90,8 +91,8 @@ class AuthRepository {
     return eImzoModel;
   }
 
-  Future<int?> eImzoLoginCheck(String documentId, Timer? _timer) async {
-    final response = await _authService.eImzoLoginCheck(documentId, _timer);
+  Future<int?> edsCheckStatus(String documentId, Timer? _timer) async {
+    final response = await _authService.edsCheckStatus(documentId, _timer);
 
     final int statusCode = response.statusCode;
     final resultClass = json.decode(utf8.decode(response.bodyBytes));
@@ -104,25 +105,50 @@ class AuthRepository {
     return resultClass["status"];
   }
 
-  Future<AuthStartResponse> getUserByEImzo(String sign) async {
-    final response = await _authService.getUserByEImzo(sign: sign);
-    final authStartResponse = AuthStartResponse.fromJson(response.data);
-    final loginResponse = ConfirmRootResponse.fromJson(response.data).data;
-    if (loginResponse.token != null) {
-      await tokenStorage.token.set(loginResponse.token ?? "");
+  Future<void> edsSignIn(String sign) async {
+    final response = await _authService.edsSignIn(sign: sign);
+    final edsResponse = EdsSignInRootResponse.fromJson(response.data);
+    final edsUserResponse = edsResponse.user;
+    if (edsResponse.token != null) {
+      await tokenStorage.token.set(edsResponse.token ?? "");
       await tokenStorage.isLogin.set(true);
-      final user = loginResponse.user;
+      final user = edsUserResponse;
+
       userInfoStorage.userInformation.set(
+        // UserInfoObject(
+        //   fullName: user?.fullName,
+        //   email: user?.email,
+        //   tin: user?.tin,
+        //   id: user?.id,
+        //   areaId: user?.areaId,
+        //   username: user?.username,
+        //   eimzoAllowToLogin: user?.eimzoAllowToLogin,
+        //   mobilePhone: user?.mobilePhone,
+        //   oblId: user?.oblId,
+        //   photo: user?.photo,
+        //   pinfl: user?.pinfl,
+        //   postName: user?.username,
+        //   state: user?.state,
+        // ),
         UserInfoObject(
+          districtId: user?.districtId,
           fullName: user?.fullName,
           email: user?.email,
           tin: user?.tin,
           id: user?.id,
+          apartmentName: user?.apartmentName,
           areaId: user?.areaId,
           username: user?.username,
+          birthDate: user?.birthDate,
           eimzoAllowToLogin: user?.eimzoAllowToLogin,
+          gender: user?.gender,
+          homeName: user?.homeName,
+          isPassword: user?.isPassword,
+          isRegistered: user?.isRegistered,
           mobilePhone: user?.mobilePhone,
           oblId: user?.oblId,
+          passportNumber: user?.passportNumber,
+          passportSerial: user?.passportSerial,
           photo: user?.photo,
           pinfl: user?.pinfl,
           postName: user?.username,
@@ -130,12 +156,15 @@ class AuthRepository {
         ),
       );
     }
-    return authStartResponse;
+    return;
   }
 
   Future<void> confirm(String phone, String code) async {
     final response = await _authService.confirm(
-        phone: phone, code: code, sessionToken: sessionToken);
+      phone: phone,
+      code: code,
+      sessionToken: sessionToken,
+    );
     final confirmResponse = ConfirmRootResponse.fromJson(response.data).data;
     if (confirmResponse.token != null) {
       await tokenStorage.token.set(confirmResponse.token ?? "");

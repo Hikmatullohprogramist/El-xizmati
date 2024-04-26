@@ -2,11 +2,8 @@
 // these are the S-boxes given in Applied Cryptography 2nd Ed., p. 333
 // This is default S-box!
 
-
-
-
-import 'package:onlinebozor/presentation/auth/e_imzo/e-imzo_enter/key_parameter.dart';
-import 'package:onlinebozor/presentation/auth/e_imzo/e-imzo_enter/parameters_with_sbox.dart';
+import 'package:onlinebozor/presentation/auth/eds/request/key_parameter.dart';
+import 'package:onlinebozor/presentation/auth/eds/request/parameters_with_sbox.dart';
 
 import 'cipher_parameters.dart';
 

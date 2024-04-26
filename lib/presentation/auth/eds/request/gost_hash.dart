@@ -1,4 +1,5 @@
-import 'package:onlinebozor/presentation/auth/e_imzo/e-imzo_enter/hex.dart';
+import 'package:onlinebozor/presentation/auth/eds/request/hex.dart';
+
 import 'gost_28147_engine.dart';
 import 'ozdst_1106_digest.dart';
 

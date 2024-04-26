@@ -21,7 +21,7 @@ class AuthService {
   }
 
 
-  Future<http.Response> eImzoLogin() async {
+  Future<http.Response> edsAuth() async {
     final response = await http.post(
       Uri.parse('https://hujjat.uz/mobile-id/frontend/mobile/auth'),
       headers: {
@@ -32,7 +32,7 @@ class AuthService {
     return response;
   }
 
-  Future<http.Response> eImzoLoginCheck(String documentId, Timer? _timer) async {
+  Future<http.Response> edsCheckStatus(String documentId, Timer? _timer) async {
     final response = await http.post(
       Uri.parse(
           'https://hujjat.uz/mobile-id/frontend/mobile/status?documentId=${documentId}'),
@@ -45,13 +45,14 @@ class AuthService {
   }
 
 
-  Future<Response> getUserByEImzo({
+  Future<Response> edsSignIn({
     required String sign,
   }) async {
     final body = {
       RestQueryKeys.accessToken: sign,
     };
-    return _dio.post('api/v2/mobile/auth/e-imzo/login', queryParameters: body);
+    // return _dio.post('api/v2/mobile/auth/e-imzo/login', queryParameters: body);
+    return _dio.get('auth/eimzo-v2/$sign');
   }
 
 

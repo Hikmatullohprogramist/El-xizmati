@@ -1,7 +1,6 @@
-
-import 'package:onlinebozor/presentation/auth/e_imzo/e-imzo_enter/gost_28147_engine.dart';
-import 'package:onlinebozor/presentation/auth/e_imzo/e-imzo_enter/key_parameter.dart';
-import 'package:onlinebozor/presentation/auth/e_imzo/e-imzo_enter/parameters_with_sbox.dart';
+import 'package:onlinebozor/presentation/auth/eds/request/gost_28147_engine.dart';
+import 'package:onlinebozor/presentation/auth/eds/request/key_parameter.dart';
+import 'package:onlinebozor/presentation/auth/eds/request/parameters_with_sbox.dart';
 
 class OzDSt1106Digest {
 

@@ -15,8 +15,8 @@ import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/button/custom_outlined_button.dart';
 import 'package:onlinebozor/common/widgets/form_field/custom_text_form_field.dart';
 import 'package:onlinebozor/presentation/auth/confirm/auth_confirm_page.dart';
-import 'package:onlinebozor/presentation/auth/e_imzo/e-imzo_enter/crc32.dart';
-import 'package:onlinebozor/presentation/auth/e_imzo/e-imzo_enter/gost_hash.dart';
+import 'package:onlinebozor/presentation/auth/eds/request/crc32.dart';
+import 'package:onlinebozor/presentation/auth/eds/request/gost_hash.dart';
 import 'package:onlinebozor/presentation/auth/start/cubit/page_cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -100,13 +100,16 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
                 },
               ),
               Spacer(),
-              CustomOutlinedButton(
-                text: Strings.authStartLoginWithFaceId,
-                onPressed: () {
-                  context.router.push(FaceIdValidateRoute());
-                },
-                strokeColor: context.colors.borderColor,
-                rightIcon: Assets.images.icFaceId.svg(),
+              Visibility(
+                visible: false,
+                child: CustomOutlinedButton(
+                  text: Strings.authStartLoginWithFaceId,
+                  onPressed: () {
+                    context.router.push(FaceIdValidateRoute());
+                  },
+                  strokeColor: context.colors.borderColor,
+                  rightIcon: Assets.images.icFaceId.svg(),
+                ),
               ),
               SizedBox(height: 10),
               CustomOutlinedButton(
@@ -119,9 +122,13 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
               CustomOutlinedButton(
                 text: Strings.authStartLoginWithEImzo,
                 onPressed: () {
-                  cubit(context).loginWithEImzo().then((value) {
-                    enter(value?.challange ?? "", value?.siteId ?? "",
-                        value?.documentId ?? "", context);
+                  cubit(context).edsAuth().then((value) {
+                    generateQrCode(
+                      context,
+                      value?.challange ?? "",
+                      value?.siteId ?? "",
+                      value?.documentId ?? "",
+                    );
                   });
                 },
                 strokeColor: context.colors.borderColor,
@@ -183,7 +190,7 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
     } catch (error) {}
   }
 
-  void enterWithEimzo(String code) async {
+  void openEdsAppWithQrCode(String code) async {
     await LaunchApp.openApp(
       iosUrlScheme: 'eimzo://sign?qc=$code',
       appStoreLink:
@@ -192,7 +199,7 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  void getAppPlayMarket() async {
+  void openEdsAppInfoInPlayMarket() async {
     await LaunchApp.openApp(
       androidPackageName: 'uz.yt.idcard.eimzo',
       iosUrlScheme: 'eimzo://',
@@ -202,18 +209,22 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  void enter(String challange, String siteId, String documentId,
-      BuildContext context) {
-    var docHash = GostHash.hashGost(challange);
+  void generateQrCode(
+    BuildContext context,
+    String challenge,
+    String siteId,
+    String documentId,
+  ) {
+    var docHash = GostHash.hashGost(challenge);
     var code = siteId + documentId + docHash;
     var crc32 = Crc32.calcHex(code);
     code += crc32;
     if (Platform.isAndroid) {
       var _deepLink = 'eimzo://sign?qc=$code';
       _launchURL(_deepLink);
-      cubit(context).checkStatusEImzo(documentId);
+      cubit(context).edsCheckStatus(documentId);
     } else {
-      enterWithEimzo(code);
+      openEdsAppWithQrCode(code);
     }
   }
 
@@ -226,7 +237,7 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
         mode: LaunchMode.externalApplication,
       );
     } else {
-      getAppPlayMarket();
+      openEdsAppInfoInPlayMarket();
       throw 'Ишга туширилмади $url';
     }
   }
