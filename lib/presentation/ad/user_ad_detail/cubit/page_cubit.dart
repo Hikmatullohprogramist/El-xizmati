@@ -1,6 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/common/enum/enums.dart';
 import 'package:onlinebozor/data/repositories/ad_creation_repository.dart';
+import 'package:onlinebozor/data/responses/ad/ad_detail/user_ad_detail_response.dart';
 
 import '../../../../common/core/base_cubit.dart';
 import '../../../../domain/models/ad/user_ad.dart';
@@ -28,12 +30,19 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   Future<void> getUserAdDetail() async {
-    final ad = await adCreationRepository.getServiceAdForEdit(
-      adId: states.userAd!.id,
-    );
+    updateState((state) => state.copyWith(loadState: LoadingState.loading));
+    try {
+      final userAdDetail = await adCreationRepository.getUserAdDetail(
+        adId: states.userAd!.id,
+      );
 
-    // updateState((state) => state.copyWith(
-    //
-    // ))
+      updateState((state) => state.copyWith(
+            loadState: LoadingState.success,
+            userAdDetail: userAdDetail,
+          ));
+    } catch (e) {
+      updateState((state) => state.copyWith(loadState: LoadingState.error));
+      log.w("get-user-ad-detail error = $e");
+    }
   }
 }

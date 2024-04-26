@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
 import 'package:onlinebozor/common/widgets/ad/detail/detail_price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
-import 'package:onlinebozor/common/widgets/divider/custom_diverder.dart';
-import 'package:onlinebozor/common/widgets/image/rectangle_cached_network_image_widget.dart';
+import 'package:onlinebozor/common/widgets/image/rounded_cached_network_image_widget.dart';
+import 'package:onlinebozor/common/widgets/loading/loader_state_widget.dart';
 import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
 import 'package:onlinebozor/presentation/ad/user_ad_detail/cubit/page_cubit.dart';
 
@@ -36,25 +35,34 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
         onBackPressed: () => context.router.pop(),
       ),
       backgroundColor: context.backgroundColor,
-      body: ListView(
-        shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
-        children: [
-          SizedBox(height: 20),
-          _buildImageList(context, state),
-          SizedBox(height: 16),
-          _buildTitleBlock(context, state),
-          SizedBox(height: 16),
-          _buildPriceBlock(context, state),
-          SizedBox(height: 20)
-        ],
+      body: LoaderStateWidget(
+        isFullScreen: true,
+        loadingState: state.loadState,
+        successBody: _buildSuccessBody(context, state),
+        onRetryClicked: () => cubit(context).getUserAdDetail(),
       ),
+    );
+  }
+
+  Widget _buildSuccessBody(BuildContext context, PageState state) {
+    return ListView(
+      shrinkWrap: true,
+      physics: BouncingScrollPhysics(),
+      children: [
+        SizedBox(height: 20),
+        _buildImageList(context, state),
+        SizedBox(height: 16),
+        _buildTitleBlock(context, state),
+        SizedBox(height: 16),
+        _buildStatsBlock(context, state),
+        SizedBox(height: 20)
+      ],
     );
   }
 
   Widget _buildImageList(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(vertical: 16),
       child: SizedBox(
         height: 100,
@@ -62,7 +70,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
           physics: BouncingScrollPhysics(),
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
-          itemCount: cubit(context).getAdImages().length,
+          itemCount: state.userAdDetail?.photos?.length ?? 0,
           padding: EdgeInsets.only(left: 10, right: 16),
           itemBuilder: (context, index) {
             return InkWell(
@@ -74,8 +82,8 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                   ),
                 );
               },
-              child: RectangleCachedNetworkImage(
-                imageId: cubit(context).getAdImages()[index],
+              child: RoundedCachedNetworkImage(
+                imageId: state.userAdDetail!.photos![index].image,
                 imageWidth: 160,
               ),
             );
@@ -90,97 +98,74 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildTitleBlock(BuildContext context, PageState state) {
     return Container(
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16),
-      color: Colors.white,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 16),
           (userAd.name ?? "").w(600).s(14).c(Color(0xFF41455E)),
-          SizedBox(height: 24),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Strings.userAdDetailRemainder.w(400).s(12).c(Color(0xFF9EABBE)),
-                SizedBox(width: 6),
-                "0".s(12).c(Color(0xFF41455E)).w(500)
-              ],
-            ),
-          ),
-          SizedBox(height: 6),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: "Транспорт -"
-                .w(400)
-                .s(12)
-                .c(Color(0xFF9EABBE))
-                .copyWith(maxLines: 2, overflow: TextOverflow.ellipsis),
-          ),
-          SizedBox(height: 24),
-          CustomDivider(height: 1),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 22),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
+          SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              if (userAd.hasPrice())
                 DetailPriceTextWidget(
                   price: userAd.price ?? 0,
                   toPrice: userAd.toPrice ?? 0,
                   fromPrice: userAd.fromPrice ?? 0,
                   currency: userAd.currency.toCurrency(),
                 ),
-                // "473 769 560 сум".w(700).s(16).c(Color(0xFF5C6AC3))
-              ],
-            ),
+              // "473 769 560 сум".w(700).s(16).c(Color(0xFF5C6AC3))
+            ],
           ),
+          SizedBox(height: 16),
         ],
       ),
     );
   }
 
-  Widget _buildPriceBlock(BuildContext context, PageState state) {
+  Widget _buildStatsBlock(BuildContext context, PageState state) {
     return Container(
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16),
-      color: Colors.white,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 16),
-          Row(
-            children: [
-              Assets.images.icCalendar.svg(width: 24, height: 24),
-              SizedBox(width: 8),
-              ("${userAd.beginDate ?? ""}-${userAd.endDate ?? ""}")
-                  .w(500)
-                  .s(12)
-                  .c(Color(0xFF9EABBE)),
-            ],
-          ),
-          SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Assets.images.icLocation.svg(height: 24, width: 24),
-              SizedBox(width: 6),
-              ("${userAd.region ?? " "} ${userAd.district ?? ""}")
-                  .w(400)
-                  .s(12)
-                  .c(Color(0xFF9EABBE))
-            ],
-          ),
-          SizedBox(height: 16),
-          Container(
-            margin: EdgeInsets.all(16),
-            child: CustomElevatedButton(
-              text: "Посмотреть статистику",
-              onPressed: () {},
-            ),
-          ),
-          SizedBox(height: 8),
+          // Row(
+          //   children: [
+          //     Assets.images.icCalendar.svg(width: 24, height: 24),
+          //     SizedBox(width: 8),
+          //     ("${userAd.beginDate ?? ""}-${userAd.endDate ?? ""}")
+          //         .w(500)
+          //         .s(12)
+          //         .c(Color(0xFF9EABBE)),
+          //   ],
+          // ),
+          // SizedBox(height: 16),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.start,
+          //   children: [
+          //     Assets.images.icLocation.svg(height: 24, width: 24),
+          //     SizedBox(width: 6),
+          //     ("${userAd.region ?? " "} ${userAd.district ?? ""}")
+          //         .w(400)
+          //         .s(12)
+          //         .c(Color(0xFF9EABBE))
+          //   ],
+          // ),
+          // SizedBox(height: 16),
+          // Container(
+          //   margin: EdgeInsets.all(16),
+          //   child: CustomElevatedButton(
+          //     text: "Посмотреть статистику",
+          //     onPressed: () {},
+          //   ),
+          // ),
+          // SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

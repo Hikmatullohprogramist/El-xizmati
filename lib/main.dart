@@ -112,7 +112,33 @@ class MyApp extends StatelessWidget {
       statusBarIconBrightness: context.theme.brightness,
     ));
     ThemeMode themeMode = ThemeMode.system;
-    ColorScheme lightColorScheme = ColorScheme(
+
+    return DisplayWidget(
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: 'Inter',
+          useMaterial3: false,
+          colorScheme: _getLightModeColorScheme(),
+        ),
+        darkTheme: ThemeData(
+          useMaterial3: false,
+          brightness: Brightness.dark,
+          colorScheme: _getDarkModeColorScheme(),
+        ),
+        themeMode: themeMode,
+        routerConfig: _appRouter.config(initialRoutes: [
+          if (isLanguageSelection) HomeRoute() else SetLanguageRoute()
+        ], navigatorObservers: () => [ChuckerFlutter.navigatorObserver]),
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+      ),
+    );
+  }
+
+  ColorScheme _getLightModeColorScheme() {
+    return ColorScheme(
       brightness: Brightness.light,
       primary: Color(0xFF5C6AC4),
       onPrimary: Color(0xFFFFFFFF),
@@ -129,8 +155,10 @@ class MyApp extends StatelessWidget {
       surface: Color(0xFFFFFFFF),
       onSurface: Color(0xFF000000), // Black for text and icons on surface
     );
+  }
 
-    ColorScheme darkColorScheme = ColorScheme(
+  ColorScheme _getDarkModeColorScheme() {
+    return ColorScheme(
       brightness: Brightness.dark,
       primary: Color(0xFF5C6AC4),
       onPrimary: Color(0xFFDFE2E9),
@@ -146,29 +174,6 @@ class MyApp extends StatelessWidget {
       onBackground: Color(0xFFE0E0E0),
       surface: Color(0xFF333333),
       onSurface: Color(0xFFE0E0E0),
-    );
-
-    return DisplayWidget(
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          fontFamily: 'Inter',
-          useMaterial3: false,
-          colorScheme: lightColorScheme,
-        ),
-        darkTheme: ThemeData(
-          useMaterial3: false,
-          brightness: Brightness.dark,
-          colorScheme: darkColorScheme,
-        ),
-        themeMode: themeMode,
-        routerConfig: _appRouter.config(initialRoutes: [
-          if (isLanguageSelection) HomeRoute() else SetLanguageRoute()
-        ], navigatorObservers: () => [ChuckerFlutter.navigatorObserver]),
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-      ),
     );
   }
 }

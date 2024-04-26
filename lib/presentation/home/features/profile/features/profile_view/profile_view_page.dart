@@ -22,7 +22,6 @@ import 'package:onlinebozor/common/widgets/profile/profil_view_shimmer.dart';
 import 'package:onlinebozor/common/widgets/snackbar/snackbar_widget.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 
-import '../../../../../../common/colors/static_colors.dart';
 import '../../../../../../common/constants.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../common/vibrator/vibrator_extension.dart';
@@ -114,7 +113,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _getHeaderBlock(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -279,7 +278,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _getBioBlock(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Strings.profileUserDateOfBirth.w(400).s(14).c(Color(0xFF9EABBE)),
@@ -328,7 +327,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildNotificationBlock(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -382,7 +381,8 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
             style: OutlinedButton.styleFrom(
               foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
+                borderRadius: BorderRadius.circular(10),
+              ),
               side: BorderSide(
                   color: state.actualEmailState
                       ? Color(0xFF5C6AC4)
@@ -516,7 +516,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
 
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -903,7 +903,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Column(
       children: [
         Container(
-              color: context.backgroundColor,
+          color: context.backgroundColor,
           padding: EdgeInsets.only(top: 8),
           child: SeeAllWidget(
             title: "Активные сеансы",
@@ -997,7 +997,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
       builder: (BuildContext bc) {
         return Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: context.cardColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),

@@ -4,7 +4,8 @@ part of 'page_cubit.dart';
 class PageState with _$PageState {
   const factory PageState({
     UserAd? userAd,
-
+    UserAdDetail? userAdDetail,
+    @Default(LoadingState.loading) LoadingState loadState
   }) = _PageState;
 }
 

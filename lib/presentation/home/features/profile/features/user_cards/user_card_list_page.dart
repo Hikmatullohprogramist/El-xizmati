@@ -28,7 +28,9 @@ class UserCardListPage extends BasePage<PageCubit, PageState, PageEvent> {
         actions: [
           CustomTextButton(
             text: Strings.cardAddTitle,
-            onPressed: () => context.router.push(AddCardRoute()),
+            onPressed: () {
+              // context.router.push(AddCardRoute());
+            },
           )
         ],
       ),
@@ -36,7 +38,7 @@ class UserCardListPage extends BasePage<PageCubit, PageState, PageEvent> {
         if (state.isEmpty)
           CardEmptyWidget(
             onActionClicked: () {
-              context.router.push(AddCardRoute());
+              // context.router.push(AddCardRoute());
             },
           )
         else

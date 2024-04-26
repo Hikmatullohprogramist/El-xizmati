@@ -91,7 +91,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildValidateBlock(BuildContext context, PageState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: const EdgeInsets.only(left: 16, right: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -219,7 +219,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Visibility(
       visible: state.isRegistration,
       child: Container(
-        color: Colors.white,
+        color: context.cardColor,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -265,7 +265,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Visibility(
       visible: state.isRegistration,
       child: Container(
-        color: Colors.white,
+        color: context.cardColor,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -481,7 +481,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
                 text: Strings.commonSave,
                 onPressed: () {
                   //  cubit(parent).enableButton(passportSeries.text, passportNumber.text, birthDate);
-                  Navigator.of(context).pop();
+                  context.router.pop();
                 },
                 backgroundColor: context.colors.buttonPrimary,
                 isEnabled: true,

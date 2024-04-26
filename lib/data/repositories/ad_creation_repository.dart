@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/data/responses/ad/ad_detail/user_ad_detail_response.dart';
 import 'package:onlinebozor/data/responses/ad/creation/ad_creation_response.dart';
 import 'package:onlinebozor/data/responses/ad/edit/product_ad_response.dart';
 import 'package:onlinebozor/data/responses/ad/edit/request_ad_response.dart';
@@ -320,9 +321,9 @@ class AdCreationRepository {
     return adsResponse;
   }
 
-  Future<RequestAdResponse> getUserAdDetail({required int adId}) async {
+  Future<UserAdDetail> getUserAdDetail({required int adId}) async {
     final response = await _adCreationService.getUserAdDetail(adId: adId);
-    final adsResponse = RequestAdRootResponse.fromJson(response.data).data;
-    return adsResponse;
+    final adsResponse = UserAdDetailRootResponse.fromJson(response.data).data;
+    return adsResponse.userAdDetail;
   }
 }

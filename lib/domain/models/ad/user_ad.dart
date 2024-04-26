@@ -68,6 +68,11 @@ class UserAd {
   dynamic moderatorNote;
   String? moderatorNoteType;
 
+  bool hasPrice() {
+    return (price != null && price! > 0) ||
+        (toPrice != null && toPrice! > 0 && fromPrice != null && toPrice! > 0);
+  }
+
   bool isCanActivate() {
     return status == UserAdStatus.INACTIVE;
   }
@@ -91,5 +96,4 @@ class UserAd {
   bool isCanAdvertise() {
     return false;
   }
-
 }
