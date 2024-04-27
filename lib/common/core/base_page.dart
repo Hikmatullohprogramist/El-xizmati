@@ -14,7 +14,7 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
   const BasePage({Key? key}) : super(key: key);
 
   void onWidgetCreated(BuildContext context) {}
-  
+
   void onEventEmitted(BuildContext context, EVENT event) {}
 
   Widget onWidgetBuild(BuildContext context, STATE state);
@@ -29,7 +29,8 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
 
           return BaseListener<CUBIT, STATE, EVENT>(
             onEventEmitted: (event) => onEventEmitted(context, event),
-            widget: BaseBuilder<CUBIT, STATE, EVENT>(onWidgetBuild: onWidgetBuild),
+            widget:
+                BaseBuilder<CUBIT, STATE, EVENT>(onWidgetBuild: onWidgetBuild),
           );
         },
       ),
@@ -67,10 +68,7 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
     AlertDialog alert = AlertDialog(
       title: Text("Alert Title"),
       content: Text("This is the alert message."),
-      actions: [
-        negativeButton,
-        positiveButton
-      ],
+      actions: [negativeButton, positiveButton],
     );
 
     showDialog(

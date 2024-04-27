@@ -3,11 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
+import 'package:onlinebozor/common/widgets/action/action_list_item.dart';
 import 'package:onlinebozor/common/widgets/ad/vertical/vertical_ad_shimmer.dart';
-import 'package:onlinebozor/common/widgets/app_bar/default_app_bar.dart';
+import 'package:onlinebozor/common/widgets/app_bar/action_app_bar.dart';
+import 'package:onlinebozor/common/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
+import 'package:onlinebozor/domain/models/report/report_type.dart';
 import 'package:onlinebozor/presentation/ad/ad_list/cubit/page_cubit.dart';
+import 'package:onlinebozor/presentation/common/report/submit_report_page.dart';
 
 import '../../../common/core/base_page.dart';
 import '../../../common/router/app_router.dart';
@@ -56,10 +61,19 @@ class AdListPage extends BasePage<PageCubit, PageState, PageEvent> {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: DefaultAppBar(
+      appBar: ActionAppBar(
         titleText: title ?? "",
         backgroundColor: context.appBarColor,
         onBackPressed: () => context.router.pop(),
+        actions: [
+          if (sellerTin != null)
+            IconButton(
+              icon: Assets.images.icThreeDotVertical.svg(),
+              onPressed: () {
+                _showReportTypeBottomSheet(context);
+              },
+            )
+        ],
       ),
       backgroundColor: context.backgroundColor,
       body: PagedGridView<int, Ad>(
@@ -143,7 +157,8 @@ class AdListPage extends BasePage<PageCubit, PageState, PageEvent> {
             height: 90,
             child: VerticalAdWidget(
               ad: item,
-              onFavoriteClicked: (value) => cubit(context).changeFavorite(value),
+              onFavoriteClicked: (value) =>
+                  cubit(context).changeFavorite(value),
               onClicked: (value) {
                 context.router.push(AdDetailRoute(adId: value.id));
               },
@@ -151,6 +166,71 @@ class AdListPage extends BasePage<PageCubit, PageState, PageEvent> {
           ),
         ),
       ),
+    );
+  }
+
+  void _showReportPage(
+    BuildContext context,
+    ReportType reportType,
+  ) async {
+    final isReported = await showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => SubmitReportPage(sellerTin!, reportType),
+    );
+  }
+
+  void _showReportTypeBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext bc) {
+        return Container(
+          decoration: BoxDecoration(
+            color: context.cardColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          // padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(height: 20),
+              BottomSheetTitle(
+                title: Strings.actionTitle,
+                onCloseClicked: () {
+                  context.router.pop();
+                },
+              ),
+              SizedBox(height: 16),
+              ActionListItem(
+                item: "",
+                title: Strings.reportUserReportTitle,
+                icon: Assets.images.icSubmitReport,
+                onClicked: (item) {
+                  Navigator.pop(context);
+                  _showReportPage(context, ReportType.AUTHOR_REPORT);
+                },
+              ),
+              ActionListItem(
+                item: "",
+                title: Strings.reportUserBlockTitle,
+                icon: Assets.images.icSubmitBlock,
+                onClicked: (item) {
+                  Navigator.pop(context);
+                  _showReportPage(context, ReportType.AUTHOR_BLOCK);
+                },
+              ),
+              SizedBox(height: 32),
+            ],
+          ),
+        );
+      },
     );
   }
 }

@@ -1,0 +1,3 @@
+enum ReportType{
+  AD_BLOCK, AD_REPORT, AUTHOR_BLOCK, AUTHOR_REPORT
+}

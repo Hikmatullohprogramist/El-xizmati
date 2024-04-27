@@ -4,13 +4,17 @@ import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 import 'package:onlinebozor/common/gen/localization/strings.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
+import 'package:onlinebozor/common/widgets/action/action_list_item.dart';
 import 'package:onlinebozor/common/widgets/ad/detail/ad_detail_shimmer.dart';
 import 'package:onlinebozor/common/widgets/ad/detail/detail_price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/app_bar/action_app_bar.dart';
+import 'package:onlinebozor/common/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/dashboard/see_all_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite/ad_detail_favorite_widget.dart';
+import 'package:onlinebozor/domain/models/report/report_type.dart';
 import 'package:onlinebozor/presentation/ad/ad_detail/cubit/page_cubit.dart';
+import 'package:onlinebozor/presentation/common/report/submit_report_page.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -171,7 +175,13 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
             isFavorite: state.adDetail!.favorite,
             onClicked: () => cubit(context).changeAdFavorite(),
           ),
-        )
+        ),
+        IconButton(
+          icon: Assets.images.icThreeDotVertical.svg(),
+          onPressed: () {
+            _showReportTypeBottomSheet(context);
+          },
+        ),
       ],
     );
   }
@@ -680,6 +690,71 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
           ),
         ],
       ),
+    );
+  }
+
+  void _showReportPage(
+    BuildContext context,
+    ReportType reportType,
+  ) async {
+    final isReported = await showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => SubmitReportPage(adId, reportType),
+    );
+  }
+
+  void _showReportTypeBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext bc) {
+        return Container(
+          decoration: BoxDecoration(
+            color: context.cardColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          // padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(height: 20),
+              BottomSheetTitle(
+                title: Strings.actionTitle,
+                onCloseClicked: () {
+                  context.router.pop();
+                },
+              ),
+              SizedBox(height: 16),
+              ActionListItem(
+                item: "",
+                title: Strings.reportAdsReportTitle,
+                icon: Assets.images.icSubmitReport,
+                onClicked: (item) {
+                  Navigator.pop(context);
+                  _showReportPage(context, ReportType.AD_REPORT);
+                },
+              ),
+              ActionListItem(
+                item: "",
+                title: Strings.reportAdsBlockTitle,
+                icon: Assets.images.icSubmitBlock,
+                onClicked: (item) {
+                  Navigator.pop(context);
+                  _showReportPage(context, ReportType.AD_BLOCK);
+                },
+              ),
+              SizedBox(height: 32),
+            ],
+          ),
+        );
+      },
     );
   }
 }

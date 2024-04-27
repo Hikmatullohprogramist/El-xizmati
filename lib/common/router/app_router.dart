@@ -1,11 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/data/responses/user_order/user_order_response.dart';
+import 'package:onlinebozor/domain/models/report/report_type.dart';
 import 'package:onlinebozor/presentation/common/language/change_language/change_language_page.dart';
+import 'package:onlinebozor/presentation/common/report/submit_report_page.dart';
 import 'package:onlinebozor/presentation/creation/create_order/create_order_page.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_orders/features/user_order_cancel/user_order_cancel_page.dart';
 import 'package:onlinebozor/presentation/home/features/profile/features/user_orders/features/user_order_info/user_order_info_page.dart';
-// import 'package:onlinebozor/presentation/home/features/profile/features/user_orders/features/user_order_cancel/user_order_cancel_page.dart';
 import 'package:onlinebozor/presentation/home/home_page.dart';
 
 import '../../data/responses/address/user_address_response.dart';
@@ -382,6 +383,11 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           page: SelectionUnitRoute.page,
           path: '/selection_unit',
-        )
+        ),
+
+        AutoRoute(
+          page: SubmitReportRoute.page,
+          path: '/submit_report',
+        ),
       ];
 }
