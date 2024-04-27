@@ -6,10 +6,10 @@ class PageState with _$PageState {
     UserOrder? userOrder,
     @Default([]) List<OrderCancelReason> reasons,
     @Default(OrderCancelReason.SELLER_NOT_ANSWERED)
-    OrderCancelReason cancelReason,
+    OrderCancelReason selectedReason,
     @Default("") String cancelComment,
     @Default(false) bool isCommentEnabled,
-    @Default(LoadingState.success) LoadingState cancelLoadState,
+    @Default(LoadingState.success) LoadingState loadState,
   }) = _PageState;
 }
 

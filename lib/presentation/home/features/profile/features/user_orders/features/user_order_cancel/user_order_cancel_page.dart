@@ -32,7 +32,7 @@ class UserOrderCancelPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   @override
   void onEventEmitted(BuildContext context, PageEvent event) {
-    switch(event.type){
+    switch (event.type) {
       case PageEventType.onBackAfterCancel:
         context.router.pop(cubit(context).states.userOrder!);
     }
@@ -104,20 +104,31 @@ class UserOrderCancelPage extends BasePage<PageCubit, PageState, PageEvent> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 72),
+                    SizedBox(height: 32),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: CustomElevatedButton(
+                        text: Strings.commonCancel,
+                        onPressed: () {
+                          cubit(context).cancelOrder();
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 32),
                   ],
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: CustomElevatedButton(
-                text: Strings.commonCancel,
-                onPressed: () {
-                  cubit(context).cancelOrder();
-                },
-              ),
-            ),
+            // Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: 16),
+            //   child: CustomElevatedButton(
+            //     text: Strings.commonCancel,
+            //     onPressed: () {
+            //       cubit(context).cancelOrder();
+            //     },
+            //   ),
+            // ),
+            // SizedBox(height: 32),
           ],
         ),
       ),
@@ -136,7 +147,7 @@ class UserOrderCancelPage extends BasePage<PageCubit, PageState, PageEvent> {
         return SelectionListItem(
           item: item,
           title: item.getLocalizedName(),
-          isSelected: item == state.cancelReason,
+          isSelected: item == state.selectedReason,
           onClicked: (item) {
             cubit(context).setSelectedReason(item);
           },

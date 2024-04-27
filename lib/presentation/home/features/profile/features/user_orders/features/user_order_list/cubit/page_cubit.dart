@@ -76,8 +76,12 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     final item = states.controller?.itemList?.elementAt(index);
     if (item != null) {
       states.controller?.itemList?.removeAt(index);
-      states.controller?.itemList
-          ?.insert(index, item.copyWith(status: UserOrderStatus.CANCELED.name));
+      states.controller?.itemList?.insert(
+          index,
+          item.copyWith(
+            status: order.status,
+            cancelNote: order.cancelNote,
+          ));
       states.controller?.notifyListeners();
     }
   }
