@@ -39,8 +39,8 @@ class _AdFavoriteWidget extends State<AdDetailFavoriteWidget> {
       borderRadius: BorderRadius.circular(24),
       child: Container(
         padding: const EdgeInsets.all(10),
-        height: 56,
-        width: 56,
+        height: 48,
+        width: 48,
         child: _isFavorite
             ? Assets.images.icFavoriteRemoveDetail.svg()
             : Assets.images.icFavoriteAddDetail.svg(),

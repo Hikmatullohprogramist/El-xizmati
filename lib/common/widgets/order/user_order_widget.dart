@@ -64,7 +64,7 @@ class UserOrderWidget extends StatelessWidget {
                           .c(order.orderStatus.getColor()),
                     ),
                     // SizedBox(width: 8),
-                    // Assets.images.icMoreVert.svg()
+                    // Assets.images.icThreeDotVertical.svg()
                   ],
                 ),
                 SizedBox(height: 12),

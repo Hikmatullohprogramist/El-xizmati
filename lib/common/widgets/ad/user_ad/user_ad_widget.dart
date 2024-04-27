@@ -170,7 +170,7 @@ class UserAdWidget extends StatelessWidget {
                               onActionClicked();
                               vibrateAsHapticFeedback();
                             },
-                            icon: Assets.images.icMoreVert
+                            icon: Assets.images.icThreeDotVertical
                                 .svg(width: 24, height: 24),
                           ),
                         ],

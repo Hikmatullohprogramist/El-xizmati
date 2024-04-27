@@ -76,7 +76,7 @@ class UserAddressWidget extends StatelessWidget {
                         SizedBox(width: 8),
                         Visibility(
                           visible: isManageEnabled,
-                          child: Assets.images.icMoreVert.svg(),
+                          child: Assets.images.icThreeDotVertical.svg(),
                         )
                       ],
                     )

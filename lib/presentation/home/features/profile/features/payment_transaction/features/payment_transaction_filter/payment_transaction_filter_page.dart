@@ -364,7 +364,7 @@ class PaymentTransactionFilterPage
           height: MediaQuery.of(context).size.height * 0.75,
           padding: EdgeInsets.symmetric(vertical: 20),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: context.cardColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10.0), // Adjust the radius as needed
               topRight: Radius.circular(10.0), // Adjust the radius as needed

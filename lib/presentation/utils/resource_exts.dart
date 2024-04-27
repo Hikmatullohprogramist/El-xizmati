@@ -6,6 +6,8 @@ import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
 import 'package:onlinebozor/domain/models/order/order_cancel_reason.dart';
 import 'package:onlinebozor/domain/models/order/user_order_status.dart';
+import 'package:onlinebozor/domain/models/report/report_reason.dart';
+import 'package:onlinebozor/domain/models/report/report_type.dart';
 
 import '../../common/gen/localization/strings.dart';
 import '../../domain/models/ad/ad_transaction_type.dart';
@@ -256,6 +258,52 @@ extension OrderCancelReasonExts on OrderCancelReason {
       OrderCancelReason.SELECTED_INCORRECTED_AD =>
         Strings.orderCancelSelectedInfcorrectedAd,
       OrderCancelReason.OTHER_REASON => Strings.orderCancelOtherReason,
+    };
+  }
+}
+
+extension ReportReasonExts on ReportReason {
+  String getLocalizedName() {
+    return switch (this) {
+      ReportReason.SPAM => Strings.reportReasonSpam,
+      ReportReason.FRAUD => Strings.reportReasonFraud,
+      ReportReason.INSULT_OR_THREATS => Strings.reportReasonInsultOrThreats,
+      ReportReason.PROHIBITED_GOODS_SERVICES =>
+        Strings.reportReasonProhibitedGoodsServices,
+      ReportReason.IRRELEVANT_ADS => Strings.reportReasonIrrelevantAds,
+      ReportReason.PROHIBITED_SERVICE => Strings.reportReasonProhibitedService,
+      ReportReason.INAPPROPRIATE_CONTENT =>
+        Strings.reportReasonInappropriateContent,
+      ReportReason.OTHER => Strings.reportReasonOther,
+    };
+  }
+}
+
+extension ReportTypeExts on ReportType {
+  String getLocalizedPageTitle() {
+    return switch (this) {
+      ReportType.AD_BLOCK => Strings.reportAdsBlockTitle,
+      ReportType.AD_REPORT => Strings.reportAdsReportTitle,
+      ReportType.AUTHOR_BLOCK => Strings.reportUserBlockTitle,
+      ReportType.AUTHOR_REPORT => Strings.reportUserReportTitle,
+    };
+  }
+
+  String getLocalizedPageDesc() {
+    return switch (this) {
+      ReportType.AD_BLOCK => Strings.reportAdsBlockDesc,
+      ReportType.AD_REPORT => Strings.reportAdsReportDesc,
+      ReportType.AUTHOR_BLOCK => Strings.reportUserBlockDesc,
+      ReportType.AUTHOR_REPORT => Strings.reportUserReportDesc,
+    };
+  }
+
+  String getLocalizedAction() {
+    return switch (this) {
+      ReportType.AD_BLOCK => Strings.reportActionBlockAd,
+      ReportType.AD_REPORT => Strings.reportActionSendReport,
+      ReportType.AUTHOR_BLOCK => Strings.reportActionBlockUser,
+      ReportType.AUTHOR_REPORT => Strings.reportActionSendReport,
     };
   }
 }

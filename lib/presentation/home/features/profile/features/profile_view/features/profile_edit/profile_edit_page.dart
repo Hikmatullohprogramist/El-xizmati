@@ -398,7 +398,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
       builder: (BuildContext buildContext) {
         return Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: context.cardColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20.0),
               topRight: Radius.circular(20.0),
@@ -437,7 +437,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
       builder: (BuildContext buildContext) {
         return Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: context.cardColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20.0),
               topRight: Radius.circular(20.0),
@@ -475,7 +475,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
       builder: (BuildContext buildContext) {
         return Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: context.cardColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20.0),
               topRight: Radius.circular(20.0),
