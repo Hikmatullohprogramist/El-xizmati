@@ -1,8 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
-import 'package:onlinebozor/common/constants.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
+import 'package:onlinebozor/common/widgets/image/rounded_cached_network_image_widget.dart';
 
 import '../../../data/responses/category/category/category_response.dart';
 import '../../enum/enums.dart';
@@ -37,35 +36,10 @@ class CategoryWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CachedNetworkImage(
-                width: 20,
-                height: 20,
-                imageUrl:
-                    "${Constants.baseUrlForImage}//test//${category.icon}",
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: imageProvider,
-                      colorFilter: ColorFilter.mode(
-                        Color(0xFFF6F7FC),
-                        BlendMode.colorBurn,
-                      ),
-                    ),
-                  ),
-                ),
-                placeholder: (context, url) => Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xFFF6F7FC),
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                ),
-                errorWidget: (context, url, error) => Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xFFF6F7FC),
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  // child: Center(child: Icon(Icons.error)),
-                ),
+              RoundedCachedNetworkImage(
+                imageWidth: 20,
+                imageHeight: 20,
+                imageId: category.icon,
               ),
               SizedBox(width: 16),
               Expanded(

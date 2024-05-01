@@ -7,6 +7,7 @@ import 'package:onlinebozor/common/widgets/ad/list_ad_author_type_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/list_ad_property_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/list_price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/view_count_widget.dart';
+import 'package:onlinebozor/common/widgets/favorite/ad_cart_buy_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite/ad_favorite_widget.dart';
 import 'package:onlinebozor/common/widgets/image/rounded_cached_network_image_widget.dart';
 import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
@@ -117,6 +118,13 @@ class HorizontalAdWidget extends StatelessWidget {
                   adPropertyType: ad.adPropertyStatus,
                 )
               ],
+            ),
+            SizedBox(height: 4),
+            AdCartBuyWidget(
+              height: 32,
+              isAddedCart: false,
+              onCartClicked: () {},
+              onBuyClicked: () {},
             )
           ],
         ),

@@ -1,7 +1,6 @@
 import 'dart:developer' as profile_view_page;
 
 import 'package:auto_route/auto_route.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -18,11 +17,11 @@ import 'package:onlinebozor/common/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/common/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/common/widgets/dashboard/see_all_widget.dart';
 import 'package:onlinebozor/common/widgets/device/active_session_widget.dart';
+import 'package:onlinebozor/common/widgets/image/rounded_cached_network_image_widget.dart';
 import 'package:onlinebozor/common/widgets/profile/profil_view_shimmer.dart';
 import 'package:onlinebozor/common/widgets/snackbar/snackbar_widget.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 
-import '../../../../../../common/constants.dart';
 import '../../../../../../common/gen/assets/assets.gen.dart';
 import '../../../../../../common/vibrator/vibrator_extension.dart';
 import '../../../../../../common/widgets/button/custom_outlined_button.dart';
@@ -123,39 +122,12 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CachedNetworkImage(
-                width: 64,
-                height: 64,
-                imageUrl: "${Constants.baseUrlForImage}${state.photo}",
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                        image: imageProvider,
-                        colorFilter: ColorFilter.mode(
-                            Color(0xFFF6F7FC), BlendMode.colorBurn)),
-                  ),
-                ),
-                placeholder: (context, url) => Container(
-                  height: 64,
-                  width: 64,
-                  margin: EdgeInsets.only(top: 6),
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                      color: Color(0xFFE0E0ED),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Assets.images.icAvatarBoy.svg(),
-                ),
-                errorWidget: (context, url, error) => Container(
-                  height: 64,
-                  width: 64,
-                  margin: EdgeInsets.only(top: 6),
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                      color: Color(0xFFE0E0ED),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Assets.images.icAvatarBoy.svg(),
-                ),
+              RoundedCachedNetworkImage(
+                imageWidth: 64,
+                imageHeight: 64,
+                imageId: state.photo,
+                placeHolderIcon: Assets.images.icAvatarBoy.svg(),
+                errorIcon: Assets.images.icAvatarBoy.svg(),
               ),
               SizedBox(width: 16),
               Column(

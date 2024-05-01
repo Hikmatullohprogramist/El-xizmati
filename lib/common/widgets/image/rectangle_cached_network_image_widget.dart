@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/common/cache/CustomCacheManager.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 
 import '../../constants.dart';
@@ -10,13 +11,15 @@ class RectangleCachedNetworkImage extends StatelessWidget {
     required this.imageId,
     this.imageWidth,
     this.imageHeight,
-    this.isShowError = false,
+    this.placeHolderIcon,
+    this.errorIcon,
   });
 
   final String imageId;
   final double? imageHeight;
   final double? imageWidth;
-  final bool isShowError;
+  final Widget? placeHolderIcon;
+  final Widget? errorIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +31,7 @@ class RectangleCachedNetworkImage extends StatelessWidget {
       width: imageWidth,
       height: imageHeight,
       imageUrl: actualUrl,
+      cacheManager: CustomCacheManager.imageCacheManager,
       imageBuilder: (context, imageProvider) => Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -42,10 +46,12 @@ class RectangleCachedNetworkImage extends StatelessWidget {
       ),
       placeholder: (context, url) => Container(
         decoration: BoxDecoration(color: context.primaryContainer),
+        child:
+            placeHolderIcon != null ? Center(child: placeHolderIcon) : Center(),
       ),
       errorWidget: (context, url, error) => Container(
         decoration: BoxDecoration(color: context.primaryContainer),
-        child: isShowError ? Center(child: Icon(Icons.error)) : Center(),
+        child: errorIcon != null ? Center(child: errorIcon) : Center(),
       ),
     );
   }

@@ -18,7 +18,7 @@ class HorizontalAdListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 285,
+      height: 320,
       child: Align(
         alignment: Alignment.centerLeft,
         child: ListView.separated(
