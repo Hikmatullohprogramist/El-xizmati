@@ -16,7 +16,7 @@ extension ShowResultButtomSheet on BuildContext {
       builder: (BuildContext bc) {
         return Container(
           decoration: BoxDecoration(
-            color: cardColor,
+            color: primaryContainer,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
@@ -68,7 +68,7 @@ extension ShowResultButtomSheet on BuildContext {
       builder: (BuildContext bc) {
         return Container(
           decoration: BoxDecoration(
-            color: context.cardColor,
+            color: context.primaryContainer,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),

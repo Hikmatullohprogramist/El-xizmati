@@ -43,13 +43,13 @@ class CircleCachedNetworkImage extends StatelessWidget {
       ),
       placeholder: (context, url) => Container(
         decoration: BoxDecoration(
-          color: context.cardColor,
+          color: context.primaryContainer,
           shape: BoxShape.circle,
         ),
       ),
       errorWidget: (context, url, error) => Container(
         decoration: BoxDecoration(
-          color: context.cardColor,
+          color: context.primaryContainer,
           shape: BoxShape.circle,
         ),
         child: isShowError ? Center(child: Icon(Icons.error)) : Center(),

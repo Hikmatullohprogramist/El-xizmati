@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
 
@@ -21,11 +22,11 @@ class AppAdStatusWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
             color: Color(0xFF0096B2),
           ),
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+          padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Assets.images.icFire.svg(height: 8, width: 8),
+              Assets.images.icFire.svg(height: 10, width: 10),
               'Top'.w(400).s(13).c(context.colors.textPrimaryInverse)
             ],
           ),

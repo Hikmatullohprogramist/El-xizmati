@@ -87,7 +87,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
 
   Widget _buildAddressNameBlock(BuildContext context) {
     return Container(
-      color: context.cardColor,
+      color: context.primaryContainer,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Column(
         children: [
@@ -109,7 +109,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
 
   Widget _buildRegionBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.cardColor,
+      color: context.primaryContainer,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Column(
         children: [
@@ -152,7 +152,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
 
   Widget _buildAdditionalInfo(BuildContext context, PageState state) {
     return Container(
-      color: context.cardColor,
+      color: context.primaryContainer,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -222,7 +222,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
 
   Widget _buildLocationBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.cardColor,
+      color: context.primaryContainer,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -247,7 +247,7 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
 
   _buildFooterBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.cardColor,
+      color: context.primaryContainer,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Column(
         children: [

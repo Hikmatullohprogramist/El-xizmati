@@ -18,7 +18,7 @@ class CreateOrderShimmer extends StatelessWidget {
             baseColor: StaticColors.shimmerBaseColor,
             highlightColor: StaticColors.shimmerHighLightColor,
             child: Container(
-              color: context.cardColor,
+              color: context.primaryContainer,
               width: double.infinity,
               height: 120,
             ),

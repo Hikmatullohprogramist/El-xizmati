@@ -31,7 +31,7 @@ class PopularCategoryVertical extends StatelessWidget {
           borderRadius: BorderRadius.circular(6),
           child: Container(
             decoration: BoxDecoration(
-              color: context.cardColor,
+              color: context.primaryContainer,
               borderRadius: BorderRadius.circular(6),
               // border: Border.all(width: 0.9, color: Color(0xFFE5E9F3)),
             ),

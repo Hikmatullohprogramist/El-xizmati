@@ -41,7 +41,7 @@ class CreateAdStartPage extends BasePage<PageCubit, PageState, PageEvent> {
         child: Container(
           margin: EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
           decoration: BoxDecoration(
-            color: context.cardColor,
+            color: context.primaryContainer,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: Color(0xFFE5E9F3), width: 1),
           ),
@@ -72,9 +72,9 @@ class CreateAdStartPage extends BasePage<PageCubit, PageState, PageEvent> {
         child: Container(
           margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),
           decoration: BoxDecoration(
-            color: context.cardColor,
+            color: context.primaryContainer,
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: context.cardStrokeColor, width: 1),
+            border: Border.all(color: context.primaryContainerStrokeColor, width: 1),
           ),
           child: SizedBox(
             width: double.infinity,

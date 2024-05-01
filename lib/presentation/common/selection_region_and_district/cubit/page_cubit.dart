@@ -131,6 +131,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   void openOrClose(ExpandableListItem regionItem) {
     var allItems = states.allItems;
+
+
     allItems.where((e) => e.parentId == regionItem.id).forEach((e) {
       e.isVisible = !e.isVisible;
     });

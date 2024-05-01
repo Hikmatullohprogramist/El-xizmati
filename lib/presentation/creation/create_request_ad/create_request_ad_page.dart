@@ -139,7 +139,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildTitleAndCategoryBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.cardColor,
+      color: context.primaryContainer,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       child: Column(
         children: [
@@ -185,7 +185,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildImageListBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.cardColor,
+      color: context.primaryContainer,
       child: Column(
         children: [
           AdImageListWidget(
@@ -220,7 +220,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Column(
       children: [
         Container(
-          color: context.cardColor,
+          color: context.primaryContainer,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -250,7 +250,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         ),
         SizedBox(height: 4),
         Container(
-          color: context.cardColor,
+          color: context.primaryContainer,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -380,7 +380,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         ),
         SizedBox(height: 4),
         Container(
-          color: context.cardColor,
+          color: context.primaryContainer,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -422,7 +422,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildContactsBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.cardColor,
+      color: context.primaryContainer,
       padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -486,7 +486,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildAddressBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.cardColor,
+      color: context.primaryContainer,
       padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -535,7 +535,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildAutoContinueBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.cardColor,
+      color: context.primaryContainer,
       child: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
@@ -572,7 +572,7 @@ class CreateRequestAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildFooterBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.cardColor,
+      color: context.primaryContainer,
       padding: EdgeInsets.all(16),
       child: Column(
         children: [

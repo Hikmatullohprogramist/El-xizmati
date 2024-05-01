@@ -158,7 +158,8 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
       child: Column(
         children: [
           Visibility(
-            visible: state.isLogin,
+            // visible: state.isLogin,
+            visible: false,
             child: ProfileItemWidget(
               name: Strings.profileMyCard,
               icon: Assets.images.icCard,
@@ -169,7 +170,8 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
             ),
           ),
           Visibility(
-            visible: state.isLogin,
+            // visible: state.isLogin,
+            visible: false,
             child: Divider(indent: 46, height: 1),
           ),
           Visibility(

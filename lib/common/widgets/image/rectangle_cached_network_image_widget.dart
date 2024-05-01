@@ -41,10 +41,10 @@ class RectangleCachedNetworkImage extends StatelessWidget {
         ),
       ),
       placeholder: (context, url) => Container(
-        decoration: BoxDecoration(color: context.cardColor),
+        decoration: BoxDecoration(color: context.primaryContainer),
       ),
       errorWidget: (context, url, error) => Container(
-        decoration: BoxDecoration(color: context.cardColor),
+        decoration: BoxDecoration(color: context.primaryContainer),
         child: isShowError ? Center(child: Icon(Icons.error)) : Center(),
       ),
     );

@@ -98,7 +98,7 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildImageList(BuildContext context, PageState state) {
     return Container(
-      color: context.cardColor,
+      color: context.primaryContainer,
       padding: EdgeInsets.symmetric(vertical: 16),
       child: SizedBox(
         height: 100,
@@ -135,7 +135,7 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget _buildInfoBlock(BuildContext context, PageState state) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16),
-      color: context.cardColor,
+      color: context.primaryContainer,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -331,7 +331,7 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildPaymentTypes(BuildContext context, PageState state) {
     return Container(
-      color: context.cardColor,
+      color: context.primaryContainer,
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -391,13 +391,13 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
   Container _buildBottomBar(BuildContext context, PageState state) {
     return Container(
       decoration: BoxDecoration(
-        color: context.cardColor,
+        color: context.primaryContainer,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(16),
           topRight: Radius.circular(16),
         ),
         border: Border.all(
-          color: context.cardStrokeColor,
+          color: context.primaryContainerStrokeColor,
           width: .25,
         ),
       ),

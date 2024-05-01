@@ -24,9 +24,9 @@ class UserAddressSelection extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       padding: EdgeInsets.only(left: 12, top: 12, right: 12),
       decoration: BoxDecoration(
-        color: context.cardColor,
+        color: context.primaryContainer,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(width: 1, color: context.cardStrokeColor),
+        border: Border.all(width: 1, color: context.primaryContainerStrokeColor),
       ),
       child: InkWell(
         onTap: () {

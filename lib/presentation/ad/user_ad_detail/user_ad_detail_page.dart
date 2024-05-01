@@ -62,7 +62,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildImageList(BuildContext context, PageState state) {
     return Container(
-      color: context.cardColor,
+      color: context.primaryContainer,
       padding: EdgeInsets.symmetric(vertical: 16),
       child: SizedBox(
         height: 100,
@@ -98,7 +98,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildTitleBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.cardColor,
+      color: context.primaryContainer,
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -128,7 +128,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildStatsBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.cardColor,
+      color: context.primaryContainer,
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,

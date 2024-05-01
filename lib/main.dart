@@ -90,10 +90,10 @@ Future<void> main() async {
       ),
     ),
   );
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    systemNavigationBarColor: Colors.white,
-    statusBarColor: Colors.white,
-  ));
+  // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+  //   systemNavigationBarColor: Colors.white,
+  //   statusBarColor: Colors.white,
+  // ));
 }
 
 class MyApp extends StatelessWidget {
@@ -108,7 +108,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isDarkMode = context.theme.brightness == Brightness.dark;
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: isDarkMode ? Color(0xffF4F4F4) : Colors.black12,
+      statusBarColor: isDarkMode ? Colors.white : Colors.black12,
+      systemNavigationBarColor: isDarkMode ? Colors.white : Colors.black12,
       statusBarIconBrightness: context.theme.brightness,
     ));
     ThemeMode themeMode = ThemeMode.system;
@@ -142,18 +143,18 @@ class MyApp extends StatelessWidget {
       brightness: Brightness.light,
       primary: Color(0xFF5C6AC4),
       onPrimary: Color(0xFFFFFFFF),
+      secondary: Color(0xFF0096B2),
+      onSecondary: Color(0xFFFFFFFF),
       primaryContainer: Color(0xFFDFE2E9),
       onPrimaryContainer: Color(0xFF000000),
       secondaryContainer: Color(0xFFDFE2E9),
       onSecondaryContainer: Color(0xFF000000),
-      secondary: Color(0xFF0096B2),
-      onSecondary: Color(0xFFFFFFFF),
       error: Color(0xFFB00020),
       onError: Color(0xFFFFFFFF),
       background: Color(0xFFF2F4FB),
       onBackground: Color(0xFF000000),
       surface: Color(0xFFFFFFFF),
-      onSurface: Color(0xFF000000), // Black for text and icons on surface
+      onSurface: Color(0xFF000000),
     );
   }
 
@@ -162,12 +163,12 @@ class MyApp extends StatelessWidget {
       brightness: Brightness.dark,
       primary: Color(0xFF5C6AC4),
       onPrimary: Color(0xFFDFE2E9),
-      primaryContainer: Color(0xFF404A80),
+      secondary: Color(0xFF007B92),
+      onSecondary: Color(0xFFDFE2E9),
+      primaryContainer: Color(0xAB121212),
       onPrimaryContainer: Color(0xFFDFE2E9),
       secondaryContainer: Color(0xFF404A80),
       onSecondaryContainer: Color(0xFFDFE2E9),
-      secondary: Color(0xFF007B92),
-      onSecondary: Color(0xFFDFE2E9),
       error: Color(0xFFCF6679),
       onError: Color(0xFF000000),
       background: Color(0xFF121212),

@@ -20,9 +20,9 @@ extension ColorExtension on BuildContext {
 
   Color get bottomBarColor => Theme.of(this).colorScheme.background;
 
-  Color get cardColor => Theme.of(this).scaffoldBackgroundColor;
+  Color get primaryContainer => Theme.of(this).colorScheme.primaryContainer;
 
-  Color get cardStrokeColor => Theme.of(this).cardColor;
+  Color get primaryContainerStrokeColor => Theme.of(this).cardColor;
 
   Color get primaryColor => Theme.of(this).primaryColor;
 

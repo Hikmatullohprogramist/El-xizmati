@@ -20,7 +20,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../common/colors/static_colors.dart';
 import '../../../common/core/base_page.dart';
-import '../../../common/enum/enums.dart';
 import '../../../common/gen/assets/assets.gen.dart';
 import '../../../common/widgets/ad/horizontal/horizontal_ad_list_shimmer.dart';
 import '../../../common/widgets/ad/horizontal/horizontal_ad_list_widget.dart';
@@ -193,13 +192,13 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
           state.adDetail!.mainTypeStatus == "EXCHANGE"),
       child: Container(
         decoration: BoxDecoration(
-          color: context.cardColor,
+          color: context.primaryContainer,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(16),
             topRight: Radius.circular(16),
           ),
           border: Border.all(
-            color: context.cardStrokeColor,
+            color: context.primaryContainerStrokeColor,
             width: .25,
           ),
         ),
@@ -570,47 +569,49 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   Widget _getSimilarAds(BuildContext context, PageState state) {
-    return Column(
-      children: [
-        SeeAllWidget(
-          onClicked: () {
-            context.router.push(
-              AdListRoute(
-                adListType: AdListType.similarAds,
-                keyWord: null,
-                title: Strings.similarProductTitle,
-                adId: state.adId,
-              ),
-            );
-          },
-          title: Strings.similarProductTitle,
-        ),
-        LoaderStateWidget(
-          isFullScreen: false,
-          loadingState: state.similarAdsState,
-          loadingBody: HorizontalAdListShimmer(),
-          successBody: HorizontalAdListWidget(
-            ads: state.similarAds,
-            onItemClicked: (Ad ad) {
-              context.router.push(AdDetailRoute(adId: ad.id));
+    if (cubit(context).hasSimilarAds()) {
+      return Column(
+        children: [
+          SeeAllWidget(
+            onClicked: () {
+              context.router.push(
+                AdListRoute(
+                  adListType: AdListType.similarAds,
+                  keyWord: null,
+                  title: Strings.similarProductTitle,
+                  adId: state.adId,
+                ),
+              );
             },
-            onFavoriteClicked: (Ad ad) {
-              cubit(context).similarAdsAddFavorite(ad);
+            title: Strings.similarProductTitle,
+          ),
+          LoaderStateWidget(
+            isFullScreen: false,
+            loadingState: state.similarAdsState,
+            loadingBody: HorizontalAdListShimmer(),
+            successBody: HorizontalAdListWidget(
+              ads: state.similarAds,
+              onItemClicked: (Ad ad) {
+                context.router.push(AdDetailRoute(adId: ad.id));
+              },
+              onFavoriteClicked: (Ad ad) {
+                cubit(context).similarAdsAddFavorite(ad);
+              },
+            ),
+            onRetryClicked: () {
+              cubit(context).getSimilarAds();
             },
           ),
-          onRetryClicked: () {
-            cubit(context).getSimilarAds();
-          },
-        ),
-      ],
-    );
+        ],
+      );
+    } else {
+      return Center();
+    }
   }
 
   Widget _getOwnerAdsWidget(BuildContext context, PageState state) {
-    return Visibility(
-      visible: state.ownerAdsState != LoadingState.error &&
-          state.ownerAds.isNotEmpty,
-      child: Column(
+    if (cubit(context).hasOwnerOtherAds()) {
+      return Column(
         children: [
           SizedBox(height: 12),
           SeeAllWidget(
@@ -644,18 +645,15 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
             ),
           ),
         ],
-      ),
-    );
+      );
+    } else {
+      return Center();
+    }
   }
 
-  Widget _getRecentlyViewedAdsWidget(
-    BuildContext context,
-    PageState state,
-  ) {
-    return Visibility(
-      visible: state.recentlyViewedAdsState != LoadingState.error &&
-          state.recentlyViewedAds.isNotEmpty,
-      child: Column(
+  Widget _getRecentlyViewedAdsWidget(BuildContext context, PageState state) {
+    if (cubit(context).hasRecentlyViewedAds()) {
+      return Column(
         children: [
           SizedBox(height: 12),
           SeeAllWidget(
@@ -689,8 +687,10 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
             ),
           ),
         ],
-      ),
-    );
+      );
+    } else {
+      return Center();
+    }
   }
 
   void _showReportPage(
@@ -713,7 +713,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
       builder: (BuildContext bc) {
         return Container(
           decoration: BoxDecoration(
-            color: context.cardColor,
+            color: context.primaryContainer,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),

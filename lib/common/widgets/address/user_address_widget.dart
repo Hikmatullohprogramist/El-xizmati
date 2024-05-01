@@ -25,7 +25,7 @@ class UserAddressWidget extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       decoration: BoxDecoration(
-        color: context.cardColor,
+        color: context.primaryContainer,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Material(

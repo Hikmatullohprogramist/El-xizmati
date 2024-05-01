@@ -15,9 +15,9 @@ class TransactionShimmer extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       margin: const EdgeInsets.all(6),
       decoration: BoxDecoration(
-        color: context.cardColor,
+        color: context.primaryContainer,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(width: 1, color: context.cardStrokeColor),
+        border: Border.all(width: 1, color: context.primaryContainerStrokeColor),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

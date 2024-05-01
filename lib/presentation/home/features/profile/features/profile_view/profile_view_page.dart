@@ -113,7 +113,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _getHeaderBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.cardColor,
+      color: context.primaryContainer,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -278,7 +278,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _getBioBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.cardColor,
+      color: context.primaryContainer,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Strings.profileUserDateOfBirth.w(400).s(14).c(Color(0xFF9EABBE)),
@@ -327,7 +327,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildNotificationBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.cardColor,
+      color: context.primaryContainer,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -516,7 +516,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
 
     return Container(
-      color: context.cardColor,
+      color: context.primaryContainer,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -997,7 +997,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
       builder: (BuildContext bc) {
         return Container(
           decoration: BoxDecoration(
-            color: context.cardColor,
+            color: context.primaryContainer,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),

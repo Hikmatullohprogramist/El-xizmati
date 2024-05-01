@@ -7,6 +7,7 @@ part 'strings.g.dart';
 
 // LINK FOR THE GOOGLE SHEET
 // https://docs.google.com/spreadsheets/d/14H9f5eQWz2aH71NH9cGqEuy_BvgDyo_VMo-AlznFsfY/edit#gid=0
+// file owner on cloud is realsoftllc.developers@gmail.com
 
 // ignore: unused_element
 @SheetLocalization(

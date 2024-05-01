@@ -29,10 +29,10 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> setInitialParams(AdType adType) async {
     updateState((state) => state.copyWith(adType: adType));
-    getHome();
+    getAds();
   }
 
-  Future<void> getHome() async {
+  Future<void> getAds() async {
     await Future.wait([
       getCheapAdsByType(),
       getPopularAdsByType(),

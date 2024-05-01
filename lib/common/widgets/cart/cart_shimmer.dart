@@ -15,9 +15,9 @@ class CartShimmer extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12),
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       decoration: BoxDecoration(
-        color: context.cardColor,
+        color: context.primaryContainer,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(width: 1, color: context.cardStrokeColor),
+        border: Border.all(width: 1, color: context.primaryContainerStrokeColor),
       ),
       child: Column(
         children: [

@@ -32,7 +32,7 @@ class CategoryWidget extends StatelessWidget {
         },
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-          color: context.cardColor,
+          color: context.primaryContainer,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,

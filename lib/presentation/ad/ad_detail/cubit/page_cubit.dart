@@ -14,7 +14,6 @@ import '../../../../domain/models/ad/ad_detail.dart';
 import '../../../../domain/models/stats/stats_type.dart';
 
 part 'page_cubit.freezed.dart';
-
 part 'page_state.dart';
 
 @injectable
@@ -44,6 +43,21 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   bool hasAdDetailDescription() {
     return states.adDetail?.hasDescription() ?? false;
+  }
+
+  bool hasSimilarAds() {
+    return states.similarAdsState == LoadingState.loading ||
+        states.similarAds.isNotEmpty;
+  }
+
+  bool hasOwnerOtherAds() {
+    return states.ownerAdsState == LoadingState.loading ||
+        states.ownerAds.isNotEmpty;
+  }
+
+  bool hasRecentlyViewedAds() {
+    return states.recentlyViewedAdsState == LoadingState.loading ||
+        states.recentlyViewedAds.isNotEmpty;
   }
 
   Future<void> getDetailResponse() async {
