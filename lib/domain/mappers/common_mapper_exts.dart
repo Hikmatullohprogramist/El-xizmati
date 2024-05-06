@@ -1,4 +1,5 @@
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
+import 'package:onlinebozor/domain/models/language/language.dart';
 import 'package:onlinebozor/domain/models/order/order_cancel_reason.dart';
 import 'package:onlinebozor/domain/models/order/user_order_status.dart';
 import 'package:onlinebozor/presentation/utils/resource_exts.dart';
@@ -33,6 +34,13 @@ extension StringMapperExts on String? {
     return AdTransactionType.values.firstWhere(
       (e) => e.name.toUpperCase() == this?.toUpperCase(),
       orElse: () => AdTransactionType.SELL,
+    );
+  }
+
+  Language toLanguage() {
+    return Language.values.firstWhere(
+      (e) => e.name.toUpperCase() == this?.toUpperCase(),
+      orElse: () => Language.uzbekLatin,
     );
   }
 

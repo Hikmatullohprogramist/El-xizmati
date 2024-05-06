@@ -19,7 +19,7 @@ class SelectionCurrencyPage extends BasePage<PageCubit, PageState, PageEvent> {
     this.initialSelectedItem,
   });
 
-  final CurrencyResponse? initialSelectedItem;
+  final Currency? initialSelectedItem;
 
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {

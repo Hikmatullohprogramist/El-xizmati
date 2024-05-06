@@ -9,14 +9,18 @@ class SearchAppBar2 extends AppBar implements PreferredSizeWidget {
   final VoidCallback? listener;
   final VoidCallback? listenerSearch;
   final VoidCallback? listenerNotification;
+  @override
+  final Color backgroundColor;
 
   SearchAppBar2({
     super.key,
+    required this.backgroundColor,
     this.listenerMic,
     this.listenerSearch,
     this.listenerNotification,
     this.listener,
   }) : super(
+          backgroundColor: backgroundColor,
           actions: [
             InkWell(
               onTap: listener,

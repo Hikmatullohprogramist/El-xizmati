@@ -98,7 +98,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   Future<void> getCreatingInitialData() async {
-    final user = _userRepository.userInfoStorage.userInformation.call();
+    final user = _userRepository.getSavedUser();
     updateState((state) => state.copyWith(
           contactPerson: user?.fullName?.capitalizePersonName() ?? "",
           phone: user?.mobilePhone?.clearPhoneWithoutCode() ?? "",
@@ -231,7 +231,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     updateState((state) => state.copyWith(price: priceInt));
   }
 
-  void setSelectedCurrency(CurrencyResponse currency) {
+  void setSelectedCurrency(Currency currency) {
     updateState((state) => state.copyWith(currency: currency));
   }
 

@@ -25,7 +25,8 @@ class Ad {
     required this.sellerId,
     required this.photo,
     required this.isCheck,
-    required this.favorite,
+    required this.isFavorite,
+    required this.isAddedToCart,
     required this.isSort,
     required this.isSell,
     required this.maxAmount,
@@ -52,7 +53,8 @@ class Ad {
       sellerId: sellerId,
       photo: photo,
       isCheck: isCheck,
-      favorite: favorite,
+      isFavorite: isFavorite,
+      isAddedToCart: isAddedToCart,
       isSort: isSort,
       isSell: isSell,
       maxAmount: maxAmount,
@@ -81,7 +83,8 @@ class Ad {
   final String sellerName;
   final int sellerId;
   final int view;
-  bool favorite;
+  bool isFavorite;
+  bool isAddedToCart;
   bool isCheck;
   String photo;
 

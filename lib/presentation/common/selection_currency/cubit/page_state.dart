@@ -3,7 +3,7 @@ part of 'page_cubit.dart';
 @freezed
 class PageState with _$PageState {
   const factory PageState({
-    @Default(<CurrencyResponse>[]) List<CurrencyResponse> items,
+    @Default(<Currency>[]) List<Currency> items,
     @Default(LoadingState.loading) LoadingState loadState,
   }) = _PageState;
 }

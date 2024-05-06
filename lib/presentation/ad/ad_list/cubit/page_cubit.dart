@@ -144,12 +144,12 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> changeFavorite(Ad ad) async {
     try {
-      if (ad.favorite == true) {
+      if (ad.isFavorite == true) {
         await favoriteRepository.removeFromFavorite(ad.id);
         final index = states.controller?.itemList?.indexOf(ad) ?? 0;
         final item = states.controller?.itemList?.elementAt(index);
         if (item != null) {
-          states.controller?.itemList?.insert(index, item..favorite = false);
+          states.controller?.itemList?.insert(index, item..isFavorite = false);
           states.controller?.itemList?.removeAt(index);
           states.controller?.notifyListeners();
         }
@@ -161,7 +161,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           states.controller?.itemList?.insert(
               index,
               item
-                ..favorite = true
+                ..isFavorite = true
                 ..backendId = backendId);
           states.controller?.itemList?.removeAt(index);
           states.controller?.notifyListeners();

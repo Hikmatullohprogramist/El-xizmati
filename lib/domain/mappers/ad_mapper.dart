@@ -3,7 +3,7 @@ import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad.dart';
 
-import '../../data/hive_objects/ad/ad_object.dart';
+import '../../data/hive_objects/ad/ad_hive_object.dart';
 import '../../data/responses/ad/ad/ad_response.dart';
 import '../../data/responses/ad/ad_detail/ad_detail_response.dart';
 import '../models/ad/ad_detail.dart';
@@ -12,32 +12,37 @@ import '../models/ad/ad_priority_level.dart';
 import '../models/ad/ad_transaction_type.dart';
 
 extension AdResponseExtension on AdResponse {
-  Ad toMap({bool favorite = false}) {
+  Ad toMap({
+     bool isFavorite = false,
+     bool isAddedToCart = false,
+  }) {
     return Ad(
-        id: id,
-        backendId: backet_id ?? -1,
-        name: name ?? "",
-        price: price ?? 0,
-        currency: currency.toCurrency(),
-        region: region ?? "",
-        district: district ?? "",
-        adRouteType: route_type.toAdAuthorType(),
-        adPropertyStatus: property_status.toAdPropertyStatus(),
-        adStatus: type.toAdPriorityLevel(),
-        adTypeStatus: type_status.toAdTransactionType(),
-        fromPrice: from_price ?? 0,
-        toPrice: to_price ?? 0,
-        categoryId: category?.id ?? -1,
-        categoryName: category?.name ?? "",
-        sellerName: seller?.name ?? "",
-        sellerId: seller?.tin ?? -1,
-        isSort: is_sort ?? 0,
-        photo: photos?.first.image ?? "",
-        isSell: is_sell ?? false,
-        maxAmount: max_amount ?? 0,
-        view: view ?? 0,
-        favorite: favorite,
-        isCheck: false);
+      id: id,
+      backendId: backet_id ?? -1,
+      name: name ?? "",
+      price: price ?? 0,
+      currency: currency.toCurrency(),
+      region: region ?? "",
+      district: district ?? "",
+      adRouteType: route_type.toAdAuthorType(),
+      adPropertyStatus: property_status.toAdPropertyStatus(),
+      adStatus: type.toAdPriorityLevel(),
+      adTypeStatus: type_status.toAdTransactionType(),
+      fromPrice: from_price ?? 0,
+      toPrice: to_price ?? 0,
+      categoryId: category?.id ?? -1,
+      categoryName: category?.name ?? "",
+      sellerName: seller?.name ?? "",
+      sellerId: seller?.tin ?? -1,
+      isSort: is_sort ?? 0,
+      photo: photos?.first.image ?? "",
+      isSell: is_sell ?? false,
+      maxAmount: max_amount ?? 0,
+      view: view ?? 0,
+      isFavorite: isFavorite,
+      isAddedToCart: isAddedToCart,
+      isCheck: false,
+    );
   }
 }
 
@@ -113,13 +118,13 @@ extension AdDetailResponseExtension on AdDetailResponse {
         unitId: unit_id,
         video: video,
         warehouses: warehouses,
-        favorite: favorite,
-        isAddCart: isAddCart);
+        isFavorite: favorite,
+        isAddedToCart: isAddCart);
   }
 }
 
-extension AdObjectExtension on AdObject {
-  Ad toMap({bool favorite = false}) {
+extension AdObjectExtension on AdHiveObject {
+  Ad toMap({bool isFavorite = false, bool isAddCart = false}) {
     return Ad(
         backendId: backendId ?? -1,
         id: id,
@@ -142,7 +147,8 @@ extension AdObjectExtension on AdObject {
         photo: photo,
         isSell: isSell,
         maxAmount: maxAmount,
-        favorite: favorite,
+        isFavorite: isFavorite,
+        isAddedToCart: isAddedToCart,
         view: view ?? 0,
         isCheck: false);
   }
@@ -151,36 +157,38 @@ extension AdObjectExtension on AdObject {
 extension AdDetailExtension on AdDetail {
   Ad toMap() {
     return Ad(
-        id: adId,
-        photo: photos?.first.image ?? "",
-        favorite: favorite,
-        region: address?.region?.name ?? "",
-        district: address?.district?.name ?? "",
-        toPrice: toPrice,
-        sellerId: sellerId ?? -1,
-        fromPrice: fromPrice,
-        categoryName: categoryName ?? "",
-        categoryId: categoryId ?? -1,
-        adPropertyStatus: AdItemCondition.fresh,
-        adRouteType: adAuthorType,
-        adStatus: adPriorityLevel ?? AdPriorityLevel.standard,
-        adTypeStatus: adTransactionType ?? AdTransactionType.SELL,
-        currency: currency,
-        isCheck: false,
-        isSell: true,
-        isSort: 0,
-        maxAmount: 0,
-        name: adName,
-        price: price,
-        sellerName: sellerFullName ?? "",
-        view: view,
-        backendId: 0);
+      id: adId,
+      photo: photos?.first.image ?? "",
+      region: address?.region?.name ?? "",
+      district: address?.district?.name ?? "",
+      toPrice: toPrice,
+      sellerId: sellerId ?? -1,
+      fromPrice: fromPrice,
+      categoryName: categoryName ?? "",
+      categoryId: categoryId ?? -1,
+      adPropertyStatus: AdItemCondition.fresh,
+      adRouteType: adAuthorType,
+      adStatus: adPriorityLevel ?? AdPriorityLevel.standard,
+      adTypeStatus: adTransactionType ?? AdTransactionType.SELL,
+      currency: currency,
+      isCheck: false,
+      isSell: true,
+      isSort: 0,
+      maxAmount: 0,
+      isFavorite: isFavorite,
+      isAddedToCart: isAddedToCart,
+      name: adName,
+      price: price,
+      sellerName: sellerFullName ?? "",
+      view: view,
+      backendId: 0,
+    );
   }
 }
 
 extension AdExtension on Ad {
-  AdObject toMap({int? backendId, bool? favorite}) {
-    return AdObject(
+  AdHiveObject toMap({int? backendId, bool? isFavorite, bool? isAddedToCart}) {
+    return AdHiveObject(
       id: id,
       name: name,
       price: price,
@@ -200,7 +208,8 @@ extension AdExtension on Ad {
       isCheck: isCheck,
       sellerId: sellerId,
       maxAmount: maxAmount,
-      favorite: favorite ?? this.favorite,
+      isFavorite: isFavorite ?? this.isFavorite,
+      isAddedToCart: isAddedToCart ?? this.isAddedToCart,
       photo: photo,
       sellerName: sellerName,
       backendId: this.backendId ?? backendId,

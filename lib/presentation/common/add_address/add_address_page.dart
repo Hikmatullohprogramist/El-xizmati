@@ -54,33 +54,34 @@ class AddAddressPage extends BasePage<AddAddressCubit, PageState, PageEvent> {
     streetController.updateOnRestore(state.streetName);
 
     return Scaffold(
-        appBar: DefaultAppBar(
-          titleText: state.isEditing
-              ? Strings.userAddressEditTitle
-              : Strings.userAddressAddTitle,
-          backgroundColor: context.appBarColor,
-          onBackPressed: () => context.router.pop(false),
+      appBar: DefaultAppBar(
+        titleText: state.isEditing
+            ? Strings.userAddressEditTitle
+            : Strings.userAddressAddTitle,
+        backgroundColor: context.appBarColor,
+        onBackPressed: () => context.router.pop(false),
+      ),
+      backgroundColor: context.backgroundColor,
+      body: Form(
+        key: _formKey,
+        child: ListView(
+          physics: BouncingScrollPhysics(),
+          children: [
+            SizedBox(height: 16),
+            _buildAddressNameBlock(context),
+            SizedBox(height: 12),
+            _buildRegionBlock(context, state),
+            SizedBox(height: 12),
+            _buildAdditionalInfo(context, state),
+            SizedBox(height: 12),
+            _buildLocationBlock(context, state),
+            SizedBox(height: 12),
+            _buildFooterBlock(context, state),
+            SizedBox(height: 16)
+          ],
         ),
-        backgroundColor: context.backgroundColor,
-        body: Form(
-          key: _formKey,
-          child: ListView(
-            physics: BouncingScrollPhysics(),
-            children: [
-              SizedBox(height: 16),
-              _buildAddressNameBlock(context),
-              SizedBox(height: 12),
-              _buildRegionBlock(context, state),
-              SizedBox(height: 12),
-              _buildAdditionalInfo(context, state),
-              SizedBox(height: 12),
-              _buildLocationBlock(context, state),
-              SizedBox(height: 12),
-              _buildFooterBlock(context, state),
-              SizedBox(height: 16)
-            ],
-          ),
-        ));
+      ),
+    );
   }
 
   /// Build block

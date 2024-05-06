@@ -11,13 +11,13 @@ part 'page_state.dart';
 @Injectable()
 class PageCubit extends BaseCubit<PageState, PageEvent> {
   PageCubit(this.repository) : super(PageState()) {
-    isLogin();
+    isUserLoggedIn();
   }
 
   final StateRepository repository;
 
-  Future<void> isLogin() async {
-    final isLogin = await repository.isLogin() ?? false;
-    updateState((state) => state.copyWith(isLogin: isLogin));
+  Future<void> isUserLoggedIn() async {
+    final isUserLoggedIn = await repository.isUserLoggedIn();
+    updateState((state) => state.copyWith(isLogin: isUserLoggedIn));
   }
 }

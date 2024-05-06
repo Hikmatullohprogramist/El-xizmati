@@ -5,6 +5,7 @@ import 'package:onlinebozor/common/widgets/ad/ad_status_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/list_ad_property_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/list_price_text_widget.dart';
 import 'package:onlinebozor/common/widgets/ad/view_count_widget.dart';
+import 'package:onlinebozor/common/widgets/favorite/ad_cart_buy_widget.dart';
 import 'package:onlinebozor/common/widgets/favorite/ad_favorite_widget.dart';
 import 'package:onlinebozor/common/widgets/image/rounded_cached_network_image_widget.dart';
 import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
@@ -18,15 +19,17 @@ class VerticalAdWidget extends StatelessWidget {
   VerticalAdWidget({
     super.key,
     required this.ad,
-    required this.onClicked,
+    required this.onItemClicked,
     required this.onFavoriteClicked,
-    this.isCanChangeFavorite = true,
+    required this.onCartClicked,
+    required this.onBuyClicked,
   });
 
   final Ad ad;
-  final Function(Ad ad) onClicked;
+  final Function(Ad ad) onItemClicked;
   final Function(Ad ad) onFavoriteClicked;
-  bool isCanChangeFavorite;
+  final Function(Ad ad) onCartClicked;
+  final Function(Ad ad) onBuyClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +37,7 @@ class VerticalAdWidget extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: () {
-          onClicked(ad);
+          onItemClicked(ad);
         },
         borderRadius: BorderRadius.all(Radius.circular(6)),
         child: SizedBox(
@@ -53,8 +56,7 @@ class VerticalAdWidget extends StatelessWidget {
                   Align(
                     alignment: Alignment.topRight,
                     child: AdFavoriteWidget(
-                      isChangeAvailable: isCanChangeFavorite,
-                      isSelected: ad.favorite,
+                      isSelected: ad.isFavorite,
                       invoke: () => onFavoriteClicked(ad),
                     ),
                   ),
@@ -118,7 +120,14 @@ class VerticalAdWidget extends StatelessWidget {
                     isHorizontal: false,
                   )
                 ],
-              )
+              ),
+              SizedBox(height: 4),
+              AdCartBuyWidget(
+                height: 32,
+                isAddedCart: false,
+                onCartClicked: () => onCartClicked(ad),
+                onBuyClicked: () => onBuyClicked(ad),
+              ),
             ],
           ),
         ),

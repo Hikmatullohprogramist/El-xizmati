@@ -20,9 +20,9 @@ import '../storages/user_storage.dart';
 @LazySingleton()
 class AdCreationRepository {
   final AdCreationService _adCreationService;
-  final UserInfoStorage _userInfoStorage;
+  final UserStorage _userStorage;
 
-  AdCreationRepository(this._adCreationService, this._userInfoStorage);
+  AdCreationRepository(this._adCreationService, this._userStorage);
 
   Future<List<CategoryResponse>> getCategoriesForCreationAd(String type) async {
     final response = await _adCreationService.getCategoriesForCreationAd(type);
@@ -30,7 +30,7 @@ class AdCreationRepository {
     return categories;
   }
 
-  Future<List<CurrencyResponse>> getCurrenciesForCreationAd() async {
+  Future<List<Currency>> getCurrenciesForCreationAd() async {
     final response = await _adCreationService.getCurrenciesForCreationAd();
     final currencies = CurrencyRootResponse.fromJson(response.data).data;
     return currencies;
@@ -43,8 +43,8 @@ class AdCreationRepository {
   }
 
   Future<List<UserAddressResponse>> getWarehousesForCreationAd() async {
-    var tin = _userInfoStorage.userInformation.call()?.tin;
-    var pinfl = _userInfoStorage.userInformation.call()?.pinfl;
+    var tin = _userStorage.tin;
+    var pinfl = _userStorage.pinfl;
     final response = await _adCreationService.getWarehousesForCreationAd(
       tinOrPinfl: tin ?? pinfl ?? 0,
     );
@@ -83,7 +83,7 @@ class AdCreationRepository {
     required UnitResponse? unit,
     required int minAmount,
     required int? price,
-    required CurrencyResponse? currency,
+    required Currency? currency,
     required List<PaymentTypeResponse> paymentTypes,
     required bool isAgreedPrice,
     //
@@ -183,7 +183,7 @@ class AdCreationRepository {
     //
     required int fromPrice,
     required int toPrice,
-    required CurrencyResponse currency,
+    required Currency currency,
     required List<PaymentTypeResponse> paymentTypes,
     required bool isAgreedPrice,
     //
@@ -253,7 +253,7 @@ class AdCreationRepository {
     //
     required int fromPrice,
     required int toPrice,
-    required CurrencyResponse currency,
+    required Currency currency,
     required List<PaymentTypeResponse> paymentTypes,
     required bool isAgreedPrice,
     //

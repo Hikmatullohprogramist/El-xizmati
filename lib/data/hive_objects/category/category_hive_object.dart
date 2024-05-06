@@ -1,10 +1,10 @@
 import 'package:hive/hive.dart';
 
-part 'category_entity.g.dart';
+part 'category_hive_object.g.dart';
 
 @HiveType(typeId: 1)
-class CategoryEntity {
-  CategoryEntity({
+class CategoryHiveObject {
+  CategoryHiveObject({
     required this.id,
     this.name,
     this.icon,

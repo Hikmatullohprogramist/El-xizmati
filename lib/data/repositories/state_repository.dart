@@ -18,41 +18,28 @@ class StateRepository {
   final CategoriesStorage categoriesStorage;
 
   Future<Language> getLanguage() async {
-    var languageName = languageStorage.languageName.call();
-    Language language = Language.uzbekLatin;
-
-    language = languageName == Language.uzbekCyrill.name
-        ? Language.uzbekCyrill
-        : languageName == Language.russian.name
-            ? Language.russian
-            : Language.uzbekLatin;
-
-    return language;
+    return languageStorage.language;
   }
 
-  Future<bool?> isLanguageSelection() async {
-    return languageStorage.isLanguageSelection.call();
+  Future<bool> isLanguageSelection() async {
+    return languageStorage.isLanguageSelected;
   }
 
-  Future<void> languageSelection(bool selection) {
-    categoriesStorage.categories.clear();
-    return languageStorage.isLanguageSelection.set(selection);
-  }
+  Future<void> setLanguage(Language language) {
+    categoriesStorage.clear();
 
-  Future<void> setLanguage(String languageName) {
-    return languageStorage.languageName.set(languageName);
+    return languageStorage.setLanguage(language);
   }
 
   Future<void> setLogin(bool isLogin) {
-    return tokenStorage.isLogin.set(isLogin);
+    return tokenStorage.setLoginState(isLogin);
   }
 
-  Future<bool?> isLogin() async {
-    return tokenStorage.isLogin.call();
+  Future<bool> isUserLoggedIn() async {
+    return tokenStorage.isUserLoggedIn;
   }
 
   Future<void> clear() async {
-    await tokenStorage.isLogin.clear();
-    await tokenStorage.token.clear();
+    await tokenStorage.clear();
   }
 }

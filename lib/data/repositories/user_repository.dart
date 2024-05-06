@@ -9,7 +9,7 @@ import 'package:onlinebozor/domain/models/region/region.dart';
 import 'package:onlinebozor/domain/models/region/region_and_district.dart';
 
 import '../../common/constants.dart';
-import '../../data/hive_objects/user/user_info_object.dart';
+import '../../data/hive_objects/user/user_hive_object.dart';
 import '../../data/responses/profile/user/user_info_response.dart';
 import '../../data/responses/profile/user_full/user_full_info_response.dart';
 import '../../data/responses/region/region_root_response.dart';
@@ -22,46 +22,50 @@ import '../responses/profile/verify_identity/identity_document_response.dart';
 @LazySingleton()
 class UserRepository {
   final UserService _userService;
-  final UserInfoStorage userInfoStorage;
+  final UserStorage _userStorage;
 
   UserRepository(
     this._userService,
-    this.userInfoStorage,
+    this._userStorage,
   );
+
+  UserHiveObject? getSavedUser(){
+    return _userStorage.user;
+  }
 
   Future<UserFullInfoResponse> getFullUserInfo() async {
     final response = await _userService.getFullUserInfo();
     final result = UserFullInfoRootResponse.fromJson(response.data).data;
-    final userInfo = userInfoStorage.userInformation.call();
-    userInfoStorage.update(UserInfoObject(
-        gender: result.gender ?? userInfo?.gender,
-        postName: result.post_name ?? userInfo?.gender,
-        tin: result.tin ?? userInfo?.tin,
-        pinfl: result.pinfl ?? userInfo?.pinfl,
-        isRegistered: result.is_registered ?? userInfo?.isRegistered,
-        state: userInfo?.state,
+    final user = _userStorage.user;
+    _userStorage.set(UserHiveObject(
+        gender: result.gender ?? user?.gender,
+        postName: result.post_name ?? user?.gender,
+        tin: result.tin ?? user?.tin,
+        pinfl: result.pinfl ?? user?.pinfl,
+        isIdentityVerified: result.is_registered ?? user?.isIdentityVerified,
+        state: user?.state,
         // registeredWithEimzo: userInfo?.registeredWithEimzo,
-        photo: result.photo ?? userInfo?.photo,
-        passportSerial: result.passport_serial ?? userInfo?.passportSerial,
-        passportNumber: result.passport_number ?? userInfo?.passportNumber,
-        oblId: result.mahalla_id ?? userInfo?.oblId,
-        mobilePhone: result.mobile_phone ?? userInfo?.mobilePhone,
-        isPassword: userInfo?.isPassword,
-        homeName: result.home_name ?? userInfo?.homeName,
-        eimzoAllowToLogin: userInfo?.eimzoAllowToLogin,
-        birthDate: result.birth_date ?? userInfo?.birthDate,
-        username: result.username ?? userInfo?.username,
-        areaId: userInfo?.areaId,
-        apartmentName: userInfo?.apartmentName,
-        id: result.id ?? userInfo?.id,
-        email: result.email ?? userInfo?.email,
-        fullName: result.full_name ?? userInfo?.fullName,
-        districtId: result.district_id ?? userInfo?.districtId,
-        regionId: result.region_id ?? userInfo?.regionId,
-        districtName: userInfo?.districtName,
-        regionName: userInfo?.regionName,
-        areaName: userInfo?.areaName,
-        oblName: userInfo?.oblName));
+        photo: result.photo ?? user?.photo,
+        passportSerial: result.passport_serial ?? user?.passportSerial,
+        passportNumber: result.passport_number ?? user?.passportNumber,
+        oblId: result.mahalla_id ?? user?.oblId,
+        mobilePhone: result.mobile_phone ?? user?.mobilePhone,
+        isPassword: user?.isPassword,
+        homeName: result.home_name ?? user?.homeName,
+        eimzoAllowToLogin: user?.eimzoAllowToLogin,
+        birthDate: result.birth_date ?? user?.birthDate,
+        username: result.username ?? user?.username,
+        areaId: user?.areaId,
+        apartmentName: user?.apartmentName,
+        id: result.id ?? user?.id,
+        email: result.email ?? user?.email,
+        fullName: result.full_name ?? user?.fullName,
+        districtId: result.district_id ?? user?.districtId,
+        regionId: result.region_id ?? user?.regionId,
+        districtName: user?.districtName,
+        regionName: user?.regionName,
+        areaName: user?.areaName,
+        oblName: user?.oblName));
     return result;
   }
 
@@ -131,12 +135,12 @@ class UserRepository {
     required String postName,
     required String phoneNumber,
   }) async {
-    final userInfo = userInfoStorage.userInformation.call();
+    final user = _userStorage.user;
     await _userService.sendUserInformation(
       email: email,
       gender: gender,
       homeName: homeName,
-      id: userInfo?.id ?? -1,
+      id: user?.id ?? -1,
       neighborhoodId: neighborhoodId,
       mobilePhone: mobilePhone,
       photo: photo,
@@ -196,8 +200,8 @@ class UserRepository {
     await _userService.updateSocialAccountInfo(socials: socials);
   }
 
-  Future<bool> isFullRegister() async {
-    return userInfoStorage.userInformation.call()?.isRegistered ?? false;
+  Future<bool> isIdentityVerified() async {
+    return _userStorage.isIdentityVerified;
   }
 
   Future<List<ActiveSession>> getActiveDevice() async {

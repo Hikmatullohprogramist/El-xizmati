@@ -9,11 +9,15 @@ class HorizontalAdListWidget extends StatelessWidget {
     required this.ads,
     required this.onItemClicked,
     required this.onFavoriteClicked,
+    required this.onCartClicked,
+    required this.onBuyClicked,
   });
 
   final List<Ad> ads;
   final Function(Ad ad) onItemClicked;
   final Function(Ad ad) onFavoriteClicked;
+  final Function(Ad ad) onCartClicked;
+  final Function(Ad ad) onBuyClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +36,8 @@ class HorizontalAdListWidget extends StatelessWidget {
               ad: ads[index],
               onItemClicked: onItemClicked,
               onFavoriteClicked: onFavoriteClicked,
+              onCartClicked: onCartClicked,
+              onBuyClicked: onBuyClicked,
             );
           },
           separatorBuilder: (BuildContext context, int index) {

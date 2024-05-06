@@ -1,10 +1,10 @@
 import 'package:hive/hive.dart';
 
-part 'user_info_object.g.dart';
+part 'user_hive_object.g.dart';
 
 @HiveType(typeId: 4)
-class UserInfoObject extends HiveObject {
-  UserInfoObject({
+class UserHiveObject extends HiveObject {
+  UserHiveObject({
     this.id,
     this.pinfl,
     this.gender,
@@ -18,7 +18,7 @@ class UserInfoObject extends HiveObject {
     this.districtName,
     this.birthDate,
     this.photo,
-    this.isRegistered,
+    this.isIdentityVerified,
     this.eimzoAllowToLogin,
     this.postName,
     this.state,
@@ -75,7 +75,7 @@ class UserInfoObject extends HiveObject {
   String? photo;
 
   @HiveField(14)
-  bool? isRegistered;
+  bool? isIdentityVerified;
 
   @HiveField(15)
   String? eimzoAllowToLogin;

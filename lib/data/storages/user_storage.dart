@@ -1,37 +1,42 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/common/core/base_storage.dart';
+import 'package:onlinebozor/common/core/box_value.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../hive_objects/user/user_info_object.dart';
+import '../hive_objects/user/user_hive_object.dart';
 
 @lazySingleton
-class UserInfoStorage {
-  UserInfoStorage(this._box);
+class UserStorage {
+  UserStorage(this._box);
+
+  static const String STORAGE_BOX_NAME = "user_storage";
+  final String KEY_USER = "json_user";
 
   final Box _box;
 
-  BaseStorage<UserInfoObject> get userInformation =>
-      BaseStorage(_box, key: "key_user_info_storage");
-
   @FactoryMethod(preResolve: true)
-  static Future<UserInfoStorage> create() async {
+  static Future<UserStorage> create() async {
     final appDocumentDir = await getApplicationDocumentsDirectory();
     if (!Hive.isAdapterRegistered(4)) {
       Hive
         ..init(appDocumentDir.path)
-        ..registerAdapter(UserInfoObjectAdapter());
+        ..registerAdapter(UserHiveObjectAdapter());
     }
-    final box = await Hive.openBox('user_info_storage');
-    return UserInfoStorage(box);
+    final box = await Hive.openBox(STORAGE_BOX_NAME);
+    return UserStorage(box);
   }
 
-  Future<void> update(UserInfoObject userInfoObject) async {
-    UserInfoObject? userInfo = _box.get("key_user_info_storage");
-    if (userInfo != null) {
-      _box.put("key_user_info_storage", userInfoObject);
-    } else {
-      _box.put("key_user_info_storage", userInfoObject);
-    }
-  }
+  BoxValue<UserHiveObject> get _userBox => BoxValue(_box, key: KEY_USER);
+
+  UserHiveObject? get user => _userBox.getOrNull();
+
+  bool get isIdentityVerified => user?.isIdentityVerified ?? false;
+
+  int? get tin => user?.tin;
+
+  int? get pinfl => user?.pinfl;
+
+  Future<void> set(UserHiveObject user) => _userBox.set(user);
+
+  Future<void> clear() => _userBox.clear();
 }

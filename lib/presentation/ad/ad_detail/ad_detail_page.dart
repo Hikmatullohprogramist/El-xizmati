@@ -171,7 +171,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
         Padding(
           padding: EdgeInsets.all(4),
           child: AdDetailFavoriteWidget(
-            isFavorite: state.adDetail!.favorite,
+            isFavorite: state.adDetail!.isFavorite,
             onClicked: () => cubit(context).changeAdFavorite(),
           ),
         ),
@@ -597,6 +597,10 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
               onFavoriteClicked: (Ad ad) {
                 cubit(context).similarAdsAddFavorite(ad);
               },
+              onCartClicked: (Ad ad) {},
+              onBuyClicked: (Ad ad) {
+                context.router.push(CreateOrderRoute(adId: ad.id));
+              },
             ),
             onRetryClicked: () {
               cubit(context).getSimilarAds();
@@ -642,6 +646,10 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
               onFavoriteClicked: (Ad ad) {
                 cubit(context).ownerAdAddToFavorite(ad);
               },
+              onCartClicked: (Ad ad) {},
+              onBuyClicked: (Ad ad) {
+                context.router.push(CreateOrderRoute(adId: ad.id));
+              },
             ),
           ),
         ],
@@ -683,6 +691,10 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
               },
               onFavoriteClicked: (Ad ad) {
                 cubit(context).recentlyViewAdAddToFavorite(ad);
+              },
+              onCartClicked: (Ad ad) {},
+              onBuyClicked: (Ad ad) {
+                context.router.push(CreateOrderRoute(adId: ad.id));
               },
             ),
           ),

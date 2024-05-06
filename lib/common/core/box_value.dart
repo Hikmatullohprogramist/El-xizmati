@@ -1,19 +1,19 @@
 import 'package:hive/hive.dart';
 
-class BaseStorage<T> {
+class BoxValue<T> {
   final Box box;
 
   final String? key;
 
   String get _key => key ?? T.runtimeType.toString();
 
-  BaseStorage(this.box, {this.key});
+  BoxValue(this.box, {this.key});
 
-  T? call() => box.get(_key);
+  T? getOrNull() => box.get(_key);
 
-  T callList() => box.get(_key, defaultValue: []);
+  T getOrDefault(dynamic value) => box.get(_key, defaultValue: value);
 
-  List<dynamic> allItems() => box.values.toList();
+  List<dynamic> values() => box.values.toList();
 
   Future<void> set(T? value) => box.put(_key, value);
 

@@ -53,7 +53,7 @@ class CartService {
           RestQueryKeys.paymentTypeId: paymentTypeId,
           RestQueryKeys.deliveryAddressId: 0,
           RestQueryKeys.shippingId: 0,
-          if (servicePrice != null && servicePrice > 0)
+          // if (servicePrice != null && servicePrice > 0)
             "service_price": servicePrice
         }
       ]

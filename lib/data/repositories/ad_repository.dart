@@ -28,7 +28,7 @@ class AdRepository {
     final ads = adsResponse
         .map(
           (ad) => ad.toMap(
-              favorite:
+              isFavorite:
                   allItems.where((element) => element.id == ad.id).isNotEmpty),
         )
         .toList(growable: true);
@@ -44,7 +44,7 @@ class AdRepository {
     final ads = adsResponse
         .map(
           (ad) => ad.toMap(
-              favorite:
+              isFavorite:
                   allItems.where((element) => element.id == ad.id).isNotEmpty),
         )
         .toList(growable: true);
@@ -58,7 +58,7 @@ class AdRepository {
     final ads = adsResponse
         .map(
           (ad) => ad.toMap(
-              favorite:
+              isFavorite:
                   allItems.where((element) => element.id == ad.id).isNotEmpty),
         )
         .toList(growable: true);
@@ -80,7 +80,7 @@ class AdRepository {
     final ads = adsResponse
         .map(
           (ad) => ad.toMap(
-              favorite:
+              isFavorite:
                   allItems.where((element) => element.id == ad.id).isNotEmpty),
         )
         .toList(growable: true);
@@ -96,7 +96,7 @@ class AdRepository {
     final ads = adsResponse
         .map(
           (ad) => ad.toMap(
-              favorite:
+              isFavorite:
                   allItems.where((element) => element.id == ad.id).isNotEmpty),
         )
         .toList(growable: true);
@@ -111,7 +111,7 @@ class AdRepository {
     final ads = adsResponse
         .map(
           (ad) => ad.toMap(
-              favorite:
+              isFavorite:
                   allItems.where((element) => element.id == ad.id).isNotEmpty),
         )
         .toList(growable: true);
@@ -126,7 +126,7 @@ class AdRepository {
     final ads = adsResponse
         .map(
           (ad) => ad.toMap(
-              favorite:
+              isFavorite:
                   allItems.where((element) => element.id == ad.id).isNotEmpty),
         )
         .toList(growable: true);
@@ -169,7 +169,7 @@ class AdRepository {
     final ads = adsResponse
         .map(
           (ad) => ad.toMap(
-              favorite:
+              isFavorite:
                   allItems.where((element) => element.id == ad.id).isNotEmpty),
         )
         .toList(growable: true);
@@ -188,7 +188,7 @@ class AdRepository {
     final ads = adsResponse
         .map(
           (ad) => ad.toMap(
-              favorite:
+              isFavorite:
                   allItems.where((element) => element.id == ad.id).isNotEmpty),
         )
         .toList(growable: true);
@@ -219,7 +219,7 @@ class AdRepository {
     final ads = adsResponse
         .map(
           (ad) => ad.toMap(
-              favorite:
+              isFavorite:
                   allItems.where((element) => element.id == ad.id).isNotEmpty),
         )
         .toList(growable: true);

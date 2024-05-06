@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/extensions/text_extensions.dart';
@@ -42,6 +41,7 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
       child: Scaffold(
         backgroundColor: context.backgroundColor,
         appBar: SearchAppBar2(
+          backgroundColor: context.appBarColor,
           listener: () => context.router.pop(),
           listenerSearch: () => context.router.push(SearchRoute()),
           listenerNotification: () =>
@@ -92,6 +92,10 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                       onFavoriteClicked: (Ad result) {
                         cubit(context).cheapAdsAddFavorite(result);
                       },
+                      onCartClicked: (Ad ad) {},
+                      onBuyClicked: (Ad ad) {
+                        context.router.push(CreateOrderRoute(adId: ad.id));
+                      },
                     ),
                   ),
                   SizedBox(height: 6),
@@ -114,12 +118,16 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                     loadingBody: HorizontalAdListShimmer(),
                     successBody: HorizontalAdListWidget(
                       ads: state.popularAds,
-                      onItemClicked: (Ad result) {
-                        context.router.push(AdDetailRoute(adId: result.id));
+                      onItemClicked: (Ad ad) {
+                        context.router.push(AdDetailRoute(adId: ad.id));
                       },
-                      onFavoriteClicked: (Ad result) => context
-                          .read<PageCubit>()
-                          .popularAdsAddFavorite(result),
+                      onFavoriteClicked: (Ad ad) {
+                        cubit(context).popularAdsAddFavorite(ad);
+                      },
+                      onCartClicked: (Ad ad) {},
+                      onBuyClicked: (Ad ad) {
+                        context.router.push(CreateOrderRoute(adId: ad.id));
+                      },
                     ),
                   ),
                   SizedBox(height: 6),
@@ -134,10 +142,10 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                     pagingController: state.controller!,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       childAspectRatio: width / height,
-                      crossAxisSpacing: 16,
-                      mainAxisSpacing: 24,
-                      mainAxisExtent: 315,
+                      crossAxisSpacing: 12,
+                      mainAxisSpacing: 12,
                       crossAxisCount: 2,
+                      mainAxisExtent: 292,
                     ),
                     builderDelegate: PagedChildBuilderDelegate<Ad>(
                       firstPageErrorIndicatorBuilder: (_) {
@@ -203,10 +211,17 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                             padding: EdgeInsets.only(right: 16),
                             child: VerticalAdWidget(
                               ad: item,
-                              onFavoriteClicked: (value) =>
-                                  cubit(context).addFavorite(value),
-                              onClicked: (value) => context.router
-                                  .push(AdDetailRoute(adId: value.id)),
+                              onItemClicked: (ad) {
+                                context.router.push(AdDetailRoute(adId: ad.id));
+                              },
+                              onFavoriteClicked: (ad) {
+                                cubit(context).addFavorite(ad);
+                              },
+                              onCartClicked: (Ad ad) {},
+                              onBuyClicked: (Ad ad) {
+                                context.router
+                                    .push(CreateOrderRoute(adId: ad.id));
+                              },
                             ),
                           );
                         } else {
@@ -214,10 +229,17 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                             padding: EdgeInsets.only(left: 16),
                             child: VerticalAdWidget(
                               ad: item,
-                              onFavoriteClicked: (value) =>
-                                  cubit(context).addFavorite(value),
-                              onClicked: (value) => context.router
-                                  .push(AdDetailRoute(adId: value.id)),
+                              onItemClicked: (ad) {
+                                context.router.push(AdDetailRoute(adId: ad.id));
+                              },
+                              onFavoriteClicked: (ad) {
+                                cubit(context).addFavorite(ad);
+                              },
+                              onCartClicked: (Ad ad) {},
+                              onBuyClicked: (Ad ad) {
+                                context.router
+                                    .push(CreateOrderRoute(adId: ad.id));
+                              },
                             ),
                           );
                         }

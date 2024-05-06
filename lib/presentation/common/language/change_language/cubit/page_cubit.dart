@@ -18,7 +18,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> selectLanguage(Language language) async {
     updateState((state) => state.copyWith(language: language));
-    await repository.setLanguage(states.language!.name);
+    await repository.setLanguage(states.language!);
   }
 
   Future<void> getLanguage() async {

@@ -63,8 +63,8 @@ class AdDetail {
     this.paymentTypes,
     this.adAuthorType2,
     this.adItemCondition2,
-    required this.favorite,
-    required this.isAddCart,
+    required this.isFavorite,
+    required this.isAddedToCart,
   });
 
   final int adId;
@@ -122,8 +122,8 @@ class AdDetail {
   List<Photo>? photos;
   AdDetailAddressResponse? address;
   List<AdDetailDistrictResponse>? paymentTypes;
-  bool favorite;
-  bool isAddCart;
+  bool isFavorite;
+  bool isAddedToCart;
 
   bool hasDescription() {
     return description != null && description!.isNotEmpty;

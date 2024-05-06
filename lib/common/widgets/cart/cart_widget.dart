@@ -108,7 +108,7 @@ class CartWidget extends StatelessWidget {
                 Row(
                   children: [
                     OrderAdFavoriteWidget(
-                      isFavorite: ad.favorite,
+                      isFavorite: ad.isFavorite,
                       onClicked: () => onFavoriteClicked(ad),
                     ),
                     SizedBox(width: 12),

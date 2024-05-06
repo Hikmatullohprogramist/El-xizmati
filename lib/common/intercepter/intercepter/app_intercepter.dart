@@ -27,7 +27,7 @@ class AppInterceptor extends QueuedInterceptor {
     headers['MobileOsType'] = DeviceInfo.mobileOsType;
     headers['MobileOsVersion'] = "33";
 
-    var token = _tokenStorage.token.call() ?? "";
+    var token = _tokenStorage.token;
     if (token.isNotEmpty) {
       headers[RestHeaderKeys.authorization] = "Bearer $token";
     }

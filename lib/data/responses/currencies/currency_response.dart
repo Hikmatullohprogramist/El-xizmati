@@ -11,7 +11,7 @@ class CurrencyRootResponse with _$CurrencyRootResponse {
     dynamic timestamp,
     int? status,
     dynamic path,
-    required List<CurrencyResponse> data,
+    required List<Currency> data,
     dynamic response,
   }) = _CurrencyRootResponse;
 
@@ -20,12 +20,12 @@ class CurrencyRootResponse with _$CurrencyRootResponse {
 }
 
 @freezed
-class CurrencyResponse with _$CurrencyResponse {
-  const factory CurrencyResponse({
+class Currency with _$Currency {
+  const factory Currency({
     required String id,
     String? name,
-  }) = _CurrencyResponse;
+  }) = _Currency;
 
-  factory CurrencyResponse.fromJson(Map<String, dynamic> json) =>
-      _$CurrencyResponseFromJson(json);
+  factory Currency.fromJson(Map<String, dynamic> json) =>
+      _$CurrencyFromJson(json);
 }

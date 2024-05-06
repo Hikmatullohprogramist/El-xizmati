@@ -110,10 +110,10 @@ class ProductAdResponse with _$ProductAdResponse {
     return unitId == null ? null : UnitResponse(id: unitId!, name: unitName);
   }
 
-  CurrencyResponse? getCurrency() {
+  Currency? getCurrency() {
     return currencyId == null
         ? null
-        : CurrencyResponse(id: "$currencyId", name: currencyName);
+        : Currency(id: "$currencyId", name: currencyName);
   }
 
   List<PaymentTypeResponse> getPaymentTypes() {

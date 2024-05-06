@@ -2,6 +2,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/common/enum/enums.dart';
+import 'package:onlinebozor/data/repositories/cart_repository.dart';
+import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 
 import '../../../../../common/core/base_cubit.dart';
 import '../../../../../data/repositories/ad_repository.dart';
@@ -18,9 +20,10 @@ part 'page_state.dart';
 @injectable
 class PageCubit extends BaseCubit<PageState, PageEvent> {
   PageCubit(
-    this.adRepository,
-    this.commonRepository,
-    this.favoriteRepository,
+    this._adRepository,
+    this._cartRepository,
+    this._commonRepository,
+    this._favoriteRepository,
   ) : super(PageState()) {
     getInitialData();
   }
@@ -36,14 +39,15 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     ]);
   }
 
-  final AdRepository adRepository;
-  final CommonRepository commonRepository;
-  final FavoriteRepository favoriteRepository;
+  final AdRepository _adRepository;
+  final CartRepository _cartRepository;
+  final CommonRepository _commonRepository;
+  final FavoriteRepository _favoriteRepository;
 
   Future<void> getPopularCategories() async {
     try {
       final popularCategories =
-          await commonRepository.getPopularCategories(1, 20);
+          await _commonRepository.getPopularCategories(1, 20);
 
       updateState(
         (state) => state.copyWith(
@@ -63,7 +67,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> getPopularProductAds() async {
     try {
-      final ads = await adRepository.getDashboardPopularAdsByType(
+      final ads = await _adRepository.getDashboardPopularAdsByType(
         adType: AdType.PRODUCT,
       );
 
@@ -84,7 +88,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> getPopularServiceAds() async {
     try {
-      final ads = await adRepository.getDashboardPopularAdsByType(
+      final ads = await _adRepository.getDashboardPopularAdsByType(
         adType: AdType.SERVICE,
       );
       updateState(
@@ -103,7 +107,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> getTopRatedAds() async {
     try {
-      final ads = await adRepository.getDashboardTopRatedAds();
+      final ads = await _adRepository.getDashboardTopRatedAds();
       updateState(
         (state) => state.copyWith(
           topRatedAds: ads,
@@ -121,7 +125,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> getRecentlyViewedAds() async {
     try {
-      final ads = await adRepository.getRecentlyViewedAds(page: 1, limit: 20);
+      final ads = await _adRepository.getRecentlyViewedAds(page: 1, limit: 20);
       updateState(
         (state) => state.copyWith(
           recentlyViewedAds: ads,
@@ -138,7 +142,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> getBanners() async {
     try {
-      final banners = await commonRepository.getBanner();
+      final banners = await _commonRepository.getBanner();
       updateState((state) => state.copyWith(
             banners: banners,
             bannersState: LoadingState.success,
@@ -152,21 +156,30 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
+  Future<void> popularProductAdsAddCart(Ad ad) async {
+    try {
+      await _cartRepository.addCart(ad);
+      // updateState((state) => state.copyWith(isAddCart: true));
+    } catch (e) {
+      log.e(e.toString());
+    }
+  }
+
   Future<void> popularProductAdsAddFavorite(Ad ad) async {
     try {
-      if (ad.favorite == true) {
-        await favoriteRepository.removeFromFavorite(ad.id);
+      if (ad.isFavorite == true) {
+        await _favoriteRepository.removeFromFavorite(ad.id);
         final index = states.popularProductAds.indexOf(ad);
         final item = states.popularProductAds.elementAt(index);
-        states.popularProductAds.insert(index, item..favorite = false);
+        states.popularProductAds.insert(index, item..isFavorite = false);
       } else {
-        final backendId = await favoriteRepository.addToFavorite(ad);
+        final backendId = await _favoriteRepository.addToFavorite(ad);
         final index = states.popularProductAds.indexOf(ad);
         final item = states.popularProductAds.elementAt(index);
         states.popularProductAds.insert(
           index,
           item
-            ..favorite = true
+            ..isFavorite = true
             ..backendId = backendId,
         );
       }
@@ -178,19 +191,19 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> popularServiceAdsAddFavorite(Ad ad) async {
     try {
-      if (ad.favorite == true) {
-        await favoriteRepository.removeFromFavorite(ad.id);
+      if (ad.isFavorite == true) {
+        await _favoriteRepository.removeFromFavorite(ad.id);
         final index = states.popularServiceAds.indexOf(ad);
         final item = states.popularServiceAds.elementAt(index);
-        states.popularServiceAds.insert(index, item..favorite = false);
+        states.popularServiceAds.insert(index, item..isFavorite = false);
       } else {
-        final backendId = await favoriteRepository.addToFavorite(ad);
+        final backendId = await _favoriteRepository.addToFavorite(ad);
         final index = states.popularServiceAds.indexOf(ad);
         final item = states.popularServiceAds.elementAt(index);
         states.popularServiceAds.insert(
           index,
           item
-            ..favorite = true
+            ..isFavorite = true
             ..backendId = backendId,
         );
       }
@@ -202,19 +215,19 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> topRatedAdsAddFavorite(Ad ad) async {
     try {
-      if (ad.favorite == true) {
-        await favoriteRepository.removeFromFavorite(ad.id);
+      if (ad.isFavorite == true) {
+        await _favoriteRepository.removeFromFavorite(ad.id);
         final index = states.topRatedAds.indexOf(ad);
         final item = states.topRatedAds.elementAt(index);
-        states.topRatedAds.insert(index, item..favorite = false);
+        states.topRatedAds.insert(index, item..isFavorite = false);
       } else {
-        final backendId = await favoriteRepository.addToFavorite(ad);
+        final backendId = await _favoriteRepository.addToFavorite(ad);
         final index = states.topRatedAds.indexOf(ad);
         final item = states.topRatedAds.elementAt(index);
         states.topRatedAds.insert(
           index,
           item
-            ..favorite = true
+            ..isFavorite = true
             ..backendId = backendId,
         );
       }
@@ -226,19 +239,19 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> recentlyViewAdAddToFavorite(Ad ad) async {
     try {
-      if (ad.favorite == true) {
-        await favoriteRepository.removeFromFavorite(ad.id);
+      if (ad.isFavorite == true) {
+        await _favoriteRepository.removeFromFavorite(ad.id);
         final index = states.recentlyViewedAds.indexOf(ad);
         final item = states.recentlyViewedAds.elementAt(index);
-        states.recentlyViewedAds.insert(index, item..favorite = false);
+        states.recentlyViewedAds.insert(index, item..isFavorite = false);
       } else {
-        final backendId = await favoriteRepository.addToFavorite(ad);
+        final backendId = await _favoriteRepository.addToFavorite(ad);
         final index = states.recentlyViewedAds.indexOf(ad);
         final item = states.recentlyViewedAds.elementAt(index);
         states.recentlyViewedAds.insert(
           index,
           item
-            ..favorite = true
+            ..isFavorite = true
             ..backendId = backendId,
         );
       }

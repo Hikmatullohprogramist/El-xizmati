@@ -19,14 +19,18 @@ import '../../../gen/assets/assets.gen.dart';
 class HorizontalAdWidget extends StatelessWidget {
   const HorizontalAdWidget({
     super.key,
-    required this.onFavoriteClicked,
-    required this.onItemClicked,
     required this.ad,
+    required this.onItemClicked,
+    required this.onFavoriteClicked,
+    required this.onCartClicked,
+    required this.onBuyClicked,
   });
 
   final Ad ad;
   final Function(Ad ad) onItemClicked;
   final Function(Ad ad) onFavoriteClicked;
+  final Function(Ad ad) onCartClicked;
+  final Function(Ad ad) onBuyClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +55,7 @@ class HorizontalAdWidget extends StatelessWidget {
                 Align(
                   alignment: Alignment.topRight,
                   child: AdFavoriteWidget(
-                    isSelected: ad.favorite,
+                    isSelected: ad.isFavorite,
                     invoke: () => onFavoriteClicked(ad),
                   ),
                 ),
@@ -123,9 +127,11 @@ class HorizontalAdWidget extends StatelessWidget {
             AdCartBuyWidget(
               height: 32,
               isAddedCart: false,
-              onCartClicked: () {},
-              onBuyClicked: () {},
-            )
+              // onCartClicked: onCartClicked(ad),
+              // onBuyClicked: onBuyClicked(ad),
+              onCartClicked: () => onCartClicked(ad),
+              onBuyClicked: () => onBuyClicked(ad),
+            ),
           ],
         ),
       ),

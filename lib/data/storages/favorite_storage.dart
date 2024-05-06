@@ -2,8 +2,8 @@ import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../common/core/base_storage.dart';
-import '../hive_objects/ad/ad_object.dart';
+import '../../common/core/box_value.dart';
+import '../hive_objects/ad/ad_hive_object.dart';
 
 @lazySingleton
 class FavoriteStorage {
@@ -11,30 +11,30 @@ class FavoriteStorage {
 
   final Box _box;
 
-  BaseStorage get favoriteAds =>
-      BaseStorage(_box, key: "key_favorites_storage");
-
   @FactoryMethod(preResolve: true)
   static Future<FavoriteStorage> create() async {
     final appDocumentDir = await getApplicationDocumentsDirectory();
     if (!Hive.isAdapterRegistered(3)) {
       Hive
         ..init(appDocumentDir.path)
-        ..registerAdapter(AdObjectAdapter());
+        ..registerAdapter(AdHiveObjectAdapter());
     }
     final box = await Hive.openBox('favorites_storage');
     return FavoriteStorage(box);
   }
 
-  List<AdObject> get allItems => _box.values.toList().cast<AdObject>();
+  BoxValue get favoriteAds =>
+      BoxValue(_box, key: "key_favorites_storage");
+
+  List<AdHiveObject> get allItems => _box.values.toList().cast<AdHiveObject>();
 
   Future<void> removeFromFavorite(int adId) async {
-    final allItem = _box.values.toList().cast<AdObject>();
+    final allItem = _box.values.toList().cast<AdHiveObject>();
     final index = allItem.indexWhere((e) => e.id == adId);
     _box.deleteAt(index);
   }
 
-  Future<void> update(int index, AdObject adObject) async {
+  Future<void> update(int index, AdHiveObject adObject) async {
     _box.putAt(index, adObject);
   }
 }

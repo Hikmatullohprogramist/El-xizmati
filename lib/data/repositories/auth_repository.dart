@@ -5,7 +5,7 @@ import 'package:dio/src/response.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/responses/auth/eds/eds_sign_in_response.dart';
 
-import '../../data/hive_objects/user/user_info_object.dart';
+import '../../data/hive_objects/user/user_hive_object.dart';
 import '../../data/responses/auth/auth_start/auth_start_response.dart';
 import '../../data/responses/auth/confirm/confirm_response.dart';
 import '../../data/responses/auth/one_id/one_id_response.dart';
@@ -21,14 +21,14 @@ class AuthRepository {
   final AuthService _authService;
   final TokenStorage tokenStorage;
   final LanguageStorage languageStorage;
-  final UserInfoStorage userInfoStorage;
+  final UserStorage userStorage;
   String sessionToken = "";
 
   AuthRepository(
     this._authService,
     this.tokenStorage,
     this.languageStorage,
-    this.userInfoStorage,
+    this.userStorage,
   );
 
   Future<AuthStartResponse> authStart(String phone) async {
@@ -44,11 +44,11 @@ class AuthRepository {
     final response = await _authService.login(phone: phone, password: password);
     final loginResponse = ConfirmRootResponse.fromJson(response.data).data;
     if (loginResponse.token != null) {
-      await tokenStorage.token.set(loginResponse.token ?? "");
-      await tokenStorage.isLogin.set(true);
+      await tokenStorage.setToken(loginResponse.token ?? "");
+      await tokenStorage.setLoginState(true);
       final user = loginResponse.user;
-      userInfoStorage.userInformation.set(
-        UserInfoObject(
+      await userStorage.set(
+        UserHiveObject(
           districtId: user?.districtId,
           fullName: user?.fullName,
           email: user?.email,
@@ -62,7 +62,7 @@ class AuthRepository {
           gender: user?.gender,
           homeName: user?.homeName,
           isPassword: user?.isPassword,
-          isRegistered: user?.isRegistered,
+          isIdentityVerified: user?.isRegistered,
           mobilePhone: user?.mobilePhone,
           oblId: user?.oblId,
           passportNumber: user?.passportNumber,
@@ -110,27 +110,12 @@ class AuthRepository {
     final edsResponse = EdsSignInRootResponse.fromJson(response.data);
     final edsUserResponse = edsResponse.user;
     if (edsResponse.token != null) {
-      await tokenStorage.token.set(edsResponse.token ?? "");
-      await tokenStorage.isLogin.set(true);
+      await tokenStorage.setToken(edsResponse.token ?? "");
+      await tokenStorage.setLoginState(true);
       final user = edsUserResponse;
 
-      userInfoStorage.userInformation.set(
-        // UserInfoObject(
-        //   fullName: user?.fullName,
-        //   email: user?.email,
-        //   tin: user?.tin,
-        //   id: user?.id,
-        //   areaId: user?.areaId,
-        //   username: user?.username,
-        //   eimzoAllowToLogin: user?.eimzoAllowToLogin,
-        //   mobilePhone: user?.mobilePhone,
-        //   oblId: user?.oblId,
-        //   photo: user?.photo,
-        //   pinfl: user?.pinfl,
-        //   postName: user?.username,
-        //   state: user?.state,
-        // ),
-        UserInfoObject(
+      await userStorage.set(
+        UserHiveObject(
           districtId: user?.districtId,
           fullName: user?.fullName,
           email: user?.email,
@@ -144,7 +129,7 @@ class AuthRepository {
           gender: user?.gender,
           homeName: user?.homeName,
           isPassword: user?.isPassword,
-          isRegistered: user?.isRegistered,
+          isIdentityVerified: user?.isRegistered,
           mobilePhone: user?.mobilePhone,
           oblId: user?.oblId,
           passportNumber: user?.passportNumber,
@@ -167,11 +152,11 @@ class AuthRepository {
     );
     final confirmResponse = ConfirmRootResponse.fromJson(response.data).data;
     if (confirmResponse.token != null) {
-      await tokenStorage.token.set(confirmResponse.token ?? "");
-      await tokenStorage.isLogin.set(true);
+      await tokenStorage.setToken(confirmResponse.token ?? "");
+      await tokenStorage.setLoginState(true);
       final user = confirmResponse.user;
-      userInfoStorage.userInformation.set(
-        UserInfoObject(
+      await userStorage.set(
+        UserHiveObject(
           districtId: user?.districtId,
           fullName: user?.fullName,
           email: user?.email,
@@ -185,7 +170,7 @@ class AuthRepository {
           gender: user?.gender,
           homeName: user?.homeName,
           isPassword: user?.isPassword,
-          isRegistered: user?.isRegistered,
+          isIdentityVerified: user?.isRegistered,
           mobilePhone: user?.mobilePhone,
           oblId: user?.oblId,
           passportNumber: user?.passportNumber,
@@ -232,11 +217,11 @@ class AuthRepository {
     );
     final response = ConfirmRootResponse.fromJson(rootResponse.data).data;
     if (response.token != null) {
-      await tokenStorage.token.set(response.token ?? "");
-      await tokenStorage.isLogin.set(true);
+      await tokenStorage.setToken(response.token ?? "");
+      await tokenStorage.setLoginState(true);
       final user = response.user;
-      userInfoStorage.userInformation.set(
-        UserInfoObject(
+      await userStorage.set(
+        UserHiveObject(
           districtId: user?.districtId,
           fullName: user?.fullName,
           email: user?.email,
@@ -250,7 +235,7 @@ class AuthRepository {
           gender: user?.gender,
           homeName: user?.homeName,
           isPassword: user?.isPassword,
-          isRegistered: user?.isRegistered,
+          isIdentityVerified: user?.isRegistered,
           mobilePhone: user?.mobilePhone,
           oblId: user?.oblId,
           passportNumber: user?.passportNumber,
@@ -271,10 +256,10 @@ class AuthRepository {
         phone: phone, code: code, sessionToken: sessionToken);
     final confirmResponse = ConfirmRootResponse.fromJson(response.data).data;
     if (confirmResponse.token != null) {
-      await tokenStorage.token.set(confirmResponse.token ?? "");
-      await tokenStorage.isLogin.set(true);
+      await tokenStorage.setToken(confirmResponse.token ?? "");
+      await tokenStorage.setLoginState(true);
       final user = confirmResponse.user;
-      userInfoStorage.userInformation.set(UserInfoObject(
+      await userStorage.set(UserHiveObject(
           districtId: user?.districtId,
           fullName: user?.fullName,
           email: user?.email,
@@ -288,7 +273,7 @@ class AuthRepository {
           gender: user?.gender,
           homeName: user?.homeName,
           isPassword: user?.isPassword,
-          isRegistered: user?.isRegistered,
+          isIdentityVerified: user?.isRegistered,
           mobilePhone: user?.mobilePhone,
           oblId: user?.oblId,
           passportNumber: user?.passportNumber,
@@ -313,11 +298,11 @@ class AuthRepository {
           accessCode: oneIdResponse.access_token ?? "");
       final loginResponse = ConfirmRootResponse.fromJson(response.data).data;
       if (loginResponse.token != null) {
-        await tokenStorage.token.set(loginResponse.token ?? "");
-        await tokenStorage.isLogin.set(true);
+        await tokenStorage.setToken(loginResponse.token ?? "");
+        await tokenStorage.setLoginState(true);
         final user = loginResponse.user;
-        userInfoStorage.userInformation.set(
-          UserInfoObject(
+        await userStorage.set(
+          UserHiveObject(
             districtId: user?.districtId,
             fullName: user?.fullName,
             email: user?.email,
@@ -331,7 +316,7 @@ class AuthRepository {
             gender: user?.gender,
             homeName: user?.homeName,
             isPassword: user?.isPassword,
-            isRegistered: user?.isRegistered,
+            isIdentityVerified: user?.isRegistered,
             mobilePhone: user?.mobilePhone,
             oblId: user?.oblId,
             passportNumber: user?.passportNumber,
@@ -350,10 +335,9 @@ class AuthRepository {
   }
 
   Future<void> logOut() async {
-    await tokenStorage.isLogin.clear();
-    await tokenStorage.token.clear();
-    await userInfoStorage.userInformation.clear();
-    await languageStorage.isLanguageSelection.clear();
+    await tokenStorage.clear();
+    await userStorage.clear();
+    await languageStorage.clear();
     return;
   }
 }

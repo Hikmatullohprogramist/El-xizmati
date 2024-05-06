@@ -124,11 +124,11 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> popularAdsAddFavorite(Ad ad) async {
     try {
-      if (ad.favorite == true) {
+      if (ad.isFavorite == true) {
         await favoriteRepository.removeFromFavorite(ad.id);
         final index = states.popularAds.indexOf(ad);
         final item = states.popularAds.elementAt(index);
-        states.popularAds.insert(index, item..favorite = false);
+        states.popularAds.insert(index, item..isFavorite = false);
       } else {
         final backendId = await favoriteRepository.addToFavorite(ad);
         final index = states.popularAds.indexOf(ad);
@@ -136,7 +136,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         states.popularAds.insert(
           index,
           item
-            ..favorite = true
+            ..isFavorite = true
             ..backendId = backendId,
         );
       }
@@ -148,11 +148,11 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> cheapAdsAddFavorite(Ad ad) async {
     try {
-      if (ad.favorite == true) {
+      if (ad.isFavorite == true) {
         await favoriteRepository.removeFromFavorite(ad.id);
         final index = states.cheapAds.indexOf(ad);
         final item = states.cheapAds.elementAt(index);
-        states.cheapAds.insert(index, item..favorite = false);
+        states.cheapAds.insert(index, item..isFavorite = false);
       } else {
         final backendId = await favoriteRepository.addToFavorite(ad);
         final index = states.cheapAds.indexOf(ad);
@@ -160,7 +160,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         states.cheapAds.insert(
           index,
           item
-            ..favorite = true
+            ..isFavorite = true
             ..backendId = backendId,
         );
       }
@@ -172,12 +172,12 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> addFavorite(Ad ad) async {
     try {
-      if (ad.favorite == true) {
+      if (ad.isFavorite == true) {
         await favoriteRepository.removeFromFavorite(ad.id);
         final index = states.controller?.itemList?.indexOf(ad) ?? 0;
         final item = states.controller?.itemList?.elementAt(index);
         if (item != null) {
-          states.controller?.itemList?.insert(index, item..favorite = false);
+          states.controller?.itemList?.insert(index, item..isFavorite = false);
           states.controller?.itemList?.removeAt(index);
           states.controller?.notifyListeners();
         }
@@ -189,7 +189,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           states.controller?.itemList?.insert(
             index,
             item
-              ..favorite = true
+              ..isFavorite = true
               ..backendId = backendId,
           );
           states.controller?.itemList?.removeAt(index);

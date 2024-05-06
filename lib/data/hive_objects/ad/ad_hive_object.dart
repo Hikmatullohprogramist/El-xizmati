@@ -1,10 +1,10 @@
 import 'package:hive/hive.dart';
 
-part 'ad_object.g.dart';
+part 'ad_hive_object.g.dart';
 
 @HiveType(typeId: 3)
-class AdObject extends HiveObject {
-  AdObject({
+class AdHiveObject extends HiveObject {
+  AdHiveObject({
     required this.id,
     required this.name,
     required this.price,
@@ -24,7 +24,8 @@ class AdObject extends HiveObject {
     required this.isCheck,
     required this.sellerId,
     required this.maxAmount,
-    required this.favorite,
+    required this.isFavorite,
+    required this.isAddedToCart,
     required this.photo,
     required this.sellerName,
     this.backendId,
@@ -89,7 +90,7 @@ class AdObject extends HiveObject {
   int sellerId;
 
   @HiveField(19)
-  bool favorite;
+  bool isFavorite;
 
   @HiveField(20)
   bool isCheck;
@@ -102,4 +103,7 @@ class AdObject extends HiveObject {
 
   @HiveField(23)
   int? view;
+
+  @HiveField(24)
+  bool isAddedToCart;
 }

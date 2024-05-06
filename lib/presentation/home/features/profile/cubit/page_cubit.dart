@@ -16,7 +16,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     this.authRepository,
     this.stateRepository,
   ) : super(PageState()) {
-    isLogin();
+    isUserLoggedIn();
     getLanguage();
   }
 
@@ -34,7 +34,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> selectLanguage(Language language, String languageName) async {
     updateState((state) => state.copyWith(language: language));
-    await stateRepository.setLanguage(languageName);
+    await stateRepository.setLanguage(language);
   }
 
   Future<void> logOut() async {
@@ -48,8 +48,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  Future<void> isLogin() async {
-    final isLogin = await stateRepository.isLogin() ?? false;
-    updateState((state) => state.copyWith(isLogin: isLogin));
+  Future<void> isUserLoggedIn() async {
+    final isUserLoggedIn = await stateRepository.isUserLoggedIn();
+    updateState((state) => state.copyWith(isLogin: isUserLoggedIn));
   }
 }

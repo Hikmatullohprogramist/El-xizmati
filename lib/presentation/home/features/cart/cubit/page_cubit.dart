@@ -13,19 +13,19 @@ part 'page_state.dart';
 @injectable
 class PageCubit extends BaseCubit<PageState, PageEvent> {
   PageCubit(
-    this.repository,
-    this.favoriteRepository,
+    this._cartRepository,
+    this._favoriteRepository,
   ) : super(PageState()) {
     getItems();
   }
 
-  final CartRepository repository;
-  final FavoriteRepository favoriteRepository;
+  final CartRepository _cartRepository;
+  final FavoriteRepository _favoriteRepository;
 
   Future<void> getItems() async {
     updateState((state) => state.copyWith(loadState: LoadingState.loading));
     try {
-      final ads = await repository.getCartAds();
+      final ads = await _cartRepository.getCartAds();
       updateState((state) => state.copyWith(
             items: ads,
             loadState: ads.isEmpty ? LoadingState.empty : LoadingState.success,
@@ -38,7 +38,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> removeFromCart(Ad ad) async {
     try {
-      await repository.removeCart(ad);
+      await _cartRepository.removeCart(ad);
       final items = states.items.map((e) => e).toList();
       items.removeWhere((e) => e.id == ad.id);
       updateState((state) => state.copyWith(items: items));
@@ -49,14 +49,14 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> changeFavorite(Ad ad) async {
     try {
-      if (!ad.favorite) {
-        await favoriteRepository.removeFromFavorite(ad.id);
+      if (!ad.isFavorite) {
+        await _favoriteRepository.removeFromFavorite(ad.id);
       } else {
-        await favoriteRepository.addToFavorite(ad);
+        await _favoriteRepository.addToFavorite(ad);
       }
       final items = states.items.map((e) => e.copy()).toList();
       final index = items.indexWhere((e) => e.id == ad.id);
-      final newAd = ad..favorite = !ad.favorite;
+      final newAd = ad..isFavorite = !ad.isFavorite;
       items.removeWhere((e) => e.id ==  ad.id);
       items.insert(index, newAd);
 

@@ -82,7 +82,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           response?.paymentTypes?.map((e) => e.id ?? -1).toList() ?? [];
       updateState((state) => state.copyWith(
             adDetail: response,
-            favorite: response?.favorite ?? false,
+            favorite: response?.isFavorite ?? false,
             hasRangePrice: response?.hasRangePrice() ?? false,
             paymentType: paymentList,
           ));
@@ -109,7 +109,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> changeFavorite() async {
     try {
-      if (states.adDetail?.favorite == true) {
+      if (states.adDetail?.isFavorite == true) {
         await favoriteRepository.removeFromFavorite(states.adDetail!.adId);
       } else {
         await favoriteRepository.addToFavorite(states.adDetail!.toMap());
@@ -135,10 +135,10 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> orderCreate() async {
     try {
-      final isLogin = await stateRepository.isLogin() ?? false;
-      final isFullRegister = await userRepository.isFullRegister();
-      if (isLogin) {
-        if (isFullRegister) {
+      final isUserLoggedIn = await stateRepository.isUserLoggedIn();
+      final isIdentityVerified = await userRepository.isIdentityVerified();
+      if (isUserLoggedIn) {
+        if (isIdentityVerified) {
           await _cartRepository.orderCreate(
             productId: states.adId ?? -1,
             amount: states.count,

@@ -2,17 +2,20 @@ import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../common/core/base_storage.dart';
+import '../../common/core/box_value.dart';
 import '../responses/category/category/category_response.dart';
 
 @lazySingleton
 class CategoriesStorage {
   CategoriesStorage(this._box);
 
-  final Box _box;
+  static const String STORAGE_BOX_NAME = "categories_storage";
+  final String KEY_PRODUCT_CATEGORIES = "string_product_categories";
+  final String KEY_SERVICE_CATEGORIES = "string_service_categories";
+  final String KEY_REQUEST_CATEGORIES = "string_request_categories";
+  final String KEY_POPULAR_CATEGORIES = "string_request_categories";
 
-  BaseStorage<List> get categories =>
-      BaseStorage(_box, key: "key_categories_storage");
+  final Box _box;
 
   @FactoryMethod(preResolve: true)
   static Future<CategoriesStorage> create() async {
@@ -20,8 +23,15 @@ class CategoriesStorage {
     Hive
       ..init(appDocumentDir.path)
       ..registerAdapter(CategoryResponseImplAdapter());
-    final box =
-    await Hive.openBox<List>('categories_storage');
+
+    final box = await Hive.openBox<List>(STORAGE_BOX_NAME);
     return CategoriesStorage(box);
+  }
+
+  BoxValue<List> get _productCategoriesBox =>
+      BoxValue(_box, key: KEY_PRODUCT_CATEGORIES);
+
+  Future<void> clear() async {
+    await _productCategoriesBox.clear();
   }
 }

@@ -20,7 +20,7 @@ class PageState with _$PageState {
     UnitResponse? unit,
     @Default(1) int minAmount,
     int? price,
-    CurrencyResponse? currency,
+    Currency? currency,
     @Default([]) List<PaymentTypeResponse> paymentTypes,
     @Default(false) bool isAgreedPrice,
 //

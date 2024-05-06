@@ -87,7 +87,7 @@ class AdListPage extends BasePage<PageCubit, PageState, PageEvent> {
           crossAxisSpacing: 12,
           mainAxisSpacing: 12,
           crossAxisCount: 2,
-          mainAxisExtent: 256,
+          mainAxisExtent: 292,
         ),
         builderDelegate: PagedChildBuilderDelegate<Ad>(
           firstPageErrorIndicatorBuilder: (_) {
@@ -157,10 +157,15 @@ class AdListPage extends BasePage<PageCubit, PageState, PageEvent> {
             height: 90,
             child: VerticalAdWidget(
               ad: item,
-              onFavoriteClicked: (value) =>
-                  cubit(context).changeFavorite(value),
-              onClicked: (value) {
-                context.router.push(AdDetailRoute(adId: value.id));
+              onItemClicked: (ad) {
+                context.router.push(AdDetailRoute(adId: ad.id));
+              },
+              onFavoriteClicked: (ad) {
+                cubit(context).changeFavorite(ad);
+              },
+              onCartClicked: (Ad ad) {},
+              onBuyClicked: (Ad ad) {
+                context.router.push(CreateOrderRoute(adId: ad.id));
               },
             ),
           ),

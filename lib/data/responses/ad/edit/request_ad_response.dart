@@ -107,10 +107,10 @@ class RequestAdResponse with _$RequestAdResponse {
         [];
   }
 
-  CurrencyResponse? getCurrency() {
+  Currency? getCurrency() {
     return currencyId == null
         ? null
-        : CurrencyResponse(id: "$currencyId", name: currencyName);
+        : Currency(id: "$currencyId", name: currencyName);
   }
 
   List<PaymentTypeResponse> getPaymentTypes() {

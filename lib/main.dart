@@ -74,9 +74,8 @@ Future<void> main() async {
   await getDeviceAndAppInfo();
 
   var stateRepository = GetIt.instance<StateRepository>();
-  var isLanguageSelection =
-      await stateRepository.isLanguageSelection() ?? false;
-  var isLogin = await stateRepository.isLogin() ?? false;
+  var isLanguageSelection = await stateRepository.isLanguageSelection();
+  var isUserLoggedIn = await stateRepository.isUserLoggedIn();
 
   runApp(
     EasyLocalization(
@@ -86,7 +85,7 @@ Future<void> main() async {
       assetLoader: CsvAssetLoader(),
       child: MyApp(
         isLanguageSelection: isLanguageSelection,
-        isLogin: isLogin,
+        isLogin: isUserLoggedIn,
       ),
     ),
   );

@@ -20,7 +20,7 @@ class PageState with _$PageState {
     @Default("") String desc,
     int? fromPrice,
     int? toPrice,
-    CurrencyResponse? currency,
+    Currency? currency,
     @Default([]) List<PaymentTypeResponse> paymentTypes,
     @Default(false) bool isAgreedPrice,
 //
