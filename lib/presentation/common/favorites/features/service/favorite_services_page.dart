@@ -41,12 +41,12 @@ class FavoriteServicesPage extends BasePage<PageCubit, PageState, PageEvent> {
           physics: BouncingScrollPhysics(),
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           pagingController: state.controller!,
-          gridDelegate:SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: width / height,
             crossAxisSpacing: 12,
             mainAxisSpacing: 12,
             crossAxisCount: 2,
-            mainAxisExtent: 256,
+            mainAxisExtent: 292,
           ),
           builderDelegate: PagedChildBuilderDelegate<Ad>(
             firstPageErrorIndicatorBuilder: (_) {
@@ -112,14 +112,17 @@ class FavoriteServicesPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
             transitionDuration: Duration(milliseconds: 100),
             itemBuilder: (context, item, index) => VerticalAdWidget(
-              isCanChangeFavorite: false,
               ad: item,
-              onFavoriteClicked: (value) {
-                cubit(context).removeFavorite(value);
+              onItemClicked: (ad) {
+                context.router.push(AdDetailRoute(adId: ad.id));
               },
-              onClicked: (value) {
-                context.router.push(AdDetailRoute(adId: value.id));
+              onFavoriteClicked: (ad) {
+                cubit(context).removeFavorite(ad);
               },
+              onCartClicked: (Ad ad) {},
+              onBuyClicked: (Ad ad) {
+              context.router.push(CreateOrderRoute(adId: ad.id));
+            },
             ),
           ),
         ),

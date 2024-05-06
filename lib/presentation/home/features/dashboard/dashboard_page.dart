@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/common/colors/color_extension.dart';
 import 'package:onlinebozor/common/core/base_page.dart';
 import 'package:onlinebozor/common/router/app_router.dart';
@@ -188,6 +187,10 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
             onFavoriteClicked: (Ad ad) {
               cubit(context).popularProductAdsAddFavorite(ad);
             },
+            onCartClicked: (Ad ad) {},
+            onBuyClicked: (Ad ad) {
+              context.router.push(CreateOrderRoute(adId: ad.id));
+            },
           ),
         ),
       ],
@@ -224,6 +227,10 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
             onFavoriteClicked: (Ad ad) {
               cubit(context).popularServiceAdsAddFavorite(ad);
+            },
+            onCartClicked: (Ad ad) {},
+            onBuyClicked: (Ad ad) {
+              context.router.push(CreateOrderRoute(adId: ad.id));
             },
           ),
         ),
@@ -290,7 +297,11 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
                 context.router.push(AdDetailRoute(adId: ad.id));
               },
               onFavoriteClicked: (Ad ad) {
-                context.read<PageCubit>().recentlyViewAdAddToFavorite(ad);
+                cubit(context).recentlyViewAdAddToFavorite(ad);
+              },
+              onCartClicked: (Ad ad) {},
+              onBuyClicked: (Ad ad) {
+                context.router.push(CreateOrderRoute(adId: ad.id));
               },
             ),
           ),

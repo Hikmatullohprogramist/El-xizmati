@@ -411,7 +411,6 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
             itemBuilder: (BuildContext buildContext, int index) {
               return InkWell(
                 onTap: () {
-                  // context.read<PageCubit>().setRegion(state.regions[index]);
                   cubit(context).setRegion(state.regions[index]);
                   Navigator.pop(buildContext);
                 },
