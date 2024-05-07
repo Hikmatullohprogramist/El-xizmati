@@ -9,18 +9,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:onlinebozor/common/colors/color_extension.dart';
-import 'package:onlinebozor/common/constants.dart';
-import 'package:onlinebozor/common/di/injection.dart';
-import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/common/gen/localization/strings.dart';
-import 'package:onlinebozor/common/router/app_router.dart';
-import 'package:onlinebozor/common/widgets/display/display_widget.dart';
+import 'package:logger/logger.dart';
+import 'package:onlinebozor/core/colors/color_extension.dart';
+import 'package:onlinebozor/core/constants.dart';
+import 'package:onlinebozor/core/di/injection.dart';
+import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/presentation/widgets/snack_bar/snack_bar_widget.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:uuid/uuid.dart';
 
 import 'data/repositories/state_repository.dart';
+import 'presentation/router/app_router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +34,16 @@ Future<void> main() async {
   });
 
   await Hive.initFlutter();
+
+  // Check if the app was updated
+  bool isUpdated = await isAppUpdated();
+
+  if (isUpdated) {
+    // Clear all data in Hive when an update is detected
+    // await clearHiveData();
+  }
+
+
 
   await configureDependencies();
 
@@ -74,8 +86,8 @@ Future<void> main() async {
   await getDeviceAndAppInfo();
 
   var stateRepository = GetIt.instance<StateRepository>();
-  var isLanguageSelection = await stateRepository.isLanguageSelection();
-  var isUserLoggedIn = await stateRepository.isUserLoggedIn();
+  var isLanguageSelection = stateRepository.isLanguageSelection();
+  var isUserLoggedIn = stateRepository.isUserLoggedIn();
 
   runApp(
     EasyLocalization(
@@ -93,6 +105,39 @@ Future<void> main() async {
   //   systemNavigationBarColor: Colors.white,
   //   statusBarColor: Colors.white,
   // ));
+}
+
+Future<bool> isAppUpdated() async {
+  final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  final String newVersion = packageInfo.version;
+
+  // Retrieve the saved version from the local storage
+  final Box<String> versionBox = await Hive.openBox<String>('versionBox');
+  final String? savedVersion = versionBox.get('app_version');
+
+  Logger().w("isAppUpdated savedVersion = $savedVersion, newVersion = $newVersion");
+  if (savedVersion == null || savedVersion != newVersion) {
+    // Save the new version if not matching or first launch
+    await versionBox.put('app_version', newVersion);
+    return true;
+  }
+
+  return false;
+}
+
+Future<void> clearHiveData() async {
+  // Close all boxes before deleting
+  await Hive.close();
+
+  // Delete all data
+  final Directory appDocDirectory = await getApplicationDocumentsDirectory();
+  final String hivePath = appDocDirectory.path;
+  final Directory hiveDirectory = Directory(hivePath);
+
+  // Delete the Hive directory
+  if (await hiveDirectory.exists()) {
+    await hiveDirectory.delete(recursive: true);
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -113,7 +158,7 @@ class MyApp extends StatelessWidget {
     ));
     ThemeMode themeMode = ThemeMode.system;
 
-    return DisplayWidget(
+    return SnackBarWidget(
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
