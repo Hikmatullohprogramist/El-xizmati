@@ -4,23 +4,24 @@ import 'package:auto_route/auto_route.dart';
 import 'package:external_app_launcher/external_app_launcher.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/colors/color_extension.dart';
-import 'package:onlinebozor/core/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/features/auth/confirm/auth_confirm_page.dart';
 import 'package:onlinebozor/presentation/features/auth/eds/request/crc32.dart';
 import 'package:onlinebozor/presentation/features/auth/eds/request/gost_hash.dart';
-import 'package:onlinebozor/presentation/utils/mask_formatters.dart';
-import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
-import 'cubit/page_cubit.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
+import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
+import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/botton_sheet_for_result.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_outlined_button.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_field.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'cubit/page_cubit.dart';
 
 @RoutePage()
 class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {

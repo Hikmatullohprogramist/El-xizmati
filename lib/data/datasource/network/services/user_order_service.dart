@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/datasource/network/constants/rest_query_keys.dart';
-import 'package:onlinebozor/data/utils/rest_mappers.dart';
+import 'package:onlinebozor/data/datasource/network/extensions/rest_mappers.dart';
 import 'package:onlinebozor/domain/models/order/order_cancel_reason.dart';
 import 'package:onlinebozor/domain/models/order/order_type.dart';
 import 'package:onlinebozor/domain/models/order/user_order_status.dart';

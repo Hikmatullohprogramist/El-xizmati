@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 
 class ProductOrService extends StatelessWidget {

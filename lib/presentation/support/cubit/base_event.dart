@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onlinebozor/core/cubit/base_state.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_state.dart';
 
 class BaseListener<CUBIT extends StateStreamable<BaseState<STATE, EVENT>>,
     STATE, EVENT> extends StatelessWidget {

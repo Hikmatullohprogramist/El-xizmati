@@ -1,8 +1,7 @@
 import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:dio/dio.dart';
+import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-
-import '../../core/constants.dart';
 
 extension DioExts on Dio {
   Dio setupDefaultParams(List<Interceptor> externalInterceptors) {
@@ -14,18 +13,18 @@ extension DioExts on Dio {
     return this;
   }
 
-  Dio clone(String baseUrl) {
-    final options = _getBaseOptions(baseUrl);
-    var clonedDio = Dio(options);
-    clonedDio.interceptors.addAll(interceptors);
-    clonedDio.httpClientAdapter = httpClientAdapter;
-    clonedDio.transformer = transformer;
-    return clonedDio;
-  }
-
-  Dio cloneWithCabinetBaseUrl() {
-    return clone(Constants.baseUrlCabinet);
-  }
+  // Dio clone(String baseUrl) {
+  //   final options = _getBaseOptions(baseUrl);
+  //   var clonedDio = Dio(options);
+  //   clonedDio.interceptors.addAll(interceptors);
+  //   clonedDio.httpClientAdapter = httpClientAdapter;
+  //   clonedDio.transformer = transformer;
+  //   return clonedDio;
+  // }
+  //
+  // Dio cloneWithCabinetBaseUrl() {
+  //   return clone(Constants.baseUrlCabinet);
+  // }
 }
 
 BaseOptions _getBaseOptions(String baseUrl) {

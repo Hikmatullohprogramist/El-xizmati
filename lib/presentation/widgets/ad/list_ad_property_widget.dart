@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:onlinebozor/core/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/ad/ad_item_condition.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/constants.dart';
+import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:logger/logger.dart';
-import 'package:onlinebozor/presentation/utils/xfile_exts.dart';
+import 'package:onlinebozor/presentation/support/extensions/xfile_exts.dart';
 
 extension XFileCompressingExts on XFile {
   Future<XFile> compressImage({int quality = 45}) async {

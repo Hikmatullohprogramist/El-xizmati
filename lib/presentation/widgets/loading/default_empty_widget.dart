@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_outlined_button.dart';

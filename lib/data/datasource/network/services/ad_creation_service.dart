@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/utils/rest_mappers.dart';
+import 'package:onlinebozor/data/datasource/network/extensions/rest_mappers.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 

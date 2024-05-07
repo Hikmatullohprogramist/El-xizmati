@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/colors/color_extension.dart';
-import 'package:onlinebozor/core/colors/static_colors.dart';
+import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CartShimmer extends StatelessWidget {

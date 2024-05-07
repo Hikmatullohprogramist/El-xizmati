@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/core/colors/static_colors.dart';
-import 'package:onlinebozor/core/colors/theme_colors.dart';
+import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
+import 'package:onlinebozor/presentation/support/colors/theme_colors.dart';
 
 @lazySingleton
 class DarkThemeColors extends ThemeColors {

@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/repositories/state_repository.dart';
 import 'package:onlinebozor/domain/models/language/language.dart';
 
-import 'package:onlinebozor/core/cubit/base_cubit.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
 part 'page_cubit.freezed.dart';
 part 'page_state.dart';

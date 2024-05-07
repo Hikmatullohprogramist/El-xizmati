@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/core/cubit/base_cubit.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/data/repositories/ad_creation_repository.dart';
 import 'package:onlinebozor/data/datasource/network/responses/address/user_address_response.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';

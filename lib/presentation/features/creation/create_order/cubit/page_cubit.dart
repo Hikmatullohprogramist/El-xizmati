@@ -3,11 +3,11 @@ import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
-import 'package:onlinebozor/presentation/utils/mask_formatters.dart';
-import 'package:onlinebozor/presentation/utils/resource_exts.dart';
+import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
+import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 
-import '../../../../../../../core/constants.dart';
-import 'package:onlinebozor/core/cubit/base_cubit.dart';
+import '../../../../../data/datasource/network/constants/constants.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import '../../../../../../../data/repositories/ad_repository.dart';
 import '../../../../../../../data/repositories/cart_repository.dart';
 import '../../../../../../../data/repositories/favorite_repository.dart';

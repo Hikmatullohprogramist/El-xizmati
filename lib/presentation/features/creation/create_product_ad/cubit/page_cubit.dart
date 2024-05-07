@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/core/cubit/base_cubit.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/core/extensions/list_extensions.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
@@ -17,8 +17,8 @@ import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
-import 'package:onlinebozor/presentation/utils/compressing_exts.dart';
-import 'package:onlinebozor/presentation/utils/xfile_exts.dart';
+import 'package:onlinebozor/presentation/support/extensions/compressing_exts.dart';
+import 'package:onlinebozor/presentation/support/extensions/xfile_exts.dart';
 
 part 'page_cubit.freezed.dart';
 part 'page_state.dart';

@@ -1,14 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/colors/color_extension.dart';
-import 'package:onlinebozor/core/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/language/language.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/utils/resource_exts.dart';
+import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_outlined_button.dart';
 
 import 'cubit/page_cubit.dart';

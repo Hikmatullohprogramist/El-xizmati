@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/core/constants.dart';
+import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
 import 'package:onlinebozor/data/datasource/hive/storages/token_storage.dart';
 import 'package:onlinebozor/data/datasource/network/constants/rest_header_keys.dart';
 
@@ -12,7 +12,9 @@ class CommonInterceptor extends QueuedInterceptor {
 
   @override
   void onRequest(
-      RequestOptions options, RequestInterceptorHandler handler) async {
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     final headers = {'AppVersionCode': DeviceInfo.appVersionCode};
     headers['AppVersionName'] = DeviceInfo.appVersionName;
     headers['DeviceId'] = DeviceInfo.deviceId;

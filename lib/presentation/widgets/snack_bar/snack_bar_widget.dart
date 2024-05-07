@@ -1,10 +1,10 @@
 import 'package:elegant_notification/elegant_notification.dart';
 import 'package:elegant_notification/resources/arrays.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/di/injection.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/snackbar/snack_bar_manager.dart';
 import 'package:onlinebozor/core/snackbar/snack_bar_message_type.dart';
+import 'package:onlinebozor/presentation/di/injection.dart';
 
 class SnackBarWidget extends StatelessWidget {
   const SnackBarWidget({Key? key, required this.child}) : super(key: key);

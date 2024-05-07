@@ -15,7 +15,7 @@ import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/region/region.dart';
 import 'package:onlinebozor/domain/models/region/region_and_district.dart';
 
-import '../../core/constants.dart';
+import '../datasource/network/constants/constants.dart';
 import '../../domain/models/social_account/social_account_info.dart';
 import '../../domain/models/street/street.dart';
 

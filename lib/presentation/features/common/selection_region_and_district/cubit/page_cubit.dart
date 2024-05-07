@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/core/cubit/base_cubit.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/data/repositories/user_repository.dart';
 import 'package:onlinebozor/domain/mappers/item_mapper.dart';

@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/core/cubit/base_cubit.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/data/datasource/network/responses/user_ad/user_ad_response.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
 

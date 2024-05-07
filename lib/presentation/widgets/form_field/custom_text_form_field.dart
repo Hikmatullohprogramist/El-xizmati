@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:onlinebozor/core/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
 
 class CustomTextFormField extends StatefulWidget {
   const CustomTextFormField({

@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 
-import 'package:onlinebozor/core/cubit/base_cubit.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import '../../../../../../../core/enum/enums.dart';
 import '../../../../../../../domain/models/ad/ad_list_type.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/colors/static_colors.dart';
+import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 

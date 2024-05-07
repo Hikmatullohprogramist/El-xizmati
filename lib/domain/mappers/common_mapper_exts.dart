@@ -2,7 +2,7 @@ import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
 import 'package:onlinebozor/domain/models/language/language.dart';
 import 'package:onlinebozor/domain/models/order/order_cancel_reason.dart';
 import 'package:onlinebozor/domain/models/order/user_order_status.dart';
-import 'package:onlinebozor/presentation/utils/resource_exts.dart';
+import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 
 import '../models/ad/ad_author_type.dart';
 import '../models/ad/ad_item_condition.dart';

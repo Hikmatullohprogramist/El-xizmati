@@ -1,13 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onlinebozor/core/cubit/base_builder.dart';
-import 'package:onlinebozor/core/cubit/base_event.dart';
-import 'package:onlinebozor/core/cubit/base_state.dart';
-import 'package:onlinebozor/core/di/injection.dart';
-
-import '../colors/static_colors.dart';
-import '../gen/localization/strings.dart';
+import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/presentation/di/injection.dart';
+import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_builder.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_event.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_state.dart';
 
 abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
     EVENT> extends StatelessWidget {

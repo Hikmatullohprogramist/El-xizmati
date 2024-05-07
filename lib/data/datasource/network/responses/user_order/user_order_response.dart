@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
 import 'package:onlinebozor/domain/models/order/user_order_status.dart';
-import 'package:onlinebozor/presentation/utils/mask_formatters.dart';
+import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
 
 part 'user_order_response.freezed.dart';
 part 'user_order_response.g.dart';

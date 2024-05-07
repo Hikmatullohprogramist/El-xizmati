@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/colors/color_extension.dart';
-import 'package:onlinebozor/core/colors/static_colors.dart';
+import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/responses/user_order/user_order_response.dart';
-import 'package:onlinebozor/presentation/utils/resource_exts.dart';
+import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
 

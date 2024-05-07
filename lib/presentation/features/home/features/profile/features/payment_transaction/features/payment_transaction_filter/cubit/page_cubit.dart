@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/core/cubit/base_cubit.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/data/datasource/network/responses/transaction/payment_transaction_response.dart';
 import 'package:onlinebozor/data/repositories/transaction_repository.dart';
 import 'package:onlinebozor/domain/models/payment_filter/paymant_filter.dart';
