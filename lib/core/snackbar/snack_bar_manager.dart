@@ -1,7 +1,9 @@
-import 'display_message.dart';
+import 'package:onlinebozor/core/snackbar/snack_bar_message.dart';
 
-abstract class Display {
-  void setOnDisplayListener(void Function(DisplayMessage message) onDisplay);
+abstract class SnackBarManager {
+  void setOnShowListener(
+    void Function(SnackBarMessage message) onShowListener,
+  );
 
   void error(String description, [String? title]);
 

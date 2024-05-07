@@ -1,16 +1,18 @@
-import 'package:flutter/material.dart';
+import 'dart:ui';
+
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/common/colors/static_colors.dart';
+import 'package:onlinebozor/core/colors/static_colors.dart';
+import 'package:onlinebozor/core/colors/theme_colors.dart';
 
 @lazySingleton
-class ThemeColors {
-  Color get backgroundColor => StaticColors.backgroundColor;
+class DarkThemeColors extends ThemeColors {
+  Color get backgroundColor => Color(0xFF1E1E1E);
 
   Color get primary => StaticColors.dodgerBlue;
 
   Color get onPrimary => StaticColors.white;
 
-  Color get textPrimary => StaticColors.textColorPrimary;
+  Color get textPrimary => StaticColors.white;
 
   Color get textAccent => StaticColors.dodgerBlue;
 

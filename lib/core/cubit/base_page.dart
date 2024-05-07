@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onlinebozor/common/core/base_builder.dart';
-import 'package:onlinebozor/common/core/base_event.dart';
-import 'package:onlinebozor/common/core/base_state.dart';
-import 'package:onlinebozor/common/di/injection.dart';
+import 'package:onlinebozor/core/cubit/base_builder.dart';
+import 'package:onlinebozor/core/cubit/base_event.dart';
+import 'package:onlinebozor/core/cubit/base_state.dart';
+import 'package:onlinebozor/core/di/injection.dart';
 
 import '../colors/static_colors.dart';
 import '../gen/localization/strings.dart';
@@ -48,7 +48,6 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
   EVENT event(BuildContext context) {
     return context.read<EVENT>();
   }
-
 
   void showExitAlertDialog(BuildContext context) {
     TextButton negativeButton = TextButton(

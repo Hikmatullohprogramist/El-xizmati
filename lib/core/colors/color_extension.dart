@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/common/colors/dark_theme_colors.dart';
-import 'package:onlinebozor/common/colors/theme_colors.dart';
-import 'package:onlinebozor/common/di/injection.dart';
+import 'package:onlinebozor/core/colors/dark_theme_colors.dart';
+import 'package:onlinebozor/core/colors/theme_colors.dart';
+import 'package:onlinebozor/core/di/injection.dart';
 
 extension ColorExtension on BuildContext {
   ThemeColors get colors => Theme.of(this).brightness == Brightness.dark

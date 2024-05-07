@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onlinebozor/common/core/base_state.dart';
+import 'package:onlinebozor/core/cubit/base_state.dart';
 
 // ignore: must_be_immutable
 class BaseBuilder<Cubit extends StateStreamable<BaseState<STATE, EVENT>>, STATE,
