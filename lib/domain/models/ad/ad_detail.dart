@@ -1,7 +1,7 @@
+import 'package:onlinebozor/data/datasource/network/responses/ad/ad_detail/ad_detail_response.dart';
 import 'package:onlinebozor/domain/models/ad/ad_item_condition.dart';
+import 'package:onlinebozor/domain/models/currency/currency_code.dart';
 
-import '../../../data/responses/ad/ad_detail/ad_detail_response.dart';
-import '../currency/currency.dart';
 import 'ad_author_type.dart';
 import 'ad_priority_level.dart';
 import 'ad_transaction_type.dart';
@@ -78,7 +78,7 @@ class AdDetail {
   String? categoryKeyWord;
   String? description;
   final int price;
-  final Currency currency;
+  final CurrencyCode currency;
   bool? isContract;
   final AdAuthorType adAuthorType;
   final AdItemCondition adItemCondition;

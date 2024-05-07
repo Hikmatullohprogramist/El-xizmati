@@ -216,7 +216,10 @@ create_ad_video_ulr_label,Video,Видео,Видео
 create_ad_warehouse_count_label,Ombordagi miqdor,Кол-во на складе,Омбордаги миқдор
 create_ad_warehouse_unit_label,O‘lchov turi,Ед. измерения,Ўлчов тури
 create_request_title,So‘rov yaratish,Создать запрос,Сўров яратиш
-currency_uzb,so‘m,сўм,сўм
+currency_euro,yevro,евро,евро
+currency_rouble,rubl,рубль,рубл
+currency_usd,dollar,доллар,доллар
+currency_uzb,so‘m,сум,сўм
 edit_title,Tahrirlash,Редактировать,Таҳрирлаш
 face_id_check,Tekshirish,Проверить,Текшириш
 face_id_doc_not_matched,Tug‘ilgan sana va pasport seriya-raqamlari muvofiq emas,Дата рождения и серийный номер паспорта не совпадают,Туғилган сана ва паспорт серия-рақамлари мувофиқ эмас

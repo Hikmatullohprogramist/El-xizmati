@@ -1,4 +1,4 @@
-enum Currency {
+enum CurrencyCode {
   eur,
   usd,
   rub,

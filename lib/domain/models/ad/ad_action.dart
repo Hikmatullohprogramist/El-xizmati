@@ -1,4 +1,4 @@
-enum AdAction{
+enum AdAction {
   ACTION_EDIT,
   ACTION_ADVERTISE,
   ACTION_DEACTIVATE,

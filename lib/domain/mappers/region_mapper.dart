@@ -1,12 +1,11 @@
-import 'package:onlinebozor/data/responses/region/district_response.dart';
-import 'package:onlinebozor/data/responses/region/region_and_district_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/region/district_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/region/region_and_district_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/region/region_response.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/list/expandable_list_item.dart';
 import 'package:onlinebozor/domain/models/region/region.dart';
 import 'package:onlinebozor/domain/models/region/region_and_district.dart';
 import 'package:onlinebozor/domain/models/street/street.dart';
-
-import '../../data/responses/region/region_response.dart';
 
 extension RegionResponseExts on RegionResponse {
   Region toRegion() {

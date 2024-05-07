@@ -1,5 +1,5 @@
-import 'package:onlinebozor/data/responses/profile/user_full/user_full_info_response.dart';
-import 'package:onlinebozor/data/responses/social_account/social_account_info_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/profile/user_full/user_full_info_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/social_account/social_account_info_response.dart';
 import 'package:onlinebozor/domain/models/social_account/social_account_info.dart';
 
 extension SocialAccountInfoResponseExtension on SocialAccountInfoResponse {

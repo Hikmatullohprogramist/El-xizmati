@@ -106,6 +106,6 @@ flutter:
     - assets/images/bottom_bar/
 
 flutter_gen:
-  output: lib/common/gen/assets/
+  output: lib/core/gen/assets/
   integrations:
     flutter_svg: true

@@ -5,7 +5,8 @@ import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
 import 'package:onlinebozor/domain/models/order/order_type.dart';
 
-import '../../../data/responses/user_ad/user_ad_response.dart';
+import '../../../data/datasource/network/responses/user_ad/user_ad_response.dart';
+
 
 class UserAd {
   UserAd({

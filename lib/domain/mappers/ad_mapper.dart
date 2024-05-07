@@ -1,20 +1,19 @@
-import 'package:onlinebozor/data/responses/user_ad/user_ad_response.dart';
+import 'package:onlinebozor/data/datasource/hive/hive_objects/ad/ad_hive_object.dart';
+import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/ad/ad_detail/ad_detail_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/user_ad/user_ad_response.dart';
 import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
+import 'package:onlinebozor/domain/models/ad/ad_detail.dart';
+import 'package:onlinebozor/domain/models/ad/ad_item_condition.dart';
+import 'package:onlinebozor/domain/models/ad/ad_priority_level.dart';
+import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad.dart';
-
-import '../../data/hive_objects/ad/ad_hive_object.dart';
-import '../../data/responses/ad/ad/ad_response.dart';
-import '../../data/responses/ad/ad_detail/ad_detail_response.dart';
-import '../models/ad/ad_detail.dart';
-import '../models/ad/ad_item_condition.dart';
-import '../models/ad/ad_priority_level.dart';
-import '../models/ad/ad_transaction_type.dart';
 
 extension AdResponseExtension on AdResponse {
   Ad toMap({
-     bool isFavorite = false,
-     bool isAddedToCart = false,
+    bool isFavorite = false,
+    bool isAddedToCart = false,
   }) {
     return Ad(
       id: id,
@@ -49,108 +48,113 @@ extension AdResponseExtension on AdResponse {
 extension AdPhoneExtension on AdPhotoResponse {
   AdPhotoModel toMap() {
     return AdPhotoModel(
-        id: id ?? 0, image: image ?? "", isMain: is_main ?? false);
+      id: id ?? 0,
+      image: image ?? "",
+      isMain: is_main ?? false,
+    );
   }
 }
 
 extension AdDetailResponseExtension on AdDetailResponse {
   AdDetail toMap({bool favorite = false, bool isAddCart = false}) {
     return AdDetail(
-        adId: id,
-        adName: name ?? "",
-        saleType: sale_type ?? "",
-        mainTypeStatus: main_type_status ?? "",
-        description: (description ?? "")
-            .replaceAll("<p>", "")
-            .replaceAll("</p>", "")
-            .replaceAll("<br>", "")
-            .replaceAll("</br>", "")
-            .replaceAll("<ul>", "")
-            .replaceAll("</ul>", "")
-            .replaceAll("</li>", "")
-            .replaceAll("<li>", ""),
-        price: price ?? 0,
-        currency: currency.toCurrency(),
-        isContract: is_contract ?? false,
-        adAuthorType: route_type.toAdAuthorType(),
-        adItemCondition: property_status.toAdPropertyStatus(),
-        isAutoRenew: is_autoRenew ?? false,
-        adTransactionType: type_status.toAdTransactionType(),
-        adPriorityLevel: type.toAdPriorityLevel(),
-        showSocial: show_social ?? false,
-        view: view ?? 0,
-        addressId: address?.id,
-        adAuthorType2: null,
-        adItemCondition2: null,
-        beginDate: begin_date,
-        endDate: end_date,
-        address: address,
-        categoryId: category?.id,
-        categoryIsSale: category?.is_sell,
-        categoryKeyWord: category?.key_word,
-        categoryName: category?.name,
-        createdAt: created_at,
-        email: email,
-        fromPrice: from_price ?? 0,
-        hasFreeShipping: has_free_shipping,
-        hasShipping: has_shipping,
-        hasWarehouse: has_warehouse,
-        messageNumber: message_number,
-        otherDescription: other_description,
-        otherName: other_name,
-        params: params,
-        paymentTypes: payment_types,
-        phoneNumber: phone_number,
-        phoneView: phone_view,
-        photos: photos,
-        selected: selected,
-        sellerFullName: seller?.full_name,
-        sellerId: seller?.id,
-        sellerTin: seller?.tin,
-        sellerLastLoginAt: seller?.last_login_at,
-        sellerPhone: seller?.photo,
-        shippingPrice: shipping_price,
-        shippings: shippings,
-        shippingUnitId: shipping_unitId,
-        socialMedias: social_medias,
-        toPrice: to_price ?? 0,
-        typeExpireDate: type_expire_date,
-        unitId: unit_id,
-        video: video,
-        warehouses: warehouses,
-        isFavorite: favorite,
-        isAddedToCart: isAddCart);
+      adId: id,
+      adName: name ?? "",
+      saleType: sale_type ?? "",
+      mainTypeStatus: main_type_status ?? "",
+      description: (description ?? "")
+          .replaceAll("<p>", "")
+          .replaceAll("</p>", "")
+          .replaceAll("<br>", "")
+          .replaceAll("</br>", "")
+          .replaceAll("<ul>", "")
+          .replaceAll("</ul>", "")
+          .replaceAll("</li>", "")
+          .replaceAll("<li>", ""),
+      price: price ?? 0,
+      currency: currency.toCurrency(),
+      isContract: is_contract ?? false,
+      adAuthorType: route_type.toAdAuthorType(),
+      adItemCondition: property_status.toAdPropertyStatus(),
+      isAutoRenew: is_autoRenew ?? false,
+      adTransactionType: type_status.toAdTransactionType(),
+      adPriorityLevel: type.toAdPriorityLevel(),
+      showSocial: show_social ?? false,
+      view: view ?? 0,
+      addressId: address?.id,
+      adAuthorType2: null,
+      adItemCondition2: null,
+      beginDate: begin_date,
+      endDate: end_date,
+      address: address,
+      categoryId: category?.id,
+      categoryIsSale: category?.is_sell,
+      categoryKeyWord: category?.key_word,
+      categoryName: category?.name,
+      createdAt: created_at,
+      email: email,
+      fromPrice: from_price ?? 0,
+      hasFreeShipping: has_free_shipping,
+      hasShipping: has_shipping,
+      hasWarehouse: has_warehouse,
+      messageNumber: message_number,
+      otherDescription: other_description,
+      otherName: other_name,
+      params: params,
+      paymentTypes: payment_types,
+      phoneNumber: phone_number,
+      phoneView: phone_view,
+      photos: photos,
+      selected: selected,
+      sellerFullName: seller?.full_name,
+      sellerId: seller?.id,
+      sellerTin: seller?.tin,
+      sellerLastLoginAt: seller?.last_login_at,
+      sellerPhone: seller?.photo,
+      shippingPrice: shipping_price,
+      shippings: shippings,
+      shippingUnitId: shipping_unitId,
+      socialMedias: social_medias,
+      toPrice: to_price ?? 0,
+      typeExpireDate: type_expire_date,
+      unitId: unit_id,
+      video: video,
+      warehouses: warehouses,
+      isFavorite: favorite,
+      isAddedToCart: isAddCart,
+    );
   }
 }
 
 extension AdObjectExtension on AdHiveObject {
   Ad toMap({bool isFavorite = false, bool isAddCart = false}) {
     return Ad(
-        backendId: backendId ?? -1,
-        id: id,
-        name: name,
-        price: price,
-        currency: currency.toCurrency(),
-        region: region,
-        district: district,
-        adRouteType: adRouteType.toAdAuthorType(),
-        adPropertyStatus: adPropertyStatus.toAdPropertyStatus(),
-        adStatus: adStatus.toAdPriorityLevel(),
-        adTypeStatus: adTypeStatus.toAdTransactionType(),
-        fromPrice: fromPrice,
-        toPrice: toPrice,
-        categoryId: categoryId,
-        categoryName: categoryName,
-        sellerName: sellerName,
-        sellerId: sellerId,
-        isSort: isSort,
-        photo: photo,
-        isSell: isSell,
-        maxAmount: maxAmount,
-        isFavorite: isFavorite,
-        isAddedToCart: isAddedToCart,
-        view: view ?? 0,
-        isCheck: false);
+      backendId: backendId ?? -1,
+      id: id,
+      name: name,
+      price: price,
+      currency: currency.toCurrency(),
+      region: region,
+      district: district,
+      adRouteType: adRouteType.toAdAuthorType(),
+      adPropertyStatus: adPropertyStatus.toAdPropertyStatus(),
+      adStatus: adStatus.toAdPriorityLevel(),
+      adTypeStatus: adTypeStatus.toAdTransactionType(),
+      fromPrice: fromPrice,
+      toPrice: toPrice,
+      categoryId: categoryId,
+      categoryName: categoryName,
+      sellerName: sellerName,
+      sellerId: sellerId,
+      isSort: isSort,
+      photo: photo,
+      isSell: isSell,
+      maxAmount: maxAmount,
+      isFavorite: isFavorite,
+      isAddedToCart: isAddedToCart,
+      view: view ?? 0,
+      isCheck: false,
+    );
   }
 }
 

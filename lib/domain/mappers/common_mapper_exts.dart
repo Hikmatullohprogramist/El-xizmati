@@ -9,7 +9,7 @@ import '../models/ad/ad_item_condition.dart';
 import '../models/ad/ad_priority_level.dart';
 import '../models/ad/ad_transaction_type.dart';
 import '../models/ad/ad_type.dart';
-import '../models/currency/currency.dart';
+import '../models/currency/currency_code.dart';
 
 extension StringMapperExts on String? {
   AdItemCondition toAdPropertyStatus() {
@@ -58,18 +58,18 @@ extension StringMapperExts on String? {
     );
   }
 
-  Currency toCurrency() {
+  CurrencyCode toCurrency() {
     switch (this) {
       case "860":
-        return Currency.uzb;
+        return CurrencyCode.uzb;
       case "643":
-        return Currency.rub;
+        return CurrencyCode.rub;
       case "840":
-        return Currency.usd;
+        return CurrencyCode.usd;
       case "978":
-        return Currency.eur;
+        return CurrencyCode.eur;
       default:
-        return Currency.uzb;
+        return CurrencyCode.uzb;
     }
   }
 
@@ -158,16 +158,16 @@ extension AdTypeStatusToStringExtension on AdTransactionType {
   }
 }
 
-extension CurrencyToStringExtension on Currency {
+extension CurrencyToStringExtension on CurrencyCode {
   String currencyToString() {
     switch (this) {
-      case Currency.eur:
+      case CurrencyCode.eur:
         return "978";
-      case Currency.usd:
+      case CurrencyCode.usd:
         return "840";
-      case Currency.rub:
+      case CurrencyCode.rub:
         return "643";
-      case Currency.uzb:
+      case CurrencyCode.uzb:
         return "860";
     }
   }

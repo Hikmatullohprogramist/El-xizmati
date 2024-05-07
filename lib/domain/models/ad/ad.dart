@@ -1,4 +1,4 @@
-import '../currency/currency.dart';
+import '../currency/currency_code.dart';
 import 'ad_author_type.dart';
 import 'ad_item_condition.dart';
 import 'ad_priority_level.dart';
@@ -66,7 +66,7 @@ class Ad {
   final int id;
   final String name;
   final int price;
-  final Currency currency;
+  final CurrencyCode currency;
   final String region;
   final String district;
   final AdAuthorType adRouteType;
