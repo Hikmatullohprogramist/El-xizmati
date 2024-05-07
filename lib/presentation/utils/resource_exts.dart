@@ -1,15 +1,16 @@
 import 'dart:ui';
 
-import 'package:onlinebozor/common/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/domain/models/ad/ad_action.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
+import 'package:onlinebozor/domain/models/currency/currency_code.dart';
 import 'package:onlinebozor/domain/models/order/order_cancel_reason.dart';
 import 'package:onlinebozor/domain/models/order/user_order_status.dart';
 import 'package:onlinebozor/domain/models/report/report_reason.dart';
 import 'package:onlinebozor/domain/models/report/report_type.dart';
 
-import '../../common/gen/localization/strings.dart';
+import '../../core/gen/localization/strings.dart';
 import '../../domain/models/ad/ad_transaction_type.dart';
 import '../../domain/models/language/language.dart';
 
@@ -105,6 +106,21 @@ extension AdActionResExts on AdAction {
         return Assets.images.icActionActivate;
       case AdAction.ACTION_DELETE:
         return Assets.images.icActionDelete;
+    }
+  }
+}
+
+extension CurrencyExtension on CurrencyCode {
+  String getLocalizedName() {
+    switch (this) {
+      case CurrencyCode.uzb:
+        return Strings.currencyUzb;
+      case CurrencyCode.usd:
+        return Strings.currencyUsd;
+      case CurrencyCode.eur:
+        return Strings.currencyEuro;
+      case CurrencyCode.rub:
+        return Strings.currencyRouble;
     }
   }
 }
