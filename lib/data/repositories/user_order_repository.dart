@@ -1,8 +1,8 @@
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/responses/user_order/user_order_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/user_order/user_order_response.dart';
+import 'package:onlinebozor/data/datasource/network/services/user_order_service.dart';
 import 'package:onlinebozor/domain/models/order/order_cancel_reason.dart';
 
-import '../../data/services/user_order_service.dart';
 import '../../domain/models/order/order_type.dart';
 import '../../domain/models/order/user_order_status.dart';
 
@@ -38,7 +38,6 @@ class UserOrderRepository {
       reason: reason,
       comment: comment,
     );
-
     return;
   }
 }

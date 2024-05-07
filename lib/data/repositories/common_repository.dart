@@ -1,17 +1,14 @@
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/responses/payment_type/payment_type_response.dart';
-import 'package:onlinebozor/data/responses/unit/unit_response.dart';
-
-import '../../data/responses/banner/banner_response.dart';
-import '../../data/responses/category/category/category_response.dart';
-import '../../data/responses/category/popular_category/popular_category_response.dart';
-import '../../data/services/common_service.dart';
-import '../../data/storages/categories_storage.dart';
+import 'package:onlinebozor/data/datasource/hive/storages/categories_storage.dart';
+import 'package:onlinebozor/data/datasource/network/responses/banner/banner_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/category/category/category_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/category/popular_category/popular_category_response.dart';
+import 'package:onlinebozor/data/datasource/network/services/common_service.dart';
 
 @LazySingleton()
 class CommonRepository {
-  final CommonService _commonService;
   final CategoriesStorage _categoriesStorage;
+  final CommonService _commonService;
 
   CommonRepository(
     this._commonService,
@@ -38,12 +35,12 @@ class CommonRepository {
     // }
   }
 
-  Future<List<PopularCategoryResponse>> getPopularCategories(
-      int pageIndex, int pageSize) async {
-    final response =
-        await _commonService.getPopularCategories(pageIndex, pageSize);
-    final popularCategories =
-        PopularRootCategoryResponse.fromJson(response.data).data;
-    return popularCategories;
+  Future<List<PopularCategory>> getPopularCategories(
+    int page,
+    int limit,
+  ) async {
+    final response = await _commonService.getPopularCategories(page, limit);
+    final categories = PopularRootCategoryResponse.fromJson(response.data).data;
+    return categories;
   }
 }

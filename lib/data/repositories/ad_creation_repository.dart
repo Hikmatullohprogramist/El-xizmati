@@ -1,21 +1,22 @@
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/responses/ad/ad_detail/user_ad_detail_response.dart';
-import 'package:onlinebozor/data/responses/ad/creation/ad_creation_response.dart';
-import 'package:onlinebozor/data/responses/ad/edit/product_ad_response.dart';
-import 'package:onlinebozor/data/responses/ad/edit/request_ad_response.dart';
-import 'package:onlinebozor/data/responses/ad/edit/service_ad_response.dart';
-import 'package:onlinebozor/data/responses/category/category/category_response.dart';
-import 'package:onlinebozor/data/responses/currencies/currency_response.dart';
-import 'package:onlinebozor/data/services/ad_creation_service.dart';
+import 'package:onlinebozor/data/datasource/hive/storages/user_storage.dart';
+import 'package:onlinebozor/data/datasource/network/responses/ad/ad_detail/user_ad_detail_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/ad/creation/ad_creation_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/ad/edit/product_ad_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/ad/edit/request_ad_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/ad/edit/service_ad_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/address/user_address_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/category/category/category_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/currencies/currency_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/payment_type/payment_type_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/unit/unit_response.dart';
+import 'package:onlinebozor/data/datasource/network/services/ad_creation_service.dart';
+import 'package:onlinebozor/domain/mappers/user_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
-
-import '../../domain/models/image/uploadable_file.dart';
-import '../responses/address/user_address_response.dart';
-import '../responses/payment_type/payment_type_response.dart';
-import '../responses/unit/unit_response.dart';
-import '../storages/user_storage.dart';
+import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
+import 'package:onlinebozor/domain/models/user/user_address.dart';
 
 @LazySingleton()
 class AdCreationRepository {
@@ -42,14 +43,14 @@ class AdCreationRepository {
     return paymentTypes;
   }
 
-  Future<List<UserAddressResponse>> getWarehousesForCreationAd() async {
+  Future<List<UserAddress>> getWarehousesForCreationAd() async {
     var tin = _userStorage.tin;
     var pinfl = _userStorage.pinfl;
     final response = await _adCreationService.getWarehousesForCreationAd(
       tinOrPinfl: tin ?? pinfl ?? 0,
     );
     final warehouses = UserAddressRootResponse.fromJson(response.data).data;
-    return warehouses;
+    return warehouses.map((e) => e.toAddress()).toList();
   }
 
   Future<List<UnitResponse>> getUnitsForCreationAd() async {
@@ -96,13 +97,13 @@ class AdCreationRepository {
     required String exchangeAccountType,
     required String exchangePropertyStatus,
     //
-    required UserAddressResponse? address,
+    required UserAddress? address,
     required String contactPerson,
     required String phone,
     required String email,
     //
     required bool isPickupEnabled,
-    required List<UserAddressResponse> pickupWarehouses,
+    required List<UserAddress> pickupWarehouses,
     required bool isFreeDeliveryEnabled,
     required int freeDeliveryMaxDay,
     required List<District> freeDeliveryDistricts,
@@ -190,7 +191,7 @@ class AdCreationRepository {
     required String accountType,
     required List<District> serviceDistricts,
     //
-    required UserAddressResponse address,
+    required UserAddress address,
     required String contactPerson,
     required String phone,
     required String email,
@@ -259,7 +260,7 @@ class AdCreationRepository {
     //
     required List<District> requestDistricts,
     //
-    required UserAddressResponse address,
+    required UserAddress address,
     required String contactPerson,
     required String phone,
     required String email,

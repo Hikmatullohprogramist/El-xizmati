@@ -3,18 +3,17 @@ import 'dart:convert';
 
 import 'package:dio/src/response.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/responses/auth/eds/eds_sign_in_response.dart';
-
-import '../../data/hive_objects/user/user_hive_object.dart';
-import '../../data/responses/auth/auth_start/auth_start_response.dart';
-import '../../data/responses/auth/confirm/confirm_response.dart';
-import '../../data/responses/auth/one_id/one_id_response.dart';
-import '../../data/services/auth_service.dart';
-import '../../data/storages/language_storage.dart';
-import '../../data/storages/token_storage.dart';
-import '../../data/storages/user_storage.dart';
-import '../responses/e_imzo_response/e_imzo_response.dart';
-import '../responses/face_id/validate_bio_doc_request.dart';
+import 'package:onlinebozor/data/datasource/hive/hive_objects/user/user_hive_object.dart';
+import 'package:onlinebozor/data/datasource/hive/storages/language_storage.dart';
+import 'package:onlinebozor/data/datasource/hive/storages/token_storage.dart';
+import 'package:onlinebozor/data/datasource/hive/storages/user_storage.dart';
+import 'package:onlinebozor/data/datasource/network/responses/auth/auth_start/auth_start_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/auth/confirm/confirm_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/auth/eds/eds_sign_in_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/auth/one_id/one_id_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/e_imzo_response/e_imzo_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/face_id/validate_bio_doc_request.dart';
+import 'package:onlinebozor/data/datasource/network/services/auth_service.dart';
 
 @LazySingleton()
 class AuthRepository {
@@ -22,7 +21,6 @@ class AuthRepository {
   final TokenStorage tokenStorage;
   final LanguageStorage languageStorage;
   final UserStorage userStorage;
-  String sessionToken = "";
 
   AuthRepository(
     this._authService,
@@ -30,6 +28,8 @@ class AuthRepository {
     this.languageStorage,
     this.userStorage,
   );
+
+  String sessionToken = "";
 
   Future<AuthStartResponse> authStart(String phone) async {
     final response = await _authService.authStart(phone: phone);

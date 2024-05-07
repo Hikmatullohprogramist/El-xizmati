@@ -1,13 +1,13 @@
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
-import 'package:onlinebozor/data/responses/add_result/add_result_response.dart';
+import 'package:onlinebozor/data/datasource/hive/storages/favorite_storage.dart';
+import 'package:onlinebozor/data/datasource/hive/storages/token_storage.dart';
+import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/add_result/add_result_response.dart';
+import 'package:onlinebozor/data/datasource/network/services/ad_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/favorite_service.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 
-import '../../data/responses/ad/ad/ad_response.dart';
-import '../../data/services/ad_service.dart';
-import '../../data/services/favorite_service.dart';
-import '../../data/storages/favorite_storage.dart';
-import '../../data/storages/token_storage.dart';
 import '../../domain/models/ad/ad.dart';
 import '../../domain/models/ad/ad_transaction_type.dart';
 
@@ -16,7 +16,6 @@ class FavoriteRepository {
   final FavoriteService _favoriteService;
   final TokenStorage tokenStorage;
   final FavoriteStorage favoriteStorage;
-  // final SyncStorage syncStorage;
   final AdsService adService;
 
   FavoriteRepository(

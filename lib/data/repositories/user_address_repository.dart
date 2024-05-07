@@ -1,18 +1,36 @@
 import 'package:injectable/injectable.dart';
-
-import '../../data/responses/address/user_address_response.dart';
-import '../../data/services/user_address_service.dart';
+import 'package:onlinebozor/data/datasource/hive/storages/user_data_storage.dart';
+import 'package:onlinebozor/data/datasource/network/responses/address/user_address_response.dart';
+import 'package:onlinebozor/data/datasource/network/services/user_address_service.dart';
+import 'package:onlinebozor/domain/mappers/user_mapper.dart';
+import 'package:onlinebozor/domain/models/user/user_address.dart';
 
 @LazySingleton()
 class UserAddressRepository {
-  UserAddressRepository(this.service);
+  UserAddressRepository(this._userAddressService, this._userDataStorage);
 
-  final UserAddressService service;
+  final UserAddressService _userAddressService;
+  final UserDataStorage _userDataStorage;
 
-  Future<List<UserAddressResponse>> getUserAddresses() async {
-    final response = await service.getUserAddresses();
-    final userAddresses = UserAddressRootResponse.fromJson(response.data).data;
-    return userAddresses;
+  Future<List<UserAddress>> getActualUserAddresses() async {
+    final response = await _userAddressService.getUserAddresses();
+    final addresses = UserAddressRootResponse.fromJson(response.data).data;
+    await _userDataStorage
+        .setAddresses(addresses.map((e) => e.toHiveAddress()).toList());
+    return addresses.map((e) => e.toAddress()).toList();
+  }
+
+  Future<List<UserAddress>> getSavedUserAddresses() async {
+    return _userDataStorage.userAddresses.map((e) => e.toAddress()).toList();
+  }
+
+  Future<List<UserAddress>> getUserAddresses() async {
+    final saved = await getSavedUserAddresses();
+    if (saved.isNotEmpty) {
+      return saved;
+    } else {
+      return await getActualUserAddresses();
+    }
   }
 
   Future<void> addUserAddress({
@@ -26,7 +44,7 @@ class UserAddressRepository {
     required bool isMain,
     required String? geo,
   }) async {
-    await service.addUserAddress(
+    await _userAddressService.addUserAddress(
       name: name,
       regionId: regionId,
       districtId: districtId,
@@ -41,7 +59,7 @@ class UserAddressRepository {
   }
 
   Future<void> deleteAddress({required int id}) async {
-    await service.deleteUserAddress(userAddressId: id);
+    await _userAddressService.deleteUserAddress(userAddressId: id);
     return;
   }
 
@@ -49,7 +67,8 @@ class UserAddressRepository {
     required int id,
     required bool isMain,
   }) async {
-    await service.updateMainAddress(userAddressId: id, isMain: true);
+    await _userAddressService.updateMainAddress(
+        userAddressId: id, isMain: true);
     return;
   }
 
@@ -66,18 +85,19 @@ class UserAddressRepository {
     required int id,
     required String state,
   }) async {
-    await service.updateUserAddress(
-        name: name,
-        regionId: regionId,
-        districtId: districtId,
-        neighborhoodId: neighborhoodId,
-        homeNum: homeNum,
-        apartmentNum: apartmentNum,
-        streetNum: streetName,
-        isMain: isMain,
-        geo: geo,
-        id: id,
-        state: state);
+    await _userAddressService.updateUserAddress(
+      name: name,
+      regionId: regionId,
+      districtId: districtId,
+      neighborhoodId: neighborhoodId,
+      homeNum: homeNum,
+      apartmentNum: apartmentNum,
+      streetNum: streetName,
+      isMain: isMain,
+      geo: geo,
+      id: id,
+      state: state,
+    );
     return;
   }
 }

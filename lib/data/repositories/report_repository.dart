@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/services/report_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/report_service.dart';
 import 'package:onlinebozor/domain/models/report/report_reason.dart';
 
 @LazySingleton()

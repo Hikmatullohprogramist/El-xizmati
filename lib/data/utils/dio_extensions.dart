@@ -2,7 +2,7 @@ import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-import '../../common/constants.dart';
+import '../../core/constants.dart';
 
 extension DioExts on Dio {
   Dio setupDefaultParams(List<Interceptor> externalInterceptors) {

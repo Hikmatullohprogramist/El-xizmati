@@ -1,41 +1,38 @@
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/responses/active_sessions/active_session_response.dart';
-import 'package:onlinebozor/data/responses/region/region_and_district_response.dart';
-import 'package:onlinebozor/domain/mappers/active_session_mapper.dart';
+import 'package:onlinebozor/data/datasource/hive/hive_objects/user/user_hive_object.dart';
+import 'package:onlinebozor/data/datasource/hive/storages/user_storage.dart';
+import 'package:onlinebozor/data/datasource/network/responses/active_sessions/active_session_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/profile/user/user_info_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/profile/user_full/user_full_info_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/profile/verify_identity/identity_document_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/region/region_and_district_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/region/region_root_response.dart';
+import 'package:onlinebozor/data/datasource/network/services/user_service.dart';
+import 'package:onlinebozor/domain/mappers/user_mapper.dart';
 import 'package:onlinebozor/domain/mappers/region_mapper.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/region/region.dart';
 import 'package:onlinebozor/domain/models/region/region_and_district.dart';
 
-import '../../common/constants.dart';
-import '../../data/hive_objects/user/user_hive_object.dart';
-import '../../data/responses/profile/user/user_info_response.dart';
-import '../../data/responses/profile/user_full/user_full_info_response.dart';
-import '../../data/responses/region/region_root_response.dart';
-import '../../data/services/user_service.dart';
-import '../../data/storages/user_storage.dart';
+import '../../core/constants.dart';
 import '../../domain/models/social_account/social_account_info.dart';
 import '../../domain/models/street/street.dart';
-import '../responses/profile/verify_identity/identity_document_response.dart';
 
 @LazySingleton()
 class UserRepository {
   final UserService _userService;
   final UserStorage _userStorage;
 
-  UserRepository(
-    this._userService,
-    this._userStorage,
-  );
+  UserRepository(this._userService, this._userStorage);
 
-  UserHiveObject? getSavedUser(){
+  UserHiveObject? getSavedUser() {
     return _userStorage.user;
   }
 
-  Future<UserFullInfoResponse> getFullUserInfo() async {
+  Future<UserResponse> getUser() async {
     final response = await _userService.getFullUserInfo();
-    final result = UserFullInfoRootResponse.fromJson(response.data).data;
+    final result = UserRootResponse.fromJson(response.data).data;
     final user = _userStorage.user;
     _userStorage.set(UserHiveObject(
         gender: result.gender ?? user?.gender,

@@ -1,33 +1,26 @@
-import 'dart:developer';
-
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/responses/transaction/payment_transaction_response.dart';
-import 'package:onlinebozor/data/services/payment_transaction_service.dart';
+import 'package:onlinebozor/data/datasource/network/responses/transaction/payment_transaction_response.dart';
+import 'package:onlinebozor/data/datasource/network/services/payment_transaction_service.dart';
 
 @LazySingleton()
 class PaymentTransactionRepository {
-  final PaymentTransactionService paymentTransactionService;
+  final PaymentTransactionService _service;
 
-  PaymentTransactionRepository(this.paymentTransactionService);
+  PaymentTransactionRepository(this._service);
 
   Future<List<dynamic>> getPaymentTransactions({
     required int pageSize,
     required pageIndex,
   }) async {
-    final response = await paymentTransactionService.getPaymentTransaction(
-      pageSize: pageSize,
-      pageIndex: pageIndex,
-    );
-
-    final transactionResponse = PaymentTransactionRootResponse.fromJson(response.data).data;
-    return transactionResponse.results;
+    final root = await _service.getTransactions(pageIndex, pageSize);
+    final response = PaymentTransactionRootResponse.fromJson(root.data).data;
+    return response.results;
   }
 
-
-  Future<List<PaymentTransactionResponse>> getPaymentTransactionsFilter() async{
-    final response = await paymentTransactionService.getPaymentTransactionFilter();
-
-    final transactionResponse = PaymentTransactionRootResponse.fromJson(response.data).data;
-    return transactionResponse.results;
+  Future<List<PaymentTransaction>>
+      getPaymentTransactionsFilter() async {
+    final root = await _service.getPaymentTransactionFilter();
+    final response = PaymentTransactionRootResponse.fromJson(root.data).data;
+    return response.results;
   }
 }

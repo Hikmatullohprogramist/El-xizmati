@@ -1,45 +1,44 @@
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/data/datasource/hive/storages/categories_storage.dart';
+import 'package:onlinebozor/data/datasource/hive/storages/language_storage.dart';
+import 'package:onlinebozor/data/datasource/hive/storages/token_storage.dart';
 import 'package:onlinebozor/domain/models/language/language.dart';
-
-import '../../data/storages/categories_storage.dart';
-import '../../data/storages/language_storage.dart';
-import '../../data/storages/token_storage.dart';
 
 @LazySingleton()
 class StateRepository {
   StateRepository(
-    this.languageStorage,
-    this.tokenStorage,
-    this.categoriesStorage,
+    this._categoriesStorage,
+    this._languageStorage,
+    this._tokenStorage,
   );
 
-  final LanguageStorage languageStorage;
-  final TokenStorage tokenStorage;
-  final CategoriesStorage categoriesStorage;
+  final CategoriesStorage _categoriesStorage;
+  final LanguageStorage _languageStorage;
+  final TokenStorage _tokenStorage;
 
   Future<Language> getLanguage() async {
-    return languageStorage.language;
+    return _languageStorage.language;
   }
 
-  Future<bool> isLanguageSelection() async {
-    return languageStorage.isLanguageSelected;
+  bool isLanguageSelection() {
+    return _languageStorage.isLanguageSelected;
   }
 
   Future<void> setLanguage(Language language) {
-    categoriesStorage.clear();
+    _categoriesStorage.clear();
 
-    return languageStorage.setLanguage(language);
+    return _languageStorage.setLanguage(language);
   }
 
   Future<void> setLogin(bool isLogin) {
-    return tokenStorage.setLoginState(isLogin);
+    return _tokenStorage.setLoginState(isLogin);
   }
 
-  Future<bool> isUserLoggedIn() async {
-    return tokenStorage.isUserLoggedIn;
+  bool isUserLoggedIn() {
+    return _tokenStorage.isUserLoggedIn;
   }
 
   Future<void> clear() async {
-    await tokenStorage.clear();
+    await _tokenStorage.clear();
   }
 }

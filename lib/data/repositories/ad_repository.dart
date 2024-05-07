@@ -1,22 +1,22 @@
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/data/datasource/hive/storages/favorite_storage.dart';
+import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/ad/ad_detail/ad_detail_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/search/search_response.dart';
+import 'package:onlinebozor/data/datasource/network/services/ad_service.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 
-import '../../data/responses/ad/ad/ad_response.dart';
-import '../../data/responses/ad/ad_detail/ad_detail_response.dart';
-import '../../data/responses/search/search_response.dart';
-import '../../data/services/ad_service.dart';
-import '../../data/storages/cart_storage.dart';
-import '../../data/storages/favorite_storage.dart';
 import '../../domain/models/ad/ad.dart';
 import '../../domain/models/ad/ad_detail.dart';
 import '../../domain/models/ad/ad_type.dart';
 import '../../domain/models/stats/stats_type.dart';
+import '../datasource/hive/storages/cart_storage.dart';
 
 @LazySingleton()
 class AdRepository {
   final AdsService _adsService;
-  final FavoriteStorage favoriteStorage;
   final CartStorage cartStorage;
+  final FavoriteStorage favoriteStorage;
 
   AdRepository(this._adsService, this.favoriteStorage, this.cartStorage);
 
