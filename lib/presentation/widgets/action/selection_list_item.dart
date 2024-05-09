@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/vibrator/vibrator_extension.dart';
+import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 

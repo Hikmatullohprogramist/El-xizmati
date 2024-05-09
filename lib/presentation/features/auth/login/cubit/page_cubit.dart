@@ -1,12 +1,12 @@
-import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
+import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/auth_repository.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 
 part 'page_cubit.freezed.dart';
 part 'page_state.dart';
@@ -36,42 +36,57 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       var url = Uri.parse("https://online-bozor.uz/page/privacy");
       await launchUrl(url);
     } catch (e) {
-      snackBarManager.error(
+      stateMessageManager.showErrorSnackBar(
           e.toString(), "Urlni parse qilishda xatolik yuz berdi");
     }
   }
 
   Future<void> login() async {
-    updateState((state) => state.copyWith(loading: true));
-    try {
-      await _authRepository.login(
-        states.phone.clearPhoneWithCode(),
-        states.password,
-      );
-      sendAllFavoriteAds();
-      emitEvent(PageEvent(PageEventType.navigationHome));
-    } on DioException catch (e, stackTrace) {
-      logger.w("${e.toString()} ${stackTrace.toString()}");
-      if (e.response?.statusCode == 401) {
-        snackBarManager.error(
-            "Kiritilgan parol xato (${e.response?.statusCode ?? ""})",
-            "Xatolik  yuz berdi");
-      } else {
-        snackBarManager.error(
-            "Qayta urinib ko'ring (${e.response?.statusCode ?? ""})",
-            "Xatolik  yuz berdi");
-      }
-    } catch (e, stackTrace) {
-      logger.w("${e.toString()} ${stackTrace.toString()}");
-    } finally {
-      updateState((state) => state.copyWith(loading: false));
-    }
+    _authRepository
+        .login(states.phone.clearPhoneWithCode(), states.password)
+        .initFuture()
+        .onStart(() {
+          logger.w("login onStart");
+          updateState((state) => state.copyWith(isRequestSending: true));
+        })
+        .onSuccess((data) {
+          logger.w("login onSuccess");
+          sendAllFavoriteAds();
+          emitEvent(PageEvent(PageEventType.onOpenHome));
+        })
+        .onError((error) {
+          logger.w("login onError  ${error.toString()}");
+          // emitEvent(PageEvent(PageEventType.onLoginFailed, message: error.localizedMessage));
+          stateMessageManager.showErrorBottomSheet(error.localizedMessage);
+          stateMessageManager.showErrorSnackBar(error.localizedMessage);
+        })
+        .onFinished(() {
+          logger.w("login onFinished");
+          updateState((state) => state.copyWith(isRequestSending: false));
+        })
+        .executeFuture();
+
+    // updateState((state) => state.copyWith(isRequestSending: true));
+    // try {
+    //   await _authRepository.login(
+    //     states.phone.clearPhoneWithCode(),
+    //     states.password,
+    //   );
+    //   sendAllFavoriteAds();
+    //   emitEvent(PageEvent(PageEventType.onOpenHome));
+    // }  catch (e, stackTrace) {
+    //   logger.w("Cubit => catch => ${e.toString()} ${stackTrace.toString()}");
+    //   emitEvent(
+    //       PageEvent(PageEventType.onLoginFailed, message: e.localizedMessage));
+    // } finally {
+    //   updateState((state) => state.copyWith(isRequestSending: false));
+    // }
   }
 
   Future<void> forgetPassword() async {
     try {
       await _authRepository.forgetPassword(states.phone.clearPhoneWithCode());
-      emitEvent(PageEvent(PageEventType.navigationToConfirm));
+      emitEvent(PageEvent(PageEventType.onOpenAuthConfirm));
     } catch (e) {
       logger.w(e);
     }
@@ -81,8 +96,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     try {
       await _favoriteRepository.pushAllFavoriteAds();
     } catch (error) {
-      snackBarManager.error("Xatolik yuz berdi");
-      emitEvent(PageEvent(PageEventType.navigationHome));
+      stateMessageManager.showErrorSnackBar("Xatolik yuz berdi");
+      emitEvent(PageEvent(PageEventType.onOpenHome));
     }
   }
 }

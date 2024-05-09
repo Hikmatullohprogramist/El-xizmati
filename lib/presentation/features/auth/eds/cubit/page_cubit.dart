@@ -10,26 +10,26 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   PageCubit() : super(const PageState());
 
   void setFinishUrl(String url) {
-    snackBarManager.success(url);
+    stateMessageManager.showSuccessSnackBar(url);
     logger.w("finish url $url");
   }
 
   void setStartUrl(String url) {
-    snackBarManager.success(url);
+    stateMessageManager.showSuccessSnackBar(url);
     logger.w("start url $url");
   }
 
   void request(String url) {
-    snackBarManager.success(url);
+    stateMessageManager.showSuccessSnackBar(url);
     logger.w("request url $url");
   }
 
   void setNavigation(String navigation) {
-    snackBarManager.success(navigation);
+    stateMessageManager.showSuccessSnackBar(navigation);
   }
 
   void error() {
-    snackBarManager.error("error xatlik yuz berdi");
+    stateMessageManager.showErrorSnackBar("error xatlik yuz berdi");
   }
 
   Future<void> loginWithEds(String url) async {

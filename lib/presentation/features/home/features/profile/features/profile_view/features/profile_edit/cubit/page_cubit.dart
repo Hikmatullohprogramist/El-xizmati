@@ -71,7 +71,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       );
       return true;
     } catch (e) {
-      snackBarManager.error(Strings.commonEmptyMessage);
+      stateMessageManager.showErrorSnackBar(Strings.commonEmptyMessage);
       return false;
     }
   }
@@ -125,7 +125,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             ));
       }
     } catch (e) {
-      snackBarManager.error("street error $e");
+      stateMessageManager.showErrorSnackBar("street error $e");
       updateState((state) => states.copyWith(isLoading: false));
     }
   }

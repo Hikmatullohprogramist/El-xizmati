@@ -58,7 +58,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     } catch (e) {
       updateState((state) => states.copyWith(showPicture: false));
       emitEvent(PageEvent(PageEventType.onFailure));
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
     } finally {
       updateState((state) => state.copyWith(loading: false));
     }
@@ -68,7 +68,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     try {
       await _favoriteRepository.pushAllFavoriteAds();
     } catch (error) {
-      snackBarManager.error("Xatolik yuz berdi");
+      stateMessageManager.showErrorSnackBar("Xatolik yuz berdi");
       emitEvent(PageEvent(PageEventType.onSuccess));
     }
   }

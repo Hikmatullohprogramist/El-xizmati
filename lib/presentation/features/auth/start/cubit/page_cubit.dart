@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
+import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/datasource/network/responses/e_imzo_response/e_imzo_response.dart';
 import 'package:onlinebozor/data/repositories/auth_repository.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 part 'page_cubit.freezed.dart';
@@ -26,24 +28,26 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   void validation() async {
-    updateState((state) => state.copyWith(loading: true));
-    try {
-      var response =
-          await _authRepository.authStart(states.phone.clearPhoneWithCode());
-      if (response.data.is_registered == true) {
-        emitEvent(
-          PageEvent(PageEventType.onOpenLogin, phone: states.phone),
-        );
-      } else {
-        emitEvent(
-          PageEvent(PageEventType.onOpenConfirm, phone: states.phone),
-        );
-      }
-    } catch (e) {
-      snackBarManager.error(e.toString());
-    } finally {
-      updateState((state) => state.copyWith(loading: false));
-    }
+    _authRepository
+        .authStart(states.phone.clearPhoneWithCode())
+        .initFuture()
+        .onStart((){
+          updateState((state) => state.copyWith(loading: true));
+        })
+        .onSuccess((data){
+          if (data.data.is_registered == true) {
+            emitEvent(PageEvent(PageEventType.onOpenLogin, phone: states.phone));
+          } else {
+            emitEvent(PageEvent(PageEventType.onOpenConfirm, phone: states.phone));
+          }
+        })
+        .onError((error){
+          stateMessageManager.showErrorSnackBar(error.localizedMessage);
+        })
+        .onFinished((){
+          updateState((state) => state.copyWith(loading: false));
+        })
+        .executeFuture();
   }
 
   Future<EImzoModel?> edsAuth() async {
@@ -64,7 +68,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     try {
       _timer = Timer.periodic(Duration(seconds: 3), (timer) async {
         if (_elapsedSeconds < 90) {
-          final result = await _authRepository.edsCheckStatus(documentId, _timer);
+          final result =
+              await _authRepository.edsCheckStatus(documentId, _timer);
           logger.e(result);
           if (result == 1) {
             // await Future.delayed(Duration(seconds: 2));

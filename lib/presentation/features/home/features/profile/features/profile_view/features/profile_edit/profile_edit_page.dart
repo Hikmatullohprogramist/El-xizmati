@@ -8,7 +8,7 @@ import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/core/vibrator/vibrator_extension.dart';
+import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
@@ -17,7 +17,7 @@ import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_fie
 import 'package:onlinebozor/presentation/widgets/form_field/label_text_field.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/validator/default_validator.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/validator/email_validator.dart';
-import 'package:onlinebozor/presentation/widgets/snackbar/snackbar_widget.dart';
+import 'package:onlinebozor/presentation/support/state_message/state_snack_bar_exts.dart';
 
 import 'cubit/page_cubit.dart';
 

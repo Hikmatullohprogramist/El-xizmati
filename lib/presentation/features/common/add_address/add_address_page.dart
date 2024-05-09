@@ -4,7 +4,7 @@ import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/core/vibrator/vibrator_extension.dart';
+import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/widgets/action/selection_list_item.dart';

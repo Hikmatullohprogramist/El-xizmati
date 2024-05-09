@@ -31,7 +31,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         await sendAllFavoriteAds();
       } else {}
     } catch (e) {
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
     } finally {}
   }
 
@@ -39,7 +39,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     try {
       await _favoriteRepository.pushAllFavoriteAds();
     } catch (error) {
-      snackBarManager.error("Xatolik yuz berdi");
+      stateMessageManager.showErrorSnackBar("Xatolik yuz berdi");
     } finally {
       emitEvent(PageEvent(PageEventType.onSuccessLogin));
     }

@@ -29,7 +29,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       }
     } catch (e, stackTrace) {
       logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
     }
   }
 
@@ -57,7 +57,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       );
     } catch (exception) {
       logger.e(exception.toString());
-      snackBarManager.error("server xatolik yuz beradi");
+      stateMessageManager.showErrorSnackBar("server xatolik yuz beradi");
     }
 
     return addressController;
@@ -89,7 +89,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         states.controller?.notifyListeners();
       }
     } catch (e) {
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
       logger.e(e.toString());
     }
   }
@@ -101,7 +101,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       states.controller?.notifyListeners();
       await getController(false);
     } catch (e) {
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
       logger.e(e.toString());
     }
   }

@@ -11,7 +11,7 @@ import 'package:onlinebozor/core/enum/social_enum.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/core/vibrator/vibrator_extension.dart';
+import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
@@ -25,7 +25,7 @@ import 'package:onlinebozor/presentation/widgets/device/active_session_widget.da
 import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
 import 'package:onlinebozor/presentation/widgets/profile/profil_view_shimmer.dart';
-import 'package:onlinebozor/presentation/widgets/snackbar/snackbar_widget.dart';
+import 'package:onlinebozor/presentation/support/state_message/state_snack_bar_exts.dart';
 import 'package:onlinebozor/presentation/widgets/switch/custom_switch.dart';
 
 import 'cubit/page_cubit.dart';

@@ -42,7 +42,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       validateBioDocsResultBottomSheet(response);
     } catch (e) {
       emitEvent(PageEvent(PageEventType.notFound));
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
     } finally {
       updateState((state) => state.copyWith(isLoading: false));
     }
@@ -70,7 +70,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       );
     } catch (e) {
       emitEvent(PageEvent(PageEventType.notFound));
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
     } finally {
       updateState((state) => state.copyWith(isLoading: false));
     }
@@ -120,7 +120,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         states.brithDate.length >= 10) {
       getUserInformation();
     } else {
-      snackBarManager.error(Strings.profileEditUnfullInformation);
+      stateMessageManager.showErrorSnackBar(Strings.profileEditUnfullInformation);
     }
   }
 
@@ -129,7 +129,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       final response = await _userRepository.getUser();
       logger.w(response.passport_number.toString());
     } catch (e) {
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
     }
   }
 
@@ -161,7 +161,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       }
       await getRegionAndDistricts();
     } catch (e) {
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
     }
   }
 
@@ -196,7 +196,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             regionId: response.userInfo.region_id,
           ));
     } catch (e) {
-      snackBarManager.error(Strings.commonEmptyMessage);
+      stateMessageManager.showErrorSnackBar(Strings.commonEmptyMessage);
     }
   }
 
@@ -216,9 +216,9 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         postName: states.postName ?? "",
         phoneNumber: states.phoneNumber,
       );
-      snackBarManager.success("Muvaffaqiyatli saqlandi");
+      stateMessageManager.showSuccessSnackBar("Muvaffaqiyatli saqlandi");
     } catch (e) {
-      snackBarManager.error(Strings.commonEmptyMessage);
+      stateMessageManager.showErrorSnackBar(Strings.commonEmptyMessage);
     }
   }
 

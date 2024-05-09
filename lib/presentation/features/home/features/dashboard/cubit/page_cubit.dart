@@ -59,7 +59,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       );
 
       logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
     }
   }
 
@@ -80,7 +80,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         (state) => state.copyWith(popularProductAdsState: LoadingState.error),
       );
       logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
     }
   }
 
@@ -99,7 +99,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       updateState((state) =>
           state.copyWith(popularServiceAdsState: LoadingState.error));
       logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
     }
   }
 
@@ -117,7 +117,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         (state) => state.copyWith(topRatedAdsState: LoadingState.error),
       );
       logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
     }
   }
 
@@ -183,7 +183,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         );
       }
     } catch (error) {
-      snackBarManager.error("serverda xatolik yuz  berdi");
+      stateMessageManager.showErrorSnackBar("serverda xatolik yuz  berdi");
       logger.e(error.toString());
     }
   }
@@ -207,7 +207,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         );
       }
     } catch (error) {
-      snackBarManager.error("serverda xatolik yuz  berdi");
+      stateMessageManager.showErrorSnackBar("serverda xatolik yuz  berdi");
       logger.e(error.toString());
     }
   }
@@ -231,7 +231,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         );
       }
     } catch (error) {
-      snackBarManager.error("serverda xatolik yuz  berdi");
+      stateMessageManager.showErrorSnackBar("serverda xatolik yuz  berdi");
       logger.e(error.toString());
     }
   }
@@ -255,7 +255,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         );
       }
     } catch (error) {
-      snackBarManager.error("serverda xatolik yuz  berdi");
+      stateMessageManager.showErrorSnackBar("serverda xatolik yuz  berdi");
       logger.e(error.toString());
     }
   }

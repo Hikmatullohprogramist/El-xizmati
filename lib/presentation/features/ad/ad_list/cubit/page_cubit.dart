@@ -49,7 +49,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       updateState((state) => state.copyWith(controller: controller));
     } catch (e, stackTrace) {
       logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
     } finally {
       logger.i(states.controller);
     }
@@ -162,7 +162,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         }
       }
     } catch (error) {
-      snackBarManager.error("xatolik yuz  berdi");
+      stateMessageManager.showErrorSnackBar("xatolik yuz  berdi");
       logger.w(error.toString());
     }
   }

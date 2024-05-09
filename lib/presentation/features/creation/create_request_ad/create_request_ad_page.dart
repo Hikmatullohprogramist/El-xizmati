@@ -6,7 +6,7 @@ import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/core/vibrator/vibrator_extension.dart';
+import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 import 'package:onlinebozor/presentation/features/common/selection_currency/selection_currency_page.dart';

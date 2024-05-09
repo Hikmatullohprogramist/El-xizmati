@@ -4,7 +4,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:external_app_launcher/external_app_launcher.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/features/auth/confirm/auth_confirm_page.dart';
@@ -13,12 +12,13 @@ import 'package:onlinebozor/presentation/features/auth/eds/request/gost_hash.dar
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
-import 'package:onlinebozor/presentation/widgets/bottom_sheet/botton_sheet_for_result.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_outlined_button.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_field.dart';
+import 'package:onlinebozor/presentation/widgets/form_field/label_text_field.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'cubit/page_cubit.dart';
@@ -29,7 +29,7 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   final String? phone;
 
-  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
 
   @override
   void onWidgetCreated(BuildContext context) {
@@ -40,17 +40,13 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
   void onEventEmitted(BuildContext context, PageEvent event) {
     switch (event.type) {
       case PageEventType.onOpenLogin:
-        context.router.replace(AuthLoginRoute(phone: event.phone!));
+        context.router.push(AuthLoginRoute(phone: event.phone!));
       case PageEventType.onOpenConfirm:
         context.router.push(
-          AuthConfirmRoute(
-            phone: event.phone!,
-            confirmType: ConfirmType.confirm,
-          ),
+          AuthConfirmRoute(phone: event.phone!, confirmType: ConfirmType.confirm),
         );
       case PageEventType.onEdsLoginFailed:
-        context.showErrorBottomSheet(context, Strings.commonEmptyMessage,
-            Strings.authStartLoginWithEImzoError);
+        showErrorBottomSheet(context, Strings.authStartLoginWithEImzoError);
       case PageEventType.onOpenHome:
         context.router.replace(HomeRoute());
     }
@@ -58,11 +54,13 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
+    _phoneController.updateOnRestore(state.phone);
+
     return Scaffold(
       backgroundColor: context.colors.backgroundColor,
       resizeToAvoidBottomInset: false,
       appBar: DefaultAppBar(
-        titleText: "",
+        titleText: Strings.authStartSingin,
         backgroundColor: context.backgroundColor,
         onBackPressed: () => context.router.pop(),
       ),
@@ -70,22 +68,12 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
         padding: const EdgeInsets.all(16),
         child: AutofillGroup(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Spacer(),
-              Strings.authStartSingin
-                  .w(500)
-                  .s(24)
-                  .c(context.colors.textPrimary),
-              Spacer(),
-              Align(
-                  alignment: Alignment.centerLeft,
-                  child: Strings.commonPhoneNumber
-                      .w(500)
-                      .s(14)
-                      .c(context.colors.textPrimary)),
-              SizedBox(height: 10),
+              LabelTextField(Strings.commonPhoneNumber, isRequired: false),
+              SizedBox(height: 8),
               CustomTextFormField(
                 autofillHints: const [AutofillHints.telephoneNumber],
                 inputType: TextInputType.phone,
@@ -93,48 +81,21 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
                 maxLines: 1,
                 prefixText: "+998 ",
                 textInputAction: TextInputAction.done,
-                controller: phoneController,
+                controller: _phoneController,
                 inputFormatters: phoneMaskFormatter,
                 onChanged: (value) {
                   cubit(context).setPhone(value);
                 },
               ),
-              Spacer(),
-              Visibility(
-                visible: false,
-                child: CustomOutlinedButton(
-                  text: Strings.authStartLoginWithFaceId,
-                  onPressed: () {
-                    context.router.push(FaceIdValidateRoute());
-                  },
-                  strokeColor: context.colors.borderColor,
-                  rightIcon: Assets.images.icFaceId.svg(),
-                ),
+              SizedBox(height: 16),
+              CustomElevatedButton(
+                text: Strings.commonContinue,
+                onPressed: () => cubit(context).validation(),
+                backgroundColor: context.colors.buttonPrimary,
+                isEnabled: state.validation,
+                isLoading: state.loading,
               ),
-              SizedBox(height: 10),
-              CustomOutlinedButton(
-                text: Strings.authStartLoginWithOneId,
-                onPressed: () => context.router.push(AuthWithOneIdRoute()),
-                strokeColor: context.colors.borderColor,
-                rightIcon: Assets.images.icOneId.svg(),
-              ),
-              SizedBox(height: 10),
-              CustomOutlinedButton(
-                text: Strings.authStartLoginWithEImzo,
-                onPressed: () {
-                  cubit(context).edsAuth().then((value) {
-                    generateQrCode(
-                      context,
-                      value?.challange ?? "",
-                      value?.siteId ?? "",
-                      value?.documentId ?? "",
-                    );
-                  });
-                },
-                strokeColor: context.colors.borderColor,
-                rightIcon: Assets.images.pngImages.eImzo.image(),
-              ),
-              SizedBox(height: 24),
+              SizedBox(height: 16),
               RichText(
                 text: TextSpan(
                   children: [
@@ -166,16 +127,30 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 10,
+              Spacer(),
+              CustomOutlinedButton(
+                text: Strings.authStartLoginWithOneId,
+                onPressed: () => context.router.push(AuthWithOneIdRoute()),
+                strokeColor: context.colors.borderColor,
+                rightIcon: Assets.images.icOneId.svg(),
               ),
-              CustomElevatedButton(
-                text: Strings.commonContinue,
-                onPressed: () => cubit(context).validation(),
-                backgroundColor: context.colors.buttonPrimary,
-                isEnabled: state.validation,
-                isLoading: state.loading,
-              )
+              SizedBox(height: 10),
+              CustomOutlinedButton(
+                text: Strings.authStartLoginWithEImzo,
+                onPressed: () {
+                  cubit(context).edsAuth().then((value) {
+                    generateQrCode(
+                      context,
+                      value?.challange ?? "",
+                      value?.siteId ?? "",
+                      value?.documentId ?? "",
+                    );
+                  });
+                },
+                strokeColor: context.colors.borderColor,
+                rightIcon: Assets.images.pngImages.eImzo.image(),
+              ),
+              SizedBox(height: 20),
             ],
           ),
         ),

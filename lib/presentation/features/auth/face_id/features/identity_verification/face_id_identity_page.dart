@@ -8,17 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image/image.dart' as img;
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
-import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/core/vibrator/vibrator_extension.dart';
+import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
+import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
-import 'package:onlinebozor/presentation/widgets/bottom_sheet/botton_sheet_for_result.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_outlined_button.dart';
 import 'package:onlinebozor/presentation/widgets/camera/camera_selfi_painter.dart';
@@ -45,11 +44,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
       case PageEventType.onSuccess:
         context.router.replace(HomeRoute());
       case PageEventType.onFailure:
-        context.showErrorBottomSheet(
-          context,
-          Strings.commonEmptyMessage,
-          Strings.faceIdIdentityNotVerified,
-        );
+        showErrorBottomSheet(context, Strings.faceIdIdentityNotVerified);
     }
   }
 

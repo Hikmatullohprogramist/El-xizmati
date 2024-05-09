@@ -53,6 +53,7 @@ class CategoryPage extends BasePage<PageCubit, PageState, PageEvent> {
         backgroundColor: context.appBarColor,
         elevation: 0.5,
         toolbarHeight: 64,
+        leadingWidth: 0,
         title: TextField(
           controller: searchTextController,
           decoration: InputDecoration(
@@ -70,6 +71,7 @@ class CategoryPage extends BasePage<PageCubit, PageState, PageEvent> {
           },
         ),
       ),
+      resizeToAvoidBottomInset: false,
       backgroundColor: context.backgroundColor,
       body: LoaderStateWidget(
         isFullScreen: true,

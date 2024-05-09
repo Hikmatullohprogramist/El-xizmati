@@ -72,7 +72,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       var url = Uri.parse("https://online-bozor.uz/page/privacy");
       await launchUrl(url);
     } catch (e) {
-      snackBarManager.error(
+      stateMessageManager.showErrorSnackBar(
           e.toString(), "Urlni parse qilishda xatolik yuz berdi");
     }
   }
@@ -86,7 +86,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       emitEvent(PageEvent(PageEventType.setPassword));
     } catch (e, stackTrace) {
       logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
     } finally {
       updateState((state) => state.copyWith(isConfirmLoading: false));
     }
@@ -103,7 +103,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     } catch (e, stackTrace) {
       logger.e(e.toString(), error: e, stackTrace: stackTrace);
       emitEvent(PageEvent(PageEventType.setPassword));
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
     } finally {
       updateState((state) => state.copyWith(isConfirmLoading: false));
     }
@@ -113,7 +113,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     try {
       await _favoriteRepository.pushAllFavoriteAds();
     } catch (error) {
-      snackBarManager.error("Xatolik yuz berdi");
+      stateMessageManager.showErrorSnackBar("Xatolik yuz berdi");
       emitEvent(PageEvent(PageEventType.setPassword));
     }
   }

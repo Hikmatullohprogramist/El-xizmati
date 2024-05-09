@@ -7,15 +7,17 @@ class PageState with _$PageState {
   const factory PageState({
     @Default("") String phone,
     @Default('') String password,
-    @Default(false) bool loading,
+    @Default(false) bool isRequestSending,
   }) = _PageState;
-
-  bool get enable => password.length >= 8;
 }
 
 @freezed
 class PageEvent with _$PageEvent {
-  const factory PageEvent(PageEventType type) = _PageEvent;
+  const factory PageEvent(PageEventType type, {String? message}) = _PageEvent;
 }
 
-enum PageEventType { navigationToConfirm, navigationHome }
+enum PageEventType {
+  onOpenAuthConfirm,
+  onOpenHome,
+  onLoginFailed,
+}

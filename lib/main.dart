@@ -10,12 +10,14 @@ import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:logger/logger.dart';
-import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
 import 'package:onlinebozor/presentation/di/injection.dart';
 import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
-import 'package:onlinebozor/presentation/widgets/snack_bar/snack_bar_widget.dart';
+import 'package:onlinebozor/presentation/support/state_message/state_bottom_sheet_exts.dart';
+import 'package:onlinebozor/presentation/support/state_message/state_message_manager.dart';
+import 'package:onlinebozor/presentation/support/state_message/state_snack_bar_exts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -35,13 +37,13 @@ Future<void> main() async {
 
   await Hive.initFlutter();
 
-  // Check if the app was updated
-  bool isUpdated = await isAppUpdated();
-
-  if (isUpdated) {
-    // Clear all data in Hive when an update is detected
-    // await clearHiveData();
-  }
+  // // Check if the app was updated
+  // bool isUpdated = await isAppUpdated();
+  //
+  // if (isUpdated) {
+  //   // Clear all data in Hive when an update is detected
+  //   // await clearHiveData();
+  // }
 
   await configureDependencies();
 
@@ -113,7 +115,8 @@ Future<bool> isAppUpdated() async {
   final Box<String> versionBox = await Hive.openBox<String>('versionBox');
   final String? savedVersion = versionBox.get('app_version');
 
-  Logger().w("isAppUpdated savedVersion = $savedVersion, newVersion = $newVersion");
+  Logger()
+      .w("isAppUpdated savedVersion = $savedVersion, newVersion = $newVersion");
   if (savedVersion == null || savedVersion != newVersion) {
     // Save the new version if not matching or first launch
     await versionBox.put('app_version', newVersion);
@@ -156,26 +159,37 @@ class MyApp extends StatelessWidget {
     ));
     ThemeMode themeMode = ThemeMode.system;
 
-    return SnackBarWidget(
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          fontFamily: 'Inter',
-          useMaterial3: false,
-          colorScheme: _getLightModeColorScheme(),
-        ),
-        darkTheme: ThemeData(
-          useMaterial3: false,
-          brightness: Brightness.dark,
-          colorScheme: _getDarkModeColorScheme(),
-        ),
-        themeMode: themeMode,
-        routerConfig: _appRouter.config(initialRoutes: [
-          if (isLanguageSelection) HomeRoute() else SetLanguageRoute()
-        ], navigatorObservers: () => [ChuckerFlutter.navigatorObserver]),
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Stack(
+        children: [
+          MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              fontFamily: 'Inter',
+              useMaterial3: false,
+              colorScheme: _getLightModeColorScheme(),
+            ),
+            darkTheme: ThemeData(
+              useMaterial3: false,
+              brightness: Brightness.dark,
+              colorScheme: _getDarkModeColorScheme(),
+            ),
+            themeMode: themeMode,
+            routerConfig: _appRouter.config(initialRoutes: [
+              if (isLanguageSelection) HomeRoute() else SetLanguageRoute()
+            ], navigatorObservers: () => [ChuckerFlutter.navigatorObserver]),
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+          ),
+          Builder(
+            builder: (context) {
+              _initSnackBar(context);
+              return const SizedBox.shrink();
+            },
+          ),
+        ],
       ),
     );
   }
@@ -217,6 +231,15 @@ class MyApp extends StatelessWidget {
       onBackground: Color(0xFFE0E0E0),
       surface: Color(0xFF333333),
       onSurface: Color(0xFFE0E0E0),
+    );
+  }
+
+  void _initSnackBar(BuildContext context) {
+    final snackBarManager = getIt<StateMessageManager>();
+
+    snackBarManager.setListeners(
+      onShowBottomSheet: (m) => context.showErrorBottomSheet(m.message),
+      onShowSnackBar: (m) => context.showErrorSnackBar(m.message),
     );
   }
 }

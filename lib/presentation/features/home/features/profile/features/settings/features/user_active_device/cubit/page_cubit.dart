@@ -25,7 +25,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       updateState((state) => state.copyWith(controller: controller));
     } catch (e, stackTrace) {
       logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
     } finally {
       logger.i(states.controller);
     }

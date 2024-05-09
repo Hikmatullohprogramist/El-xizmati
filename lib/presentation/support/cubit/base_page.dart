@@ -1,12 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/presentation/di/injection.dart';
+import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_builder.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_event.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_state.dart';
+import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 
 abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
     EVENT> extends StatelessWidget {
@@ -95,6 +99,65 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
                 CircularProgressIndicator(color: StaticColors.dodgerBlue),
               ],
             ),
+          ),
+        );
+      },
+    );
+  }
+
+  void showErrorBottomSheet(BuildContext context, String message) =>
+      _showStateBottomSheet(context, Strings.messageTitleError, message);
+
+  void showInfoBottomSheet(BuildContext context, String message) =>
+      _showStateBottomSheet(context, Strings.messageTitleInfo, message);
+
+  void showSuccessBottomSheet(BuildContext context, String message) =>
+      _showStateBottomSheet(context, Strings.messageTitleSuccess, message);
+
+  void showWarningBottomSheet(BuildContext context, String message) =>
+      _showStateBottomSheet(context, Strings.messageTitleWarning, message);
+
+  void _showStateBottomSheet(
+    BuildContext context,
+    String title,
+    String message,
+  ) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext bc) {
+        return Container(
+          decoration: BoxDecoration(
+            color: context.primaryContainer,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(height: 30),
+              Center(child: title.s(22).w(600)),
+              SizedBox(height: 14),
+              message.s(16).w(500).copyWith(
+                    maxLines: 5,
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+              SizedBox(height: 32),
+              CustomElevatedButton(
+                text: Strings.closeTitle,
+                onPressed: () {
+                  Navigator.pop(context);
+                  vibrateAsHapticFeedback();
+                },
+                backgroundColor: context.colors.buttonPrimary,
+              ),
+              SizedBox(height: 24),
+            ],
           ),
         );
       },

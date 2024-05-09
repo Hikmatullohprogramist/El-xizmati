@@ -17,14 +17,14 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         .listenable(keys: ["key_favorites_storage"]).addListener(() {
       int favoriteNumber = Hive.box("favorites_storage").length;
       updateState((state) => state.copyWith(favoriteAmount: favoriteNumber));
-      snackBarManager.success("favorite change $favoriteNumber");
+      stateMessageManager.showSuccessSnackBar("favorite change $favoriteNumber");
     });
 
     Hive.box("cart_storage")
         .listenable(keys: ["key_cart_storage"]).addListener(() {
       int cartNumber = Hive.box("cart_storage").length;
       updateState((state) => state.copyWith(cartAmount: cartNumber));
-      snackBarManager.success("cart change $cartNumber");
+      stateMessageManager.showSuccessSnackBar("cart change $cartNumber");
     });
   }
 }

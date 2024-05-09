@@ -133,6 +133,8 @@ common_entrance,Kirish,Подъезд,Кириш
 common_error_email_not_valid,To‘g‘ri e-pochta manzilini kiriting,Введите действительный адрес эл. почты,Тўғри э-почта манзилини киритинг
 common_error_field_is_required,Maydon to‘ldirilishi majburiy,Это поле обязательно,Майдон тўлдирилиши мажбурий
 common_error_message,Xatolik yuz berdi,Произошла ошибка,Хатолик юз берди
+common_error_password,To‘g‘ri parolni kiriting,Введите правильный пароль,Тўғри паролни киритинг
+common_error_password_confirm,Parollar mos kelmadi,Пароли не совпадают,Пароллар мос келмади
 common_error_phone_not_valid,To‘g‘ri telefon raqamini kiriting,Введите действительный номер телефона,Тўғри телефон рақамини киритинг
 common_error_price_not_valid,To‘g‘ri narx kiriting,Введите действительную цену,Тўғри нарх киритинг
 common_filter,Filtr,Фильтр,Фильтр
@@ -253,8 +255,21 @@ language_uz_cyr,Ўзбекча,Ўзбекча,Ўзбекча
 language_uz_lat,O’zbekcha,O’zbekcha,O’zbekcha
 language_welcome,Xush kelibsiz,Добро пожаловать,Xуш келибсиз
 link_title,link,связь,линк
+message_bad_request_error,So‘rovni bajarishda xatolik yuz berdi,Произошла ошибка при обработке запроса,Сўровни бажаришда хатолик юз берди
 message_changes_saving_failed,O‘zgarishlarni saqlashda xatolik yuz berdi,Произошла ошибка при сохранении изменений,Ўзгаришларни сақлашда хатолик юз берди
 message_changes_saving_success,O‘zgarishlar muvaffaqiyatli saqlandi,Изменения успешно сохранены,Ўзгаришлар муваффақиятли сақланди
+message_connection_error,"Iltimos, internetingizni tekshiring, serverga ulanib bo‘lmadi","Пожалуйста, проверьте свой Интернет, не удалось подключиться к серверу","Илтимос, интернетингизни текширинг, серверга уланиб бўлмади"
+message_forbidden_error,So‘rovni bajarib bo‘lmadi. Iltimos keyinroq qayta urinib ko‘ring,"Не удалось выполнить запрос. Пожалуйста, повторите попытку позже",Сўровни бажариб бўлмади. Илтимос кейинроқ қайта уриниб кўринг
+message_internal_server_error,So‘rovni ko‘rib chiqishda serverda xatolikka yuz berdi. Server qayta ishga tushirilayotgan bo‘lishi mumkin. Iltimos birozdan keyin qayta urinib ko‘ring,"На сервере произошла ошибка при обработке запроса. Возможно, сервер перезагружается. Пожалуйста, повторите попытку позже",Сўровни кўриб чиқишда серверда хатоликка юз берди. Сервер қайта ишга туширилаётган бўлиши мумкин. Илтимос бироздан кейин қайта уриниб кўринг
+message_not_found_error,So‘rovni ko‘rib chiqish uchun serverda kerakli resurs topilmadi. Server qayta ishga tushirilayotgan bo‘lishi mumkin. Iltimos birozdan keyin qayta urinib ko‘ring,"Серверу не удалось найти необходимый ресурс для обработки запроса. Возможно, сервер перезагружается. Пожалуйста, повторите попытку позже",Сўровни кўриб чиқиш учун серверда керакли ресурс топилмади. Сервер қайта ишга туширилаётган бўлиши мумкин. Илтимос бироздан кейин қайта уриниб кўринг
+message_response_error,"Ma’lumotlarni qabul qilish xatolik yuz berdi. Iltimos, yana bir bor urinib ko‘ring","Произошла ошибка при получении данных. Пожалуйста, попробуйте еще раз","Маълумотларни қабул қилиш хатолик юз берди. Илтимос, яна бир бор уриниб кўринг"
+message_response_parse_error,Serverdan kutilgan strukturadagi ma’lumotlar kelmadi,Данные в ожидаемой структуре не поступили с сервера,Сервердан кутилган структурадаги маълумотлар келмади
+message_title_error,Xato,Ошибка,Хато
+message_title_info,Ma’lumot,Информация,Маълумот
+message_title_success,Muvaffaqiyatli,Успешно,Муваффақиятли
+message_title_warning,Ogohlantirish,Предупреждение,Огоҳлантириш
+message_unknown_error,"Xatolik ro‘y berdi. Iltimos, yana bir bor urinib ko‘ring","Произошла ошибка. Пожалуйста, попробуйте еще раз","Хатолик рўй берди. Илтимос, яна бир бор уриниб кўринг"
+message_user_identity_not_verified,Xatolik ro‘y berdi. Foydalanuvchi profili to‘ldirilmagan,Произошла ошибка. Профиль пользователя не заполнен,Хатолик рўй берди. Фойдаланувчи профили тўлдирилмаган
 my_card_title,Mening kartalarim,Мои карты,Менинг карталарим
 my_requests_title,Mening so‘rovlarim,Мои Запросы,Менинг сўровларим
 no_have_notification,Sizda hech qanday bildirishnoma yoʻq,У вас нет уведомлений,Сизда ҳеч қандай билдиришнома йўқ

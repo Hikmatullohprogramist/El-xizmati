@@ -2,12 +2,13 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/auth_repository.dart';
 import 'package:onlinebozor/data/repositories/user_repository.dart';
 import 'package:onlinebozor/domain/mappers/social_account_mapper.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 import 'package:onlinebozor/domain/models/social_account/social_account_info.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 part 'page_cubit.freezed.dart';
@@ -271,31 +272,54 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> setMessageType() async {
     var sources = "";
     if (states.actualSmsState) {
-      sources = "SMS";
+      sources += "SMS";
     }
     if (states.actualEmailState) {
-      sources = "$sources,EMAIL";
+      sources += ",EMAIL";
     }
     if (states.actualTelegramState) {
-      sources = "$sources,TELEGRAM";
+      sources += ",TELEGRAM";
     }
-    updateState((state) => state.copyWith(isUpdatingNotification: true));
-    try {
-      logger.w(sources);
-      await _userRepository.updateNotificationSources(sources: sources);
 
-      updateState((state) => state.copyWith(
+    _userRepository
+        .updateNotificationSources(sources: sources)
+        .initFuture()
+        .onStart(() {
+          updateState((state) => state.copyWith(isUpdatingNotification: true));
+        })
+        .onSuccess((data) {
+          updateState((state) => state.copyWith(
             isUpdatingNotification: false,
             savedSmsState: state.actualSmsState,
             savedEmailState: state.actualEmailState,
             savedTelegramState: state.actualTelegramState,
           ));
+          emitEvent(PageEvent(PageEventType.onSuccessUpdateNotification));
+        })
+        .onError((error) {
+          emitEvent(PageEvent(PageEventType.onFailedUpdateNotification));
+        })
+        .onFinished(() {
+          updateState((state) => state.copyWith(isUpdatingNotification: false));
+        })
+        .executeFuture();
 
-      emitEvent(PageEvent(PageEventType.onSuccessUpdateNotification));
-    } catch (error) {
-      updateState((state) => state.copyWith(isUpdatingNotification: false));
-      emitEvent(PageEvent(PageEventType.onFailedUpdateNotification));
-    }
+    // try {
+    //   logger.w(sources);
+    //   await _userRepository.updateNotificationSources(sources: sources);
+    //
+    //   updateState((state) => state.copyWith(
+    //         isUpdatingNotification: false,
+    //         savedSmsState: state.actualSmsState,
+    //         savedEmailState: state.actualEmailState,
+    //         savedTelegramState: state.actualTelegramState,
+    //       ));
+    //
+    //   emitEvent(PageEvent(PageEventType.onSuccessUpdateNotification));
+    // } catch (error) {
+    //   updateState((state) => state.copyWith(isUpdatingNotification: false));
+    //   emitEvent(PageEvent(PageEventType.onFailedUpdateNotification));
+    // }
   }
 
   Future<void> updateSocialAccountInfo() async {
@@ -329,7 +353,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       updateState((state) => state.copyWith(controller: controller));
     } catch (e, stackTrace) {
       logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
     } finally {
       logger.i(states.controller);
     }

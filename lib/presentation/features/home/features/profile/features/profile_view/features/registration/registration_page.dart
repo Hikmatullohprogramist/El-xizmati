@@ -4,19 +4,17 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/core/vibrator/vibrator_extension.dart';
+import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
-import 'package:onlinebozor/presentation/widgets/bottom_sheet/botton_sheet_for_result.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_field.dart';
-
 
 import 'cubit/page_cubit.dart';
 
@@ -40,15 +38,13 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
     switch (event.type) {
       case PageEventType.success:
       case PageEventType.rejected:
-        context.showErrorBottomSheet(
+        showErrorBottomSheet(
           context,
-          Strings.commonEmptyMessage,
           Strings.verifyIdentityErrorDataAlreadyLinked,
         );
       case PageEventType.notFound:
-        context.showErrorBottomSheet(
+        showErrorBottomSheet(
           context,
-          Strings.commonEmptyMessage,
           Strings.verifyIdentityErrorUserNotFound,
         );
     }
@@ -230,7 +226,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
             Padding(
               padding: EdgeInsets.only(right: 16, left: 16, bottom: 12),
               child: CustomTextFormField(
-                controller: TextEditingController(text: state.fullName),
+                controller: _fullNameController,
                 enabled: false,
                 hint: Strings.profileUserName,
                 textInputAction: TextInputAction.next,
@@ -433,10 +429,10 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
                   onPressed: () {
                     var result = cubit(context).saveEnableButton();
                     if (!result) {
-                      context.showErrorBottomSheet(
-                          context,
-                          Strings.commonEmptyMessage,
-                          "Manzilingizni to'liq kiriting");
+                      showErrorBottomSheet(
+                        context,
+                        "Manzilingizni to'liq kiriting",
+                      );
                     } else {
                       cubit(context).validateUser();
                     }

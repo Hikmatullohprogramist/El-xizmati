@@ -58,6 +58,7 @@ class RestQueryKeys {
   static String regionId = "region_id";
 
   static String searchQuery = "q";
+  static String servicePrice = "service_price";
   static String secretKey = "secret_key";
   static String securityCode = "security_code";
   static String sessionToken = "session_token";

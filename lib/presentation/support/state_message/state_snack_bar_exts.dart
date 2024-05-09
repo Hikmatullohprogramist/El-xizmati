@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 
-extension CustomSnackBar on BuildContext {
+extension StateSnackBarExts on BuildContext {
   void showCustomSnackBar({
     required String message,
     Color backgroundColor = StaticColors.toastDefaultBackgroundColor,

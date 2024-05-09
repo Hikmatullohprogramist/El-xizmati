@@ -2,18 +2,19 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
+import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 
-import '../../../../../data/datasource/network/constants/constants.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import '../../../../../../../data/repositories/ad_repository.dart';
 import '../../../../../../../data/repositories/cart_repository.dart';
 import '../../../../../../../data/repositories/favorite_repository.dart';
 import '../../../../../../../data/repositories/state_repository.dart';
 import '../../../../../../../data/repositories/user_repository.dart';
 import '../../../../../../../domain/models/ad/ad_detail.dart';
+import '../../../../../data/datasource/network/constants/constants.dart';
 
 part 'page_cubit.freezed.dart';
 part 'page_state.dart';
@@ -88,7 +89,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           ));
     } catch (e) {
       logger.e(e.toString());
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
     }
   }
 
@@ -103,7 +104,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         emitEvent(PageEvent(PageEventType.onBackAfterRemove));
       }
     } catch (e) {
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
     }
   }
 
@@ -117,9 +118,9 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
       final favorite = !states.favorite;
       updateState((state) => state.copyWith(favorite: favorite));
-      snackBarManager.success("succes");
+      stateMessageManager.showSuccessSnackBar("succes");
     } catch (e) {
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
     }
   }
 
@@ -129,7 +130,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         await _cartRepository.removeCart(states.adDetail!.toMap());
       }
     } catch (e) {
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
     }
   }
 
@@ -154,13 +155,19 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
           emitEvent(PageEvent(PageEventType.onOpenAfterCreation));
         } else {
-          Logger().w("To'liq ro'yxatdan o'tilmagan");
+          emitEvent(PageEvent(
+            PageEventType.onFailedIdentityNotVerified,
+            message: Strings.messageUserIdentityNotVerified,
+          ));
         }
       } else {
         emitEvent(PageEvent(PageEventType.onOpenAuthStart));
       }
     } catch (e) {
-      Logger().w("error = $e");
+      emitEvent(PageEvent(
+        PageEventType.onFailedIdentityNotVerified,
+        message: Strings.messageForbiddenError,
+      ));
     }
   }
 }

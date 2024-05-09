@@ -42,7 +42,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       items.removeWhere((e) => e.id == ad.id);
       updateState((state) => state.copyWith(items: items));
     } catch (e) {
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
     }
   }
 
@@ -61,7 +61,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
       updateState((state) => state.copyWith(items: items));
     } catch (e) {
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
     }
   }
 }

@@ -16,7 +16,13 @@ class PageState with _$PageState {
 
 @freezed
 class PageEvent with _$PageEvent {
-  const factory PageEvent(PageEventType type) = _PageEvent;
+  const factory PageEvent(PageEventType type, {String? message}) = _PageEvent;
 }
 
-enum PageEventType { onBackAfterRemove, onOpenAfterCreation, onOpenAuthStart }
+enum PageEventType {
+  onBackAfterRemove,
+  onOpenAfterCreation,
+  onOpenAuthStart,
+  onFailedOrderCreation,
+  onFailedIdentityNotVerified,
+}

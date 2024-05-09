@@ -43,7 +43,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       updateState((state) => state.copyWith(isLogin: false));
       emitEvent(PageEvent(PageEventType.onLogOut));
     } catch (e) {
-      snackBarManager.error(Strings.commonEmptyMessage);
+      stateMessageManager.showErrorSnackBar(Strings.commonEmptyMessage);
     }
   }
 

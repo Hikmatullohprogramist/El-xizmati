@@ -128,7 +128,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       emitEvent(PageEvent(PageEventType.backOnSuccess));
     } catch (e) {
       updateState((state) => state.copyWith(isLoading: false));
-      snackBarManager.error(Strings.commonEmptyMessage);
+      stateMessageManager.showErrorSnackBar(Strings.commonEmptyMessage);
     }
   }
 
@@ -153,7 +153,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       emitEvent(PageEvent(PageEventType.backOnSuccess));
     } catch (e) {
       updateState((state) => state.copyWith(isLoading: false));
-      snackBarManager.error(Strings.commonEmptyMessage);
+      stateMessageManager.showErrorSnackBar(Strings.commonEmptyMessage);
     }
   }
 
@@ -162,7 +162,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       final regions = await _userRepository.getRegions();
       updateState((state) => state.copyWith(regions: regions));
     } catch (e) {
-      snackBarManager.error("street error $e");
+      stateMessageManager.showErrorSnackBar("street error $e");
       updateState((state) => state.copyWith());
     }
   }
@@ -196,7 +196,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             neighborhoodName: name,
           ));
     } catch (e) {
-      snackBarManager.error("street error $e");
+      stateMessageManager.showErrorSnackBar("street error $e");
       updateState((state) => state.copyWith());
     }
   }

@@ -36,7 +36,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       }
     } catch (e, stackTrace) {
       logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      snackBarManager.error(e.toString());
+      stateMessageManager.showErrorSnackBar(e.toString());
     }
   }
 }
