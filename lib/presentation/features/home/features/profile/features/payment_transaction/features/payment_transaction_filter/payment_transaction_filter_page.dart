@@ -262,8 +262,7 @@ class PaymentTransactionFilterPage
                         text: Strings.commonApply,
                         onPressed: () {
                           if (_filterData(context, state).isEmpty) {
-                            context.showCustomSnackBar(
-                                message: 'Transactions not found');
+                            // context.showErrorSnackBar('Transactions not found');
                           } else {
                             showFilterList(
                                 context, _filterData(context, state));

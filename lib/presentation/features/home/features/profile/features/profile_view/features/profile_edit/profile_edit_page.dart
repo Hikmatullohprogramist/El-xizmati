@@ -2,14 +2,14 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
-import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
+import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/custom_dropdown_form_field.dart';
@@ -17,7 +17,6 @@ import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_fie
 import 'package:onlinebozor/presentation/widgets/form_field/label_text_field.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/validator/default_validator.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/validator/email_validator.dart';
-import 'package:onlinebozor/presentation/support/state_message/state_snack_bar_exts.dart';
 
 import 'cubit/page_cubit.dart';
 
@@ -322,20 +321,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
               //   cubit(context).createOrUpdateProductAd();
               // }
               if (email.isNotEmpty) cubit(context).setEmail(email);
-              cubit(context).updateUserProfile().then(
-                (value) {
-                  if (value) {
-                    context.showCustomSnackBar(
-                        message: 'Saved!',
-                        backgroundColor: Colors.green.shade400);
-                    context.router.pop();
-                  } else {
-                    context.showCustomSnackBar(
-                        message: "Do'nt save",
-                        backgroundColor: Colors.red.shade400);
-                  }
-                },
-              );
+              cubit(context).updateUserProfile();
             },
           ),
         ],

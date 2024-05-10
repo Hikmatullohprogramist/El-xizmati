@@ -51,10 +51,4 @@ class PageEvent with _$PageEvent {
   const factory PageEvent(PageEventType type) = _PageEvent;
 }
 
-enum PageEventType {
-  onLogout,
-  onSuccessUpdateNotification,
-  onFailedUpdateNotification,
-  onSuccessUpdateSocial,
-  onFailedUpdateSocial,
-}
+enum PageEventType { onLogout }

@@ -1,24 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/state_message/state_message.dart';
+import 'package:onlinebozor/presentation/support/state_message/state_message_type.dart';
+import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 
 extension StateBottomSheetExts on BuildContext {
-  void showErrorBottomSheet(String message) =>
-      _showStateBottomSheet(Strings.messageTitleError, message);
+  void showStateMessageBottomSheet(StateMessage message) =>
+      showStateBottomSheet(message.titleOrDefault, message.message);
 
-  void showInfoBottomSheet(String message) =>
-      _showStateBottomSheet(Strings.messageTitleInfo, message);
-
-  void showSuccessBottomSheet(String message) =>
-      _showStateBottomSheet(Strings.messageTitleSuccess, message);
-
-  void showWarningBottomSheet(String message) =>
-      _showStateBottomSheet(Strings.messageTitleWarning, message);
-
-  void _showStateBottomSheet(String title, String message) {
+  void showStateBottomSheet(String title, String message, [MessageType type = MessageType.info]) {
     showModalBottomSheet(
       context: this,
       backgroundColor: Colors.transparent,

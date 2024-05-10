@@ -1,14 +1,16 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/user_repository.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/region/region.dart';
 import 'package:onlinebozor/domain/models/street/street.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
-part 'page_cubit.freezed.dart';part 'page_state.dart';
+part 'page_cubit.freezed.dart';
+part 'page_state.dart';
 
 @injectable
 class PageCubit extends BaseCubit<PageState, PageEvent> {
@@ -53,27 +55,34 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  Future<bool> updateUserProfile() async {
-    try {
-      await _userRepository.updateUserProfile(
-        email: states.email,
-        gender: states.gender ?? "",
-        homeName: states.neighborhoodName,
-        neighborhoodId: states.neighborhoodId ?? -1,
-        mobilePhone: states.mobileNumber?.clearPhoneWithCode() ?? "",
-        phoneNumber: states.phoneNumber.clearPhoneWithCode(),
-        photo: states.photo ?? "",
-        pinfl: states.pinfl ?? -1,
-        docSerial: states.docSerial.toUpperCase(),
-        docNumber: states.docNumber,
-        birthDate: states.birthDate,
-        postName: states.postName ?? "",
-      );
-      return true;
-    } catch (e) {
-      stateMessageManager.showErrorSnackBar(Strings.commonEmptyMessage);
-      return false;
-    }
+  Future<void> updateUserProfile() async {
+    _userRepository
+        .updateUserProfile(
+          email: states.email,
+          gender: states.gender ?? "",
+          homeName: states.neighborhoodName,
+          neighborhoodId: states.neighborhoodId ?? -1,
+          mobilePhone: states.mobileNumber?.clearPhoneWithCode() ?? "",
+          phoneNumber: states.phoneNumber.clearPhoneWithCode(),
+          photo: states.photo ?? "",
+          pinfl: states.pinfl ?? -1,
+          docSerial: states.docSerial.toUpperCase(),
+          docNumber: states.docNumber,
+          birthDate: states.birthDate,
+          postName: states.postName ?? "",
+        )
+        .initFuture()
+        .onStart(() {})
+        .onSuccess((data) {
+          stateMessageManager
+              .showSuccessSnackBar(Strings.messageChangesSavingSuccess);
+        })
+        .onError((error) {
+          stateMessageManager
+              .showErrorSnackBar(Strings.messageChangesSavingFailed);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> getRegions() async {

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/auth_repository.dart';
 import 'package:onlinebozor/data/repositories/user_repository.dart';
@@ -294,32 +295,17 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
             savedEmailState: state.actualEmailState,
             savedTelegramState: state.actualTelegramState,
           ));
-          emitEvent(PageEvent(PageEventType.onSuccessUpdateNotification));
+          stateMessageManager
+              .showSuccessSnackBar(Strings.messageChangesSavingSuccess);
         })
         .onError((error) {
-          emitEvent(PageEvent(PageEventType.onFailedUpdateNotification));
+          stateMessageManager
+              .showErrorSnackBar(Strings.messageChangesSavingFailed);
         })
         .onFinished(() {
           updateState((state) => state.copyWith(isUpdatingNotification: false));
         })
         .executeFuture();
-
-    // try {
-    //   logger.w(sources);
-    //   await _userRepository.updateNotificationSources(sources: sources);
-    //
-    //   updateState((state) => state.copyWith(
-    //         isUpdatingNotification: false,
-    //         savedSmsState: state.actualSmsState,
-    //         savedEmailState: state.actualEmailState,
-    //         savedTelegramState: state.actualTelegramState,
-    //       ));
-    //
-    //   emitEvent(PageEvent(PageEventType.onSuccessUpdateNotification));
-    // } catch (error) {
-    //   updateState((state) => state.copyWith(isUpdatingNotification: false));
-    //   emitEvent(PageEvent(PageEventType.onFailedUpdateNotification));
-    // }
   }
 
   Future<void> updateSocialAccountInfo() async {

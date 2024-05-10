@@ -238,8 +238,8 @@ class MyApp extends StatelessWidget {
     final snackBarManager = getIt<StateMessageManager>();
 
     snackBarManager.setListeners(
-      onShowBottomSheet: (m) => context.showErrorBottomSheet(m.message),
-      onShowSnackBar: (m) => context.showErrorSnackBar(m.message),
+      onShowBottomSheet: (m) => context.showStateMessageBottomSheet(m),
+      onShowSnackBar: (m) => context.showStateMessageSnackBar(m),
     );
   }
 }
