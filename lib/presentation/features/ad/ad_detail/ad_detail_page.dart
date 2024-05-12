@@ -1,8 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
-import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
@@ -14,6 +11,9 @@ import 'package:onlinebozor/domain/models/report/report_type.dart';
 import 'package:onlinebozor/domain/models/stats/stats_type.dart';
 import 'package:onlinebozor/presentation/features/common/report/submit_report_page.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
+import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/widgets/action/action_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/ad/detail/ad_detail_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/ad/detail/detail_price_text_widget.dart';
@@ -26,6 +26,7 @@ import 'package:onlinebozor/presentation/widgets/dashboard/ad_detail_image_widge
 import 'package:onlinebozor/presentation/widgets/dashboard/see_all_widget.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/presentation/widgets/favorite/ad_detail_favorite_widget.dart';
+import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -40,149 +41,151 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   @override
   void onWidgetCreated(BuildContext context) {
-    cubit(context).setAdId(adId);
+    cubit(context).setInitialParams(adId);
     cubit(context).getRecentlyViewedAds();
   }
 
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
-    return state.adDetail != null
-        ? _getSuccessContent(context, state)
-        : _getLoadingContent(context, state);
-  }
-
-  Widget _getLoadingContent(BuildContext context, PageState state) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: context.appBarColor,
-          elevation: 0.5,
-          leading: IconButton(
-              onPressed: () => context.router.pop(),
-              icon: Assets.images.icArrowLeft.svg(height: 24, width: 24)),
-        ),
-        body: AdDetailShimmer());
-  }
-
-  Widget _getSuccessContent(BuildContext context, PageState state) {
     return Scaffold(
       appBar: _getAppBar(context, state),
-      bottomNavigationBar: _getBottomNavigationBar(context, state),
+      bottomNavigationBar:
+          state.isNotPrepared ? null : _getBottomNavigationBar(context, state),
       backgroundColor: context.backgroundColor,
-      body: SafeArea(
-        bottom: true,
-        child: _getBodyContent(context, state),
-      ),
+      body: state.isNotPrepared
+          ? Container(
+              child: state.isPreparingInProcess
+                  ? AdDetailShimmer()
+                  : DefaultErrorWidget(
+                      isFullScreen: true,
+                      onRetryClicked: () => cubit(context).getDetailResponse(),
+                    ),
+            )
+          : _getBodyContent(context, state),
     );
   }
 
   Widget _getBodyContent(BuildContext context, PageState state) {
-    return ListView(
-      shrinkWrap: true,
-      physics: BouncingScrollPhysics(),
-      children: [
-        AnimatedContainer(
-          duration: Duration(seconds: 1),
-          curve: Curves.easeIn,
-          child: AdDetailImageWidget(
-            images: cubit(context).getImages(),
-            onClicked: (int position) {
-              context.router.push(
-                ImageViewerRoute(
-                  images: cubit(context).getImages(),
-                  initialIndex: position,
-                ),
-              );
-            },
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 16),
-              state.adDetail!.adName.w(600).s(16).c(Color(0xFF41455E)).copyWith(
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+    return SafeArea(
+      bottom: true,
+      child: ListView(
+        shrinkWrap: true,
+        physics: BouncingScrollPhysics(),
+        children: [
+          AnimatedContainer(
+            duration: Duration(seconds: 1),
+            curve: Curves.easeIn,
+            child: AdDetailImageWidget(
+              images: cubit(context).getImages(),
+              onClicked: (int position) {
+                context.router.push(
+                  ImageViewerRoute(
+                    images: cubit(context).getImages(),
+                    initialIndex: position,
                   ),
-              SizedBox(height: 16),
-              DetailPriceTextWidget(
-                price: state.adDetail!.price,
-                toPrice: state.adDetail!.toPrice,
-                fromPrice: state.adDetail!.fromPrice,
-                currency: state.adDetail!.currency,
-                color: Color(0xFFFF0098),
-              ),
-              SizedBox(height: 12),
-              CustomDivider(),
-              SizedBox(height: 12),
-              _getAdInfoChips(state),
-              // SizedBox(height: 12),
-              // AppDivider(),
-              // SizedBox(height: 12),
-              // AppDivider(),
-              // getWatch(Strings.adDetailFeedback, () {}),
-            ],
+                );
+              },
+            ),
           ),
-        ),
-        Visibility(
-          visible: (state.adDetail?.hasDescription() ?? false),
-          child: CustomDivider(startIndent: 16, endIndent: 16),
-        ),
-        _getDescriptionBlock(context, state),
-        CustomDivider(startIndent: 16, endIndent: 16),
-        _getAuthorBlock(context, state),
-        SizedBox(height: 12),
-        _getContactsBlock(context, state),
-        SizedBox(height: 12),
-        CustomDivider(startIndent: 16, endIndent: 16),
-        SizedBox(height: 12),
-        _getAddressBlock(context, state),
-        Visibility(
-          visible: false,
-          child: Column(
-            children: [
-              SeeAllWidget(
-                title: Strings.adDetailFeedback,
-                onClicked: () {},
-              )
-            ],
+          Container(
+            padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 16),
+                state.adDetail!.adName
+                    .w(600)
+                    .s(16)
+                    .c(Color(0xFF41455E))
+                    .copyWith(
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                SizedBox(height: 16),
+                DetailPriceTextWidget(
+                  price: state.adDetail!.price,
+                  toPrice: state.adDetail!.toPrice,
+                  fromPrice: state.adDetail!.fromPrice,
+                  currency: state.adDetail!.currency,
+                  color: Color(0xFFFF0098),
+                ),
+                SizedBox(height: 12),
+                CustomDivider(),
+                SizedBox(height: 12),
+                _getAdInfoChips(state),
+                // SizedBox(height: 12),
+                // AppDivider(),
+                // SizedBox(height: 12),
+                // AppDivider(),
+                // getWatch(Strings.adDetailFeedback, () {}),
+              ],
+            ),
           ),
-        ),
-        _getSimilarAds(context, state),
-        _getOwnerAdsWidget(context, state),
-        _getRecentlyViewedAdsWidget(context, state)
-      ],
+          Visibility(
+            visible: (state.adDetail?.hasDescription() ?? false),
+            child: CustomDivider(startIndent: 16, endIndent: 16),
+          ),
+          _getDescriptionBlock(context, state),
+          CustomDivider(startIndent: 16, endIndent: 16),
+          _getAuthorBlock(context, state),
+          SizedBox(height: 12),
+          _getContactsBlock(context, state),
+          SizedBox(height: 12),
+          CustomDivider(startIndent: 16, endIndent: 16),
+          SizedBox(height: 12),
+          _getAddressBlock(context, state),
+          Visibility(
+            visible: false,
+            child: Column(
+              children: [
+                SeeAllWidget(
+                  title: Strings.adDetailFeedback,
+                  onClicked: () {},
+                )
+              ],
+            ),
+          ),
+          _getSimilarAds(context, state),
+          _getOwnerAdsWidget(context, state),
+          _getRecentlyViewedAdsWidget(context, state)
+        ],
+      ),
     );
   }
 
   AppBar _getAppBar(BuildContext context, PageState state) {
-    return ActionAppBar(
-      titleText: "",
-      backgroundColor: context.appBarColor,
-      onBackPressed: () => context.router.pop(),
-      actions: [
-        IconButton(
-          icon: Assets.images.icShare.svg(),
-          onPressed: () {
-            Share.share("https://online-bozor.uz/ads/${state.adId}");
-          },
-        ),
-        Padding(
-          padding: EdgeInsets.all(4),
-          child: AdDetailFavoriteWidget(
-            isFavorite: state.adDetail!.isFavorite,
-            onClicked: () => cubit(context).changeAdFavorite(),
-          ),
-        ),
-        IconButton(
-          icon: Assets.images.icThreeDotVertical.svg(),
-          onPressed: () {
-            _showReportTypeBottomSheet(context);
-          },
-        ),
-      ],
-    );
+    return state.isNotPrepared
+        ? ActionAppBar(
+            titleText: "",
+            backgroundColor: context.appBarColor,
+            onBackPressed: () => context.router.pop(),
+          )
+        : ActionAppBar(
+            titleText: "",
+            backgroundColor: context.appBarColor,
+            onBackPressed: () => context.router.pop(),
+            actions: [
+              IconButton(
+                icon: Assets.images.icShare.svg(),
+                onPressed: () {
+                  Share.share("https://online-bozor.uz/ads/${state.adId}");
+                },
+              ),
+              Padding(
+                padding: EdgeInsets.all(4),
+                child: AdDetailFavoriteWidget(
+                  isFavorite: state.adDetail!.isFavorite,
+                  onClicked: () => cubit(context).changeAdFavorite(),
+                ),
+              ),
+              IconButton(
+                icon: Assets.images.icThreeDotVertical.svg(),
+                onPressed: () {
+                  _showReportTypeBottomSheet(context);
+                },
+              ),
+            ],
+          );
   }
 
   Widget _getBottomNavigationBar(BuildContext context, PageState state) {
@@ -212,7 +215,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
               SizedBox(width: 16),
               Flexible(
                 child: CustomElevatedButton(
-                  text: Strings.adBuyByOneClick,
+                  text: Strings.adBuy,
                   backgroundColor: StaticColors.majorelleBlue.withOpacity(0.8),
                   onPressed: () {
                     context.router.push(CreateOrderRoute(adId: state.adId!));
@@ -559,7 +562,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                         "tel://${state.adDetail!.phoneNumber?.getFormattedPhoneNumber() ?? ""}");
                   } catch (e) {}
                 } else {
-                  cubit(context).setPhotoView();
+                  cubit(context).setPhoneNumberVisibility();
                 }
               }),
         ),

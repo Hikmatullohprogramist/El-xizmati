@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
+import 'package:onlinebozor/core/handler/future_handler_exts.dart';
+import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
 import 'package:onlinebozor/data/repositories/ad_repository.dart';
 import 'package:onlinebozor/data/repositories/cart_repository.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
@@ -11,6 +11,7 @@ import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 import 'package:onlinebozor/domain/models/ad/ad_detail.dart';
 import 'package:onlinebozor/domain/models/stats/stats_type.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
 part 'page_cubit.freezed.dart';
 part 'page_state.dart';
@@ -35,8 +36,12 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         .toList();
   }
 
-  void setAdId(int adId) {
-    updateState((state) => state.copyWith(adId: adId));
+  void setInitialParams(int adId) {
+    updateState((state) => state.copyWith(
+          adId: adId,
+          isNotPrepared: true,
+          isPreparingInProcess: true,
+        ));
     getDetailResponse();
   }
 
@@ -60,26 +65,33 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   Future<void> getDetailResponse() async {
-    try {
-      var response = await _adRepository.getAdDetail(states.adId!);
-      updateState(
-        (state) => state.copyWith(
-          adDetail: response,
-          isPhoneVisible: false,
-          isAddCart: response?.isAddedToCart ?? false,
-        ),
-      );
-      await increaseAdStats(StatsType.view);
-      await addAdToRecentlyViewed();
-    } catch (e) {
-      logger.e(e.toString());
-      stateMessageManager.showErrorSnackBar(e.toString());
-    }
+    _adRepository.getAdDetail(states.adId!).initFuture().onStart(() {
+      updateState((state) => state.copyWith(
+            isNotPrepared: true,
+            isPreparingInProcess: true,
+          ));
+    }).onSuccess((data) {
+      updateState((state) => state.copyWith(
+            adDetail: data,
+            isPhoneVisible: false,
+            isAddCart: data?.isAddedToCart ?? false,
+            isNotPrepared: false,
+          ));
+    }).onError((error) {
+      logger.e(error);
+      updateState((state) => state.copyWith(isNotPrepared: true));
+    }).onFinished(() {
+      updateState((state) => state.copyWith(isPreparingInProcess: false));
+    }).executeFuture();
+
+    await increaseAdStats(StatsType.view);
+    await addAdToRecentlyViewed();
+
     getSimilarAds();
     getOwnerOtherAds();
   }
 
-  Future<void> setPhotoView() async {
+  Future<void> setPhoneNumberVisibility() async {
     updateState((state) => state.copyWith(isPhoneVisible: true));
     await increaseAdStats(StatsType.phone);
   }
@@ -101,31 +113,12 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         updateState((state) => state.copyWith(adDetail: ad));
       }
     } catch (e) {
-      stateMessageManager.showErrorSnackBar(e.toString());
+      logger.e(e);
     }
   }
 
   Future<void> similarAdsAddFavorite(Ad ad) async {
-    try {
-      if (ad.isFavorite == true) {
-        await _favoriteRepository.removeFromFavorite(ad.id);
-        final index = states.similarAds.indexOf(ad);
-        final item = states.similarAds.elementAt(index);
-        states.similarAds.insert(index, item..isFavorite = false);
-      } else {
-        final backendId = await _favoriteRepository.addToFavorite(ad);
-        final index = states.similarAds.indexOf(ad);
-        final item = states.similarAds.elementAt(index);
-        states.similarAds.insert(
-            index,
-            item
-              ..isFavorite = true
-              ..backendId = backendId);
-      }
-    } catch (error) {
-      stateMessageManager.showErrorSnackBar("xatolik yuz  berdi");
-      logger.e(error.toString());
-    }
+    _toggleFavorite(ad, states.similarAds.map((e) => e).toList());
   }
 
   Future<void> addCart() async {
@@ -138,142 +131,126 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   Future<void> getSimilarAds() async {
-    try {
-      final ads = await _adRepository.getSimilarAds(
-        adId: states.adId ?? 0,
-        page: 1,
-        limit: 10,
-      );
-      updateState(
-        (state) => state.copyWith(
-          similarAds: ads,
-          similarAdsState: LoadingState.success,
-        ),
-      );
-    } catch (e, stackTrace) {
-      updateState(
-        (state) => state.copyWith(similarAdsState: LoadingState.error),
-      );
-      logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      // display.error(e.toString());
-    }
+    _adRepository
+        .getSimilarAds(adId: states.adId ?? 0, page: 1, limit: 10)
+        .initFuture()
+        .onStart(() {
+          updateState((s) => s.copyWith(similarAdsState: LoadingState.loading));
+        })
+        .onSuccess((data) {
+          updateState(
+            (state) => state.copyWith(
+              similarAds: data,
+              similarAdsState: LoadingState.success,
+            ),
+          );
+        })
+        .onError((error) {
+          updateState((s) => s.copyWith(similarAdsState: LoadingState.error));
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> increaseAdStats(StatsType type) async {
-    try {
-      int? adId = states.adId;
-      if (adId != null) {
-        await _adRepository.increaseAdStats(type: type, adId: adId);
-      }
-    } catch (error) {
-      logger.e(error.toString());
-    }
+    if (states.adId == null) return;
+
+    _adRepository
+        .increaseAdStats(type: type, adId: states.adId!)
+        .initFuture()
+        .onError((error) => logger.w(error))
+        .executeFuture();
   }
 
   Future<void> addAdToRecentlyViewed() async {
-    try {
-      int? adId = states.adId;
-      if (adId != null && _stateRepository.isUserLoggedIn()) {
-        await _adRepository.addAdToRecentlyViewed(adId: adId);
-      }
-    } catch (error) {
-      logger.e(error.toString());
-    }
+    if (states.adId != null && _stateRepository.isUserLoggedIn()) return;
+
+    _adRepository
+        .addAdToRecentlyViewed(adId: states.adId!)
+        .initFuture()
+        .onError((error) => logger.w(error))
+        .executeFuture();
   }
 
   Future<void> getOwnerOtherAds() async {
-    if (state.state?.adDetail?.sellerTin == null) {
-      updateState((state) => state.copyWith(ownerAdsState: LoadingState.error));
+    if (states.adDetail?.sellerTin == null) {
+      updateState((s) => s.copyWith(ownerAdsState: LoadingState.error));
       return;
     }
 
-    try {
-      final ads = await _adRepository.getAdsByUser(
-        sellerTin: state.state!.adDetail!.sellerTin!,
-        page: 1,
-        limit: 20,
-      );
-
-      stateMessageManager
-          .showSuccessSnackBar("Muallifning boshqa e'lonlari muaffaqiyatli yuklandi");
-
-      ads.removeWhere((element) => element.id == state.state?.adId);
-      updateState(
-        (state) => state.copyWith(
-          ownerAds: ads,
-          ownerAdsState: LoadingState.success,
-        ),
-      );
-    } catch (e, stackTrace) {
-      updateState((state) => state.copyWith(ownerAdsState: LoadingState.error));
-      logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      stateMessageManager.showErrorSnackBar(e.toString());
-    }
+    _adRepository
+        .getAdsByUser(
+          sellerTin: states.adDetail!.sellerTin!,
+          page: 1,
+          limit: 20,
+        )
+        .initFuture()
+        .onStart(() {
+          if (states.adId == null) throw UnsupportedError("adId is null");
+          if (!_stateRepository.isUserLoggedIn()) throw UnsupportedError("");
+        })
+        .onSuccess((data) {
+          data.removeWhere((e) => e.id == state.state?.adId);
+          updateState((state) => state.copyWith(
+            ownerAds: data,
+            ownerAdsState: LoadingState.success,
+          ));
+        })
+        .onError((error) {
+          logger.w(error);
+          updateState((s) => s.copyWith(ownerAdsState: LoadingState.error));
+        })
+        .executeFuture();
   }
 
   Future<void> ownerAdAddToFavorite(Ad ad) async {
-    try {
-      if (ad.isFavorite == true) {
-        await _favoriteRepository.removeFromFavorite(ad.id);
-        final index = states.ownerAds.indexOf(ad);
-        final item = states.ownerAds.elementAt(index);
-        states.ownerAds.insert(index, item..isFavorite = false);
-      } else {
-        final backendId = await _favoriteRepository.addToFavorite(ad);
-        final index = states.ownerAds.indexOf(ad);
-        final item = states.ownerAds.elementAt(index);
-        states.ownerAds.insert(
-          index,
-          item
-            ..isFavorite = true
-            ..backendId = backendId,
-        );
-      }
-    } catch (error) {
-      stateMessageManager.showErrorSnackBar("serverda xatolik yuz  berdi");
-      logger.e(error.toString());
-    }
+    _toggleFavorite(ad, states.ownerAds.map((e) => e).toList());
   }
 
   Future<void> getRecentlyViewedAds() async {
-    try {
-      final ads = await _adRepository.getRecentlyViewedAds(page: 1, limit: 20);
-
-      updateState(
-        (state) => state.copyWith(
-          recentlyViewedAds: ads,
-          recentlyViewedAdsState: LoadingState.success,
-        ),
-      );
-    } catch (e, stackTrace) {
-      updateState(
-        (state) => state.copyWith(recentlyViewedAdsState: LoadingState.error),
-      );
-      logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      stateMessageManager.showErrorSnackBar(e.toString());
-    }
+    _adRepository
+        .getRecentlyViewedAds(page: 1, limit: 20)
+        .initFuture()
+        .onStart((){
+          updateState((state) => state.copyWith(
+            recentlyViewedAdsState: LoadingState.loading,
+          ));
+        })
+        .onSuccess((data) {
+          updateState((state) => state.copyWith(
+            recentlyViewedAds: data,
+            recentlyViewedAdsState: LoadingState.success,
+          ));
+        })
+        .onError((error) {
+          updateState((state) => state.copyWith(
+            recentlyViewedAdsState: LoadingState.error,
+          ));
+          logger.e(error);
+        })
+        .executeFuture();
   }
 
   Future<void> recentlyViewAdAddToFavorite(Ad ad) async {
+    _toggleFavorite(ad, states.recentlyViewedAds.map((e) => e).toList());
+  }
+
+  Future<void> _toggleFavorite(Ad ad, List<Ad> adList) async {
     try {
-      if (ad.isFavorite == true) {
+      int index = adList.indexOf(ad);
+      if (index == -1) return;
+
+      if (ad.isFavorite) {
         await _favoriteRepository.removeFromFavorite(ad.id);
-        final index = states.recentlyViewedAds.indexOf(ad);
-        final item = states.recentlyViewedAds.elementAt(index);
-        states.recentlyViewedAds.insert(index, item..isFavorite = false);
+        adList[index] = ad..isFavorite = false;
       } else {
         final backendId = await _favoriteRepository.addToFavorite(ad);
-        final index = states.recentlyViewedAds.indexOf(ad);
-        final item = states.recentlyViewedAds.elementAt(index);
-        states.recentlyViewedAds.insert(
-          index,
-          item
-            ..isFavorite = true
-            ..backendId = backendId,
-        );
+        adList[index] = ad
+          ..isFavorite = true
+          ..backendId = backendId;
       }
+      updateState((state) => state);
     } catch (error) {
-      stateMessageManager.showErrorSnackBar("serverda xatolik yuz  berdi");
       logger.e(error.toString());
     }
   }
