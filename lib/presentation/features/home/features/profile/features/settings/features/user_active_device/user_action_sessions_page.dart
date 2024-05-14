@@ -73,7 +73,7 @@ class UserActiveSessionsPage extends BasePage<PageCubit, PageState, PageEvent> {
               child: ListView.builder(
                 physics: BouncingScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 14,
+                itemCount: 6,
                 itemBuilder: (BuildContext context, int index) {
                   return ActiveDeviceShimmer();
                 },

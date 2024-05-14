@@ -6,8 +6,8 @@ import 'package:onlinebozor/data/repositories/cart_repository.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 
-part 'page_cubit.freezed.dart';
-part 'page_state.dart';
+part 'cart_cubit.freezed.dart';
+part 'cart_state.dart';
 
 @injectable
 class PageCubit extends BaseCubit<PageState, PageEvent> {
@@ -37,7 +37,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> removeFromCart(Ad ad) async {
     try {
-      await _cartRepository.removeCart(ad);
+      await _cartRepository.removeFromCart(ad);
       final items = states.items.map((e) => e).toList();
       items.removeWhere((e) => e.id == ad.id);
       updateState((state) => state.copyWith(items: items));

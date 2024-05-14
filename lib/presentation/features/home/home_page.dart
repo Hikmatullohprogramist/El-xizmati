@@ -1,15 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:onlinebozor/data/datasource/hive/storages/ad_storage.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
+import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/home_cubit.dart';
 
 @RoutePage()
 class HomePage extends BasePage<PageCubit, PageState, PageEvent> {
@@ -91,9 +92,9 @@ class HomePage extends BasePage<PageCubit, PageState, PageEvent> {
                     icon: Padding(
                       padding: const EdgeInsets.all(8),
                       child: ValueListenableBuilder(
-                        valueListenable: Hive.box('cart_storage').listenable(),
+                        valueListenable: cubit(context).adStorage.listenable(),
                         builder: (BuildContext context, value, Widget? child) {
-                          int cartNumber = Hive.box("cart_storage").length;
+                          int cartNumber = cubit(context).adStorage.cartAds.length;
                           return Badge(
                             textStyle: TextStyle(fontSize: 8),
                             alignment: Alignment.topRight,
@@ -107,9 +108,9 @@ class HomePage extends BasePage<PageCubit, PageState, PageEvent> {
                     activeIcon: Padding(
                       padding: const EdgeInsets.all(8),
                       child: ValueListenableBuilder(
-                        valueListenable: Hive.box('cart_storage').listenable(),
+                        valueListenable: cubit(context).adStorage.listenable(),
                         builder: (BuildContext context, value, Widget? child) {
-                          int cartNumber = Hive.box("cart_storage").length;
+                          int cartNumber = cubit(context).adStorage.cartAds.length;
                           return Badge(
                             textStyle: TextStyle(fontSize: 8),
                             alignment: Alignment.topRight,

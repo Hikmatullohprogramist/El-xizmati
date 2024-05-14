@@ -1,7 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/data/datasource/network/responses/banner/banner_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/category/popular_category/popular_category_response.dart';
@@ -11,9 +9,10 @@ import 'package:onlinebozor/data/repositories/common_repository.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
-part 'page_cubit.freezed.dart';
-part 'page_state.dart';
+part 'dashboard_cubit.freezed.dart';
+part 'dashboard_state.dart';
 
 @injectable
 class PageCubit extends BaseCubit<PageState, PageEvent> {
@@ -65,7 +64,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> getPopularProductAds() async {
     try {
-      final ads = await _adRepository.getDashboardPopularAdsByType(
+      final ads = await _adRepository.getDashboardPopularAds(
         adType: AdType.PRODUCT,
       );
 
@@ -86,7 +85,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> getPopularServiceAds() async {
     try {
-      final ads = await _adRepository.getDashboardPopularAdsByType(
+      final ads = await _adRepository.getDashboardPopularAds(
         adType: AdType.SERVICE,
       );
       updateState(
@@ -155,107 +154,69 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  Future<void> popularProductAdsAddCart(Ad ad) async {
-    try {
-      await _cartRepository.addCart(ad);
-      // updateState((state) => state.copyWith(isAddCart: true));
-    } catch (e) {
-      logger.e(e.toString());
-    }
+  Future<void> popularProductAdsUpdateFavorite(Ad ad) async {
+    _updateFavoriteData(ad, states.popularProductAds);
   }
 
-  Future<void> popularProductAdsAddFavorite(Ad ad) async {
+  Future<void> popularProductAdsUpdateCart(Ad ad) async {
+    _updateCartData(ad, states.popularProductAds);
+  }
+
+  Future<void> popularServiceAdsUpdateFavorite(Ad ad) async {
+    _updateFavoriteData(ad, states.popularServiceAds);
+  }
+
+  Future<void> popularServiceAdsUpdateCart(Ad ad) async {
+    _updateCartData(ad, states.popularServiceAds);
+  }
+
+  Future<void> topRatedAdsUpdateFavorite(Ad ad) async {
+    _updateFavoriteData(ad, states.topRatedAds);
+  }
+
+  Future<void> recentlyViewAdUpdateFavorite(Ad ad) async {
+    _updateFavoriteData(ad, states.recentlyViewedAds);
+  }
+  Future<void> recentlyViewAdUpdateCart(Ad ad) async {
+    _updateCartData(ad, states.recentlyViewedAds);
+  }
+
+  Future<void> _updateCartData(Ad ad, List<Ad> adList) async {
     try {
-      if (ad.isFavorite == true) {
-        await _favoriteRepository.removeFromFavorite(ad.id);
-        final index = states.popularProductAds.indexOf(ad);
-        final item = states.popularProductAds.elementAt(index);
-        states.popularProductAds.insert(index, item..isFavorite = false);
+      int index = adList.indexOf(ad);
+      if (index == -1) return;
+
+      if (ad.isAddedToCart) {
+        await _cartRepository.removeFromCart(ad);
+        adList[index] = ad..isAddedToCart = false;
       } else {
-        final backendId = await _favoriteRepository.addToFavorite(ad);
-        final index = states.popularProductAds.indexOf(ad);
-        final item = states.popularProductAds.elementAt(index);
-        states.popularProductAds.insert(
-          index,
-          item
-            ..isFavorite = true
-            ..backendId = backendId,
-        );
+        await _cartRepository.addToCart(ad);
+        adList[index] = ad..isAddedToCart = true;
       }
+
+      updateState((state) => state);
     } catch (error) {
-      stateMessageManager.showErrorSnackBar("serverda xatolik yuz  berdi");
       logger.e(error.toString());
     }
   }
 
-  Future<void> popularServiceAdsAddFavorite(Ad ad) async {
-    try {
-      if (ad.isFavorite == true) {
-        await _favoriteRepository.removeFromFavorite(ad.id);
-        final index = states.popularServiceAds.indexOf(ad);
-        final item = states.popularServiceAds.elementAt(index);
-        states.popularServiceAds.insert(index, item..isFavorite = false);
-      } else {
-        final backendId = await _favoriteRepository.addToFavorite(ad);
-        final index = states.popularServiceAds.indexOf(ad);
-        final item = states.popularServiceAds.elementAt(index);
-        states.popularServiceAds.insert(
-          index,
-          item
-            ..isFavorite = true
-            ..backendId = backendId,
-        );
-      }
-    } catch (error) {
-      stateMessageManager.showErrorSnackBar("serverda xatolik yuz  berdi");
-      logger.e(error.toString());
-    }
-  }
 
-  Future<void> topRatedAdsAddFavorite(Ad ad) async {
+  Future<void> _updateFavoriteData(Ad ad, List<Ad> adList) async {
     try {
-      if (ad.isFavorite == true) {
-        await _favoriteRepository.removeFromFavorite(ad.id);
-        final index = states.topRatedAds.indexOf(ad);
-        final item = states.topRatedAds.elementAt(index);
-        states.topRatedAds.insert(index, item..isFavorite = false);
-      } else {
-        final backendId = await _favoriteRepository.addToFavorite(ad);
-        final index = states.topRatedAds.indexOf(ad);
-        final item = states.topRatedAds.elementAt(index);
-        states.topRatedAds.insert(
-          index,
-          item
-            ..isFavorite = true
-            ..backendId = backendId,
-        );
-      }
-    } catch (error) {
-      stateMessageManager.showErrorSnackBar("serverda xatolik yuz  berdi");
-      logger.e(error.toString());
-    }
-  }
+      int index = adList.indexOf(ad);
+      if (index == -1) return;
 
-  Future<void> recentlyViewAdAddToFavorite(Ad ad) async {
-    try {
-      if (ad.isFavorite == true) {
+      if (ad.isFavorite) {
         await _favoriteRepository.removeFromFavorite(ad.id);
-        final index = states.recentlyViewedAds.indexOf(ad);
-        final item = states.recentlyViewedAds.elementAt(index);
-        states.recentlyViewedAds.insert(index, item..isFavorite = false);
+        adList[index] = ad..isFavorite = false;
       } else {
         final backendId = await _favoriteRepository.addToFavorite(ad);
-        final index = states.recentlyViewedAds.indexOf(ad);
-        final item = states.recentlyViewedAds.elementAt(index);
-        states.recentlyViewedAds.insert(
-          index,
-          item
-            ..isFavorite = true
-            ..backendId = backendId,
-        );
+        adList[index] = ad
+          ..isFavorite = true
+          ..backendId = backendId;
       }
+      updateState((state) => state);
     } catch (error) {
-      stateMessageManager.showErrorSnackBar("serverda xatolik yuz  berdi");
       logger.e(error.toString());
     }
   }

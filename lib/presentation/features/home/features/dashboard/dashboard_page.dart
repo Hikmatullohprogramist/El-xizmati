@@ -23,7 +23,7 @@ import 'package:onlinebozor/presentation/widgets/dashboard/product_or_service.da
 import 'package:onlinebozor/presentation/widgets/dashboard/see_all_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/dashboard_cubit.dart';
 
 @RoutePage()
 class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
@@ -185,9 +185,11 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
               context.router.push(AdDetailRoute(adId: ad.id));
             },
             onFavoriteClicked: (Ad ad) {
-              cubit(context).popularProductAdsAddFavorite(ad);
+              cubit(context).popularProductAdsUpdateFavorite(ad);
             },
-            onCartClicked: (Ad ad) {},
+            onCartClicked: (Ad ad) {
+              cubit(context).popularProductAdsUpdateCart(ad);
+            },
             onBuyClicked: (Ad ad) {
               context.router.push(CreateOrderRoute(adId: ad.id));
             },
@@ -226,9 +228,11 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
               context.router.push(AdDetailRoute(adId: ad.id));
             },
             onFavoriteClicked: (Ad ad) {
-              cubit(context).popularServiceAdsAddFavorite(ad);
+              cubit(context).popularServiceAdsUpdateFavorite(ad);
             },
-            onCartClicked: (Ad ad) {},
+            onCartClicked: (Ad ad) {
+              cubit(context).popularServiceAdsUpdateCart(ad);
+            },
             onBuyClicked: (Ad ad) {
               context.router.push(CreateOrderRoute(adId: ad.id));
             },
@@ -255,7 +259,7 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
           context.router.push(CreateOrderRoute(adId: ad.id));
         },
         onFavoriteClicked: (Ad ad) {
-          cubit(context).topRatedAdsAddFavorite(ad);
+          cubit(context).topRatedAdsUpdateFavorite(ad);
         },
       ),
     );
@@ -297,9 +301,11 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
                 context.router.push(AdDetailRoute(adId: ad.id));
               },
               onFavoriteClicked: (Ad ad) {
-                cubit(context).recentlyViewAdAddToFavorite(ad);
+                cubit(context).recentlyViewAdUpdateFavorite(ad);
               },
-              onCartClicked: (Ad ad) {},
+              onCartClicked: (Ad ad) {
+                cubit(context).recentlyViewAdUpdateCart(ad);
+              },
               onBuyClicked: (Ad ad) {
                 context.router.push(CreateOrderRoute(adId: ad.id));
               },

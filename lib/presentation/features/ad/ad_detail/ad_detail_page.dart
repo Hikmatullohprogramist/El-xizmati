@@ -31,7 +31,7 @@ import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dar
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/ad_detail_cubit.dart';
 
 @RoutePage()
 class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
@@ -598,9 +598,11 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                 context.router.push(AdDetailRoute(adId: ad.id));
               },
               onFavoriteClicked: (Ad ad) {
-                cubit(context).similarAdsAddFavorite(ad);
+                cubit(context).similarAdsUpdateFavorite(ad);
               },
-              onCartClicked: (Ad ad) {},
+              onCartClicked: (Ad ad) {
+                cubit(context).similarAdsUpdateCart(ad);
+              },
               onBuyClicked: (Ad ad) {
                 context.router.push(CreateOrderRoute(adId: ad.id));
               },
@@ -647,9 +649,11 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                 context.router.push(AdDetailRoute(adId: ad.id));
               },
               onFavoriteClicked: (Ad ad) {
-                cubit(context).ownerAdAddToFavorite(ad);
+                cubit(context).ownerAdUpdateFavorite(ad);
               },
-              onCartClicked: (Ad ad) {},
+              onCartClicked: (Ad ad) {
+                cubit(context).ownerAdUpdateCart(ad);
+              },
               onBuyClicked: (Ad ad) {
                 context.router.push(CreateOrderRoute(adId: ad.id));
               },
@@ -693,9 +697,11 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                 context.router.push(AdDetailRoute(adId: ad.id));
               },
               onFavoriteClicked: (Ad ad) {
-                cubit(context).recentlyViewAdAddToFavorite(ad);
+                cubit(context).recentlyViewedAdUpdateFavorite(ad);
               },
-              onCartClicked: (Ad ad) {},
+              onCartClicked: (Ad ad) {
+                cubit(context).recentlyViewedAdUpdateCart(ad);
+              },
               onBuyClicked: (Ad ad) {
                 context.router.push(CreateOrderRoute(adId: ad.id));
               },

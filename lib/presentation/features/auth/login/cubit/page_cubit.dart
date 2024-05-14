@@ -56,31 +56,13 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         })
         .onError((error) {
           logger.w("login onError  ${error.toString()}");
-          // emitEvent(PageEvent(PageEventType.onLoginFailed, message: error.localizedMessage));
           stateMessageManager.showErrorBottomSheet(error.localizedMessage);
-          stateMessageManager.showErrorSnackBar(error.localizedMessage);
         })
         .onFinished(() {
           logger.w("login onFinished");
           updateState((state) => state.copyWith(isRequestSending: false));
         })
         .executeFuture();
-
-    // updateState((state) => state.copyWith(isRequestSending: true));
-    // try {
-    //   await _authRepository.login(
-    //     states.phone.clearPhoneWithCode(),
-    //     states.password,
-    //   );
-    //   sendAllFavoriteAds();
-    //   emitEvent(PageEvent(PageEventType.onOpenHome));
-    // }  catch (e, stackTrace) {
-    //   logger.w("Cubit => catch => ${e.toString()} ${stackTrace.toString()}");
-    //   emitEvent(
-    //       PageEvent(PageEventType.onLoginFailed, message: e.localizedMessage));
-    // } finally {
-    //   updateState((state) => state.copyWith(isRequestSending: false));
-    // }
   }
 
   Future<void> forgetPassword() async {

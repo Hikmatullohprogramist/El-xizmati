@@ -12,8 +12,8 @@ import 'package:onlinebozor/domain/models/ad/user_ad.dart';
 
 extension AdResponseExtension on AdResponse {
   Ad toMap({
-    bool isFavorite = false,
     bool isAddedToCart = false,
+    bool isFavorite = false,
   }) {
     return Ad(
       id: id,
@@ -127,7 +127,7 @@ extension AdDetailResponseExtension on AdDetailResponse {
 }
 
 extension AdObjectExtension on AdHiveObject {
-  Ad toMap({bool isFavorite = false, bool isAddCart = false}) {
+  Ad toMap() {
     return Ad(
       backendId: backendId ?? -1,
       id: id,

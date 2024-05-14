@@ -79,7 +79,7 @@ class FavoriteServicesPage extends BasePage<PageCubit, PageState, PageEvent> {
                   crossAxisSpacing: 15.0, // Spacing between columns
                   mainAxisSpacing: 1.0,
                 ),
-                itemCount: 10,
+                itemCount: 6,
                 itemBuilder: (context, index) {
                   return VerticalAdShimmer();
                 },

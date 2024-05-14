@@ -83,7 +83,7 @@ class FavoriteProductsPage extends BasePage<PageCubit, PageState, PageEvent> {
                   crossAxisSpacing: 15.0, // Spacing between columns
                   mainAxisSpacing: 1.0,
                 ),
-                itemCount: 10,
+                itemCount: 6,
                 // Number of items in the grid
                 itemBuilder: (context, index) {
                   return VerticalAdShimmer();

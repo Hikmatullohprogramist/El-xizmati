@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
@@ -33,6 +34,7 @@ class HorizontalAdWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Logger().w("horizontal_ad: adId = ${ad.id}, isAddedToCart = ${ad.isAddedToCart}");
     return InkWell(
       onTap: () {
         onItemClicked(ad);
@@ -122,12 +124,10 @@ class HorizontalAdWidget extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(height: 4),
+            SizedBox(height: 6),
             AdCartBuyWidget(
               height: 32,
               isAddedCart: false,
-              // onCartClicked: onCartClicked(ad),
-              // onBuyClicked: onBuyClicked(ad),
               onCartClicked: () => onCartClicked(ad),
               onBuyClicked: () => onBuyClicked(ad),
             ),

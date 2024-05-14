@@ -1,4 +1,4 @@
-part of 'page_cubit.dart';
+part of 'ad_detail_cubit.dart';
 
 @freezed
 class PageState with _$PageState {

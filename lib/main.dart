@@ -107,40 +107,6 @@ Future<void> main() async {
   // ));
 }
 
-Future<bool> isAppUpdated() async {
-  final PackageInfo packageInfo = await PackageInfo.fromPlatform();
-  final String newVersion = packageInfo.version;
-
-  // Retrieve the saved version from the local storage
-  final Box<String> versionBox = await Hive.openBox<String>('versionBox');
-  final String? savedVersion = versionBox.get('app_version');
-
-  Logger()
-      .w("isAppUpdated savedVersion = $savedVersion, newVersion = $newVersion");
-  if (savedVersion == null || savedVersion != newVersion) {
-    // Save the new version if not matching or first launch
-    await versionBox.put('app_version', newVersion);
-    return true;
-  }
-
-  return false;
-}
-
-Future<void> clearHiveData() async {
-  // Close all boxes before deleting
-  await Hive.close();
-
-  // Delete all data
-  final Directory appDocDirectory = await getApplicationDocumentsDirectory();
-  final String hivePath = appDocDirectory.path;
-  final Directory hiveDirectory = Directory(hivePath);
-
-  // Delete the Hive directory
-  if (await hiveDirectory.exists()) {
-    await hiveDirectory.delete(recursive: true);
-  }
-}
-
 class MyApp extends StatelessWidget {
   MyApp({super.key, required this.isLanguageSelection, required this.isLogin});
 
@@ -185,7 +151,7 @@ class MyApp extends StatelessWidget {
           ),
           Builder(
             builder: (context) {
-              _initSnackBar(context);
+              _initStateManager(context);
               return const SizedBox.shrink();
             },
           ),
@@ -234,12 +200,46 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  void _initSnackBar(BuildContext context) {
-    final snackBarManager = getIt<StateMessageManager>();
+  void _initStateManager(BuildContext context) {
+    final stateMessageManager = getIt<StateMessageManager>();
 
-    snackBarManager.setListeners(
+    stateMessageManager.setListeners(
       onShowBottomSheet: (m) => context.showStateMessageBottomSheet(m),
       onShowSnackBar: (m) => context.showStateMessageSnackBar(m),
     );
+  }
+}
+
+Future<bool> isAppUpdated() async {
+  final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  final String newVersion = packageInfo.version;
+
+  // Retrieve the saved version from the local storage
+  final Box<String> versionBox = await Hive.openBox<String>('versionBox');
+  final String? savedVersion = versionBox.get('app_version');
+
+  Logger()
+      .w("isAppUpdated savedVersion = $savedVersion, newVersion = $newVersion");
+  if (savedVersion == null || savedVersion != newVersion) {
+    // Save the new version if not matching or first launch
+    await versionBox.put('app_version', newVersion);
+    return true;
+  }
+
+  return false;
+}
+
+Future<void> clearHiveData() async {
+  // Close all boxes before deleting
+  await Hive.close();
+
+  // Delete all data
+  final Directory appDocDirectory = await getApplicationDocumentsDirectory();
+  final String hivePath = appDocDirectory.path;
+  final Directory hiveDirectory = Directory(hivePath);
+
+  // Delete the Hive directory
+  if (await hiveDirectory.exists()) {
+    await hiveDirectory.delete(recursive: true);
   }
 }

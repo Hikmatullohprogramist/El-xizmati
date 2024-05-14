@@ -1,11 +1,10 @@
-part of 'page_cubit.dart';
+part of 'cart_cubit.dart';
 
 @freezed
 class PageState with _$PageState {
   const factory PageState({
-    @Default(false) bool isLogin,
-    @Default(0) int cartAmount,
-    @Default(0) int favoriteAmount,
+    @Default(LoadingState.loading) LoadingState loadState,
+    @Default(<Ad>[]) List<Ad> items,
   }) = _PageState;
 }
 

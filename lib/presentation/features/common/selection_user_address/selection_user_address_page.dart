@@ -79,7 +79,7 @@ class SelectionUserAddressPage
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
-      itemCount: 20,
+      itemCount: 3,
       itemBuilder: (context, index) {
         return UserAddressShimmer();
       },

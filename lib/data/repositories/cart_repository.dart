@@ -1,8 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:onlinebozor/core/extensions/list_extensions.dart';
-import 'package:onlinebozor/data/datasource/hive/storages/cart_storage.dart';
-import 'package:onlinebozor/data/datasource/hive/storages/favorite_storage.dart';
+import 'package:onlinebozor/data/datasource/hive/storages/ad_storage.dart';
 import 'package:onlinebozor/data/datasource/hive/storages/token_storage.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/add_result/add_result_response.dart';
@@ -13,19 +12,13 @@ import '../../domain/models/ad/ad.dart';
 
 @LazySingleton()
 class CartRepository {
+  final AdStorage _adStorage;
   final CartService _cartService;
-  final CartStorage _cartStorage;
-  final FavoriteStorage _favoriteStorage;
   final TokenStorage _tokenStorage;
 
-  CartRepository(
-    this._cartService,
-    this._cartStorage,
-    this._tokenStorage,
-    this._favoriteStorage,
-  );
+  CartRepository(this._adStorage, this._cartService, this._tokenStorage);
 
-  Future<int> addCart(Ad ad) async {
+  Future<int> addToCart(Ad ad) async {
     final isLogin = _tokenStorage.isUserLoggedIn;
     int resultId = ad.id;
     if (isLogin) {
@@ -35,24 +28,18 @@ class CartRepository {
           AddResultRootResponse.fromJson(response.data).data?.products?.id;
       resultId = addResultId ?? ad.id;
     }
-    final allItem = _cartStorage.allItems.map((e) => e.toMap()).toList();
-    if (allItem.where((element) => element.id == ad.id).isEmpty) {
-      _cartStorage.storage.add(ad.toMap(backendId: resultId));
-    } else {
-      final index = allItem.indexOf(ad);
-      _cartStorage.update(index, ad.toMap(backendId: resultId));
-    }
+
+    _adStorage.addToCart(ad.toMap(backendId: resultId));
     return resultId;
   }
 
-  Future<void> removeCart(Ad ad) async {
+  Future<void> removeFromCart(Ad ad) async {
     final isLogin = _tokenStorage.isUserLoggedIn;
     if (isLogin) {
       await _cartService.removeCart(adId: ad.id);
-      _cartStorage.removeCart(ad.id);
-    } else {
-      _cartStorage.removeCart(ad.id);
     }
+
+    _adStorage.removeFromCart(ad.id);
   }
 
   Future<List<Ad>> getCartAds() async {
@@ -63,21 +50,17 @@ class CartRepository {
       if (isLogin) {
         final root = await _cartService.getCartAllAds();
         final response = AdRootResponse.fromJson(root.data).data.results;
-        final cartAds = response
-            .map((e) => e.toMap(isFavorite: false, isAddedToCart: true))
+        final responseAds = response
+            .map((e) => e.toMap(isAddedToCart: true))
             .toList();
 
-        final allItems = _cartStorage.allItems.map((e) => e.toMap()).toList();
-        final newItems = cartAds.notContainsItems(allItems);
-        for (var item in newItems) {
-          _cartStorage.storage.add(item.toMap(isFavorite: true));
+        final savedAds = _adStorage.cartAds.map((e) => e.toMap()).toList();
+        final notSavedAds = responseAds.notContainsItems(savedAds);
+        for (var item in notSavedAds) {
+          _adStorage.addToCart(item.toMap());
         }
       }
-      final fAds = _favoriteStorage.allItems;
-      final cAds = _cartStorage.allItems;
-      return cAds
-          .map((c) => c.toMap(isFavorite: fAds.containsIf((f) => c.id == f.id)))
-          .toList();
+      return _adStorage.cartAds.map((e) => e.toMap()).toList();
     } catch (e) {
       logger.e(e.toString());
       return List.empty();

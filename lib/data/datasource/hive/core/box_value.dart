@@ -13,15 +13,19 @@ class BoxValue<T> {
 
   T getOrDefault(dynamic value) => box.get(_key, defaultValue: value);
 
-  List<dynamic> values() => box.values.toList();
+  List<T> values() => box.values.cast<T>().toList();
 
   Future<void> set(T? value) => box.put(_key, value);
 
   Future<void> delete() => box.delete(_key);
 
+  Future<void> deleteAt(int index) => box.deleteAt(index);
+
   Future<void> clear() => box.clear();
 
   Future<void> add(T value) => box.add(value);
+
+  Future<void> update(int index, T value) => box.putAt(index, value);
 
   Future<void> addAll(List<T> values) => box.addAll(values);
 }

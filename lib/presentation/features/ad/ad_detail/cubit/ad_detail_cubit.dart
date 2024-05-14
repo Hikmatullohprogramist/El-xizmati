@@ -13,8 +13,8 @@ import 'package:onlinebozor/domain/models/ad/ad_detail.dart';
 import 'package:onlinebozor/domain/models/stats/stats_type.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
-part 'page_cubit.freezed.dart';
-part 'page_state.dart';
+part 'ad_detail_cubit.freezed.dart';
+part 'ad_detail_state.dart';
 
 @injectable
 class PageCubit extends BaseCubit<PageState, PageEvent> {
@@ -117,17 +117,33 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     }
   }
 
-  Future<void> similarAdsAddFavorite(Ad ad) async {
-    _toggleFavorite(ad, states.similarAds.map((e) => e).toList());
-  }
-
   Future<void> addCart() async {
     try {
-      await _cartRepository.addCart(states.adDetail!.toMap());
+      await _cartRepository.addToCart(states.adDetail!.toMap());
       updateState((state) => state.copyWith(isAddCart: true));
     } catch (e) {
       logger.e(e.toString());
     }
+  }
+
+  Future<void> increaseAdStats(StatsType type) async {
+    if (states.adId == null) return;
+
+    _adRepository
+        .increaseAdStats(type: type, adId: states.adId!)
+        .initFuture()
+        .onError((error) => logger.w(error))
+        .executeFuture();
+  }
+
+  Future<void> addAdToRecentlyViewed() async {
+    if (states.adId != null && _stateRepository.isUserLoggedIn()) return;
+
+    _adRepository
+        .addAdToRecentlyViewed(adId: states.adId!)
+        .initFuture()
+        .onError((error) => logger.w(error))
+        .executeFuture();
   }
 
   Future<void> getSimilarAds() async {
@@ -152,24 +168,12 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         .executeFuture();
   }
 
-  Future<void> increaseAdStats(StatsType type) async {
-    if (states.adId == null) return;
-
-    _adRepository
-        .increaseAdStats(type: type, adId: states.adId!)
-        .initFuture()
-        .onError((error) => logger.w(error))
-        .executeFuture();
+  Future<void> similarAdsUpdateFavorite(Ad ad) async {
+    _updateFavoriteData(ad, states.similarAds.map((e) => e).toList());
   }
 
-  Future<void> addAdToRecentlyViewed() async {
-    if (states.adId != null && _stateRepository.isUserLoggedIn()) return;
-
-    _adRepository
-        .addAdToRecentlyViewed(adId: states.adId!)
-        .initFuture()
-        .onError((error) => logger.w(error))
-        .executeFuture();
+  Future<void> similarAdsUpdateCart(Ad ad) async {
+    _updateCartData(ad, states.similarAds.map((e) => e).toList());
   }
 
   Future<void> getOwnerOtherAds() async {
@@ -186,56 +190,81 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         )
         .initFuture()
         .onStart(() {
-          if (states.adId == null) throw UnsupportedError("adId is null");
-          if (!_stateRepository.isUserLoggedIn()) throw UnsupportedError("");
-        })
-        .onSuccess((data) {
-          data.removeWhere((e) => e.id == state.state?.adId);
-          updateState((state) => state.copyWith(
+      if (states.adId == null) throw UnsupportedError("adId is null");
+      if (!_stateRepository.isUserLoggedIn()) throw UnsupportedError("");
+    }).onSuccess((data) {
+      data.removeWhere((e) => e.id == state.state?.adId);
+      updateState((state) => state.copyWith(
             ownerAds: data,
             ownerAdsState: LoadingState.success,
           ));
-        })
-        .onError((error) {
-          logger.w(error);
-          updateState((s) => s.copyWith(ownerAdsState: LoadingState.error));
-        })
-        .executeFuture();
+    }).onError((error) {
+      logger.w(error);
+      updateState((s) => s.copyWith(ownerAdsState: LoadingState.error));
+    }).executeFuture();
   }
 
-  Future<void> ownerAdAddToFavorite(Ad ad) async {
-    _toggleFavorite(ad, states.ownerAds.map((e) => e).toList());
+  Future<void> ownerAdUpdateFavorite(Ad ad) async {
+    _updateFavoriteData(ad, states.ownerAds.map((e) => e).toList());
+  }
+
+  Future<void> ownerAdUpdateCart(Ad ad) async {
+    _updateCartData(ad, states.ownerAds.map((e) => e).toList());
   }
 
   Future<void> getRecentlyViewedAds() async {
     _adRepository
         .getRecentlyViewedAds(page: 1, limit: 20)
         .initFuture()
-        .onStart((){
+        .onStart(() {
           updateState((state) => state.copyWith(
-            recentlyViewedAdsState: LoadingState.loading,
-          ));
+                recentlyViewedAdsState: LoadingState.loading,
+              ));
         })
         .onSuccess((data) {
           updateState((state) => state.copyWith(
-            recentlyViewedAds: data,
-            recentlyViewedAdsState: LoadingState.success,
-          ));
+                recentlyViewedAds: data,
+                recentlyViewedAdsState: LoadingState.success,
+              ));
         })
         .onError((error) {
           updateState((state) => state.copyWith(
-            recentlyViewedAdsState: LoadingState.error,
-          ));
+                recentlyViewedAdsState: LoadingState.error,
+              ));
           logger.e(error);
         })
+        .onFinished(() {})
         .executeFuture();
   }
 
-  Future<void> recentlyViewAdAddToFavorite(Ad ad) async {
-    _toggleFavorite(ad, states.recentlyViewedAds.map((e) => e).toList());
+  Future<void> recentlyViewedAdUpdateFavorite(Ad ad) async {
+    _updateFavoriteData(ad, states.recentlyViewedAds.map((e) => e).toList());
   }
 
-  Future<void> _toggleFavorite(Ad ad, List<Ad> adList) async {
+  Future<void> recentlyViewedAdUpdateCart(Ad ad) async {
+    _updateCartData(ad, states.recentlyViewedAds.map((e) => e).toList());
+  }
+
+  Future<void> _updateCartData(Ad ad, List<Ad> adList) async {
+    try {
+      int index = adList.indexOf(ad);
+      if (index == -1) return;
+
+      if (ad.isAddedToCart) {
+        await _cartRepository.removeFromCart(ad);
+        adList[index] = ad..isAddedToCart = false;
+      } else {
+        await _cartRepository.addToCart(ad);
+        adList[index] = ad..isAddedToCart = true;
+      }
+
+      updateState((state) => state);
+    } catch (error) {
+      logger.e(error.toString());
+    }
+  }
+
+  Future<void> _updateFavoriteData(Ad ad, List<Ad> adList) async {
     try {
       int index = adList.indexOf(ad);
       if (index == -1) return;

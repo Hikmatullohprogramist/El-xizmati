@@ -91,6 +91,16 @@ class Ad {
   bool hasOnlyOnePrice() {
     return price == 0;
   }
+
+  bool get isProductAd =>
+      adTypeStatus == AdTransactionType.SELL ||
+      adTypeStatus == AdTransactionType.FREE ||
+      adTypeStatus == AdTransactionType.EXCHANGE ||
+      adTypeStatus == AdTransactionType.BUY;
+
+  bool get isServiceAd =>
+      adTypeStatus == AdTransactionType.SERVICE ||
+      adTypeStatus == AdTransactionType.BUY_SERVICE;
 }
 
 class AdPhotoModel {

@@ -100,7 +100,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> removeCart() async {
     try {
       if (states.adId != null) {
-        await _cartRepository.removeCart(states.adDetail!.toMap());
+        await _cartRepository.removeFromCart(states.adDetail!.toMap());
         emitEvent(PageEvent(PageEventType.onBackAfterRemove));
       }
     } catch (e) {
@@ -127,7 +127,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> removeFromCartAfterOrderCreation() async {
     try {
       if (states.adId != null) {
-        await _cartRepository.removeCart(states.adDetail!.toMap());
+        await _cartRepository.removeFromCart(states.adDetail!.toMap());
       }
     } catch (e) {
       stateMessageManager.showErrorSnackBar(e.toString());

@@ -66,7 +66,7 @@ class SelectionUnitPage extends BasePage<PageCubit, PageState, PageEvent> {
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
-      itemCount: 12,
+      itemCount: 8,
       itemBuilder: (context, index) {
         return ActionItemShimmer();
       },

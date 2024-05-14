@@ -13,7 +13,7 @@ import 'package:onlinebozor/presentation/widgets/cart/cart_widget.dart';
 import 'package:onlinebozor/presentation/widgets/favorite/favorite_empty_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/cart_cubit.dart';
 
 @RoutePage()
 class CartPage extends BasePage<PageCubit, PageState, PageEvent> {
@@ -45,7 +45,7 @@ class CartPage extends BasePage<PageCubit, PageState, PageEvent> {
       child: ListView.builder(
         physics: BouncingScrollPhysics(),
         shrinkWrap: true,
-        itemCount: 5,
+        itemCount: 2,
         itemBuilder: (BuildContext context, int index) {
           return CartShimmer();
         },

@@ -34,9 +34,7 @@ class _AdFavoriteWidget extends State<AdFavoriteWidget> {
       onTap: () {
         widget.invoke();
         if (widget.isChangeAvailable) {
-          setState(() {
-            _isSelected = !_isSelected;
-          });
+          setState(() => _isSelected = !_isSelected);
         }
         vibrateAsHapticFeedback();
       },

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
+import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 
 class AdCartBuyWidget extends StatefulWidget {
   const AdCartBuyWidget({
@@ -32,24 +32,74 @@ class _AdCartBuyWidget extends State<AdCartBuyWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: widget.height,
-      child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
         Flexible(
-          child: CustomElevatedButton(
-            text: Strings.adDetailOpenCart,
-            onPressed: () => widget.onCartClicked,
+          flex: 1,
+          child: InkWell(
+            onTap: () {
+              widget.onCartClicked();
+              vibrateAsHapticFeedback();
+              setState(() => _isAddedCart = !_isAddedCart);
+            },
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(8),
+              topLeft: Radius.circular(2),
+              topRight: Radius.circular(2),
+              bottomRight: Radius.circular(2),
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(8),
+                  topLeft: Radius.circular(2),
+                  topRight: Radius.circular(2),
+                  bottomRight: Radius.circular(2),
+                ),
+                color: StaticColors.buttonColor.withOpacity(
+                  _isAddedCart ? .2 : .2,
+                ),
+              ),
+              padding: EdgeInsets.only(top: 6, bottom: 6),
+              child: Center(
+                child: _isAddedCart
+                    ? Assets.images.adCartAdded.svg()
+                    : Assets.images.adCartNotAdded.svg(),
+              ),
+            ),
           ),
         ),
-        SizedBox(width: 8),
+        SizedBox(width: 3),
         Flexible(
-          child: CustomElevatedButton(
-            text: Strings.adBuyByOneClick,
-            backgroundColor: StaticColors.majorelleBlue.withOpacity(0.8),
-            onPressed: () => widget.onBuyClicked(),
+          flex: 1,
+          child: InkWell(
+            onTap: () {
+              widget.onBuyClicked();
+              vibrateAsHapticFeedback();
+            },
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(2),
+              topLeft: Radius.circular(2),
+              topRight: Radius.circular(2),
+              bottomRight: Radius.circular(8),
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(2),
+                  topLeft: Radius.circular(2),
+                  topRight: Radius.circular(2),
+                  bottomRight: Radius.circular(8),
+                ),
+                color: StaticColors.majorelleBlue.withOpacity(.15),
+              ),
+              padding: EdgeInsets.only(top: 6, bottom: 6),
+              child: Center(child: Assets.images.adOrder.svg()),
+            ),
           ),
         ),
-      ]),
+      ],
     );
   }
 }

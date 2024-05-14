@@ -35,14 +35,11 @@ class FavoriteService {
     return _dio.get("api/mobile/v1/buyer/products", queryParameters: params);
   }
 
-  Future<Response> sendAllFavoriteAds(List<Ad> ads) {
-    final log = Logger();
-    log.w(ads.toString());
-
-    final adsRequest = ads.map((element) {
+  Future<Response> sendAllFavoriteAds(List<int> adIds) {
+    final adsRequest = adIds.map((adId) {
       return {
         RestQueryKeys.productType: "ADS",
-        RestQueryKeys.productId: element.id,
+        RestQueryKeys.productId: adId,
         RestQueryKeys.number: 1,
         RestQueryKeys.type: "SELECTED"
       };

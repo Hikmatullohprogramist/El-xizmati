@@ -23,6 +23,10 @@ extension ListExtensions<T> on List<T> {
     return lastWhereOrNull(condition);
   }
 
+  int indexIf(bool Function(T element) condition) {
+    return indexWhere(condition);
+  }
+
   List<T> filterIf(bool Function(T element) condition) {
     return where(condition).toList();
   }
