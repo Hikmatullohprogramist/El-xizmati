@@ -50,8 +50,10 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
       decoration: BoxDecoration(
         color: context.primaryContainer,
         borderRadius: BorderRadius.circular(16),
-        border:
-            Border.all(color: context.primaryContainerStrokeColor, width: 1),
+        border: Border.all(
+          color: context.primaryContainerStrokeColor,
+          width: 1,
+        ),
       ),
       child: SizedBox(
         width: double.infinity,

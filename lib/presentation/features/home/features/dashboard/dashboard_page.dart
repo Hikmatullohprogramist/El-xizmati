@@ -38,7 +38,7 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
       appBar: SearchAppBar(
-        backgroundColor: context.backgroundColor,
+        backgroundColor: context.appBarColor,
         onSearchClicked: () => context.router.push(SearchRoute()),
         onMicrophoneClicked: () {},
         onFavoriteClicked: () => context.router.push(FavoriteListRoute()),

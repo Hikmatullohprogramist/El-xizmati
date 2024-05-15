@@ -6,13 +6,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
-import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
 import 'package:onlinebozor/data/datasource/network/responses/transaction/payment_transaction_response.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
+import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart';
@@ -234,30 +234,20 @@ class PaymentTransactionPage extends BasePage<PageCubit, PageState, PageEvent> {
                 ),
               ],
             ),
-            SizedBox(
-              height: 7,
-            ),
+            SizedBox(height: 7),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: CustomDivider(height: 1),
             ),
-            SizedBox(
-              height: 7,
-            ),
+            SizedBox(height: 7),
             "Transaction data".w(500).s(12).c(Color(0xFF41455E)),
-            SizedBox(
-              height: 5,
-            ),
+            SizedBox(height: 5),
             transaction.pay_date.w(500).s(16).c(Color(0xFF41455E)),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
 
             ///
             "Payment type".w(500).s(12).c(Color(0xFF41455E)),
-            SizedBox(
-              height: 2,
-            ),
+            SizedBox(height: 2),
             transaction.pay_type.w(500).s(15).c(Color(0xFF41455E)),
             SizedBox(
               height: 12,

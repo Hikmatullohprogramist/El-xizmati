@@ -43,7 +43,7 @@ class UserOrderInfoPage extends BasePage<PageCubit, PageState, PageEvent> {
           alignment: Alignment.bottomCenter,
           children: [
             Container(
-              color: context.bottomNavigationColor,
+              color: context.bottomSheetColor,
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
                 child: Column(
