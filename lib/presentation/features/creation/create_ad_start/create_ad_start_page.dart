@@ -8,7 +8,7 @@ import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/create_ad_start_cubit.dart';
 
 @RoutePage()
 class CreateAdStartPage extends BasePage<PageCubit, PageState, PageEvent> {

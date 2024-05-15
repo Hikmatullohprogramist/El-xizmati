@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/data/datasource/network/responses/address/user_address_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/category/category/category_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/payment_type/payment_type_response.dart';
@@ -23,6 +22,8 @@ import 'package:onlinebozor/presentation/features/auth/one_id/auth_with_one_id_p
 import 'package:onlinebozor/presentation/features/auth/set_password/set_password_page.dart';
 import 'package:onlinebozor/presentation/features/auth/start/auth_start_page.dart';
 import 'package:onlinebozor/presentation/features/common/add_address/add_address_page.dart';
+import 'package:onlinebozor/presentation/features/common/category_selection/category_selection_page.dart';
+import 'package:onlinebozor/presentation/features/common/currency_selection/currency_selection_page.dart';
 import 'package:onlinebozor/presentation/features/common/favorites/favorite_list_page.dart';
 import 'package:onlinebozor/presentation/features/common/favorites/features/product/favorite_products_page.dart';
 import 'package:onlinebozor/presentation/features/common/favorites/features/service/favorite_services_page.dart';
@@ -31,18 +32,16 @@ import 'package:onlinebozor/presentation/features/common/image_viewer/locale_ima
 import 'package:onlinebozor/presentation/features/common/intro/intro_page.dart';
 import 'package:onlinebozor/presentation/features/common/language/change_language/change_language_page.dart';
 import 'package:onlinebozor/presentation/features/common/language/set_language/set_language_page.dart';
+import 'package:onlinebozor/presentation/features/common/nested_category_selection/nested_category_selection_page.dart';
 import 'package:onlinebozor/presentation/features/common/notification/notification_list_page.dart';
+import 'package:onlinebozor/presentation/features/common/payment_type_selection/payment_type_selection_page.dart';
 import 'package:onlinebozor/presentation/features/common/popular_categories/popular_categories_page.dart';
+import 'package:onlinebozor/presentation/features/common/region_and_district_selection/region_and_district_selection_page.dart';
 import 'package:onlinebozor/presentation/features/common/report/submit_report_page.dart';
 import 'package:onlinebozor/presentation/features/common/search/search_page.dart';
-import 'package:onlinebozor/presentation/features/common/selection_category/selection_category_page.dart';
-import 'package:onlinebozor/presentation/features/common/selection_currency/selection_currency_page.dart';
-import 'package:onlinebozor/presentation/features/common/selection_nested_category/selection_nested_category_page.dart';
-import 'package:onlinebozor/presentation/features/common/selection_payment_type/selection_payment_type_page.dart';
-import 'package:onlinebozor/presentation/features/common/selection_region_and_district/selection_region_and_district_page.dart';
-import 'package:onlinebozor/presentation/features/common/selection_unit/selection_unit_page.dart';
-import 'package:onlinebozor/presentation/features/common/selection_user_address/selection_user_address_page.dart';
-import 'package:onlinebozor/presentation/features/common/selection_user_warehouse/selection_user_warehouse_page.dart';
+import 'package:onlinebozor/presentation/features/common/unit_selection/unit_selection_page.dart';
+import 'package:onlinebozor/presentation/features/common/user_address_selection/user_address_selection_page.dart';
+import 'package:onlinebozor/presentation/features/common/user_warehouse_selection/user_warehouse_selection_page.dart';
 import 'package:onlinebozor/presentation/features/creation/create_ad_result/create_ad_result_page.dart';
 import 'package:onlinebozor/presentation/features/creation/create_ad_start/create_ad_start_page.dart';
 import 'package:onlinebozor/presentation/features/creation/create_order/create_order_page.dart';
@@ -55,11 +54,11 @@ import 'package:onlinebozor/presentation/features/home/features/category/categor
 import 'package:onlinebozor/presentation/features/home/features/category/features/sub_category_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/create_ad_chooser/create_ad_chooser_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/dashboard/dashboard_page.dart';
-import 'package:onlinebozor/presentation/features/home/features/profile/features/chat_list/chat_list_page.dart';
-import 'package:onlinebozor/presentation/features/home/features/profile/features/chat_list/features/buying_chats/buying_chats_page.dart';
-import 'package:onlinebozor/presentation/features/home/features/profile/features/chat_list/features/chat/chat_page.dart';
-import 'package:onlinebozor/presentation/features/home/features/profile/features/chat_list/features/saved_chats/saved_chats_page.dart';
-import 'package:onlinebozor/presentation/features/home/features/profile/features/chat_list/features/selling_chats/selling_chats_page.dart';
+import 'package:onlinebozor/presentation/features/home/features/profile/features/chats/chats_page.dart';
+import 'package:onlinebozor/presentation/features/home/features/profile/features/chats/features/buying_chats/buying_chats_page.dart';
+import 'package:onlinebozor/presentation/features/home/features/profile/features/chats/features/chat/chat_page.dart';
+import 'package:onlinebozor/presentation/features/home/features/profile/features/chats/features/saved_chats/saved_chats_page.dart';
+import 'package:onlinebozor/presentation/features/home/features/profile/features/chats/features/selling_chats/selling_chats_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/comparison_detail/comparision_detail_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/payment_transaction/features/payment_transaction_filter/payment_transaction_filter_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/payment_transaction/payment_transaction_page.dart';
@@ -68,14 +67,14 @@ import 'package:onlinebozor/presentation/features/home/features/profile/features
 import 'package:onlinebozor/presentation/features/home/features/profile/features/profile_view/profile_view_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/promotion/promotion_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/settings/features/notification_settings/notification_settings_page.dart';
-import 'package:onlinebozor/presentation/features/home/features/profile/features/settings/features/user_active_device/user_action_sessions_page.dart';
+import 'package:onlinebozor/presentation/features/home/features/profile/features/settings/features/user_active_device/user_active_sessions_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/settings/features/user_social_network/user_social_accounts_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/settings/settings_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_address/user_addresses_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_ads/features/ad_list/user_ad_list_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_ads/user_ads_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_cards/features/add_card/add_card_page.dart';
-import 'package:onlinebozor/presentation/features/home/features/profile/features/user_cards/user_card_list_page.dart';
+import 'package:onlinebozor/presentation/features/home/features/profile/features/user_cards/user_cards_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_order_type/user_order_type_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_orders/features/user_order_cancel/user_order_cancel_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_orders/features/user_order_info/user_order_info_page.dart';
@@ -90,7 +89,6 @@ import '../../domain/models/ad/ad_transaction_type.dart';
 import '../../domain/models/ad/ad_type.dart';
 import '../../domain/models/ad/user_ad.dart';
 import '../../domain/models/ad/user_ad_status.dart';
-import '../../domain/models/currency/currency_code.dart';
 import '../../domain/models/district/district.dart';
 import '../../domain/models/image/uploadable_file.dart';
 import '../../domain/models/order/order_type.dart';
@@ -281,7 +279,7 @@ class AppRouter extends _$AppRouter {
         /// ad list actions
         AutoRoute(page: AdListActionsRoute.page, path: '/ad_list_actions'),
 
-        AutoRoute(page: UserCardListRoute.page, path: '/user_card_list'),
+        AutoRoute(page: UserCardsRoute.page, path: '/user_card_list'),
 
         /// user orders
         AutoRoute(page: AddCardRoute.page, path: '/add_card'),
@@ -298,8 +296,8 @@ class AppRouter extends _$AppRouter {
 
         /// user chat lists
         AutoRoute(
-          page: ChatListRoute.page,
-          path: '/chat_list',
+          page: ChatsRoute.page,
+          path: '/chats',
           children: [
             AutoRoute(page: SellingChatsRoute.page, path: 'selling'),
             AutoRoute(page: BuyingChatsRoute.page, path: 'buying'),
@@ -353,38 +351,38 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: ChangeLanguageRoute.page, path: '/change_language'),
 
         AutoRoute(
-          page: SelectionNestedCategoryRoute.page,
-          path: '/selection_nested_category',
+          page: NestedCategorySelectionRoute.page,
+          path: '/nested_category_selection',
         ),
 
         AutoRoute(
-          page: SelectionCategoryRoute.page,
-          path: '/selection_category',
+          page: CategorySelectionRoute.page,
+          path: '/category_selection',
         ),
 
         AutoRoute(
-          page: SelectionPaymentTypeRoute.page,
-          path: '/selection_payment_type',
+          page: PaymentTypeSelectionRoute.page,
+          path: '/payment_type_selection',
         ),
 
         AutoRoute(
-          page: SelectionUserAddressRoute.page,
-          path: '/selection_user_address',
+          page: UserActiveSessionsRoute.page,
+          path: '/user_address_selection',
         ),
 
         AutoRoute(
-          page: SelectionRegionAndDistrictRoute.page,
-          path: '/selection_region_and_district',
+          page: RegionAndDistrictSelectionRoute.page,
+          path: '/region_and_district_selection',
         ),
 
         AutoRoute(
-          page: SelectionUserWarehouseRoute.page,
-          path: '/selection_user_warehouse',
+          page: UserWarehouseSelectionRoute.page,
+          path: '/user_warehouse_selection',
         ),
 
         AutoRoute(
-          page: SelectionUnitRoute.page,
-          path: '/selection_unit',
+          page: UnitSelectionRoute.page,
+          path: '/unit_selection',
         ),
 
         AutoRoute(

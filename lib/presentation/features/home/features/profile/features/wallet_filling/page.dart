@@ -4,7 +4,7 @@ import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/wallet_filling_cubit.dart';
 
 @RoutePage()
 class WalletFillingPage extends BasePage<PageCubit, PageState, PageEvent> {

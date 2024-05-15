@@ -10,7 +10,7 @@ import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
 import 'package:onlinebozor/presentation/widgets/action/action_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/ad_list_actions_cubit.dart';
 
 @RoutePage()
 class AdListActionsPage extends BasePage<PageCubit, PageState, PageEvent> {

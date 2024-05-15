@@ -12,7 +12,7 @@ import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/user_ad_detail_cubit.dart';
 
 @RoutePage()
 class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {

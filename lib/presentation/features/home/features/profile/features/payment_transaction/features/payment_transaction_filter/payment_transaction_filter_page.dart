@@ -16,7 +16,7 @@ import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.d
 import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/presentation/widgets/transaction/transaction_widget.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/payment_transaction_filter_cubit.dart';
 
 @RoutePage()
 class PaymentTransactionFilterPage

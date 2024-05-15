@@ -12,7 +12,7 @@ import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_outlined_button.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/set_language_cubit.dart';
 
 @RoutePage()
 class SetLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {

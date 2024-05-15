@@ -12,7 +12,7 @@ import 'package:onlinebozor/presentation/widgets/category/category_widget.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/category_cubit.dart';
 
 @RoutePage()
 class CategoryPage extends BasePage<PageCubit, PageState, PageEvent> {

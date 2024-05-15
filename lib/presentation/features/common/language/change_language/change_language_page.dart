@@ -11,7 +11,7 @@ import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_outlined_button.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/change_language_cubit.dart';
 
 @RoutePage()
 class ChangeLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {

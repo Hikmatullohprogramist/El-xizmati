@@ -13,7 +13,7 @@ import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.d
 import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/user_order_info_cubit.dart';
 
 @RoutePage()
 class UserOrderInfoPage extends BasePage<PageCubit, PageState, PageEvent> {

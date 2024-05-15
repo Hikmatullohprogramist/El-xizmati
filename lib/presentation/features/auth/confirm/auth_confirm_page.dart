@@ -12,7 +12,7 @@ import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.d
 import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_field.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/auth_confirm_cubit.dart';
 
 @RoutePage()
 class AuthConfirmPage extends BasePage<PageCubit, PageState, PageEvent> {

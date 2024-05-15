@@ -8,7 +8,7 @@ import 'package:onlinebozor/domain/models/order/order_type.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/user_order_type_cubit.dart';
 
 @RoutePage()
 class UserOrderTypePage extends BasePage<PageCubit, PageState, PageEvent> {

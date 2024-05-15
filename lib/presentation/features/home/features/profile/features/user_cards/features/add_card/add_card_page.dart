@@ -14,7 +14,7 @@ import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart'
 import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_field.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/add_card_cubit.dart';
 
 @RoutePage()
 class AddCardPage extends BasePage<PageCubit, PageState, PageEvent> {

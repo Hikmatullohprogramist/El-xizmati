@@ -1,5 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/presentation/features/common/currency_selection/currency_selection_page.dart';
+import 'package:onlinebozor/presentation/features/common/payment_type_selection/payment_type_selection_page.dart';
+import 'package:onlinebozor/presentation/features/common/region_and_district_selection/region_and_district_selection_page.dart';
+import 'package:onlinebozor/presentation/features/common/user_address_selection/user_address_selection_page.dart';
 import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
@@ -10,10 +14,6 @@ import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dar
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
-import 'package:onlinebozor/presentation/features/common/selection_currency/selection_currency_page.dart';
-import 'package:onlinebozor/presentation/features/common/selection_payment_type/selection_payment_type_page.dart';
-import 'package:onlinebozor/presentation/features/common/selection_region_and_district/selection_region_and_district_page.dart';
-import 'package:onlinebozor/presentation/features/common/selection_user_address/selection_user_address_page.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
 import 'package:onlinebozor/presentation/widgets/ad/image_list/ad_image_list_widget.dart';
@@ -33,7 +33,7 @@ import 'package:onlinebozor/presentation/widgets/loading/default_loading_widget.
 import 'package:onlinebozor/presentation/widgets/switch/custom_switch.dart';
 import 'package:onlinebozor/presentation/widgets/switch/custom_toggle.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/create_service_ad_cubit.dart';
 
 @RoutePage()
 class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
@@ -171,7 +171,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
             validator: (value) => NotEmptyValidator.validate(value),
             onTap: () {
               context.router.push(
-                SelectionNestedCategoryRoute(
+                NestedCategorySelectionRoute(
                   adType: AdType.SERVICE,
                   onResult: (category) {
                     cubit(context).setSelectedCategory(category);
@@ -364,7 +364,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                               isScrollControlled: true,
                               useSafeArea: true,
                               backgroundColor: Colors.transparent,
-                              builder: (context) => SelectionCurrencyPage(
+                              builder: (context) => CurrencySelectionPage(
                                 initialSelectedItem: state.currency,
                               ),
                             );
@@ -429,7 +429,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                     isScrollControlled: true,
                     useSafeArea: true,
                     backgroundColor: Colors.transparent,
-                    builder: (context) => SelectionPaymentTypePage(
+                    builder: (context) => PaymentTypeSelectionPage(
                       selectedPaymentTypes: state.paymentTypes,
                     ),
                   );
@@ -511,7 +511,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 isScrollControlled: true,
                 useSafeArea: true,
                 backgroundColor: Colors.transparent,
-                builder: (context) => SelectionUserAddressPage(
+                builder: (context) => UserAddressSelectionPage(
                   selectedAddress: state.address,
                 ),
               );
@@ -721,7 +721,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
       isScrollControlled: true,
       useSafeArea: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => SelectionRegionAndDistrictPage(
+      builder: (context) => RegionAndDistrictSelectionPage(
         initialSelectedDistricts: state.serviceDistricts,
       ),
     );

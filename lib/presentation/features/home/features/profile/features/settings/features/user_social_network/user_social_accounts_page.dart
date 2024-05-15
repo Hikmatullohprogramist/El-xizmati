@@ -5,7 +5,7 @@ import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/user_social_accounts_cubit.dart';
 
 @RoutePage()
 class UserSocialAccountsPage extends BasePage<PageCubit, PageState, PageEvent> {

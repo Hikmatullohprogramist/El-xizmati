@@ -22,7 +22,7 @@ import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.d
 import 'package:onlinebozor/presentation/widgets/button/custom_outlined_button.dart';
 import 'package:onlinebozor/presentation/widgets/camera/camera_selfi_painter.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/face_id_identity_cubit.dart';
 
 @RoutePage()
 class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {

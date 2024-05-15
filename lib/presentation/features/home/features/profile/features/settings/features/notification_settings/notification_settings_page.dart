@@ -8,7 +8,7 @@ import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/notification_settings_cubit.dart';
 
 @RoutePage()
 class NotificationSettingsPage

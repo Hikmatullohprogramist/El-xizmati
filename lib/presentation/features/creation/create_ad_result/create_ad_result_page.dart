@@ -11,7 +11,7 @@ import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/create_ad_result_cubit.dart';
 
 @RoutePage()
 class CreateAdResultPage extends BasePage<PageCubit, PageState, PageEvent> {

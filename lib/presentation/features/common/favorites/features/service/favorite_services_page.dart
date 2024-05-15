@@ -1,19 +1,19 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:onlinebozor/core/extensions/text_extensions.dart';
+import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/domain/models/ad/ad.dart';
+import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/widgets/ad/vertical/vertical_ad_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/ad/vertical/vertical_ad_widget.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
+import 'package:onlinebozor/presentation/widgets/favorite/favorite_empty_widget.dart';
 
-import '../../../../../../core/gen/localization/strings.dart';
-import '../../../../../../domain/models/ad/ad.dart';
-import '../../../../../../presentation/widgets/favorite/favorite_empty_widget.dart';
-import 'cubit/page_cubit.dart';
+import 'cubit/favorite_services_cubit.dart';
 
 @RoutePage()
 class FavoriteServicesPage extends BasePage<PageCubit, PageState, PageEvent> {

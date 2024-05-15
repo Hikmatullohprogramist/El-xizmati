@@ -1,12 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
+import 'package:onlinebozor/presentation/features/common/add_address/cubit/add_address_cubit.dart';
+import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
+import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/presentation/widgets/action/selection_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
@@ -15,12 +16,11 @@ import 'package:onlinebozor/presentation/widgets/form_field/custom_dropdown_form
 import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_field.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/label_text_field.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/validator/default_validator.dart';
-
-import '../../../../../../../../presentation/widgets/switch/custom_switch.dart';
-import 'cubit/page_cubit.dart';
+import 'package:onlinebozor/presentation/widgets/switch/custom_switch.dart';
 
 @RoutePage()
-class AddAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
+class AddAddressPage
+    extends BasePage<AddAddressCubit, AddAddressState, AddAddressEvent> {
   AddAddressPage({super.key, this.address});
 
   final UserAddress? address;
@@ -34,9 +34,9 @@ class AddAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   @override
-  void onEventEmitted(BuildContext context, PageEvent event) {
+  void onEventEmitted(BuildContext context, AddAddressEvent event) {
     switch (event.type) {
-      case PageEventType.backOnSuccess:
+      case AddAddressEventType.backOnSuccess:
         context.router.pop(true);
     }
   }
@@ -47,7 +47,7 @@ class AddAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
   TextEditingController streetController = TextEditingController();
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, AddAddressState state) {
     addressController.updateOnRestore(state.addressName);
     apartmentNumberController.updateOnRestore(state.apartmentNum);
     homeNumberController.updateOnRestore(state.homeNumber);
@@ -108,7 +108,7 @@ class AddAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildRegionBlock(BuildContext context, PageState state) {
+  Widget _buildRegionBlock(BuildContext context, AddAddressState state) {
     return Container(
       color: context.primaryContainer,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
@@ -151,7 +151,7 @@ class AddAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildAdditionalInfo(BuildContext context, PageState state) {
+  Widget _buildAdditionalInfo(BuildContext context, AddAddressState state) {
     return Container(
       color: context.primaryContainer,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
@@ -221,7 +221,7 @@ class AddAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildLocationBlock(BuildContext context, PageState state) {
+  Widget _buildLocationBlock(BuildContext context, AddAddressState state) {
     return Container(
       color: context.primaryContainer,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
@@ -246,7 +246,7 @@ class AddAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  _buildFooterBlock(BuildContext context, PageState state) {
+  _buildFooterBlock(BuildContext context, AddAddressState state) {
     return Container(
       color: context.primaryContainer,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
@@ -288,7 +288,7 @@ class AddAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   /// show bottom sheets
 
-  _showRegionSelection(BuildContext context, PageState state) {
+  _showRegionSelection(BuildContext context, AddAddressState state) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -324,7 +324,7 @@ class AddAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  _showDistrictSelection(BuildContext context, PageState state) {
+  _showDistrictSelection(BuildContext context, AddAddressState state) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -360,7 +360,7 @@ class AddAddressPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  _showNeighborhoodSelection(BuildContext context, PageState state) {
+  _showNeighborhoodSelection(BuildContext context, AddAddressState state) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,

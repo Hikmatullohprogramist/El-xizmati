@@ -21,7 +21,7 @@ import 'package:onlinebozor/presentation/widgets/transaction/transaction_empty_w
 import 'package:onlinebozor/presentation/widgets/transaction/transaction_widget.dart';
 import 'package:onlinebozor/presentation/widgets/transaction/transaction_widget_shimmer.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/payment_transaction_cubit.dart';
 
 @RoutePage()
 class PaymentTransactionPage extends BasePage<PageCubit, PageState, PageEvent> {

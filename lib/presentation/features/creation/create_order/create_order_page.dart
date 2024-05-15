@@ -22,7 +22,7 @@ import 'package:onlinebozor/presentation/widgets/form_field/validator/default_va
 import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
 import 'package:onlinebozor/presentation/widgets/order/create_order_shimmer.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/create_order_cubit.dart';
 
 @RoutePage()
 class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {

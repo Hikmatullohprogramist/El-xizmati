@@ -14,7 +14,7 @@ import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.d
 import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_field.dart';
 import 'package:onlinebozor/presentation/widgets/switch/custom_toggle.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/face_id_cubit.dart';
 
 @RoutePage()
 class FaceIdValidatePage extends BasePage<PageCubit, PageState, PageEvent> {

@@ -8,7 +8,7 @@ import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/widgets/profile/profile_item_widget.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/settings_cubit.dart';
 
 @RoutePage()
 class SettingPage extends BasePage<PageCubit, PageState, PageEvent> {

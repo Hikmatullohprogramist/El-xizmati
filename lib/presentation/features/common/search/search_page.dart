@@ -8,7 +8,7 @@ import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/search_cubit.dart';
 
 @RoutePage()
 class SearchPage extends BasePage<PageCubit, PageState, PageEvent> {

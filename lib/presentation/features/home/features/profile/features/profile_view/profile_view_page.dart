@@ -28,7 +28,7 @@ import 'package:onlinebozor/presentation/widgets/profile/profil_view_shimmer.dar
 import 'package:onlinebozor/presentation/support/state_message/state_snack_bar_exts.dart';
 import 'package:onlinebozor/presentation/widgets/switch/custom_switch.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/profile_view_cubit.dart';
 
 @RoutePage()
 class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {

@@ -18,7 +18,7 @@ import 'package:onlinebozor/presentation/widgets/dashboard/see_all_widget.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/ad_list_type_cubit.dart';
 
 @RoutePage()
 class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {

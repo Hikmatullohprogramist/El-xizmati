@@ -6,7 +6,7 @@ import 'package:onlinebozor/data/datasource/network/constants/rest_constants.dar
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/auth_with_one_id_cubit.dart';
 
 @RoutePage()
 class AuthWithOneIdPage extends BasePage<PageCubit, PageState, PageEvent> {

@@ -18,7 +18,7 @@ import 'package:onlinebozor/presentation/widgets/form_field/label_text_field.dar
 import 'package:onlinebozor/presentation/widgets/form_field/validator/default_validator.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/validator/email_validator.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/profile_edit_cubit.dart';
 
 @RoutePage()
 class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {

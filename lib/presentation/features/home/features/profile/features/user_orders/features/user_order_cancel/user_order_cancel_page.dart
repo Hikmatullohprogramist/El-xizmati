@@ -13,7 +13,7 @@ import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.d
 import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_field.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/label_text_field.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/user_order_cancel_cubit.dart';
 
 @RoutePage()
 class UserOrderCancelPage extends BasePage<PageCubit, PageState, PageEvent> {

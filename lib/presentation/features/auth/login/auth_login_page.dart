@@ -17,7 +17,7 @@ import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_fie
 import 'package:onlinebozor/presentation/widgets/form_field/label_text_field.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/validator/password_validator.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/auth_login_cubit.dart';
 
 @RoutePage()
 class AuthLoginPage extends BasePage<PageCubit, PageState, PageEvent> {

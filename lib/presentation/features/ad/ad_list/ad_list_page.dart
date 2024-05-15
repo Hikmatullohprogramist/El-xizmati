@@ -19,7 +19,7 @@ import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/ad_list_cubit.dart';
 
 @RoutePage()
 class AdListPage extends BasePage<PageCubit, PageState, PageEvent> {

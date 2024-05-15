@@ -5,7 +5,7 @@ import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/notification_list_cubit.dart';
 
 @RoutePage()
 class NotificationListPage extends BasePage<PageCubit, PageState, PageEvent> {

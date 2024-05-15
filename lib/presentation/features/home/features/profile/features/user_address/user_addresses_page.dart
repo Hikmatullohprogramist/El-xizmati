@@ -17,7 +17,7 @@ import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/user_addresses_cubit.dart';
 
 @RoutePage()
 class UserAddressesPage extends BasePage<PageCubit, PageState, PageEvent> {

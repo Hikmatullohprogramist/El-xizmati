@@ -10,7 +10,7 @@ import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/user_ads_cubit.dart';
 
 @RoutePage()
 class UserAdsPage extends BasePage<PageCubit, PageState, PageEvent> {

@@ -19,7 +19,7 @@ import 'package:onlinebozor/presentation/widgets/loading/default_empty_widget.da
 import 'package:onlinebozor/presentation/widgets/order/user_order_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/order/user_order_widget.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/user_order_list_cubit.dart';
 
 @RoutePage()
 class UserOrderListPage extends BasePage<PageCubit, PageState, PageEvent> {

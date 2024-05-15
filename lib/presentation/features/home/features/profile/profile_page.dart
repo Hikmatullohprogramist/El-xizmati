@@ -17,7 +17,7 @@ import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.d
 import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/presentation/widgets/profile/profile_item_widget.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/profile_cubit.dart';
 
 @RoutePage()
 class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
@@ -164,7 +164,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
               name: Strings.profileMyCard,
               icon: Assets.images.icCard,
               onClicked: () {
-                context.router.push(UserCardListRoute());
+                context.router.push(UserCardsRoute());
                 vibrateAsHapticFeedback();
               },
             ),

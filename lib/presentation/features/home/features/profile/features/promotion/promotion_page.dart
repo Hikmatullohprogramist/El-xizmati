@@ -2,7 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/promotion_cubit.dart';
 
 @RoutePage()
 class PromotionPage extends BasePage<PageCubit, PageState, PageEvent> {

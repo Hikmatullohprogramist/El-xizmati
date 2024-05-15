@@ -13,7 +13,7 @@ import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.d
 import 'package:onlinebozor/presentation/widgets/category/popular_category_vertical.dart';
 import 'package:onlinebozor/presentation/widgets/category/popular_category_vertical_shimmer.dart';
 
-import 'cubit/page_cubit.dart';
+import 'cubit/popular_categories_cubit.dart';
 
 @RoutePage()
 class PopularCategoriesPage extends BasePage<PageCubit, PageState, PageEvent> {
