@@ -296,7 +296,7 @@ class AddAddressPage
         return Container(
           height: double.infinity,
           decoration: BoxDecoration(
-            color: context.bottomNavigationColor,
+            color: context.bottomSheetColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
@@ -332,7 +332,7 @@ class AddAddressPage
         return Container(
           height: double.infinity,
           decoration: BoxDecoration(
-            color: context.bottomNavigationColor,
+            color: context.bottomSheetColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
@@ -368,7 +368,7 @@ class AddAddressPage
         return Container(
           height: double.infinity,
           decoration: BoxDecoration(
-            color: context.bottomNavigationColor,
+            color: context.bottomSheetColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
