@@ -86,7 +86,7 @@ Future<void> main() async {
   await getDeviceAndAppInfo();
 
   var stateRepository = GetIt.instance<StateRepository>();
-  var isLanguageSelection = stateRepository.isLanguageSelection();
+  var isLanguageSelected = stateRepository.isLanguageSelection();
   var isUserLoggedIn = stateRepository.isUserLoggedIn();
 
   runApp(
@@ -96,7 +96,7 @@ Future<void> main() async {
       fallbackLocale: Strings.supportedLocales.first,
       assetLoader: CsvAssetLoader(),
       child: MyApp(
-        isLanguageSelection: isLanguageSelection,
+        isLanguageSelected: isLanguageSelected,
         isLogin: isUserLoggedIn,
       ),
     ),
@@ -108,9 +108,9 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key, required this.isLanguageSelection, required this.isLogin});
+  MyApp({super.key, required this.isLanguageSelected, required this.isLogin});
 
-  final bool isLanguageSelection;
+  final bool isLanguageSelected;
   final bool isLogin;
 
   final _appRouter = AppRouter();

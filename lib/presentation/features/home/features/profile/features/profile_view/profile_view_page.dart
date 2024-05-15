@@ -44,14 +44,6 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
     switch (event.type) {
       case PageEventType.onLogout:
         context.router.replace(AuthStartRoute());
-      // case PageEventType.onSuccessUpdateNotification:
-      //   context.showSuccessSnackBar(Strings.messageChangesSavingSuccess);
-      // case PageEventType.onFailedUpdateNotification:
-      //   _showErrorBottomSheet(context);
-      // case PageEventType.onSuccessUpdateSocial:
-      //   context.showSuccessSnackBar(Strings.messageChangesSavingSuccess);
-      // case PageEventType.onFailedUpdateSocial:
-      //   _showErrorBottomSheet(context);
     }
   }
 
