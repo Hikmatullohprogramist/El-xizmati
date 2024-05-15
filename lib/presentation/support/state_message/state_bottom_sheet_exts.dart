@@ -18,7 +18,7 @@ extension StateBottomSheetExts on BuildContext {
       builder: (BuildContext bc) {
         return Container(
           decoration: BoxDecoration(
-            color: primaryContainer,
+            color: bottomSheetColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),

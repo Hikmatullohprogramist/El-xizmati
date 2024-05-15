@@ -47,7 +47,7 @@ class AdListActionsPage extends BasePage<PageCubit, PageState, PageEvent> {
           topRight: Radius.circular(20),
         ),
         child: Container(
-          color: context.bottomNavigationColor,
+          color: context.bottomSheetColor,
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Column(

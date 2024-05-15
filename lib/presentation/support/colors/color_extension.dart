@@ -12,7 +12,9 @@ extension ColorExtension on BuildContext {
 
   ColorScheme get colorScheme => Theme.of(this).colorScheme;
 
-  Color get backgroundColor => Theme.of(this).colorScheme.background;
+  Color get backgroundColor => Theme.of(this).colorScheme.secondary;
+
+  Color get bottomSheetColor => Theme.of(this).colorScheme.surface;
 
   Color get bottomNavigationColor => Theme.of(this).colorScheme.background;
 
@@ -20,13 +22,7 @@ extension ColorExtension on BuildContext {
 
   Color get bottomBarColor => Theme.of(this).colorScheme.background;
 
-  Color get primaryContainer => Theme.of(this).colorScheme.primaryContainer;
+  Color get primaryContainer => Theme.of(this).colorScheme.surface;
 
   Color get primaryContainerStrokeColor => Theme.of(this).cardColor;
-
-  Color get primaryColor => Theme.of(this).primaryColor;
-
-  Color get primaryColorDark => Theme.of(this).primaryColorDark;
-
-  Color get primaryColorLight => Theme.of(this).primaryColorLight;
 }

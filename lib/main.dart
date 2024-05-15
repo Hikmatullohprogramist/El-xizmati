@@ -137,14 +137,18 @@ class MyApp extends StatelessWidget {
               colorScheme: _getLightModeColorScheme(),
             ),
             darkTheme: ThemeData(
+              fontFamily: 'Inter',
               useMaterial3: false,
               brightness: Brightness.dark,
               colorScheme: _getDarkModeColorScheme(),
             ),
             themeMode: themeMode,
-            routerConfig: _appRouter.config(initialRoutes: [
-              if (isLanguageSelection) HomeRoute() else SetLanguageRoute()
-            ], navigatorObservers: () => [ChuckerFlutter.navigatorObserver]),
+            routerConfig: _appRouter.config(
+              initialRoutes: [
+                if (isLanguageSelected) HomeRoute() else SetLanguageRoute()
+              ],
+              navigatorObservers: () => [ChuckerFlutter.navigatorObserver],
+            ),
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,
@@ -163,40 +167,70 @@ class MyApp extends StatelessWidget {
   ColorScheme _getLightModeColorScheme() {
     return ColorScheme(
       brightness: Brightness.light,
+      // The overall brightness of the theme
       primary: Color(0xFF5C6AC4),
+      // Project main color, used for primary elements like app bar, buttons
       onPrimary: Color(0xFFFFFFFF),
-      secondary: Color(0xFF0096B2),
-      onSecondary: Color(0xFFFFFFFF),
+      // Color used for text/icons on primary elements
+      secondary: Color(0xFFFFFFFF),
+      // Project light mode background color, used for accents
+      onSecondary: Color(0xFF41455F),
+      // Color used for text/icons on secondary elements
       primaryContainer: Color(0xFFDFE2E9),
+      // A lighter variant of primary, for container backgrounds
       onPrimaryContainer: Color(0xFF000000),
-      secondaryContainer: Color(0xFFDFE2E9),
+      // Color used for text/icons on primary container
+      secondaryContainer: Color(0xFFB3E5FC),
+      // A lighter variant of secondary, for container backgrounds
       onSecondaryContainer: Color(0xFF000000),
+      // Color used for text/icons on secondary container
       error: Color(0xFFB00020),
+      // Color used for error elements like form errors
       onError: Color(0xFFFFFFFF),
-      background: Color(0xFFF2F4FB),
+      // Color used for text/icons on error elements
+      background: Color(0xFFFFFFFF),
+      // General background color for the app
       onBackground: Color(0xFF000000),
-      surface: Color(0xFFFFFFFF),
+      // Color used for text/icons on background
+      surface: Color(0xFFF3F3F3),
+      // Color used for surfaces like cards, sheets, etc.
       onSurface: Color(0xFF000000),
+      // Color used for text/icons on surfaces
     );
   }
 
   ColorScheme _getDarkModeColorScheme() {
     return ColorScheme(
       brightness: Brightness.dark,
+      // The overall brightness of the theme
       primary: Color(0xFF5C6AC4),
+      // Project main color, used for primary elements like app bar, buttons
       onPrimary: Color(0xFFDFE2E9),
-      secondary: Color(0xFF007B92),
-      onSecondary: Color(0xFFDFE2E9),
+      // Color used for text/icons on primary elements
+      secondary: Color(0xFF000000),
+      // Project light mode background color, used for accents
+      onSecondary: Color(0xFF41455F),
+      // Color used for text/icons on secondary elements
       primaryContainer: Color(0xAB121212),
+      // A lighter variant of primary, for container backgrounds
       onPrimaryContainer: Color(0xFFDFE2E9),
+      // Color used for text/icons on primary container
       secondaryContainer: Color(0xFF404A80),
+      // A lighter variant of secondary, for container backgrounds
       onSecondaryContainer: Color(0xFFDFE2E9),
+      // Color used for text/icons on secondary container
       error: Color(0xFFCF6679),
+      // Color used for error elements like form errors
       onError: Color(0xFF000000),
+      // Color used for text/icons on error elements
       background: Color(0xFF121212),
+      // General background color for the app
       onBackground: Color(0xFFE0E0E0),
+      // Color used for text/icons on background
       surface: Color(0xFF333333),
+      // Color used for surfaces like cards, sheets, etc.
       onSurface: Color(0xFFE0E0E0),
+      // Color used for text/icons on surfaces
     );
   }
 
