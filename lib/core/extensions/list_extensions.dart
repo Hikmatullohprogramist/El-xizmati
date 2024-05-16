@@ -31,6 +31,10 @@ extension ListExtensions<T> on List<T> {
     return where(condition).toList();
   }
 
+  // List<T> sortIf(bool Function(T element) condition) {
+  //   return ;
+  // }
+
   List<T> notContainsItems(List<T> other) {
     var setA = Set<T>.from(this);
     var setB = Set<T>.from(other);

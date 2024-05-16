@@ -22,7 +22,7 @@ class ActionAppBar extends AppBar implements PreferredSizeWidget {
           elevation: 0.5,
           centerTitle: true,
           toolbarHeight: 64,
-          title: titleText.w(500).c(Color(0xFF41455E)).s(16),
+          title: titleText.w(500).s(16),
           leading: IconButton(
             onPressed: onBackPressed,
             icon: Assets.images.icArrowLeft.svg(),

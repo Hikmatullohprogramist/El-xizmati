@@ -6,11 +6,14 @@ class PageState with _$PageState {
     int? adId,
     AdDetail? adDetail,
     @Default(false) bool favorite,
+//
     @Default(1) int paymentId,
     @Default(<int>[]) List<int> paymentType,
     @Default(1) int count,
     @Default(false) bool hasRangePrice,
     int? price,
+//
+    @Default(false) bool isRequestSending,
   }) = _PageState;
 }
 
@@ -24,5 +27,5 @@ enum PageEventType {
   onOpenAfterCreation,
   onOpenAuthStart,
   onFailedOrderCreation,
-  onFailedIdentityNotVerified,
+  // onFailedIdentityNotVerified,
 }

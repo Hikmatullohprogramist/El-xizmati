@@ -48,10 +48,10 @@ class CreateRequestStartPage extends BasePage<PageCubit, PageState, PageEvent> {
         child: Container(
           margin: EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
           decoration: BoxDecoration(
-            color: context.primaryContainer,
+            color: context.cardColor,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-                color: context.primaryContainerStrokeColor, width: 1),
+                color: context.cardStrokeColor, width: 1),
           ),
           child: SizedBox(
             width: double.infinity,

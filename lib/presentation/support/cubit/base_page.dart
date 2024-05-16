@@ -128,7 +128,7 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
       builder: (BuildContext bc) {
         return Container(
           decoration: BoxDecoration(
-            color: context.primaryContainer,
+            color: context.bottomSheetColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),

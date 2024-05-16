@@ -102,7 +102,7 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
                     TextSpan(
                       text: Strings.authPricePoliceStart,
                       style: TextStyle(
-                          color: Color(0xFF9EABBE),
+                          color: context.colors.textSecondary,
                           fontSize: 12,
                           fontWeight: FontWeight.w400),
                     ),
@@ -120,7 +120,7 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
                     TextSpan(
                       text: Strings.authPricePoliceEnd,
                       style: TextStyle(
-                          color: Color(0xFF9EABBE),
+                          color: context.colors.textSecondary,
                           fontSize: 12,
                           fontWeight: FontWeight.w400),
                     ),

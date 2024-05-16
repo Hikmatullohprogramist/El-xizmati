@@ -24,9 +24,9 @@ class FavoriteEmptyWidget extends StatelessWidget {
             SizedBox(height: 120),
             Assets.images.pngImages.wishListShopping.image(),
             SizedBox(height: 48),
-            Strings.favoriteEmptyTitle.w(500).s(16).c(Color(0xFF41455E)),
+            Strings.favoriteEmptyTitle.w(500).s(16),
             SizedBox(height: 12),
-            Strings.favoriteEmptyDescription.w(400).s(12).c(Color(0xFF41455E)),
+            Strings.favoriteEmptyDescription.w(400).s(12),
             SizedBox(height: 42),
             CustomElevatedButton(
               backgroundColor: context.colors.buttonPrimary,

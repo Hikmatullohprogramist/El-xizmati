@@ -34,7 +34,6 @@ class HorizontalAdWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Logger().w("horizontal_ad: adId = ${ad.id}, isAddedToCart = ${ad.isAddedToCart}");
     return InkWell(
       onTap: () {
         onItemClicked(ad);

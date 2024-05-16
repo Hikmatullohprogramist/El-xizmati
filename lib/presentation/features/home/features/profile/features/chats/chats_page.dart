@@ -46,7 +46,7 @@ class ChatsPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
               indicatorSize: TabBarIndicatorSize.label,
               labelColor: Color(0xFF5C6AC3),
-              unselectedLabelColor: Color(0xFF9EABBE),
+              unselectedLabelColor: context.colors.textSecondary,
               indicatorColor: context.colors.textPrimary,
               controller: controller,
               tabs: const [

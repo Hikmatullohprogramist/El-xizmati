@@ -53,7 +53,7 @@ class SubmitReportPage extends BasePage<PageCubit, PageState, PageEvent> {
           alignment: Alignment.bottomCenter,
           children: [
             Container(
-              color: context.primaryContainer,
+              color: context.cardColor,
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
                 child: Column(

@@ -88,7 +88,7 @@ class AddAddressPage
 
   Widget _buildAddressNameBlock(BuildContext context) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Column(
         children: [
@@ -110,7 +110,7 @@ class AddAddressPage
 
   Widget _buildRegionBlock(BuildContext context, AddAddressState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Column(
         children: [
@@ -153,7 +153,7 @@ class AddAddressPage
 
   Widget _buildAdditionalInfo(BuildContext context, AddAddressState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -223,7 +223,7 @@ class AddAddressPage
 
   Widget _buildLocationBlock(BuildContext context, AddAddressState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -248,7 +248,7 @@ class AddAddressPage
 
   _buildFooterBlock(BuildContext context, AddAddressState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Column(
         children: [

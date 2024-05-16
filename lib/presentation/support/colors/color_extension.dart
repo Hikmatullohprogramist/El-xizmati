@@ -22,7 +22,7 @@ extension ColorExtension on BuildContext {
 
   Color get bottomBarColor => Theme.of(this).colorScheme.background;
 
-  Color get primaryContainer => Theme.of(this).colorScheme.surface;
+  Color get cardColor => Theme.of(this).colorScheme.surface;
 
-  Color get primaryContainerStrokeColor => Theme.of(this).cardColor;
+  Color get cardStrokeColor => Theme.of(this).cardColor;
 }

@@ -38,6 +38,10 @@ class StateRepository {
     return _tokenStorage.isUserLoggedIn;
   }
 
+  bool isNotAuthorized() {
+    return !_tokenStorage.isUserLoggedIn;
+  }
+
   Future<void> clear() async {
     await _tokenStorage.clear();
   }

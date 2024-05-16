@@ -142,7 +142,7 @@ class NotificationSettingsPage
                       overflow: TextOverflow.ellipsis,
                       fontWeight: FontWeight.w400,
                       fontSize: 12,
-                      color: Color(0xFF9EABBE))),
+                      color: context.colors.textSecondary)),
               WidgetSpan(
                   child: SizedBox(
                 width: 5,

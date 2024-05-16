@@ -24,7 +24,7 @@ class ProfileItemWidget extends StatelessWidget {
       child: InkWell(
           onTap: () => onClicked(),
           child: Container(
-            color: context.primaryContainer,
+            color: context.cardColor,
             padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

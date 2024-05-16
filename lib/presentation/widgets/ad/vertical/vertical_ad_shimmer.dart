@@ -20,7 +20,7 @@ class VerticalAdShimmer extends StatelessWidget {
             highlightColor: StaticColors.shimmerHighLightColor,
             child: Container(
               decoration: BoxDecoration(
-                color: context.primaryContainer,
+                color: context.cardColor,
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
@@ -34,7 +34,7 @@ class VerticalAdShimmer extends StatelessWidget {
             width: 120,
             height: 16,
             decoration: BoxDecoration(
-              color: context.primaryContainer,
+              color: context.cardColor,
               borderRadius: BorderRadius.circular(8),
             ),
           ),
@@ -47,7 +47,7 @@ class VerticalAdShimmer extends StatelessWidget {
             height: 16,
             margin: EdgeInsets.only(right: 28),
             decoration: BoxDecoration(
-              color: context.primaryContainer,
+              color: context.cardColor,
               borderRadius: BorderRadius.circular(7),
             ),
           ),
@@ -64,7 +64,7 @@ class VerticalAdShimmer extends StatelessWidget {
                   height: 16,
                   margin: EdgeInsets.only(right: 58),
                   decoration: BoxDecoration(
-                    color: context.primaryContainer,
+                    color: context.cardColor,
                     borderRadius: BorderRadius.circular(7),
                   ),
                 ),
@@ -83,7 +83,7 @@ class VerticalAdShimmer extends StatelessWidget {
                 width: 45,
                 height: 16,
                 decoration: BoxDecoration(
-                  color: context.primaryContainer,
+                  color: context.cardColor,
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
@@ -96,7 +96,7 @@ class VerticalAdShimmer extends StatelessWidget {
                 width: 45,
                 height: 16,
                 decoration: BoxDecoration(
-                  color: context.primaryContainer,
+                  color: context.cardColor,
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),

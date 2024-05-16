@@ -148,7 +148,7 @@ class AuthConfirmPage extends BasePage<PageCubit, PageState, PageEvent> {
                   TextSpan(
                     text: Strings.authPolicyAgree,
                     style: TextStyle(
-                      color: Color(0xFF9EABBE),
+                      color: context.colors.textSecondary,
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
                     ),

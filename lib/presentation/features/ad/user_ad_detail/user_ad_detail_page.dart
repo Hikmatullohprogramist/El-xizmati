@@ -61,7 +61,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildImageList(BuildContext context, PageState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(vertical: 16),
       child: SizedBox(
         height: 100,
@@ -97,7 +97,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildTitleBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -127,7 +127,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildStatsBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -141,7 +141,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
           //     ("${userAd.beginDate ?? ""}-${userAd.endDate ?? ""}")
           //         .w(500)
           //         .s(12)
-          //         .c(Color(0xFF9EABBE)),
+          //         .c(context.colors.textSecondary),
           //   ],
           // ),
           // SizedBox(height: 16),
@@ -153,7 +153,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
           //     ("${userAd.region ?? " "} ${userAd.district ?? ""}")
           //         .w(400)
           //         .s(12)
-          //         .c(Color(0xFF9EABBE))
+          //         .c(context.colors.textSecondary)
           //   ],
           // ),
           // SizedBox(height: 16),

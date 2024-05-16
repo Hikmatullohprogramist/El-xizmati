@@ -210,7 +210,7 @@ class FaceIdValidatePage extends BasePage<PageCubit, PageState, PageEvent> {
                       Assets.images.icCalendar.svg(height: 24, width: 24),
                       SizedBox(width: 10),
                       if (state.birthDate == "dd.mm.yyyy")
-                        state.birthDate.w(500).s(16).c(Color(0xFF9EABBE)),
+                        state.birthDate.w(500).s(16).c(context.colors.textSecondary),
                       if (state.birthDate != "dd.mm.yyyy")
                         state.birthDate.w(400).s(15).c(Colors.black87),
                     ],

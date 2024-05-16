@@ -22,7 +22,7 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Scaffold(
       appBar: EmptyAppBar(
         titleText: "",
-        backgroundColor: context.backgroundColor,
+        backgroundColor: context.appBarColor,
       ),
       backgroundColor: context.backgroundColor,
       body: SingleChildScrollView(
@@ -48,10 +48,10 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
       margin: EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 8),
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: context.primaryContainer,
+        color: context.cardColor,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: context.primaryContainerStrokeColor,
+          color: context.cardStrokeColor,
           width: 1,
         ),
       ),
@@ -70,7 +70,6 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
               child: Strings.adCreationStartSaleDesc
                   .w(500)
                   .s(14)
-                  .c(context.colors.textSecondary)
                   .copyWith(textAlign: TextAlign.center),
             ),
             SizedBox(height: 16),
@@ -110,10 +109,10 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
       margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: context.primaryContainer,
+        color: context.cardColor,
         borderRadius: BorderRadius.circular(16),
         border:
-            Border.all(color: context.primaryContainerStrokeColor, width: 1),
+            Border.all(color: context.cardStrokeColor, width: 1),
       ),
       child: SizedBox(
         width: double.infinity,
@@ -131,7 +130,6 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
             Strings.adCreationStartBuyDesc
                 .w(500)
                 .s(14)
-                .c(context.colors.textSecondary)
                 .copyWith(textAlign: TextAlign.center),
             SizedBox(height: 16),
             Row(
@@ -183,7 +181,6 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
             Strings.authRecommentTitle
                 .w(500)
                 .s(20)
-                .c(Color(0xFF41455E))
                 .copyWith(textAlign: TextAlign.center),
             SizedBox(height: 20),
             Strings.authRecommentDesc

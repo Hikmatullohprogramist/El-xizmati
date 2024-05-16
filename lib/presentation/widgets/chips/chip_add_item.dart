@@ -30,7 +30,7 @@ class ChipAddItem extends StatelessWidget {
             Strings.commonChoose
                 .w(600)
                 .s(13)
-                .c(Color(0xFF5C6AC4))
+                // .c(Color(0xFF5C6AC4))
                 .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
             SizedBox(width: 14),
             InkWell(

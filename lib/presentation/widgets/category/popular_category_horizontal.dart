@@ -28,7 +28,7 @@ class PopularCategoryHorizontal extends StatelessWidget {
         child: Container(
           width: 124,
           decoration: BoxDecoration(
-            color: context.primaryContainer,
+            color: context.cardColor,
             borderRadius: BorderRadius.circular(6),
             // border: Border.all(width: 0.90, color: Color(0xFFE5E9F3)),
           ),

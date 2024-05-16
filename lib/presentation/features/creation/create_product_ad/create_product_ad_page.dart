@@ -164,7 +164,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildTitleAndCategoryBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       child: Column(
         children: [
@@ -221,7 +221,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildImageListBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       child: Column(
         children: [
           AdImageListWidget(
@@ -277,7 +277,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildDescBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -310,7 +310,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     return cubit(context).isFreeAdMode()
         ? SizedBox(height: 0, width: 0)
         : Container(
-            color: context.primaryContainer,
+            color: context.cardColor,
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -447,10 +447,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                     ),
                     SizedBox(width: 16),
                     Expanded(
-                      child: Strings.createAdNegotiableLabel
-                          .w(400)
-                          .s(14)
-                          .c(Color(0xFF41455E)),
+                      child: Strings.createAdNegotiableLabel.w(400).s(14),
                     ),
                   ],
                 ),
@@ -488,13 +485,13 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildAdditionalInfoBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 8),
-          Strings.createAdAdditionalInfoLabel.w(700).s(16).c(Color(0xFF41455E)),
+          Strings.createAdAdditionalInfoLabel.w(700).s(16),
           SizedBox(height: 20),
           LabelTextField(
             Strings.createAdPersonalOrBusinessLabel,
@@ -531,12 +528,12 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     return !cubit(context).isExchangeMode()
         ? SizedBox(height: 0, width: 0)
         : Container(
-            color: context.primaryContainer,
+            color: context.cardColor,
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Strings.createAdExchangeLabel.w(700).s(16).c(Color(0xFF41455E)),
+                Strings.createAdExchangeLabel.w(700).s(16),
                 SizedBox(height: 20),
                 LabelTextField(Strings.createAdNameLabel),
                 SizedBox(height: 6),
@@ -612,13 +609,13 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     PageState state,
   ) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 8),
-          Strings.createAdContactInfoLabel.w(700).s(16).c(Color(0xFF41455E)),
+          Strings.createAdContactInfoLabel.w(700).s(16),
           SizedBox(height: 20),
           LabelTextField(Strings.createAdAddressLabel),
           SizedBox(height: 8),
@@ -700,13 +697,13 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     PageState state,
   ) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 8),
-          Strings.createAdReceiveTypesLabel.w(600).s(16).c(Color(0xFF41455E)),
+          Strings.createAdReceiveTypesLabel.w(600).s(16),
           SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -718,12 +715,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 },
               ),
               SizedBox(width: 16),
-              Expanded(
-                child: Strings.createAdPickupLabel
-                    .w(600)
-                    .s(14)
-                    .c(Color(0xFF41455E)),
-              ),
+              Expanded(child: Strings.createAdPickupLabel.w(600).s(14)),
             ],
           ),
           if (state.isPickupEnabled) SizedBox(height: 24),
@@ -749,7 +741,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     PageState state,
   ) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -765,12 +757,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 },
               ),
               SizedBox(width: 16),
-              Expanded(
-                child: Strings.createAdFreeDeliveryLabel
-                    .w(600)
-                    .s(14)
-                    .c(Color(0xFF41455E)),
-              ),
+              Expanded(child: Strings.createAdFreeDeliveryLabel.w(600).s(14)),
             ],
           ),
           if (state.isFreeDeliveryEnabled) SizedBox(height: 24),
@@ -796,7 +783,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     PageState state,
   ) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -812,12 +799,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 },
               ),
               SizedBox(width: 16),
-              Expanded(
-                child: Strings.createAdPaidDeliveryLabel
-                    .w(600)
-                    .s(14)
-                    .c(Color(0xFF41455E)),
-              ),
+              Expanded(child: Strings.createAdPaidDeliveryLabel.w(600).s(14)),
             ],
           ),
           if (state.isPaidDeliveryEnabled) SizedBox(height: 24),
@@ -860,13 +842,13 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildAutoContinueBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       child: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Strings.createAdAutoRenewLabel.w(600).s(14).c(Color(0xFF41455E)),
+            Strings.createAdAutoRenewLabel.w(600).s(14),
             SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -883,8 +865,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                           ? Strings.createAdAutoRenewOnDesc
                           : Strings.createAdAutoRenewOffDesc)
                       .w(400)
-                      .s(14)
-                      .c(Color(0xFF41455E)),
+                      .s(14),
                 ),
               ],
             ),
@@ -899,13 +880,13 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Column(
       children: [
         Container(
-          color: context.primaryContainer,
+          color: context.cardColor,
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 16),
-              Strings.createAdUsefulLinkLabel.w(600).s(14).c(Color(0xFF41455E)),
+              Strings.createAdUsefulLinkLabel.w(600).s(14),
               SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -918,10 +899,8 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   ),
                   SizedBox(width: 16),
                   Expanded(
-                    child: Strings.createAdShowMySocialAccountsLabel
-                        .w(400)
-                        .s(14)
-                        .c(Color(0xFF41455E)),
+                    child:
+                        Strings.createAdShowMySocialAccountsLabel.w(400).s(14),
                   ),
                 ],
               ),
@@ -935,7 +914,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildFooterBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: EdgeInsets.all(16),
       child: Column(
         children: [

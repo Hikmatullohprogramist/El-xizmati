@@ -30,7 +30,7 @@ class UserWarehouseSelectionPage
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return SizedBox(
       width: double.infinity,
-      height: MediaQuery.sizeOf(context).height * .4,
+      height: MediaQuery.sizeOf(context).height * .6,
       child: ClipRRect(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),

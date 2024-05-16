@@ -104,7 +104,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _getHeaderBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,7 +192,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                         Strings.profileNotIdentified
                             .w(400)
                             .s(12)
-                            .c(Color(0xFF9EABBE))
+                            .c(context.colors.textSecondary)
                       ],
                     ),
                   ),
@@ -242,37 +242,37 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _getBioBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Strings.profileUserDateOfBirth.w(400).s(14).c(Color(0xFF9EABBE)),
+        Strings.profileUserDateOfBirth.w(400).s(14).c(context.colors.textSecondary),
         SizedBox(height: 6),
         state.brithDate.w(500).s(16).c(Color(0xFF41455E)),
         SizedBox(height: 8),
         CustomDivider(),
         SizedBox(height: 8),
-        Strings.profileUserDateOfDocValidity.w(400).s(14).c(Color(0xFF9EABBE)),
+        Strings.profileUserDateOfDocValidity.w(400).s(14).c(context.colors.textSecondary),
         SizedBox(height: 6),
         state.biometricInformation.w(500).s(16).c(Color(0xFF41455E)),
         SizedBox(height: 8),
         CustomDivider(),
         SizedBox(height: 8),
-        Strings.commonEmail.w(400).s(14).c(Color(0xFF9EABBE)),
+        Strings.commonEmail.w(400).s(14).c(context.colors.textSecondary),
         SizedBox(height: 6),
         //state.email.w(500).s(16).c(Color(0xFF41455E)),
         if (state.email.isNotEmpty)
           state.email.w(500).s(16).c(Color(0xFF41455E)),
-        if (state.email.isEmpty) "****".w(400).s(15).c(Color(0xFF9EABBE)),
+        if (state.email.isEmpty) "****".w(400).s(15).c(context.colors.textSecondary),
         SizedBox(height: 8),
         CustomDivider(),
         SizedBox(height: 8),
-        Strings.commonPhoneNumber.w(400).s(14).c(Color(0xFF9EABBE)),
+        Strings.commonPhoneNumber.w(400).s(14).c(context.colors.textSecondary),
         SizedBox(height: 6),
         state.phoneNumber.w(500).s(16).c(Color(0xFF41455E)),
         SizedBox(height: 8),
         CustomDivider(),
         SizedBox(height: 8),
-        Strings.adDetailLocation.w(400).s(14).c(Color(0xFF9EABBE)),
+        Strings.adDetailLocation.w(400).s(14).c(context.colors.textSecondary),
         SizedBox(height: 6),
         Row(
           children: [
@@ -291,7 +291,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildNotificationBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -427,7 +427,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                         overflow: TextOverflow.ellipsis,
                         fontWeight: FontWeight.w400,
                         fontSize: 12,
-                        color: Color(0xFF9EABBE))),
+                        color: context.colors.textSecondary)),
                 WidgetSpan(child: SizedBox(width: 5)),
                 TextSpan(
                   recognizer: TapGestureRecognizer()
@@ -486,7 +486,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
 
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -846,7 +846,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                     overflow: TextOverflow.ellipsis,
                     fontWeight: FontWeight.w400,
                     fontSize: 12,
-                    color: Color(0xFF9EABBE))),
+                    color: context.colors.textSecondary)),
           ])),
           SizedBox(height: 15),
           CustomElevatedButton(
@@ -957,61 +957,6 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
               },
             )),
       ],
-    );
-  }
-
-  void _showErrorBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (BuildContext bc) {
-        return Container(
-          decoration: BoxDecoration(
-            color: context.primaryContainer,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(height: 30),
-              Center(child: "Saqlanmadi".s(22).w(600)),
-              SizedBox(height: 14),
-              Container(
-                child: Center(
-                  child: SvgPicture.asset(
-                    'assets/images/ic_error.svg',
-                    color: Colors.red,
-                    width: 55,
-                    height: 55,
-                    // Replace with your SVG file path or provide SVG data directly
-                  ),
-                ),
-              ),
-              SizedBox(height: 14),
-              Center(child: "Saqlashda xatolik yuz berdi".s(16).w(500)),
-              SizedBox(height: 32),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 120),
-                child: CustomOutlinedButton(
-                  text: Strings.closeTitle,
-                  strokeColor: Colors.red,
-                  onPressed: () {
-                    // cubit(context).logOut();
-                    Navigator.pop(context);
-                    vibrateAsHapticFeedback();
-                  },
-                ),
-              ),
-              SizedBox(height: 24),
-            ],
-          ),
-        );
-      },
     );
   }
 }

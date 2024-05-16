@@ -6,6 +6,9 @@ import 'package:onlinebozor/data/datasource/hive/storages/token_storage.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/add_result/add_result_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/cart_service.dart';
+import 'package:onlinebozor/data/error/app_locale_exception.dart';
+import 'package:onlinebozor/data/repositories/state_repository.dart';
+import 'package:onlinebozor/data/repositories/user_repository.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 
 import '../../domain/models/ad/ad.dart';
@@ -15,8 +18,16 @@ class CartRepository {
   final AdStorage _adStorage;
   final CartService _cartService;
   final TokenStorage _tokenStorage;
+  final StateRepository _stateRepository;
+  final UserRepository _userRepository;
 
-  CartRepository(this._adStorage, this._cartService, this._tokenStorage);
+  CartRepository(
+    this._adStorage,
+    this._cartService,
+    this._tokenStorage,
+    this._stateRepository,
+    this._userRepository,
+  );
 
   Future<int> addToCart(Ad ad) async {
     final isLogin = _tokenStorage.isUserLoggedIn;
@@ -50,9 +61,8 @@ class CartRepository {
       if (isLogin) {
         final root = await _cartService.getCartAllAds();
         final response = AdRootResponse.fromJson(root.data).data.results;
-        final responseAds = response
-            .map((e) => e.toMap(isAddedToCart: true))
-            .toList();
+        final responseAds =
+            response.map((e) => e.toMap(isAddedToCart: true)).toList();
 
         final savedAds = _adStorage.cartAds.map((e) => e.toMap()).toList();
         final notSavedAds = responseAds.notContainsItems(savedAds);
@@ -74,6 +84,9 @@ class CartRepository {
     required int tin,
     required int? servicePrice,
   }) async {
+    if (_stateRepository.isNotAuthorized()) throw UserNotAuthorizedException();
+    if (_userRepository.isNotIdentified()) throw UserNotIdentifiedException();
+
     _cartService.orderCreate(
       productId: productId,
       amount: amount,

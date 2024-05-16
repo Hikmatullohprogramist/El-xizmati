@@ -31,7 +31,7 @@ class CartWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: context.primaryContainer,
+        color: context.cardColor,
         borderRadius: BorderRadius.circular(8),
         // border: Border.all(width: 1, color: Color(0xFFE5E9F3)),
       ),
@@ -83,7 +83,7 @@ class CartWidget extends StatelessWidget {
                           ad.categoryName
                               .w(500)
                               .s(14)
-                              .c(Color(0xFF9EABBE))
+                              .c(context.colors.textSecondary)
                               .copyWith(
                                 textAlign: TextAlign.start,
                                 maxLines: 1,

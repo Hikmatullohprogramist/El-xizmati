@@ -28,7 +28,7 @@ class UserAdWidget extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 14, vertical: 6),
       decoration: BoxDecoration(
-        color: context.primaryContainer,
+        color: context.cardColor,
         borderRadius: BorderRadius.circular(8),
         // border: Border.all(width: 1, color: Color(0xFFE5E9F3)),
       ),
@@ -98,7 +98,7 @@ class UserAdWidget extends StatelessWidget {
                         (userAd.category?.name ?? "")
                             .w(500)
                             .s(14)
-                            .c(Color(0xFF9EABBE))
+                            .c(context.colors.textSecondary)
                             .copyWith(
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,

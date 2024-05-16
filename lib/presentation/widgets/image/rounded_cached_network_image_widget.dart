@@ -46,7 +46,7 @@ class RoundedCachedNetworkImage extends StatelessWidget {
       ),
       placeholder: (context, url) => Container(
         decoration: BoxDecoration(
-          color: context.primaryContainer,
+          color: context.cardColor,
           borderRadius: BorderRadius.circular(6),
         ),
         child:
@@ -54,7 +54,7 @@ class RoundedCachedNetworkImage extends StatelessWidget {
       ),
       errorWidget: (context, url, error) => Container(
         decoration: BoxDecoration(
-          color: context.primaryContainer,
+          color: context.cardColor,
           borderRadius: BorderRadius.circular(6),
         ),
         child: errorIcon != null ? Center(child: errorIcon) : Center(),

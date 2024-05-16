@@ -53,7 +53,7 @@ class SetLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
               Spacer(),
               Text(Strings.languageWelcome).w(500).s(24).c(Color(0xFF41455F)),
-              Text(Strings.languageSetTitle).w(400).s(12).c(Color(0xFF9EABBE)),
+              Text(Strings.languageSetTitle).w(400).s(12).c(context.colors.textSecondary),
               Spacer(),
               CustomOutlinedButton(
                 text: Strings.languageRus,

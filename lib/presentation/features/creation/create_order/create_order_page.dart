@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/domain/models/order/order_type.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
@@ -11,6 +10,7 @@ import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
+import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/favorite/order_ad_favorite_widget.dart';
@@ -50,8 +50,8 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
         context.router.push(AuthStartRoute());
       case PageEventType.onFailedOrderCreation:
         showErrorBottomSheet(context, event.message ?? "");
-      case PageEventType.onFailedIdentityNotVerified:
-        showErrorBottomSheet(context, event.message ?? "");
+      // case PageEventType.onFailedIdentityNotVerified:
+      //   showErrorBottomSheet(context, event.message ?? "");
     }
   }
 
@@ -102,7 +102,7 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildImageList(BuildContext context, PageState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(vertical: 16),
       child: SizedBox(
         height: 100,
@@ -139,7 +139,7 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
   Widget _buildInfoBlock(BuildContext context, PageState state) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16),
-      color: context.primaryContainer,
+      color: context.cardColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,7 +151,6 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
                 child: (state.adDetail?.adName ?? "")
                     .w(600)
                     .s(18)
-                    .c(Color(0xFF41455E))
                     .copyWith(maxLines: 3, overflow: TextOverflow.ellipsis),
               ),
             ],
@@ -163,13 +162,12 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
               "${Strings.orderCreateAddress}:"
                   .w(500)
                   .s(14)
-                  .c(Color(0xFF9EABBE)),
+                  .c(context.colors.textSecondary),
               SizedBox(width: 4),
               Expanded(
                 child: (state.adDetail?.address?.name ?? "")
                     .w(500)
                     .s(14)
-                    .c(Color(0xFF41455E))
                     .copyWith(maxLines: 3, overflow: TextOverflow.ellipsis),
               )
             ],
@@ -180,13 +178,12 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
               "${Strings.orderCreateCategory}:"
                   .w(500)
                   .s(14)
-                  .c(Color(0xFF9EABBE)),
+                  .c(context.colors.textSecondary),
               SizedBox(width: 4),
               Expanded(
                 child: (state.adDetail?.categoryName ?? "")
                     .w(500)
                     .s(14)
-                    .c(Color(0xFF41455E))
                     .copyWith(maxLines: 3, overflow: TextOverflow.ellipsis),
               )
             ],
@@ -194,7 +191,10 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
           SizedBox(height: 8),
           Row(
             children: [
-              "${Strings.orderCreatePrice}:".w(500).s(14).c(Color(0xFF9EABBE)),
+              "${Strings.orderCreatePrice}:"
+                  .w(500)
+                  .s(14)
+                  .c(context.colors.textSecondary),
               SizedBox(width: 4),
               cubit(context)
                   .getProductPrice()
@@ -335,13 +335,13 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildPaymentTypes(BuildContext context, PageState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 16),
-          Strings.orderCreatePaymentMethod.w(700).s(16).c(Color(0xFF41455E)),
+          Strings.orderCreatePaymentMethod.w(700).s(16),
           SizedBox(height: 8),
           Visibility(
             visible: state.paymentType.isNotEmpty,
@@ -369,15 +369,16 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
                         children: [
                           Strings.orderCreateCashPayment
                               .w(600)
-                              .c(Color(0xFF41455E))
                               .s(14),
                           SizedBox(height: 4),
                           Strings.orderCreateCashDescription
                               .w(400)
                               .s(12)
-                              .c(Color(0xFF9EABBE))
+                              .c(context.colors.textSecondary)
                               .copyWith(
-                                  maxLines: 2, overflow: TextOverflow.ellipsis)
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              )
                         ],
                       ),
                     )
@@ -395,13 +396,13 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
   Container _buildBottomBar(BuildContext context, PageState state) {
     return Container(
       decoration: BoxDecoration(
-        color: context.primaryContainer,
+        color: context.cardColor,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(16),
           topRight: Radius.circular(16),
         ),
         border: Border.all(
-          color: context.primaryContainerStrokeColor,
+          color: context.cardStrokeColor,
           width: .25,
         ),
       ),

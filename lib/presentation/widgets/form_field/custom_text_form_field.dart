@@ -125,7 +125,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           hintStyle: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w400,
-            color: Color(0xFF9EABBE),
+            color: context.colors.textSecondary,
           ),
           // prefixText: widget.prefixText,
           prefix: widget.prefixText == null

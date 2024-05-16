@@ -1,13 +1,14 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/data/repositories/ad_repository.dart';
+import 'package:onlinebozor/data/repositories/cart_repository.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 import 'package:onlinebozor/domain/models/ad/ad_list_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
 part 'ad_list_cubit.freezed.dart';
 part 'ad_list_state.dart';
@@ -16,11 +17,13 @@ part 'ad_list_state.dart';
 class PageCubit extends BaseCubit<PageState, PageEvent> {
   PageCubit(
     this._adRepository,
+    this._cartRepository,
     this._favoriteRepository,
   ) : super(PageState());
 
   static const _pageSize = 20;
   final AdRepository _adRepository;
+  final CartRepository _cartRepository;
   final FavoriteRepository _favoriteRepository;
 
   void setInitialParams(
@@ -137,7 +140,37 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     return adController;
   }
 
-  Future<void> changeFavorite(Ad ad) async {
+  Future<void> updateCartInfo(Ad ad) async {
+    try {
+      if (ad.isAddedToCart) {
+        await _cartRepository.removeFromCart(ad);
+        final index = states.controller?.itemList?.indexOf(ad) ?? 0;
+        final item = states.controller?.itemList?.elementAt(index);
+        if (item != null) {
+          states.controller?.itemList?.insert(index, item..isAddedToCart = false);
+          states.controller?.itemList?.removeAt(index);
+          states.controller?.notifyListeners();
+        }
+      } else {
+        final backendId = await _cartRepository.addToCart(ad);
+        final index = states.controller?.itemList?.indexOf(ad) ?? 0;
+        final item = states.controller?.itemList?.elementAt(index);
+        if (item != null) {
+          states.controller?.itemList?.insert(
+              index,
+              item
+                ..isAddedToCart = true
+                ..backendId = backendId);
+          states.controller?.itemList?.removeAt(index);
+          states.controller?.notifyListeners();
+        }
+      }
+    } catch (error) {
+      logger.w(error.toString());
+    }
+  }
+
+  Future<void> updateFavoriteInfo(Ad ad) async {
     try {
       if (ad.isFavorite == true) {
         await _favoriteRepository.removeFromFavorite(ad.id);
@@ -163,7 +196,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         }
       }
     } catch (error) {
-      stateMessageManager.showErrorSnackBar("xatolik yuz  berdi");
       logger.w(error.toString());
     }
   }

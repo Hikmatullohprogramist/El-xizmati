@@ -19,7 +19,9 @@ abstract class StaticColors {
   static const inputStrokeColor = Color(0xFFDFE2E9);
 
   static const textColorPrimary = Color(0xFF41455F);
-  static const textColorSecondary = Color(0xFF5A5D83);
+  // static const textColorSecondary = Color(0xFF5A5D83);
+  // static const textColorSecondary = context.colors.textSecondary;
+  static const textColorSecondary = Color(0xFFA8A8A8);
 
   static const shimmerBaseColor = Color(0xFFE8E6E8);
   static const shimmerHighLightColor = Color(0xFAFAFAFF);

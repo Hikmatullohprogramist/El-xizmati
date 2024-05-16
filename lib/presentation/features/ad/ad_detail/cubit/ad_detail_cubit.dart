@@ -65,6 +65,14 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   Future<void> getDetailResponse() async {
+    if (states.adDetail != null) {
+      updateState((state) => state.copyWith(
+            isNotPrepared: false,
+            isPreparingInProcess: false,
+          ));
+      return;
+    }
+
     _adRepository.getAdDetail(states.adId!).initFuture().onStart(() {
       updateState((state) => state.copyWith(
             isNotPrepared: true,

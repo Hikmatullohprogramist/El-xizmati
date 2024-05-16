@@ -36,7 +36,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
     return Scaffold(
       appBar: EmptyAppBar(
         titleText: Strings.profileViewTitlle,
-        backgroundColor: context.backgroundColor,
+        backgroundColor: context.appBarColor,
       ),
       backgroundColor: context.backgroundColor,
       body: SingleChildScrollView(
@@ -281,7 +281,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
       builder: (BuildContext bc) {
         return Container(
           decoration: BoxDecoration(
-            color: context.backgroundColor,
+            color: context.bottomSheetColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
@@ -344,7 +344,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
       builder: (BuildContext bc) {
         return Container(
           decoration: BoxDecoration(
-            color: context.backgroundColor,
+            color: context.bottomSheetColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),

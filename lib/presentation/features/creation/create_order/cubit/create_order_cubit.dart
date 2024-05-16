@@ -2,7 +2,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
+import 'package:onlinebozor/data/error/app_locale_exception.dart';
 import 'package:onlinebozor/data/repositories/ad_repository.dart';
 import 'package:onlinebozor/data/repositories/cart_repository.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
@@ -11,6 +13,7 @@ import 'package:onlinebozor/data/repositories/user_repository.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/ad_detail.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 
@@ -133,39 +136,72 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   }
 
   Future<void> orderCreate() async {
-    try {
-      final isUserLoggedIn = stateRepository.isUserLoggedIn();
-      final isIdentityVerified = await userRepository.isIdentityVerified();
-      if (isUserLoggedIn) {
-        if (isIdentityVerified) {
-          await _cartRepository.orderCreate(
-            productId: states.adId ?? -1,
-            amount: states.count,
-            paymentTypeId: states.paymentId,
-            tin: states.adDetail?.sellerTin ?? -1,
-            servicePrice: states.price,
-          );
+    if (!stateRepository.isUserLoggedIn()) {
+      emitEvent(PageEvent(PageEventType.onOpenAuthStart));
+      return;
+    }
+    final isIdentityVerified = userRepository.isIdentityVerified();
 
+    _cartRepository
+        .orderCreate(
+          productId: states.adId ?? -1,
+          amount: states.count,
+          paymentTypeId: states.paymentId,
+          tin: states.adDetail?.sellerTin ?? -1,
+          servicePrice: states.price,
+        )
+        .initFuture()
+        .onStart(() {
+          if (isIdentityVerified) throw UserNotIdentifiedException();
+          updateState((state) => state.copyWith(isRequestSending: true));
+        })
+        .onSuccess((data) async {
           await _cartRepository.removeOrder(
             tin: states.adDetail?.sellerTin ?? -1,
           );
           await removeFromCartAfterOrderCreation();
 
           emitEvent(PageEvent(PageEventType.onOpenAfterCreation));
-        } else {
-          emitEvent(PageEvent(
-            PageEventType.onFailedIdentityNotVerified,
-            message: Strings.messageUserIdentityNotVerified,
-          ));
-        }
-      } else {
-        emitEvent(PageEvent(PageEventType.onOpenAuthStart));
-      }
-    } catch (e) {
-      emitEvent(PageEvent(
-        PageEventType.onFailedIdentityNotVerified,
-        message: Strings.messageForbiddenError,
-      ));
-    }
+        })
+        .onError((error) {
+          stateMessageManager.showErrorBottomSheet(error.localizedMessage);
+        })
+        .onFinished(() {
+          updateState((state) => state.copyWith(isRequestSending: false));
+        })
+        .executeFuture();
+
+    // try {
+    //   if (isUserLoggedIn) {
+    //     if (isIdentityVerified) {
+    //       await _cartRepository.orderCreate(
+    //         productId: states.adId ?? -1,
+    //         amount: states.count,
+    //         paymentTypeId: states.paymentId,
+    //         tin: states.adDetail?.sellerTin ?? -1,
+    //         servicePrice: states.price,
+    //       );
+    //
+    //       await _cartRepository.removeOrder(
+    //         tin: states.adDetail?.sellerTin ?? -1,
+    //       );
+    //       await removeFromCartAfterOrderCreation();
+    //
+    //       emitEvent(PageEvent(PageEventType.onOpenAfterCreation));
+    //     } else {
+    //       emitEvent(PageEvent(
+    //         PageEventType.onFailedIdentityNotVerified,
+    //         message: Strings.messageUserIdentityNotVerified,
+    //       ));
+    //     }
+    //   } else {
+    //     emitEvent(PageEvent(PageEventType.onOpenAuthStart));
+    //   }
+    // } catch (e) {
+    //   emitEvent(PageEvent(
+    //     PageEventType.onFailedIdentityNotVerified,
+    //     message: Strings.messageForbiddenError,
+    //   ));
+    // }
   }
 }

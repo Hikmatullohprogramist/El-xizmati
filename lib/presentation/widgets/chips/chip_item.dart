@@ -26,12 +26,9 @@ class ChipItem extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.only(left: 14, top: 10, right: 10, bottom: 10),
         decoration: BoxDecoration(
-          color: Color(0xFF5C6AC4).withOpacity(0.12),
+          // color: Color(0xFF5C6AC4).withOpacity(0.01),
           borderRadius: BorderRadius.all(Radius.circular(24)),
-          border: Border.all(
-            color: Color(0xFF5C6AC4).withOpacity(0.15),
-            width: 0.5,
-          ),
+          border: Border.all(width: 1, color: Color(0xFF5C6AC4).withAlpha(64)),
           shape: BoxShape.rectangle,
         ),
         child: Row(
@@ -42,7 +39,7 @@ class ChipItem extends StatelessWidget {
             title
                 .w(600)
                 .s(13)
-                .c(Color(0xFF5C6AC4))
+                // .c(Color(0xFF5C6AC4))
                 .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
             SizedBox(width: 14),
             Visibility(

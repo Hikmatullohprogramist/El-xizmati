@@ -14,10 +14,10 @@ class UserAdWidgetShimmer extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 14, vertical: 6),
       decoration: BoxDecoration(
-        color: context.primaryContainer,
+        color: context.cardColor,
         borderRadius: BorderRadius.circular(8),
         border:
-            Border.all(width: 1, color: context.primaryContainerStrokeColor),
+            Border.all(width: 1, color: context.cardStrokeColor),
       ),
       child: Material(
         color: Colors.transparent,

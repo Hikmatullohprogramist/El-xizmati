@@ -20,10 +20,10 @@ class TransactionWidget extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       margin: const EdgeInsets.all(6),
       decoration: BoxDecoration(
-        color: context.primaryContainer,
+        color: context.cardColor,
         borderRadius: BorderRadius.circular(8),
         border:
-            Border.all(width: 1, color: context.primaryContainerStrokeColor),
+            Border.all(width: 1, color: context.cardStrokeColor),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -63,7 +63,7 @@ class TransactionWidget extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 10),
-              transaction.pay_date.w(500).s(12).c(Color(0xFF9EABBE))
+              transaction.pay_date.w(500).s(12).c(context.colors.textSecondary)
             ],
           ),
           Spacer(),

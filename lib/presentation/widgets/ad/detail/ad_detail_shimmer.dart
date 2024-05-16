@@ -17,7 +17,7 @@ class AdDetailShimmer extends StatelessWidget {
             baseColor: StaticColors.shimmerBaseColor,
             highlightColor: StaticColors.shimmerHighLightColor,
             child: Container(
-              color: context.primaryContainer,
+              color: context.cardColor,
               width: double.infinity,
               height: 350,
             ),

@@ -197,8 +197,12 @@ class UserRepository {
     await _userService.updateSocialAccountInfo(socials: socials);
   }
 
-  Future<bool> isIdentityVerified() async {
+  bool isIdentityVerified()  {
     return _userStorage.isIdentityVerified;
+  }
+
+  bool isNotIdentified()  {
+    return !_userStorage.isIdentityVerified;
   }
 
   Future<List<ActiveSession>> getActiveDevice() async {

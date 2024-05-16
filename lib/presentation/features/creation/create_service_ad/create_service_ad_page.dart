@@ -1,21 +1,21 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/core/extensions/text_extensions.dart';
+import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
+import 'package:onlinebozor/domain/models/ad/ad_type.dart';
+import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 import 'package:onlinebozor/presentation/features/common/currency_selection/currency_selection_page.dart';
 import 'package:onlinebozor/presentation/features/common/payment_type_selection/payment_type_selection_page.dart';
 import 'package:onlinebozor/presentation/features/common/region_and_district_selection/region_and_district_selection_page.dart';
 import 'package:onlinebozor/presentation/features/common/user_address_selection/user_address_selection_page.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
-import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
-import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
-import 'package:onlinebozor/domain/models/ad/ad_type.dart';
-import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
+import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
+import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/presentation/widgets/ad/image_list/ad_image_list_widget.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
@@ -91,7 +91,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
       appBar: DefaultAppBar(
         titleText:
             state.isEditing ? Strings.adEditTitle : Strings.adCreateTitle,
-        backgroundColor: context.backgroundColor,
+        backgroundColor: context.appBarColor,
         onBackPressed: () => context.router.pop(),
       ),
       backgroundColor: context.backgroundColor,
@@ -140,7 +140,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildTitleAndCategoryBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       child: Column(
         children: [
@@ -187,7 +187,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildImageListBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       child: Column(
         children: [
           AdImageListWidget(
@@ -247,7 +247,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Column(
       children: [
         Container(
-          color: context.backgroundColor,
+          color: context.cardColor,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -277,14 +277,14 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         ),
         SizedBox(height: 4),
         Container(
-          color: context.backgroundColor,
+          color: context.cardColor,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 20),
-              Strings.createAdPriceLabel.w(700).s(16).c(Color(0xFF41455E)),
+              Strings.createAdPriceLabel.w(700).s(16),
               SizedBox(height: 12),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -392,12 +392,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                     },
                   ),
                   SizedBox(width: 16),
-                  Expanded(
-                    child: Strings.createAdNegotiableLabel
-                        .w(400)
-                        .s(14)
-                        .c(Color(0xFF41455E)),
-                  ),
+                  Expanded(child: Strings.createAdNegotiableLabel.w(400).s(14)),
                 ],
               ),
               SizedBox(height: 20),
@@ -406,7 +401,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
         ),
         SizedBox(height: 4),
         Container(
-          color: context.backgroundColor,
+          color: context.cardColor,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -448,13 +443,13 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildAdditionalInfoBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 8),
-          Strings.createAdAdditionalInfoLabel.w(700).s(16).c(Color(0xFF41455E)),
+          Strings.createAdAdditionalInfoLabel.w(700).s(16),
           SizedBox(height: 20),
           LabelTextField(
             Strings.createAdPersonalOrBusinessLabel,
@@ -491,13 +486,13 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildContactsBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 8),
-          Strings.createAdContactInfoLabel.w(700).s(16).c(Color(0xFF41455E)),
+          Strings.createAdContactInfoLabel.w(700).s(16),
           SizedBox(height: 20),
           LabelTextField(Strings.createAdAddressLabel),
           SizedBox(height: 8),
@@ -576,13 +571,13 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildAutoRenewBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       child: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Strings.createAdAutoRenewLabel.w(600).s(14).c(Color(0xFF41455E)),
+            Strings.createAdAutoRenewLabel.w(600).s(14),
             SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -599,8 +594,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                           ? Strings.createAdAutoRenewOnDesc
                           : Strings.createAdAutoRenewOffDesc)
                       .w(400)
-                      .s(14)
-                      .c(Color(0xFF41455E)),
+                      .s(14),
                 ),
               ],
             ),
@@ -615,13 +609,13 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Column(
       children: [
         Container(
-          color: context.primaryContainer,
+          color: context.cardColor,
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 16),
-              Strings.createAdUsefulLinkLabel.w(600).s(14).c(Color(0xFF41455E)),
+              Strings.createAdUsefulLinkLabel.w(600).s(14),
               SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -634,10 +628,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                   ),
                   SizedBox(width: 16),
                   Expanded(
-                    child: Strings.createAdShowMySocialAccountsLabel
-                        .w(400)
-                        .s(14)
-                        .c(Color(0xFF41455E)),
+                    child: Strings.createAdShowMySocialAccountsLabel.s(14),
                   ),
                 ],
               ),
@@ -651,7 +642,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildFooterBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: EdgeInsets.all(16),
       child: Column(
         children: [
@@ -660,12 +651,7 @@ class CreateServiceAdPage extends BasePage<PageCubit, PageState, PageEvent> {
               SizedBox(width: 16),
               Assets.images.icRequiredField.svg(),
               SizedBox(width: 8),
-              Expanded(
-                child: Strings.createAdRequiredFieldsLabel
-                    .w(300)
-                    .s(13)
-                    .c(context.colors.textSecondary),
-              ),
+              Expanded(child: Strings.createAdRequiredFieldsLabel.w(300).s(13)),
             ],
           ),
           SizedBox(height: 16),

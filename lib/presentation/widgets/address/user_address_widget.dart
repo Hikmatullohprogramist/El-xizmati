@@ -24,7 +24,7 @@ class UserAddressWidget extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       decoration: BoxDecoration(
-        color: context.primaryContainer,
+        color: context.cardColor,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Material(
@@ -80,7 +80,7 @@ class UserAddressWidget extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 8),
-                Strings.userAddressAddress.w(400).s(14).c(Color(0xFF9EABBE)),
+                Strings.userAddressAddress.w(400).s(14).c(context.colors.textSecondary),
                 SizedBox(height: 5),
                 address.fullAddress.w(500).s(12).c(Color(0xFF41455E)),
                 SizedBox(height: 12),

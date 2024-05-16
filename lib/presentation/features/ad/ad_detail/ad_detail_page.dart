@@ -93,11 +93,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 16),
-                state.adDetail!.adName
-                    .w(600)
-                    .s(16)
-                    .c(Color(0xFF41455E))
-                    .copyWith(
+                state.adDetail!.adName.w(600).s(16).copyWith(
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -195,13 +191,13 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
           state.adDetail!.mainTypeStatus == "EXCHANGE"),
       child: Container(
         decoration: BoxDecoration(
-          color: context.primaryContainer,
+          color: context.cardColor,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(16),
             topRight: Radius.circular(16),
           ),
           border: Border.all(
-            color: context.primaryContainerStrokeColor,
+            color: context.cardStrokeColor,
             width: .25,
           ),
         ),
@@ -258,10 +254,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
             },
           ),
           child: switch (state.adDetail!.adAuthorType) {
-            AdAuthorType.private =>
-              Strings.adPropertyPersonal.w(400).s(12).c(Color(0xFF41455E)),
-            AdAuthorType.business =>
-              Strings.adPropertyBiznes.w(400).s(12).c(Color(0xFF6546E7)),
+            AdAuthorType.private => Strings.adPropertyPersonal.w(400).s(12),
+            AdAuthorType.business => Strings.adPropertyBiznes.w(400).s(12),
           },
         ),
         SizedBox(width: 8),
@@ -275,10 +269,8 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               switch (state.adDetail!.adItemCondition) {
-                AdItemCondition.fresh =>
-                  Strings.adStatusNew.w(400).s(12).c(Color(0xFF41455E)),
-                AdItemCondition.used =>
-                  Strings.adStatusOld.w(400).s(12).c(Color(0xFF41455E)),
+                AdItemCondition.fresh => Strings.adStatusNew.w(400).s(12),
+                AdItemCondition.used => Strings.adStatusOld.w(400).s(12),
               },
             ],
           ),
@@ -293,7 +285,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
           child: Row(mainAxisSize: MainAxisSize.min, children: [
             Assets.images.icEye.svg(height: 14, width: 14),
             SizedBox(width: 4),
-            state.adDetail!.view.toString().w(500).s(12).c(Color(0xFF41455E))
+            state.adDetail!.view.toString().w(500).s(12),
           ]),
         ),
         SizedBox(width: 8),
@@ -308,10 +300,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
             children: [
               Assets.images.icEdit.svg(height: 12, width: 12),
               SizedBox(width: 6),
-              (state.adDetail!.createdAt ?? "")
-                  .w(500)
-                  .s(12)
-                  .c(Color(0xFF41455E))
+              (state.adDetail!.createdAt ?? "").w(500).s(12)
             ],
           ),
         )
@@ -329,25 +318,18 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Strings.adDetailDescription.w(600).s(14).c(Color(0xFF41455E)),
-                ],
-              ),
+              child: Strings.adDetailDescription.w(600).s(14),
             ),
             (state.adDetail?.description ?? "")
                 .w(400)
                 .s(14)
-                .c(Color(0xFF41455E))
                 .copyWith(maxLines: 7),
             SizedBox(height: 8),
             Visibility(
               visible: false,
               child: InkWell(
                 onTap: () {},
-                child:
-                    Strings.adDetailShowMore.w(500).s(14).c(Color(0xFF5C6AC3)),
+                child: Strings.adDetailShowMore.w(500).s(14),
               ),
             ),
             SizedBox(height: 16),
@@ -364,7 +346,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Strings.adDetailAuthor.w(600).s(14).c(Color(0xFF41455E)),
+          Strings.adDetailAuthor.w(600).s(14),
           SizedBox(height: 16),
           InkWell(
               child: Row(
@@ -374,8 +356,9 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                     width: 52,
                     padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                        color: Color(0xFFE0E0ED),
-                        borderRadius: BorderRadius.circular(10)),
+                      color: Color(0xFFE0E0ED),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     child: Assets.images.icAvatarBoy.svg(),
                   ),
                   SizedBox(width: 16),
@@ -386,21 +369,19 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                       (state.adDetail!.sellerFullName ?? "")
                           .w(500)
                           .s(14)
-                          .c(Color(0xFF41455E))
                           .copyWith(
-                              maxLines: 2, overflow: TextOverflow.ellipsis),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                       SizedBox(height: 8),
                       Row(
                         children: [
                           Strings.adDetailOnOnlineBozor
                               .w(400)
                               .s(14)
-                              .c(Color(0xFF9EABBE)),
+                              .c(context.colors.textSecondary),
                           SizedBox(width: 8),
-                          (state.adDetail!.beginDate ?? "")
-                              .w(400)
-                              .s(14)
-                              .c(Color(0xFF41455E))
+                          (state.adDetail!.beginDate ?? "").w(400).s(14)
                         ],
                       )
                     ],
@@ -426,57 +407,59 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _getAddressBlock(BuildContext context, PageState state) {
     return Visibility(
-        visible: state.adDetail?.address != null,
-        child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
+      visible: state.adDetail?.address != null,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Strings.adDetailLocation.w(600).s(14),
+            SizedBox(height: 12),
+            Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Strings.adDetailLocation.w(600).s(14).c(Color(0xFF41455E)),
-                SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Assets.images.icLocation.svg(width: 16, height: 16),
-                    SizedBox(width: 6),
-                    Expanded(
-                      child: (state.adDetail!.address?.name ?? "")
-                          .w(700)
-                          .s(14)
-                          .c(Color(0xFF5C6AC3)),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(width: 24),
-                    "${state.adDetail!.address?.region?.name ?? ""}  ${state.adDetail!.address?.district?.name ?? ""}"
-                        .w(500)
-                        .s(14)
-                        .c(context.colors.textPrimary)
-                  ],
-                ),
-                SizedBox(height: 16),
-                Visibility(
-                  // visible: state.adDetail?.address?.geo != null,
-                  visible: false,
-                  child: Assets.images.pngImages.map
-                      .image(width: double.infinity, fit: BoxFit.fill),
-                ),
-                Visibility(
-                  // visible: state.adDetail?.address?.geo != null,
-                  visible: false,
-                  child: SizedBox(height: 12),
-                ),
-                Visibility(
-                  visible: state.adDetail?.address?.geo != null,
-                  child: CustomDivider(),
+                Assets.images.icLocation.svg(width: 16, height: 16),
+                SizedBox(width: 6),
+                Expanded(
+                  child: (state.adDetail!.address?.name ?? "")
+                      .w(700)
+                      .s(14)
+                      .c(Color(0xFF5C6AC3)),
                 ),
               ],
-            )));
+            ),
+            SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(width: 24),
+                "${state.adDetail!.address?.region?.name ?? ""}  ${state.adDetail!.address?.district?.name ?? ""}"
+                    .w(500)
+                    .s(14)
+                    .c(context.colors.textPrimary)
+              ],
+            ),
+            SizedBox(height: 16),
+            Visibility(
+              // visible: state.adDetail?.address?.geo != null,
+              visible: false,
+              child: Assets.images.pngImages.map
+                  .image(width: double.infinity, fit: BoxFit.fill),
+            ),
+            Visibility(
+              // visible: state.adDetail?.address?.geo != null,
+              visible: false,
+              child: SizedBox(height: 12),
+            ),
+            Visibility(
+              visible: state.adDetail?.address?.geo != null,
+              child: CustomDivider(),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _getContactsBlock(BuildContext context, PageState state) {
@@ -734,7 +717,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
       builder: (BuildContext bc) {
         return Container(
           decoration: BoxDecoration(
-            color: context.primaryContainer,
+            color: context.bottomSheetColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),

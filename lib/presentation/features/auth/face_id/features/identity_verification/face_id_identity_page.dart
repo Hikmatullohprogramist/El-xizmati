@@ -119,7 +119,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
                         height: 5, // Diameter of the spot (2 * radius)
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Color(0xFF9EABBE),
+                          color: context.colors.textSecondary,
                         ),
                       ),
                       SizedBox(width: 10),
@@ -141,7 +141,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
                         height: 5, // Diameter of the spot (2 * radius)
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Color(0xFF9EABBE),
+                          color: context.colors.textSecondary,
                         ),
                       ),
                       SizedBox(width: 10),
@@ -163,7 +163,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
                         height: 5, // Diameter of the spot (2 * radius)
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Color(0xFF9EABBE),
+                          color: context.colors.textSecondary,
                         ),
                       ),
                       SizedBox(width: 10),
@@ -185,7 +185,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
                         height: 5, // Diameter of the spot (2 * radius)
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Color(0xFF9EABBE),
+                          color: context.colors.textSecondary,
                         ),
                       ),
                       SizedBox(width: 10),
@@ -257,7 +257,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
               child: Text(
                 Strings.faceIdIndentityDesc,
                 textAlign: TextAlign.center,
-              ).w(400).s(12).c(Color(0xFF9EABBE)),
+              ).w(400).s(12).c(context.colors.textSecondary),
             ),
             SizedBox(
               height: 160,

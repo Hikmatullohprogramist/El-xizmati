@@ -2,14 +2,15 @@ import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/error/app_exception.dart';
+import 'package:onlinebozor/data/error/app_locale_exception.dart';
 import 'package:onlinebozor/data/error/app_network_exception.dart';
 import 'package:onlinebozor/data/mappers/exception_exts.dart';
 
 extension ExceptionMessageExts on Exception {
   String get localizedMessage {
-    if (this is AppNetworkException) {
+    if (this is AppException) {
       Logger().w("localizedMessage => AppNetworkException");
-      return (this as AppNetworkException).localizedMessage;
+      return (this as AppException).localizedMessage;
     } else {
       Logger().w("localizedMessage => e = $toString()");
       return Strings.messageResponseError;
@@ -32,6 +33,16 @@ extension ObjectExceptionExts on Object {
     } else {
       return AppNetworkDioException(message: "", statusCode: 1);
     }
+  }
+}
+
+extension AppLocalxceptionMessageExts on AppLocalException {
+  String get localizedMessage {
+    if (this is UserNotIdentifiedException) {
+      Logger().w("localizedMessage => AppNetworkConnectionException");
+      return Strings.messageUserIdentityNotVerified;
+    }
+    return Strings.messageUnknownError;
   }
 }
 
@@ -59,7 +70,6 @@ extension AppNetworkExceptionMessageExts on AppNetworkException {
       }
     }
     Logger().w("localizedMessage => Default Exception");
-    // return Strings.messageUnknownError;
-    return "localizedMessage => Default Exception";
+    return Strings.messageUnknownError;
   }
 }

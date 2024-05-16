@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
@@ -55,7 +56,7 @@ class CustomDropdownFormField extends StatelessWidget {
                       Expanded(
                         child: (value.isNotEmpty
                                 ? (value).w(400).s(14).c(Color(0xFF41455E))
-                                : (hint).w(400).s(14).c(Color(0xFF9EABBE)))
+                                : (hint).w(400).s(14).c(context.colors.textSecondary))
                             .copyWith(
                                 maxLines: 1, overflow: TextOverflow.ellipsis),
                       ),

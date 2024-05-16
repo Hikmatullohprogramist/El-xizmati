@@ -87,7 +87,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildValidateBlock(BuildContext context, PageState state) {
     return Container(
-      color: context.primaryContainer,
+      color: context.cardColor,
       padding: const EdgeInsets.only(left: 16, right: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -215,7 +215,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Visibility(
       visible: state.isRegistration,
       child: Container(
-        color: context.primaryContainer,
+        color: context.cardColor,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -261,7 +261,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Visibility(
       visible: state.isRegistration,
       child: Container(
-        color: context.primaryContainer,
+        color: context.cardColor,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

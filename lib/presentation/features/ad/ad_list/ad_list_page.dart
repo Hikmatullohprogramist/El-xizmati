@@ -161,9 +161,11 @@ class AdListPage extends BasePage<PageCubit, PageState, PageEvent> {
                 context.router.push(AdDetailRoute(adId: ad.id));
               },
               onFavoriteClicked: (ad) {
-                cubit(context).changeFavorite(ad);
+                cubit(context).updateFavoriteInfo(ad);
               },
-              onCartClicked: (Ad ad) {},
+              onCartClicked: (Ad ad) {
+                cubit(context).updateCartInfo(ad);
+              },
               onBuyClicked: (Ad ad) {
                 context.router.push(CreateOrderRoute(adId: ad.id));
               },
@@ -194,7 +196,7 @@ class AdListPage extends BasePage<PageCubit, PageState, PageEvent> {
       builder: (BuildContext bc) {
         return Container(
           decoration: BoxDecoration(
-            color: context.primaryContainer,
+            color: context.bottomSheetColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),

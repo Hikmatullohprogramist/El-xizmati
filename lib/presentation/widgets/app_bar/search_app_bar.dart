@@ -65,7 +65,7 @@ class SearchAppBar extends AppBar implements PreferredSizeWidget {
                     child: Strings.adSearchHint
                         .w(400)
                         .s(14)
-                        .c(Color(0xFF9EABBE))
+                        .c(Color(0xFFA8A8A8))
                         .copyWith(overflow: TextOverflow.ellipsis),
                   ),
                 ),

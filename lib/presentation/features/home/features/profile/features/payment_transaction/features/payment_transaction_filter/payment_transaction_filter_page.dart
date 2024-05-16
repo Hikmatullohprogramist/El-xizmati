@@ -64,7 +64,7 @@ class PaymentTransactionFilterPage
                                 Strings.paymentFilterFromDate
                                     .w(600)
                                     .s(14)
-                                    .c(Color(0xFF9EABBE)),
+                                    .c(context.colors.textSecondary),
                               if (state.fromDate.isNotEmpty)
                                 state.fromDate.w(600).s(14).c(Colors.black),
                               Assets.images.icCalendar
@@ -98,7 +98,7 @@ class PaymentTransactionFilterPage
                                 Strings.paymentFilterToDate
                                     .w(600)
                                     .s(14)
-                                    .c(Color(0xFF9EABBE)),
+                                    .c(context.colors.textSecondary),
                               if (state.toDate.isNotEmpty)
                                 state.toDate.w(600).s(14).c(Colors.black),
                               Assets.images.icCalendar
@@ -125,7 +125,7 @@ class PaymentTransactionFilterPage
                     if (state.paymentType.isNotEmpty)
                       Strings.paymentFilterPaymentType
                           .w(400)
-                          .c(Color(0xFF9EABBE))
+                          .c(context.colors.textSecondary)
                           .s(12),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -141,7 +141,7 @@ class PaymentTransactionFilterPage
                         Strings.paymentFilterAll
                             .w(400)
                             .s(12)
-                            .c(Color(0xFF9EABBE)),
+                            .c(context.colors.textSecondary),
                         SizedBox(width: 16),
                         Assets.images.icArrowRight.svg(width: 20, height: 20)
                       ],
@@ -167,7 +167,7 @@ class PaymentTransactionFilterPage
                     if (state.paymentMethod.isNotEmpty)
                       Strings.paymentFilterPaymentMethod
                           .w(400)
-                          .c(Color(0xFF9EABBE))
+                          .c(context.colors.textSecondary)
                           .s(12),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -183,7 +183,7 @@ class PaymentTransactionFilterPage
                         Strings.paymentFilterAll
                             .w(400)
                             .s(12)
-                            .c(Color(0xFF9EABBE)),
+                            .c(context.colors.textSecondary),
                         SizedBox(width: 16),
                         Assets.images.icArrowRight.svg(width: 20, height: 20),
                       ],
@@ -210,7 +210,7 @@ class PaymentTransactionFilterPage
                     if (state.transactionState.isNotEmpty)
                       Strings.paymentFilterStatus
                           .w(400)
-                          .c(Color(0xFF9EABBE))
+                          .c(context.colors.textSecondary)
                           .s(12),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -226,7 +226,7 @@ class PaymentTransactionFilterPage
                         Strings.paymentFilterAll
                             .w(400)
                             .s(12)
-                            .c(Color(0xFF9EABBE)),
+                            .c(context.colors.textSecondary),
                         SizedBox(width: 16),
                         Assets.images.icArrowRight.svg(width: 20, height: 20)
                       ],
@@ -362,7 +362,7 @@ class PaymentTransactionFilterPage
           height: MediaQuery.of(context).size.height * 0.75,
           padding: EdgeInsets.symmetric(vertical: 20),
           decoration: BoxDecoration(
-            color: context.primaryContainer,
+            color: context.bottomSheetColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10.0), // Adjust the radius as needed
               topRight: Radius.circular(10.0), // Adjust the radius as needed
