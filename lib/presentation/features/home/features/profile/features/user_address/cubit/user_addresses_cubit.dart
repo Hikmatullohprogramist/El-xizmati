@@ -5,6 +5,7 @@ import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/core/extensions/list_extensions.dart';
 import 'package:onlinebozor/data/repositories/user_address_repository.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
+import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
 
 part 'user_addresses_cubit.freezed.dart';
 part 'user_addresses_state.dart';
@@ -26,8 +27,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         updateState((state) => state.copyWith(controller: controller));
       }
     } catch (e, stackTrace) {
-      logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      stateMessageManager.showErrorSnackBar(e.toString());
+      logger.w(e.toString(), error: e, stackTrace: stackTrace);
+      stateMessageManager.showErrorSnackBar(e.localizedMessage);
     }
   }
 
@@ -38,7 +39,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       firstPageKey: 1,
       invisibleItemsThreshold: 100,
     );
-    logger.i(states.controller);
+    logger.w(states.controller);
 
     try {
       addressController.addPageRequestListener(
@@ -54,8 +55,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         },
       );
     } catch (exception) {
-      logger.e(exception.toString());
-      stateMessageManager.showErrorSnackBar("server xatolik yuz beradi");
+      logger.w(exception.toString());
+      stateMessageManager.showErrorBottomSheet(exception.localizedMessage);
     }
 
     return addressController;

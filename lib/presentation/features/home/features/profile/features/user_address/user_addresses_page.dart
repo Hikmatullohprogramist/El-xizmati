@@ -1,13 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
+import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/widgets/action/action_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/address/user_address_empty_widget.dart';
 import 'package:onlinebozor/presentation/widgets/address/user_address_shimmer.dart';
@@ -16,6 +16,7 @@ import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart';
+import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 
 import 'cubit/user_addresses_cubit.dart';
 
@@ -110,8 +111,9 @@ class UserAddressesPage extends BasePage<PageCubit, PageState, PageEvent> {
           newPageErrorIndicatorBuilder: (_) {
             return SizedBox(
               height: 160,
-              child: Center(
-                child: CircularProgressIndicator(color: Colors.blue),
+              child: DefaultErrorWidget(
+                isFullScreen: true,
+                onRetryClicked: () => cubit(context).getController(true),
               ),
             );
           },

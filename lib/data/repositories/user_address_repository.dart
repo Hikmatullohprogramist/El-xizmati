@@ -1,18 +1,32 @@
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
 import 'package:onlinebozor/data/datasource/hive/storages/user_data_storage.dart';
 import 'package:onlinebozor/data/datasource/network/responses/address/user_address_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/user_address_service.dart';
+import 'package:onlinebozor/data/error/app_locale_exception.dart';
+import 'package:onlinebozor/data/repositories/state_repository.dart';
+import 'package:onlinebozor/data/repositories/user_repository.dart';
 import 'package:onlinebozor/domain/mappers/user_mapper.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
 
 @LazySingleton()
 class UserAddressRepository {
-  UserAddressRepository(this._userAddressService, this._userDataStorage);
+  UserAddressRepository(
+    this._userAddressService,
+    this._userDataStorage,
+    this._stateRepository,
+    this._userRepository,
+  );
 
+  final StateRepository _stateRepository;
   final UserAddressService _userAddressService;
   final UserDataStorage _userDataStorage;
+  final UserRepository _userRepository;
 
   Future<List<UserAddress>> getActualUserAddresses() async {
+    if (_stateRepository.isNotAuthorized()) throw UserNotAuthorizedException();
+    if (_userRepository.isNotIdentified()) throw UserNotIdentifiedException();
+
     final response = await _userAddressService.getUserAddresses();
     final addresses = UserAddressRootResponse.fromJson(response.data).data;
     await _userDataStorage
@@ -25,11 +39,18 @@ class UserAddressRepository {
   }
 
   Future<List<UserAddress>> getUserAddresses() async {
-    final saved = await getSavedUserAddresses();
-    if (saved.isNotEmpty) {
-      return saved;
-    } else {
-      return await getActualUserAddresses();
+    Logger().w("getUserAddresses called");
+    try {
+      if (_userDataStorage.hasSavedAddresses) {
+        Logger().w("getUserAddresses hasSavedAddresses = true");
+        return getSavedUserAddresses();
+      } else {
+        Logger().w("getUserAddresses hasSavedAddresses = false");
+        return getActualUserAddresses();
+      }
+    } catch(e, stackTrace){
+      Logger().w(e, stackTrace: stackTrace);
+      rethrow;
     }
   }
 
