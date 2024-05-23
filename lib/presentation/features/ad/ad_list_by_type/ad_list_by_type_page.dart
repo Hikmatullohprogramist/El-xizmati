@@ -61,11 +61,11 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                         AdType.PRODUCT => Strings.favoriteProductTitle
                             .w(700)
                             .s(16)
-                            .c(context.colors.textPrimary),
+                            .c(context.textPrimary),
                         AdType.SERVICE => Strings.favoriteServiceTitle
                             .w(700)
                             .s(16)
-                            .c(context.colors.textPrimary),
+                            .c(context.textPrimary),
                       },
                     ),
                   ),
@@ -158,7 +158,7 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                                 Strings.commonEmptyMessage
                                     .w(400)
                                     .s(14)
-                                    .c(context.colors.textPrimary),
+                                    .c(context.textPrimary),
                                 SizedBox(height: 12),
                                 CustomElevatedButton(
                                   text: Strings.commonRetry,

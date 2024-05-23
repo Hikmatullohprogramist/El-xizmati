@@ -41,6 +41,7 @@ class FavoriteServicesPage extends BasePage<PageCubit, PageState, PageEvent> {
           physics: BouncingScrollPhysics(),
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           pagingController: state.controller!,
+          showNewPageProgressIndicatorAsGridChild: false,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: width / height,
             crossAxisSpacing: 12,
@@ -58,7 +59,7 @@ class FavoriteServicesPage extends BasePage<PageCubit, PageState, PageEvent> {
                       Strings.commonEmptyMessage
                           .w(400)
                           .s(14)
-                          .c(context.colors.textPrimary),
+                          .c(context.textPrimary),
                       SizedBox(height: 12),
                       CustomElevatedButton(
                         text: Strings.commonRetry,

@@ -30,7 +30,7 @@ class FavoriteListPage extends BasePage<PageCubit, PageState, PageEvent> {
             title: Strings.bottomNavigationFavorite
                 .w(500)
                 .s(16)
-                .c(context.colors.textPrimary),
+                .c(context.textPrimary),
             // leading: AutoLeadingButton(),
             leading: IconButton(
               icon: Icon(Icons.arrow_back_ios, color: context.colors.iconGrey),
@@ -54,8 +54,8 @@ class FavoriteListPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
               indicatorSize: TabBarIndicatorSize.label,
               labelColor: Color(0xFF5C6AC3),
-              unselectedLabelColor: context.colors.textSecondary,
-              indicatorColor: context.colors.textPrimary,
+              unselectedLabelColor: context.textSecondary,
+              indicatorColor: context.textPrimary,
               controller: controller,
               tabs: [
                 Tab(text: Strings.favoriteProductTitle),

@@ -143,7 +143,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> updateCartInfo(Ad ad) async {
     try {
       if (ad.isAddedToCart) {
-        await _cartRepository.removeFromCart(ad);
+        await _cartRepository.removeFromCart(ad.id);
         final index = states.controller?.itemList?.indexOf(ad) ?? 0;
         final item = states.controller?.itemList?.elementAt(index);
         if (item != null) {

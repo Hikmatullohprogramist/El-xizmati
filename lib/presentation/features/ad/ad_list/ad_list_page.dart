@@ -1,8 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
@@ -12,6 +10,8 @@ import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/domain/models/report/report_type.dart';
 import 'package:onlinebozor/presentation/features/common/report/submit_report_page.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
+import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/widgets/action/action_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/ad/vertical/vertical_ad_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/ad/vertical/vertical_ad_widget.dart';
@@ -82,6 +82,7 @@ class AdListPage extends BasePage<PageCubit, PageState, PageEvent> {
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         pagingController: state.controller!,
+        showNewPageProgressIndicatorAsGridChild: false,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: width / height,
           crossAxisSpacing: 12,
@@ -100,7 +101,7 @@ class AdListPage extends BasePage<PageCubit, PageState, PageEvent> {
                     Strings.commonEmptyMessage
                         .w(400)
                         .s(14)
-                        .c(context.colors.textPrimary),
+                        .c(context.textPrimary),
                     SizedBox(height: 12),
                     CustomElevatedButton(
                       text: Strings.commonRetry,
