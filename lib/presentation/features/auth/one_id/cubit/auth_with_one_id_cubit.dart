@@ -1,8 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/data/repositories/auth_repository.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
 part 'auth_with_one_id_cubit.freezed.dart';
 part 'auth_with_one_id_state.dart';
@@ -17,8 +18,26 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   final AuthRepository _authRepository;
   final FavoriteRepository _favoriteRepository;
 
-  void hideLoading() {
-    updateState((state) => state.copyWith(isLoading: false));
+  void loadPage() {
+    if (!states.isPageLoadingFinished) {
+      emitEvent(PageEvent(PageEventType.onStartPageLoading));
+    }
+  }
+
+  void onPageStarted() {
+    updateState((state) => state.copyWith(pageState: LoadingState.loading));
+  }
+
+  void onProcess() {
+    // updateState((state) => state.copyWith(pageState: LoadingState.loading));
+  }
+
+  void onPageFinished() {
+    updateState((state) => state.copyWith(pageState: LoadingState.success));
+  }
+
+  void onPageFailed() {
+    updateState((state) => state.copyWith(pageState: LoadingState.error));
   }
 
   Future<void> loginWithOneId(String url) async {
