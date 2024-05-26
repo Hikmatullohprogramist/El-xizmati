@@ -12,11 +12,14 @@ class RestQueryKeys {
 
   static String cancelNote = "cancel_note";
   static String confirmPassword = "repeat_password";
+  static String customerType = "customer_type";
 
   static String deliveryAddressId = "delivery_address_id";
   static String districtId = "district_id";
 
   static String email = "email";
+
+  static String fullName = "full_name";
 
   static String gender = "gender";
   static String geo = "geo";
@@ -27,17 +30,18 @@ class RestQueryKeys {
   static String id = "id";
   static String isMain = "is_main";
 
-  static String keyWord = "key_word";
-
   static String limit = "page_size";
 
+  static String keyWord = "key_word";
+
   static String mobilePhone = "mobile_number";
+  static String messageType = "message_type";
 
   static String name = "name";
-  static String fullName = "full_name";
   static String neighborhoodId = "mahalla_id";
   static String number = "num";
   static String note = "note";
+
   static String orderId = "order_id";
 
   static String page = "page";
@@ -56,6 +60,7 @@ class RestQueryKeys {
   static String queryUserName = "username";
 
   static String regionId = "region_id";
+  static String redirectUri = "redirect_url";
 
   static String searchQuery = "q";
   static String servicePrice = "service_price";
@@ -66,10 +71,6 @@ class RestQueryKeys {
   static String state = "state";
   static String status = "status";
   static String streetNumber = "street_num";
-
-  static String tin = "tin";
-  static String type = "type";
-  static String messageType = "message_type";
   static String socialId = "id";
   static String socialIsLink = "is_link";
   static String socialLink = "link";
@@ -77,4 +78,7 @@ class RestQueryKeys {
   static String socialTin = "tin";
   static String socialType = "type";
   static String socialViewNote = "view_note";
+
+  static String tin = "tin";
+  static String type = "type";
 }

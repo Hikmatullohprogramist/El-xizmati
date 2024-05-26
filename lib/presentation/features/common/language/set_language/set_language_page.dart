@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
@@ -53,7 +53,7 @@ class SetLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
               Spacer(),
               Text(Strings.languageWelcome).w(500).s(24).c(Color(0xFF41455F)),
-              Text(Strings.languageSetTitle).w(400).s(12).c(context.colors.textSecondary),
+              Text(Strings.languageSetTitle).w(400).s(12).c(context.textSecondary),
               Spacer(),
               CustomOutlinedButton(
                 text: Strings.languageRus,

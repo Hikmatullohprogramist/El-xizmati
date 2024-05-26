@@ -4,10 +4,13 @@ import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 
-class CardEmptyWidget extends StatelessWidget {
-  const CardEmptyWidget({super.key, required this.onActionClicked});
+class CardEmptyBodyWidget extends StatelessWidget {
+  const CardEmptyBodyWidget({
+    super.key,
+    required this.onAddCardClicked,
+  });
 
-  final VoidCallback onActionClicked;
+  final VoidCallback onAddCardClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +40,7 @@ class CardEmptyWidget extends StatelessWidget {
             CustomElevatedButton(
               buttonWidth: double.infinity,
               text: Strings.cardAddCardTitle,
-              onPressed: () => onActionClicked(),
+              onPressed: () => onAddCardClicked(),
             )
           ],
         ),

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
@@ -33,7 +33,7 @@ class ChangeLanguagePage extends BasePage<PageCubit, PageState, PageEvent> {
         title: Strings.profileChangeLanguage
             .w(500)
             .s(14)
-            .c(context.colors.textPrimary),
+            .c(context.textPrimary),
         centerTitle: true,
         elevation: 0.5,
         leading: IconButton(

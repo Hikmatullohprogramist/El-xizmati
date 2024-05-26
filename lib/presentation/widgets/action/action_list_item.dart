@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
@@ -36,7 +36,7 @@ class ActionListItem extends StatelessWidget {
             children: [
               icon.svg(width: 24, height: 24, color: color ?? Colors.black),
               SizedBox(width: 24),
-              title.s(16).w(400).c(color ?? context.colors.textPrimary),
+              title.s(16).w(400).c(color ?? context.textPrimary),
             ],
           ),
         ),

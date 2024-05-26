@@ -4,7 +4,7 @@ import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 
 import '../divider/custom_diverder.dart';
 
@@ -59,7 +59,7 @@ class ActiveSessionWidget extends StatelessWidget {
                       child: (session.lastActivityAt ?? "")
                           .w(400)
                           .s(12)
-                          .c(context.colors.textSecondary)
+                          .c(context.textSecondary)
                           .copyWith(overflow: TextOverflow.ellipsis),
                     ),
                     SizedBox(height: 8),

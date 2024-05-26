@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/data/repositories/ad_creation_repository.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
 import '../../../../../../core/enum/enums.dart';
 import '../../../../../../data/datasource/network/responses/category/category/category_response.dart';
@@ -65,7 +65,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     updateState((state) => state.copyWith(selectedItem: category));
 
     final children = states.allItems
-        .where((element) => element.parent_id == category.id)
+        .where((e) => e.parent_id != null && e.parent_id == category.id)
         .toList();
 
     if (children.isEmpty) {

@@ -37,7 +37,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   Future<void> removeFromCart(Ad ad) async {
     try {
-      await _cartRepository.removeFromCart(ad);
+      await _cartRepository.removeFromCart(ad.id);
       final items = states.items.map((e) => e).toList();
       items.removeWhere((e) => e.id == ad.id);
       updateState((state) => state.copyWith(items: items));

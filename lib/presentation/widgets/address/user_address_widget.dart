@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
@@ -80,7 +80,7 @@ class UserAddressWidget extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 8),
-                Strings.userAddressAddress.w(400).s(14).c(context.colors.textSecondary),
+                Strings.userAddressAddress.w(400).s(14).c(context.textSecondary),
                 SizedBox(height: 5),
                 address.fullAddress.w(500).s(12).c(Color(0xFF41455E)),
                 SizedBox(height: 12),

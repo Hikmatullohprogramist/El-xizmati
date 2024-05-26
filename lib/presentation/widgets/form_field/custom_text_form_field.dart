@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 
 class CustomTextFormField extends StatefulWidget {
   const CustomTextFormField({
@@ -30,31 +30,49 @@ class CustomTextFormField extends StatefulWidget {
     this.validator,
     this.autoValidateMode,
     this.textCapitalization,
+    this.isStrokeEnabled = true,
   }) : super(key: key);
 
   final double? height;
-  final Iterable<String>? autofillHints;
-  final bool? enableSuggestions;
+
+  //
   final String? hint;
   final String? label;
   final String? prefixText;
+
+  //
+  final Iterable<String>? autofillHints;
+  final bool? enableSuggestions;
   final TextInputType? inputType;
   final TextInputType? keyboardType;
+
+  //
   final TextEditingController? controller;
+
+  //
   final bool obscureText;
   final bool readOnly;
   final int? minLines;
   final int? maxLines;
   final int maxLength;
+
+  //
   final bool enabled;
   final TextCapitalization? textCapitalization;
   final TextAlign textAlign;
-  final Color? disabledColor;
   final TextInputAction? textInputAction;
   final TextInputFormatter? inputFormatters;
+
+  //
   final Function(String text)? onChanged;
+
+  //
   final AutovalidateMode? autoValidateMode;
   final String? Function(String? text)? validator;
+
+  //
+  final Color? disabledColor;
+  final bool isStrokeEnabled;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -103,7 +121,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         style: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w400,
-          color: Color(0xFF41455F),
+          color: context.textPrimary,
         ),
         textCapitalization:
             widget.textCapitalization ?? TextCapitalization.none,
@@ -125,7 +143,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           hintStyle: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w400,
-            color: context.colors.textSecondary,
+            color: context.textSecondary,
           ),
           // prefixText: widget.prefixText,
           prefix: widget.prefixText == null
@@ -157,26 +175,46 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             fontWeight: FontWeight.w500,
             color: Color(0xFF41455F),
           ),
-          focusColor: Color(0xFFFFFFFF),
-          fillColor: _isFocused ? Color(0xFFFFFFFF) : Color(0xFFFBFAFF),
+          // focusColor: Color(0xFFFFFFFF),
+          fillColor: context.inputBackgroundColor,//_isFocused ? context.backgroundColor : context.backgroundColor,
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFFDFE2E9)),
+            borderSide: BorderSide(
+              color: widget.isStrokeEnabled
+                  ? context.inputStrokeInactiveColor
+                  : Colors.transparent,
+            ),
             borderRadius: BorderRadius.circular(8),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFFDFE2E9)),
+            borderSide: BorderSide(
+              color: widget.isStrokeEnabled
+                  ? context.inputStrokeInactiveColor
+                  : Colors.transparent,
+            ),
             borderRadius: BorderRadius.circular(8),
           ),
           disabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFFDFE2E9)),
+            borderSide: BorderSide(
+              color: widget.isStrokeEnabled
+                  ? context.inputStrokeInactiveColor
+                  : Colors.transparent,
+            ),
             borderRadius: BorderRadius.circular(8),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: context.colors.buttonPrimary),
+            borderSide: BorderSide(
+              color: widget.isStrokeEnabled
+                  ? context.inputStrokeActiveColor
+                  : Colors.transparent,
+            ),
             borderRadius: BorderRadius.circular(8),
           ),
           errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.red.shade200),
+            borderSide: BorderSide(
+              color: widget.isStrokeEnabled
+                  ? Colors.red.shade200
+                  : Colors.transparent,
+            ),
             borderRadius: BorderRadius.circular(8),
           ),
           suffixIcon: !widget.obscureText

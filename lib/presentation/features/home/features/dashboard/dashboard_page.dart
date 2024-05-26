@@ -1,20 +1,22 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
-import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:flutter/widgets.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
+import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 import 'package:onlinebozor/domain/models/ad/ad_list_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_list_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_list_widget.dart';
 import 'package:onlinebozor/presentation/widgets/ad/top_rated/top_rated_ad_list_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/ad/top_rated/top_rated_ad_list_widget.dart';
-import 'package:onlinebozor/presentation/widgets/app_bar/search_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/category/popular_category_list_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/category/popular_category_list_widget.dart';
 import 'package:onlinebozor/presentation/widgets/dashboard/banner_list_shimmer.dart';
@@ -37,13 +39,59 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      appBar: SearchAppBar(
-        backgroundColor: context.appBarColor,
-        onSearchClicked: () => context.router.push(SearchRoute()),
-        onMicrophoneClicked: () {},
-        onFavoriteClicked: () => context.router.push(FavoriteListRoute()),
-        onNotificationClicked: () =>
-            context.router.push(NotificationListRoute()),
+      appBar: AppBar(
+        // toolbarHeight: 64,
+        elevation: 0.5,
+        backgroundColor: context.backgroundColor,
+        actions: [
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.only(left: 16, top: 8, bottom: 8, right: 6),
+              child: InkWell(
+                onTap: () => context.router.push(SearchRoute()),
+                borderRadius: BorderRadius.circular(6),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: context.cardColor,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Row(
+                    children: [
+                      SizedBox(width: 12),
+                      Assets.images.iconSearch.svg(),
+                      SizedBox(width: 6),
+                      Expanded(
+                        child: Strings.adSearchHint
+                            .w(400)
+                            .s(14)
+                            .c(context.textSecondary)
+                            .copyWith(
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                      ),
+                      SizedBox(width: 12),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              context.router.push(FavoriteListRoute());
+              vibrateAsHapticFeedback();
+            },
+            icon: Assets.images.bottomBar.favorite.svg(),
+          ),
+          IconButton(
+            onPressed: () {
+              context.router.push(NotificationListRoute());
+              vibrateAsHapticFeedback();
+            },
+            icon: Assets.images.icNotification.svg(color: Color(0xFF5C6AC4)),
+          )
+        ],
       ),
       backgroundColor: context.backgroundColor,
       body: RefreshIndicator(

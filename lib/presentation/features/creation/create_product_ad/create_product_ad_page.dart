@@ -13,7 +13,7 @@ import 'package:onlinebozor/presentation/features/common/unit_selection/unit_sel
 import 'package:onlinebozor/presentation/features/common/user_address_selection/user_address_selection_page.dart';
 import 'package:onlinebozor/presentation/features/common/user_warehouse_selection/user_warehouse_selection_page.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
@@ -927,7 +927,7 @@ class CreateProductAdPage extends BasePage<PageCubit, PageState, PageEvent> {
                 child: Strings.createAdRequiredFieldsLabel
                     .w(300)
                     .s(13)
-                    .c(context.colors.textSecondary),
+                    .c(context.textSecondary),
               ),
             ],
           ),

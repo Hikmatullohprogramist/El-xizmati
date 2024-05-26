@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/widgets/ad/list_price_text_widget.dart';
@@ -93,7 +93,7 @@ class TopRatedAdWidget extends StatelessWidget {
     return (ad.name)
         .w(500)
         .s(13)
-        .c(context.colors.textPrimaryInverse)
+        .c(context.textPrimaryInverse)
         .copyWith(maxLines: 3, overflow: TextOverflow.ellipsis);
   }
 

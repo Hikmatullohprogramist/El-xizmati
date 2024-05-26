@@ -5,19 +5,18 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/enum/social_enum.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_for_social_direction.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_outlined_button.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/presentation/widgets/dashboard/see_all_widget.dart';
 import 'package:onlinebozor/presentation/widgets/device/active_session_shimmer.dart';
@@ -25,7 +24,6 @@ import 'package:onlinebozor/presentation/widgets/device/active_session_widget.da
 import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
 import 'package:onlinebozor/presentation/widgets/profile/profil_view_shimmer.dart';
-import 'package:onlinebozor/presentation/support/state_message/state_snack_bar_exts.dart';
 import 'package:onlinebozor/presentation/widgets/switch/custom_switch.dart';
 
 import 'cubit/profile_view_cubit.dart';
@@ -53,6 +51,8 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
       return Scaffold(
           appBar: ActionAppBar(
             titleText: Strings.profileViewTitlle,
+            titleTextColor: context.textPrimary,
+            backgroundColor: context.appBarColor,
             onBackPressed: () => context.router.pop(),
             actions: state.isRegistered
                 ? [
@@ -192,7 +192,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                         Strings.profileNotIdentified
                             .w(400)
                             .s(12)
-                            .c(context.colors.textSecondary)
+                            .c(context.textSecondary)
                       ],
                     ),
                   ),
@@ -245,34 +245,37 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
       color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Strings.profileUserDateOfBirth.w(400).s(14).c(context.colors.textSecondary),
+        Strings.profileUserDateOfBirth.w(400).s(14).c(context.textSecondary),
         SizedBox(height: 6),
         state.brithDate.w(500).s(16).c(Color(0xFF41455E)),
         SizedBox(height: 8),
         CustomDivider(),
         SizedBox(height: 8),
-        Strings.profileUserDateOfDocValidity.w(400).s(14).c(context.colors.textSecondary),
+        Strings.profileUserDateOfDocValidity
+            .w(400)
+            .s(14)
+            .c(context.textSecondary),
         SizedBox(height: 6),
         state.biometricInformation.w(500).s(16).c(Color(0xFF41455E)),
         SizedBox(height: 8),
         CustomDivider(),
         SizedBox(height: 8),
-        Strings.commonEmail.w(400).s(14).c(context.colors.textSecondary),
+        Strings.commonEmail.w(400).s(14).c(context.textSecondary),
         SizedBox(height: 6),
         //state.email.w(500).s(16).c(Color(0xFF41455E)),
         if (state.email.isNotEmpty)
           state.email.w(500).s(16).c(Color(0xFF41455E)),
-        if (state.email.isEmpty) "****".w(400).s(15).c(context.colors.textSecondary),
+        if (state.email.isEmpty) "****".w(400).s(15).c(context.textSecondary),
         SizedBox(height: 8),
         CustomDivider(),
         SizedBox(height: 8),
-        Strings.commonPhoneNumber.w(400).s(14).c(context.colors.textSecondary),
+        Strings.commonPhoneNumber.w(400).s(14).c(context.textSecondary),
         SizedBox(height: 6),
         state.phoneNumber.w(500).s(16).c(Color(0xFF41455E)),
         SizedBox(height: 8),
         CustomDivider(),
         SizedBox(height: 8),
-        Strings.adDetailLocation.w(400).s(14).c(context.colors.textSecondary),
+        Strings.adDetailLocation.w(400).s(14).c(context.textSecondary),
         SizedBox(height: 6),
         Row(
           children: [
@@ -427,7 +430,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                         overflow: TextOverflow.ellipsis,
                         fontWeight: FontWeight.w400,
                         fontSize: 12,
-                        color: context.colors.textSecondary)),
+                        color: context.textSecondary)),
                 WidgetSpan(child: SizedBox(width: 5)),
                 TextSpan(
                   recognizer: TapGestureRecognizer()
@@ -846,7 +849,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                     overflow: TextOverflow.ellipsis,
                     fontWeight: FontWeight.w400,
                     fontSize: 12,
-                    color: context.colors.textSecondary)),
+                    color: context.textSecondary)),
           ])),
           SizedBox(height: 15),
           CustomElevatedButton(
@@ -884,6 +887,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
             pagingController: state.controller!,
+            showNewPageProgressIndicatorAsGridChild: false,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               childAspectRatio: width / height,
               crossAxisSpacing: 16,
@@ -902,7 +906,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                         Strings.commonEmptyMessage
                             .w(400)
                             .s(14)
-                            .c(context.colors.textPrimary),
+                            .c(context.textPrimary),
                         SizedBox(height: 12),
                         CustomElevatedButton(
                           text: Strings.commonRetry,

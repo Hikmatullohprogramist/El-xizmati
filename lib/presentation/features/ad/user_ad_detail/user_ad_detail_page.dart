@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
@@ -141,7 +141,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
           //     ("${userAd.beginDate ?? ""}-${userAd.endDate ?? ""}")
           //         .w(500)
           //         .s(12)
-          //         .c(context.colors.textSecondary),
+          //         .c(context.textSecondary),
           //   ],
           // ),
           // SizedBox(height: 16),
@@ -153,7 +153,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
           //     ("${userAd.region ?? " "} ${userAd.district ?? ""}")
           //         .w(400)
           //         .s(12)
-          //         .c(context.colors.textSecondary)
+          //         .c(context.textSecondary)
           //   ],
           // ),
           // SizedBox(height: 16),
@@ -183,7 +183,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                         Assets.images.icEye.svg(
                             height: 12,
                             width: 12,
-                            color: context.colors.iconGrey),
+                            color: context.colors.iconSecondary),
                         SizedBox(width: 8),
                         (userAd.viewedCount ?? 0)
                             .toString()
@@ -209,7 +209,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                       Assets.images.icFavoriteRemove.svg(
                           height: 12,
                           width: 12,
-                          color: context.colors.iconGrey),
+                          color: context.colors.iconSecondary),
                       SizedBox(width: 8),
                       (userAd.selectedCount ?? 0)
                           .toString()
@@ -236,7 +236,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                         Assets.images.icCall.svg(
                             height: 12,
                             width: 12,
-                            color: context.colors.iconGrey),
+                            color: context.colors.iconSecondary),
                         SizedBox(width: 8),
                         (userAd.phoneViewedCount ?? 0)
                             .toString()
@@ -262,7 +262,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                       Assets.images.icSms.svg(
                           height: 12,
                           width: 12,
-                          color: context.colors.iconGrey),
+                          color: context.colors.iconSecondary),
                       SizedBox(width: 8),
                       (userAd.messageViewedCount ?? 0)
                           .toString()

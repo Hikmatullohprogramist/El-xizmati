@@ -7,9 +7,11 @@ class CardService {
 
   final Dio _dio;
 
-  // mobile/v1/user/billings
-
   Future<Response> getUserBillings() async {
     return _dio.get("api/mobile/v1/user/billings");
+  }
+
+  Future<Response> getDepositBalance() async {
+    return _dio.get("api/v1/user/balance");
   }
 }

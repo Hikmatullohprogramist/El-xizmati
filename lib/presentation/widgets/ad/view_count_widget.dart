@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 
@@ -21,7 +21,7 @@ class ViewCountWidget extends StatelessWidget {
         children: [
           Assets.images.icEye.svg(),
           SizedBox(width: 2),
-          _formattedViewCount().w(400).s(12).c(context.colors.textPrimary)
+          _formattedViewCount().w(400).s(12).c(context.textPrimary)
         ],
       ),
     );

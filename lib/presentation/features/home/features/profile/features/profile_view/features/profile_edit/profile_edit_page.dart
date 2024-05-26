@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
@@ -307,7 +307,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
                 child: Strings.createAdRequiredFieldsLabel
                     .w(300)
                     .s(13)
-                    .c(context.colors.textSecondary),
+                    .c(context.textSecondary),
               ),
             ],
           ),

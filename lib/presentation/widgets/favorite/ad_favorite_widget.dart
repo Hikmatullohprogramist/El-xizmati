@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 
@@ -46,14 +46,14 @@ class _AdFavoriteWidget extends State<AdFavoriteWidget> {
         decoration: BoxDecoration(
           border: Border.all(
             color: _isSelected
-                ? context.colors.textPrimaryInverse.withAlpha(100)
+                ? context.textPrimaryInverse.withAlpha(100)
                 : context.colors.buttonPrimary.withAlpha(150),
             width: 0.5,
           ),
           borderRadius: BorderRadius.circular(8),
           color: _isSelected
               ? context.colors.buttonPrimary
-              : context.colors.textPrimaryInverse,
+              : context.textPrimaryInverse,
         ),
         child: _isSelected
             ? Assets.images.icFavoriteRemove.svg()

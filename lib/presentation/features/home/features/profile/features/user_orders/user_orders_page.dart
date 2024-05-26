@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
@@ -91,7 +91,7 @@ class UserOrdersPage extends BasePage<PageCubit, PageState, PageEvent> {
             title: Strings.orderListTitle
                 .w(500)
                 .s(16)
-                .c(context.colors.textPrimary),
+                .c(context.textPrimary),
             bottom: TabBar(
               isScrollable: true,
               physics: BouncingScrollPhysics(),
@@ -105,8 +105,8 @@ class UserOrdersPage extends BasePage<PageCubit, PageState, PageEvent> {
               ),
               indicatorSize: TabBarIndicatorSize.label,
               labelColor: Color(0xFF5C6AC3),
-              unselectedLabelColor: context.colors.textSecondary,
-              indicatorColor: context.colors.textPrimary,
+              unselectedLabelColor: context.textSecondary,
+              indicatorColor: context.textPrimary,
               controller: controller,
               tabs: [
                 Tab(text: Strings.userOrderAll),

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 
@@ -27,7 +27,7 @@ class AppAdStatusWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Assets.images.icFire.svg(height: 10, width: 10),
-              'Top'.w(400).s(13).c(context.colors.textPrimaryInverse)
+              'Top'.w(400).s(13).c(context.textPrimaryInverse)
             ],
           ),
         ),

@@ -4,7 +4,7 @@ import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 
 import 'cubit/create_request_start_cubit.dart';
@@ -62,7 +62,7 @@ class CreateRequestStartPage extends BasePage<PageCubit, PageState, PageEvent> {
                 children: [
                   Assets.images.pngImages.sell.image(width: 116, height: 116),
                   SizedBox(height: 16),
-                  "Sotaman".w(500).s(16).c(context.colors.textPrimary)
+                  "Sotaman".w(500).s(16).c(context.textPrimary)
                 ]),
           ),
         ),
@@ -93,7 +93,7 @@ class CreateRequestStartPage extends BasePage<PageCubit, PageState, PageEvent> {
                 children: [
                   Assets.images.pngImages.buy.image(width: 116, height: 116),
                   SizedBox(height: 16),
-                  "Sotib olaman".w(500).s(16).c(context.colors.textPrimary)
+                  "Sotib olaman".w(500).s(16).c(context.textPrimary)
                 ]),
           ),
         ),

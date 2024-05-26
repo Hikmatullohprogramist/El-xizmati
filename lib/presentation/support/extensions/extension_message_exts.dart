@@ -38,7 +38,7 @@ extension ObjectExceptionExts on Object {
 
 extension AppLocalxceptionMessageExts on AppLocalException {
   String get localizedMessage {
-    if (this is UserNotIdentifiedException) {
+    if (this is NotIdentifiedException) {
       Logger().w("localizedMessage => AppNetworkConnectionException");
       return Strings.messageUserIdentityNotVerified;
     }

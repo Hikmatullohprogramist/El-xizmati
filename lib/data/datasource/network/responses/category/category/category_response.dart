@@ -38,6 +38,8 @@ class CategoryResponse with _$CategoryResponse {
 
   bool get isParent => parent_id == null || parent_id == 0;
 
+  bool get isNotParent => parent_id != null && parent_id != 0;
+
   bool get hasAmount => amount != null && amount! > 0;
 
   factory CategoryResponse.fromJson(Map<String, dynamic> json) =>

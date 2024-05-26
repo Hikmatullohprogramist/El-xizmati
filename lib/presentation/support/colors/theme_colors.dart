@@ -1,34 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 
-@lazySingleton
-class ThemeColors {
-  Color get backgroundColor => StaticColors.backgroundColor;
+abstract class ThemeColors {
+  Color get backgroundColor;
 
-  Color get primary => StaticColors.dodgerBlue;
+  Color get primary;
 
-  Color get onPrimary => StaticColors.white;
+  Color get onPrimary;
 
-  Color get textPrimary => StaticColors.textColorPrimary;
+  Color get textPrimary;
 
-  Color get textAccent => StaticColors.dodgerBlue;
+  Color get textAccent;
 
-  Color get textSecondary => StaticColors.textColorSecondary;
+  Color get textSecondary;
 
-  Color get textTertiary => StaticColors.cadetBlue;
+  Color get textTertiary;
 
-  Color get textPrimaryInverse => StaticColors.white;
+  Color get textPrimaryInverse;
 
-  Color get borderColor => StaticColors.brightGray;
+  Color get borderColor;
 
-  Color get iconGrey => StaticColors.cadetBlue;
+  Color get buttonPrimary;
 
-  Color get buttonPrimary => StaticColors.buttonColor;
+  Color get adStatusBackground;
 
-  Color get adStatusBackground => StaticColors.bondiBlue;
+  Color get adPropertyBusinessBackground;
 
-  Color get adPropertyBusinessBackground => StaticColors.business;
+  Color get adPropertyPersonalBackground;
 
-  Color get adPropertyPersonalBackground => StaticColors.manatee;
+  Color get iconPrimary;
+
+  Color get iconSecondary;
 }

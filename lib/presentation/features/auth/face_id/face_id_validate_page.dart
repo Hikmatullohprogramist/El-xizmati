@@ -6,7 +6,7 @@ import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
@@ -210,7 +210,7 @@ class FaceIdValidatePage extends BasePage<PageCubit, PageState, PageEvent> {
                       Assets.images.icCalendar.svg(height: 24, width: 24),
                       SizedBox(width: 10),
                       if (state.birthDate == "dd.mm.yyyy")
-                        state.birthDate.w(500).s(16).c(context.colors.textSecondary),
+                        state.birthDate.w(500).s(16).c(context.textSecondary),
                       if (state.birthDate != "dd.mm.yyyy")
                         state.birthDate.w(400).s(15).c(Colors.black87),
                     ],

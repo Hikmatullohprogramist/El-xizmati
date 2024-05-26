@@ -7,7 +7,7 @@ import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/features/auth/confirm/auth_confirm_page.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
@@ -117,7 +117,7 @@ class AuthLoginPage extends BasePage<PageCubit, PageState, PageEvent> {
                         TextSpan(
                           text: Strings.authPolicyAgree,
                           style: TextStyle(
-                            color: context.colors.textSecondary,
+                            color: context.textSecondary,
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
                           ),

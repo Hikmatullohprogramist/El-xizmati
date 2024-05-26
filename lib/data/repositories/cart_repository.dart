@@ -44,13 +44,13 @@ class CartRepository {
     return resultId;
   }
 
-  Future<void> removeFromCart(Ad ad) async {
+  Future<void> removeFromCart(int adId) async {
     final isLogin = _tokenStorage.isUserLoggedIn;
     if (isLogin) {
-      await _cartService.removeCart(adId: ad.id);
+      await _cartService.removeCart(adId: adId);
     }
 
-    _adStorage.removeFromCart(ad.id);
+    _adStorage.removeFromCart(adId);
   }
 
   Future<List<Ad>> getCartAds() async {
@@ -78,23 +78,31 @@ class CartRepository {
   }
 
   Future<void> orderCreate({
-    required int productId,
+    required int adId,
     required int amount,
     required int paymentTypeId,
     required int tin,
     required int? servicePrice,
   }) async {
-    if (_stateRepository.isNotAuthorized()) throw UserNotAuthorizedException();
-    if (_userRepository.isNotIdentified()) throw UserNotIdentifiedException();
+    try {
+      if (_stateRepository.isNotAuthorized()) throw NotAuthorizedException();
+      if (_userRepository.isNotIdentified()) throw NotIdentifiedException();
 
-    _cartService.orderCreate(
-      productId: productId,
-      amount: amount,
-      paymentTypeId: paymentTypeId,
-      tin: tin,
-      servicePrice: servicePrice,
-    );
-    return;
+      await _cartService.orderCreate(
+        productId: adId,
+        amount: amount,
+        paymentTypeId: paymentTypeId,
+        tin: tin,
+        servicePrice: servicePrice,
+      );
+
+      await removeOrder(tin: tin);
+      await removeFromCart(adId);
+
+    } catch (e, stackTrace) {
+      Logger().e(e, stackTrace: stackTrace);
+      rethrow;
+    }
   }
 
   Future<void> removeOrder({required int tin}) async {

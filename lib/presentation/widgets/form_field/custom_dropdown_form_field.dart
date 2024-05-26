@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
-import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 
 class CustomDropdownFormField extends StatelessWidget {
   const CustomDropdownFormField({
@@ -41,24 +41,24 @@ class CustomDropdownFormField extends StatelessWidget {
                   width: 1,
                   color: state.hasError
                       ? Colors.red.shade200
-                      : StaticColors.inputStrokeColor,
+                      : context.inputStrokeInactiveColor,
                 ),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: InkWell(
-                  onTap: () {
-                    onTap();
-                  },
+                  onTap: () => onTap(),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
                         child: (value.isNotEmpty
                                 ? (value).w(400).s(14).c(Color(0xFF41455E))
-                                : (hint).w(400).s(14).c(context.colors.textSecondary))
+                                : (hint).w(400).s(14).c(context.textSecondary))
                             .copyWith(
-                                maxLines: 1, overflow: TextOverflow.ellipsis),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       Assets.images.icDropdown.svg()
                     ],

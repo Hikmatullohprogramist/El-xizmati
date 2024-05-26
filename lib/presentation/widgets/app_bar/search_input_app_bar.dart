@@ -42,13 +42,13 @@
 //                           // cubit(context).getSearchResult(value);
 //                         },
 //                         style: TextStyle(
-//                           color: context.colors.textPrimary,
+//                           color: context.textPrimary,
 //                           fontSize: 14,
 //                         ),
 //                         decoration: InputDecoration.collapsed(
 //                             hintText: Strings.adSearchHint,
 //                             hintStyle: TextStyle(
-//                               color: context.colors.textSecondary,
+//                               color: context.textSecondary,
 //                               fontSize: 12,
 //                             )),
 //                         controller: searchTextController,

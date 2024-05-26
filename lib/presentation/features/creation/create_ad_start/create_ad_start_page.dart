@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
@@ -54,7 +54,7 @@ class CreateAdStartPage extends BasePage<PageCubit, PageState, PageEvent> {
               children: [
                 Assets.images.pngImages.sell.image(),
                 SizedBox(height: 16),
-                "Sotaman".w(500).s(16).c(context.colors.textPrimary)
+                "Sotaman".w(500).s(16).c(context.textPrimary)
               ],
             ),
           ),
@@ -86,7 +86,7 @@ class CreateAdStartPage extends BasePage<PageCubit, PageState, PageEvent> {
               children: [
                 Assets.images.pngImages.buy.image(),
                 SizedBox(height: 16),
-                "Solib olaman".w(500).s(16).c(context.colors.textPrimary)
+                "Solib olaman".w(500).s(16).c(context.textPrimary)
               ],
             ),
           ),

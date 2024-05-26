@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/theme_colors.dart';
 import 'package:onlinebozor/presentation/di/injection.dart';
 import 'package:onlinebozor/presentation/support/colors/dark_theme_colors.dart';
+import 'package:onlinebozor/presentation/support/colors/light_theme_colors.dart';
+import 'package:onlinebozor/presentation/support/colors/theme_colors.dart';
 
 extension ColorExtension on BuildContext {
   ThemeColors get colors => Theme.of(this).brightness == Brightness.dark
       ? getIt<DarkThemeColors>()
-      : getIt<ThemeColors>();
+      : getIt<LightThemeColors>();
 
   ThemeData get theme => Theme.of(this);
 
@@ -25,4 +26,22 @@ extension ColorExtension on BuildContext {
   Color get cardColor => Theme.of(this).colorScheme.surface;
 
   Color get cardStrokeColor => Theme.of(this).cardColor;
+
+  Color get textPrimary => colors.textPrimary;
+
+  Color get textSecondary => colors.textSecondary;
+
+  Color get textTertiary => colors.textTertiary;
+
+  Color get textPrimaryInverse => colors.textPrimaryInverse;
+
+  Color get inputBackgroundColor => Theme.of(this).colorScheme.secondary;
+
+  Color get inputStrokeActiveColor => colors.buttonPrimary;
+
+  Color get inputStrokeInactiveColor => Theme.of(this).colorScheme.surface;
+
+  Color get iconPrimary => colors.iconPrimary;
+
+  Color get iconSecondary => colors.iconSecondary;
 }

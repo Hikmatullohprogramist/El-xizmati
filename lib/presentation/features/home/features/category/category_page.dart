@@ -1,15 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
-import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/responses/category/category/category_response.dart';
 import 'package:onlinebozor/domain/models/ad/ad_list_type.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/widgets/category/category_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/category/category_widget.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
+import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_field.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 
 import 'cubit/category_cubit.dart';
@@ -51,25 +51,28 @@ class CategoryPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: context.appBarColor,
-        elevation: 0.5,
+        elevation: 0,
         toolbarHeight: 64,
-        leadingWidth: 0,
-        title: TextField(
-          controller: searchTextController,
-          decoration: InputDecoration(
-            hintText: Strings.categoryListSearchHint,
-            border: InputBorder.none,
-            icon: Assets.images.iconSearch.svg(),
+        // leadingWidth: 0,
+        actions: [
+          Expanded(
+            child: Container(
+              height: 62,
+              margin: EdgeInsets.only(left: 16, top: 6, right: 16, bottom: 6),
+              child: CustomTextFormField(
+                controller: searchTextController,
+                hint: Strings.categoryListSearchHint,
+                inputType: TextInputType.text,
+                keyboardType: TextInputType.text,
+                maxLines: 1,
+                isStrokeEnabled: false,
+                onChanged: (value) {
+                  cubit(context).setSearchQuery(value);
+                },
+              ),
+            ),
           ),
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: Color(0xFF41455F),
-          ),
-          onChanged: (value) {
-            cubit(context).setSearchQuery(value);
-          },
-        ),
+        ],
       ),
       resizeToAvoidBottomInset: false,
       backgroundColor: context.backgroundColor,

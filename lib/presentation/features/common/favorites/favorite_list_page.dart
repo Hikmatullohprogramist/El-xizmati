@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
@@ -33,7 +33,7 @@ class FavoriteListPage extends BasePage<PageCubit, PageState, PageEvent> {
                 .c(context.textPrimary),
             // leading: AutoLeadingButton(),
             leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios, color: context.colors.iconGrey),
+              icon: Icon(Icons.arrow_back_ios, color: context.colors.iconSecondary),
               onPressed: () {
                 if (context.router.stack.length == 1) {
                   favorite_list_page.exit(0);

@@ -10,19 +10,21 @@ class ActionAppBar extends AppBar implements PreferredSizeWidget {
   final List<Widget>? actions;
   @override
   final Color backgroundColor;
+  final Color titleTextColor;
 
   ActionAppBar({
     super.key,
     required this.titleText,
-    this.backgroundColor = StaticColors.backgroundColor,
+    required this.titleTextColor,
+    required this.backgroundColor,
     required this.onBackPressed,
     this.actions,
   }) : super(
-          // backgroundColor: backgroundColor,
+          backgroundColor: backgroundColor,
           elevation: 0.5,
           centerTitle: true,
           toolbarHeight: 64,
-          title: titleText.w(500).s(16),
+          title: titleText.w(500).s(16).c(titleTextColor),
           leading: IconButton(
             onPressed: onBackPressed,
             icon: Assets.images.icArrowLeft.svg(),

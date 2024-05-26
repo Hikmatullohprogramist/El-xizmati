@@ -42,16 +42,6 @@ class SearchAppBar extends AppBar implements PreferredSizeWidget {
             width: double.maxFinite,
             height: 42,
             padding: EdgeInsets.symmetric(horizontal: 10),
-            // decoration: ShapeDecoration(
-            // color: Colors.white,
-            // shape: RoundedRectangleBorder(
-            //   side: const BorderSide(
-            //     width: 0.50,
-            //     color: Color(0xFFE5E9F3),
-            //   ),
-            //   borderRadius: BorderRadius.circular(6),
-            // ),
-            // ),
             child: Row(
               children: [
                 InkWell(

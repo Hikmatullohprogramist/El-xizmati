@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 
 class ChatItem extends StatelessWidget {
   const ChatItem({super.key, required this.listener});
@@ -64,7 +64,7 @@ class ChatItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       "Техно-ID".w(600).s(14).c(Color(0xFF41455E)),
-                      "11:23".w(500).s(10).c(context.colors.textSecondary)
+                      "11:23".w(500).s(10).c(context.textSecondary)
                     ],
                   ),
                   SizedBox(
@@ -73,7 +73,7 @@ class ChatItem extends StatelessWidget {
                   "Планшет Samsung Galaxy Tab A 8.0 SM-T2 S..."
                       .w(400)
                       .s(10)
-                      .c(context.colors.textSecondary)
+                      .c(context.textSecondary)
                       .copyWith(overflow: TextOverflow.ellipsis, maxLines: 1),
                 ],
               )

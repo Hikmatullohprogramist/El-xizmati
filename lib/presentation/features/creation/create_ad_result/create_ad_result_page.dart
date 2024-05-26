@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
@@ -45,12 +45,12 @@ class CreateAdResultPage extends BasePage<PageCubit, PageState, PageEvent> {
             Strings.createAdResultMessage
                 .w(800)
                 .s(20)
-                .c(context.colors.textPrimary),
+                .c(context.textPrimary),
             SizedBox(height: 16),
             Strings.createAdResultDesc
                 .w(500)
                 .s(14)
-                .c(context.colors.textSecondary)
+                .c(context.textSecondary)
                 .copyWith(textAlign: TextAlign.center),
             SizedBox(height: 72),
             CustomElevatedButton(

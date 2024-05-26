@@ -1,9 +1,11 @@
+import 'dart:math';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/data/datasource/network/responses/category/category/category_response.dart';
 import 'package:onlinebozor/data/repositories/common_repository.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
 part 'category_cubit.freezed.dart';
 part 'category_state.dart';
@@ -36,8 +38,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   void setSearchQuery(String? query) {
     if (query == null || query.trim().isEmpty) {
-      final parentItems =
-          states.allItems.where((element) => element.isParent).toList();
+      final parentItems = states.allItems.where((e) => e.isParent).toList();
 
       updateState((state) => state.copyWith(visibleItems: parentItems));
     } else {
@@ -45,6 +46,8 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       final searchResults = states.allItems
           .where((e) => e.name?.toUpperCase().contains(searchQuery) == true)
           .toList();
+
+      logger.w("searchResults = $searchResults");
 
       updateState((state) => state.copyWith(
             visibleItems: searchResults,
@@ -57,7 +60,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
   void setSelectedCategory(CategoryResponse category) {
     var categories = states.allItems
-        .where((element) => element.parent_id == category.id)
+        .where((e) => e.isNotParent && e.parent_id == category.id)
         .toList();
 
     if (categories.isNotEmpty) {

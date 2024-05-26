@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/data/datasource/network/constants/rest_constants.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/widgets/webview/oauth_web_view.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -43,7 +43,7 @@ class AuthWithOneIdPage extends BasePage<PageCubit, PageState, PageEvent> {
         leading: IconButton(
             icon: Icon(
               Icons.arrow_back_ios,
-              color: context.colors.iconGrey,
+              color: context.colors.iconSecondary,
             ),
             onPressed: () => context.router.pop()),
       ),
@@ -51,7 +51,7 @@ class AuthWithOneIdPage extends BasePage<PageCubit, PageState, PageEvent> {
         children: [
           OAuthWebView(
             initialUrl: _buildOAuthUrl(),
-            redirectUrl: RestConstants.ONE_ID_FALLBACK,
+            redirectUrl: RestConstants.ONE_ID_REDIRECT_URI,
             onPageStarted: (url) => cubit(context).onPageStarted(),
             onProcess: (process) => cubit(context).onProcess(),
             onPageFinished: (url) => cubit(context).onPageFinished(),
@@ -71,7 +71,7 @@ class AuthWithOneIdPage extends BasePage<PageCubit, PageState, PageEvent> {
     var params = {
       'response_type': 'one_code',
       'client_id': 'hujjat_uz',
-      'redirect_uri': RestConstants.ONE_ID_FALLBACK,
+      'redirect_uri': RestConstants.ONE_ID_REDIRECT_URI,
       'scope': 'hujjat_uz',
       'state': 'active'
     };

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 
 class ProductOrService extends StatelessWidget {
@@ -45,7 +45,7 @@ class ProductOrService extends StatelessWidget {
                   left: 8,
                   top: 8,
                   child:
-                      title.w(700).s(16).c(context.colors.textPrimaryInverse)),
+                      title.w(700).s(16).c(context.textPrimaryInverse)),
               Container(
                 // margin: EdgeInsets.only(right: 0.5, bottom: 0.5),
                 padding: EdgeInsets.all(2),

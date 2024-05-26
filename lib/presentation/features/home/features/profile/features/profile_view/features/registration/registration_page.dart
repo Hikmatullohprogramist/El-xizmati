@@ -8,7 +8,7 @@ import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
@@ -56,6 +56,8 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
       backgroundColor: context.backgroundColor,
       appBar: ActionAppBar(
         titleText: Strings.verifyIdentityTitle,
+        titleTextColor: context.textPrimary,
+        backgroundColor: context.appBarColor,
         onBackPressed: () => context.router.pop(),
         actions: [
           CustomTextButton(

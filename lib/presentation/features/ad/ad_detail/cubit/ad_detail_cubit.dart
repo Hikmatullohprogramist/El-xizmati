@@ -259,7 +259,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       if (index == -1) return;
 
       if (ad.isAddedToCart) {
-        await _cartRepository.removeFromCart(ad);
+        await _cartRepository.removeFromCart(ad.id);
         adList[index] = ad..isAddedToCart = false;
       } else {
         await _cartRepository.addToCart(ad);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
@@ -73,7 +73,7 @@ class UserAdWidget extends StatelessWidget {
                                     .getTransactionTypeLocalizedName()
                                     .w(400)
                                     .s(13)
-                                    .c(context.colors.textPrimaryInverse)
+                                    .c(context.textPrimaryInverse)
                                     .copyWith(overflow: TextOverflow.ellipsis)
                               ],
                             ),
@@ -98,7 +98,7 @@ class UserAdWidget extends StatelessWidget {
                         (userAd.category?.name ?? "")
                             .w(500)
                             .s(14)
-                            .c(context.colors.textSecondary)
+                            .c(context.textSecondary)
                             .copyWith(
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
 
 import '../../../data/datasource/network/responses/category/category/category_response.dart';
@@ -39,7 +39,7 @@ class CategoryWidget extends StatelessWidget {
               RoundedCachedNetworkImage(
                 imageWidth: 20,
                 imageHeight: 20,
-                imageId: category.icon,
+                imageId: category.icon ?? "",
               ),
               SizedBox(width: 16),
               Expanded(

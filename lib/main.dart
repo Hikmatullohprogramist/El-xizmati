@@ -14,7 +14,7 @@ import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
 import 'package:onlinebozor/presentation/di/injection.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/state_message/state_bottom_sheet_exts.dart';
 import 'package:onlinebozor/presentation/support/state_message/state_message_manager.dart';
 import 'package:onlinebozor/presentation/support/state_message/state_snack_bar_exts.dart';
@@ -119,9 +119,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isDarkMode = context.theme.brightness == Brightness.dark;
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: isDarkMode ? Colors.white : Colors.black12,
-      systemNavigationBarColor: isDarkMode ? Colors.white : Colors.black12,
-      statusBarIconBrightness: context.theme.brightness,
+      statusBarColor: isDarkMode ? Colors.white : Colors.transparent,
+      systemNavigationBarColor: isDarkMode ? Colors.white : context.appBarColor,
+      statusBarIconBrightness: isDarkMode ? Brightness.dark : Brightness.light,
     ));
     ThemeMode themeMode = ThemeMode.system;
 

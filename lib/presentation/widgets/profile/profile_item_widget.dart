@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 
@@ -35,7 +35,7 @@ class ProfileItemWidget extends StatelessWidget {
                   children: [
                     icon.svg(width: 18, height: 18),
                     SizedBox(width: 16),
-                    name.w(500).s(14).c(color ?? context.colors.textPrimary)
+                    name.w(500).s(14).c(color ?? context.textPrimary)
                   ],
                 ),
                 Assets.images.icArrowRight.svg(

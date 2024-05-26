@@ -5,7 +5,7 @@ import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/empty_app_bar.dart';
@@ -23,6 +23,7 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
       appBar: EmptyAppBar(
         titleText: "",
         backgroundColor: context.appBarColor,
+        textColor: context.textPrimary,
       ),
       backgroundColor: context.backgroundColor,
       body: SingleChildScrollView(
@@ -64,7 +65,7 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
             Strings.adCreationStartSaleTitle
                 .w(800)
                 .s(18)
-                .c(context.colors.textPrimary),
+                .c(context.textPrimary),
             SizedBox(height: 16),
             SafeArea(
               child: Strings.adCreationStartSaleDesc
@@ -125,7 +126,7 @@ class CreateAdChooserPage extends BasePage<PageCubit, PageState, PageEvent> {
             Strings.adCreationStartBuyTitle
                 .w(800)
                 .s(18)
-                .c(context.colors.textPrimary),
+                .c(context.textPrimary),
             SizedBox(height: 16),
             Strings.adCreationStartBuyDesc
                 .w(500)

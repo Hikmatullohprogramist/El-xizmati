@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/data/datasource/network/responses/transaction/payment_transaction_response.dart';
@@ -63,7 +63,7 @@ class TransactionWidget extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 10),
-              transaction.pay_date.w(500).s(12).c(context.colors.textSecondary)
+              transaction.pay_date.w(500).s(12).c(context.textSecondary)
             ],
           ),
           Spacer(),

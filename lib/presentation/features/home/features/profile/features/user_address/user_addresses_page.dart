@@ -6,7 +6,7 @@ import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/widgets/action/action_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/address/user_address_empty_widget.dart';
@@ -29,6 +29,7 @@ class UserAddressesPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Scaffold(
       appBar: ActionAppBar(
         titleText: Strings.userAddressMyAddress,
+        titleTextColor: context.textPrimary,
         backgroundColor: context.appBarColor,
         onBackPressed: () => context.router.pop(),
         actions: [
@@ -68,7 +69,7 @@ class UserAddressesPage extends BasePage<PageCubit, PageState, PageEvent> {
                       Strings.commonEmptyMessage
                           .w(400)
                           .s(14)
-                          .c(context.colors.textPrimary),
+                          .c(context.textPrimary),
                       SizedBox(height: 12),
                       CustomElevatedButton(
                         text: Strings.commonRetry,

@@ -11,7 +11,7 @@ import 'package:onlinebozor/domain/models/report/report_type.dart';
 import 'package:onlinebozor/domain/models/stats/stats_type.dart';
 import 'package:onlinebozor/presentation/features/common/report/submit_report_page.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/widgets/action/action_list_item.dart';
@@ -153,11 +153,13 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
     return state.isNotPrepared
         ? ActionAppBar(
             titleText: "",
+            titleTextColor: context.textPrimary,
             backgroundColor: context.appBarColor,
             onBackPressed: () => context.router.pop(),
           )
         : ActionAppBar(
             titleText: "",
+            titleTextColor: context.textPrimary,
             backgroundColor: context.appBarColor,
             onBackPressed: () => context.router.pop(),
             actions: [
@@ -379,7 +381,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                           Strings.adDetailOnOnlineBozor
                               .w(400)
                               .s(14)
-                              .c(context.colors.textSecondary),
+                              .c(context.textSecondary),
                           SizedBox(width: 8),
                           (state.adDetail!.beginDate ?? "").w(400).s(14)
                         ],
@@ -437,7 +439,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                 "${state.adDetail!.address?.region?.name ?? ""}  ${state.adDetail!.address?.district?.name ?? ""}"
                     .w(500)
                     .s(14)
-                    .c(context.colors.textPrimary)
+                    .c(context.textPrimary)
               ],
             ),
             SizedBox(height: 16),

@@ -24,8 +24,8 @@ class UserAddressRepository {
   final UserRepository _userRepository;
 
   Future<List<UserAddress>> getActualUserAddresses() async {
-    if (_stateRepository.isNotAuthorized()) throw UserNotAuthorizedException();
-    if (_userRepository.isNotIdentified()) throw UserNotIdentifiedException();
+    if (_stateRepository.isNotAuthorized()) throw NotAuthorizedException();
+    if (_userRepository.isNotIdentified()) throw NotIdentifiedException();
 
     final response = await _userAddressService.getUserAddresses();
     final addresses = UserAddressRootResponse.fromJson(response.data).data;

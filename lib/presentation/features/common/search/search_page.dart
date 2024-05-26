@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
@@ -40,13 +40,13 @@ class SearchPage extends BasePage<PageCubit, PageState, PageEvent> {
                   cubit(context).getSearchResult(value);
                 },
                 style: TextStyle(
-                  color: context.colors.textPrimary,
+                  color: context.textPrimary,
                   fontSize: 14,
                 ),
                 decoration: InputDecoration.collapsed(
                     hintText: Strings.adSearchHint,
                     hintStyle: TextStyle(
-                      color: context.colors.textSecondary,
+                      color: context.textSecondary,
                       fontSize: 12,
                     )),
                 controller: textController,
@@ -99,7 +99,7 @@ class SearchPage extends BasePage<PageCubit, PageState, PageEvent> {
                       child: (state.searchResult[index].name ?? "")
                           .w(700)
                           .s(14)
-                          .c(context.colors.textPrimary)
+                          .c(context.textPrimary)
                           .copyWith(
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,

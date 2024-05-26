@@ -73,7 +73,6 @@ import 'package:onlinebozor/presentation/features/home/features/profile/features
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_address/user_addresses_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_ads/features/ad_list/user_ad_list_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_ads/user_ads_page.dart';
-import 'package:onlinebozor/presentation/features/home/features/profile/features/user_cards/features/add_card/add_card_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_cards/user_cards_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_order_type/user_order_type_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_orders/features/user_order_cancel/user_order_cancel_page.dart';
@@ -83,6 +82,8 @@ import 'package:onlinebozor/presentation/features/home/features/profile/features
 import 'package:onlinebozor/presentation/features/home/features/profile/features/wallet_filling/page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/profile_page.dart';
 import 'package:onlinebozor/presentation/features/home/home_page.dart';
+import 'package:onlinebozor/presentation/features/realpay/add_card/add_card_with_realpay_page.dart';
+import 'package:onlinebozor/presentation/features/realpay/refill/refill_with_realpay_page.dart';
 
 import '../../domain/models/ad/ad_list_type.dart';
 import '../../domain/models/ad/ad_transaction_type.dart';
@@ -281,8 +282,18 @@ class AppRouter extends _$AppRouter {
 
         AutoRoute(page: UserCardsRoute.page, path: '/user_card_list'),
 
-        /// user orders
-        AutoRoute(page: AddCardRoute.page, path: '/add_card'),
+        /// RealPay Payment
+        AutoRoute(
+          page: RefillWithRealPayRoute.page,
+          path: '/refill_with_realpay',
+        ),
+
+        /// RealPay Payment
+        AutoRoute(
+          page: AddCardWithRealPayRoute.page,
+          path: '/add_card_with_realpay',
+        ),
+
         AutoRoute(
           page: UserOrdersRoute.page,
           path: '/user_orders',

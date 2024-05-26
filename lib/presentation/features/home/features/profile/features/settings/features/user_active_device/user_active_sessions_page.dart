@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/device/active_session_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/device/active_session_widget.dart';
@@ -26,10 +26,8 @@ class UserActiveSessionsPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: context.backgroundColor,
-        title: Strings.settingsActiveDevices
-            .w(500)
-            .s(14)
-            .c(context.colors.textPrimary),
+        title:
+            Strings.settingsActiveDevices.w(500).s(14).c(context.textPrimary),
         centerTitle: true,
         elevation: 0.5,
         leading: IconButton(
@@ -41,6 +39,7 @@ class UserActiveSessionsPage extends BasePage<PageCubit, PageState, PageEvent> {
         shrinkWrap: true,
         physics: BouncingScrollPhysics(),
         pagingController: state.controller!,
+        showNewPageProgressIndicatorAsGridChild: false,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: width / height,
           crossAxisSpacing: 16,
@@ -59,7 +58,7 @@ class UserActiveSessionsPage extends BasePage<PageCubit, PageState, PageEvent> {
                     Strings.commonEmptyMessage
                         .w(400)
                         .s(14)
-                        .c(context.colors.textPrimary),
+                        .c(context.textPrimary),
                     SizedBox(height: 12),
                     CustomElevatedButton(
                       text: Strings.commonRetry,

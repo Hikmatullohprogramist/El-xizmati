@@ -20,8 +20,12 @@ abstract class StaticColors {
 
   static const textColorPrimary = Color(0xFF41455F);
   // static const textColorSecondary = Color(0xFF5A5D83);
-  // static const textColorSecondary = context.colors.textSecondary;
+  // static const textColorSecondary = context.textSecondary;
   static const textColorSecondary = Color(0xFFA8A8A8);
+
+  static const iconPrimaryLight = Color(0xFF41455F);
+  static const iconPrimaryDark = Color(0xFFF3EFE5);
+  static const iconSecondary = Color(0xFF9EABBE);
 
   static const shimmerBaseColor = Color(0xFFE8E6E8);
   static const shimmerHighLightColor = Color(0xFAFAFAFF);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
@@ -71,7 +71,7 @@ class MultiSelectionExpandableItem extends StatelessWidget {
                               .toString()
                               .w(isSelected ? 600 : 400)
                               .s(16)
-                              .c(context.colors.textPrimary)
+                              .c(context.textPrimary)
                               .copyWith(
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
@@ -50,7 +50,7 @@ class PopularCategoriesPage extends BasePage<PageCubit, PageState, PageEvent> {
                             Strings.commonEmptyMessage
                                 .w(400)
                                 .s(14)
-                                .c(context.colors.textPrimary),
+                                .c(context.textPrimary),
                             SizedBox(height: 12),
                             CustomElevatedButton(
                               onPressed: () {},

@@ -7,7 +7,7 @@ import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/responses/transaction/payment_transaction_response.dart';
 import 'package:onlinebozor/domain/models/payment_filter/paymant_filter.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/state_message/state_snack_bar_exts.dart';
 import 'package:onlinebozor/presentation/widgets/action/selection_list_item.dart';
@@ -64,7 +64,7 @@ class PaymentTransactionFilterPage
                                 Strings.paymentFilterFromDate
                                     .w(600)
                                     .s(14)
-                                    .c(context.colors.textSecondary),
+                                    .c(context.textSecondary),
                               if (state.fromDate.isNotEmpty)
                                 state.fromDate.w(600).s(14).c(Colors.black),
                               Assets.images.icCalendar
@@ -98,7 +98,7 @@ class PaymentTransactionFilterPage
                                 Strings.paymentFilterToDate
                                     .w(600)
                                     .s(14)
-                                    .c(context.colors.textSecondary),
+                                    .c(context.textSecondary),
                               if (state.toDate.isNotEmpty)
                                 state.toDate.w(600).s(14).c(Colors.black),
                               Assets.images.icCalendar
@@ -125,7 +125,7 @@ class PaymentTransactionFilterPage
                     if (state.paymentType.isNotEmpty)
                       Strings.paymentFilterPaymentType
                           .w(400)
-                          .c(context.colors.textSecondary)
+                          .c(context.textSecondary)
                           .s(12),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -141,7 +141,7 @@ class PaymentTransactionFilterPage
                         Strings.paymentFilterAll
                             .w(400)
                             .s(12)
-                            .c(context.colors.textSecondary),
+                            .c(context.textSecondary),
                         SizedBox(width: 16),
                         Assets.images.icArrowRight.svg(width: 20, height: 20)
                       ],
@@ -167,7 +167,7 @@ class PaymentTransactionFilterPage
                     if (state.paymentMethod.isNotEmpty)
                       Strings.paymentFilterPaymentMethod
                           .w(400)
-                          .c(context.colors.textSecondary)
+                          .c(context.textSecondary)
                           .s(12),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -183,7 +183,7 @@ class PaymentTransactionFilterPage
                         Strings.paymentFilterAll
                             .w(400)
                             .s(12)
-                            .c(context.colors.textSecondary),
+                            .c(context.textSecondary),
                         SizedBox(width: 16),
                         Assets.images.icArrowRight.svg(width: 20, height: 20),
                       ],
@@ -210,7 +210,7 @@ class PaymentTransactionFilterPage
                     if (state.transactionState.isNotEmpty)
                       Strings.paymentFilterStatus
                           .w(400)
-                          .c(context.colors.textSecondary)
+                          .c(context.textSecondary)
                           .s(12),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -226,7 +226,7 @@ class PaymentTransactionFilterPage
                         Strings.paymentFilterAll
                             .w(400)
                             .s(12)
-                            .c(context.colors.textSecondary),
+                            .c(context.textSecondary),
                         SizedBox(width: 16),
                         Assets.images.icArrowRight.svg(width: 20, height: 20)
                       ],

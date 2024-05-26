@@ -5,7 +5,7 @@ import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/order/order_type.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
@@ -162,7 +162,7 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
               "${Strings.orderCreateAddress}:"
                   .w(500)
                   .s(14)
-                  .c(context.colors.textSecondary),
+                  .c(context.textSecondary),
               SizedBox(width: 4),
               Expanded(
                 child: (state.adDetail?.address?.name ?? "")
@@ -178,7 +178,7 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
               "${Strings.orderCreateCategory}:"
                   .w(500)
                   .s(14)
-                  .c(context.colors.textSecondary),
+                  .c(context.textSecondary),
               SizedBox(width: 4),
               Expanded(
                 child: (state.adDetail?.categoryName ?? "")
@@ -194,7 +194,7 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
               "${Strings.orderCreatePrice}:"
                   .w(500)
                   .s(14)
-                  .c(context.colors.textSecondary),
+                  .c(context.textSecondary),
               SizedBox(width: 4),
               cubit(context)
                   .getProductPrice()
@@ -374,7 +374,7 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
                           Strings.orderCreateCashDescription
                               .w(400)
                               .s(12)
-                              .c(context.colors.textSecondary)
+                              .c(context.textSecondary)
                               .copyWith(
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,

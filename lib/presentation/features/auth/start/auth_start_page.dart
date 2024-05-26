@@ -10,7 +10,7 @@ import 'package:onlinebozor/presentation/features/auth/confirm/auth_confirm_page
 import 'package:onlinebozor/presentation/features/auth/eds/request/crc32.dart';
 import 'package:onlinebozor/presentation/features/auth/eds/request/gost_hash.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
@@ -102,7 +102,7 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
                     TextSpan(
                       text: Strings.authPricePoliceStart,
                       style: TextStyle(
-                          color: context.colors.textSecondary,
+                          color: context.textSecondary,
                           fontSize: 12,
                           fontWeight: FontWeight.w400),
                     ),
@@ -120,7 +120,7 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
                     TextSpan(
                       text: Strings.authPricePoliceEnd,
                       style: TextStyle(
-                          color: context.colors.textSecondary,
+                          color: context.textSecondary,
                           fontSize: 12,
                           fontWeight: FontWeight.w400),
                     ),

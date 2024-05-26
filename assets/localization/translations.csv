@@ -8,8 +8,8 @@ action_make_main,Asosiy qilish,Сделать основным,Асосий қи
 action_title,Harakat,Действие,Ҳаракат
 active_device_current_device,Joriy sessiya,Текущий сеанс,Жорий сессия
 active_device_remove_device,Seansni tugatish,Завершить сеанс,Сеансни тугатиш
-ad_buy_by_one_click,Bir klikda sotib olish,Купить в один клик,Бир кликда сотиб олиш
 ad_buy,Sotib olish,Купить,Сотиб олиш
+ad_buy_by_one_click,Bir klikda sotib olish,Купить в один клик,Бир кликда сотиб олиш
 ad_create_exchange_title,Almashish,Обмен,Алмашиш
 ad_create_free_title,Bepul,Бесплатно,Бепул
 ad_create_product_title,Mahsulot,Продукт,Маҳсулот
@@ -414,6 +414,8 @@ user_ads_inactive,Nofaol,Неактивный,Нофаол
 user_ads_rejected,Rad etilgan,Отклоненный,Рад этилган
 user_ads_title,E‘lonlar,Объявления,Эълонлар
 user_ads_wait,Kutilmoqda,В ожидании,Кутилмоқда
+user_card_deposit_card_name,Depozit karta,Депозитная карта,Депозит карта
+user_card_deposit_card_publisher_name,online-bozor.uz,online-bozor.uz,online-bozor.uz
 user_order_accepted,Qabul qilingan,Принято,Қабул қилинган
 user_order_active,Faol,Активный,Фаол
 user_order_all,Barchasi,Все,Барчаси

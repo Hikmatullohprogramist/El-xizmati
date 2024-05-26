@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 
 import 'package:onlinebozor/core/gen/localization/strings.dart';
@@ -25,7 +25,7 @@ class DefaultErrorWidget extends StatelessWidget {
                 Strings.commonEmptyMessage
                     .w(400)
                     .s(14)
-                    .c(context.colors.textPrimary),
+                    .c(context.textPrimary),
                 SizedBox(height: 12),
                 if (onRetryClicked != null)
                   CustomElevatedButton(
@@ -46,7 +46,7 @@ class DefaultErrorWidget extends StatelessWidget {
                   Strings.commonEmptyMessage
                       .w(400)
                       .s(14)
-                      .c(context.colors.textPrimary),
+                      .c(context.textPrimary),
                   SizedBox(height: 12),
                   CustomElevatedButton(
                     text: Strings.commonRetry,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
@@ -113,7 +113,7 @@ class UserOrderWidget extends StatelessWidget {
                               "${Strings.commonDate}:"
                                   .w(400)
                                   .s(13)
-                                  .c(context.colors.textPrimary),
+                                  .c(context.textPrimary),
                               SizedBox(width: 8),
                               (order.createdAt ?? "")
                                   .toString()
@@ -132,7 +132,7 @@ class UserOrderWidget extends StatelessWidget {
                               "${Strings.commonPrice}:"
                                   .w(400)
                                   .s(13)
-                                  .c(context.colors.textPrimary),
+                                  .c(context.textPrimary),
                               SizedBox(width: 6),
                               order.formattedPrice.w(500).s(13).copyWith(
                                     maxLines: 1,
@@ -147,7 +147,7 @@ class UserOrderWidget extends StatelessWidget {
                               "${Strings.commonQuantity}:"
                                   .w(400)
                                   .s(13)
-                                  .c(context.colors.textPrimary),
+                                  .c(context.textPrimary),
                               SizedBox(width: 6),
                               (order.firstProduct?.quantity ?? "")
                                   .toString()
@@ -166,7 +166,7 @@ class UserOrderWidget extends StatelessWidget {
                               "${Strings.commonTotalCost}:"
                                   .w(400)
                                   .s(13)
-                                  .c(context.colors.textPrimary),
+                                  .c(context.textPrimary),
                               SizedBox(width: 6),
                               order.formattedTotalSum.w(500).s(13).copyWith(
                                     maxLines: 1,

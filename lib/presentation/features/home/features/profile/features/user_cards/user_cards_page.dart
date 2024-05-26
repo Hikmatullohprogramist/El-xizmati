@@ -1,15 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/presentation/features/realpay/add_card/add_card_with_realpay_page.dart';
+import 'package:onlinebozor/presentation/features/realpay/refill/refill_with_realpay_page.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart';
-import 'package:onlinebozor/presentation/widgets/card/card_empty_widget.dart';
+import 'package:onlinebozor/presentation/widgets/card/card_empty_body_widget.dart';
 import 'package:onlinebozor/presentation/widgets/card/card_widget.dart';
+import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 
 import 'cubit/user_cards_cubit.dart';
 
@@ -23,123 +24,121 @@ class UserCardsPage extends BasePage<PageCubit, PageState, PageEvent> {
       backgroundColor: context.backgroundColor,
       appBar: ActionAppBar(
         titleText: Strings.myCardTitle,
+        titleTextColor: context.textPrimary,
+        backgroundColor: context.appBarColor,
         onBackPressed: () => context.router.pop(),
         actions: [
           CustomTextButton(
             text: Strings.cardAddTitle,
-            onPressed: () {
-              // context.router.push(AddCardRoute());
-            },
+            onPressed: () => _showAddCardWithRealPayPage(context),
           )
         ],
       ),
-      body: Column(children: [
-        if (state.isEmpty)
-          CardEmptyWidget(
-            onActionClicked: () {
-              // context.router.push(AddCardRoute());
-            },
-          )
-        else
-          CardWidget(
-            image: "8a818006f6ddda2c7af7dbf4",
-            listener: () {},
-            listenerEdit: () {},
-          )
-      ]),
+      body: LoaderStateWidget(
+        isFullScreen: true,
+        loadingState: state.balanceState,
+        loadingBody: _buildLoadingBody(),
+        successBody: _buildSuccessBody(context, state),
+        emptyBody: CardEmptyBodyWidget(
+          onAddCardClicked: () => _showAddCardWithRealPayPage(context),
+        ),
+        onRetryClicked: () => cubit(context).getDepositBalance(),
+      ),
     );
   }
 
-  void edit(BuildContext context, PageState state) {
-    showModalBottomSheet(
-        isScrollControlled: true,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        backgroundColor: context.backgroundColor,
-        context: context,
-        builder: (BuildContext buildContext) {
-          return Container(
-            height: 320,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20.0),
-                topRight: Radius.circular(20.0),
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(children: [
-                Row(
-                  children: [
-                    Expanded(
-                        child: Center(
-                            child:
-                                "Действие".w(500).s(16).c(Color(0xFF41455E)))),
-                    IconButton(
-                        onPressed: () {},
-                        icon: Assets.images.icClose.svg(width: 24, height: 24))
-                  ],
-                ),
-                SizedBox(width: 32),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Assets.images.icEdit.svg(width: 24, height: 24),
-                          SizedBox(width: 10),
-                          "Редактировать".w(500).s(14).c(Color(0xFF5C6AC3))
-                        ],
-                      )),
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Assets.images.icStar.svg(
-                              width: 24,
-                              height: 24,
-                              color: context.colors.iconGrey),
-                          SizedBox(width: 10),
-                          Strings.actionMakeMain
-                              .w(500)
-                              .s(14)
-                              .c(Color(0xFF41455E))
-                        ],
-                      )),
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Assets.images.icDelete.svg(width: 24, height: 24),
-                          SizedBox(width: 10),
-                          "Удалить карту".w(500).s(14).c(Color(0xFF5C6AC3))
-                        ],
-                      )),
-                ),
-                SizedBox(height: 24),
-                SizedBox(
-                  height: 42,
-                  width: double.infinity,
-                  child: CustomElevatedButton(
-                    text: Strings.commonClose,
-                    onPressed: () {},
-                  ),
-                )
-              ]),
-            ),
-          );
-        });
+  Widget _buildLoadingBody() {
+    return SingleChildScrollView(
+      child: ListView.builder(
+        physics: BouncingScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: 2,
+        itemBuilder: (BuildContext context, int index) {
+          return Center();
+        },
+      ),
+    );
   }
+
+  Widget _buildSuccessBody(BuildContext context, PageState state) {
+    return RefreshIndicator(
+      displacement: 160,
+      strokeWidth: 3,
+      color: context.colors.primary,
+      onRefresh: () async {
+        cubit(context).getDepositBalance();
+      },
+      child: ListView.separated(
+        physics: BouncingScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemCount: state.cards.length,
+        padding: EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 16),
+        itemBuilder: (context, index) {
+          return CardWidget(
+            userCard: state.cards[index],
+            onRefillClicked: () => _showRefillWithRealPayPage(context),
+            onHistoryClicked: () {},
+            onRefreshClicked: () {},
+            onSettingsClicked: (card) {},
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return SizedBox(width: 16, height: 8);
+        },
+      ),
+    );
+  }
+}
+
+void _showRefillWithRealPayPage(BuildContext context) async {
+  RefillWithRealPayPage page = RefillWithRealPayPage();
+  var isSuccess = await showModalBottomSheet(
+    isDismissible: false,
+    context: context,
+    isScrollControlled: true,
+    useSafeArea: true,
+    enableDrag: false,
+    backgroundColor: Colors.transparent,
+    builder: (context) {
+      return DraggableScrollableSheet(
+        expand: true,
+        initialChildSize: 0.9,
+        minChildSize: 0.25,
+        maxChildSize: 0.9,
+        builder: (BuildContext context, ScrollController scrollController) {
+          return Container(child: page);
+        },
+      );
+    },
+  );
+
+  // if (isSuccess)
+  context.read<PageCubit>().getDepositBalance();
+}
+
+void _showAddCardWithRealPayPage(BuildContext context) async {
+  AddCardWithRealPayPage page = AddCardWithRealPayPage();
+  var isSuccess = await showModalBottomSheet(
+    isDismissible: false,
+    context: context,
+    isScrollControlled: true,
+    useSafeArea: true,
+    enableDrag: false,
+    backgroundColor: Colors.transparent,
+    builder: (context) {
+      return DraggableScrollableSheet(
+        expand: true,
+        initialChildSize: 0.9,
+        minChildSize: 0.25,
+        maxChildSize: 0.9,
+        builder: (BuildContext context, ScrollController scrollController) {
+          return Container(child: page);
+        },
+      );
+    },
+  );
+
+  // if (isSuccess)
+  context.read<PageCubit>().getAddedCards();
 }

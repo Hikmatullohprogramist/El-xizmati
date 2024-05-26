@@ -101,7 +101,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> removeCart() async {
     try {
       if (states.adId != null) {
-        await _cartRepository.removeFromCart(states.adDetail!.toMap());
+        await _cartRepository.removeFromCart(states.adId!);
         emitEvent(PageEvent(PageEventType.onBackAfterRemove));
       }
     } catch (e) {
@@ -128,7 +128,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   Future<void> removeFromCartAfterOrderCreation() async {
     try {
       if (states.adId != null) {
-        await _cartRepository.removeFromCart(states.adDetail!.toMap());
+        await _cartRepository.removeFromCart(states.adId!);
       }
     } catch (e) {
       stateMessageManager.showErrorSnackBar(e.toString());
@@ -144,7 +144,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
     _cartRepository
         .orderCreate(
-          productId: states.adId ?? -1,
+          adId: states.adId ?? -1,
           amount: states.count,
           paymentTypeId: states.paymentId,
           tin: states.adDetail?.sellerTin ?? -1,
@@ -152,15 +152,10 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         )
         .initFuture()
         .onStart(() {
-          if (isIdentityVerified) throw UserNotIdentifiedException();
+          // if (isIdentityVerified) throw UserNotIdentifiedException();
           updateState((state) => state.copyWith(isRequestSending: true));
         })
-        .onSuccess((data) async {
-          await _cartRepository.removeOrder(
-            tin: states.adDetail?.sellerTin ?? -1,
-          );
-          await removeFromCartAfterOrderCreation();
-
+        .onSuccess((data) {
           emitEvent(PageEvent(PageEventType.onOpenAfterCreation));
         })
         .onError((error) {

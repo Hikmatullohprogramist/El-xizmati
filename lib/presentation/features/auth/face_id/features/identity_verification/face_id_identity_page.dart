@@ -14,7 +14,7 @@ import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
@@ -110,7 +110,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
                           maxLines: 2, textAlign: TextAlign.center)
                       .w(600)
                       .s(17)
-                      .c(context.colors.textPrimary),
+                      .c(context.textPrimary),
                   SizedBox(height: 40),
                   Row(
                     children: [
@@ -119,7 +119,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
                         height: 5, // Diameter of the spot (2 * radius)
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: context.colors.textSecondary,
+                          color: context.textSecondary,
                         ),
                       ),
                       SizedBox(width: 10),
@@ -141,7 +141,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
                         height: 5, // Diameter of the spot (2 * radius)
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: context.colors.textSecondary,
+                          color: context.textSecondary,
                         ),
                       ),
                       SizedBox(width: 10),
@@ -163,7 +163,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
                         height: 5, // Diameter of the spot (2 * radius)
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: context.colors.textSecondary,
+                          color: context.textSecondary,
                         ),
                       ),
                       SizedBox(width: 10),
@@ -185,7 +185,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
                         height: 5, // Diameter of the spot (2 * radius)
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: context.colors.textSecondary,
+                          color: context.textSecondary,
                         ),
                       ),
                       SizedBox(width: 10),
@@ -237,7 +237,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
                 Strings.profileIdentify
                     .w(600)
                     .s(18)
-                    .c(context.colors.textPrimary),
+                    .c(context.textPrimary),
                 Expanded(child: SizedBox()),
                 SizedBox(width: 25)
               ],
@@ -248,7 +248,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
                 child: Text(
                   Strings.faceIdIndentityInfo,
                   textAlign: TextAlign.center,
-                ).w(600).s(16).c(context.colors.textPrimary)),
+                ).w(600).s(16).c(context.textPrimary)),
             SizedBox(
               height: 15,
             ),
@@ -257,7 +257,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
               child: Text(
                 Strings.faceIdIndentityDesc,
                 textAlign: TextAlign.center,
-              ).w(400).s(12).c(context.colors.textSecondary),
+              ).w(400).s(12).c(context.textSecondary),
             ),
             SizedBox(
               height: 160,

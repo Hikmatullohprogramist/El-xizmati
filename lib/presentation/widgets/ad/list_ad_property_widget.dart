@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/ad/ad_item_condition.dart';
@@ -28,7 +28,7 @@ class ListAdPropertyWidget extends StatelessWidget {
           }
               .w(400)
               .s(isHorizontal ? 12 : 12)
-              .c(context.colors.textTertiary),
+              .c(context.textTertiary),
         ],
       ),
     );

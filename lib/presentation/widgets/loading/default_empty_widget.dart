@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_outlined_button.dart';
@@ -72,7 +72,7 @@ class DefaultEmptyWidget extends StatelessWidget {
             child: (message ?? Strings.commonEmptyMessage)
                 .w(500)
                 .s(16)
-                .c(context.colors.textPrimary)
+                .c(context.textPrimary)
                 .copyWith(textAlign: TextAlign.center),
           ),
         ],
