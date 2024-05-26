@@ -58,31 +58,18 @@ class CardWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            userCard.cardName
-                                .s(14)
-                                .w(400)
-                                .c(context.textPrimaryInverse),
-                            SizedBox(height: 16),
-                            "${priceMaskFormatter.formatDouble(userCard.balance)} ${Strings.currencyUzb}"
-                                .s(20)
-                                .w(600)
-                                .c(context.textPrimaryInverse),
-                          ],
-                        ),
-                        SizedBox(width: 8),
-                        userCard.cardLogo.svg(width: 42, height: 42)
-                      ],
-                    ),
+                    userCard.cardName
+                        .s(14)
+                        .w(400)
+                        .c(context.textPrimaryInverse),
+                    SizedBox(height: 16),
+                    "${priceMaskFormatter.formatDouble(userCard.balance)} ${Strings.currencyUzb}"
+                        .s(20)
+                        .w(600)
+                        .c(context.textPrimaryInverse),
                     SizedBox(height: 16),
                     userCard.cardHolder
-                        .s(16)
+                        .s(15)
                         .w(500)
                         .c(context.textPrimaryInverse)
                         .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
@@ -132,6 +119,11 @@ class CardWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         SizedBox(width: 16),
+        userCard.cardLogo.svg(
+          width: userCard.isDeposit ? 32 : 24,
+          height: userCard.isDeposit ? 32 : 24,
+        ),
+        Spacer(),
         Container(
           decoration: BoxDecoration(
             color: context.cardColor,
@@ -210,6 +202,11 @@ class CardWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         SizedBox(width: 16),
+        userCard.cardLogo.svg(
+          width: userCard.isDeposit ? 32 : 24,
+          height: userCard.isDeposit ? 32 : 24,
+        ),
+        Spacer(),
         Container(
           decoration: BoxDecoration(
             color: context.cardColor,

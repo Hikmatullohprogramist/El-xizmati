@@ -61,6 +61,7 @@ ad_transaction_type_sell,Mahsulot,Продукт,Маҳсулот
 ad_transaction_type_service,Xizmat,Услуга,Хизмат
 ad_type_product_title,Mahsulot,Продукт,Маҳсулот
 ad_type_service_title,Xizmat,Услуга,Хизмат
+add_cart_title,Karta qo‘shish,Добавьте карту,Карта қўшиш
 address_add_title,Manzil qo‘shish,Добавить адрес,Манзил қўшиш
 address_empty_title,"Siz hali manzil qo‘shmagansiz, qo‘shmoqchimisiz?","Вы ещё не добавили адрес, хотите добавить?","Сиз ҳали манзил қўшмагансиз, қўшмоқчимисиз?"
 all_title,Barchasi,Все,Барчаси
@@ -101,16 +102,7 @@ bottom_navigation_favorite,Tanlanganlar,Избранные,Танланганл�
 bottom_navigation_home,Asosiy,Главная,Асосий
 bottom_navigation_more,Ko‘proq,Больше,Кўпроқ
 bottom_navigation_profile,Profil,Профиль,Профил
-card_add_card_title,Karta qo‘shish,Добавить карту,Карта қўшиш
-card_add_title,Karta qo‘shish,Добавить карту,Карта қўшиш
-card_confirmation_code,Tasdiqlash kodi,Код подтверждения,Тасдиқлаш коди
-card_empty_descripton,Ushbu kartalar bilan siz mahsulot yoki xizmat uchun to‘lashingiz mumkin,С помощью этих карт вы можете оплатит за товар или услугу,Ушбу карталар билан сиз маҳсулот ёки хизмат учун тўлашингиз мумкин
-card_empty_title,Siz hali toʻlov kartasini qoʻshmagansiz,Вы еще не добавили карту для оплаты,Сиз ҳали тўлов картасини қўшмагансиз
-card_expiry_date_title,Kartaning amal qilish muddati,Срок действия карты,Картанинг амал қилиш муддати
-card_name_hint,Masalan: Asosiy,Например: Основная,Масалан: Асосий
-card_name_title,Karta nomi,Название карты,Карта номи
-card_number_title,Karta raqami,Номер карты,Карта рақами
-cart_make_order,Rasmiylashtirish,Оформить,Расмийлаштириш
+cart_create_order,Rasmiylashtirish,Оформить,Расмийлаштириш
 category_ads_count,ta e‘lon,объявлений,та эълон
 category_list_search_hint,Turkum bo‘yicha izlash,Поиск по категории,Туркум бўйича излаш
 close_title,Yopish,Закрыть,Ёпиш
@@ -223,6 +215,7 @@ currency_euro,yevro,евро,евро
 currency_rouble,rubl,рубль,рубл
 currency_usd,dollar,доллар,доллар
 currency_uzb,so‘m,сум,сўм
+deposit_refill_title,Depozitni to‘ldirish,Пополнение депозита,Депозитни тўлдириш
 edit_title,Tahrirlash,Редактировать,Таҳрирлаш
 face_id_check,Tekshirish,Проверить,Текшириш
 face_id_doc_not_matched,Tug‘ilgan sana va pasport seriya-raqamlari muvofiq emas,Дата рождения и серийный номер паспорта не совпадают,Туғилган сана ва паспорт серия-рақамлари мувофиқ эмас
@@ -415,7 +408,7 @@ user_ads_rejected,Rad etilgan,Отклоненный,Рад этилган
 user_ads_title,E‘lonlar,Объявления,Эълонлар
 user_ads_wait,Kutilmoqda,В ожидании,Кутилмоқда
 user_card_deposit_card_name,Depozit karta,Депозитная карта,Депозит карта
-user_card_deposit_card_publisher_name,online-bozor.uz,online-bozor.uz,online-bozor.uz
+user_card_deposit_card_pan,online-bozor.uz,online-bozor.uz,online-bozor.uz
 user_order_accepted,Qabul qilingan,Принято,Қабул қилинган
 user_order_active,Faol,Активный,Фаол
 user_order_all,Barchasi,Все,Барчаси

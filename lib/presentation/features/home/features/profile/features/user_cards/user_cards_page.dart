@@ -8,7 +8,6 @@ import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart';
-import 'package:onlinebozor/presentation/widgets/card/card_empty_body_widget.dart';
 import 'package:onlinebozor/presentation/widgets/card/card_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 
@@ -29,7 +28,7 @@ class UserCardsPage extends BasePage<PageCubit, PageState, PageEvent> {
         onBackPressed: () => context.router.pop(),
         actions: [
           CustomTextButton(
-            text: Strings.cardAddTitle,
+            text: Strings.addCartTitle,
             onPressed: () => _showAddCardWithRealPayPage(context),
           )
         ],
@@ -39,9 +38,6 @@ class UserCardsPage extends BasePage<PageCubit, PageState, PageEvent> {
         loadingState: state.balanceState,
         loadingBody: _buildLoadingBody(),
         successBody: _buildSuccessBody(context, state),
-        emptyBody: CardEmptyBodyWidget(
-          onAddCardClicked: () => _showAddCardWithRealPayPage(context),
-        ),
         onRetryClicked: () => cubit(context).getDepositBalance(),
       ),
     );
@@ -89,56 +85,56 @@ class UserCardsPage extends BasePage<PageCubit, PageState, PageEvent> {
       ),
     );
   }
-}
 
-void _showRefillWithRealPayPage(BuildContext context) async {
-  RefillWithRealPayPage page = RefillWithRealPayPage();
-  var isSuccess = await showModalBottomSheet(
-    isDismissible: false,
-    context: context,
-    isScrollControlled: true,
-    useSafeArea: true,
-    enableDrag: false,
-    backgroundColor: Colors.transparent,
-    builder: (context) {
-      return DraggableScrollableSheet(
-        expand: true,
-        initialChildSize: 0.9,
-        minChildSize: 0.25,
-        maxChildSize: 0.9,
-        builder: (BuildContext context, ScrollController scrollController) {
-          return Container(child: page);
-        },
-      );
-    },
-  );
+  void _showRefillWithRealPayPage(BuildContext context) async {
+    RefillWithRealPayPage page = RefillWithRealPayPage();
+    var isSuccess = await showModalBottomSheet(
+      isDismissible: false,
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      enableDrag: false,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return DraggableScrollableSheet(
+          expand: true,
+          initialChildSize: 0.9,
+          minChildSize: 0.25,
+          maxChildSize: 0.9,
+          builder: (BuildContext context, ScrollController scrollController) {
+            return Container(child: page);
+          },
+        );
+      },
+    );
 
-  // if (isSuccess)
-  context.read<PageCubit>().getDepositBalance();
-}
+    // if (isSuccess)
+    cubit(context).getDepositBalance();
+  }
 
-void _showAddCardWithRealPayPage(BuildContext context) async {
-  AddCardWithRealPayPage page = AddCardWithRealPayPage();
-  var isSuccess = await showModalBottomSheet(
-    isDismissible: false,
-    context: context,
-    isScrollControlled: true,
-    useSafeArea: true,
-    enableDrag: false,
-    backgroundColor: Colors.transparent,
-    builder: (context) {
-      return DraggableScrollableSheet(
-        expand: true,
-        initialChildSize: 0.9,
-        minChildSize: 0.25,
-        maxChildSize: 0.9,
-        builder: (BuildContext context, ScrollController scrollController) {
-          return Container(child: page);
-        },
-      );
-    },
-  );
+  void _showAddCardWithRealPayPage(BuildContext context) async {
+    AddCardWithRealPayPage page = AddCardWithRealPayPage();
+    var isSuccess = await showModalBottomSheet(
+      isDismissible: false,
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      enableDrag: false,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return DraggableScrollableSheet(
+          expand: true,
+          initialChildSize: 0.9,
+          minChildSize: 0.25,
+          maxChildSize: 0.9,
+          builder: (BuildContext context, ScrollController scrollController) {
+            return Container(child: page);
+          },
+        );
+      },
+    );
 
-  // if (isSuccess)
-  context.read<PageCubit>().getAddedCards();
+    // if (isSuccess)
+    cubit(context).getAddedCards();
+  }
 }

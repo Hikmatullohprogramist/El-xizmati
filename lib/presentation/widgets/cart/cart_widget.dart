@@ -121,7 +121,7 @@ class CartWidget extends StatelessWidget {
                       child: CustomElevatedButton(
                         buttonHeight: 32,
                         textSize: 12,
-                        text: Strings.cartMakeOrder,
+                        text: Strings.cartCreateOrder,
                         onPressed: () => onOrderClicked(ad),
                       ),
                     ),

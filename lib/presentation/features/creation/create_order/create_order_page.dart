@@ -62,7 +62,7 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
     return state.adDetail == null
         ? Scaffold(
             appBar: DefaultAppBar(
-              titleText: Strings.cartMakeOrder,
+              titleText: Strings.cartCreateOrder,
               backgroundColor: context.appBarColor,
               onBackPressed: () => context.router.pop(),
             ),
@@ -70,7 +70,7 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
           )
         : Scaffold(
             appBar: DefaultAppBar(
-              titleText: Strings.cartMakeOrder,
+              titleText: Strings.cartCreateOrder,
               backgroundColor: context.appBarColor,
               onBackPressed: () => context.router.pop(),
             ),
@@ -431,7 +431,7 @@ class CreateOrderPage extends BasePage<PageCubit, PageState, PageEvent> {
               SizedBox(width: 16),
               Expanded(
                 child: CustomElevatedButton(
-                  text: Strings.cartMakeOrder,
+                  text: Strings.cartCreateOrder,
                   onPressed: () {
                     vibrateAsHapticFeedback();
                     if (_formKey.currentState!.validate()) {

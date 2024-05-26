@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 
 import 'cubit/notification_settings_cubit.dart';
@@ -87,23 +87,26 @@ class NotificationSettingsPage
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Row(children: [
-                  Container(
-                    width: 32,
-                    height: 32,
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xFFDFE2E9), width: 1),
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white),
-                    child:
-                        Center(child: Assets.images.icNotificationEmail.svg()),
-                  ),
-                  SizedBox(width: 16),
-                  Strings.notificationReceiveEmail
-                      .w(600)
-                      .s(14)
-                      .c(Color(0xFF41455E))
-                ]),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 32,
+                      height: 32,
+                      decoration: BoxDecoration(
+                          border:
+                              Border.all(color: Color(0xFFDFE2E9), width: 1),
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white),
+                      child: Center(
+                          child: Assets.images.icNotificationEmail.svg()),
+                    ),
+                    SizedBox(width: 16),
+                    Strings.notificationReceiveEmail
+                        .w(600)
+                        .s(14)
+                        .c(Color(0xFF41455E))
+                  ],
+                ),
               ),
             ),
             SizedBox(height: 10),

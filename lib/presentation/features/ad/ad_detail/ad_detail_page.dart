@@ -163,18 +163,18 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
             backgroundColor: context.appBarColor,
             onBackPressed: () => context.router.pop(),
             actions: [
-              IconButton(
-                icon: Assets.images.icShare.svg(),
-                onPressed: () {
-                  Share.share("https://online-bozor.uz/ads/${state.adId}");
-                },
-              ),
               Padding(
                 padding: EdgeInsets.all(4),
                 child: AdDetailFavoriteWidget(
                   isFavorite: state.adDetail!.isFavorite,
                   onClicked: () => cubit(context).changeAdFavorite(),
                 ),
+              ),
+              IconButton(
+                icon: Assets.images.icShare.svg(),
+                onPressed: () {
+                  Share.share("https://online-bozor.uz/ads/${state.adId}");
+                },
               ),
               IconButton(
                 icon: Assets.images.icThreeDotVertical.svg(),

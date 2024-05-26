@@ -15,13 +15,14 @@ class PageState with _$PageState {
   List<UserCard> get cards {
     var cards = [
       UserCard(
-          id: "1",
-          balance: depositBalance,
-          cardHolder: userFullName,
-          cardName: Strings.userCardDepositCardName,
-          cardPan: Strings.userCardDepositCardPublisherName,
-          isDeposit: true,
-          cardLogo: Assets.images.icCardWallet)
+        id: "1",
+        balance: depositBalance,
+        cardHolder: userFullName,
+        cardName: Strings.userCardDepositCardName,
+        cardPan: Strings.userCardDepositCardPan,
+        isDeposit: true,
+        cardLogo: Assets.images.icCardDeposit,
+      )
     ];
     cards.addAll(
       addedCards
@@ -34,8 +35,8 @@ class PageState with _$PageState {
               cardPan: e.maskedPan,
               isDeposit: false,
               cardLogo: e.isHumo
-                  ? Assets.images.icCardHumo
-                  : Assets.images.icCardUzcard,
+                  ? Assets.images.icCardHumoWhite
+                  : Assets.images.icCardUzcardWhite,
             ),
           )
           .toList(),
