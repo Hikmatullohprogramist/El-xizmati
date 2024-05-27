@@ -82,7 +82,7 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
               context.router.push(FavoriteListRoute());
               vibrateAsHapticFeedback();
             },
-            icon: Assets.images.bottomBar.favorite.svg(),
+            icon: Assets.images.bottomBar.favorite.svg(color: Color(0xFF5C6AC4)),
           ),
           IconButton(
             onPressed: () {

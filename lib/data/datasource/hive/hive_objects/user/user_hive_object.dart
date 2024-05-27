@@ -15,7 +15,7 @@ class UserHiveObject extends HiveObject {
     this.homeName,
     this.regionId,
     this.regionName,
-    this.districtId,
+    this.neighborhoodId,
     this.districtName,
     this.birthDate,
     this.photo,
@@ -26,12 +26,10 @@ class UserHiveObject extends HiveObject {
     this.email,
     this.isPassword,
     this.fullName,
-    // this.registeredWithEimzo,
-    this.areaId,
+    this.districtId,
     this.areaName,
     this.apartmentName,
     this.mobilePhone,
-    this.oblId,
     this.oblName,
     this.username,
   });
@@ -64,7 +62,7 @@ class UserHiveObject extends HiveObject {
   String? regionName;
 
   @HiveField(10)
-  int? districtId;
+  int? neighborhoodId;
 
   @HiveField(11)
   String? districtName;
@@ -96,11 +94,8 @@ class UserHiveObject extends HiveObject {
   @HiveField(20)
   String? fullName;
 
-  // @HiveField(21)
-  // String? registeredWithEimzo;
-
   @HiveField(22)
-  int? areaId;
+  int? districtId;
 
   @HiveField(23)
   String? areaName;
@@ -110,9 +105,6 @@ class UserHiveObject extends HiveObject {
 
   @HiveField(25)
   String? mobilePhone;
-
-  @HiveField(26)
-  int? oblId;
 
   @HiveField(27)
   String? oblName;

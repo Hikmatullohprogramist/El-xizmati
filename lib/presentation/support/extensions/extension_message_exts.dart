@@ -8,9 +8,12 @@ import 'package:onlinebozor/data/mappers/exception_exts.dart';
 
 extension ExceptionMessageExts on Exception {
   String get localizedMessage {
-    if (this is AppException) {
-      Logger().w("localizedMessage => AppNetworkException");
-      return (this as AppException).localizedMessage;
+    if (this is AppNetworkException) {
+      Logger().w("localizedMessage => AppNetworkException $this");
+      return (this as AppNetworkException).localizedMessage;
+    } else if (this is AppLocalException) {
+      Logger().w("localizedMessage => AppLocalException $this");
+      return (this as AppLocalException).localizedMessage;
     } else {
       Logger().w("localizedMessage => e = $toString()");
       return Strings.messageResponseError;
@@ -28,7 +31,9 @@ extension ObjectExceptionExts on Object {
   }
 
   AppException toAppException(StackTrace? stackTrace) {
-    if (this is DioException) {
+    if (this is DioError) {
+      return (this as DioError).errorToAppNetworkException();
+    } else if (this is DioException) {
       return (this as DioException).toAppNetworkException();
     } else {
       return AppNetworkDioException(message: "", statusCode: 1);
@@ -38,8 +43,12 @@ extension ObjectExceptionExts on Object {
 
 extension AppLocalxceptionMessageExts on AppLocalException {
   String get localizedMessage {
+    if (this is NotAuthorizedException) {
+      Logger().w("localizedMessage => NotAuthorizedException");
+      return Strings.messageUserNotAuthorized;
+    }
     if (this is NotIdentifiedException) {
-      Logger().w("localizedMessage => AppNetworkConnectionException");
+      Logger().w("localizedMessage => NotIdentifiedException");
       return Strings.messageUserIdentityNotVerified;
     }
     return Strings.messageUnknownError;

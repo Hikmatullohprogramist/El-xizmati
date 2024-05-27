@@ -61,7 +61,7 @@ ad_transaction_type_sell,Mahsulot,Продукт,Маҳсулот
 ad_transaction_type_service,Xizmat,Услуга,Хизмат
 ad_type_product_title,Mahsulot,Продукт,Маҳсулот
 ad_type_service_title,Xizmat,Услуга,Хизмат
-add_cart_title,Karta qo‘shish,Добавьте карту,Карта қўшиш
+add_cart_title,Karta qo‘shish,Добавить карту,Карта қўшиш
 address_add_title,Manzil qo‘shish,Добавить адрес,Манзил қўшиш
 address_empty_title,"Siz hali manzil qo‘shmagansiz, qo‘shmoqchimisiz?","Вы ещё не добавили адрес, хотите добавить?","Сиз ҳали манзил қўшмагансиз, қўшмоқчимисиз?"
 all_title,Barchasi,Все,Барчаси
@@ -263,7 +263,8 @@ message_title_info,Ma’lumot,Информация,Маълумот
 message_title_success,Muvaffaqiyatli,Успешно,Муваффақиятли
 message_title_warning,Ogohlantirish,Предупреждение,Огоҳлантириш
 message_unknown_error,"Xatolik ro‘y berdi. Iltimos, yana bir bor urinib ko‘ring","Произошла ошибка. Пожалуйста, попробуйте еще раз","Хатолик рўй берди. Илтимос, яна бир бор уриниб кўринг"
-message_user_identity_not_verified,Xatolik ro‘y berdi. Foydalanuvchi profili to‘ldirilmagan,Произошла ошибка. Профиль пользователя не заполнен,Хатолик рўй берди. Фойдаланувчи профили тўлдирилмаган
+message_user_identity_not_verified,Shaxsingiz tasdiqlanmagan. Davom etish uchun shaxsingizni tasdiqlang.,"Ваша личность не подтверждена. Подтвердите свою личность, чтобы продолжить.",Шахсингиз тасдиқланмаган. Давом этиш учун шахсингизни тасдиқланг.
+message_user_not_authorized,Siz hali tizimga kirmagansiz. Davom etish uchun tizimga kiring,"Вы еще не авторизовались. Войдите, чтобы продолжить",Сиз ҳали тизимга кирмагансиз. Давом этиш учун тизимга киринг
 my_card_title,Mening kartalarim,Мои карты,Менинг карталарим
 my_requests_title,Mening so‘rovlarim,Мои Запросы,Менинг сўровларим
 no_have_notification,Sizda hech qanday bildirishnoma yoʻq,У вас нет уведомлений,Сизда ҳеч қандай билдиришнома йўқ

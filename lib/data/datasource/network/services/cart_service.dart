@@ -37,6 +37,7 @@ class CartService {
     required int paymentTypeId,
     required int tin,
     required int? servicePrice,
+    required int neighborhoodId,
   }) async {
   //   {
   //     "tin": 30101976240049,
@@ -57,10 +58,12 @@ class CartService {
     final body = {
       RestQueryKeys.tin: tin,
       RestQueryKeys.paymentTypeId: paymentTypeId,
+      "buyer_mahalla_id": neighborhoodId,
       RestQueryKeys.products: [
         {
           RestQueryKeys.productId: productId,
           RestQueryKeys.amount: amount,
+          RestQueryKeys.paymentTypeId: paymentTypeId,
           RestQueryKeys.deliveryAddressId: 0,
           RestQueryKeys.shippingId: 0,
           RestQueryKeys.servicePrice: servicePrice

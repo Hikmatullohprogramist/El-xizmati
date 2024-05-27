@@ -1,10 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
-import 'package:onlinebozor/data/error/app_locale_exception.dart';
 import 'package:onlinebozor/data/repositories/ad_repository.dart';
 import 'package:onlinebozor/data/repositories/cart_repository.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
@@ -140,7 +138,6 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
       emitEvent(PageEvent(PageEventType.onOpenAuthStart));
       return;
     }
-    final isIdentityVerified = userRepository.isIdentityVerified();
 
     _cartRepository
         .orderCreate(
@@ -152,51 +149,19 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
         )
         .initFuture()
         .onStart(() {
-          // if (isIdentityVerified) throw UserNotIdentifiedException();
-          updateState((state) => state.copyWith(isRequestSending: true));
+          updateState((state) => state.copyWith(
+                isRequestSending: true,
+              ));
         })
         .onSuccess((data) {
           emitEvent(PageEvent(PageEventType.onOpenAfterCreation));
+          updateState((state) => state.copyWith(isRequestSending: false));
         })
         .onError((error) {
           stateMessageManager.showErrorBottomSheet(error.localizedMessage);
-        })
-        .onFinished(() {
           updateState((state) => state.copyWith(isRequestSending: false));
         })
+        .onFinished(() {})
         .executeFuture();
-
-    // try {
-    //   if (isUserLoggedIn) {
-    //     if (isIdentityVerified) {
-    //       await _cartRepository.orderCreate(
-    //         productId: states.adId ?? -1,
-    //         amount: states.count,
-    //         paymentTypeId: states.paymentId,
-    //         tin: states.adDetail?.sellerTin ?? -1,
-    //         servicePrice: states.price,
-    //       );
-    //
-    //       await _cartRepository.removeOrder(
-    //         tin: states.adDetail?.sellerTin ?? -1,
-    //       );
-    //       await removeFromCartAfterOrderCreation();
-    //
-    //       emitEvent(PageEvent(PageEventType.onOpenAfterCreation));
-    //     } else {
-    //       emitEvent(PageEvent(
-    //         PageEventType.onFailedIdentityNotVerified,
-    //         message: Strings.messageUserIdentityNotVerified,
-    //       ));
-    //     }
-    //   } else {
-    //     emitEvent(PageEvent(PageEventType.onOpenAuthStart));
-    //   }
-    // } catch (e) {
-    //   emitEvent(PageEvent(
-    //     PageEventType.onFailedIdentityNotVerified,
-    //     message: Strings.messageForbiddenError,
-    //   ));
-    // }
   }
 }

@@ -14,6 +14,7 @@ import 'package:onlinebozor/data/datasource/network/responses/auth/one_id/one_id
 import 'package:onlinebozor/data/datasource/network/responses/e_imzo_response/e_imzo_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/face_id/validate_bio_doc_request.dart';
 import 'package:onlinebozor/data/datasource/network/services/auth_service.dart';
+import 'package:onlinebozor/data/mappers/user_mapper.dart';
 
 @LazySingleton()
 class AuthRepository {
@@ -49,13 +50,13 @@ class AuthRepository {
       final user = loginResponse.user;
       await userStorage.set(
         UserHiveObject(
-          districtId: user?.districtId,
+          neighborhoodId: user?.neighborhoodId,
           fullName: user?.fullName,
           email: user?.email,
           tin: user?.tin,
           id: user?.id,
           apartmentName: user?.apartmentName,
-          areaId: user?.areaId,
+          districtId: user?.districtId,
           username: user?.username,
           birthDate: user?.birthDate,
           eimzoAllowToLogin: user?.eimzoAllowToLogin,
@@ -64,7 +65,7 @@ class AuthRepository {
           isPassword: user?.isPassword,
           isIdentityVerified: user?.isRegistered,
           mobilePhone: user?.mobilePhone,
-          oblId: user?.oblId,
+          regionId: user?.regionId,
           passportNumber: user?.passportNumber,
           passportSerial: user?.passportSerial,
           photo: user?.photo,
@@ -116,13 +117,13 @@ class AuthRepository {
 
       await userStorage.set(
         UserHiveObject(
-          districtId: user?.districtId,
+          neighborhoodId: user?.districtId,
           fullName: user?.fullName,
           email: user?.email,
           tin: user?.tin,
           id: user?.id,
           apartmentName: user?.apartmentName,
-          areaId: user?.areaId,
+          districtId: user?.areaId,
           username: user?.username,
           birthDate: user?.birthDate,
           eimzoAllowToLogin: user?.eimzoAllowToLogin,
@@ -131,7 +132,7 @@ class AuthRepository {
           isPassword: user?.isPassword,
           isIdentityVerified: user?.isRegistered,
           mobilePhone: user?.mobilePhone,
-          oblId: user?.oblId,
+          regionId: user?.oblId,
           passportNumber: user?.passportNumber,
           passportSerial: user?.passportSerial,
           photo: user?.photo,
@@ -154,34 +155,7 @@ class AuthRepository {
     if (confirmResponse.token != null) {
       await tokenStorage.setToken(confirmResponse.token ?? "");
       await tokenStorage.setLoginState(true);
-      final user = confirmResponse.user;
-      await userStorage.set(
-        UserHiveObject(
-          districtId: user?.districtId,
-          fullName: user?.fullName,
-          email: user?.email,
-          tin: user?.tin,
-          id: user?.id,
-          apartmentName: user?.apartmentName,
-          areaId: user?.areaId,
-          username: user?.username,
-          birthDate: user?.birthDate,
-          eimzoAllowToLogin: user?.eimzoAllowToLogin,
-          gender: user?.gender,
-          homeName: user?.homeName,
-          isPassword: user?.isPassword,
-          isIdentityVerified: user?.isRegistered,
-          mobilePhone: user?.mobilePhone,
-          oblId: user?.oblId,
-          passportNumber: user?.passportNumber,
-          passportSerial: user?.passportSerial,
-          photo: user?.photo,
-          pinfl: user?.pinfl,
-          postName: user?.username,
-          // registeredWithEimzo: user?.registeredWithEimzo,
-          state: user?.state,
-        ),
-      );
+      await userStorage.set(confirmResponse.toUserHiveObject());
       return;
     }
   }
@@ -219,119 +193,43 @@ class AuthRepository {
     if (response.token != null) {
       await tokenStorage.setToken(response.token ?? "");
       await tokenStorage.setLoginState(true);
-      final user = response.user;
-      await userStorage.set(
-        UserHiveObject(
-          districtId: user?.districtId,
-          fullName: user?.fullName,
-          email: user?.email,
-          tin: user?.tin,
-          id: user?.id,
-          apartmentName: user?.apartmentName,
-          areaId: user?.areaId,
-          username: user?.username,
-          birthDate: user?.birthDate,
-          eimzoAllowToLogin: user?.eimzoAllowToLogin,
-          gender: user?.gender,
-          homeName: user?.homeName,
-          isPassword: user?.isPassword,
-          isIdentityVerified: user?.isRegistered,
-          mobilePhone: user?.mobilePhone,
-          oblId: user?.oblId,
-          passportNumber: user?.passportNumber,
-          passportSerial: user?.passportSerial,
-          photo: user?.photo,
-          pinfl: user?.pinfl,
-          postName: user?.username,
-          // registeredWithEimzo: user?.registeredWithEimzo,
-          state: user?.state,
-        ),
-      );
+      await userStorage.set(response.toUserHiveObject());
       // await favoriteRepository.pushAllFavoriteAds();
     }
   }
 
   Future<void> recoveryConfirm(String phone, String code) async {
     final response = await _authService.recoveryConfirm(
-        phone: phone, code: code, sessionToken: sessionToken);
+      phone: phone,
+      code: code,
+      sessionToken: sessionToken,
+    );
     final confirmResponse = ConfirmRootResponse.fromJson(response.data).data;
     if (confirmResponse.token != null) {
       await tokenStorage.setToken(confirmResponse.token ?? "");
       await tokenStorage.setLoginState(true);
-      final user = confirmResponse.user;
-      await userStorage.set(UserHiveObject(
-          districtId: user?.districtId,
-          fullName: user?.fullName,
-          email: user?.email,
-          tin: user?.tin,
-          id: user?.id,
-          apartmentName: user?.apartmentName,
-          areaId: user?.areaId,
-          username: user?.username,
-          birthDate: user?.birthDate,
-          eimzoAllowToLogin: user?.eimzoAllowToLogin,
-          gender: user?.gender,
-          homeName: user?.homeName,
-          isPassword: user?.isPassword,
-          isIdentityVerified: user?.isRegistered,
-          mobilePhone: user?.mobilePhone,
-          oblId: user?.oblId,
-          passportNumber: user?.passportNumber,
-          passportSerial: user?.passportSerial,
-          photo: user?.photo,
-          pinfl: user?.pinfl,
-          postName: user?.username,
-          // registeredWithEimzo: user?.registeredWithEimzo,
-          state: user?.state));
+      await userStorage.set(confirmResponse.toUserHiveObject());
       return;
     }
     return;
   }
 
   Future<void> loginWithOneId(String accessCode) async {
-    final responseValidate =
-        await _authService.loginValidate(accessCode: accessCode);
-    final oneIdResponse =
-        OneIdRootResponse.fromJson(responseValidate.data).data;
+    final root = await _authService.loginValidate(accessCode: accessCode);
+    final oneIdResponse = OneIdRootResponse.fromJson(root.data).data;
     if (oneIdResponse.access_token != null) {
       final response = await _authService.loginWithOneId(
-          accessCode: oneIdResponse.access_token ?? "");
-      final loginResponse = ConfirmRootResponse.fromJson(response.data).data;
-      if (loginResponse.token != null) {
-        await tokenStorage.setToken(loginResponse.token ?? "");
+        accessCode: oneIdResponse.access_token ?? "",
+      );
+      final confirmResponse = ConfirmRootResponse.fromJson(response.data).data;
+      if (confirmResponse.token != null) {
+        await tokenStorage.setToken(confirmResponse.token ?? "");
         await tokenStorage.setLoginState(true);
-        final user = loginResponse.user;
-        await userStorage.set(
-          UserHiveObject(
-            districtId: user?.districtId,
-            fullName: user?.fullName,
-            email: user?.email,
-            tin: user?.tin,
-            id: user?.id,
-            apartmentName: user?.apartmentName,
-            areaId: user?.areaId,
-            username: user?.username,
-            birthDate: user?.birthDate,
-            eimzoAllowToLogin: user?.eimzoAllowToLogin,
-            gender: user?.gender,
-            homeName: user?.homeName,
-            isPassword: user?.isPassword,
-            isIdentityVerified: user?.isRegistered,
-            mobilePhone: user?.mobilePhone,
-            oblId: user?.oblId,
-            passportNumber: user?.passportNumber,
-            passportSerial: user?.passportSerial,
-            photo: user?.photo,
-            pinfl: user?.pinfl,
-            postName: user?.username,
-            // registeredWithEimzo: user?.registeredWithEimzo,
-            state: user?.state,
-          ),
-        );
+        await userStorage.set(confirmResponse.toUserHiveObject());
+        return;
       }
       return;
     }
-    return;
   }
 
   Future<void> logOut() async {

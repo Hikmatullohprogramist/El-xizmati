@@ -20,6 +20,7 @@ class CustomTextFormField extends StatefulWidget {
     this.minLines,
     this.maxLines = 1,
     this.enabled = true,
+    this.enabledColor,
     this.disabledColor,
     this.label,
     this.onChanged,
@@ -71,6 +72,7 @@ class CustomTextFormField extends StatefulWidget {
   final String? Function(String? text)? validator;
 
   //
+  final Color? enabledColor;
   final Color? disabledColor;
   final bool isStrokeEnabled;
 
@@ -176,7 +178,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             color: Color(0xFF41455F),
           ),
           // focusColor: Color(0xFFFFFFFF),
-          fillColor: context.inputBackgroundColor,//_isFocused ? context.backgroundColor : context.backgroundColor,
+          fillColor: widget.enabledColor ?? context.inputBackgroundColor,
+          //_isFocused ? context.backgroundColor : context.backgroundColor,
           border: OutlineInputBorder(
             borderSide: BorderSide(
               color: widget.isStrokeEnabled

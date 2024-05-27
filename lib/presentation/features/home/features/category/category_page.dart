@@ -60,12 +60,14 @@ class CategoryPage extends BasePage<PageCubit, PageState, PageEvent> {
               height: 62,
               margin: EdgeInsets.only(left: 16, top: 6, right: 16, bottom: 6),
               child: CustomTextFormField(
+                height: 42,
                 controller: searchTextController,
                 hint: Strings.categoryListSearchHint,
                 inputType: TextInputType.text,
                 keyboardType: TextInputType.text,
                 maxLines: 1,
                 isStrokeEnabled: false,
+                enabledColor: context.cardColor,
                 onChanged: (value) {
                   cubit(context).setSearchQuery(value);
                 },

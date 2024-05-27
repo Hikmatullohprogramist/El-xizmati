@@ -84,25 +84,22 @@ class CartRepository {
     required int tin,
     required int? servicePrice,
   }) async {
-    try {
-      if (_stateRepository.isNotAuthorized()) throw NotAuthorizedException();
-      if (_userRepository.isNotIdentified()) throw NotIdentifiedException();
+    if (_stateRepository.isNotAuthorized()) throw NotAuthorizedException();
+    if (_userRepository.isNotIdentified()) throw NotIdentifiedException();
 
-      await _cartService.orderCreate(
-        productId: adId,
-        amount: amount,
-        paymentTypeId: paymentTypeId,
-        tin: tin,
-        servicePrice: servicePrice,
-      );
+    var neighborhoodId = _userRepository.getSavedUser()?.neighborhoodId ?? 0;
 
-      await removeOrder(tin: tin);
-      await removeFromCart(adId);
+    await _cartService.orderCreate(
+      productId: adId,
+      amount: amount,
+      paymentTypeId: paymentTypeId,
+      tin: tin,
+      neighborhoodId: neighborhoodId,
+      servicePrice: servicePrice,
+    );
 
-    } catch (e, stackTrace) {
-      Logger().e(e, stackTrace: stackTrace);
-      rethrow;
-    }
+    await removeOrder(tin: tin);
+    await removeFromCart(adId);
   }
 
   Future<void> removeOrder({required int tin}) async {
