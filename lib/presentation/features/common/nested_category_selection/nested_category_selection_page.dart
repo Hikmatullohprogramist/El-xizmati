@@ -4,8 +4,10 @@ import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/category/category_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
+import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_field.dart';
 
 import '../../../../../data/datasource/network/responses/category/category/category_response.dart';
 import '../../../../../presentation/widgets/category/category_widget.dart';
@@ -42,32 +44,36 @@ class NestedCategorySelectionPage
 
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
-    // searchTextController.updateOnRestore(state.searchQuery);
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => cubit(context).backWithoutSelectedCategory(),
-          icon: Assets.images.icArrowLeft.svg(),
-        ),
-        // backgroundColor: context.themeOf.backgroundColor,
+        backgroundColor: context.appBarColor,
         elevation: 0.5,
         toolbarHeight: 64,
-        title: TextField(
-          controller: searchTextController,
-          decoration: InputDecoration(
-            hintText: Strings.categoryListSearchHint,
-            border: InputBorder.none,
-            icon: Assets.images.iconSearch.svg(),
+        actions: [
+          IconButton(
+            onPressed: () => cubit(context).backWithoutSelectedCategory(),
+            icon: Assets.images.icArrowLeft.svg(),
           ),
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: Color(0xFF41455F),
+          Expanded(
+            child: Container(
+              height: 62,
+              margin: EdgeInsets.fromLTRB(0, 6, 16, 0),
+              child: CustomTextFormField(
+                height: 42,
+                controller: searchTextController,
+                hint: Strings.categoryListSearchHint,
+                inputType: TextInputType.text,
+                keyboardType: TextInputType.text,
+                maxLines: 1,
+                isStrokeEnabled: false,
+                enabledColor: context.cardColor,
+                onChanged: (value) {
+                  cubit(context).setSearchQuery(value);
+                },
+              ),
+            ),
           ),
-          onChanged: (value) {
-            cubit(context).setSearchQuery(value);
-          },
-        ),
+        ],
       ),
       body: LoaderStateWidget(
         isFullScreen: true,
