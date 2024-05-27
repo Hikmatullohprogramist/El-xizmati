@@ -8,16 +8,16 @@ import 'package:onlinebozor/data/datasource/network/responses/profile/verify_ide
 import 'package:onlinebozor/data/datasource/network/responses/region/region_and_district_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/region/region_root_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/user_service.dart';
-import 'package:onlinebozor/domain/mappers/user_mapper.dart';
 import 'package:onlinebozor/domain/mappers/region_mapper.dart';
+import 'package:onlinebozor/domain/mappers/user_mapper.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/region/region.dart';
 import 'package:onlinebozor/domain/models/region/region_and_district.dart';
 
-import '../datasource/network/constants/constants.dart';
 import '../../domain/models/social_account/social_account_info.dart';
 import '../../domain/models/street/street.dart';
+import '../datasource/network/constants/constants.dart';
 
 @LazySingleton()
 class UserRepository {
@@ -197,12 +197,16 @@ class UserRepository {
     await _userService.updateSocialAccountInfo(socials: socials);
   }
 
-  bool isIdentityVerified()  {
+  bool isIdentityVerified() {
     return _userStorage.isIdentityVerified;
   }
 
-  bool isNotIdentified()  {
-    return !_userStorage.isIdentityVerified;
+  bool isNotIdentified() {
+    try {
+      return !_userStorage.isIdentityVerified;
+    } catch (e) {
+      return false;
+    }
   }
 
   Future<List<ActiveSession>> getActiveDevice() async {

@@ -53,32 +53,9 @@ class UserAddressesPage extends BasePage<PageCubit, PageState, PageEvent> {
         pagingController: state.controller!,
         builderDelegate: PagedChildBuilderDelegate<UserAddress>(
           firstPageErrorIndicatorBuilder: (_) {
-            return Container(
-              margin: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-              padding: EdgeInsets.only(left: 12, top: 12, right: 12),
-              decoration: BoxDecoration(
-                color: Color(0xFFFFFFFF),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(width: 1, color: Color(0xFFE5E9F3)),
-              ),
-              child: SizedBox(
-                height: 100,
-                child: Center(
-                  child: Column(
-                    children: [
-                      Strings.commonEmptyMessage
-                          .w(400)
-                          .s(14)
-                          .c(context.textPrimary),
-                      SizedBox(height: 12),
-                      CustomElevatedButton(
-                        text: Strings.commonRetry,
-                        onPressed: () {},
-                      )
-                    ],
-                  ),
-                ),
-              ),
+            return DefaultErrorWidget(
+              isFullScreen: true,
+              onRetryClicked: () => cubit(context).states.controller?.refresh(),
             );
           },
           firstPageProgressIndicatorBuilder: (_) {
@@ -110,12 +87,9 @@ class UserAddressesPage extends BasePage<PageCubit, PageState, PageEvent> {
             );
           },
           newPageErrorIndicatorBuilder: (_) {
-            return SizedBox(
-              height: 160,
-              child: DefaultErrorWidget(
-                isFullScreen: true,
-                onRetryClicked: () => cubit(context).getController(true),
-              ),
+            return DefaultErrorWidget(
+              isFullScreen: false,
+              onRetryClicked: () => cubit(context).states.controller?.refresh(),
             );
           },
           transitionDuration: Duration(milliseconds: 100),

@@ -16,6 +16,7 @@ import 'package:onlinebozor/presentation/widgets/app_bar/search_app_bar_2.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/dashboard/see_all_widget.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
+import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 
 import 'cubit/ad_list_type_cubit.dart';
@@ -149,24 +150,9 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                     ),
                     builderDelegate: PagedChildBuilderDelegate<Ad>(
                       firstPageErrorIndicatorBuilder: (_) {
-                        return SizedBox(
-                          height: 60,
-                          width: double.infinity,
-                          child: Center(
-                            child: Column(
-                              children: [
-                                Strings.commonEmptyMessage
-                                    .w(400)
-                                    .s(14)
-                                    .c(context.textPrimary),
-                                SizedBox(height: 12),
-                                CustomElevatedButton(
-                                  text: Strings.commonRetry,
-                                  onPressed: () {},
-                                )
-                              ],
-                            ),
-                          ),
+                        return DefaultErrorWidget(
+                          isFullScreen: true,
+                          onRetryClicked: () => cubit(context).states.controller?.refresh(),
                         );
                       },
                       firstPageProgressIndicatorBuilder: (_) {
@@ -195,13 +181,9 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                         );
                       },
                       newPageErrorIndicatorBuilder: (_) {
-                        return SizedBox(
-                          height: 60,
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              color: Colors.blue,
-                            ),
-                          ),
+                        return DefaultErrorWidget(
+                          isFullScreen: false,
+                          onRetryClicked: () => cubit(context).states.controller?.refresh(),
                         );
                       },
                       transitionDuration: Duration(milliseconds: 100),

@@ -1,12 +1,14 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
+import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/datasource/network/responses/user_order/user_order_response.dart';
 import 'package:onlinebozor/data/repositories/user_order_repository.dart';
 import 'package:onlinebozor/domain/models/order/order_type.dart';
 import 'package:onlinebozor/domain/models/order/user_order_status.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
 
 part 'user_order_list_cubit.freezed.dart';
 part 'user_order_list_state.dart';
@@ -48,24 +50,32 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
 
     controller.addPageRequestListener(
       (pageKey) async {
-        try {
-          final orderList = await userOrderRepository.getUserOrders(
-            limit: 20,
-            userOrderStatus: states.userOrderStatus,
-            page: pageKey,
-            orderType: states.orderType,
-          );
-          if (orderList.length <= 19) {
-            controller.appendLastPage(orderList);
-            logger.i(states.controller);
-            return;
-          }
-          controller.appendPage(orderList, pageKey + 1);
-        } catch (e) {
-          logger.i(
-              "pageKey = $pageKey, orderType = ${states.orderType}, error = $e");
-          controller.error(e);
-        }
+        userOrderRepository
+            .getUserOrders(
+              limit: 20,
+              userOrderStatus: states.userOrderStatus,
+              page: pageKey,
+              orderType: states.orderType,
+            )
+            .initFuture()
+            .onStart(() {})
+            .onSuccess((data) {
+              if (data.length <= 19) {
+                controller.appendLastPage(data);
+                logger.i(states.controller);
+                return;
+              }
+              controller.appendPage(data, pageKey + 1);
+            })
+            .onError((error) {
+              controller.error = error;
+              if (error.isRequiredShowError) {
+                stateMessageManager
+                    .showErrorBottomSheet(error.localizedMessage);
+              }
+            })
+            .onFinished(() {})
+            .executeFuture();
       },
     );
     return controller;

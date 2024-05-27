@@ -5,13 +5,16 @@ import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/datasource/network/responses/realpay/real_pay_card_response.dart';
+import 'package:onlinebozor/data/error/app_locale_exception.dart';
 import 'package:onlinebozor/data/repositories/card_repositroy.dart';
 import 'package:onlinebozor/data/repositories/real_pay_integration_repositroy.dart';
 import 'package:onlinebozor/data/repositories/user_repository.dart';
 import 'package:onlinebozor/domain/models/card/user_card.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
 
 part 'user_cards_cubit.freezed.dart';
+
 part 'user_cards_state.dart';
 
 @injectable
@@ -56,6 +59,9 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           updateState((state) => state.copyWith(
                 balanceState: LoadingState.error,
               ));
+          if (error.isRequiredShowError) {
+            stateMessageManager.showErrorBottomSheet(error.localizedMessage);
+          }
         })
         .onFinished(() {})
         .executeFuture();

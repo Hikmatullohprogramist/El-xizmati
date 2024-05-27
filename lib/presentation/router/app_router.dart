@@ -61,7 +61,7 @@ import 'package:onlinebozor/presentation/features/home/features/profile/features
 import 'package:onlinebozor/presentation/features/home/features/profile/features/chats/features/selling_chats/selling_chats_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/comparison_detail/comparision_detail_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/payment_transaction/features/payment_transaction_filter/payment_transaction_filter_page.dart';
-import 'package:onlinebozor/presentation/features/home/features/profile/features/payment_transaction/payment_transaction_page.dart';
+import 'package:onlinebozor/presentation/features/home/features/profile/features/payment_transaction/payment_transactions_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/profile_view/features/profile_edit/profile_edit_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/profile_view/features/registration/registration_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/profile_view/profile_view_page.dart';
@@ -79,7 +79,6 @@ import 'package:onlinebozor/presentation/features/home/features/profile/features
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_orders/features/user_order_info/user_order_info_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_orders/features/user_order_list/use_order_list_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_orders/user_orders_page.dart';
-import 'package:onlinebozor/presentation/features/home/features/profile/features/wallet_filling/page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/profile_page.dart';
 import 'package:onlinebozor/presentation/features/home/home_page.dart';
 import 'package:onlinebozor/presentation/features/realpay/add_card/add_card_with_realpay_page.dart';
@@ -264,7 +263,6 @@ class AppRouter extends _$AppRouter {
         ),
 
         //   profile page
-        AutoRoute(page: WalletFillingRoute.page, path: '/wallet_filling'),
         AutoRoute(page: ProfileViewRoute.page, path: '/profile_viewer'),
         AutoRoute(page: UserAddressesRoute.page, path: '/my_addresses'),
 
@@ -324,8 +322,8 @@ class AppRouter extends _$AppRouter {
 
         /// Payment transactions
         AutoRoute(
-          page: PaymentTransactionRoute.page,
-          path: '/payment_transaction',
+          page: PaymentTransactionsRoute.page,
+          path: '/payment_transactions',
         ),
         AutoRoute(
           page: PaymentTransactionFilterRoute.page,

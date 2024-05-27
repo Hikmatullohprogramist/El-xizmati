@@ -23,6 +23,7 @@ import 'package:onlinebozor/presentation/widgets/device/active_session_shimmer.d
 import 'package:onlinebozor/presentation/widgets/device/active_session_widget.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
+import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 import 'package:onlinebozor/presentation/widgets/profile/profil_view_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/switch/custom_switch.dart';
 
@@ -897,23 +898,10 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
             ),
             builderDelegate: PagedChildBuilderDelegate<ActiveSession>(
               firstPageErrorIndicatorBuilder: (_) {
-                return SizedBox(
-                    height: 60,
-                    width: double.infinity,
-                    child: Center(
-                        child: Column(
-                      children: [
-                        Strings.commonEmptyMessage
-                            .w(400)
-                            .s(14)
-                            .c(context.textPrimary),
-                        SizedBox(height: 12),
-                        CustomElevatedButton(
-                          text: Strings.commonRetry,
-                          onPressed: () {},
-                        )
-                      ],
-                    )));
+                return DefaultErrorWidget(
+                  isFullScreen: true,
+                  onRetryClicked: () => cubit(context).states.controller?.refresh(),
+                );
               },
               firstPageProgressIndicatorBuilder: (_) {
                 return SingleChildScrollView(
@@ -941,13 +929,9 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                 );
               },
               newPageErrorIndicatorBuilder: (_) {
-                return SizedBox(
-                  height: 60,
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.blue,
-                    ),
-                  ),
+                return DefaultErrorWidget(
+                  isFullScreen: false,
+                  onRetryClicked: () => cubit(context).states.controller?.refresh(),
                 );
               },
               transitionDuration: Duration(milliseconds: 100),

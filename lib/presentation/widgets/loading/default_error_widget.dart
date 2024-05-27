@@ -22,7 +22,7 @@ class DefaultErrorWidget extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Strings.commonEmptyMessage
+                Strings.commonErrorMessage
                     .w(400)
                     .s(14)
                     .c(context.textPrimary),

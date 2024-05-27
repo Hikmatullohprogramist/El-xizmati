@@ -140,7 +140,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
               name: Strings.profilePayment,
               icon: Assets.images.icProfilePayment,
               onClicked: () {
-                context.router.push(PaymentTransactionRoute());
+                context.router.push(PaymentTransactionsRoute());
                 vibrateAsHapticFeedback();
               },
             ),

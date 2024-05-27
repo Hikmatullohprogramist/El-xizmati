@@ -12,6 +12,7 @@ import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/category/popular_category_vertical.dart';
 import 'package:onlinebozor/presentation/widgets/category/popular_category_vertical_shimmer.dart';
+import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 
 import 'cubit/popular_categories_cubit.dart';
 
@@ -42,23 +43,9 @@ class PopularCategoriesPage extends BasePage<PageCubit, PageState, PageEvent> {
                 builderDelegate:
                     PagedChildBuilderDelegate<PopularCategory>(
                   firstPageErrorIndicatorBuilder: (_) {
-                    return SizedBox(
-                      height: 60,
-                      child: Center(
-                        child: Column(
-                          children: [
-                            Strings.commonEmptyMessage
-                                .w(400)
-                                .s(14)
-                                .c(context.textPrimary),
-                            SizedBox(height: 12),
-                            CustomElevatedButton(
-                              onPressed: () {},
-                              text: Strings.commonRetry,
-                            )
-                          ],
-                        ),
-                      ),
+                    return DefaultErrorWidget(
+                      isFullScreen: true,
+                      onRetryClicked: () => cubit(context).states.controller?.refresh(),
                     );
                   },
                   firstPageProgressIndicatorBuilder: (_) {
@@ -87,13 +74,9 @@ class PopularCategoriesPage extends BasePage<PageCubit, PageState, PageEvent> {
                     );
                   },
                   newPageErrorIndicatorBuilder: (_) {
-                    return SizedBox(
-                      height: 60,
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          color: Colors.blue,
-                        ),
-                      ),
+                    return DefaultErrorWidget(
+                      isFullScreen: false,
+                      onRetryClicked: () => cubit(context).states.controller?.refresh(),
                     );
                   },
                   transitionDuration: Duration(milliseconds: 100),

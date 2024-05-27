@@ -4,8 +4,11 @@ import 'dart:convert';
 import 'package:dio/src/response.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/datasource/hive/hive_objects/user/user_hive_object.dart';
+import 'package:onlinebozor/data/datasource/hive/storages/ad_storage.dart';
+import 'package:onlinebozor/data/datasource/hive/storages/categories_storage.dart';
 import 'package:onlinebozor/data/datasource/hive/storages/language_storage.dart';
 import 'package:onlinebozor/data/datasource/hive/storages/token_storage.dart';
+import 'package:onlinebozor/data/datasource/hive/storages/user_data_storage.dart';
 import 'package:onlinebozor/data/datasource/hive/storages/user_storage.dart';
 import 'package:onlinebozor/data/datasource/network/responses/auth/auth_start/auth_start_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/auth/confirm/confirm_response.dart';
@@ -18,16 +21,22 @@ import 'package:onlinebozor/data/mappers/user_mapper.dart';
 
 @LazySingleton()
 class AuthRepository {
+  final AdStorage _adStorage;
   final AuthService _authService;
-  final TokenStorage tokenStorage;
-  final LanguageStorage languageStorage;
-  final UserStorage userStorage;
+  final CategoriesStorage _categoriesStorage;
+  final LanguageStorage _languageStorage;
+  final TokenStorage _tokenStorage;
+  final UserDataStorage _userDataStorage;
+  final UserStorage _userStorage;
 
   AuthRepository(
+    this._adStorage,
     this._authService,
-    this.tokenStorage,
-    this.languageStorage,
-    this.userStorage,
+    this._categoriesStorage,
+    this._languageStorage,
+    this._tokenStorage,
+    this._userDataStorage,
+    this._userStorage,
   );
 
   String sessionToken = "";
@@ -45,10 +54,10 @@ class AuthRepository {
     final response = await _authService.login(phone: phone, password: password);
     final loginResponse = ConfirmRootResponse.fromJson(response.data).data;
     if (loginResponse.token != null) {
-      await tokenStorage.setToken(loginResponse.token ?? "");
-      await tokenStorage.setLoginState(true);
+      await _tokenStorage.setToken(loginResponse.token ?? "");
+      await _tokenStorage.setLoginState(true);
       final user = loginResponse.user;
-      await userStorage.set(
+      await _userStorage.set(
         UserHiveObject(
           neighborhoodId: user?.neighborhoodId,
           fullName: user?.fullName,
@@ -111,11 +120,11 @@ class AuthRepository {
     final edsResponse = EdsSignInRootResponse.fromJson(response.data);
     final edsUserResponse = edsResponse.user;
     if (edsResponse.token != null) {
-      await tokenStorage.setToken(edsResponse.token ?? "");
-      await tokenStorage.setLoginState(true);
+      await _tokenStorage.setToken(edsResponse.token ?? "");
+      await _tokenStorage.setLoginState(true);
       final user = edsUserResponse;
 
-      await userStorage.set(
+      await _userStorage.set(
         UserHiveObject(
           neighborhoodId: user?.districtId,
           fullName: user?.fullName,
@@ -153,9 +162,9 @@ class AuthRepository {
     );
     final confirmResponse = ConfirmRootResponse.fromJson(response.data).data;
     if (confirmResponse.token != null) {
-      await tokenStorage.setToken(confirmResponse.token ?? "");
-      await tokenStorage.setLoginState(true);
-      await userStorage.set(confirmResponse.toUserHiveObject());
+      await _tokenStorage.setToken(confirmResponse.token ?? "");
+      await _tokenStorage.setLoginState(true);
+      await _userStorage.set(confirmResponse.toUserHiveObject());
       return;
     }
   }
@@ -191,9 +200,9 @@ class AuthRepository {
     );
     final response = ConfirmRootResponse.fromJson(rootResponse.data).data;
     if (response.token != null) {
-      await tokenStorage.setToken(response.token ?? "");
-      await tokenStorage.setLoginState(true);
-      await userStorage.set(response.toUserHiveObject());
+      await _tokenStorage.setToken(response.token ?? "");
+      await _tokenStorage.setLoginState(true);
+      await _userStorage.set(response.toUserHiveObject());
       // await favoriteRepository.pushAllFavoriteAds();
     }
   }
@@ -206,9 +215,9 @@ class AuthRepository {
     );
     final confirmResponse = ConfirmRootResponse.fromJson(response.data).data;
     if (confirmResponse.token != null) {
-      await tokenStorage.setToken(confirmResponse.token ?? "");
-      await tokenStorage.setLoginState(true);
-      await userStorage.set(confirmResponse.toUserHiveObject());
+      await _tokenStorage.setToken(confirmResponse.token ?? "");
+      await _tokenStorage.setLoginState(true);
+      await _userStorage.set(confirmResponse.toUserHiveObject());
       return;
     }
     return;
@@ -223,9 +232,9 @@ class AuthRepository {
       );
       final confirmResponse = ConfirmRootResponse.fromJson(response.data).data;
       if (confirmResponse.token != null) {
-        await tokenStorage.setToken(confirmResponse.token ?? "");
-        await tokenStorage.setLoginState(true);
-        await userStorage.set(confirmResponse.toUserHiveObject());
+        await _tokenStorage.setToken(confirmResponse.token ?? "");
+        await _tokenStorage.setLoginState(true);
+        await _userStorage.set(confirmResponse.toUserHiveObject());
         return;
       }
       return;
@@ -233,9 +242,12 @@ class AuthRepository {
   }
 
   Future<void> logOut() async {
-    await tokenStorage.clear();
-    await userStorage.clear();
-    await languageStorage.clear();
+    await _adStorage.clear();
+    await _categoriesStorage.clear();
+    await _languageStorage.clear();
+    await _tokenStorage.clear();
+    await _userDataStorage.clear();
+    await _userStorage.clear();
     return;
   }
 }

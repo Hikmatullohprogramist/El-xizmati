@@ -1,10 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/core/extensions/list_extensions.dart';
+import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/user_address_repository.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
 
 part 'user_addresses_cubit.freezed.dart';
@@ -41,24 +42,31 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     );
     logger.w(states.controller);
 
-    try {
-      addressController.addPageRequestListener(
-        (pageKey) async {
-          final items = await userAddressRepository.getUserAddresses();
-          if (items.length <= 1000) {
-            addressController.appendLastPage(items);
-            logger.i(states.controller);
-            return;
-          }
-          addressController.appendPage(items, pageKey + 1);
-          logger.i(states.controller);
-        },
-      );
-    } catch (exception) {
-      logger.w(exception.toString());
-      stateMessageManager.showErrorBottomSheet(exception.localizedMessage);
-    }
-
+    addressController.addPageRequestListener(
+      (pageKey) async {
+        userAddressRepository
+            .getUserAddresses()
+            .initFuture()
+            .onStart(() {})
+            .onSuccess((data) {
+              if (data.length <= 1000) {
+                addressController.appendLastPage(data);
+                logger.i(states.controller);
+                return;
+              }
+              addressController.appendPage(data, pageKey + 1);
+            })
+            .onError((error) {
+              addressController.error = error;
+              if (error.isRequiredShowError) {
+                stateMessageManager
+                    .showErrorBottomSheet(error.localizedMessage);
+              }
+            })
+            .onFinished(() {})
+            .executeFuture();
+      },
+    );
     return addressController;
   }
 

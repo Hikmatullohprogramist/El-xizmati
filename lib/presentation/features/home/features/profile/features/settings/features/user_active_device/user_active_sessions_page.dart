@@ -10,6 +10,7 @@ import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/device/active_session_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/device/active_session_widget.dart';
+import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 
 import 'cubit/user_active_sessions_cubit.dart';
 
@@ -49,23 +50,10 @@ class UserActiveSessionsPage extends BasePage<PageCubit, PageState, PageEvent> {
         ),
         builderDelegate: PagedChildBuilderDelegate<ActiveSession>(
           firstPageErrorIndicatorBuilder: (_) {
-            return SizedBox(
-                height: 60,
-                width: double.infinity,
-                child: Center(
-                    child: Column(
-                  children: [
-                    Strings.commonEmptyMessage
-                        .w(400)
-                        .s(14)
-                        .c(context.textPrimary),
-                    SizedBox(height: 12),
-                    CustomElevatedButton(
-                      text: Strings.commonRetry,
-                      onPressed: () {},
-                    )
-                  ],
-                )));
+            return DefaultErrorWidget(
+              isFullScreen: true,
+              onRetryClicked: () => cubit(context).states.controller?.refresh(),
+            );
           },
           firstPageProgressIndicatorBuilder: (_) {
             return SingleChildScrollView(
@@ -93,13 +81,9 @@ class UserActiveSessionsPage extends BasePage<PageCubit, PageState, PageEvent> {
             );
           },
           newPageErrorIndicatorBuilder: (_) {
-            return SizedBox(
-              height: 60,
-              child: Center(
-                child: CircularProgressIndicator(
-                  color: Colors.blue,
-                ),
-              ),
+            return DefaultErrorWidget(
+              isFullScreen: false,
+              onRetryClicked: () => cubit(context).states.controller?.refresh(),
             );
           },
           transitionDuration: Duration(milliseconds: 100),

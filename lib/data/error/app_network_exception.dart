@@ -1,8 +1,11 @@
 import 'package:onlinebozor/data/error/app_exception.dart';
 
-abstract class AppNetworkException implements AppException {}
+abstract class AppNetworkException extends AppException {
+  @override
+  bool get isRequiredShowError => false;
+}
 
-class AppNetworkConnectionException implements AppNetworkException {
+class AppNetworkConnectionException extends AppNetworkException {
   final String message;
   final int statusCode;
 
@@ -17,7 +20,7 @@ class AppNetworkConnectionException implements AppNetworkException {
   }
 }
 
-class AppNetworkDioException implements AppNetworkException {
+class AppNetworkDioException extends AppNetworkException {
   final String message;
   final int statusCode;
 
@@ -30,9 +33,12 @@ class AppNetworkDioException implements AppNetworkException {
   String toString() {
     return "AppNetworkDioException: $message (Status code: $statusCode)";
   }
+
+  @override
+  bool get isRequiredShowError => false;
 }
 
-class AppNetworkHttpException implements AppNetworkException {
+class AppNetworkHttpException extends AppNetworkException {
   final String message;
   final int statusCode;
 
@@ -45,4 +51,7 @@ class AppNetworkHttpException implements AppNetworkException {
   String toString() {
     return "AppNetworkHttpException: $message (Status code: $statusCode)";
   }
+
+  @override
+  bool get isRequiredShowError => false;
 }

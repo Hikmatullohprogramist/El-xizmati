@@ -34,7 +34,7 @@ extension DioExceptionExts on DioException {
               statusCode: response?.statusCode ?? 0,
             )
         : AppNetworkConnectionException(
-            message: message ?? "",
+            message: message ?? "Unknown error",
             statusCode: 0,
           );
   }

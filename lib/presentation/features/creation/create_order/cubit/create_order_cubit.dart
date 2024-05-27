@@ -158,6 +158,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
           updateState((state) => state.copyWith(isRequestSending: false));
         })
         .onError((error) {
+          logger.w("create order error = $error");
           stateMessageManager.showErrorBottomSheet(error.localizedMessage);
           updateState((state) => state.copyWith(isRequestSending: false));
         })

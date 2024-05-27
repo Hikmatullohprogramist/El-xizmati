@@ -1,11 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/user_ad_repository.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
 
 part 'user_ad_list_cubit.freezed.dart';
 part 'user_ad_list_state.dart';
@@ -40,22 +42,32 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     );
 
     adController.addPageRequestListener(
-      (pageKey) async {
-        try {
-          final response = await _userAdRepository.getUserAds(
-            limit: 20,
-            page: pageKey,
-            userAdStatus: states.userAdStatus,
-          );
-          final adsList = response.map((e) => e.toMap()).toList();
-          if (adsList.length < 20) {
-            adController.appendLastPage(adsList);
-            return;
-          }
-          adController.appendPage(adsList, pageKey + 1);
-        } catch (error) {
-          adController.error = error;
-        }
+      (pageKey) {
+        _userAdRepository
+            .getUserAds(
+              limit: 20,
+              page: pageKey,
+              userAdStatus: states.userAdStatus,
+            )
+            .initFuture()
+            .onStart(() {})
+            .onSuccess((data) {
+              final adsList = data.map((e) => e.toMap()).toList();
+              if (adsList.length < 20) {
+                adController.appendLastPage(adsList);
+                return;
+              }
+              adController.appendPage(adsList, pageKey + 1);
+            })
+            .onError((error) {
+              adController.error = error;
+              if (error.isRequiredShowError) {
+                stateMessageManager
+                    .showErrorBottomSheet(error.localizedMessage);
+              }
+            })
+            .onFinished(() {})
+            .executeFuture();
       },
     );
     return adController;

@@ -1,4 +1,4 @@
-part of 'payment_transaction_cubit.dart';
+part of 'payment_transactions_cubit.dart';
 
 @freezed
 class PageState with _$PageState {

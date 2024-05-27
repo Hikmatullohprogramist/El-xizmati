@@ -35,11 +35,19 @@ class StateRepository {
   }
 
   bool isUserLoggedIn() {
-    return _tokenStorage.isUserLoggedIn;
+    try {
+      return _tokenStorage.isUserLoggedIn;
+    } catch (e) {
+      return false;
+    }
   }
 
   bool isNotAuthorized() {
-    return !_tokenStorage.isUserLoggedIn;
+    try {
+      return !_tokenStorage.isUserLoggedIn;
+    } catch (e) {
+      return false;
+    }
   }
 
   Future<void> clear() async {

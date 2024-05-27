@@ -8,6 +8,7 @@ import 'package:onlinebozor/data/mappers/exception_exts.dart';
 
 extension ExceptionMessageExts on Exception {
   String get localizedMessage {
+    Logger().w("localizedMessage => Exception $this");
     if (this is AppNetworkException) {
       Logger().w("localizedMessage => AppNetworkException $this");
       return (this as AppNetworkException).localizedMessage;
@@ -31,12 +32,14 @@ extension ObjectExceptionExts on Object {
   }
 
   AppException toAppException(StackTrace? stackTrace) {
-    if (this is DioError) {
+    if(this is AppException) {
+      return this as AppException;
+    } else if (this is DioError) {
       return (this as DioError).errorToAppNetworkException();
     } else if (this is DioException) {
       return (this as DioException).toAppNetworkException();
     } else {
-      return AppNetworkDioException(message: "", statusCode: 1);
+      return AppNetworkDioException(message: "Unknown error", statusCode: 1);
     }
   }
 }

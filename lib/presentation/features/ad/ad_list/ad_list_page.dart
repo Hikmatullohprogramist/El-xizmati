@@ -18,6 +18,7 @@ import 'package:onlinebozor/presentation/widgets/ad/vertical/vertical_ad_widget.
 import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
+import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 
 import 'cubit/ad_list_cubit.dart';
 
@@ -93,24 +94,9 @@ class AdListPage extends BasePage<PageCubit, PageState, PageEvent> {
         ),
         builderDelegate: PagedChildBuilderDelegate<Ad>(
           firstPageErrorIndicatorBuilder: (_) {
-            return SizedBox(
-              height: 100,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Strings.commonEmptyMessage
-                        .w(400)
-                        .s(14)
-                        .c(context.textPrimary),
-                    SizedBox(height: 12),
-                    CustomElevatedButton(
-                      text: Strings.commonRetry,
-                      onPressed: () {},
-                    )
-                  ],
-                ),
-              ),
+            return DefaultErrorWidget(
+              isFullScreen: true,
+              onRetryClicked: () => cubit(context).states.controller?.refresh(),
             );
           },
           firstPageProgressIndicatorBuilder: (_) {
@@ -147,11 +133,9 @@ class AdListPage extends BasePage<PageCubit, PageState, PageEvent> {
             );
           },
           newPageErrorIndicatorBuilder: (_) {
-            return SizedBox(
-              height: 160,
-              child: Center(
-                child: CircularProgressIndicator(color: Colors.blue),
-              ),
+            return DefaultErrorWidget(
+              isFullScreen: false,
+              onRetryClicked: () => cubit(context).states.controller?.refresh(),
             );
           },
           transitionDuration: Duration(milliseconds: 100),

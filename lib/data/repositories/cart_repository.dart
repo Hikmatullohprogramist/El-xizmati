@@ -15,12 +15,6 @@ import '../../domain/models/ad/ad.dart';
 
 @LazySingleton()
 class CartRepository {
-  final AdStorage _adStorage;
-  final CartService _cartService;
-  final TokenStorage _tokenStorage;
-  final StateRepository _stateRepository;
-  final UserRepository _userRepository;
-
   CartRepository(
     this._adStorage,
     this._cartService,
@@ -28,6 +22,12 @@ class CartRepository {
     this._stateRepository,
     this._userRepository,
   );
+
+  final AdStorage _adStorage;
+  final CartService _cartService;
+  final TokenStorage _tokenStorage;
+  final StateRepository _stateRepository;
+  final UserRepository _userRepository;
 
   Future<int> addToCart(Ad ad) async {
     final isLogin = _tokenStorage.isUserLoggedIn;

@@ -12,6 +12,7 @@ import 'package:onlinebozor/presentation/widgets/ad/vertical/vertical_ad_shimmer
 import 'package:onlinebozor/presentation/widgets/ad/vertical/vertical_ad_widget.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/favorite/favorite_empty_widget.dart';
+import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 
 import 'cubit/favorite_services_cubit.dart';
 
@@ -51,23 +52,9 @@ class FavoriteServicesPage extends BasePage<PageCubit, PageState, PageEvent> {
           ),
           builderDelegate: PagedChildBuilderDelegate<Ad>(
             firstPageErrorIndicatorBuilder: (_) {
-              return SizedBox(
-                height: 100,
-                child: Center(
-                  child: Column(
-                    children: [
-                      Strings.commonEmptyMessage
-                          .w(400)
-                          .s(14)
-                          .c(context.textPrimary),
-                      SizedBox(height: 12),
-                      CustomElevatedButton(
-                        text: Strings.commonRetry,
-                        onPressed: () {},
-                      )
-                    ],
-                  ),
-                ),
+              return DefaultErrorWidget(
+                isFullScreen: true,
+                onRetryClicked: () => cubit(context).states.controller?.refresh(),
               );
             },
             firstPageProgressIndicatorBuilder: (_) {
@@ -102,13 +89,9 @@ class FavoriteServicesPage extends BasePage<PageCubit, PageState, PageEvent> {
               );
             },
             newPageErrorIndicatorBuilder: (_) {
-              return SizedBox(
-                height: 160,
-                child: Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.blue,
-                  ),
-                ),
+              return DefaultErrorWidget(
+                isFullScreen: false,
+                onRetryClicked: () => cubit(context).states.controller?.refresh(),
               );
             },
             transitionDuration: Duration(milliseconds: 100),

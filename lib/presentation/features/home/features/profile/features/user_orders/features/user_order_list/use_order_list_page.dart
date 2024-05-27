@@ -1,10 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/responses/user_order/user_order_response.dart';
@@ -13,9 +9,12 @@ import 'package:onlinebozor/domain/models/order/user_order_status.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_orders/features/user_order_cancel/user_order_cancel_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_orders/features/user_order_info/user_order_info_page.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
+import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_empty_widget.dart';
+import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 import 'package:onlinebozor/presentation/widgets/order/user_order_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/order/user_order_widget.dart';
 
@@ -61,25 +60,9 @@ class UserOrderListPage extends BasePage<PageCubit, PageState, PageEvent> {
         pagingController: state.controller!,
         builderDelegate: PagedChildBuilderDelegate<UserOrder>(
           firstPageErrorIndicatorBuilder: (_) {
-            return SizedBox(
-              height: 100,
-              child: Center(
-                child: Column(
-                  children: [
-                    Strings.commonEmptyMessage
-                        .w(400)
-                        .s(14)
-                        .c(context.textPrimary),
-                    SizedBox(height: 12),
-                    CustomElevatedButton(
-                      text: Strings.commonRetry,
-                      onPressed: () {
-                        cubit(context).states.controller?.refresh();
-                      },
-                    )
-                  ],
-                ),
-              ),
+            return DefaultErrorWidget(
+              isFullScreen: true,
+              onRetryClicked: () => cubit(context).states.controller?.refresh(),
             );
           },
           firstPageProgressIndicatorBuilder: (_) {
@@ -117,11 +100,9 @@ class UserOrderListPage extends BasePage<PageCubit, PageState, PageEvent> {
             );
           },
           newPageErrorIndicatorBuilder: (_) {
-            return SizedBox(
-              height: 160,
-              child: Center(
-                child: CircularProgressIndicator(color: Colors.blue),
-              ),
+            return DefaultErrorWidget(
+              isFullScreen: false,
+              onRetryClicked: () => cubit(context).states.controller?.refresh(),
             );
           },
           transitionDuration: Duration(milliseconds: 100),

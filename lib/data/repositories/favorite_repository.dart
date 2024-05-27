@@ -6,21 +6,28 @@ import 'package:onlinebozor/data/datasource/hive/storages/token_storage.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/add_result/add_result_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/favorite_service.dart';
+import 'package:onlinebozor/data/error/app_locale_exception.dart';
+import 'package:onlinebozor/data/repositories/state_repository.dart';
+import 'package:onlinebozor/data/repositories/user_repository.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 
 import '../../domain/models/ad/ad.dart';
 
 @LazySingleton()
 class FavoriteRepository {
-  final AdStorage _adStorage;
-  final FavoriteService _favoriteService;
-  final TokenStorage _tokenStorage;
-
   FavoriteRepository(
     this._adStorage,
     this._favoriteService,
+    this._stateRepository,
     this._tokenStorage,
+    this._userRepository,
   );
+
+  final AdStorage _adStorage;
+  final FavoriteService _favoriteService;
+  final StateRepository _stateRepository;
+  final TokenStorage _tokenStorage;
+  final UserRepository _userRepository;
 
   Future<int> addToFavorite(Ad ad) async {
     final isLogin = _tokenStorage.isUserLoggedIn;
@@ -44,7 +51,10 @@ class FavoriteRepository {
   }
 
   Future<List<Ad>> getProductFavoriteAds() async {
-    try {
+    if (_stateRepository.isNotAuthorized()) throw NotAuthorizedException();
+    if (_userRepository.isNotIdentified()) throw NotIdentifiedException();
+
+    // try {
       final isLogin = _tokenStorage.isUserLoggedIn;
       if (isLogin) {
         final response = await _favoriteService.getFavoriteAds();
@@ -65,12 +75,15 @@ class FavoriteRepository {
           .map((item) => item.toMap())
           .toList()
           .filterIf((e) => (e.isProductAd));
-    } catch (e) {
-      return List.empty();
-    }
+    // } catch (e) {
+    //   return List.empty();
+    // }
   }
 
   Future<List<Ad>> getServiceFavoriteAds() async {
+    if (_stateRepository.isNotAuthorized()) throw NotAuthorizedException();
+    if (_userRepository.isNotIdentified()) throw NotIdentifiedException();
+
     try {
       final isLogin = _tokenStorage.isUserLoggedIn;
       if (isLogin) {

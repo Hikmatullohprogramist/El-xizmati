@@ -11,21 +11,22 @@ import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
 import 'package:onlinebozor/data/datasource/network/responses/transaction/payment_transaction_response.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
+import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 import 'package:onlinebozor/presentation/widgets/transaction/transaction_empty_widget.dart';
 import 'package:onlinebozor/presentation/widgets/transaction/transaction_widget.dart';
 import 'package:onlinebozor/presentation/widgets/transaction/transaction_widget_shimmer.dart';
 
-import 'cubit/payment_transaction_cubit.dart';
+import 'cubit/payment_transactions_cubit.dart';
 
 @RoutePage()
-class PaymentTransactionPage extends BasePage<PageCubit, PageState, PageEvent> {
-  const PaymentTransactionPage({super.key});
+class PaymentTransactionsPage
+    extends BasePage<PageCubit, PageState, PageEvent> {
+  const PaymentTransactionsPage({super.key});
 
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
@@ -60,23 +61,9 @@ class PaymentTransactionPage extends BasePage<PageCubit, PageState, PageEvent> {
       pagingController: state.controller!,
       builderDelegate: PagedChildBuilderDelegate<dynamic>(
         firstPageErrorIndicatorBuilder: (_) {
-          return SizedBox(
-            height: 100,
-            child: Center(
-              child: Column(
-                children: [
-                  Strings.commonEmptyMessage
-                      .w(400)
-                      .s(14)
-                      .c(context.textPrimary),
-                  SizedBox(height: 12),
-                  CustomElevatedButton(
-                    text: Strings.commonRetry,
-                    onPressed: () {},
-                  )
-                ],
-              ),
-            ),
+          return DefaultErrorWidget(
+            isFullScreen: true,
+            onRetryClicked: () => cubit(context).states.controller?.refresh(),
           );
         },
         firstPageProgressIndicatorBuilder: (_) {
@@ -103,11 +90,9 @@ class PaymentTransactionPage extends BasePage<PageCubit, PageState, PageEvent> {
           );
         },
         newPageErrorIndicatorBuilder: (_) {
-          return SizedBox(
-            height: 160,
-            child: Center(
-              child: CircularProgressIndicator(color: Colors.blue),
-            ),
+          return DefaultErrorWidget(
+            isFullScreen: false,
+            onRetryClicked: () => cubit(context).states.controller?.refresh(),
           );
         },
         transitionDuration: Duration(milliseconds: 100),
