@@ -48,22 +48,18 @@ class AuthConfirmPage extends BasePage<PageCubit, PageState, PageEvent> {
       backgroundColor: context.colors.backgroundColor,
       resizeToAvoidBottomInset: false,
       appBar: DefaultAppBar(
-        titleText: "",
+        titleText: Strings.authConfirmCorfimationCode,
+        titleTextColor: context.textPrimary,
         backgroundColor: context.backgroundColor,
         onBackPressed: () => context.router.pop(),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 42),
-            Strings.authConfirmCorfimationCode
-                .w(500)
-                .s(24)
-                .c(context.textPrimary),
-            SizedBox(height: 42),
+            SizedBox(height:20),
             Align(
               alignment: Alignment.centerLeft,
               child: Strings.commonPhoneNumber
@@ -132,7 +128,6 @@ class AuthConfirmPage extends BasePage<PageCubit, PageState, PageEvent> {
                     .c(Colors.black)
               ],
             ),
-            Spacer(),
             CustomElevatedButton(
               text: Strings.commonContinue,
               onPressed: () {

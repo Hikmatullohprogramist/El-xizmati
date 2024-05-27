@@ -64,6 +64,7 @@ class OrderCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
         ? Scaffold(
             appBar: DefaultAppBar(
               titleText: Strings.cartOrderCreate,
+              titleTextColor: context.textPrimary,
               backgroundColor: context.appBarColor,
               onBackPressed: () => context.router.pop(),
             ),
@@ -72,6 +73,7 @@ class OrderCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
         : Scaffold(
             appBar: DefaultAppBar(
               titleText: Strings.cartOrderCreate,
+              titleTextColor: context.textPrimary,
               backgroundColor: context.appBarColor,
               onBackPressed: () => context.router.pop(),
             ),

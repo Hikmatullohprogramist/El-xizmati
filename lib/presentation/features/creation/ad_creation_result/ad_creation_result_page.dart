@@ -30,6 +30,7 @@ class AdCreationResultPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Scaffold(
       appBar: DefaultAppBar(
         titleText: "",
+        titleTextColor: context.textPrimary,
         backgroundColor: context.appBarColor,
         onBackPressed: () => context.router.pop(),
       ),

@@ -58,6 +58,7 @@ class AddAddressPage
         titleText: state.isEditing
             ? Strings.userAddressEditTitle
             : Strings.userAddressAddTitle,
+        titleTextColor: context.textPrimary,
         backgroundColor: context.appBarColor,
         onBackPressed: () => context.router.pop(false),
       ),

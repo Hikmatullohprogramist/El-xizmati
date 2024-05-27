@@ -54,6 +54,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Scaffold(
       appBar: DefaultAppBar(
         titleText: Strings.profileEditTitle,
+        titleTextColor: context.textPrimary,
         backgroundColor: context.backgroundColor,
         onBackPressed: () => context.router.pop(),
       ),

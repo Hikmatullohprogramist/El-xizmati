@@ -91,6 +91,7 @@ class ServiceAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
       appBar: DefaultAppBar(
         titleText:
             state.isEditing ? Strings.adEditTitle : Strings.adCreateTitle,
+        titleTextColor: context.textPrimary,
         backgroundColor: context.appBarColor,
         onBackPressed: () => context.router.pop(),
       ),

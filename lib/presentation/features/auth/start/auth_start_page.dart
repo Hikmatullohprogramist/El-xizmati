@@ -61,6 +61,7 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
       resizeToAvoidBottomInset: false,
       appBar: DefaultAppBar(
         titleText: Strings.authStartSingin,
+        titleTextColor: context.textPrimary,
         backgroundColor: context.backgroundColor,
         onBackPressed: () => context.router.pop(),
       ),

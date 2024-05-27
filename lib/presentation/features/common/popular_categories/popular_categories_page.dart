@@ -27,6 +27,7 @@ class PopularCategoriesPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Scaffold(
       appBar: DefaultAppBar(
         titleText: title ?? "",
+        titleTextColor: context.textPrimary,
         backgroundColor: context.backgroundColor,
         onBackPressed: () => context.router.pop(),
       ),

@@ -32,6 +32,7 @@ class SetPasswordPage extends BasePage<PageCubit, PageState, PageEvent> {
       resizeToAvoidBottomInset: false,
       appBar: DefaultAppBar(
         titleText: Strings.authRegisterRegister,
+        titleTextColor: context.textPrimary,
         backgroundColor: context.backgroundColor,
         onBackPressed: () => context.router.pop(),
       ),
@@ -39,10 +40,10 @@ class SetPasswordPage extends BasePage<PageCubit, PageState, PageEvent> {
         padding: const EdgeInsets.all(16),
         child: AutofillGroup(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 42),
+              SizedBox(height: 16),
               Align(
                   alignment: Alignment.centerLeft,
                   child: Strings.authCommonPassword
@@ -88,7 +89,6 @@ class SetPasswordPage extends BasePage<PageCubit, PageState, PageEvent> {
                   onPressed: () {},
                 ),
               ),
-              Spacer(),
               CustomElevatedButton(
                 text: Strings.commonContinue,
                 onPressed: () {

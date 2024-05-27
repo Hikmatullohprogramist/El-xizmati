@@ -83,6 +83,7 @@ class FaceIdIdentityPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Scaffold(
       appBar: DefaultAppBar(
         titleText: Strings.profileIdentify,
+        titleTextColor: context.textPrimary,
         backgroundColor: context.backgroundColor,
         onBackPressed: () => context.router.pop(),
       ),

@@ -17,6 +17,7 @@ class UserSocialAccountsPage extends BasePage<PageCubit, PageState, PageEvent> {
       backgroundColor: context.backgroundColor,
       appBar: DefaultAppBar(
         titleText: Strings.settingsSocialNetwork,
+        titleTextColor: context.textPrimary,
         backgroundColor: context.backgroundColor,
         onBackPressed: () => context.router.pop(),
       ),

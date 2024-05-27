@@ -15,6 +15,7 @@ class ChatPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Scaffold(
       appBar: DefaultAppBar(
         titleText: "",
+        titleTextColor: context.textPrimary,
         backgroundColor: context.backgroundColor,
         onBackPressed: () => context.router.pop(),
       ),

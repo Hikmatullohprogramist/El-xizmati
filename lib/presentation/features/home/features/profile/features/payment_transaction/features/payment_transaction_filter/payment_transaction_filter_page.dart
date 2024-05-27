@@ -29,6 +29,7 @@ class PaymentTransactionFilterPage
       backgroundColor: context.backgroundColor,
       appBar: DefaultAppBar(
         titleText: Strings.commonFilter,
+        titleTextColor: context.textPrimary,
         backgroundColor: context.backgroundColor,
         onBackPressed: () => context.router.pop(),
       ),

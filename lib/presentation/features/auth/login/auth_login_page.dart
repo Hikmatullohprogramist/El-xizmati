@@ -60,6 +60,7 @@ class AuthLoginPage extends BasePage<PageCubit, PageState, PageEvent> {
         resizeToAvoidBottomInset: true,
         appBar: DefaultAppBar(
           titleText: Strings.authStartSingin,
+          titleTextColor: context.textPrimary,
           backgroundColor: context.backgroundColor,
           onBackPressed: () {
             context.router.replace(AuthStartRoute(phone: state.phone));
