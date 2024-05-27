@@ -10,17 +10,19 @@ class CardWidget extends StatelessWidget {
   const CardWidget({
     super.key,
     required this.userCard,
-    required this.onRefillClicked,
     required this.onHistoryClicked,
-    required this.onRefreshClicked,
+    required this.onRefillClicked,
+    required this.onReloadDepositClicked,
     required this.onSettingsClicked,
+    required this.onDeleteClicked,
   });
 
   final UserCard userCard;
-  final VoidCallback onRefillClicked;
   final VoidCallback onHistoryClicked;
-  final VoidCallback onRefreshClicked;
+  final VoidCallback onRefillClicked;
+  final VoidCallback onReloadDepositClicked;
   final Function(UserCard card) onSettingsClicked;
+  final Function(UserCard card) onDeleteClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -146,52 +148,52 @@ class CardWidget extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(width: 8),
-        Container(
-          decoration: BoxDecoration(
-            color: context.cardColor,
-            borderRadius: BorderRadius.all(Radius.circular(12)),
-          ),
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
-              onTap: () => onRefreshClicked(),
-              child: Container(
-                padding: EdgeInsets.symmetric(
-                  vertical: 6,
-                  horizontal: 12,
-                ),
-                child: Assets.images.icCardRefresh.svg(
-                  color: context.iconPrimary,
-                ),
-              ),
-            ),
-          ),
-        ),
-        SizedBox(width: 8),
-        Container(
-          decoration: BoxDecoration(
-            color: context.cardColor,
-            borderRadius: BorderRadius.all(Radius.circular(12)),
-          ),
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
-              onTap: () => onHistoryClicked(),
-              child: Container(
-                padding: EdgeInsets.symmetric(
-                  vertical: 6,
-                  horizontal: 12,
-                ),
-                child: Assets.images.icCardHistory.svg(
-                  color: context.iconPrimary,
-                ),
-              ),
-            ),
-          ),
-        ),
+        // SizedBox(width: 8),
+        // Container(
+        //   decoration: BoxDecoration(
+        //     color: context.cardColor,
+        //     borderRadius: BorderRadius.all(Radius.circular(12)),
+        //   ),
+        //   child: Material(
+        //     color: Colors.transparent,
+        //     child: InkWell(
+        //       borderRadius: BorderRadius.all(Radius.circular(12)),
+        //       onTap: () => onReloadDepositClicked(),
+        //       child: Container(
+        //         padding: EdgeInsets.symmetric(
+        //           vertical: 6,
+        //           horizontal: 12,
+        //         ),
+        //         child: Assets.images.icCardRefresh.svg(
+        //           color: context.iconPrimary,
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        // SizedBox(width: 8),
+        // Container(
+        //   decoration: BoxDecoration(
+        //     color: context.cardColor,
+        //     borderRadius: BorderRadius.all(Radius.circular(12)),
+        //   ),
+        //   child: Material(
+        //     color: Colors.transparent,
+        //     child: InkWell(
+        //       borderRadius: BorderRadius.all(Radius.circular(12)),
+        //       onTap: () => onHistoryClicked(),
+        //       child: Container(
+        //         padding: EdgeInsets.symmetric(
+        //           vertical: 6,
+        //           horizontal: 12,
+        //         ),
+        //         child: Assets.images.icCardHistory.svg(
+        //           color: context.iconPrimary,
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
         SizedBox(width: 16),
       ],
     );
@@ -217,20 +219,43 @@ class CardWidget extends StatelessWidget {
             child: InkWell(
               borderRadius: BorderRadius.all(Radius.circular(12)),
               onTap: () {
-                onSettingsClicked(userCard);
+                onDeleteClicked(userCard);
               },
               child: Container(
                 padding: EdgeInsets.symmetric(
                   vertical: 6,
                   horizontal: 12,
                 ),
-                child: Assets.images.icCardSettings.svg(
-                  color: context.iconPrimary,
-                ),
+                child: Assets.images.icDelete.svg(),
               ),
             ),
           ),
         ),
+        // SizedBox(width: 8),
+        // Container(
+        //   decoration: BoxDecoration(
+        //     color: context.cardColor,
+        //     borderRadius: BorderRadius.all(Radius.circular(12)),
+        //   ),
+        //   child: Material(
+        //     color: Colors.transparent,
+        //     child: InkWell(
+        //       borderRadius: BorderRadius.all(Radius.circular(12)),
+        //       onTap: () {
+        //         onSettingsClicked(userCard);
+        //       },
+        //       child: Container(
+        //         padding: EdgeInsets.symmetric(
+        //           vertical: 6,
+        //           horizontal: 12,
+        //         ),
+        //         child: Assets.images.icCardSettings.svg(
+        //           color: context.iconPrimary,
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
         SizedBox(width: 16),
       ],
     );

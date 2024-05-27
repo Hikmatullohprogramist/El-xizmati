@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/ad/ad_action.dart';
@@ -17,7 +16,6 @@ import 'package:onlinebozor/presentation/widgets/action/action_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/ad/user_ad/user_ad_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/ad/user_ad/user_ad_widget.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_empty_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 
@@ -58,7 +56,8 @@ class UserAdListPage extends BasePage<PageCubit, PageState, PageEvent> {
             firstPageErrorIndicatorBuilder: (_) {
               return DefaultErrorWidget(
                 isFullScreen: true,
-                onRetryClicked: () => cubit(context).states.controller?.refresh(),
+                onRetryClicked: () =>
+                    cubit(context).states.controller?.refresh(),
               );
             },
             firstPageProgressIndicatorBuilder: (_) {
@@ -98,7 +97,8 @@ class UserAdListPage extends BasePage<PageCubit, PageState, PageEvent> {
             newPageErrorIndicatorBuilder: (_) {
               return DefaultErrorWidget(
                 isFullScreen: false,
-                onRetryClicked: () => cubit(context).states.controller?.refresh(),
+                onRetryClicked: () =>
+                    cubit(context).states.controller?.refresh(),
               );
             },
             transitionDuration: Duration(milliseconds: 100),

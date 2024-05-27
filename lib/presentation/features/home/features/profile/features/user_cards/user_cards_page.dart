@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/features/realpay/add_card/add_card_with_realpay_page.dart';
 import 'package:onlinebozor/presentation/features/realpay/refill/refill_with_realpay_page.dart';
@@ -62,10 +61,10 @@ class UserCardsPage extends BasePage<PageCubit, PageState, PageEvent> {
       strokeWidth: 3,
       color: context.colors.primary,
       onRefresh: () async {
-        cubit(context).getDepositBalance();
+        cubit(context).reload();
       },
       child: ListView.separated(
-        physics: BouncingScrollPhysics(),
+        // physics: BouncingScrollPhysics(),
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         itemCount: state.cards.length,
@@ -73,9 +72,10 @@ class UserCardsPage extends BasePage<PageCubit, PageState, PageEvent> {
         itemBuilder: (context, index) {
           return CardWidget(
             userCard: state.cards[index],
-            onRefillClicked: () => _showRefillWithRealPayPage(context),
+            onDeleteClicked: (card) {},
             onHistoryClicked: () {},
-            onRefreshClicked: () {},
+            onRefillClicked: () => _showRefillWithRealPayPage(context),
+            onReloadDepositClicked: () {},
             onSettingsClicked: (card) {},
           );
         },

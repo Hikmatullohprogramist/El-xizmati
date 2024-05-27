@@ -11,8 +11,8 @@ import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_for_social_direction.dart';
@@ -85,9 +85,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                       _buildSocialBlock(context, state),
                       SizedBox(height: 12),
                       _buildActiveDeviceBlock(context, state),
-                      SizedBox(
-                        height: 12,
-                      ),
+                      SizedBox(height: 12),
                     ],
                   ),
                 ),
@@ -146,6 +144,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                       Container(
                         padding:
                             EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                        margin: EdgeInsets.fromLTRB(0, 6, 6, 16),
                         decoration: ShapeDecoration(
                           color: Color(0xFFAEB2CD).withAlpha(40),
                           shape: RoundedRectangleBorder(
@@ -157,11 +156,11 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
                             .s(12)
                             .c(Color(0xFF999CB2)),
                       ),
-                      SizedBox(width: 10),
-                      CustomTextButton(
-                        text: Strings.profileChangeToBusiness,
-                        onPressed: () {},
-                      )
+                      // SizedBox(width: 10),
+                      // CustomTextButton(
+                      //   text: Strings.profileChangeToBusiness,
+                      //   onPressed: () {},
+                      // )
                     ],
                   )
                 ],
@@ -900,7 +899,8 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
               firstPageErrorIndicatorBuilder: (_) {
                 return DefaultErrorWidget(
                   isFullScreen: true,
-                  onRetryClicked: () => cubit(context).states.controller?.refresh(),
+                  onRetryClicked: () =>
+                      cubit(context).states.controller?.refresh(),
                 );
               },
               firstPageProgressIndicatorBuilder: (_) {
@@ -931,7 +931,8 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
               newPageErrorIndicatorBuilder: (_) {
                 return DefaultErrorWidget(
                   isFullScreen: false,
-                  onRetryClicked: () => cubit(context).states.controller?.refresh(),
+                  onRetryClicked: () =>
+                      cubit(context).states.controller?.refresh(),
                 );
               },
               transitionDuration: Duration(milliseconds: 100),

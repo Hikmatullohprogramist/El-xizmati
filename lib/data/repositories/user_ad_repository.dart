@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/data/datasource/network/responses/ad/ad_detail/user_ad_detail_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/user_ad/user_ad_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/user_ad_service.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
@@ -10,13 +11,13 @@ import '../../domain/models/ad/user_ad_status.dart';
 @LazySingleton()
 class UserAdRepository {
   UserAdRepository(
-    this.userAdService,
+    this._userAdService,
     this._stateRepository,
     this._userRepository,
   );
 
   final StateRepository _stateRepository;
-  final UserAdService userAdService;
+  final UserAdService _userAdService;
   final UserRepository _userRepository;
 
   Future<List<UserAdResponse>> getUserAds({
@@ -27,7 +28,7 @@ class UserAdRepository {
     if (_stateRepository.isNotAuthorized()) throw NotAuthorizedException();
     if (_userRepository.isNotIdentified()) throw NotIdentifiedException();
 
-    final root = await userAdService.getUserAds(
+    final root = await _userAdService.getUserAds(
       page: page,
       limit: limit,
       userAdType: userAdStatus,
@@ -36,18 +37,25 @@ class UserAdRepository {
     return response;
   }
 
+
+  Future<UserAdDetail> getUserAdDetail({required int adId}) async {
+    final response = await _userAdService.getUserAdDetail(adId: adId);
+    final adsResponse = UserAdDetailRootResponse.fromJson(response.data).data;
+    return adsResponse.userAdDetail;
+  }
+
   Future<void> deactivateAd(int adId) async {
-    final response = await userAdService.deactivateAd(adId);
+    final response = await _userAdService.deactivateAd(adId);
     return;
   }
 
   Future<void> activateAd(int adId) async {
-    final response = await userAdService.activateAd(adId);
+    final response = await _userAdService.activateAd(adId);
     return;
   }
 
   Future<void> deleteAd(int adId) async {
-    final response = await userAdService.deleteAd(adId);
+    final response = await _userAdService.deleteAd(adId);
     return;
   }
 }

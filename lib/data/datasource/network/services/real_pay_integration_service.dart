@@ -10,8 +10,6 @@ class RealPayIntegrationService {
   final Dio _dio;
 
   Future<Response> getAddedCards() async {
-    // api/realpay/v1/card/user-card/get-all?lang=la
-    // https://online-bozor.uz/api/realpay/v1/card/user-card/get-all?lang=la
     return _dio.get("api/realpay/v1/card/user-card/get-all");
   }
 

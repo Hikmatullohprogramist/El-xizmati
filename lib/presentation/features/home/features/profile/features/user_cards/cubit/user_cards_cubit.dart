@@ -33,6 +33,11 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
   final RealPayIntegrationRepository _realPayIntegrationRepository;
   final UserRepository _userRepository;
 
+  void reload() {
+    getDepositBalance();
+    getAddedCards();
+  }
+
   Future<void> getUser() async {
     final userHiveObject = _userRepository.getSavedUser();
     updateState((state) => state.copyWith(

@@ -69,10 +69,10 @@ class UserAdDetail with _$UserAdDetail {
     @JsonKey(name: "phone_view") int? phoneViewCount,
     @JsonKey(name: "message_number") int? smsViewCount,
     @JsonKey(name: "type_expire_date") dynamic typeExpireDate,
-    @JsonKey(name: "unit_id") dynamic unitId,
+    @JsonKey(name: "unit_id") int? unitId,
     @JsonKey(name: "to_price") int? toPrice,
     @JsonKey(name: "from_price") int? fromPrice,
-    @JsonKey(name: "address_id") int? addressId,
+    @JsonKey(name: "address_id") dynamic addressId,
     @JsonKey(name: "video") dynamic video,
     @JsonKey(name: "params") List<dynamic>? params,
     @JsonKey(name: "social_medias") List<dynamic>? socialMedias,
@@ -89,7 +89,7 @@ class UserAdDetail with _$UserAdDetail {
 @freezed
 class UserAdDetailCategory with _$UserAdDetailCategory {
   const factory UserAdDetailCategory({
-    @JsonKey(name: "id") required int id,
+    @JsonKey(name: "id") int? id,
     @JsonKey(name: "is_sell") bool? isSell,
     @JsonKey(name: "name") String? name,
     @JsonKey(name: "key_word") String? keyWord,
@@ -102,7 +102,7 @@ class UserAdDetailCategory with _$UserAdDetailCategory {
 @freezed
 class UserAdDetailPaymentType with _$UserAdDetailPaymentType {
   const factory UserAdDetailPaymentType({
-    @JsonKey(name: "id") required int id,
+    @JsonKey(name: "id")  int? id,
     @JsonKey(name: "name") String? name,
   }) = _UserAdDetailPaymentType;
 

@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/data/datasource/network/constants/rest_query_keys.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
-
-import '../constants/rest_query_keys.dart';
 
 @lazySingleton
 class UserAdService {
@@ -21,6 +20,14 @@ class UserAdService {
       RestQueryKeys.status: userAdType.name.toUpperCase()
     };
     return _dio.get("api/mobile/v1/user/adsList", queryParameters: params);
+  }
+
+  Future<Response> getUserAdDetail({required int adId}) {
+    final queryParameters = {RestQueryKeys.id: adId};
+    return _dio.get(
+      "api/mobile/v1/ads/get-user-ad-detail",
+      queryParameters: queryParameters,
+    );
   }
 
   Future<Response> deactivateAd(int adId) async {

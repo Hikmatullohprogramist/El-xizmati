@@ -9,41 +9,41 @@ import '../constants/rest_query_keys.dart';
 
 @lazySingleton
 class AdCreationService {
-  final Dio dio;
+  final Dio _dio;
 
-  AdCreationService(this.dio);
+  AdCreationService(this._dio);
 
   Future<Response> getCategoriesForCreationAd(String type) {
     final Map<String, dynamic> query = {"type": type};
-    return dio.get(
+    return _dio.get(
       'api/mobile/v1/get-categories-for-create-ad',
       queryParameters: query,
     );
   }
 
   Future<Response> getCurrenciesForCreationAd() {
-    return dio.get('api/mobile/v1/get-currencies-for-create-ad');
+    return _dio.get('api/mobile/v1/get-currencies-for-create-ad');
   }
 
   Future<Response> getDeliveryTypesForCreationAd() {
-    return dio.get('api/mobile/v1/get-delivery-types-for-create-ad');
+    return _dio.get('api/mobile/v1/get-delivery-types-for-create-ad');
   }
 
   Future<Response> getPaymentTypesForCreationAd() {
-    return dio.get('api/mobile/v1/get-payment-types-for-create-ad');
+    return _dio.get('api/mobile/v1/get-payment-types-for-create-ad');
   }
 
   Future<Response> getWarehousesForCreationAd({required int tinOrPinfl}) {
     final Map<String, dynamic> query = {};
     query["org_id"] = tinOrPinfl;
-    return dio.get(
+    return _dio.get(
       'api/mobile/v1/get-warehouses-for-create-ad',
       queryParameters: query,
     );
   }
 
   Future<Response> getUnitsForCreationAd() {
-    return dio.get('api/mobile/v1/get-untis-for-create-ad');
+    return _dio.get('api/mobile/v1/get-untis-for-create-ad');
   }
 
   Future<Response> uploadImage(XFile xFile) async {
@@ -53,7 +53,7 @@ class AdCreationService {
       'file': await MultipartFile.fromFile(xFile.path, filename: xFile.name),
     });
 
-    return await dio.post(
+    return await _dio.post(
       'https://online-bozor.uz/files/upload/category/ads',
       data: formData,
     );
@@ -215,8 +215,8 @@ class AdCreationService {
     }
 
     return adId != null
-        ? dio.put(endPoint, data: commonBody)
-        : dio.post(endPoint, data: commonBody);
+        ? _dio.put(endPoint, data: commonBody)
+        : _dio.post(endPoint, data: commonBody);
   }
 
   Future<Response> createOrUpdateServiceAd({
@@ -297,8 +297,8 @@ class AdCreationService {
         : 'api/mobile/v1/create-service-ad';
 
     return adId != null
-        ? dio.put(endPoint, data: commonBody)
-        : dio.post(endPoint, data: commonBody);
+        ? _dio.put(endPoint, data: commonBody)
+        : _dio.post(endPoint, data: commonBody);
   }
 
   Future<Response> createOrUpdateRequestAd({
@@ -377,13 +377,13 @@ class AdCreationService {
             : "api/mobile/v1/create-service-request";
 
     return adId != null
-        ? dio.put(endPoint, data: commonBody)
-        : dio.post(endPoint, data: commonBody);
+        ? _dio.put(endPoint, data: commonBody)
+        : _dio.post(endPoint, data: commonBody);
   }
 
   Future<Response> getProductAdForEdit({required int adId}) {
     final queryParameters = {RestQueryKeys.adId: adId};
-    return dio.get(
+    return _dio.get(
       "api/mobile/v1/get-product-ad-details-for-edit",
       queryParameters: queryParameters,
     );
@@ -391,7 +391,7 @@ class AdCreationService {
 
   Future<Response> getServiceAdForEdit({required int adId}) {
     final queryParameters = {RestQueryKeys.adId: adId};
-    return dio.get(
+    return _dio.get(
       "api/mobile/v1/get-service-ad-details-for-edit",
       queryParameters: queryParameters,
     );
@@ -399,16 +399,8 @@ class AdCreationService {
 
   Future<Response> getRequestAdForEdit({required int adId}) {
     final queryParameters = {RestQueryKeys.adId: adId};
-    return dio.get(
+    return _dio.get(
       "api/mobile/v1/get-request-ad-details-for-edit",
-      queryParameters: queryParameters,
-    );
-  }
-
-  Future<Response> getUserAdDetail({required int adId}) {
-    final queryParameters = {RestQueryKeys.id: adId};
-    return dio.get(
-      "api/mobile/v1/ads/get-user-ad-detail",
       queryParameters: queryParameters,
     );
   }
