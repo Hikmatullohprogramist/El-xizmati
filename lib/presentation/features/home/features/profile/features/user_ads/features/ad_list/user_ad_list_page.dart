@@ -12,6 +12,7 @@ import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
+import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/presentation/widgets/action/action_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/ad/user_ad/user_ad_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/ad/user_ad/user_ad_widget.dart';
@@ -155,31 +156,31 @@ class UserAdListPage extends BasePage<PageCubit, PageState, PageEvent> {
 
                   switch (type) {
                     case AdTransactionType.SELL:
-                      context.router.push(CreateProductAdRoute(
+                      context.router.push(ProductAdCreationRoute(
                         adId: ad.id,
                         adTransactionType: type,
                       ));
                     case AdTransactionType.FREE:
-                      context.router.push(CreateProductAdRoute(
+                      context.router.push(ProductAdCreationRoute(
                         adId: ad.id,
                         adTransactionType: type,
                       ));
                     case AdTransactionType.EXCHANGE:
-                      context.router.push(CreateProductAdRoute(
+                      context.router.push(ProductAdCreationRoute(
                         adId: ad.id,
                         adTransactionType: type,
                       ));
                     case AdTransactionType.SERVICE:
-                      context.router.push(CreateServiceAdRoute(
+                      context.router.push(ServiceAdCreationRoute(
                         adId: ad.id,
                       ));
                     case AdTransactionType.BUY:
-                      context.router.push(CreateRequestAdRoute(
+                      context.router.push(RequestAdCreationRoute(
                         adId: ad.id,
                         adTransactionType: type,
                       ));
                     case AdTransactionType.BUY_SERVICE:
-                      context.router.push(CreateRequestAdRoute(
+                      context.router.push(RequestAdCreationRoute(
                         adId: ad.id,
                         adTransactionType: type,
                       ));
@@ -225,7 +226,22 @@ class UserAdListPage extends BasePage<PageCubit, PageState, PageEvent> {
                   color: Color(0xFFFA6F5D),
                   onClicked: (item) {
                     context.router.pop();
-                    cubit(context).deleteAd(ad);
+                    showYesNoBottomSheet(
+                      context,
+                      title: Strings.messageTitleWarning,
+                      message: Strings.adDeleteMessage,
+                      noTitle: Strings.commonNo,
+                      onNoClicked: () {
+                        Navigator.pop(context);
+                        vibrateAsHapticFeedback();
+                      },
+                      yesTitle: Strings.commonYes,
+                      onYesClicked: () {
+                        Navigator.pop(context);
+                        vibrateAsHapticFeedback();
+                        cubit(context).deleteAd(ad);
+                      },
+                    );
                   },
                 ),
               SizedBox(height: 20)

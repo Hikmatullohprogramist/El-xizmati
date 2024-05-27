@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/data/datasource/network/responses/transaction/payment_transaction_response.dart';
-import 'package:onlinebozor/data/repositories/transaction_repository.dart';
+import 'package:onlinebozor/data/repositories/payment_repository.dart';
 import 'package:onlinebozor/domain/models/payment_filter/paymant_filter.dart';
 
 part 'payment_transaction_filter_cubit.freezed.dart';
@@ -17,7 +17,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     getTransactionList();
   }
 
-  final PaymentTransactionRepository _paymentTransactionRepository;
+  final PaymentRepository _paymentTransactionRepository;
 
   void getTransactionList() async {
     try {

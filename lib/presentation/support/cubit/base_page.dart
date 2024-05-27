@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/presentation/di/injection.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_builder.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_event.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_state.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 
 abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
@@ -105,6 +106,42 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
     );
   }
 
+  void showDefaultBottomSheet(BuildContext context, String title, Widget body) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext bc) {
+        return Container(
+          decoration: BoxDecoration(
+            color: context.bottomSheetColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              SizedBox(height: 12),
+              BottomSheetTitle(
+                title: title,
+                onCloseClicked: () {
+                  context.router.pop();
+                },
+                centerTitle: true,
+              ),
+              Container(
+                child: body,
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   void showErrorBottomSheet(BuildContext context, String message) =>
       _showStateBottomSheet(context, Strings.messageTitleError, message);
 
@@ -122,45 +159,84 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
     String title,
     String message,
   ) {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (BuildContext bc) {
-        return Container(
-          decoration: BoxDecoration(
-            color: context.bottomSheetColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(height: 30),
-              Center(child: title.s(22).w(600)),
-              SizedBox(height: 14),
-              message.s(16).w(500).copyWith(
-                    maxLines: 5,
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-              SizedBox(height: 32),
-              CustomElevatedButton(
-                text: Strings.closeTitle,
-                onPressed: () {
-                  Navigator.pop(context);
-                  vibrateAsHapticFeedback();
-                },
-                backgroundColor: context.colors.buttonPrimary,
+    showDefaultBottomSheet(
+      context,
+      title,
+      Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          SizedBox(height: 14),
+          message.s(16).w(500).copyWith(
+                maxLines: 5,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
               ),
-              SizedBox(height: 24),
+          SizedBox(height: 32),
+          CustomElevatedButton(
+            text: Strings.closeTitle,
+            onPressed: () {
+              Navigator.pop(context);
+              vibrateAsHapticFeedback();
+            },
+            backgroundColor: context.colors.buttonPrimary,
+          ),
+          SizedBox(height: 24),
+        ],
+      ),
+    );
+  }
+
+  void showYesNoBottomSheet(
+    BuildContext context, {
+    required String title,
+    required String message,
+    required String yesTitle,
+    required Function onYesClicked,
+    required String noTitle,
+    required Function onNoClicked,
+  }) {
+    showDefaultBottomSheet(
+      context,
+      title,
+      Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(height: 24),
+          Center(child: message.s(16)),
+          SizedBox(height: 32),
+          Row(
+            children: <Widget>[
+              SizedBox(width: 16),
+              Expanded(
+                child: CustomElevatedButton(
+                  text: Strings.commonNo,
+                  onPressed: () {
+                    onNoClicked();
+                    Navigator.pop(context);
+                    vibrateAsHapticFeedback();
+                  },
+                ),
+              ),
+              SizedBox(width: 16),
+              Expanded(
+                child: CustomElevatedButton(
+                  text: Strings.commonYes,
+                  // backgroundColor: Color(0xFFEB2F69),
+                  onPressed: () {
+                    onYesClicked();
+                    Navigator.pop(context);
+                    vibrateAsHapticFeedback();
+                  },
+                ),
+              ),
+              SizedBox(width: 16),
             ],
           ),
-        );
-      },
+          SizedBox(height: 24),
+        ],
+      ),
     );
   }
 }

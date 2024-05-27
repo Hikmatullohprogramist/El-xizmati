@@ -239,7 +239,7 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
               cubit(context).popularProductAdsUpdateCart(ad);
             },
             onBuyClicked: (Ad ad) {
-              context.router.push(CreateOrderRoute(adId: ad.id));
+              context.router.push(OrderCreationRoute(adId: ad.id));
             },
           ),
         ),
@@ -282,7 +282,7 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
               cubit(context).popularServiceAdsUpdateCart(ad);
             },
             onBuyClicked: (Ad ad) {
-              context.router.push(CreateOrderRoute(adId: ad.id));
+              context.router.push(OrderCreationRoute(adId: ad.id));
             },
           ),
         ),
@@ -304,7 +304,7 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
           context.router.push(AdDetailRoute(adId: ad.id));
         },
         onOnClickBuyClicked: (Ad ad) {
-          context.router.push(CreateOrderRoute(adId: ad.id));
+          context.router.push(OrderCreationRoute(adId: ad.id));
         },
         onFavoriteClicked: (Ad ad) {
           cubit(context).topRatedAdsUpdateFavorite(ad);
@@ -355,7 +355,7 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
                 cubit(context).recentlyViewAdUpdateCart(ad);
               },
               onBuyClicked: (Ad ad) {
-                context.router.push(CreateOrderRoute(adId: ad.id));
+                context.router.push(OrderCreationRoute(adId: ad.id));
               },
             ),
           ),

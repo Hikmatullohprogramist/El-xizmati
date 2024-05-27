@@ -269,11 +269,11 @@ extension OrderCancelReasonExts on OrderCancelReason {
   String getLocalizedName() {
     return switch (this) {
       OrderCancelReason.SELLER_NOT_ANSWERED =>
-        Strings.orderCancelSellerNotAnswered,
-      OrderCancelReason.CHANGED_IDEA => Strings.orderCancelChangedIdea,
+        Strings.orderCancellationSellerNotAnswered,
+      OrderCancelReason.CHANGED_IDEA => Strings.orderCancellationChangedIdea,
       OrderCancelReason.SELECTED_INCORRECTED_AD =>
-        Strings.orderCancelSelectedInfcorrectedAd,
-      OrderCancelReason.OTHER_REASON => Strings.orderCancelOtherReason,
+        Strings.orderCancellationSelectedInfcorrectedAd,
+      OrderCancelReason.OTHER_REASON => Strings.orderCancellationOtherReason,
     };
   }
 }

@@ -15,6 +15,42 @@ ad_create_free_title,Bepul,Бесплатно,Бепул
 ad_create_product_title,Mahsulot,Продукт,Маҳсулот
 ad_create_service_title,Xizmat,Услуга,Хизмат
 ad_create_title,E‘lon yaratish,Создать объявление,Эълон яратиш
+ad_creation_additional_info_label,Qo‘shimcha ma’lumot,Дополнительная информация,Қўшимча маълумот
+ad_creation_address_label,Mening manzilim,Мои адрес,Менинг манзилим
+ad_creation_addresses_info_label,Manzillar,Адреса,Манзиллар
+ad_creation_auto_renew_label,Avtomatik uzaytirish,Автопродление,Автоматик узайтириш
+ad_creation_auto_renew_off_desc,E’lon 15 kundan keyin faolsizlantiriladi,Объявление будет деактивировано через 15 дней,Эълон 15 кундан кейин фаолсизлантирилади
+ad_creation_auto_renew_on_desc,E’lon har 15 kunda avtomatik uzaytiriladi,Автоматически продлевать объявление каждые 15 дней,Эълон ҳар 15 кунда автоматик узайтирилади
+ad_creation_business_label,Biznes,Бизнес,Бизнес
+ad_creation_category_label,Turkum,Категория,Туркум
+ad_creation_contact_info_label,Aloqa ma’lumotlari,Контактная информация,Алоқа маълумотлари
+ad_creation_contact_person_label,Aloqa uchun shaxs,Контактное лицо,Алоқа учун шахс
+ad_creation_contact_phone_label,Telefon raqami,Номер телефона,Телефон рақами
+ad_creation_currency_label,Pul birligi,Валюта,Пул бирлиги
+ad_creation_desc_hint,E’loningizni tushunarli qiladigan va topishni osonlashtiradigan tafsilotlarni o‘ylab ko‘ring. Va ularni tavsifga qo‘shing,"Подумайте, какие подробности вы хотели бы узнать из объявления. И добавьте их в описание",Эълонингизни тушунарли қиладиган ва топишни осонлаштирадиган тафсилотларни ўйлаб кўринг. Ва уларни тавсифга қўшинг
+ad_creation_desc_label,Mahsulot tavsifi,Описание товара,Маҳсулот тавсифи
+ad_creation_exchange_label,Almashaman,Обменяю,Алмашаман
+ad_creation_free_delivery_label,Bepul yetkazib berish,Бесплатная доставка,Бепул етказиб бериш
+ad_creation_from_price_label,dan,с,дан
+ad_creation_name_label,Mahsulot nomi,Название товара,Маҳсулот номи
+ad_creation_negotiable_label,Kelishish mumkin,Договорная,Келишиш мумкин
+ad_creation_paid_delivery_label,Pullik yetkazib berish,Платная доставка,Пуллик етказиб бериш
+ad_creation_paid_delivery_price_label,Bir kilometr narxi,Цена за км,Бир километр нархи
+ad_creation_payment_type_label,To‘lov usuli,Способ оплаты,Тўлов усули
+ad_creation_personal_label,Shaxsiy,Личное,Шахсий
+ad_creation_personal_or_business_label,Biznes yoki shaxsiy,Бизнес или личное,Бизнес ёки шахсий
+ad_creation_pickup_label,Olib ketish manzillari,Самовывоз с адреса,Олиб кетиш манзиллари
+ad_creation_price_label,Narxi,Цена,Нархи
+ad_creation_receive_types_label,Qabul qilish turlari,Способы приема,Қабул қилиш турлари
+ad_creation_required_fields_label,Yulduzcha bilan belgilangan barcha maydonlar to‘ldirilishi kerak.,Необходимо заполнить все поля отмеченный звездочкой,Юлдузча билан белгиланган барча майдонлар тўлдирилиши керак.
+ad_creation_result_add_another_ad,Yangi e’lon qo‘shish,Добавить новое объявление,Янги эълон қўшиш
+ad_creation_result_desc,E’lon o‘zgarishlari ko‘rib chiqish uchun yuborildi,Изменения объявления отправлены на проверку,Эълон ўзгаришлари кўриб чиқиш учун юборилди
+ad_creation_result_edit_current_ad,E’lonni tahrirlash,Редактирование объявления,Эълонни таҳрирлаш
+ad_creation_result_message,O‘zgarishlar saqlandi,Изменения сохранены,Ўзгаришлар сақланди
+ad_creation_result_open_dashboard,Asosiy oynaga o‘tish,Перейти на главную,Асосий ойнага ўтиш
+ad_creation_search_address_label,Qayerdan kerak,Откуда вам нужен,Қаердан керак
+ad_creation_service_addresses,Xizmat ko‘rsatish manzillari,Адреса услуг,Хизмат кўрсатиш манзиллари
+ad_creation_show_my_social_accounts_label,Mening ijtimoiy tarmoqlarim mahsulot tavsifi ko‘rsatilsin,Показать мои соц. сети на описание товара,Менинг ижтимоий тармоқларим маҳсулот тавсифи кўрсатилсин
 ad_creation_start_buy_desc,Siz qulay va tez mahsulot yoki xizmatni sotib olish uchun so‘rovlarni yaratishingiz mumkin!,Вы можете легко и быстро создавать заявки на покупку товара или услуги!,Сиз қулай ва тез маҳсулот ёки хизматни сотиб олиш учун сўровларни яратишингиз мумкин!
 ad_creation_start_buy_product,Mahsulot sotib oling,Купить товар,Маҳсулот сотиб олинг
 ad_creation_start_buy_service,Xizmat sotib oling,Купить услугу,Хизмат сотиб олинг
@@ -23,6 +59,16 @@ ad_creation_start_sale_desc,Siz bizning platformamizda mahsulotlar va xizmatlarn
 ad_creation_start_sale_product,Mahsulot soting,Продавайте товар,Маҳсулот сотинг
 ad_creation_start_sale_service,Xizmat soting,Продавайте услугу,Хизмат сотинг
 ad_creation_start_sale_title,Sotmoqchimisiz ?,Хочу продать ?,Сотмоқчимисиз ?
+ad_creation_state_label,Holati,Состояние,Ҳолати
+ad_creation_state_new_label,Yangi,Новый,Янги
+ad_creation_state_used_label,Ishlatilgan,Б / У,Ишлатилган
+ad_creation_to_price_label,gacha,до,гача
+ad_creation_transaction_type_label,E’lon turi,Тип объявления,Эълон тури
+ad_creation_useful_link_label,Foydali havolalar,Полезные ссылки,Фойдали ҳаволалар
+ad_creation_video_ulr_label,Video,Видео,Видео
+ad_creation_warehouse_count_label,Ombordagi miqdor,Кол-во на складе,Омбордаги миқдор
+ad_creation_warehouse_unit_label,O‘lchov turi,Ед. измерения,Ўлчов тури
+ad_delete_message,E’lonni o‘chirishni hohlaysizmi?,Вы хотите удалить объявление?,Эълонни ўчиришни ҳоҳлайсизми?
 ad_detail_add_to_cart,Savatga qo‘shish,В корзину,Саватга қўшиш
 ad_detail_author,Muallif,Автор,Муаллиф
 ad_detail_author_ads,Muallifning boshqa e‘lonlari,Другие объявления автора,Муаллифнинг бошқа эълонлари
@@ -61,7 +107,6 @@ ad_transaction_type_sell,Mahsulot,Продукт,Маҳсулот
 ad_transaction_type_service,Xizmat,Услуга,Хизмат
 ad_type_product_title,Mahsulot,Продукт,Маҳсулот
 ad_type_service_title,Xizmat,Услуга,Хизмат
-add_cart_title,Karta qo‘shish,Добавить карту,Карта қўшиш
 address_add_title,Manzil qo‘shish,Добавить адрес,Манзил қўшиш
 address_empty_title,"Siz hali manzil qo‘shmagansiz, qo‘shmoqchimisiz?","Вы ещё не добавили адрес, хотите добавить?","Сиз ҳали манзил қўшмагансиз, қўшмоқчимисиз?"
 all_title,Barchasi,Все,Барчаси
@@ -102,7 +147,11 @@ bottom_navigation_favorite,Tanlanganlar,Избранные,Танланганл�
 bottom_navigation_home,Asosiy,Главная,Асосий
 bottom_navigation_more,Ko‘proq,Больше,Кўпроқ
 bottom_navigation_profile,Profil,Профиль,Профил
-cart_create_order,Rasmiylashtirish,Оформить,Расмийлаштириш
+card_add_success_message,Karta muvaffaqiyatli qo‘shildi,Карта успешно добавлена,Карта муваффақиятли қўшилди
+card_add_title,Karta qo‘shish,Добавить карту,Карта қўшиш
+card_delete_message,Kartani o‘chirishni hohlaysizmi?,Вы хотите удалить карту?,Картани ўчиришни ҳоҳлайсизми?
+cart_ad_remove_message,E’lonni savatdan o‘chirishni hohlaysizmi?,Хотите удалить объявление из корзины?,Эълонни саватдан ўчиришни ҳоҳлайсизми?
+cart_order_create,Rasmiylashtirish,Оформить,Расмийлаштириш
 category_ads_count,ta e‘lon,объявлений,та эълон
 category_list_search_hint,Turkum bo‘yicha izlash,Поиск по категории,Туркум бўйича излаш
 close_title,Yopish,Закрыть,Ёпиш
@@ -165,56 +214,12 @@ common_street,Ko'cha,Улица,Кўча
 common_total_cost,Umumiy narx,Общая стоимость,Умумий нарх
 common_unfind,topilmadi,не найдено,топилмади
 common_yes,Ha,Да,Ҳа
-create_ad_additional_info_label,Qo‘shimcha ma’lumot,Дополнительная информация,Қўшимча маълумот
-create_ad_address_label,Mening manzilim,Мои адрес,Менинг манзилим
-create_ad_addresses_info_label,Manzillar,Адреса,Манзиллар
-create_ad_auto_renew_label,Avtomatik uzaytirish,Автопродление,Автоматик узайтириш
-create_ad_auto_renew_off_desc,E’lon 15 kundan keyin faolsizlantiriladi,Объявление будет деактивировано через 15 дней,Эълон 15 кундан кейин фаолсизлантирилади
-create_ad_auto_renew_on_desc,E’lon har 15 kunda avtomatik uzaytiriladi,Автоматически продлевать объявление каждые 15 дней,Эълон ҳар 15 кунда автоматик узайтирилади
-create_ad_business_label,Biznes,Бизнес,Бизнес
-create_ad_category_label,Turkum,Категория,Туркум
-create_ad_contact_info_label,Aloqa ma’lumotlari,Контактная информация,Алоқа маълумотлари
-create_ad_contact_person_label,Aloqa uchun shaxs,Контактное лицо,Алоқа учун шахс
-create_ad_contact_phone_label,Telefon raqami,Номер телефона,Телефон рақами
-create_ad_currency_label,Pul birligi,Валюта,Пул бирлиги
-create_ad_desc_hint,E’loningizni tushunarli qiladigan va topishni osonlashtiradigan tafsilotlarni o‘ylab ko‘ring. Va ularni tavsifga qo‘shing,"Подумайте, какие подробности вы хотели бы узнать из объявления. И добавьте их в описание",Эълонингизни тушунарли қиладиган ва топишни осонлаштирадиган тафсилотларни ўйлаб кўринг. Ва уларни тавсифга қўшинг
-create_ad_desc_label,Mahsulot tavsifi,Описание товара,Маҳсулот тавсифи
-create_ad_exchange_label,Almashaman,Обменяю,Алмашаман
-create_ad_free_delivery_label,Bepul yetkazib berish,Бесплатная доставка,Бепул етказиб бериш
-create_ad_from_price_label,dan,с,дан
-create_ad_name_label,Mahsulot nomi,Название товара,Маҳсулот номи
-create_ad_negotiable_label,Kelishish mumkin,Договорная,Келишиш мумкин
-create_ad_paid_delivery_label,Pullik yetkazib berish,Платная доставка,Пуллик етказиб бериш
-create_ad_paid_delivery_price_label,Bir kilometr narxi,Цена за км,Бир километр нархи
-create_ad_payment_type_label,To‘lov usuli,Способ оплаты,Тўлов усули
-create_ad_personal_label,Shaxsiy,Личное,Шахсий
-create_ad_personal_or_business_label,Biznes yoki shaxsiy,Бизнес или личное,Бизнес ёки шахсий
-create_ad_pickup_label,Olib ketish manzillari,Самовывоз с адреса,Олиб кетиш манзиллари
-create_ad_price_label,Narxi,Цена,Нархи
-create_ad_receive_types_label,Qabul qilish turlari,Способы приема,Қабул қилиш турлари
-create_ad_required_fields_label,Yulduzcha bilan belgilangan barcha maydonlar to‘ldirilishi kerak.,Необходимо заполнить все поля отмеченный звездочкой,Юлдузча билан белгиланган барча майдонлар тўлдирилиши керак.
-create_ad_result_add_another_ad,Yangi e’lon qo‘shish,Добавить новое объявление,Янги эълон қўшиш
-create_ad_result_desc,E’lon o‘zgarishlari ko‘rib chiqish uchun yuborildi,Изменения объявления отправлены на проверку,Эълон ўзгаришлари кўриб чиқиш учун юборилди
-create_ad_result_edit_current_ad,E’lonni tahrirlash,Редактирование объявления,Эълонни таҳрирлаш
-create_ad_result_message,O‘zgarishlar saqlandi,Изменения сохранены,Ўзгаришлар сақланди
-create_ad_result_open_dashboard,Asosiy oynaga o‘tish,Перейти на главную,Асосий ойнага ўтиш
-create_ad_search_address_label,Qayerdan kerak,Откуда вам нужен,Қаердан керак
-create_ad_service_addresses,Xizmat ko‘rsatish manzillari,Адреса услуг,Хизмат кўрсатиш манзиллари
-create_ad_show_my_social_accounts_label,Mening ijtimoiy tarmoqlarim mahsulot tavsifi ko‘rsatilsin,Показать мои соц. сети на описание товара,Менинг ижтимоий тармоқларим маҳсулот тавсифи кўрсатилсин
-create_ad_state_label,Holati,Состояние,Ҳолати
-create_ad_state_new_label,Yangi,Новый,Янги
-create_ad_state_used_label,Ishlatilgan,Б / У,Ишлатилган
-create_ad_to_price_label,gacha,до,гача
-create_ad_transaction_type_label,E’lon turi,Тип объявления,Эълон тури
-create_ad_useful_link_label,Foydali havolalar,Полезные ссылки,Фойдали ҳаволалар
-create_ad_video_ulr_label,Video,Видео,Видео
-create_ad_warehouse_count_label,Ombordagi miqdor,Кол-во на складе,Омбордаги миқдор
-create_ad_warehouse_unit_label,O‘lchov turi,Ед. измерения,Ўлчов тури
 create_request_title,So‘rov yaratish,Создать запрос,Сўров яратиш
 currency_euro,yevro,евро,евро
 currency_rouble,rubl,рубль,рубл
 currency_usd,dollar,доллар,доллар
 currency_uzb,so‘m,сум,сўм
+deposit_refill_success_message,To‘lov muvaffaqiyatli qabul qilindi,Платеж успешно получен,Тўлов муваффақиятли қабул қилинди
 deposit_refill_title,Depozitni to‘ldirish,Пополнение депозита,Депозитни тўлдириш
 edit_title,Tahrirlash,Редактировать,Таҳрирлаш
 face_id_check,Tekshirish,Проверить,Текшириш
@@ -237,6 +242,11 @@ favorite_product_title,Mahsulotlar,Продукты,Маҳсулотлар
 favorite_service_title,Xizmatlar,Услуги,Хизматлар
 favorite_title,Sevimlilar,Мои желания,Севимлилар
 hot_discounts_title,Issiq chegirmalar,Горячие скидки,Иссиқ чегирмалар
+identity_verification_error_data_already_linked,Ushbu shaxsiy ma’lumotlar boshqa telefon raqamiga bog‘langan!,"Это персональные данные, привязанные к другому номеру телефона!",Ушбу шахсий маълумотлар бошқа телефон рақамига боғланган!
+identity_verification_error_user_not_found,Bu ma’lumotlar bilan foydalanuvchi topilmadi,Пользователь не найден по этим данным,Бу маълумотлар билан фойдаланувчи топилмади
+identity_verification_personal_data,Shaxsiy ma’lumotlarni o‘zgartirish,Изменить личные данные,Шахсий маълумотларни ўзгартириш
+identity_verification_personal_data_desc,"Pasport raqami va seriyasini, tug‘ilgan sanangizni kiriting","Укажите номер и серия паспорта, дата рождения","Паспорт рақами ва сериясини, туғилган санангизни киритинг"
+identity_verification_title,Shaxsni tasdiqlash,Подтвердить личность,Шахсни тасдиқлаш
 image_list_add_pick_image,Galeriyadan tanlash,Выбрать из галереи,Галериядан танлаш
 image_list_add_take_photo,Rasmga olish,Сфотографировать,Расмга олиш
 image_list_add_title,Rasm qo‘shish,Добавить фото,Расм қўшиш
@@ -274,25 +284,23 @@ notification_receive_email,Elektron pochta orqali,Через Эл. почту,Э
 notification_receive_sms,SMS xabar,СМС собщение,СМС хабар
 notification_receive_telegram,Telegram boti,Телеграм бот,Телеграм боти
 notification_title,Bildirishnoma,Уведомление,Билдиришнома
-order_cancel_changed_idea,Fikrim o‘zgarib qoldi,Я передумал,Фикрим ўзгариб қолди
-order_cancel_other_reason,Boshqa,Другой,Бошқа
-order_cancel_selected_infcorrected_ad,Adashib buyurtma beribman,Я заказал по ошибке,Адашиб буюртма берибман
-order_cancel_seller_not_answered,Ta’minotchi javob bermadi,Поставщик не ответил,Таъминотчи жавоб бермади
-order_cancel_title,Buyurtmani bekor qilish,Отменить заказ,Буюртмани бекор қилиш
-order_create_address,Manzil,Адрес,Манзил
-order_create_cash_description,To‘lov o‘zbek so‘mida tovarni olgandan keyin qabul qilinadi,Оплата принимается в узбекских сумах при получении товара,Тўлов ўзбек сўмида товарни олгандан кейин қабул қилинади
-order_create_cash_payment,Naqd pul,Наличними,Нақд пул
-order_create_category,Turkum,Категория,Туркум
-order_create_online_description,RealPay orqali onlayn to‘lov,Онлайн оплата через RealPay,RealPay орқали онлайн тўлов
-order_create_online_payment,Onlayn to‘lov,Онлайн оплата,Онлайн тўлов
-order_create_payment_method,To‘lov usuli,Способ оплаты,Тўлов усули
-order_create_price,Narxi,Цена,Нархи
-order_create_register,Rasmiylashtirish,оформление,Расмийлаштириш
-order_create_terminal_description,Toʻlov UzCard va Humo bank kartalari orqali qabul qilinadi,Оплата принимается через банковские карты UzCard и Humo,Тўлов УзCард ва Ҳумо банк карталари орқали қабул қилинади
-order_create_terminal_payment,Terminal orqali to‘lov,Оплата по терминалу,Терминал орқали тўлов
-order_create_total_price,Jami,Итого,Жами
-order_create_transfer_discription,To‘lov bank o‘tkazmalari orqali qabul qilinadi,Оплата принимается через банковские расчеты,Тўлов банк ўтказмалари орқали қабул қилинади
-order_create_transfer_payment,Transfer,Перечисления,Трансфер
+order_cancellation_changed_idea,Fikrim o‘zgarib qoldi,Я передумал,Фикрим ўзгариб қолди
+order_cancellation_other_reason,Boshqa,Другой,Бошқа
+order_cancellation_selected_infcorrected_ad,Adashib buyurtma beribman,Я заказал по ошибке,Адашиб буюртма берибман
+order_cancellation_seller_not_answered,Ta’minotchi javob bermadi,Поставщик не ответил,Таъминотчи жавоб бермади
+order_cancellation_title,Buyurtmani bekor qilish,Отменить заказ,Буюртмани бекор қилиш
+order_creation_address,Manzil,Адрес,Манзил
+order_creation_category,Turkum,Категория,Туркум
+order_creation_deposit_refill,Depozitni to‘ldirish,Пополнение депозита,Депозитни тўлдириш
+order_creation_error_not_enough_funds_on_deposit,Depozitda mablag‘ yetarli emas,На депозите недостаточно средств,Депозитда маблағ етарли эмас
+order_creation_online_description,RealPay orqali onlayn to‘lov,Онлайн оплата через RealPay,RealPay орқали онлайн тўлов
+order_creation_payment_method,To‘lov usuli,Способ оплаты,Тўлов усули
+order_creation_payment_with_cash,Naqd pul,Наличними,Нақд пул
+order_creation_payment_with_deposit,Depozit karta,Депозитная карта,Депозит карта
+order_creation_price,Narxi,Цена,Нархи
+order_creation_register,Rasmiylashtirish,оформление,Расмийлаштириш
+order_creation_title,Rasmiylashtirish,Оформить,Расмийлаштириш
+order_creation_total_price,Jami,Итого,Жами
 order_empty_message_accepted,Sizda hozircha qabul qilingan buyurtma yo‘q!,У вас пока нет принятых заказов!,Сизда ҳозирча қабул қилинган буюртма йўқ!
 order_empty_message_all,Siz hali birorta ham buyurtma bermadingiz!,Вы ещё не сделали заказов!,Сиз ҳали бирорта ҳам буюртма бермадингиз!
 order_empty_message_cancelled,Sizda hozircha bekor qilingan buyurtma yo‘q!,У вас пока нет отмененных заказов!,Сизда ҳозирча бекор қилинган буюртма йўқ!
@@ -418,8 +426,3 @@ user_order_in_progress,Ko‘rib chiqilmoqda,На рассмотрении,Кўр
 user_order_inactive,Nofaol,Неактивный,Нофаол
 user_order_rejected,Rad etilgan,Отклоненный,Рад этилган
 user_order_wait,Kutilmoqda,В ожидании,Кутилмоқда
-verify_identity_error_data_already_linked,Ushbu shaxsiy ma’lumotlar boshqa telefon raqamiga bog‘langan!,"Это персональные данные, привязанные к другому номеру телефона!",Ушбу шахсий маълумотлар бошқа телефон рақамига боғланган!
-verify_identity_error_user_not_found,Bu ma’lumotlar bilan foydalanuvchi topilmadi,Пользователь не найден по этим данным,Бу маълумотлар билан фойдаланувчи топилмади
-verify_identity_personal_data,Shaxsiy ma’lumotlarni o‘zgartirish,Изменить личные данные,Шахсий маълумотларни ўзгартириш
-verify_identity_personal_data_desc,"Pasport raqami va seriyasini, tug‘ilgan sanangizni kiriting","Укажите номер и серия паспорта, дата рождения","Паспорт рақами ва сериясини, туғилган санангизни киритинг"
-verify_identity_title,Shaxsni tasdiqlash,Подтвердить личность,Шахсни тасдиқлаш

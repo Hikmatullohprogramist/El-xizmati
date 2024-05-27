@@ -39,6 +39,8 @@ class UserStorage {
 
   int get pinflOrTin => user?.pinfl ?? user?.tin ?? 0;
 
+  int get tinOrPinfl => user?.tin ?? user?.pinfl ?? 0;
+
   Future<void> set(UserHiveObject user) => _userBox.set(user);
 
   Future<void> clear() => _userBox.clear();

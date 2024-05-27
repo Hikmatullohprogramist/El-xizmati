@@ -11,9 +11,9 @@ import 'package:onlinebozor/domain/models/report/report_type.dart';
 import 'package:onlinebozor/domain/models/stats/stats_type.dart';
 import 'package:onlinebozor/presentation/features/common/report/submit_report_page.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/action/action_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/ad/detail/ad_detail_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/ad/detail/detail_price_text_widget.dart';
@@ -216,7 +216,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                   text: Strings.adBuy,
                   backgroundColor: StaticColors.majorelleBlue.withOpacity(0.8),
                   onPressed: () {
-                    context.router.push(CreateOrderRoute(adId: state.adId!));
+                    context.router.push(OrderCreationRoute(adId: state.adId!));
                   },
                 ),
               ),
@@ -589,7 +589,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                 cubit(context).similarAdsUpdateCart(ad);
               },
               onBuyClicked: (Ad ad) {
-                context.router.push(CreateOrderRoute(adId: ad.id));
+                context.router.push(OrderCreationRoute(adId: ad.id));
               },
             ),
             onRetryClicked: () {
@@ -640,7 +640,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                 cubit(context).ownerAdUpdateCart(ad);
               },
               onBuyClicked: (Ad ad) {
-                context.router.push(CreateOrderRoute(adId: ad.id));
+                context.router.push(OrderCreationRoute(adId: ad.id));
               },
             ),
           ),
@@ -688,7 +688,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
                 cubit(context).recentlyViewedAdUpdateCart(ad);
               },
               onBuyClicked: (Ad ad) {
-                context.router.push(CreateOrderRoute(adId: ad.id));
+                context.router.push(OrderCreationRoute(adId: ad.id));
               },
             ),
           ),

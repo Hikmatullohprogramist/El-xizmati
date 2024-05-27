@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
-import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/constants/rest_constants.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
@@ -49,9 +48,9 @@ class AddCardWithRealPayPage extends BasePage<PageCubit, PageState, PageEvent> {
                             onRedirectUrlHandled: (url) {
                               cubit(context)
                                   .stateMessageManager
-                                  .showSuccessSnackBar(
-                                      "Тўлов муаффиқиятли қабул қилинди");
-                              context.router.pop();
+                                  .showSuccessSnackBar(Strings.cardAddSuccessMessage);
+
+                              context.router.pop(true);
                             },
                             onFailed: (url) {},
                           ),
@@ -59,7 +58,7 @@ class AddCardWithRealPayPage extends BasePage<PageCubit, PageState, PageEvent> {
                       ],
                     ),
               BottomSheetTitle(
-                title: Strings.addCartTitle,
+                title: Strings.cardAddTitle,
                 onCloseClicked: () {
                   context.router.pop();
                 },

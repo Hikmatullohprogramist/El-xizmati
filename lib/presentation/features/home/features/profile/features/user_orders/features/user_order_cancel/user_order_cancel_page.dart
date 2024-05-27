@@ -62,7 +62,7 @@ class UserOrderCancelPage extends BasePage<PageCubit, PageState, PageEvent> {
                   children: [
                     SizedBox(height: 20),
                     BottomSheetTitle(
-                      title: Strings.orderCancelTitle,
+                      title: Strings.orderCancellationTitle,
                       onCloseClicked: () {
                         context.router.pop();
                       },

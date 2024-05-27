@@ -72,8 +72,17 @@ class CartPage extends BasePage<PageCubit, PageState, PageEvent> {
           return CartWidget(
             ad: state.items[index],
             onDeleteClicked: (Ad ad) {
-              vibrateAsHapticFeedback();
-              cubit(context).removeFromCart(ad);
+              showYesNoBottomSheet(
+                context,
+                title: Strings.messageTitleWarning,
+                message: Strings.cartAdRemoveMessage,
+                noTitle: Strings.commonNo,
+                onNoClicked: () {},
+                yesTitle: Strings.commonYes,
+                onYesClicked: () {
+                  cubit(context).removeFromCart(ad);
+                },
+              );
             },
             onFavoriteClicked: (Ad ad) {
               vibrateAsHapticFeedback();
@@ -83,7 +92,7 @@ class CartPage extends BasePage<PageCubit, PageState, PageEvent> {
               context.router.push(AdDetailRoute(adId: ad.id));
             },
             onOrderClicked: (Ad ad) {
-              context.router.push(CreateOrderRoute(adId: ad.id));
+              context.router.push(OrderCreationRoute(adId: ad.id));
             },
           );
         },

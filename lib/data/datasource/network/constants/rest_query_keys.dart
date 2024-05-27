@@ -60,7 +60,8 @@ class RestQueryKeys {
   static String queryUserName = "username";
 
   static String regionId = "region_id";
-  static String redirectUri = "redirect_url";
+  static String redirectUrl = "redirect_url";
+  static String redirectUri = "redirectUri";
 
   static String searchQuery = "q";
   static String servicePrice = "service_price";

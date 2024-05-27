@@ -27,17 +27,17 @@ class UserCardsPage extends BasePage<PageCubit, PageState, PageEvent> {
         onBackPressed: () => context.router.pop(),
         actions: [
           CustomTextButton(
-            text: Strings.addCartTitle,
+            text: Strings.cardAddTitle,
             onPressed: () => _showAddCardWithRealPayPage(context),
           )
         ],
       ),
       body: LoaderStateWidget(
         isFullScreen: true,
-        loadingState: state.balanceState,
+        loadingState: state.depositState,
         loadingBody: _buildLoadingBody(),
         successBody: _buildSuccessBody(context, state),
-        onRetryClicked: () => cubit(context).getDepositBalance(),
+        onRetryClicked: () => cubit(context).getDepositCardBalance(),
       ),
     );
   }
@@ -63,25 +63,39 @@ class UserCardsPage extends BasePage<PageCubit, PageState, PageEvent> {
       onRefresh: () async {
         cubit(context).reload();
       },
-      child: ListView.separated(
-        // physics: BouncingScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: state.cards.length,
-        padding: EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 16),
-        itemBuilder: (context, index) {
-          return CardWidget(
-            userCard: state.cards[index],
-            onDeleteClicked: (card) {},
-            onHistoryClicked: () {},
-            onRefillClicked: () => _showRefillWithRealPayPage(context),
-            onReloadDepositClicked: () {},
-            onSettingsClicked: (card) {},
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return SizedBox(width: 16, height: 8);
-        },
+      child: SingleChildScrollView(
+        child: ListView.separated(
+          physics: NeverScrollableScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          itemCount: state.cards.length,
+          padding: EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 16),
+          itemBuilder: (context, index) {
+            return CardWidget(
+              userCard: state.cards[index],
+              onDeleteClicked: (card) {
+                showYesNoBottomSheet(
+                  context,
+                  title: Strings.messageTitleWarning,
+                  message: Strings.cardDeleteMessage,
+                  noTitle: Strings.commonNo,
+                  onNoClicked: () {},
+                  yesTitle: Strings.commonYes,
+                  onYesClicked: () {
+                    cubit(context).removeCard(card);
+                  },
+                );
+              },
+              onHistoryClicked: () {},
+              onRefillClicked: () => _showRefillWithRealPayPage(context),
+              onReloadDepositClicked: () {},
+              onSettingsClicked: (card) {},
+            );
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return SizedBox(width: 16, height: 8);
+          },
+        ),
       ),
     );
   }
@@ -108,8 +122,9 @@ class UserCardsPage extends BasePage<PageCubit, PageState, PageEvent> {
       },
     );
 
-    // if (isSuccess)
-    cubit(context).getDepositBalance();
+    if (isSuccess is bool && isSuccess) {
+      cubit(context).reload();
+    }
   }
 
   void _showAddCardWithRealPayPage(BuildContext context) async {
@@ -134,7 +149,8 @@ class UserCardsPage extends BasePage<PageCubit, PageState, PageEvent> {
       },
     );
 
-    // if (isSuccess)
-    cubit(context).getAddedCards();
+    if (isSuccess is bool && isSuccess) {
+      cubit(context).getAddedCards();
+    }
   }
 }

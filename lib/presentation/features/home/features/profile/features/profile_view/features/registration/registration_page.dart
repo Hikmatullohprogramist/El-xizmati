@@ -40,12 +40,12 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
       case PageEventType.rejected:
         showErrorBottomSheet(
           context,
-          Strings.verifyIdentityErrorDataAlreadyLinked,
+          Strings.identityVerificationErrorDataAlreadyLinked,
         );
       case PageEventType.notFound:
         showErrorBottomSheet(
           context,
-          Strings.verifyIdentityErrorUserNotFound,
+          Strings.identityVerificationErrorUserNotFound,
         );
     }
   }
@@ -55,7 +55,7 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
     return Scaffold(
       backgroundColor: context.backgroundColor,
       appBar: ActionAppBar(
-        titleText: Strings.verifyIdentityTitle,
+        titleText: Strings.identityVerificationTitle,
         titleTextColor: context.textPrimary,
         backgroundColor: context.appBarColor,
         onBackPressed: () => context.router.pop(),
@@ -95,9 +95,9 @@ class RegistrationPage extends BasePage<PageCubit, PageState, PageEvent> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 20),
-          Strings.verifyIdentityPersonalData.w(700).s(16).c(Color(0xFF41455E)),
+          Strings.identityVerificationPersonalData.w(700).s(16).c(Color(0xFF41455E)),
           SizedBox(height: 12),
-          Strings.verifyIdentityPersonalDataDesc
+          Strings.identityVerificationPersonalDataDesc
               .w(500)
               .s(14)
               .c(Color(0xFF41455E)),

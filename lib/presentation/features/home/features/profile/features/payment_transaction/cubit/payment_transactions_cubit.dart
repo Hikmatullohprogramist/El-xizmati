@@ -3,7 +3,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
-import 'package:onlinebozor/data/repositories/transaction_repository.dart';
+import 'package:onlinebozor/data/repositories/payment_repository.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
 
@@ -16,7 +16,7 @@ class PageCubit extends BaseCubit<PageState, PageEvent> {
     getController();
   }
 
-  final PaymentTransactionRepository _paymentTransactionRepository;
+  final PaymentRepository _paymentTransactionRepository;
 
   Future<void> getController() async {
     try {

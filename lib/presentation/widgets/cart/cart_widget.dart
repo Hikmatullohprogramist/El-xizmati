@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/presentation/widgets/favorite/order_ad_favorite_widget.dart';
@@ -121,7 +121,7 @@ class CartWidget extends StatelessWidget {
                       child: CustomElevatedButton(
                         buttonHeight: 32,
                         textSize: 12,
-                        text: Strings.cartCreateOrder,
+                        text: Strings.cartOrderCreate,
                         onPressed: () => onOrderClicked(ad),
                       ),
                     ),

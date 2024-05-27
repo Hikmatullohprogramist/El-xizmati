@@ -27,6 +27,10 @@ extension ListExtensions<T> on List<T> {
     return indexWhere(condition);
   }
 
+  void removeIf(bool Function(T element) condition) {
+    return removeWhere(condition);
+  }
+
   List<T> filterIf(bool Function(T element) condition) {
     return where(condition).toList();
   }

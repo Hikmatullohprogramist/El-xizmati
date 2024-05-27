@@ -1,19 +1,18 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 import 'package:onlinebozor/domain/models/ad/ad_list_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_list_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_list_widget.dart';
 import 'package:onlinebozor/presentation/widgets/ad/vertical/vertical_ad_widget.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/search_app_bar_2.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/dashboard/see_all_widget.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
@@ -95,7 +94,7 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                       },
                       onCartClicked: (Ad ad) {},
                       onBuyClicked: (Ad ad) {
-                        context.router.push(CreateOrderRoute(adId: ad.id));
+                        context.router.push(OrderCreationRoute(adId: ad.id));
                       },
                     ),
                   ),
@@ -127,7 +126,7 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                       },
                       onCartClicked: (Ad ad) {},
                       onBuyClicked: (Ad ad) {
-                        context.router.push(CreateOrderRoute(adId: ad.id));
+                        context.router.push(OrderCreationRoute(adId: ad.id));
                       },
                     ),
                   ),
@@ -152,7 +151,8 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                       firstPageErrorIndicatorBuilder: (_) {
                         return DefaultErrorWidget(
                           isFullScreen: true,
-                          onRetryClicked: () => cubit(context).states.controller?.refresh(),
+                          onRetryClicked: () =>
+                              cubit(context).states.controller?.refresh(),
                         );
                       },
                       firstPageProgressIndicatorBuilder: (_) {
@@ -183,7 +183,8 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                       newPageErrorIndicatorBuilder: (_) {
                         return DefaultErrorWidget(
                           isFullScreen: false,
-                          onRetryClicked: () => cubit(context).states.controller?.refresh(),
+                          onRetryClicked: () =>
+                              cubit(context).states.controller?.refresh(),
                         );
                       },
                       transitionDuration: Duration(milliseconds: 100),
@@ -202,7 +203,7 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                               onCartClicked: (Ad ad) {},
                               onBuyClicked: (Ad ad) {
                                 context.router
-                                    .push(CreateOrderRoute(adId: ad.id));
+                                    .push(OrderCreationRoute(adId: ad.id));
                               },
                             ),
                           );
@@ -220,7 +221,7 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
                               onCartClicked: (Ad ad) {},
                               onBuyClicked: (Ad ad) {
                                 context.router
-                                    .push(CreateOrderRoute(adId: ad.id));
+                                    .push(OrderCreationRoute(adId: ad.id));
                               },
                             ),
                           );

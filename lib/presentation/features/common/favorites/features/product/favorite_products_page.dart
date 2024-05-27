@@ -1,16 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/ad/vertical/vertical_ad_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/ad/vertical/vertical_ad_widget.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/favorite/favorite_empty_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 
@@ -58,7 +55,8 @@ class FavoriteProductsPage extends BasePage<PageCubit, PageState, PageEvent> {
             firstPageErrorIndicatorBuilder: (_) {
               return DefaultErrorWidget(
                 isFullScreen: true,
-                onRetryClicked: () => cubit(context).states.controller?.refresh(),
+                onRetryClicked: () =>
+                    cubit(context).states.controller?.refresh(),
               );
             },
             firstPageProgressIndicatorBuilder: (_) {
@@ -96,7 +94,8 @@ class FavoriteProductsPage extends BasePage<PageCubit, PageState, PageEvent> {
             newPageErrorIndicatorBuilder: (_) {
               return DefaultErrorWidget(
                 isFullScreen: false,
-                onRetryClicked: () => cubit(context).states.controller?.refresh(),
+                onRetryClicked: () =>
+                    cubit(context).states.controller?.refresh(),
               );
             },
             transitionDuration: Duration(milliseconds: 100),
@@ -110,7 +109,7 @@ class FavoriteProductsPage extends BasePage<PageCubit, PageState, PageEvent> {
               },
               onCartClicked: (Ad ad) {},
               onBuyClicked: (Ad ad) {
-                context.router.push(CreateOrderRoute(adId: ad.id));
+                context.router.push(OrderCreationRoute(adId: ad.id));
               },
             ),
           ),

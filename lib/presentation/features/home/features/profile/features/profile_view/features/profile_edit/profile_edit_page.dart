@@ -304,7 +304,7 @@ class ProfileEditPage extends BasePage<PageCubit, PageState, PageEvent> {
               Assets.images.icRequiredField.svg(),
               SizedBox(width: 8),
               Expanded(
-                child: Strings.createAdRequiredFieldsLabel
+                child: Strings.adCreationRequiredFieldsLabel
                     .w(300)
                     .s(13)
                     .c(context.textSecondary),

@@ -42,13 +42,11 @@ import 'package:onlinebozor/presentation/features/common/search/search_page.dart
 import 'package:onlinebozor/presentation/features/common/unit_selection/unit_selection_page.dart';
 import 'package:onlinebozor/presentation/features/common/user_address_selection/user_address_selection_page.dart';
 import 'package:onlinebozor/presentation/features/common/user_warehouse_selection/user_warehouse_selection_page.dart';
-import 'package:onlinebozor/presentation/features/creation/create_ad_result/create_ad_result_page.dart';
-import 'package:onlinebozor/presentation/features/creation/create_ad_start/create_ad_start_page.dart';
-import 'package:onlinebozor/presentation/features/creation/create_order/create_order_page.dart';
-import 'package:onlinebozor/presentation/features/creation/create_product_ad/create_product_ad_page.dart';
-import 'package:onlinebozor/presentation/features/creation/create_request_ad/create_request_ad_page.dart';
-import 'package:onlinebozor/presentation/features/creation/create_request_start/create_request_start_page.dart';
-import 'package:onlinebozor/presentation/features/creation/create_service_ad/create_service_ad_page.dart';
+import 'package:onlinebozor/presentation/features/creation/ad_creation_result/ad_creation_result_page.dart';
+import 'package:onlinebozor/presentation/features/creation/order_creation/order_creation_page.dart';
+import 'package:onlinebozor/presentation/features/creation/product_ad_creation/product_ad_creation_page.dart';
+import 'package:onlinebozor/presentation/features/creation/request_ad_creation/request_ad_creation_page.dart';
+import 'package:onlinebozor/presentation/features/creation/service_ad_creation/service_ad_creation_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/cart/cart_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/category/category_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/category/features/sub_category_page.dart';
@@ -187,32 +185,26 @@ class AppRouter extends _$AppRouter {
 
         /// create product ad
         AutoRoute(
-          page: CreateProductAdRoute.page,
-          path: '/create_product_ad',
+          page: ProductAdCreationRoute.page,
+          path: '/product_ad_creation',
         ),
 
         /// create service ad
         AutoRoute(
-          page: CreateServiceAdRoute.page,
-          path: '/create_service_ad',
+          page: ServiceAdCreationRoute.page,
+          path: '/service_ad_creation',
         ),
 
         /// create service ad
         AutoRoute(
-          page: CreateAdResultRoute.page,
-          path: '/create_ad_result',
-        ),
-
-        /// create request start
-        AutoRoute(
-          page: CreateRequestStartRoute.page,
-          path: "/create_request_start",
+          page: AdCreationResultRoute.page,
+          path: '/ad_creation_result',
         ),
 
         /// create request ad
         AutoRoute(
-          page: CreateRequestAdRoute.page,
-          path: "/create_request_ad",
+          page: RequestAdCreationRoute.page,
+          path: "/request_ad_creation",
         ),
 
         /// create service request
@@ -225,7 +217,10 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: SubCategoryRoute.page, path: "/sub_category"),
 
         /// order create
-        AutoRoute(page: CreateOrderRoute.page, path: '/create_order'),
+        AutoRoute(
+          page: OrderCreationRoute.page,
+          path: '/order_creation',
+        ),
 
         /// Ads collections
         AutoRoute(

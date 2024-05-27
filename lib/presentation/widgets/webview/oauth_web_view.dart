@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class OAuthWebView extends StatefulWidget {
@@ -52,6 +53,7 @@ class _OAuthWebViewState extends State<OAuthWebView>
           onPageFinished: (url) => widget.onPageFinished(url),
           onWebResourceError: (error) => widget.onFailed(error),
           onNavigationRequest: (request) {
+            Logger().w("onNavigationRequest request  = $request");
             if (request.url.startsWith(widget.redirectUrl)) {
               widget.onRedirectUrlHandled(request.url);
               return NavigationDecision.prevent;

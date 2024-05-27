@@ -7,7 +7,7 @@ class PageState with _$PageState {
   const factory PageState({
     @Default("") String userFullName,
     @Default(0) double depositBalance,
-    @Default(LoadingState.loading) LoadingState balanceState,
+    @Default(LoadingState.loading) LoadingState depositState,
     @Default(LoadingState.loading) LoadingState cardsState,
     @Default([]) List<RealPayCard> addedCards,
   }) = _PageState;
