@@ -12,7 +12,7 @@ import '../models/ad/ad_type.dart';
 import '../models/currency/currency_code.dart';
 
 extension StringMapperExts on String? {
-  AdItemCondition toAdPropertyStatus() {
+  AdItemCondition toAdItemCondition() {
     return this?.contains("USED") == true
         ? AdItemCondition.used
         : AdItemCondition.fresh;
@@ -59,18 +59,23 @@ extension StringMapperExts on String? {
   }
 
   CurrencyCode toCurrency() {
-    switch (this) {
-      case "860":
-        return CurrencyCode.uzb;
-      case "643":
-        return CurrencyCode.rub;
-      case "840":
-        return CurrencyCode.usd;
-      case "978":
-        return CurrencyCode.eur;
-      default:
-        return CurrencyCode.uzb;
-    }
+    return CurrencyCode.values.firstWhere(
+      (e) => e.name.toUpperCase() == this?.toUpperCase(),
+      orElse: () {
+        switch (this) {
+          case "860":
+            return CurrencyCode.uzb;
+          case "643":
+            return CurrencyCode.rub;
+          case "840":
+            return CurrencyCode.usd;
+          case "978":
+            return CurrencyCode.eur;
+          default:
+            return CurrencyCode.uzb;
+        }
+      },
+    );
   }
 
   String getCancelComment() {
@@ -89,7 +94,7 @@ extension StringMapperExts on String? {
   }
 }
 
-extension AdPropertStatusToStringExtension on AdItemCondition {
+extension AdPropertStatusExtensions on AdItemCondition {
   String adPropertyStatusToString() {
     switch (this) {
       case AdItemCondition.fresh:
@@ -100,7 +105,7 @@ extension AdPropertStatusToStringExtension on AdItemCondition {
   }
 }
 
-extension AdRouteTypeToStringExtension on AdAuthorType {
+extension AdRouteTypeExtensions on AdAuthorType {
   String adRouteTypeToString() {
     switch (this) {
       case AdAuthorType.business:
@@ -111,7 +116,7 @@ extension AdRouteTypeToStringExtension on AdAuthorType {
   }
 }
 
-extension AdStatusTypeToStringExtension on AdPriorityLevel {
+extension AdStatusTypeExtensions on AdPriorityLevel {
   String adStatusToString() {
     switch (this) {
       case AdPriorityLevel.top:
@@ -122,7 +127,7 @@ extension AdStatusTypeToStringExtension on AdPriorityLevel {
   }
 }
 
-extension AdTypeStatusToStringExtension on AdTransactionType {
+extension AdTypeStatusExtensions on AdTransactionType {
   String adTypeStatusToString() {
     switch (this) {
       case AdTransactionType.SELL:

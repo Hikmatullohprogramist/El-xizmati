@@ -6,7 +6,7 @@ import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/responses/user_order/user_order_response.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
-import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
+import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
 
 import '../image/rounded_cached_network_image_widget.dart';
 

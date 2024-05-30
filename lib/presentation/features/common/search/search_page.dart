@@ -8,16 +8,16 @@ import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 
-import 'cubit/search_cubit.dart';
+import 'search_cubit.dart';
 
 @RoutePage()
-class SearchPage extends BasePage<PageCubit, PageState, PageEvent> {
+class SearchPage extends BasePage<SearchCubit, SearchState, SearchEvent> {
   SearchPage({super.key});
 
   final textController = TextEditingController();
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, SearchState state) {
     return Scaffold(
       backgroundColor: context.backgroundColor,
       appBar: AppBar(

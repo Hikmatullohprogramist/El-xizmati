@@ -5,11 +5,12 @@ import 'package:onlinebozor/data/datasource/network/responses/ad/edit/ad_address
 import 'package:onlinebozor/data/datasource/network/responses/ad/edit/ad_payment_type_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/edit/ad_photo_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/address/user_address_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/category/category/category_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/payment_type/payment_type_response.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
+
+import '../../../../../../domain/models/category/category.dart';
 
 part 'request_ad_response.freezed.dart';
 part 'request_ad_response.g.dart';
@@ -70,10 +71,10 @@ class RequestAdResponse with _$RequestAdResponse {
   factory RequestAdResponse.fromJson(Map<String, dynamic> json) =>
       _$RequestAdResponseFromJson(json);
 
-  CategoryResponse? getCategory() {
+  Category? getCategory() {
     return categoryId == null
         ? null
-        : CategoryResponse(id: categoryId!, name: categoryName);
+        : Category(id: categoryId!, name: categoryName ?? "");
   }
 
   List<UploadableFile> getPhotos() {

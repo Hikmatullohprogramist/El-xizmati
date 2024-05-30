@@ -9,7 +9,7 @@ class UserAddress {
     required this.neighborhoodId,
     required this.neighborhoodName,
     required this.streetName,
-    required this.homeNumber,
+    required this.houseNumber,
     required this.apartmentNumber,
     required this.state,
     required this.isMain,
@@ -25,12 +25,12 @@ class UserAddress {
   int neighborhoodId;
   String neighborhoodName;
   String streetName;
-  String homeNumber;
+  String houseNumber;
   String apartmentNumber;
   int state;
   bool isMain;
   String geo;
 
   String get fullAddress =>
-      '$regionName $districtName $neighborhoodName, $streetName, $homeNumber, $apartmentNumber';
+      '$regionName $districtName $neighborhoodName, $streetName, $houseNumber, $apartmentNumber';
 }

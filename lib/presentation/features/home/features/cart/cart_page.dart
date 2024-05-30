@@ -13,14 +13,14 @@ import 'package:onlinebozor/presentation/widgets/cart/cart_widget.dart';
 import 'package:onlinebozor/presentation/widgets/favorite/favorite_empty_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 
-import 'cubit/cart_cubit.dart';
+import 'cart_cubit.dart';
 
 @RoutePage()
-class CartPage extends BasePage<PageCubit, PageState, PageEvent> {
+class CartPage extends BasePage<CartCubit, CartState, CartEvent> {
   const CartPage({super.key});
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, CartState state) {
     return Scaffold(
       appBar: EmptyAppBar(
         titleText: Strings.bottomNavigationCart,
@@ -54,7 +54,7 @@ class CartPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildSuccessBody(BuildContext context, PageState state) {
+  Widget _buildSuccessBody(BuildContext context, CartState state) {
     return RefreshIndicator(
       displacement: 160,
       strokeWidth: 3,

@@ -1,9 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/datasource/network/constants/rest_query_keys.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
 
-@lazySingleton
 class UserAdService {
   final Dio _dio;
 

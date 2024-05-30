@@ -9,14 +9,15 @@ import 'package:onlinebozor/presentation/support/extensions/color_extension.dart
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'package:onlinebozor/presentation/widgets/webview/oauth_web_view.dart';
 
-import 'cubit/add_card_with_realpay_cubit.dart';
+import 'add_card_with_realpay_cubit.dart';
 
 @RoutePage()
-class AddCardWithRealPayPage extends BasePage<PageCubit, PageState, PageEvent> {
+class AddCardWithRealPayPage extends BasePage<AddCardWithRealpayCubit,
+    AddCardWithRealpayState, AddCardWithRealpayEvent> {
   const AddCardWithRealPayPage({super.key});
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, AddCardWithRealpayState state) {
     return SizedBox(
       width: double.infinity,
       // height: MediaQuery.sizeOf(context).height * .9,
@@ -48,7 +49,8 @@ class AddCardWithRealPayPage extends BasePage<PageCubit, PageState, PageEvent> {
                             onRedirectUrlHandled: (url) {
                               cubit(context)
                                   .stateMessageManager
-                                  .showSuccessSnackBar(Strings.cardAddSuccessMessage);
+                                  .showSuccessSnackBar(
+                                      Strings.cardAddSuccessMessage);
 
                               context.router.pop(true);
                             },

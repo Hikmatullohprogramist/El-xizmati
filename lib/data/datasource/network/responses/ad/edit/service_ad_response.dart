@@ -11,6 +11,8 @@ import 'package:onlinebozor/data/datasource/network/responses/payment_type/payme
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 
+import '../../../../../../domain/models/category/category.dart';
+
 part 'service_ad_response.freezed.dart';
 part 'service_ad_response.g.dart';
 
@@ -79,10 +81,10 @@ class ServiceAdResponse with _$ServiceAdResponse {
         : CategoryResponse(id: categoryId!, name: categoryName);
   }
 
-  CategoryResponse? getSubCategory() {
+  Category? getSubCategory() {
     return subCategoryId == null
         ? null
-        : CategoryResponse(id: subCategoryId!, name: subCategoryName);
+        : Category(id: subCategoryId!, name: subCategoryName ?? "");
   }
 
   List<UploadableFile> getPhotos() {

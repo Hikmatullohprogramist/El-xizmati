@@ -10,14 +10,14 @@ import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
-import 'cubit/user_ads_cubit.dart';
+import 'user_ads_cubit.dart';
 
 @RoutePage()
-class UserAdsPage extends BasePage<PageCubit, PageState, PageEvent> {
+class UserAdsPage extends BasePage<UserAdsCubit, UserAdsState, UserAdsEvent> {
   const UserAdsPage({super.key});
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, UserAdsState state) {
     return AutoTabsRouter.tabBar(
       physics: BouncingScrollPhysics(),
       routes: [
@@ -33,7 +33,7 @@ class UserAdsPage extends BasePage<PageCubit, PageState, PageEvent> {
             actions: [
               CustomTextButton(
                 text: Strings.adCreateTitle,
-                onPressed: () => context.router.push(CreateAdChooserRoute()),
+                onPressed: () => context.router.push(AdCreationChooserRoute()),
               )
             ],
             leading: IconButton(

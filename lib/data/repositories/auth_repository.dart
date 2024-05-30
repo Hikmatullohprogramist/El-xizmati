@@ -3,13 +3,11 @@ import 'dart:convert';
 
 import 'package:dio/src/response.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/datasource/hive/hive_objects/user/user_hive_object.dart';
+import 'package:onlinebozor/data/datasource/floor/dao/ad_entity_dao.dart';
+import 'package:onlinebozor/data/datasource/floor/dao/category_entity_dao.dart';
+import 'package:onlinebozor/data/datasource/floor/dao/user_entity_dao.dart';
+import 'package:onlinebozor/data/datasource/floor/entities/user_entity.dart';
 import 'package:onlinebozor/data/datasource/hive/storages/ad_storage.dart';
-import 'package:onlinebozor/data/datasource/hive/storages/categories_storage.dart';
-import 'package:onlinebozor/data/datasource/hive/storages/language_storage.dart';
-import 'package:onlinebozor/data/datasource/hive/storages/token_storage.dart';
-import 'package:onlinebozor/data/datasource/hive/storages/user_data_storage.dart';
-import 'package:onlinebozor/data/datasource/hive/storages/user_storage.dart';
 import 'package:onlinebozor/data/datasource/network/responses/auth/auth_start/auth_start_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/auth/confirm/confirm_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/auth/eds/eds_sign_in_response.dart';
@@ -17,26 +15,28 @@ import 'package:onlinebozor/data/datasource/network/responses/auth/one_id/one_id
 import 'package:onlinebozor/data/datasource/network/responses/e_imzo_response/e_imzo_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/face_id/validate_bio_doc_request.dart';
 import 'package:onlinebozor/data/datasource/network/services/auth_service.dart';
-import 'package:onlinebozor/data/mappers/user_mapper.dart';
+import 'package:onlinebozor/data/datasource/preference/language_preferences.dart';
+import 'package:onlinebozor/data/datasource/preference/token_preferences.dart';
+import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 
-@LazySingleton()
+// @LazySingleton()
 class AuthRepository {
-  final AdStorage _adStorage;
+  final AdEntityDao _adEntityDao;
   final AuthService _authService;
-  final CategoriesStorage _categoriesStorage;
-  final LanguageStorage _languageStorage;
-  final TokenStorage _tokenStorage;
-  final UserDataStorage _userDataStorage;
-  final UserStorage _userStorage;
+  final CategoryEntityDao _categoryEntityDao;
+  final LanguagePreferences _languagePreferences;
+  final TokenPreferences _tokenPreferences;
+  final UserPreferences _userPreferences;
+  final UserEntityDao _userEntityDao;
 
   AuthRepository(
-    this._adStorage,
+    this._adEntityDao,
     this._authService,
-    this._categoriesStorage,
-    this._languageStorage,
-    this._tokenStorage,
-    this._userDataStorage,
-    this._userStorage,
+    this._categoryEntityDao,
+    this._languagePreferences,
+    this._tokenPreferences,
+    this._userEntityDao,
+    this._userPreferences,
   );
 
   String sessionToken = "";
@@ -54,36 +54,42 @@ class AuthRepository {
     final response = await _authService.login(phone: phone, password: password);
     final loginResponse = ConfirmRootResponse.fromJson(response.data).data;
     if (loginResponse.token != null) {
-      await _tokenStorage.setToken(loginResponse.token ?? "");
-      await _tokenStorage.setLoginState(true);
-      final user = loginResponse.user;
-      await _userStorage.set(
-        UserHiveObject(
-          neighborhoodId: user?.neighborhoodId,
-          fullName: user?.fullName,
-          email: user?.email,
-          tin: user?.tin,
-          id: user?.id,
-          apartmentName: user?.apartmentName,
-          districtId: user?.districtId,
-          username: user?.username,
-          birthDate: user?.birthDate,
-          eimzoAllowToLogin: user?.eimzoAllowToLogin,
-          gender: user?.gender,
-          homeName: user?.homeName,
-          isPassword: user?.isPassword,
-          isIdentityVerified: user?.isRegistered,
-          mobilePhone: user?.mobilePhone,
-          regionId: user?.regionId,
-          passportNumber: user?.passportNumber,
-          passportSerial: user?.passportSerial,
-          photo: user?.photo,
-          pinfl: user?.pinfl,
-          postName: user?.username,
-          // registeredWithEimzo: user?.registeredWithEimzo,
-          state: user?.state,
-        ),
-      );
+      await _tokenPreferences.setToken(loginResponse.token ?? "");
+      await _tokenPreferences.setIsAuthorized(true);
+
+      final actual = loginResponse.user;
+      final saved = await _userEntityDao.getUser();
+
+      await _userPreferences.setUserInfo(actual);
+
+      if (actual != null) {
+        await _userEntityDao.updateUser(
+          UserEntity(
+            id: actual.id ?? saved!.id,
+            fullName: actual.fullName ?? saved?.fullName ?? "",
+            pinfl: actual.pinfl ?? saved?.pinfl,
+            tin: actual.tin ?? saved?.tin,
+            gender: actual.gender ?? saved?.gender,
+            docSerial: actual.passportSerial ?? saved?.docSerial,
+            docNumber: actual.passportNumber ?? saved?.docNumber,
+            regionId: actual.regionId ?? saved?.regionId,
+            regionName: saved?.regionName ?? "",
+            districtId: saved?.districtId,
+            districtName: saved?.districtName ?? "",
+            neighborhoodId: actual.neighborhoodId ?? saved?.neighborhoodId,
+            neighborhoodName: saved?.neighborhoodName ?? "",
+            houseNumber: actual.homeName ?? saved?.houseNumber,
+            apartmentName: saved?.apartmentName,
+            birthDate: actual.birthDate ?? saved?.birthDate,
+            photo: actual.photo ?? saved?.photo,
+            email: actual.email ?? saved?.email,
+            phone: actual.mobilePhone ?? saved?.phone ?? "",
+            notificationSource: actual.messageType ?? saved?.notificationSource,
+            isIdentified: actual.isRegistered ?? saved?.isIdentified ?? false,
+            state: saved?.state,
+          ),
+        );
+      }
       // await favoriteRepository.pushAllFavoriteAds();
     }
     return;
@@ -118,38 +124,44 @@ class AuthRepository {
   Future<void> edsSignIn(String sign) async {
     final response = await _authService.edsSignIn(sign: sign);
     final edsResponse = EdsSignInRootResponse.fromJson(response.data);
-    final edsUserResponse = edsResponse.user;
+    final actual = edsResponse.user;
     if (edsResponse.token != null) {
-      await _tokenStorage.setToken(edsResponse.token ?? "");
-      await _tokenStorage.setLoginState(true);
-      final user = edsUserResponse;
+      await _tokenPreferences.setToken(edsResponse.token ?? "");
+      await _tokenPreferences.setIsAuthorized(true);
+      final saved = await _userEntityDao.getUser();
 
-      await _userStorage.set(
-        UserHiveObject(
-          neighborhoodId: user?.districtId,
-          fullName: user?.fullName,
-          email: user?.email,
-          tin: user?.tin,
-          id: user?.id,
-          apartmentName: user?.apartmentName,
-          districtId: user?.areaId,
-          username: user?.username,
-          birthDate: user?.birthDate,
-          eimzoAllowToLogin: user?.eimzoAllowToLogin,
-          gender: user?.gender,
-          homeName: user?.homeName,
-          isPassword: user?.isPassword,
-          isIdentityVerified: user?.isRegistered,
-          mobilePhone: user?.mobilePhone,
-          regionId: user?.oblId,
-          passportNumber: user?.passportNumber,
-          passportSerial: user?.passportSerial,
-          photo: user?.photo,
-          pinfl: user?.pinfl,
-          postName: user?.username,
-          state: user?.state,
-        ),
-      );
+      await _userPreferences.setUserTin(actual?.tin);
+      await _userPreferences.setUserPinfl(actual?.pinfl);
+      await _userPreferences.setIdentityState(actual?.isRegistered);
+
+      if (actual != null) {
+        await _userEntityDao.updateUser(
+          UserEntity(
+            id: actual.id,
+            fullName: actual.fullName ?? saved?.fullName ?? "",
+            pinfl: actual.pinfl ?? saved?.pinfl,
+            tin: actual.tin ?? saved?.tin,
+            gender: actual.gender ?? saved?.gender,
+            docSerial: actual.passportSerial ?? saved?.docSerial,
+            docNumber: actual.passportNumber ?? saved?.docNumber,
+            regionId: actual.oblId ?? saved?.regionId,
+            regionName: saved?.regionName ?? "",
+            districtId: actual.areaId ?? saved?.districtId,
+            districtName: saved?.districtName ?? "",
+            neighborhoodId: actual.districtId ?? saved?.neighborhoodId,
+            neighborhoodName: saved?.neighborhoodName ?? "",
+            houseNumber: actual.homeName ?? saved?.houseNumber,
+            apartmentName: saved?.apartmentName,
+            birthDate: actual.birthDate ?? saved?.birthDate ?? "",
+            photo: actual.photo ?? saved?.photo ?? "",
+            email: actual.email ?? saved?.email ?? "",
+            phone: actual.mobilePhone ?? saved?.phone ?? "",
+            notificationSource: saved?.notificationSource ?? "",
+            isIdentified: actual.isRegistered ?? saved?.isIdentified ?? false,
+            state: saved?.state,
+          ),
+        );
+      }
     }
     return;
   }
@@ -162,9 +174,9 @@ class AuthRepository {
     );
     final confirmResponse = ConfirmRootResponse.fromJson(response.data).data;
     if (confirmResponse.token != null) {
-      await _tokenStorage.setToken(confirmResponse.token ?? "");
-      await _tokenStorage.setLoginState(true);
-      await _userStorage.set(confirmResponse.toUserHiveObject());
+      await _tokenPreferences.setToken(confirmResponse.token ?? "");
+      await _tokenPreferences.setIsAuthorized(true);
+      await _userPreferences.setUserInfo(confirmResponse.user);
       return;
     }
   }
@@ -200,9 +212,9 @@ class AuthRepository {
     );
     final response = ConfirmRootResponse.fromJson(rootResponse.data).data;
     if (response.token != null) {
-      await _tokenStorage.setToken(response.token ?? "");
-      await _tokenStorage.setLoginState(true);
-      await _userStorage.set(response.toUserHiveObject());
+      await _tokenPreferences.setToken(response.token ?? "");
+      await _tokenPreferences.setIsAuthorized(true);
+      await _userPreferences.setUserInfo(response.user);
       // await favoriteRepository.pushAllFavoriteAds();
     }
   }
@@ -215,9 +227,9 @@ class AuthRepository {
     );
     final confirmResponse = ConfirmRootResponse.fromJson(response.data).data;
     if (confirmResponse.token != null) {
-      await _tokenStorage.setToken(confirmResponse.token ?? "");
-      await _tokenStorage.setLoginState(true);
-      await _userStorage.set(confirmResponse.toUserHiveObject());
+      await _tokenPreferences.setToken(confirmResponse.token ?? "");
+      await _tokenPreferences.setIsAuthorized(true);
+      await _userPreferences.setUserInfo(confirmResponse.user);
       return;
     }
     return;
@@ -232,9 +244,9 @@ class AuthRepository {
       );
       final confirmResponse = ConfirmRootResponse.fromJson(response.data).data;
       if (confirmResponse.token != null) {
-        await _tokenStorage.setToken(confirmResponse.token ?? "");
-        await _tokenStorage.setLoginState(true);
-        await _userStorage.set(confirmResponse.toUserHiveObject());
+        await _tokenPreferences.setToken(confirmResponse.token ?? "");
+        await _tokenPreferences.setIsAuthorized(true);
+        await _userPreferences.setUserInfo(confirmResponse.user);
         return;
       }
       return;
@@ -242,12 +254,13 @@ class AuthRepository {
   }
 
   Future<void> logOut() async {
-    await _adStorage.clear();
-    await _categoriesStorage.clear();
-    await _languageStorage.clear();
-    await _tokenStorage.clear();
-    await _userDataStorage.clear();
-    await _userStorage.clear();
+    await _adEntityDao.clear();
+    await _categoryEntityDao.clear();
+    await _languagePreferences.clear();
+    await _languagePreferences.clear();
+    await _tokenPreferences.clear();
+    await _userEntityDao.clear();
+    await _userPreferences.clear();
     return;
   }
 }

@@ -24,17 +24,17 @@ import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/dashboard/ad_detail_image_widget.dart';
 import 'package:onlinebozor/presentation/widgets/dashboard/see_all_widget.dart';
-import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
+import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
 import 'package:onlinebozor/presentation/widgets/favorite/ad_detail_favorite_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'cubit/ad_detail_cubit.dart';
+import 'ad_detail_cubit.dart';
 
 @RoutePage()
-class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
+class AdDetailPage extends BasePage<AdDetailCubit, AdDetailState, AdDetailEvent> {
   const AdDetailPage(this.adId, {super.key});
 
   final int adId;
@@ -46,7 +46,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, AdDetailState state) {
     return Scaffold(
       appBar: _getAppBar(context, state),
       bottomNavigationBar:
@@ -65,7 +65,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _getBodyContent(BuildContext context, PageState state) {
+  Widget _getBodyContent(BuildContext context, AdDetailState state) {
     return SafeArea(
       bottom: true,
       child: ListView(
@@ -149,7 +149,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  AppBar _getAppBar(BuildContext context, PageState state) {
+  AppBar _getAppBar(BuildContext context, AdDetailState state) {
     return state.isNotPrepared
         ? ActionAppBar(
             titleText: "",
@@ -186,7 +186,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
           );
   }
 
-  Widget _getBottomNavigationBar(BuildContext context, PageState state) {
+  Widget _getBottomNavigationBar(BuildContext context, AdDetailState state) {
     return Visibility(
       visible: (state.adDetail!.mainTypeStatus == "SELL" ||
           state.adDetail!.mainTypeStatus == "FREE" ||
@@ -242,7 +242,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _getAdInfoChips(PageState state) {
+  Widget _getAdInfoChips(AdDetailState state) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -310,7 +310,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _getDescriptionBlock(BuildContext context, PageState state) {
+  Widget _getDescriptionBlock(BuildContext context, AdDetailState state) {
     return Visibility(
       visible: true, //(state.adDetail?.hasDescription() ?? false),
       child: Container(
@@ -341,7 +341,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _getAuthorBlock(BuildContext context, PageState state) {
+  Widget _getAuthorBlock(BuildContext context, AdDetailState state) {
     return Container(
       padding: EdgeInsets.only(left: 16, top: 8),
       child: Column(
@@ -407,7 +407,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _getAddressBlock(BuildContext context, PageState state) {
+  Widget _getAddressBlock(BuildContext context, AdDetailState state) {
     return Visibility(
       visible: state.adDetail?.address != null,
       child: Container(
@@ -464,7 +464,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _getContactsBlock(BuildContext context, PageState state) {
+  Widget _getContactsBlock(BuildContext context, AdDetailState state) {
     return Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -556,7 +556,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _getSimilarAds(BuildContext context, PageState state) {
+  Widget _getSimilarAds(BuildContext context, AdDetailState state) {
     if (cubit(context).hasSimilarAds()) {
       return Column(
         children: [
@@ -603,7 +603,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
     }
   }
 
-  Widget _getOwnerAdsWidget(BuildContext context, PageState state) {
+  Widget _getOwnerAdsWidget(BuildContext context, AdDetailState state) {
     if (cubit(context).hasOwnerOtherAds()) {
       return Column(
         children: [
@@ -651,7 +651,7 @@ class AdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
     }
   }
 
-  Widget _getRecentlyViewedAdsWidget(BuildContext context, PageState state) {
+  Widget _getRecentlyViewedAdsWidget(BuildContext context, AdDetailState state) {
     if (cubit(context).hasRecentlyViewedAds()) {
       return Column(
         children: [

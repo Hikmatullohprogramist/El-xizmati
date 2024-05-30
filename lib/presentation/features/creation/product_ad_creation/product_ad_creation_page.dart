@@ -8,13 +8,13 @@ import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 import 'package:onlinebozor/presentation/features/common/currency_selection/currency_selection_page.dart';
 import 'package:onlinebozor/presentation/features/common/payment_type_selection/payment_type_selection_page.dart';
-import 'package:onlinebozor/presentation/features/common/region_and_district_selection/region_and_district_selection_page.dart';
+import 'package:onlinebozor/presentation/features/common/region_selection/region_selection_page.dart';
 import 'package:onlinebozor/presentation/features/common/unit_selection/unit_selection_page.dart';
 import 'package:onlinebozor/presentation/features/common/user_address_selection/user_address_selection_page.dart';
 import 'package:onlinebozor/presentation/features/common/user_warehouse_selection/user_warehouse_selection_page.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
@@ -26,7 +26,7 @@ import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/chips/chip_item.dart';
 import 'package:onlinebozor/presentation/widgets/chips/chip_list.dart';
-import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
+import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/custom_dropdown_form_field.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_field.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/label_text_field.dart';
@@ -37,10 +37,11 @@ import 'package:onlinebozor/presentation/widgets/loading/default_loading_widget.
 import 'package:onlinebozor/presentation/widgets/switch/custom_switch.dart';
 import 'package:onlinebozor/presentation/widgets/switch/custom_toggle.dart';
 
-import 'cubit/product_ad_creation_cubit.dart';
+import 'product_ad_creation_cubit.dart';
 
 @RoutePage()
-class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
+class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
+    ProductAdCreationState, ProductAdCreationEvent> {
   ProductAdCreationPage({
     super.key,
     this.adId,
@@ -70,11 +71,11 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   @override
-  void onEventEmitted(BuildContext context, PageEvent event) {
+  void onEventEmitted(BuildContext context, ProductAdCreationEvent event) {
     switch (event.type) {
-      case PageEventType.onOverMaxCount:
+      case ProductAdCreationEventType.onOverMaxCount:
         _showMaxCountError(context, event.maxImageCount);
-      case PageEventType.onAdCreated:
+      case ProductAdCreationEventType.onAdCreated:
         context.router.replace(AdCreationResultRoute(
           adId: cubit(context).states.adId!,
           adTransactionType: cubit(context).states.adTransactionType,
@@ -83,7 +84,7 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, ProductAdCreationState state) {
     titleController.updateOnRestore(state.title);
     descController.updateOnRestore(state.desc);
     warehouseController.updateOnRestore(
@@ -163,7 +164,8 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   /// Build block methods
 
-  Widget _buildTitleAndCategoryBlock(BuildContext context, PageState state) {
+  Widget _buildTitleAndCategoryBlock(
+      BuildContext context, ProductAdCreationState state) {
     return Container(
       color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
@@ -206,7 +208,7 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
             validator: (value) => NotEmptyValidator.validate(value),
             onTap: () {
               context.router.push(
-                NestedCategorySelectionRoute(
+                CategorySelectionRoute(
                   adType: AdType.PRODUCT,
                   onResult: (category) {
                     cubit(context).setSelectedCategory(category);
@@ -220,7 +222,8 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildImageListBlock(BuildContext context, PageState state) {
+  Widget _buildImageListBlock(
+      BuildContext context, ProductAdCreationState state) {
     return Container(
       color: context.cardColor,
       child: Column(
@@ -276,7 +279,7 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildDescBlock(BuildContext context, PageState state) {
+  Widget _buildDescBlock(BuildContext context, ProductAdCreationState state) {
     return Container(
       color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
@@ -307,7 +310,7 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildPriceBlock(BuildContext context, PageState state) {
+  Widget _buildPriceBlock(BuildContext context, ProductAdCreationState state) {
     return cubit(context).isFreeAdMode()
         ? SizedBox(height: 0, width: 0)
         : Container(
@@ -484,7 +487,8 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
           );
   }
 
-  Widget _buildAdditionalInfoBlock(BuildContext context, PageState state) {
+  Widget _buildAdditionalInfoBlock(
+      BuildContext context, ProductAdCreationState state) {
     return Container(
       color: context.cardColor,
       padding: EdgeInsets.all(16),
@@ -525,7 +529,8 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildExchangeAdBlock(BuildContext context, PageState state) {
+  Widget _buildExchangeAdBlock(
+      BuildContext context, ProductAdCreationState state) {
     return !cubit(context).isExchangeMode()
         ? SizedBox(height: 0, width: 0)
         : Container(
@@ -561,7 +566,7 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
                   validator: (value) => NotEmptyValidator.validate(value),
                   onTap: () {
                     context.router.push(
-                      NestedCategorySelectionRoute(
+                      CategorySelectionRoute(
                         adType: AdType.PRODUCT,
                         onResult: (category) {
                           cubit(context).setSelectedAnotherCategory(category);
@@ -607,7 +612,7 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildContactsBlock(
     BuildContext context,
-    PageState state,
+    ProductAdCreationState state,
   ) {
     return Container(
       color: context.cardColor,
@@ -695,7 +700,7 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildPickupBlock(
     BuildContext context,
-    PageState state,
+    ProductAdCreationState state,
   ) {
     return Container(
       color: context.cardColor,
@@ -739,7 +744,7 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildFreeDeliveryBlock(
     BuildContext context,
-    PageState state,
+    ProductAdCreationState state,
   ) {
     return Container(
       color: context.cardColor,
@@ -781,7 +786,7 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildPaidDeliveryBlock(
     BuildContext context,
-    PageState state,
+    ProductAdCreationState state,
   ) {
     return Container(
       color: context.cardColor,
@@ -841,7 +846,8 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildAutoContinueBlock(BuildContext context, PageState state) {
+  Widget _buildAutoContinueBlock(
+      BuildContext context, ProductAdCreationState state) {
     return Container(
       color: context.cardColor,
       child: Padding(
@@ -877,7 +883,8 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildUsefulLinkBlock(BuildContext context, PageState state) {
+  Widget _buildUsefulLinkBlock(
+      BuildContext context, ProductAdCreationState state) {
     return Column(
       children: [
         Container(
@@ -900,8 +907,9 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
                   ),
                   SizedBox(width: 16),
                   Expanded(
-                    child:
-                        Strings.adCreationShowMySocialAccountsLabel.w(400).s(14),
+                    child: Strings.adCreationShowMySocialAccountsLabel
+                        .w(400)
+                        .s(14),
                   ),
                 ],
               ),
@@ -913,7 +921,7 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildFooterBlock(BuildContext context, PageState state) {
+  Widget _buildFooterBlock(BuildContext context, ProductAdCreationState state) {
     return Container(
       color: context.cardColor,
       padding: EdgeInsets.all(16),
@@ -950,7 +958,7 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   void _showAdTransactionTypeSelectionBottomSheet(
     BuildContext context,
-    PageState state,
+    ProductAdCreationState state,
   ) {
     showModalBottomSheet(
       context: context,
@@ -1015,7 +1023,8 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  List<Widget> _buildPaymentTypeChips(BuildContext context, PageState state) {
+  List<Widget> _buildPaymentTypeChips(
+      BuildContext context, ProductAdCreationState state) {
     return state.paymentTypes
         .map(
           (element) => ChipItem(
@@ -1029,7 +1038,8 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
         .toList();
   }
 
-  List<Widget> _buildPickupAddressChips(BuildContext context, PageState state) {
+  List<Widget> _buildPickupAddressChips(
+      BuildContext context, ProductAdCreationState state) {
     return state.pickupWarehouses
         .map(
           (element) => ChipItem(
@@ -1044,7 +1054,7 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   void _showSelectionPickup(
     BuildContext context,
-    PageState state,
+    ProductAdCreationState state,
   ) async {
     final pickupAddresses = await showModalBottomSheet(
       context: context,
@@ -1059,7 +1069,8 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
     cubit(context).setSelectedPickupAddresses(pickupAddresses);
   }
 
-  List<Widget> _buildFreeDeliveryChips(BuildContext context, PageState state) {
+  List<Widget> _buildFreeDeliveryChips(
+      BuildContext context, ProductAdCreationState state) {
     return state.freeDeliveryDistricts
         .map(
           (element) => ChipItem(
@@ -1074,21 +1085,22 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Future<void> _showSelectionFreeDistrict(
     BuildContext context,
-    PageState state,
+    ProductAdCreationState state,
   ) async {
     final districts = await showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       useSafeArea: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => RegionAndDistrictSelectionPage(
+      builder: (context) => RegionSelectionPage(
         initialSelectedDistricts: state.freeDeliveryDistricts,
       ),
     );
     cubit(context).setFreeDeliveryDistricts(districts);
   }
 
-  List<Widget> _buildPaidDeliveryChips(BuildContext context, PageState state) {
+  List<Widget> _buildPaidDeliveryChips(
+      BuildContext context, ProductAdCreationState state) {
     return state.paidDeliveryDistricts
         .map(
           (element) => ChipItem(
@@ -1105,14 +1117,14 @@ class ProductAdCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Future<void> _showSelectionPaidDistrict(
     BuildContext context,
-    PageState state,
+    ProductAdCreationState state,
   ) async {
     final districts = await showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       useSafeArea: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => RegionAndDistrictSelectionPage(
+      builder: (context) => RegionSelectionPage(
         initialSelectedDistricts: state.paidDeliveryDistricts,
       ),
     );

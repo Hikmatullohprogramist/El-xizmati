@@ -9,14 +9,14 @@ import 'package:onlinebozor/presentation/support/extensions/color_extension.dart
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
-import 'cubit/favorite_list_cubit.dart';
+import 'favorite_list_cubit.dart';
 
 @RoutePage()
-class FavoriteListPage extends BasePage<PageCubit, PageState, PageEvent> {
+class FavoriteListPage extends BasePage<FavoriteListCubit, FavoriteListState, FavoriteListEvent> {
   const FavoriteListPage({super.key});
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, FavoriteListState state) {
     return AutoTabsRouter.tabBar(
       physics: BouncingScrollPhysics(),
       routes: const [FavoriteProductsRoute(), FavoriteServicesRoute()],

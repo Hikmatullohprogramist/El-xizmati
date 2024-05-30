@@ -11,14 +11,14 @@ import 'package:onlinebozor/presentation/widgets/ad/vertical/vertical_ad_widget.
 import 'package:onlinebozor/presentation/widgets/favorite/favorite_empty_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 
-import 'cubit/favorite_services_cubit.dart';
+import 'favorite_services_cubit.dart';
 
 @RoutePage()
-class FavoriteServicesPage extends BasePage<PageCubit, PageState, PageEvent> {
+class FavoriteServicesPage extends BasePage<FavoriteServicesCubit, FavoriteServicesState, FavoriteServicesEvent> {
   const FavoriteServicesPage({super.key});
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, FavoriteServicesState state) {
     double width;
     double height;
     width = MediaQuery.of(context).size.width;

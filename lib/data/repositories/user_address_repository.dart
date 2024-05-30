@@ -1,54 +1,59 @@
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
-import 'package:onlinebozor/data/datasource/hive/storages/user_data_storage.dart';
+import 'package:onlinebozor/data/datasource/floor/dao/user_address_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/network/responses/address/user_address_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/user_address_service.dart';
+import 'package:onlinebozor/data/datasource/preference/token_preferences.dart';
+import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
 import 'package:onlinebozor/data/repositories/state_repository.dart';
 import 'package:onlinebozor/data/repositories/user_repository.dart';
 import 'package:onlinebozor/domain/mappers/user_mapper.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
 
-@LazySingleton()
+// @LazySingleton()
 class UserAddressRepository {
+  final TokenPreferences _tokenPreferences;
+  final UserAddressEntityDao _userAddressEntityDao;
+  final UserAddressService _userAddressService;
+  final UserPreferences _userPreferences;
+
   UserAddressRepository(
+    this._tokenPreferences,
+    this._userAddressEntityDao,
     this._userAddressService,
-    this._userDataStorage,
-    this._stateRepository,
-    this._userRepository,
+    this._userPreferences,
   );
 
-  final StateRepository _stateRepository;
-  final UserAddressService _userAddressService;
-  final UserDataStorage _userDataStorage;
-  final UserRepository _userRepository;
-
   Future<List<UserAddress>> getActualUserAddresses() async {
-    if (_stateRepository.isNotAuthorized()) throw NotAuthorizedException();
-    if (_userRepository.isNotIdentified()) throw NotIdentifiedException();
+    if (_tokenPreferences.isNotAuthorized) throw NotAuthorizedException();
+    if (_userPreferences.isNotIdentified) throw NotIdentifiedException();
 
     final response = await _userAddressService.getUserAddresses();
     final addresses = UserAddressRootResponse.fromJson(response.data).data;
-    await _userDataStorage
-        .setAddresses(addresses.map((e) => e.toHiveAddress()).toList());
+    await _userAddressEntityDao.upsertAll(
+      addresses.map((e) => e.toAddressEntity()).toList(),
+    );
     return addresses.map((e) => e.toAddress()).toList();
   }
 
   Future<List<UserAddress>> getSavedUserAddresses() async {
-    return _userDataStorage.userAddresses.map((e) => e.toAddress()).toList();
+    final entities = await _userAddressEntityDao.getSavedAddresses();
+    return entities.map((e) => e.toAddress()).toList();
   }
 
   Future<List<UserAddress>> getUserAddresses() async {
     Logger().w("getUserAddresses called");
+    final count = await _userAddressEntityDao.getAddressesCount() ?? 0;
     try {
-      if (_userDataStorage.hasSavedAddresses) {
+      if (count > 0) {
         Logger().w("getUserAddresses hasSavedAddresses = true");
         return getSavedUserAddresses();
       } else {
         Logger().w("getUserAddresses hasSavedAddresses = false");
         return getActualUserAddresses();
       }
-    } catch(e, stackTrace){
+    } catch (e, stackTrace) {
       Logger().w(e, stackTrace: stackTrace);
       rethrow;
     }

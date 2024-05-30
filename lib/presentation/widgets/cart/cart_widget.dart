@@ -3,7 +3,7 @@ import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
-import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
+import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
 import 'package:onlinebozor/presentation/widgets/favorite/order_ad_favorite_widget.dart';
 import 'package:onlinebozor/presentation/widgets/favorite/order_ad_remove_widget.dart';
 import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
@@ -94,7 +94,7 @@ class CartWidget extends StatelessWidget {
                             price: ad.price ?? 0,
                             toPrice: ad.toPrice ?? 0,
                             fromPrice: ad.fromPrice ?? 0,
-                            currency: ad.currency,
+                            currency: ad.currencyCode,
                           ),
                         ],
                       ),

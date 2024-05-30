@@ -21,16 +21,16 @@ import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart'
 import 'package:onlinebozor/presentation/widgets/dashboard/see_all_widget.dart';
 import 'package:onlinebozor/presentation/widgets/device/active_session_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/device/active_session_widget.dart';
-import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
+import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
 import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 import 'package:onlinebozor/presentation/widgets/profile/profil_view_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/switch/custom_switch.dart';
 
-import 'cubit/profile_view_cubit.dart';
+import 'profile_view_cubit.dart';
 
 @RoutePage()
-class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
+class ProfileViewPage extends BasePage<ProfileViewCubit, ProfileViewState, ProfileViewEvent> {
   const ProfileViewPage({super.key});
 
   @override
@@ -39,15 +39,15 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   @override
-  void onEventEmitted(BuildContext context, PageEvent event) {
+  void onEventEmitted(BuildContext context, ProfileViewEvent event) {
     switch (event.type) {
-      case PageEventType.onLogout:
+      case ProfileViewEventType.onLogout:
         context.router.replace(AuthStartRoute());
     }
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, ProfileViewState state) {
     try {
       return Scaffold(
           appBar: ActionAppBar(
@@ -101,7 +101,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
     }
   }
 
-  Widget _getHeaderBlock(BuildContext context, PageState state) {
+  Widget _getHeaderBlock(BuildContext context, ProfileViewState state) {
     return Container(
       color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -240,7 +240,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _getBioBlock(BuildContext context, PageState state) {
+  Widget _getBioBlock(BuildContext context, ProfileViewState state) {
     return Container(
       color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -292,7 +292,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildNotificationBlock(BuildContext context, PageState state) {
+  Widget _buildNotificationBlock(BuildContext context, ProfileViewState state) {
     return Container(
       color: context.cardColor,
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -465,7 +465,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildSocialBlock(BuildContext context, PageState state) {
+  Widget _buildSocialBlock(BuildContext context, ProfileViewState state) {
     TextEditingController instagramController = TextEditingController();
     TextEditingController telegramController = TextEditingController();
     TextEditingController facebookController = TextEditingController();
@@ -868,7 +868,7 @@ class ProfileViewPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildActiveDeviceBlock(BuildContext context, PageState state) {
+  Widget _buildActiveDeviceBlock(BuildContext context, ProfileViewState state) {
     double width;
     double height;
     width = MediaQuery.of(context).size.width;

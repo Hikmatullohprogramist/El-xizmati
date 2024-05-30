@@ -1,32 +1,30 @@
-import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad_detail/user_ad_detail_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/user_ad/user_ad_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/user_ad_service.dart';
+import 'package:onlinebozor/data/datasource/preference/token_preferences.dart';
+import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
-import 'package:onlinebozor/data/repositories/state_repository.dart';
-import 'package:onlinebozor/data/repositories/user_repository.dart';
+import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
 
-import '../../domain/models/ad/user_ad_status.dart';
-
-@LazySingleton()
+// @LazySingleton()
 class UserAdRepository {
-  UserAdRepository(
-    this._userAdService,
-    this._stateRepository,
-    this._userRepository,
-  );
-
-  final StateRepository _stateRepository;
+  final TokenPreferences _tokenPreferences;
   final UserAdService _userAdService;
-  final UserRepository _userRepository;
+  final UserPreferences _userPreferences;
+
+  UserAdRepository(
+    this._tokenPreferences,
+    this._userAdService,
+    this._userPreferences,
+  );
 
   Future<List<UserAdResponse>> getUserAds({
     required int page,
     required int limit,
     required UserAdStatus userAdStatus,
   }) async {
-    if (_stateRepository.isNotAuthorized()) throw NotAuthorizedException();
-    if (_userRepository.isNotIdentified()) throw NotIdentifiedException();
+    if (_tokenPreferences.isNotAuthorized) throw NotAuthorizedException();
+    if (_userPreferences.isNotIdentified) throw NotIdentifiedException();
 
     final root = await _userAdService.getUserAds(
       page: page,
@@ -36,7 +34,6 @@ class UserAdRepository {
     final response = UserAdRootResponse.fromJson(root.data).data.results;
     return response;
   }
-
 
   Future<UserAdDetail> getUserAdDetail({required int adId}) async {
     final response = await _userAdService.getUserAdDetail(adId: adId);

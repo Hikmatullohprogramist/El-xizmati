@@ -13,16 +13,17 @@ import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.d
 import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_field.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/label_text_field.dart';
 
-import 'cubit/user_order_cancel_cubit.dart';
+import 'user_order_cancel_cubit.dart';
 
 @RoutePage()
-class UserOrderCancelPage extends BasePage<PageCubit, PageState, PageEvent> {
+class UserOrderCancelPage extends BasePage<UserOrderCancelCubit,
+    UserOrderCancelState, UserOrderCancelEvent> {
+  final UserOrder order;
+
   UserOrderCancelPage({
     super.key,
     required this.order,
   });
-
-  final UserOrder order;
 
   final TextEditingController commentController = TextEditingController();
 
@@ -32,15 +33,15 @@ class UserOrderCancelPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   @override
-  void onEventEmitted(BuildContext context, PageEvent event) {
+  void onEventEmitted(BuildContext context, UserOrderCancelEvent event) {
     switch (event.type) {
-      case PageEventType.onBackAfterCancel:
+      case UserOrderCancelEventType.onBackAfterCancel:
         context.router.pop(cubit(context).states.userOrder!);
     }
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, UserOrderCancelState state) {
     commentController.updateOnRestore(state.cancelComment);
 
     return SizedBox(
@@ -136,7 +137,7 @@ class UserOrderCancelPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  ListView _buildReasonsItems(BuildContext context, PageState state) {
+  ListView _buildReasonsItems(BuildContext context, UserOrderCancelState state) {
     return ListView.separated(
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,

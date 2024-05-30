@@ -13,7 +13,7 @@ import 'package:logger/logger.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
-import 'package:onlinebozor/presentation/di/injection.dart';
+import 'package:onlinebozor/presentation/di/get_it_injection.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/state_message/state_bottom_sheet_exts.dart';
 import 'package:onlinebozor/presentation/support/state_message/state_message_manager.dart';
@@ -29,65 +29,23 @@ import 'presentation/router/app_router.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Permission.notification.isDenied.then((value) {
-    if (value) {
-      Permission.notification.request();
-    }
-  });
+  // await Permission.notification.isDenied.then((value) {
+  //   if (value) {
+  //     Permission.notification.request();
+  //   }
+  // });
 
-  await Hive.initFlutter();
+  // await Hive.initFlutter();
 
-  // // Check if the app was updated
-  // bool isUpdated = await isAppUpdated();
-  //
-  // if (isUpdated) {
-  //   // Clear all data in Hive when an update is detected
-  //   // await clearHiveData();
-  // }
-
-  await configureDependencies();
+   await initializeGetIt();
 
   await EasyLocalization.ensureInitialized();
 
-  Future<void> getDeviceAndAppInfo() async {
-    try {
-      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-      var uuid = Uuid();
-      PackageInfo packageInfo = await PackageInfo.fromPlatform();
-
-      DeviceInfo.appVersionName = packageInfo.version;
-      DeviceInfo.appVersionCode = packageInfo.buildNumber;
-      if (Platform.isAndroid) {
-        AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-        const androidId = AndroidId();
-        String? deviceId = await androidId.getId();
-        DeviceInfo.deviceModel = androidInfo.model;
-        DeviceInfo.deviceManufacture = androidInfo.manufacturer;
-        DeviceInfo.deviceName =
-            "${androidInfo.manufacturer} ${androidInfo.model}";
-        String combinedInfo = '$deviceId-${androidInfo.manufacturer}';
-        DeviceInfo.deviceId = uuid.v5(Uuid.NAMESPACE_URL, combinedInfo);
-        DeviceInfo.mobileOsType = "android";
-      } else if (Platform.isIOS) {
-        DeviceInfo.mobileOsType = "ios";
-        IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-        String? deviceId = iosInfo.identifierForVendor;
-        DeviceInfo.deviceName = iosInfo.name;
-        DeviceInfo.deviceManufacture = iosInfo.systemName;
-        DeviceInfo.deviceModel = iosInfo.model;
-        String combinedInfo = '$deviceId-${DeviceInfo.deviceName}';
-        DeviceInfo.deviceId = uuid.v5(Uuid.NAMESPACE_URL, combinedInfo);
-      }
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
-  await getDeviceAndAppInfo();
+  await _getDeviceAndAppInfo();
 
   var stateRepository = GetIt.instance<StateRepository>();
   var isLanguageSelected = stateRepository.isLanguageSelection();
-  var isUserLoggedIn = stateRepository.isUserLoggedIn();
+  var isUserLoggedIn = stateRepository.isAuthorized();
 
   runApp(
     EasyLocalization(
@@ -155,12 +113,21 @@ class MyApp extends StatelessWidget {
           ),
           Builder(
             builder: (context) {
-              _initStateManager(context);
+              _initStateMessageManager(context);
               return const SizedBox.shrink();
             },
           ),
         ],
       ),
+    );
+  }
+
+  void _initStateMessageManager(BuildContext context) {
+    final stateMessageManager = getIt<StateMessageManager>();
+
+    stateMessageManager.setListeners(
+      onShowBottomSheet: (m) => context.showStateMessageBottomSheet(m),
+      onShowSnackBar: (m) => context.showStateMessageSnackBar(m),
     );
   }
 
@@ -233,14 +200,39 @@ class MyApp extends StatelessWidget {
       // Color used for text/icons on surfaces
     );
   }
+}
 
-  void _initStateManager(BuildContext context) {
-    final stateMessageManager = getIt<StateMessageManager>();
+Future<void> _getDeviceAndAppInfo() async {
+  try {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    var uuid = Uuid();
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
-    stateMessageManager.setListeners(
-      onShowBottomSheet: (m) => context.showStateMessageBottomSheet(m),
-      onShowSnackBar: (m) => context.showStateMessageSnackBar(m),
-    );
+    DeviceInfo.appVersionName = packageInfo.version;
+    DeviceInfo.appVersionCode = packageInfo.buildNumber;
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      const androidId = AndroidId();
+      String? deviceId = await androidId.getId();
+      DeviceInfo.deviceModel = androidInfo.model;
+      DeviceInfo.deviceManufacture = androidInfo.manufacturer;
+      DeviceInfo.deviceName =
+          "${androidInfo.manufacturer} ${androidInfo.model}";
+      String combinedInfo = '$deviceId-${androidInfo.manufacturer}';
+      DeviceInfo.deviceId = uuid.v5(Uuid.NAMESPACE_URL, combinedInfo);
+      DeviceInfo.mobileOsType = "android";
+    } else if (Platform.isIOS) {
+      DeviceInfo.mobileOsType = "ios";
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      String? deviceId = iosInfo.identifierForVendor;
+      DeviceInfo.deviceName = iosInfo.name;
+      DeviceInfo.deviceManufacture = iosInfo.systemName;
+      DeviceInfo.deviceModel = iosInfo.model;
+      String combinedInfo = '$deviceId-${DeviceInfo.deviceName}';
+      DeviceInfo.deviceId = uuid.v5(Uuid.NAMESPACE_URL, combinedInfo);
+    }
+  } catch (e) {
+    print(e.toString());
   }
 }
 

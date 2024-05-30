@@ -52,7 +52,7 @@ class VerticalAdWidget extends StatelessWidget {
                     imageId: ad.photo,
                     imageHeight: 140,
                   ),
-                  AppAdStatusWidget(adStatus: ad.adStatus),
+                  AppAdStatusWidget(adStatus: ad.priorityLevel),
                   Align(
                     alignment: Alignment.topRight,
                     child: AdFavoriteWidget(
@@ -63,12 +63,12 @@ class VerticalAdWidget extends StatelessWidget {
                   Positioned(
                     left: 0,
                     bottom: 0,
-                    child: AdTypeWidget(adType: ad.adTypeStatus.adType()),
+                    child: AdTypeWidget(adType: ad.transactionType.adType()),
                   ),
                   Positioned(
                     right: 0,
                     bottom: 0,
-                    child: ViewCountWidget(viewCount: ad.view),
+                    child: ViewCountWidget(viewCount: ad.viewCount),
                   ),
                 ],
               ),
@@ -86,7 +86,7 @@ class VerticalAdWidget extends StatelessWidget {
                 price: ad.price,
                 toPrice: ad.toPrice,
                 fromPrice: ad.fromPrice,
-                currency: ad.currency,
+                currency: ad.currencyCode,
               ),
               SizedBox(height: 6),
               Row(
@@ -95,7 +95,7 @@ class VerticalAdWidget extends StatelessWidget {
                   Assets.images.icLocation.svg(width: 12, height: 12),
                   SizedBox(width: 4),
                   Expanded(
-                    child: "${ad.region} ${ad.district}"
+                    child: "${ad.regionName} ${ad.districtName}"
                         .w(400)
                         .s(12)
                         .c(context.textSecondary)
@@ -111,12 +111,12 @@ class VerticalAdWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   ListAdAuthorTypeChipWidget(
-                    adAuthorType: ad.adRouteType,
+                    adAuthorType: ad.authorType,
                     isHorizontal: false,
                   ),
                   SizedBox(width: 5),
                   ListAdPropertyWidget(
-                    adPropertyType: ad.adPropertyStatus,
+                    adPropertyType: ad.itemCondition,
                     isHorizontal: false,
                   )
                 ],

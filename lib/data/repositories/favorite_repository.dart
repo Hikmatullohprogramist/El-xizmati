@@ -1,36 +1,32 @@
-import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:onlinebozor/core/extensions/list_extensions.dart';
+import 'package:onlinebozor/data/datasource/floor/dao/ad_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/hive/storages/ad_storage.dart';
-import 'package:onlinebozor/data/datasource/hive/storages/token_storage.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/add_result/add_result_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/favorite_service.dart';
+import 'package:onlinebozor/data/datasource/preference/token_preferences.dart';
+import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
-import 'package:onlinebozor/data/repositories/state_repository.dart';
-import 'package:onlinebozor/data/repositories/user_repository.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
+import 'package:onlinebozor/domain/models/ad/ad.dart';
 
-import '../../domain/models/ad/ad.dart';
-
-@LazySingleton()
+// @LazySingleton()
 class FavoriteRepository {
+  final AdEntityDao _adEntityDao;
+  final FavoriteService _favoriteService;
+  final TokenPreferences _tokenPreferences;
+  final UserPreferences _userPreferences;
+
   FavoriteRepository(
-    this._adStorage,
+    this._adEntityDao,
     this._favoriteService,
-    this._stateRepository,
-    this._tokenStorage,
-    this._userRepository,
+    this._tokenPreferences,
+    this._userPreferences,
   );
 
-  final AdStorage _adStorage;
-  final FavoriteService _favoriteService;
-  final StateRepository _stateRepository;
-  final TokenStorage _tokenStorage;
-  final UserRepository _userRepository;
-
   Future<int> addToFavorite(Ad ad) async {
-    final isLogin = _tokenStorage.isUserLoggedIn;
+    final isLogin = _tokenPreferences.isAuthorized;
     int resultId = ad.id;
     if (isLogin) {
       final response = await _favoriteService.addToFavorite(adId: ad.id);
@@ -38,81 +34,68 @@ class FavoriteRepository {
           AddResultRootResponse.fromJson(response.data).data?.products?.id;
       resultId = addResultId ?? ad.id;
     }
-    _adStorage.addToFavorite(ad.toMap(backendId: resultId));
+
+    await _adEntityDao.addToFavorite(ad.id);
     return resultId;
   }
 
   Future<void> removeFromFavorite(int adId) async {
-    final isLogin = _tokenStorage.isUserLoggedIn;
+    final isLogin = _tokenPreferences.isAuthorized;
     if (isLogin) {
       await _favoriteService.removeFromFavorite(adId);
     }
-    _adStorage.removeFromFavorite(adId);
+
+    await _adEntityDao.removeFromFavorite(adId);
   }
 
   Future<List<Ad>> getProductFavoriteAds() async {
-    if (_stateRepository.isNotAuthorized()) throw NotAuthorizedException();
-    if (_userRepository.isNotIdentified()) throw NotIdentifiedException();
+    // if (_tokenPreferences.isNotAuthorized) throw NotAuthorizedException();
+    // if (_userPreferences.isNotIdentified) throw NotIdentifiedException();
 
-    // try {
-      final isLogin = _tokenStorage.isUserLoggedIn;
-      if (isLogin) {
-        final response = await _favoriteService.getFavoriteAds();
-        final responseAds = AdRootResponse.fromJson(response.data)
-            .data
-            .results
-            .map((item) => item.toMap(isFavorite: true))
-            .toList();
+    final isLogin = _tokenPreferences.isAuthorized;
+    if (isLogin) {
+      final response = await _favoriteService.getFavoriteAds();
+      final responseAds = AdRootResponse.fromJson(response.data)
+          .data
+          .results
+          .map((item) => item.toAdEntity(isFavorite: true))
+          .toList();
+      await _adEntityDao.insertAds(responseAds);
+    }
 
-        final savedAds = _adStorage.favoriteAds.map((e) => e.toMap()).toList();
-        final notSavedAds = responseAds.notContainsItems(savedAds);
-        for (var item in notSavedAds) {
-          _adStorage.addToFavorite(item.toMap());
-        }
-      }
-
-      return _adStorage.favoriteAds
-          .map((item) => item.toMap())
-          .toList()
-          .filterIf((e) => (e.isProductAd));
-    // } catch (e) {
-    //   return List.empty();
-    // }
+    final entities = await _adEntityDao.getFavoriteAds();
+    return entities
+        .map((e) => e.toAd())
+        .toList()
+        .filterIf((e) => (e.isProductAd));
   }
 
   Future<List<Ad>> getServiceFavoriteAds() async {
-    if (_stateRepository.isNotAuthorized()) throw NotAuthorizedException();
-    if (_userRepository.isNotIdentified()) throw NotIdentifiedException();
+    // if (_tokenPreferences.isNotAuthorized) throw NotAuthorizedException();
+    // if (_userPreferences.isNotIdentified) throw NotIdentifiedException();
 
-    try {
-      final isLogin = _tokenStorage.isUserLoggedIn;
-      if (isLogin) {
-        final response = await _favoriteService.getFavoriteAds();
-        final responseAds = AdRootResponse.fromJson(response.data)
-            .data
-            .results
-            .map((item) => item.toMap(isFavorite: true))
-            .toList();
-
-        final savedAds = _adStorage.favoriteAds.map((e) => e.toMap()).toList();
-        final notSavedAds = responseAds.notContainsItems(savedAds);
-        for (var item in notSavedAds) {
-          _adStorage.addToFavorite(item.toMap());
-        }
-      }
-      return _adStorage.favoriteAds
-          .map((item) => item.toMap())
-          .toList()
-          .filterIf((e) => (e.isServiceAd));
-    } catch (e) {
-      return List.empty();
+    final isLogin = _tokenPreferences.isAuthorized;
+    if (isLogin) {
+      final response = await _favoriteService.getFavoriteAds();
+      final responseAds = AdRootResponse.fromJson(response.data)
+          .data
+          .results
+          .map((item) => item.toAdEntity(isFavorite: true))
+          .toList();
+      await _adEntityDao.insertAds(responseAds);
     }
+    final entities = await _adEntityDao.getFavoriteAds();
+    return entities
+        .map((e) => e.toAd())
+        .toList()
+        .filterIf((e) => (e.isProductAd));
   }
 
   Future<void> pushAllFavoriteAds() async {
     final logger = Logger();
     try {
-      final favoriteAdIds = _adStorage.favoriteAds.map((e) => e.id).toList();
+      final favoriteAds = await _adEntityDao.getFavoriteAds();
+      final favoriteAdIds = favoriteAds.map((e) => e.id).toList();
       logger.e(favoriteAdIds.toString());
       await _favoriteService.sendAllFavoriteAds(favoriteAdIds);
     } catch (e) {

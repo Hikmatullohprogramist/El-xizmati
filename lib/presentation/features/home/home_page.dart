@@ -1,28 +1,26 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/data/datasource/hive/storages/ad_storage.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 
-import 'cubit/home_cubit.dart';
+import 'home_cubit.dart';
 
 @RoutePage()
-class HomePage extends BasePage<PageCubit, PageState, PageEvent> {
+class HomePage extends BasePage<HomeCubit, HomeState, HomeEvent> {
   const HomePage({super.key});
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, HomeState state) {
     return AutoTabsRouter(
       routes: [
         DashboardRoute(),
         CategoryRoute(),
-        CreateAdChooserRoute(),
+        AdCreationChooserRoute(),
         CartRoute(),
         ProfileRoute()
       ],
@@ -88,39 +86,44 @@ class HomePage extends BasePage<PageCubit, PageState, PageEvent> {
                   // ),
                 ),
                 BottomNavigationBarItem(
-                    label: Strings.bottomNavigationCart,
-                    icon: Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: ValueListenableBuilder(
-                        valueListenable: cubit(context).adStorage.listenable(),
-                        builder: (BuildContext context, value, Widget? child) {
-                          int cartNumber = cubit(context).adStorage.cartAds.length;
-                          return Badge(
-                            textStyle: TextStyle(fontSize: 8),
-                            alignment: Alignment.topRight,
-                            isLabelVisible: cartNumber > 0,
-                            label: cartNumber.toString().w(500),
-                            child: Assets.images.bottomBar.cart.svg(),
-                          );
-                        },
-                      ),
-                    ),
-                    activeIcon: Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: ValueListenableBuilder(
-                        valueListenable: cubit(context).adStorage.listenable(),
-                        builder: (BuildContext context, value, Widget? child) {
-                          int cartNumber = cubit(context).adStorage.cartAds.length;
-                          return Badge(
-                            textStyle: TextStyle(fontSize: 8),
-                            alignment: Alignment.topRight,
-                            isLabelVisible: cartNumber > 0,
-                            label: cartNumber.toString().w(500),
-                            child: Assets.images.bottomBar.cartActive.svg(),
-                          );
-                        },
-                      ),
-                    )),
+                  label: Strings.bottomNavigationCart,
+                  icon: Padding(
+                    padding: const EdgeInsets.all(8),
+                    // child: ValueListenableBuilder(
+                    //   valueListenable: cubit(context).adStorage.listenable(),
+                    //   builder: (BuildContext context, value, Widget? child) {
+                    //     int cartNumber =
+                    //         cubit(context).adStorage.cartAds.length;
+                    //     return Badge(
+                    //       textStyle: TextStyle(fontSize: 8),
+                    //       alignment: Alignment.topRight,
+                    //       isLabelVisible: cartNumber > 0,
+                    //       label: cartNumber.toString().w(500),
+                    //       child: Assets.images.bottomBar.cart.svg(),
+                    //     );
+                    //   },
+                    // ),
+                    child: Assets.images.bottomBar.cart.svg(),
+                  ),
+                  activeIcon: Padding(
+                    padding: const EdgeInsets.all(8),
+                    // child: ValueListenableBuilder(
+                    //   valueListenable: cubit(context).adStorage.listenable(),
+                    //   builder: (BuildContext context, value, Widget? child) {
+                    //     int cartNumber =
+                    //         cubit(context).adStorage.cartAds.length;
+                    //     return Badge(
+                    //       textStyle: TextStyle(fontSize: 8),
+                    //       alignment: Alignment.topRight,
+                    //       isLabelVisible: cartNumber > 0,
+                    //       label: cartNumber.toString().w(500),
+                    //       child: Assets.images.bottomBar.cartActive.svg(),
+                    //     );
+                    //   },
+                    // ),
+                    child: Assets.images.bottomBar.cartActive.svg(),
+                  ),
+                ),
                 BottomNavigationBarItem(
                   label: Strings.bottomNavigationMore,
                   icon: Padding(

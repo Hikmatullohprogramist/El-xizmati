@@ -51,13 +51,13 @@ class UserAdResponse with _$UserAdResponse {
     String? region,
     String? district,
     String? type,
-    Category? category,
+    UserAdCategory? category,
     int? view,
     int? selected,
     int? phone_view,
     int? message_number,
     String? status,
-    Category? parent_category,
+    UserAdCategory? parent_category,
     bool? isSell,
     dynamic moderator_note,
     String? moderator_note_type,
@@ -68,16 +68,16 @@ class UserAdResponse with _$UserAdResponse {
 }
 
 @freezed
-class Category with _$Category {
-  const factory Category({
+class UserAdCategory with _$UserAdCategory {
+  const factory UserAdCategory({
     int? id,
     bool? is_sell,
     String? name,
     String? key_word,
-  }) = _Category;
+  }) = _UserAdCategory;
 
-  factory Category.fromJson(Map<String, dynamic> json) =>
-      _$CategoryFromJson(json);
+  factory UserAdCategory.fromJson(Map<String, dynamic> json) =>
+      _$UserAdCategoryFromJson(json);
 }
 
 @freezed

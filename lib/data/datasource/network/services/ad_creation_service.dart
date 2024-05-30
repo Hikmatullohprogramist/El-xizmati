@@ -1,17 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/datasource/network/extensions/rest_mappers.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 
 import '../constants/rest_query_keys.dart';
 
-@lazySingleton
 class AdCreationService {
   final Dio _dio;
 
-  AdCreationService(this._dio);
+  AdCreationService(Dio dio) : _dio = dio;
 
   Future<Response> getCategoriesForCreationAd(String type) {
     final Map<String, dynamic> query = {"type": type};

@@ -20,16 +20,17 @@ import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title
 import 'package:onlinebozor/presentation/widgets/loading/default_empty_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 
-import 'cubit/user_ad_list_cubit.dart';
+import 'user_ad_list_cubit.dart';
 
 @RoutePage()
-class UserAdListPage extends BasePage<PageCubit, PageState, PageEvent> {
+class UserAdListPage
+    extends BasePage<UserAdListCubit, UserAdListState, UserAdListEvent> {
+  final UserAdStatus userAdStatus;
+
   const UserAdListPage({
     super.key,
     required this.userAdStatus,
   });
-
-  final UserAdStatus userAdStatus;
 
   @override
   void onWidgetCreated(BuildContext context) {
@@ -37,7 +38,7 @@ class UserAdListPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, UserAdListState state) {
     return Scaffold(
       backgroundColor: context.backgroundColor,
       body: RefreshIndicator(
@@ -80,7 +81,7 @@ class UserAdListPage extends BasePage<PageCubit, PageState, PageEvent> {
                 message: state.userAdStatus.getLocalizedEmptyMessage(),
                 mainActionLabel: Strings.adCreateTitle,
                 onMainActionClicked: () {
-                  context.router.push(CreateAdChooserRoute());
+                  context.router.push(AdCreationChooserRoute());
                 },
                 onReloadClicked: () {
                   cubit(context).states.controller?.refresh();

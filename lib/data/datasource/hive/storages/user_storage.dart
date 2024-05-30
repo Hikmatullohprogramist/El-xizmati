@@ -2,9 +2,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/datasource/hive/constants/hive_constants.dart';
 import 'package:onlinebozor/data/datasource/hive/core/box_value.dart';
+import 'package:onlinebozor/data/datasource/hive/hive_objects/user/user_hive_object.dart';
 import 'package:path_provider/path_provider.dart';
-
-import '../hive_objects/user/user_hive_object.dart';
 
 @lazySingleton
 class UserStorage {

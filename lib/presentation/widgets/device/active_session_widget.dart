@@ -6,7 +6,7 @@ import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 
-import '../divider/custom_diverder.dart';
+import '../divider/custom_divider.dart';
 
 class ActiveSessionWidget extends StatelessWidget {
   const ActiveSessionWidget({

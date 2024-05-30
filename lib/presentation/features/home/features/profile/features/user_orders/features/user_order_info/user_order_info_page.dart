@@ -10,19 +10,21 @@ import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
-import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
+import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
 import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
 
-import 'cubit/user_order_info_cubit.dart';
+import 'user_order_info_cubit.dart';
 
 @RoutePage()
-class UserOrderInfoPage extends BasePage<PageCubit, PageState, PageEvent> {
+class UserOrderInfoPage extends BasePage<UserOrderInfoCubit, UserOrderInfoState,
+    UserOrderInfoEvent> {
+  final UserOrder order;
+
   UserOrderInfoPage({
     super.key,
     required this.order,
   });
 
-  final UserOrder order;
 
   @override
   void onWidgetCreated(BuildContext context) {
@@ -30,7 +32,7 @@ class UserOrderInfoPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, UserOrderInfoState state) {
     return SizedBox(
       width: double.infinity,
       // height: MediaQuery.sizeOf(context).height * .9,

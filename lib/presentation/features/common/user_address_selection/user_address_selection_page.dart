@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/presentation/widgets/address/user_address_empty_widget.dart';
 import 'package:onlinebozor/presentation/widgets/address/user_address_selection.dart';
@@ -12,20 +12,20 @@ import 'package:onlinebozor/presentation/widgets/address/user_address_shimmer.da
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 
-import 'cubit/user_address_selection_cubit.dart';
+import 'user_address_selection_cubit.dart';
 
 @RoutePage()
-class UserAddressSelectionPage
-    extends BasePage<PageCubit, PageState, PageEvent> {
+class UserAddressSelectionPage extends BasePage<UserAddressSelectionCubit,
+    UserAddressSelectionState, UserAddressSelectionEvent> {
+  final UserAddress? selectedAddress;
+
   const UserAddressSelectionPage({
     super.key,
     this.selectedAddress,
   });
 
-  final UserAddress? selectedAddress;
-
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, UserAddressSelectionState state) {
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.sizeOf(context).height * .7,
@@ -88,7 +88,7 @@ class UserAddressSelectionPage
     );
   }
 
-  ListView _buildSuccessBody(PageState state) {
+  ListView _buildSuccessBody(UserAddressSelectionState state) {
     return ListView.separated(
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,

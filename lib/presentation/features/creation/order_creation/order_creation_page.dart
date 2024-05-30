@@ -23,10 +23,11 @@ import 'package:onlinebozor/presentation/widgets/form_field/validator/default_va
 import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
 import 'package:onlinebozor/presentation/widgets/order/create_order_shimmer.dart';
 
-import 'cubit/order_creation_cubit.dart';
+import 'order_creation_cubit.dart';
 
 @RoutePage()
-class OrderCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
+class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationState,
+    OrderCreationEvent> {
   OrderCreationPage(this.adId, {super.key});
 
   final int adId;
@@ -41,15 +42,15 @@ class OrderCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   @override
-  void onEventEmitted(BuildContext context, PageEvent event) {
+  void onEventEmitted(BuildContext context, OrderCreationEvent event) {
     switch (event.type) {
-      case PageEventType.onBackAfterRemove:
+      case OrderCreationEventType.onBackAfterRemove:
         context.router.replace(CartRoute());
-      case PageEventType.onOpenAfterCreation:
+      case OrderCreationEventType.onOpenAfterCreation:
         context.router.replace(UserOrdersRoute(orderType: OrderType.buy));
-      case PageEventType.onOpenAuthStart:
+      case OrderCreationEventType.onOpenAuthStart:
         context.router.push(AuthStartRoute());
-      case PageEventType.onFailedOrderCreation:
+      case OrderCreationEventType.onFailedOrderCreation:
         showErrorBottomSheet(context, event.message ?? "");
       // case PageEventType.onFailedIdentityNotVerified:
       //   showErrorBottomSheet(context, event.message ?? "");
@@ -57,7 +58,7 @@ class OrderCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, OrderCreationState state) {
     priceController.updateOnRestore(priceMaskFormatter.formatInt(state.price));
 
     return state.adDetail == null
@@ -103,7 +104,7 @@ class OrderCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
           );
   }
 
-  Widget _buildImageList(BuildContext context, PageState state) {
+  Widget _buildImageList(BuildContext context, OrderCreationState state) {
     return Container(
       color: context.cardColor,
       padding: EdgeInsets.symmetric(vertical: 16),
@@ -139,7 +140,7 @@ class OrderCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildInfoBlock(BuildContext context, PageState state) {
+  Widget _buildInfoBlock(BuildContext context, OrderCreationState state) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16),
       color: context.cardColor,
@@ -336,7 +337,7 @@ class OrderCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildPaymentTypes(BuildContext context, PageState state) {
+  Widget _buildPaymentTypes(BuildContext context, OrderCreationState state) {
     return Container(
       color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16),
@@ -462,7 +463,7 @@ class OrderCreationPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Container _buildBottomBar(BuildContext context, PageState state) {
+  Container _buildBottomBar(BuildContext context, OrderCreationState state) {
     return Container(
       decoration: BoxDecoration(
         color: context.cardColor,

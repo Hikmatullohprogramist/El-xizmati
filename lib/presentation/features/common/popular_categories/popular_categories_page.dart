@@ -1,29 +1,29 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/responses/category/popular_category/popular_category_response.dart';
 import 'package:onlinebozor/domain/models/ad/ad_list_type.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/category/popular_category_vertical.dart';
 import 'package:onlinebozor/presentation/widgets/category/popular_category_vertical_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 
-import 'cubit/popular_categories_cubit.dart';
+import 'popular_categories_cubit.dart';
 
 @RoutePage()
-class PopularCategoriesPage extends BasePage<PageCubit, PageState, PageEvent> {
+class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
+    PopularCategoriesState, PopularCategoriesEvent> {
   const PopularCategoriesPage(this.title, {super.key});
 
   final String? title;
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, PopularCategoriesState state) {
     return Scaffold(
       appBar: DefaultAppBar(
         titleText: title ?? "",
@@ -41,12 +41,12 @@ class PopularCategoriesPage extends BasePage<PageCubit, PageState, PageEvent> {
                 physics: BouncingScrollPhysics(),
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 pagingController: state.controller!,
-                builderDelegate:
-                    PagedChildBuilderDelegate<PopularCategory>(
+                builderDelegate: PagedChildBuilderDelegate<PopularCategory>(
                   firstPageErrorIndicatorBuilder: (_) {
                     return DefaultErrorWidget(
                       isFullScreen: true,
-                      onRetryClicked: () => cubit(context).states.controller?.refresh(),
+                      onRetryClicked: () =>
+                          cubit(context).states.controller?.refresh(),
                     );
                   },
                   firstPageProgressIndicatorBuilder: (_) {
@@ -77,7 +77,8 @@ class PopularCategoriesPage extends BasePage<PageCubit, PageState, PageEvent> {
                   newPageErrorIndicatorBuilder: (_) {
                     return DefaultErrorWidget(
                       isFullScreen: false,
-                      onRetryClicked: () => cubit(context).states.controller?.refresh(),
+                      onRetryClicked: () =>
+                          cubit(context).states.controller?.refresh(),
                     );
                   },
                   transitionDuration: Duration(milliseconds: 100),

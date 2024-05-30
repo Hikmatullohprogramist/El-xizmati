@@ -1,18 +1,19 @@
-import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/datasource/hive/storages/categories_storage.dart';
+import 'package:onlinebozor/data/datasource/floor/dao/category_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/network/responses/banner/banner_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/category/category/category_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/category/popular_category/popular_category_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/common_service.dart';
+import 'package:onlinebozor/data/mappers/category_mapper.dart';
+import 'package:onlinebozor/domain/models/category/category.dart';
 
-@LazySingleton()
+// @LazySingleton()
 class CommonRepository {
-  final CategoriesStorage _categoriesStorage;
+  final CategoryEntityDao _categoryEntityDao;
   final CommonService _commonService;
 
   CommonRepository(
+    this._categoryEntityDao,
     this._commonService,
-    this._categoriesStorage,
   );
 
   Future<List<BannerResponse>> getBanner() async {
@@ -21,18 +22,19 @@ class CommonRepository {
     return banners;
   }
 
-  Future<List<CategoryResponse>> getCategories() async {
-    // final localCategories = _categoriesStorage.categories
-    //     .callList()
-    //     .cast<CategoryResponse>();
-    // if (localCategories.isEmpty) {
-    final response = await _commonService.getCategories();
-    final categories = CategoryRootResponse.fromJson(response.data).data;
-    // await _categoriesStorage.categories.set(categories);
-    return categories;
-    // } else {
-    //   return localCategories;
-    // }
+  Future<List<Category>> getCategories() async {
+    final count = await _categoryEntityDao.getCategoriesCount() ?? 0;
+    if (count > 0) {
+      final entities = await _categoryEntityDao.getCategories();
+      return entities.map((e) => e.toCategory()).toList();
+    } else {
+      final response = await _commonService.getCategories();
+      final categories = CategoryRootResponse.fromJson(response.data).data;
+      await _categoryEntityDao.upsertAll(
+        categories.map((e) => e.toCategoryEntity()).toList(),
+      );
+      return categories.map((e) => e.toCategory()).toList();
+    }
   }
 
   Future<List<PopularCategory>> getPopularCategories(

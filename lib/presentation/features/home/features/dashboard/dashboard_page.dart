@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
@@ -9,9 +8,9 @@ import 'package:onlinebozor/domain/models/ad/ad.dart';
 import 'package:onlinebozor/domain/models/ad/ad_list_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
 import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_list_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_list_widget.dart';
@@ -25,10 +24,11 @@ import 'package:onlinebozor/presentation/widgets/dashboard/product_or_service.da
 import 'package:onlinebozor/presentation/widgets/dashboard/see_all_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 
-import 'cubit/dashboard_cubit.dart';
+import 'dashboard_cubit.dart';
 
 @RoutePage()
-class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
+class DashboardPage
+    extends BasePage<DashboardCubit, DashboardState, DashboardEvent> {
   const DashboardPage({super.key});
 
   @override
@@ -37,7 +37,7 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, DashboardState state) {
     return Scaffold(
       appBar: AppBar(
         // toolbarHeight: 64,
@@ -82,7 +82,8 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
               context.router.push(FavoriteListRoute());
               vibrateAsHapticFeedback();
             },
-            icon: Assets.images.bottomBar.favorite.svg(color: Color(0xFF5C6AC4)),
+            icon:
+                Assets.images.bottomBar.favorite.svg(color: Color(0xFF5C6AC4)),
           ),
           IconButton(
             onPressed: () {
@@ -124,7 +125,7 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _getBannersWidget(BuildContext context, PageState state) {
+  Widget _getBannersWidget(BuildContext context, DashboardState state) {
     return LoaderStateWidget(
       onRetryClicked: () {
         cubit(context).getBanners();
@@ -136,7 +137,8 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _getPopularCategoriesWidget(BuildContext context, PageState state) {
+  Widget _getPopularCategoriesWidget(
+      BuildContext context, DashboardState state) {
     return Column(
       children: [
         SeeAllWidget(
@@ -204,7 +206,8 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _getDashboardProductAdsWidget(BuildContext context, PageState state) {
+  Widget _getDashboardProductAdsWidget(
+      BuildContext context, DashboardState state) {
     return Column(
       children: [
         SeeAllWidget(
@@ -247,7 +250,8 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _getDashboardServiceAdsWidget(BuildContext context, PageState state) {
+  Widget _getDashboardServiceAdsWidget(
+      BuildContext context, DashboardState state) {
     return Column(
       children: [
         SeeAllWidget(
@@ -290,7 +294,7 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _getTopRatedAdsWidget(BuildContext context, PageState state) {
+  Widget _getTopRatedAdsWidget(BuildContext context, DashboardState state) {
     return LoaderStateWidget(
       isFullScreen: false,
       onRetryClicked: () {
@@ -315,7 +319,7 @@ class DashboardPage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _getRecentlyViewedAdsWidget(
     BuildContext context,
-    PageState state,
+    DashboardState state,
   ) {
     return Visibility(
       visible: state.recentlyViewedAdsState == LoadingState.loading ||

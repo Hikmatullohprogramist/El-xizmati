@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:onlinebozor/core/enum/social_enum.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 
-import '../divider/custom_diverder.dart';
+import '../divider/custom_divider.dart';
 
 extension ShowSocialDirectionButtomSheet on BuildContext {
   void showSocialDirectionButtomSheet(

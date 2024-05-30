@@ -1,6 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/datasource/hive/storages/user_storage.dart';
-import 'package:onlinebozor/data/datasource/network/responses/ad/ad_detail/user_ad_detail_response.dart';
+import 'package:onlinebozor/data/datasource/floor/dao/category_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/creation/ad_creation_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/edit/product_ad_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/edit/request_ad_response.dart';
@@ -11,24 +10,42 @@ import 'package:onlinebozor/data/datasource/network/responses/currencies/currenc
 import 'package:onlinebozor/data/datasource/network/responses/payment_type/payment_type_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/unit/unit_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/ad_creation_service.dart';
+import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
+import 'package:onlinebozor/data/mappers/category_mapper.dart';
 import 'package:onlinebozor/domain/mappers/user_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
+import 'package:onlinebozor/domain/models/category/category.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
 
-@LazySingleton()
+// @LazySingleton()
 class AdCreationRepository {
   final AdCreationService _adCreationService;
-  final UserStorage _userStorage;
+  final CategoryEntityDao _categoryEntityDao;
+  final UserPreferences _userPreferences;
 
-  AdCreationRepository(this._adCreationService, this._userStorage);
+  AdCreationRepository(
+    this._adCreationService,
+    this._categoryEntityDao,
+    this._userPreferences,
+  );
 
-  Future<List<CategoryResponse>> getCategoriesForCreationAd(String type) async {
-    final response = await _adCreationService.getCategoriesForCreationAd(type);
-    final categories = CategoryRootResponse.fromJson(response.data).data;
-    return categories;
+  Future<List<Category>> getCategoriesForCreationAd(String type) async {
+    final count = await _categoryEntityDao.getCategoriesCountByType(type) ?? 0;
+    if (count > 0) {
+      final entities = await _categoryEntityDao.getCategoriesByType(type);
+      return entities.map((e) => e.toCategory()).toList();
+    } else {
+      final response =
+          await _adCreationService.getCategoriesForCreationAd(type);
+      final categories = CategoryRootResponse.fromJson(response.data).data;
+      await _categoryEntityDao.upsertAll(
+        categories.map((e) => e.toCategoryEntity()).toList(),
+      );
+      return categories.map((e) => e.toCategory()).toList();
+    }
   }
 
   Future<List<Currency>> getCurrenciesForCreationAd() async {
@@ -44,8 +61,8 @@ class AdCreationRepository {
   }
 
   Future<List<UserAddress>> getWarehousesForCreationAd() async {
-    var tin = _userStorage.tin;
-    var pinfl = _userStorage.pinfl;
+    var tin = _userPreferences.tin;
+    var pinfl = _userPreferences.pinfl;
     final response = await _adCreationService.getWarehousesForCreationAd(
       tinOrPinfl: tin ?? pinfl ?? 0,
     );
@@ -73,7 +90,7 @@ class AdCreationRepository {
     required int? adId,
     //
     required String title,
-    required CategoryResponse category,
+    required Category category,
     required AdTransactionType adTransactionType,
     //
     required String mainImageId,
@@ -93,7 +110,7 @@ class AdCreationRepository {
     //
     required String exchangeTitle,
     required String exchangeDesc,
-    required CategoryResponse? exchangeCategory,
+    required Category? exchangeCategory,
     required String exchangeAccountType,
     required String exchangePropertyStatus,
     //
@@ -321,5 +338,4 @@ class AdCreationRepository {
     final adsResponse = RequestAdRootResponse.fromJson(response.data).data;
     return adsResponse;
   }
-
 }

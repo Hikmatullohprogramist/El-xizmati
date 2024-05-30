@@ -58,8 +58,8 @@ class UserAd {
   AdAuthorType? adAuthorType;
   AdItemCondition? adItemCondition;
   AdPriorityLevel? adPriorityLevel;
-  Category? category;
-  Category? parentCategory;
+  UserAdCategory? category;
+  UserAdCategory? parentCategory;
   int? viewedCount;
   int? selectedCount;
   int? phoneViewedCount;

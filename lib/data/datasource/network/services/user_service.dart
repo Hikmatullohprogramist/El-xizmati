@@ -1,10 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/datasource/network/constants/rest_query_keys.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 import 'package:onlinebozor/domain/models/social_account/social_account_info.dart';
 
-@lazySingleton
 class UserService {
   final Dio _dio;
 

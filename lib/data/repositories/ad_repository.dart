@@ -1,29 +1,30 @@
-import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/extensions/list_extensions.dart';
-import 'package:onlinebozor/data/datasource/hive/storages/ad_storage.dart';
+import 'package:onlinebozor/data/datasource/floor/dao/ad_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad_detail/ad_detail_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/search/search_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/ad_service.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
+import 'package:onlinebozor/domain/models/ad/ad.dart';
+import 'package:onlinebozor/domain/models/ad/ad_detail.dart';
+import 'package:onlinebozor/domain/models/ad/ad_type.dart';
+import 'package:onlinebozor/domain/models/stats/stats_type.dart';
 
-import '../../domain/models/ad/ad.dart';
-import '../../domain/models/ad/ad_detail.dart';
-import '../../domain/models/ad/ad_type.dart';
-import '../../domain/models/stats/stats_type.dart';
-
-@LazySingleton()
+// @LazySingleton()
 class AdRepository {
-  final AdsService _adsService;
-  final AdStorage _adStorage;
+  final AdService _adsService;
+  final AdEntityDao _adEntityDao;
 
-  AdRepository(this._adsService, this._adStorage);
+  AdRepository(
+    this._adsService,
+    this._adEntityDao,
+  );
 
-  List<Ad> _getAsCombined(List<AdResponse> ads) {
-    final savedAds = _adStorage.allAds;
+  Future<List<Ad>> _getAsCombined(List<AdResponse> ads) async {
+    final savedAds = await _adEntityDao.getCartAds();
     return ads.map((ad) {
       final savedAd = savedAds.firstIf((e) => e.id == ad.id);
-      return ad.toMap(
+      return ad.toAd(
         isFavorite: savedAd?.isFavorite ?? false,
         isAddedToCart: savedAd?.isAddedToCart ?? false,
       );
@@ -43,12 +44,16 @@ class AdRepository {
   Future<List<Ad>> getDashboardPopularAds({required AdType adType}) async {
     final response = await _adsService.getDashboardAdsByType(adType: adType);
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
+
+    await _adEntityDao.insertAds(adResponses.map((e) => e.toAdEntity()).toList());
     return _getAsCombined(adResponses);
   }
 
   Future<List<Ad>> getDashboardTopRatedAds() async {
     final response = await _adsService.getDashboardTopRatedAds();
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
+
+    await _adEntityDao.insertAds(adResponses.map((e) => e.toAdEntity()).toList());
     return _getAsCombined(adResponses);
   }
 
@@ -63,6 +68,8 @@ class AdRepository {
       limit: limit,
     );
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
+
+    await _adEntityDao.insertAds(adResponses.map((e) => e.toAdEntity()).toList());
     return _getAsCombined(adResponses);
   }
 
@@ -77,6 +84,8 @@ class AdRepository {
       limit: limit,
     );
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
+
+    await _adEntityDao.insertAds(adResponses.map((e) => e.toAdEntity()).toList());
     return _getAsCombined(adResponses);
   }
 
@@ -91,7 +100,7 @@ class AdRepository {
   }
 
   Future<AdDetail?> getAdDetail(int adId) async {
-    final savedAd = _adStorage.allAds.firstIf((e) => e.id == adId);
+    final savedAd = await _adEntityDao.getAdById(adId);
     final response = await _adsService.getAdDetail(adId);
     final adDetail = AdDetailRootResponse.fromJson(response.data).data.results;
     return adDetail.toMap(

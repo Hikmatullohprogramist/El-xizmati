@@ -63,13 +63,13 @@ class HorizontalAdWidget extends StatelessWidget {
                   left: 0,
                   bottom: 0,
                   child: AdTypeWidget(
-                    adType: ad.adTypeStatus.adType(),
+                    adType: ad.transactionType.adType(),
                   ),
                 ),
                 Positioned(
                   right: 0,
                   bottom: 0,
-                  child: ViewCountWidget(viewCount: ad.view),
+                  child: ViewCountWidget(viewCount: ad.viewCount),
                 ),
               ],
             ),
@@ -88,7 +88,7 @@ class HorizontalAdWidget extends StatelessWidget {
               price: ad.price,
               toPrice: ad.toPrice,
               fromPrice: ad.fromPrice,
-              currency: ad.currency,
+              currency: ad.currencyCode,
             ),
             SizedBox(height: 14),
             Row(
@@ -97,7 +97,7 @@ class HorizontalAdWidget extends StatelessWidget {
                 Assets.images.icLocation.svg(width: 12, height: 12),
                 SizedBox(width: 4),
                 Expanded(
-                  child: "${ad.region} ${ad.district}"
+                  child: "${ad.regionName} ${ad.districtName}"
                       .w(400)
                       .s(12)
                       .c(context.textSecondary)
@@ -114,12 +114,12 @@ class HorizontalAdWidget extends StatelessWidget {
               children: [
                 ListAdAuthorTypeChipWidget(
                   isHorizontal: true,
-                  adAuthorType: ad.adRouteType,
+                  adAuthorType: ad.authorType,
                 ),
                 SizedBox(width: 2),
                 ListAdPropertyWidget(
                   isHorizontal: true,
-                  adPropertyType: ad.adPropertyStatus,
+                  adPropertyType: ad.itemCondition,
                 )
               ],
             ),

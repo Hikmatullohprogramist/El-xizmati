@@ -1,9 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/datasource/network/constants/rest_constants.dart';
 import 'package:onlinebozor/data/datasource/network/constants/rest_query_keys.dart';
 
-@lazySingleton
 class PaymentService {
   final Dio _dio;
 
@@ -22,7 +20,6 @@ class PaymentService {
 
     return _dio.post("api/realpay/v1/pan-payment", queryParameters: params);
   }
-
 
   Future<Response> getPaymentTransactionFilter() async {
     return _dio.get("api/mobile/v1/user/billings");

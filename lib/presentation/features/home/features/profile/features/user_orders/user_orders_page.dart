@@ -11,13 +11,14 @@ import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
-import 'cubit/user_orders_cubit.dart';
+import 'user_orders_cubit.dart';
 
 @RoutePage()
-class UserOrdersPage extends BasePage<PageCubit, PageState, PageEvent> {
-  const UserOrdersPage(this.orderType, {super.key});
-
+class UserOrdersPage
+    extends BasePage<UserOrdersCubit, UserOrdersState, UserOrdersEvent> {
   final OrderType orderType;
+
+  const UserOrdersPage(this.orderType, {super.key});
 
   @override
   void onWidgetCreated(BuildContext context) {
@@ -25,10 +26,10 @@ class UserOrdersPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   @override
-  void onEventEmitted(BuildContext context, PageEvent event) {
+  void onEventEmitted(BuildContext context, UserOrdersEvent event) {
     {
       switch (event.type) {
-        case PageEventType.onOrderTypeChange:
+        case UserOrdersEventType.onOrderTypeChange:
           context.router.pop();
           context.router.push(
             UserOrdersRoute(orderType: cubit(context).states.orderType),
@@ -38,7 +39,7 @@ class UserOrdersPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, UserOrdersState state) {
     return AutoTabsRouter.tabBar(
       physics: BouncingScrollPhysics(),
       routes: [

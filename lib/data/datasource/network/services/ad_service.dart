@@ -1,14 +1,12 @@
 import 'package:dio/dio.dart';
-import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/datasource/network/constants/rest_query_keys.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/domain/models/stats/stats_type.dart';
 
-@lazySingleton
-class AdsService {
+class AdService {
   final Dio _dio;
 
-  AdsService(this._dio);
+  AdService(this._dio);
 
   Future<Response> getHomeAds(int page, int limit, String keyWord) {
     final params = {

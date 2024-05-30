@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/domain/models/report/report_reason.dart';
 
-@lazySingleton
 class ReportService {
   final Dio _dio;
 

@@ -6,12 +6,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/features/auth/confirm/auth_confirm_page.dart';
-import 'package:onlinebozor/presentation/features/auth/eds/request/crc32.dart';
-import 'package:onlinebozor/presentation/features/auth/eds/request/gost_hash.dart';
+import 'package:onlinebozor/presentation/features/auth/confirm/confirmation_page.dart';
+import 'package:onlinebozor/presentation/features/auth/eds_request/crc32.dart';
+import 'package:onlinebozor/presentation/features/auth/eds_request/gost_hash.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
@@ -21,10 +21,11 @@ import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_fie
 import 'package:onlinebozor/presentation/widgets/form_field/label_text_field.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'cubit/auth_start_cubit.dart';
+import 'auth_start_cubit.dart';
 
 @RoutePage()
-class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
+class AuthStartPage
+    extends BasePage<AuthStartCubit, AuthStartState, AuthStartEvent> {
   AuthStartPage({super.key, this.phone});
 
   final String? phone;
@@ -37,23 +38,24 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   @override
-  void onEventEmitted(BuildContext context, PageEvent event) {
+  void onEventEmitted(BuildContext context, AuthStartEvent event) {
     switch (event.type) {
-      case PageEventType.onOpenLogin:
+      case AuthStartEventType.onOpenLogin:
         context.router.push(AuthLoginRoute(phone: event.phone!));
-      case PageEventType.onOpenConfirm:
-        context.router.push(
-          AuthConfirmRoute(phone: event.phone!, confirmType: ConfirmType.confirm),
-        );
-      case PageEventType.onEdsLoginFailed:
+      case AuthStartEventType.onOpenConfirm:
+        context.router.push(ConfirmationRoute(
+          phone: event.phone!,
+          confirmType: ConfirmType.confirm,
+        ));
+      case AuthStartEventType.onEdsLoginFailed:
         showErrorBottomSheet(context, Strings.authStartLoginWithEImzoError);
-      case PageEventType.onOpenHome:
+      case AuthStartEventType.onOpenHome:
         context.router.replace(HomeRoute());
     }
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, AuthStartState state) {
     _phoneController.updateOnRestore(state.phone);
 
     return Scaffold(
@@ -131,7 +133,7 @@ class AuthStartPage extends BasePage<PageCubit, PageState, PageEvent> {
               Spacer(),
               CustomOutlinedButton(
                 text: Strings.authStartLoginWithOneId,
-                onPressed: () => context.router.push(AuthWithOneIdRoute()),
+                onPressed: () => context.router.push(OneIdRoute()),
                 strokeColor: context.colors.borderColor,
                 rightIcon: Assets.images.icOneId.svg(),
               ),

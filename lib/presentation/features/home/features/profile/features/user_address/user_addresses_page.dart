@@ -18,14 +18,15 @@ import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.d
 import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 
-import 'cubit/user_addresses_cubit.dart';
+import 'user_addresses_cubit.dart';
 
 @RoutePage()
-class UserAddressesPage extends BasePage<PageCubit, PageState, PageEvent> {
+class UserAddressesPage extends BasePage<UserAddressesCubit, UserAddressesState,
+    UserAddressesEvent> {
   const UserAddressesPage({super.key});
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, UserAddressesState state) {
     return Scaffold(
       appBar: ActionAppBar(
         titleText: Strings.userAddressMyAddress,

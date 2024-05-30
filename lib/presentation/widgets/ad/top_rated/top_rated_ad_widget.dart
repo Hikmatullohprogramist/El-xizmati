@@ -50,7 +50,7 @@ class TopRatedAdWidget extends StatelessWidget {
                           price: ad.price,
                           toPrice: ad.toPrice,
                           fromPrice: ad.fromPrice,
-                          currency: ad.currency,
+                          currency: ad.currencyCode,
                           color: Colors.white,
                         ),
                       ],

@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/report/report_type.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 import 'package:onlinebozor/presentation/widgets/action/selection_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
@@ -13,14 +13,15 @@ import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.d
 import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_field.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/label_text_field.dart';
 
-import 'cubit/submit_report_cubit.dart';
+import 'submit_report_cubit.dart';
 
 @RoutePage()
-class SubmitReportPage extends BasePage<PageCubit, PageState, PageEvent> {
-  SubmitReportPage(this.id, this.reportType, {super.key});
-
+class SubmitReportPage
+    extends BasePage<SubmitReportCubit, SubmitReportState, SubmitReportEvent> {
   final int id;
   final ReportType reportType;
+
+  SubmitReportPage(this.id, this.reportType, {super.key});
 
   final TextEditingController commentController = TextEditingController();
 
@@ -30,15 +31,15 @@ class SubmitReportPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   @override
-  void onEventEmitted(BuildContext context, PageEvent event) {
+  void onEventEmitted(BuildContext context, SubmitReportEvent event) {
     switch (event.type) {
-      case PageEventType.onBackAfterCancel:
+      case SubmitReportEventType.onClose:
         context.router.pop();
     }
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, SubmitReportState state) {
     commentController.updateOnRestore(state.reportComment);
 
     return SizedBox(
@@ -122,7 +123,7 @@ class SubmitReportPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  ListView _buildReasonsItems(BuildContext context, PageState state) {
+  ListView _buildReasonsItems(BuildContext context, SubmitReportState state) {
     return ListView.separated(
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,

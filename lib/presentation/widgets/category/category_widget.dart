@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/domain/models/category/category.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
-
-import '../../../data/datasource/network/responses/category/category/category_response.dart';
 
 class CategoryWidget extends StatelessWidget {
   const CategoryWidget({
@@ -16,8 +15,8 @@ class CategoryWidget extends StatelessWidget {
     this.loadingState,
   });
 
-  final Function(CategoryResponse category) onClicked;
-  final CategoryResponse category;
+  final Function(Category category) onClicked;
+  final Category category;
   final bool isShowCount;
   final LoadingState? loadingState;
 
@@ -51,8 +50,8 @@ class CategoryWidget extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                     ),
-                    if (isShowCount && category.hasAmount)
-                      "(${category.amount})".w(500).s(14)
+                    if (isShowCount && category.hasAdCount)
+                      "(${category.adCount})".w(500).s(14)
                   ],
                 ),
               ),

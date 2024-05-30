@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/datasource/network/constants/rest_query_keys.dart';
 
-@lazySingleton
 class UserAddressService {
   final Dio _dio;
 

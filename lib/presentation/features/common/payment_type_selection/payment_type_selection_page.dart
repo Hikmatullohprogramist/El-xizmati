@@ -1,21 +1,21 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/responses/payment_type/payment_type_response.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/action/action_item_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/action/multi_selection_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
-import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
+import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
 
 import '../../../../../presentation/widgets/loading/loader_state_widget.dart';
-import 'cubit/payment_type_selection_cubit.dart';
+import 'payment_type_selection_cubit.dart';
 
 @RoutePage()
-class PaymentTypeSelectionPage
-    extends BasePage<PageCubit, PageState, PageEvent> {
+class PaymentTypeSelectionPage extends BasePage<PaymentTypeSelectionCubit,
+    PaymentTypeSelectionState, PaymentTypeSelectionEvent> {
   const PaymentTypeSelectionPage({
     super.key,
     this.selectedPaymentTypes,
@@ -29,7 +29,7 @@ class PaymentTypeSelectionPage
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, PaymentTypeSelectionState state) {
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.sizeOf(context).height * .6,
@@ -96,7 +96,7 @@ class PaymentTypeSelectionPage
     );
   }
 
-  ListView _buildSuccessBody(PageState state) {
+  ListView _buildSuccessBody(PaymentTypeSelectionState state) {
     return ListView.separated(
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,

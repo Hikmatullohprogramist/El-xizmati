@@ -1,56 +1,47 @@
-import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/datasource/hive/storages/categories_storage.dart';
-import 'package:onlinebozor/data/datasource/hive/storages/language_storage.dart';
-import 'package:onlinebozor/data/datasource/hive/storages/token_storage.dart';
+import 'package:onlinebozor/data/datasource/floor/dao/category_entity_dao.dart';
+import 'package:onlinebozor/data/datasource/preference/language_preferences.dart';
+import 'package:onlinebozor/data/datasource/preference/token_preferences.dart';
 import 'package:onlinebozor/domain/models/language/language.dart';
 
-@LazySingleton()
+// @LazySingleton()
 class StateRepository {
+  final CategoryEntityDao _categoryEntityDao;
+  final LanguagePreferences _languagePreferences;
+  final TokenPreferences _tokenPreferences;
+
   StateRepository(
-    this._categoriesStorage,
-    this._languageStorage,
-    this._tokenStorage,
+    this._categoryEntityDao,
+    this._languagePreferences,
+    this._tokenPreferences,
   );
 
-  final CategoriesStorage _categoriesStorage;
-  final LanguageStorage _languageStorage;
-  final TokenStorage _tokenStorage;
-
   Future<Language> getLanguage() async {
-    return _languageStorage.language;
+    return _languagePreferences.language;
   }
 
   bool isLanguageSelection() {
-    return _languageStorage.isLanguageSelected;
+    return _languagePreferences.isLanguageSelected;
   }
 
-  Future<void> setLanguage(Language language) {
-    _categoriesStorage.clear();
+  Future<void> setLanguage(Language language) async {
+    await _categoryEntityDao.clear();
 
-    return _languageStorage.setLanguage(language);
+    return _languagePreferences.setLanguage(language);
   }
 
   Future<void> setLogin(bool isLogin) {
-    return _tokenStorage.setLoginState(isLogin);
+    return _tokenPreferences.setIsAuthorized(isLogin);
   }
 
-  bool isUserLoggedIn() {
-    try {
-      return _tokenStorage.isUserLoggedIn;
-    } catch (e) {
-      return false;
-    }
+  bool isAuthorized() {
+    return _tokenPreferences.isAuthorized;
   }
 
   bool isNotAuthorized() {
-    try {
-      return !_tokenStorage.isUserLoggedIn;
-    } catch (e) {
-      return false;
-    }
+    return !_tokenPreferences.isAuthorized;
   }
 
   Future<void> clear() async {
-    await _tokenStorage.clear();
+    await _tokenPreferences.clear();
   }
 }

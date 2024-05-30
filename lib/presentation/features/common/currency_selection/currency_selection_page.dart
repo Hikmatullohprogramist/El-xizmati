@@ -7,13 +7,13 @@ import 'package:onlinebozor/data/datasource/network/responses/currencies/currenc
 import 'package:onlinebozor/presentation/widgets/action/action_item_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/action/selection_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
-import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
+import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 
-import 'cubit/currency_selection_cubit.dart';
+import 'currency_selection_cubit.dart';
 
 @RoutePage()
-class CurrencySelectionPage extends BasePage<PageCubit, PageState, PageEvent> {
+class CurrencySelectionPage extends BasePage<CurrencySelectionCubit, CurrencySelectionState, CurrencySelectionEvent> {
   const CurrencySelectionPage({
     super.key,
     this.initialSelectedItem,
@@ -22,7 +22,7 @@ class CurrencySelectionPage extends BasePage<PageCubit, PageState, PageEvent> {
   final Currency? initialSelectedItem;
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, CurrencySelectionState state) {
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.sizeOf(context).height * .4,
@@ -76,7 +76,7 @@ class CurrencySelectionPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  ListView _buildSuccessBody(PageState state) {
+  ListView _buildSuccessBody(CurrencySelectionState state) {
     return ListView.separated(
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,

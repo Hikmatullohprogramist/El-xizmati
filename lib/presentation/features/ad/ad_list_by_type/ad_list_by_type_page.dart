@@ -14,14 +14,14 @@ import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_lis
 import 'package:onlinebozor/presentation/widgets/ad/vertical/vertical_ad_widget.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/search_app_bar_2.dart';
 import 'package:onlinebozor/presentation/widgets/dashboard/see_all_widget.dart';
-import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
+import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 
-import 'cubit/ad_list_type_cubit.dart';
+import 'ad_list_by_type_cubit.dart';
 
 @RoutePage()
-class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
+class AdListByTypePage extends BasePage<AdListByTypeCubit, AdListByTypeState, AdListByTypeEvent> {
   const AdListByTypePage(this.adType, {super.key});
 
   final AdType adType;
@@ -32,7 +32,7 @@ class AdListByTypePage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, AdListByTypeState state) {
     double width;
     double height;
     width = MediaQuery.of(context).size.width;

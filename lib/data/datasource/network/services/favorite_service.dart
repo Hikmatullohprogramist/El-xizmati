@@ -1,12 +1,8 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:injectable/injectable.dart';
-import 'package:logger/logger.dart';
 import 'package:onlinebozor/data/datasource/network/constants/rest_query_keys.dart';
-import 'package:onlinebozor/domain/models/ad/ad.dart';
 
-@lazySingleton
 class FavoriteService {
   final Dio _dio;
 

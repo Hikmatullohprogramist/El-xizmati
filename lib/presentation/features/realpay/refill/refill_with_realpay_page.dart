@@ -9,14 +9,15 @@ import 'package:onlinebozor/presentation/support/extensions/color_extension.dart
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'package:onlinebozor/presentation/widgets/webview/oauth_web_view.dart';
 
-import 'cubit/refill_with_realpay_cubit.dart';
+import 'refill_with_realpay_cubit.dart';
 
 @RoutePage()
-class RefillWithRealPayPage extends BasePage<PageCubit, PageState, PageEvent> {
+class RefillWithRealPayPage extends BasePage<RefillWithRealpayCubit,
+    RefillWithRealpayState, RefillWithRealpayEvent> {
   const RefillWithRealPayPage({super.key});
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, RefillWithRealpayState state) {
     return SizedBox(
       width: double.infinity,
       // height: MediaQuery.sizeOf(context).height * .9,

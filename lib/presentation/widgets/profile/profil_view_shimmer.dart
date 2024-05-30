@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../divider/custom_diverder.dart';
+import '../divider/custom_divider.dart';
 
 extension ProfilViewShimmer on Widget {
   Widget profilShimmer() {

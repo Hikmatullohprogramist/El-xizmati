@@ -1,80 +1,63 @@
-import 'package:injectable/injectable.dart';
-import 'package:logger/logger.dart';
-import 'package:onlinebozor/core/extensions/list_extensions.dart';
-import 'package:onlinebozor/data/datasource/hive/storages/ad_storage.dart';
-import 'package:onlinebozor/data/datasource/hive/storages/token_storage.dart';
+import 'package:onlinebozor/data/datasource/floor/dao/ad_entity_dao.dart';
+import 'package:onlinebozor/data/datasource/floor/dao/user_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/add_result/add_result_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/cart_service.dart';
+import 'package:onlinebozor/data/datasource/preference/token_preferences.dart';
+import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
-import 'package:onlinebozor/data/repositories/state_repository.dart';
-import 'package:onlinebozor/data/repositories/user_repository.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
+import 'package:onlinebozor/domain/models/ad/ad.dart';
 
-import '../../domain/models/ad/ad.dart';
-
-@LazySingleton()
+// @LazySingleton()
 class CartRepository {
+  final AdEntityDao _adEntityDao;
+  final CartService _cartService;
+  final TokenPreferences _tokenPreferences;
+  final UserPreferences _userPreferences;
+  final UserEntityDao _userEntityDao;
+
   CartRepository(
-    this._adStorage,
+    this._adEntityDao,
     this._cartService,
-    this._tokenStorage,
-    this._stateRepository,
-    this._userRepository,
+    this._tokenPreferences,
+    this._userEntityDao,
+    this._userPreferences,
   );
 
-  final AdStorage _adStorage;
-  final CartService _cartService;
-  final TokenStorage _tokenStorage;
-  final StateRepository _stateRepository;
-  final UserRepository _userRepository;
-
   Future<int> addToCart(Ad ad) async {
-    final isLogin = _tokenStorage.isUserLoggedIn;
+    final isLogin = _tokenPreferences.isAuthorized;
     int resultId = ad.id;
     if (isLogin) {
       final response =
-          await _cartService.addCart(adType: ad.adStatus.name, id: ad.id);
+          await _cartService.addCart(adType: ad.priorityLevel.name, id: ad.id);
       final addResultId =
           AddResultRootResponse.fromJson(response.data).data?.products?.id;
       resultId = addResultId ?? ad.id;
     }
 
-    _adStorage.addToCart(ad.toMap(backendId: resultId));
+    await _adEntityDao.addToCart(ad.id, resultId);
     return resultId;
   }
 
   Future<void> removeFromCart(int adId) async {
-    final isLogin = _tokenStorage.isUserLoggedIn;
+    final isLogin = _tokenPreferences.isAuthorized;
     if (isLogin) {
       await _cartService.removeCart(adId: adId);
     }
 
-    _adStorage.removeFromCart(adId);
+    await _adEntityDao.removeFromCart(adId);
   }
 
   Future<List<Ad>> getCartAds() async {
-    final logger = Logger();
-    logger.w("getFavorites Ads");
-    try {
-      final isLogin = _tokenStorage.isUserLoggedIn;
-      if (isLogin) {
-        final root = await _cartService.getCartAllAds();
-        final response = AdRootResponse.fromJson(root.data).data.results;
-        final responseAds =
-            response.map((e) => e.toMap(isAddedToCart: true)).toList();
-
-        final savedAds = _adStorage.cartAds.map((e) => e.toMap()).toList();
-        final notSavedAds = responseAds.notContainsItems(savedAds);
-        for (var item in notSavedAds) {
-          _adStorage.addToCart(item.toMap());
-        }
-      }
-      return _adStorage.cartAds.map((e) => e.toMap()).toList();
-    } catch (e) {
-      logger.e(e.toString());
-      return List.empty();
+    final isLogin = _tokenPreferences.isAuthorized;
+    if (isLogin) {
+      final root = await _cartService.getCartAllAds();
+      final ads = AdRootResponse.fromJson(root.data).data.results;
+      _adEntityDao.insertAds(ads.map((e) => e.toAdEntity()).toList());
     }
+    final entities = await _adEntityDao.getCartAds();
+    return entities.map((e) => e.toAd()).toList();
   }
 
   Future<void> orderCreate({
@@ -84,10 +67,11 @@ class CartRepository {
     required int tin,
     required int? servicePrice,
   }) async {
-    if (_stateRepository.isNotAuthorized()) throw NotAuthorizedException();
-    if (_userRepository.isNotIdentified()) throw NotIdentifiedException();
+    if (_tokenPreferences.isNotAuthorized) throw NotAuthorizedException();
+    if (_userPreferences.isNotIdentified) throw NotIdentifiedException();
 
-    var neighborhoodId = _userRepository.getSavedUser()?.neighborhoodId ?? 0;
+    var user = await _userEntityDao.getUser();
+    var neighborhoodId = user?.neighborhoodId ?? 0;
 
     await _cartService.orderCreate(
       productId: adId,

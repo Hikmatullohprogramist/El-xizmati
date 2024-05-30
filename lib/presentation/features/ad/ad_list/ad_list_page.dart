@@ -18,10 +18,10 @@ import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 
-import 'cubit/ad_list_cubit.dart';
+import 'ad_list_cubit.dart';
 
 @RoutePage()
-class AdListPage extends BasePage<PageCubit, PageState, PageEvent> {
+class AdListPage extends BasePage<AdListCubit, AdListState, AdListEvent> {
   const AdListPage({
     super.key,
     required this.adListType,
@@ -46,15 +46,15 @@ class AdListPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   @override
-  void onEventEmitted(BuildContext context, PageEvent event) {
+  void onEventEmitted(BuildContext context, AdListEvent event) {
     switch (event.type) {
-      case PageEventType.navigationToAuthStart:
+      case AdListEventType.navigationToAuthStart:
         context.router.push(AuthStartRoute());
     }
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, AdListState state) {
     double width;
     double height;
     width = MediaQuery.of(context).size.width;

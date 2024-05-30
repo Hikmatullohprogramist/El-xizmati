@@ -12,10 +12,10 @@ import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 
-import 'cubit/user_ad_detail_cubit.dart';
+import 'user_ad_detail_cubit.dart';
 
 @RoutePage()
-class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
+class UserAdDetailPage extends BasePage<UserAdDetailCubit, UserAdDetailState, UserAdDetailEvent> {
   const UserAdDetailPage({super.key, required this.userAd});
 
   final UserAd userAd;
@@ -26,7 +26,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, UserAdDetailState state) {
     return Scaffold(
       appBar: DefaultAppBar(
         titleText: "",
@@ -44,7 +44,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildSuccessBody(BuildContext context, PageState state) {
+  Widget _buildSuccessBody(BuildContext context, UserAdDetailState state) {
     return ListView(
       shrinkWrap: true,
       physics: BouncingScrollPhysics(),
@@ -60,7 +60,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildImageList(BuildContext context, PageState state) {
+  Widget _buildImageList(BuildContext context, UserAdDetailState state) {
     return Container(
       color: context.cardColor,
       padding: EdgeInsets.symmetric(vertical: 16),
@@ -96,7 +96,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildTitleBlock(BuildContext context, PageState state) {
+  Widget _buildTitleBlock(BuildContext context, UserAdDetailState state) {
     return Container(
       color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16),
@@ -126,7 +126,7 @@ class UserAdDetailPage extends BasePage<PageCubit, PageState, PageEvent> {
     );
   }
 
-  Widget _buildStatsBlock(BuildContext context, PageState state) {
+  Widget _buildStatsBlock(BuildContext context, UserAdDetailState state) {
     return Container(
       color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16),

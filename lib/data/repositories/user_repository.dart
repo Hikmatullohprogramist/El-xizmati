@@ -1,6 +1,7 @@
-import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/datasource/hive/hive_objects/user/user_hive_object.dart';
-import 'package:onlinebozor/data/datasource/hive/storages/user_storage.dart';
+import 'package:onlinebozor/data/datasource/floor/dao/user_address_entity_dao.dart';
+import 'package:onlinebozor/data/datasource/floor/dao/user_entity_dao.dart';
+import 'package:onlinebozor/data/datasource/floor/entities/user_entity.dart';
+import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
 import 'package:onlinebozor/data/datasource/network/responses/active_sessions/active_session_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/profile/user/user_info_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/profile/user_full/user_full_info_response.dart';
@@ -8,62 +9,70 @@ import 'package:onlinebozor/data/datasource/network/responses/profile/verify_ide
 import 'package:onlinebozor/data/datasource/network/responses/region/region_and_district_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/region/region_root_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/user_service.dart';
+import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/domain/mappers/region_mapper.dart';
 import 'package:onlinebozor/domain/mappers/user_mapper.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/region/region.dart';
 import 'package:onlinebozor/domain/models/region/region_and_district.dart';
+import 'package:onlinebozor/domain/models/social_account/social_account_info.dart';
+import 'package:onlinebozor/domain/models/street/street.dart';
 
-import '../../domain/models/social_account/social_account_info.dart';
-import '../../domain/models/street/street.dart';
-import '../datasource/network/constants/constants.dart';
-
-@LazySingleton()
+// @LazySingleton()
 class UserRepository {
   final UserService _userService;
-  final UserStorage _userStorage;
+  final UserPreferences _userPreferences;
+  final UserEntityDao _userEntityDao;
+  final UserAddressEntityDao _userAddressEntityDao;
 
-  UserRepository(this._userService, this._userStorage);
+  UserRepository(
+    this._userService,
+    this._userPreferences,
+    this._userAddressEntityDao,
+    this._userEntityDao,
+  );
 
-  UserHiveObject? getSavedUser() {
-    return _userStorage.user;
+  Future<UserEntity?> getSavedUser() {
+    return _userEntityDao.getUser();
   }
 
   Future<UserResponse> getUser() async {
     final response = await _userService.getFullUserInfo();
-    final result = UserRootResponse.fromJson(response.data).data;
-    final user = _userStorage.user;
-    _userStorage.set(UserHiveObject(
-        gender: result.gender ?? user?.gender,
-        postName: result.post_name ?? user?.gender,
-        tin: result.tin ?? user?.tin,
-        pinfl: result.pinfl ?? user?.pinfl,
-        isIdentityVerified: result.is_registered ?? user?.isIdentityVerified,
-        state: user?.state,
-        // registeredWithEimzo: userInfo?.registeredWithEimzo,
-        photo: result.photo ?? user?.photo,
-        passportSerial: result.passport_serial ?? user?.passportSerial,
-        passportNumber: result.passport_number ?? user?.passportNumber,
-        // regionId: result.mahalla_id ?? user?.regionId,
-        mobilePhone: result.mobile_phone ?? user?.mobilePhone,
-        isPassword: user?.isPassword,
-        homeName: result.home_name ?? user?.homeName,
-        eimzoAllowToLogin: user?.eimzoAllowToLogin,
-        birthDate: result.birth_date ?? user?.birthDate,
-        username: result.username ?? user?.username,
-        districtId: user?.districtId,
-        apartmentName: user?.apartmentName,
-        id: result.id ?? user?.id,
-        email: result.email ?? user?.email,
-        fullName: result.full_name ?? user?.fullName,
-        neighborhoodId: result.mahalla_id ?? user?.neighborhoodId,
-        regionId: result.region_id ?? user?.regionId,
-        districtName: user?.districtName,
-        regionName: user?.regionName,
-        areaName: user?.areaName,
-        oblName: user?.oblName));
-    return result;
+    final actual = UserRootResponse.fromJson(response.data).data;
+    final saved = await _userEntityDao.getUser();
+
+    await _userPreferences.setUserTin(actual.tin);
+    await _userPreferences.setUserPinfl(actual.pinfl);
+    await _userPreferences.setIdentityState(actual.is_registered);
+
+    await _userEntityDao.updateUser(
+      UserEntity(
+        id: actual.id ?? saved!.id,
+        fullName: actual.full_name ?? saved?.fullName ?? "",
+        pinfl: actual.pinfl ?? saved?.pinfl,
+        tin: actual.tin ?? saved?.tin,
+        gender: actual.gender ?? saved?.gender,
+        docSerial: actual.passport_serial ?? saved?.docSerial,
+        docNumber: actual.passport_number ?? saved?.docNumber,
+        regionId: actual.region_id ?? saved?.regionId,
+        regionName: saved?.regionName ?? "",
+        districtId: saved?.districtId,
+        districtName: saved?.districtName ?? "",
+        neighborhoodId: actual.mahalla_id ?? saved?.neighborhoodId,
+        neighborhoodName: saved?.neighborhoodName ?? "",
+        houseNumber: actual.home_name ?? saved?.houseNumber,
+        apartmentName: saved?.apartmentName,
+        birthDate: actual.birth_date ?? saved?.birthDate,
+        photo: actual.photo ?? saved?.photo,
+        email: actual.email ?? saved?.email,
+        phone: actual.mobile_phone ?? saved?.phone ?? "",
+        notificationSource: actual.message_type ?? saved?.notificationSource,
+        isIdentified: actual.is_registered ?? saved?.isIdentified ?? false,
+        state: saved?.state,
+      ),
+    );
+    return actual;
   }
 
   Future<IdentityDocumentInfoResponse> getIdentityDocument({
@@ -132,12 +141,12 @@ class UserRepository {
     required String postName,
     required String phoneNumber,
   }) async {
-    final user = _userStorage.user;
+    final user = await _userEntityDao.getUser();
     await _userService.sendUserInformation(
+      id: user!.id,
       email: email,
       gender: gender,
       homeName: homeName,
-      id: user?.id ?? -1,
       neighborhoodId: neighborhoodId,
       mobilePhone: mobilePhone,
       photo: photo,
@@ -198,15 +207,11 @@ class UserRepository {
   }
 
   bool isIdentityVerified() {
-    return _userStorage.isIdentityVerified;
+    return _userPreferences.isIdentified;
   }
 
   bool isNotIdentified() {
-    try {
-      return !_userStorage.isIdentityVerified;
-    } catch (e) {
-      return false;
-    }
+    return !_userPreferences.isIdentified;
   }
 
   Future<List<ActiveSession>> getActiveDevice() async {

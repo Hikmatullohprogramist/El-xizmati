@@ -1,6 +1,8 @@
+import 'package:onlinebozor/data/datasource/floor/entities/ad_entity.dart';
 import 'package:onlinebozor/data/datasource/hive/hive_objects/ad/ad_hive_object.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad_detail/ad_detail_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/user_ad/user_ad_response.dart';
 import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
@@ -9,37 +11,71 @@ import 'package:onlinebozor/domain/models/ad/ad_item_condition.dart';
 import 'package:onlinebozor/domain/models/ad/ad_priority_level.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad.dart';
+import 'package:onlinebozor/domain/models/currency/currency_code.dart';
 
 extension AdResponseExtension on AdResponse {
-  Ad toMap({
+  Ad toAd({
     bool isAddedToCart = false,
     bool isFavorite = false,
   }) {
     return Ad(
       id: id,
-      backendId: backet_id ?? -1,
+      backendId: backendId ?? -1,
       name: name ?? "",
+      photo: photos?.first.image ?? "",
       price: price ?? 0,
-      currency: currency.toCurrency(),
-      region: region ?? "",
-      district: district ?? "",
-      adRouteType: route_type.toAdAuthorType(),
-      adPropertyStatus: property_status.toAdPropertyStatus(),
-      adStatus: type.toAdPriorityLevel(),
-      adTypeStatus: type_status.toAdTransactionType(),
-      fromPrice: from_price ?? 0,
-      toPrice: to_price ?? 0,
+      fromPrice: fromPrice ?? 0,
+      toPrice: toPrice ?? 0,
+      currencyCode: currencyId.toCurrency(),
+      regionName: regionName ?? "",
+      districtName: districtName ?? "",
+      authorType: authorType.toAdAuthorType(),
+      itemCondition: itemCondition.toAdItemCondition(),
+      priorityLevel: priorityLevel.toAdPriorityLevel(),
+      transactionType: transactionType.toAdTransactionType(),
       categoryId: category?.id ?? -1,
       categoryName: category?.name ?? "",
-      sellerName: seller?.name ?? "",
       sellerId: seller?.tin ?? -1,
-      isSort: is_sort ?? 0,
-      photo: photos?.first.image ?? "",
-      isSell: is_sell ?? false,
-      maxAmount: max_amount ?? 0,
-      view: view ?? 0,
+      sellerName: seller?.name ?? "",
+      maxAmount: maxAmount ?? 0,
+      viewCount: viewCount ?? 0,
       isFavorite: isFavorite,
       isAddedToCart: isAddedToCart,
+      isSort: isSort ?? 0,
+      isSell: isSell ?? false,
+      isCheck: false,
+    );
+  }
+
+  AdEntity toAdEntity({
+    bool isAddedToCart = false,
+    bool isFavorite = false,
+  }) {
+    return AdEntity(
+      id: id,
+      backendId: backendId ?? -1,
+      name: name ?? "",
+      photo: photos?.first.image ?? "",
+      price: price ?? 0,
+      fromPrice: fromPrice ?? 0,
+      toPrice: toPrice ?? 0,
+      currencyCode: currencyId.toCurrency().name,
+      regionName: regionName ?? "",
+      districtName: districtName ?? "",
+      authorType: authorType.toAdAuthorType().name,
+      itemCondition: itemCondition.toAdItemCondition().name,
+      priorityLevel: priorityLevel.toAdPriorityLevel().name,
+      transactionType: transactionType.toAdTransactionType().name,
+      categoryId: category?.id ?? -1,
+      categoryName: category?.name ?? "",
+      sellerId: seller?.tin ?? -1,
+      sellerName: seller?.name ?? "",
+      maxAmount: maxAmount ?? 0,
+      viewCount: viewCount ?? 0,
+      isFavorite: isFavorite,
+      isAddedToCart: isAddedToCart,
+      isSort: isSort ?? 0,
+      isSell: isSell ?? false,
       isCheck: false,
     );
   }
@@ -75,7 +111,7 @@ extension AdDetailResponseExtension on AdDetailResponse {
       currency: currency.toCurrency(),
       isContract: is_contract ?? false,
       adAuthorType: route_type.toAdAuthorType(),
-      adItemCondition: property_status.toAdPropertyStatus(),
+      adItemCondition: property_status.toAdItemCondition(),
       isAutoRenew: is_autoRenew ?? false,
       adTransactionType: type_status.toAdTransactionType(),
       adPriorityLevel: type.toAdPriorityLevel(),
@@ -133,13 +169,13 @@ extension AdObjectExtension on AdHiveObject {
       id: id,
       name: name,
       price: price,
-      currency: currency.toCurrency(),
-      region: region,
-      district: district,
-      adRouteType: adRouteType.toAdAuthorType(),
-      adPropertyStatus: adPropertyStatus.toAdPropertyStatus(),
-      adStatus: adStatus.toAdPriorityLevel(),
-      adTypeStatus: adTypeStatus.toAdTransactionType(),
+      currencyCode: currency.toCurrency(),
+      regionName: region,
+      districtName: district,
+      authorType: adRouteType.toAdAuthorType(),
+      itemCondition: adPropertyStatus.toAdItemCondition(),
+      priorityLevel: adStatus.toAdPriorityLevel(),
+      transactionType: adTypeStatus.toAdTransactionType(),
       fromPrice: fromPrice,
       toPrice: toPrice,
       categoryId: categoryId,
@@ -152,7 +188,7 @@ extension AdObjectExtension on AdHiveObject {
       maxAmount: maxAmount,
       isFavorite: isFavorite,
       isAddedToCart: isAddedToCart,
-      view: view ?? 0,
+      viewCount: view ?? 0,
       isCheck: false,
     );
   }
@@ -163,18 +199,18 @@ extension AdDetailExtension on AdDetail {
     return Ad(
       id: adId,
       photo: photos?.first.image ?? "",
-      region: address?.region?.name ?? "",
-      district: address?.district?.name ?? "",
+      regionName: address?.region?.name ?? "",
+      districtName: address?.district?.name ?? "",
       toPrice: toPrice,
       sellerId: sellerId ?? -1,
       fromPrice: fromPrice,
       categoryName: categoryName ?? "",
       categoryId: categoryId ?? -1,
-      adPropertyStatus: AdItemCondition.fresh,
-      adRouteType: adAuthorType,
-      adStatus: adPriorityLevel ?? AdPriorityLevel.standard,
-      adTypeStatus: adTransactionType ?? AdTransactionType.SELL,
-      currency: currency,
+      itemCondition: AdItemCondition.fresh,
+      authorType: adAuthorType,
+      priorityLevel: adPriorityLevel ?? AdPriorityLevel.standard,
+      transactionType: adTransactionType ?? AdTransactionType.SELL,
+      currencyCode: currency,
       isCheck: false,
       isSell: true,
       isSort: 0,
@@ -184,40 +220,72 @@ extension AdDetailExtension on AdDetail {
       name: adName,
       price: price,
       sellerName: sellerFullName ?? "",
-      view: view,
+      viewCount: view,
       backendId: 0,
     );
   }
 }
 
-extension AdExtension on Ad {
-  AdHiveObject toMap({int? backendId, bool? isFavorite, bool? isAddedToCart}) {
-    return AdHiveObject(
+extension AdEntityExtension on AdEntity {
+  Ad toAd() {
+    return Ad(
       id: id,
       name: name,
+      photo: photo,
       price: price,
-      currency: currency.currencyToString(),
-      region: region,
-      district: district,
-      adRouteType: adRouteType.adRouteTypeToString(),
-      adPropertyStatus: adPropertyStatus.adPropertyStatusToString(),
-      adStatus: adStatus.adStatusToString(),
-      adTypeStatus: adTypeStatus.adTypeStatusToString(),
       fromPrice: fromPrice,
       toPrice: toPrice,
+      currencyCode: currencyCode.toCurrency(),
       categoryId: categoryId,
       categoryName: categoryName,
+      sellerId: sellerId,
+      regionName: regionName,
+      districtName: districtName,
+      authorType: authorType.toAdAuthorType(),
+      itemCondition: itemCondition.toAdItemCondition(),
+      priorityLevel: priorityLevel.toAdPriorityLevel(),
+      transactionType: transactionType.toAdTransactionType(),
       isSort: isSort,
       isSell: isSell,
       isCheck: isCheck,
-      sellerId: sellerId,
       maxAmount: maxAmount,
-      isFavorite: isFavorite ?? this.isFavorite,
-      isAddedToCart: isAddedToCart ?? this.isAddedToCart,
-      photo: photo,
+      isFavorite: isFavorite,
+      isAddedToCart: isAddedToCart,
       sellerName: sellerName,
-      backendId: this.backendId ?? backendId,
-      view: view,
+      backendId: backendId,
+      viewCount: viewCount,
+    );
+  }
+}
+
+extension AdExtension on Ad {
+  AdEntity toMap() {
+    return AdEntity(
+      id: id,
+      name: name,
+      photo: photo,
+      price: price,
+      fromPrice: fromPrice,
+      toPrice: toPrice,
+      currencyCode: currencyCode.name,
+      categoryId: categoryId,
+      categoryName: categoryName,
+      sellerId: sellerId,
+      regionName: regionName,
+      districtName: districtName,
+      authorType: authorType.adRouteTypeToString(),
+      itemCondition: itemCondition.adPropertyStatusToString(),
+      priorityLevel: priorityLevel.adStatusToString(),
+      transactionType: transactionType.adTypeStatusToString(),
+      isSort: isSort,
+      isSell: isSell,
+      isCheck: isCheck,
+      maxAmount: maxAmount,
+      isFavorite: isFavorite,
+      isAddedToCart: isAddedToCart,
+      sellerName: sellerName,
+      backendId: backendId,
+      viewCount: viewCount,
     );
   }
 }
@@ -239,7 +307,7 @@ extension UserAdExtension on UserAdResponse {
       beginDate: begin_date,
       endDate: end_date,
       adAuthorType: route_type.toAdAuthorType(),
-      adItemCondition: property_status.toAdPropertyStatus(),
+      adItemCondition: property_status.toAdItemCondition(),
       adPriorityLevel: type.toAdPriorityLevel(),
       category: category,
       parentCategory: parent_category,

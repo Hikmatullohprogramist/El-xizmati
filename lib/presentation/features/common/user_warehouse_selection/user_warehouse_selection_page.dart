@@ -9,14 +9,14 @@ import 'package:onlinebozor/presentation/widgets/action/action_item_shimmer.dart
 import 'package:onlinebozor/presentation/widgets/action/multi_selection_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
-import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
+import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 
-import 'cubit/user_warehouse_selection_cubit.dart';
+import 'user_warehouse_selection_cubit.dart';
 
 @RoutePage()
 class UserWarehouseSelectionPage
-    extends BasePage<PageCubit, PageState, PageEvent> {
+    extends BasePage<UserWarehouseSelectionCubit, UserWarehouseSelectionState, UserWarehouseSelectionEvent> {
   const UserWarehouseSelectionPage({super.key, this.selectedItems});
 
   final List<UserAddress>? selectedItems;
@@ -27,7 +27,7 @@ class UserWarehouseSelectionPage
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, UserWarehouseSelectionState state) {
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.sizeOf(context).height * .6,
@@ -97,7 +97,7 @@ class UserWarehouseSelectionPage
     );
   }
 
-  ListView _buildSuccessBody(PageState state) {
+  ListView _buildSuccessBody(UserWarehouseSelectionState state) {
     return ListView.separated(
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,

@@ -11,13 +11,13 @@ class Ad {
     required this.id,
     required this.name,
     required this.price,
-    required this.currency,
-    required this.region,
-    required this.district,
-    required this.adRouteType,
-    required this.adPropertyStatus,
-    required this.adStatus,
-    required this.adTypeStatus,
+    required this.currencyCode,
+    required this.regionName,
+    required this.districtName,
+    required this.authorType,
+    required this.itemCondition,
+    required this.priorityLevel,
+    required this.transactionType,
     required this.fromPrice,
     required this.toPrice,
     required this.categoryId,
@@ -31,7 +31,7 @@ class Ad {
     required this.isSort,
     required this.isSell,
     required this.maxAmount,
-    required this.view,
+    required this.viewCount,
   });
 
   Ad copy() {
@@ -39,13 +39,13 @@ class Ad {
       id: id,
       name: name,
       price: price,
-      currency: currency,
-      region: region,
-      district: district,
-      adRouteType: adRouteType,
-      adPropertyStatus: adPropertyStatus,
-      adStatus: adStatus,
-      adTypeStatus: adTypeStatus,
+      currencyCode: currencyCode,
+      regionName: regionName,
+      districtName: districtName,
+      authorType: authorType,
+      itemCondition: itemCondition,
+      priorityLevel: priorityLevel,
+      transactionType: transactionType,
       fromPrice: fromPrice,
       toPrice: toPrice,
       categoryId: categoryId,
@@ -59,7 +59,7 @@ class Ad {
       isSort: isSort,
       isSell: isSell,
       maxAmount: maxAmount,
-      view: view,
+      viewCount: viewCount,
     );
   }
 
@@ -67,13 +67,13 @@ class Ad {
   final int id;
   final String name;
   final int price;
-  final CurrencyCode currency;
-  final String region;
-  final String district;
-  final AdAuthorType adRouteType;
-  final AdItemCondition adPropertyStatus;
-  final AdPriorityLevel adStatus;
-  final AdTransactionType adTypeStatus;
+  final CurrencyCode currencyCode;
+  final String regionName;
+  final String districtName;
+  final AdAuthorType authorType;
+  final AdItemCondition itemCondition;
+  final AdPriorityLevel priorityLevel;
+  final AdTransactionType transactionType;
   final int fromPrice;
   final int toPrice;
   final int categoryId;
@@ -83,7 +83,7 @@ class Ad {
   final int maxAmount;
   final String sellerName;
   final int sellerId;
-  final int view;
+  final int viewCount;
   bool isFavorite;
   bool isAddedToCart;
   bool isCheck;
@@ -94,14 +94,14 @@ class Ad {
   }
 
   bool get isProductAd =>
-      adTypeStatus == AdTransactionType.SELL ||
-      adTypeStatus == AdTransactionType.FREE ||
-      adTypeStatus == AdTransactionType.EXCHANGE ||
-      adTypeStatus == AdTransactionType.BUY;
+      transactionType == AdTransactionType.SELL ||
+      transactionType == AdTransactionType.FREE ||
+      transactionType == AdTransactionType.EXCHANGE ||
+      transactionType == AdTransactionType.BUY;
 
   bool get isServiceAd =>
-      adTypeStatus == AdTransactionType.SERVICE ||
-      adTypeStatus == AdTransactionType.BUY_SERVICE;
+      transactionType == AdTransactionType.SERVICE ||
+      transactionType == AdTransactionType.BUY_SERVICE;
 }
 
 class AdPhotoModel {

@@ -10,10 +10,10 @@ import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart'
 import 'package:onlinebozor/presentation/widgets/card/card_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 
-import 'cubit/user_cards_cubit.dart';
+import 'user_cards_cubit.dart';
 
 @RoutePage()
-class UserCardsPage extends BasePage<PageCubit, PageState, PageEvent> {
+class UserCardsPage extends BasePage<UserCardsCubit, PageState, PageEvent> {
   const UserCardsPage({super.key});
 
   @override

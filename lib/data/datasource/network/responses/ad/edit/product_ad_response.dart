@@ -5,10 +5,10 @@ import 'package:onlinebozor/data/datasource/network/responses/ad/edit/ad_address
 import 'package:onlinebozor/data/datasource/network/responses/ad/edit/ad_payment_type_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/edit/ad_photo_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/address/user_address_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/category/category/category_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/payment_type/payment_type_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/unit/unit_response.dart';
+import 'package:onlinebozor/domain/models/category/category.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 
@@ -91,10 +91,10 @@ class ProductAdResponse with _$ProductAdResponse {
 
   const ProductAdResponse._();
 
-  CategoryResponse? getCategory() {
+  Category? getCategory() {
     return categoryId == null
         ? null
-        : CategoryResponse(id: categoryId!, name: categoryName);
+        : Category(id: categoryId!, name: categoryName ?? "");
   }
 
   List<UploadableFile> getPhotos() {
@@ -137,10 +137,10 @@ class ProductAdResponse with _$ProductAdResponse {
         otherPropertyStatus?.toUpperCase().contains("FRESH") == true;
   }
 
-  CategoryResponse? getOtherCategory() {
+  Category? getOtherCategory() {
     return otherCategoryId == null
         ? null
-        : CategoryResponse(id: otherCategoryId!, name: otherCategoryName);
+        : Category(id: otherCategoryId!, name: otherCategoryName ?? "");
   }
 
   UserAddressResponse? getUserAddress() {

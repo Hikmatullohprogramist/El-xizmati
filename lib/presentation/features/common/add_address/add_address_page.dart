@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
-import 'package:onlinebozor/presentation/features/common/add_address/cubit/add_address_cubit.dart';
+import 'package:onlinebozor/presentation/features/common/add_address/add_address_cubit.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
@@ -17,6 +17,8 @@ import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_fie
 import 'package:onlinebozor/presentation/widgets/form_field/label_text_field.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/validator/default_validator.dart';
 import 'package:onlinebozor/presentation/widgets/switch/custom_switch.dart';
+
+import 'add_address_cubit.dart';
 
 @RoutePage()
 class AddAddressPage

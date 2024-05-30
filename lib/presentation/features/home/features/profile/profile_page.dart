@@ -12,25 +12,25 @@ import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dar
 import 'package:onlinebozor/presentation/widgets/action/selection_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/empty_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
-import 'package:onlinebozor/presentation/widgets/divider/custom_diverder.dart';
+import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
 import 'package:onlinebozor/presentation/widgets/profile/profile_item_widget.dart';
 
-import 'cubit/profile_cubit.dart';
+import 'profile_cubit.dart';
 
 @RoutePage()
-class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
+class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
   const ProfilePage({super.key});
 
   @override
-  void onEventEmitted(BuildContext context, PageEvent event) {
+  void onEventEmitted(BuildContext context, ProfileEvent event) {
     switch (event.type) {
-      case PageEventType.onLogOut:
+      case ProfileEventType.onLogOut:
         context.router.push(ProfileRoute());
     }
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, PageState state) {
+  Widget onWidgetBuild(BuildContext context, ProfileState state) {
     return Scaffold(
       appBar: EmptyAppBar(
         titleText: Strings.profileViewTitlle,
@@ -61,7 +61,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
 
   /// Block builder methods
 
-  Widget _buildProfileBlock(PageState state, BuildContext context) {
+  Widget _buildProfileBlock(ProfileState state, BuildContext context) {
     return Container(
       color: Colors.white,
       child: Column(
@@ -95,7 +95,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildOrderBlock(
     BuildContext context,
-    PageState state,
+    ProfileState state,
   ) {
     return Container(
       color: Colors.white,
@@ -150,7 +150,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildCardBlock(
     BuildContext context,
-    PageState state,
+    ProfileState state,
   ) {
     return Container(
       color: Colors.white,
@@ -202,23 +202,12 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildSettingsBlock(
     BuildContext context,
-    PageState state,
+    ProfileState state,
   ) {
     return Container(
       color: Colors.white,
       child: Column(
         children: [
-          Visibility(
-            visible: false,
-            child: ProfileItemWidget(
-              name: Strings.profileSettings,
-              icon: Assets.images.icProfileSettings,
-              onClicked: () {
-                context.router.push(SettingRoute());
-                vibrateAsHapticFeedback();
-              },
-            ),
-          ),
           Visibility(visible: false, child: Divider(indent: 46, height: 1)),
           ProfileItemWidget(
             name: Strings.profileChangeLanguage,
@@ -247,7 +236,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
 
   Widget _buildLogoutBlock(
     BuildContext context,
-    PageState state,
+    ProfileState state,
   ) {
     return Visibility(
       visible: state.isLogin,
@@ -287,7 +276,7 @@ class ProfilePage extends BasePage<PageCubit, PageState, PageEvent> {
 
   /// Bottom sheet showing methods
 
-  void _showChangeLanguageBottomSheet(BuildContext context, PageState state) {
+  void _showChangeLanguageBottomSheet(BuildContext context, ProfileState state) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,

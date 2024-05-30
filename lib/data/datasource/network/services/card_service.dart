@@ -1,10 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/datasource/network/constants/rest_constants.dart';
 import 'package:onlinebozor/data/datasource/network/constants/rest_header_keys.dart';
 import 'package:onlinebozor/data/datasource/network/constants/rest_query_keys.dart';
 
-@LazySingleton()
 class CardService {
   CardService(this._dio);
 
@@ -29,10 +26,7 @@ class CardService {
   }
 
   Future<Response> removeCard(String cardId, int tin) async {
-    final body = {
-      "card_id": cardId,
-      RestHeaderKeys: tin
-    };
+    final body = {"card_id": cardId, RestHeaderKeys: tin};
     return _dio.delete("api/realpay/v1/card/remove", data: body);
   }
 }
