@@ -19,7 +19,7 @@ class CategoryEntity {
   String? icon;
 
   @ColumnInfo(name: "category_type")
-  String? type; // product, service, popular
+  String? type; // product, service, popular, catalog
 
   @ColumnInfo(name: "category_ad_count")
   int? adCount;

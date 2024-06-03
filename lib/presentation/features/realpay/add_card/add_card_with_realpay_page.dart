@@ -21,51 +21,53 @@ class AddCardWithRealPayPage extends BasePage<AddCardWithRealpayCubit,
     return SizedBox(
       width: double.infinity,
       // height: MediaQuery.sizeOf(context).height * .9,
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-        child: Container(
-          color: context.bottomSheetColor,
-          padding: EdgeInsets.only(top: 15),
-          child: Stack(
-            children: [
-              state.loadingState == LoadingState.loading
-                  ? Center(
-                      child: CircularProgressIndicator(
-                      color: StaticColors.dodgerBlue,
-                    ))
-                  : Column(
-                      children: [
-                        SizedBox(height: 24),
-                        Expanded(
-                          child: OAuthWebView(
-                            initialUrl: cubit(context).generatePaymentUrl(),
-                            redirectUrl: RestConstants.REAL_PAY_REDIRECT_URI,
-                            onPageStarted: (url) {},
-                            onProcess: (process) {},
-                            onPageFinished: (url) {},
-                            onRedirectUrlHandled: (url) {
-                              cubit(context)
-                                  .stateMessageManager
-                                  .showSuccessSnackBar(
-                                      Strings.cardAddSuccessMessage);
+      child: Material(
+        child: ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+          child: Container(
+            color: context.bottomSheetColor,
+            padding: EdgeInsets.only(top: 15),
+            child: Stack(
+              children: [
+                state.loadingState == LoadingState.loading
+                    ? Center(
+                        child: CircularProgressIndicator(
+                        color: StaticColors.dodgerBlue,
+                      ))
+                    : Column(
+                        children: [
+                          SizedBox(height: 24),
+                          Expanded(
+                            child: OAuthWebView(
+                              initialUrl: cubit(context).generatePaymentUrl(),
+                              redirectUrl: RestConstants.REAL_PAY_REDIRECT_URI,
+                              onPageStarted: (url) {},
+                              onProcess: (process) {},
+                              onPageFinished: (url) {},
+                              onRedirectUrlHandled: (url) {
+                                cubit(context)
+                                    .stateMessageManager
+                                    .showSuccessSnackBar(
+                                        Strings.cardAddSuccessMessage);
 
-                              context.router.pop(true);
-                            },
-                            onFailed: (url) {},
+                                context.router.pop(true);
+                              },
+                              onFailed: (url) {},
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-              BottomSheetTitle(
-                title: Strings.cardAddTitle,
-                onCloseClicked: () {
-                  context.router.pop();
-                },
-              ),
-            ],
+                        ],
+                      ),
+                BottomSheetTitle(
+                  title: Strings.cardAddTitle,
+                  onCloseClicked: () {
+                    context.router.pop();
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

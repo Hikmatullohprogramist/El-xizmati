@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 
 class AdCartBuyWidget extends StatefulWidget {
   const AdCartBuyWidget({
@@ -40,7 +40,7 @@ class _AdCartBuyWidget extends State<AdCartBuyWidget> {
           child: InkWell(
             onTap: () {
               widget.onCartClicked();
-              vibrateAsHapticFeedback();
+              HapticFeedback.lightImpact();
               setState(() => _isAddedCart = !_isAddedCart);
             },
             borderRadius: BorderRadius.only(
@@ -76,7 +76,7 @@ class _AdCartBuyWidget extends State<AdCartBuyWidget> {
           child: InkWell(
             onTap: () {
               widget.onBuyClicked();
-              vibrateAsHapticFeedback();
+              HapticFeedback.lightImpact();
             },
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(2),

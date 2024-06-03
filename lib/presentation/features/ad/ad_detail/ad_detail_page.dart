@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
@@ -703,19 +704,15 @@ class AdDetailPage extends BasePage<AdDetailCubit, AdDetailState, AdDetailEvent>
     BuildContext context,
     ReportType reportType,
   ) async {
-    final isReported = await showModalBottomSheet(
+    final isReported = await showCupertinoModalBottomSheet(
       context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
       builder: (context) => SubmitReportPage(adId, reportType),
     );
   }
 
   void _showReportTypeBottomSheet(BuildContext context) {
-    showModalBottomSheet(
+    showCupertinoModalBottomSheet(
       context: context,
-      backgroundColor: Colors.transparent,
       builder: (BuildContext bc) {
         return Container(
           decoration: BoxDecoration(

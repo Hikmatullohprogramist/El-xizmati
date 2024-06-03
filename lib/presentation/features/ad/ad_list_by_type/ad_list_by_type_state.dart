@@ -3,7 +3,7 @@ part of 'ad_list_by_type_cubit.dart';
 @freezed
 class AdListByTypeState with _$AdListByTypeState {
   const factory AdListByTypeState({
-    @Default(AdType.PRODUCT) AdType adType,
+    @Default(AdType.product) AdType adType,
     @Default(LoadingState.loading) LoadingState cheapAdsState,
     @Default(LoadingState.loading) LoadingState popularAdsState,
     @Default(<Ad>[]) List<Ad> cheapAds,

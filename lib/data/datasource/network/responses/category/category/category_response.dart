@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hive/hive.dart';
 
 part 'category_response.freezed.dart';
 part 'category_response.g.dart';
@@ -21,17 +20,16 @@ class CategoryRootResponse with _$CategoryRootResponse {
 
 @freezed
 class CategoryResponse with _$CategoryResponse {
-  @HiveType(typeId: 1)
   const factory CategoryResponse({
-    @HiveField(1) required int id,
-    @HiveField(2) String? name,
-    @HiveField(3) String? key_word,
-    @HiveField(4) int? parent_id,
-    @HiveField(5) dynamic icon,
-    @HiveField(6) dynamic icon_home,
-    @HiveField(7) bool? is_home,
-    @HiveField(8) String? type,
-    @HiveField(9) int? amount,
+    required int id,
+    String? name,
+    String? key_word,
+    int? parent_id,
+    dynamic icon,
+    dynamic icon_home,
+    bool? is_home,
+    String? type,
+    int? amount,
   }) = _CategoryResponse;
 
   const CategoryResponse._();

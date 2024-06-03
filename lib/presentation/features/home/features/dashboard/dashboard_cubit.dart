@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
+import 'package:onlinebozor/core/extensions/list_extensions.dart';
+import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/datasource/network/responses/banner/banner_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/category/popular_category/popular_category_response.dart';
 import 'package:onlinebozor/data/repositories/ad_repository.dart';
@@ -41,6 +45,16 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
     ]);
   }
 
+  StreamSubscription? _productAdsSubs;
+  StreamSubscription? _serviceAdsSubs;
+
+  @override
+  Future<void> close() async {
+    await _productAdsSubs?.cancel();
+    await _serviceAdsSubs?.cancel();
+    super.close();
+  }
+
   Future<void> getPopularCategories() async {
     try {
       final popularCategories =
@@ -63,30 +77,81 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
   }
 
   Future<void> getPopularProductAds() async {
-    try {
-      final ads = await _adRepository.getDashboardPopularAds(
-        adType: AdType.PRODUCT,
-      );
-
-      updateState(
-        (state) => state.copyWith(
-          popularProductAds: ads,
-          popularProductAdsState: LoadingState.success,
-        ),
-      );
-    } catch (e, stackTrace) {
-      updateState(
-        (state) => state.copyWith(popularProductAdsState: LoadingState.error),
-      );
-      logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      stateMessageManager.showErrorSnackBar(e.toString());
+    if (states.popularProductAdsState == LoadingState.success ||
+        states.popularProductAds.isNotEmpty) {
+      return;
     }
+
+    _adRepository
+        .getDashboardPopularAds(adType: AdType.product)
+        .initFuture()
+        .onStart(() {})
+        .onSuccess((data) {
+          final ids = data.adIds();
+          _productAdsSubs = _adRepository.watchAdsByIds(ids).listen((ads) {
+            logger.w("watchPopularProductAds ads count = ${ads.length}, cart count = ${ads.cartCount()}, favorite count = ${ads.favoriteCount()}");
+            updateState((state) => state.copyWith(
+                  popularProductAds: ads.map((e) => e).toList(),
+                  popularProductAdsState:
+                      ads.isEmpty ? LoadingState.empty : LoadingState.success,
+                ));
+          })
+            ..onError((error) {
+              logger.w("watchPopularProductAds error = $error");
+              updateState((state) => state.copyWith(
+                    popularProductAdsState: LoadingState.error,
+                  ));
+            });
+        })
+        .onError((error) {
+          logger.e("watchPopularProductAds error = $error");
+          updateState((state) => state.copyWith(
+                popularProductAdsState: LoadingState.error,
+              ));
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> getPopularServiceAds() async {
+    if (states.popularServiceAdsState == LoadingState.success ||
+        states.popularServiceAds.isNotEmpty) {
+      return;
+    }
+
+    _adRepository
+        .getDashboardPopularAds(adType: AdType.product)
+        .initFuture()
+        .onStart(() {})
+        .onSuccess((data) {
+          final ids = data.adIds();
+          _serviceAdsSubs = _adRepository.watchAdsByIds(ids).listen((ads) {
+            logger.w("watchPopularServiceAds ads count = ${ads.length}, cart count = ${ads.cartCount()}, favorite count = ${ads.favoriteCount()}");
+            updateState((state) => state.copyWith(
+                  popularServiceAds: ads,
+                  popularServiceAdsState:
+                      ads.isEmpty ? LoadingState.empty : LoadingState.success,
+                ));
+          })
+            ..onError((error) {
+              logger.w("watchPopularServiceAds error = $error");
+              updateState((state) => state.copyWith(
+                    popularServiceAdsState: LoadingState.error,
+                  ));
+            });
+        })
+        .onError((error) {
+          logger.e("watchPopularServiceAds error = $error");
+          updateState((state) => state.copyWith(
+                popularServiceAdsState: LoadingState.error,
+              ));
+        })
+        .onFinished(() {})
+        .executeFuture();
+
     try {
       final ads = await _adRepository.getDashboardPopularAds(
-        adType: AdType.SERVICE,
+        adType: AdType.service,
       );
       updateState(
         (state) => state.copyWith(
@@ -155,7 +220,7 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
   }
 
   Future<void> popularProductAdsUpdateFavorite(Ad ad) async {
-    _updateFavoriteData(ad, states.popularProductAds.toList());
+    _updateFavoriteData(ad, []);
   }
 
   Future<void> popularProductAdsUpdateCart(Ad ad) async {
@@ -177,6 +242,7 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
   Future<void> recentlyViewAdUpdateFavorite(Ad ad) async {
     _updateFavoriteData(ad, states.recentlyViewedAds.toList());
   }
+
   Future<void> recentlyViewAdUpdateCart(Ad ad) async {
     _updateCartData(ad, states.recentlyViewedAds.toList());
   }
@@ -186,12 +252,12 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
       int index = adList.indexOf(ad);
       if (index == -1) return;
 
-      if (ad.isAddedToCart) {
+      if (ad.isInCart) {
         await _cartRepository.removeFromCart(ad.id);
-        adList[index] = ad..isAddedToCart = false;
+        adList[index] = ad..isInCart = false;
       } else {
         await _cartRepository.addToCart(ad);
-        adList[index] = ad..isAddedToCart = true;
+        adList[index] = ad..isInCart = true;
       }
 
       updateState((state) => state);
@@ -200,22 +266,21 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
     }
   }
 
-
   Future<void> _updateFavoriteData(Ad ad, List<Ad> adList) async {
     try {
-      int index = adList.indexOf(ad);
-      if (index == -1) return;
+      // int index = adList.indexOf(ad);
+      // if (index == -1) return;
 
       if (ad.isFavorite) {
         await _favoriteRepository.removeFromFavorite(ad.id);
-        adList[index] = ad..isFavorite = false;
+        // adList[index] = ad..isFavorite = false;
       } else {
         final backendId = await _favoriteRepository.addToFavorite(ad);
-        adList[index] = ad
-          ..isFavorite = true
-          ..backendId = backendId;
+        // adList[index] = ad
+        //   ..isFavorite = true
+        //   ..backendId = backendId;
       }
-      updateState((state) => state);
+      // updateState((state) => state);
     } catch (error) {
       logger.e(error.toString());
     }

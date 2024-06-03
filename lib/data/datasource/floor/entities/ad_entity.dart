@@ -58,10 +58,10 @@ class AdEntity {
   int maxAmount;
 
   @ColumnInfo(name: "ad_is_favorite")
-  bool isFavorite;
+  bool? isFavorite;
 
-  @ColumnInfo(name: "ad_is_added_to_cart")
-  bool isAddedToCart;
+  @ColumnInfo(name: "ad_is_in_cart")
+  bool? isInCart;
 
   @ColumnInfo(name: "ad_is_sort")
   int isSort;
@@ -98,7 +98,7 @@ class AdEntity {
     required this.transactionType,
     required this.maxAmount,
     required this.isFavorite,
-    required this.isAddedToCart,
+    required this.isInCart,
     required this.isSort,
     required this.isSell,
     required this.isCheck,

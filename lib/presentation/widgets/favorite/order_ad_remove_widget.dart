@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 
 class OrderAdRemoveWidget extends StatelessWidget {
   const OrderAdRemoveWidget({
@@ -20,7 +20,7 @@ class OrderAdRemoveWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(6),
         onTap: () {
           onClicked();
-          vibrateAsHapticFeedback();
+          HapticFeedback.lightImpact();
         },
         child: Container(
           padding: EdgeInsets.all(5),

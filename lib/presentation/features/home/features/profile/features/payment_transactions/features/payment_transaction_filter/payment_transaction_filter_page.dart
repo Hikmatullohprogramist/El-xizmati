@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
@@ -308,13 +309,12 @@ class PaymentTransactionFilterPage extends BasePage<
   }
 
   Future<int> showResultBottomSheet(
-      BuildContext context, List<PaymentFilter> items) async {
+    BuildContext context,
+    List<PaymentFilter> items,
+  ) async {
     var selectedIndex = 3;
-    await showModalBottomSheet(
+    await showCupertinoModalBottomSheet(
       context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
       builder: (context) => Container(
         padding: EdgeInsets.symmetric(vertical: 20),
         decoration: BoxDecoration(
@@ -352,11 +352,8 @@ class PaymentTransactionFilterPage extends BasePage<
   }
 
   void showFilterList(BuildContext context, List<PaymentTransaction> items) {
-    showModalBottomSheet(
+    showCupertinoModalBottomSheet(
       context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
       builder: (context) => InkWell(
         onTap: () {
           context.router.pop();

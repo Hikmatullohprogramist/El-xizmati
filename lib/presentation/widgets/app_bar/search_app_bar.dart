@@ -3,7 +3,7 @@ import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 
 class SearchAppBar extends AppBar implements PreferredSizeWidget {
   final VoidCallback onSearchClicked;
@@ -75,7 +75,7 @@ class SearchAppBar extends AppBar implements PreferredSizeWidget {
     return IconButton(
       onPressed: () {
         onFavoriteClicked();
-        vibrateAsHapticFeedback();
+        HapticFeedback.lightImpact();
       },
       icon: Assets.images.bottomBar.favorite.svg(),
     );
@@ -85,7 +85,7 @@ class SearchAppBar extends AppBar implements PreferredSizeWidget {
     return IconButton(
       onPressed: () {
         onNotificationClicked();
-        vibrateAsHapticFeedback();
+        HapticFeedback.lightImpact();
       },
       icon: Assets.images.icNotification.svg(color: Color(0xFF5C6AC4)),
     );

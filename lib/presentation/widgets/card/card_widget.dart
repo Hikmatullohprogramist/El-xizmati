@@ -65,7 +65,7 @@ class CardWidget extends StatelessWidget {
                         .w(400)
                         .c(context.textPrimaryInverse),
                     SizedBox(height: 16),
-                    "${priceMaskFormatter.formatDouble(userCard.balance)} ${Strings.currencyUzb}"
+                    "${priceMaskFormatter.formatDouble(userCard.balance)} ${Strings.currencyUzs}"
                         .s(20)
                         .w(600)
                         .c(context.textPrimaryInverse),

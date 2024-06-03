@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 
 class AdDetailFavoriteWidget extends StatefulWidget {
   const AdDetailFavoriteWidget({
@@ -34,7 +34,7 @@ class _AdFavoriteWidget extends State<AdDetailFavoriteWidget> {
         setState(() {
           _isFavorite = !_isFavorite;
         });
-        vibrateAsHapticFeedback();
+        HapticFeedback.lightImpact();
       },
       borderRadius: BorderRadius.circular(24),
       child: Container(

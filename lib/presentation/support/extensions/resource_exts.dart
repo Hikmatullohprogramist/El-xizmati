@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/data/datasource/network/responses/user_order/user_order_response.dart';
 import 'package:onlinebozor/domain/models/ad/ad_action.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
@@ -13,55 +14,54 @@ import 'package:onlinebozor/domain/models/order/user_order_status.dart';
 import 'package:onlinebozor/domain/models/report/report_reason.dart';
 import 'package:onlinebozor/domain/models/report/report_type.dart';
 
-
 extension AdTransactionTypeResExts on AdTransactionType {
   String getLocalizedName() {
     switch (this) {
-      case AdTransactionType.SELL:
+      case AdTransactionType.sell:
         return Strings.adTransactionTypeSell;
-      case AdTransactionType.FREE:
+      case AdTransactionType.free:
         return Strings.adTransactionTypeFree;
-      case AdTransactionType.EXCHANGE:
+      case AdTransactionType.exchange:
         return Strings.adTransactionTypeExchange;
-      case AdTransactionType.SERVICE:
+      case AdTransactionType.service:
         return Strings.adTransactionTypeService;
-      case AdTransactionType.BUY:
+      case AdTransactionType.buy:
         return Strings.adTransactionTypeBuy;
-      case AdTransactionType.BUY_SERVICE:
+      case AdTransactionType.buy_service:
         return Strings.adTransactionTypeBuyService;
     }
   }
 
   String getTransactionTypeLocalizedName() {
     switch (this) {
-      case AdTransactionType.SELL:
+      case AdTransactionType.sell:
         return Strings.orderListTypeSell;
-      case AdTransactionType.FREE:
+      case AdTransactionType.free:
         return Strings.orderListTypeSell;
-      case AdTransactionType.EXCHANGE:
+      case AdTransactionType.exchange:
         return Strings.orderListTypeSell;
-      case AdTransactionType.SERVICE:
+      case AdTransactionType.service:
         return Strings.orderListTypeSell;
-      case AdTransactionType.BUY:
+      case AdTransactionType.buy:
         return Strings.orderListTypeBuy;
-      case AdTransactionType.BUY_SERVICE:
+      case AdTransactionType.buy_service:
         return Strings.orderListTypeBuy;
     }
   }
 
   Color getTransactionTypeColor() {
     switch (this) {
-      case AdTransactionType.SELL:
+      case AdTransactionType.sell:
         return Color(0xFF0096B2);
-      case AdTransactionType.FREE:
+      case AdTransactionType.free:
         return Color(0xFF0096B2);
-      case AdTransactionType.EXCHANGE:
+      case AdTransactionType.exchange:
         return Color(0xFF0096B2);
-      case AdTransactionType.SERVICE:
+      case AdTransactionType.service:
         return Color(0xFF0096B2);
-      case AdTransactionType.BUY:
+      case AdTransactionType.buy:
         return Color(0xFFBEA039);
-      case AdTransactionType.BUY_SERVICE:
+      case AdTransactionType.buy_service:
         return Color(0xFFBEA039);
     }
   }
@@ -70,9 +70,9 @@ extension AdTransactionTypeResExts on AdTransactionType {
 extension AdTypeResExts on AdType {
   String getLocalizedName() {
     switch (this) {
-      case AdType.PRODUCT:
+      case AdType.product:
         return Strings.adTypeProductTitle;
-      case AdType.SERVICE:
+      case AdType.service:
         return Strings.adTypeServiceTitle;
     }
   }
@@ -113,14 +113,14 @@ extension AdActionResExts on AdAction {
 extension CurrencyExtension on CurrencyCode {
   String getLocalizedName() {
     switch (this) {
-      case CurrencyCode.uzb:
-        return Strings.currencyUzb;
+      case CurrencyCode.uzs:
+        return Strings.currencyUzs;
       case CurrencyCode.usd:
         return Strings.currencyUsd;
       case CurrencyCode.eur:
         return Strings.currencyEuro;
       case CurrencyCode.rub:
-        return Strings.currencyRouble;
+        return Strings.currencyRuble;
     }
   }
 }
@@ -184,7 +184,24 @@ extension UserAdStatusResExts on UserAdStatus {
   }
 }
 
-extension UserOrderResExts on UserOrderStatus {
+extension UserOrderResExts on UserOrder {
+  String getLocalizedCancelComment() {
+    switch (this) {
+      case "sellernone":
+        return OrderCancelReason.SELLER_NOT_ANSWERED.getLocalizedName();
+      case "changedidea":
+        return OrderCancelReason.CHANGED_IDEA.getLocalizedName();
+      case "selectedother":
+        return OrderCancelReason.SELECTED_INCORRECTED_AD.getLocalizedName();
+      case "other":
+        return OrderCancelReason.OTHER_REASON.getLocalizedName();
+      default:
+    }
+    return cancelNote ?? "";
+  }
+}
+
+extension UserOrderStatusResExts on UserOrderStatus {
   String getLocalizedName() {
     switch (this) {
       case UserOrderStatus.ACCEPTED:
@@ -231,7 +248,7 @@ extension UserOrderResExts on UserOrderStatus {
     }
   }
 
-  Color getColor() {
+  Color color() {
     switch (this) {
       case UserOrderStatus.ACCEPTED:
         return Color(0xFF4BB16F);

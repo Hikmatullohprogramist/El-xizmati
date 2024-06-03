@@ -1,13 +1,11 @@
 import 'package:logger/logger.dart';
 import 'package:onlinebozor/core/extensions/list_extensions.dart';
 import 'package:onlinebozor/data/datasource/floor/dao/ad_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/hive/storages/ad_storage.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/add_result/add_result_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/favorite_service.dart';
 import 'package:onlinebozor/data/datasource/preference/token_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
-import 'package:onlinebozor/data/error/app_locale_exception.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 
@@ -30,9 +28,9 @@ class FavoriteRepository {
     int resultId = ad.id;
     if (isLogin) {
       final response = await _favoriteService.addToFavorite(adId: ad.id);
-      final addResultId =
+      final adResultId =
           AddResultRootResponse.fromJson(response.data).data?.products?.id;
-      resultId = addResultId ?? ad.id;
+      resultId = adResultId ?? ad.id;
     }
 
     await _adEntityDao.addToFavorite(ad.id);
@@ -46,6 +44,7 @@ class FavoriteRepository {
     }
 
     await _adEntityDao.removeFromFavorite(adId);
+    Logger().w("repo => removeFromFavorite isLogin before after DAO");
   }
 
   Future<List<Ad>> getProductFavoriteAds() async {
@@ -88,7 +87,7 @@ class FavoriteRepository {
     return entities
         .map((e) => e.toAd())
         .toList()
-        .filterIf((e) => (e.isProductAd));
+        .filterIf((e) => (e.isServiceAd));
   }
 
   Future<void> pushAllFavoriteAds() async {

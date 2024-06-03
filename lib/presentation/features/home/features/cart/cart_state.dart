@@ -3,8 +3,8 @@ part of 'cart_cubit.dart';
 @freezed
 class CartState with _$CartState {
   const factory CartState({
-    @Default(LoadingState.loading) LoadingState loadState,
-    @Default(<Ad>[]) List<Ad> items,
+    @Default(LoadingState.loading) LoadingState cartAdsState,
+    @Default(<Ad>[]) List<Ad> cardAds,
   }) = _CartState;
 }
 

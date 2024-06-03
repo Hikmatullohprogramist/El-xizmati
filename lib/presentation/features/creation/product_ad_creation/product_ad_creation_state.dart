@@ -12,7 +12,7 @@ class ProductAdCreationState with _$ProductAdCreationState {
 //
     @Default("") String title,
     Category? category,
-    @Default(AdTransactionType.SELL) AdTransactionType adTransactionType,
+    @Default(AdTransactionType.sell) AdTransactionType adTransactionType,
 //
     @Default(MAX_IMAGE_COUNT) int maxImageCount,
     List<UploadableFile>? pickedImages,

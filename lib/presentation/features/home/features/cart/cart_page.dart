@@ -4,7 +4,7 @@ import 'package:onlinebozor/presentation/support/extensions/color_extension.dart
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/empty_app_bar.dart';
@@ -30,13 +30,13 @@ class CartPage extends BasePage<CartCubit, CartState, CartEvent> {
       backgroundColor: context.backgroundColor,
       body: LoaderStateWidget(
         isFullScreen: true,
-        loadingState: state.loadState,
+        loadingState: state.cartAdsState,
         loadingBody: _buildLoadingBody(),
         successBody: _buildSuccessBody(context, state),
         emptyBody: FavoriteEmptyWidget(
           onActionClicked: () => context.router.push(DashboardRoute()),
         ),
-        onRetryClicked: () => cubit(context).getItems(),
+        onRetryClicked: () => cubit(context).getCartAds(),
       ),
     );
   }
@@ -60,17 +60,17 @@ class CartPage extends BasePage<CartCubit, CartState, CartEvent> {
       strokeWidth: 3,
       color: StaticColors.colorPrimary,
       onRefresh: () async {
-        cubit(context).getItems();
+        cubit(context).getCartAds();
       },
       child: ListView.separated(
         physics: BouncingScrollPhysics(),
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
-        itemCount: state.items.length,
+        itemCount: state.cardAds.length,
         padding: EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 16),
         itemBuilder: (context, index) {
           return CartWidget(
-            ad: state.items[index],
+            ad: state.cardAds[index],
             onDeleteClicked: (Ad ad) {
               showYesNoBottomSheet(
                 context,
@@ -85,7 +85,7 @@ class CartPage extends BasePage<CartCubit, CartState, CartEvent> {
               );
             },
             onFavoriteClicked: (Ad ad) {
-              vibrateAsHapticFeedback();
+              HapticFeedback.lightImpact();
               cubit(context).changeFavorite(ad);
             },
             onProductClicked: (Ad ad) {

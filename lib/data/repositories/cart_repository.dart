@@ -60,6 +60,12 @@ class CartRepository {
     return entities.map((e) => e.toAd()).toList();
   }
 
+  Stream<List<Ad>> watchCartAds() {
+    return _adEntityDao
+        .watchCartAds()
+        .asyncMap((event) => event.map((e) => e.toAd()).toList());
+  }
+
   Future<void> orderCreate({
     required int adId,
     required int amount,

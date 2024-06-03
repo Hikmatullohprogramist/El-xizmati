@@ -33,49 +33,51 @@ class PaymentTypeSelectionPage extends BasePage<PaymentTypeSelectionCubit,
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.sizeOf(context).height * .6,
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Container(
-              color: context.bottomSheetColor,
-              child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Column(
-                  children: [
-                    SizedBox(height: 20),
-                    BottomSheetTitle(
-                      title: Strings.selectionPaymentTypeTitle,
-                      onCloseClicked: () {
-                        context.router.pop();
-                      },
-                    ),
-                    LoaderStateWidget(
-                      isFullScreen: false,
-                      loadingState: state.loadState,
-                      loadingBody: _buildLoadingBody(),
-                      successBody: _buildSuccessBody(state),
-                      onRetryClicked: () => cubit(context).getItems(),
-                    ),
-                    SizedBox(height: 72),
-                  ],
+      child: Material(
+        child: ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Container(
+                color: context.bottomSheetColor,
+                child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 20),
+                      BottomSheetTitle(
+                        title: Strings.selectionPaymentTypeTitle,
+                        onCloseClicked: () {
+                          context.router.pop();
+                        },
+                      ),
+                      LoaderStateWidget(
+                        isFullScreen: false,
+                        loadingState: state.loadState,
+                        loadingBody: _buildLoadingBody(),
+                        successBody: _buildSuccessBody(state),
+                        onRetryClicked: () => cubit(context).getItems(),
+                      ),
+                      SizedBox(height: 72),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: CustomElevatedButton(
-                text: Strings.commonSave,
-                onPressed: () {
-                  context.router.pop(state.selectedItems);
-                },
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: CustomElevatedButton(
+                  text: Strings.commonSave,
+                  onPressed: () {
+                    context.router.pop(state.selectedItems);
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

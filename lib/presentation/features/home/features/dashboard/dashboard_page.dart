@@ -11,7 +11,7 @@ import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_list_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_list_widget.dart';
 import 'package:onlinebozor/presentation/widgets/ad/top_rated/top_rated_ad_list_shimmer.dart';
@@ -80,7 +80,7 @@ class DashboardPage
           IconButton(
             onPressed: () {
               context.router.push(FavoriteListRoute());
-              vibrateAsHapticFeedback();
+              HapticFeedback.lightImpact();
             },
             icon:
                 Assets.images.bottomBar.favorite.svg(color: Color(0xFF5C6AC4)),
@@ -88,7 +88,7 @@ class DashboardPage
           IconButton(
             onPressed: () {
               context.router.push(NotificationListRoute());
-              vibrateAsHapticFeedback();
+              HapticFeedback.lightImpact();
             },
             icon: Assets.images.icNotification.svg(color: Color(0xFF5C6AC4)),
           )
@@ -179,7 +179,7 @@ class DashboardPage
         Expanded(
           child: ProductOrService(
             invoke: () {
-              context.router.push(AdListByTypeRoute(adType: AdType.PRODUCT));
+              context.router.push(AdListByTypeRoute(adType: AdType.product));
             },
             color: Color(0xFFB9A0FF),
             title: Strings.productsTitle,
@@ -192,7 +192,7 @@ class DashboardPage
         Expanded(
           child: ProductOrService(
             invoke: () {
-              context.router.push(AdListByTypeRoute(adType: AdType.SERVICE));
+              context.router.push(AdListByTypeRoute(adType: AdType.service));
             },
             color: Color(0xFFFFBB79),
             title: Strings.servicesTitle,

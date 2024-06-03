@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_outlined_button.dart';
 
 import 'package:onlinebozor/core/gen/localization/strings.dart';
@@ -90,7 +90,7 @@ class DefaultEmptyWidget extends StatelessWidget {
           // strokeColor: StaticColors.bondiBlue.withAlpha(200),
           onPressed: () {
             onReloadClicked!();
-            vibrateAsHapticFeedback();
+            HapticFeedback.lightImpact();
           },
         ),
       ),
@@ -105,7 +105,7 @@ class DefaultEmptyWidget extends StatelessWidget {
           text: mainActionLabel ?? Strings.commonRetry,
           onPressed: () {
             onMainActionClicked!();
-            vibrateAsHapticFeedback();
+            HapticFeedback.lightImpact();
           },
         ),
       ),

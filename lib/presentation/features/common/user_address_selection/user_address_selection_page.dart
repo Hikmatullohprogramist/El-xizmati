@@ -5,7 +5,7 @@ import 'package:onlinebozor/domain/models/user/user_address.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/presentation/widgets/address/user_address_empty_widget.dart';
 import 'package:onlinebozor/presentation/widgets/address/user_address_selection.dart';
 import 'package:onlinebozor/presentation/widgets/address/user_address_shimmer.dart';
@@ -29,43 +29,45 @@ class UserAddressSelectionPage extends BasePage<UserAddressSelectionCubit,
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.sizeOf(context).height * .7,
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-        child: Container(
-          color: context.bottomSheetColor,
-          child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: Column(
-              children: [
-                SizedBox(height: 20),
-                BottomSheetTitle(
-                  title: Strings.selectionUserAddressTitle,
-                  onCloseClicked: () {
-                    context.router.pop();
-                  },
-                ),
-                LoaderStateWidget(
-                  isFullScreen: false,
-                  loadingState: state.loadState,
-                  loadingBody: _buildLoadingBody(),
-                  successBody: _buildSuccessBody(state),
-                  emptyBody: UserAddressEmptyWidget(
-                    onActionClicked: () async {
-                      final isAdded =
-                          await context.router.push(AddAddressRoute());
-                      if (isAdded is bool && isAdded == true) {
-                        cubit(context).getItems();
-                      }
+      child: Material(
+        child: ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+          child: Container(
+            color: context.bottomSheetColor,
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  BottomSheetTitle(
+                    title: Strings.selectionUserAddressTitle,
+                    onCloseClicked: () {
+                      context.router.pop();
                     },
                   ),
-                  onRetryClicked: () {
-                    cubit(context).getItems();
-                  },
-                ),
-              ],
+                  LoaderStateWidget(
+                    isFullScreen: false,
+                    loadingState: state.loadState,
+                    loadingBody: _buildLoadingBody(),
+                    successBody: _buildSuccessBody(state),
+                    emptyBody: UserAddressEmptyWidget(
+                      onActionClicked: () async {
+                        final isAdded =
+                            await context.router.push(AddAddressRoute());
+                        if (isAdded is bool && isAdded == true) {
+                          cubit(context).getItems();
+                        }
+                      },
+                    ),
+                    onRetryClicked: () {
+                      cubit(context).getItems();
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -101,7 +103,7 @@ class UserAddressSelectionPage extends BasePage<UserAddressSelectionCubit,
           address: element,
           onClicked: () {
             context.router.pop(element);
-            vibrateAsHapticFeedback();
+            HapticFeedback.lightImpact();
           },
           isSelected: selectedAddress?.id == element.id,
         );

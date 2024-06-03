@@ -11,11 +11,11 @@ class AdCreationService {
 
   AdCreationService(Dio dio) : _dio = dio;
 
-  Future<Response> getCategoriesForCreationAd(String type) {
-    final Map<String, dynamic> query = {"type": type};
+  Future<Response> getAdCreationCategories(String type) {
+    final Map<String, dynamic> params = {"type": type.toUpperCase()};
     return _dio.get(
       'api/mobile/v1/get-categories-for-create-ad',
-      queryParameters: query,
+      queryParameters: params,
     );
   }
 
@@ -125,9 +125,9 @@ class AdCreationService {
       "show_social": isShowMySocialAccount,
       "has_shipping": isPaidDeliveryEnabled,
       "has_free_shipping": isFreeDeliveryEnabled,
-      "main_type_status": AdTransactionType.SELL.name, // will be constant
+      "main_type_status": AdTransactionType.sell.name, // will be constant
 
-      "sale_type": AdType.PRODUCT.name.toUpperCase(),
+      "sale_type": AdType.product.name.toUpperCase(),
       "video": videoUrl,
       "min_amount": minAmount,
 
@@ -165,7 +165,7 @@ class AdCreationService {
       commonBody.addAll(paidDeliveryBody);
     }
 
-    if (adTransactionType != AdTransactionType.FREE) {
+    if (adTransactionType != AdTransactionType.free) {
       final notFreeBody = {
         "price": price,
         "currency": currency,
@@ -179,7 +179,7 @@ class AdCreationService {
       commonBody.addAll(notFreeBody);
     }
 
-    if (adTransactionType == AdTransactionType.EXCHANGE) {
+    if (adTransactionType == AdTransactionType.exchange) {
       final exchangeBody = {
         "other_name": exchangeTitle,
         "other_category_id": exchangeCategoryId!,
@@ -198,11 +198,11 @@ class AdCreationService {
     }
 
     var endPoint = "api/mobile/v1/create-product-ad";
-    if (adTransactionType == AdTransactionType.FREE) {
+    if (adTransactionType == AdTransactionType.free) {
       endPoint = adId != null
           ? "api/mobile/v1/update-free-product-ad"
           : "api/mobile/v1/create-free-product-ad";
-    } else if (adTransactionType == AdTransactionType.EXCHANGE) {
+    } else if (adTransactionType == AdTransactionType.exchange) {
       endPoint = adId != null
           ? "api/mobile/v1/update-exchange-product-ad"
           : "api/mobile/v1/create-exchange-product-ad";
@@ -276,7 +276,7 @@ class AdCreationService {
 
       // "type_status": AdTransactionType.SERVICE.name,
       // "main_type_status": AdTransactionType.SELL.name,
-      "sale_type": AdType.SERVICE.name.toUpperCase(),
+      "sale_type": AdType.service.name.toUpperCase(),
 
       "is_auto_renew": isAutoRenewal,
       "show_social": isShowMySocialAccount,
@@ -366,7 +366,7 @@ class AdCreationService {
       commonBody.addAll(updateBody);
     }
 
-    final endPoint = adType == AdType.PRODUCT
+    final endPoint = adType == AdType.product
         ? adId != null
             ? "api/mobile/v1/update-product-request"
             : "api/mobile/v1/create-product-request"

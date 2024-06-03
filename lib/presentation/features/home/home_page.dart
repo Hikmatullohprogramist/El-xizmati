@@ -6,7 +6,7 @@ import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 
 import 'home_cubit.dart';
 
@@ -49,7 +49,7 @@ class HomePage extends BasePage<HomeCubit, HomeState, HomeEvent> {
               currentIndex: tabsRouter.activeIndex,
               onTap: (index) {
                 tabsRouter.setActiveIndex(index);
-                vibrateAsHapticFeedback();
+                HapticFeedback.lightImpact();
               },
               items: [
                 BottomNavigationBarItem(

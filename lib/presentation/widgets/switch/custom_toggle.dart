@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 
 class CustomToggle extends StatefulWidget {
   CustomToggle({
@@ -37,7 +37,7 @@ class _CustomToggleState extends State<CustomToggle> {
     return GestureDetector(
       onTap: () {
         widget.onChanged(!widget.isChecked);
-        vibrateAsHapticFeedback();
+        HapticFeedback.selectionClick();
       },
       child: Container(
         width: widget.width,

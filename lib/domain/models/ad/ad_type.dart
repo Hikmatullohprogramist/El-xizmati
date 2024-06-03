@@ -1,4 +1,4 @@
 enum AdType {
-  PRODUCT,
-  SERVICE,
+  product,
+  service,
 }

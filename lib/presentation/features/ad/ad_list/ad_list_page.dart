@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
@@ -164,61 +165,59 @@ class AdListPage extends BasePage<AdListCubit, AdListState, AdListEvent> {
     BuildContext context,
     ReportType reportType,
   ) async {
-    final isReported = await showModalBottomSheet(
+    final isReported = await showCupertinoModalBottomSheet(
       context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
       builder: (context) => SubmitReportPage(sellerTin!, reportType),
     );
   }
 
   void _showReportTypeBottomSheet(BuildContext context) {
-    showModalBottomSheet(
+    showCupertinoModalBottomSheet(
       context: context,
-      backgroundColor: Colors.transparent,
       builder: (BuildContext bc) {
-        return Container(
-          decoration: BoxDecoration(
-            color: context.bottomSheetColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
+        return Material(
+          child: Container(
+            decoration: BoxDecoration(
+              color: context.bottomSheetColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
             ),
-          ),
-          // padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: 20),
-              BottomSheetTitle(
-                title: Strings.actionTitle,
-                onCloseClicked: () {
-                  context.router.pop();
-                },
-              ),
-              SizedBox(height: 16),
-              ActionListItem(
-                item: "",
-                title: Strings.reportUserReportTitle,
-                icon: Assets.images.icSubmitReport,
-                onClicked: (item) {
-                  Navigator.pop(context);
-                  _showReportPage(context, ReportType.AUTHOR_REPORT);
-                },
-              ),
-              ActionListItem(
-                item: "",
-                title: Strings.reportUserBlockTitle,
-                icon: Assets.images.icSubmitBlock,
-                onClicked: (item) {
-                  Navigator.pop(context);
-                  _showReportPage(context, ReportType.AUTHOR_BLOCK);
-                },
-              ),
-              SizedBox(height: 32),
-            ],
+            // padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(height: 20),
+                BottomSheetTitle(
+                  title: Strings.actionTitle,
+                  onCloseClicked: () {
+                    context.router.pop();
+                  },
+                ),
+                SizedBox(height: 16),
+                ActionListItem(
+                  item: "",
+                  title: Strings.reportUserReportTitle,
+                  icon: Assets.images.icSubmitReport,
+                  onClicked: (item) {
+                    Navigator.pop(context);
+                    _showReportPage(context, ReportType.AUTHOR_REPORT);
+                  },
+                ),
+                ActionListItem(
+                  item: "",
+                  title: Strings.reportUserBlockTitle,
+                  icon: Assets.images.icSubmitBlock,
+                  onClicked: (item) {
+                    Navigator.pop(context);
+                    _showReportPage(context, ReportType.AUTHOR_BLOCK);
+                  },
+                ),
+                SizedBox(height: 32),
+              ],
+            ),
           ),
         );
       },

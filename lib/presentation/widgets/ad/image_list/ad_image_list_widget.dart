@@ -1,11 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 import 'package:onlinebozor/presentation/widgets/action/action_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/ad/image_list/ad_image_list_add_widget.dart';
@@ -93,11 +94,11 @@ class AdImageListWidget extends StatelessWidget {
                           );
                         },
                         onReorderStart: (index) {
-                          vibrateAsHapticFeedback();
+                          HapticFeedback.lightImpact();
                         },
                         onReorder: (int oldIndex, int newIndex) {
                           onReorder(oldIndex, newIndex);
-                          vibrateAsHapticFeedback();
+                          HapticFeedback.lightImpact();
                         },
                         children: imagePaths
                             .mapIndexed(
@@ -148,51 +149,52 @@ class AdImageListWidget extends StatelessWidget {
   }
 
   void _showPickerTypeBottomSheet(BuildContext context) {
-    showModalBottomSheet(
+    showCupertinoModalBottomSheet(
       context: context,
-      backgroundColor: Colors.transparent,
       builder: (BuildContext bc) {
-        return Container(
-          decoration: BoxDecoration(
-            color: context.bottomSheetColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
+        return Material(
+          child: Container(
+            decoration: BoxDecoration(
+              color: context.bottomSheetColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
             ),
-          ),
-          // padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: 20),
-              BottomSheetTitle(
-                title: Strings.actionTitle,
-                onCloseClicked: () {
-                  context.router.pop();
-                },
-              ),
-              SizedBox(height: 16),
-              ActionListItem(
-                item: "",
-                title: Strings.imageListAddTakePhoto,
-                icon: Assets.images.icAddImageCamera,
-                onClicked: (item) {
-                  onTakePhotoClicked();
-                  Navigator.pop(context);
-                },
-              ),
-              ActionListItem(
-                item: "",
-                title: Strings.imageListAddPickImage,
-                icon: Assets.images.icAddImageGallery,
-                onClicked: (item) {
-                  onPickImageClicked();
-                  Navigator.pop(context);
-                },
-              ),
-              SizedBox(height: 32),
-            ],
+            // padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(height: 20),
+                BottomSheetTitle(
+                  title: Strings.actionTitle,
+                  onCloseClicked: () {
+                    context.router.pop();
+                  },
+                ),
+                SizedBox(height: 16),
+                ActionListItem(
+                  item: "",
+                  title: Strings.imageListAddTakePhoto,
+                  icon: Assets.images.icAddImageCamera,
+                  onClicked: (item) {
+                    onTakePhotoClicked();
+                    Navigator.pop(context);
+                  },
+                ),
+                ActionListItem(
+                  item: "",
+                  title: Strings.imageListAddPickImage,
+                  icon: Assets.images.icAddImageGallery,
+                  onClicked: (item) {
+                    onPickImageClicked();
+                    Navigator.pop(context);
+                  },
+                ),
+                SizedBox(height: 32),
+              ],
+            ),
           ),
         );
       },

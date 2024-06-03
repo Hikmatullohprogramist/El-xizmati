@@ -1,8 +1,6 @@
 import 'package:onlinebozor/data/datasource/floor/entities/ad_entity.dart';
-import 'package:onlinebozor/data/datasource/hive/hive_objects/ad/ad_hive_object.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad_detail/ad_detail_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/user_ad/user_ad_response.dart';
 import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
@@ -11,12 +9,11 @@ import 'package:onlinebozor/domain/models/ad/ad_item_condition.dart';
 import 'package:onlinebozor/domain/models/ad/ad_priority_level.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad.dart';
-import 'package:onlinebozor/domain/models/currency/currency_code.dart';
 
 extension AdResponseExtension on AdResponse {
   Ad toAd({
-    bool isAddedToCart = false,
-    bool isFavorite = false,
+    bool? isInCart,
+    bool? isFavorite,
   }) {
     return Ad(
       id: id,
@@ -39,8 +36,8 @@ extension AdResponseExtension on AdResponse {
       sellerName: seller?.name ?? "",
       maxAmount: maxAmount ?? 0,
       viewCount: viewCount ?? 0,
-      isFavorite: isFavorite,
-      isAddedToCart: isAddedToCart,
+      isFavorite: isFavorite ?? false,
+      isInCart: isInCart ?? false,
       isSort: isSort ?? 0,
       isSell: isSell ?? false,
       isCheck: false,
@@ -48,8 +45,8 @@ extension AdResponseExtension on AdResponse {
   }
 
   AdEntity toAdEntity({
-    bool isAddedToCart = false,
-    bool isFavorite = false,
+    bool? isInCart,
+    bool? isFavorite,
   }) {
     return AdEntity(
       id: id,
@@ -73,7 +70,7 @@ extension AdResponseExtension on AdResponse {
       maxAmount: maxAmount ?? 0,
       viewCount: viewCount ?? 0,
       isFavorite: isFavorite,
-      isAddedToCart: isAddedToCart,
+      isInCart: isInCart,
       isSort: isSort ?? 0,
       isSell: isSell ?? false,
       isCheck: false,
@@ -92,7 +89,10 @@ extension AdPhoneExtension on AdPhotoResponse {
 }
 
 extension AdDetailResponseExtension on AdDetailResponse {
-  AdDetail toMap({bool favorite = false, bool isAddCart = false}) {
+  AdDetail toMap({
+    bool? isInCart,
+    bool? isFavorite,
+  }) {
     return AdDetail(
       adId: id,
       adName: name ?? "",
@@ -156,40 +156,8 @@ extension AdDetailResponseExtension on AdDetailResponse {
       unitId: unit_id,
       video: video,
       warehouses: warehouses,
-      isFavorite: favorite,
-      isAddedToCart: isAddCart,
-    );
-  }
-}
-
-extension AdObjectExtension on AdHiveObject {
-  Ad toMap() {
-    return Ad(
-      backendId: backendId ?? -1,
-      id: id,
-      name: name,
-      price: price,
-      currencyCode: currency.toCurrency(),
-      regionName: region,
-      districtName: district,
-      authorType: adRouteType.toAdAuthorType(),
-      itemCondition: adPropertyStatus.toAdItemCondition(),
-      priorityLevel: adStatus.toAdPriorityLevel(),
-      transactionType: adTypeStatus.toAdTransactionType(),
-      fromPrice: fromPrice,
-      toPrice: toPrice,
-      categoryId: categoryId,
-      categoryName: categoryName,
-      sellerName: sellerName,
-      sellerId: sellerId,
-      isSort: isSort,
-      photo: photo,
-      isSell: isSell,
-      maxAmount: maxAmount,
-      isFavorite: isFavorite,
-      isAddedToCart: isAddedToCart,
-      viewCount: view ?? 0,
-      isCheck: false,
+      isFavorite: isFavorite ?? false,
+      isInCart: isInCart ?? false,
     );
   }
 }
@@ -209,14 +177,14 @@ extension AdDetailExtension on AdDetail {
       itemCondition: AdItemCondition.fresh,
       authorType: adAuthorType,
       priorityLevel: adPriorityLevel ?? AdPriorityLevel.standard,
-      transactionType: adTransactionType ?? AdTransactionType.SELL,
+      transactionType: adTransactionType ?? AdTransactionType.sell,
       currencyCode: currency,
       isCheck: false,
       isSell: true,
       isSort: 0,
       maxAmount: 0,
       isFavorite: isFavorite,
-      isAddedToCart: isAddedToCart,
+      isInCart: isInCart,
       name: adName,
       price: price,
       sellerName: sellerFullName ?? "",
@@ -249,8 +217,8 @@ extension AdEntityExtension on AdEntity {
       isSell: isSell,
       isCheck: isCheck,
       maxAmount: maxAmount,
-      isFavorite: isFavorite,
-      isAddedToCart: isAddedToCart,
+      isFavorite: isFavorite ?? false,
+      isInCart: isInCart ?? false,
       sellerName: sellerName,
       backendId: backendId,
       viewCount: viewCount,
@@ -259,7 +227,11 @@ extension AdEntityExtension on AdEntity {
 }
 
 extension AdExtension on Ad {
-  AdEntity toMap() {
+  AdEntity toEntity({
+    bool? isInCart,
+    bool? isFavorite,
+    int? backendId,
+  }) {
     return AdEntity(
       id: id,
       name: name,
@@ -273,18 +245,18 @@ extension AdExtension on Ad {
       sellerId: sellerId,
       regionName: regionName,
       districtName: districtName,
-      authorType: authorType.adRouteTypeToString(),
-      itemCondition: itemCondition.adPropertyStatusToString(),
-      priorityLevel: priorityLevel.adStatusToString(),
-      transactionType: transactionType.adTypeStatusToString(),
+      authorType: authorType.stringValue,
+      itemCondition: itemCondition.stringValue,
+      priorityLevel: priorityLevel.stringValue,
+      transactionType: transactionType.stringValue,
       isSort: isSort,
       isSell: isSell,
       isCheck: isCheck,
       maxAmount: maxAmount,
-      isFavorite: isFavorite,
-      isAddedToCart: isAddedToCart,
+      isFavorite: isFavorite ?? this.isFavorite,
+      isInCart: isInCart ?? this.isInCart,
       sellerName: sellerName,
-      backendId: backendId,
+      backendId: backendId ?? this.backendId,
       viewCount: viewCount,
     );
   }
@@ -296,7 +268,7 @@ extension UserAdExtension on UserAdResponse {
       id: id,
       name: name,
       adTransactionType:
-          type_status?.toAdTransactionType() ?? AdTransactionType.SELL,
+          type_status?.toAdTransactionType() ?? AdTransactionType.sell,
       price: price,
       fromPrice: from_price,
       toPrice: to_price,

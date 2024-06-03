@@ -45,7 +45,7 @@ class CategoryWidget extends StatelessWidget {
                 child: Row(
                   children: [
                     Flexible(
-                      child: (category.name ?? "-").w(500).s(14).copyWith(
+                      child: (category.name).w(500).s(14).copyWith(
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),

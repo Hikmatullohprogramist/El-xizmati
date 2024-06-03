@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hive/hive.dart';
 
 part 'unit_response.freezed.dart';
 part 'unit_response.g.dart';
@@ -21,10 +20,9 @@ class UnitRootResponse with _$UnitRootResponse {
 
 @freezed
 class UnitResponse with _$UnitResponse {
-  @HiveType(typeId: 1)
   const factory UnitResponse({
-    @HiveField(1) required int id,
-    @HiveField(2) String? name,
+    required int id,
+    String? name,
   }) = _UnitResponse;
 
   factory UnitResponse.fromJson(Map<String, dynamic> json) =>

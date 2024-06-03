@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 
 class ChipItem extends StatelessWidget {
   const ChipItem({
@@ -47,7 +47,7 @@ class ChipItem extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   if (onActionClicked != null) onActionClicked!(item);
-                  vibrateAsHapticFeedback();
+                  HapticFeedback.lightImpact();
                 },
                 child: Assets.images.icChipClose.svg(height: 20, width: 20),
               ),

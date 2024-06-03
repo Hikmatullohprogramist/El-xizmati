@@ -216,9 +216,9 @@ common_unfind,topilmadi,не найдено,топилмади
 common_yes,Ha,Да,Ҳа
 create_request_title,So‘rov yaratish,Создать запрос,Сўров яратиш
 currency_euro,yevro,евро,евро
-currency_rouble,rubl,рубль,рубл
+currency_ruble,rubl,рубль,рубл
 currency_usd,dollar,доллар,доллар
-currency_uzb,so‘m,сум,сўм
+currency_uzs,so‘m,сум,сўм
 deposit_refill_success_message,To‘lov muvaffaqiyatli qabul qilindi,Платеж успешно получен,Тўлов муваффақиятли қабул қилинди
 deposit_refill_title,Depozitni to‘ldirish,Пополнение депозита,Депозитни тўлдириш
 edit_title,Tahrirlash,Редактировать,Таҳрирлаш

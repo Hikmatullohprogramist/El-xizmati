@@ -6,7 +6,7 @@ import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/domain/models/language/language.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
@@ -58,7 +58,7 @@ class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageState, SetLa
               CustomOutlinedButton(
                 text: Strings.languageRus,
                 onPressed: () {
-                  vibrateAsHapticFeedback();
+                  HapticFeedback.lightImpact();
                   EasyLocalization.of(context)?.setLocale(Locale('ru', 'RU'));
                   cubit(context).setLanguage(Language.russian);
                 },
@@ -69,7 +69,7 @@ class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageState, SetLa
               CustomOutlinedButton(
                 text: Strings.languageUzLat,
                 onPressed: () {
-                  vibrateAsHapticFeedback();
+                  HapticFeedback.lightImpact();
                   EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZ'));
                   cubit(context).setLanguage(Language.uzbekLatin);
                 },
@@ -79,7 +79,7 @@ class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageState, SetLa
               SizedBox(height: 12),
               CustomOutlinedButton(
                 onPressed: () {
-                  vibrateAsHapticFeedback();
+                  HapticFeedback.lightImpact();
                   EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZK'));
                   cubit(context).setLanguage(Language.uzbekCyrill);
                 },

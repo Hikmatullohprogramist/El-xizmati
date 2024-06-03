@@ -56,11 +56,11 @@ class UserOrder with _$UserOrder {
   }
 
   String get formattedTotalSum {
-    return "${priceMaskFormatter.formatDouble(totalSum ?? 0.0)} ${Strings.currencyUzb}";
+    return "${priceMaskFormatter.formatDouble(totalSum ?? 0.0)} ${Strings.currencyUzs}";
   }
 
   String get formattedPrice {
-    return "${priceMaskFormatter.formatDouble(firstProduct?.price?.toDouble() ?? 0.0)} ${Strings.currencyUzb}";
+    return "${priceMaskFormatter.formatDouble(firstProduct?.price?.toDouble() ?? 0.0)} ${Strings.currencyUzs}";
   }
 
   bool get isCanCancel {

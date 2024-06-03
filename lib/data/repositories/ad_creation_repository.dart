@@ -1,4 +1,3 @@
-import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/datasource/floor/dao/category_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/creation/ad_creation_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/edit/product_ad_response.dart';
@@ -12,10 +11,11 @@ import 'package:onlinebozor/data/datasource/network/responses/unit/unit_response
 import 'package:onlinebozor/data/datasource/network/services/ad_creation_service.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/mappers/category_mapper.dart';
-import 'package:onlinebozor/domain/mappers/user_mapper.dart';
+import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/domain/models/category/category.dart';
+import 'package:onlinebozor/domain/models/category/category_type.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
@@ -32,20 +32,22 @@ class AdCreationRepository {
     this._userPreferences,
   );
 
-  Future<List<Category>> getCategoriesForCreationAd(String type) async {
+  Future<List<Category>> getAdCreationCategories(
+    CategoryType categoryType,
+  ) async {
+    final type = categoryType.stringValue;
     final count = await _categoryEntityDao.getCategoriesCountByType(type) ?? 0;
-    if (count > 0) {
-      final entities = await _categoryEntityDao.getCategoriesByType(type);
-      return entities.map((e) => e.toCategory()).toList();
-    } else {
-      final response =
-          await _adCreationService.getCategoriesForCreationAd(type);
-      final categories = CategoryRootResponse.fromJson(response.data).data;
-      await _categoryEntityDao.upsertAll(
-        categories.map((e) => e.toCategoryEntity()).toList(),
-      );
-      return categories.map((e) => e.toCategory()).toList();
+    if (count <= 0) {
+      final response = await _adCreationService.getAdCreationCategories(type);
+      final categories = CategoryRootResponse.fromJson(response.data)
+          .data
+          .map((e) => e.toCategoryEntity(categoryType))
+          .toList();
+      await _categoryEntityDao.insertCategories(categories);
     }
+
+    final entities = await _categoryEntityDao.getCategoriesByType(type);
+    return entities.map((e) => e.toCategory()).toList();
   }
 
   Future<List<Currency>> getCurrenciesForCreationAd() async {
@@ -67,7 +69,8 @@ class AdCreationRepository {
       tinOrPinfl: tin ?? pinfl ?? 0,
     );
     final warehouses = UserAddressRootResponse.fromJson(response.data).data;
-    return warehouses.map((e) => e.toAddress()).toList();
+    throw UnsupportedError("return commented code");
+    // return warehouses.map((e) => e.toAddress()).toList();
   }
 
   Future<List<UnitResponse>> getUnitsForCreationAd() async {

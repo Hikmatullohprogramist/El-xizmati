@@ -34,12 +34,14 @@ class UserAddressRepository {
     await _userAddressEntityDao.upsertAll(
       addresses.map((e) => e.toAddressEntity()).toList(),
     );
-    return addresses.map((e) => e.toAddress()).toList();
+    throw UnsupportedError("return commented code");
+    // return addresses.map((e) => e.toAddress()).toList();
   }
 
   Future<List<UserAddress>> getSavedUserAddresses() async {
     final entities = await _userAddressEntityDao.getSavedAddresses();
-    return entities.map((e) => e.toAddress()).toList();
+    throw UnsupportedError("return commented code");
+    // return entities.map((e) => e.toAddress()).toList();
   }
 
   Future<List<UserAddress>> getUserAddresses() async {

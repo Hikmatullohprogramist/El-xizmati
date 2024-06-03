@@ -34,52 +34,54 @@ class RegionSelectionPage extends BasePage<RegionSelectionCubit,
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.sizeOf(context).height * 0.9,
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Container(
-              color: context.bottomSheetColor,
-              child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Column(
-                  children: [
-                    SizedBox(height: 20),
-                    BottomSheetTitle(
-                      title: Strings.selectionDeliveryDistrictsTitle,
-                      onCloseClicked: () {
-                        context.router.pop();
-                      },
-                    ),
-                    LoaderStateWidget(
-                      isFullScreen: false,
-                      loadingState: state.loadState,
-                      loadingBody: _buildLoadingBody(),
-                      successBody: _buildSuccessBody(state),
-                    ),
-                    SizedBox(height: 56),
-                  ],
+      child: Material(
+        child: ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Container(
+                color: context.bottomSheetColor,
+                child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 20),
+                      BottomSheetTitle(
+                        title: Strings.selectionDeliveryDistrictsTitle,
+                        onCloseClicked: () {
+                          context.router.pop();
+                        },
+                      ),
+                      LoaderStateWidget(
+                        isFullScreen: false,
+                        loadingState: state.loadState,
+                        loadingBody: _buildLoadingBody(),
+                        successBody: _buildSuccessBody(state),
+                      ),
+                      SizedBox(height: 56),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12),
-              child: CustomElevatedButton(
-                text: Strings.commonSave,
-                onPressed: () {
-                  List<District> districts = state.allItems
-                      .where((e) => !e.isParent && e.isSelected)
-                      .map((e) => e.toDistrict())
-                      .toList();
-                  context.router.pop(districts);
-                },
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12),
+                child: CustomElevatedButton(
+                  text: Strings.commonSave,
+                  onPressed: () {
+                    List<District> districts = state.allItems
+                        .where((e) => !e.isParent && e.isSelected)
+                        .map((e) => e.toDistrict())
+                        .toList();
+                    context.router.pop(districts);
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

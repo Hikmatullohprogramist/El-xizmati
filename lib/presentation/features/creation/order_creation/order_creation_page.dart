@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
@@ -11,7 +12,7 @@ import 'package:onlinebozor/presentation/support/extensions/color_extension.dart
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/favorite/order_ad_favorite_widget.dart';
@@ -241,7 +242,7 @@ class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationState,
                           ),
                           onTap: () {
                             cubit(context).decrease();
-                            vibrateAsHapticFeedback();
+                            HapticFeedback.lightImpact();
                           },
                           child: SizedBox(
                             width: 44,
@@ -262,7 +263,7 @@ class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationState,
                           ),
                           onTap: () {
                             cubit(context).increase();
-                            vibrateAsHapticFeedback();
+                            HapticFeedback.lightImpact();
                           },
                           child: SizedBox(
                             width: 44,
@@ -351,7 +352,7 @@ class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationState,
             borderRadius: BorderRadius.circular(10),
             onTap: () {
               cubit(context).setPaymentType(1);
-              vibrateAsHapticFeedback();
+              HapticFeedback.lightImpact();
             },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
@@ -382,7 +383,7 @@ class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationState,
             borderRadius: BorderRadius.circular(10),
             onTap: () {
               cubit(context).setPaymentType(7);
-              vibrateAsHapticFeedback();
+              HapticFeedback.lightImpact();
             },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
@@ -399,7 +400,7 @@ class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationState,
                   Expanded(
                     child: Strings.orderCreationPaymentWithDeposit.w(600).s(14),
                   ),
-                  "${priceMaskFormatter.formatDouble(state.actualDepositBalance)} ${Strings.currencyUzb}"
+                  "${priceMaskFormatter.formatDouble(state.actualDepositBalance)} ${Strings.currencyUzs}"
                       .s(16)
                       .w(500)
                       .c(state.actualDepositBalance > 0
@@ -417,24 +418,10 @@ class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationState,
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                         onTap: () async {
                           RefillWithRealPayPage page = RefillWithRealPayPage();
-                          var isSuccess = await showModalBottomSheet(
-                            isDismissible: false,
+                          var isSuccess = await showCupertinoModalBottomSheet(
                             context: context,
-                            isScrollControlled: true,
-                            useSafeArea: true,
-                            enableDrag: false,
-                            backgroundColor: Colors.transparent,
                             builder: (context) {
-                              return DraggableScrollableSheet(
-                                expand: true,
-                                initialChildSize: 0.9,
-                                minChildSize: 0.25,
-                                maxChildSize: 0.9,
-                                builder: (BuildContext context,
-                                    ScrollController scrollController) {
-                                  return Container(child: page);
-                                },
-                              );
+                              return page;
                             },
                           );
 
@@ -492,7 +479,7 @@ class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationState,
                   .c(Color(0xFF5C6AC3))
                   .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
               (state.adDetail?.currency.getLocalizedName() ??
-                      Strings.currencyUzb)
+                      Strings.currencyUzs)
                   .w(800)
                   .s(18)
                   .c(Color(0xFF5C6AC3))
@@ -508,7 +495,7 @@ class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationState,
                 child: CustomElevatedButton(
                   text: Strings.cartOrderCreate,
                   onPressed: () {
-                    vibrateAsHapticFeedback();
+                    HapticFeedback.lightImpact();
                     if (_formKey.currentState!.validate()) {
                       cubit(context).orderCreate();
                     }

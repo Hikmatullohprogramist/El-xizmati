@@ -8,8 +8,6 @@ import 'package:easy_localization_loader/easy_localization_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:logger/logger.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
@@ -19,8 +17,6 @@ import 'package:onlinebozor/presentation/support/state_message/state_bottom_shee
 import 'package:onlinebozor/presentation/support/state_message/state_message_manager.dart';
 import 'package:onlinebozor/presentation/support/state_message/state_snack_bar_exts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:uuid/uuid.dart';
 
 import 'data/repositories/state_repository.dart';
@@ -35,9 +31,7 @@ Future<void> main() async {
   //   }
   // });
 
-  // await Hive.initFlutter();
-
-   await initializeGetIt();
+  await initializeGetIt();
 
   await EasyLocalization.ensureInitialized();
 
@@ -233,39 +227,5 @@ Future<void> _getDeviceAndAppInfo() async {
     }
   } catch (e) {
     print(e.toString());
-  }
-}
-
-Future<bool> isAppUpdated() async {
-  final PackageInfo packageInfo = await PackageInfo.fromPlatform();
-  final String newVersion = packageInfo.version;
-
-  // Retrieve the saved version from the local storage
-  final Box<String> versionBox = await Hive.openBox<String>('versionBox');
-  final String? savedVersion = versionBox.get('app_version');
-
-  Logger()
-      .w("isAppUpdated savedVersion = $savedVersion, newVersion = $newVersion");
-  if (savedVersion == null || savedVersion != newVersion) {
-    // Save the new version if not matching or first launch
-    await versionBox.put('app_version', newVersion);
-    return true;
-  }
-
-  return false;
-}
-
-Future<void> clearHiveData() async {
-  // Close all boxes before deleting
-  await Hive.close();
-
-  // Delete all data
-  final Directory appDocDirectory = await getApplicationDocumentsDirectory();
-  final String hivePath = appDocDirectory.path;
-  final Directory hiveDirectory = Directory(hivePath);
-
-  // Delete the Hive directory
-  if (await hiveDirectory.exists()) {
-    await hiveDirectory.delete(recursive: true);
   }
 }

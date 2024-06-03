@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
@@ -14,7 +15,7 @@ import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/presentation/widgets/ad/image_list/ad_image_list_widget.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
@@ -338,11 +339,8 @@ class RequestAdCreationPage extends BasePage<RequestAdCreationCubit,
                           validator: (value) =>
                               NotEmptyValidator.validate(value),
                           onTap: () async {
-                            final currency = await showModalBottomSheet(
+                            final currency = await showCupertinoModalBottomSheet(
                               context: context,
-                              isScrollControlled: true,
-                              useSafeArea: true,
-                              backgroundColor: Colors.transparent,
                               builder: (context) => CurrencySelectionPage(
                                 initialSelectedItem: state.currency,
                               ),
@@ -400,11 +398,8 @@ class RequestAdCreationPage extends BasePage<RequestAdCreationCubit,
                 isShowChildrenCount: false,
                 validator: (value) => CountValidator.validate(value),
                 onClickedAdd: () async {
-                  final paymentTypes = await showModalBottomSheet(
+                  final paymentTypes = await showCupertinoModalBottomSheet(
                     context: context,
-                    isScrollControlled: true,
-                    useSafeArea: true,
-                    backgroundColor: Colors.transparent,
                     builder: (context) => PaymentTypeSelectionPage(
                       selectedPaymentTypes: state.paymentTypes,
                     ),
@@ -505,11 +500,8 @@ class RequestAdCreationPage extends BasePage<RequestAdCreationCubit,
             hint: Strings.adCreationAddressLabel,
             validator: (value) => NotEmptyValidator.validate(value),
             onTap: () async {
-              final address = await showModalBottomSheet(
+              final address = await showCupertinoModalBottomSheet(
                 context: context,
-                isScrollControlled: true,
-                useSafeArea: true,
-                backgroundColor: Colors.transparent,
                 builder: (context) => UserAddressSelectionPage(
                   selectedAddress: state.address,
                 ),
@@ -594,7 +586,7 @@ class RequestAdCreationPage extends BasePage<RequestAdCreationCubit,
           CustomElevatedButton(
             text: Strings.commonSave,
             onPressed: () {
-              vibrateAsHapticFeedback();
+              HapticFeedback.lightImpact();
               if (_formKey.currentState!.validate()) {
                 cubit(context).createOrUpdateRequestAd();
               }
@@ -640,11 +632,8 @@ class RequestAdCreationPage extends BasePage<RequestAdCreationCubit,
     BuildContext context,
     RequestAdCreationState state,
   ) async {
-    final districts = await showModalBottomSheet(
+    final districts = await showCupertinoModalBottomSheet(
       context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
       builder: (context) => RegionSelectionPage(
         initialSelectedDistricts: state.requestDistricts,
       ),

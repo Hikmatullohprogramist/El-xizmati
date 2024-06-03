@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 
 class ChipCountItem extends StatelessWidget {
   const ChipCountItem(
@@ -40,7 +40,7 @@ class ChipCountItem extends StatelessWidget {
             InkWell(
               onTap: () {
                 if (onClicked != null) onClicked!();
-                vibrateAsHapticFeedback();
+                HapticFeedback.lightImpact();
               },
               child: Assets.images.icChipExpand.svg(height: 20, width: 20),
             ),

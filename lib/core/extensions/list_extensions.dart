@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:onlinebozor/domain/models/ad/ad.dart';
 
 extension ListExtensions<T> on List<T> {
   T? getOrNull(int index) {
@@ -49,5 +50,19 @@ extension ListExtensions<T> on List<T> {
 extension MapExtensions<K, V> on Map<K, V> {
   V? getOrNull(K key) {
     return containsKey(key) ? this[key] : null;
+  }
+}
+
+extension AdListExtensions on List<Ad> {
+  List<int> adIds() {
+    return map((e) => e.id).toList();
+  }
+
+  int cartCount() {
+    return filterIf((e) => e.isInCart).length;
+  }
+
+  int favoriteCount() {
+    return filterIf((e) => e.isFavorite).length;
   }
 }

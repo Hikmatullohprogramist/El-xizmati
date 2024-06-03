@@ -58,11 +58,11 @@ class AdListByTypePage extends BasePage<AdListByTypeCubit, AdListByTypeState, Ad
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: switch (adType) {
-                        AdType.PRODUCT => Strings.favoriteProductTitle
+                        AdType.product => Strings.favoriteProductTitle
                             .w(700)
                             .s(16)
                             .c(context.textPrimary),
-                        AdType.SERVICE => Strings.favoriteServiceTitle
+                        AdType.service => Strings.favoriteServiceTitle
                             .w(700)
                             .s(16)
                             .c(context.textPrimary),

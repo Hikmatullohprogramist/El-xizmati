@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 
 class AdImageListAddWidget extends StatelessWidget {
   const AdImageListAddWidget({
@@ -18,7 +18,7 @@ class AdImageListAddWidget extends StatelessWidget {
       key: ValueKey(index),
       onTap: () {
         onAddClicked();
-        vibrateAsHapticFeedback();
+        HapticFeedback.lightImpact();
       },
       child: Container(
         height: 82,

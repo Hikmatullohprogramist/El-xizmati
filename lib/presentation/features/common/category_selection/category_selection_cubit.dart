@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/data/repositories/ad_creation_repository.dart';
+import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/domain/models/category/category.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
@@ -27,7 +28,7 @@ class CategorySelectionCubit
   Future<void> getItems() async {
     try {
       final allItems = await _adCreationRepository
-          .getCategoriesForCreationAd(states.adType.name.toUpperCase());
+          .getAdCreationCategories(states.adType.geCategoryType());
 
       final visibleItems = allItems.where((e) => e.isParent).toList();
       logger.e(allItems.toString());

@@ -9,9 +9,6 @@ abstract class CategoryEntityDao {
   @Query('SELECT * FROM categories WHERE category_type = :type ')
   Future<List<CategoryEntity>> getCategoriesByType(String type);
 
-  @Query('SELECT * FROM categories WHERE category_type = :type ')
-  Future<List<CategoryEntity>> findCategoriesByType(String type);
-
   @Query('SELECT COUNT(*) FROM categories ')
   Future<int?> getCategoriesCount();
 
@@ -22,8 +19,11 @@ abstract class CategoryEntityDao {
   @Query('DELETE FROM categories ')
   Future<void> clear();
 
-  @Insert(onConflict: OnConflictStrategy.ignore)
+  @Insert(onConflict: OnConflictStrategy.replace)
   Future<int> insertCategory(CategoryEntity category);
+
+  @Insert(onConflict: OnConflictStrategy.replace)
+  Future<void> insertCategories(List<CategoryEntity> category);
 
   @Update(onConflict: OnConflictStrategy.replace)
   Future<void> updateCategory(CategoryEntity category);

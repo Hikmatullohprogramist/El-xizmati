@@ -82,7 +82,7 @@ class AdDetailCubit extends BaseCubit<AdDetailState, AdDetailEvent> {
       updateState((state) => state.copyWith(
             adDetail: data,
             isPhoneVisible: false,
-            isAddCart: data?.isAddedToCart ?? false,
+            isAddCart: data?.isInCart ?? false,
             isNotPrepared: false,
           ));
     }).onError((error) {
@@ -258,12 +258,12 @@ class AdDetailCubit extends BaseCubit<AdDetailState, AdDetailEvent> {
       int index = adList.indexOf(ad);
       if (index == -1) return;
 
-      if (ad.isAddedToCart) {
+      if (ad.isInCart) {
         await _cartRepository.removeFromCart(ad.id);
-        adList[index] = ad..isAddedToCart = false;
+        adList[index] = ad..isInCart = false;
       } else {
         await _cartRepository.addToCart(ad);
-        adList[index] = ad..isAddedToCart = true;
+        adList[index] = ad..isInCart = true;
       }
 
       updateState((state) => state);

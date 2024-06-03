@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 
 class AdFavoriteWidget extends StatefulWidget {
   const AdFavoriteWidget({
@@ -36,7 +36,7 @@ class _AdFavoriteWidget extends State<AdFavoriteWidget> {
         if (widget.isChangeAvailable) {
           setState(() => _isSelected = !_isSelected);
         }
-        vibrateAsHapticFeedback();
+        HapticFeedback.lightImpact();
       },
       child: Container(
         margin: const EdgeInsets.all(8),

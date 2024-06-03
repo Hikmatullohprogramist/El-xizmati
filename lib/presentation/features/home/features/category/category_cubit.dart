@@ -1,8 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
+import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/common_repository.dart';
 import 'package:onlinebozor/domain/models/category/category.dart';
+import 'package:onlinebozor/domain/models/category/category_type.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
 part 'category_cubit.freezed.dart';
@@ -17,21 +19,28 @@ class CategoryCubit extends BaseCubit<CategoryState, CategoryEvent> {
   final CommonRepository _commonRepository;
 
   Future<void> getCategories() async {
-    updateState((state) => state.copyWith(loadState: LoadingState.loading));
-    try {
-      final allItems = await _commonRepository.getCategories();
-      final parents = allItems.where((e) => e.isParent).toList();
-      updateState(
-        (state) => state.copyWith(
-          allItems: allItems,
-          visibleItems: parents,
-          loadState: LoadingState.success,
-        ),
-      );
-    } catch (exception) {
-      logger.e(exception.toString());
-      updateState((state) => state.copyWith(loadState: LoadingState.error));
-    }
+    await _commonRepository
+        .getCategories(CategoryType.catalog)
+        .initFuture()
+        .onStart(() {
+          updateState((state) => state.copyWith(
+                loadState: LoadingState.loading,
+              ));
+        })
+        .onSuccess((data) {
+          final parents = data.where((e) => e.isParent).toList();
+          updateState((state) => state.copyWith(
+                allItems: data,
+                visibleItems: parents,
+                loadState: LoadingState.success,
+              ));
+        })
+        .onError((error) {
+          logger.e(error.toString());
+          updateState((state) => state.copyWith(loadState: LoadingState.error));
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   void setSearchQuery(String? query) {

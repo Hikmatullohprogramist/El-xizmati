@@ -1,8 +1,7 @@
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
+import 'package:onlinebozor/domain/models/category/category_type.dart';
 import 'package:onlinebozor/domain/models/language/language.dart';
-import 'package:onlinebozor/domain/models/order/order_cancel_reason.dart';
 import 'package:onlinebozor/domain/models/order/user_order_status.dart';
-import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 
 import '../models/ad/ad_author_type.dart';
 import '../models/ad/ad_item_condition.dart';
@@ -33,7 +32,34 @@ extension StringMapperExts on String? {
   AdTransactionType toAdTransactionType() {
     return AdTransactionType.values.firstWhere(
       (e) => e.name.toUpperCase() == this?.toUpperCase(),
-      orElse: () => AdTransactionType.SELL,
+      orElse: () => AdTransactionType.sell,
+    );
+  }
+
+  CategoryType toCategoryType() {
+    return CategoryType.values.firstWhere(
+      (e) => e.name.toUpperCase() == this?.toUpperCase(),
+      orElse: () => CategoryType.other,
+    );
+  }
+
+  CurrencyCode toCurrency() {
+    return CurrencyCode.values.firstWhere(
+      (e) => e.name.toUpperCase() == this?.toUpperCase(),
+      orElse: () {
+        switch (this) {
+          case "860":
+            return CurrencyCode.uzs;
+          case "643":
+            return CurrencyCode.rub;
+          case "840":
+            return CurrencyCode.usd;
+          case "978":
+            return CurrencyCode.eur;
+          default:
+            return CurrencyCode.uzs;
+        }
+      },
     );
   }
 
@@ -57,45 +83,10 @@ extension StringMapperExts on String? {
       orElse: () => UserOrderStatus.WAIT,
     );
   }
-
-  CurrencyCode toCurrency() {
-    return CurrencyCode.values.firstWhere(
-      (e) => e.name.toUpperCase() == this?.toUpperCase(),
-      orElse: () {
-        switch (this) {
-          case "860":
-            return CurrencyCode.uzb;
-          case "643":
-            return CurrencyCode.rub;
-          case "840":
-            return CurrencyCode.usd;
-          case "978":
-            return CurrencyCode.eur;
-          default:
-            return CurrencyCode.uzb;
-        }
-      },
-    );
-  }
-
-  String getCancelComment() {
-    switch (this) {
-      case "sellernone":
-        return OrderCancelReason.SELLER_NOT_ANSWERED.getLocalizedName();
-      case "changedidea":
-        return OrderCancelReason.CHANGED_IDEA.getLocalizedName();
-      case "selectedother":
-        return OrderCancelReason.SELECTED_INCORRECTED_AD.getLocalizedName();
-      case "other":
-        return OrderCancelReason.OTHER_REASON.getLocalizedName();
-      default:
-        return this ?? "";
-    }
-  }
 }
 
 extension AdPropertStatusExtensions on AdItemCondition {
-  String adPropertyStatusToString() {
+  String get stringValue {
     switch (this) {
       case AdItemCondition.fresh:
         return "NEW";
@@ -106,65 +97,69 @@ extension AdPropertStatusExtensions on AdItemCondition {
 }
 
 extension AdRouteTypeExtensions on AdAuthorType {
-  String adRouteTypeToString() {
+  String get stringValue {
     switch (this) {
       case AdAuthorType.business:
-        return "PRIVATE";
+        return "business";
       case AdAuthorType.private:
-        return "BUSINESS";
+        return "private";
     }
   }
 }
 
 extension AdStatusTypeExtensions on AdPriorityLevel {
-  String adStatusToString() {
+  String get stringValue {
     switch (this) {
       case AdPriorityLevel.top:
-        return "TOP";
+        return "top";
       case AdPriorityLevel.standard:
-        return "STANDARD";
+        return "standard";
     }
   }
 }
 
 extension AdTypeStatusExtensions on AdTransactionType {
-  String adTypeStatusToString() {
+  String get stringValue {
     switch (this) {
-      case AdTransactionType.SELL:
-        return "SELL";
-      case AdTransactionType.FREE:
-        return "FREE";
-      case AdTransactionType.EXCHANGE:
-        return "EXCHANGE";
-      case AdTransactionType.SERVICE:
-        return "SERVICE";
-      case AdTransactionType.BUY:
-        return "BUY";
-      case AdTransactionType.BUY_SERVICE:
-        return "BUY_SERVICE";
+      case AdTransactionType.sell:
+        return "sell";
+      case AdTransactionType.free:
+        return "free";
+      case AdTransactionType.exchange:
+        return "exchange";
+      case AdTransactionType.service:
+        return "service";
+      case AdTransactionType.buy:
+        return "buy";
+      case AdTransactionType.buy_service:
+        return "buy_service";
     }
   }
 
   AdType adType() {
     switch (this) {
-      case AdTransactionType.SELL:
-        return AdType.PRODUCT;
-      case AdTransactionType.FREE:
-        return AdType.PRODUCT;
-      case AdTransactionType.EXCHANGE:
-        return AdType.PRODUCT;
-      case AdTransactionType.SERVICE:
-        return AdType.SERVICE;
-      case AdTransactionType.BUY:
-        return AdType.PRODUCT;
-      case AdTransactionType.BUY_SERVICE:
-        return AdType.SERVICE;
+      case AdTransactionType.sell:
+        return AdType.product;
+      case AdTransactionType.free:
+        return AdType.product;
+      case AdTransactionType.exchange:
+        return AdType.product;
+      case AdTransactionType.service:
+        return AdType.service;
+      case AdTransactionType.buy:
+        return AdType.product;
+      case AdTransactionType.buy_service:
+        return AdType.service;
     }
   }
 }
 
+extension CategoryTypeToStringExtension on CategoryType {
+  String get stringValue => name.toLowerCase();
+}
+
 extension CurrencyToStringExtension on CurrencyCode {
-  String currencyToString() {
+  String currencyId() {
     switch (this) {
       case CurrencyCode.eur:
         return "978";
@@ -172,19 +167,19 @@ extension CurrencyToStringExtension on CurrencyCode {
         return "840";
       case CurrencyCode.rub:
         return "643";
-      case CurrencyCode.uzb:
+      case CurrencyCode.uzs:
         return "860";
     }
   }
 }
 
 extension AdTypeExtension on AdType {
-  String name() {
+  CategoryType geCategoryType() {
     switch (this) {
-      case AdType.PRODUCT:
-        return "ADS";
-      case AdType.SERVICE:
-        return "SERVICE";
+      case AdType.product:
+        return CategoryType.product;
+      case AdType.service:
+        return CategoryType.service;
     }
   }
 }

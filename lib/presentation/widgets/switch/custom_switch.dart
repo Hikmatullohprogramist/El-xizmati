@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 
 class CustomSwitch extends StatefulWidget {
   final bool isChecked;
@@ -19,7 +19,7 @@ class _CustomSwitchState extends State<CustomSwitch> {
     return GestureDetector(
       onTap: () {
         widget.onChanged(!widget.isChecked);
-        vibrateAsHapticFeedback();
+        HapticFeedback.selectionClick();
       },
       child: Container(
         width: 55,

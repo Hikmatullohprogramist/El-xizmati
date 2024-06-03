@@ -3,7 +3,7 @@ part of 'category_selection_cubit.dart';
 @freezed
 class CategorySelectionState with _$CategorySelectionState {
   const factory CategorySelectionState({
-    @Default(AdType.PRODUCT) AdType adType,
+    @Default(AdType.product) AdType adType,
     Category? selectedItem,
     @Default([]) List<Category> allItems,
     @Default([]) List<Category> visibleItems,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 
@@ -26,7 +26,7 @@ class SelectionListItem extends StatelessWidget {
       child: InkWell(
         onTap: () {
           onClicked(item);
-          vibrateAsHapticFeedback();
+          HapticFeedback.selectionClick();
         },
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),

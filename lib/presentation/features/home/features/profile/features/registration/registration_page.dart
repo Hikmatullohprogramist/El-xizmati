@@ -4,10 +4,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
@@ -166,7 +167,7 @@ class RegistrationPage
                     borderRadius: BorderRadius.circular(6),
                     onTap: () {
                       showDatePickerDialog(context);
-                      vibrateAsHapticFeedback();
+                      HapticFeedback.lightImpact();
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(6),
@@ -325,39 +326,37 @@ class RegistrationPage
               child: InkWell(
                 onTap: () {
                   log(state.districtId.toString());
-                  showModalBottomSheet(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    backgroundColor: context.backgroundColor,
+                  showCupertinoModalBottomSheet(
                     context: context,
                     builder: (BuildContext buildContext) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20.0),
-                            topRight: Radius.circular(20.0),
+                      return Material(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20.0),
+                              topRight: Radius.circular(20.0),
+                            ),
                           ),
+                          height: double.infinity,
+                          child: ListView.builder(
+                              physics: BouncingScrollPhysics(),
+                              itemCount: state.neighborhoods.length,
+                              itemBuilder:
+                                  (BuildContext buildContext, int index) {
+                                return InkWell(
+                                    onTap: () {
+                                      cubit(context)
+                                          .setStreet(state.neighborhoods[index]);
+                                      Navigator.pop(buildContext);
+                                    },
+                                    child: Padding(
+                                      padding: EdgeInsets.all(16),
+                                      child:
+                                          state.neighborhoods[index].name.w(500),
+                                    ));
+                              }),
                         ),
-                        height: double.infinity,
-                        child: ListView.builder(
-                            physics: BouncingScrollPhysics(),
-                            itemCount: state.neighborhoods.length,
-                            itemBuilder:
-                                (BuildContext buildContext, int index) {
-                              return InkWell(
-                                  onTap: () {
-                                    cubit(context)
-                                        .setStreet(state.neighborhoods[index]);
-                                    Navigator.pop(buildContext);
-                                  },
-                                  child: Padding(
-                                    padding: EdgeInsets.all(16),
-                                    child:
-                                        state.neighborhoods[index].name.w(500),
-                                  ));
-                            }),
                       );
                     },
                   );

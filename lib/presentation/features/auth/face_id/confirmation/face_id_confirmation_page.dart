@@ -12,7 +12,7 @@ import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
@@ -369,7 +369,7 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit, FaceIdCon
                           strokeColor: Colors.red,
                           onPressed: () {
                             cubit(context).showPicture(false);
-                            vibrateAsHapticFeedback();
+                            HapticFeedback.lightImpact();
                           },
                         ),
                       ),
@@ -379,7 +379,7 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit, FaceIdCon
                           text: Strings.commonContinue,
                           strokeColor: Colors.green,
                           onPressed: () {
-                            vibrateAsHapticFeedback();
+                            HapticFeedback.lightImpact();
                             cubit(context).sendImage(state.cropperImage,
                                 cubit(context).states.secretKey);
                           },
@@ -472,7 +472,7 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit, FaceIdCon
                           strokeColor: Colors.red,
                           onPressed: () {
                             Navigator.pop(context);
-                            vibrateAsHapticFeedback();
+                            HapticFeedback.lightImpact();
                           },
                         ),
                       ),
@@ -482,7 +482,7 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit, FaceIdCon
                           text: "Davom etish",
                           strokeColor: Colors.green,
                           onPressed: () {
-                            vibrateAsHapticFeedback();
+                            HapticFeedback.lightImpact();
 
                             cubit(parentContext).sendImage(
                                 image, cubit(context).states.secretKey);

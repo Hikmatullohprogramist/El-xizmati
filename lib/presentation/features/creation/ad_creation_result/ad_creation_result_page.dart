@@ -58,29 +58,29 @@ class AdCreationResultPage extends BasePage<AdCreationResultCubit,
               rightIcon: Assets.images.icActionEdit.svg(color: Colors.white),
               onPressed: () async {
                 switch (adTransactionType) {
-                  case AdTransactionType.SELL:
+                  case AdTransactionType.sell:
                     context.router.replace(ProductAdCreationRoute(
                       adId: adId,
                       adTransactionType: adTransactionType,
                     ));
-                  case AdTransactionType.FREE:
+                  case AdTransactionType.free:
                     context.router.replace(ProductAdCreationRoute(
                       adId: adId,
                       adTransactionType: adTransactionType,
                     ));
-                  case AdTransactionType.EXCHANGE:
+                  case AdTransactionType.exchange:
                     context.router.replace(ProductAdCreationRoute(
                       adId: adId,
                       adTransactionType: adTransactionType,
                     ));
-                  case AdTransactionType.SERVICE:
+                  case AdTransactionType.service:
                     context.router.replace(ServiceAdCreationRoute(adId: adId));
-                  case AdTransactionType.BUY:
+                  case AdTransactionType.buy:
                     context.router.replace(RequestAdCreationRoute(
                       adId: adId,
                       adTransactionType: adTransactionType,
                     ));
-                  case AdTransactionType.BUY_SERVICE:
+                  case AdTransactionType.buy_service:
                     context.router.replace(RequestAdCreationRoute(
                       adId: adId,
                       adTransactionType: adTransactionType,

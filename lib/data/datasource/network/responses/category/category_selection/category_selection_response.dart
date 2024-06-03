@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hive/hive.dart';
 
 part 'category_selection_response.freezed.dart';
 part 'category_selection_response.g.dart';
@@ -21,11 +20,10 @@ class CategorySelectionRootResponse with _$CategorySelectionRootResponse {
 
 @freezed
 class CategorySelectionResponse with _$CategorySelectionResponse {
-  @HiveType(typeId: 1)
   const factory CategorySelectionResponse({
-    @HiveField(1) required int id,
-    @HiveField(2) String? label,
-    @HiveField(3) String? key_word,
+    required int id,
+    String? label,
+    String? key_word,
   }) = _CategorySelectionResponse;
 
   factory CategorySelectionResponse.fromJson(Map<String, dynamic> json) =>

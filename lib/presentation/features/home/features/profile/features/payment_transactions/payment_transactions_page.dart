@@ -6,6 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
@@ -109,12 +110,11 @@ class PaymentTransactionsPage extends BasePage<PaymentTransactionsCubit,
   }
 
   Future<void> showTransactionDetailBottomSheet(
-      BuildContext context, PaymentTransaction transaction) async {
-    await showModalBottomSheet(
+    BuildContext context,
+    PaymentTransaction transaction,
+  ) async {
+    await showCupertinoModalBottomSheet(
       context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
       builder: (context) => Container(
         height: 300,
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),

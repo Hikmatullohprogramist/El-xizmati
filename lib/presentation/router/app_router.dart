@@ -136,17 +136,19 @@ class AppRouter extends _$AppRouter {
             AutoRoute(
               page: DashboardRoute.page,
               path: 'dashboard',
-              maintainState: true,
+              maintainState: false,
               keepHistory: false,
             ),
             AutoRoute(
               page: CategoryRoute.page,
               path: 'category',
+              maintainState: false,
               keepHistory: false,
             ),
             AutoRoute(
               page: AdCreationChooserRoute.page,
               path: 'create_ad_chooser',
+              maintainState: false,
               keepHistory: false,
             ),
             AutoRoute(
@@ -158,6 +160,7 @@ class AppRouter extends _$AppRouter {
             AutoRoute(
               page: ProfileRoute.page,
               path: 'profile',
+              maintainState: false,
               keepHistory: false,
             )
           ],

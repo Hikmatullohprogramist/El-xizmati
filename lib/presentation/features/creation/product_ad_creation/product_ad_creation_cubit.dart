@@ -211,11 +211,11 @@ class ProductAdCreationCubit
   }
 
   bool isExchangeMode() {
-    return states.adTransactionType == AdTransactionType.EXCHANGE;
+    return states.adTransactionType == AdTransactionType.exchange;
   }
 
   bool isFreeAdMode() {
-    return states.adTransactionType == AdTransactionType.FREE;
+    return states.adTransactionType == AdTransactionType.free;
   }
 
   void setEnteredTitle(String title) {

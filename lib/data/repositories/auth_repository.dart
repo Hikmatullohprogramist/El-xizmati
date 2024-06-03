@@ -7,7 +7,6 @@ import 'package:onlinebozor/data/datasource/floor/dao/ad_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/floor/dao/category_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/floor/dao/user_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/floor/entities/user_entity.dart';
-import 'package:onlinebozor/data/datasource/hive/storages/ad_storage.dart';
 import 'package:onlinebozor/data/datasource/network/responses/auth/auth_start/auth_start_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/auth/confirm/confirm_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/auth/eds/eds_sign_in_response.dart';

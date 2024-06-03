@@ -7,7 +7,7 @@ import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/empty_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 
@@ -137,7 +137,7 @@ class AdCreationChooserPage extends BasePage<AdCreationChooserCubit,
                     text: Strings.adCreationStartBuyProduct,
                     onPressed: () {
                       context.router.push(RequestAdCreationRoute(
-                        adTransactionType: AdTransactionType.BUY,
+                        adTransactionType: AdTransactionType.buy,
                       ));
                     },
                     buttonHeight: 36,
@@ -150,7 +150,7 @@ class AdCreationChooserPage extends BasePage<AdCreationChooserCubit,
                     text: Strings.adCreationStartBuyService,
                     onPressed: () {
                       context.router.push(RequestAdCreationRoute(
-                        adTransactionType: AdTransactionType.BUY_SERVICE,
+                        adTransactionType: AdTransactionType.buy_service,
                       ));
                     },
                     buttonHeight: 36,
@@ -193,7 +193,7 @@ class AdCreationChooserPage extends BasePage<AdCreationChooserCubit,
                 text: Strings.authRecommentAction,
                 onPressed: () {
                   context.router.push(AuthStartRoute());
-                  vibrateAsHapticFeedback();
+                  HapticFeedback.lightImpact();
                 },
               ),
             )

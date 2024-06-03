@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/ad/ad_action.dart';
@@ -12,7 +13,7 @@ import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/presentation/widgets/action/action_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/ad/user_ad/user_ad_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/ad/user_ad/user_ad_widget.dart';
@@ -121,9 +122,9 @@ class UserAdListPage
 
   void _showActionsBottomSheet(BuildContext context, UserAd ad) {
     // AdTransactionType type = ad.type_status.toAdTypeStatus();
-    AdTransactionType type = ad.adTransactionType ?? AdTransactionType.SELL;
+    AdTransactionType type = ad.adTransactionType ?? AdTransactionType.sell;
 
-    showModalBottomSheet(
+    showCupertinoModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
       builder: (BuildContext bc) {
@@ -156,31 +157,31 @@ class UserAdListPage
                   context.router.pop();
 
                   switch (type) {
-                    case AdTransactionType.SELL:
+                    case AdTransactionType.sell:
                       context.router.push(ProductAdCreationRoute(
                         adId: ad.id,
                         adTransactionType: type,
                       ));
-                    case AdTransactionType.FREE:
+                    case AdTransactionType.free:
                       context.router.push(ProductAdCreationRoute(
                         adId: ad.id,
                         adTransactionType: type,
                       ));
-                    case AdTransactionType.EXCHANGE:
+                    case AdTransactionType.exchange:
                       context.router.push(ProductAdCreationRoute(
                         adId: ad.id,
                         adTransactionType: type,
                       ));
-                    case AdTransactionType.SERVICE:
+                    case AdTransactionType.service:
                       context.router.push(ServiceAdCreationRoute(
                         adId: ad.id,
                       ));
-                    case AdTransactionType.BUY:
+                    case AdTransactionType.buy:
                       context.router.push(RequestAdCreationRoute(
                         adId: ad.id,
                         adTransactionType: type,
                       ));
-                    case AdTransactionType.BUY_SERVICE:
+                    case AdTransactionType.buy_service:
                       context.router.push(RequestAdCreationRoute(
                         adId: ad.id,
                         adTransactionType: type,
@@ -234,12 +235,12 @@ class UserAdListPage
                       noTitle: Strings.commonNo,
                       onNoClicked: () {
                         Navigator.pop(context);
-                        vibrateAsHapticFeedback();
+                        HapticFeedback.lightImpact();
                       },
                       yesTitle: Strings.commonYes,
                       onYesClicked: () {
                         Navigator.pop(context);
-                        vibrateAsHapticFeedback();
+                        HapticFeedback.lightImpact();
                         cubit(context).deleteAd(ad);
                       },
                     );

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
@@ -7,7 +8,7 @@ import 'package:onlinebozor/presentation/features/common/add_address/add_address
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/presentation/widgets/action/selection_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
@@ -277,7 +278,7 @@ class AddAddressPage
             child: CustomElevatedButton(
               text: (state.isEditing ? Strings.commonSave : Strings.commonAdd),
               onPressed: () {
-                vibrateAsHapticFeedback();
+                HapticFeedback.lightImpact();
                 if (_formKey.currentState!.validate()) {
                   cubit(context).addOrUpdateAddress();
                 }
@@ -292,7 +293,7 @@ class AddAddressPage
   /// show bottom sheets
 
   _showRegionSelection(BuildContext context, AddAddressState state) {
-    showModalBottomSheet(
+    showCupertinoModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
       builder: (BuildContext bc) {
@@ -328,7 +329,7 @@ class AddAddressPage
   }
 
   _showDistrictSelection(BuildContext context, AddAddressState state) {
-    showModalBottomSheet(
+    showCupertinoModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
       builder: (BuildContext bc) {
@@ -364,7 +365,7 @@ class AddAddressPage
   }
 
   _showNeighborhoodSelection(BuildContext context, AddAddressState state) {
-    showModalBottomSheet(
+    showCupertinoModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
       builder: (BuildContext bc) {

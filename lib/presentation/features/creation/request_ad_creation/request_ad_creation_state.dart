@@ -10,8 +10,8 @@ class RequestAdCreationState with _$RequestAdCreationState {
     @Default(true) bool isNotPrepared,
     @Default(false) bool isPreparingInProcess,
     //
-    @Default(AdTransactionType.BUY) AdTransactionType adTransactionType,
-    @Default(AdType.PRODUCT) AdType adType,
+    @Default(AdTransactionType.buy) AdTransactionType adTransactionType,
+    @Default(AdType.product) AdType adType,
 //
     @Default("") String title,
     Category? category,

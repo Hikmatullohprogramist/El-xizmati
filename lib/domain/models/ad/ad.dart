@@ -27,7 +27,7 @@ class Ad {
     required this.photo,
     required this.isCheck,
     required this.isFavorite,
-    required this.isAddedToCart,
+    required this.isInCart,
     required this.isSort,
     required this.isSell,
     required this.maxAmount,
@@ -55,7 +55,7 @@ class Ad {
       photo: photo,
       isCheck: isCheck,
       isFavorite: isFavorite,
-      isAddedToCart: isAddedToCart,
+      isInCart: isInCart,
       isSort: isSort,
       isSell: isSell,
       maxAmount: maxAmount,
@@ -85,7 +85,7 @@ class Ad {
   final int sellerId;
   final int viewCount;
   bool isFavorite;
-  bool isAddedToCart;
+  bool isInCart;
   bool isCheck;
   String photo;
 
@@ -94,14 +94,14 @@ class Ad {
   }
 
   bool get isProductAd =>
-      transactionType == AdTransactionType.SELL ||
-      transactionType == AdTransactionType.FREE ||
-      transactionType == AdTransactionType.EXCHANGE ||
-      transactionType == AdTransactionType.BUY;
+      transactionType == AdTransactionType.sell ||
+      transactionType == AdTransactionType.free ||
+      transactionType == AdTransactionType.exchange ||
+      transactionType == AdTransactionType.buy;
 
   bool get isServiceAd =>
-      transactionType == AdTransactionType.SERVICE ||
-      transactionType == AdTransactionType.BUY_SERVICE;
+      transactionType == AdTransactionType.service ||
+      transactionType == AdTransactionType.buy_service;
 }
 
 class AdPhotoModel {

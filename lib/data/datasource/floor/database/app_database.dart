@@ -5,6 +5,8 @@ import 'package:onlinebozor/data/datasource/floor/dao/ad_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/floor/dao/category_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/floor/dao/user_address_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/floor/dao/user_entity_dao.dart';
+import 'package:onlinebozor/data/datasource/floor/database/callback.dart';
+import 'package:onlinebozor/data/datasource/floor/database/migrations.dart';
 import 'package:onlinebozor/data/datasource/floor/entities/ad_entity.dart';
 import 'package:onlinebozor/data/datasource/floor/entities/category_entity.dart';
 import 'package:onlinebozor/data/datasource/floor/entities/user_address_entity.dart';
@@ -30,4 +32,15 @@ abstract class AppDatabase extends FloorDatabase {
   UserAddressEntityDao get userAddressEntityDao;
 
   UserEntityDao get userEntityDao;
+
+  static Future<AppDatabase> initializeDatabase() async {
+    final migrations = [migration1to2];
+
+    final database = await $FloorAppDatabase
+        .databaseBuilder("app_database.db")
+        .addCallback(databaseCallback)
+        .addMigrations(migrations).build();
+
+    return database;
+  }
 }

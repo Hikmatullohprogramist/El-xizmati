@@ -4,7 +4,7 @@ part of 'ad_creation_result_cubit.dart';
 class AdCreationResultState with _$AdCreationResultState {
   const factory AdCreationResultState({
     @Default(0) int adId,
-    @Default(AdTransactionType.SELL) AdTransactionType adTransactionType,
+    @Default(AdTransactionType.sell) AdTransactionType adTransactionType,
   }) = _AdCreationResultState;
 }
 

@@ -4,7 +4,9 @@ import 'package:onlinebozor/data/datasource/network/responses/category/category/
 import 'package:onlinebozor/data/datasource/network/responses/category/popular_category/popular_category_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/common_service.dart';
 import 'package:onlinebozor/data/mappers/category_mapper.dart';
+import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
 import 'package:onlinebozor/domain/models/category/category.dart';
+import 'package:onlinebozor/domain/models/category/category_type.dart';
 
 // @LazySingleton()
 class CommonRepository {
@@ -22,19 +24,18 @@ class CommonRepository {
     return banners;
   }
 
-  Future<List<Category>> getCategories() async {
-    final count = await _categoryEntityDao.getCategoriesCount() ?? 0;
-    if (count > 0) {
-      final entities = await _categoryEntityDao.getCategories();
-      return entities.map((e) => e.toCategory()).toList();
-    } else {
+  Future<List<Category>> getCategories(CategoryType categoryType) async {
+    final type = categoryType.stringValue;
+    final count = await _categoryEntityDao.getCategoriesCountByType(type) ?? 0;
+    if (count <= 0) {
       final response = await _commonService.getCategories();
-      final categories = CategoryRootResponse.fromJson(response.data).data;
-      await _categoryEntityDao.upsertAll(
-        categories.map((e) => e.toCategoryEntity()).toList(),
-      );
-      return categories.map((e) => e.toCategory()).toList();
+      final c = CategoryRootResponse.fromJson(response.data).data;
+      final entities = c.map((e) => e.toCategoryEntity(categoryType)).toList();
+      await _categoryEntityDao.insertCategories(entities);
     }
+
+    final entities = await _categoryEntityDao.getCategoriesByType(type);
+    return entities.map((e) => e.toCategory()).toList();
   }
 
   Future<List<PopularCategory>> getPopularCategories(

@@ -75,7 +75,7 @@ class AdListCubit extends BaseCubit<AdListState, AdListEvent> {
             );
           case AdListType.homePopularAds:
             adsList = await _adRepository.getPopularAdsByType(
-              adType: AdType.PRODUCT,
+              adType: AdType.product,
               page: pageKey,
               limit: _pageSize,
             );
@@ -99,13 +99,13 @@ class AdListCubit extends BaseCubit<AdListState, AdListEvent> {
             );
           case AdListType.cheaperAdsByAdType:
             adsList = await _adRepository.getCheapAdsByType(
-              adType: states.collectiveType ?? AdType.PRODUCT,
+              adType: states.collectiveType ?? AdType.product,
               page: pageKey,
               limit: _pageSize,
             );
           case AdListType.popularAdsByAdType:
             adsList = await _adRepository.getPopularAdsByType(
-              adType: states.collectiveType ?? AdType.PRODUCT,
+              adType: states.collectiveType ?? AdType.product,
               page: pageKey,
               limit: _pageSize,
             );
@@ -142,12 +142,12 @@ class AdListCubit extends BaseCubit<AdListState, AdListEvent> {
 
   Future<void> updateCartInfo(Ad ad) async {
     try {
-      if (ad.isAddedToCart) {
+      if (ad.isInCart) {
         await _cartRepository.removeFromCart(ad.id);
         final index = states.controller?.itemList?.indexOf(ad) ?? 0;
         final item = states.controller?.itemList?.elementAt(index);
         if (item != null) {
-          states.controller?.itemList?.insert(index, item..isAddedToCart = false);
+          states.controller?.itemList?.insert(index, item..isInCart = false);
           states.controller?.itemList?.removeAt(index);
           states.controller?.notifyListeners();
         }
@@ -159,7 +159,7 @@ class AdListCubit extends BaseCubit<AdListState, AdListEvent> {
           states.controller?.itemList?.insert(
               index,
               item
-                ..isAddedToCart = true
+                ..isInCart = true
                 ..backendId = backendId);
           states.controller?.itemList?.removeAt(index);
           states.controller?.notifyListeners();

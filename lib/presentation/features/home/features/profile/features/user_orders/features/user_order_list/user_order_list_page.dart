@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/responses/user_order/user_order_response.dart';
@@ -31,7 +32,6 @@ class UserOrderListPage extends BasePage<UserOrderListCubit, UserOrderListState,
     required this.type,
     required this.status,
   });
-
 
   @override
   void onWidgetCreated(BuildContext context) {
@@ -126,11 +126,8 @@ class UserOrderListPage extends BasePage<UserOrderListCubit, UserOrderListState,
     UserOrderListState state,
     UserOrder order,
   ) async {
-    final cancelledOrder = await showModalBottomSheet(
+    final cancelledOrder = await showCupertinoModalBottomSheet(
       context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
       builder: (context) => UserOrderCancelPage(order: order),
     );
 
@@ -142,11 +139,8 @@ class UserOrderListPage extends BasePage<UserOrderListCubit, UserOrderListState,
     UserOrderListState state,
     UserOrder order,
   ) async {
-    showModalBottomSheet(
+    showCupertinoModalBottomSheet(
       context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
       builder: (context) => UserOrderInfoPage(order: order),
     );
   }

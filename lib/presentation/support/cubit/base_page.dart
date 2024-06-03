@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/di/get_it_injection.dart';
@@ -9,8 +10,7 @@ import 'package:onlinebozor/presentation/support/cubit/base_builder.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_event.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_state.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
-import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 
 abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
@@ -106,39 +106,11 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
     );
   }
 
-  void showDefaultBottomSheet(BuildContext context, String title, Widget body) {
-    showModalBottomSheet(
+  void shoasdaswDefaultBottomSheet(
+      BuildContext context, String title, Widget body) {
+    showMaterialModalBottomSheet(
       context: context,
-      backgroundColor: Colors.transparent,
-      builder: (BuildContext bc) {
-        return Container(
-          decoration: BoxDecoration(
-            color: context.bottomSheetColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              SizedBox(height: 12),
-              BottomSheetTitle(
-                title: title,
-                onCloseClicked: () {
-                  context.router.pop();
-                },
-                centerTitle: true,
-              ),
-              Container(
-                child: body,
-              ),
-            ],
-          ),
-        );
-      },
+      builder: (context) => Container(),
     );
   }
 
@@ -159,10 +131,9 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
     String title,
     String message,
   ) {
-    showDefaultBottomSheet(
-      context,
-      title,
-      Column(
+    showCupertinoModalBottomSheet(
+      context: context,
+      builder: (context) => Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
@@ -177,7 +148,7 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
             text: Strings.closeTitle,
             onPressed: () {
               Navigator.pop(context);
-              vibrateAsHapticFeedback();
+              HapticFeedback.lightImpact();
             },
             backgroundColor: context.colors.buttonPrimary,
           ),
@@ -196,46 +167,47 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
     required String noTitle,
     required Function onNoClicked,
   }) {
-    showDefaultBottomSheet(
-      context,
-      title,
-      Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(height: 24),
-          Center(child: message.s(16)),
-          SizedBox(height: 32),
-          Row(
-            children: <Widget>[
-              SizedBox(width: 16),
-              Expanded(
-                child: CustomElevatedButton(
-                  text: Strings.commonNo,
-                  onPressed: () {
-                    onNoClicked();
-                    Navigator.pop(context);
-                    vibrateAsHapticFeedback();
-                  },
+    showCupertinoModalBottomSheet(
+      context: context,
+      builder: (context) => Material(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(height: 24),
+            Center(child: message.s(16)),
+            SizedBox(height: 32),
+            Row(
+              children: <Widget>[
+                SizedBox(width: 16),
+                Expanded(
+                  child: CustomElevatedButton(
+                    text: Strings.commonNo,
+                    onPressed: () {
+                      onNoClicked();
+                      Navigator.pop(context);
+                      HapticFeedback.lightImpact();
+                    },
+                  ),
                 ),
-              ),
-              SizedBox(width: 16),
-              Expanded(
-                child: CustomElevatedButton(
-                  text: Strings.commonYes,
-                  // backgroundColor: Color(0xFFEB2F69),
-                  onPressed: () {
-                    onYesClicked();
-                    Navigator.pop(context);
-                    vibrateAsHapticFeedback();
-                  },
+                SizedBox(width: 16),
+                Expanded(
+                  child: CustomElevatedButton(
+                    text: Strings.commonYes,
+                    // backgroundColor: Color(0xFFEB2F69),
+                    onPressed: () {
+                      onYesClicked();
+                      Navigator.pop(context);
+                      HapticFeedback.lightImpact();
+                    },
+                  ),
                 ),
-              ),
-              SizedBox(width: 16),
-            ],
-          ),
-          SizedBox(height: 24),
-        ],
+                SizedBox(width: 16),
+              ],
+            ),
+            SizedBox(height: 24),
+          ],
+        ),
       ),
     );
   }

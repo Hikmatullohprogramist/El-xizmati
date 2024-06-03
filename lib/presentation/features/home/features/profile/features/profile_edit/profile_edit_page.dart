@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
@@ -9,7 +10,7 @@ import 'package:onlinebozor/presentation/support/extensions/color_extension.dart
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/custom_dropdown_form_field.dart';
@@ -190,7 +191,7 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditState, Profi
                     borderRadius: BorderRadius.circular(6),
                     onTap: () {
                       showDatePickerDialog(context);
-                      vibrateAsHapticFeedback();
+                      HapticFeedback.lightImpact();
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(6),
@@ -317,7 +318,7 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditState, Profi
             text: Strings.commonSave,
             isLoading: state.isLoading,
             onPressed: () {
-              vibrateAsHapticFeedback();
+              HapticFeedback.lightImpact();
               // if (_formKey.currentState!.validate()) {
               //   cubit(context).createOrUpdateProductAd();
               // }
@@ -376,11 +377,7 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditState, Profi
   }
 
   void _showRegionBottomSheet(BuildContext context, ProfileEditState state) {
-    showModalBottomSheet(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      backgroundColor: context.backgroundColor,
+    showCupertinoModalBottomSheet(
       context: context,
       builder: (BuildContext buildContext) {
         return Container(
@@ -414,11 +411,7 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditState, Profi
   }
 
   void _showDistrictBottomSheet(BuildContext context, ProfileEditState state) {
-    showModalBottomSheet(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      backgroundColor: context.backgroundColor,
+    showCupertinoModalBottomSheet(
       context: context,
       builder: (BuildContext buildContext) {
         return Container(
@@ -452,11 +445,7 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditState, Profi
   }
 
   void _showNeighborhoodBottomSheet(BuildContext context, ProfileEditState state) {
-    showModalBottomSheet(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      backgroundColor: context.backgroundColor,
+    showCupertinoModalBottomSheet(
       context: context,
       builder: (BuildContext buildContext) {
         return Container(

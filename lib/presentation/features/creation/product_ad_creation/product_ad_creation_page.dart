@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
@@ -18,7 +19,7 @@ import 'package:onlinebozor/presentation/support/extensions/color_extension.dart
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/presentation/widgets/action/selection_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/ad/image_list/ad_image_list_widget.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
@@ -45,7 +46,7 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
   ProductAdCreationPage({
     super.key,
     this.adId,
-    this.adTransactionType = AdTransactionType.SELL,
+    this.adTransactionType = AdTransactionType.sell,
   });
 
   int? adId;
@@ -209,7 +210,7 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
             onTap: () {
               context.router.push(
                 CategorySelectionRoute(
-                  adType: AdType.PRODUCT,
+                  adType: AdType.product,
                   onResult: (category) {
                     cubit(context).setSelectedCategory(category);
                   },
@@ -362,11 +363,8 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
                             hint: "-",
                             validator: (v) => NotEmptyValidator.validate(v),
                             onTap: () async {
-                              final unit = await showModalBottomSheet(
+                              final unit = await showCupertinoModalBottomSheet(
                                 context: context,
-                                isScrollControlled: true,
-                                useSafeArea: true,
-                                backgroundColor: Colors.transparent,
                                 builder: (context) => UnitSelectionPage(
                                   selectedUnit: state.unit,
                                 ),
@@ -422,11 +420,8 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
                             hint: "-",
                             validator: (v) => NotEmptyValidator.validate(v),
                             onTap: () async {
-                              final currency = await showModalBottomSheet(
+                              final currency = await showCupertinoModalBottomSheet(
                                 context: context,
-                                isScrollControlled: true,
-                                useSafeArea: true,
-                                backgroundColor: Colors.transparent,
                                 builder: (context) => CurrencySelectionPage(
                                   initialSelectedItem: state.currency,
                                 ),
@@ -467,11 +462,8 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
                   isShowChildrenCount: false,
                   validator: (value) => CountValidator.validate(value),
                   onClickedAdd: () async {
-                    final paymentTypes = await showModalBottomSheet(
+                    final paymentTypes = await showCupertinoModalBottomSheet(
                       context: context,
-                      isScrollControlled: true,
-                      useSafeArea: true,
-                      backgroundColor: Colors.transparent,
                       builder: (context) => PaymentTypeSelectionPage(
                         selectedPaymentTypes: state.paymentTypes,
                       ),
@@ -567,7 +559,7 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
                   onTap: () {
                     context.router.push(
                       CategorySelectionRoute(
-                        adType: AdType.PRODUCT,
+                        adType: AdType.product,
                         onResult: (category) {
                           cubit(context).setSelectedAnotherCategory(category);
                         },
@@ -630,11 +622,8 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
             hint: Strings.adCreationAddressLabel,
             validator: (value) => NotEmptyValidator.validate(value),
             onTap: () async {
-              final address = await showModalBottomSheet(
+              final address = await showCupertinoModalBottomSheet(
                 context: context,
-                isScrollControlled: true,
-                useSafeArea: true,
-                backgroundColor: Colors.transparent,
                 builder: (context) => UserAddressSelectionPage(
                   selectedAddress: state.address,
                 ),
@@ -944,7 +933,7 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
           CustomElevatedButton(
             text: Strings.commonSave,
             onPressed: () {
-              vibrateAsHapticFeedback();
+              HapticFeedback.lightImpact();
               if (_formKey.currentState!.validate()) {
                 cubit(context).createOrUpdateProductAd();
               }
@@ -960,63 +949,64 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
     BuildContext context,
     ProductAdCreationState state,
   ) {
-    showModalBottomSheet(
+    showCupertinoModalBottomSheet(
       context: context,
-      backgroundColor: Colors.transparent,
       builder: (BuildContext bc) {
-        return Container(
-          decoration: BoxDecoration(
-            color: context.bottomSheetColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
+        return Material(
+          child: Container(
+            decoration: BoxDecoration(
+              color: context.bottomSheetColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
             ),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              SizedBox(height: 12),
-              BottomSheetTitle(
-                title: Strings.selectionAdTransactionTypeTitle,
-                onCloseClicked: () {
-                  context.router.pop();
-                },
-              ),
-              SizedBox(height: 16),
-              SelectionListItem(
-                item: AdTransactionType.SELL,
-                title: Strings.adTransactionTypeSell,
-                isSelected: state.adTransactionType == AdTransactionType.SELL,
-                onClicked: (item) {
-                  cubit(context).setSelectedAdTransactionType(item);
-                  context.router.pop();
-                },
-              ),
-              CustomDivider(height: 2, startIndent: 20, endIndent: 20),
-              SelectionListItem(
-                item: AdTransactionType.FREE,
-                title: Strings.adTransactionTypeFree,
-                isSelected: state.adTransactionType == AdTransactionType.FREE,
-                onClicked: (item) {
-                  cubit(context).setSelectedAdTransactionType(item);
-                  context.router.pop();
-                },
-              ),
-              CustomDivider(height: 2, startIndent: 20, endIndent: 20),
-              SelectionListItem(
-                item: AdTransactionType.EXCHANGE,
-                title: Strings.adTransactionTypeExchange,
-                isSelected:
-                    state.adTransactionType == AdTransactionType.EXCHANGE,
-                onClicked: (item) {
-                  cubit(context).setSelectedAdTransactionType(item);
-                  context.router.pop();
-                },
-              ),
-              SizedBox(height: 32)
-            ],
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                SizedBox(height: 12),
+                BottomSheetTitle(
+                  title: Strings.selectionAdTransactionTypeTitle,
+                  onCloseClicked: () {
+                    context.router.pop();
+                  },
+                ),
+                SizedBox(height: 16),
+                SelectionListItem(
+                  item: AdTransactionType.sell,
+                  title: Strings.adTransactionTypeSell,
+                  isSelected: state.adTransactionType == AdTransactionType.sell,
+                  onClicked: (item) {
+                    cubit(context).setSelectedAdTransactionType(item);
+                    context.router.pop();
+                  },
+                ),
+                CustomDivider(height: 2, startIndent: 20, endIndent: 20),
+                SelectionListItem(
+                  item: AdTransactionType.free,
+                  title: Strings.adTransactionTypeFree,
+                  isSelected: state.adTransactionType == AdTransactionType.free,
+                  onClicked: (item) {
+                    cubit(context).setSelectedAdTransactionType(item);
+                    context.router.pop();
+                  },
+                ),
+                CustomDivider(height: 2, startIndent: 20, endIndent: 20),
+                SelectionListItem(
+                  item: AdTransactionType.exchange,
+                  title: Strings.adTransactionTypeExchange,
+                  isSelected:
+                      state.adTransactionType == AdTransactionType.exchange,
+                  onClicked: (item) {
+                    cubit(context).setSelectedAdTransactionType(item);
+                    context.router.pop();
+                  },
+                ),
+                SizedBox(height: 32)
+              ],
+            ),
           ),
         );
       },
@@ -1056,10 +1046,10 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
     BuildContext context,
     ProductAdCreationState state,
   ) async {
-    final pickupAddresses = await showModalBottomSheet(
+    final pickupAddresses = await showCupertinoModalBottomSheet(
       context: context,
-      isScrollControlled: false,
-      useSafeArea: true,
+      // isScrollControlled: false,
+      // useSafeArea: true,
       backgroundColor: Colors.transparent,
       builder: (context) => UserWarehouseSelectionPage(
         selectedItems: state.pickupWarehouses,
@@ -1087,11 +1077,8 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
     BuildContext context,
     ProductAdCreationState state,
   ) async {
-    final districts = await showModalBottomSheet(
+    final districts = await showCupertinoModalBottomSheet(
       context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
       builder: (context) => RegionSelectionPage(
         initialSelectedDistricts: state.freeDeliveryDistricts,
       ),
@@ -1119,11 +1106,8 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
     BuildContext context,
     ProductAdCreationState state,
   ) async {
-    final districts = await showModalBottomSheet(
+    final districts = await showCupertinoModalBottomSheet(
       context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
       builder: (context) => RegionSelectionPage(
         initialSelectedDistricts: state.paidDeliveryDistricts,
       ),

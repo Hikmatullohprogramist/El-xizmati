@@ -1,8 +1,8 @@
 enum AdTransactionType {
-  SELL,
-  FREE,
-  EXCHANGE,
-  SERVICE,
-  BUY,
-  BUY_SERVICE,
+  sell,
+  free,
+  exchange,
+  service,
+  buy,
+  buy_service,
 }

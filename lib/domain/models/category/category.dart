@@ -1,10 +1,12 @@
+import 'package:onlinebozor/domain/models/category/category_type.dart';
+
 class Category {
   int id;
   String name;
   String? keyWord;
   int? parentId;
   String? icon;
-  String? type;
+  CategoryType type;
   int? adCount;
 
   Category({
@@ -13,11 +15,11 @@ class Category {
     this.keyWord,
     this.parentId,
     this.icon,
-    this.type,
+    this.type = CategoryType.other,
     this.adCount,
   });
 
-  bool get isParent => parentId != null;
+  bool get isParent => parentId == null || parentId! <= 0;
 
   bool get isNotParent => parentId == null;
 

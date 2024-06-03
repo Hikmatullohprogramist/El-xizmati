@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
@@ -15,7 +16,7 @@ import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/presentation/widgets/ad/image_list/ad_image_list_widget.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
@@ -66,7 +67,7 @@ class ServiceAdCreationPage extends BasePage<ServiceAdCreationCubit,
       case ServiceAdCreationEventType.onAdCreated:
         context.router.replace(AdCreationResultRoute(
           adId: cubit(context).states.adId!,
-          adTransactionType: AdTransactionType.SERVICE,
+          adTransactionType: AdTransactionType.service,
         ));
     }
   }
@@ -175,7 +176,7 @@ class ServiceAdCreationPage extends BasePage<ServiceAdCreationCubit,
             onTap: () {
               context.router.push(
                 CategorySelectionRoute(
-                  adType: AdType.SERVICE,
+                  adType: AdType.service,
                   onResult: (category) {
                     cubit(context).setSelectedCategory(category);
                   },
@@ -364,11 +365,8 @@ class ServiceAdCreationPage extends BasePage<ServiceAdCreationCubit,
                           hint: "-",
                           validator: (v) => NotEmptyValidator.validate(v),
                           onTap: () async {
-                            final currency = await showModalBottomSheet(
+                            final currency = await showCupertinoModalBottomSheet(
                               context: context,
-                              isScrollControlled: true,
-                              useSafeArea: true,
-                              backgroundColor: Colors.transparent,
                               builder: (context) => CurrencySelectionPage(
                                 initialSelectedItem: state.currency,
                               ),
@@ -425,11 +423,8 @@ class ServiceAdCreationPage extends BasePage<ServiceAdCreationCubit,
                 isShowChildrenCount: false,
                 validator: (value) => CountValidator.validate(value),
                 onClickedAdd: () async {
-                  final paymentTypes = await showModalBottomSheet(
+                  final paymentTypes = await showCupertinoModalBottomSheet(
                     context: context,
-                    isScrollControlled: true,
-                    useSafeArea: true,
-                    backgroundColor: Colors.transparent,
                     builder: (context) => PaymentTypeSelectionPage(
                       selectedPaymentTypes: state.paymentTypes,
                     ),
@@ -509,11 +504,8 @@ class ServiceAdCreationPage extends BasePage<ServiceAdCreationCubit,
             hint: Strings.adCreationAddressLabel,
             validator: (value) => NotEmptyValidator.validate(value),
             onTap: () async {
-              final address = await showModalBottomSheet(
+              final address = await showCupertinoModalBottomSheet(
                 context: context,
-                isScrollControlled: true,
-                useSafeArea: true,
-                backgroundColor: Colors.transparent,
                 builder: (context) => UserAddressSelectionPage(
                   selectedAddress: state.address,
                 ),
@@ -669,7 +661,7 @@ class ServiceAdCreationPage extends BasePage<ServiceAdCreationCubit,
           CustomElevatedButton(
             text: Strings.commonSave,
             onPressed: () {
-              vibrateAsHapticFeedback();
+              HapticFeedback.lightImpact();
               if (_formKey.currentState!.validate()) {
                 cubit(context).createOrUpdateServiceAd();
               }
@@ -714,11 +706,8 @@ class ServiceAdCreationPage extends BasePage<ServiceAdCreationCubit,
     BuildContext context,
     ServiceAdCreationState state,
   ) async {
-    final districts = await showModalBottomSheet(
+    final districts = await showCupertinoModalBottomSheet(
       context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
       builder: (context) => RegionSelectionPage(
         initialSelectedDistricts: state.serviceDistricts,
       ),

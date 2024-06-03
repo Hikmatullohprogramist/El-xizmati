@@ -42,9 +42,9 @@ class RequestAdCreationCubit
           isNotPrepared: adId != null,
           isEditing: adId != null,
           adTransactionType: adTransactionType,
-          adType: adTransactionType == AdTransactionType.BUY
-              ? AdType.PRODUCT
-              : AdType.SERVICE,
+          adType: adTransactionType == AdTransactionType.buy
+              ? AdType.product
+              : AdType.service,
         ));
 
     if (states.isEditing) {

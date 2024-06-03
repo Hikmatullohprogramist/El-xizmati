@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/language/language.dart';
@@ -8,7 +9,7 @@ import 'package:onlinebozor/domain/models/order/order_type.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/presentation/widgets/action/selection_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/empty_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
@@ -73,7 +74,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
               icon: Assets.images.icUserAvatar,
               onClicked: () {
                 context.router.push(ProfileViewRoute());
-                vibrateAsHapticFeedback();
+                HapticFeedback.lightImpact();
               },
             ),
           ),
@@ -84,7 +85,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
               icon: Assets.images.icUserAvatar,
               onClicked: () {
                 context.router.push(AuthStartRoute());
-                vibrateAsHapticFeedback();
+                HapticFeedback.lightImpact();
               },
             ),
           ),
@@ -108,7 +109,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
               icon: Assets.images.icProfileMyAds,
               onClicked: () {
                 context.router.push(UserAdsRoute());
-                vibrateAsHapticFeedback();
+                HapticFeedback.lightImpact();
               },
             ),
           ),
@@ -124,7 +125,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
               onClicked: () {
                 // context.router.push(UserOrderTypeRoute());
                 context.router.push(UserOrdersRoute(orderType: OrderType.buy));
-                vibrateAsHapticFeedback();
+                HapticFeedback.lightImpact();
               },
             ),
           ),
@@ -139,7 +140,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
               icon: Assets.images.icProfilePayment,
               onClicked: () {
                 context.router.push(PaymentTransactionsRoute());
-                vibrateAsHapticFeedback();
+                HapticFeedback.lightImpact();
               },
             ),
           ),
@@ -163,7 +164,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
               icon: Assets.images.icCard,
               onClicked: () {
                 context.router.push(UserCardsRoute());
-                vibrateAsHapticFeedback();
+                HapticFeedback.lightImpact();
               },
             ),
           ),
@@ -179,7 +180,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
               icon: Assets.images.icProfileLocation,
               onClicked: () {
                 context.router.push(UserAddressesRoute());
-                vibrateAsHapticFeedback();
+                HapticFeedback.lightImpact();
               },
             ),
           ),
@@ -192,7 +193,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
             icon: Assets.images.bottomBar.favorite,
             onClicked: () {
               context.router.push(FavoriteListRoute());
-              vibrateAsHapticFeedback();
+              HapticFeedback.lightImpact();
             },
           ),
         ],
@@ -214,7 +215,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
             icon: Assets.images.icProfileLanguage,
             onClicked: () {
               _showChangeLanguageBottomSheet(context, state);
-              vibrateAsHapticFeedback();
+              HapticFeedback.lightImpact();
             },
           ),
           Visibility(visible: false, child: Divider(indent: 46, height: 1)),
@@ -225,7 +226,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
               icon: Assets.images.icProfileDarkMode,
               onClicked: () {
                 _showChangeLanguageBottomSheet(context, state);
-                vibrateAsHapticFeedback();
+                HapticFeedback.lightImpact();
               },
             ),
           ),
@@ -256,16 +257,16 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
                   noTitle: Strings.commonNo,
                   onNoClicked: () {
                     Navigator.pop(context);
-                    vibrateAsHapticFeedback();
+                    HapticFeedback.lightImpact();
                   },
                   yesTitle: Strings.commonYes,
                   onYesClicked: () {
                     cubit(context).logOut();
                     Navigator.pop(context);
-                    vibrateAsHapticFeedback();
+                    HapticFeedback.lightImpact();
                   },
                 );
-                vibrateAsHapticFeedback();
+                HapticFeedback.lightImpact();
               },
             ),
           ],
@@ -277,62 +278,64 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
   /// Bottom sheet showing methods
 
   void _showChangeLanguageBottomSheet(BuildContext context, ProfileState state) {
-    showModalBottomSheet(
+    showCupertinoModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
       builder: (BuildContext bc) {
-        return Container(
-          decoration: BoxDecoration(
-            color: context.bottomSheetColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
+        return Material(
+          child: Container(
+            decoration: BoxDecoration(
+              // color: context.bottomSheetColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
             ),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              SizedBox(height: 12),
-              BottomSheetTitle(
-                title: Strings.languageSetTitle,
-                onCloseClicked: () {
-                  context.router.pop();
-                },
-              ),
-              SizedBox(height: 16),
-              SelectionListItem(
-                item: Language.uzbekLatin,
-                title: Strings.languageUzLat,
-                isSelected: state.language == Language.uzbekLatin,
-                onClicked: (item) {
-                  _saveSelectedLanguage(context, item);
-                  context.router.pop();
-                },
-              ),
-              CustomDivider(height: 2, startIndent: 20, endIndent: 20),
-              SelectionListItem(
-                item: Language.uzbekCyrill,
-                title: Strings.languageUzCyr,
-                isSelected: state.language == Language.uzbekCyrill,
-                onClicked: (item) {
-                  _saveSelectedLanguage(context, item);
-                  context.router.pop();
-                },
-              ),
-              CustomDivider(height: 2, startIndent: 20, endIndent: 20),
-              SelectionListItem(
-                item: Language.russian,
-                title: Strings.languageRus,
-                isSelected: state.language == Language.russian,
-                onClicked: (item) {
-                  _saveSelectedLanguage(context, item);
-                  context.router.pop();
-                },
-              ),
-              SizedBox(height: 32)
-            ],
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                SizedBox(height: 12),
+                BottomSheetTitle(
+                  title: Strings.languageSetTitle,
+                  onCloseClicked: () {
+                    context.router.pop();
+                  },
+                ),
+                SizedBox(height: 16),
+                SelectionListItem(
+                  item: Language.uzbekLatin,
+                  title: Strings.languageUzLat,
+                  isSelected: state.language == Language.uzbekLatin,
+                  onClicked: (item) {
+                    _saveSelectedLanguage(context, item);
+                    context.router.pop();
+                  },
+                ),
+                CustomDivider(height: 2, startIndent: 20, endIndent: 20),
+                SelectionListItem(
+                  item: Language.uzbekCyrill,
+                  title: Strings.languageUzCyr,
+                  isSelected: state.language == Language.uzbekCyrill,
+                  onClicked: (item) {
+                    _saveSelectedLanguage(context, item);
+                    context.router.pop();
+                  },
+                ),
+                CustomDivider(height: 2, startIndent: 20, endIndent: 20),
+                SelectionListItem(
+                  item: Language.russian,
+                  title: Strings.languageRus,
+                  isSelected: state.language == Language.russian,
+                  onClicked: (item) {
+                    _saveSelectedLanguage(context, item);
+                    context.router.pop();
+                  },
+                ),
+                SizedBox(height: 32)
+              ],
+            ),
           ),
         );
       },

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/features/realpay/add_card/add_card_with_realpay_page.dart';
 import 'package:onlinebozor/presentation/features/realpay/refill/refill_with_realpay_page.dart';
@@ -102,23 +103,10 @@ class UserCardsPage extends BasePage<UserCardsCubit, PageState, PageEvent> {
 
   void _showRefillWithRealPayPage(BuildContext context) async {
     RefillWithRealPayPage page = RefillWithRealPayPage();
-    var isSuccess = await showModalBottomSheet(
-      isDismissible: false,
+    var isSuccess = await showCupertinoModalBottomSheet(
       context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
-      enableDrag: false,
-      backgroundColor: Colors.transparent,
       builder: (context) {
-        return DraggableScrollableSheet(
-          expand: true,
-          initialChildSize: 0.9,
-          minChildSize: 0.25,
-          maxChildSize: 0.9,
-          builder: (BuildContext context, ScrollController scrollController) {
-            return Container(child: page);
-          },
-        );
+        return page;
       },
     );
 
@@ -129,23 +117,10 @@ class UserCardsPage extends BasePage<UserCardsCubit, PageState, PageEvent> {
 
   void _showAddCardWithRealPayPage(BuildContext context) async {
     AddCardWithRealPayPage page = AddCardWithRealPayPage();
-    var isSuccess = await showModalBottomSheet(
-      isDismissible: false,
+    var isSuccess = await showCupertinoModalBottomSheet(
       context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
-      enableDrag: false,
-      backgroundColor: Colors.transparent,
       builder: (context) {
-        return DraggableScrollableSheet(
-          expand: true,
-          initialChildSize: 0.9,
-          minChildSize: 0.25,
-          maxChildSize: 0.9,
-          builder: (BuildContext context, ScrollController scrollController) {
-            return Container(child: page);
-          },
-        );
+        return page;
       },
     );
 

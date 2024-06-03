@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 import 'package:onlinebozor/presentation/widgets/ad/list_price_text_widget.dart';
@@ -168,7 +168,7 @@ class UserAdWidget extends StatelessWidget {
                           IconButton(
                             onPressed: () {
                               onActionClicked();
-                              vibrateAsHapticFeedback();
+                              HapticFeedback.lightImpact();
                             },
                             icon: Assets.images.icThreeDotVertical
                                 .svg(width: 24, height: 24),

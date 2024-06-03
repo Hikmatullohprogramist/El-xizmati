@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hive/hive.dart';
 
 part 'payment_type_response.freezed.dart';
 part 'payment_type_response.g.dart';
@@ -21,10 +20,9 @@ class PaymentTypeRootResponse with _$PaymentTypeRootResponse {
 
 @freezed
 class PaymentTypeResponse with _$PaymentTypeResponse {
-  @HiveType(typeId: 1)
   const factory PaymentTypeResponse({
-    @HiveField(1) required int id,
-    @HiveField(2) String? name,
+    required int id,
+    String? name,
   }) = _PaymentTypeResponse;
 
   factory PaymentTypeResponse.fromJson(Map<String, dynamic> json) =>

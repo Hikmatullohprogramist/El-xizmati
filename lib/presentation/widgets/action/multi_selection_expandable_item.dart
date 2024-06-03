@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/presentation/support/vibrator/vibrator_extension.dart';
+import 'package:flutter/services.dart';
 
 class MultiSelectionExpandableItem extends StatelessWidget {
   const MultiSelectionExpandableItem({
@@ -44,6 +44,7 @@ class MultiSelectionExpandableItem extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     onCollapseClicked(item);
+                    HapticFeedback.lightImpact();
                   },
                   child: Container(
                     padding: EdgeInsets.only(
@@ -88,7 +89,7 @@ class MultiSelectionExpandableItem extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   onCheckboxClicked(item);
-                  vibrateAsHapticFeedback();
+                  HapticFeedback.lightImpact();
                 },
                 borderRadius: BorderRadius.circular(32),
                 child: Container(

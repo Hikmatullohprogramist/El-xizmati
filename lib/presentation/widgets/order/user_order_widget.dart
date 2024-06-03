@@ -55,13 +55,13 @@ class UserOrderWidget extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
                       decoration: BoxDecoration(
-                        color: order.orderStatus.getColor().withOpacity(.2),
+                        color: order.orderStatus.color().withOpacity(.2),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: (order.orderStatus.getLocalizedName() ?? "")
+                      child: (order.orderStatus.getLocalizedName())
                           .s(13)
                           .w(400)
-                          .c(order.orderStatus.getColor()),
+                          .c(order.orderStatus.color()),
                     ),
                     // SizedBox(width: 8),
                     // Assets.images.icThreeDotVertical.svg()
