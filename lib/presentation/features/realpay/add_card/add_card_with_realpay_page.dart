@@ -47,11 +47,13 @@ class AddCardWithRealPayPage extends BasePage<AddCardWithRealpayCubit,
                               onPageStarted: (url) {},
                               onProcess: (process) {},
                               onPageFinished: (url) {},
-                              onRedirectUrlHandled: (url) {
+                              onRedirectUrlHandled: (url) async {
                                 cubit(context)
                                     .stateMessageManager
                                     .showSuccessSnackBar(
                                         Strings.cardAddSuccessMessage);
+
+                                await Future.delayed(Duration(seconds: 2));
 
                                 context.router.pop(true);
                               },

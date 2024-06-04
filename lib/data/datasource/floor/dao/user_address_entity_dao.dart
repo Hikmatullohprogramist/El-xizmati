@@ -3,7 +3,7 @@ import 'package:onlinebozor/data/datasource/floor/entities/user_address_entity.d
 
 @dao
 abstract class UserAddressEntityDao {
-  @Query('SELECT * FROM user_addresses SORT BY user_address_is_main ASC ')
+  @Query('SELECT * FROM user_addresses ORDER BY user_address_is_main DESC ')
   Future<List<UserAddressEntity>> getSavedAddresses();
 
   @Query('SELECT * FROM user_addresses WHERE ad_id = :id ')
@@ -12,7 +12,7 @@ abstract class UserAddressEntityDao {
   @Query('SELECT * FROM user_addresses WHERE user_address_is_main = 1 ')
   Future<UserAddressEntity?> getMainAddress();
 
-  @Query('SELECT COUNT FROM user_addresses ')
+  @Query('SELECT COUNT(*) FROM user_addresses ')
   Future<int?> getAddressesCount();
 
   // @transaction
@@ -29,7 +29,7 @@ abstract class UserAddressEntityDao {
   Future<void> upsert(UserAddressEntity address) async {
     final int id = await insertAddress(address);
     if (id == -1) {
-      await updateAddress(address);
+       updateAddress(address);
     }
   }
 

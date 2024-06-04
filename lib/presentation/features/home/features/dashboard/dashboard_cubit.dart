@@ -88,14 +88,17 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
         .onStart(() {})
         .onSuccess((data) {
           final ids = data.adIds();
-          _productAdsSubs = _adRepository.watchAdsByIds(ids).listen((ads) {
-            logger.w("watchPopularProductAds ads count = ${ads.length}, cart count = ${ads.cartCount()}, favorite count = ${ads.favoriteCount()}");
-            updateState((state) => state.copyWith(
-                  popularProductAds: ads.map((e) => e).toList(),
-                  popularProductAdsState:
-                      ads.isEmpty ? LoadingState.empty : LoadingState.success,
-                ));
-          })
+          _productAdsSubs = _adRepository.watchAdsByIds(ids).asyncMap(
+            (ads) {
+              logger.w(
+                  "watchPopularProductAds ads count = ${ads.length}, cart count = ${ads.cartCount()}, favorite count = ${ads.favoriteCount()}");
+              updateState((state) => state.copyWith(
+                    popularProductAds: ads.map((e) => e).toList(),
+                    popularProductAdsState:
+                        ads.isEmpty ? LoadingState.empty : LoadingState.success,
+                  ));
+            },
+          ).listen(null)
             ..onError((error) {
               logger.w("watchPopularProductAds error = $error");
               updateState((state) => state.copyWith(
@@ -126,7 +129,8 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
         .onSuccess((data) {
           final ids = data.adIds();
           _serviceAdsSubs = _adRepository.watchAdsByIds(ids).listen((ads) {
-            logger.w("watchPopularServiceAds ads count = ${ads.length}, cart count = ${ads.cartCount()}, favorite count = ${ads.favoriteCount()}");
+            logger.w(
+                "watchPopularServiceAds ads count = ${ads.length}, cart count = ${ads.cartCount()}, favorite count = ${ads.favoriteCount()}");
             updateState((state) => state.copyWith(
                   popularServiceAds: ads,
                   popularServiceAdsState:

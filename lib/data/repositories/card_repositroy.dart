@@ -9,7 +9,6 @@ import 'package:onlinebozor/data/datasource/preference/token_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
 
-// @LazySingleton()
 class CardRepository {
   final CardService _cardService;
   final LanguagePreferences _languagePreferences;

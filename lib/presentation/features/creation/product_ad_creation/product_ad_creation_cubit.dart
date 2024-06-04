@@ -181,6 +181,9 @@ class ProductAdCreationCubit
       if (!states.isEditing) {
         updateState((state) => state.copyWith(adId: adId));
       }
+
+      await Future.delayed(Duration(seconds: 2));
+
       emitEvent(ProductAdCreationEvent(ProductAdCreationEventType.onAdCreated));
     } catch (exception) {
       logger.e(exception.toString());

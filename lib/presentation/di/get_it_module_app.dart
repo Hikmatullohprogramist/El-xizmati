@@ -2,7 +2,6 @@ import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 import 'package:onlinebozor/presentation/features/ad/ad_detail/ad_detail_cubit.dart';
 import 'package:onlinebozor/presentation/features/ad/ad_list/ad_list_cubit.dart';
-import 'package:onlinebozor/presentation/features/ad/ad_list_actions/ad_list_actions_cubit.dart';
 import 'package:onlinebozor/presentation/features/ad/ad_list_by_type/ad_list_by_type_cubit.dart';
 import 'package:onlinebozor/presentation/features/ad/user_ad_detail/user_ad_detail_cubit.dart';
 import 'package:onlinebozor/presentation/features/auth/confirm/confirmation_cubit.dart';
@@ -26,6 +25,7 @@ import 'package:onlinebozor/presentation/features/common/region_selection/region
 import 'package:onlinebozor/presentation/features/common/report/submit_report_cubit.dart';
 import 'package:onlinebozor/presentation/features/common/search/search_cubit.dart';
 import 'package:onlinebozor/presentation/features/common/unit_selection/unit_selection_cubit.dart';
+import 'package:onlinebozor/presentation/features/common/user_address_selection/user_address_selection_cubit.dart';
 import 'package:onlinebozor/presentation/features/common/user_warehouse_selection/user_warehouse_selection_cubit.dart';
 import 'package:onlinebozor/presentation/features/creation/ad_creation_result/ad_creation_result_cubit.dart';
 import 'package:onlinebozor/presentation/features/creation/order_creation/order_creation_cubit.dart';
@@ -66,54 +66,45 @@ extension GetItModuleApp on GetIt {
 
     // ad
     registerFactory(() => AdDetailCubit(get(), get(), get(), get()));
-    registerFactory<AdListCubit>(() => AdListCubit(get(), get(), get()));
-    registerFactory<AdListActionsCubit>(() => AdListActionsCubit());
-    registerFactory<AdListByTypeCubit>(() => AdListByTypeCubit(get(), get()));
-    registerFactory<UserAdDetailCubit>(() => UserAdDetailCubit(get()));
+    registerFactory(() => AdListCubit(get(), get(), get()));
+    registerFactory(() => AdListByTypeCubit(get(), get()));
+    registerFactory(() => UserAdDetailCubit(get()));
 
     // auth
-    registerFactory<ConfirmationCubit>(() => ConfirmationCubit(get(), get()));
-    registerFactory<FaceIdConfirmationCubit>(
-      () => FaceIdConfirmationCubit(get(), get()),
-    );
-    registerFactory<FaceIdStartCubit>(() => FaceIdStartCubit(get()));
-    registerFactory<LoginCubit>(() => LoginCubit(get(), get()));
-    registerFactory<OneIdCubit>(() => OneIdCubit(get(), get()));
-    registerFactory<SetPasswordCubit>(() => SetPasswordCubit(get()));
+    registerFactory(() => ConfirmationCubit(get(), get()));
+    registerFactory(() => FaceIdConfirmationCubit(get(), get()));
+    registerFactory(() => FaceIdStartCubit(get()));
+    registerFactory(() => LoginCubit(get(), get()));
+    registerFactory(() => OneIdCubit(get(), get()));
+    registerFactory(() => SetPasswordCubit(get()));
     registerFactory(() => AuthStartCubit(get()));
 
     // common
-    registerFactory<AddAddressCubit>(() => AddAddressCubit(get(), get()));
-    registerFactory<CategorySelectionCubit>(
-        () => CategorySelectionCubit(get()));
-    registerFactory<CurrencySelectionCubit>(
-        () => CurrencySelectionCubit(get()));
-    registerFactory<FavoriteListCubit>(() => FavoriteListCubit());
-    registerFactory<FavoriteProductsCubit>(() => FavoriteProductsCubit(get()));
-    registerFactory<FavoriteServicesCubit>(() => FavoriteServicesCubit(get()));
-    registerFactory<SetLanguageCubit>(() => SetLanguageCubit(get()));
-    registerFactory<NotificationListCubit>(() => NotificationListCubit());
-    registerFactory<PaymentTypeSelectionCubit>(
-        () => PaymentTypeSelectionCubit(get()));
-    registerFactory<PopularCategoriesCubit>(
-        () => PopularCategoriesCubit(get()));
-    registerFactory<RegionSelectionCubit>(() => RegionSelectionCubit(get()));
-    registerFactory<SubmitReportCubit>(() => SubmitReportCubit(get()));
-    registerFactory<SearchCubit>(() => SearchCubit(get()));
-    registerFactory<UnitSelectionCubit>(() => UnitSelectionCubit(get()));
-    registerFactory<UserWarehouseSelectionCubit>(
-        () => UserWarehouseSelectionCubit(get()));
+    registerFactory(() => AddAddressCubit(get(), get()));
+    registerFactory(() => CategorySelectionCubit(get()));
+    registerFactory(() => CurrencySelectionCubit(get()));
+    registerFactory(() => FavoriteListCubit());
+    registerFactory(() => FavoriteProductsCubit(get()));
+    registerFactory(() => FavoriteServicesCubit(get()));
+    registerFactory(() => SetLanguageCubit(get()));
+    registerFactory(() => NotificationListCubit());
+    registerFactory(() => PaymentTypeSelectionCubit(get()));
+    registerFactory(() => PopularCategoriesCubit(get()));
+    registerFactory(() => RegionSelectionCubit(get()));
+    registerFactory(() => SubmitReportCubit(get()));
+    registerFactory(() => SearchCubit(get()));
+    registerFactory(() => UnitSelectionCubit(get()));
+    registerFactory(() => UserAddressSelectionCubit(get()));
+    registerFactory(() => UserWarehouseSelectionCubit(get()));
 
     // creation
-    registerFactory<AdCreationResultCubit>(() => AdCreationResultCubit());
-    registerFactory<OrderCreationCubit>(
-        () => OrderCreationCubit(get(), get(), get(), get(), get(), get()));
-    registerFactory<ProductAdCreationCubit>(
-        () => ProductAdCreationCubit(get(), get(), get()));
-    registerFactory<RequestAdCreationCubit>(
-        () => RequestAdCreationCubit(get(), get(), get()));
-    registerFactory<ServiceAdCreationCubit>(
-        () => ServiceAdCreationCubit(get(), get(), get()));
+    registerFactory(() => AdCreationResultCubit());
+    registerFactory(
+      () => OrderCreationCubit(get(), get(), get(), get(), get(), get()),
+    );
+    registerFactory(() => ProductAdCreationCubit(get(), get(), get()));
+    registerFactory(() => RequestAdCreationCubit(get(), get(), get()));
+    registerFactory(() => ServiceAdCreationCubit(get(), get(), get()));
 
     // home
     registerFactory(() => HomeCubit());
@@ -125,29 +116,24 @@ extension GetItModuleApp on GetIt {
     registerFactory(() => ProfileCubit(get(), get()));
 
     // profile
-    registerFactory<PaymentTransactionsCubit>(
-        () => PaymentTransactionsCubit(get()));
-    registerFactory<PaymentTransactionFilterCubit>(
-        () => PaymentTransactionFilterCubit(get()));
-    registerFactory<ProfileEditCubit>(() => ProfileEditCubit(get()));
-    registerFactory<ProfileViewCubit>(() => ProfileViewCubit(get(), get()));
-    registerFactory<RegistrationCubit>(() => RegistrationCubit(get()));
-    registerFactory<UserActiveSessionsCubit>(
-        () => UserActiveSessionsCubit(get()));
-    registerFactory<UserAddressesCubit>(() => UserAddressesCubit(get()));
-    registerFactory<UserAdsCubit>(() => UserAdsCubit());
-    registerFactory<UserAdListCubit>(() => UserAdListCubit(get()));
-    registerFactory<UserCardsCubit>(() => UserCardsCubit(get(), get()));
-    registerFactory<UserOrdersCubit>(() => UserOrdersCubit());
-    registerFactory<UserOrderCancelCubit>(() => UserOrderCancelCubit(get()));
-    registerFactory<UserOrderInfoCubit>(() => UserOrderInfoCubit());
-    registerFactory<UserOrderListCubit>(() => UserOrderListCubit(get()));
+    registerFactory(() => PaymentTransactionsCubit(get()));
+    registerFactory(() => PaymentTransactionFilterCubit(get()));
+    registerFactory(() => ProfileEditCubit(get()));
+    registerFactory(() => ProfileViewCubit(get(), get()));
+    registerFactory(() => RegistrationCubit(get()));
+    registerFactory(() => UserActiveSessionsCubit(get()));
+    registerFactory(() => UserAddressesCubit(get()));
+    registerFactory(() => UserAdsCubit());
+    registerFactory(() => UserAdListCubit(get()));
+    registerFactory(() => UserCardsCubit(get(), get()));
+    registerFactory(() => UserOrdersCubit());
+    registerFactory(() => UserOrderCancelCubit(get()));
+    registerFactory(() => UserOrderInfoCubit());
+    registerFactory(() => UserOrderListCubit(get()));
 
     // realpay
-    registerFactory<AddCardWithRealpayCubit>(
-        () => AddCardWithRealpayCubit(get()));
-    registerFactory<RefillWithRealpayCubit>(
-        () => RefillWithRealpayCubit(get()));
+    registerFactory(() => AddCardWithRealpayCubit(get()));
+    registerFactory(() => RefillWithRealpayCubit(get()));
 
     await allReady();
   }

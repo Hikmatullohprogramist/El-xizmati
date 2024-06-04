@@ -186,7 +186,7 @@ extension UserAdStatusResExts on UserAdStatus {
 
 extension UserOrderResExts on UserOrder {
   String getLocalizedCancelComment() {
-    switch (this) {
+    switch (cancelNote) {
       case "sellernone":
         return OrderCancelReason.SELLER_NOT_ANSWERED.getLocalizedName();
       case "changedidea":

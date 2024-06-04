@@ -24,9 +24,7 @@ class UnitSelectionPage extends BasePage<UnitSelectionCubit, UnitSelectionState,
 
   @override
   Widget onWidgetBuild(BuildContext context, UnitSelectionState state) {
-    return SizedBox(
-      width: double.infinity,
-      height: MediaQuery.sizeOf(context).height * .7,
+    return Material(
       child: ClipRRect(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),

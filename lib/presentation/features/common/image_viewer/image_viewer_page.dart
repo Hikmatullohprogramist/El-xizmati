@@ -88,8 +88,8 @@ class _ImageViewerPageState extends State<ImageViewerPage> {
             ),
           ),
           Positioned(
-            top: 48,
-            left: 24,
+            top: 42,
+            left: 8,
             child: InkWell(
               onTap: () {},
               borderRadius: BorderRadius.all(Radius.circular(12)),

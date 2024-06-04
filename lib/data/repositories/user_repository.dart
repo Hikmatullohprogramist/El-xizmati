@@ -1,4 +1,3 @@
-import 'package:onlinebozor/data/datasource/floor/dao/user_address_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/floor/dao/user_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/floor/entities/user_entity.dart';
 import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
@@ -19,17 +18,14 @@ import 'package:onlinebozor/domain/models/region/region_and_district.dart';
 import 'package:onlinebozor/domain/models/social_account/social_account_info.dart';
 import 'package:onlinebozor/domain/models/street/street.dart';
 
-// @LazySingleton()
 class UserRepository {
   final UserService _userService;
   final UserPreferences _userPreferences;
   final UserEntityDao _userEntityDao;
-  final UserAddressEntityDao _userAddressEntityDao;
 
   UserRepository(
     this._userService,
     this._userPreferences,
-    this._userAddressEntityDao,
     this._userEntityDao,
   );
 
@@ -63,11 +59,12 @@ class UserRepository {
         neighborhoodName: saved?.neighborhoodName ?? "",
         houseNumber: actual.home_name ?? saved?.houseNumber,
         apartmentName: saved?.apartmentName,
-        birthDate: actual.birth_date ?? saved?.birthDate,
-        photo: actual.photo ?? saved?.photo,
-        email: actual.email ?? saved?.email,
+        birthDate: actual.birth_date ?? saved?.birthDate ?? "",
+        photo: actual.photo ?? saved?.photo ?? "",
+        email: actual.email ?? saved?.email ?? "",
         phone: actual.mobile_phone ?? saved?.phone ?? "",
-        notificationSource: actual.message_type ?? saved?.notificationSource,
+        notificationSource:
+            actual.message_type ?? saved?.notificationSource ?? "",
         isIdentified: actual.is_registered ?? saved?.isIdentified ?? false,
         state: saved?.state,
       ),

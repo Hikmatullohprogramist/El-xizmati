@@ -1,28 +1,20 @@
 import 'package:onlinebozor/data/datasource/floor/dao/ad_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/floor/dao/user_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/add_result/add_result_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/cart_service.dart';
 import 'package:onlinebozor/data/datasource/preference/token_preferences.dart';
-import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
-import 'package:onlinebozor/data/error/app_locale_exception.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 
-// @LazySingleton()
 class CartRepository {
   final AdEntityDao _adEntityDao;
   final CartService _cartService;
   final TokenPreferences _tokenPreferences;
-  final UserPreferences _userPreferences;
-  final UserEntityDao _userEntityDao;
 
   CartRepository(
     this._adEntityDao,
     this._cartService,
     this._tokenPreferences,
-    this._userEntityDao,
-    this._userPreferences,
   );
 
   Future<int> addToCart(Ad ad) async {
@@ -64,32 +56,6 @@ class CartRepository {
     return _adEntityDao
         .watchCartAds()
         .asyncMap((event) => event.map((e) => e.toAd()).toList());
-  }
-
-  Future<void> orderCreate({
-    required int adId,
-    required int amount,
-    required int paymentTypeId,
-    required int tin,
-    required int? servicePrice,
-  }) async {
-    if (_tokenPreferences.isNotAuthorized) throw NotAuthorizedException();
-    if (_userPreferences.isNotIdentified) throw NotIdentifiedException();
-
-    var user = await _userEntityDao.getUser();
-    var neighborhoodId = user?.neighborhoodId ?? 0;
-
-    await _cartService.orderCreate(
-      productId: adId,
-      amount: amount,
-      paymentTypeId: paymentTypeId,
-      tin: tin,
-      neighborhoodId: neighborhoodId,
-      servicePrice: servicePrice,
-    );
-
-    await removeOrder(tin: tin);
-    await removeFromCart(adId);
   }
 
   Future<void> removeOrder({required int tin}) async {

@@ -5,14 +5,11 @@ import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 
 extension GetItModulePreference on GetIt {
   Future<void> preferencesModule() async {
-    registerSingletonAsync<LanguagePreferences>(
-        () async => await LanguagePreferences.create());
+    registerSingletonAsync(() async => await LanguagePreferences.create());
 
-    registerSingletonAsync<TokenPreferences>(
-        () async => await TokenPreferences.create());
+    registerSingletonAsync(() async => await TokenPreferences.create());
 
-    registerSingletonAsync<UserPreferences>(
-        () async => await UserPreferences.create());
+    registerSingletonAsync(() async => await UserPreferences.create());
 
     await allReady();
   }

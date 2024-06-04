@@ -3,20 +3,26 @@ import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad_detail/ad_detail_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/search/search_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/ad_service.dart';
+import 'package:onlinebozor/data/datasource/preference/token_preferences.dart';
+import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
+import 'package:onlinebozor/data/error/app_locale_exception.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 import 'package:onlinebozor/domain/models/ad/ad_detail.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/domain/models/stats/stats_type.dart';
 
-// @LazySingleton()
 class AdRepository {
-  final AdService _adsService;
   final AdEntityDao _adEntityDao;
+  final AdService _adsService;
+  final TokenPreferences _tokenPreferences;
+  final UserPreferences _userPreferences;
 
   AdRepository(
-    this._adsService,
     this._adEntityDao,
+    this._adsService,
+    this._tokenPreferences,
+    this._userPreferences,
   );
 
   Future<List<Ad>> _getAsCombined(List<AdResponse> ads) async {
@@ -119,6 +125,9 @@ class AdRepository {
     required int page,
     required int limit,
   }) async {
+    if (_tokenPreferences.isNotAuthorized) throw NotAuthorizedException();
+    if (_userPreferences.isNotIdentified) throw NotIdentifiedException();
+
     final response = await _adsService.getAdsByUser(
       sellerTin: sellerTin,
       page: page,

@@ -12,6 +12,7 @@ import 'package:onlinebozor/data/datasource/network/services/ad_creation_service
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/mappers/category_mapper.dart';
 import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
+import 'package:onlinebozor/domain/mappers/user_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/domain/models/category/category.dart';
@@ -68,9 +69,8 @@ class AdCreationRepository {
     final response = await _adCreationService.getWarehousesForCreationAd(
       tinOrPinfl: tin ?? pinfl ?? 0,
     );
-    final warehouses = UserAddressRootResponse.fromJson(response.data).data;
-    throw UnsupportedError("return commented code");
-    // return warehouses.map((e) => e.toAddress()).toList();
+    final addresses = UserAddressRootResponse.fromJson(response.data).data;
+    return addresses.map((e) => e.toAddress()).toList();
   }
 
   Future<List<UnitResponse>> getUnitsForCreationAd() async {

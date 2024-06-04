@@ -714,47 +714,48 @@ class AdDetailPage extends BasePage<AdDetailCubit, AdDetailState, AdDetailEvent>
     showCupertinoModalBottomSheet(
       context: context,
       builder: (BuildContext bc) {
-        return Container(
-          decoration: BoxDecoration(
-            color: context.bottomSheetColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
+        return Material(
+          child: Container(
+            decoration: BoxDecoration(
+              color: context.bottomSheetColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
             ),
-          ),
-          // padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: 20),
-              BottomSheetTitle(
-                title: Strings.actionTitle,
-                onCloseClicked: () {
-                  context.router.pop();
-                },
-              ),
-              SizedBox(height: 16),
-              ActionListItem(
-                item: "",
-                title: Strings.reportAdsReportTitle,
-                icon: Assets.images.icSubmitReport,
-                onClicked: (item) {
-                  Navigator.pop(context);
-                  _showReportPage(context, ReportType.AD_REPORT);
-                },
-              ),
-              ActionListItem(
-                item: "",
-                title: Strings.reportAdsBlockTitle,
-                icon: Assets.images.icSubmitBlock,
-                onClicked: (item) {
-                  Navigator.pop(context);
-                  _showReportPage(context, ReportType.AD_BLOCK);
-                },
-              ),
-              SizedBox(height: 32),
-            ],
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(height: 20),
+                BottomSheetTitle(
+                  title: Strings.actionTitle,
+                  onCloseClicked: () {
+                    context.router.pop();
+                  },
+                ),
+                SizedBox(height: 16),
+                ActionListItem(
+                  item: "",
+                  title: Strings.reportAdsReportTitle,
+                  icon: Assets.images.icSubmitReport,
+                  onClicked: (item) {
+                    Navigator.pop(context);
+                    _showReportPage(context, ReportType.AD_REPORT);
+                  },
+                ),
+                ActionListItem(
+                  item: "",
+                  title: Strings.reportAdsBlockTitle,
+                  icon: Assets.images.icSubmitBlock,
+                  onClicked: (item) {
+                    Navigator.pop(context);
+                    _showReportPage(context, ReportType.AD_BLOCK);
+                  },
+                ),
+                SizedBox(height: 32),
+              ],
+            ),
           ),
         );
       },

@@ -2,54 +2,6 @@ import 'package:floor/floor.dart';
 
 @Entity(tableName: "users")
 class UserEntity {
-  // "user": {
-  // "pinfl": 31902922210014,
-  // "ipaddress": "10.1.0.1",
-  // "authSource": "project",
-  // "gender": "MALE",
-  // "homeName": "37",
-  // "eimzoAllowToLogin": "all",
-  // "locale": "la",
-  // "type": null,
-  // "orgId": null,
-  // "hasOtpSecret": false,
-  // "updateId": 1002943,
-  // "orgType": null,
-  // "messageType": "SMS,EMAIL,TELEGRAM",
-  // "permissions": [
-  // "frontend.user"
-  // ],
-  // "postName": null,
-  // "tin": null,
-  // "theme": null,
-  // "id": 87694,
-  // "state": 1,
-  // "email": "abror.esonaliyev@gmail.com",
-  // "passportNumber": "7301770",
-  // "passportSerial": "AA",
-  // "isPassword": true,
-  // "level": null,
-  // "photo": null,
-  // "fullName": "ESONALIYEV ABROR SAMSAG‘ALI O‘G‘LI",
-  // "otpSecretDate": null,
-  // "birthDate": "1992-02-19",
-  // "sellerInfo": false,
-  // "telegramId": null,
-  // "sourceUpdateId": null,
-  // "registeredWithEimzo": null,
-  // "areaId": 1411,
-  // "apartmentName": null,
-  // "districtId": 1411003,
-  // "mobilePhone": "998977521770",
-  // "hasBind": false,
-  // "typeActivity": "PHYSICAL",
-  // "isRegistered": true,
-  // "projectId": 34,
-  // "oblId": 14,
-  // "loggingLevel": "OFF",
-  // "username": "user31902922210014"
-  // }
-  // },
 
   @primaryKey
   @ColumnInfo(name: "user_id")

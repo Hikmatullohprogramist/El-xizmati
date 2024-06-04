@@ -128,126 +128,128 @@ class UserAdListPage
       context: context,
       backgroundColor: Colors.transparent,
       builder: (BuildContext bc) {
-        return Container(
-          decoration: BoxDecoration(
-            color: context.bottomSheetColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
+        return Material(
+          child: Container(
+            decoration: BoxDecoration(
+              color: context.bottomSheetColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
             ),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              SizedBox(height: 12),
-              BottomSheetTitle(
-                title: Strings.actionTitle,
-                onCloseClicked: () {
-                  context.router.pop();
-                },
-              ),
-              SizedBox(height: 16),
-              ActionListItem(
-                item: AdAction.ACTION_EDIT,
-                title: AdAction.ACTION_EDIT.getLocalizedName(),
-                icon: AdAction.ACTION_EDIT.getActionIcon(),
-                onClicked: (item) {
-                  context.router.pop();
-
-                  switch (type) {
-                    case AdTransactionType.sell:
-                      context.router.push(ProductAdCreationRoute(
-                        adId: ad.id,
-                        adTransactionType: type,
-                      ));
-                    case AdTransactionType.free:
-                      context.router.push(ProductAdCreationRoute(
-                        adId: ad.id,
-                        adTransactionType: type,
-                      ));
-                    case AdTransactionType.exchange:
-                      context.router.push(ProductAdCreationRoute(
-                        adId: ad.id,
-                        adTransactionType: type,
-                      ));
-                    case AdTransactionType.service:
-                      context.router.push(ServiceAdCreationRoute(
-                        adId: ad.id,
-                      ));
-                    case AdTransactionType.buy:
-                      context.router.push(RequestAdCreationRoute(
-                        adId: ad.id,
-                        adTransactionType: type,
-                      ));
-                    case AdTransactionType.buy_service:
-                      context.router.push(RequestAdCreationRoute(
-                        adId: ad.id,
-                        adTransactionType: type,
-                      ));
-                  }
-                },
-              ),
-              if (ad.isCanAdvertise())
-                ActionListItem(
-                  item: AdAction.ACTION_ADVERTISE,
-                  title: AdAction.ACTION_ADVERTISE.getLocalizedName(),
-                  icon: AdAction.ACTION_ADVERTISE.getActionIcon(),
-                  color: Colors.purpleAccent,
-                  onClicked: (item) {
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                SizedBox(height: 12),
+                BottomSheetTitle(
+                  title: Strings.actionTitle,
+                  onCloseClicked: () {
                     context.router.pop();
                   },
                 ),
-              if (ad.isCanDeactivate())
+                SizedBox(height: 16),
                 ActionListItem(
-                  item: AdAction.ACTION_DEACTIVATE,
-                  title: AdAction.ACTION_DEACTIVATE.getLocalizedName(),
-                  icon: AdAction.ACTION_DEACTIVATE.getActionIcon(),
-                  color: Color(0xFFFA6F5D),
+                  item: AdAction.ACTION_EDIT,
+                  title: AdAction.ACTION_EDIT.getLocalizedName(),
+                  icon: AdAction.ACTION_EDIT.getActionIcon(),
                   onClicked: (item) {
                     context.router.pop();
-                    cubit(context).deactivateAd(ad);
+          
+                    switch (type) {
+                      case AdTransactionType.sell:
+                        context.router.push(ProductAdCreationRoute(
+                          adId: ad.id,
+                          adTransactionType: type,
+                        ));
+                      case AdTransactionType.free:
+                        context.router.push(ProductAdCreationRoute(
+                          adId: ad.id,
+                          adTransactionType: type,
+                        ));
+                      case AdTransactionType.exchange:
+                        context.router.push(ProductAdCreationRoute(
+                          adId: ad.id,
+                          adTransactionType: type,
+                        ));
+                      case AdTransactionType.service:
+                        context.router.push(ServiceAdCreationRoute(
+                          adId: ad.id,
+                        ));
+                      case AdTransactionType.buy:
+                        context.router.push(RequestAdCreationRoute(
+                          adId: ad.id,
+                          adTransactionType: type,
+                        ));
+                      case AdTransactionType.buy_service:
+                        context.router.push(RequestAdCreationRoute(
+                          adId: ad.id,
+                          adTransactionType: type,
+                        ));
+                    }
                   },
                 ),
-              if (ad.isCanActivate())
-                ActionListItem(
-                  item: AdAction.ACTION_ACTIVATE,
-                  title: AdAction.ACTION_ACTIVATE.getLocalizedName(),
-                  icon: AdAction.ACTION_ACTIVATE.getActionIcon(),
-                  onClicked: (item) {
-                    context.router.pop();
-                    cubit(context).activateAd(ad);
-                  },
-                ),
-              if (ad.isCanDelete())
-                ActionListItem(
-                  item: AdAction.ACTION_DELETE,
-                  title: AdAction.ACTION_DELETE.getLocalizedName(),
-                  icon: AdAction.ACTION_DELETE.getActionIcon(),
-                  color: Color(0xFFFA6F5D),
-                  onClicked: (item) {
-                    context.router.pop();
-                    showYesNoBottomSheet(
-                      context,
-                      title: Strings.messageTitleWarning,
-                      message: Strings.adDeleteMessage,
-                      noTitle: Strings.commonNo,
-                      onNoClicked: () {
-                        Navigator.pop(context);
-                        HapticFeedback.lightImpact();
-                      },
-                      yesTitle: Strings.commonYes,
-                      onYesClicked: () {
-                        Navigator.pop(context);
-                        HapticFeedback.lightImpact();
-                        cubit(context).deleteAd(ad);
-                      },
-                    );
-                  },
-                ),
-              SizedBox(height: 20)
-            ],
+                if (ad.isCanAdvertise())
+                  ActionListItem(
+                    item: AdAction.ACTION_ADVERTISE,
+                    title: AdAction.ACTION_ADVERTISE.getLocalizedName(),
+                    icon: AdAction.ACTION_ADVERTISE.getActionIcon(),
+                    color: Colors.purpleAccent,
+                    onClicked: (item) {
+                      context.router.pop();
+                    },
+                  ),
+                if (ad.isCanDeactivate())
+                  ActionListItem(
+                    item: AdAction.ACTION_DEACTIVATE,
+                    title: AdAction.ACTION_DEACTIVATE.getLocalizedName(),
+                    icon: AdAction.ACTION_DEACTIVATE.getActionIcon(),
+                    color: Color(0xFFFA6F5D),
+                    onClicked: (item) {
+                      context.router.pop();
+                      cubit(context).deactivateAd(ad);
+                    },
+                  ),
+                if (ad.isCanActivate())
+                  ActionListItem(
+                    item: AdAction.ACTION_ACTIVATE,
+                    title: AdAction.ACTION_ACTIVATE.getLocalizedName(),
+                    icon: AdAction.ACTION_ACTIVATE.getActionIcon(),
+                    onClicked: (item) {
+                      context.router.pop();
+                      cubit(context).activateAd(ad);
+                    },
+                  ),
+                if (ad.isCanDelete())
+                  ActionListItem(
+                    item: AdAction.ACTION_DELETE,
+                    title: AdAction.ACTION_DELETE.getLocalizedName(),
+                    icon: AdAction.ACTION_DELETE.getActionIcon(),
+                    color: Color(0xFFFA6F5D),
+                    onClicked: (item) {
+                      context.router.pop();
+                      showYesNoBottomSheet(
+                        context,
+                        title: Strings.messageTitleWarning,
+                        message: Strings.adDeleteMessage,
+                        noTitle: Strings.commonNo,
+                        onNoClicked: () {
+                          Navigator.pop(context);
+                          HapticFeedback.lightImpact();
+                        },
+                        yesTitle: Strings.commonYes,
+                        onYesClicked: () {
+                          Navigator.pop(context);
+                          HapticFeedback.lightImpact();
+                          cubit(context).deleteAd(ad);
+                        },
+                      );
+                    },
+                  ),
+                SizedBox(height: 20)
+              ],
+            ),
           ),
         );
       },

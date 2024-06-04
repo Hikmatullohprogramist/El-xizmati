@@ -1,8 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/user_ad_repository.dart';
+import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
@@ -32,9 +34,7 @@ class UserAdListCubit extends BaseCubit<UserAdListState, UserAdListEvent> {
     }
   }
 
-  PagingController<int, UserAd> getAdsController({
-    required int status,
-  }) {
+  PagingController<int, UserAd> getAdsController({required int status}) {
     final adController = PagingController<int, UserAd>(
       firstPageKey: 1,
       invisibleItemsThreshold: 100,
@@ -51,13 +51,12 @@ class UserAdListCubit extends BaseCubit<UserAdListState, UserAdListEvent> {
             .initFuture()
             .onStart(() {})
             .onSuccess((data) {
-              throw UnsupportedError("return commented code");
-              // final adsList = data.map((e) => e.toMap()).toList();
-              // if (adsList.length < 20) {
-              //   adController.appendLastPage(adsList);
-              //   return;
-              // }
-              // adController.appendPage(adsList, pageKey + 1);
+              final adsList = data.map((e) => e.toMap()).toList();
+              if (adsList.length < 20) {
+                adController.appendLastPage(adsList);
+                return;
+              }
+              adController.appendPage(adsList, pageKey + 1);
             })
             .onError((error) {
               adController.error = error;
@@ -74,52 +73,92 @@ class UserAdListCubit extends BaseCubit<UserAdListState, UserAdListEvent> {
   }
 
   Future<void> deactivateAd(UserAd ad) async {
-    try {
-      final response = await _userAdRepository.deactivateAd(ad.id);
-      if (states.userAdStatus == UserAdStatus.ALL) {
-        final index = states.controller?.itemList?.indexOf(ad) ?? 0;
-        final item = states.controller?.itemList?.elementAt(index);
-        if (item != null) {
-          states.controller?.itemList?.removeAt(index);
-          states.controller?.itemList
-              ?.insert(index, item..status = UserAdStatus.INACTIVE);
-        }
-      } else {
-        states.controller?.itemList?.remove(ad);
-      }
-      states.controller?.notifyListeners();
-    } catch (error) {
-      logger.w(error.toString());
-    }
+    _userAdRepository
+        .deactivateAd(ad.id)
+        .initFuture()
+        .onSuccess((data) {
+          if (states.userAdStatus == UserAdStatus.ALL) {
+            final index =
+                states.controller?.itemList?.indexWhere((e) => e.id == ad.id) ??
+                    -1;
+            final item = index >= 0
+                ? states.controller?.itemList?.elementAt(index)
+                : null;
+            if (item != null) {
+              states.controller?.itemList?.removeAt(index);
+              states.controller?.itemList
+                  ?.insert(index, item..status = UserAdStatus.INACTIVE);
+              states.controller?.notifyListeners();
+            }
+          } else {
+            states.controller?.itemList?.remove(ad);
+            states.controller?.notifyListeners();
+          }
+
+          stateMessageManager
+              .showSuccessSnackBar(Strings.userAdsStateSuccessfullyChanged);
+        })
+        .onError((error) {
+          logger.w(error.toString());
+          stateMessageManager
+              .showErrorSnackBar(Strings.userAdsStateChangingFailed);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> activateAd(UserAd ad) async {
-    try {
-      final response = await _userAdRepository.activateAd(ad.id);
-      if (states.userAdStatus == UserAdStatus.ALL) {
-        final index = states.controller?.itemList?.indexOf(ad) ?? 0;
-        final item = states.controller?.itemList?.elementAt(index);
-        if (item != null) {
-          states.controller?.itemList?.removeAt(index);
-          states.controller?.itemList
-              ?.insert(index, item..status = UserAdStatus.WAIT);
-        }
-      } else {
-        states.controller?.itemList?.remove(ad);
-      }
-      states.controller?.notifyListeners();
-    } catch (error) {
-      logger.w(error.toString());
-    }
+    _userAdRepository
+        .activateAd(ad.id)
+        .initFuture()
+        .onSuccess((data) {
+          if (states.userAdStatus == UserAdStatus.ALL) {
+            final index =
+                states.controller?.itemList?.indexWhere((e) => e.id == ad.id) ??
+                    -1;
+            final item = index >= 0
+                ? states.controller?.itemList?.elementAt(index)
+                : null;
+            if (item != null) {
+              states.controller?.itemList?.removeAt(index);
+              states.controller?.itemList
+                  ?.insert(index, item..status = UserAdStatus.WAIT);
+            }
+          } else {
+            states.controller?.itemList?.remove(ad);
+          }
+          states.controller?.notifyListeners();
+
+          stateMessageManager
+              .showSuccessSnackBar(Strings.userAdsStateSuccessfullyChanged);
+        })
+        .onError((error) {
+          logger.w(error.toString());
+          stateMessageManager
+              .showErrorSnackBar(Strings.userAdsStateChangingFailed);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> deleteAd(UserAd ad) async {
-    try {
-      final response = await _userAdRepository.deleteAd(ad.id);
-      states.controller?.itemList?.remove(ad);
-      states.controller?.notifyListeners();
-    } catch (error) {
-      logger.w(error.toString());
-    }
+    _userAdRepository
+        .deleteAd(ad.id)
+        .initFuture()
+        .onSuccess((data) {
+          states.controller?.itemList?.remove(ad);
+          states.controller?.notifyListeners();
+
+          stateMessageManager
+              .showSuccessSnackBar(Strings.userAdsStateSuccessfullyChanged);
+        })
+        .onError((error) {
+          logger.w(error.toString());
+
+          stateMessageManager
+              .showErrorSnackBar(Strings.userAdsStateChangingFailed);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 }

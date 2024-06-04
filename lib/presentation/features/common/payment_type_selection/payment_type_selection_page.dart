@@ -30,54 +30,50 @@ class PaymentTypeSelectionPage extends BasePage<PaymentTypeSelectionCubit,
 
   @override
   Widget onWidgetBuild(BuildContext context, PaymentTypeSelectionState state) {
-    return SizedBox(
-      width: double.infinity,
-      height: MediaQuery.sizeOf(context).height * .6,
-      child: Material(
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              Container(
-                color: context.bottomSheetColor,
-                child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 20),
-                      BottomSheetTitle(
-                        title: Strings.selectionPaymentTypeTitle,
-                        onCloseClicked: () {
-                          context.router.pop();
-                        },
-                      ),
-                      LoaderStateWidget(
-                        isFullScreen: false,
-                        loadingState: state.loadState,
-                        loadingBody: _buildLoadingBody(),
-                        successBody: _buildSuccessBody(state),
-                        onRetryClicked: () => cubit(context).getItems(),
-                      ),
-                      SizedBox(height: 72),
-                    ],
-                  ),
+    return Material(
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Container(
+              color: context.bottomSheetColor,
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    SizedBox(height: 20),
+                    BottomSheetTitle(
+                      title: Strings.selectionPaymentTypeTitle,
+                      onCloseClicked: () {
+                        context.router.pop();
+                      },
+                    ),
+                    LoaderStateWidget(
+                      isFullScreen: false,
+                      loadingState: state.loadState,
+                      loadingBody: _buildLoadingBody(),
+                      successBody: _buildSuccessBody(state),
+                      onRetryClicked: () => cubit(context).getItems(),
+                    ),
+                    SizedBox(height: 72),
+                  ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: CustomElevatedButton(
-                  text: Strings.commonSave,
-                  onPressed: () {
-                    context.router.pop(state.selectedItems);
-                  },
-                ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: CustomElevatedButton(
+                text: Strings.commonSave,
+                onPressed: () {
+                  context.router.pop(state.selectedItems);
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -88,7 +84,7 @@ class PaymentTypeSelectionPage extends BasePage<PaymentTypeSelectionCubit,
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
-      itemCount: 7,
+      itemCount: 4,
       itemBuilder: (context, index) {
         return ActionItemShimmer();
       },

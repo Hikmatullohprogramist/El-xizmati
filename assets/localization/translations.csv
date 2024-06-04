@@ -414,6 +414,8 @@ user_ads_all,Barchasi,Все,Барчаси
 user_ads_cancelled,Bekor qilingan,Отменено,Бекор қилинган
 user_ads_inactive,Nofaol,Неактивный,Нофаол
 user_ads_rejected,Rad etilgan,Отклоненный,Рад этилган
+user_ads_state_changing_failed,E’lonni holatini o‘zgartirishda xatolik yuz berdi,Произошла ошибка при изменении статуса объявления,Эълонни ҳолатини ўзгартиришда хатолик юз берди
+user_ads_state_successfully_changed,E’lonni holati muvaffaqiyatli o‘zgartirildi,Статус объявления успешно изменен,Эълонни ҳолати муваффақиятли ўзгартирилди
 user_ads_title,E‘lonlar,Объявления,Эълонлар
 user_ads_wait,Kutilmoqda,В ожидании,Кутилмоқда
 user_card_deposit_card_name,Depozit karta,Депозитная карта,Депозит карта

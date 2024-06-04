@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:injectable/injectable.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
@@ -131,7 +132,9 @@ class UserOrderListPage extends BasePage<UserOrderListCubit, UserOrderListState,
       builder: (context) => UserOrderCancelPage(order: order),
     );
 
-    cubit(context).updateCancelledOrder(cancelledOrder);
+    if(cancelledOrder!=null && cancelledOrder is UserOrder) {
+      cubit(context).updateCancelledOrder(cancelledOrder);
+    }
   }
 
   void _showOrderInfoPage(

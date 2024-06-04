@@ -151,6 +151,9 @@ class RequestAdCreationCubit
       if (!states.isEditing) {
         updateState((state) => state.copyWith(adId: adId));
       }
+
+      await Future.delayed(Duration(seconds: 2));
+
       emitEvent(RequestAdCreationEvent(RequestAdCreationEventType.onAdCreated));
     } catch (exception) {
       logger.e(exception.toString());

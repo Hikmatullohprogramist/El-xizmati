@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/data/datasource/network/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/payment_type/payment_type_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/unit/unit_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/user_ad/user_ad_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/user_order/user_order_response.dart';
 import 'package:onlinebozor/domain/models/report/report_type.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
 import 'package:onlinebozor/presentation/features/ad/ad_detail/ad_detail_page.dart';
 import 'package:onlinebozor/presentation/features/ad/ad_list/ad_list_page.dart';
-import 'package:onlinebozor/presentation/features/ad/ad_list_actions/ad_list_actions_page.dart';
 import 'package:onlinebozor/presentation/features/ad/ad_list_by_type/ad_list_by_type_page.dart';
 import 'package:onlinebozor/presentation/features/ad/user_ad_detail/user_ad_detail_page.dart';
 import 'package:onlinebozor/presentation/features/auth/confirm/confirmation_page.dart';
@@ -255,11 +253,15 @@ class AppRouter extends _$AppRouter {
           path: '/local_image_viewer',
         ),
 
-        //   profile page
-        AutoRoute(page: ProfileViewRoute.page, path: '/profile_viewer'),
-        AutoRoute(page: UserAddressesRoute.page, path: '/my_addresses'),
-
-        /// user ads
+        ///   profile page
+        AutoRoute(
+          page: ProfileViewRoute.page,
+          path: '/profile_viewer',
+        ),
+        AutoRoute(
+          page: UserAddressesRoute.page,
+          path: '/user_addresses',
+        ),
         AutoRoute(
           page: UserAdsRoute.page,
           path: '/user_ads',
@@ -267,11 +269,20 @@ class AppRouter extends _$AppRouter {
             AutoRoute(page: UserAdListRoute.page, path: "user_ad_list"),
           ],
         ),
-
-        /// ad list actions
-        AutoRoute(page: AdListActionsRoute.page, path: '/ad_list_actions'),
-
-        AutoRoute(page: UserCardsRoute.page, path: '/user_card_list'),
+        AutoRoute(
+          page: UserCardsRoute.page,
+          path: '/user_card_list',
+        ),
+        AutoRoute(
+          page: UserOrdersRoute.page,
+          path: '/user_orders',
+          children: [
+            AutoRoute(
+              page: UserOrderListRoute.page,
+              path: 'user_order_list',
+            ),
+          ],
+        ),
 
         /// RealPay Payment
         AutoRoute(
@@ -285,17 +296,6 @@ class AppRouter extends _$AppRouter {
           path: '/add_card_with_realpay',
         ),
 
-        AutoRoute(
-          page: UserOrdersRoute.page,
-          path: '/user_orders',
-          children: [
-            AutoRoute(
-              page: UserOrderListRoute.page,
-              path: 'user_order_list',
-            ),
-          ],
-        ),
-
         /// Payment transactions
         AutoRoute(
           page: PaymentTransactionsRoute.page,
@@ -305,6 +305,7 @@ class AppRouter extends _$AppRouter {
           page: PaymentTransactionFilterRoute.page,
           path: '/payment_transaction_filter',
         ),
+
         AutoRoute(
           page: ProfileEditRoute.page,
           path: '/profile_edit',

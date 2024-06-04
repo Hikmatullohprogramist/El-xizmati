@@ -1,4 +1,3 @@
-import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:onlinebozor/data/datasource/floor/dao/user_address_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/network/responses/address/user_address_response.dart';
@@ -6,12 +5,9 @@ import 'package:onlinebozor/data/datasource/network/services/user_address_servic
 import 'package:onlinebozor/data/datasource/preference/token_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
-import 'package:onlinebozor/data/repositories/state_repository.dart';
-import 'package:onlinebozor/data/repositories/user_repository.dart';
 import 'package:onlinebozor/domain/mappers/user_mapper.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
 
-// @LazySingleton()
 class UserAddressRepository {
   final TokenPreferences _tokenPreferences;
   final UserAddressEntityDao _userAddressEntityDao;
@@ -34,14 +30,12 @@ class UserAddressRepository {
     await _userAddressEntityDao.upsertAll(
       addresses.map((e) => e.toAddressEntity()).toList(),
     );
-    throw UnsupportedError("return commented code");
-    // return addresses.map((e) => e.toAddress()).toList();
+    return addresses.map((e) => e.toAddress()).toList();
   }
 
   Future<List<UserAddress>> getSavedUserAddresses() async {
     final entities = await _userAddressEntityDao.getSavedAddresses();
-    throw UnsupportedError("return commented code");
-    // return entities.map((e) => e.toAddress()).toList();
+    return entities.map((e) => e.toAddress()).toList();
   }
 
   Future<List<UserAddress>> getUserAddresses() async {

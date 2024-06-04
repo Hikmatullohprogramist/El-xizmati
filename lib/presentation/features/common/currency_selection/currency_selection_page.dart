@@ -23,9 +23,7 @@ class CurrencySelectionPage extends BasePage<CurrencySelectionCubit, CurrencySel
 
   @override
   Widget onWidgetBuild(BuildContext context, CurrencySelectionState state) {
-    return SizedBox(
-      width: double.infinity,
-      height: MediaQuery.sizeOf(context).height * .4,
+    return Material(
       child: ClipRRect(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),

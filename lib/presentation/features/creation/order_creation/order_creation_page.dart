@@ -47,7 +47,7 @@ class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationState,
     switch (event.type) {
       case OrderCreationEventType.onBackAfterRemove:
         context.router.replace(CartRoute());
-      case OrderCreationEventType.onOpenAfterCreation:
+      case OrderCreationEventType.onAfterCreation:
         context.router.replace(UserOrdersRoute(orderType: OrderType.buy));
       case OrderCreationEventType.onOpenAuthStart:
         context.router.push(AuthStartRoute());

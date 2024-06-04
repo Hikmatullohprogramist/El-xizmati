@@ -28,9 +28,7 @@ class UserWarehouseSelectionPage
 
   @override
   Widget onWidgetBuild(BuildContext context, UserWarehouseSelectionState state) {
-    return SizedBox(
-      width: double.infinity,
-      height: MediaQuery.sizeOf(context).height * .6,
+    return Material(
       child: ClipRRect(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),

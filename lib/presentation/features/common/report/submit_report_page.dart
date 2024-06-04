@@ -42,83 +42,80 @@ class SubmitReportPage
   Widget onWidgetBuild(BuildContext context, SubmitReportState state) {
     commentController.updateOnRestore(state.reportComment);
 
-    return SizedBox(
-      width: double.infinity,
-      child: Material(
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              Container(
-                color: context.cardColor,
-                child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 20),
-                      BottomSheetTitle(
-                        title: reportType.getLocalizedPageTitle(),
-                        onCloseClicked: () {
-                          context.router.pop();
+    return Material(
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Container(
+              color: context.cardColor,
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    SizedBox(height: 20),
+                    BottomSheetTitle(
+                      title: reportType.getLocalizedPageTitle(),
+                      onCloseClicked: () {
+                        context.router.pop();
+                      },
+                    ),
+                    _buildReasonsItems(context, state),
+                    SizedBox(height: 8),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: LabelTextField(
+                        Strings.commonComment,
+                        isRequired: state.isCommentEnabled,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: CustomTextFormField(
+                        autofillHints: const [AutofillHints.name],
+                        inputType: TextInputType.name,
+                        keyboardType: TextInputType.name,
+                        maxLines: 5,
+                        minLines: 3,
+                        hint: Strings.commonComment,
+                        textInputAction: TextInputAction.next,
+                        controller: commentController,
+                        onChanged: (value) {
+                          cubit(context).setEnteredComment(value);
                         },
                       ),
-                      _buildReasonsItems(context, state),
-                      SizedBox(height: 8),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: LabelTextField(
-                          Strings.commonComment,
-                          isRequired: state.isCommentEnabled,
-                        ),
+                    ),
+                    SizedBox(height: 32),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: CustomElevatedButton(
+                        text: reportType.getLocalizedAction(),
+                        onPressed: () {
+                          cubit(context).submitReport();
+                        },
                       ),
-                      SizedBox(height: 8),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: CustomTextFormField(
-                          autofillHints: const [AutofillHints.name],
-                          inputType: TextInputType.name,
-                          keyboardType: TextInputType.name,
-                          maxLines: 5,
-                          minLines: 3,
-                          hint: Strings.commonComment,
-                          textInputAction: TextInputAction.next,
-                          controller: commentController,
-                          onChanged: (value) {
-                            cubit(context).setEnteredComment(value);
-                          },
-                        ),
-                      ),
-                      SizedBox(height: 32),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: CustomElevatedButton(
-                          text: reportType.getLocalizedAction(),
-                          onPressed: () {
-                            cubit(context).submitReport();
-                          },
-                        ),
-                      ),
-                      SizedBox(height: 32),
-                    ],
-                  ),
+                    ),
+                    SizedBox(height: 32),
+                  ],
                 ),
               ),
-              // Padding(
-              //   padding: EdgeInsets.only(left: 16, right: 16, bottom: 32),
-              //   child: CustomElevatedButton(
-              //     text: reportType.getLocalizedAction(),
-              //     onPressed: () {
-              //       cubit(context).submitReport();
-              //     },
-              //   ),
-              // ),
-              // SizedBox(height: 32),
-            ],
-          ),
+            ),
+            // Padding(
+            //   padding: EdgeInsets.only(left: 16, right: 16, bottom: 32),
+            //   child: CustomElevatedButton(
+            //     text: reportType.getLocalizedAction(),
+            //     onPressed: () {
+            //       cubit(context).submitReport();
+            //     },
+            //   ),
+            // ),
+            // SizedBox(height: 32),
+          ],
         ),
       ),
     );

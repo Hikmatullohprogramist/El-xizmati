@@ -22,7 +22,6 @@ class UserOrderListCubit
     getController();
   }
 
-
   void setInitialParams(OrderType orderType, UserOrderStatus status) {
     updateState((state) => states.copyWith(
           orderType: orderType,
@@ -84,16 +83,19 @@ class UserOrderListCubit
   }
 
   void updateCancelledOrder(UserOrder order) {
-    final index = states.controller?.itemList?.indexOf(order) ?? 0;
-    final item = states.controller?.itemList?.elementAt(index);
+    int index = states.controller?.itemList
+            ?.indexWhere((e) => e.orderId == order.orderId) ??
+        -1;
+
+    final item =
+        index >= 0 ? states.controller?.itemList?.elementAt(index) : null;
+
     if (item != null) {
       states.controller?.itemList?.removeAt(index);
       states.controller?.itemList?.insert(
-          index,
-          item.copyWith(
-            status: order.status,
-            cancelNote: order.cancelNote,
-          ));
+        index,
+        item.copyWith(status: order.status, cancelNote: order.cancelNote),
+      );
       states.controller?.notifyListeners();
     }
   }

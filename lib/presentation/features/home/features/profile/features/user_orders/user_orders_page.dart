@@ -86,7 +86,7 @@ class UserOrdersPage
               onPressed: () => context.router.pop(),
             ),
             elevation: 0.5,
-            backgroundColor: context.backgroundColor,
+            backgroundColor: context.appBarColor,
             centerTitle: true,
             bottomOpacity: 1,
             title: Strings.orderListTitle

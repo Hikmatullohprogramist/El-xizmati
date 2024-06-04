@@ -8,8 +8,8 @@ import 'package:onlinebozor/data/repositories/ad_repository.dart';
 import 'package:onlinebozor/data/repositories/card_repositroy.dart';
 import 'package:onlinebozor/data/repositories/cart_repository.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
+import 'package:onlinebozor/data/repositories/order_repository.dart';
 import 'package:onlinebozor/data/repositories/state_repository.dart';
-import 'package:onlinebozor/data/repositories/user_repository.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/ad_detail.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
@@ -28,18 +28,18 @@ class OrderCreationCubit
     this._cardRepository,
     this._cartRepository,
     this._favoriteRepository,
+    this._orderRepository,
     this._stateRepository,
-    this._userRepository,
   ) : super(const OrderCreationState()) {
     getDepositCardBalance();
   }
 
   final AdRepository _adRepository;
-  final CartRepository _cartRepository;
   final CardRepository _cardRepository;
+  final CartRepository _cartRepository;
   final FavoriteRepository _favoriteRepository;
+  final OrderRepository _orderRepository;
   final StateRepository _stateRepository;
-  final UserRepository _userRepository;
 
   Future<void> setAdId(int adId) async {
     updateState((state) => state.copyWith(adId: adId));
@@ -173,7 +173,7 @@ class OrderCreationCubit
       return;
     }
 
-    _cartRepository
+    _orderRepository
         .orderCreate(
           adId: states.adId ?? -1,
           amount: states.count,
@@ -187,9 +187,10 @@ class OrderCreationCubit
                 isRequestSending: true,
               ));
         })
-        .onSuccess((data) {
-          emitEvent(
-              OrderCreationEvent(OrderCreationEventType.onOpenAfterCreation));
+        .onSuccess((data) async {
+          await Future.delayed(Duration(seconds: 2));
+
+          emitEvent(OrderCreationEvent(OrderCreationEventType.onAfterCreation));
           updateState((state) => state.copyWith(isRequestSending: false));
         })
         .onError((error) {

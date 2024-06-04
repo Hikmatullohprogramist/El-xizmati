@@ -58,7 +58,7 @@ class UserCardsPage extends BasePage<UserCardsCubit, PageState, PageEvent> {
 
   Widget _buildSuccessBody(BuildContext context, PageState state) {
     return RefreshIndicator(
-      displacement: 160,
+      displacement: 120,
       strokeWidth: 3,
       color: context.colors.primary,
       onRefresh: () async {

@@ -26,48 +26,44 @@ class UserAddressSelectionPage extends BasePage<UserAddressSelectionCubit,
 
   @override
   Widget onWidgetBuild(BuildContext context, UserAddressSelectionState state) {
-    return SizedBox(
-      width: double.infinity,
-      height: MediaQuery.sizeOf(context).height * .7,
-      child: Material(
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          child: Container(
-            color: context.bottomSheetColor,
-            child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Column(
-                children: [
-                  SizedBox(height: 20),
-                  BottomSheetTitle(
-                    title: Strings.selectionUserAddressTitle,
-                    onCloseClicked: () {
-                      context.router.pop();
+    return Material(
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+        child: Container(
+          color: context.bottomSheetColor,
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(
+              children: [
+                SizedBox(height: 20),
+                BottomSheetTitle(
+                  title: Strings.selectionUserAddressTitle,
+                  onCloseClicked: () {
+                    context.router.pop();
+                  },
+                ),
+                LoaderStateWidget(
+                  isFullScreen: false,
+                  loadingState: state.loadState,
+                  loadingBody: _buildLoadingBody(),
+                  successBody: _buildSuccessBody(state),
+                  emptyBody: UserAddressEmptyWidget(
+                    onActionClicked: () async {
+                      final isAdded =
+                          await context.router.push(AddAddressRoute());
+                      if (isAdded is bool && isAdded == true) {
+                        cubit(context).getItems();
+                      }
                     },
                   ),
-                  LoaderStateWidget(
-                    isFullScreen: false,
-                    loadingState: state.loadState,
-                    loadingBody: _buildLoadingBody(),
-                    successBody: _buildSuccessBody(state),
-                    emptyBody: UserAddressEmptyWidget(
-                      onActionClicked: () async {
-                        final isAdded =
-                            await context.router.push(AddAddressRoute());
-                        if (isAdded is bool && isAdded == true) {
-                          cubit(context).getItems();
-                        }
-                      },
-                    ),
-                    onRetryClicked: () {
-                      cubit(context).getItems();
-                    },
-                  ),
-                ],
-              ),
+                  onRetryClicked: () {
+                    cubit(context).getItems();
+                  },
+                ),
+              ],
             ),
           ),
         ),

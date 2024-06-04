@@ -12,6 +12,7 @@ import 'package:onlinebozor/domain/models/ad/ad.dart';
 import 'package:onlinebozor/domain/models/ad/ad_detail.dart';
 import 'package:onlinebozor/domain/models/stats/stats_type.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
 
 part 'ad_detail_cubit.freezed.dart';
 part 'ad_detail_state.dart';
@@ -198,18 +199,25 @@ class AdDetailCubit extends BaseCubit<AdDetailState, AdDetailEvent> {
         )
         .initFuture()
         .onStart(() {
-      if (states.adId == null) throw UnsupportedError("adId is null");
-      if (!_stateRepository.isAuthorized()) throw UnsupportedError("");
-    }).onSuccess((data) {
-      data.removeWhere((e) => e.id == state.state?.adId);
-      updateState((state) => state.copyWith(
-            ownerAds: data,
-            ownerAdsState: LoadingState.success,
-          ));
-    }).onError((error) {
-      logger.w(error);
-      updateState((s) => s.copyWith(ownerAdsState: LoadingState.error));
-    }).executeFuture();
+          if (states.adId == null) throw UnsupportedError("adId is null");
+          if (!_stateRepository.isAuthorized()) throw UnsupportedError("");
+        })
+        .onSuccess((data) {
+          data.removeWhere((e) => e.id == state.state?.adId);
+          updateState((state) => state.copyWith(
+                ownerAds: data,
+                ownerAdsState: LoadingState.success,
+              ));
+        })
+        .onError((error) {
+          logger.w(error);
+          updateState((s) => s.copyWith(ownerAdsState: LoadingState.error));
+          if(error.isRequiredShowError){
+            stateMessageManager.showErrorBottomSheet(error.localizedMessage);
+          }
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> ownerAdUpdateFavorite(Ad ad) async {

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/src/response.dart';
-import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/datasource/floor/dao/ad_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/floor/dao/category_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/floor/dao/user_entity_dao.dart';
@@ -18,12 +17,10 @@ import 'package:onlinebozor/data/datasource/preference/language_preferences.dart
 import 'package:onlinebozor/data/datasource/preference/token_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 
-// @LazySingleton()
 class AuthRepository {
   final AdEntityDao _adEntityDao;
   final AuthService _authService;
   final CategoryEntityDao _categoryEntityDao;
-  final LanguagePreferences _languagePreferences;
   final TokenPreferences _tokenPreferences;
   final UserPreferences _userPreferences;
   final UserEntityDao _userEntityDao;
@@ -32,7 +29,6 @@ class AuthRepository {
     this._adEntityDao,
     this._authService,
     this._categoryEntityDao,
-    this._languagePreferences,
     this._tokenPreferences,
     this._userEntityDao,
     this._userPreferences,
@@ -79,11 +75,12 @@ class AuthRepository {
             neighborhoodName: saved?.neighborhoodName ?? "",
             houseNumber: actual.homeName ?? saved?.houseNumber,
             apartmentName: saved?.apartmentName,
-            birthDate: actual.birthDate ?? saved?.birthDate,
-            photo: actual.photo ?? saved?.photo,
-            email: actual.email ?? saved?.email,
+            birthDate: actual.birthDate ?? saved?.birthDate ?? "",
+            photo: actual.photo ?? saved?.photo ?? "",
+            email: actual.email ?? saved?.email ?? "",
             phone: actual.mobilePhone ?? saved?.phone ?? "",
-            notificationSource: actual.messageType ?? saved?.notificationSource,
+            notificationSource:
+                actual.messageType ?? saved?.notificationSource ?? "",
             isIdentified: actual.isRegistered ?? saved?.isIdentified ?? false,
             state: saved?.state,
           ),
@@ -255,8 +252,6 @@ class AuthRepository {
   Future<void> logOut() async {
     await _adEntityDao.clear();
     await _categoryEntityDao.clear();
-    await _languagePreferences.clear();
-    await _languagePreferences.clear();
     await _tokenPreferences.clear();
     await _userEntityDao.clear();
     await _userPreferences.clear();

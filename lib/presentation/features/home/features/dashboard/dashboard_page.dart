@@ -40,7 +40,6 @@ class DashboardPage
   Widget onWidgetBuild(BuildContext context, DashboardState state) {
     return Scaffold(
       appBar: AppBar(
-        // toolbarHeight: 64,
         elevation: 0.5,
         backgroundColor: context.backgroundColor,
         actions: [
