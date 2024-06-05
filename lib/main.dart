@@ -131,6 +131,8 @@ class MyApp extends StatelessWidget {
       secondary: Color(0xFFFFFFFF),
       background: Color(0xFFFFFFFF),
       onBackground: Color(0xFF000000),
+      surface: Color(0xFFF3F3F3),
+      onSurface: Color(0xFF000000),
     );
     // return ColorScheme(
     //   brightness: Brightness.light,
@@ -172,6 +174,8 @@ class MyApp extends StatelessWidget {
       secondary: Color(0xFF000000),
       background: Color(0xFF121212),
       onBackground: Color(0xFFE0E0E0),
+      surface: Color(0xFF333333),
+      onSurface: Color(0xFFE0E0E0),
     );
     // return ColorScheme(
     //   brightness: Brightness.dark,
