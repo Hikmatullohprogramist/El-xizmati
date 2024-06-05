@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:onlinebozor/core/enum/social_enum.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/responses/user_order/user_order_response.dart';
@@ -337,6 +338,53 @@ extension ReportTypeExts on ReportType {
       ReportType.AD_REPORT => Strings.reportActionSendReport,
       ReportType.AUTHOR_BLOCK => Strings.reportActionBlockUser,
       ReportType.AUTHOR_REPORT => Strings.reportActionSendReport,
+    };
+  }
+}
+
+extension SocialTypeExts on SocialType {
+  String get linkTitle {
+    return switch (this) {
+      SocialType.instagram => Strings.profileSocialInstagramLinkTitle,
+      SocialType.telegram => Strings.profileSocialTelegramLinkTitle,
+      SocialType.facebook => Strings.profileSocialFacebookLinkTitle,
+      SocialType.youtube => Strings.profileSocialYoutubeLinkTitle,
+    };
+  }
+
+  String get openApp {
+    return switch (this) {
+      SocialType.instagram => Strings.profileSocialInstagramOpenApp,
+      SocialType.telegram => Strings.profileSocialTelegramOpenApp,
+      SocialType.facebook => Strings.profileSocialFacebookOpenApp,
+      SocialType.youtube => Strings.profileSocialYoutubeOpenApp,
+    };
+  }
+
+  String get firstStep {
+    return switch (this) {
+      SocialType.instagram => Strings.profileSocialInstagramStepFirst,
+      SocialType.telegram => Strings.profileSocialTelegramStepFirst,
+      SocialType.facebook => Strings.profileSocialFacebookStepFirst,
+      SocialType.youtube => Strings.profileSocialYoutubeStepFirst,
+    };
+  }
+
+  String get secondStep {
+    return switch (this) {
+      SocialType.instagram => Strings.profileSocialInstagramStepSecoond,
+      SocialType.telegram => Strings.profileSocialTelegramStepSecond,
+      SocialType.facebook => Strings.profileSocialFacebookStepSecond,
+      SocialType.youtube => Strings.profileSocialYoutubeStepSecond,
+    };
+  }
+
+  String get thirdStep {
+    return switch (this) {
+      SocialType.instagram => Strings.profileSocialInstagramStepThird,
+      SocialType.telegram => Strings.profileSocialTelegramStepThird,
+      SocialType.facebook => Strings.profileSocialFacebookStepThird,
+      SocialType.youtube => Strings.profileSocialYoutubeStepThird,
     };
   }
 }

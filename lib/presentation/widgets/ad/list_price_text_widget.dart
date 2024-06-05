@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 
 import '../../../domain/models/currency/currency_code.dart';
@@ -54,7 +55,7 @@ class ListPriceTextWidget extends StatelessWidget {
         .replaceAll(',', ' ')
         .w(500)
         .s(14)
-        .c(color != null ? color! : Color(0xFF5C6AC3))
+        .c(color != null ? color! : context.textPrimary)
         .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis);
   }
 }

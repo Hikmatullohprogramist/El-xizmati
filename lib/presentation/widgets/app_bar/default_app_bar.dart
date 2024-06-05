@@ -9,7 +9,7 @@ class DefaultAppBar extends AppBar implements PreferredSizeWidget {
   final Color backgroundColor;
   final VoidCallback onBackPressed;
 
-  DefaultAppBar( {
+  DefaultAppBar({
     super.key,
     required this.titleText,
     required this.titleTextColor,

@@ -80,7 +80,7 @@ class UserAdListPage
                 isFullScreen: true,
                 icon: Assets.images.pngImages.adEmpty.image(),
                 message: state.userAdStatus.getLocalizedEmptyMessage(),
-                mainActionLabel: Strings.adCreateTitle,
+                mainActionLabel: Strings.adCreationTitle,
                 onMainActionClicked: () {
                   context.router.push(AdCreationChooserRoute());
                 },

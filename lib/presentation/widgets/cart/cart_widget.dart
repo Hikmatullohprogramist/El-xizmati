@@ -74,7 +74,7 @@ class CartWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          ad.name.w(600).s(14).c(Color(0xFF41455E)).copyWith(
+                          ad.name.w(600).s(14).copyWith(
                                 textAlign: TextAlign.start,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
@@ -91,9 +91,9 @@ class CartWidget extends StatelessWidget {
                               ),
                           SizedBox(height: 4),
                           ListPriceTextWidget(
-                            price: ad.price ?? 0,
-                            toPrice: ad.toPrice ?? 0,
-                            fromPrice: ad.fromPrice ?? 0,
+                            price: ad.price,
+                            toPrice: ad.toPrice,
+                            fromPrice: ad.fromPrice,
                             currency: ad.currencyCode,
                           ),
                         ],

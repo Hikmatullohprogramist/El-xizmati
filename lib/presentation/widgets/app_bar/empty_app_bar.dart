@@ -15,7 +15,7 @@ class EmptyAppBar extends AppBar implements PreferredSizeWidget {
     required this.textColor,
   }) : super(
           backgroundColor: backgroundColor,
-          elevation: 0.0,
+          elevation: 0.5,
           centerTitle: true,
           toolbarHeight: 64,
           title: titleText.w(500).c(textColor).s(16),

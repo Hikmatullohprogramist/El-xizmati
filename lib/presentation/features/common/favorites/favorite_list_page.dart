@@ -3,6 +3,7 @@ import 'dart:io' as favorite_list_page;
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
+import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
@@ -31,16 +32,9 @@ class FavoriteListPage extends BasePage<FavoriteListCubit, FavoriteListState, Fa
                 .w(500)
                 .s(16)
                 .c(context.textPrimary),
-            // leading: AutoLeadingButton(),
             leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios, color: context.colors.iconSecondary),
-              onPressed: () {
-                if (context.router.stack.length == 1) {
-                  favorite_list_page.exit(0);
-                } else {
-                  context.router.pop();
-                }
-              },
+              onPressed: ()=>context.router.pop(),
+              icon: Assets.images.icArrowLeft.svg(),
             ),
             bottom: TabBar(
               physics: BouncingScrollPhysics(),

@@ -22,7 +22,7 @@ class AdCreationChooserPage extends BasePage<AdCreationChooserCubit,
   Widget onWidgetBuild(BuildContext context, AdCreationChooserState state) {
     return Scaffold(
       appBar: EmptyAppBar(
-        titleText: "",
+        titleText: Strings.adCreationTitle,
         backgroundColor: context.appBarColor,
         textColor: context.textPrimary,
       ),

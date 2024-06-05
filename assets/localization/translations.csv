@@ -10,11 +10,6 @@ active_device_current_device,Joriy sessiya,Текущий сеанс,Жорий 
 active_device_remove_device,Seansni tugatish,Завершить сеанс,Сеансни тугатиш
 ad_buy,Sotib olish,Купить,Сотиб олиш
 ad_buy_by_one_click,Bir klikda sotib olish,Купить в один клик,Бир кликда сотиб олиш
-ad_create_exchange_title,Almashish,Обмен,Алмашиш
-ad_create_free_title,Bepul,Бесплатно,Бепул
-ad_create_product_title,Mahsulot,Продукт,Маҳсулот
-ad_create_service_title,Xizmat,Услуга,Хизмат
-ad_create_title,E‘lon yaratish,Создать объявление,Эълон яратиш
 ad_creation_additional_info_label,Qo‘shimcha ma’lumot,Дополнительная информация,Қўшимча маълумот
 ad_creation_address_label,Mening manzilim,Мои адрес,Менинг манзилим
 ad_creation_addresses_info_label,Manzillar,Адреса,Манзиллар
@@ -30,7 +25,9 @@ ad_creation_currency_label,Pul birligi,Валюта,Пул бирлиги
 ad_creation_desc_hint,E’loningizni tushunarli qiladigan va topishni osonlashtiradigan tafsilotlarni o‘ylab ko‘ring. Va ularni tavsifga qo‘shing,"Подумайте, какие подробности вы хотели бы узнать из объявления. И добавьте их в описание",Эълонингизни тушунарли қиладиган ва топишни осонлаштирадиган тафсилотларни ўйлаб кўринг. Ва уларни тавсифга қўшинг
 ad_creation_desc_label,Mahsulot tavsifi,Описание товара,Маҳсулот тавсифи
 ad_creation_exchange_label,Almashaman,Обменяю,Алмашаман
+ad_creation_exchange_title,Almashish,Обмен,Алмашиш
 ad_creation_free_delivery_label,Bepul yetkazib berish,Бесплатная доставка,Бепул етказиб бериш
+ad_creation_free_title,Bepul,Бесплатно,Бепул
 ad_creation_from_price_label,dan,с,дан
 ad_creation_name_label,Mahsulot nomi,Название товара,Маҳсулот номи
 ad_creation_negotiable_label,Kelishish mumkin,Договорная,Келишиш мумкин
@@ -41,6 +38,7 @@ ad_creation_personal_label,Shaxsiy,Личное,Шахсий
 ad_creation_personal_or_business_label,Biznes yoki shaxsiy,Бизнес или личное,Бизнес ёки шахсий
 ad_creation_pickup_label,Olib ketish manzillari,Самовывоз с адреса,Олиб кетиш манзиллари
 ad_creation_price_label,Narxi,Цена,Нархи
+ad_creation_product_title,Mahsulot,Продукт,Маҳсулот
 ad_creation_receive_types_label,Qabul qilish turlari,Способы приема,Қабул қилиш турлари
 ad_creation_required_fields_label,Yulduzcha bilan belgilangan barcha maydonlar to‘ldirilishi kerak.,Необходимо заполнить все поля отмеченный звездочкой,Юлдузча билан белгиланган барча майдонлар тўлдирилиши керак.
 ad_creation_result_add_another_ad,Yangi e’lon qo‘shish,Добавить новое объявление,Янги эълон қўшиш
@@ -50,6 +48,7 @@ ad_creation_result_message,O‘zgarishlar saqlandi,Изменения сохра
 ad_creation_result_open_dashboard,Asosiy oynaga o‘tish,Перейти на главную,Асосий ойнага ўтиш
 ad_creation_search_address_label,Qayerdan kerak,Откуда вам нужен,Қаердан керак
 ad_creation_service_addresses,Xizmat ko‘rsatish manzillari,Адреса услуг,Хизмат кўрсатиш манзиллари
+ad_creation_service_title,Xizmat,Услуга,Хизмат
 ad_creation_show_my_social_accounts_label,Mening ijtimoiy tarmoqlarim mahsulot tavsifi ko‘rsatilsin,Показать мои соц. сети на описание товара,Менинг ижтимоий тармоқларим маҳсулот тавсифи кўрсатилсин
 ad_creation_start_buy_desc,Siz qulay va tez mahsulot yoki xizmatni sotib olish uchun so‘rovlarni yaratishingiz mumkin!,Вы можете легко и быстро создавать заявки на покупку товара или услуги!,Сиз қулай ва тез маҳсулот ёки хизматни сотиб олиш учун сўровларни яратишингиз мумкин!
 ad_creation_start_buy_product,Mahsulot sotib oling,Купить товар,Маҳсулот сотиб олинг
@@ -62,6 +61,7 @@ ad_creation_start_sale_title,Sotmoqchimisiz ?,Хочу продать ?,Сотм
 ad_creation_state_label,Holati,Состояние,Ҳолати
 ad_creation_state_new_label,Yangi,Новый,Янги
 ad_creation_state_used_label,Ishlatilgan,Б / У,Ишлатилган
+ad_creation_title,E‘lon yaratish,Создать объявление,Эълон яратиш
 ad_creation_to_price_label,gacha,до,гача
 ad_creation_transaction_type_label,E’lon turi,Тип объявления,Эълон тури
 ad_creation_useful_link_label,Foydali havolalar,Полезные ссылки,Фойдали ҳаволалар
@@ -357,6 +357,29 @@ profile_personal_data,Shaxsiy ma‘lumotlar,Личные данные,Шахси
 profile_private_person,Jismoniy shaxs,Частное лицо,Жисмоний шахс
 profile_promotions,Aktsiyalar,Продвижения,Акциялар
 profile_settings,Sozlamalar,Настройки,Созламалар
+profile_social_facebook_link_title,Facebook profili havolasi,Ссылка на профиль Facebook,Facebook профили ҳаволаси
+profile_social_facebook_open_app,Facebookni ochish,Открыть Facebook,Facebookни очиш
+profile_social_facebook_step_first,Facebookni sozlamalar bo‘limiga o‘ting,Зайдите в настройки Facebook,Facebookни созламалар бўлимига ўтинг
+profile_social_facebook_step_second,O‘ng yuqori burchagida joylashgan profil rasmingizga yoki ismingizga bosing. Paydo bo‘lgan menyudan Profilni ko‘rishni tanlang.,Нажмите на изображение своего профиля или имя в правом верхнем углу. В появившемся меню выберите «Просмотреть профиль».,Ўнг юқори бурчагида жойлашган профил расмингизга ёки исмингизга босинг. Пайдо бўлган менюдан Профилни кўришни танланг.
+profile_social_facebook_step_third,Manzil panelida profil havolani ko‘rasiz. Masalan: 'https://www.facebook.com/FOYDALANUVCHINOMI' ko‘rinishida bo‘ladi.,"В адресной строке вы увидите ссылку на профиль. Например, это будет выглядеть так: «https://www.facebook.com/USERNAME».",Манзил панелида профил ҳаволани кўрасиз. Масалан: 'https://www.facebook.com/FOYDALANUVCHINOMI' кўринишида бўлади.
+profile_social_instagram_link_title,Instagram profili havolasi,Ссылка на профиль Instagram,Instagram профили ҳаволаси
+profile_social_instagram_open_app,Instagramni ochish,Открыть Instagram,Instagramни очиш
+profile_social_instagram_step_first,Instagramni profil bo‘limiga o‘ting,Зайдите в свой профиль в Instagram,Instagramни профил бўлимига ўтинг
+profile_social_instagram_step_secoond,Profilingizni ochish uchun o‘ng pastdagi profil belgisiga bosing yoki profil nomingizga bosing.,"Чтобы открыть свой профиль, щелкните значок профиля в правом нижнем углу или щелкните имя своего профиля.",Профилингизни очиш учун ўнг пастдаги профил белгисига босинг ёки профил номингизга босинг.
+profile_social_instagram_step_third,"Profil sahifangizga yo‘naltirilganingizdan so‘ng, brauzerning manzil panelida profil havolasini ko‘rasiz. Umumiy ravishda, 'https://www.instagram.com/FOYDALANUVCHINOMI' ko‘rinishida bo‘ladi.","Как только вы будете перенаправлены на страницу своего профиля, вы увидите ссылку на профиль в адресной строке браузера. Обычно это выглядит так: https://www.instagram.com/USERNAME.","Профил саҳифангизга йўналтирилганингиздан сўнг, браузернинг манзил панелида профил ҳаволасини кўрасиз. Умумий равишда, 'https://www.instagram.com/FOYDALANUVCHINOMI' кўринишида бўлади."
+profile_social_step_first,Birinchi qadam:,Первый шаг:,Биринчи қадам:
+profile_social_step_second,Ikkinchi qadam:,Второй шаг:,Иккинчи қадам:
+profile_social_step_third,Uchinchi qadam:,Третий шаг:,Учинчи қадам:
+profile_social_telegram_link_title,Telegram profil havolasi,Ссылка на профиль Telegram,Telegram профил ҳаволаси
+profile_social_telegram_open_app,Telegramni ochish,Открыть Telegram,Telegramни очиш
+profile_social_telegram_step_first,Telegramni sozlamalar bo‘limiga o‘ting,Зайдите в настройки Telegram,Telegramни созламалар бўлимига ўтинг
+profile_social_telegram_step_second,Telegram profilining foydalanuvchi nomini olishingiz kerak. Bu nom foydalanuvchining profilida @ belgisi bilan boshlanadigan nomdir. Masalan: @username.,"Вам необходимо получить имя пользователя профиля Telegram. Это имя — это имя, которое начинается с символа @ в профиле пользователя. Например: @имя_пользователя.",Telegram профилининг фойдаланувчи номини олишингиз керак. Бу ном фойдаланувчининг профилида @ белгиси билан бошланадиган номдир. Масалан: @username.
+profile_social_telegram_step_third,Havolasini yaratishda https://t.me/ so‘zidan keyin foydalanuvchining username’ini qo‘shish kerak. Masalan: https://t.me/username.,При создании ссылки необходимо после слова https://t.me/ добавить логин пользователя. Например: https://t.me/имя_пользователя.,Ҳаволасини яратишда https://t.me/ сўзидан кейин фойдаланувчининг усернамеъини қўшиш керак. Масалан: https://t.me/username.
+profile_social_youtube_link_title,YouTube profili havolasi,Ссылка на профиль YouTube,YouTube профили ҳаволаси
+profile_social_youtube_open_app,YouTubeni ochish,Открыть YouTube,YouTubeни очиш
+profile_social_youtube_step_first,Youtubeni sozlamalar bo‘limiga o‘ting,Зайдите в настройки YouTube,Youtubeни созламалар бўлимига ўтинг
+profile_social_youtube_step_second,Profil rasmingizni bosing va paydo bo‘lgan menyudan Mening kanalimni tanlang.,Нажмите на изображение своего профиля и в появившемся меню выберите «Мой канал».,Профил расмингизни босинг ва пайдо бўлган менюдан Менинг каналимни танланг.
+profile_social_youtube_step_third,Manzil panelida profil havolani ko‘rasiz. Masalan: 'https://www.youtube.com/c/FOYDALANUVCHINOMI' ko‘rinishida bo‘ladi.,"В адресной строке вы увидите ссылку на профиль. Например, это будет выглядеть так: «https://www.youtube.com/c/USERNAME».",Манзил панелида профил ҳаволани кўрасиз. Масалан: 'https://www.youtube.com/c/FOYDALANUVCHINOMI' кўринишида бўлади.
 profile_title,Profil,Профиль,Профил
 profile_user_date_of_birth,Tug‘ilgan kuni,Дата рождения,Туғилган куни
 profile_user_date_of_doc_validity,Pasport ma‘lumoti,Паспортные данные,Паспорт маълумоти
@@ -414,8 +437,8 @@ user_ads_all,Barchasi,Все,Барчаси
 user_ads_cancelled,Bekor qilingan,Отменено,Бекор қилинган
 user_ads_inactive,Nofaol,Неактивный,Нофаол
 user_ads_rejected,Rad etilgan,Отклоненный,Рад этилган
-user_ads_state_changing_failed,E’lonni holatini o‘zgartirishda xatolik yuz berdi,Произошла ошибка при изменении статуса объявления,Эълонни ҳолатини ўзгартиришда хатолик юз берди
-user_ads_state_successfully_changed,E’lonni holati muvaffaqiyatli o‘zgartirildi,Статус объявления успешно изменен,Эълонни ҳолати муваффақиятли ўзгартирилди
+user_ads_status_changing_failed,E’lonni holatini o‘zgartirishda xatolik yuz berdi,Произошла ошибка при изменении статуса объявления,Эълонни ҳолатини ўзгартиришда хатолик юз берди
+user_ads_status_successfully_changed,E’lonni holati muvaffaqiyatli o‘zgartirildi,Статус объявления успешно изменен,Эълонни ҳолати муваффақиятли ўзгартирилди
 user_ads_title,E‘lonlar,Объявления,Эълонлар
 user_ads_wait,Kutilmoqda,В ожидании,Кутилмоқда
 user_card_deposit_card_name,Depozit karta,Депозитная карта,Депозит карта

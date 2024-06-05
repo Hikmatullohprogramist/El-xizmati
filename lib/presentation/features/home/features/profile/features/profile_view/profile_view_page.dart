@@ -1,9 +1,7 @@
-import 'dart:developer' as profile_view_page;
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter/services.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/enum/social_enum.dart';
@@ -14,7 +12,8 @@ import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:flutter/services.dart';
+import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
+import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart';
@@ -32,11 +31,16 @@ import 'profile_view_cubit.dart';
 @RoutePage()
 class ProfileViewPage
     extends BasePage<ProfileViewCubit, ProfileViewState, ProfileViewEvent> {
-  const ProfileViewPage({super.key});
+  ProfileViewPage({super.key});
+
+  final _instagramController = TextEditingController();
+  final _telegramController = TextEditingController();
+  final _facebookController = TextEditingController();
+  final _youtubeController = TextEditingController();
 
   @override
   void onWidgetCreated(BuildContext context) {
-    cubit(context).getUserInformation();
+    cubit(context).getUser();
   }
 
   @override
@@ -49,57 +53,57 @@ class ProfileViewPage
 
   @override
   Widget onWidgetBuild(BuildContext context, ProfileViewState state) {
-    try {
-      return Scaffold(
-          appBar: ActionAppBar(
-            titleText: Strings.profileViewTitlle,
-            titleTextColor: context.textPrimary,
-            backgroundColor: context.appBarColor,
-            onBackPressed: () => context.router.pop(),
-            actions: state.isRegistered
-                ? [
-                    CustomTextButton(
-                      text: Strings.commonEdit,
-                      onPressed: () => context.router.push(ProfileEditRoute()),
-                    )
-                  ]
-                : [],
-          ),
-          backgroundColor: context.backgroundColor,
-          body: Stack(
-            children: [
-              Visibility(
-                visible: !state.isLoading,
-                child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 12),
-                      _getHeaderBlock(context, state),
-                      SizedBox(height: 12),
-                      _getBioBlock(context, state),
-                      SizedBox(height: 12),
-                      _buildNotificationBlock(context, state),
-                      SizedBox(height: 12),
-                      _buildSocialBlock(context, state),
-                      SizedBox(height: 12),
-                      _buildActiveDeviceBlock(context, state),
-                      SizedBox(height: 12),
-                    ],
-                  ),
+    _instagramController.updateOnRestore(state.instagramInfo?.link ?? "");
+    _telegramController.updateOnRestore(state.telegramInfo?.link ?? "");
+    _facebookController.updateOnRestore(state.facebookInfo?.link ?? "");
+    _youtubeController.updateOnRestore(state.youtubeInfo?.link ?? "");
+
+    return Scaffold(
+        appBar: ActionAppBar(
+          titleText: Strings.profileViewTitlle,
+          titleTextColor: context.textPrimary,
+          backgroundColor: context.appBarColor,
+          onBackPressed: () => context.router.pop(),
+          actions: state.isRegistered
+              ? [
+                  CustomTextButton(
+                    text: Strings.commonEdit,
+                    onPressed: () => context.router.push(ProfileEditRoute()),
+                  )
+                ]
+              : [],
+        ),
+        backgroundColor: context.backgroundColor,
+        body: Stack(
+          children: [
+            Visibility(
+              visible: !state.isUserLoading,
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 12),
+                    _getHeaderBlock(context, state),
+                    SizedBox(height: 12),
+                    _getBioBlock(context, state),
+                    SizedBox(height: 12),
+                    _buildNotificationBlock(context, state),
+                    SizedBox(height: 12),
+                    _buildSocialBlock(context, state),
+                    SizedBox(height: 12),
+                    _buildActiveDeviceBlock(context, state),
+                    SizedBox(height: 12),
+                  ],
                 ),
               ),
+            ),
 
-              /// build shimmer
-              Visibility(visible: state.isLoading, child: profilShimmer())
-            ],
-          ));
-    } catch (e) {
-      profile_view_page.log("profile view page render error $e");
-      return Container();
-    }
+            /// build shimmer
+            Visibility(visible: state.isUserLoading, child: profilShimmer())
+          ],
+        ));
   }
 
   Widget _getHeaderBlock(BuildContext context, ProfileViewState state) {
@@ -109,7 +113,7 @@ class ProfileViewPage
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Strings.profilePersonalData.w(700).c(Color(0xFF41455E)).s(16),
+          Strings.profilePersonalData.w(700).s(16),
           SizedBox(height: 16),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,7 +136,6 @@ class ProfileViewPage
                           .capitalizePersonName()
                           .w(600)
                           .s(14)
-                          .c(Colors.black)
                           .copyWith(overflow: TextOverflow.ellipsis),
                       SizedBox(width: 8),
                       if (state.isRegistered) Assets.images.icIdentified.svg()
@@ -143,8 +146,10 @@ class ProfileViewPage
                   Row(
                     children: [
                       Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 5,
+                        ),
                         margin: EdgeInsets.fromLTRB(0, 6, 6, 16),
                         decoration: ShapeDecoration(
                           color: Color(0xFFAEB2CD).withAlpha(40),
@@ -248,7 +253,7 @@ class ProfileViewPage
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Strings.profileUserDateOfBirth.w(400).s(14).c(context.textSecondary),
         SizedBox(height: 6),
-        state.brithDate.w(500).s(16).c(Color(0xFF41455E)),
+        state.brithDate.w(500).s(16),
         SizedBox(height: 8),
         CustomDivider(),
         SizedBox(height: 8),
@@ -257,22 +262,19 @@ class ProfileViewPage
             .s(14)
             .c(context.textSecondary),
         SizedBox(height: 6),
-        state.biometricInformation.w(500).s(16).c(Color(0xFF41455E)),
+        state.biometricInformation.w(500).s(16),
         SizedBox(height: 8),
         CustomDivider(),
         SizedBox(height: 8),
         Strings.commonEmail.w(400).s(14).c(context.textSecondary),
         SizedBox(height: 6),
-        //state.email.w(500).s(16).c(Color(0xFF41455E)),
-        if (state.email.isNotEmpty)
-          state.email.w(500).s(16).c(Color(0xFF41455E)),
-        if (state.email.isEmpty) "****".w(400).s(15).c(context.textSecondary),
+        state.email.w(500).s(16),
         SizedBox(height: 8),
         CustomDivider(),
         SizedBox(height: 8),
         Strings.commonPhoneNumber.w(400).s(14).c(context.textSecondary),
         SizedBox(height: 6),
-        state.phoneNumber.w(500).s(16).c(Color(0xFF41455E)),
+        state.phoneNumber.w(500).s(16),
         SizedBox(height: 8),
         CustomDivider(),
         SizedBox(height: 8),
@@ -280,12 +282,12 @@ class ProfileViewPage
         SizedBox(height: 6),
         Row(
           children: [
-            state.regionName.w(500).s(16).c(Color(0xFF41455E)),
-            ".".w(500).s(16).c(Color(0xFF41455E)),
+            state.regionName.w(500).s(16),
+            ".".w(500).s(16),
             SizedBox(width: 7),
-            state.districtName.w(500).s(16).c(Color(0xFF41455E)),
+            state.districtName.w(500).s(16),
             SizedBox(width: 7),
-            state.streetName.w(500).s(16).c(Color(0xFF41455E)),
+            state.neighborhoodName.w(500).s(16),
           ],
         ),
         SizedBox(height: 5),
@@ -301,7 +303,7 @@ class ProfileViewPage
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 18),
-          Strings.settingsReceiveNotification.w(600).s(14).c(Color(0xFF41455E)),
+          Strings.settingsReceiveNotification.w(600).s(14),
           SizedBox(height: 18),
           OutlinedButton(
             style: OutlinedButton.styleFrom(
@@ -319,29 +321,28 @@ class ProfileViewPage
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
-              child: Row(children: [
-                Container(
-                  width: 32,
-                  height: 32,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Color(0xFF5C6AC3),
+              child: Row(
+                children: [
+                  Container(
+                    width: 32,
+                    height: 32,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color(0xFF5C6AC3),
+                    ),
+                    child: Center(child: Assets.images.icNotificationSms.svg()),
                   ),
-                  child: Center(child: Assets.images.icNotificationSms.svg()),
-                ),
-                SizedBox(width: 16),
-                Strings.notificationReceiveSms
-                    .w(600)
-                    .s(14)
-                    .c(Color(0xFF41455E)),
-                Expanded(child: SizedBox(height: 1)),
-                CustomSwitch(
-                  isChecked: state.actualSmsState,
-                  onChanged: (value) {
-                    cubit(context).changeSmsNotificationState();
-                  },
-                ),
-              ]),
+                  SizedBox(width: 16),
+                  Strings.notificationReceiveSms.w(600).s(14),
+                  Expanded(child: SizedBox(height: 1)),
+                  CustomSwitch(
+                    isChecked: state.actualSmsState,
+                    onChanged: (value) {
+                      cubit(context).changeSmsNotificationState();
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
           SizedBox(height: 10),
@@ -373,10 +374,7 @@ class ProfileViewPage
                   child: Center(child: Assets.images.icNotificationEmail.svg()),
                 ),
                 SizedBox(width: 16),
-                Strings.notificationReceiveEmail
-                    .w(600)
-                    .s(14)
-                    .c(Color(0xFF41455E)),
+                Strings.notificationReceiveEmail.w(600).s(14),
                 Expanded(child: SizedBox(height: 1)),
                 CustomSwitch(
                   isChecked: state.actualEmailState,
@@ -407,10 +405,7 @@ class ProfileViewPage
               child: Row(children: [
                 Assets.images.icNotificationTelegram.svg(height: 32, width: 32),
                 SizedBox(width: 16),
-                Strings.notificationReceiveTelegram
-                    .w(600)
-                    .s(14)
-                    .c(Color(0xFF41455E)),
+                Strings.notificationReceiveTelegram.w(600).s(14),
                 Expanded(child: SizedBox(height: 1)),
                 CustomSwitch(
                   isChecked: state.actualTelegramState,
@@ -467,27 +462,18 @@ class ProfileViewPage
   }
 
   Widget _buildSocialBlock(BuildContext context, ProfileViewState state) {
-    TextEditingController instagramController = TextEditingController();
-    TextEditingController telegramController = TextEditingController();
-    TextEditingController facebookController = TextEditingController();
-    TextEditingController youtubeController = TextEditingController();
-    instagramController.text = state.instagramInfo?.link ?? "";
-    telegramController.text = state.telegramInfo?.link ?? "";
-    facebookController.text = state.facebookInfo?.link ?? "";
-    youtubeController.text = state.youtubeInfo?.link ?? "";
-
-    instagramController.selection = TextSelection.fromPosition(
-      TextPosition(offset: instagramController.text.length),
-    );
-    telegramController.selection = TextSelection.fromPosition(
-      TextPosition(offset: telegramController.text.length),
-    );
-    facebookController.selection = TextSelection.fromPosition(
-      TextPosition(offset: facebookController.text.length),
-    );
-    youtubeController.selection = TextSelection.fromPosition(
-      TextPosition(offset: youtubeController.text.length),
-    );
+    // _instagramController.selection = TextSelection.fromPosition(
+    //   TextPosition(offset: _instagramController.text.length),
+    // );
+    // _telegramController.selection = TextSelection.fromPosition(
+    //   TextPosition(offset: _telegramController.text.length),
+    // );
+    // _facebookController.selection = TextSelection.fromPosition(
+    //   TextPosition(offset: _facebookController.text.length),
+    // );
+    // _youtubeController.selection = TextSelection.fromPosition(
+    //   TextPosition(offset: _youtubeController.text.length),
+    // );
 
     return Container(
       color: context.cardColor,
@@ -496,7 +482,7 @@ class ProfileViewPage
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 18),
-          Strings.settingsSocialNetwork.w(600).s(14).c(Color(0xFF41455E)),
+          Strings.settingsSocialNetwork.w(600).s(14),
           SizedBox(height: 18),
           SizedBox(
             height: 5,
@@ -530,14 +516,13 @@ class ProfileViewPage
                             borderRadius: BorderRadius.circular(10),
                             color: Color(0xFF5C6AC3)),
                         child: Center(
-                            child: Image(
-                                image: AssetImage(
-                                    'assets/images/png_images/instagram.png'))),
+                          child: Assets.images.pngImages.instagram.image(),
+                        ),
                       ),
                       SizedBox(width: 16),
                       Expanded(
                         child: TextField(
-                          controller: instagramController,
+                          controller: _instagramController,
                           style: TextStyle(fontSize: 14),
                           decoration: InputDecoration(
                               border: InputBorder.none,
@@ -570,10 +555,8 @@ class ProfileViewPage
                   width: 28,
                   height: 28,
                   child: Center(
-                    child: SvgPicture.asset(
-                      'assets/images/ic_quesstion.svg',
+                    child: Assets.images.icQuestion.svg(
                       color: Color(0xFFAEB2CD),
-                      // Replace with your SVG file path or provide SVG data directly
                     ),
                   ),
                 ),
@@ -581,7 +564,6 @@ class ProfileViewPage
             ],
           ),
 
-          ///instagram
           SizedBox(height: 10),
           SizedBox(
             height: 5,
@@ -612,23 +594,24 @@ class ProfileViewPage
                         width: 32,
                         height: 32,
                         decoration: BoxDecoration(
-                            border:
-                                Border.all(color: Color(0xFFDFE2E9), width: 1),
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white),
+                          border:
+                              Border.all(color: Color(0xFFDFE2E9), width: 1),
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                        ),
                         child: Center(
-                            child: Image(
-                                image: AssetImage(
-                                    'assets/images/png_images/telegramm.png'))),
+                          child: Assets.images.pngImages.telegramm.image(),
+                        ),
                       ),
                       SizedBox(width: 16),
                       Expanded(
                         child: TextField(
-                          controller: telegramController,
+                          controller: _telegramController,
                           style: TextStyle(fontSize: 14),
                           decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "https://www.instagram.com/"),
+                            border: InputBorder.none,
+                            hintText: "https://www.telegram.org/",
+                          ),
                           onChanged: (value) {
                             state.telegramInfo?.link = value;
                           },
@@ -652,18 +635,12 @@ class ProfileViewPage
                 onTap: () {
                   showSocialIdBottomSheet(context, SocialType.telegram);
                 },
-                child: Container(
+                child: SizedBox(
                   width: 28,
                   height: 28,
-                  child: Container(
-                    width: 28,
-                    height: 28,
-                    child: Center(
-                      child: SvgPicture.asset(
-                        'assets/images/ic_quesstion.svg',
-                        color: Color(0xFFAEB2CD),
-                        // Replace with your SVG file path or provide SVG data directly
-                      ),
+                  child: Center(
+                    child: Assets.images.icQuestion.svg(
+                      color: Color(0xFFAEB2CD),
                     ),
                   ),
                 ),
@@ -697,37 +674,38 @@ class ProfileViewPage
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 7),
-                    child: Row(children: [
-                      Image(
-                        width: 32,
-                        height: 32,
-                        image:
-                            AssetImage('assets/images/png_images/facebook.png'),
-                      ),
-                      SizedBox(width: 16),
-                      Expanded(
-                        child: TextField(
-                          controller: facebookController,
-                          style: TextStyle(fontSize: 14),
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "https://www.instagram.com/"),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 32,
+                          height: 32,
+                          child: Assets.images.pngImages.facebook.image(),
+                        ),
+                        SizedBox(width: 16),
+                        Expanded(
+                          child: TextField(
+                            controller: _facebookController,
+                            style: TextStyle(fontSize: 14),
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: "https://www.instagram.com/"),
+                            onChanged: (value) {
+                              state.facebookInfo?.link = value;
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        CustomSwitch(
+                          isChecked: state.facebookInfo?.status == "WAIT",
                           onChanged: (value) {
-                            state.facebookInfo?.link = value;
+                            cubit(context).setFacebookSocial("");
+                            HapticFeedback.lightImpact();
                           },
                         ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      CustomSwitch(
-                        isChecked: state.facebookInfo?.status == "WAIT",
-                        onChanged: (value) {
-                          cubit(context).setFacebookSocial("");
-                          HapticFeedback.lightImpact();
-                        },
-                      ),
-                    ]),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -735,14 +713,12 @@ class ProfileViewPage
                 onTap: () {
                   showSocialIdBottomSheet(context, SocialType.facebook);
                 },
-                child: Container(
+                child: SizedBox(
                   width: 28,
                   height: 28,
                   child: Center(
-                    child: SvgPicture.asset(
-                      'assets/images/ic_quesstion.svg',
+                    child: Assets.images.icQuestion.svg(
                       color: Color(0xFFAEB2CD),
-                      // Replace with your SVG file path or provide SVG data directly
                     ),
                   ),
                 ),
@@ -786,14 +762,13 @@ class ProfileViewPage
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.white),
                         child: Center(
-                            child: Image(
-                                image: AssetImage(
-                                    'assets/images/png_images/youtube.png'))),
+                          child: Assets.images.pngImages.youtube.image(),
+                        ),
                       ),
                       SizedBox(width: 16),
                       Expanded(
                         child: TextField(
-                          controller: youtubeController,
+                          controller: _youtubeController,
                           style: TextStyle(fontSize: 14),
                           decoration: InputDecoration(
                               border: InputBorder.none,
@@ -825,10 +800,8 @@ class ProfileViewPage
                   width: 28,
                   height: 28,
                   child: Center(
-                    child: SvgPicture.asset(
-                      'assets/images/ic_quesstion.svg',
+                    child: Assets.images.icQuestion.svg(
                       color: Color(0xFFAEB2CD),
-                      // Replace with your SVG file path or provide SVG data directly
                     ),
                   ),
                 ),
@@ -958,230 +931,117 @@ class ProfileViewPage
       context: context,
       builder: (context) => Material(
         child: Container(
-          height: 350,
           padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10.0),
-              // Adjust the radius as needed
-              topRight: Radius.circular(10.0), // Adjust the radius as needed
-            ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 48,
-                    width: 48,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 48,
+                      width: 48,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Container(
+                            width: 32,
+                            height: 32,
+                            decoration: BoxDecoration(color: Colors.white),
+                            child: Center(
+                                child: Stack(
+                              children: [
+                                if (type == SocialType.instagram)
+                                  Assets.images.pngImages.instagram.image(),
+                                if (type == SocialType.telegram)
+                                  Assets.images.pngImages.telegramm.image(),
+                                if (type == SocialType.facebook)
+                                  Assets.images.pngImages.facebook.image(),
+                                if (type == SocialType.youtube)
+                                  Assets.images.pngImages.youtube.image(),
+                              ],
+                            )),
+                          ),
+                        ],
+                      ),
                     ),
-                    child: Stack(
-                      alignment: Alignment.center,
+                    SizedBox(width: 16),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          width: 32,
-                          height: 32,
-                          decoration: BoxDecoration(color: Colors.white),
-                          child: Center(
-                              child: Stack(
-                            children: [
-                              if (type == SocialType.instagram)
-                                Image(
-                                  image: AssetImage(
-                                      'assets/images/png_images/instagram.png'),
-                                ),
-                              if (type == SocialType.telegram)
-                                Image(
-                                  image: AssetImage(
-                                      'assets/images/png_images/telegramm.png'),
-                                ),
-                              if (type == SocialType.facebook)
-                                Image(
-                                  image: AssetImage(
-                                      'assets/images/png_images/facebook.png'),
-                                ),
-                              if (type == SocialType.youtube)
-                                Image(
-                                  image: AssetImage(
-                                      'assets/images/png_images/youtube.png'),
-                                ),
-                            ],
-                          )),
+                        type.linkTitle.w(700).s(16),
+                        SizedBox(height: 10),
+                        Row(
+                          children: [
+                            type.openApp.w(700).s(14).c(Colors.grey),
+                            SizedBox(width: 1),
+                            Container(
+                              width: 16,
+                              height: 16,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.white,
+                              ),
+                              child: Center(
+                                child: Assets.images.pngImages.openLink.image(),
+                              ),
+                            )
+                          ],
                         ),
                       ],
                     ),
-                  ),
-                  SizedBox(width: 16),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (type == SocialType.instagram)
-                        "Instagram link qanday olinadi"
-                            .w(700)
-                            .s(16)
-                            .c(Color(0xFF41455E)),
-                      if (type == SocialType.telegram)
-                        "Telegram link qanday olinadi"
-                            .w(700)
-                            .s(16)
-                            .c(Color(0xFF41455E)),
-                      if (type == SocialType.facebook)
-                        "Facebook link qanday olinadi"
-                            .w(700)
-                            .s(16)
-                            .c(Color(0xFF41455E)),
-                      if (type == SocialType.youtube)
-                        "Youtube link qanday olinadi"
-                            .w(700)
-                            .s(16)
-                            .c(Color(0xFF41455E)),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: [
-                          if (type == SocialType.instagram)
-                            "Instagramni ochish".w(700).s(14).c(Colors.grey),
-                          if (type == SocialType.telegram)
-                            "Telegramni ochish".w(700).s(14).c(Colors.grey),
-                          if (type == SocialType.facebook)
-                            "Facebookni ochish".w(700).s(14).c(Colors.grey),
-                          if (type == SocialType.youtube)
-                            "Youtubeni ochish".w(700).s(14).c(Colors.grey),
-                          SizedBox(
-                            width: 1,
+                    Spacer(),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 42,
+                          height: 42,
+                          child: Material(
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(12),
+                              onTap: () {
+                                Navigator.pop(context);
+                                HapticFeedback.lightImpact();
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(8),
+                                child: Assets.images.icClose.svg(),
+                              ),
+                            ),
                           ),
-                          Container(
-                            width: 16,
-                            height: 16,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white),
-                            child: Center(
-                                child: Image(
-                              image: AssetImage(
-                                  'assets/images/png_images/open_link.png'),
-                            )),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                  Spacer(),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: SvgPicture.asset(
-                          'assets/images/ic_close.svg',
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 7,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: CustomDivider(height: 1),
-              ),
-              SizedBox(
-                height: 7,
-              ),
-              "1-qadam:".w(500).s(13).c(Colors.green),
-              SizedBox(
-                height: 5,
-              ),
-              if (type == SocialType.instagram)
-                "Instagram profil bo'limiga o'ting."
-                    .w(500)
-                    .s(16)
-                    .c(Color(0xFF41455E)),
-              if (type == SocialType.telegram)
-                "Telegram sozlamalar bo'limiga o'ting."
-                    .w(500)
-                    .s(16)
-                    .c(Color(0xFF41455E)),
-              if (type == SocialType.facebook)
-                "Facebook sozlamalar bo'limiga o'ting.."
-                    .w(500)
-                    .s(16)
-                    .c(Color(0xFF41455E)),
-              if (type == SocialType.youtube)
-                "Youtube sozlamalar bo'limiga o'ting."
-                    .w(500)
-                    .s(16)
-                    .c(Color(0xFF41455E)),
-              SizedBox(
-                height: 10,
-              ),
-
-              ///
-              "2-qadam:".w(500).s(13).c(Colors.green),
-              SizedBox(
-                height: 2,
-              ),
-              if (type == SocialType.instagram)
-                "Profilingizni ochish uchun o'ng pastdagi profil belgisiga bosing yoki profil nomingizga bosing."
-                    .w(500)
-                    .s(16)
-                    .c(Color(0xFF41455E)),
-              if (type == SocialType.telegram)
-                "Telegram profilining username'ini olishingiz kerak. Bu nom foydalanuvchining profilida @ belgisi bilan boshlanadigan nomdir. Masalan: @username. "
-                    .w(500)
-                    .s(15)
-                    .c(Color(0xFF41455E)),
-              if (type == SocialType.facebook)
-                "O'ng yuqori burchagida joylashgan profil rasmingizga yoki ismingizga bosing. Paydo bo'lgan menyudan 'Profilni ko'rish'ni tanlang."
-                    .w(500)
-                    .s(16)
-                    .c(Color(0xFF41455E)),
-              if (type == SocialType.youtube)
-                "Profil rasmingizni bosing va paydo bo'lgan menyudan 'Mening kanalim' ni tanlang. "
-                    .w(500)
-                    .s(15)
-                    .c(Color(0xFF41455E)),
-              SizedBox(
-                height: 12,
-              ),
-
-              ///
-              "3-qadam:".w(500).s(13).c(Colors.green),
-              if (type == SocialType.instagram)
-                "Profil sahifangizga yo'naltirilganingizdan so'ng, brauzerning manzil panelida profil havolasini ko'rasiz. Umumiy ravishda, 'https://www.instagram.com/FOYDALANUVCHINOMI' ko'rinishida bo'ladi."
-                    .w(500)
-                    .s(16)
-                    .c(Color(0xFF41455E)),
-              if (type == SocialType.telegram)
-                "Havolasini yaratishda https://t.me/ so'zidan keyin foydalanuvchining username'ini qo'shish kerak. Masalan: https://t.me/username."
-                    .w(500)
-                    .s(16)
-                    .c(Color(0xFF41455E)),
-              if (type == SocialType.facebook)
-                "Manzil panelida profil havolani ko'rasiz. Masalan: 'https://www.facebook.com/FOYDALANUVCHINOMI' ko'rinishida bo'ladi."
-                    .w(500)
-                    .s(16)
-                    .c(Color(0xFF41455E)),
-              if (type == SocialType.youtube)
-                "Manzil panelida profil havolani ko'rasiz. Masalan: 'https://www.youtube.com/c/FOYDALANUVCHINOMI' ko'rinishida bo'ladi."
-                    .w(500)
-                    .s(16)
-                    .c(Color(0xFF41455E)),
-            ],
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(height: 8),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: CustomDivider(height: 1),
+                ),
+                SizedBox(height: 8),
+                Strings.profileSocialStepFirst.w(500).s(13).c(Colors.green),
+                SizedBox(height: 6),
+                type.firstStep.w(500).s(16),
+                SizedBox(height: 12),
+                Strings.profileSocialStepSecond.w(500).s(13).c(Colors.green),
+                SizedBox(height: 6),
+                type.secondStep.w(500).s(16),
+                SizedBox(height: 12),
+                Strings.profileSocialStepThird.w(500).s(13).c(Colors.green),
+                SizedBox(height: 6),
+                type.thirdStep.w(500).s(16),
+              ],
+            ),
           ),
         ),
       ),

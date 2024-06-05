@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
@@ -9,7 +10,6 @@ import 'package:onlinebozor/domain/models/order/order_type.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:flutter/services.dart';
 import 'package:onlinebozor/presentation/widgets/action/selection_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/empty_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
@@ -277,7 +277,8 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
 
   /// Bottom sheet showing methods
 
-  void _showChangeLanguageBottomSheet(BuildContext context, ProfileState state) {
+  void _showChangeLanguageBottomSheet(
+      BuildContext context, ProfileState state) {
     showCupertinoModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,

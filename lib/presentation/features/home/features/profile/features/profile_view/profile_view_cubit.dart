@@ -2,13 +2,18 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/core/extensions/list_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
+import 'package:onlinebozor/data/datasource/network/responses/profile/user_full/user_full_info_response.dart';
 import 'package:onlinebozor/data/repositories/auth_repository.dart';
 import 'package:onlinebozor/data/repositories/user_repository.dart';
 import 'package:onlinebozor/domain/mappers/social_account_mapper.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
+import 'package:onlinebozor/domain/models/district/district.dart';
+import 'package:onlinebozor/domain/models/region/region.dart';
 import 'package:onlinebozor/domain/models/social_account/social_account_info.dart';
+import 'package:onlinebozor/domain/models/street/street.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -29,180 +34,147 @@ class ProfileViewCubit extends BaseCubit<ProfileViewState, ProfileViewEvent> {
   }
 
   Future<void> getUser() async {
+    if (states.isUserDataLoaded) return;
+
+    _userRepository
+        .getUser()
+        .initFuture()
+        .onStart(() {
+          updateState((state) => state.copyWith(isUserLoading: true));
+        })
+        .onSuccess((data) {
+          _saveSocials(data);
+
+          updateState(
+            (state) => state.copyWith(
+              isUserLoading: false,
+              isUserDataLoaded: true,
+              userName: (data.full_name ?? "*"),
+              fullName: data.full_name ?? "*",
+              phoneNumber: data.mobile_phone ?? "*",
+              email: data.email ?? "*",
+              photo: data.photo ?? "",
+              biometricInformation:
+                  "${data.passport_serial ?? ""} ${data.passport_number ?? ""}",
+              brithDate: data.birth_date ?? "*",
+              districtName: (data.district_id ?? "*").toString(),
+              isRegistered: data.is_registered ?? false,
+              regionId: data.region_id,
+              districtId: data.district_id,
+              gender: data.gender ?? "*",
+              streetId: data.mahalla_id,
+              savedSmsState: data.message_type.toString().contains("SMS"),
+              savedEmailState: data.message_type.toString().contains("EMAIL"),
+              savedTelegramState:
+                  data.message_type.toString().contains("TELEGRAM"),
+              actualSmsState: data.message_type.toString().contains("SMS"),
+              actualEmailState: data.message_type.toString().contains("EMAIL"),
+              actualTelegramState:
+                  data.message_type.toString().contains("TELEGRAM"),
+            ),
+          );
+        })
+        .onError((error) {
+          logger.e("getUser error = ${error.toString()}");
+          updateState((state) => state.copyWith(isUserLoading: false));
+        })
+        .onFinished(() {})
+        .executeFuture();
+  }
+
+  Future<void> getRegionAndDistricts() async {
     try {
-      updateState((state) => state.copyWith(isLoading: true));
+      updateState((state) => state.copyWith(isUserLoading: true));
 
       await Future.wait([
         getRegions(),
         getDistrict(),
-        getStreets(),
+        getNeighborhoods(),
       ]);
 
-      updateState((state) => state.copyWith(isLoading: false));
+      updateState((state) => state.copyWith(isUserLoading: false));
     } catch (e) {
       logger.e(e.toString());
 
-      updateState((state) => state.copyWith(isLoading: false));
-    }
-  }
-
-  Future<void> getUserInformation() async {
-    try {
-      updateState((state) => state.copyWith(isLoading: true));
-
-      final response = await _userRepository.getUser();
-      List<SocialAccountInfo>? instagram = response.socials
-          ?.where((element) => element.type == "INSTAGRAM")
-          .map((e) => e.toMap())
-          .toList();
-
-      var telegram = response.socials
-          ?.where((element) => element.type == "TELEGRAM")
-          .map((e) => e.toMap())
-          .toList();
-
-      var facebook = response.socials
-          ?.where((element) => element.type == "FACEBOOK")
-          .map((e) => e.toMap())
-          .toList();
-
-      var youtube = response.socials
-          ?.where((element) => element.type == "YOUTUBE")
-          .map((e) => e.toMap())
-          .toList();
-      if (telegram!.isNotEmpty) {
-        updateState((state) => state.copyWith(
-              instagramInfo: instagram?[0],
-              telegramInfo: telegram?[0],
-              facebookInfo: facebook?[0],
-              youtubeInfo: youtube?[0],
-            ));
-      }
-      updateState(
-        (state) => state.copyWith(
-          isLoading: false,
-          userName: (response.full_name ?? "*"),
-          fullName: response.full_name ?? "*",
-          phoneNumber: response.mobile_phone ?? "*",
-          email: response.email ?? "*",
-          photo: response.photo ?? "",
-          biometricInformation:
-              "${response.passport_serial ?? ""} ${response.passport_number ?? ""}",
-          brithDate: response.birth_date ?? "*",
-          districtName: (response.district_id ?? "*").toString(),
-          isRegistered: response.is_registered ?? false,
-          regionId: response.region_id,
-          districtId: response.district_id,
-          gender: response.gender ?? "*",
-          streetId: response.mahalla_id,
-          savedSmsState: response.message_type.toString().contains("SMS"),
-          savedEmailState: response.message_type.toString().contains("EMAIL"),
-          savedTelegramState:
-              response.message_type.toString().contains("TELEGRAM"),
-          actualSmsState: response.message_type.toString().contains("SMS"),
-          actualEmailState: response.message_type.toString().contains("EMAIL"),
-          actualTelegramState:
-              response.message_type.toString().contains("TELEGRAM"),
-        ),
-      );
-      logger.e("getUserInformation onSuccess");
-      await getUser();
-    } on DioException catch (e) {
-      logger.e("getUserInformation onFailure error = ${e.toString()}");
-      updateState((state) => state.copyWith(isLoading: false));
-      if (e.response?.statusCode == 401) {
-        logOut();
-      }
-      // display.error(e.toString());
-    } catch (e) {
-      logger.e("getUserInformation onFailure error = ${e.toString()}");
-      updateState((state) => state.copyWith(isLoading: false));
+      updateState((state) => state.copyWith(isUserLoading: false));
     }
   }
 
   Future<void> getRegions() async {
-    final response = await _userRepository.getRegions();
-    final regionList = response.where((e) => e.id == states.regionId);
-    if (regionList.isNotEmpty) {
-      updateState((state) =>
-          state.copyWith(regionName: regionList.first.name, isLoading: false));
-    } else {
-      updateState(
-        (state) => state.copyWith(regionName: "topilmadi", isLoading: false),
-      );
+    if (states.regions.isNotEmpty) return;
+
+    final regions = await _userRepository.getRegions();
+    if (regions.isNotEmpty) {
+      final regionName = regions.firstIf((e) => e.id == states.regionId)?.name;
+      updateState((state) => state.copyWith(
+            regionName: regionName ?? "",
+            regions: regions,
+          ));
     }
   }
 
   Future<void> getDistrict() async {
+    if (states.districts.isNotEmpty) return;
+
     final regionId = states.regionId;
-    final response = await _userRepository.getDistricts(regionId ?? 14);
+    if (regionId == null) return;
+
+    final districts = await _userRepository.getDistricts(states.regionId!);
+    final name = districts.firstIf((e) => e.id == states.districtId)?.name;
     updateState((state) => state.copyWith(
-        districtName: response
-            .where((element) => element.id == states.districtId)
-            .first
-            .name));
+          districtName: name ?? "",
+          districts: districts,
+        ));
   }
 
-  Future<void> getStreets() async {
-    try {
-      final districtId = states.districtId;
-      final response =
-          await _userRepository.getNeighborhoods(districtId ?? 1419);
-      updateState((state) => state.copyWith(
-          streetName: response
-              .where((element) => element.id == states.streetId)
-              .first
-              .name,
-          isLoading: false));
-    } catch (e) {
-      updateState((state) => state.copyWith(isLoading: false));
-    }
+  Future<void> getNeighborhoods() async {
+    if (states.neighborhoods.isNotEmpty) return;
+
+    final districtId = states.districtId;
+    if (districtId == null) return;
+
+    final neighborhoods = await _userRepository.getNeighborhoods(districtId);
+    final name = neighborhoods.firstIf((e) => e.id == states.streetId)?.name;
+    updateState((state) => state.copyWith(
+          neighborhoodName: name ?? "",
+          neighborhoods: neighborhoods,
+        ));
   }
 
   Future<void> getSocialAccountInfo() async {
     try {
-      updateState((state) => state.copyWith(isLoading: true));
+      updateState((state) => state.copyWith(isUserLoading: true));
       logger.e("getUserInformation onLoading");
-      final response = await _userRepository.getUser();
-      var instagram = response.socials
-          ?.where((element) => element.type == "INSTAGRAM")
-          .map((e) => e.toMap())
-          .toList();
-      var telegram = response.socials
-          ?.where((element) => element.type == "TELEGRAM")
-          .map((e) => e.toMap())
-          .toList();
-      var facebook = response.socials
-          ?.where((element) => element.type == "FACEBOOK")
-          .map((e) => e.toMap())
-          .toList();
-      var youtube = response.socials
-          ?.where((element) => element.type == "YOUTUBE")
-          .map((e) => e.toMap())
-          .toList();
-      if (instagram != null && telegram != null && facebook != null) {
-        updateState(
-          (state) => state.copyWith(
-            instagramInfo: instagram[0],
-            telegramInfo: telegram[0],
-            facebookInfo: facebook[0],
-            youtubeInfo: youtube?[0],
-          ),
-        );
-      }
-
+      final user = await _userRepository.getUser();
+      _saveSocials(user);
       logger.e("getUserInformation onSuccess");
-      await getUser();
+      await getRegionAndDistricts();
     } on DioException catch (e) {
       logger.e("getUserInformation onFailure error = ${e.toString()}");
-      updateState((state) => state.copyWith(isLoading: false));
+      updateState((state) => state.copyWith(isUserLoading: false));
       if (e.response?.statusCode == 401) {
         logOut();
       }
     } catch (e) {
       logger.e("getUserInformation onFailure error = ${e.toString()}");
-      updateState((state) => state.copyWith(isLoading: false));
+      updateState((state) => state.copyWith(isUserLoading: false));
     }
+  }
+
+  void _saveSocials(UserResponse user){
+    final socials = user.socials;
+
+    final instagram = socials?.firstIf((e) => e.type == "INSTAGRAM")?.toMap();
+    final telegram = socials?.firstIf((e) => e.type == "TELEGRAM")?.toMap();
+    final facebook = socials?.firstIf((e) => e.type == "FACEBOOK")?.toMap();
+    final youtube = socials?.firstIf((e) => e.type == "YOUTUBE")?.toMap();
+
+    updateState((state) => state.copyWith(
+      instagramInfo: instagram,
+      telegramInfo: telegram,
+      facebookInfo: facebook,
+      youtubeInfo: youtube,
+    ));
   }
 
   changeSmsNotificationState() {
@@ -289,26 +261,21 @@ class ProfileViewCubit extends BaseCubit<ProfileViewState, ProfileViewEvent> {
         .updateNotificationSources(sources: sources)
         .initFuture()
         .onStart(() {
-          updateState((state) => state.copyWith(isUpdatingNotification: true));
-        })
-        .onSuccess((data) {
-          updateState((state) => state.copyWith(
+      updateState((state) => state.copyWith(isUpdatingNotification: true));
+    }).onSuccess((data) {
+      updateState((state) => state.copyWith(
             isUpdatingNotification: false,
             savedSmsState: state.actualSmsState,
             savedEmailState: state.actualEmailState,
             savedTelegramState: state.actualTelegramState,
           ));
-          stateMessageManager
-              .showSuccessSnackBar(Strings.messageChangesSavingSuccess);
-        })
-        .onError((error) {
-          stateMessageManager
-              .showErrorSnackBar(Strings.messageChangesSavingFailed);
-        })
-        .onFinished(() {
-          updateState((state) => state.copyWith(isUpdatingNotification: false));
-        })
-        .executeFuture();
+      stateMessageManager
+          .showSuccessSnackBar(Strings.messageChangesSavingSuccess);
+    }).onError((error) {
+      stateMessageManager.showErrorSnackBar(Strings.messageChangesSavingFailed);
+    }).onFinished(() {
+      updateState((state) => state.copyWith(isUpdatingNotification: false));
+    }).executeFuture();
   }
 
   Future<void> updateSocialAccountInfo() async {

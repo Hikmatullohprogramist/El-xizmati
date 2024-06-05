@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
+import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 import 'package:onlinebozor/domain/models/ad/ad_list_type.dart';
@@ -12,7 +13,6 @@ import 'package:onlinebozor/presentation/support/extensions/color_extension.dart
 import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_list_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_list_widget.dart';
 import 'package:onlinebozor/presentation/widgets/ad/vertical/vertical_ad_widget.dart';
-import 'package:onlinebozor/presentation/widgets/app_bar/search_app_bar_2.dart';
 import 'package:onlinebozor/presentation/widgets/dashboard/see_all_widget.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
@@ -21,7 +21,8 @@ import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dar
 import 'ad_list_by_type_cubit.dart';
 
 @RoutePage()
-class AdListByTypePage extends BasePage<AdListByTypeCubit, AdListByTypeState, AdListByTypeEvent> {
+class AdListByTypePage
+    extends BasePage<AdListByTypeCubit, AdListByTypeState, AdListByTypeEvent> {
   const AdListByTypePage(this.adType, {super.key});
 
   final AdType adType;
@@ -40,12 +41,32 @@ class AdListByTypePage extends BasePage<AdListByTypeCubit, AdListByTypeState, Ad
     return Center(
       child: Scaffold(
         backgroundColor: context.backgroundColor,
-        appBar: SearchAppBar2(
+        appBar: AppBar(
           backgroundColor: context.appBarColor,
-          listener: () => context.router.pop(),
-          listenerSearch: () => context.router.push(SearchRoute()),
-          listenerNotification: () =>
-              context.router.push(NotificationListRoute()),
+          elevation: 0.5,
+          toolbarHeight: 64,
+          actions: [
+            IconButton(
+              onPressed: () => context.router.pop(),
+              icon: Assets.images.icArrowLeft.svg(),
+            ),
+            Expanded(
+              child: Container(
+                height: 32,
+                margin: EdgeInsets.fromLTRB(0, 6, 16, 0),
+                decoration: BoxDecoration(
+                  color: context.inputStrokeActiveColor,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: InkWell(
+                  onTap: () => context.router.push(SearchRoute()),
+                  child: Center(
+                    child: Strings.adSearchHint.s(14).w(400),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
         body: CustomScrollView(
           physics: BouncingScrollPhysics(),

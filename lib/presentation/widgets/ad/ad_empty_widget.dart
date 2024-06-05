@@ -37,7 +37,7 @@ class AdEmptyWidget extends StatelessWidget {
                 backgroundColor: context.colors.buttonPrimary,
                 onPressed: onClicked,
                 rightIcon: Icon(Icons.add),
-                text: Strings.adCreateTitle,
+                text: Strings.adCreationTitle,
               ),
             )
           ],

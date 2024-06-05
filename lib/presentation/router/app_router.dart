@@ -173,13 +173,13 @@ class AppRouter extends _$AppRouter {
             AutoRoute(
               page: FavoriteProductsRoute.page,
               path: 'favorites_products',
-              maintainState: false,
+              maintainState: true,
               keepHistory: false,
             ),
             AutoRoute(
               page: FavoriteServicesRoute.page,
               path: 'favorites_services',
-              maintainState: false,
+              maintainState: true,
               keepHistory: false,
             )
           ],
@@ -226,7 +226,6 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           page: AdListRoute.page,
           path: '/ads_list',
-          maintainState: false,
         ),
         AutoRoute(
           page: AdDetailRoute.page,

@@ -5,7 +5,8 @@ class ProfileViewState with _$ProfileViewState {
   const factory ProfileViewState({
     @Default(false) bool isRegistered,
 //
-    @Default(false) bool isLoading,
+    @Default(false) bool isUserLoading,
+    @Default(false) bool isUserDataLoaded,
 //
     @Default("*") String userName,
     @Default("*") String fullName,
@@ -15,7 +16,7 @@ class ProfileViewState with _$ProfileViewState {
     @Default("*") String phoneNumber,
     @Default("*") String regionName,
     @Default("*") String districtName,
-    @Default("*") String streetName,
+    @Default("*") String neighborhoodName,
     @Default("*") String gender,
     @Default("*") String photo,
     int? regionId,
@@ -41,6 +42,10 @@ class ProfileViewState with _$ProfileViewState {
     @Default("") String facebook,
     @Default("") String youtube,
     @Default(false) bool isUpdatingSocialInfo,
+//
+    @Default([]) List<Region> regions,
+    @Default([]) List<District> districts,
+    @Default([]) List<Neighborhood> neighborhoods,
 //
     PagingController<int, ActiveSession>? controller,
   }) = _ProfileViewState;

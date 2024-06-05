@@ -48,9 +48,6 @@ class FavoriteRepository {
   }
 
   Future<List<Ad>> getProductFavoriteAds() async {
-    // if (_tokenPreferences.isNotAuthorized) throw NotAuthorizedException();
-    // if (_userPreferences.isNotIdentified) throw NotIdentifiedException();
-
     final isLogin = _tokenPreferences.isAuthorized;
     if (isLogin) {
       final response = await _favoriteService.getFavoriteAds();
@@ -70,9 +67,6 @@ class FavoriteRepository {
   }
 
   Future<List<Ad>> getServiceFavoriteAds() async {
-    // if (_tokenPreferences.isNotAuthorized) throw NotAuthorizedException();
-    // if (_userPreferences.isNotIdentified) throw NotIdentifiedException();
-
     final isLogin = _tokenPreferences.isAuthorized;
     if (isLogin) {
       final response = await _favoriteService.getFavoriteAds();

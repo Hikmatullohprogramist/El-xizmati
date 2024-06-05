@@ -32,7 +32,7 @@ class UserAdsPage extends BasePage<UserAdsCubit, UserAdsState, UserAdsEvent> {
           appBar: AppBar(
             actions: [
               CustomTextButton(
-                text: Strings.adCreateTitle,
+                text: Strings.adCreationTitle,
                 onPressed: () => context.router.push(AdCreationChooserRoute()),
               )
             ],
@@ -41,7 +41,7 @@ class UserAdsPage extends BasePage<UserAdsCubit, UserAdsState, UserAdsEvent> {
               onPressed: () => context.router.pop(),
             ),
             elevation: 0.5,
-            backgroundColor: context.backgroundColor,
+            backgroundColor: context.appBarColor,
             centerTitle: true,
             bottomOpacity: 1,
             title:

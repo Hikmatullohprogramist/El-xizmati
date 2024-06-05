@@ -96,12 +96,12 @@ class UserAdListCubit extends BaseCubit<UserAdListState, UserAdListEvent> {
           }
 
           stateMessageManager
-              .showSuccessSnackBar(Strings.userAdsStateSuccessfullyChanged);
+              .showSuccessSnackBar(Strings.userAdsStatusSuccessfullyChanged);
         })
         .onError((error) {
           logger.w(error.toString());
           stateMessageManager
-              .showErrorSnackBar(Strings.userAdsStateChangingFailed);
+              .showErrorSnackBar(Strings.userAdsStatusChangingFailed);
         })
         .onFinished(() {})
         .executeFuture();
@@ -130,12 +130,12 @@ class UserAdListCubit extends BaseCubit<UserAdListState, UserAdListEvent> {
           states.controller?.notifyListeners();
 
           stateMessageManager
-              .showSuccessSnackBar(Strings.userAdsStateSuccessfullyChanged);
+              .showSuccessSnackBar(Strings.userAdsStatusSuccessfullyChanged);
         })
         .onError((error) {
           logger.w(error.toString());
           stateMessageManager
-              .showErrorSnackBar(Strings.userAdsStateChangingFailed);
+              .showErrorSnackBar(Strings.userAdsStatusChangingFailed);
         })
         .onFinished(() {})
         .executeFuture();
@@ -150,13 +150,13 @@ class UserAdListCubit extends BaseCubit<UserAdListState, UserAdListEvent> {
           states.controller?.notifyListeners();
 
           stateMessageManager
-              .showSuccessSnackBar(Strings.userAdsStateSuccessfullyChanged);
+              .showSuccessSnackBar(Strings.userAdsStatusSuccessfullyChanged);
         })
         .onError((error) {
           logger.w(error.toString());
 
           stateMessageManager
-              .showErrorSnackBar(Strings.userAdsStateChangingFailed);
+              .showErrorSnackBar(Strings.userAdsStatusChangingFailed);
         })
         .onFinished(() {})
         .executeFuture();

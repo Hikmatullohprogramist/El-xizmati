@@ -48,7 +48,6 @@ class UserAddressWidget extends StatelessWidget {
                       child: (address.name ?? "")
                           .w(600)
                           .s(16)
-                          .c(Color(0xFF41455E))
                           .copyWith(overflow: TextOverflow.ellipsis),
                     ),
                     Row(
@@ -82,7 +81,7 @@ class UserAddressWidget extends StatelessWidget {
                 SizedBox(height: 8),
                 Strings.userAddressAddress.w(400).s(14).c(context.textSecondary),
                 SizedBox(height: 5),
-                address.fullAddress.w(500).s(12).c(Color(0xFF41455E)),
+                address.fullAddress.w(500).s(12),
                 SizedBox(height: 12),
               ],
             ),

@@ -107,7 +107,7 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
     return Scaffold(
       appBar: DefaultAppBar(
         titleText:
-            state.isEditing ? Strings.adEditTitle : Strings.adCreateTitle,
+            state.isEditing ? Strings.adEditTitle : Strings.adCreationTitle,
         titleTextColor: context.textPrimary,
         backgroundColor: context.appBarColor,
         onBackPressed: () => context.router.pop(),
