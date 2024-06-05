@@ -190,13 +190,20 @@ extension UserOrderResExts on UserOrder {
     switch (cancelNote) {
       case "sellernone":
         return OrderCancelReason.SELLER_NOT_ANSWERED.getLocalizedName();
+      case "SELLER_NOT_ANSWERED":
+        return OrderCancelReason.SELLER_NOT_ANSWERED.getLocalizedName();
+      case "CHANGED_IDEA":
+        return OrderCancelReason.CHANGED_IDEA.getLocalizedName();
       case "changedidea":
         return OrderCancelReason.CHANGED_IDEA.getLocalizedName();
       case "selectedother":
         return OrderCancelReason.SELECTED_INCORRECTED_AD.getLocalizedName();
+      case "SELECTED_INCORRECTED_AD":
+        return OrderCancelReason.SELECTED_INCORRECTED_AD.getLocalizedName();
       case "other":
         return OrderCancelReason.OTHER_REASON.getLocalizedName();
-      default:
+      case "OTHER_REASON":
+        return OrderCancelReason.OTHER_REASON.getLocalizedName();
     }
     return cancelNote ?? "";
   }
