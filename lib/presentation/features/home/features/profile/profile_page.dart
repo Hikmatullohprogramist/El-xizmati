@@ -260,10 +260,12 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
                     HapticFeedback.lightImpact();
                   },
                   yesTitle: Strings.commonYes,
-                  onYesClicked: () {
-                    cubit(context).logOut();
-                    Navigator.pop(context);
+                  onYesClicked: () async {
                     HapticFeedback.lightImpact();
+
+                    await cubit(context).logOut();
+
+                    Navigator.pop(context);
                   },
                 );
                 HapticFeedback.lightImpact();
