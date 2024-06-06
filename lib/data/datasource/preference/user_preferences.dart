@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/datasource/network/responses/auth/confirm/confirm_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/auth/login/login_response.dart';
 import 'package:onlinebozor/data/datasource/preference/preferences_extensions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -38,7 +38,7 @@ class UserPreferences {
   Future<void> setUserPinfl(int? pinfl) async =>
       await _preferences.setOrRemove(_keyUserPinfl, pinfl);
 
-  Future<void> setUserInfo(User? user) async {
+  Future<void> setUserInfo(LoginUser? user) async {
     await _preferences.setOrRemove(_keyUserTin, user?.tin);
     await _preferences.setOrRemove(_keyUserPinfl, user?.pinfl);
     await _preferences.setOrRemove(_keyIsUserIdentified, user?.isRegistered);

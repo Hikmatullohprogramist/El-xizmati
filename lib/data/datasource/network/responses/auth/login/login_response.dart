@@ -1,40 +1,42 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'confirm_response.freezed.dart';
-part 'confirm_response.g.dart';
+part 'login_response.freezed.dart';
+part 'login_response.g.dart';
 
 @freezed
-class ConfirmRootResponse with _$ConfirmRootResponse {
-  const factory ConfirmRootResponse({
+class LoginRootResponse with _$LoginRootResponse {
+  const factory LoginRootResponse({
     dynamic error,
     dynamic message,
     dynamic timestamp,
     int? status,
     dynamic path,
-    required ConfirmResponse data,
+    required LoginResponse data,
     dynamic response,
-  }) = _ConfirmRootResponse;
+  }) = _LoginRootResponse;
 
-  factory ConfirmRootResponse.fromJson(Map<String, dynamic> json) =>
-      _$ConfirmRootResponseFromJson(json);
+  factory LoginRootResponse.fromJson(Map<String, dynamic> json) =>
+      _$LoginRootResponseFromJson(json);
 }
 
 @freezed
-class ConfirmResponse with _$ConfirmResponse {
-  const factory ConfirmResponse({
+class LoginResponse with _$LoginResponse {
+  const factory LoginResponse({
     String? token,
     int? projectId,
-    User? user,
-  }) = _ConfirmResponse;
+    LoginUser? user,
+  }) = _LoginResponse;
 
-  factory ConfirmResponse.fromJson(Map<String, dynamic> json) =>
-      _$ConfirmResponseFromJson(json);
+  factory LoginResponse.fromJson(Map<String, dynamic> json) =>
+      _$LoginResponseFromJson(json);
 }
 
 @freezed
-class User with _$User {
-  const factory User({
+class LoginUser with _$LoginUser {
+  const factory LoginUser({
+    required int id,
     dynamic pinfl,
+    dynamic tin,
     String? ipaddress,
     String? authSource,
     String? gender,
@@ -49,9 +51,7 @@ class User with _$User {
     dynamic messageType,
     List<String>? permissions,
     dynamic postName,
-    dynamic tin,
     dynamic theme,
-    int? id,
     int? state,
     dynamic email,
     dynamic passportNumber,
@@ -74,8 +74,9 @@ class User with _$User {
     bool? isRegistered,
     int? projectId,
     String? loggingLevel,
-    String? username,
-  }) = _User;
+    // String? username,
+  }) = _LoginUser;
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory LoginUser.fromJson(Map<String, dynamic> json) =>
+      _$LoginUserFromJson(json);
 }

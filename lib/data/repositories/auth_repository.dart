@@ -3,24 +3,22 @@ import 'dart:convert';
 
 import 'package:dio/src/response.dart';
 import 'package:onlinebozor/data/datasource/floor/dao/ad_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/floor/dao/category_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/floor/dao/user_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/floor/entities/user_entity.dart';
 import 'package:onlinebozor/data/datasource/network/responses/auth/auth_start/auth_start_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/auth/confirm/confirm_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/auth/eds/eds_sign_in_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/auth/login/login_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/auth/one_id/one_id_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/e_imzo_response/e_imzo_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/face_id/validate_bio_doc_request.dart';
 import 'package:onlinebozor/data/datasource/network/services/auth_service.dart';
-import 'package:onlinebozor/data/datasource/preference/language_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/token_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
+import 'package:onlinebozor/data/mappers/user_mapper.dart';
 
 class AuthRepository {
   final AdEntityDao _adEntityDao;
   final AuthService _authService;
-  final CategoryEntityDao _categoryEntityDao;
   final TokenPreferences _tokenPreferences;
   final UserPreferences _userPreferences;
   final UserEntityDao _userEntityDao;
@@ -28,7 +26,6 @@ class AuthRepository {
   AuthRepository(
     this._adEntityDao,
     this._authService,
-    this._categoryEntityDao,
     this._tokenPreferences,
     this._userEntityDao,
     this._userPreferences,
@@ -47,7 +44,7 @@ class AuthRepository {
 
   Future<void> login(String phone, String password) async {
     final response = await _authService.login(phone: phone, password: password);
-    final loginResponse = ConfirmRootResponse.fromJson(response.data).data;
+    final loginResponse = LoginRootResponse.fromJson(response.data).data;
     if (loginResponse.token != null) {
       await _tokenPreferences.setToken(loginResponse.token ?? "");
       await _tokenPreferences.setIsAuthorized(true);
@@ -58,7 +55,7 @@ class AuthRepository {
       await _userPreferences.setUserInfo(actual);
 
       if (actual != null) {
-        await _userEntityDao.updateUser(
+        await _userEntityDao.insertUser(
           UserEntity(
             id: actual.id ?? saved!.id,
             fullName: actual.fullName ?? saved?.fullName ?? "",
@@ -120,43 +117,17 @@ class AuthRepository {
   Future<void> edsSignIn(String sign) async {
     final response = await _authService.edsSignIn(sign: sign);
     final edsResponse = EdsSignInRootResponse.fromJson(response.data);
-    final actual = edsResponse.user;
+    final userResponse = edsResponse.user;
     if (edsResponse.token != null) {
       await _tokenPreferences.setToken(edsResponse.token ?? "");
       await _tokenPreferences.setIsAuthorized(true);
-      final saved = await _userEntityDao.getUser();
 
-      await _userPreferences.setUserTin(actual?.tin);
-      await _userPreferences.setUserPinfl(actual?.pinfl);
-      await _userPreferences.setIdentityState(actual?.isRegistered);
+      await _userPreferences.setUserTin(userResponse?.tin);
+      await _userPreferences.setUserPinfl(userResponse?.pinfl);
+      await _userPreferences.setIdentityState(userResponse?.isRegistered);
 
-      if (actual != null) {
-        await _userEntityDao.updateUser(
-          UserEntity(
-            id: actual.id,
-            fullName: actual.fullName ?? saved?.fullName ?? "",
-            pinfl: actual.pinfl ?? saved?.pinfl,
-            tin: actual.tin ?? saved?.tin,
-            gender: actual.gender ?? saved?.gender,
-            docSerial: actual.passportSerial ?? saved?.docSerial,
-            docNumber: actual.passportNumber ?? saved?.docNumber,
-            regionId: actual.oblId ?? saved?.regionId,
-            regionName: saved?.regionName ?? "",
-            districtId: actual.areaId ?? saved?.districtId,
-            districtName: saved?.districtName ?? "",
-            neighborhoodId: actual.districtId ?? saved?.neighborhoodId,
-            neighborhoodName: saved?.neighborhoodName ?? "",
-            houseNumber: actual.homeName ?? saved?.houseNumber,
-            apartmentName: saved?.apartmentName,
-            birthDate: actual.birthDate ?? saved?.birthDate ?? "",
-            photo: actual.photo ?? saved?.photo ?? "",
-            email: actual.email ?? saved?.email ?? "",
-            phone: actual.mobilePhone ?? saved?.phone ?? "",
-            notificationSource: saved?.notificationSource ?? "",
-            isIdentified: actual.isRegistered ?? saved?.isIdentified ?? false,
-            state: saved?.state,
-          ),
-        );
+      if (userResponse != null) {
+        await _userEntityDao.insertUser(userResponse.toUserEntity());
       }
     }
     return;
@@ -168,7 +139,7 @@ class AuthRepository {
       code: code,
       sessionToken: sessionToken,
     );
-    final confirmResponse = ConfirmRootResponse.fromJson(response.data).data;
+    final confirmResponse = LoginRootResponse.fromJson(response.data).data;
     if (confirmResponse.token != null) {
       await _tokenPreferences.setToken(confirmResponse.token ?? "");
       await _tokenPreferences.setIsAuthorized(true);
@@ -206,7 +177,7 @@ class AuthRepository {
       image: image,
       secretKey: secretKey,
     );
-    final response = ConfirmRootResponse.fromJson(rootResponse.data).data;
+    final response = LoginRootResponse.fromJson(rootResponse.data).data;
     if (response.token != null) {
       await _tokenPreferences.setToken(response.token ?? "");
       await _tokenPreferences.setIsAuthorized(true);
@@ -221,7 +192,7 @@ class AuthRepository {
       code: code,
       sessionToken: sessionToken,
     );
-    final confirmResponse = ConfirmRootResponse.fromJson(response.data).data;
+    final confirmResponse = LoginRootResponse.fromJson(response.data).data;
     if (confirmResponse.token != null) {
       await _tokenPreferences.setToken(confirmResponse.token ?? "");
       await _tokenPreferences.setIsAuthorized(true);
@@ -238,11 +209,16 @@ class AuthRepository {
       final response = await _authService.loginWithOneId(
         accessCode: oneIdResponse.access_token ?? "",
       );
-      final confirmResponse = ConfirmRootResponse.fromJson(response.data).data;
+      final confirmResponse = LoginRootResponse.fromJson(response.data).data;
+      final userResponse = confirmResponse.user;
       if (confirmResponse.token != null) {
         await _tokenPreferences.setToken(confirmResponse.token ?? "");
         await _tokenPreferences.setIsAuthorized(true);
         await _userPreferences.setUserInfo(confirmResponse.user);
+
+        if (userResponse != null) {
+          await _userEntityDao.insertUser(userResponse.toUserEntity());
+        }
         return;
       }
       return;
@@ -251,7 +227,6 @@ class AuthRepository {
 
   Future<void> logOut() async {
     await _adEntityDao.clear();
-    await _categoryEntityDao.clear();
     await _tokenPreferences.clear();
     await _userEntityDao.clear();
     await _userPreferences.clear();

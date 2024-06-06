@@ -1,33 +1,61 @@
-
 import 'package:onlinebozor/data/datasource/floor/entities/user_entity.dart';
-import 'package:onlinebozor/data/datasource/network/responses/auth/confirm/confirm_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/auth/eds/eds_sign_in_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/auth/login/login_response.dart';
 
-extension ConfirmResponseMapper on ConfirmResponse{
-  // UserEntity toUserHiveObject(){
-  //   return UserEntity(
-  //     neighborhoodId: user?.neighborhoodId,
-  //     fullName: user?.fullName,
-  //     email: user?.email,
-  //     tin: user?.tin,
-  //     id: user?.id,
-  //     apartmentName: user?.apartmentName,
-  //     districtId: user?.districtId,
-  //     username: user?.username,
-  //     birthDate: user?.birthDate,
-  //     eimzoAllowToLogin: user?.eimzoAllowToLogin,
-  //     gender: user?.gender,
-  //     homeName: user?.homeName,
-  //     isPassword: user?.isPassword,
-  //     isIdentityVerified: user?.isRegistered,
-  //     mobilePhone: user?.mobilePhone,
-  //     regionId: user?.regionId,
-  //     passportNumber: user?.passportNumber,
-  //     passportSerial: user?.passportSerial,
-  //     photo: user?.photo,
-  //     pinfl: user?.pinfl,
-  //     postName: user?.username,
-  //     // registeredWithEimzo: user?.registeredWithEimzo,
-  //     state: user?.state,
-  //   );
-  // }
+extension LoginUserResponseMapper on LoginUser {
+  UserEntity toUserEntity() {
+    return UserEntity(
+      id: id,
+      fullName: fullName ?? "",
+      pinfl: pinfl,
+      tin: tin,
+      gender: gender,
+      docSerial: passportSerial,
+      docNumber: passportNumber,
+      regionId: regionId,
+      regionName: "",
+      districtId: districtId,
+      districtName: "",
+      neighborhoodId: neighborhoodId,
+      neighborhoodName: "",
+      houseNumber: homeName,
+      apartmentName: apartmentName,
+      birthDate: birthDate ?? "",
+      photo: photo ?? "",
+      email: email ?? "",
+      phone: mobilePhone ?? "",
+      notificationSource: "",
+      isIdentified: isRegistered ?? false,
+      state: state,
+    );
+  }
+}
+
+extension EdsUserResponseMapper on EdsUserResponse {
+  UserEntity toUserEntity() {
+    return UserEntity(
+      id: id,
+      fullName: fullName ?? "",
+      pinfl: pinfl,
+      tin: tin,
+      gender: gender,
+      docSerial: passportSerial,
+      docNumber: passportNumber,
+      regionId: oblId,
+      regionName: "",
+      districtId: areaId,
+      districtName: "",
+      neighborhoodId: districtId,
+      neighborhoodName: "",
+      houseNumber: homeName,
+      apartmentName: apartmentName,
+      birthDate: birthDate ?? "",
+      photo: photo ?? "",
+      email: email ?? "",
+      phone: mobilePhone ?? "",
+      notificationSource: "",
+      isIdentified: isRegistered ?? false,
+      state: state,
+    );
+  }
 }
