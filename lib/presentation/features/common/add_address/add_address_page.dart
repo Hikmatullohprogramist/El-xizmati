@@ -53,7 +53,7 @@ class AddAddressPage
   Widget onWidgetBuild(BuildContext context, AddAddressState state) {
     addressController.updateOnRestore(state.addressName);
     apartmentNumberController.updateOnRestore(state.apartmentNum);
-    homeNumberController.updateOnRestore(state.homeNumber);
+    homeNumberController.updateOnRestore(state.houseNumber);
     streetController.updateOnRestore(state.streetName);
 
     return Scaffold(
@@ -87,8 +87,6 @@ class AddAddressPage
       ),
     );
   }
-
-  /// Build block
 
   Widget _buildAddressNameBlock(BuildContext context) {
     return Container(
@@ -193,7 +191,7 @@ class AddAddressPage
                     CustomTextFormField(
                       hint: Strings.commonHomeNumber,
                       onChanged: (value) {
-                        cubit(context).setHomeNumber(value);
+                        cubit(context).setHouseNumber(value);
                       },
                       controller: homeNumberController,
                       textInputAction: TextInputAction.next,

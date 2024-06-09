@@ -51,7 +51,7 @@ class AddCardWithRealPayPage extends BasePage<AddCardWithRealpayCubit,
                                 cubit(context)
                                     .stateMessageManager
                                     .showSuccessSnackBar(
-                                        Strings.cardAddSuccessMessage);
+                                        Strings.cardAddedMessage);
 
                                 await Future.delayed(Duration(seconds: 2));
 

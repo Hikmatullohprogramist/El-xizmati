@@ -56,39 +56,44 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
   }
 
   Future<void> getPopularCategories() async {
-    try {
-      final popularCategories =
-          await _commonRepository.getPopularCategories(1, 20);
+    _commonRepository
+        .getPopularCategories(1, 20)
+        .initFuture()
+        .onStart(() {})
+        .onSuccess((data) {
+          updateState((state) => state.copyWith(
+                popularCategories: data,
+                popularCategoriesState: LoadingState.success,
+              ));
+        })
+        .onError((error) {
+          updateState((state) => state.copyWith(
+                popularCategoriesState: LoadingState.error,
+              ));
 
-      updateState(
-        (state) => state.copyWith(
-          popularCategories: popularCategories,
-          popularCategoriesState: LoadingState.success,
-        ),
-      );
-    } catch (e, stackTrace) {
-      updateState(
-        (state) => state.copyWith(popularCategoriesState: LoadingState.error),
-      );
-
-      logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      stateMessageManager.showErrorSnackBar(e.toString());
-    }
+          logger.e(error);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> getPopularProductAds() async {
+    logger.w("getDashboardPopularAds called");
     if (states.popularProductAdsState == LoadingState.success ||
         states.popularProductAds.isNotEmpty) {
+      logger.w("getDashboardPopularAds already called before and ignored");
       return;
     }
 
     _adRepository
         .getDashboardPopularAds(adType: AdType.product)
         .initFuture()
-        .onStart(() {})
+        .onStart(() {
+          logger.w("getDashboardPopularAds onStart");
+        })
         .onSuccess((data) {
           final ids = data.adIds();
-          _productAdsSubs = _adRepository.watchAdsByIds(ids).asyncMap(
+          _productAdsSubs = _adRepository.watchAdsByIds(ids).listen(
             (ads) {
               logger.w(
                   "watchPopularProductAds ads count = ${ads.length}, cart count = ${ads.cartCount()}, favorite count = ${ads.favoriteCount()}");
@@ -98,8 +103,7 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
                         ads.isEmpty ? LoadingState.empty : LoadingState.success,
                   ));
             },
-          ).listen(null)
-            ..onError((error) {
+          )..onError((error) {
               logger.w("watchPopularProductAds error = $error");
               updateState((state) => state.copyWith(
                     popularProductAdsState: LoadingState.error,
@@ -123,12 +127,12 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
     }
 
     _adRepository
-        .getDashboardPopularAds(adType: AdType.product)
+        .getDashboardPopularAds(adType: AdType.service)
         .initFuture()
         .onStart(() {})
         .onSuccess((data) {
           final ids = data.adIds();
-          _serviceAdsSubs = _adRepository.watchAdsByIds(ids).listen((ads) {
+          _serviceAdsSubs = _adRepository.watchAdsByIds(ids).asyncMap((ads) {
             logger.w(
                 "watchPopularServiceAds ads count = ${ads.length}, cart count = ${ads.cartCount()}, favorite count = ${ads.favoriteCount()}");
             updateState((state) => state.copyWith(
@@ -136,7 +140,7 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
                   popularServiceAdsState:
                       ads.isEmpty ? LoadingState.empty : LoadingState.success,
                 ));
-          })
+          }).listen(null)
             ..onError((error) {
               logger.w("watchPopularServiceAds error = $error");
               updateState((state) => state.copyWith(
@@ -152,75 +156,90 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
         })
         .onFinished(() {})
         .executeFuture();
-
-    try {
-      final ads = await _adRepository.getDashboardPopularAds(
-        adType: AdType.service,
-      );
-      updateState(
-        (state) => state.copyWith(
-          popularServiceAds: ads,
-          popularServiceAdsState: LoadingState.success,
-        ),
-      );
-    } catch (e, stackTrace) {
-      updateState((state) =>
-          state.copyWith(popularServiceAdsState: LoadingState.error));
-      logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      stateMessageManager.showErrorSnackBar(e.toString());
-    }
   }
 
   Future<void> getTopRatedAds() async {
-    try {
-      final ads = await _adRepository.getDashboardTopRatedAds();
-      updateState(
-        (state) => state.copyWith(
-          topRatedAds: ads,
-          topRatedAdsState: LoadingState.success,
-        ),
-      );
-    } catch (e, stackTrace) {
-      updateState(
-        (state) => state.copyWith(topRatedAdsState: LoadingState.error),
-      );
-      logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      stateMessageManager.showErrorSnackBar(e.toString());
+    if (states.topRatedAdsState == LoadingState.success ||
+        states.topRatedAds.isNotEmpty) {
+      return;
     }
+
+    _adRepository
+        .getDashboardTopRatedAds()
+        .initFuture()
+        .onStart(() {
+          updateState((state) => state.copyWith(
+                topRatedAdsState: LoadingState.loading,
+              ));
+        })
+        .onSuccess((data) {
+          updateState((state) => state.copyWith(
+                topRatedAdsState: LoadingState.success,
+              ));
+          _adRepository.watchAdsByIds(data.adIds()).listen((ads) {
+            updateState((state) => state.copyWith(
+                  topRatedAds: ads.map((e) => e.copy()).toList(),
+                ));
+          });
+        })
+        .onError((error) {
+          updateState((state) => state.copyWith(
+                topRatedAdsState: LoadingState.error,
+              ));
+          logger.e(error);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> getRecentlyViewedAds() async {
-    try {
-      final ads = await _adRepository.getRecentlyViewedAds(page: 1, limit: 20);
-      updateState(
-        (state) => state.copyWith(
-          recentlyViewedAds: ads,
-          recentlyViewedAdsState: LoadingState.success,
-        ),
-      );
-    } catch (e, stackTrace) {
-      updateState((state) => state.copyWith(
-            recentlyViewedAdsState: LoadingState.error,
-          ));
-      logger.e(e.toString(), error: e, stackTrace: stackTrace);
-    }
+    _adRepository
+        .getRecentlyViewedAds(page: 1, limit: 20)
+        .initFuture()
+        .onStart(() {
+          updateState((state) => state.copyWith(
+                recentlyViewedAdsState: LoadingState.loading,
+              ));
+        })
+        .onSuccess((data) {
+          updateState((state) => state.copyWith(
+                recentlyViewedAds: data,
+                recentlyViewedAdsState: LoadingState.success,
+              ));
+        })
+        .onError((error) {
+          updateState((state) => state.copyWith(
+                recentlyViewedAdsState: LoadingState.error,
+              ));
+          logger.e(error);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> getBanners() async {
-    try {
-      final banners = await _commonRepository.getBanner();
-      updateState((state) => state.copyWith(
-            banners: banners,
-            bannersState: LoadingState.success,
-          ));
-      logger.i("getBanners success = ${states.banners}");
-    } catch (e, stackTrace) {
-      updateState((state) => state.copyWith(
-            bannersState: LoadingState.error,
-          ));
-      logger.e("getBanners e = ${e.toString()}",
-          error: e, stackTrace: stackTrace);
-    }
+    _commonRepository
+        .getBanner()
+        .initFuture()
+        .onStart(() {
+          updateState((state) => state.copyWith(
+                bannersState: LoadingState.loading,
+              ));
+        })
+        .onSuccess((data) {
+          updateState((state) => state.copyWith(
+                banners: data,
+                bannersState: LoadingState.success,
+              ));
+        })
+        .onError((error) {
+          updateState((state) => state.copyWith(
+                bannersState: LoadingState.error,
+              ));
+          logger.e(error);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> popularProductAdsUpdateFavorite(Ad ad) async {

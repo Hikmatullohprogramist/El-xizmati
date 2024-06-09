@@ -25,7 +25,7 @@ class UserAddressesCubit
       if (isReload && states.controller != null) {
         states.controller?.refresh();
       } else {
-        final controller = states.controller ?? getAddressController(status: 1);
+        final controller = states.controller ?? getAddressController(isReload);
         updateState((state) => state.copyWith(controller: controller));
       }
     } catch (e, stackTrace) {
@@ -34,9 +34,7 @@ class UserAddressesCubit
     }
   }
 
-  PagingController<int, UserAddress> getAddressController({
-    required int status,
-  }) {
+  PagingController<int, UserAddress> getAddressController(bool isReload) {
     final addressController = PagingController<int, UserAddress>(
       firstPageKey: 1,
       invisibleItemsThreshold: 100,
@@ -46,7 +44,7 @@ class UserAddressesCubit
     addressController.addPageRequestListener(
       (pageKey) async {
         userAddressRepository
-            .getUserAddresses()
+            .getUserAddresses(isReload: isReload)
             .initFuture()
             .onStart(() {})
             .onSuccess((data) {
@@ -72,45 +70,56 @@ class UserAddressesCubit
   }
 
   Future<void> makeMainAddress(UserAddress address, int index) async {
-    try {
-      await userAddressRepository.updateMainAddress(
-        id: address.id,
-        isMain: true,
-      );
+    userAddressRepository
+        .updateMainAddress(
+          id: address.id,
+          isMain: true,
+        )
+        .initFuture()
+        .onStart(() {})
+        .onSuccess((data) {
+          var items = states.controller?.itemList;
+          if (items != null) {
+            var oldMain = items.firstIf((element) => element.isMain);
+            if (oldMain != null) {
+              var oldMainIndex = items.indexOf(oldMain);
+              oldMain.isMain = false;
+              var oldMainChanged = oldMain;
+              items.remove(oldMain);
+              items.insert(oldMainIndex, oldMainChanged);
+            }
 
-      var items = states.controller?.itemList;
-      if (items != null) {
-        var oldMain = items.firstIf((element) => element.isMain);
-        if (oldMain != null) {
-          var oldMainIndex = items.indexOf(oldMain);
-          oldMain.isMain = false;
-          var oldMainChanged = oldMain;
-          items.remove(oldMain);
-          items.insert(oldMainIndex, oldMainChanged);
-        }
+            var item = items[index];
+            items.removeAt(index);
+            item.isMain = true;
+            items.insert(0, item);
 
-        var item = items[index];
-        items.removeAt(index);
-        item.isMain = true;
-        items.insert(0, item);
-
-        states.controller?.notifyListeners();
-      }
-    } catch (e) {
-      stateMessageManager.showErrorSnackBar(e.toString());
-      logger.e(e.toString());
-    }
+            states.controller?.notifyListeners();
+          }
+        })
+        .onError((error) {
+          logger.e(error);
+          stateMessageManager.showErrorSnackBar(error.localizedMessage);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> deleteUserAddress(UserAddress address) async {
-    try {
-      await userAddressRepository.deleteAddress(id: address.id);
-      states.controller?.itemList?.remove(address);
-      states.controller?.notifyListeners();
-      await getController(false);
-    } catch (e) {
-      stateMessageManager.showErrorSnackBar(e.toString());
-      logger.e(e.toString());
-    }
+    userAddressRepository
+        .deleteAddress(id: address.id)
+        .initFuture()
+        .onStart(() {})
+        .onSuccess((data) async {
+          states.controller?.itemList?.remove(address);
+          states.controller?.notifyListeners();
+          // await getController(false);
+        })
+        .onError((error) {
+          logger.e(error);
+          stateMessageManager.showErrorSnackBar(error.localizedMessage);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 }

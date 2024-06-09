@@ -83,20 +83,26 @@ class OrderCreationCubit
   }
 
   Future<void> getDetailResponse() async {
-    try {
-      final response = await _adRepository.getAdDetail(states.adId!);
-      final paymentList =
-          response?.paymentTypes?.map((e) => e.id ?? -1).toList() ?? [];
-      updateState((state) => state.copyWith(
-            adDetail: response,
-            favorite: response?.isFavorite ?? false,
-            hasRangePrice: response?.hasRangePrice() ?? false,
-            paymentType: paymentList,
-          ));
-    } catch (e) {
-      logger.e(e.toString());
-      stateMessageManager.showErrorSnackBar(e.toString());
-    }
+    _adRepository
+        .getAdDetail(states.adId!)
+        .initFuture()
+        .onStart(() {})
+        .onSuccess((data) {
+          final paymentList =
+              data?.paymentTypes?.map((e) => e.id ?? -1).toList() ?? [];
+          updateState((state) => state.copyWith(
+                adDetail: data,
+                favorite: data?.isFavorite ?? false,
+                hasRangePrice: data?.hasRangePrice() ?? false,
+                paymentType: paymentList,
+              ));
+        })
+        .onError((error) {
+          logger.e(error);
+          stateMessageManager.showErrorSnackBar(error.localizedMessage);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> getDepositCardBalance() async {
@@ -131,14 +137,21 @@ class OrderCreationCubit
   }
 
   Future<void> removeCart() async {
-    try {
-      if (states.adId != null) {
-        await _cartRepository.removeFromCart(states.adId!);
-        emitEvent(OrderCreationEvent(OrderCreationEventType.onBackAfterRemove));
-      }
-    } catch (e) {
-      stateMessageManager.showErrorSnackBar(e.toString());
-    }
+    if (states.adId != null) return;
+
+    _cartRepository
+        .removeFromCart(states.adId!)
+        .initFuture()
+        .onStart(() {})
+        .onSuccess((data) {
+          emitEvent(
+              OrderCreationEvent(OrderCreationEventType.onBackAfterRemove));
+        })
+        .onError((error) {
+          stateMessageManager.showErrorSnackBar(error.localizedMessage);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> changeFavorite() async {
@@ -153,18 +166,21 @@ class OrderCreationCubit
       updateState((state) => state.copyWith(favorite: favorite));
       stateMessageManager.showSuccessSnackBar("succes");
     } catch (e) {
-      stateMessageManager.showErrorSnackBar(e.toString());
+      stateMessageManager.showErrorSnackBar(e.localizedMessage);
     }
   }
 
   Future<void> removeFromCartAfterOrderCreation() async {
-    try {
-      if (states.adId != null) {
-        await _cartRepository.removeFromCart(states.adId!);
-      }
-    } catch (e) {
-      stateMessageManager.showErrorSnackBar(e.toString());
-    }
+    if (states.adId != null) return;
+
+    _cartRepository
+        .removeFromCart(states.adId!)
+        .initFuture()
+        .onError((error) {
+          stateMessageManager.showErrorSnackBar(error.localizedMessage);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> orderCreate() async {
@@ -183,6 +199,9 @@ class OrderCreationCubit
         )
         .initFuture()
         .onStart(() {
+          emitEvent(OrderCreationEvent(
+            OrderCreationEventType.onCreationStarted,
+          ));
           updateState((state) => state.copyWith(
                 isRequestSending: true,
               ));
@@ -190,12 +209,17 @@ class OrderCreationCubit
         .onSuccess((data) async {
           await Future.delayed(Duration(seconds: 2));
 
-          emitEvent(OrderCreationEvent(OrderCreationEventType.onAfterCreation));
+          emitEvent(OrderCreationEvent(
+            OrderCreationEventType.onCreationFinished,
+          ));
           updateState((state) => state.copyWith(isRequestSending: false));
         })
         .onError((error) {
           logger.w("create order error = $error");
           stateMessageManager.showErrorBottomSheet(error.localizedMessage);
+          emitEvent(OrderCreationEvent(
+            OrderCreationEventType.onCreationFailed,
+          ));
           updateState((state) => state.copyWith(isRequestSending: false));
         })
         .onFinished(() {})

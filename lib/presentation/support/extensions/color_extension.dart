@@ -8,8 +8,8 @@ extension ColorExtension on BuildContext {
   ThemeColors get colors => Theme.of(this).brightness == Brightness.dark
       ? DarkThemeColors()
       : LightThemeColors();
-// ? getIt<DarkThemeColors>()
-//       : getIt<LightThemeColors>();
+
+  Brightness get brightness => Theme.of(this).brightness;
 
   ThemeData get theme => Theme.of(this);
 

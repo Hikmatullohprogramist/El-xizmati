@@ -2,6 +2,8 @@ part of 'profile_edit_cubit.dart';
 
 @freezed
 class ProfileEditState with _$ProfileEditState {
+  const ProfileEditState._();
+
   const factory ProfileEditState({
     @Default(false) bool isLoading,
     @Default("") String docSerial,
@@ -30,6 +32,11 @@ class ProfileEditState with _$ProfileEditState {
     String? photo,
     @Default("") String apartmentNumber,
   }) = _ProfileEditState;
+
+  bool get isRegionSelected => regionId != null && regionId! > 0;
+
+  bool get isDistrictSelected => districtId != null && districtId! > 0;
+
 }
 
 @freezed

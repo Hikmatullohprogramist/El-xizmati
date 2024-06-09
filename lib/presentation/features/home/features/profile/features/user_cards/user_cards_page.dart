@@ -78,7 +78,7 @@ class UserCardsPage extends BasePage<UserCardsCubit, PageState, PageEvent> {
                 showYesNoBottomSheet(
                   context,
                   title: Strings.messageTitleWarning,
-                  message: Strings.cardDeleteMessage,
+                  message: Strings.cardDeletingMessage,
                   noTitle: Strings.commonNo,
                   onNoClicked: () {},
                   yesTitle: Strings.commonYes,

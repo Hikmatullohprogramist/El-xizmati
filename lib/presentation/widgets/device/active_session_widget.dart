@@ -24,7 +24,7 @@ class ActiveSessionWidget extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
-            color: Colors.white,
+            color: context.cardColor,
             padding: const EdgeInsets.all(16.0),
             child: Row(
               children: [
@@ -43,15 +43,14 @@ class ActiveSessionWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (session.isMobileBrowserOrApp())
-                      "Application ".w(700).s(12).c(Colors.black),
+                      "Mobil ilova".w(700).s(12),
                     if (!session.isMobileBrowserOrApp())
-                      "Web browser".w(700).s(12).c(Colors.black),
+                      "Web brauzer".w(700).s(12),
                     SizedBox(height: 6),
                     Flexible(
                         child: session.userAgent
                             .w(400)
                             .s(12)
-                            .c(Color(0xFF41455E))
                             .copyWith(
                                 overflow: TextOverflow.ellipsis, maxLines: 2)),
                     SizedBox(height: 6),

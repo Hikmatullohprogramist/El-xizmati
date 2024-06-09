@@ -1,14 +1,14 @@
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad_detail/user_ad_detail_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/user_ad/user_ad_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/user_ad_service.dart';
-import 'package:onlinebozor/data/datasource/preference/token_preferences.dart';
+import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
 
 // @LazySingleton()
 class UserAdRepository {
-  final TokenPreferences _tokenPreferences;
+  final AuthPreferences _tokenPreferences;
   final UserAdService _userAdService;
   final UserPreferences _userPreferences;
 

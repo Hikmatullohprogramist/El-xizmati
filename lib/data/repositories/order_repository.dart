@@ -1,6 +1,6 @@
 import 'package:onlinebozor/data/datasource/floor/dao/user_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/network/services/cart_service.dart';
-import 'package:onlinebozor/data/datasource/preference/token_preferences.dart';
+import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
 import 'package:onlinebozor/data/repositories/cart_repository.dart';
@@ -8,7 +8,7 @@ import 'package:onlinebozor/data/repositories/cart_repository.dart';
 class OrderRepository {
   final CartService _cartService;
   final CartRepository _cartRepository;
-  final TokenPreferences _tokenPreferences;
+  final AuthPreferences _tokenPreferences;
   final UserPreferences _userPreferences;
   final UserEntityDao _userEntityDao;
 

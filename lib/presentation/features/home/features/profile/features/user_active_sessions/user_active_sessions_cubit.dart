@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/data/repositories/user_repository.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
 part 'user_active_sessions_cubit.freezed.dart';
 part 'user_active_sessions_state.dart';
@@ -20,17 +20,9 @@ class UserActiveSessionsCubit
     getController();
   }
 
-
   Future<void> getController() async {
-    try {
-      final controller = states.controller ?? getAdsController(status: 1);
-      updateState((state) => state.copyWith(controller: controller));
-    } catch (e, stackTrace) {
-      logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      stateMessageManager.showErrorSnackBar(e.toString());
-    } finally {
-      logger.i(states.controller);
-    }
+    final controller = states.controller ?? getAdsController(status: 1);
+    updateState((state) => state.copyWith(controller: controller));
   }
 
   PagingController<int, ActiveSession> getAdsController({

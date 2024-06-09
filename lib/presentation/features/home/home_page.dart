@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:flutter/services.dart';
 
 import 'home_cubit.dart';
 
@@ -77,51 +77,34 @@ class HomePage extends BasePage<HomeCubit, HomeState, HomeEvent> {
                   label: Strings.bottomNavigationAddAd,
                   icon: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Assets.images.bottomBar.addAd
-                        .svg(height: 20, width: 20),
+                    child: Assets.images.bottomBar.addAd.svg(height: 22, width: 22),
                   ),
-                  // activeIcon: Padding(
-                  //   padding: const EdgeInsets.all(8.0),
-                  //   child: Assets.images.bottomBar.categoryActive.svg(),
-                  // ),
+                  activeIcon: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Assets.images.bottomBar.addAdActive.svg(),
+                  ),
                 ),
                 BottomNavigationBarItem(
                   label: Strings.bottomNavigationCart,
                   icon: Padding(
                     padding: const EdgeInsets.all(8),
-                    // child: ValueListenableBuilder(
-                    //   valueListenable: cubit(context).adStorage.listenable(),
-                    //   builder: (BuildContext context, value, Widget? child) {
-                    //     int cartNumber =
-                    //         cubit(context).adStorage.cartAds.length;
-                    //     return Badge(
-                    //       textStyle: TextStyle(fontSize: 8),
-                    //       alignment: Alignment.topRight,
-                    //       isLabelVisible: cartNumber > 0,
-                    //       label: cartNumber.toString().w(500),
-                    //       child: Assets.images.bottomBar.cart.svg(),
-                    //     );
-                    //   },
-                    // ),
-                    child: Assets.images.bottomBar.cart.svg(),
+                    child: Badge(
+                      textStyle: TextStyle(fontSize: 8),
+                      alignment: Alignment.topRight,
+                      isLabelVisible: state.cartAdsCount > 0,
+                      label: state.cartAdsCount.toString().w(500),
+                      child: Assets.images.bottomBar.cart.svg(),
+                    ),
                   ),
                   activeIcon: Padding(
                     padding: const EdgeInsets.all(8),
-                    // child: ValueListenableBuilder(
-                    //   valueListenable: cubit(context).adStorage.listenable(),
-                    //   builder: (BuildContext context, value, Widget? child) {
-                    //     int cartNumber =
-                    //         cubit(context).adStorage.cartAds.length;
-                    //     return Badge(
-                    //       textStyle: TextStyle(fontSize: 8),
-                    //       alignment: Alignment.topRight,
-                    //       isLabelVisible: cartNumber > 0,
-                    //       label: cartNumber.toString().w(500),
-                    //       child: Assets.images.bottomBar.cartActive.svg(),
-                    //     );
-                    //   },
-                    // ),
-                    child: Assets.images.bottomBar.cartActive.svg(),
+                    child: Badge(
+                      textStyle: TextStyle(fontSize: 8),
+                      alignment: Alignment.topRight,
+                      isLabelVisible: state.cartAdsCount > 0,
+                      label: state.cartAdsCount.toString().w(500),
+                      child: Assets.images.bottomBar.cartActive.svg(),
+                    ),
                   ),
                 ),
                 BottomNavigationBarItem(

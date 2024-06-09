@@ -99,12 +99,13 @@ class UserCardsCubit extends BaseCubit<PageState, PageEvent> {
         .initFuture()
         .onStart(() {})
         .onSuccess((data) {
-          states.addedCards.removeIf((e) => e.cardId == card.id);
-          updateState((state) => state.copyWith());
-          stateMessageManager.showSuccessBottomSheet("Karta o'chirildi");
+          final cards = states.addedCards.map((e) => e.copyWith()).toList();
+          cards.removeIf((e) => e.cardId == card.id);
+          updateState((state) => state.copyWith(addedCards: cards));
+          stateMessageManager.showSuccessSnackBar(Strings.cardDeletedMessage);
         })
         .onError((error) {
-          stateMessageManager.showErrorBottomSheet(error.localizedMessage);
+          stateMessageManager.showErrorSnackBar(error.localizedMessage);
         })
         .onFinished(() {})
         .executeFuture();

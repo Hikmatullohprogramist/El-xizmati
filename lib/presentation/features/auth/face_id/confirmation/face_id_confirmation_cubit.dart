@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:camera/camera.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
+import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/auth_repository.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
 
 part 'face_id_confirmation_cubit.freezed.dart';
 part 'face_id_confirmation_state.dart';
@@ -50,19 +52,32 @@ class FaceIdConfirmationCubit
   }
 
   void sendImage(String image, String secretKey) async {
-    updateState((state) => state.copyWith(loading: true));
-    try {
-      var res = await _authRepository.sendImage(image, secretKey);
-      updateState((state) => state.copyWith(loadState: LoadingState.success));
-      sendAllFavoriteAds();
-      emitEvent(FaceIdConfirmationEvent(FaceIdConfirmationEventType.onSuccess));
-    } catch (e) {
-      updateState((state) => states.copyWith(showPicture: false));
-      emitEvent(FaceIdConfirmationEvent(FaceIdConfirmationEventType.onFailure));
-      stateMessageManager.showErrorSnackBar(e.toString());
-    } finally {
-      updateState((state) => state.copyWith(loading: false));
-    }
+    _authRepository
+        .sendImage(image, secretKey)
+        .initFuture()
+        .onStart(() {
+          updateState((state) => state.copyWith(loading: true));
+        })
+        .onSuccess((data) {
+          updateState((state) => state.copyWith(
+                loading: false,
+                loadState: LoadingState.success,
+              ));
+          sendAllFavoriteAds();
+          emitEvent(
+              FaceIdConfirmationEvent(FaceIdConfirmationEventType.onSuccess));
+        })
+        .onError((error) {
+          updateState((state) => state.copyWith(
+                loading: false,
+                showPicture: false,
+              ));
+          emitEvent(
+              FaceIdConfirmationEvent(FaceIdConfirmationEventType.onFailure));
+          stateMessageManager.showErrorSnackBar(error.localizedMessage);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> sendAllFavoriteAds() async {

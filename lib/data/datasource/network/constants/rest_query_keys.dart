@@ -11,6 +11,7 @@ class RestQueryKeys {
   static String imageData = "image_data";
 
   static String cancelNote = "cancel_note";
+  static String cardId = "card_id";
   static String confirmPassword = "repeat_password";
   static String customerType = "customer_type";
 

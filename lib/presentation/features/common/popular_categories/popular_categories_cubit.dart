@@ -20,16 +20,8 @@ class PopularCategoriesCubit
   final CommonRepository _commonRepository;
 
   Future<void> getController() async {
-    try {
-      final controller = states.controller ?? getPagingController(status: 1);
-      updateState((state) => state.copyWith(controller: controller));
-    } catch (e, stackTrace) {
-      logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      stateMessageManager.showErrorSnackBar(e.toString());
-    } finally {
-      logger.i(states.controller);
-      // build((state) => state.copyWith(loading: false));
-    }
+    final controller = states.controller ?? getPagingController(status: 1);
+    updateState((state) => state.copyWith(controller: controller));
   }
 
   PagingController<int, PopularCategory> getPagingController({

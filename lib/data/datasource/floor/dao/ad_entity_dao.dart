@@ -4,29 +4,36 @@ import 'package:onlinebozor/data/datasource/floor/entities/ad_entity.dart';
 
 @dao
 abstract class AdEntityDao {
-  @Query('SELECT * FROM ads ')
-  Future<List<AdEntity>> getAllAds();
 
   @Query('SELECT * FROM ads WHERE ad_is_in_cart == 1')
-  Future<List<AdEntity>> getCartAds();
+  Future<List<AdEntity>> readCartAds();
 
   @Query('SELECT * FROM ads WHERE ad_is_in_cart == 1')
   Stream<List<AdEntity>> watchCartAds();
 
   @Query('SELECT * FROM ads WHERE ad_is_favorite == 1')
-  Future<List<AdEntity>> getFavoriteAds();
+  Future<List<AdEntity>> readFavoriteAds();
+
+  @Query('SELECT * FROM ads WHERE ad_is_favorite == 1')
+  Stream<List<AdEntity>> watchFavoriteAds();
 
   @Query('SELECT COUNT(*) FROM ads WHERE ad_is_in_cart == 1 ')
-  Future<int?> getCartAdsCount();
+  Future<int?> readCartAdsCount();
+
+  @Query('SELECT COUNT(*) FROM ads WHERE ad_is_in_cart == 1 ')
+  Stream<int?> watchCartAdsCount();
 
   @Query('SELECT COUNT(*) FROM ads WHERE ad_is_favorite == 1 ')
-  Future<int?> getFavoriteAdsCount();
+  Future<int?> readFavoriteAdsCount();
 
   @Query('SELECT * FROM ads WHERE ad_id = :id')
-  Future<AdEntity?> getAdById(int id);
+  Future<AdEntity?> readAdById(int id);
+
+  @Query('SELECT * FROM ads WHERE ad_id = :id')
+  Stream<AdEntity?> watchAdById(int id);
 
   @Query('SELECT * FROM ads WHERE ad_id IN (:adIds)')
-  Future<List<AdEntity>> getAdsByIds(List<int> adIds);
+  Future<List<AdEntity>> readAdsByIds(List<int> adIds);
 
   @Query('SELECT * FROM ads WHERE ad_id IN (:adIds)')
   Stream<List<AdEntity>> watchAdsByIds(List<int> adIds);
@@ -64,7 +71,7 @@ abstract class AdEntityDao {
     final int id = await insertAd(ad);
     Logger().w("dao => is inserted ad = ${id >= 0}  ");
     if (id == -1) {
-      final savedAd = await getAdById(ad.id);
+      final savedAd = await readAdById(ad.id);
       if (savedAd != null) {
         Logger().w(
             "dao => upsertAd saved ad isFavorite = ${ad.isFavorite}, isInCart = ${ad.isInCart} ");

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
@@ -12,7 +13,6 @@ import 'package:onlinebozor/presentation/support/extensions/color_extension.dart
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
-import 'package:flutter/services.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/favorite/order_ad_favorite_widget.dart';
@@ -47,8 +47,19 @@ class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationState,
     switch (event.type) {
       case OrderCreationEventType.onBackAfterRemove:
         context.router.replace(CartRoute());
-      case OrderCreationEventType.onAfterCreation:
-        context.router.replace(UserOrdersRoute(orderType: OrderType.buy));
+      case OrderCreationEventType.onCreationStarted:
+        {
+          showProgressDialog(context);
+        }
+      case OrderCreationEventType.onCreationFinished:
+        {
+          hideProgressBarDialog(context);
+          context.router.replace(UserOrdersRoute(orderType: OrderType.buy));
+        }
+      case OrderCreationEventType.onCreationFailed:
+        {
+          hideProgressBarDialog(context);
+        }
       case OrderCreationEventType.onOpenAuthStart:
         context.router.push(AuthStartRoute());
       case OrderCreationEventType.onFailedOrderCreation:

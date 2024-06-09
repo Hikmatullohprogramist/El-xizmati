@@ -1,15 +1,17 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:onlinebozor/core/extensions/list_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/data/datasource/network/responses/address/user_address_response.dart';
+import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/user_address_repository.dart';
 import 'package:onlinebozor/data/repositories/user_repository.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/region/region.dart';
 import 'package:onlinebozor/domain/models/street/street.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
 
 part 'add_address_cubit.freezed.dart';
 part 'add_address_state.dart';
@@ -43,10 +45,16 @@ class AddAddressCubit extends BaseCubit<AddAddressState, AddAddressEvent> {
           neighborhoodName: address.neighborhoodName,
           addressName: address.name,
           streetName: address.streetName,
-          homeNumber: address.houseNumber,
+          houseNumber: address.houseNumber,
           apartmentNum: address.apartmentNumber,
         ),
       );
+
+      if (states.districtId != null) {
+        getDistricts();
+      } else if (states.neighborhoodId != null) {
+        getNeighborhoods();
+      }
     } else {
       updateState((state) => state.copyWith(addressId: null));
     }
@@ -65,7 +73,8 @@ class AddAddressCubit extends BaseCubit<AddAddressState, AddAddressEvent> {
           neighborhoodId: null,
           neighborhoodName: null,
         ));
-    getDistrict();
+
+    getDistricts();
   }
 
   void setSelectedDistrict(District district) {
@@ -75,6 +84,7 @@ class AddAddressCubit extends BaseCubit<AddAddressState, AddAddressEvent> {
           neighborhoodId: null,
           neighborhoodName: null,
         ));
+
     getNeighborhoods();
   }
 
@@ -89,8 +99,8 @@ class AddAddressCubit extends BaseCubit<AddAddressState, AddAddressEvent> {
     updateState((state) => state.copyWith(streetName: value));
   }
 
-  void setHomeNumber(String value) {
-    updateState((state) => state.copyWith(homeNumber: value));
+  void setHouseNumber(String value) {
+    updateState((state) => state.copyWith(houseNumber: value));
   }
 
   void setApartmentNumber(String value) {
@@ -103,102 +113,133 @@ class AddAddressCubit extends BaseCubit<AddAddressState, AddAddressEvent> {
 
   Future<void> addOrUpdateAddress() async {
     if (states.isEditing) {
-      await updateAddress();
+      updateAddress();
     } else {
-      await addAddress();
+      addAddress();
     }
   }
 
-  Future<void> addAddress() async {
-    updateState((state) => state.copyWith(isLoading: true));
-    try {
-      await _userAddressRepository.addUserAddress(
-        name: states.addressName!,
-        regionId: states.regionId!,
-        districtId: states.districtId!,
-        neighborhoodId: states.neighborhoodId!,
-        homeNum: states.homeNumber?.trim() ?? "",
-        apartmentNum: states.apartmentNum?.trim() ?? "",
-        streetName: states.streetName?.trim() ?? "",
-        isMain: states.isMain ?? false,
-        geo: "${states.latitude},${states.longitude}",
-      );
-
-      updateState((state) => state.copyWith(isLoading: false));
-      emitEvent(AddAddressEvent(AddAddressEventType.backOnSuccess));
-    } catch (e) {
-      updateState((state) => state.copyWith(isLoading: false));
-      stateMessageManager.showErrorSnackBar(Strings.commonEmptyMessage);
-    }
+  void addAddress() {
+    _userAddressRepository
+        .addUserAddress(
+          name: states.addressName!,
+          regionId: states.regionId!,
+          districtId: states.districtId!,
+          neighborhoodId: states.neighborhoodId!,
+          homeNum: states.houseNumber?.trim() ?? "",
+          apartmentNum: states.apartmentNum?.trim() ?? "",
+          streetName: states.streetName?.trim() ?? "",
+          isMain: states.isMain ?? false,
+          geo: "${states.latitude},${states.longitude}",
+        )
+        .initFuture()
+        .onStart(() {
+          updateState((state) => state.copyWith(isLoading: true));
+        })
+        .onSuccess((data) {
+          updateState((state) => state.copyWith(isLoading: false));
+          emitEvent(AddAddressEvent(AddAddressEventType.backOnSuccess));
+        })
+        .onError((error) {
+          updateState((state) => state.copyWith(isLoading: false));
+          stateMessageManager.showErrorSnackBar(Strings.commonEmptyMessage);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
-  Future<void> updateAddress() async {
-    updateState((state) => state.copyWith(isLoading: true));
-    try {
-      await _userAddressRepository.updateUserAddress(
-        id: states.addressId!,
-        name: states.addressName!,
-        regionId: states.regionId!,
-        districtId: states.districtId!,
-        neighborhoodId: states.neighborhoodId!,
-        homeNum: states.homeNumber?.trim() ?? "",
-        apartmentNum: states.apartmentNum?.trim() ?? "",
-        streetName: states.streetName?.trim() ?? "",
-        isMain: states.isMain ?? false,
-        geo: "${states.latitude},${states.longitude}",
-        state: '',
-      );
-
-      updateState((state) => state.copyWith(isLoading: false));
-      emitEvent(AddAddressEvent(AddAddressEventType.backOnSuccess));
-    } catch (e) {
-      updateState((state) => state.copyWith(isLoading: false));
-      stateMessageManager.showErrorSnackBar(Strings.commonEmptyMessage);
-    }
+  void updateAddress() {
+    _userAddressRepository
+        .updateUserAddress(
+          id: states.addressId!,
+          name: states.addressName!,
+          regionId: states.regionId!,
+          districtId: states.districtId!,
+          neighborhoodId: states.neighborhoodId!,
+          houseNumber: states.houseNumber?.trim() ?? "",
+          apartmentNum: states.apartmentNum?.trim() ?? "",
+          streetName: states.streetName?.trim() ?? "",
+          isMain: states.isMain ?? false,
+          geo: "${states.latitude},${states.longitude}",
+          state: '',
+        )
+        .initFuture()
+        .onStart(() {
+          updateState((state) => state.copyWith(isLoading: true));
+        })
+        .onSuccess((data) {
+          updateState((state) => state.copyWith(isLoading: false));
+          emitEvent(AddAddressEvent(AddAddressEventType.backOnSuccess));
+        })
+        .onError((error) {
+          updateState((state) => state.copyWith(isLoading: false));
+          stateMessageManager.showErrorSnackBar(Strings.commonEmptyMessage);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> getRegions() async {
-    try {
-      final regions = await _userRepository.getRegions();
-      updateState((state) => state.copyWith(regions: regions));
-    } catch (e) {
-      stateMessageManager.showErrorSnackBar("street error $e");
-      updateState((state) => state.copyWith());
-    }
+    _userRepository
+        .getRegions()
+        .initFuture()
+        .onSuccess((data) {
+          updateState((state) => state.copyWith(regions: data));
+        })
+        .onError((error) {
+          stateMessageManager.showErrorSnackBar(error.localizedMessage);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
-  Future<void> getDistrict() async {
-    final regionId = states.regionId;
-    final districts = await _userRepository.getDistricts(regionId!);
-    String? name;
-    if (states.districtId != null) {
-      name = districts.where((e) => e.id == states.districtId).first.name;
+  Future<void> getDistricts() async {
+    if (states.regionId == null) {
+      stateMessageManager
+          .showErrorBottomSheet(Strings.commonErrorRegionNotSelected);
+      return;
     }
-    updateState((state) => state.copyWith(
-          districts: districts,
-          districtName: name,
-        ));
+
+    _userRepository
+        .getDistricts(states.regionId!)
+        .initFuture()
+        .onSuccess((data) {
+          updateState((state) => state.copyWith(
+                districts: data,
+                districtName:
+                    data.firstIf((e) => e.id == states.districtId)?.name,
+              ));
+        })
+        .onError((error) {
+          stateMessageManager.showErrorSnackBar(error.localizedMessage);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> getNeighborhoods() async {
-    try {
-      final districtId = states.districtId;
-      final neighborhoods = await _userRepository.getNeighborhoods(districtId!);
-      String? name;
-      if (states.neighborhoodId != null) {
-        name = neighborhoods
-            .where((e) => e.id == states.neighborhoodId)
-            .first
-            .name;
-      }
-      updateState((state) => state.copyWith(
-            neighborhoods: neighborhoods,
-            neighborhoodName: name,
-          ));
-    } catch (e) {
-      stateMessageManager.showErrorSnackBar("street error $e");
-      updateState((state) => state.copyWith());
+    if (states.districtId == null) {
+      stateMessageManager
+          .showErrorBottomSheet(Strings.commonErrorDistrictNotSelected);
+      return;
     }
+
+    _userRepository
+        .getNeighborhoods(states.districtId!)
+        .initFuture()
+        .onStart(() {})
+        .onSuccess((data) {
+          updateState((state) => state.copyWith(
+                neighborhoods: data,
+                neighborhoodName:
+                    data.firstIf((e) => e.id == states.neighborhoodId)?.name,
+              ));
+        })
+        .onError((error) {
+          stateMessageManager.showErrorSnackBar(error.localizedMessage);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   String getFormattedLocation() {

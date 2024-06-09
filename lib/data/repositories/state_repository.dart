@@ -1,13 +1,13 @@
 import 'package:onlinebozor/data/datasource/floor/dao/category_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/preference/language_preferences.dart';
-import 'package:onlinebozor/data/datasource/preference/token_preferences.dart';
+import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/domain/models/language/language.dart';
 
 // @LazySingleton()
 class StateRepository {
   final CategoryEntityDao _categoryEntityDao;
   final LanguagePreferences _languagePreferences;
-  final TokenPreferences _tokenPreferences;
+  final AuthPreferences _tokenPreferences;
 
   StateRepository(
     this._categoryEntityDao,

@@ -107,7 +107,7 @@ extension GetItModuleApp on GetIt {
     registerFactory(() => ServiceAdCreationCubit(get(), get(), get()));
 
     // home
-    registerFactory(() => HomeCubit());
+    registerFactory(() => HomeCubit(get()));
     registerFactory(() => CartCubit(get(), get()));
     registerFactory(() => CategoryCubit(get()));
     registerFactory(() => SubCategoryCubit());

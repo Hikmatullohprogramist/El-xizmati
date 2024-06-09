@@ -26,7 +26,7 @@ class CardService {
   }
 
   Future<Response> removeCard(String cardId, int tin) async {
-    final body = {"card_id": cardId, RestHeaderKeys: tin};
+    final body = {RestQueryKeys.cardId: cardId, RestQueryKeys.tin: tin};
     return _dio.delete("api/realpay/v1/card/remove", data: body);
   }
 }

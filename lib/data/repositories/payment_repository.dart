@@ -4,7 +4,7 @@ import 'package:onlinebozor/data/datasource/network/responses/realpay/real_pay_m
 import 'package:onlinebozor/data/datasource/network/responses/transaction/payment_transaction_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/payment_service.dart';
 import 'package:onlinebozor/data/datasource/preference/language_preferences.dart';
-import 'package:onlinebozor/data/datasource/preference/token_preferences.dart';
+import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
 
@@ -12,7 +12,7 @@ import 'package:onlinebozor/data/error/app_locale_exception.dart';
 class PaymentRepository {
   final LanguagePreferences _languagePreferences;
   final PaymentService _paymentService;
-  final TokenPreferences _tokenPreferences;
+  final AuthPreferences _tokenPreferences;
   final UserPreferences _userPreferences;
 
   PaymentRepository(

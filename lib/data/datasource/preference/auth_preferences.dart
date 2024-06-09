@@ -3,18 +3,18 @@ import 'package:onlinebozor/data/datasource/preference/preferences_extensions.da
 import 'package:shared_preferences/shared_preferences.dart';
 
 @lazySingleton
-class TokenPreferences {
+class AuthPreferences {
   final SharedPreferences _preferences;
 
-  TokenPreferences(this._preferences);
+  AuthPreferences(this._preferences);
 
   static const String _keyAccessToken = "string_access_token";
   static const String _keyIsAuthorized = "bool_is_authorized";
 
   @factoryMethod
-  static Future<TokenPreferences> create() async {
+  static Future<AuthPreferences> create() async {
     final prefs = await SharedPreferences.getInstance();
-    return TokenPreferences(prefs);
+    return AuthPreferences(prefs);
   }
 
   String get token => _preferences.getString(_keyAccessToken) ?? "";

@@ -1,13 +1,15 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/datasource/network/responses/profile/verify_identity/identity_document_response.dart';
 import 'package:onlinebozor/data/repositories/user_repository.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/region/region.dart';
 import 'package:onlinebozor/domain/models/street/street.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
 
 part 'registration_cubit.freezed.dart';
 part 'registration_state.dart';
@@ -22,7 +24,6 @@ class RegistrationCubit
     getRegionAndDistricts();
   }
 
-
   Future<void> getUser() async {
     await Future.wait([
       getRegions(),
@@ -30,51 +31,64 @@ class RegistrationCubit
     ]);
   }
 
-  ///
   Future<void> validateWithBioDocs() async {
-    updateState((state) => state.copyWith(isLoading: true));
-    try {
-      var response = await _userRepository.getIdentityDocument(
-        phoneNumber: states.phoneNumber.clearPhoneWithCode(),
-        docSerial: states.docSerial.trim(),
-        docNumber: states.docNumber.trim(),
-        brithDate: states.brithDate.trim(),
-      );
-      validateBioDocsResultBottomSheet(response);
-    } catch (e) {
-      emitEvent(RegistrationEvent(RegistrationEventType.notFound));
-      stateMessageManager.showErrorSnackBar(e.toString());
-    } finally {
-      updateState((state) => state.copyWith(isLoading: false));
-    }
+    _userRepository
+        .getIdentityDocument(
+          phoneNumber: states.phoneNumber.clearPhoneWithCode(),
+          docSerial: states.docSerial.trim(),
+          docNumber: states.docNumber.trim(),
+          brithDate: states.brithDate.trim(),
+        )
+        .initFuture()
+        .onStart(() {
+          updateState((state) => state.copyWith(isLoading: true));
+        })
+        .onSuccess((data) {
+          updateState((state) => state.copyWith(isLoading: false));
+          validateBioDocsResultBottomSheet(data);
+        })
+        .onError((error) {
+          updateState((state) => state.copyWith(isLoading: false));
+          stateMessageManager.showErrorSnackBar(error.localizedMessage);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> validateUser() async {
-    try {
-      var response = await _userRepository.validateUser(
-        birthDate: states.brithDate,
-        districtId: states.districtId ?? 0,
-        email: states.email,
-        fullName: states.fullName,
-        gender: states.gender ?? "",
-        homeName: states.apartmentNumber,
-        id: states.id ?? 0,
-        mahallaId: states.neighborhoodId ?? 0,
-        mobilePhone: states.phoneNumber,
-        passportNumber: states.docNumber,
-        passportSeries: states.docSerial,
-        phoneNumber: states.phoneNumber,
-        photo: "",
-        pinfl: states.pinfl ?? 0,
-        postName: "",
-        region_Id: states.regionId ?? 0,
-      );
-    } catch (e) {
-      emitEvent(RegistrationEvent(RegistrationEventType.notFound));
-      stateMessageManager.showErrorSnackBar(e.toString());
-    } finally {
-      updateState((state) => state.copyWith(isLoading: false));
-    }
+    _userRepository
+        .validateUser(
+          birthDate: states.brithDate,
+          districtId: states.districtId ?? 0,
+          email: states.email,
+          fullName: states.fullName,
+          gender: states.gender ?? "",
+          homeName: states.apartmentNumber,
+          id: states.id ?? 0,
+          mahallaId: states.neighborhoodId ?? 0,
+          mobilePhone: states.phoneNumber,
+          passportNumber: states.docNumber,
+          passportSeries: states.docSerial,
+          phoneNumber: states.phoneNumber,
+          photo: "",
+          pinfl: states.pinfl ?? 0,
+          postName: "",
+          region_Id: states.regionId ?? 0,
+        )
+        .initFuture()
+        .onStart(() {
+          updateState((state) => state.copyWith(isLoading: true));
+        })
+        .onSuccess((data) {
+          updateState((state) => state.copyWith(isLoading: false));
+        })
+        .onError((error) {
+          updateState((state) => state.copyWith(isLoading: false));
+          emitEvent(RegistrationEvent(RegistrationEventType.notFound));
+          stateMessageManager.showErrorSnackBar(error.localizedMessage);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   bool saveEnableButton() {
@@ -121,49 +135,62 @@ class RegistrationCubit
         states.brithDate.length >= 10) {
       getUserInformation();
     } else {
-      stateMessageManager.showErrorSnackBar(Strings.profileEditUnfullInformation);
+      stateMessageManager
+          .showErrorSnackBar(Strings.profileEditUnfullInformation);
     }
   }
 
   Future<void> getUserNumber() async {
-    try {
-      final response = await _userRepository.getUser();
-      logger.w(response.passport_number.toString());
-    } catch (e) {
-      stateMessageManager.showErrorSnackBar(e.toString());
-    }
+    _userRepository
+        .getUser()
+        .initFuture()
+        .onSuccess((data) {
+          logger.w(data.passport_number.toString());
+        })
+        .onError((error) {
+          stateMessageManager.showErrorSnackBar(error.localizedMessage);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> getUserInformation() async {
-    try {
-      final response = await _userRepository.getIdentityDocument(
-        phoneNumber: states.phoneNumber,
-        docSerial: states.docSerial,
-        docNumber: states.docNumber,
-        brithDate: states.brithDate,
-      );
-      if (response.status?.toUpperCase() != "IN_PROCESS") {
-        updateState((state) => states.copyWith(
-            gender: response.passportInfo?.gender ?? "",
-            userName: response.passportInfo?.fullName ?? "",
-            docSerial: response.passportInfo?.series ?? "",
-            docNumber: response.passportInfo?.number ?? "",
-            fullName: response.passportInfo?.fullName ?? "",
-            brithDate: response.passportInfo?.birthDate ?? "",
-            regionId: response.passportInfo?.regionId,
-            districtId: response.passportInfo?.districtId,
-            pinfl: response.passportInfo?.pinfl ?? -1,
-            isRegistration: true));
-      } else {
-        await continueVerifyingIdentity(
-          response.secretKey ?? "",
-          states.phoneNumber,
-        );
-      }
-      await getRegionAndDistricts();
-    } catch (e) {
-      stateMessageManager.showErrorSnackBar(e.toString());
-    }
+    _userRepository
+        .getIdentityDocument(
+          phoneNumber: states.phoneNumber,
+          docSerial: states.docSerial,
+          docNumber: states.docNumber,
+          brithDate: states.brithDate,
+        )
+        .initFuture()
+        .onStart(() {})
+        .onSuccess((data) async {
+          if (data.status?.toUpperCase() != "IN_PROCESS") {
+            updateState((state) => states.copyWith(
+                  gender: data.passportInfo?.gender ?? "",
+                  userName: data.passportInfo?.fullName ?? "",
+                  docSerial: data.passportInfo?.series ?? "",
+                  docNumber: data.passportInfo?.number ?? "",
+                  fullName: data.passportInfo?.fullName ?? "",
+                  brithDate: data.passportInfo?.birthDate ?? "",
+                  regionId: data.passportInfo?.regionId,
+                  districtId: data.passportInfo?.districtId,
+                  pinfl: data.passportInfo?.pinfl ?? -1,
+                  isRegistration: true,
+                ));
+          } else {
+            await continueVerifyingIdentity(
+              data.secretKey ?? "",
+              states.phoneNumber,
+            );
+          }
+          await getRegionAndDistricts();
+        })
+        .onError((error) {
+          stateMessageManager.showErrorSnackBar(error.localizedMessage);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> getRegionAndDistricts() async {
@@ -335,7 +362,7 @@ class RegistrationCubit
   }
 
   Future<void> setHomeNumber(String homeNumber) async {
-    updateState((state) => states.copyWith(homeNumber: homeNumber));
+    updateState((state) => states.copyWith(houseNumber: homeNumber));
   }
 
   Future<void> setApartmentNumber(String apartmentNumber) async {

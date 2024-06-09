@@ -59,13 +59,13 @@ class PaymentTypeSelectionPage extends BasePage<PaymentTypeSelectionCubit,
                       successBody: _buildSuccessBody(state),
                       onRetryClicked: () => cubit(context).getItems(),
                     ),
-                    SizedBox(height: 72),
+                    SizedBox(height: 82),
                   ],
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: EdgeInsets.fromLTRB(20, 0, 20, 24),
               child: CustomElevatedButton(
                 text: Strings.commonSave,
                 onPressed: () {

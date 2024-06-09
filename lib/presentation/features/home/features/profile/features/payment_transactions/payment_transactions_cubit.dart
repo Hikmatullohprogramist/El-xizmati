@@ -22,15 +22,8 @@ class PaymentTransactionsCubit
   }
 
   Future<void> getController() async {
-    try {
-      final controller = states.controller ?? getAdsController(status: 1);
-      updateState((state) => state.copyWith(controller: controller));
-    } catch (e, stackTrace) {
-      logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      stateMessageManager.showErrorSnackBar(e.toString());
-    } finally {
-      logger.i(states.controller);
-    }
+    final controller = states.controller ?? getAdsController(status: 1);
+    updateState((state) => state.copyWith(controller: controller));
   }
 
   PagingController<int, dynamic> getAdsController({

@@ -114,7 +114,7 @@ class CartCubit extends BaseCubit<CartState, CartEvent> {
 
       // updateState((state) => state.copyWith(cardAds: items));
     } catch (e) {
-      stateMessageManager.showErrorSnackBar(e.toString());
+      stateMessageManager.showErrorSnackBar(e.localizedMessage);
     }
   }
 }

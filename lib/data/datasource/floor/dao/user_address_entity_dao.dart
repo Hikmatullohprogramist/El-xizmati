@@ -4,18 +4,23 @@ import 'package:onlinebozor/data/datasource/floor/entities/user_address_entity.d
 @dao
 abstract class UserAddressEntityDao {
   @Query('SELECT * FROM user_addresses ORDER BY user_address_is_main DESC ')
-  Future<List<UserAddressEntity>> getSavedAddresses();
+  Future<List<UserAddressEntity>> readSavedAddresses();
 
-  @Query('SELECT * FROM user_addresses WHERE ad_id = :id ')
-  Future<UserAddressEntity?> getAddressById(int id);
+  @Query('SELECT * FROM user_addresses WHERE user_address_id = :id ')
+  Future<UserAddressEntity?> readAddressById(int id);
 
-  @Query('SELECT * FROM user_addresses WHERE user_address_is_main = 1 ')
-  Future<UserAddressEntity?> getMainAddress();
+  @Query('SELECT * FROM user_addresses WHERE user_address_is_main = TRUE ')
+  Future<UserAddressEntity?> readMainAddress();
 
   @Query('SELECT COUNT(*) FROM user_addresses ')
-  Future<int?> getAddressesCount();
+  Future<int?> readAddressesCount();
 
-  // @transaction
+  @Query('DELETE FROM user_addresses WHERE user_address_id = :id ')
+  Future<void> deleteAddressById(int id);
+
+  @Query('UPDATE user_addresses SET user_address_is_main = CASE WHEN user_address_id = :id THEN TRUE ELSE FALSE END ')
+  Future<void> updateMainAddressById(int id);
+
   @Query('DELETE FROM user_addresses')
   Future<void> clear();
 

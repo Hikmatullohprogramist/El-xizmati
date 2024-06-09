@@ -4,6 +4,7 @@ import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/data/repositories/auth_repository.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
 
 part 'one_id_cubit.freezed.dart';
 part 'one_id_state.dart';
@@ -49,7 +50,7 @@ class OneIdCubit extends BaseCubit<OneIdState, OneIdEvent> {
         await sendAllFavoriteAds();
       } else {}
     } catch (e) {
-      stateMessageManager.showErrorSnackBar(e.toString());
+      stateMessageManager.showErrorSnackBar(e.localizedMessage);
     } finally {}
   }
 

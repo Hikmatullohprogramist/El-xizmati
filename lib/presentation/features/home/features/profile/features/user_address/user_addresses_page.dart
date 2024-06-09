@@ -117,13 +117,7 @@ class UserAddressesPage extends BasePage<UserAddressesCubit, UserAddressesState,
     showCupertinoModalBottomSheet(
         context: context,
         builder: (BuildContext buildContext) {
-          return Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20.0),
-                topRight: Radius.circular(20.0),
-              ),
-            ),
+          return Material(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -151,7 +145,7 @@ class UserAddressesPage extends BasePage<UserAddressesCubit, UserAddressesState,
                   },
                 ),
                 Visibility(
-                  visible: address.isMain,
+                  visible: !address.isMain,
                   child: ActionListItem(
                     item: address,
                     title: Strings.actionMakeMain,

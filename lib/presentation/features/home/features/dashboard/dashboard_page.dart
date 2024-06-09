@@ -33,7 +33,7 @@ class DashboardPage
 
   @override
   void onWidgetCreated(BuildContext context) {
-    cubit(context).getRecentlyViewedAds();
+    // cubit(context).getRecentlyViewedAds();
   }
 
   @override

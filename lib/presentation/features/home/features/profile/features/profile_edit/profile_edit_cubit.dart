@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/core/extensions/list_extensions.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
@@ -19,7 +20,6 @@ class ProfileEditCubit extends BaseCubit<ProfileEditState, ProfileEditEvent> {
   ProfileEditCubit(this._userRepository) : super(ProfileEditState()) {
     getUserProfile();
   }
-
 
   Future<void> getUser() async {
     await Future.wait([
@@ -101,17 +101,17 @@ class ProfileEditCubit extends BaseCubit<ProfileEditState, ProfileEditEvent> {
 
   Future<void> getDistrict() async {
     final regionId = states.regionId;
-    final response = await _userRepository.getDistricts(regionId ?? 14);
+    if (regionId == null) return;
+
+    final districts = await _userRepository.getDistricts(regionId);
     if (states.districtId != null) {
       updateState((state) => states.copyWith(
-            districts: response,
-            districtName: response
-                .where((element) => element.id == states.districtId)
-                .first
-                .name,
+            districts: districts,
+            districtName:
+                districts.firstIf((e) => e.id == states.districtId)?.name ?? "",
           ));
     } else {
-      updateState((state) => states.copyWith(districts: response));
+      updateState((state) => states.copyWith(districts: districts));
     }
   }
 
@@ -123,9 +123,9 @@ class ProfileEditCubit extends BaseCubit<ProfileEditState, ProfileEditEvent> {
         updateState((state) => states.copyWith(
               neighborhoods: neighborhoods,
               neighborhoodName: neighborhoods
-                  .where((element) => element.id == states.neighborhoodId)
-                  .first
-                  .name,
+                      .firstIf((e) => e.id == states.neighborhoodId)
+                      ?.name ??
+                  "",
               isLoading: false,
             ));
       } else {
@@ -135,7 +135,7 @@ class ProfileEditCubit extends BaseCubit<ProfileEditState, ProfileEditEvent> {
             ));
       }
     } catch (e) {
-      stateMessageManager.showErrorSnackBar("street error $e");
+      stateMessageManager.showErrorSnackBar("neighborhood error $e");
       updateState((state) => states.copyWith(isLoading: false));
     }
   }
@@ -163,8 +163,8 @@ class ProfileEditCubit extends BaseCubit<ProfileEditState, ProfileEditEvent> {
         phoneNumber: phone.replaceAll(" ", "").replaceAll("+", "")));
   }
 
-  void setRegion(Region region) {
-    updateState((state) => states.copyWith(
+  Future<void> setRegion(Region region) async {
+   await updateState((state) => states.copyWith(
           regionId: region.id,
           regionName: region.name,
           districtId: null,
@@ -172,6 +172,7 @@ class ProfileEditCubit extends BaseCubit<ProfileEditState, ProfileEditEvent> {
           neighborhoodId: null,
           neighborhoodName: "",
         ));
+
     getDistrict();
   }
 
@@ -185,7 +186,7 @@ class ProfileEditCubit extends BaseCubit<ProfileEditState, ProfileEditEvent> {
     getStreets();
   }
 
-  void setStreet(Neighborhood neighborhood) {
+  void setNeighborhood(Neighborhood neighborhood) {
     updateState((state) => states.copyWith(
           neighborhoodId: neighborhood.id,
           neighborhoodName: neighborhood.name,

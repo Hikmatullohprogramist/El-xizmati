@@ -4,7 +4,7 @@ import 'package:onlinebozor/data/datasource/floor/dao/ad_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/add_result/add_result_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/favorite_service.dart';
-import 'package:onlinebozor/data/datasource/preference/token_preferences.dart';
+import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
@@ -13,7 +13,7 @@ import 'package:onlinebozor/domain/models/ad/ad.dart';
 class FavoriteRepository {
   final AdEntityDao _adEntityDao;
   final FavoriteService _favoriteService;
-  final TokenPreferences _tokenPreferences;
+  final AuthPreferences _tokenPreferences;
   final UserPreferences _userPreferences;
 
   FavoriteRepository(
@@ -59,7 +59,7 @@ class FavoriteRepository {
       await _adEntityDao.insertAds(responseAds);
     }
 
-    final entities = await _adEntityDao.getFavoriteAds();
+    final entities = await _adEntityDao.readFavoriteAds();
     return entities
         .map((e) => e.toAd())
         .toList()
@@ -77,7 +77,7 @@ class FavoriteRepository {
           .toList();
       await _adEntityDao.insertAds(responseAds);
     }
-    final entities = await _adEntityDao.getFavoriteAds();
+    final entities = await _adEntityDao.readFavoriteAds();
     return entities
         .map((e) => e.toAd())
         .toList()
@@ -87,7 +87,7 @@ class FavoriteRepository {
   Future<void> pushAllFavoriteAds() async {
     final logger = Logger();
     try {
-      final favoriteAds = await _adEntityDao.getFavoriteAds();
+      final favoriteAds = await _adEntityDao.readFavoriteAds();
       final favoriteAdIds = favoriteAds.map((e) => e.id).toList();
       logger.e(favoriteAdIds.toString());
       await _favoriteService.sendAllFavoriteAds(favoriteAdIds);

@@ -147,9 +147,10 @@ bottom_navigation_favorite,Tanlanganlar,Избранные,Танланганл�
 bottom_navigation_home,Asosiy,Главная,Асосий
 bottom_navigation_more,Ko‘proq,Больше,Кўпроқ
 bottom_navigation_profile,Profil,Профиль,Профил
-card_add_success_message,Karta muvaffaqiyatli qo‘shildi,Карта успешно добавлена,Карта муваффақиятли қўшилди
 card_add_title,Karta qo‘shish,Добавить карту,Карта қўшиш
-card_delete_message,Kartani o‘chirishni hohlaysizmi?,Вы хотите удалить карту?,Картани ўчиришни ҳоҳлайсизми?
+card_added_message,Karta muvaffaqiyatli qo‘shildi,Карта успешно добавлена,Карта муваффақиятли қўшилди
+card_deleted_message,Karta muvaffaqiyatli o‘chirildi,Карта успешно удалена,Карта муваффақиятли ўчирилди
+card_deleting_message,Kartani o‘chirishni hohlaysizmi?,Вы хотите удалить карту?,Картани ўчиришни ҳоҳлайсизми?
 cart_ad_remove_message,E’lonni savatdan o‘chirishni hohlaysizmi?,Хотите удалить объявление из корзины?,Эълонни саватдан ўчиришни ҳоҳлайсизми?
 cart_order_create,Rasmiylashtirish,Оформить,Расмийлаштириш
 category_ads_count,ta e‘lon,объявлений,та эълон
@@ -172,6 +173,7 @@ common_edit,Tahrirlash,Редактировать,Таҳрирлаш
 common_email,Elektron pochta,Эл. почта,Электрон почта
 common_empty_message,Hech qanday element topilmadi,No items found,Ҳеч қандай элемент топилмади
 common_entrance,Kirish,Подъезд,Кириш
+common_error_district_not_selected,Avval tumanni tanlang,Сначала выберите район,Аввал туманни танланг
 common_error_email_not_valid,To‘g‘ri e-pochta manzilini kiriting,Введите действительный адрес эл. почты,Тўғри э-почта манзилини киритинг
 common_error_field_is_required,Maydon to‘ldirilishi majburiy,Это поле обязательно,Майдон тўлдирилиши мажбурий
 common_error_message,Xatolik yuz berdi,Произошла ошибка,Хатолик юз берди
@@ -179,6 +181,7 @@ common_error_password,To‘g‘ri parolni kiriting,Введите правиль
 common_error_password_confirm,Parollar mos kelmadi,Пароли не совпадают,Пароллар мос келмади
 common_error_phone_not_valid,To‘g‘ri telefon raqamini kiriting,Введите действительный номер телефона,Тўғри телефон рақамини киритинг
 common_error_price_not_valid,To‘g‘ri narx kiriting,Введите действительную цену,Тўғри нарх киритинг
+common_error_region_not_selected,Avval viloyatni tanlang,Сначала выберите регион,Аввал вилоятни танланг
 common_filter,Filtr,Фильтр,Фильтр
 common_filter_reset,Tozalash,Сброс,Тозалаш
 common_floor,Qavat,Этаж,Қават

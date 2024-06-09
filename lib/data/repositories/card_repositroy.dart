@@ -5,14 +5,14 @@ import 'package:onlinebozor/data/datasource/network/responses/realpay/real_pay_c
 import 'package:onlinebozor/data/datasource/network/responses/realpay/real_pay_merchant_token_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/card_service.dart';
 import 'package:onlinebozor/data/datasource/preference/language_preferences.dart';
-import 'package:onlinebozor/data/datasource/preference/token_preferences.dart';
+import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
 
 class CardRepository {
   final CardService _cardService;
   final LanguagePreferences _languagePreferences;
-  final TokenPreferences _tokenPreferences;
+  final AuthPreferences _tokenPreferences;
   final UserPreferences _userPreferences;
 
   CardRepository(

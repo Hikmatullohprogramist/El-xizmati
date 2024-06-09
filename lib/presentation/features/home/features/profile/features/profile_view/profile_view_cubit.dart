@@ -161,7 +161,7 @@ class ProfileViewCubit extends BaseCubit<ProfileViewState, ProfileViewEvent> {
     }
   }
 
-  void _saveSocials(UserResponse user){
+  void _saveSocials(UserResponse user) {
     final socials = user.socials;
 
     final instagram = socials?.firstIf((e) => e.type == "INSTAGRAM")?.toMap();
@@ -170,11 +170,11 @@ class ProfileViewCubit extends BaseCubit<ProfileViewState, ProfileViewEvent> {
     final youtube = socials?.firstIf((e) => e.type == "YOUTUBE")?.toMap();
 
     updateState((state) => state.copyWith(
-      instagramInfo: instagram,
-      telegramInfo: telegram,
-      facebookInfo: facebook,
-      youtubeInfo: youtube,
-    ));
+          instagramInfo: instagram,
+          telegramInfo: telegram,
+          facebookInfo: facebook,
+          youtubeInfo: youtube,
+        ));
   }
 
   changeSmsNotificationState() {
@@ -304,15 +304,8 @@ class ProfileViewCubit extends BaseCubit<ProfileViewState, ProfileViewEvent> {
   }
 
   Future<void> getActiveDeviceController() async {
-    try {
-      final controller = states.controller ?? getActiveDevices(status: 1);
-      updateState((state) => state.copyWith(controller: controller));
-    } catch (e, stackTrace) {
-      logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      stateMessageManager.showErrorSnackBar(e.toString());
-    } finally {
-      logger.i(states.controller);
-    }
+    final controller = states.controller ?? getActiveDevices(status: 1);
+    updateState((state) => state.copyWith(controller: controller));
   }
 
   PagingController<int, ActiveSession> getActiveDevices({

@@ -6,10 +6,13 @@ class PageState with _$PageState {
 
   const factory PageState({
     @Default("") String userFullName,
-    @Default(0) double depositBalance,
+//
     @Default(LoadingState.loading) LoadingState depositState,
+    @Default(0) double depositBalance,
+//
     @Default(LoadingState.loading) LoadingState cardsState,
     @Default([]) List<RealPayCard> addedCards,
+//
   }) = _PageState;
 
   List<UserCard> get cards {

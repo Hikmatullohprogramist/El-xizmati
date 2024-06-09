@@ -2,15 +2,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
-import 'package:flutter/services.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/custom_dropdown_form_field.dart';
@@ -22,7 +22,8 @@ import 'package:onlinebozor/presentation/widgets/form_field/validator/email_vali
 import 'profile_edit_cubit.dart';
 
 @RoutePage()
-class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditState, ProfileEditEvent> {
+class ProfileEditPage
+    extends BasePage<ProfileEditCubit, ProfileEditState, ProfileEditEvent> {
   ProfileEditPage({super.key});
 
   final TextEditingController _fullNameController = TextEditingController();
@@ -84,15 +85,11 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditState, Profi
 
   Widget _buildNameBlock(BuildContext context, ProfileEditState state) {
     return Container(
-      color: Colors.white,
-      padding: EdgeInsets.only(left: 16, top: 20, right: 16, bottom: 16),
+      color: context.cardColor,
+      padding: EdgeInsets.only(left: 16, right: 16),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Strings.profileEditChangePersonalData
-              .w(700)
-              .s(16)
-              .c(Color(0xFF41455E)),
           SizedBox(height: 16),
           LabelTextField(Strings.profileUserName),
           SizedBox(height: 6),
@@ -116,6 +113,7 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditState, Profi
             controller: _usernameController,
             validator: (value) => NotEmptyValidator.validate(value),
           ),
+          SizedBox(height: 16),
         ],
       ),
     );
@@ -123,7 +121,7 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditState, Profi
 
   Widget _buildContactsBlock(BuildContext context, ProfileEditState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.only(left: 16, top: 20, right: 16, bottom: 16),
       child: Column(
         children: [
@@ -158,7 +156,7 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditState, Profi
 
   Widget _buildDocInfoBlock(BuildContext context, ProfileEditState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.only(left: 16, top: 20, right: 16, bottom: 16),
       child: Column(
         children: [
@@ -248,7 +246,7 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditState, Profi
 
   Widget _buildRegionBlock(BuildContext context, ProfileEditState state) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.only(left: 16, top: 20, right: 16, bottom: 16),
       child: Column(
         children: [
@@ -296,7 +294,7 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditState, Profi
   Widget _buildFooterBlock(
       ProfileEditState state, String email, BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: context.cardColor,
       padding: EdgeInsets.all(16),
       child: Column(
         children: [
@@ -336,41 +334,58 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditState, Profi
     showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) {
-        return Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Container(
-              color: context.backgroundColor,
-              height: 350.0,
-              child: CupertinoDatePicker(
-                mode: CupertinoDatePickerMode.date,
-                initialDateTime: DateTime(2000),
-                minimumYear: 1930,
-                maximumYear: 2024,
-                onDateTimeChanged: (DateTime newDateTime) {
-                  final formattedDate =
-                      DateFormat("yyyy-MM-dd").format(newDateTime);
-                  // cubit(parentContext).setBirthDate(formattedDate);
-                  cubit(parentContext).setBrithDate(formattedDate);
-                  _birthDateController.text = formattedDate;
-                },
-              ),
+        return Container(
+          decoration: BoxDecoration(
+            color: parentContext.bottomSheetColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.0),
+              topRight: Radius.circular(20.0),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: CustomElevatedButton(
-                text: Strings.commonSave,
-                onPressed: () {
-                  //  cubit(parent).enableButton(passportSeries.text, passportNumber.text, birthDate);
-                  Navigator.of(context).pop();
-                },
-                backgroundColor: context.colors.buttonPrimary,
-                isEnabled: true,
-                isLoading: false,
+          ),
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    height: 320,
+                    child: CupertinoTheme(
+                      data: CupertinoThemeData(
+                        brightness: parentContext.brightness,
+                      ),
+                      child: CupertinoDatePicker(
+                        mode: CupertinoDatePickerMode.date,
+                        initialDateTime: DateTime(2000),
+                        minimumYear: 1930,
+                        maximumYear: 2024,
+                        onDateTimeChanged: (DateTime newDateTime) {
+                          final formattedDate =
+                              DateFormat("yyyy-MM-dd").format(newDateTime);
+                          // cubit(parentContext).setBirthDate(formattedDate);
+                          cubit(parentContext).setBrithDate(formattedDate);
+                          _birthDateController.text = formattedDate;
+                        },
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: CustomElevatedButton(
+                      text: Strings.commonSave,
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      backgroundColor: context.colors.buttonPrimary,
+                      isEnabled: true,
+                      isLoading: false,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                ],
               ),
-            ),
-            SizedBox(height: 12),
-          ],
+            ],
+          ),
         );
       },
     );
@@ -380,15 +395,7 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditState, Profi
     showCupertinoModalBottomSheet(
       context: context,
       builder: (BuildContext buildContext) {
-        return Container(
-          decoration: BoxDecoration(
-            color: context.bottomSheetColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0),
-              topRight: Radius.circular(20.0),
-            ),
-          ),
-          height: double.infinity,
+        return Material(
           child: ListView.builder(
             physics: BouncingScrollPhysics(),
             itemCount: state.regions.length,
@@ -411,18 +418,18 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditState, Profi
   }
 
   void _showDistrictBottomSheet(BuildContext context, ProfileEditState state) {
+    if (!state.isRegionSelected) {
+      showErrorBottomSheet(
+        context,
+        Strings.commonErrorRegionNotSelected,
+      );
+      return;
+    }
+
     showCupertinoModalBottomSheet(
       context: context,
       builder: (BuildContext buildContext) {
-        return Container(
-          decoration: BoxDecoration(
-            color: context.bottomSheetColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0),
-              topRight: Radius.circular(20.0),
-            ),
-          ),
-          height: double.infinity,
+        return Material(
           child: ListView.builder(
             physics: BouncingScrollPhysics(),
             itemCount: state.districts.length,
@@ -444,33 +451,38 @@ class ProfileEditPage extends BasePage<ProfileEditCubit, ProfileEditState, Profi
     );
   }
 
-  void _showNeighborhoodBottomSheet(BuildContext context, ProfileEditState state) {
+  void _showNeighborhoodBottomSheet(
+    BuildContext context,
+    ProfileEditState state,
+  ) {
+    if (!state.isDistrictSelected) {
+      showErrorBottomSheet(
+        context,
+        Strings.commonErrorDistrictNotSelected,
+      );
+      return;
+    }
+
     showCupertinoModalBottomSheet(
       context: context,
       builder: (BuildContext buildContext) {
-        return Container(
-          decoration: BoxDecoration(
-            color: context.bottomSheetColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0),
-              topRight: Radius.circular(20.0),
-            ),
-          ),
-          height: double.infinity,
+        return Material(
           child: ListView.builder(
-              physics: BouncingScrollPhysics(),
-              itemCount: state.neighborhoods.length,
-              itemBuilder: (BuildContext buildContext, int index) {
-                return InkWell(
-                    onTap: () {
-                      cubit(context).setStreet(state.neighborhoods[index]);
-                      Navigator.pop(buildContext);
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.all(16),
-                      child: state.neighborhoods[index].name.w(500),
-                    ));
-              }),
+            physics: BouncingScrollPhysics(),
+            itemCount: state.neighborhoods.length,
+            itemBuilder: (BuildContext buildContext, int index) {
+              return InkWell(
+                onTap: () {
+                  cubit(context).setNeighborhood(state.neighborhoods[index]);
+                  Navigator.pop(buildContext);
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: state.neighborhoods[index].name.w(500),
+                ),
+              );
+            },
+          ),
         );
       },
     );

@@ -333,7 +333,10 @@ class ProfileViewPage
                     child: Center(child: Assets.images.icNotificationSms.svg()),
                   ),
                   SizedBox(width: 16),
-                  Strings.notificationReceiveSms.w(600).s(14),
+                  Strings.notificationReceiveSms
+                      .w(600)
+                      .s(14)
+                      .c(context.textPrimary),
                   Expanded(child: SizedBox(height: 1)),
                   CustomSwitch(
                     isChecked: state.actualSmsState,
@@ -374,7 +377,10 @@ class ProfileViewPage
                   child: Center(child: Assets.images.icNotificationEmail.svg()),
                 ),
                 SizedBox(width: 16),
-                Strings.notificationReceiveEmail.w(600).s(14),
+                Strings.notificationReceiveEmail
+                    .w(600)
+                    .s(14)
+                    .c(context.textPrimary),
                 Expanded(child: SizedBox(height: 1)),
                 CustomSwitch(
                   isChecked: state.actualEmailState,
@@ -405,7 +411,10 @@ class ProfileViewPage
               child: Row(children: [
                 Assets.images.icNotificationTelegram.svg(height: 32, width: 32),
                 SizedBox(width: 16),
-                Strings.notificationReceiveTelegram.w(600).s(14),
+                Strings.notificationReceiveTelegram
+                    .w(600)
+                    .s(14)
+                    .c(context.textPrimary),
                 Expanded(child: SizedBox(height: 1)),
                 CustomSwitch(
                   isChecked: state.actualTelegramState,

@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
 import 'package:onlinebozor/data/datasource/network/constants/rest_header_keys.dart';
-import 'package:onlinebozor/data/datasource/preference/token_preferences.dart';
+import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 
 class CommonInterceptor extends QueuedInterceptor {
   CommonInterceptor(this._tokenPreferences);
 
-  final TokenPreferences _tokenPreferences;
+  final AuthPreferences _tokenPreferences;
 
   @override
   void onRequest(

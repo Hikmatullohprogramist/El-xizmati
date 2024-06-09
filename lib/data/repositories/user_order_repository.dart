@@ -1,6 +1,6 @@
 import 'package:onlinebozor/data/datasource/network/responses/user_order/user_order_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/user_order_service.dart';
-import 'package:onlinebozor/data/datasource/preference/token_preferences.dart';
+import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
 import 'package:onlinebozor/domain/models/order/order_cancel_reason.dart';
@@ -9,7 +9,7 @@ import 'package:onlinebozor/domain/models/order/user_order_status.dart';
 
 // @LazySingleton()
 class UserOrderRepository {
-  final TokenPreferences _tokenPreferences;
+  final AuthPreferences _tokenPreferences;
   final UserOrderService _userOrderService;
   final UserPreferences _userPreferences;
 

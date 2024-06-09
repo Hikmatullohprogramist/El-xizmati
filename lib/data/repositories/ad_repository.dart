@@ -1,9 +1,10 @@
 import 'package:onlinebozor/data/datasource/floor/dao/ad_entity_dao.dart';
+import 'package:onlinebozor/data/datasource/floor/entities/ad_entity.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad_detail/ad_detail_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/search/search_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/ad_service.dart';
-import 'package:onlinebozor/data/datasource/preference/token_preferences.dart';
+import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
@@ -15,7 +16,7 @@ import 'package:onlinebozor/domain/models/stats/stats_type.dart';
 class AdRepository {
   final AdEntityDao _adEntityDao;
   final AdService _adsService;
-  final TokenPreferences _tokenPreferences;
+  final AuthPreferences _tokenPreferences;
   final UserPreferences _userPreferences;
 
   AdRepository(
@@ -28,7 +29,7 @@ class AdRepository {
   Future<List<Ad>> _getAsCombined(List<AdResponse> ads) async {
     await _adEntityDao.upsertAds(ads.map((e) => e.toAdEntity()).toList());
     final ids = ads.map((e) => e.id).toList();
-    final entities = await _adEntityDao.getAdsByIds(ids);
+    final entities = await _adEntityDao.readAdsByIds(ids);
     return entities.map((e) => e.toAd()).toList(growable: true);
   }
 
@@ -104,7 +105,7 @@ class AdRepository {
   }
 
   Future<AdDetail?> getAdDetail(int adId) async {
-    final savedAd = await _adEntityDao.getAdById(adId);
+    final savedAd = await _adEntityDao.readAdById(adId);
     final response = await _adsService.getAdDetail(adId);
     final adDetail = AdDetailRootResponse.fromJson(response.data).data.results;
 

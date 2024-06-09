@@ -41,7 +41,9 @@ class OrderCreationEvent with _$OrderCreationEvent {
 
 enum OrderCreationEventType {
   onBackAfterRemove,
-  onAfterCreation,
+  onCreationStarted,
+  onCreationFinished,
+  onCreationFailed,
   onOpenAuthStart,
   onFailedOrderCreation,
 }

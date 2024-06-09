@@ -2,14 +2,14 @@ import 'package:onlinebozor/data/datasource/floor/dao/ad_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/add_result/add_result_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/cart_service.dart';
-import 'package:onlinebozor/data/datasource/preference/token_preferences.dart';
+import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 
 class CartRepository {
   final AdEntityDao _adEntityDao;
   final CartService _cartService;
-  final TokenPreferences _tokenPreferences;
+  final AuthPreferences _tokenPreferences;
 
   CartRepository(
     this._adEntityDao,
@@ -48,7 +48,7 @@ class CartRepository {
       final ads = AdRootResponse.fromJson(root.data).data.results;
       _adEntityDao.insertAds(ads.map((e) => e.toAdEntity()).toList());
     }
-    final entities = await _adEntityDao.getCartAds();
+    final entities = await _adEntityDao.readCartAds();
     return entities.map((e) => e.toAd()).toList();
   }
 

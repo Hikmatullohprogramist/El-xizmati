@@ -15,7 +15,7 @@ class RegistrationState with _$RegistrationState {
     @Default("") String regionName,
     @Default("") String districtName,
     @Default("") String neighborhoodName,
-    @Default("") String homeNumber,
+    @Default("") String houseNumber,
     @Default("") String apartmentNumber,
     //
     @Default([]) List<Region> regions,

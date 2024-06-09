@@ -1,18 +1,20 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
+import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/ad_repository.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
 part 'ad_list_by_type_cubit.freezed.dart';
 part 'ad_list_by_type_state.dart';
 
 @injectable
-class AdListByTypeCubit extends BaseCubit<AdListByTypeState, AdListByTypeEvent> {
+class AdListByTypeCubit
+    extends BaseCubit<AdListByTypeState, AdListByTypeEvent> {
   AdListByTypeCubit(
     this._adRepository,
     this._favoriteRepository,
@@ -37,58 +39,58 @@ class AdListByTypeCubit extends BaseCubit<AdListByTypeState, AdListByTypeEvent> 
   }
 
   Future<void> getCheapAdsByType() async {
-    try {
-      final cheapAds = await _adRepository.getCheapAdsByType(
-        adType: states.adType,
-        page: 1,
-        limit: 10,
-      );
-      updateState(
-        (state) => state.copyWith(
-          cheapAds: cheapAds,
-          cheapAdsState: LoadingState.success,
-        ),
-      );
-    } catch (e, stackTrace) {
-      updateState(
-        (state) => state.copyWith(cheapAdsState: LoadingState.error),
-      );
-      logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      stateMessageManager.showErrorSnackBar(e.toString());
-    }
+    _adRepository
+        .getCheapAdsByType(
+          adType: states.adType,
+          page: 1,
+          limit: 10,
+        )
+        .initFuture()
+        .onStart(() {})
+        .onSuccess((data) {
+          updateState((state) => state.copyWith(
+                cheapAds: data,
+                cheapAdsState: LoadingState.success,
+              ));
+        })
+        .onError((error) {
+          updateState((state) => state.copyWith(
+                cheapAdsState: LoadingState.error,
+              ));
+          logger.e(error);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> getPopularAdsByType() async {
-    try {
-      final popularAds = await _adRepository.getPopularAdsByType(
-        adType: states.adType,
-        page: 1,
-        limit: 10,
-      );
-      updateState(
-        (state) => state.copyWith(
-          popularAds: popularAds,
-          popularAdsState: LoadingState.success,
-        ),
-      );
-    } catch (e, stackTrace) {
-      updateState(
-          (state) => state.copyWith(popularAdsState: LoadingState.error));
-      logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      stateMessageManager.showErrorSnackBar(e.toString());
-    }
+    _adRepository
+        .getPopularAdsByType(
+          adType: states.adType,
+          page: 1,
+          limit: 10,
+        )
+        .initFuture()
+        .onStart(() {})
+        .onSuccess((data) {
+          updateState((state) => state.copyWith(
+                popularAds: data,
+                popularAdsState: LoadingState.success,
+              ));
+        })
+        .onError((error) {
+          logger.e(error);
+          updateState((state) => state.copyWith(
+                popularAdsState: LoadingState.error,
+              ));
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> getController() async {
-    try {
-      final controller = states.controller ?? getAdsController(status: 1);
-      updateState((state) => state.copyWith(controller: controller));
-    } catch (e, stackTrace) {
-      logger.e(e.toString(), error: e, stackTrace: stackTrace);
-      stateMessageManager.showErrorSnackBar(e.toString());
-    } finally {
-      logger.i(states.controller);
-    }
+    final controller = states.controller ?? getAdsController(status: 1);
+    updateState((state) => state.copyWith(controller: controller));
   }
 
   PagingController<int, Ad> getAdsController({

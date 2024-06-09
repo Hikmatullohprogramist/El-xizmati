@@ -1,15 +1,14 @@
-import 'package:logger/logger.dart';
 import 'package:onlinebozor/data/datasource/floor/dao/user_address_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/network/responses/address/user_address_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/user_address_service.dart';
-import 'package:onlinebozor/data/datasource/preference/token_preferences.dart';
+import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
 import 'package:onlinebozor/domain/mappers/user_mapper.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
 
 class UserAddressRepository {
-  final TokenPreferences _tokenPreferences;
+  final AuthPreferences _tokenPreferences;
   final UserAddressEntityDao _userAddressEntityDao;
   final UserAddressService _userAddressService;
   final UserPreferences _userPreferences;
@@ -34,24 +33,16 @@ class UserAddressRepository {
   }
 
   Future<List<UserAddress>> getSavedUserAddresses() async {
-    final entities = await _userAddressEntityDao.getSavedAddresses();
+    final entities = await _userAddressEntityDao.readSavedAddresses();
     return entities.map((e) => e.toAddress()).toList();
   }
 
-  Future<List<UserAddress>> getUserAddresses() async {
-    Logger().w("getUserAddresses called");
-    final count = await _userAddressEntityDao.getAddressesCount() ?? 0;
-    try {
-      if (count > 0) {
-        Logger().w("getUserAddresses hasSavedAddresses = true");
-        return getSavedUserAddresses();
-      } else {
-        Logger().w("getUserAddresses hasSavedAddresses = false");
-        return getActualUserAddresses();
-      }
-    } catch (e, stackTrace) {
-      Logger().w(e, stackTrace: stackTrace);
-      rethrow;
+  Future<List<UserAddress>> getUserAddresses({bool isReload = false}) async {
+    final count = await _userAddressEntityDao.readAddressesCount() ?? 0;
+    if (isReload || count <= 0) {
+      return getActualUserAddresses();
+    } else {
+      return getSavedUserAddresses();
     }
   }
 
@@ -82,6 +73,7 @@ class UserAddressRepository {
 
   Future<void> deleteAddress({required int id}) async {
     await _userAddressService.deleteUserAddress(userAddressId: id);
+    await _userAddressEntityDao.deleteAddressById(id);
     return;
   }
 
@@ -90,7 +82,10 @@ class UserAddressRepository {
     required bool isMain,
   }) async {
     await _userAddressService.updateMainAddress(
-        userAddressId: id, isMain: true);
+      userAddressId: id,
+      isMain: true,
+    );
+    await _userAddressEntityDao.readMainAddress();
     return;
   }
 
@@ -99,7 +94,7 @@ class UserAddressRepository {
     required int regionId,
     required int districtId,
     required int neighborhoodId,
-    required String homeNum,
+    required String houseNumber,
     required String apartmentNum,
     required String streetName,
     required bool isMain,
@@ -112,7 +107,7 @@ class UserAddressRepository {
       regionId: regionId,
       districtId: districtId,
       neighborhoodId: neighborhoodId,
-      homeNum: homeNum,
+      homeNum: houseNumber,
       apartmentNum: apartmentNum,
       streetNum: streetName,
       isMain: isMain,
