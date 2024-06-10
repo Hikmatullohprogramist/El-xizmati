@@ -2,7 +2,7 @@ name: onlinebozor
 description: onlinebozor is online marketplace
 publish_to: 'none'
 
-version: 1.2.1+1019
+version: 1.2.2+1020
 
 environment:
   sdk: '>=3.1.0 <4.0.0'
