@@ -35,7 +35,9 @@ class CartPage extends BasePage<CartCubit, CartState, CartEvent> {
         loadingBody: _buildLoadingBody(),
         successBody: _buildSuccessBody(context, state),
         emptyBody: FavoriteEmptyWidget(
-          onActionClicked: () => context.router.push(DashboardRoute()),
+          onActionClicked: () {
+            AutoTabsRouter.of(context).setActiveIndex(0);
+          },
         ),
         onRetryClicked: () => cubit(context).getCartAds(),
       ),
