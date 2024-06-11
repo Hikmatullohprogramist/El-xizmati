@@ -42,7 +42,7 @@ class UserService {
     );
   }
 
-  Future<Response> sendUserInformation({
+  Future<Response> updateUserProfile({
     required String email,
     required String gender,
     required String homeName,

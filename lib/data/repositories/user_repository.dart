@@ -139,7 +139,7 @@ class UserRepository {
     required String phoneNumber,
   }) async {
     final user = await _userEntityDao.getUser();
-    await _userService.sendUserInformation(
+    await _userService.updateUserProfile(
       id: user!.id,
       email: email,
       gender: gender,

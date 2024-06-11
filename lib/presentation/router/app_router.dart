@@ -4,17 +4,27 @@ import 'package:onlinebozor/data/datasource/network/responses/currencies/currenc
 import 'package:onlinebozor/data/datasource/network/responses/payment_type/payment_type_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/unit/unit_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/user_order/user_order_response.dart';
+import 'package:onlinebozor/domain/models/ad/ad_list_type.dart';
+import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
+import 'package:onlinebozor/domain/models/ad/ad_type.dart';
+import 'package:onlinebozor/domain/models/ad/user_ad.dart';
+import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
+import 'package:onlinebozor/domain/models/category/category.dart';
+import 'package:onlinebozor/domain/models/district/district.dart';
+import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
+import 'package:onlinebozor/domain/models/order/order_type.dart';
+import 'package:onlinebozor/domain/models/order/user_order_status.dart';
 import 'package:onlinebozor/domain/models/report/report_type.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
 import 'package:onlinebozor/presentation/features/ad/ad_detail/ad_detail_page.dart';
 import 'package:onlinebozor/presentation/features/ad/ad_list/ad_list_page.dart';
 import 'package:onlinebozor/presentation/features/ad/ad_list_by_type/ad_list_by_type_page.dart';
 import 'package:onlinebozor/presentation/features/ad/user_ad_detail/user_ad_detail_page.dart';
-import 'package:onlinebozor/presentation/features/auth/confirm/confirmation_page.dart';
 import 'package:onlinebozor/presentation/features/auth/face_id/confirmation/face_id_confirmation_page.dart';
 import 'package:onlinebozor/presentation/features/auth/face_id/start/face_id_start_page.dart';
 import 'package:onlinebozor/presentation/features/auth/login/login_page.dart';
 import 'package:onlinebozor/presentation/features/auth/one_id/one_id_page.dart';
+import 'package:onlinebozor/presentation/features/auth/otp_confirm/otp_confirmation_page.dart';
 import 'package:onlinebozor/presentation/features/auth/set_password/set_password_page.dart';
 import 'package:onlinebozor/presentation/features/auth/start/auth_start_page.dart';
 import 'package:onlinebozor/presentation/features/common/add_address/add_address_page.dart';
@@ -64,17 +74,6 @@ import 'package:onlinebozor/presentation/features/home/home_page.dart';
 import 'package:onlinebozor/presentation/features/realpay/add_card/add_card_with_realpay_page.dart';
 import 'package:onlinebozor/presentation/features/realpay/refill/refill_with_realpay_page.dart';
 
-import '../../domain/models/ad/ad_list_type.dart';
-import '../../domain/models/ad/ad_transaction_type.dart';
-import '../../domain/models/ad/ad_type.dart';
-import '../../domain/models/ad/user_ad.dart';
-import '../../domain/models/ad/user_ad_status.dart';
-import '../../domain/models/category/category.dart';
-import '../../domain/models/district/district.dart';
-import '../../domain/models/image/uploadable_file.dart';
-import '../../domain/models/order/order_type.dart';
-import '../../domain/models/order/user_order_status.dart';
-
 part 'app_router.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
@@ -85,7 +84,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           page: SetLanguageRoute.page,
           path: "/set_language",
-          initial: true,
+          initial: false,
         ),
 
         /// Add address
@@ -100,12 +99,12 @@ class AppRouter extends _$AppRouter {
           path: "/auth_start",
         ),
         AutoRoute(
-          page: ConfirmationRoute.page,
+          page: OtpConfirmationRoute.page,
           path: '/confirmation',
         ),
         AutoRoute(
-          page: AuthLoginRoute.page,
-          path: '/auth_verification',
+          page: LoginRoute.page,
+          path: '/login',
         ),
         AutoRoute(
           page: SetPasswordRoute.page,
@@ -113,7 +112,7 @@ class AppRouter extends _$AppRouter {
         ),
         AutoRoute(
           page: OneIdRoute.page,
-          path: "/login_one_id",
+          path: "/one_id",
         ),
         AutoRoute(
           page: FaceIdStartRoute.page,
@@ -125,11 +124,11 @@ class AppRouter extends _$AppRouter {
         ),
 
         /// home
-        AutoRoute(page: HomeRoute.page),
+        // AutoRoute(page: HomeRoute.page),
         AutoRoute(
           page: HomeRoute.page,
           path: '/home',
-          initial: false,
+          initial: true,
           children: [
             AutoRoute(
               page: DashboardRoute.page,

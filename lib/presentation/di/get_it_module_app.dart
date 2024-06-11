@@ -4,11 +4,11 @@ import 'package:onlinebozor/presentation/features/ad/ad_detail/ad_detail_cubit.d
 import 'package:onlinebozor/presentation/features/ad/ad_list/ad_list_cubit.dart';
 import 'package:onlinebozor/presentation/features/ad/ad_list_by_type/ad_list_by_type_cubit.dart';
 import 'package:onlinebozor/presentation/features/ad/user_ad_detail/user_ad_detail_cubit.dart';
-import 'package:onlinebozor/presentation/features/auth/confirm/confirmation_cubit.dart';
 import 'package:onlinebozor/presentation/features/auth/face_id/confirmation/face_id_confirmation_cubit.dart';
 import 'package:onlinebozor/presentation/features/auth/face_id/start/face_id_start_cubit.dart';
 import 'package:onlinebozor/presentation/features/auth/login/login_cubit.dart';
 import 'package:onlinebozor/presentation/features/auth/one_id/one_id_cubit.dart';
+import 'package:onlinebozor/presentation/features/auth/otp_confirm/otp_confirmation_cubit.dart';
 import 'package:onlinebozor/presentation/features/auth/set_password/set_password_cubit.dart';
 import 'package:onlinebozor/presentation/features/auth/start/auth_start_cubit.dart';
 import 'package:onlinebozor/presentation/features/common/add_address/add_address_cubit.dart';
@@ -71,7 +71,7 @@ extension GetItModuleApp on GetIt {
     registerFactory(() => UserAdDetailCubit(get()));
 
     // auth
-    registerFactory(() => ConfirmationCubit(get(), get()));
+    registerFactory(() => OtpConfirmationCubit(get(), get()));
     registerFactory(() => FaceIdConfirmationCubit(get(), get()));
     registerFactory(() => FaceIdStartCubit(get()));
     registerFactory(() => LoginCubit(get(), get()));
