@@ -105,16 +105,6 @@ class SubmitReportPage
                 ),
               ),
             ),
-            // Padding(
-            //   padding: EdgeInsets.only(left: 16, right: 16, bottom: 32),
-            //   child: CustomElevatedButton(
-            //     text: reportType.getLocalizedAction(),
-            //     onPressed: () {
-            //       cubit(context).submitReport();
-            //     },
-            //   ),
-            // ),
-            // SizedBox(height: 32),
           ],
         ),
       ),

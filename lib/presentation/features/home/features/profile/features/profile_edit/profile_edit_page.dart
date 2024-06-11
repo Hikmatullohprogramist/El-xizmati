@@ -57,10 +57,10 @@ class ProfileEditPage
       appBar: DefaultAppBar(
         titleText: Strings.profileEditTitle,
         titleTextColor: context.textPrimary,
-        backgroundColor: context.backgroundColor,
+        backgroundColor: context.backgroundGreyColor,
         onBackPressed: () => context.router.pop(),
       ),
-      backgroundColor: context.backgroundColor,
+      backgroundColor: context.backgroundGreyColor,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(

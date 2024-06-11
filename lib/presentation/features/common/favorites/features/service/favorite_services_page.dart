@@ -25,7 +25,7 @@ class FavoriteServicesPage extends BasePage<FavoriteServicesCubit, FavoriteServi
     height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: context.backgroundColor,
+      backgroundColor: context.backgroundGreyColor,
       body: RefreshIndicator(
         displacement: 160,
         strokeWidth: 3,
@@ -73,7 +73,7 @@ class FavoriteServicesPage extends BasePage<FavoriteServicesCubit, FavoriteServi
             },
             noItemsFoundIndicatorBuilder: (_) {
               return FavoriteEmptyWidget(onActionClicked: () {
-                context.router.push(DashboardRoute());
+                context.router.replace(DashboardRoute());
               });
             },
             newPageProgressIndicatorBuilder: (_) {

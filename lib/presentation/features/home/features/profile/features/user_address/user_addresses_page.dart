@@ -2,21 +2,20 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/action/action_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/address/user_address_empty_widget.dart';
 import 'package:onlinebozor/presentation/widgets/address/user_address_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/address/user_address_widget.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart';
+import 'package:onlinebozor/presentation/widgets/elevation/elevation_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 
 import 'user_addresses_cubit.dart';
@@ -46,7 +45,7 @@ class UserAddressesPage extends BasePage<UserAddressesCubit, UserAddressesState,
           )
         ],
       ),
-      backgroundColor: context.backgroundColor,
+      backgroundColor: context.backgroundGreyColor,
       body: PagedListView<int, UserAddress>(
         shrinkWrap: true,
         addAutomaticKeepAlives: true,
@@ -54,57 +53,71 @@ class UserAddressesPage extends BasePage<UserAddressesCubit, UserAddressesState,
         padding: EdgeInsets.symmetric(vertical: 12),
         pagingController: state.controller!,
         builderDelegate: PagedChildBuilderDelegate<UserAddress>(
-          firstPageErrorIndicatorBuilder: (_) {
-            return DefaultErrorWidget(
-              isFullScreen: true,
-              onRetryClicked: () => cubit(context).states.controller?.refresh(),
-            );
-          },
-          firstPageProgressIndicatorBuilder: (_) {
-            return SingleChildScrollView(
-              child: ListView.builder(
-                physics: BouncingScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 5,
-                itemBuilder: (BuildContext context, int index) {
-                  return UserAddressShimmer();
-                },
-              ),
-            );
-          },
-          noItemsFoundIndicatorBuilder: (_) {
-            return UserAddressEmptyWidget(onActionClicked: () async {
-              final isAdded = await context.router.push(AddAddressRoute());
-              if (isAdded is bool && isAdded == true) {
-                cubit(context).getController(true);
-              }
-            });
-          },
-          newPageProgressIndicatorBuilder: (_) {
-            return SizedBox(
-              height: 160,
-              child: Center(
-                child: CircularProgressIndicator(color: Colors.blue),
-              ),
-            );
-          },
-          newPageErrorIndicatorBuilder: (_) {
-            return DefaultErrorWidget(
-              isFullScreen: false,
-              onRetryClicked: () => cubit(context).states.controller?.refresh(),
-            );
-          },
-          transitionDuration: Duration(milliseconds: 100),
-          itemBuilder: (context, item, index) => UserAddressWidget(
-            onClicked: () {},
-            address: item,
-            onEditClicked: () {
-              // _showAddressActions(context, state, item);
-              _showAddressActions(context, item, index);
+            firstPageErrorIndicatorBuilder: (_) {
+              return DefaultErrorWidget(
+                isFullScreen: true,
+                onRetryClicked: () =>
+                    cubit(context).states.controller?.refresh(),
+              );
             },
-            isManageEnabled: true,
-          ),
-        ),
+            firstPageProgressIndicatorBuilder: (_) {
+              return SingleChildScrollView(
+                child: ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: 5,
+                  itemBuilder: (BuildContext context, int index) {
+                    return UserAddressShimmer();
+                  },
+                ),
+              );
+            },
+            noItemsFoundIndicatorBuilder: (_) {
+              return UserAddressEmptyWidget(onActionClicked: () async {
+                final isAdded = await context.router.push(AddAddressRoute());
+                if (isAdded is bool && isAdded == true) {
+                  cubit(context).getController(true);
+                }
+              });
+            },
+            newPageProgressIndicatorBuilder: (_) {
+              return SizedBox(
+                height: 160,
+                child: Center(
+                  child: CircularProgressIndicator(color: Colors.blue),
+                ),
+              );
+            },
+            newPageErrorIndicatorBuilder: (_) {
+              return DefaultErrorWidget(
+                isFullScreen: false,
+                onRetryClicked: () =>
+                    cubit(context).states.controller?.refresh(),
+              );
+            },
+            transitionDuration: Duration(milliseconds: 100),
+            itemBuilder: (context, item, index) {
+              return ElevationWidget(
+                topLeftRadius: 8,
+                topRightRadius: 8,
+                bottomLeftRadius: 8,
+                bottomRightRadius: 8,
+                shadowSpreadRadius: 1.5,
+                leftMargin: 16,
+                topMargin: 6,
+                rightMargin: 16,
+                bottomMargin: 6,
+                child: UserAddressWidget(
+                  onClicked: () {},
+                  address: item,
+                  onEditClicked: () {
+                    // _showAddressActions(context, state, item);
+                    _showAddressActions(context, item, index);
+                  },
+                  isManageEnabled: true,
+                ),
+              );
+            }),
       ),
     );
   }

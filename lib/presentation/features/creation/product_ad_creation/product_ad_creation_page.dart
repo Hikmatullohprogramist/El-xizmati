@@ -112,7 +112,7 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
         backgroundColor: context.appBarColor,
         onBackPressed: () => context.router.pop(),
       ),
-      backgroundColor: context.backgroundColor,
+      backgroundColor: context.backgroundGreyColor,
       body: state.isNotPrepared
           ? Container(
               child: state.isPreparingInProcess

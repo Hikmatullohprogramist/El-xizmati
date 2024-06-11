@@ -15,7 +15,9 @@ extension ColorExtension on BuildContext {
 
   ColorScheme get colorScheme => Theme.of(this).colorScheme;
 
-  Color get backgroundColor => Theme.of(this).colorScheme.secondary;
+  Color get backgroundGreyColor => Theme.of(this).colorScheme.secondary;
+
+  Color get backgroundWhiteColor => Theme.of(this).colorScheme.secondary;
 
   Color get bottomSheetColor => Theme.of(this).colorScheme.surface;
 
@@ -37,7 +39,7 @@ extension ColorExtension on BuildContext {
 
   Color get textPrimaryInverse => colors.textPrimaryInverse;
 
-  Color get inputBackgroundColor => Theme.of(this).colorScheme.secondary;
+  Color get inputBackgroundColor => colors.inputBackground;
 
   Color get inputStrokeActiveColor => colors.buttonPrimary;
 

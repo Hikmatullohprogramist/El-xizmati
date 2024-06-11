@@ -41,7 +41,7 @@ class DashboardPage
     return Scaffold(
       appBar: AppBar(
         elevation: 0.5,
-        backgroundColor: context.backgroundColor,
+        backgroundColor: context.backgroundGreyColor,
         actions: [
           Expanded(
             child: Container(
@@ -93,13 +93,13 @@ class DashboardPage
           )
         ],
       ),
-      backgroundColor: context.backgroundColor,
+      backgroundColor: context.backgroundGreyColor,
       body: RefreshIndicator(
         displacement: 160,
         strokeWidth: 3,
         color: StaticColors.colorPrimary,
         onRefresh: () async {
-          cubit(context).getInitialData();
+          cubit(context).reload();
         },
         child: CustomScrollView(
           physics: BouncingScrollPhysics(),

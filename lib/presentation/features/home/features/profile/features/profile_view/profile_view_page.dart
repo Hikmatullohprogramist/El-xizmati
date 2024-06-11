@@ -73,7 +73,7 @@ class ProfileViewPage
                 ]
               : [],
         ),
-        backgroundColor: context.backgroundColor,
+        backgroundColor: context.backgroundGreyColor,
         body: Stack(
           children: [
             Visibility(
@@ -861,7 +861,7 @@ class ProfileViewPage
     return Column(
       children: [
         Container(
-          color: context.backgroundColor,
+          color: context.backgroundGreyColor,
           padding: EdgeInsets.only(top: 8),
           child: SeeAllWidget(
             title: "Активные сеансы",

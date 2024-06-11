@@ -12,22 +12,22 @@ import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.d
 import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_field.dart';
 
-import 'confirmation_cubit.dart';
+import 'otp_confirmation_cubit.dart';
 
 @RoutePage()
-class ConfirmationPage
-    extends BasePage<ConfirmationCubit, ConfirmationState, ConfirmationEvent> {
-  final phone;
-  final ConfirmType confirmType;
-  final format = DateFormat("mm:ss");
+class OtpConfirmationPage
+    extends BasePage<OtpConfirmationCubit, OtpConfirmationState, OtpConfirmationEvent> {
+  final String phone;
+  final OtpConfirmType confirmType;
 
-  ConfirmationPage({
+  OtpConfirmationPage({
     super.key,
-    this.phone,
+    required this.phone,
     required this.confirmType,
   });
 
   final textEditingController = TextEditingController();
+  final format = DateFormat("mm:ss");
 
   @override
   void onWidgetCreated(BuildContext context) {
@@ -37,22 +37,22 @@ class ConfirmationPage
   }
 
   @override
-  void onEventEmitted(BuildContext context, ConfirmationEvent event) {
+  void onEventEmitted(BuildContext context, OtpConfirmationEvent event) {
     switch (event.type) {
-      case ConfirmationEventType.setPassword:
+      case OtpConfirmationEventType.setPassword:
         context.router.replace(SetPasswordRoute());
     }
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, ConfirmationState state) {
+  Widget onWidgetBuild(BuildContext context, OtpConfirmationState state) {
     return Scaffold(
-      backgroundColor: context.colors.backgroundColor,
+      backgroundColor: context.backgroundWhiteColor,
       resizeToAvoidBottomInset: false,
       appBar: DefaultAppBar(
         titleText: Strings.authConfirmCorfimationCode,
         titleTextColor: context.textPrimary,
-        backgroundColor: context.backgroundColor,
+        backgroundColor: context.backgroundGreyColor,
         onBackPressed: () => context.router.pop(),
       ),
       body: Padding(
@@ -72,7 +72,7 @@ class ConfirmationPage
               height: 56,
               width: double.infinity,
               decoration: ShapeDecoration(
-                color: Color(0xFFFAF9FF),
+                color: context.inputBackgroundColor,
                 shape: RoundedRectangleBorder(
                   side: BorderSide(width: 1, color: Color(0xFFDFE2E9)),
                   borderRadius: BorderRadius.circular(10),
@@ -171,4 +171,4 @@ class ConfirmationPage
   }
 }
 
-enum ConfirmType { confirm, recovery }
+enum OtpConfirmType { confirm, recovery }

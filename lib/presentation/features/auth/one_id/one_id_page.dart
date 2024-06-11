@@ -10,15 +10,7 @@ import 'one_id_cubit.dart';
 
 @RoutePage()
 class OneIdPage extends BasePage<OneIdCubit, OneIdState, OneIdEvent> {
-  OneIdPage({super.key});
-
-  @override
-  bool get wantKeepAlive => true;
-
-  @override
-  void onWidgetCreated(BuildContext context) {
-    // cubit(context).setInitialParams();
-  }
+  const OneIdPage({super.key});
 
   @override
   void onEventEmitted(BuildContext context, OneIdEvent event) {
@@ -35,7 +27,7 @@ class OneIdPage extends BasePage<OneIdCubit, OneIdState, OneIdEvent> {
   Widget onWidgetBuild(BuildContext context, OneIdState state) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: context.backgroundColor,
+        backgroundColor: context.backgroundGreyColor,
         elevation: 0,
         leading: IconButton(
             icon: Icon(

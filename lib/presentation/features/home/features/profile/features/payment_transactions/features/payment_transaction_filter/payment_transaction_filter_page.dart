@@ -29,11 +29,11 @@ class PaymentTransactionFilterPage extends BasePage<
   Widget onWidgetBuild(
       BuildContext context, PaymentTransactionFilterState state) {
     return Scaffold(
-      backgroundColor: context.backgroundColor,
+      backgroundColor: context.backgroundGreyColor,
       appBar: DefaultAppBar(
         titleText: Strings.commonFilter,
         titleTextColor: context.textPrimary,
-        backgroundColor: context.backgroundColor,
+        backgroundColor: context.backgroundGreyColor,
         onBackPressed: () => context.router.pop(),
       ),
       body: Column(

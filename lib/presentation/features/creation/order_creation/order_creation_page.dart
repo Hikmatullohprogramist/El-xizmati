@@ -90,7 +90,7 @@ class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationState,
               backgroundColor: context.appBarColor,
               onBackPressed: () => context.router.pop(),
             ),
-            backgroundColor: context.backgroundColor,
+            backgroundColor: context.backgroundGreyColor,
             bottomNavigationBar: _buildBottomBar(context, state),
             body: SafeArea(
               bottom: true,

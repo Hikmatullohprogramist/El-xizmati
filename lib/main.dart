@@ -8,14 +8,17 @@ import 'package:easy_localization_loader/easy_localization_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
 import 'package:onlinebozor/presentation/di/get_it_injection.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/state_message/state_bottom_sheet_exts.dart';
+import 'package:onlinebozor/presentation/support/state_message/state_message.dart';
 import 'package:onlinebozor/presentation/support/state_message/state_message_manager.dart';
 import 'package:onlinebozor/presentation/support/state_message/state_snack_bar_exts.dart';
+import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:uuid/uuid.dart';
 
@@ -120,7 +123,7 @@ class MyApp extends StatelessWidget {
     final stateMessageManager = getIt<StateMessageManager>();
 
     stateMessageManager.setListeners(
-      onShowBottomSheet: (m) => context.showStateMessageBottomSheet(m),
+      onShowBottomSheet: (m) => showStateMessageBottomSheet(context, m),
       onShowSnackBar: (m) => context.showStateMessageSnackBar(m),
     );
   }
@@ -209,6 +212,45 @@ class MyApp extends StatelessWidget {
     //   onSurface: Color(0xFFE0E0E0),
     //   // Color used for text/icons on surfaces
     // );
+  }
+
+  void showStateMessageBottomSheet(BuildContext context, StateMessage message) {
+    showCupertinoModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc) {
+        return Material(
+          color: context.bottomSheetColor,
+          child: Container(
+            color: context.bottomSheetColor,
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(height: 30),
+                Center(child: message.titleOrDefault.s(22).w(600)),
+                SizedBox(height: 14),
+                message.message.s(16).w(500).copyWith(
+                      maxLines: 5,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                SizedBox(height: 32),
+                CustomElevatedButton(
+                  text: Strings.closeTitle,
+                  onPressed: () {
+                    Navigator.pop(context);
+                    HapticFeedback.lightImpact();
+                  },
+                  backgroundColor: context.colors.buttonPrimary,
+                ),
+                SizedBox(height: 24),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }
 

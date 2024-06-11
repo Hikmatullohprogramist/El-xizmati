@@ -56,7 +56,7 @@ class RegistrationPage
   @override
   Widget onWidgetBuild(BuildContext context, RegistrationState state) {
     return Scaffold(
-      backgroundColor: context.backgroundColor,
+      backgroundColor: context.backgroundGreyColor,
       appBar: ActionAppBar(
         titleText: Strings.identityVerificationTitle,
         titleTextColor: context.textPrimary,
@@ -458,7 +458,7 @@ class RegistrationPage
           alignment: Alignment.bottomCenter,
           children: [
             Container(
-              color: context.backgroundColor,
+              color: context.backgroundGreyColor,
               height: 350.0,
               child: CupertinoDatePicker(
                 mode: CupertinoDatePickerMode.date,

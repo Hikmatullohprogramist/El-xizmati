@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
@@ -13,11 +14,11 @@ import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
-import 'package:flutter/services.dart';
 import 'package:onlinebozor/presentation/widgets/action/action_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/ad/user_ad/user_ad_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/ad/user_ad/user_ad_widget.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
+import 'package:onlinebozor/presentation/widgets/elevation/elevation_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_empty_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 
@@ -41,7 +42,7 @@ class UserAdListPage
   @override
   Widget onWidgetBuild(BuildContext context, UserAdListState state) {
     return Scaffold(
-      backgroundColor: context.backgroundColor,
+      backgroundColor: context.backgroundGreyColor,
       body: RefreshIndicator(
         displacement: 160,
         strokeWidth: 3,
@@ -56,65 +57,77 @@ class UserAdListPage
           pagingController: state.controller!,
           padding: EdgeInsets.only(top: 12, bottom: 12),
           builderDelegate: PagedChildBuilderDelegate<UserAd>(
-            firstPageErrorIndicatorBuilder: (_) {
-              return DefaultErrorWidget(
-                isFullScreen: true,
-                onRetryClicked: () =>
-                    cubit(context).states.controller?.refresh(),
-              );
-            },
-            firstPageProgressIndicatorBuilder: (_) {
-              return SingleChildScrollView(
-                child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 5,
-                  itemBuilder: (BuildContext context, int index) {
-                    return UserAdWidgetShimmer();
+              firstPageErrorIndicatorBuilder: (_) {
+                return DefaultErrorWidget(
+                  isFullScreen: true,
+                  onRetryClicked: () =>
+                      cubit(context).states.controller?.refresh(),
+                );
+              },
+              firstPageProgressIndicatorBuilder: (_) {
+                return SingleChildScrollView(
+                  child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: 5,
+                    itemBuilder: (BuildContext context, int index) {
+                      return UserAdWidgetShimmer();
+                    },
+                  ),
+                );
+              },
+              noItemsFoundIndicatorBuilder: (_) {
+                return DefaultEmptyWidget(
+                  isFullScreen: true,
+                  icon: Assets.images.pngImages.adEmpty.image(),
+                  message: state.userAdStatus.getLocalizedEmptyMessage(),
+                  mainActionLabel: Strings.adCreationTitle,
+                  onMainActionClicked: () {
+                    context.router.push(AdCreationChooserRoute());
                   },
-                ),
-              );
-            },
-            noItemsFoundIndicatorBuilder: (_) {
-              return DefaultEmptyWidget(
-                isFullScreen: true,
-                icon: Assets.images.pngImages.adEmpty.image(),
-                message: state.userAdStatus.getLocalizedEmptyMessage(),
-                mainActionLabel: Strings.adCreationTitle,
-                onMainActionClicked: () {
-                  context.router.push(AdCreationChooserRoute());
-                },
-                onReloadClicked: () {
-                  cubit(context).states.controller?.refresh();
-                },
-              );
-            },
-            newPageProgressIndicatorBuilder: (_) {
-              return SizedBox(
-                height: 220,
-                child: Center(
-                  child: CircularProgressIndicator(color: Colors.blue),
-                ),
-              );
-            },
-            newPageErrorIndicatorBuilder: (_) {
-              return DefaultErrorWidget(
-                isFullScreen: false,
-                onRetryClicked: () =>
-                    cubit(context).states.controller?.refresh(),
-              );
-            },
-            transitionDuration: Duration(milliseconds: 100),
-            itemBuilder: (context, item, index) => UserAdWidget(
-              onActionClicked: () {
-                _showActionsBottomSheet(context, item);
+                  onReloadClicked: () {
+                    cubit(context).states.controller?.refresh();
+                  },
+                );
               },
-              onItemClicked: () {
-                context.router.push(UserAdDetailRoute(userAd: item));
+              newPageProgressIndicatorBuilder: (_) {
+                return SizedBox(
+                  height: 220,
+                  child: Center(
+                    child: CircularProgressIndicator(color: Colors.blue),
+                  ),
+                );
               },
-              userAd: item,
-            ),
-          ),
+              newPageErrorIndicatorBuilder: (_) {
+                return DefaultErrorWidget(
+                  isFullScreen: false,
+                  onRetryClicked: () =>
+                      cubit(context).states.controller?.refresh(),
+                );
+              },
+              transitionDuration: Duration(milliseconds: 100),
+              itemBuilder: (context, item, index) {
+                return ElevationWidget(
+                  topLeftRadius: 8,
+                  topRightRadius: 8,
+                  bottomLeftRadius: 8,
+                  bottomRightRadius: 8,
+                  shadowSpreadRadius: 1.5,
+                  leftMargin: 16,
+                  topMargin: 6,
+                  rightMargin: 16,
+                  bottomMargin: 6,
+                  child: UserAdWidget(
+                    onActionClicked: () {
+                      _showActionsBottomSheet(context, item);
+                    },
+                    onItemClicked: () {
+                      context.router.push(UserAdDetailRoute(userAd: item));
+                    },
+                    userAd: item,
+                  ),
+                );
+              }),
         ),
       ),
     );
@@ -156,7 +169,7 @@ class UserAdListPage
                   icon: AdAction.ACTION_EDIT.getActionIcon(),
                   onClicked: (item) {
                     context.router.pop();
-          
+
                     switch (type) {
                       case AdTransactionType.sell:
                         context.router.push(ProductAdCreationRoute(

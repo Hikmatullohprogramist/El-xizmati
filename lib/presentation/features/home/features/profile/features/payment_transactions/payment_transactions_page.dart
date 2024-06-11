@@ -45,7 +45,7 @@ class PaymentTransactionsPage extends BasePage<PaymentTransactionsCubit,
           )
         ],
       ),
-      backgroundColor: context.backgroundColor,
+      backgroundColor: context.backgroundGreyColor,
       body: _getPaymentListWidget(context, state),
     );
   }

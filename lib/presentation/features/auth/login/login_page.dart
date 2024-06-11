@@ -5,10 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/features/auth/confirm/confirmation_page.dart';
+import 'package:onlinebozor/presentation/features/auth/otp_confirm/otp_confirmation_page.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
@@ -20,8 +20,8 @@ import 'package:onlinebozor/presentation/widgets/form_field/validator/password_v
 import 'login_cubit.dart';
 
 @RoutePage()
-class AuthLoginPage extends BasePage<LoginCubit, LoginState, LoginEvent> {
-  AuthLoginPage(this.phone, {super.key});
+class LoginPage extends BasePage<LoginCubit, LoginState, LoginEvent> {
+  LoginPage(this.phone, {super.key});
 
   final String phone;
 
@@ -43,11 +43,10 @@ class AuthLoginPage extends BasePage<LoginCubit, LoginState, LoginEvent> {
       case LoginEventType.onOpenHome:
         context.router.replace(HomeRoute());
       case LoginEventType.onOpenAuthConfirm:
-        context.router.replace(
-          ConfirmationRoute(phone: phone, confirmType: ConfirmType.recovery),
-        );
-      case LoginEventType.onLoginFailed:
-        showErrorBottomSheet(context, event.message ?? "");
+        context.router.replace(OtpConfirmationRoute(
+          phone: phone,
+          confirmType: OtpConfirmType.recovery,
+        ));
     }
   }
 
@@ -56,12 +55,12 @@ class AuthLoginPage extends BasePage<LoginCubit, LoginState, LoginEvent> {
     _passwordController.updateOnRestore(state.password);
 
     return Scaffold(
-        backgroundColor: context.colors.backgroundColor,
-        resizeToAvoidBottomInset: true,
+        backgroundColor: context.backgroundWhiteColor,
+        resizeToAvoidBottomInset: false,
         appBar: DefaultAppBar(
           titleText: Strings.authStartSingin,
           titleTextColor: context.textPrimary,
-          backgroundColor: context.backgroundColor,
+          backgroundColor: context.backgroundGreyColor,
           onBackPressed: () {
             context.router.replace(AuthStartRoute(phone: state.phone));
           },

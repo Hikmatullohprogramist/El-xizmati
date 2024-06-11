@@ -38,10 +38,10 @@ class SubCategoryPage
       appBar: DefaultAppBar(
         titleText: title,
         titleTextColor: context.textPrimary,
-        backgroundColor: context.backgroundColor,
+        backgroundColor: context.backgroundGreyColor,
         onBackPressed: () => context.router.pop(),
       ),
-      backgroundColor: context.backgroundColor,
+      backgroundColor: context.backgroundGreyColor,
       body: LoaderStateWidget(
         isFullScreen: true,
         loadingState: state.loadState,

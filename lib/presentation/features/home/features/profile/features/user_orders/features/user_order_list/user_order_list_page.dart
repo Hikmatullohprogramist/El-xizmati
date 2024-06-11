@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:injectable/injectable.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
@@ -15,6 +14,7 @@ import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
+import 'package:onlinebozor/presentation/widgets/elevation/elevation_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_empty_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 import 'package:onlinebozor/presentation/widgets/order/user_order_shimmer.dart';
@@ -42,7 +42,7 @@ class UserOrderListPage extends BasePage<UserOrderListCubit, UserOrderListState,
   @override
   Widget onWidgetBuild(BuildContext context, UserOrderListState state) {
     return Scaffold(
-      backgroundColor: context.backgroundColor,
+      backgroundColor: context.backgroundGreyColor,
       body: _buildBody(context, state),
     );
   }
@@ -59,7 +59,7 @@ class UserOrderListPage extends BasePage<UserOrderListCubit, UserOrderListState,
         shrinkWrap: true,
         addAutomaticKeepAlives: false,
         physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        padding: EdgeInsets.symmetric(vertical: 10),
         pagingController: state.controller!,
         builderDelegate: PagedChildBuilderDelegate<UserOrder>(
           firstPageErrorIndicatorBuilder: (_) {
@@ -110,11 +110,23 @@ class UserOrderListPage extends BasePage<UserOrderListCubit, UserOrderListState,
           },
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) {
-            return UserOrderWidget(
-              order: item,
-              onClicked: () {},
-              onCancelClicked: () => _showOrderCancelPage(context, state, item),
-              onMoreClicked: () => _showOrderInfoPage(context, state, item),
+            return ElevationWidget(
+              topLeftRadius: 8,
+              topRightRadius: 8,
+              bottomLeftRadius: 8,
+              bottomRightRadius: 8,
+              shadowSpreadRadius: 1.5,
+              leftMargin: 16,
+              topMargin: 6,
+              rightMargin: 16,
+              bottomMargin: 6,
+              child: UserOrderWidget(
+                order: item,
+                onClicked: () {},
+                onCancelClicked: () =>
+                    _showOrderCancelPage(context, state, item),
+                onMoreClicked: () => _showOrderInfoPage(context, state, item),
+              ),
             );
           },
         ),
@@ -132,7 +144,7 @@ class UserOrderListPage extends BasePage<UserOrderListCubit, UserOrderListState,
       builder: (context) => UserOrderCancelPage(order: order),
     );
 
-    if(cancelledOrder!=null && cancelledOrder is UserOrder) {
+    if (cancelledOrder != null && cancelledOrder is UserOrder) {
       cubit(context).updateCancelledOrder(cancelledOrder);
     }
   }

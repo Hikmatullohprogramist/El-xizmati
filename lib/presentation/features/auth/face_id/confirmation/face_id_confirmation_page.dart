@@ -84,7 +84,7 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit, FaceIdCon
       appBar: DefaultAppBar(
         titleText: Strings.profileIdentify,
         titleTextColor: context.textPrimary,
-        backgroundColor: context.backgroundColor,
+        backgroundColor: context.backgroundGreyColor,
         onBackPressed: () => context.router.pop(),
       ),
       body: Padding(

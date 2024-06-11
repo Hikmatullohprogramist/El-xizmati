@@ -31,10 +31,10 @@ class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageState, SetLa
   Widget onWidgetBuild(BuildContext context, SetLanguageState state) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: context.colors.backgroundColor,
+        backgroundColor: context.backgroundWhiteColor,
         elevation: 0,
       ),
-      backgroundColor: context.colors.backgroundColor,
+      backgroundColor: context.backgroundWhiteColor,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(

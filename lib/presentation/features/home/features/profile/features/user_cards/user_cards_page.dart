@@ -20,7 +20,7 @@ class UserCardsPage extends BasePage<UserCardsCubit, PageState, PageEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, PageState state) {
     return Scaffold(
-      backgroundColor: context.backgroundColor,
+      backgroundColor: context.backgroundGreyColor,
       appBar: ActionAppBar(
         titleText: Strings.myCardTitle,
         titleTextColor: context.textPrimary,

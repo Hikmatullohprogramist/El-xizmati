@@ -186,7 +186,7 @@ class _LocaleImageViewerPageState extends State<LocaleImageViewerPage> {
                 });
               },
               textColor: Colors.black,
-              backgroundColor: context.backgroundColor,
+              backgroundColor: context.backgroundGreyColor,
             ),
           ),
           SizedBox(width: 12),
@@ -203,7 +203,7 @@ class _LocaleImageViewerPageState extends State<LocaleImageViewerPage> {
                 });
               },
               textColor: Colors.black,
-              backgroundColor: context.backgroundColor,
+              backgroundColor: context.backgroundGreyColor,
             ),
           )
         ],

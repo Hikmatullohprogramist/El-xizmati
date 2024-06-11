@@ -6,9 +6,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/features/auth/confirm/confirmation_page.dart';
 import 'package:onlinebozor/presentation/features/auth/eds_request/crc32.dart';
 import 'package:onlinebozor/presentation/features/auth/eds_request/gost_hash.dart';
+import 'package:onlinebozor/presentation/features/auth/otp_confirm/otp_confirmation_page.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
@@ -17,6 +17,7 @@ import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_outlined_button.dart';
+import 'package:onlinebozor/presentation/widgets/elevation/elevation_widget.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_field.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/label_text_field.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -41,11 +42,11 @@ class AuthStartPage
   void onEventEmitted(BuildContext context, AuthStartEvent event) {
     switch (event.type) {
       case AuthStartEventType.onOpenLogin:
-        context.router.push(AuthLoginRoute(phone: event.phone!));
+        context.router.push(LoginRoute(phone: event.phone!));
       case AuthStartEventType.onOpenConfirm:
-        context.router.push(ConfirmationRoute(
+        context.router.push(OtpConfirmationRoute(
           phone: event.phone!,
-          confirmType: ConfirmType.confirm,
+          confirmType: OtpConfirmType.confirm,
         ));
       case AuthStartEventType.onEdsLoginFailed:
         showErrorBottomSheet(context, Strings.authStartLoginWithEImzoError);
@@ -59,12 +60,12 @@ class AuthStartPage
     _phoneController.updateOnRestore(state.phone);
 
     return Scaffold(
-      backgroundColor: context.colors.backgroundColor,
+      backgroundColor: context.appBarColor,
       resizeToAvoidBottomInset: false,
       appBar: DefaultAppBar(
         titleText: Strings.authStartSingin,
         titleTextColor: context.textPrimary,
-        backgroundColor: context.backgroundColor,
+        backgroundColor: context.backgroundGreyColor,
         onBackPressed: () => context.router.pop(),
       ),
       body: Padding(
@@ -105,17 +106,19 @@ class AuthStartPage
                     TextSpan(
                       text: Strings.authPricePoliceStart,
                       style: TextStyle(
-                          color: context.textSecondary,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400),
+                        color: context.textPrimary,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                     TextSpan(text: " "),
                     TextSpan(
                       text: Strings.authPricePoliceAction,
                       style: TextStyle(
-                          color: Color(0xFF5C6AC4),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400),
+                        color: Color(0xFF5C6AC4),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = _handleTextClick,
                     ),
@@ -123,37 +126,68 @@ class AuthStartPage
                     TextSpan(
                       text: Strings.authPricePoliceEnd,
                       style: TextStyle(
-                          color: context.textSecondary,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400),
+                        color: context.textPrimary,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ],
                 ),
               ),
               Spacer(),
-              CustomOutlinedButton(
-                text: Strings.authStartLoginWithOneId,
-                onPressed: () => context.router.push(OneIdRoute()),
-                strokeColor: context.colors.borderColor,
-                rightIcon: Assets.images.icOneId.svg(),
+              ElevationWidget(
+                topLeftRadius: 8,
+                topRightRadius: 8,
+                bottomLeftRadius: 8,
+                bottomRightRadius: 8,
+                topMargin: 12,
+                bottomMargin: 6,
+                child: CustomOutlinedButton(
+                  text: Strings.authStartLoginWithFaceId,
+                  onPressed: () {
+                    context.router.push(FaceIdStartRoute());
+                  },
+                  strokeColor: context.colors.borderColor,
+                  rightIcon: Assets.images.icFaceId.svg(),
+                ),
               ),
-              SizedBox(height: 10),
-              CustomOutlinedButton(
-                text: Strings.authStartLoginWithEImzo,
-                onPressed: () {
-                  cubit(context).edsAuth().then((value) {
-                    generateQrCode(
-                      context,
-                      value?.challange ?? "",
-                      value?.siteId ?? "",
-                      value?.documentId ?? "",
-                    );
-                  });
-                },
-                strokeColor: context.colors.borderColor,
-                rightIcon: Assets.images.pngImages.eImzo.image(),
+              ElevationWidget(
+                topLeftRadius: 8,
+                topRightRadius: 8,
+                bottomLeftRadius: 8,
+                bottomRightRadius: 8,
+                topMargin: 6,
+                bottomMargin: 6,
+                child: CustomOutlinedButton(
+                  text: Strings.authStartLoginWithOneId,
+                  onPressed: () => context.router.push(OneIdRoute()),
+                  strokeColor: context.colors.borderColor,
+                  rightIcon: Assets.images.icOneId.svg(),
+                ),
               ),
-              SizedBox(height: 20),
+              ElevationWidget(
+                topLeftRadius: 8,
+                topRightRadius: 8,
+                bottomLeftRadius: 8,
+                bottomRightRadius: 8,
+                topMargin: 6,
+                bottomMargin: 20,
+                child: CustomOutlinedButton(
+                  text: Strings.authStartLoginWithEImzo,
+                  onPressed: () {
+                    cubit(context).edsAuth().then((value) {
+                      generateQrCode(
+                        context,
+                        value?.challange ?? "",
+                        value?.siteId ?? "",
+                        value?.documentId ?? "",
+                      );
+                    });
+                  },
+                  strokeColor: context.colors.borderColor,
+                  rightIcon: Assets.images.pngImages.eImzo.image(),
+                ),
+              ),
             ],
           ),
         ),

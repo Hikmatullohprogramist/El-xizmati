@@ -26,7 +26,7 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
     this._commonRepository,
     this._favoriteRepository,
   ) : super(DashboardState()) {
-    getInitialData();
+    _getInitialData(false);
   }
 
   final AdRepository _adRepository;
@@ -34,7 +34,11 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
   final CommonRepository _commonRepository;
   final FavoriteRepository _favoriteRepository;
 
-  Future<void> getInitialData() async {
+  reload() async {
+    await _getInitialData(true);
+  }
+
+  Future<void> _getInitialData(bool isReload) async {
     await Future.wait([
       getBanners(),
       getPopularCategories(),
@@ -79,17 +83,19 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
 
   Future<void> getPopularProductAds() async {
     logger.w("getDashboardPopularAds called");
-    if (states.popularProductAdsState == LoadingState.success ||
-        states.popularProductAds.isNotEmpty) {
-      logger.w("getDashboardPopularAds already called before and ignored");
-      return;
-    }
+    // if (states.popularProductAdsState == LoadingState.success ||
+    //     states.popularProductAds.isNotEmpty) {
+    //   logger.w("getDashboardPopularAds already called before and ignored");
+    //   return;
+    // }
 
     _adRepository
         .getDashboardPopularAds(adType: AdType.product)
         .initFuture()
         .onStart(() {
-          logger.w("getDashboardPopularAds onStart");
+          updateState((state) => state.copyWith(
+                popularProductAdsState: LoadingState.loading,
+              ));
         })
         .onSuccess((data) {
           final ids = data.adIds();
@@ -121,18 +127,22 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
   }
 
   Future<void> getPopularServiceAds() async {
-    if (states.popularServiceAdsState == LoadingState.success ||
-        states.popularServiceAds.isNotEmpty) {
-      return;
-    }
+    // if (states.popularServiceAdsState == LoadingState.success ||
+    //     states.popularServiceAds.isNotEmpty) {
+    //   return;
+    // }
 
     _adRepository
         .getDashboardPopularAds(adType: AdType.service)
         .initFuture()
-        .onStart(() {})
+        .onStart(() {
+          updateState((state) => state.copyWith(
+                popularServiceAdsState: LoadingState.loading,
+              ));
+        })
         .onSuccess((data) {
           final ids = data.adIds();
-          _serviceAdsSubs = _adRepository.watchAdsByIds(ids).asyncMap((ads) {
+          _serviceAdsSubs = _adRepository.watchAdsByIds(ids).listen((ads) {
             logger.w(
                 "watchPopularServiceAds ads count = ${ads.length}, cart count = ${ads.cartCount()}, favorite count = ${ads.favoriteCount()}");
             updateState((state) => state.copyWith(
@@ -140,7 +150,7 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
                   popularServiceAdsState:
                       ads.isEmpty ? LoadingState.empty : LoadingState.success,
                 ));
-          }).listen(null)
+          })
             ..onError((error) {
               logger.w("watchPopularServiceAds error = $error");
               updateState((state) => state.copyWith(

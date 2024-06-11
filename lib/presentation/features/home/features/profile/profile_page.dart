@@ -14,6 +14,7 @@ import 'package:onlinebozor/presentation/widgets/action/selection_list_item.dart
 import 'package:onlinebozor/presentation/widgets/app_bar/empty_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
+import 'package:onlinebozor/presentation/widgets/elevation/elevation_widget.dart';
 import 'package:onlinebozor/presentation/widgets/profile/profile_item_widget.dart';
 
 import 'profile_cubit.dart';
@@ -35,25 +36,20 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
     return Scaffold(
       appBar: EmptyAppBar(
         titleText: Strings.profileViewTitlle,
-        backgroundColor: context.appBarColor,
+        backgroundColor: context.backgroundWhiteColor,
         textColor: context.textPrimary,
       ),
-      backgroundColor: context.backgroundColor,
+      backgroundColor: context.backgroundGreyColor,
       body: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 10),
-              _buildProfileBlock(state, context),
-              SizedBox(height: 8),
+              _buildProfileBlock(context, state),
               _buildOrderBlock(context, state),
-              SizedBox(height: 8),
               _buildCardBlock(context, state),
-              SizedBox(height: 8),
               _buildSettingsBlock(context, state),
-              SizedBox(height: 8),
               _buildLogoutBlock(context, state),
             ],
           )),
@@ -62,34 +58,49 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
 
   /// Block builder methods
 
-  Widget _buildProfileBlock(ProfileState state, BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        children: [
-          Visibility(
-            visible: state.isLogin,
-            child: ProfileItemWidget(
-              name: Strings.profileTitle,
-              icon: Assets.images.icUserAvatar,
-              onClicked: () {
-                context.router.push(ProfileViewRoute());
-                HapticFeedback.lightImpact();
-              },
+  Widget _buildProfileBlock(BuildContext context, ProfileState state) {
+    return ElevationWidget(
+      topLeftRadius: 16,
+      topRightRadius: 16,
+      bottomLeftRadius: 16,
+      bottomRightRadius: 16,
+      shadowSpreadRadius: 1.5,
+      leftMargin: 16,
+      topMargin: 20,
+      rightMargin: 16,
+      bottomMargin: 8,
+      child: Container(
+        color: context.backgroundWhiteColor,
+        child: Column(
+          children: [
+            Visibility(
+              visible: state.isLogin,
+              child: ProfileItemWidget(
+                name: Strings.profileTitle,
+                icon: Assets.images.icUserAvatar,
+                topRadius: 16,
+                bottomRadius: 16,
+                onClicked: () {
+                  context.router.push(ProfileViewRoute());
+                  HapticFeedback.lightImpact();
+                },
+              ),
             ),
-          ),
-          Visibility(
-            visible: !state.isLogin,
-            child: ProfileItemWidget(
-              name: Strings.authSinginTitle,
-              icon: Assets.images.icUserAvatar,
-              onClicked: () {
-                context.router.push(AuthStartRoute());
-                HapticFeedback.lightImpact();
-              },
+            Visibility(
+              visible: !state.isLogin,
+              child: ProfileItemWidget(
+                name: Strings.authSinginTitle,
+                icon: Assets.images.icUserAvatar,
+                topRadius: 16,
+                bottomRadius: 16,
+                onClicked: () {
+                  context.router.push(AuthStartRoute());
+                  HapticFeedback.lightImpact();
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -98,53 +109,67 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
     BuildContext context,
     ProfileState state,
   ) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        children: [
-          Visibility(
-            visible: state.isLogin,
-            child: ProfileItemWidget(
-              name: Strings.profileMyAds,
-              icon: Assets.images.icProfileMyAds,
-              onClicked: () {
-                context.router.push(UserAdsRoute());
-                HapticFeedback.lightImpact();
-              },
+    return ElevationWidget(
+      topLeftRadius: 16,
+      topRightRadius: 16,
+      bottomLeftRadius: 16,
+      bottomRightRadius: 16,
+      shadowSpreadRadius: 1.5,
+      leftMargin: 16,
+      topMargin: 8,
+      rightMargin: 16,
+      bottomMargin: 8,
+      child: Container(
+        color: context.backgroundWhiteColor,
+        child: Column(
+          children: [
+            Visibility(
+              visible: state.isLogin,
+              child: ProfileItemWidget(
+                name: Strings.profileMyAds,
+                icon: Assets.images.icProfileMyAds,
+                topRadius: 16,
+                onClicked: () {
+                  context.router.push(UserAdsRoute());
+                  HapticFeedback.lightImpact();
+                },
+              ),
             ),
-          ),
-          Visibility(
-            visible: state.isLogin,
-            child: Divider(indent: 46, height: 1),
-          ),
-          Visibility(
-            visible: state.isLogin,
-            child: ProfileItemWidget(
-              name: Strings.profileOrders,
-              icon: Assets.images.icProfileOrder,
-              onClicked: () {
-                // context.router.push(UserOrderTypeRoute());
-                context.router.push(UserOrdersRoute(orderType: OrderType.buy));
-                HapticFeedback.lightImpact();
-              },
+            Visibility(
+              visible: state.isLogin,
+              child: Divider(indent: 46, height: 1),
             ),
-          ),
-          Visibility(
-            visible: state.isLogin,
-            child: Divider(indent: 46, height: 1),
-          ),
-          Visibility(
-            visible: state.isLogin,
-            child: ProfileItemWidget(
-              name: Strings.profilePayment,
-              icon: Assets.images.icProfilePayment,
-              onClicked: () {
-                context.router.push(PaymentTransactionsRoute());
-                HapticFeedback.lightImpact();
-              },
+            Visibility(
+              visible: state.isLogin,
+              child: ProfileItemWidget(
+                name: Strings.profileOrders,
+                icon: Assets.images.icProfileOrder,
+                onClicked: () {
+                  // context.router.push(UserOrderTypeRoute());
+                  context.router
+                      .push(UserOrdersRoute(orderType: OrderType.buy));
+                  HapticFeedback.lightImpact();
+                },
+              ),
             ),
-          ),
-        ],
+            Visibility(
+              visible: state.isLogin,
+              child: Divider(indent: 46, height: 1),
+            ),
+            Visibility(
+              visible: state.isLogin,
+              child: ProfileItemWidget(
+                name: Strings.profilePayment,
+                icon: Assets.images.icProfilePayment,
+                bottomRadius: 16,
+                onClicked: () {
+                  context.router.push(PaymentTransactionsRoute());
+                  HapticFeedback.lightImpact();
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -153,50 +178,64 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
     BuildContext context,
     ProfileState state,
   ) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        children: [
-          Visibility(
-            visible: state.isLogin,
-            child: ProfileItemWidget(
-              name: Strings.profileMyCard,
-              icon: Assets.images.icCard,
+    return ElevationWidget(
+      topLeftRadius: 16,
+      topRightRadius: 16,
+      bottomLeftRadius: 16,
+      bottomRightRadius: 16,
+      shadowSpreadRadius: 1.5,
+      leftMargin: 16,
+      topMargin: 8,
+      rightMargin: 16,
+      bottomMargin: 8,
+      child: Container(
+        color: context.backgroundWhiteColor,
+        child: Column(
+          children: [
+            Visibility(
+              visible: state.isLogin,
+              child: ProfileItemWidget(
+                name: Strings.profileMyCard,
+                icon: Assets.images.icCard,
+                topRadius: 16,
+                onClicked: () {
+                  context.router.push(UserCardsRoute());
+                  HapticFeedback.lightImpact();
+                },
+              ),
+            ),
+            Visibility(
+              // visible: state.isLogin,
+              visible: false,
+              child: Divider(indent: 46, height: 1),
+            ),
+            Visibility(
+              visible: state.isLogin,
+              child: ProfileItemWidget(
+                name: Strings.profileMyAddress,
+                icon: Assets.images.icProfileLocation,
+                onClicked: () {
+                  context.router.push(UserAddressesRoute());
+                  HapticFeedback.lightImpact();
+                },
+              ),
+            ),
+            Visibility(
+              visible: state.isLogin,
+              child: Divider(indent: 46, height: 1),
+            ),
+            ProfileItemWidget(
+              name: Strings.bottomNavigationFavorite,
+              icon: Assets.images.bottomBar.favorite,
+              topRadius: state.isLogin ? 0 : 16,
+              bottomRadius: 16,
               onClicked: () {
-                context.router.push(UserCardsRoute());
+                context.router.push(FavoriteListRoute());
                 HapticFeedback.lightImpact();
               },
             ),
-          ),
-          Visibility(
-            // visible: state.isLogin,
-            visible: false,
-            child: Divider(indent: 46, height: 1),
-          ),
-          Visibility(
-            visible: state.isLogin,
-            child: ProfileItemWidget(
-              name: Strings.profileMyAddress,
-              icon: Assets.images.icProfileLocation,
-              onClicked: () {
-                context.router.push(UserAddressesRoute());
-                HapticFeedback.lightImpact();
-              },
-            ),
-          ),
-          Visibility(
-            visible: state.isLogin,
-            child: Divider(indent: 46, height: 1),
-          ),
-          ProfileItemWidget(
-            name: Strings.bottomNavigationFavorite,
-            icon: Assets.images.bottomBar.favorite,
-            onClicked: () {
-              context.router.push(FavoriteListRoute());
-              HapticFeedback.lightImpact();
-            },
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -205,32 +244,43 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
     BuildContext context,
     ProfileState state,
   ) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        children: [
-          Visibility(visible: false, child: Divider(indent: 46, height: 1)),
-          ProfileItemWidget(
-            name: Strings.profileChangeLanguage,
-            icon: Assets.images.icProfileLanguage,
-            onClicked: () {
-              _showChangeLanguageBottomSheet(context, state);
-              HapticFeedback.lightImpact();
-            },
-          ),
-          Visibility(visible: false, child: Divider(indent: 46, height: 1)),
-          Visibility(
-            visible: false,
-            child: ProfileItemWidget(
-              name: Strings.profileDarkMode,
-              icon: Assets.images.icProfileDarkMode,
+    return ElevationWidget(
+      topLeftRadius: 16,
+      topRightRadius: 16,
+      bottomLeftRadius: 16,
+      bottomRightRadius: 16,
+      shadowSpreadRadius: 1.5,
+      leftMargin: 16,
+      topMargin: 8,
+      rightMargin: 16,
+      bottomMargin: 8,
+      child: Container(
+        color: context.backgroundWhiteColor,
+        child: Column(
+          children: [
+            Visibility(visible: false, child: Divider(indent: 46, height: 1)),
+            ProfileItemWidget(
+              name: Strings.profileChangeLanguage,
+              icon: Assets.images.icProfileLanguage,
               onClicked: () {
                 _showChangeLanguageBottomSheet(context, state);
                 HapticFeedback.lightImpact();
               },
             ),
-          ),
-        ],
+            Visibility(visible: false, child: Divider(indent: 46, height: 1)),
+            Visibility(
+              visible: false,
+              child: ProfileItemWidget(
+                name: Strings.profileDarkMode,
+                icon: Assets.images.icProfileDarkMode,
+                onClicked: () {
+                  _showChangeLanguageBottomSheet(context, state);
+                  HapticFeedback.lightImpact();
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -241,37 +291,48 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
   ) {
     return Visibility(
       visible: state.isLogin,
-      child: Container(
-        color: Colors.white,
-        child: Column(
-          children: [
-            ProfileItemWidget(
-              name: Strings.profileLogout,
-              icon: Assets.images.icProfileLogout,
-              color: Color(0xFFF66412),
-              onClicked: () {
-                showYesNoBottomSheet(
-                  context,
-                  title: Strings.profileLogoutTitle,
-                  message: Strings.profileLogoutDescription,
-                  noTitle: Strings.commonNo,
-                  onNoClicked: () {
-                    Navigator.pop(context);
-                    HapticFeedback.lightImpact();
-                  },
-                  yesTitle: Strings.commonYes,
-                  onYesClicked: () async {
-                    HapticFeedback.lightImpact();
+      child: ElevationWidget(
+        topLeftRadius: 16,
+        topRightRadius: 16,
+        bottomLeftRadius: 16,
+        bottomRightRadius: 16,
+        shadowSpreadRadius: 1.5,
+        leftMargin: 16,
+        topMargin: 8,
+        rightMargin: 16,
+        bottomMargin: 8,
+        child: Container(
+          color: context.backgroundWhiteColor,
+          child: Column(
+            children: [
+              ProfileItemWidget(
+                name: Strings.profileLogout,
+                icon: Assets.images.icProfileLogout,
+                color: Color(0xFFF66412),
+                onClicked: () {
+                  showYesNoBottomSheet(
+                    context,
+                    title: Strings.profileLogoutTitle,
+                    message: Strings.profileLogoutDescription,
+                    noTitle: Strings.commonNo,
+                    onNoClicked: () {
+                      Navigator.pop(context);
+                      HapticFeedback.lightImpact();
+                    },
+                    yesTitle: Strings.commonYes,
+                    onYesClicked: () async {
+                      HapticFeedback.lightImpact();
 
-                    await cubit(context).logOut();
+                      await cubit(context).logOut();
 
-                    Navigator.pop(context);
-                  },
-                );
-                HapticFeedback.lightImpact();
-              },
-            ),
-          ],
+                      Navigator.pop(context);
+                    },
+                  );
+                  HapticFeedback.lightImpact();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

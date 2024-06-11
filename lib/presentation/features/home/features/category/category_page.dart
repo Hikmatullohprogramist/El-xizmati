@@ -71,7 +71,7 @@ class CategoryPage
         ],
       ),
       resizeToAvoidBottomInset: false,
-      backgroundColor: context.backgroundColor,
+      backgroundColor: context.backgroundGreyColor,
       body: LoaderStateWidget(
         isFullScreen: true,
         loadingState: state.loadState,

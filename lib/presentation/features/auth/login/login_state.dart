@@ -20,5 +20,4 @@ class LoginEvent with _$LoginEvent {
 enum LoginEventType {
   onOpenAuthConfirm,
   onOpenHome,
-  onLoginFailed,
 }

@@ -65,7 +65,7 @@ class AddAddressPage
         backgroundColor: context.appBarColor,
         onBackPressed: () => context.router.pop(false),
       ),
-      backgroundColor: context.backgroundColor,
+      backgroundColor: context.backgroundGreyColor,
       body: Form(
         key: _formKey,
         child: ListView(

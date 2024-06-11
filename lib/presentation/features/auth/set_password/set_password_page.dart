@@ -28,12 +28,12 @@ class SetPasswordPage extends BasePage<SetPasswordCubit, SetPasswordState, SetPa
   @override
   Widget onWidgetBuild(BuildContext context, SetPasswordState state) {
     return Scaffold(
-      backgroundColor: context.colors.backgroundColor,
+      backgroundColor: context.backgroundWhiteColor,
       resizeToAvoidBottomInset: false,
       appBar: DefaultAppBar(
         titleText: Strings.authRegisterRegister,
         titleTextColor: context.textPrimary,
-        backgroundColor: context.backgroundColor,
+        backgroundColor: context.backgroundGreyColor,
         onBackPressed: () => context.router.pop(),
       ),
       body: Padding(

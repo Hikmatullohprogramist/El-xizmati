@@ -25,7 +25,7 @@ class FavoriteListPage extends BasePage<FavoriteListCubit, FavoriteListState, Fa
         return Scaffold(
           appBar: AppBar(
             elevation: 0.5,
-            backgroundColor: context.backgroundColor,
+            backgroundColor: context.backgroundGreyColor,
             centerTitle: true,
             bottomOpacity: 1,
             title: Strings.bottomNavigationFavorite

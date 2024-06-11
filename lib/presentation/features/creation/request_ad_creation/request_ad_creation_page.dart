@@ -98,7 +98,7 @@ class RequestAdCreationPage extends BasePage<RequestAdCreationCubit,
         backgroundColor: context.appBarColor,
         onBackPressed: () => context.router.pop(),
       ),
-      backgroundColor: context.backgroundColor,
+      backgroundColor: context.backgroundGreyColor,
       body: state.isNotPrepared
           ? Container(
               child: state.isPreparingInProcess

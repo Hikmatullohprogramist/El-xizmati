@@ -29,7 +29,7 @@ class FavoriteProductsPage extends BasePage<FavoriteProductsCubit, FavoriteProdu
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: context.backgroundColor,
+      backgroundColor: context.backgroundGreyColor,
       body: RefreshIndicator(
         displacement: 160,
         strokeWidth: 3,
@@ -78,7 +78,7 @@ class FavoriteProductsPage extends BasePage<FavoriteProductsCubit, FavoriteProdu
             },
             noItemsFoundIndicatorBuilder: (_) {
               return FavoriteEmptyWidget(onActionClicked: () {
-                context.router.push(DashboardRoute());
+                context.router.replace(DashboardRoute());
               });
             },
             newPageProgressIndicatorBuilder: (_) {

@@ -26,7 +26,7 @@ class UserActiveSessionsPage extends BasePage<UserActiveSessionsCubit, UserActiv
     height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: context.backgroundColor,
+        backgroundColor: context.backgroundGreyColor,
         title:
             Strings.settingsActiveDevices.w(500).s(14).c(context.textPrimary),
         centerTitle: true,

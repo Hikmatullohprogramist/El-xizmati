@@ -38,7 +38,7 @@ class UserWarehouseSelectionPage
           alignment: Alignment.bottomCenter,
           children: [
             Container(
-              color: context.backgroundColor,
+              color: context.backgroundGreyColor,
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
                 child: Column(

@@ -18,7 +18,7 @@ class NotificationListPage extends BasePage<NotificationListCubit,
       appBar: DefaultAppBar(
         titleText: Strings.notificationTitle,
         titleTextColor: context.textPrimary,
-        backgroundColor: context.backgroundColor,
+        backgroundColor: context.backgroundGreyColor,
         onBackPressed: () => context.router.pop(),
       ),
       body: Center(

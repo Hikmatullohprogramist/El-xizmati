@@ -49,10 +49,10 @@ class FaceIdStartPage
       appBar: DefaultAppBar(
         titleText: Strings.faceIdTitle,
         titleTextColor: context.textPrimary,
-        backgroundColor: context.backgroundColor,
+        backgroundColor: context.backgroundGreyColor,
         onBackPressed: () => context.router.pop(),
       ),
-      backgroundColor: context.backgroundColor,
+      backgroundColor: context.backgroundGreyColor,
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [

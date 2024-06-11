@@ -1,15 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:flutter/services.dart';
+import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
+import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/empty_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/cart/cart_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/cart/cart_widget.dart';
+import 'package:onlinebozor/presentation/widgets/elevation/elevation_widget.dart';
 import 'package:onlinebozor/presentation/widgets/favorite/favorite_empty_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 
@@ -27,7 +28,7 @@ class CartPage extends BasePage<CartCubit, CartState, CartEvent> {
         backgroundColor: context.appBarColor,
         textColor: context.textPrimary,
       ),
-      backgroundColor: context.backgroundColor,
+      backgroundColor: context.backgroundGreyColor,
       body: LoaderStateWidget(
         isFullScreen: true,
         loadingState: state.cartAdsState,
@@ -67,33 +68,44 @@ class CartPage extends BasePage<CartCubit, CartState, CartEvent> {
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         itemCount: state.cardAds.length,
-        padding: EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 16),
+        padding: EdgeInsets.only(top: 13, bottom: 13),
         itemBuilder: (context, index) {
-          return CartWidget(
-            ad: state.cardAds[index],
-            onDeleteClicked: (Ad ad) {
-              showYesNoBottomSheet(
-                context,
-                title: Strings.messageTitleWarning,
-                message: Strings.cartAdRemoveMessage,
-                noTitle: Strings.commonNo,
-                onNoClicked: () {},
-                yesTitle: Strings.commonYes,
-                onYesClicked: () {
-                  cubit(context).removeFromCart(ad);
-                },
-              );
-            },
-            onFavoriteClicked: (Ad ad) {
-              HapticFeedback.lightImpact();
-              cubit(context).changeFavorite(ad);
-            },
-            onProductClicked: (Ad ad) {
-              context.router.push(AdDetailRoute(adId: ad.id));
-            },
-            onOrderClicked: (Ad ad) {
-              context.router.push(OrderCreationRoute(adId: ad.id));
-            },
+          return ElevationWidget(
+            topLeftRadius: 8,
+            topRightRadius: 8,
+            bottomLeftRadius: 8,
+            bottomRightRadius: 8,
+            shadowSpreadRadius: 1.5,
+            leftMargin: 16,
+            topMargin: 3,
+            rightMargin: 16,
+            bottomMargin: 3,
+            child: CartWidget(
+              ad: state.cardAds[index],
+              onDeleteClicked: (Ad ad) {
+                showYesNoBottomSheet(
+                  context,
+                  title: Strings.messageTitleWarning,
+                  message: Strings.cartAdRemoveMessage,
+                  noTitle: Strings.commonNo,
+                  onNoClicked: () {},
+                  yesTitle: Strings.commonYes,
+                  onYesClicked: () {
+                    cubit(context).removeFromCart(ad);
+                  },
+                );
+              },
+              onFavoriteClicked: (Ad ad) {
+                HapticFeedback.lightImpact();
+                cubit(context).changeFavorite(ad);
+              },
+              onProductClicked: (Ad ad) {
+                context.router.push(AdDetailRoute(adId: ad.id));
+              },
+              onOrderClicked: (Ad ad) {
+                context.router.push(OrderCreationRoute(adId: ad.id));
+              },
+            ),
           );
         },
         separatorBuilder: (BuildContext context, int index) {
