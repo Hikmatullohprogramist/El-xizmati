@@ -10,7 +10,8 @@ import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_builder.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_event.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_state.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:onlinebozor/presentation/support/state_message/state_bottom_sheet_exts.dart';
+import 'package:onlinebozor/presentation/support/state_message/state_message_type.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 
 abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
@@ -105,59 +106,32 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
   }
 
   void showErrorBottomSheet(BuildContext context, String message) =>
-      _showStateBottomSheet(context, Strings.messageTitleError, message);
+      context.showStateBottomSheet(
+        Strings.messageTitleError,
+        message,
+        MessageType.error,
+      );
 
   void showInfoBottomSheet(BuildContext context, String message) =>
-      _showStateBottomSheet(context, Strings.messageTitleInfo, message);
+      context.showStateBottomSheet(
+        Strings.messageTitleInfo,
+        message,
+        MessageType.info,
+      );
 
   void showSuccessBottomSheet(BuildContext context, String message) =>
-      _showStateBottomSheet(context, Strings.messageTitleSuccess, message);
+      context.showStateBottomSheet(
+        Strings.messageTitleSuccess,
+        message,
+        MessageType.success,
+      );
 
   void showWarningBottomSheet(BuildContext context, String message) =>
-      _showStateBottomSheet(context, Strings.messageTitleWarning, message);
-
-  void _showStateBottomSheet(
-    BuildContext context,
-    String title,
-    String message,
-  ) {
-    showCupertinoModalBottomSheet(
-      context: context,
-      builder: (context) => Material(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(height: 24),
-            title.s(16).w(500).copyWith(
-                  maxLines: 1,
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                ),
-            SizedBox(height: 20),
-            message.s(14).w(500).copyWith(
-                  maxLines: 8,
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                ),
-            SizedBox(height: 32),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: CustomElevatedButton(
-                text: Strings.closeTitle,
-                onPressed: () {
-                  Navigator.pop(context);
-                  HapticFeedback.lightImpact();
-                },
-                backgroundColor: context.colors.buttonPrimary,
-              ),
-            ),
-            SizedBox(height: 24),
-          ],
-        ),
-      ),
-    );
-  }
+      context.showStateBottomSheet(
+        Strings.messageTitleWarning,
+        message,
+        MessageType.warning,
+      );
 
   void showYesNoBottomSheet(
     BuildContext context, {
