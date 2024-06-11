@@ -59,7 +59,7 @@ class AuthService {
       RestQueryKeys.sessionToken: sessionToken,
       RestQueryKeys.securityCode: code
     };
-    return _dio.post('api/mobile/v1/auth/phone/login/register', data: body);
+    return _dio.post('api/mobile/v1/auth/otp/confirm', data: body);
   }
 
   Future<Response> validateByBioDoc({required ValidateBioDocRequest request}) {
