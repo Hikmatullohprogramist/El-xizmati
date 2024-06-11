@@ -95,7 +95,7 @@ class CustomOutlinedButton extends StatelessWidget {
             Visibility(visible: rightIcon != null, child: SizedBox(width: 12)),
             Visibility(
               visible: rightIcon != null,
-              child: SizedBox(width: 20, height: 20, child: rightIcon),
+              child: SizedBox(width: 24, height: 24, child: rightIcon),
             ),
           ],
         ),

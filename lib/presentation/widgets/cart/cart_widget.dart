@@ -31,9 +31,8 @@ class CartWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: context.cardColor,
         borderRadius: BorderRadius.circular(8),
-        // border: Border.all(width: 1, color: Color(0xFFE5E9F3)),
+        border: Border.all(width: 1, color: context.cardStrokeColor),
       ),
       child: Material(
         color: Colors.transparent,

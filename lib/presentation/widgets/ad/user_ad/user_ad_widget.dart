@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
-import 'package:flutter/services.dart';
 import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 import 'package:onlinebozor/presentation/widgets/ad/list_price_text_widget.dart';
 import 'package:onlinebozor/presentation/widgets/ad/user_ad/user_ad_stats_widget.dart';
@@ -26,11 +26,9 @@ class UserAdWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 14, vertical: 6),
       decoration: BoxDecoration(
-        color: context.cardColor,
         borderRadius: BorderRadius.circular(8),
-        // border: Border.all(width: 1, color: Color(0xFFE5E9F3)),
+        border: Border.all(width: 1, color: context.cardStrokeColor),
       ),
       child: Material(
         color: Colors.transparent,
@@ -142,24 +140,32 @@ class UserAdWidget extends StatelessWidget {
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    AdStatsWidget(
-                      icon: Assets.images.icViewCount,
-                      count: userAd.viewedCount,
-                    ),
-                    SizedBox(width: 8),
-                    AdStatsWidget(
-                      icon: Assets.images.icFavoriteRemove,
-                      count: userAd.selectedCount,
+                    Flexible(
+                      child: AdStatsWidget(
+                        icon: Assets.images.icViewCount,
+                        count: userAd.viewedCount,
+                      ),
                     ),
                     SizedBox(width: 6),
-                    AdStatsWidget(
-                      icon: Assets.images.icCall,
-                      count: userAd.phoneViewedCount,
+                    Flexible(
+                      child: AdStatsWidget(
+                        icon: Assets.images.icFavoriteRemove,
+                        count: userAd.selectedCount,
+                      ),
                     ),
                     SizedBox(width: 6),
-                    AdStatsWidget(
-                      icon: Assets.images.icAdMessage,
-                      count: userAd.messageViewedCount,
+                    Flexible(
+                      child: AdStatsWidget(
+                        icon: Assets.images.icCall,
+                        count: userAd.phoneViewedCount,
+                      ),
+                    ),
+                    SizedBox(width: 6),
+                    Flexible(
+                      child: AdStatsWidget(
+                        icon: Assets.images.icAdMessage,
+                        count: userAd.messageViewedCount,
+                      ),
                     ),
                     Expanded(
                       child: Row(

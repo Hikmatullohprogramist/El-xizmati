@@ -22,10 +22,9 @@ class UserAddressWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       decoration: BoxDecoration(
-        color: context.cardColor,
         borderRadius: BorderRadius.circular(8),
+        border: Border.all(width: 1, color: context.cardStrokeColor),
       ),
       child: Material(
         color: Colors.transparent,

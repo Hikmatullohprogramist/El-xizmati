@@ -1,13 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/image/circle_cached_network_image_widget.dart';
 
 import '../../../data/datasource/network/responses/category/popular_category/popular_category_response.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
 
 class PopularCategoryVertical extends StatelessWidget {
   const PopularCategoryVertical({
@@ -21,17 +19,21 @@ class PopularCategoryVertical extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        InkWell(
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(width: 1, color: context.cardStrokeColor),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
           onTap: () {
             onItemClicked(category);
           },
           borderRadius: BorderRadius.circular(6),
           child: Container(
             decoration: BoxDecoration(
-              color: context.cardColor,
+              // color: context.cardColor,
               borderRadius: BorderRadius.circular(6),
               // border: Border.all(width: 0.9, color: Color(0xFFE5E9F3)),
             ),
@@ -78,7 +80,7 @@ class PopularCategoryVertical extends StatelessWidget {
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 
