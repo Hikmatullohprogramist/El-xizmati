@@ -35,7 +35,7 @@ class CustomDropdownFormField extends StatelessWidget {
             Container(
               height: height,
               decoration: BoxDecoration(
-                color: StaticColors.inputBackgroundColor,
+                color: context.inputBackgroundColor,
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
                   width: 1,

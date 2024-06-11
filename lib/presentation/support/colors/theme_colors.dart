@@ -27,6 +27,8 @@ abstract class ThemeColors {
 
   Color get adPropertyPersonalBackground;
 
+  Color get inputBackground;
+
   Color get iconPrimary;
 
   Color get iconSecondary;

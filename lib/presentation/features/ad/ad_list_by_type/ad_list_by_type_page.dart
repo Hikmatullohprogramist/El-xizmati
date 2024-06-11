@@ -40,32 +40,49 @@ class AdListByTypePage
     height = MediaQuery.of(context).size.height;
     return Center(
       child: Scaffold(
-        backgroundColor: context.backgroundColor,
+        backgroundColor: context.backgroundGreyColor,
         appBar: AppBar(
           backgroundColor: context.appBarColor,
           elevation: 0.5,
           toolbarHeight: 64,
+          leading: IconButton(
+            onPressed: () => context.router.pop(),
+            icon: Assets.images.icArrowLeft.svg(),
+          ),
           actions: [
-            IconButton(
-              onPressed: () => context.router.pop(),
-              icon: Assets.images.icArrowLeft.svg(),
-            ),
             Expanded(
               child: Container(
-                height: 32,
-                margin: EdgeInsets.fromLTRB(0, 6, 16, 0),
-                decoration: BoxDecoration(
-                  color: context.inputStrokeActiveColor,
-                  borderRadius: BorderRadius.circular(8),
-                ),
+                margin: EdgeInsets.only(left: 64, top: 12, bottom: 12, right: 16),
                 child: InkWell(
                   onTap: () => context.router.push(SearchRoute()),
-                  child: Center(
-                    child: Strings.adSearchHint.s(14).w(400),
+                  borderRadius: BorderRadius.circular(6),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: context.cardColor,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Row(
+                      children: [
+                        SizedBox(width: 12),
+                        Assets.images.iconSearch.svg(),
+                        SizedBox(width: 6),
+                        Expanded(
+                          child: Strings.adSearchHint
+                              .w(400)
+                              .s(14)
+                              .c(context.textSecondary)
+                              .copyWith(
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                        ),
+                        SizedBox(width: 12),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
+            )
           ],
         ),
         body: CustomScrollView(

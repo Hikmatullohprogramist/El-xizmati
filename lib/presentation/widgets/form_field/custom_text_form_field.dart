@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 
 class CustomTextFormField extends StatefulWidget {
@@ -153,9 +154,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               : Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
-                      widget.prefixText ?? "",
-                    ),
+                    (widget.prefixText ?? "").c(context.textPrimary),
                     Container(
                       width: 1,
                       margin: EdgeInsets.fromLTRB(6, 5, 10, 4),
@@ -179,7 +178,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           ),
           // focusColor: Color(0xFFFFFFFF),
           fillColor: widget.enabledColor ?? context.inputBackgroundColor,
-          //_isFocused ? context.backgroundColor : context.backgroundColor,
+          //_isFocused ? context.backgroundWhiteColor : context.backgroundWhiteColor,
           border: OutlineInputBorder(
             borderSide: BorderSide(
               color: widget.isStrokeEnabled

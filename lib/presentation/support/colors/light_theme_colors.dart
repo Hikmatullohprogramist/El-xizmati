@@ -45,6 +45,9 @@ class LightThemeColors extends ThemeColors {
   Color get adPropertyPersonalBackground => StaticColors.manatee;
 
   @override
+  Color get inputBackground => Color(0xFFFAF9FF);
+
+  @override
   Color get iconPrimary => StaticColors.iconPrimaryLight;
 
   @override

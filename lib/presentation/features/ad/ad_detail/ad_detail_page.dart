@@ -52,7 +52,7 @@ class AdDetailPage extends BasePage<AdDetailCubit, AdDetailState, AdDetailEvent>
       appBar: _getAppBar(context, state),
       bottomNavigationBar:
           state.isNotPrepared ? null : _getBottomNavigationBar(context, state),
-      backgroundColor: context.backgroundColor,
+      backgroundColor: context.backgroundGreyColor,
       body: state.isNotPrepared
           ? Container(
               child: state.isPreparingInProcess

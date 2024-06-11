@@ -76,7 +76,7 @@ class AdListPage extends BasePage<AdListCubit, AdListState, AdListEvent> {
             )
         ],
       ),
-      backgroundColor: context.backgroundColor,
+      backgroundColor: context.backgroundGreyColor,
       body: PagedGridView<int, Ad>(
         shrinkWrap: true,
         addAutomaticKeepAlives: true,

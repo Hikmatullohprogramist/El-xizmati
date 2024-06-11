@@ -31,10 +31,10 @@ class UserAdDetailPage extends BasePage<UserAdDetailCubit, UserAdDetailState, Us
       appBar: DefaultAppBar(
         titleText: "",
         titleTextColor: context.textPrimary,
-        backgroundColor: context.backgroundColor,
+        backgroundColor: context.backgroundGreyColor,
         onBackPressed: () => context.router.pop(),
       ),
-      backgroundColor: context.backgroundColor,
+      backgroundColor: context.backgroundGreyColor,
       body: LoaderStateWidget(
         isFullScreen: true,
         loadingState: state.loadState,
