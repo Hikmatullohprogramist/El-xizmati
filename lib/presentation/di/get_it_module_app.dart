@@ -37,11 +37,11 @@ import 'package:onlinebozor/presentation/features/home/features/cart/cart_cubit.
 import 'package:onlinebozor/presentation/features/home/features/category/category_cubit.dart';
 import 'package:onlinebozor/presentation/features/home/features/category/features/sub_category_cubit.dart';
 import 'package:onlinebozor/presentation/features/home/features/dashboard/dashboard_cubit.dart';
+import 'package:onlinebozor/presentation/features/home/features/profile/features/identity_verification/identity_verification_cubit.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/payment_transactions/features/payment_transaction_filter/payment_transaction_filter_cubit.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/payment_transactions/payment_transactions_cubit.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/profile_edit/profile_edit_cubit.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/profile_view/profile_view_cubit.dart';
-import 'package:onlinebozor/presentation/features/home/features/profile/features/registration/registration_cubit.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_active_sessions/user_active_sessions_cubit.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_address/user_addresses_cubit.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_ads/features/ad_list/user_ad_list_cubit.dart';
@@ -113,14 +113,14 @@ extension GetItModuleApp on GetIt {
     registerFactory(() => SubCategoryCubit());
     registerFactory(() => AdCreationChooserCubit(get()));
     registerFactory(() => DashboardCubit(get(), get(), get(), get()));
-    registerFactory(() => ProfileCubit(get(), get()));
+    registerFactory(() => ProfileCubit(get(), get(), get()));
 
     // profile
+    registerFactory(() => IdentityVerificationCubit(get()));
     registerFactory(() => PaymentTransactionsCubit(get()));
     registerFactory(() => PaymentTransactionFilterCubit(get()));
     registerFactory(() => ProfileEditCubit(get()));
     registerFactory(() => ProfileViewCubit(get(), get()));
-    registerFactory(() => RegistrationCubit(get()));
     registerFactory(() => UserActiveSessionsCubit(get()));
     registerFactory(() => UserAddressesCubit(get()));
     registerFactory(() => UserAdsCubit());

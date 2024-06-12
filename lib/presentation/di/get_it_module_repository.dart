@@ -26,7 +26,7 @@ extension GetItModuleExtension on GetIt {
     registerLazySingleton(() => CardRepository(get(), get(), get(), get()));
     registerLazySingleton(() => CartRepository(get(), get(), get()));
     registerLazySingleton(() => CommonRepository(get(), get()));
-    registerLazySingleton(() => FavoriteRepository(get(), get(), get(), get()));
+    registerLazySingleton(() => FavoriteRepository(get(), get(), get()));
     registerLazySingleton(
       () => OrderRepository(get(), get(), get(), get(), get()),
     );
@@ -37,7 +37,7 @@ extension GetItModuleExtension on GetIt {
       () => UserAddressRepository(get(), get(), get(), get()),
     );
     registerLazySingleton(() => UserOrderRepository(get(), get(), get()));
-    registerLazySingleton(() => UserRepository(get(), get(), get()));
+    registerLazySingleton(() => UserRepository(get(), get(), get(), get()));
     await allReady();
   }
 }
