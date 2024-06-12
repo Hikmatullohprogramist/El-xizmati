@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
@@ -23,20 +25,22 @@ import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_lis
 import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
-import 'package:onlinebozor/presentation/widgets/dashboard/ad_detail_image_widget.dart';
 import 'package:onlinebozor/presentation/widgets/dashboard/see_all_widget.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
 import 'package:onlinebozor/presentation/widgets/favorite/ad_detail_favorite_widget.dart';
+import 'package:onlinebozor/presentation/widgets/image/rectangle_cached_network_image_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'ad_detail_cubit.dart';
 
 @RoutePage()
-class AdDetailPage extends BasePage<AdDetailCubit, AdDetailState, AdDetailEvent> {
-  const AdDetailPage(this.adId, {super.key});
+class AdDetailPage
+    extends BasePage<AdDetailCubit, AdDetailState, AdDetailEvent> {
+  AdDetailPage(this.adId, {super.key});
 
   final int adId;
 
@@ -45,6 +49,8 @@ class AdDetailPage extends BasePage<AdDetailCubit, AdDetailState, AdDetailEvent>
     cubit(context).setInitialParams(adId);
     cubit(context).getRecentlyViewedAds();
   }
+
+  final CarouselController _controller = CarouselController();
 
   @override
   Widget onWidgetBuild(BuildContext context, AdDetailState state) {
@@ -73,19 +79,47 @@ class AdDetailPage extends BasePage<AdDetailCubit, AdDetailState, AdDetailEvent>
         shrinkWrap: true,
         physics: BouncingScrollPhysics(),
         children: [
-          AnimatedContainer(
-            duration: Duration(seconds: 1),
-            curve: Curves.easeIn,
-            child: AdDetailImageWidget(
-              images: cubit(context).getImages(),
-              onClicked: (int position) {
-                context.router.push(
-                  ImageViewerRoute(
-                    images: cubit(context).getImages(),
-                    initialIndex: position,
-                  ),
-                );
+          CarouselSlider(
+            carouselController: _controller,
+            options: CarouselOptions(
+              autoPlay: false,
+              height: 340,
+              viewportFraction: 1,
+              onPageChanged: (index, reason) {
+                cubit(context).setVisibleImageIndex(index);
               },
+            ),
+            items: state.images.mapIndexed((index, image) {
+              return Builder(
+                builder: (BuildContext context) {
+                  return InkWell(
+                    onTap: () {
+                      context.router.push(
+                        ImageViewerRoute(
+                          images: state.images,
+                          initialIndex: index,
+                        ),
+                      );
+                    },
+                    child: RectangleCachedNetworkImage(imageId: image),
+                  );
+                },
+              );
+            }).toList(),
+          ),
+          SizedBox(height: 8),
+          Center(
+            child: AnimatedSmoothIndicator(
+              activeIndex: state.visibleImageIndex,
+              effect: ExpandingDotsEffect(
+                dotWidth: 12,
+                dotHeight: 5,
+                spacing: 5,
+                radius: 3,
+                dotColor: StaticColors.buttonColor.withOpacity(0.6),
+                activeDotColor: StaticColors.buttonColor,
+              ),
+              count: state.imagesCount,
             ),
           ),
           Container(
@@ -652,7 +686,8 @@ class AdDetailPage extends BasePage<AdDetailCubit, AdDetailState, AdDetailEvent>
     }
   }
 
-  Widget _getRecentlyViewedAdsWidget(BuildContext context, AdDetailState state) {
+  Widget _getRecentlyViewedAdsWidget(
+      BuildContext context, AdDetailState state) {
     if (cubit(context).hasRecentlyViewedAds()) {
       return Column(
         children: [

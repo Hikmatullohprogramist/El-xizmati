@@ -2,7 +2,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
-import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
 import 'package:onlinebozor/data/repositories/ad_repository.dart';
 import 'package:onlinebozor/data/repositories/cart_repository.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
@@ -30,12 +29,6 @@ class AdDetailCubit extends BaseCubit<AdDetailState, AdDetailEvent> {
   final CartRepository _cartRepository;
   final FavoriteRepository _favoriteRepository;
   final StateRepository _stateRepository;
-
-  List<String> getImages() {
-    return (states.adDetail?.photos ?? List.empty(growable: true))
-        .map((e) => "${Constants.baseUrlForImage}${e.image}")
-        .toList();
-  }
 
   void setInitialParams(int adId) {
     updateState((state) => state.copyWith(
@@ -212,7 +205,7 @@ class AdDetailCubit extends BaseCubit<AdDetailState, AdDetailEvent> {
         .onError((error) {
           logger.w(error);
           updateState((s) => s.copyWith(ownerAdsState: LoadingState.error));
-          if(error.isRequiredShowError){
+          if (error.isRequiredShowError) {
             stateMessageManager.showErrorBottomSheet(error.localizedMessage);
           }
         })
@@ -298,5 +291,9 @@ class AdDetailCubit extends BaseCubit<AdDetailState, AdDetailEvent> {
     } catch (error) {
       logger.e(error.toString());
     }
+  }
+
+  void setVisibleImageIndex(int index) {
+    updateState((state) => state.copyWith(visibleImageIndex: index));
   }
 }
