@@ -1,6 +1,5 @@
 import 'package:onlinebozor/data/datasource/floor/entities/category_entity.dart';
 import 'package:onlinebozor/data/datasource/network/responses/category/category/category_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/category/popular_category/popular_category_response.dart';
 import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
 import 'package:onlinebozor/domain/models/category/category.dart';
 import 'package:onlinebozor/domain/models/category/category_type.dart';

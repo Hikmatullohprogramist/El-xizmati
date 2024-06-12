@@ -4,9 +4,9 @@ import 'package:onlinebozor/data/datasource/network/constants/rest_header_keys.d
 import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 
 class CommonInterceptor extends QueuedInterceptor {
-  CommonInterceptor(this._tokenPreferences);
+  CommonInterceptor(this._authPreferences);
 
-  final AuthPreferences _tokenPreferences;
+  final AuthPreferences _authPreferences;
 
   @override
   void onRequest(
@@ -26,7 +26,7 @@ class CommonInterceptor extends QueuedInterceptor {
     headers['MobileOsType'] = DeviceInfo.mobileOsType;
     headers['MobileOsVersion'] = "33";
 
-    var token = _tokenPreferences.token;
+    var token = _authPreferences.token;
     if (token.isNotEmpty) {
       headers[RestHeaderKeys.authorization] = "Bearer $token";
     }

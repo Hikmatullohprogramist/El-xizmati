@@ -9,7 +9,7 @@ import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
-import 'package:onlinebozor/presentation/widgets/category/popular_category_vertical.dart';
+import 'package:onlinebozor/presentation/widgets/category/popular_category_vertical_widget.dart';
 import 'package:onlinebozor/presentation/widgets/category/popular_category_vertical_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/elevation/elevation_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
@@ -91,14 +91,13 @@ class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
                   topRightRadius: 6,
                   bottomLeftRadius: 6,
                   bottomRightRadius: 6,
-                  shadowSpreadRadius: 1.5,
                   leftMargin: 16,
                   topMargin: 6,
                   rightMargin: 16,
                   bottomMargin: 6,
-                  child: PopularCategoryVertical(
+                  child: PopularCategoryVerticalWidget(
                     category: item,
-                    onItemClicked: (value) {
+                    onClicked: (value) {
                       context.router.push(
                         AdListRoute(
                           adListType: AdListType.homeList,

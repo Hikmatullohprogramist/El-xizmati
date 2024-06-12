@@ -1,91 +1,50 @@
-import 'dart:convert';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-IdentityDocumentRootResponse identityDocumentRootResponseFromJson(String str) =>
-    IdentityDocumentRootResponse.fromJson(json.decode(str));
+part 'identity_document_response.freezed.dart';
+part 'identity_document_response.g.dart';
 
-class IdentityDocumentRootResponse {
-  dynamic error;
-  dynamic message;
-  String timestamp;
-  int status;
-  dynamic path;
-  IdentityDocumentInfoResponse data;
-  dynamic response;
-
-  IdentityDocumentRootResponse({
-    required this.error,
-    required this.message,
-    required this.timestamp,
-    required this.status,
-    required this.path,
-    required this.data,
-    required this.response,
-  });
+@freezed
+class IdentityDocumentRootResponse with _$IdentityDocumentRootResponse {
+  const factory IdentityDocumentRootResponse({
+    dynamic error,
+    dynamic message,
+    required String timestamp,
+    required int status,
+    dynamic path,
+    required IdentityDocumentInfoResponse data,
+    dynamic response,
+  }) = _IdentityDocumentRootResponse;
 
   factory IdentityDocumentRootResponse.fromJson(Map<String, dynamic> json) =>
-      IdentityDocumentRootResponse(
-        error: json["error"],
-        message: json["message"],
-        timestamp: json["timestamp"],
-        status: json["status"],
-        path: json["path"],
-        data: IdentityDocumentInfoResponse.fromJson(json["data"]),
-        response: json["response"],
-      );
+      _$IdentityDocumentRootResponseFromJson(json);
 }
 
-class IdentityDocumentInfoResponse {
-  IdentityDocumentResponse? passportInfo;
-  String? status;
-  String? secretKey;
-
-  IdentityDocumentInfoResponse({
-    required this.passportInfo,
-    required this.status,
-    required this.secretKey,
-  });
+@freezed
+class IdentityDocumentInfoResponse with _$IdentityDocumentInfoResponse {
+  const factory IdentityDocumentInfoResponse({
+    IdentityDocumentResponse? passportInfo,
+    String? status,
+    String? secretKey,
+  }) = _IdentityDocumentInfoResponse;
 
   factory IdentityDocumentInfoResponse.fromJson(Map<String, dynamic> json) =>
-      IdentityDocumentInfoResponse(
-        passportInfo: IdentityDocumentResponse.fromJson(json["passportInfo"]),
-        status: json["status"],
-        secretKey: json["secret_key"],
-      );
+      _$IdentityDocumentInfoResponseFromJson(json);
 }
 
-class IdentityDocumentResponse {
-  int? pinfl;
-  String? number;
-  String? fullName;
-  String? gender;
-  String? series;
-  String? birthDate;
-  int? tin;
-  int? regionId;
-  int? districtId;
-
-  IdentityDocumentResponse({
-    required this.pinfl,
-    required this.number,
-    required this.fullName,
-    required this.gender,
-    required this.series,
-    required this.birthDate,
-    required this.tin,
-    required this.regionId,
-    required this.districtId,
-  });
+@freezed
+class IdentityDocumentResponse with _$IdentityDocumentResponse {
+  const factory IdentityDocumentResponse({
+    @JsonKey(name: "pinfl") int? pinfl,
+    @JsonKey(name: "number") String? number,
+    @JsonKey(name: "full_name") String? fullName,
+    @JsonKey(name: "gender") String? gender,
+    @JsonKey(name: "series") String? series,
+    @JsonKey(name: "birth_date") String? birthDate,
+    @JsonKey(name: "tin") int? tin,
+    @JsonKey(name: "region_id") int? regionId,
+    @JsonKey(name: "district_id") int? districtId,
+  }) = _IdentityDocumentResponse;
 
   factory IdentityDocumentResponse.fromJson(Map<String, dynamic> json) =>
-      IdentityDocumentResponse(
-        pinfl: json["pinfl"],
-        number: json["number"],
-        fullName: json["full_name"],
-        gender: json["gender"],
-        series: json["series"],
-        birthDate: json["birth_date"],
-        tin: json["tin"],
-        regionId: json["region_id"],
-        districtId: json["district_id"],
-      );
+      _$IdentityDocumentResponseFromJson(json);
 }
