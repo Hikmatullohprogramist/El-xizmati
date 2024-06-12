@@ -64,7 +64,7 @@ class ProfileViewPage
           titleTextColor: context.textPrimary,
           backgroundColor: context.appBarColor,
           onBackPressed: () => context.router.pop(),
-          actions: !state.isRegistered
+          actions: state.isRegistered
               ? [
                   CustomTextButton(
                     text: Strings.commonEdit,
@@ -99,8 +99,6 @@ class ProfileViewPage
                 ),
               ),
             ),
-
-            /// build shimmer
             Visibility(visible: state.isUserLoading, child: profilShimmer())
           ],
         ));
