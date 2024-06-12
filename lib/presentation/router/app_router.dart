@@ -55,11 +55,11 @@ import 'package:onlinebozor/presentation/features/home/features/cart/cart_page.d
 import 'package:onlinebozor/presentation/features/home/features/category/category_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/category/features/sub_category_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/dashboard/dashboard_page.dart';
+import 'package:onlinebozor/presentation/features/home/features/profile/features/identity_verification/identity_verification_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/payment_transactions/features/payment_transaction_filter/payment_transaction_filter_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/payment_transactions/payment_transactions_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/profile_edit/profile_edit_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/profile_view/profile_view_page.dart';
-import 'package:onlinebozor/presentation/features/home/features/profile/features/registration/registration_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_active_sessions/user_active_sessions_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_address/user_addresses_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_ads/features/ad_list/user_ad_list_page.dart';
@@ -124,7 +124,6 @@ class AppRouter extends _$AppRouter {
         ),
 
         /// home
-        // AutoRoute(page: HomeRoute.page),
         AutoRoute(
           page: HomeRoute.page,
           path: '/home',
@@ -236,8 +235,18 @@ class AppRouter extends _$AppRouter {
           page: PopularCategoriesRoute.page,
           path: '/popular_categories',
         ),
-        AutoRoute(page: SearchRoute.page, path: '/search'),
-        AutoRoute(page: NotificationListRoute.page, path: '/notification_list'),
+        AutoRoute(
+          page: SearchRoute.page,
+          path: '/search',
+        ),
+        AutoRoute(
+          page: NotificationListRoute.page,
+          path: '/notification_list',
+        ),
+        AutoRoute(
+          page: UserActiveSessionsRoute.page,
+          path: '/user_active_sessions',
+        ),
 
         /// image viewer
         AutoRoute(
@@ -309,8 +318,8 @@ class AppRouter extends _$AppRouter {
           path: '/profile_edit',
         ),
         AutoRoute(
-          page: RegistrationRoute.page,
-          path: '/identified',
+          page: IdentityVerificationRoute.page,
+          path: '/identity_verification',
         ),
         AutoRoute(
           page: UserOrderCancelRoute.page,
