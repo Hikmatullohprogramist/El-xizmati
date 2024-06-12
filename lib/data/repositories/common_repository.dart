@@ -3,8 +3,10 @@ import 'package:onlinebozor/data/datasource/network/responses/banner/banner_resp
 import 'package:onlinebozor/data/datasource/network/responses/category/category/category_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/category/popular_category/popular_category_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/common_service.dart';
+import 'package:onlinebozor/data/mappers/banner_mapper.dart';
 import 'package:onlinebozor/data/mappers/category_mapper.dart';
 import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
+import 'package:onlinebozor/domain/models/banner/banner_image.dart';
 import 'package:onlinebozor/domain/models/category/category.dart';
 import 'package:onlinebozor/domain/models/category/category_type.dart';
 
@@ -17,10 +19,10 @@ class CommonRepository {
     this._commonService,
   );
 
-  Future<List<BannerResponse>> getBanner() async {
+  Future<List<BannerImage>> getBanners() async {
     final response = await _commonService.getBanners();
     final banners = BannerRootResponse.fromJson(response.data).data;
-    return banners;
+    return banners.map((e) => e.toBanner()).toList();
   }
 
   Future<List<Category>> getCategories(CategoryType categoryType) async {

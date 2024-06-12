@@ -1,13 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/domain/models/banner/banner_image.dart';
 import 'package:onlinebozor/presentation/widgets/dashboard/banner_widget.dart';
-
-import '../../../data/datasource/network/responses/banner/banner_response.dart';
+import 'package:onlinebozor/presentation/widgets/elevation/elevation_widget.dart';
 
 class BannerListWidget extends StatelessWidget {
-  const BannerListWidget({super.key, required this.list});
+  final List<BannerImage> banners;
 
-  final List<BannerResponse> list;
+  const BannerListWidget({
+    super.key,
+    required this.banners,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +20,20 @@ class BannerListWidget extends StatelessWidget {
         height: 140,
         viewportFraction: 1,
       ),
-      items: list.map((i) {
+      items: banners.map((banner) {
         return Builder(
           builder: (BuildContext context) {
-            return BannerWidget(imageId: i.image ?? "");
+            return ElevationWidget(
+              topLeftRadius: 16,
+              topRightRadius: 16,
+              bottomLeftRadius: 16,
+              bottomRightRadius: 16,
+              leftMargin: 16,
+              topMargin: 12,
+              rightMargin: 20,
+              bottomMargin: 2,
+              child: BannerWidget(imageId: banner.imageId),
+            );
           },
         );
       }).toList(),

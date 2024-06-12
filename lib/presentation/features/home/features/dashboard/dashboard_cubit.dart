@@ -5,7 +5,6 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/core/extensions/list_extensions.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
-import 'package:onlinebozor/data/datasource/network/responses/banner/banner_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/category/popular_category/popular_category_response.dart';
 import 'package:onlinebozor/data/repositories/ad_repository.dart';
 import 'package:onlinebozor/data/repositories/cart_repository.dart';
@@ -13,6 +12,7 @@ import 'package:onlinebozor/data/repositories/common_repository.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
+import 'package:onlinebozor/domain/models/banner/banner_image.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
 part 'dashboard_cubit.freezed.dart';
@@ -229,7 +229,7 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
 
   Future<void> getBanners() async {
     _commonRepository
-        .getBanner()
+        .getBanners()
         .initFuture()
         .onStart(() {
           updateState((state) => state.copyWith(
@@ -238,7 +238,7 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
         })
         .onSuccess((data) {
           updateState((state) => state.copyWith(
-                banners: data,
+                banners: data.filterIf((e) => e.imageId.isNotEmpty).toList(),
                 bannersState: LoadingState.success,
               ));
         })

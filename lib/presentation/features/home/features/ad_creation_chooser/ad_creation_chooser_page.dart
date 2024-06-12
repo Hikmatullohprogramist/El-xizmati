@@ -118,7 +118,7 @@ class AdCreationChooserPage extends BasePage<AdCreationChooserCubit,
       topMargin: 8,
       rightMargin: 16,
       bottomMargin: 16,
-      child:  Container(
+      child: Container(
         padding: EdgeInsets.all(16),
         child: SizedBox(
           width: double.infinity,
@@ -128,7 +128,10 @@ class AdCreationChooserPage extends BasePage<AdCreationChooserCubit,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Assets.images.pngImages.buy.image(height: 86, width: 86),
-              Strings.adCreationStartBuyTitle.w(800).s(18).c(context.textPrimary),
+              Strings.adCreationStartBuyTitle
+                  .w(800)
+                  .s(18)
+                  .c(context.textPrimary),
               SizedBox(height: 16),
               Strings.adCreationStartBuyDesc
                   .w(500)

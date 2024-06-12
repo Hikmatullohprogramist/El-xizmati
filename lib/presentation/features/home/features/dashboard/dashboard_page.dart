@@ -132,7 +132,7 @@ class DashboardPage
       isFullScreen: false,
       loadingState: state.bannersState,
       loadingBody: BannerListShimmer(),
-      successBody: BannerListWidget(list: state.banners),
+      successBody: BannerListWidget(banners: state.banners),
     );
   }
 

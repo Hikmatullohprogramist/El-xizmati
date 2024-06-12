@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/presentation/widgets/category/popular_category_horizontal_widget.dart';
+import 'package:onlinebozor/presentation/widgets/elevation/elevation_widget.dart';
 
 import '../../../data/datasource/network/responses/category/popular_category/popular_category_response.dart';
 
@@ -24,9 +25,17 @@ class PopularCategoryListWidget extends StatelessWidget {
         itemCount: categories.length,
         padding: EdgeInsets.only(left: 16, bottom: 20, right: 16),
         itemBuilder: (context, index) {
-          return PopularCategoryHorizontal(
-            category: categories[index],
-            onItemClicked: onCategoryClicked,
+          return ElevationWidget(
+            topLeftRadius: 8,
+            topRightRadius: 8,
+            bottomLeftRadius: 8,
+            bottomRightRadius: 8,
+            topMargin: 1,
+            bottomMargin: 1,
+            child: PopularCategoryHorizontal(
+              category: categories[index],
+              onItemClicked: onCategoryClicked,
+            ),
           );
         },
         separatorBuilder: (BuildContext context, int index) {

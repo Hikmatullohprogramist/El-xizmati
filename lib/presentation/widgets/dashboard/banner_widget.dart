@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/widgets/image/rectangle_cached_network_image_widget.dart';
+import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
 
 class BannerWidget extends StatelessWidget {
   const BannerWidget({
@@ -11,6 +11,6 @@ class BannerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RectangleCachedNetworkImage(imageId: imageId);
+    return RoundedCachedNetworkImage(imageId: imageId);
   }
 }
