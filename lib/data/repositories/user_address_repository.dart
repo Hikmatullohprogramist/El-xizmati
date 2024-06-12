@@ -20,10 +20,7 @@ class UserAddressRepository {
     this._userPreferences,
   );
 
-  Future<List<UserAddress>> getActualUserAddresses() async {
-    if (_authPreferences.isNotAuthorized) throw NotAuthorizedException();
-    if (_userPreferences.isNotIdentified) throw NotIdentifiedException();
-
+  Future<List<UserAddress>> _getActualUserAddresses() async {
     final response = await _userAddressService.getUserAddresses();
     final addresses = UserAddressRootResponse.fromJson(response.data).data;
     await _userAddressEntityDao.upsertAll(
@@ -38,9 +35,12 @@ class UserAddressRepository {
   }
 
   Future<List<UserAddress>> getUserAddresses({bool isReload = false}) async {
+    if (_authPreferences.isNotAuthorized) throw NotAuthorizedException();
+    if (_userPreferences.isNotIdentified) throw NotIdentifiedException();
+
     final count = await _userAddressEntityDao.readAddressesCount() ?? 0;
     if (isReload || count <= 0) {
-      return getActualUserAddresses();
+      return _getActualUserAddresses();
     } else {
       return getSavedUserAddresses();
     }
