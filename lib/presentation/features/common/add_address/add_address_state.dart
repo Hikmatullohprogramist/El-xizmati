@@ -2,6 +2,8 @@ part of 'add_address_cubit.dart';
 
 @freezed
 class AddAddressState with _$AddAddressState {
+  const AddAddressState._();
+
   const factory AddAddressState({
     @Default(false) bool isEditing,
 //
@@ -33,6 +35,10 @@ class AddAddressState with _$AddAddressState {
     @Default(false) bool isLoading,
     @Default(false) bool isLocationLoading,
   }) = _AddAddressState;
+
+  bool get isRegionSelected => regionId != null && regionId! > 0;
+
+  bool get isDistrictSelected => districtId != null && districtId! > 0;
 }
 
 @freezed

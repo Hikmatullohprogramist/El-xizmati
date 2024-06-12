@@ -4,7 +4,6 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
-import 'package:onlinebozor/presentation/features/common/add_address/add_address_cubit.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
@@ -327,6 +326,14 @@ class AddAddressPage
   }
 
   _showDistrictSelection(BuildContext context, AddAddressState state) {
+    if (!state.isRegionSelected) {
+      showErrorBottomSheet(
+        context,
+        Strings.commonErrorRegionNotSelected,
+      );
+      return;
+    }
+
     showCupertinoModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -363,6 +370,14 @@ class AddAddressPage
   }
 
   _showNeighborhoodSelection(BuildContext context, AddAddressState state) {
+    if (!state.isDistrictSelected) {
+      showErrorBottomSheet(
+        context,
+        Strings.commonErrorDistrictNotSelected,
+      );
+      return;
+    }
+
     showCupertinoModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
