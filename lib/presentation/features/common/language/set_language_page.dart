@@ -1,21 +1,23 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:flutter/services.dart';
 import 'package:onlinebozor/domain/models/language/language.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
+import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_outlined_button.dart';
 
 import 'set_language_cubit.dart';
 
 @RoutePage()
-class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageState, SetLanguageEvent> {
+class SetLanguagePage
+    extends BasePage<SetLanguageCubit, SetLanguageState, SetLanguageEvent> {
   const SetLanguagePage({super.key});
 
   @override
@@ -53,19 +55,11 @@ class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageState, SetLa
               ),
               Spacer(),
               Text(Strings.languageWelcome).w(500).s(24).c(Color(0xFF41455F)),
-              Text(Strings.languageSetTitle).w(400).s(12).c(context.textSecondary),
+              Text(Strings.languageSetTitle)
+                  .w(400)
+                  .s(12)
+                  .c(context.textSecondary),
               Spacer(),
-              CustomOutlinedButton(
-                text: Strings.languageRus,
-                onPressed: () {
-                  HapticFeedback.lightImpact();
-                  EasyLocalization.of(context)?.setLocale(Locale('ru', 'RU'));
-                  cubit(context).setLanguage(Language.russian);
-                },
-                strokeColor: Color(0xFFE5E9F3),
-                rightIcon: Assets.images.pngImages.flagRu.image(),
-              ),
-              SizedBox(height: 12),
               CustomOutlinedButton(
                 text: Strings.languageUzLat,
                 onPressed: () {
@@ -73,8 +67,23 @@ class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageState, SetLa
                   EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZ'));
                   cubit(context).setLanguage(Language.uzbekLatin);
                 },
-                strokeColor: Color(0xFFE5E9F3),
+                strokeColor: cubit(context).isUzbekLatinSelected
+                    ? StaticColors.buttonColor
+                    : Color(0xFFE5E9F3),
                 rightIcon: Assets.images.pngImages.flagUz.image(),
+              ),
+              SizedBox(height: 12),
+              CustomOutlinedButton(
+                text: Strings.languageRus,
+                onPressed: () {
+                  HapticFeedback.lightImpact();
+                  EasyLocalization.of(context)?.setLocale(Locale('ru', 'RU'));
+                  cubit(context).setLanguage(Language.russian);
+                },
+                strokeColor: cubit(context).isRussianSelected
+                    ? StaticColors.buttonColor
+                    : Color(0xFFE5E9F3),
+                rightIcon: Assets.images.pngImages.flagRu.image(),
               ),
               SizedBox(height: 12),
               CustomOutlinedButton(
@@ -83,7 +92,9 @@ class SetLanguagePage extends BasePage<SetLanguageCubit, SetLanguageState, SetLa
                   EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZK'));
                   cubit(context).setLanguage(Language.uzbekCyrill);
                 },
-                strokeColor: Color(0xFFE5E9F3),
+                strokeColor: cubit(context).isUzbekCyrillSelected
+                    ? StaticColors.buttonColor
+                    : Color(0xFFE5E9F3),
                 rightIcon: Assets.images.pngImages.flagUz.image(),
                 text: Strings.languageUzCyr,
               ),

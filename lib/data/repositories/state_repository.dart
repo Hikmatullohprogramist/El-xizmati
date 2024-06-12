@@ -15,7 +15,7 @@ class StateRepository {
     this._tokenPreferences,
   );
 
-  Future<Language> getLanguage() async {
+  Language getLanguage()  {
     return _languagePreferences.language;
   }
 

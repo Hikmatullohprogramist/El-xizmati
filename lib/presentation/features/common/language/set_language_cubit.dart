@@ -15,6 +15,17 @@ class SetLanguageCubit extends BaseCubit<SetLanguageState, SetLanguageEvent> {
 
   final StateRepository _stateRepository;
 
+  void getLanguage() => _stateRepository.getLanguage();
+
+  bool get isRussianSelected =>
+      _stateRepository.getLanguage() == Language.russian;
+
+  bool get isUzbekLatinSelected =>
+      _stateRepository.getLanguage() == Language.uzbekLatin;
+
+  bool get isUzbekCyrillSelected =>
+      _stateRepository.getLanguage() == Language.uzbekCyrill;
+
   Future<void> setLanguage(Language language) async {
     await _stateRepository.setLanguage(language);
     // emitEvent(PageEvent(PageEventType.navigationAuthStart));

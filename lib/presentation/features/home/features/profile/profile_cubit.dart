@@ -24,7 +24,7 @@ class ProfileCubit extends BaseCubit<ProfileState, ProfileEvent> {
 
   Future<void> getLanguage() async {
     try {
-      final language = await _stateRepository.getLanguage();
+      final language = _stateRepository.getLanguage();
       updateState((state) => state.copyWith(language: language));
     } catch (e) {
       logger.w(e);
