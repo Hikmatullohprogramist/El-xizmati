@@ -229,51 +229,59 @@ class FaceIdStartPage
   }
 
   void showDatePickerDialog(BuildContext context) {
-    var parentContext = context;
     showCupertinoModalPopup(
       context: context,
-      builder: (BuildContext context) {
-        return Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(25),
-                  topLeft: Radius.circular(25),
-                ),
-              ),
-              height: 350.0,
-              child: CupertinoDatePicker(
-                mode: CupertinoDatePickerMode.date,
-                initialDateTime: DateTime(2000),
-                minimumYear: 1945,
-                maximumYear: 2024,
-                onDateTimeChanged: (DateTime newDateTime) {
-                  final formattedDate =
-                      DateFormat("yyyy-MM-dd").format(newDateTime);
-                  cubit(parentContext).setBirthDate(formattedDate);
-                },
-              ),
+      builder: (BuildContext buildContext) {
+        return Container(
+          decoration: BoxDecoration(
+            color: context.bottomSheetColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.0),
+              topRight: Radius.circular(20.0),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: CustomElevatedButton(
-                text: Strings.commonSave,
-                onPressed: () {
-                  //  cubit(parent).enableButton(passportSeries.text, passportNumber.text, birthDate);
-                  Navigator.of(context).pop();
-                },
-                backgroundColor: context.colors.buttonPrimary,
-                isEnabled: true,
-                isLoading: false,
+          ),
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    height: 320,
+                    child: CupertinoTheme(
+                      data: CupertinoThemeData(
+                        brightness: context.brightness,
+                      ),
+                      child: CupertinoDatePicker(
+                        mode: CupertinoDatePickerMode.date,
+                        initialDateTime: DateTime(2000),
+                        minimumYear: 1930,
+                        maximumYear: 2024,
+                        onDateTimeChanged: (DateTime newDateTime) {
+                          final formattedDate =
+                          DateFormat("yyyy-MM-dd").format(newDateTime);
+                          cubit(context).setBirthDate(formattedDate);
+                        },
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: CustomElevatedButton(
+                      text: Strings.commonSave,
+                      onPressed: () {
+                        Navigator.of(buildContext).pop();
+                      },
+                      backgroundColor: buildContext.colors.buttonPrimary,
+                      isEnabled: true,
+                      isLoading: false,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                ],
               ),
-            ),
-            SizedBox(
-              height: 12,
-            ),
-          ],
+            ],
+          ),
         );
       },
     );

@@ -49,7 +49,8 @@ class CartPage extends BasePage<CartCubit, CartState, CartEvent> {
       child: ListView.builder(
         physics: BouncingScrollPhysics(),
         shrinkWrap: true,
-        itemCount: 2,
+        itemCount: 3,
+        padding: const EdgeInsets.symmetric(vertical: 10),
         itemBuilder: (BuildContext context, int index) {
           return CartShimmer();
         },
@@ -77,7 +78,6 @@ class CartPage extends BasePage<CartCubit, CartState, CartEvent> {
             topRightRadius: 8,
             bottomLeftRadius: 8,
             bottomRightRadius: 8,
-            shadowSpreadRadius: 1.5,
             leftMargin: 16,
             topMargin: 3,
             rightMargin: 16,

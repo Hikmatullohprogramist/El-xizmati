@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/payment_repository.dart';
+import 'package:onlinebozor/domain/models/transaction/payment_transaction.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
 
@@ -13,23 +14,23 @@ part 'payment_transactions_state.dart';
 @injectable
 class PaymentTransactionsCubit
     extends BaseCubit<PaymentTransactionsState, PaymentTransactionsEvent> {
-  final PaymentRepository _paymentTransactionRepository;
+  final PaymentRepository _paymentRepository;
 
   PaymentTransactionsCubit(
-    this._paymentTransactionRepository,
+    this._paymentRepository,
   ) : super(PaymentTransactionsState()) {
-    getController();
+    initController();
   }
 
-  Future<void> getController() async {
-    final controller = states.controller ?? getAdsController(status: 1);
+  Future<void> initController() async {
+    final controller = states.controller ?? getController(status: 1);
     updateState((state) => state.copyWith(controller: controller));
   }
 
-  PagingController<int, dynamic> getAdsController({
+  PagingController<int, PaymentTransaction> getController({
     required int status,
   }) {
-    final controller = PagingController<int, dynamic>(
+    final controller = PagingController<int, PaymentTransaction>(
       firstPageKey: 1,
       invisibleItemsThreshold: 100,
     );
@@ -37,7 +38,7 @@ class PaymentTransactionsCubit
 
     controller.addPageRequestListener(
       (pageKey) async {
-        _paymentTransactionRepository
+        _paymentRepository
             .getPaymentTransactions(
               pageSize: 20,
               pageIndex: pageKey,

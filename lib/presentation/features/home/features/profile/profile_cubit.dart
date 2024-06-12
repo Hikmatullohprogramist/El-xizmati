@@ -1,26 +1,46 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/auth_repository.dart';
 import 'package:onlinebozor/data/repositories/state_repository.dart';
+import 'package:onlinebozor/data/repositories/user_repository.dart';
 import 'package:onlinebozor/domain/models/language/language.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
 part 'profile_cubit.freezed.dart';
 part 'profile_state.dart';
 
 @injectable
 class ProfileCubit extends BaseCubit<ProfileState, ProfileEvent> {
+  final AuthRepository _authRepository;
+  final StateRepository _stateRepository;
+  final UserRepository _userRepository;
+
   ProfileCubit(
     this._authRepository,
     this._stateRepository,
+    this._userRepository,
   ) : super(ProfileState()) {
+    checkAndUpdateUserProfile();
     isUserLoggedIn();
     getLanguage();
   }
 
-  final AuthRepository _authRepository;
-  final StateRepository _stateRepository;
+  void checkAndUpdateUserProfile() {
+    _userRepository
+        .getUser()
+        .initFuture()
+        .onStart(() {})
+        .onSuccess((data) {
+          logger.e("getUser user = $data");
+        })
+        .onError((error) {
+          logger.e("getUser error = ${error.toString()}");
+        })
+        .onFinished(() {})
+        .executeFuture();
+  }
 
   Future<void> getLanguage() async {
     try {

@@ -64,6 +64,10 @@ extension MaskTextInputFormatterMethodExts on MaskTextInputFormatter {
     return value == null ? null : maskText(value.toString());
   }
 
+  String? formatDouble(double? value) {
+    return value == null ? null : maskText(value.toString());
+  }
+
   String? formatString(String? value) {
     return value == null ? null : maskText(value);
   }

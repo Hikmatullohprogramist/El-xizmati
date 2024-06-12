@@ -112,7 +112,6 @@ class UserAdListPage
                   topRightRadius: 8,
                   bottomLeftRadius: 8,
                   bottomRightRadius: 8,
-                  shadowSpreadRadius: 1.5,
                   leftMargin: 16,
                   topMargin: 6,
                   rightMargin: 16,
@@ -134,8 +133,7 @@ class UserAdListPage
   }
 
   void _showActionsBottomSheet(BuildContext context, UserAd ad) {
-    // AdTransactionType type = ad.type_status.toAdTypeStatus();
-    AdTransactionType type = ad.adTransactionType ?? AdTransactionType.sell;
+    AdTransactionType type = ad.adTransactionType;
 
     showCupertinoModalBottomSheet(
       context: context,

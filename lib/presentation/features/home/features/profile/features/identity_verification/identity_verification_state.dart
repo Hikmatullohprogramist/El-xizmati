@@ -1,8 +1,8 @@
-part of 'registration_cubit.dart';
+part of 'identity_verification_cubit.dart';
 
 @freezed
-class RegistrationState with _$RegistrationState {
-  const factory RegistrationState({
+class IdentityVerificationState with _$IdentityVerificationState {
+  const factory IdentityVerificationState({
     @Default("") String docSerial,
     @Default("") String docNumber,
     @Default("") String brithDate,
@@ -34,17 +34,17 @@ class RegistrationState with _$RegistrationState {
     String? postName,
     String? mobileNumber,
     //
-    @Default(false) bool isRegistration,
-  }) = _RegistrationState;
+    @Default(false) bool isIdentityVerified,
+  }) = _IdentityVerificationState;
 }
 
 @freezed
-class RegistrationEvent with _$RegistrationEvent {
-  const factory RegistrationEvent(RegistrationEventType type) =
-      _RegistrationEvent;
+class IdentityVerificationEvent with _$IdentityVerificationEvent {
+  const factory IdentityVerificationEvent(IdentityVerificationEventType type) =
+      _IdentityVerificationEvent;
 }
 
-enum RegistrationEventType {
+enum IdentityVerificationEventType {
   success,
   rejected,
   notFound,

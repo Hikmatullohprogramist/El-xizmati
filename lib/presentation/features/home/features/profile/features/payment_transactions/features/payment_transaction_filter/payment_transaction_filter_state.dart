@@ -13,7 +13,7 @@ class PaymentTransactionFilterState with _$PaymentTransactionFilterState {
     @Default(<PaymentFilter>[]) List<PaymentFilter> paymentMethods,
     @Default(<PaymentFilter>[]) List<PaymentFilter> transactionStates,
     //
-    @Default(<PaymentTransaction>[]) List<PaymentTransaction> transactions,
+    @Default([]) List<PaymentTransaction> transactions,
   }) = _PaymentTransactionFilterState;
 }
 

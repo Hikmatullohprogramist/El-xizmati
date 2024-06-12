@@ -330,13 +330,12 @@ class ProfileEditPage
   }
 
   void showDatePickerDialog(BuildContext context) {
-    var parentContext = context;
     showCupertinoModalPopup(
       context: context,
-      builder: (BuildContext context) {
+      builder: (BuildContext buildContext) {
         return Container(
           decoration: BoxDecoration(
-            color: parentContext.bottomSheetColor,
+            color: context.bottomSheetColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20.0),
               topRight: Radius.circular(20.0),
@@ -352,7 +351,7 @@ class ProfileEditPage
                     height: 320,
                     child: CupertinoTheme(
                       data: CupertinoThemeData(
-                        brightness: parentContext.brightness,
+                        brightness: context.brightness,
                       ),
                       child: CupertinoDatePicker(
                         mode: CupertinoDatePickerMode.date,
@@ -362,8 +361,7 @@ class ProfileEditPage
                         onDateTimeChanged: (DateTime newDateTime) {
                           final formattedDate =
                               DateFormat("yyyy-MM-dd").format(newDateTime);
-                          // cubit(parentContext).setBirthDate(formattedDate);
-                          cubit(parentContext).setBrithDate(formattedDate);
+                          cubit(context).setBrithDate(formattedDate);
                           _birthDateController.text = formattedDate;
                         },
                       ),
@@ -374,9 +372,9 @@ class ProfileEditPage
                     child: CustomElevatedButton(
                       text: Strings.commonSave,
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.of(buildContext).pop();
                       },
-                      backgroundColor: context.colors.buttonPrimary,
+                      backgroundColor: buildContext.colors.buttonPrimary,
                       isEnabled: true,
                       isLoading: false,
                     ),

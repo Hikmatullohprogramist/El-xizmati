@@ -52,20 +52,12 @@ class AdCreationChooserPage extends BasePage<AdCreationChooserCubit,
       topRightRadius: 16,
       bottomLeftRadius: 16,
       bottomRightRadius: 16,
-      shadowSpreadRadius: 1.5,
       leftMargin: 16,
       topMargin: 16,
       rightMargin: 16,
       bottomMargin: 8,
       child: Container(
         padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: context.cardStrokeColor,
-            width: 1,
-          ),
-        ),
         child: SizedBox(
           width: double.infinity,
           child: Column(
@@ -122,17 +114,12 @@ class AdCreationChooserPage extends BasePage<AdCreationChooserCubit,
       topRightRadius: 16,
       bottomLeftRadius: 16,
       bottomRightRadius: 16,
-      shadowSpreadRadius: 1.5,
       leftMargin: 16,
       topMargin: 8,
       rightMargin: 16,
       bottomMargin: 16,
       child:  Container(
         padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: context.cardStrokeColor, width: 1),
-        ),
         child: SizedBox(
           width: double.infinity,
           child: Column(

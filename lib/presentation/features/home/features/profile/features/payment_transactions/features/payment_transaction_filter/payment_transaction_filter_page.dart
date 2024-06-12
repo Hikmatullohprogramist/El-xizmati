@@ -6,8 +6,8 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/data/datasource/network/responses/transaction/payment_transaction_response.dart';
 import 'package:onlinebozor/domain/models/payment_filter/paymant_filter.dart';
+import 'package:onlinebozor/domain/models/transaction/payment_transaction.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/action/selection_list_item.dart';
@@ -373,7 +373,10 @@ class PaymentTransactionFilterPage extends BasePage<
             itemCount: items.length,
             itemBuilder: (context, index) {
               var item = items[index];
-              return TransactionWidget(transaction: item);
+              return TransactionWidget(
+                transaction: item,
+                onClicked: () {},
+              );
             },
           ),
         ),
@@ -396,28 +399,28 @@ class PaymentTransactionFilterPage extends BasePage<
 
     if (state.paymentMethod == "Hamyon") {
       response =
-          response.where((element) => element.pay_method == "WALLET").toList();
+          response.where((element) => element.payMethod == "WALLET").toList();
     }
     if (state.paymentMethod == "REALPAY") {
       response =
-          response.where((element) => element.pay_method == "REALPAY").toList();
+          response.where((element) => element.payMethod == "REALPAY").toList();
     }
 
     if (state.transactionState == "To'landi") {
       response =
-          response.where((element) => element.pay_status == "PAID").toList();
+          response.where((element) => element.payStatus == "PAID").toList();
     }
     if (state.transactionState == "To'lanmadi") {
-      response = response.where((element) => element.pay_status == "").toList();
+      response = response.where((element) => element.payStatus == "").toList();
     }
     if (state.fromDate.isNotEmpty) {
       response = response
-          .where((element) => compareDate(element.pay_date, state.fromDate))
+          .where((e) => compareDate(e.payDate, state.fromDate))
           .toList();
     }
     if (state.toDate.isNotEmpty) {
       response = response
-          .where((element) => compareDate(state.toDate, element.pay_date))
+          .where((element) => compareDate(state.toDate, element.payDate))
           .toList();
     }
 

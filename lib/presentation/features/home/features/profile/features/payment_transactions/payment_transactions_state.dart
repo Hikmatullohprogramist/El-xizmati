@@ -4,7 +4,7 @@ part of 'payment_transactions_cubit.dart';
 class PaymentTransactionsState with _$PaymentTransactionsState {
   const factory PaymentTransactionsState({
     @Default(LoadingState.loading) LoadingState transactionState,
-    PagingController<int, dynamic>? controller,
+    PagingController<int, PaymentTransaction>? controller,
   }) = _PaymentTransactionsState;
 }
 

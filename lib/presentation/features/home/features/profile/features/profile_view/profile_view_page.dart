@@ -64,7 +64,7 @@ class ProfileViewPage
           titleTextColor: context.textPrimary,
           backgroundColor: context.appBarColor,
           onBackPressed: () => context.router.pop(),
-          actions: state.isRegistered
+          actions: !state.isRegistered
               ? [
                   CustomTextButton(
                     text: Strings.commonEdit,
@@ -211,7 +211,7 @@ class ProfileViewPage
                     onPressed: state.isRegistered
                         ? null
                         : () => context.router.push(
-                              RegistrationRoute(
+                              IdentityVerificationRoute(
                                 phoneNumber: state.phoneNumber.substring(3),
                               ),
                             ),
@@ -864,7 +864,7 @@ class ProfileViewPage
           color: context.backgroundGreyColor,
           padding: EdgeInsets.only(top: 8),
           child: SeeAllWidget(
-            title: "Активные сеансы",
+            title: Strings.settingsActiveDevices,
             onClicked: () => context.router.push(UserActiveSessionsRoute()),
           ),
         ),

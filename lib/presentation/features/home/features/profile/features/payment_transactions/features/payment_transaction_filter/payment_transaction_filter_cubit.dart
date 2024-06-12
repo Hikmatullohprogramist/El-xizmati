@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/data/datasource/network/responses/transaction/payment_transaction_response.dart';
 import 'package:onlinebozor/data/repositories/payment_repository.dart';
 import 'package:onlinebozor/domain/models/payment_filter/paymant_filter.dart';
+import 'package:onlinebozor/domain/models/transaction/payment_transaction.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
 part 'payment_transaction_filter_cubit.freezed.dart';

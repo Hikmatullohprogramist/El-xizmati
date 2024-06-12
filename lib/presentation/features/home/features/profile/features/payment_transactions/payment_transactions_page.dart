@@ -1,26 +1,26 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
+import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
-import 'package:onlinebozor/data/datasource/network/responses/transaction/payment_transaction_response.dart';
+import 'package:onlinebozor/domain/models/transaction/payment_transaction.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
+import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
+import 'package:onlinebozor/presentation/widgets/elevation/elevation_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 import 'package:onlinebozor/presentation/widgets/transaction/transaction_empty_widget.dart';
 import 'package:onlinebozor/presentation/widgets/transaction/transaction_widget.dart';
-import 'package:onlinebozor/presentation/widgets/transaction/transaction_widget_shimmer.dart';
+import 'package:onlinebozor/presentation/widgets/transaction/transaction_shimmer.dart';
 
 import 'payment_transactions_cubit.dart';
 
@@ -46,7 +46,14 @@ class PaymentTransactionsPage extends BasePage<PaymentTransactionsCubit,
         ],
       ),
       backgroundColor: context.backgroundGreyColor,
-      body: _getPaymentListWidget(context, state),
+      body: RefreshIndicator(
+          displacement: 160,
+          strokeWidth: 3,
+          color: StaticColors.colorPrimary,
+          onRefresh: () async {
+            cubit(context).states.controller!.refresh();
+          },
+          child: _getPaymentListWidget(context, state)),
     );
   }
 
@@ -58,7 +65,7 @@ class PaymentTransactionsPage extends BasePage<PaymentTransactionsCubit,
       shrinkWrap: true,
       addAutomaticKeepAlives: true,
       physics: BouncingScrollPhysics(),
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      padding: EdgeInsets.symmetric(vertical: 10),
       pagingController: state.controller!,
       builderDelegate: PagedChildBuilderDelegate<dynamic>(
         firstPageErrorIndicatorBuilder: (_) {
@@ -73,6 +80,7 @@ class PaymentTransactionsPage extends BasePage<PaymentTransactionsCubit,
               physics: BouncingScrollPhysics(),
               shrinkWrap: true,
               itemCount: 15,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               itemBuilder: (BuildContext context, int index) {
                 return TransactionShimmer();
               },
@@ -98,12 +106,20 @@ class PaymentTransactionsPage extends BasePage<PaymentTransactionsCubit,
         },
         transitionDuration: Duration(milliseconds: 100),
         itemBuilder: (context, item, index) {
-          return InkWell(
-              onTap: () {
-                log(item.toString());
-                showTransactionDetailBottomSheet(context, item);
-              },
-              child: TransactionWidget(transaction: item));
+          return ElevationWidget(
+            topLeftRadius: 8,
+            topRightRadius: 8,
+            bottomLeftRadius: 8,
+            bottomRightRadius: 8,
+            leftMargin: 16,
+            topMargin: 6,
+            rightMargin: 16,
+            bottomMargin: 6,
+            child: TransactionWidget(
+              transaction: item,
+              onClicked: () {},
+            ),
+          );
         },
       ),
     );
@@ -144,10 +160,8 @@ class PaymentTransactionsPage extends BasePage<PaymentTransactionsCubit,
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      if (transaction.pay_method == "REALPAY")
-                        SvgPicture.asset(
-                          'assets/images/real_pay.svg',
-                        )
+                      if (transaction.payMethod == "REALPAY")
+                        Assets.images.realPay.svg()
                       else
                         CachedNetworkImage(
                           imageUrl: Constants.baseUrlForImage,
@@ -198,7 +212,7 @@ class PaymentTransactionsPage extends BasePage<PaymentTransactionsCubit,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      child: transaction.pay_status
+                      child: transaction.payStatus
                           .w(500)
                           .s(14)
                           .c(Color(0xFF32B88B)),
@@ -213,9 +227,7 @@ class PaymentTransactionsPage extends BasePage<PaymentTransactionsCubit,
                       onTap: () {
                         Navigator.pop(context);
                       },
-                      child: SvgPicture.asset(
-                        'assets/images/ic_close.svg',
-                      ),
+                      child: Assets.images.icClose.svg(),
                     )
                   ],
                 ),
@@ -229,18 +241,14 @@ class PaymentTransactionsPage extends BasePage<PaymentTransactionsCubit,
             SizedBox(height: 7),
             "Transaction data".w(500).s(12).c(Color(0xFF41455E)),
             SizedBox(height: 5),
-            transaction.pay_date.w(500).s(16).c(Color(0xFF41455E)),
+            transaction.payDate.w(500).s(16).c(Color(0xFF41455E)),
             SizedBox(height: 10),
-
-            ///
             "Payment type".w(500).s(12).c(Color(0xFF41455E)),
             SizedBox(height: 2),
-            transaction.pay_type.w(500).s(15).c(Color(0xFF41455E)),
+            transaction.payType.w(500).s(15).c(Color(0xFF41455E)),
             SizedBox(
               height: 12,
             ),
-
-            ///
             "Node".w(500).s(12).c(Color(0xFF41455E)),
             (transaction.note ?? "***").w(500).s(16).c(Color(0xFF41455E)),
           ],

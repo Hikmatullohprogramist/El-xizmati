@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/core/extensions/list_extensions.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
@@ -11,44 +12,64 @@ import 'package:onlinebozor/domain/models/street/street.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
 
-part 'registration_cubit.freezed.dart';
-part 'registration_state.dart';
+part 'identity_verification_cubit.freezed.dart';
+part 'identity_verification_state.dart';
 
 @Injectable()
-class RegistrationCubit
-    extends BaseCubit<RegistrationState, RegistrationEvent> {
+class IdentityVerificationCubit
+    extends BaseCubit<IdentityVerificationState, IdentityVerificationEvent> {
   final UserRepository _userRepository;
 
-  RegistrationCubit(this._userRepository) : super(const RegistrationState()) {
+  IdentityVerificationCubit(this._userRepository)
+      : super(const IdentityVerificationState()) {
     getUserNumber();
-    getRegionAndDistricts();
+    getRegions();
   }
 
-  Future<void> getUser() async {
-    await Future.wait([
-      getRegions(),
-      getDistrict(),
-    ]);
-  }
-
-  Future<void> validateWithBioDocs() async {
+  Future<void> getIdentityDocument() async {
     _userRepository
         .getIdentityDocument(
           phoneNumber: states.phoneNumber.clearPhoneWithCode(),
-          docSerial: states.docSerial.trim(),
-          docNumber: states.docNumber.trim(),
-          brithDate: states.brithDate.trim(),
+          docSerial: states.docSerial,
+          docNumber: states.docNumber,
+          brithDate: states.brithDate,
         )
         .initFuture()
-        .onStart(() {
-          updateState((state) => state.copyWith(isLoading: true));
-        })
-        .onSuccess((data) {
-          updateState((state) => state.copyWith(isLoading: false));
-          validateBioDocsResultBottomSheet(data);
+        .onStart(() {})
+        .onSuccess((data) async {
+          logger.w("getIdentityDocument onSuccess info = ${data.passportInfo}");
+          // if (data.status?.toUpperCase() != "IN_PROCESS") {
+          if (data.status?.toUpperCase().contains("IN_PROCESS") == true) {
+            await continueVerifyingIdentity(
+              data.secretKey ?? "",
+              states.phoneNumber,
+            );
+          } else {
+            final info = data.passportInfo;
+            if (info != null) {
+              updateState((state) => states.copyWith(
+                    gender: info.gender ?? "",
+                    userName: info.fullName ?? "",
+                    docSerial: info.series ?? "",
+                    docNumber: info.number ?? "",
+                    fullName: info.fullName ?? "",
+                    brithDate: info.birthDate ?? "",
+                    regionId: info.regionId,
+                    regionName: states.regions
+                            .firstIf((e) => e.id == info.regionId)
+                            ?.name ??
+                        "",
+                    districtId: info.districtId,
+                    pinfl: info.pinfl ?? -1,
+                    isIdentityVerified: true,
+                  ));
+            }
+          }
+
+          getDistrict();
+          getNeighborhoods();
         })
         .onError((error) {
-          updateState((state) => state.copyWith(isLoading: false));
           stateMessageManager.showErrorSnackBar(error.localizedMessage);
         })
         .onFinished(() {})
@@ -66,7 +87,7 @@ class RegistrationCubit
           homeName: states.apartmentNumber,
           id: states.id ?? 0,
           mahallaId: states.neighborhoodId ?? 0,
-          mobilePhone: states.phoneNumber,
+          mobilePhone: states.phoneNumber.clearPhoneWithCode(),
           passportNumber: states.docNumber,
           passportSeries: states.docSerial,
           phoneNumber: states.phoneNumber,
@@ -84,7 +105,8 @@ class RegistrationCubit
         })
         .onError((error) {
           updateState((state) => state.copyWith(isLoading: false));
-          emitEvent(RegistrationEvent(RegistrationEventType.notFound));
+          emitEvent(IdentityVerificationEvent(
+              IdentityVerificationEventType.notFound));
           stateMessageManager.showErrorSnackBar(error.localizedMessage);
         })
         .onFinished(() {})
@@ -102,22 +124,24 @@ class RegistrationCubit
 
   void validateBioDocsResultBottomSheet(IdentityDocumentInfoResponse response) {
     if (response.status == "REJECTED") {
-      emitEvent(RegistrationEvent(RegistrationEventType.rejected));
+      emitEvent(
+          IdentityVerificationEvent(IdentityVerificationEventType.rejected));
     }
     if (response.status == "ACCEPTED") {
-      emitEvent(RegistrationEvent(RegistrationEventType.success));
+      emitEvent(
+          IdentityVerificationEvent(IdentityVerificationEventType.success));
       updateState((state) => state.copyWith(
-            isRegistration: true,
+            isIdentityVerified: true,
             districtId: response.passportInfo?.districtId,
             fullName: response.passportInfo?.fullName ?? "",
             regionName: states.regions
-                .where((e) => e.id == response.passportInfo?.regionId)
-                .first
-                .name,
+                    .firstIf((e) => e.id == response.passportInfo?.regionId)
+                    ?.name ??
+                "",
             districtName: states.districts
-                .where((e) => e.id == response.passportInfo?.districtId)
-                .first
-                .name,
+                    .firstIf((e) => e.id == response.passportInfo?.districtId)
+                    ?.name ??
+                "",
             gender: response.passportInfo?.gender ?? "",
             pinfl: response.passportInfo?.pinfl,
             id: response.passportInfo?.tin,
@@ -129,11 +153,11 @@ class RegistrationCubit
   }
 
   Future<void> validationAndRequest() async {
-    if (states.phoneNumber.length >= 12 &&
-        states.docSerial.length >= 2 &&
-        states.docNumber.length >= 7 &&
-        states.brithDate.length >= 10) {
-      getUserInformation();
+    if (states.phoneNumber.clearPhoneNumber().length >= 9 &&
+        states.docSerial.trim().length >= 2 &&
+        states.docNumber.trim().length >= 7 &&
+        states.brithDate.trim().length >= 10) {
+      getIdentityDocument();
     } else {
       stateMessageManager
           .showErrorSnackBar(Strings.profileEditUnfullInformation);
@@ -154,53 +178,6 @@ class RegistrationCubit
         .executeFuture();
   }
 
-  Future<void> getUserInformation() async {
-    _userRepository
-        .getIdentityDocument(
-          phoneNumber: states.phoneNumber,
-          docSerial: states.docSerial,
-          docNumber: states.docNumber,
-          brithDate: states.brithDate,
-        )
-        .initFuture()
-        .onStart(() {})
-        .onSuccess((data) async {
-          if (data.status?.toUpperCase() != "IN_PROCESS") {
-            updateState((state) => states.copyWith(
-                  gender: data.passportInfo?.gender ?? "",
-                  userName: data.passportInfo?.fullName ?? "",
-                  docSerial: data.passportInfo?.series ?? "",
-                  docNumber: data.passportInfo?.number ?? "",
-                  fullName: data.passportInfo?.fullName ?? "",
-                  brithDate: data.passportInfo?.birthDate ?? "",
-                  regionId: data.passportInfo?.regionId,
-                  districtId: data.passportInfo?.districtId,
-                  pinfl: data.passportInfo?.pinfl ?? -1,
-                  isRegistration: true,
-                ));
-          } else {
-            await continueVerifyingIdentity(
-              data.secretKey ?? "",
-              states.phoneNumber,
-            );
-          }
-          await getRegionAndDistricts();
-        })
-        .onError((error) {
-          stateMessageManager.showErrorSnackBar(error.localizedMessage);
-        })
-        .onFinished(() {})
-        .executeFuture();
-  }
-
-  Future<void> getRegionAndDistricts() async {
-    await Future.wait([
-      getRegions(),
-      getDistrict(),
-      getNeighborhoods(),
-    ]);
-  }
-
   Future<void> continueVerifyingIdentity(
     String secretKey,
     String phoneNumber,
@@ -219,7 +196,7 @@ class RegistrationCubit
             pinfl: response.userInfo.pinfl,
             tin: response.userInfo.tin,
             brithDate: response.userInfo.birth_date ?? "",
-            isRegistration: true,
+            isIdentityVerified: true,
             districtId: response.userInfo.district_id,
             regionId: response.userInfo.region_id,
           ));
@@ -310,55 +287,68 @@ class RegistrationCubit
         ));
   }
 
-  Future<void> getRegions() async {
-    final response = await _userRepository.getRegions();
-    updateState((state) =>
-        states.copyWith(regions: response, regionName: "", isLoading: false));
+  getRegions() {
+    _userRepository
+        .getRegions()
+        .initFuture()
+        .onStart(() {})
+        .onSuccess((data) {
+          updateState((state) => states.copyWith(
+                regions: data,
+                regionName:
+                    data.firstIf((e) => e.id == state.regionId)?.name ?? "",
+                isLoading: false,
+              ));
+        })
+        .onError((error) {})
+        .onFinished(() {})
+        .executeFuture();
   }
 
-  Future<void> getDistrict() async {
+  getDistrict() {
     final regionId = states.regionId;
-    final response = await _userRepository.getDistricts(regionId ?? 14);
-    updateState((state) => states.copyWith(districts: response));
-    // if (states.districtId != null) {
-    //   updateState((state) => states.copyWith(
-    //     districts: response,
-    //     districtName: response
-    //         .where((element) => element.id == states.districtId)
-    //         .first
-    //         .name,
-    //   ));
-    // } else {
-    //   updateState((state) => states.copyWith(districts: response));
-    // }
+    if (regionId == null) return;
+
+    _userRepository
+        .getDistricts(regionId)
+        .initFuture()
+        .onStart(() {})
+        .onSuccess((data) {
+          updateState((state) => states.copyWith(
+                districts: data,
+                districtName:
+                    data.firstIf((e) => e.id == states.districtId)?.name ?? "",
+              ));
+        })
+        .onError((error) {
+          stateMessageManager.showErrorBottomSheet(error.localizedMessage);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
-  Future<void> getNeighborhoods() async {
-    try {
-      final districtId = states.districtId!;
-      final neighborhoods = await _userRepository.getNeighborhoods(districtId);
-      updateState((state) => states.copyWith(
-            neighborhoods: neighborhoods,
-            isLoading: false,
-          ));
-      //  if (states.neighborhoodId != null) {
-      //    updateState((state) => states.copyWith(
-      //          neighborhoods: neighborhoods,
-      //          neighborhoodName: neighborhoods
-      //              .where((e) => e.id == states.neighborhoodId)
-      //              .first
-      //              .name,
-      //          isLoading: false,
-      //        ));
-      //  } else {
-      //    updateState((state) => states.copyWith(
-      //          neighborhoods: neighborhoods,
-      //          isLoading: false,
-      //        ));
-      //  }
-    } catch (e) {
-      updateState((state) => states.copyWith(isLoading: false));
-    }
+  getNeighborhoods() {
+    final districtId = states.districtId;
+    if (districtId == null) return;
+
+    _userRepository
+        .getNeighborhoods(districtId)
+        .initFuture()
+        .onStart(() {})
+        .onSuccess((data) {
+          updateState((state) => states.copyWith(
+                neighborhoods: data,
+                neighborhoodName:
+                    data.firstIf((e) => e.id == states.neighborhoodId)?.name ??
+                        "",
+                isLoading: false,
+              ));
+        })
+        .onError((error) {
+          stateMessageManager.showErrorBottomSheet(error.localizedMessage);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> setHomeNumber(String homeNumber) async {

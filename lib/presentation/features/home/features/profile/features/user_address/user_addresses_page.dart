@@ -6,6 +6,7 @@ import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
+import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/action/action_list_item.dart';
@@ -46,18 +47,24 @@ class UserAddressesPage extends BasePage<UserAddressesCubit, UserAddressesState,
         ],
       ),
       backgroundColor: context.backgroundGreyColor,
-      body: PagedListView<int, UserAddress>(
-        shrinkWrap: true,
-        addAutomaticKeepAlives: true,
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.symmetric(vertical: 12),
-        pagingController: state.controller!,
-        builderDelegate: PagedChildBuilderDelegate<UserAddress>(
+      body: RefreshIndicator(
+        displacement: 80,
+        strokeWidth: 3,
+        color: StaticColors.colorPrimary,
+        onRefresh: () async {
+          cubit(context).states.controller!.refresh();
+        },
+        child: PagedListView<int, UserAddress>(
+          shrinkWrap: true,
+          addAutomaticKeepAlives: true,
+          // physics: BouncingScrollPhysics(),
+          padding: EdgeInsets.symmetric(vertical: 12),
+          pagingController: state.controller!,
+          builderDelegate: PagedChildBuilderDelegate<UserAddress>(
             firstPageErrorIndicatorBuilder: (_) {
               return DefaultErrorWidget(
                 isFullScreen: true,
-                onRetryClicked: () =>
-                    cubit(context).states.controller?.refresh(),
+                onRetryClicked: () => cubit(context).states.controller?.refresh(),
               );
             },
             firstPageProgressIndicatorBuilder: (_) {
@@ -65,7 +72,7 @@ class UserAddressesPage extends BasePage<UserAddressesCubit, UserAddressesState,
                 child: ListView.builder(
                   physics: BouncingScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: 5,
+                  itemCount: 4,
                   itemBuilder: (BuildContext context, int index) {
                     return UserAddressShimmer();
                   },
@@ -91,8 +98,7 @@ class UserAddressesPage extends BasePage<UserAddressesCubit, UserAddressesState,
             newPageErrorIndicatorBuilder: (_) {
               return DefaultErrorWidget(
                 isFullScreen: false,
-                onRetryClicked: () =>
-                    cubit(context).states.controller?.refresh(),
+                onRetryClicked: () => cubit(context).states.controller?.refresh(),
               );
             },
             transitionDuration: Duration(milliseconds: 100),
@@ -102,7 +108,6 @@ class UserAddressesPage extends BasePage<UserAddressesCubit, UserAddressesState,
                 topRightRadius: 8,
                 bottomLeftRadius: 8,
                 bottomRightRadius: 8,
-                shadowSpreadRadius: 1.5,
                 leftMargin: 16,
                 topMargin: 6,
                 rightMargin: 16,
@@ -117,7 +122,9 @@ class UserAddressesPage extends BasePage<UserAddressesCubit, UserAddressesState,
                   isManageEnabled: true,
                 ),
               );
-            }),
+            },
+          ),
+        ),
       ),
     );
   }
@@ -128,61 +135,62 @@ class UserAddressesPage extends BasePage<UserAddressesCubit, UserAddressesState,
     int index,
   ) {
     showCupertinoModalBottomSheet(
-        context: context,
-        builder: (BuildContext buildContext) {
-          return Material(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(height: 20),
-                BottomSheetTitle(
-                  title: Strings.actionTitle,
-                  onCloseClicked: () {
-                    context.router.pop();
-                  },
-                ),
-                SizedBox(height: 6),
-                ActionListItem(
-                  item: address,
-                  title: Strings.actionEdit,
-                  icon: Assets.images.icActionEdit,
-                  onClicked: (item) async {
-                    context.router.pop();
+      context: context,
+      builder: (BuildContext buildContext) {
+        return Material(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(height: 20),
+              BottomSheetTitle(
+                title: Strings.actionTitle,
+                onCloseClicked: () {
+                  context.router.pop();
+                },
+              ),
+              SizedBox(height: 6),
+              ActionListItem(
+                item: address,
+                title: Strings.actionEdit,
+                icon: Assets.images.icActionEdit,
+                onClicked: (item) async {
+                  context.router.pop();
 
-                    final isChanged = await context.router
-                        .push(AddAddressRoute(address: address));
+                  final isChanged = await context.router
+                      .push(AddAddressRoute(address: address));
 
-                    if (isChanged is bool && isChanged == true) {
-                      cubit(context).getController(true);
-                    }
-                  },
-                ),
-                Visibility(
-                  visible: !address.isMain,
-                  child: ActionListItem(
-                    item: address,
-                    title: Strings.actionMakeMain,
-                    icon: Assets.images.icActionMakeMain,
-                    onClicked: (item) {
-                      cubit(context).makeMainAddress(address, index);
-                      context.router.pop();
-                    },
-                  ),
-                ),
-                ActionListItem(
+                  if (isChanged is bool && isChanged == true) {
+                    cubit(context).getController(true);
+                  }
+                },
+              ),
+              Visibility(
+                visible: !address.isMain,
+                child: ActionListItem(
                   item: address,
-                  title: Strings.actionDelete,
-                  icon: Assets.images.icActionDelete,
-                  color: Color(0xFFFA6F5D),
+                  title: Strings.actionMakeMain,
+                  icon: Assets.images.icActionMakeMain,
                   onClicked: (item) {
-                    cubit(context).deleteUserAddress(address);
+                    cubit(context).makeMainAddress(address, index);
                     context.router.pop();
                   },
                 ),
-                SizedBox(height: 16),
-              ],
-            ),
-          );
-        });
+              ),
+              ActionListItem(
+                item: address,
+                title: Strings.actionDelete,
+                icon: Assets.images.icActionDelete,
+                color: Color(0xFFFA6F5D),
+                onClicked: (item) {
+                  cubit(context).deleteUserAddress(address);
+                  context.router.pop();
+                },
+              ),
+              SizedBox(height: 16),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

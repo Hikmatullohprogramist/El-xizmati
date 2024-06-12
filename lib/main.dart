@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode = context.theme.brightness == Brightness.dark;
+    bool isDarkMode = context.isDarkMode;
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: isDarkMode ? Colors.white : Colors.transparent,
       systemNavigationBarColor: isDarkMode ? Colors.white : context.appBarColor,
@@ -110,7 +110,15 @@ class MyApp extends StatelessWidget {
           ),
           Builder(
             builder: (context) {
-              _initStateMessageManager(context);
+              // _initStateMessageManager(context);
+
+              final stateMessageManager = getIt<StateMessageManager>();
+
+              stateMessageManager.setListeners(
+                onShowBottomSheet: (m) => showStateMessageBottomSheet(context, m),
+                onShowSnackBar: (m) => context.showStateMessageSnackBar(m),
+              );
+
               return const SizedBox.shrink();
             },
           ),
@@ -217,7 +225,7 @@ class MyApp extends StatelessWidget {
   void showStateMessageBottomSheet(BuildContext context, StateMessage message) {
     showCupertinoModalBottomSheet(
       context: context,
-      builder: (BuildContext bc) {
+      builder: (BuildContext buildContext) {
         return Material(
           color: context.bottomSheetColor,
           child: Container(
@@ -239,8 +247,8 @@ class MyApp extends StatelessWidget {
                 CustomElevatedButton(
                   text: Strings.closeTitle,
                   onPressed: () {
-                    Navigator.pop(context);
                     HapticFeedback.lightImpact();
+                    Navigator.pop(buildContext);
                   },
                   backgroundColor: context.colors.buttonPrimary,
                 ),

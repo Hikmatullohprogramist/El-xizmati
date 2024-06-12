@@ -64,7 +64,6 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
       topRightRadius: 16,
       bottomLeftRadius: 16,
       bottomRightRadius: 16,
-      shadowSpreadRadius: 1.5,
       leftMargin: 16,
       topMargin: 20,
       rightMargin: 16,
@@ -102,16 +101,12 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
     );
   }
 
-  Widget _buildOrderBlock(
-    BuildContext context,
-    ProfileState state,
-  ) {
+  Widget _buildOrderBlock(BuildContext context, ProfileState state) {
     return ElevationWidget(
       topLeftRadius: 16,
       topRightRadius: 16,
       bottomLeftRadius: 16,
       bottomRightRadius: 16,
-      shadowSpreadRadius: 1.5,
       leftMargin: 16,
       topMargin: 8,
       rightMargin: 16,
@@ -141,8 +136,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
               icon: Assets.images.icProfileOrder,
               onClicked: () {
                 // context.router.push(UserOrderTypeRoute());
-                context.router
-                    .push(UserOrdersRoute(orderType: OrderType.buy));
+                context.router.push(UserOrdersRoute(orderType: OrderType.buy));
                 HapticFeedback.lightImpact();
               },
             ),
@@ -177,7 +171,6 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
       topRightRadius: 16,
       bottomLeftRadius: 16,
       bottomRightRadius: 16,
-      shadowSpreadRadius: 1.5,
       leftMargin: 16,
       topMargin: 8,
       rightMargin: 16,
@@ -197,8 +190,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
             ),
           ),
           Visibility(
-            // visible: state.isLogin,
-            visible: false,
+            visible: state.isLogin,
             child: Divider(indent: 46, height: 1),
           ),
           Visibility(
@@ -240,7 +232,6 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
       topRightRadius: 16,
       bottomLeftRadius: 16,
       bottomRightRadius: 16,
-      shadowSpreadRadius: 1.5,
       leftMargin: 16,
       topMargin: 8,
       rightMargin: 16,
@@ -288,7 +279,6 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
         topRightRadius: 16,
         bottomLeftRadius: 16,
         bottomRightRadius: 16,
-        shadowSpreadRadius: 1.5,
         leftMargin: 16,
         topMargin: 8,
         rightMargin: 16,
