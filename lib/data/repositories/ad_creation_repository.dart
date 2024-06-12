@@ -21,7 +21,6 @@ import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
 
-// @LazySingleton()
 class AdCreationRepository {
   final AdCreationService _adCreationService;
   final CategoryEntityDao _categoryEntityDao;

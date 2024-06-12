@@ -18,15 +18,15 @@ import 'package:onlinebozor/data/mappers/user_mapper.dart';
 
 class AuthRepository {
   final AdEntityDao _adEntityDao;
+  final AuthPreferences _authPreferences;
   final AuthService _authService;
-  final AuthPreferences _tokenPreferences;
   final UserPreferences _userPreferences;
   final UserEntityDao _userEntityDao;
 
   AuthRepository(
     this._adEntityDao,
+    this._authPreferences,
     this._authService,
-    this._tokenPreferences,
     this._userEntityDao,
     this._userPreferences,
   );
@@ -46,8 +46,8 @@ class AuthRepository {
     final response = await _authService.login(phone: phone, password: password);
     final loginResponse = LoginRootResponse.fromJson(response.data).data;
     if (loginResponse.token != null) {
-      await _tokenPreferences.setToken(loginResponse.token ?? "");
-      await _tokenPreferences.setIsAuthorized(true);
+      await _authPreferences.setToken(loginResponse.token ?? "");
+      await _authPreferences.setIsAuthorized(true);
 
       final actual = loginResponse.user;
       final saved = await _userEntityDao.getUser();
@@ -119,8 +119,8 @@ class AuthRepository {
     final edsResponse = EdsSignInRootResponse.fromJson(response.data);
     final userResponse = edsResponse.user;
     if (edsResponse.token != null) {
-      await _tokenPreferences.setToken(edsResponse.token ?? "");
-      await _tokenPreferences.setIsAuthorized(true);
+      await _authPreferences.setToken(edsResponse.token ?? "");
+      await _authPreferences.setIsAuthorized(true);
 
       await _userPreferences.setUserTin(userResponse?.tin);
       await _userPreferences.setUserPinfl(userResponse?.pinfl);
@@ -141,8 +141,8 @@ class AuthRepository {
     );
     final confirmResponse = LoginRootResponse.fromJson(response.data).data;
     if (confirmResponse.token != null) {
-      await _tokenPreferences.setToken(confirmResponse.token ?? "");
-      await _tokenPreferences.setIsAuthorized(true);
+      await _authPreferences.setToken(confirmResponse.token ?? "");
+      await _authPreferences.setIsAuthorized(true);
       await _userPreferences.setUserInfo(confirmResponse.user);
       return;
     }
@@ -179,8 +179,8 @@ class AuthRepository {
     );
     final response = LoginRootResponse.fromJson(rootResponse.data).data;
     if (response.token != null) {
-      await _tokenPreferences.setToken(response.token ?? "");
-      await _tokenPreferences.setIsAuthorized(true);
+      await _authPreferences.setToken(response.token ?? "");
+      await _authPreferences.setIsAuthorized(true);
       await _userPreferences.setUserInfo(response.user);
       // await favoriteRepository.pushAllFavoriteAds();
     }
@@ -194,8 +194,8 @@ class AuthRepository {
     );
     final confirmResponse = LoginRootResponse.fromJson(response.data).data;
     if (confirmResponse.token != null) {
-      await _tokenPreferences.setToken(confirmResponse.token ?? "");
-      await _tokenPreferences.setIsAuthorized(true);
+      await _authPreferences.setToken(confirmResponse.token ?? "");
+      await _authPreferences.setIsAuthorized(true);
       await _userPreferences.setUserInfo(confirmResponse.user);
       return;
     }
@@ -212,8 +212,8 @@ class AuthRepository {
       final confirmResponse = LoginRootResponse.fromJson(response.data).data;
       final userResponse = confirmResponse.user;
       if (confirmResponse.token != null) {
-        await _tokenPreferences.setToken(confirmResponse.token ?? "");
-        await _tokenPreferences.setIsAuthorized(true);
+        await _authPreferences.setToken(confirmResponse.token ?? "");
+        await _authPreferences.setIsAuthorized(true);
         await _userPreferences.setUserInfo(confirmResponse.user);
 
         if (userResponse != null) {
@@ -227,7 +227,7 @@ class AuthRepository {
 
   Future<void> logOut() async {
     await _adEntityDao.clear();
-    await _tokenPreferences.clear();
+    await _authPreferences.clear();
     await _userEntityDao.clear();
     await _userPreferences.clear();
     return;

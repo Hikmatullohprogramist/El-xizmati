@@ -8,7 +8,6 @@ import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
 import 'package:onlinebozor/domain/models/category/category.dart';
 import 'package:onlinebozor/domain/models/category/category_type.dart';
 
-// @LazySingleton()
 class CommonRepository {
   final CategoryEntityDao _categoryEntityDao;
   final CommonService _commonService;

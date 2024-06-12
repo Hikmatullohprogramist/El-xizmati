@@ -3,16 +3,15 @@ import 'package:onlinebozor/data/datasource/preference/language_preferences.dart
 import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/domain/models/language/language.dart';
 
-// @LazySingleton()
 class StateRepository {
+  final AuthPreferences _authPreferences;
   final CategoryEntityDao _categoryEntityDao;
   final LanguagePreferences _languagePreferences;
-  final AuthPreferences _tokenPreferences;
 
   StateRepository(
+    this._authPreferences,
     this._categoryEntityDao,
     this._languagePreferences,
-    this._tokenPreferences,
   );
 
   Language getLanguage()  {
@@ -30,18 +29,18 @@ class StateRepository {
   }
 
   Future<void> setLogin(bool isLogin) {
-    return _tokenPreferences.setIsAuthorized(isLogin);
+    return _authPreferences.setIsAuthorized(isLogin);
   }
 
   bool isAuthorized() {
-    return _tokenPreferences.isAuthorized;
+    return _authPreferences.isAuthorized;
   }
 
   bool isNotAuthorized() {
-    return !_tokenPreferences.isAuthorized;
+    return !_authPreferences.isAuthorized;
   }
 
   Future<void> clear() async {
-    await _tokenPreferences.clear();
+    await _authPreferences.clear();
   }
 }

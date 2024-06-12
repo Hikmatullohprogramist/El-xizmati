@@ -7,14 +7,13 @@ import 'package:onlinebozor/domain/models/order/order_cancel_reason.dart';
 import 'package:onlinebozor/domain/models/order/order_type.dart';
 import 'package:onlinebozor/domain/models/order/user_order_status.dart';
 
-// @LazySingleton()
 class UserOrderRepository {
-  final AuthPreferences _tokenPreferences;
+  final AuthPreferences _authPreferences;
   final UserOrderService _userOrderService;
   final UserPreferences _userPreferences;
 
   UserOrderRepository(
-    this._tokenPreferences,
+    this._authPreferences,
     this._userOrderService,
     this._userPreferences,
   );
@@ -25,7 +24,7 @@ class UserOrderRepository {
     required UserOrderStatus userOrderStatus,
     required OrderType orderType,
   }) async {
-    if (_tokenPreferences.isNotAuthorized) throw NotAuthorizedException();
+    if (_authPreferences.isNotAuthorized) throw NotAuthorizedException();
     if (_userPreferences.isNotIdentified) throw NotIdentifiedException();
 
     final response = await _userOrderService.getUserOrders(

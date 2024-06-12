@@ -1,5 +1,4 @@
 import 'package:onlinebozor/data/datasource/floor/dao/ad_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/floor/entities/ad_entity.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad_detail/ad_detail_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/search/search_response.dart';
@@ -16,13 +15,13 @@ import 'package:onlinebozor/domain/models/stats/stats_type.dart';
 class AdRepository {
   final AdEntityDao _adEntityDao;
   final AdService _adsService;
-  final AuthPreferences _tokenPreferences;
+  final AuthPreferences _authPreferences;
   final UserPreferences _userPreferences;
 
   AdRepository(
     this._adEntityDao,
     this._adsService,
-    this._tokenPreferences,
+    this._authPreferences,
     this._userPreferences,
   );
 
@@ -126,7 +125,7 @@ class AdRepository {
     required int page,
     required int limit,
   }) async {
-    if (_tokenPreferences.isNotAuthorized) throw NotAuthorizedException();
+    if (_authPreferences.isNotAuthorized) throw NotAuthorizedException();
     if (_userPreferences.isNotIdentified) throw NotIdentifiedException();
 
     final response = await _adsService.getAdsByUser(

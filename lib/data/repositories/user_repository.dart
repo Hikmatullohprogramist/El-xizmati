@@ -8,7 +8,9 @@ import 'package:onlinebozor/data/datasource/network/responses/profile/verify_ide
 import 'package:onlinebozor/data/datasource/network/responses/region/region_and_district_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/region/region_root_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/user_service.dart';
+import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
+import 'package:onlinebozor/data/error/app_locale_exception.dart';
 import 'package:onlinebozor/domain/mappers/region_mapper.dart';
 import 'package:onlinebozor/domain/mappers/user_mapper.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
@@ -19,11 +21,13 @@ import 'package:onlinebozor/domain/models/social_account/social_account_info.dar
 import 'package:onlinebozor/domain/models/street/street.dart';
 
 class UserRepository {
+  final AuthPreferences _authPreferences;
   final UserService _userService;
   final UserPreferences _userPreferences;
   final UserEntityDao _userEntityDao;
 
   UserRepository(
+    this._authPreferences,
     this._userService,
     this._userPreferences,
     this._userEntityDao,
@@ -34,6 +38,8 @@ class UserRepository {
   }
 
   Future<UserResponse> getUser() async {
+    if (_authPreferences.isNotAuthorized) throw NotAuthorizedException();
+
     final response = await _userService.getFullUserInfo();
     final actual = UserRootResponse.fromJson(response.data).data;
     final saved = await _userEntityDao.getUser();

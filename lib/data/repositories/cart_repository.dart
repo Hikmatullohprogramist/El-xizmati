@@ -8,17 +8,17 @@ import 'package:onlinebozor/domain/models/ad/ad.dart';
 
 class CartRepository {
   final AdEntityDao _adEntityDao;
+  final AuthPreferences _authPreferences;
   final CartService _cartService;
-  final AuthPreferences _tokenPreferences;
 
   CartRepository(
     this._adEntityDao,
+    this._authPreferences,
     this._cartService,
-    this._tokenPreferences,
   );
 
   Future<int> addToCart(Ad ad) async {
-    final isLogin = _tokenPreferences.isAuthorized;
+    final isLogin = _authPreferences.isAuthorized;
     int resultId = ad.id;
     if (isLogin) {
       final response =
@@ -33,7 +33,7 @@ class CartRepository {
   }
 
   Future<void> removeFromCart(int adId) async {
-    final isLogin = _tokenPreferences.isAuthorized;
+    final isLogin = _authPreferences.isAuthorized;
     if (isLogin) {
       await _cartService.removeCart(adId: adId);
     }
@@ -42,7 +42,7 @@ class CartRepository {
   }
 
   Future<List<Ad>> getCartAds() async {
-    final isLogin = _tokenPreferences.isAuthorized;
+    final isLogin = _authPreferences.isAuthorized;
     if (isLogin) {
       final root = await _cartService.getCartAllAds();
       final ads = AdRootResponse.fromJson(root.data).data.results;

@@ -8,20 +8,20 @@ import 'package:onlinebozor/domain/mappers/user_mapper.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
 
 class UserAddressRepository {
-  final AuthPreferences _tokenPreferences;
+  final AuthPreferences _authPreferences;
   final UserAddressEntityDao _userAddressEntityDao;
   final UserAddressService _userAddressService;
   final UserPreferences _userPreferences;
 
   UserAddressRepository(
-    this._tokenPreferences,
+    this._authPreferences,
     this._userAddressEntityDao,
     this._userAddressService,
     this._userPreferences,
   );
 
   Future<List<UserAddress>> getActualUserAddresses() async {
-    if (_tokenPreferences.isNotAuthorized) throw NotAuthorizedException();
+    if (_authPreferences.isNotAuthorized) throw NotAuthorizedException();
     if (_userPreferences.isNotIdentified) throw NotIdentifiedException();
 
     final response = await _userAddressService.getUserAddresses();

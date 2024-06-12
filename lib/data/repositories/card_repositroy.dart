@@ -4,26 +4,26 @@ import 'package:onlinebozor/data/datasource/network/responses/balance/user_depos
 import 'package:onlinebozor/data/datasource/network/responses/realpay/real_pay_card_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/realpay/real_pay_merchant_token_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/card_service.dart';
-import 'package:onlinebozor/data/datasource/preference/language_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
+import 'package:onlinebozor/data/datasource/preference/language_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
 
 class CardRepository {
+  final AuthPreferences _authPreferences;
   final CardService _cardService;
   final LanguagePreferences _languagePreferences;
-  final AuthPreferences _tokenPreferences;
   final UserPreferences _userPreferences;
 
   CardRepository(
+    this._authPreferences,
     this._cardService,
     this._languagePreferences,
-    this._tokenPreferences,
     this._userPreferences,
   );
 
   Future<UserDepositBalance> getDepositCardBalance() async {
-    if (_tokenPreferences.isNotAuthorized) throw NotAuthorizedException();
+    if (_authPreferences.isNotAuthorized) throw NotAuthorizedException();
     if (_userPreferences.isNotIdentified) throw NotIdentifiedException();
 
     final root = await _cardService.getDepositCardBalance();

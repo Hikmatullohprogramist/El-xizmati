@@ -6,14 +6,13 @@ import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
 
-// @LazySingleton()
 class UserAdRepository {
-  final AuthPreferences _tokenPreferences;
+  final AuthPreferences _authPreferences;
   final UserAdService _userAdService;
   final UserPreferences _userPreferences;
 
   UserAdRepository(
-    this._tokenPreferences,
+    this._authPreferences,
     this._userAdService,
     this._userPreferences,
   );
@@ -23,7 +22,7 @@ class UserAdRepository {
     required int limit,
     required UserAdStatus userAdStatus,
   }) async {
-    if (_tokenPreferences.isNotAuthorized) throw NotAuthorizedException();
+    if (_authPreferences.isNotAuthorized) throw NotAuthorizedException();
     if (_userPreferences.isNotIdentified) throw NotIdentifiedException();
 
     final root = await _userAdService.getUserAds(

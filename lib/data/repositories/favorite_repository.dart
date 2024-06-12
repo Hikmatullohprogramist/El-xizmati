@@ -5,26 +5,22 @@ import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.
 import 'package:onlinebozor/data/datasource/network/responses/add_result/add_result_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/favorite_service.dart';
 import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
-import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 
-// @LazySingleton()
 class FavoriteRepository {
   final AdEntityDao _adEntityDao;
+  final AuthPreferences _authPreferences;
   final FavoriteService _favoriteService;
-  final AuthPreferences _tokenPreferences;
-  final UserPreferences _userPreferences;
 
   FavoriteRepository(
     this._adEntityDao,
     this._favoriteService,
-    this._tokenPreferences,
-    this._userPreferences,
+    this._authPreferences,
   );
 
   Future<int> addToFavorite(Ad ad) async {
-    final isLogin = _tokenPreferences.isAuthorized;
+    final isLogin = _authPreferences.isAuthorized;
     int resultId = ad.id;
     if (isLogin) {
       final response = await _favoriteService.addToFavorite(adId: ad.id);
@@ -38,7 +34,7 @@ class FavoriteRepository {
   }
 
   Future<void> removeFromFavorite(int adId) async {
-    final isLogin = _tokenPreferences.isAuthorized;
+    final isLogin = _authPreferences.isAuthorized;
     if (isLogin) {
       await _favoriteService.removeFromFavorite(adId);
     }
@@ -48,7 +44,7 @@ class FavoriteRepository {
   }
 
   Future<List<Ad>> getProductFavoriteAds() async {
-    final isLogin = _tokenPreferences.isAuthorized;
+    final isLogin = _authPreferences.isAuthorized;
     if (isLogin) {
       final response = await _favoriteService.getFavoriteAds();
       final responseAds = AdRootResponse.fromJson(response.data)
@@ -67,7 +63,7 @@ class FavoriteRepository {
   }
 
   Future<List<Ad>> getServiceFavoriteAds() async {
-    final isLogin = _tokenPreferences.isAuthorized;
+    final isLogin = _authPreferences.isAuthorized;
     if (isLogin) {
       final response = await _favoriteService.getFavoriteAds();
       final responseAds = AdRootResponse.fromJson(response.data)

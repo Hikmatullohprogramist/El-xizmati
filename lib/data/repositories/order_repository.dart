@@ -6,16 +6,16 @@ import 'package:onlinebozor/data/error/app_locale_exception.dart';
 import 'package:onlinebozor/data/repositories/cart_repository.dart';
 
 class OrderRepository {
-  final CartService _cartService;
+  final AuthPreferences _authPreferences;
   final CartRepository _cartRepository;
-  final AuthPreferences _tokenPreferences;
+  final CartService _cartService;
   final UserPreferences _userPreferences;
   final UserEntityDao _userEntityDao;
 
   OrderRepository(
-    this._cartService,
+    this._authPreferences,
     this._cartRepository,
-    this._tokenPreferences,
+    this._cartService,
     this._userEntityDao,
     this._userPreferences,
   );
@@ -27,7 +27,7 @@ class OrderRepository {
     required int tin,
     required int? servicePrice,
   }) async {
-    if (_tokenPreferences.isNotAuthorized) throw NotAuthorizedException();
+    if (_authPreferences.isNotAuthorized) throw NotAuthorizedException();
     if (_userPreferences.isNotIdentified) throw NotIdentifiedException();
 
     var user = await _userEntityDao.getUser();

@@ -1,7 +1,6 @@
 import 'package:onlinebozor/data/datasource/network/services/report_service.dart';
 import 'package:onlinebozor/domain/models/report/report_reason.dart';
 
-// @LazySingleton()
 class ReportRepository {
   final ReportService _reportService;
 
