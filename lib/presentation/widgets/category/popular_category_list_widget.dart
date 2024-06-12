@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/widgets/category/popular_category_horizontal.dart';
+import 'package:onlinebozor/presentation/widgets/category/popular_category_horizontal_widget.dart';
 
 import '../../../data/datasource/network/responses/category/popular_category/popular_category_response.dart';
 

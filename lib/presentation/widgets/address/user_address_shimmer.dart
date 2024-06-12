@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:shimmer/shimmer.dart';
 
 class UserAddressShimmer extends StatelessWidget {
@@ -15,8 +15,7 @@ class UserAddressShimmer extends StatelessWidget {
       decoration: BoxDecoration(
         color: context.cardColor,
         borderRadius: BorderRadius.circular(8),
-        border:
-            Border.all(width: 1, color: context.cardStrokeColor),
+        border: Border.all(width: 1, color: context.cardStrokeColor),
       ),
       child: Padding(
         padding: EdgeInsets.only(left: 12, top: 12, right: 12),
@@ -48,17 +47,6 @@ class UserAddressShimmer extends StatelessWidget {
               ),
             ),
             SizedBox(height: 15),
-            Shimmer.fromColors(
-              baseColor: StaticColors.shimmerBaseColor,
-              highlightColor: StaticColors.shimmerHighLightColor,
-              child: Container(
-                height: 14,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(7)),
-              ),
-            ),
-            SizedBox(height: 12),
             Shimmer.fromColors(
               baseColor: StaticColors.shimmerBaseColor,
               highlightColor: StaticColors.shimmerHighLightColor,

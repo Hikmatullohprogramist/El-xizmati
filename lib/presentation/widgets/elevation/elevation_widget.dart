@@ -47,7 +47,7 @@ class ElevationWidget extends StatelessWidget {
         bottom: bottomMargin,
       ),
       decoration: BoxDecoration(
-        color: backgroundColor ?? context.appBarColor,
+        color: backgroundColor ?? context.elevatedColor,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(topLeftRadius),
           topRight: Radius.circular(topRightRadius),

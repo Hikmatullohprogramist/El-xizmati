@@ -23,54 +23,38 @@ class ProfileItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(bottomRadius),
-          topLeft: Radius.circular(topRadius),
-          topRight: Radius.circular(topRadius),
-          bottomRight: Radius.circular(bottomRadius),
-        ),
-        border: Border(
-          top: BorderSide(width: 1, color: context.cardStrokeColor),
-          left: BorderSide(width: 1, color: context.cardStrokeColor),
-          right: BorderSide(width: 1, color: context.cardStrokeColor),
-          bottom: BorderSide(width: 1, color: context.cardStrokeColor),
-        ),
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-            onTap: () => onClicked(),
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(bottomRadius),
-              topLeft: Radius.circular(topRadius),
-              topRight: Radius.circular(topRadius),
-              bottomRight: Radius.circular(bottomRadius),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+          onTap: () => onClicked(),
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(bottomRadius),
+            topLeft: Radius.circular(topRadius),
+            topRight: Radius.circular(topRadius),
+            bottomRight: Radius.circular(bottomRadius),
+          ),
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    icon.svg(width: 22, height: 22),
+                    SizedBox(width: 16),
+                    name.w(500).s(14).c(color ?? context.textPrimary)
+                  ],
+                ),
+                Assets.images.icArrowRight.svg(
+                  height: 16,
+                  width: 16,
+                  color: color,
+                )
+              ],
             ),
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      icon.svg(width: 22, height: 22),
-                      SizedBox(width: 16),
-                      name.w(500).s(14).c(color ?? context.textPrimary)
-                    ],
-                  ),
-                  Assets.images.icArrowRight.svg(
-                    height: 16,
-                    width: 16,
-                    color: color,
-                  )
-                ],
-              ),
-            )),
-      ),
+          )),
     );
   }
 }

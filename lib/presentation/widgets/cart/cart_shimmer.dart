@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CartShimmer extends StatelessWidget {
@@ -16,17 +16,16 @@ class CartShimmer extends StatelessWidget {
       decoration: BoxDecoration(
         color: context.cardColor,
         borderRadius: BorderRadius.circular(8),
-        border:
-            Border.all(width: 1, color: context.cardStrokeColor),
+        border: Border.all(width: 1, color: context.cardStrokeColor),
       ),
       child: Column(
         children: [
-          SizedBox(height: 12),
+          SizedBox(height: 18),
           Shimmer.fromColors(
             baseColor: StaticColors.shimmerBaseColor,
             highlightColor: StaticColors.shimmerHighLightColor,
             child: Container(
-              height: 32,
+              height: 20,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6),
                 border: Border.all(width: 0.50, color: Color(0xFFE5E9F3)),
@@ -34,7 +33,7 @@ class CartShimmer extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 12),
+          SizedBox(height: 18),
           Row(
             children: [
               Shimmer.fromColors(
@@ -99,7 +98,7 @@ class CartShimmer extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 12),
+          SizedBox(height: 24),
           Row(
             children: [
               Shimmer.fromColors(
@@ -107,7 +106,7 @@ class CartShimmer extends StatelessWidget {
                 highlightColor: StaticColors.shimmerHighLightColor,
                 child: Container(
                   width: 32,
-                  height: 32,
+                  height: 20,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(7),
@@ -121,7 +120,7 @@ class CartShimmer extends StatelessWidget {
                   baseColor: StaticColors.shimmerBaseColor,
                   highlightColor: StaticColors.shimmerHighLightColor,
                   child: Container(
-                    height: 32,
+                    height: 20,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(7),
@@ -129,14 +128,14 @@ class CartShimmer extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 8),
+              SizedBox(width: 14),
               Flexible(
                 flex: 4,
                 child: Shimmer.fromColors(
                   baseColor: StaticColors.shimmerBaseColor,
                   highlightColor: StaticColors.shimmerHighLightColor,
                   child: Container(
-                    height: 32,
+                    height: 20,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(7),
@@ -146,7 +145,7 @@ class CartShimmer extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 12)
+          SizedBox(height: 18)
         ],
       ),
     );

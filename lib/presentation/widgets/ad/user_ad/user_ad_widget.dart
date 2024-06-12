@@ -25,168 +25,162 @@ class UserAdWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(width: 1, color: context.cardStrokeColor),
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onItemClicked,
-          borderRadius: BorderRadius.circular(6),
-          child: Padding(
-            padding: EdgeInsets.only(left: 12, top: 12, right: 0),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Stack(
-                      children: [
-                        RoundedCachedNetworkImage(
-                          imageId: userAd.mainPhoto ?? "",
-                          imageWidth: 130,
-                          imageHeight: 100,
-                        ),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(6),
-                                bottomRight: Radius.circular(6),
-                              ),
-                              color: userAd.adTransactionType
-                                  .getTransactionTypeColor(),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onItemClicked,
+        borderRadius: BorderRadius.circular(6),
+        child: Padding(
+          padding: EdgeInsets.only(left: 12, top: 12, right: 0),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Stack(
+                    children: [
+                      RoundedCachedNetworkImage(
+                        imageId: userAd.mainPhoto ?? "",
+                        imageWidth: 130,
+                        imageHeight: 100,
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(6),
+                              bottomRight: Radius.circular(6),
                             ),
-                            padding: EdgeInsets.symmetric(
-                              vertical: 6,
-                              horizontal: 8,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                userAd.adTransactionType
-                                    .getTransactionTypeLocalizedName()
-                                    .w(400)
-                                    .s(13)
-                                    .c(context.textPrimaryInverse)
-                                    .copyWith(overflow: TextOverflow.ellipsis)
-                              ],
-                            ),
+                            color: userAd.adTransactionType
+                                .getTransactionTypeColor(),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: 12),
-                    Expanded(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        (userAd.name ?? "")
-                            .w(600)
-                            .s(14)
-                            .c(Color(0xFF41455E))
-                            .copyWith(
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                        SizedBox(height: 4),
-                        (userAd.category?.name ?? "")
-                            .w(500)
-                            .s(14)
-                            .c(context.textSecondary)
-                            .copyWith(
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                        SizedBox(height: 4),
-                        Container(
                           padding: EdgeInsets.symmetric(
                             vertical: 6,
                             horizontal: 8,
                           ),
-                          decoration: BoxDecoration(
-                            color: userAd.status.getColor().withOpacity(.2),
-                            borderRadius: BorderRadius.circular(8),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              userAd.adTransactionType
+                                  .getTransactionTypeLocalizedName()
+                                  .w(400)
+                                  .s(13)
+                                  .c(context.textPrimaryInverse)
+                                  .copyWith(overflow: TextOverflow.ellipsis)
+                            ],
                           ),
-                          child: userAd.status
-                              .getLocalizedName()
-                              .w(500)
-                              .s(14)
-                              .c(userAd.status.getColor())
-                              .copyWith(
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
                         ),
-                        SizedBox(height: 12),
-                        Padding(
-                          padding: const EdgeInsets.all(0.0),
-                          child: ListPriceTextWidget(
-                            price: userAd.price ?? 0,
-                            toPrice: userAd.toPrice ?? 0,
-                            fromPrice: userAd.fromPrice ?? 0,
-                            currency: userAd.currency.toCurrency(),
+                      ),
+                    ],
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                      child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      (userAd.name ?? "")
+                          .w(600)
+                          .s(14)
+                          .c(Color(0xFF41455E))
+                          .copyWith(
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
                           ),
+                      SizedBox(height: 4),
+                      (userAd.category?.name ?? "")
+                          .w(500)
+                          .s(14)
+                          .c(context.textSecondary)
+                          .copyWith(
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                      SizedBox(height: 4),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 6,
+                          horizontal: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: userAd.status.getColor().withOpacity(.2),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: userAd.status
+                            .getLocalizedName()
+                            .w(500)
+                            .s(14)
+                            .c(userAd.status.getColor())
+                            .copyWith(
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                      ),
+                      SizedBox(height: 12),
+                      Padding(
+                        padding: const EdgeInsets.all(0.0),
+                        child: ListPriceTextWidget(
+                          price: userAd.price ?? 0,
+                          toPrice: userAd.toPrice ?? 0,
+                          fromPrice: userAd.fromPrice ?? 0,
+                          currency: userAd.currency.toCurrency(),
+                        ),
+                      ),
+                    ],
+                  )),
+                  SizedBox(width: 12),
+                ],
+              ),
+              SizedBox(height: 2),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Flexible(
+                    child: AdStatsWidget(
+                      icon: Assets.images.icViewCount,
+                      count: userAd.viewedCount,
+                    ),
+                  ),
+                  SizedBox(width: 6),
+                  Flexible(
+                    child: AdStatsWidget(
+                      icon: Assets.images.icFavoriteRemove,
+                      count: userAd.selectedCount,
+                    ),
+                  ),
+                  SizedBox(width: 6),
+                  Flexible(
+                    child: AdStatsWidget(
+                      icon: Assets.images.icCall,
+                      count: userAd.phoneViewedCount,
+                    ),
+                  ),
+                  SizedBox(width: 6),
+                  Flexible(
+                    child: AdStatsWidget(
+                      icon: Assets.images.icAdMessage,
+                      count: userAd.messageViewedCount,
+                    ),
+                  ),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            onActionClicked();
+                            HapticFeedback.lightImpact();
+                          },
+                          icon: Assets.images.icThreeDotVertical
+                              .svg(width: 24, height: 24),
                         ),
                       ],
-                    )),
-                    SizedBox(width: 12),
-                  ],
-                ),
-                SizedBox(height: 2),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Flexible(
-                      child: AdStatsWidget(
-                        icon: Assets.images.icViewCount,
-                        count: userAd.viewedCount,
-                      ),
                     ),
-                    SizedBox(width: 6),
-                    Flexible(
-                      child: AdStatsWidget(
-                        icon: Assets.images.icFavoriteRemove,
-                        count: userAd.selectedCount,
-                      ),
-                    ),
-                    SizedBox(width: 6),
-                    Flexible(
-                      child: AdStatsWidget(
-                        icon: Assets.images.icCall,
-                        count: userAd.phoneViewedCount,
-                      ),
-                    ),
-                    SizedBox(width: 6),
-                    Flexible(
-                      child: AdStatsWidget(
-                        icon: Assets.images.icAdMessage,
-                        count: userAd.messageViewedCount,
-                      ),
-                    ),
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              onActionClicked();
-                              HapticFeedback.lightImpact();
-                            },
-                            icon: Assets.images.icThreeDotVertical
-                                .svg(width: 24, height: 24),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(height: 6)
-              ],
-            ),
+                  )
+                ],
+              ),
+              SizedBox(height: 6)
+            ],
           ),
         ),
       ),

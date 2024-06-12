@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:shimmer/shimmer.dart';
-
-import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 
 class UserAdWidgetShimmer extends StatelessWidget {
   const UserAdWidgetShimmer({
@@ -12,12 +11,11 @@ class UserAdWidgetShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+      margin: EdgeInsets.symmetric(vertical: 6, horizontal: 16),
       decoration: BoxDecoration(
         color: context.cardColor,
         borderRadius: BorderRadius.circular(8),
-        border:
-            Border.all(width: 1, color: context.cardStrokeColor),
+        border: Border.all(width: 1, color: context.cardStrokeColor),
       ),
       child: Material(
         color: Colors.transparent,

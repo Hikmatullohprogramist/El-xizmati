@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:shimmer/shimmer.dart';
 
 class UserOrderWidgetShimmer extends StatelessWidget {
@@ -12,12 +12,11 @@ class UserOrderWidgetShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      margin: const EdgeInsets.symmetric(vertical: 6),
+      margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
       decoration: BoxDecoration(
         color: context.cardColor,
         borderRadius: BorderRadius.circular(8),
-        border:
-            Border.all(width: 1, color: context.cardStrokeColor),
+        border: Border.all(width: 1, color: context.cardStrokeColor),
       ),
       child: Column(
         children: [
@@ -84,7 +83,20 @@ class UserOrderWidgetShimmer extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: 10),
+                    Shimmer.fromColors(
+                      baseColor: StaticColors.shimmerBaseColor,
+                      highlightColor: StaticColors.shimmerHighLightColor,
+                      child: Container(
+                        width: 150,
+                        height: 14,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(7),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -115,7 +127,7 @@ class UserOrderWidgetShimmer extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: 20),
                     Shimmer.fromColors(
                       baseColor: StaticColors.shimmerBaseColor,
                       highlightColor: StaticColors.shimmerHighLightColor,
@@ -146,7 +158,7 @@ class UserOrderWidgetShimmer extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 16),
+          SizedBox(height: 24),
           Row(
             children: [
               Expanded(
@@ -182,7 +194,7 @@ class UserOrderWidgetShimmer extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 12),
+          SizedBox(height: 20),
         ],
       ),
     );
