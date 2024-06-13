@@ -157,6 +157,8 @@ class AdRepository {
   }
 
   Future<void> addAdToRecentlyViewed({required int adId}) async {
+    if (_authPreferences.isNotAuthorized) throw NotAuthorizedException();
+
     await _adsService.addAdToRecentlyViewed(adId: adId);
     return;
   }
@@ -165,8 +167,12 @@ class AdRepository {
     required int page,
     required int limit,
   }) async {
-    final response =
-        await _adsService.getRecentlyViewedAds(page: page, limit: limit);
+    if (_authPreferences.isNotAuthorized) throw NotAuthorizedException();
+
+    final response = await _adsService.getRecentlyViewedAds(
+      page: page,
+      limit: limit,
+    );
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
     return _getAsCombined(adResponses);
   }
