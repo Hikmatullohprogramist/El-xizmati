@@ -14,7 +14,6 @@ import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_lis
 import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_list_widget.dart';
 import 'package:onlinebozor/presentation/widgets/ad/vertical/vertical_ad_widget.dart';
 import 'package:onlinebozor/presentation/widgets/dashboard/see_all_widget.dart';
-import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 
@@ -34,242 +33,264 @@ class AdListByTypePage
 
   @override
   Widget onWidgetBuild(BuildContext context, AdListByTypeState state) {
-    double width;
-    double height;
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
     return Center(
       child: Scaffold(
         backgroundColor: context.backgroundGreyColor,
-        appBar: AppBar(
-          backgroundColor: context.appBarColor,
-          elevation: 0.5,
-          toolbarHeight: 64,
-          leading: IconButton(
-            onPressed: () => context.router.pop(),
-            icon: Assets.images.icArrowLeft.svg(),
-          ),
-          actions: [
-            Expanded(
-              child: Container(
-                margin: EdgeInsets.only(left: 64, top: 12, bottom: 12, right: 16),
-                child: InkWell(
-                  onTap: () => context.router.push(SearchRoute()),
-                  borderRadius: BorderRadius.circular(6),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: context.cardColor,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: Row(
-                      children: [
-                        SizedBox(width: 12),
-                        Assets.images.iconSearch.svg(),
-                        SizedBox(width: 6),
-                        Expanded(
-                          child: Strings.adSearchHint
-                              .w(400)
-                              .s(14)
-                              .c(context.textSecondary)
-                              .copyWith(
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                        ),
-                        SizedBox(width: 12),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            )
-          ],
-        ),
+        appBar: _buildAppBar(context),
         body: CustomScrollView(
           physics: BouncingScrollPhysics(),
           slivers: [
-            SliverToBoxAdapter(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(right: 16, left: 16, top: 16),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: switch (adType) {
-                        AdType.product => Strings.favoriteProductTitle
-                            .w(700)
-                            .s(16)
-                            .c(context.textPrimary),
-                        AdType.service => Strings.favoriteServiceTitle
-                            .w(700)
-                            .s(16)
-                            .c(context.textPrimary),
-                      },
-                    ),
-                  ),
-                  SeeAllWidget(
-                    onClicked: () {
-                      context.router.push(AdListRoute(
-                        adType: state.adType,
-                        adListType: AdListType.cheaperAdsByAdType,
-                        keyWord: '',
-                        title: Strings.adListLowPricesLabel,
-                      ));
-                    },
-                    title: Strings.adListLowPricesLabel,
-                  ),
-                  LoaderStateWidget(
-                    isFullScreen: false,
-                    loadingState: state.cheapAdsState,
-                    loadingBody: HorizontalAdListShimmer(),
-                    successBody: HorizontalAdListWidget(
-                      ads: state.cheapAds,
-                      onItemClicked: (Ad result) {
-                        context.router.push(AdDetailRoute(adId: result.id));
-                      },
-                      onFavoriteClicked: (Ad result) {
-                        cubit(context).cheapAdsAddFavorite(result);
-                      },
-                      onCartClicked: (Ad ad) {},
-                      onBuyClicked: (Ad ad) {
-                        context.router.push(OrderCreationRoute(adId: ad.id));
-                      },
-                    ),
-                  ),
-                  SizedBox(height: 6),
-                  CustomDivider(height: 3),
-                  SeeAllWidget(
-                    onClicked: () {
-                      context.router.push(AdListRoute(
-                        adType: state.adType,
-                        adListType: AdListType.popularAdsByAdType,
-                        keyWord: '',
-                        title: Strings.adListPopularLabel,
-                      ));
-                    },
-                    title: Strings.adListPopularLabel,
-                  ),
-                  SizedBox(height: 6),
-                  LoaderStateWidget(
-                    isFullScreen: false,
-                    loadingState: state.popularAdsState,
-                    loadingBody: HorizontalAdListShimmer(),
-                    successBody: HorizontalAdListWidget(
-                      ads: state.popularAds,
-                      onItemClicked: (Ad ad) {
-                        context.router.push(AdDetailRoute(adId: ad.id));
-                      },
-                      onFavoriteClicked: (Ad ad) {
-                        cubit(context).popularAdsAddFavorite(ad);
-                      },
-                      onCartClicked: (Ad ad) {},
-                      onBuyClicked: (Ad ad) {
-                        context.router.push(OrderCreationRoute(adId: ad.id));
-                      },
-                    ),
-                  ),
-                  SizedBox(height: 6),
-                  CustomDivider(height: 3),
-                  SizedBox(height: 24)
-                ],
-              ),
-            ),
-            state.controller == null
-                ? SizedBox()
-                : PagedSliverGrid<int, Ad>(
-                    pagingController: state.controller!,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: width / height,
-                      crossAxisSpacing: 12,
-                      mainAxisSpacing: 12,
-                      crossAxisCount: 2,
-                      mainAxisExtent: 292,
-                    ),
-                    builderDelegate: PagedChildBuilderDelegate<Ad>(
-                      firstPageErrorIndicatorBuilder: (_) {
-                        return DefaultErrorWidget(
-                          isFullScreen: true,
-                          onRetryClicked: () =>
-                              cubit(context).states.controller?.refresh(),
-                        );
-                      },
-                      firstPageProgressIndicatorBuilder: (_) {
-                        return SizedBox(
-                          height: 60,
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              color: Colors.blue,
-                            ),
-                          ),
-                        );
-                      },
-                      noItemsFoundIndicatorBuilder: (_) {
-                        return Center(
-                          child: Text(Strings.commonEmptyMessage),
-                        );
-                      },
-                      newPageProgressIndicatorBuilder: (_) {
-                        return SizedBox(
-                          height: 60,
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              color: Colors.blue,
-                            ),
-                          ),
-                        );
-                      },
-                      newPageErrorIndicatorBuilder: (_) {
-                        return DefaultErrorWidget(
-                          isFullScreen: false,
-                          onRetryClicked: () =>
-                              cubit(context).states.controller?.refresh(),
-                        );
-                      },
-                      transitionDuration: Duration(milliseconds: 100),
-                      itemBuilder: (context, item, index) {
-                        if (index % 2 == 1) {
-                          return Padding(
-                            padding: EdgeInsets.only(right: 16),
-                            child: VerticalAdWidget(
-                              ad: item,
-                              onItemClicked: (ad) {
-                                context.router.push(AdDetailRoute(adId: ad.id));
-                              },
-                              onFavoriteClicked: (ad) {
-                                cubit(context).addFavorite(ad);
-                              },
-                              onCartClicked: (Ad ad) {},
-                              onBuyClicked: (Ad ad) {
-                                context.router
-                                    .push(OrderCreationRoute(adId: ad.id));
-                              },
-                            ),
-                          );
-                        } else {
-                          return Padding(
-                            padding: EdgeInsets.only(left: 16),
-                            child: VerticalAdWidget(
-                              ad: item,
-                              onItemClicked: (ad) {
-                                context.router.push(AdDetailRoute(adId: ad.id));
-                              },
-                              onFavoriteClicked: (ad) {
-                                cubit(context).addFavorite(ad);
-                              },
-                              onCartClicked: (Ad ad) {},
-                              onBuyClicked: (Ad ad) {
-                                context.router
-                                    .push(OrderCreationRoute(adId: ad.id));
-                              },
-                            ),
-                          );
-                        }
-                      },
-                    ),
-                  )
+            _buildHorizontalAds(context, state),
+            _buildVerticalAdsList(context, state)
           ],
         ),
       ),
     );
+  }
+
+  AppBar _buildAppBar(BuildContext context) {
+    return AppBar(
+      backgroundColor: context.appBarColor,
+      elevation: 0.5,
+      toolbarHeight: 64,
+      leading: IconButton(
+        onPressed: () => context.router.pop(),
+        icon: Assets.images.icArrowLeft.svg(),
+      ),
+      actions: [
+        Expanded(
+          child: Container(
+            margin: EdgeInsets.only(
+              left: 64,
+              top: 12,
+              bottom: 12,
+              right: 16,
+            ),
+            child: InkWell(
+              onTap: () => context.router.push(SearchRoute()),
+              borderRadius: BorderRadius.circular(6),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: context.cardColor,
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(width: 12),
+                    Assets.images.iconSearch.svg(),
+                    SizedBox(width: 6),
+                    Expanded(
+                      child: Strings.adSearchHint
+                          .w(400)
+                          .s(14)
+                          .c(context.textSecondary)
+                          .copyWith(
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                    ),
+                    SizedBox(width: 12),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  SliverToBoxAdapter _buildHorizontalAds(
+    BuildContext context,
+    AdListByTypeState state,
+  ) {
+    return SliverToBoxAdapter(
+      child: Column(
+        children: [
+          SeeAllWidget(
+            onClicked: () {
+              context.router.push(AdListRoute(
+                adType: state.adType,
+                adListType: AdListType.cheaperAdsByAdType,
+                keyWord: '',
+                title: state.adType == AdType.service
+                    ? Strings.adListLowPriceServices
+                    : Strings.adListLowPriceProducts,
+              ));
+            },
+            title: state.adType == AdType.service
+                ? Strings.adListLowPriceServices
+                : Strings.adListLowPriceProducts,
+          ),
+          LoaderStateWidget(
+            isFullScreen: false,
+            loadingState: state.cheapAdsState,
+            loadingBody: HorizontalAdListShimmer(),
+            successBody: HorizontalAdListWidget(
+              ads: state.cheapAds,
+              onItemClicked: (Ad result) {
+                context.router.push(AdDetailRoute(adId: result.id));
+              },
+              onFavoriteClicked: (Ad result) {
+                cubit(context).cheapAdsAddFavorite(result);
+              },
+              onCartClicked: (Ad ad) {},
+              onBuyClicked: (Ad ad) {
+                context.router.push(OrderCreationRoute(adId: ad.id));
+              },
+            ),
+          ),
+          SeeAllWidget(
+            onClicked: () {
+              context.router.push(AdListRoute(
+                adType: state.adType,
+                adListType: AdListType.popularAdsByAdType,
+                keyWord: '',
+                title: state.adType == AdType.service
+                    ? Strings.adListPopularServices
+                    : Strings.adListPopularProducts,
+              ));
+            },
+            title: state.adType == AdType.service
+                ? Strings.adListPopularServices
+                : Strings.adListPopularProducts,
+          ),
+          LoaderStateWidget(
+            isFullScreen: false,
+            loadingState: state.popularAdsState,
+            loadingBody: HorizontalAdListShimmer(),
+            successBody: HorizontalAdListWidget(
+              ads: state.popularAds,
+              onItemClicked: (Ad ad) {
+                context.router.push(AdDetailRoute(adId: ad.id));
+              },
+              onFavoriteClicked: (Ad ad) {
+                cubit(context).popularAdsAddFavorite(ad);
+              },
+              onCartClicked: (Ad ad) {},
+              onBuyClicked: (Ad ad) {
+                context.router.push(OrderCreationRoute(adId: ad.id));
+              },
+            ),
+          ),
+          SizedBox(height: 6),
+          Padding(
+            padding: const EdgeInsets.only(left: 16, right: 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                (state.adType == AdType.service
+                        ? Strings.adListInterestingServices
+                        : Strings.adListInterestingProducts)
+                    .w(600)
+                    .s(16)
+                    .c(context.textPrimary),
+              ],
+            ),
+          ),
+          SizedBox(height: 16),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildVerticalAdsList(BuildContext context, AdListByTypeState state) {
+    double width;
+    double height;
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
+
+    return state.controller == null
+        ? SizedBox()
+        : PagedSliverGrid<int, Ad>(
+            pagingController: state.controller!,
+            showNewPageProgressIndicatorAsGridChild: false,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              childAspectRatio: width / height,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+              crossAxisCount: 2,
+              mainAxisExtent: 292,
+            ),
+            builderDelegate: PagedChildBuilderDelegate<Ad>(
+              firstPageErrorIndicatorBuilder: (_) {
+                return DefaultErrorWidget(
+                  isFullScreen: true,
+                  onRetryClicked: () =>
+                      cubit(context).states.controller?.refresh(),
+                );
+              },
+              firstPageProgressIndicatorBuilder: (_) {
+                return SizedBox(
+                  height: 60,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.blue,
+                    ),
+                  ),
+                );
+              },
+              noItemsFoundIndicatorBuilder: (_) {
+                return Center(
+                  child: Text(Strings.commonEmptyMessage),
+                );
+              },
+              newPageProgressIndicatorBuilder: (_) {
+                return SizedBox(
+                  height: 60,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.blue,
+                    ),
+                  ),
+                );
+              },
+              newPageErrorIndicatorBuilder: (_) {
+                return DefaultErrorWidget(
+                  isFullScreen: false,
+                  onRetryClicked: () =>
+                      cubit(context).states.controller?.refresh(),
+                );
+              },
+              transitionDuration: Duration(milliseconds: 100),
+              itemBuilder: (context, item, index) {
+                if (index % 2 == 1) {
+                  return Padding(
+                    padding: EdgeInsets.only(right: 16),
+                    child: VerticalAdWidget(
+                      ad: item,
+                      onItemClicked: (ad) {
+                        context.router.push(AdDetailRoute(adId: ad.id));
+                      },
+                      onFavoriteClicked: (ad) {
+                        cubit(context).addFavorite(ad);
+                      },
+                      onCartClicked: (Ad ad) {},
+                      onBuyClicked: (Ad ad) {
+                        context.router.push(OrderCreationRoute(adId: ad.id));
+                      },
+                    ),
+                  );
+                } else {
+                  return Padding(
+                    padding: EdgeInsets.only(left: 16),
+                    child: VerticalAdWidget(
+                      ad: item,
+                      onItemClicked: (ad) {
+                        context.router.push(AdDetailRoute(adId: ad.id));
+                      },
+                      onFavoriteClicked: (ad) {
+                        cubit(context).addFavorite(ad);
+                      },
+                      onCartClicked: (Ad ad) {},
+                      onBuyClicked: (Ad ad) {
+                        context.router.push(OrderCreationRoute(adId: ad.id));
+                      },
+                    ),
+                  );
+                }
+              },
+            ),
+          );
   }
 }

@@ -102,19 +102,28 @@ class AdListByTypeCubit
     logger.i(states.controller);
 
     adController.addPageRequestListener(
-      (pageKey) async {
-        final adsList = await _adRepository.getAdsByType(
-          adType: states.adType,
-          page: pageKey,
-          limit: _pageSize,
-        );
-        if (adsList.length <= 19) {
-          adController.appendLastPage(adsList);
-          logger.i(states.controller);
-          return;
-        }
-        adController.appendPage(adsList, pageKey + 1);
-        logger.i(states.controller);
+      (pageKey) {
+        _adRepository
+            .getAdsByType(
+              adType: states.adType,
+              page: pageKey,
+              limit: _pageSize,
+            )
+            .initFuture()
+            .onStart(() {})
+            .onSuccess((data) {
+              if (data.length <= 19) {
+                adController.appendLastPage(data);
+                logger.i(states.controller);
+                return;
+              }
+              adController.appendPage(data, pageKey + 1);
+            })
+            .onError((error) {
+              adController.error = error;
+            })
+            .onFinished(() {})
+            .executeFuture();
       },
     );
     return adController;

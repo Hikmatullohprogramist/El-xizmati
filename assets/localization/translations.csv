@@ -91,8 +91,12 @@ ad_empty_message_all,Siz hali birorta ham e’lon qo‘shmadingiz!,Вы еще �
 ad_empty_message_cancelled,Sizda hozircha bekor qilingan e‘lon yo‘q!,У вас нет отмененных объявлений!,Сизда ҳозирча бекор қилинган эълон йўқ!
 ad_empty_message_inactive,Sizda hozircha nofaol e‘lon yo‘q!,У вас пока нет неактивных объявлений!,Сизда ҳозирча нофаол эълон йўқ!
 ad_empty_message_wait,Sizda hozircha ko‘rib chiqilayotgan e’lon yo‘q!,У вас нет ожидающих объявлений!,Сизда ҳозирча кўриб чиқилаётган эълон йўқ!
-ad_list_low_prices_label,Arzon narxlar,Низкие цены ,Арзон нархлар
-ad_list_popular_label,Ommaboplar,Популярные,Оммабоплар
+ad_list_interesting_products,Qiziqarli mahsulotlar,Интересные продукты,Қизиқарли маҳсулотлар
+ad_list_interesting_services,Qiziqarli xizmatlar,Интересные услуги,Қизиқарли хизматлар
+ad_list_low_price_products,Hamyonbop mahsulotlar,Доступные продукты,Ҳамёнбоп маҳсулотлар
+ad_list_low_price_services,Hamyonbop xizmatlar,Доступные услуги,Ҳамёнбоп хизматлар
+ad_list_popular_products,Ommabop mahsulotlar,Популярные продукты,Оммабоп маҳсулотлар
+ad_list_popular_services,Ommabop xizmatlar,Популярные услуги,Оммабоп хизматлар
 ad_property_biznes,Biznes,Бизнес,Бизнес
 ad_property_personal,Shaxsiy,Частное,Шахсий
 ad_search_hint,Mahsulotlar va kategoriyalar qidiring,Искать товары и категории,Маҳсулотлар ва категорийлар қидиринг
