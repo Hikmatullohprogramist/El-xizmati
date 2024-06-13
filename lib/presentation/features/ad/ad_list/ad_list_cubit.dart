@@ -53,84 +53,76 @@ class AdListCubit extends BaseCubit<AdListState, AdListEvent> {
   }
 
   PagingController<int, Ad> getAdsController({required int status}) {
-    final adController = PagingController<int, Ad>(firstPageKey: 1);
+    final controller = PagingController<int, Ad>(firstPageKey: 1);
     logger.i(states.controller);
 
-    adController.addPageRequestListener(
+    controller.addPageRequestListener(
       (pageKey) async {
-        List<Ad> adsList;
-        switch (states.adListType) {
-          case AdListType.homeList:
-            adsList = await _adRepository.getHomeAds(
-              pageKey,
-              _pageSize,
-              states.keyWord,
-            );
-          case AdListType.homePopularAds:
-            adsList = await _adRepository.getPopularAdsByType(
-              adType: AdType.product,
-              page: pageKey,
-              limit: _pageSize,
-            );
-          case AdListType.adsByUser:
-            adsList = await _adRepository.getAdsByUser(
-              sellerTin: states.sellerTin ?? -1,
-              page: pageKey,
-              limit: _pageSize,
-            );
-          case AdListType.similarAds:
-            adsList = await _adRepository.getSimilarAds(
-              adId: states.adId ?? 0,
-              page: pageKey,
-              limit: _pageSize,
-            );
-          case AdListType.popularCategoryAds:
-            adsList = await _adRepository.getHomeAds(
-              pageKey,
-              _pageSize,
-              states.keyWord,
-            );
-          case AdListType.cheaperAdsByAdType:
-            adsList = await _adRepository.getCheapAdsByType(
-              adType: states.collectiveType ?? AdType.product,
-              page: pageKey,
-              limit: _pageSize,
-            );
-          case AdListType.popularAdsByAdType:
-            adsList = await _adRepository.getPopularAdsByType(
-              adType: states.collectiveType ?? AdType.product,
-              page: pageKey,
-              limit: _pageSize,
-            );
-          case AdListType.recentlyViewedAds:
-            adsList = await _adRepository.getRecentlyViewedAds(
-              page: pageKey,
-              limit: _pageSize,
-            );
-        }
+        try {
+          List<Ad> adsList;
+          switch (states.adListType) {
+            case AdListType.homeList:
+              adsList = await _adRepository.getHomeAds(
+                pageKey,
+                _pageSize,
+                states.keyWord,
+              );
+            case AdListType.homePopularAds:
+              adsList = await _adRepository.getPopularAdsByType(
+                adType: AdType.product,
+                page: pageKey,
+                limit: _pageSize,
+              );
+            case AdListType.adsByUser:
+              adsList = await _adRepository.getAdsByUser(
+                sellerTin: states.sellerTin ?? -1,
+                page: pageKey,
+                limit: _pageSize,
+              );
+            case AdListType.similarAds:
+              adsList = await _adRepository.getSimilarAds(
+                adId: states.adId ?? 0,
+                page: pageKey,
+                limit: _pageSize,
+              );
+            case AdListType.popularCategoryAds:
+              adsList = await _adRepository.getHomeAds(
+                pageKey,
+                _pageSize,
+                states.keyWord,
+              );
+            case AdListType.cheaperAdsByAdType:
+              adsList = await _adRepository.getCheapAdsByType(
+                adType: states.collectiveType ?? AdType.product,
+                page: pageKey,
+                limit: _pageSize,
+              );
+            case AdListType.popularAdsByAdType:
+              adsList = await _adRepository.getPopularAdsByType(
+                adType: states.collectiveType ?? AdType.product,
+                page: pageKey,
+                limit: _pageSize,
+              );
+            case AdListType.recentlyViewedAds:
+              adsList = await _adRepository.getRecentlyViewedAds(
+                page: pageKey,
+                limit: _pageSize,
+              );
+          }
 
-        // if (states.adListType == AdListType.homePopularAds ||
-        //     states.adListType == AdListType.cheaperAdsByAdType ||
-        //     states.adListType == AdListType.popularAdsByAdType ||
-        //     states.adListType == AdListType.popularCategoryAds ||
-        //     states.adListType == AdListType.adsByUser ||
-        //     states.adListType == AdListType.similarAds
-        // ) {
-        //   adController.appendLastPage(adsList);
-        //   log.i(states.controller);
-        //   return;
-        // } else {
-        if (adsList.length <= 19) {
-          adController.appendLastPage(adsList);
+          if (adsList.length <= 19) {
+            controller.appendLastPage(adsList);
+            logger.i(states.controller);
+            return;
+          }
+          controller.appendPage(adsList, pageKey + 1);
           logger.i(states.controller);
-          return;
+        } catch (e) {
+          controller.error = e;
         }
-        adController.appendPage(adsList, pageKey + 1);
-        logger.i(states.controller);
-        // }
       },
     );
-    return adController;
+    return controller;
   }
 
   Future<void> updateCartInfo(Ad ad) async {

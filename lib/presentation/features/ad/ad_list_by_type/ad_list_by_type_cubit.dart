@@ -96,12 +96,12 @@ class AdListByTypeCubit
   PagingController<int, Ad> getAdsController({
     required int status,
   }) {
-    final adController = PagingController<int, Ad>(
+    final controller = PagingController<int, Ad>(
       firstPageKey: 1,
     );
     logger.i(states.controller);
 
-    adController.addPageRequestListener(
+    controller.addPageRequestListener(
       (pageKey) {
         _adRepository
             .getAdsByType(
@@ -113,20 +113,20 @@ class AdListByTypeCubit
             .onStart(() {})
             .onSuccess((data) {
               if (data.length <= 19) {
-                adController.appendLastPage(data);
+                controller.appendLastPage(data);
                 logger.i(states.controller);
                 return;
               }
-              adController.appendPage(data, pageKey + 1);
+              controller.appendPage(data, pageKey + 1);
             })
             .onError((error) {
-              adController.error = error;
+              controller.error = error;
             })
             .onFinished(() {})
             .executeFuture();
       },
     );
-    return adController;
+    return controller;
   }
 
   Future<void> popularAdsAddFavorite(Ad ad) async {

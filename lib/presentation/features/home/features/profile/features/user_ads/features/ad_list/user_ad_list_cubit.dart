@@ -35,12 +35,12 @@ class UserAdListCubit extends BaseCubit<UserAdListState, UserAdListEvent> {
   }
 
   PagingController<int, UserAd> getAdsController({required int status}) {
-    final adController = PagingController<int, UserAd>(
+    final controller = PagingController<int, UserAd>(
       firstPageKey: 1,
       invisibleItemsThreshold: 100,
     );
 
-    adController.addPageRequestListener(
+    controller.addPageRequestListener(
       (pageKey) {
         _userAdRepository
             .getUserAds(
@@ -53,13 +53,13 @@ class UserAdListCubit extends BaseCubit<UserAdListState, UserAdListEvent> {
             .onSuccess((data) {
               final adsList = data.map((e) => e.toMap()).toList();
               if (adsList.length < 20) {
-                adController.appendLastPage(adsList);
+                controller.appendLastPage(adsList);
                 return;
               }
-              adController.appendPage(adsList, pageKey + 1);
+              controller.appendPage(adsList, pageKey + 1);
             })
             .onError((error) {
-              adController.error = error;
+              controller.error = error;
               if (error.isRequiredShowError) {
                 stateMessageManager
                     .showErrorBottomSheet(error.localizedMessage);
@@ -69,7 +69,7 @@ class UserAdListCubit extends BaseCubit<UserAdListState, UserAdListEvent> {
             .executeFuture();
       },
     );
-    return adController;
+    return controller;
   }
 
   Future<void> deactivateAd(UserAd ad) async {

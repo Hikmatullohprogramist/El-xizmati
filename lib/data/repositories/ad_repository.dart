@@ -98,6 +98,9 @@ class AdRepository {
     required int limit,
     required AdType adType,
   }) async {
+    Future.delayed(Duration(seconds: 3));
+    throw UnsupportedError("test");
+
     final response = await _adsService.getAdsByAdType(adType, page, limit);
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
     return _getAsCombined(adResponses);

@@ -160,7 +160,7 @@ class UserService {
     return response;
   }
 
-  Future<Response> getActiveDevices() async {
+  Future<Response> getActiveSessions() async {
     final response = await _dio.get("api/mobile/v1/profile/active");
     return response;
   }

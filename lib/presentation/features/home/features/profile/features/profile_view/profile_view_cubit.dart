@@ -319,7 +319,30 @@ class ProfileViewCubit extends BaseCubit<ProfileViewState, ProfileViewEvent> {
 
     controller.addPageRequestListener(
       (pageKey) async {
-        final items = await _userRepository.getActiveDevice();
+        _userRepository
+            .getActiveSessions()
+            .initFuture()
+            .onStart(() {})
+            .onSuccess((data) {
+              if (data.length <= 1000) {
+                if (data.length > 2) {
+                  controller.appendLastPage(data.sublist(0, 2));
+                } else {
+                  controller.appendLastPage(data);
+                }
+                logger.i(states.controller);
+                return;
+              }
+              controller.appendPage(data, pageKey + 1);
+            })
+            .onError((error) {
+              logger.e(error);
+              controller.error = error;
+            })
+            .onFinished(() {})
+            .executeFuture();
+
+        final items = await _userRepository.getActiveSessions();
         if (items.length <= 1000) {
           if (items.length > 2) {
             controller.appendLastPage(items.sublist(0, 2));

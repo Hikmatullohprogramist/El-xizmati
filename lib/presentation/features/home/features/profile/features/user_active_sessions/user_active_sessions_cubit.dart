@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/user_repository.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
@@ -36,14 +37,24 @@ class UserActiveSessionsCubit
 
     controller.addPageRequestListener(
       (pageKey) async {
-        final items = await _userRepository.getActiveDevice();
-        if (items.length <= 1000) {
-          controller.appendLastPage(items);
-          logger.i(states.controller);
-          return;
-        }
-        controller.appendPage(items, pageKey + 1);
-        logger.i(states.controller);
+        _userRepository
+            .getActiveSessions()
+            .initFuture()
+            .onStart(() {})
+            .onSuccess((data) {
+              if (data.length <= 1000) {
+                controller.appendLastPage(data);
+                logger.i(states.controller);
+                return;
+              }
+              controller.appendPage(data, pageKey + 1);
+            })
+            .onError((error) {
+              logger.e(error);
+              controller.error = error;
+            })
+            .onFinished(() {})
+            .executeFuture();
       },
     );
     return controller;

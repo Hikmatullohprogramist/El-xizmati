@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
+import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/datasource/network/responses/category/popular_category/popular_category_response.dart';
 import 'package:onlinebozor/data/repositories/common_repository.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
@@ -27,24 +28,33 @@ class PopularCategoriesCubit
   PagingController<int, PopularCategory> getPagingController({
     required int status,
   }) {
-    final adController = PagingController<int, PopularCategory>(
+    final controller = PagingController<int, PopularCategory>(
       firstPageKey: 1,
     );
     logger.i(states.controller);
 
-    adController.addPageRequestListener(
+    controller.addPageRequestListener(
       (pageKey) async {
-        final adsList =
-            await _commonRepository.getPopularCategories(pageKey, 20);
-        if (adsList.length <= 19) {
-          adController.appendLastPage(adsList);
-          logger.i(states.controller);
-          return;
-        }
-        adController.appendPage(adsList, pageKey + 1);
-        logger.i(states.controller);
+        _commonRepository
+            .getPopularCategories(pageKey, 20)
+            .initFuture()
+            .onStart(() {})
+            .onSuccess((data) {
+              if (data.length <= 19) {
+                controller.appendLastPage(data);
+                logger.i(states.controller);
+                return;
+              }
+              controller.appendPage(data, pageKey + 1);
+            })
+            .onError((error) {
+              logger.e(error);
+              controller.error = error;
+            })
+            .onFinished(() {})
+            .executeFuture();
       },
     );
-    return adController;
+    return controller;
   }
 }

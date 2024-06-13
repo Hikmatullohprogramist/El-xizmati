@@ -217,8 +217,8 @@ class UserRepository {
     return !_userPreferences.isIdentified;
   }
 
-  Future<List<ActiveSession>> getActiveDevice() async {
-    final deviceResponse = await _userService.getActiveDevices();
+  Future<List<ActiveSession>> getActiveSessions() async {
+    final deviceResponse = await _userService.getActiveSessions();
     final root = ActiveSessionsRootResponse.fromJson(deviceResponse.data).data;
     final userAgent = DeviceInfo.userAgent;
     final items = root.map((e) => e.toMap(e.user_agent == userAgent)).toList();

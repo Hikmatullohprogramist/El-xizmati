@@ -35,13 +35,13 @@ class UserAddressesCubit
   }
 
   PagingController<int, UserAddress> getAddressController(bool isReload) {
-    final addressController = PagingController<int, UserAddress>(
+    final controller = PagingController<int, UserAddress>(
       firstPageKey: 1,
       invisibleItemsThreshold: 100,
     );
     logger.w(states.controller);
 
-    addressController.addPageRequestListener(
+    controller.addPageRequestListener(
       (pageKey) async {
         userAddressRepository
             .getUserAddresses(isReload: isReload)
@@ -49,14 +49,14 @@ class UserAddressesCubit
             .onStart(() {})
             .onSuccess((data) {
               if (data.length <= 1000) {
-                addressController.appendLastPage(data);
+                controller.appendLastPage(data);
                 logger.i(states.controller);
                 return;
               }
-              addressController.appendPage(data, pageKey + 1);
+              controller.appendPage(data, pageKey + 1);
             })
             .onError((error) {
-              addressController.error = error;
+              controller.error = error;
               if (error.isRequiredShowError) {
                 stateMessageManager
                     .showErrorBottomSheet(error.localizedMessage);
@@ -66,7 +66,7 @@ class UserAddressesCubit
             .executeFuture();
       },
     );
-    return addressController;
+    return controller;
   }
 
   Future<void> makeMainAddress(UserAddress address, int index) async {
