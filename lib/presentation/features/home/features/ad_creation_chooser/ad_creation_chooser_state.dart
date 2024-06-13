@@ -3,7 +3,7 @@ part of 'ad_creation_chooser_cubit.dart';
 @freezed
 class AdCreationChooserState with _$AdCreationChooserState {
   const factory AdCreationChooserState({
-    @Default(false) bool isLogin,
+    @Default(false) bool isAuthorized,
   }) = _AdCreationChooserState;
 }
 

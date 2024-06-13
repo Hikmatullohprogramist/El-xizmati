@@ -42,7 +42,7 @@ Future<void> main() async {
 
   var stateRepository = GetIt.instance<StateRepository>();
   var isLanguageSelected = stateRepository.isLanguageSelection();
-  var isUserLoggedIn = stateRepository.isAuthorized();
+  var isAuthorized = stateRepository.isAuthorized();
 
   runApp(
     EasyLocalization(
@@ -52,7 +52,7 @@ Future<void> main() async {
       assetLoader: CsvAssetLoader(),
       child: MyApp(
         isLanguageSelected: isLanguageSelected,
-        isLogin: isUserLoggedIn,
+        isAuthorized: isAuthorized,
       ),
     ),
   );
@@ -63,10 +63,14 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key, required this.isLanguageSelected, required this.isLogin});
+  MyApp({
+    super.key,
+    required this.isLanguageSelected,
+    required this.isAuthorized,
+  });
 
   final bool isLanguageSelected;
-  final bool isLogin;
+  final bool isAuthorized;
 
   final _appRouter = AppRouter();
 
@@ -115,7 +119,8 @@ class MyApp extends StatelessWidget {
               final stateMessageManager = getIt<StateMessageManager>();
 
               stateMessageManager.setListeners(
-                onShowBottomSheet: (m) => showStateMessageBottomSheet(context, m),
+                onShowBottomSheet: (m) =>
+                    showStateMessageBottomSheet(context, m),
                 onShowSnackBar: (m) => context.showStateMessageSnackBar(m),
               );
 

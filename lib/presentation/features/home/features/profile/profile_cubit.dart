@@ -60,7 +60,7 @@ class ProfileCubit extends BaseCubit<ProfileState, ProfileEvent> {
     try {
       logger.w("logOut call");
       await _authRepository.logOut();
-      updateState((state) => state.copyWith(isLogin: false));
+      updateState((state) => state.copyWith(isAuthorized: false));
       emitEvent(ProfileEvent(ProfileEventType.onLogOut));
     } catch (e) {
       stateMessageManager.showErrorSnackBar(Strings.commonEmptyMessage);
@@ -68,7 +68,7 @@ class ProfileCubit extends BaseCubit<ProfileState, ProfileEvent> {
   }
 
   Future<void> isUserLoggedIn() async {
-    final isUserLoggedIn = _stateRepository.isAuthorized();
-    updateState((state) => state.copyWith(isLogin: isUserLoggedIn));
+    final isAuthorized = _stateRepository.isAuthorized();
+    updateState((state) => state.copyWith(isAuthorized: isAuthorized));
   }
 }

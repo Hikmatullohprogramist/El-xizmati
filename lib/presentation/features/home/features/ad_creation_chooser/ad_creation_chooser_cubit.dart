@@ -18,7 +18,7 @@ class AdCreationChooserCubit
   }
 
   Future<void> isUserLoggedIn() async {
-    final isUserLoggedIn = _stateRepository.isAuthorized();
-    updateState((state) => state.copyWith(isLogin: isUserLoggedIn));
+    final isAuthorized = _stateRepository.isAuthorized();
+    updateState((state) => state.copyWith(isAuthorized: isAuthorized));
   }
 }

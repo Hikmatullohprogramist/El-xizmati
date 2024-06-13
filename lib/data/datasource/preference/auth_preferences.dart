@@ -26,8 +26,8 @@ class AuthPreferences {
 
   bool get isNotAuthorized => !isAuthorized;
 
-  Future<void> setIsAuthorized(bool isLogin) async =>
-      await _preferences.setOrRemove(_keyIsAuthorized, isLogin);
+  Future<void> setIsAuthorized(bool isAuthorized) async =>
+      await _preferences.setOrRemove(_keyIsAuthorized, isAuthorized);
 
   Future<void> clear() async {
     await _preferences.remove(_keyAccessToken);

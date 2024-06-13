@@ -33,7 +33,7 @@ class AdCreationChooserPage extends BasePage<AdCreationChooserCubit,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: state.isLogin
+          children: state.isAuthorized
               ? [
                   _buildAdCreationBlock(context),
                   _buildRequestCreationBlock(context),

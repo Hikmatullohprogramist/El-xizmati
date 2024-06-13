@@ -20,9 +20,9 @@ class FavoriteRepository {
   );
 
   Future<int> addToFavorite(Ad ad) async {
-    final isLogin = _authPreferences.isAuthorized;
+    final isAuthorized = _authPreferences.isAuthorized;
     int resultId = ad.id;
-    if (isLogin) {
+    if (isAuthorized) {
       final response = await _favoriteService.addToFavorite(adId: ad.id);
       final adResultId =
           AddResultRootResponse.fromJson(response.data).data?.products?.id;
@@ -34,18 +34,18 @@ class FavoriteRepository {
   }
 
   Future<void> removeFromFavorite(int adId) async {
-    final isLogin = _authPreferences.isAuthorized;
-    if (isLogin) {
+    final isAuthorized = _authPreferences.isAuthorized;
+    if (isAuthorized) {
       await _favoriteService.removeFromFavorite(adId);
     }
 
     await _adEntityDao.removeFromFavorite(adId);
-    Logger().w("repo => removeFromFavorite isLogin before after DAO");
+    Logger().w("repo => removeFromFavorite isAuthorized before after DAO");
   }
 
   Future<List<Ad>> getProductFavoriteAds() async {
-    final isLogin = _authPreferences.isAuthorized;
-    if (isLogin) {
+    final isAuthorized = _authPreferences.isAuthorized;
+    if (isAuthorized) {
       final response = await _favoriteService.getFavoriteAds();
       final responseAds = AdRootResponse.fromJson(response.data)
           .data
@@ -63,8 +63,8 @@ class FavoriteRepository {
   }
 
   Future<List<Ad>> getServiceFavoriteAds() async {
-    final isLogin = _authPreferences.isAuthorized;
-    if (isLogin) {
+    final isAuthorized = _authPreferences.isAuthorized;
+    if (isAuthorized) {
       final response = await _favoriteService.getFavoriteAds();
       final responseAds = AdRootResponse.fromJson(response.data)
           .data

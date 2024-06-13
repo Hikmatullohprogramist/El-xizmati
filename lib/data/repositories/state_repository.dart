@@ -28,8 +28,8 @@ class StateRepository {
     return _languagePreferences.setLanguage(language);
   }
 
-  Future<void> setLogin(bool isLogin) {
-    return _authPreferences.setIsAuthorized(isLogin);
+  Future<void> setAuthorizingState(bool isAuthorized) {
+    return _authPreferences.setIsAuthorized(isAuthorized);
   }
 
   bool isAuthorized() {

@@ -71,7 +71,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
       child: Column(
         children: [
           Visibility(
-            visible: state.isLogin,
+            visible: state.isAuthorized,
             child: ProfileItemWidget(
               name: Strings.profileTitle,
               icon: Assets.images.icUserAvatar,
@@ -84,7 +84,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
             ),
           ),
           Visibility(
-            visible: !state.isLogin,
+            visible: !state.isAuthorized,
             child: ProfileItemWidget(
               name: Strings.authSinginTitle,
               icon: Assets.images.icUserAvatar,
@@ -114,7 +114,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
       child: Column(
         children: [
           Visibility(
-            visible: state.isLogin,
+            visible: state.isAuthorized,
             child: ProfileItemWidget(
               name: Strings.profileMyAds,
               icon: Assets.images.icProfileMyAds,
@@ -126,11 +126,11 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
             ),
           ),
           Visibility(
-            visible: state.isLogin,
+            visible: state.isAuthorized,
             child: Divider(indent: 46, height: 1),
           ),
           Visibility(
-            visible: state.isLogin,
+            visible: state.isAuthorized,
             child: ProfileItemWidget(
               name: Strings.profileOrders,
               icon: Assets.images.icProfileOrder,
@@ -142,11 +142,11 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
             ),
           ),
           Visibility(
-            visible: state.isLogin,
+            visible: state.isAuthorized,
             child: Divider(indent: 46, height: 1),
           ),
           Visibility(
-            visible: state.isLogin,
+            visible: state.isAuthorized,
             child: ProfileItemWidget(
               name: Strings.profilePayment,
               icon: Assets.images.icProfilePayment,
@@ -178,7 +178,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
       child: Column(
         children: [
           Visibility(
-            visible: state.isLogin,
+            visible: state.isAuthorized,
             child: ProfileItemWidget(
               name: Strings.profileMyCard,
               icon: Assets.images.icCard,
@@ -190,11 +190,11 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
             ),
           ),
           Visibility(
-            visible: state.isLogin,
+            visible: state.isAuthorized,
             child: Divider(indent: 46, height: 1),
           ),
           Visibility(
-            visible: state.isLogin,
+            visible: state.isAuthorized,
             child: ProfileItemWidget(
               name: Strings.profileMyAddress,
               icon: Assets.images.icProfileLocation,
@@ -205,13 +205,13 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
             ),
           ),
           Visibility(
-            visible: state.isLogin,
+            visible: state.isAuthorized,
             child: Divider(indent: 46, height: 1),
           ),
           ProfileItemWidget(
             name: Strings.bottomNavigationFavorite,
             icon: Assets.images.bottomBar.favorite,
-            topRadius: state.isLogin ? 0 : 16,
+            topRadius: state.isAuthorized ? 0 : 16,
             bottomRadius: 16,
             onClicked: () {
               context.router.push(FavoriteListRoute());
@@ -273,7 +273,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
     ProfileState state,
   ) {
     return Visibility(
-      visible: state.isLogin,
+      visible: state.isAuthorized,
       child: ElevationWidget(
         topLeftRadius: 16,
         topRightRadius: 16,

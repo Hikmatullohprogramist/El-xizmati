@@ -18,9 +18,9 @@ class CartRepository {
   );
 
   Future<int> addToCart(Ad ad) async {
-    final isLogin = _authPreferences.isAuthorized;
+    final isAuthorized = _authPreferences.isAuthorized;
     int resultId = ad.id;
-    if (isLogin) {
+    if (isAuthorized) {
       final response =
           await _cartService.addCart(adType: ad.priorityLevel.name, id: ad.id);
       final addResultId =
@@ -33,8 +33,8 @@ class CartRepository {
   }
 
   Future<void> removeFromCart(int adId) async {
-    final isLogin = _authPreferences.isAuthorized;
-    if (isLogin) {
+    final isAuthorized = _authPreferences.isAuthorized;
+    if (isAuthorized) {
       await _cartService.removeCart(adId: adId);
     }
 
@@ -42,8 +42,8 @@ class CartRepository {
   }
 
   Future<List<Ad>> getCartAds() async {
-    final isLogin = _authPreferences.isAuthorized;
-    if (isLogin) {
+    final isAuthorized = _authPreferences.isAuthorized;
+    if (isAuthorized) {
       final root = await _cartService.getCartAllAds();
       final ads = AdRootResponse.fromJson(root.data).data.results;
       _adEntityDao.insertAds(ads.map((e) => e.toAdEntity()).toList());
