@@ -321,9 +321,7 @@ class DashboardPage
     DashboardState state,
   ) {
     return Visibility(
-      visible: state.recentlyViewedAdsState == LoadingState.loading ||
-          (state.recentlyViewedAdsState == LoadingState.success &&
-              state.recentlyViewedAds.isNotEmpty),
+      visible: state.isRecentlyViewedAdsVisible,
       child: Column(
         children: [
           SeeAllWidget(

@@ -24,6 +24,11 @@ class DashboardState with _$DashboardState {
     @Default([]) List<BannerImage> banners,
     @Default(LoadingState.loading) LoadingState bannersState,
   }) = _DashboardState;
+
+  bool get isRecentlyViewedAdsVisible =>
+      recentlyViewedAdsState == LoadingState.loading ||
+      (recentlyViewedAdsState == LoadingState.success &&
+          recentlyViewedAds.isNotEmpty);
 }
 
 @freezed

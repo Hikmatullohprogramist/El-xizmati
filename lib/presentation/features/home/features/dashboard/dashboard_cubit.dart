@@ -26,7 +26,7 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
     this._commonRepository,
     this._favoriteRepository,
   ) : super(DashboardState()) {
-    _getInitialData(false);
+    _getInitialData();
   }
 
   final AdRepository _adRepository;
@@ -34,11 +34,17 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
   final CommonRepository _commonRepository;
   final FavoriteRepository _favoriteRepository;
 
-  reload() async {
-    await _getInitialData(true);
+  Future<void> _getInitialData() async {
+    await Future.wait([
+      getBanners(),
+      getPopularCategories(),
+      getPopularProductAds(),
+      getPopularServiceAds(),
+      getTopRatedAds(),
+    ]);
   }
 
-  Future<void> _getInitialData(bool isReload) async {
+  reload() async {
     await Future.wait([
       getBanners(),
       getPopularCategories(),
@@ -83,12 +89,6 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
 
   Future<void> getPopularProductAds() async {
     logger.w("getDashboardPopularAds called");
-    // if (states.popularProductAdsState == LoadingState.success ||
-    //     states.popularProductAds.isNotEmpty) {
-    //   logger.w("getDashboardPopularAds already called before and ignored");
-    //   return;
-    // }
-
     _adRepository
         .getDashboardPopularAds(adType: AdType.product)
         .initFuture()
@@ -127,11 +127,6 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
   }
 
   Future<void> getPopularServiceAds() async {
-    // if (states.popularServiceAdsState == LoadingState.success ||
-    //     states.popularServiceAds.isNotEmpty) {
-    //   return;
-    // }
-
     _adRepository
         .getDashboardPopularAds(adType: AdType.service)
         .initFuture()
