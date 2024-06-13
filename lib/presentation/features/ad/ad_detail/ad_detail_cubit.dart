@@ -67,24 +67,33 @@ class AdDetailCubit extends BaseCubit<AdDetailState, AdDetailEvent> {
       return;
     }
 
-    _adRepository.getAdDetail(states.adId!).initFuture().onStart(() {
-      updateState((state) => state.copyWith(
-            isNotPrepared: true,
-            isPreparingInProcess: true,
-          ));
-    }).onSuccess((data) {
-      updateState((state) => state.copyWith(
-            adDetail: data,
-            isPhoneVisible: false,
-            isAddCart: data?.isInCart ?? false,
-            isNotPrepared: false,
-          ));
-    }).onError((error) {
-      logger.e(error);
-      updateState((state) => state.copyWith(isNotPrepared: true));
-    }).onFinished(() {
-      updateState((state) => state.copyWith(isPreparingInProcess: false));
-    }).executeFuture();
+    _adRepository
+        .getAdDetail(states.adId!)
+        .initFuture()
+        .onStart(() {
+          updateState((state) => state.copyWith(
+                isNotPrepared: true,
+                isPreparingInProcess: true,
+              ));
+        })
+        .onSuccess((data) {
+          updateState((state) => state.copyWith(
+                adDetail: data,
+                isPhoneVisible: false,
+                isAddCart: data?.isInCart ?? false,
+                isNotPrepared: false,
+                isPreparingInProcess: false,
+              ));
+        })
+        .onError((error) {
+          logger.e(error);
+          updateState((state) => state.copyWith(
+                isNotPrepared: true,
+                isPreparingInProcess: false,
+              ));
+        })
+        .onFinished(() {})
+        .executeFuture();
 
     await increaseAdStats(StatsType.view);
     await addAdToRecentlyViewed();
@@ -139,7 +148,7 @@ class AdDetailCubit extends BaseCubit<AdDetailState, AdDetailEvent> {
   }
 
   Future<void> addAdToRecentlyViewed() async {
-    if (states.adId != null && _stateRepository.isAuthorized()) return;
+    if (states.adId == null) return;
 
     _adRepository
         .addAdToRecentlyViewed(adId: states.adId!)
