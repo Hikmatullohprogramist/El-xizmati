@@ -1,37 +1,30 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
+import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/data/datasource/network/responses/category/popular_category/popular_category_response.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
 import 'package:onlinebozor/presentation/widgets/image/circle_cached_network_image_widget.dart';
-
-import '../../../data/datasource/network/responses/category/popular_category/popular_category_response.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
 
 class PopularCategoryHorizontal extends StatelessWidget {
   const PopularCategoryHorizontal({
     super.key,
     required this.category,
-    required this.onItemClicked,
+    required this.onClicked,
   });
 
   final PopularCategory category;
-  final Function(PopularCategory category) onItemClicked;
+  final Function(PopularCategory category) onClicked;
 
   @override
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () => onItemClicked(category),
+        onTap: () => onClicked(category),
         borderRadius: BorderRadius.circular(6),
         child: Container(
           width: 124,
-          decoration: BoxDecoration(
-            // color: context.cardColor,
-            borderRadius: BorderRadius.circular(6),
-            // border: Border.all(width: 0.90, color: Color(0xFFE5E9F3)),
-          ),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(6)),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -60,20 +53,6 @@ class PopularCategoryHorizontal extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Decoration _getImageDecoration(ImageProvider<Object> imageProvider) {
-    return BoxDecoration(
-      borderRadius: BorderRadius.circular(6),
-      image: DecorationImage(
-        image: imageProvider,
-        fit: BoxFit.cover,
-        colorFilter: ColorFilter.mode(
-          Color(0xFFF6F7FC),
-          BlendMode.colorBurn,
         ),
       ),
     );
