@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
-import 'package:onlinebozor/data/repositories/card_repositroy.dart';
+import 'package:onlinebozor/data/repositories/merchant_repository.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
 part 'add_card_with_realpay_cubit.freezed.dart';
@@ -11,19 +11,20 @@ part 'add_card_with_realpay_state.dart';
 @Injectable()
 class AddCardWithRealpayCubit
     extends BaseCubit<AddCardWithRealpayState, AddCardWithRealpayEvent> {
-  AddCardWithRealpayCubit(this._cardRepository)
-      : super(const AddCardWithRealpayState()) {
-    getPaymentMerchantToken();
+  AddCardWithRealpayCubit(
+    this._merchantRepository,
+  ) : super(const AddCardWithRealpayState()) {
+     getPaymentMerchantToken();
   }
 
-  final CardRepository _cardRepository;
+  final MerchantRepository _merchantRepository;
 
   void hideLoading() {
     updateState((state) => state.copyWith(isLoading: false));
   }
 
   Future<void> getPaymentMerchantToken() async {
-    _cardRepository
+    _merchantRepository
         .getRealPayAddCardMerchantToken()
         .initFuture()
         .onStart(() {
@@ -48,6 +49,6 @@ class AddCardWithRealpayCubit
   }
 
   String generatePaymentUrl() {
-    return _cardRepository.generateAddCardUrl(states.merchantToken);
+    return _merchantRepository.generateAddCardUrl(states.merchantToken);
   }
 }

@@ -1,24 +1,18 @@
-import 'package:onlinebozor/data/datasource/network/constants/rest_constants.dart';
-import 'package:onlinebozor/data/datasource/network/extensions/rest_mappers.dart';
 import 'package:onlinebozor/data/datasource/network/responses/balance/user_deposit_balance_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/realpay/real_pay_card_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/realpay/real_pay_merchant_token_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/card_service.dart';
 import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
-import 'package:onlinebozor/data/datasource/preference/language_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
 
 class CardRepository {
   final AuthPreferences _authPreferences;
   final CardService _cardService;
-  final LanguagePreferences _languagePreferences;
   final UserPreferences _userPreferences;
 
   CardRepository(
     this._authPreferences,
     this._cardService,
-    this._languagePreferences,
     this._userPreferences,
   );
 
@@ -28,15 +22,6 @@ class CardRepository {
 
     final root = await _cardService.getDepositCardBalance();
     final response = UserDepositBalanceRootResponse.fromJson(root.data).data;
-    return response;
-  }
-
-  Future<RealPayMerchantToken?> getRealPayAddCardMerchantToken() async {
-    final root = await _cardService.getAddCardMerchantToken(
-      _userPreferences.tinOrPinfl,
-      RestConstants.REAL_PAY_REDIRECT_URI,
-    );
-    final response = RealPayMerchantTokenRootResponse.fromJson(root.data).data;
     return response;
   }
 
@@ -50,10 +35,5 @@ class CardRepository {
     final pinflOrTin = _userPreferences.tinOrPinfl;
     final root = await _cardService.removeCard(cardId, pinflOrTin);
     return;
-  }
-
-  String generateAddCardUrl(String merchantToken) {
-    var language = _languagePreferences.language.getRestCode();
-    return "https://payment.realpay.uz/?token=$merchantToken&lang=$language";
   }
 }
