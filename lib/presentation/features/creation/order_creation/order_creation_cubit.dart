@@ -8,8 +8,8 @@ import 'package:onlinebozor/data/repositories/ad_repository.dart';
 import 'package:onlinebozor/data/repositories/card_repositroy.dart';
 import 'package:onlinebozor/data/repositories/cart_repository.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
-import 'package:onlinebozor/data/repositories/order_repository.dart';
 import 'package:onlinebozor/data/repositories/state_repository.dart';
+import 'package:onlinebozor/data/repositories/user_order_repository.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/ad_detail.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
@@ -23,23 +23,24 @@ part 'order_creation_state.dart';
 @Injectable()
 class OrderCreationCubit
     extends BaseCubit<OrderCreationState, OrderCreationEvent> {
-  OrderCreationCubit(
-    this._adRepository,
-    this._cardRepository,
-    this._cartRepository,
-    this._favoriteRepository,
-    this._orderRepository,
-    this._stateRepository,
-  ) : super(const OrderCreationState()) {
-    getDepositCardBalance();
-  }
 
   final AdRepository _adRepository;
   final CardRepository _cardRepository;
   final CartRepository _cartRepository;
   final FavoriteRepository _favoriteRepository;
-  final OrderRepository _orderRepository;
   final StateRepository _stateRepository;
+  final UserOrderRepository _userOrderRepository;
+
+  OrderCreationCubit(
+    this._adRepository,
+    this._cardRepository,
+    this._cartRepository,
+    this._favoriteRepository,
+    this._stateRepository,
+    this._userOrderRepository,
+  ) : super(const OrderCreationState()) {
+    getDepositCardBalance();
+  }
 
   Future<void> setAdId(int adId) async {
     updateState((state) => state.copyWith(adId: adId));
@@ -189,7 +190,7 @@ class OrderCreationCubit
       return;
     }
 
-    _orderRepository
+    _userOrderRepository
         .orderCreate(
           adId: states.adId ?? -1,
           amount: states.count,

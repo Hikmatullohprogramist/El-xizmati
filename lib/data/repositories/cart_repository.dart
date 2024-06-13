@@ -57,9 +57,4 @@ class CartRepository {
         .watchCartAds()
         .asyncMap((event) => event.map((e) => e.toAd()).toList());
   }
-
-  Future<void> removeOrder({required int tin}) async {
-    _cartService.removeOrder(tin: tin);
-    return;
-  }
 }

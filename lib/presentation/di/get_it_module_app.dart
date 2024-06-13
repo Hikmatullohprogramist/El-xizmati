@@ -37,9 +37,9 @@ import 'package:onlinebozor/presentation/features/home/features/cart/cart_cubit.
 import 'package:onlinebozor/presentation/features/home/features/category/category_cubit.dart';
 import 'package:onlinebozor/presentation/features/home/features/category/features/sub_category_cubit.dart';
 import 'package:onlinebozor/presentation/features/home/features/dashboard/dashboard_cubit.dart';
+import 'package:onlinebozor/presentation/features/home/features/profile/features/billing_transactions/billing_transactions_cubit.dart';
+import 'package:onlinebozor/presentation/features/home/features/profile/features/billing_transactions/features/filter/billing_transaction_filter_cubit.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/identity_verification/identity_verification_cubit.dart';
-import 'package:onlinebozor/presentation/features/home/features/profile/features/payment_transactions/features/payment_transaction_filter/payment_transaction_filter_cubit.dart';
-import 'package:onlinebozor/presentation/features/home/features/profile/features/payment_transactions/payment_transactions_cubit.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/profile_edit/profile_edit_cubit.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/profile_view/profile_view_cubit.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_active_sessions/user_active_sessions_cubit.dart';
@@ -116,9 +116,9 @@ extension GetItModuleApp on GetIt {
     registerFactory(() => ProfileCubit(get(), get(), get()));
 
     // profile
+    registerFactory(() => BillingTransactionsCubit(get()));
+    registerFactory(() => BillingTransactionFilterCubit(get()));
     registerFactory(() => IdentityVerificationCubit(get()));
-    registerFactory(() => PaymentTransactionsCubit(get()));
-    registerFactory(() => PaymentTransactionFilterCubit(get()));
     registerFactory(() => ProfileEditCubit(get()));
     registerFactory(() => ProfileViewCubit(get(), get()));
     registerFactory(() => UserActiveSessionsCubit(get()));
