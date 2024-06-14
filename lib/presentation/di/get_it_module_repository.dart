@@ -7,7 +7,7 @@ import 'package:onlinebozor/data/repositories/cart_repository.dart';
 import 'package:onlinebozor/data/repositories/common_repository.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
 import 'package:onlinebozor/data/repositories/merchant_repository.dart';
-import 'package:onlinebozor/data/repositories/payment_repository.dart';
+import 'package:onlinebozor/data/repositories/billing_repository.dart';
 import 'package:onlinebozor/data/repositories/report_repository.dart';
 import 'package:onlinebozor/data/repositories/state_repository.dart';
 import 'package:onlinebozor/data/repositories/user_ad_repository.dart';
@@ -20,6 +20,7 @@ extension GetItModuleExtension on GetIt {
     registerLazySingleton(() => StateRepository(get(), get(), get()));
     registerLazySingleton(() => AdCreationRepository(get(), get(), get()));
     registerLazySingleton(() => AdRepository(get(), get(), get(), get()));
+    registerLazySingleton(() => BillingRepository(get(), get()));
     registerLazySingleton(
         () => AuthRepository(get(), get(), get(), get(), get()));
     registerLazySingleton(() => CardRepository(get(), get(), get()));
@@ -27,7 +28,6 @@ extension GetItModuleExtension on GetIt {
     registerLazySingleton(() => CommonRepository(get(), get()));
     registerLazySingleton(() => FavoriteRepository(get(), get(), get()));
     registerLazySingleton(() => MerchantRepository(get(), get(), get(), get()));
-    registerLazySingleton(() => PaymentRepository(get(), get()));
     registerLazySingleton(() => ReportRepository(get()));
     registerLazySingleton(() => UserAdRepository(get(), get(), get()));
     registerLazySingleton(
