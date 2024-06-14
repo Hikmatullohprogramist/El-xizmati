@@ -3,7 +3,7 @@ part of 'search_cubit.dart';
 @freezed
 class SearchState with _$SearchState {
   const factory SearchState({
-    @Default(LoadingState.onStart) LoadingState loadingState,
+    @Default(LoadingState.none) LoadingState loadingState,
     @Default(<AdSearchResponse>[]) List<AdSearchResponse> searchResult,
   }) = _SearchState;
 }
