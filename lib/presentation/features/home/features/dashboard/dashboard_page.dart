@@ -39,60 +39,7 @@ class DashboardPage
   @override
   Widget onWidgetBuild(BuildContext context, DashboardState state) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0.5,
-        backgroundColor: context.backgroundGreyColor,
-        actions: [
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.only(left: 16, top: 8, bottom: 8, right: 6),
-              child: InkWell(
-                onTap: () => context.router.push(SearchRoute()),
-                borderRadius: BorderRadius.circular(6),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: context.cardColor,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Row(
-                    children: [
-                      SizedBox(width: 12),
-                      Assets.images.iconSearch.svg(),
-                      SizedBox(width: 6),
-                      Expanded(
-                        child: Strings.adSearchHint
-                            .w(400)
-                            .s(14)
-                            .c(context.textSecondary)
-                            .copyWith(
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                      ),
-                      SizedBox(width: 12),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              context.router.push(FavoriteListRoute());
-              HapticFeedback.lightImpact();
-            },
-            icon:
-                Assets.images.bottomBar.favorite.svg(color: Color(0xFF5C6AC4)),
-          ),
-          IconButton(
-            onPressed: () {
-              context.router.push(NotificationListRoute());
-              HapticFeedback.lightImpact();
-            },
-            icon: Assets.images.icNotification.svg(color: Color(0xFF5C6AC4)),
-          )
-        ],
-      ),
+      appBar: _buildAppBar(context),
       backgroundColor: context.backgroundGreyColor,
       body: RefreshIndicator(
         displacement: 160,
@@ -121,6 +68,63 @@ class DashboardPage
           ],
         ),
       ),
+    );
+  }
+
+  AppBar _buildAppBar(BuildContext context) {
+    return AppBar(
+      elevation: 0.5,
+      backgroundColor: context.backgroundGreyColor,
+      actions: [
+        Expanded(
+          child: Container(
+            margin: EdgeInsets.only(left: 16, top: 8, bottom: 8, right: 6),
+            child: InkWell(
+              onTap: () => context.router.push(SearchRoute()),
+              borderRadius: BorderRadius.circular(6),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: context.cardColor,
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(width: 12),
+                    Assets.images.iconSearch.svg(),
+                    SizedBox(width: 6),
+                    Expanded(
+                      child: Strings.adSearchHint
+                          .w(400)
+                          .s(14)
+                          .c(context.textSecondary)
+                          .copyWith(
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                    ),
+                    SizedBox(width: 12),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+        IconButton(
+          onPressed: () {
+            context.router.push(FavoriteListRoute());
+            HapticFeedback.lightImpact();
+          },
+          icon:
+              Assets.images.bottomBar.favorite.svg(color: Color(0xFF5C6AC4)),
+        ),
+        IconButton(
+          onPressed: () {
+            context.router.push(NotificationListRoute());
+            HapticFeedback.lightImpact();
+          },
+          icon: Assets.images.icNotification.svg(color: Color(0xFF5C6AC4)),
+        )
+      ],
     );
   }
 

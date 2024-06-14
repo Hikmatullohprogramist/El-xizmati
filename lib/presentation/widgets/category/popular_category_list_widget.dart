@@ -27,7 +27,6 @@ class PopularCategoryListWidget extends StatelessWidget {
         padding: EdgeInsets.only(left: 16, bottom: 20, right: 16),
         itemBuilder: (context, index) {
           return ElevationWidget(
-            backgroundColor: context.cardColor,
             topLeftRadius: 8,
             topRightRadius: 8,
             bottomLeftRadius: 8,
