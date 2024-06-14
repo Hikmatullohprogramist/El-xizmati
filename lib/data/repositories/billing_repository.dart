@@ -20,7 +20,7 @@ class BillingRepository {
     required pageIndex,
   }) async {
     if (_authPreferences.isNotAuthorized) throw NotAuthorizedException();
-    // if (_userPreferences.isNotIdentified) throw NotIdentifiedException();
+    if (_userPreferences.isNotIdentified) throw NotIdentifiedException();
 
     final root = await _paymentService.getTransactions(
       pageIndex,
