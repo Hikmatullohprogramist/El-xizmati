@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 
-class TransactionEmptyWidget extends StatelessWidget {
-  const TransactionEmptyWidget({super.key, required this.listener});
+class BillingTransactionsEmptyWidget extends StatelessWidget {
+  const BillingTransactionsEmptyWidget({super.key, required this.listener});
 
   final VoidCallback listener;
 

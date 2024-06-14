@@ -3,22 +3,22 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
-import 'package:onlinebozor/data/repositories/payment_repository.dart';
-import 'package:onlinebozor/domain/models/transaction/payment_transaction.dart';
+import 'package:onlinebozor/data/repositories/billing_repository.dart';
+import 'package:onlinebozor/domain/models/billing/billing_transaction.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
 
-part 'payment_transactions_cubit.freezed.dart';
-part 'payment_transactions_state.dart';
+part 'billing_transactions_cubit.freezed.dart';
+part 'billing_transactions_state.dart';
 
 @injectable
-class PaymentTransactionsCubit
-    extends BaseCubit<PaymentTransactionsState, PaymentTransactionsEvent> {
-  final PaymentRepository _paymentRepository;
+class BillingTransactionsCubit
+    extends BaseCubit<BillingTransactionsState, BillingTransactionsEvent> {
+  final BillingRepository _paymentRepository;
 
-  PaymentTransactionsCubit(
+  BillingTransactionsCubit(
     this._paymentRepository,
-  ) : super(PaymentTransactionsState()) {
+  ) : super(BillingTransactionsState()) {
     initController();
   }
 
@@ -27,10 +27,10 @@ class PaymentTransactionsCubit
     updateState((state) => state.copyWith(controller: controller));
   }
 
-  PagingController<int, PaymentTransaction> getController({
+  PagingController<int, BillingTransaction> getController({
     required int status,
   }) {
-    final controller = PagingController<int, PaymentTransaction>(
+    final controller = PagingController<int, BillingTransaction>(
       firstPageKey: 1,
       invisibleItemsThreshold: 100,
     );

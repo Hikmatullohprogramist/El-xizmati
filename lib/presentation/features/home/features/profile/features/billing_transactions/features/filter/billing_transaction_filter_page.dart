@@ -6,28 +6,28 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/domain/models/payment_filter/paymant_filter.dart';
-import 'package:onlinebozor/domain/models/transaction/payment_transaction.dart';
+import 'package:onlinebozor/domain/models/billing/billing_transaction.dart';
+import 'package:onlinebozor/domain/models/billing/billing_transaction_filter.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/action/selection_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
+import 'package:onlinebozor/presentation/widgets/billing/billing_transaction_widget.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
-import 'package:onlinebozor/presentation/widgets/transaction/transaction_widget.dart';
 
-import 'payment_transaction_filter_cubit.dart';
+import 'billing_transaction_filter_cubit.dart';
 
 @RoutePage()
-class PaymentTransactionFilterPage extends BasePage<
-    PaymentTransactionFilterCubit,
-    PaymentTransactionFilterState,
-    PaymentTransactionFilterEvent> {
-  const PaymentTransactionFilterPage({super.key});
+class BillingTransactionFilterPage extends BasePage<
+    BillingTransactionFilterCubit,
+    BillingTransactionFilterState,
+    BillingTransactionFilterEvent> {
+  const BillingTransactionFilterPage({super.key});
 
   @override
   Widget onWidgetBuild(
-      BuildContext context, PaymentTransactionFilterState state) {
+      BuildContext context, BillingTransactionFilterState state) {
     return Scaffold(
       backgroundColor: context.backgroundGreyColor,
       appBar: DefaultAppBar(
@@ -310,7 +310,7 @@ class PaymentTransactionFilterPage extends BasePage<
 
   Future<int> showResultBottomSheet(
     BuildContext context,
-    List<PaymentFilter> items,
+    List<BillingTransactionFilter> items,
   ) async {
     var selectedIndex = 3;
     await showCupertinoModalBottomSheet(
@@ -351,7 +351,7 @@ class PaymentTransactionFilterPage extends BasePage<
     return selectedIndex;
   }
 
-  void showFilterList(BuildContext context, List<PaymentTransaction> items) {
+  void showFilterList(BuildContext context, List<BillingTransaction> items) {
     showCupertinoModalBottomSheet(
       context: context,
       builder: (context) => InkWell(
@@ -373,7 +373,7 @@ class PaymentTransactionFilterPage extends BasePage<
             itemCount: items.length,
             itemBuilder: (context, index) {
               var item = items[index];
-              return TransactionWidget(
+              return BillingTransactionWidget(
                 transaction: item,
                 onClicked: () {},
               );
@@ -384,26 +384,26 @@ class PaymentTransactionFilterPage extends BasePage<
     );
   }
 
-  List<PaymentTransaction> _filterData(
+  List<BillingTransaction> _filterData(
     BuildContext context,
-    PaymentTransactionFilterState state,
+    BillingTransactionFilterState state,
   ) {
     var response = state.transactions;
 
     if (state.paymentType == "Reklama") {
-      response = response.where((element) => element.type == "ADS").toList();
+      response = response.where((element) => element.transactionType == "ADS").toList();
     }
     if (state.paymentType == "Hamyon") {
-      response = response.where((element) => element.type == "WALLET").toList();
+      response = response.where((element) => element.transactionType == "WALLET").toList();
     }
 
     if (state.paymentMethod == "Hamyon") {
       response =
-          response.where((element) => element.payMethod == "WALLET").toList();
+          response.where((element) => element.transactionAction == "WALLET").toList();
     }
     if (state.paymentMethod == "REALPAY") {
       response =
-          response.where((element) => element.payMethod == "REALPAY").toList();
+          response.where((element) => element.transactionAction == "REALPAY").toList();
     }
 
     if (state.transactionState == "To'landi") {

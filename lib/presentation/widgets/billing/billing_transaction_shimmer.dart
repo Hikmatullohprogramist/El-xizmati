@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:shimmer/shimmer.dart';
 
-class TransactionShimmer extends StatelessWidget {
-  const TransactionShimmer({
+class BillingTransactionShimmer extends StatelessWidget {
+  const BillingTransactionShimmer({
     super.key,
   });
 
@@ -16,8 +16,10 @@ class TransactionShimmer extends StatelessWidget {
       decoration: BoxDecoration(
         color: context.cardColor,
         borderRadius: BorderRadius.circular(8),
-        border:
-            Border.all(width: 1, color: context.cardStrokeColor),
+        border: Border.all(
+          width: 1,
+          color: context.cardStrokeColor,
+        ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

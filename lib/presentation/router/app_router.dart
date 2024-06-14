@@ -55,9 +55,9 @@ import 'package:onlinebozor/presentation/features/home/features/cart/cart_page.d
 import 'package:onlinebozor/presentation/features/home/features/category/category_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/category/features/sub_category_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/dashboard/dashboard_page.dart';
+import 'package:onlinebozor/presentation/features/home/features/profile/features/billing_transactions/billing_transactions_page.dart';
+import 'package:onlinebozor/presentation/features/home/features/profile/features/billing_transactions/features/filter/billing_transaction_filter_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/identity_verification/identity_verification_page.dart';
-import 'package:onlinebozor/presentation/features/home/features/profile/features/payment_transactions/features/payment_transaction_filter/payment_transaction_filter_page.dart';
-import 'package:onlinebozor/presentation/features/home/features/profile/features/payment_transactions/payment_transactions_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/profile_edit/profile_edit_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/profile_view/profile_view_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_active_sessions/user_active_sessions_page.dart';
@@ -305,12 +305,12 @@ class AppRouter extends _$AppRouter {
 
         /// Payment transactions
         AutoRoute(
-          page: PaymentTransactionsRoute.page,
-          path: '/payment_transactions',
+          page: BillingTransactionsRoute.page,
+          path: '/billing_transactions',
         ),
         AutoRoute(
-          page: PaymentTransactionFilterRoute.page,
-          path: '/payment_transaction_filter',
+          page: BillingTransactionFilterRoute.page,
+          path: '/billing_transaction_filter',
         ),
 
         AutoRoute(

@@ -152,7 +152,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
               icon: Assets.images.icProfilePayment,
               bottomRadius: 16,
               onClicked: () {
-                context.router.push(PaymentTransactionsRoute());
+                context.router.push(BillingTransactionsRoute());
                 HapticFeedback.lightImpact();
               },
             ),

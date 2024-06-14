@@ -1,7 +1,7 @@
 import 'dart:core';
 
-class PaymentFilter {
-  PaymentFilter({
+class BillingTransactionFilter {
+  BillingTransactionFilter({
     required this.name,
     required this.isSelected
   });

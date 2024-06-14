@@ -8,29 +8,29 @@ import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
-import 'package:onlinebozor/domain/models/transaction/payment_transaction.dart';
+import 'package:onlinebozor/domain/models/billing/billing_transaction.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
+import 'package:onlinebozor/presentation/widgets/billing/billing_transaction_empty_widget.dart';
+import 'package:onlinebozor/presentation/widgets/billing/billing_transaction_shimmer.dart';
+import 'package:onlinebozor/presentation/widgets/billing/billing_transaction_widget.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
 import 'package:onlinebozor/presentation/widgets/elevation/elevation_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
-import 'package:onlinebozor/presentation/widgets/transaction/transaction_empty_widget.dart';
-import 'package:onlinebozor/presentation/widgets/transaction/transaction_widget.dart';
-import 'package:onlinebozor/presentation/widgets/transaction/transaction_shimmer.dart';
 
-import 'payment_transactions_cubit.dart';
+import 'billing_transactions_cubit.dart';
 
 @RoutePage()
-class PaymentTransactionsPage extends BasePage<PaymentTransactionsCubit,
-    PaymentTransactionsState, PaymentTransactionsEvent> {
-  const PaymentTransactionsPage({super.key});
+class BillingTransactionsPage extends BasePage<BillingTransactionsCubit,
+    BillingTransactionsState, BillingTransactionsEvent> {
+  const BillingTransactionsPage({super.key});
 
   @override
-  Widget onWidgetBuild(BuildContext context, PaymentTransactionsState state) {
+  Widget onWidgetBuild(BuildContext context, BillingTransactionsState state) {
     return Scaffold(
       appBar: ActionAppBar(
         titleText: Strings.paymentTitle,
@@ -41,7 +41,7 @@ class PaymentTransactionsPage extends BasePage<PaymentTransactionsCubit,
           CustomTextButton(
             text: Strings.commonFilter,
             onPressed: () =>
-                context.router.push(PaymentTransactionFilterRoute()),
+                context.router.push(BillingTransactionFilterRoute()),
           )
         ],
       ),
@@ -59,7 +59,7 @@ class PaymentTransactionsPage extends BasePage<PaymentTransactionsCubit,
 
   Widget _getPaymentListWidget(
     BuildContext context,
-    PaymentTransactionsState state,
+    BillingTransactionsState state,
   ) {
     return PagedListView<int, dynamic>(
       shrinkWrap: true,
@@ -82,13 +82,13 @@ class PaymentTransactionsPage extends BasePage<PaymentTransactionsCubit,
               itemCount: 15,
               padding: const EdgeInsets.symmetric(horizontal: 16),
               itemBuilder: (BuildContext context, int index) {
-                return TransactionShimmer();
+                return BillingTransactionShimmer();
               },
             ),
           );
         },
         noItemsFoundIndicatorBuilder: (_) {
-          return TransactionEmptyWidget(listener: () {});
+          return BillingTransactionsEmptyWidget(listener: () {});
         },
         newPageProgressIndicatorBuilder: (_) {
           return SizedBox(
@@ -115,7 +115,7 @@ class PaymentTransactionsPage extends BasePage<PaymentTransactionsCubit,
             topMargin: 6,
             rightMargin: 16,
             bottomMargin: 6,
-            child: TransactionWidget(
+            child: BillingTransactionWidget(
               transaction: item,
               onClicked: () {},
             ),
@@ -127,7 +127,7 @@ class PaymentTransactionsPage extends BasePage<PaymentTransactionsCubit,
 
   Future<void> showTransactionDetailBottomSheet(
     BuildContext context,
-    PaymentTransaction transaction,
+    BillingTransaction transaction,
   ) async {
     await showCupertinoModalBottomSheet(
       context: context,
@@ -160,7 +160,7 @@ class PaymentTransactionsPage extends BasePage<PaymentTransactionsCubit,
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      if (transaction.payMethod == "REALPAY")
+                      if (transaction.transactionAction == "REALPAY")
                         Assets.images.realPay.svg()
                       else
                         CachedNetworkImage(
@@ -245,7 +245,7 @@ class PaymentTransactionsPage extends BasePage<PaymentTransactionsCubit,
             SizedBox(height: 10),
             "Payment type".w(500).s(12).c(Color(0xFF41455E)),
             SizedBox(height: 2),
-            transaction.payType.w(500).s(15).c(Color(0xFF41455E)),
+            transaction.balanceState.name.w(500).s(15).c(Color(0xFF41455E)),
             SizedBox(
               height: 12,
             ),

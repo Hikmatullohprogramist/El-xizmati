@@ -1,22 +1,21 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/datasource/network/responses/transaction/payment_transaction_response.dart';
-import 'package:onlinebozor/data/repositories/payment_repository.dart';
-import 'package:onlinebozor/domain/models/payment_filter/paymant_filter.dart';
-import 'package:onlinebozor/domain/models/transaction/payment_transaction.dart';
+import 'package:onlinebozor/data/repositories/billing_repository.dart';
+import 'package:onlinebozor/domain/models/billing/billing_transaction.dart';
+import 'package:onlinebozor/domain/models/billing/billing_transaction_filter.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
-part 'payment_transaction_filter_cubit.freezed.dart';
-part 'payment_transaction_filter_state.dart';
+part 'billing_transaction_filter_cubit.freezed.dart';
+part 'billing_transaction_filter_state.dart';
 
 @Injectable()
-class PaymentTransactionFilterCubit extends BaseCubit<
-    PaymentTransactionFilterState, PaymentTransactionFilterEvent> {
-  final PaymentRepository _paymentTransactionRepository;
+class BillingTransactionFilterCubit extends BaseCubit<
+    BillingTransactionFilterState, BillingTransactionFilterEvent> {
+  final BillingRepository _paymentTransactionRepository;
 
-  PaymentTransactionFilterCubit(
+  BillingTransactionFilterCubit(
     this._paymentTransactionRepository,
-  ) : super(const PaymentTransactionFilterState()) {
+  ) : super(const BillingTransactionFilterState()) {
     paymentTypes();
     paymentMethods();
     transactionStates();
@@ -53,25 +52,25 @@ class PaymentTransactionFilterCubit extends BaseCubit<
   }
 
   void paymentTypes() {
-    final List<PaymentFilter> items = [
-      PaymentFilter(name: "Reklama", isSelected: false),
-      PaymentFilter(name: "Hamyon", isSelected: false),
+    final List<BillingTransactionFilter> items = [
+      BillingTransactionFilter(name: "Reklama", isSelected: false),
+      BillingTransactionFilter(name: "Hamyon", isSelected: false),
     ];
     updateState((state) => state.copyWith(paymentTypes: items));
   }
 
   void paymentMethods() {
-    final List<PaymentFilter> items = [
-      PaymentFilter(name: "Hamyon", isSelected: false),
-      PaymentFilter(name: "Realpay", isSelected: false),
+    final List<BillingTransactionFilter> items = [
+      BillingTransactionFilter(name: "Hamyon", isSelected: false),
+      BillingTransactionFilter(name: "Realpay", isSelected: false),
     ];
     updateState((state) => state.copyWith(paymentMethods: items));
   }
 
   void transactionStates() {
-    final List<PaymentFilter> items = [
-      PaymentFilter(name: "To'landi", isSelected: false),
-      PaymentFilter(name: "To'lanmadi", isSelected: false),
+    final List<BillingTransactionFilter> items = [
+      BillingTransactionFilter(name: "To'landi", isSelected: false),
+      BillingTransactionFilter(name: "To'lanmadi", isSelected: false),
     ];
     updateState((state) => state.copyWith(transactionStates: items));
   }
