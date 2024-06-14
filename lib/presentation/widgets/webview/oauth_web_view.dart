@@ -1,5 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:logger/logger.dart';
+import 'package:onlinebozor/core/enum/enums.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class OAuthWebView extends StatefulWidget {
@@ -29,6 +34,7 @@ class OAuthWebView extends StatefulWidget {
 class _OAuthWebViewState extends State<OAuthWebView>
     with AutomaticKeepAliveClientMixin {
   late final WebViewController _webViewController;
+  LoadingState loadingState = LoadingState.none;
 
   @override
   bool get wantKeepAlive => true;
@@ -38,6 +44,7 @@ class _OAuthWebViewState extends State<OAuthWebView>
   @override
   void initState() {
     super.initState();
+    Logger().e("OAuthWebView initState");
     _focusNode.addListener(_onFocusChange);
 
     _webViewController = WebViewController()
@@ -48,12 +55,28 @@ class _OAuthWebViewState extends State<OAuthWebView>
       ..loadRequest(Uri.parse(widget.initialUrl))
       ..setNavigationDelegate(
         NavigationDelegate(
-          onProgress: (progress) => widget.onProcess(progress),
-          onPageStarted: (url) => widget.onPageStarted(url),
-          onPageFinished: (url) => widget.onPageFinished(url),
-          onWebResourceError: (error) => widget.onFailed(error),
+          onProgress: (progress) {
+            // Logger().e("OAuthWebView onProgress progress = $progress");
+            widget.onProcess(progress);
+            setState(() => loadingState = LoadingState.loading);
+          },
+          onPageStarted: (url) {
+            // Logger().e("OAuthWebView onPageStarted url = $url");
+            widget.onPageStarted(url);
+            setState(() => loadingState = LoadingState.loading);
+          },
+          onPageFinished: (url) {
+            // Logger().e("OAuthWebView onPageFinished url = $url");
+            widget.onPageFinished(url);
+            setState(() => loadingState = LoadingState.success);
+          },
+          onWebResourceError: (error) {
+            // Logger().e("OAuthWebView WebViewController error = $error");
+            widget.onFailed(error);
+            setState(() => loadingState = LoadingState.error);
+          },
           onNavigationRequest: (request) {
-            Logger().w("onNavigationRequest request  = $request");
+            // Logger().e("OAuthWebView onNavigationRequest request = $request");
             if (request.url.startsWith(widget.redirectUrl)) {
               widget.onRedirectUrlHandled(request.url);
               return NavigationDecision.prevent;
@@ -81,9 +104,26 @@ class _OAuthWebViewState extends State<OAuthWebView>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return WebViewWidget(
-      key: const PageStorageKey('oauth_web_view_key'),
-      controller: _webViewController,
+    return Stack(
+      children: [
+        WebViewWidget(
+          key: const PageStorageKey('oauth_web_view_key'),
+          controller: _webViewController,
+        ),
+        Visibility(
+          visible: loadingState == LoadingState.error,
+          // visible: true,
+          child: Container(
+            color: context.backgroundWhiteColor,
+            child: DefaultErrorWidget(
+              isFullScreen: true,
+              onRetryClicked: () {
+                _webViewController.reload();
+              },
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
