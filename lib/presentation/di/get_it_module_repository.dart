@@ -20,7 +20,7 @@ extension GetItModuleExtension on GetIt {
     registerLazySingleton(() => StateRepository(get(), get(), get()));
     registerLazySingleton(() => AdCreationRepository(get(), get(), get()));
     registerLazySingleton(() => AdRepository(get(), get(), get(), get()));
-    registerLazySingleton(() => BillingRepository(get(), get()));
+    registerLazySingleton(() => BillingRepository(get(), get(), get()));
     registerLazySingleton(
         () => AuthRepository(get(), get(), get(), get(), get()));
     registerLazySingleton(() => CardRepository(get(), get(), get()));
