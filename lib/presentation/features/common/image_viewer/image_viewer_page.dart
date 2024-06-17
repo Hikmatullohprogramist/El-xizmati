@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
@@ -71,11 +72,17 @@ class _ImageViewerPageState extends State<ImageViewerPage> {
             pageController: PageController(initialPage: currentIndex),
             scrollPhysics: const BouncingScrollPhysics(),
             builder: (BuildContext context, int index) {
+              final imageUrl = widget.images[index];
+              var actualUrl =
+                  imageUrl.contains("https://") || imageUrl.contains("http://")
+                      ? imageUrl
+                      : "${Constants.baseUrlForImage}$imageUrl";
               return PhotoViewGalleryPageOptions(
-                imageProvider: NetworkImage(widget.images[index]),
+                imageProvider: NetworkImage(actualUrl),
                 initialScale: PhotoViewComputedScale.contained * 1,
-                heroAttributes:
-                    PhotoViewHeroAttributes(tag: widget.images[index]),
+                heroAttributes: PhotoViewHeroAttributes(
+                  tag: widget.images[index],
+                ),
               );
             },
             itemCount: widget.images.length,
