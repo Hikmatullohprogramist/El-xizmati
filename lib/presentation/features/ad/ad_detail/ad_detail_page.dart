@@ -112,11 +112,11 @@ class AdDetailPage
             child: AnimatedSmoothIndicator(
               activeIndex: state.visibleImageIndex,
               effect: ExpandingDotsEffect(
-                dotWidth: 12,
-                dotHeight: 5,
+                dotWidth: 9,
+                dotHeight: 3,
                 spacing: 5,
                 radius: 3,
-                dotColor: StaticColors.buttonColor.withOpacity(0.6),
+                dotColor: StaticColors.buttonColor.withOpacity(0.5),
                 activeDotColor: StaticColors.buttonColor,
               ),
               count: state.imagesCount,
