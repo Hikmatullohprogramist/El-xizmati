@@ -47,7 +47,8 @@ class ProfileViewState with _$ProfileViewState {
     @Default([]) List<District> districts,
     @Default([]) List<Neighborhood> neighborhoods,
 //
-    PagingController<int, ActiveSession>? controller,
+    @Default(LoadingState.loading) LoadingState activeSessionsState,
+    @Default([]) List<ActiveSession> activeSessions,
   }) = _ProfileViewState;
 }
 

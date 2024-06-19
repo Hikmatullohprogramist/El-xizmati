@@ -6,8 +6,12 @@ action_delete,O‘chirish,Удалить,Ўчириш
 action_edit,Tahrirlash,Редактировать,Таҳрирлаш
 action_make_main,Asosiy qilish,Сделать основным,Асосий қилиш
 action_title,Harakat,Действие,Ҳаракат
-active_device_current_device,Joriy sessiya,Текущий сеанс,Жорий сессия
-active_device_remove_device,Seansni tugatish,Завершить сеанс,Сеансни тугатиш
+active_sessions_current_session,Joriy sessiya,Текущий сеанс,Жорий сессия
+active_sessions_mobile_app,Mobil ilova,Мобильное приложение,Мобил илова
+active_sessions_terminate,Seansni tugatish,Завершить сеанс,Сеансни тугатиш
+active_sessions_terminate_message,Haqiqatan ham bu seansni tugatmoqchimisiz?,"Вы уверены, что хотите завершить этот сеанс?",Ҳақиқатан ҳам бу сеансни тугатмоқчимисиз?
+active_sessions_terminate_title,Seansni tugatish,Завершить сеанс,Сеансни тугатиш
+active_sessions_web_browser,Veb brauzer,Веб-браузер,Веб браузер
 ad_buy,Sotib olish,Купить,Сотиб олиш
 ad_buy_by_one_click,Bir klikda sotib olish,Купить в один клик,Бир кликда сотиб олиш
 ad_creation_additional_info_label,Qo‘shimcha ma’lumot,Дополнительная информация,Қўшимча маълумот
@@ -40,13 +44,13 @@ ad_creation_pickup_label,Olib ketish manzillari,Самовывоз с адрес
 ad_creation_price_label,Narxi,Цена,Нархи
 ad_creation_product_title,Mahsulot,Продукт,Маҳсулот
 ad_creation_receive_types_label,Qabul qilish turlari,Способы приема,Қабул қилиш турлари
+ad_creation_required_address_label,Qayerdan kerak,Откуда вам нужен,Қаердан керак
 ad_creation_required_fields_label,Yulduzcha bilan belgilangan barcha maydonlar to‘ldirilishi kerak.,Необходимо заполнить все поля отмеченный звездочкой,Юлдузча билан белгиланган барча майдонлар тўлдирилиши керак.
 ad_creation_result_add_another_ad,Yangi e’lon qo‘shish,Добавить новое объявление,Янги эълон қўшиш
 ad_creation_result_desc,E’lon o‘zgarishlari ko‘rib chiqish uchun yuborildi,Изменения объявления отправлены на проверку,Эълон ўзгаришлари кўриб чиқиш учун юборилди
 ad_creation_result_edit_current_ad,E’lonni tahrirlash,Редактирование объявления,Эълонни таҳрирлаш
 ad_creation_result_message,O‘zgarishlar saqlandi,Изменения сохранены,Ўзгаришлар сақланди
 ad_creation_result_open_dashboard,Asosiy oynaga o‘tish,Перейти на главную,Асосий ойнага ўтиш
-ad_creation_search_address_label,Qayerdan kerak,Откуда вам нужен,Қаердан керак
 ad_creation_service_addresses,Xizmat ko‘rsatish manzillari,Адреса услуг,Хизмат кўрсатиш манзиллари
 ad_creation_service_title,Xizmat,Услуга,Хизмат
 ad_creation_show_my_social_accounts_label,Mening ijtimoiy tarmoqlarim mahsulot tavsifi ko‘rsatilsin,Показать мои соц. сети на описание товара,Менинг ижтимоий тармоқларим маҳсулот тавсифи кўрсатилсин
@@ -99,7 +103,6 @@ ad_list_popular_products,Ommabop mahsulotlar,Популярные продукт
 ad_list_popular_services,Ommabop xizmatlar,Популярные услуги,Оммабоп хизматлар
 ad_property_biznes,Biznes,Бизнес,Бизнес
 ad_property_personal,Shaxsiy,Частное,Шахсий
-ad_search_hint,Mahsulotlar va kategoriyalar qidiring,Искать товары и категории,Маҳсулотлар ва категорийлар қидиринг
 ad_status_new,Yangi,Новый,Янги
 ad_status_old,I/B,Б/У,И/Б
 ad_status_title,Holati:,Cтатус:,Ҳолати:
@@ -158,7 +161,6 @@ card_deleting_message,Kartani o‘chirishni hohlaysizmi?,Вы хотите уд�
 cart_ad_remove_message,E’lonni savatdan o‘chirishni hohlaysizmi?,Хотите удалить объявление из корзины?,Эълонни саватдан ўчиришни ҳоҳлайсизми?
 cart_order_create,Rasmiylashtirish,Оформить,Расмийлаштириш
 category_ads_count,ta e‘lon,объявлений,та эълон
-category_list_search_hint,Turkum bo‘yicha izlash,Поиск по категории,Туркум бўйича излаш
 close_title,Yopish,Закрыть,Ёпиш
 common_add,Qo‘shish,Добавить,Қўшиш
 common_apartment,Kvartira,Квартира,Квартира
@@ -175,7 +177,7 @@ common_details,Batafsil,Подробно,Батафсил
 common_district,Tuman,Район,Туман
 common_edit,Tahrirlash,Редактировать,Таҳрирлаш
 common_email,Elektron pochta,Эл. почта,Электрон почта
-common_empty_message,Hech qanday element topilmadi,No items found,Ҳеч қандай элемент топилмади
+common_empty_message,Hech qanday element topilmadi,Никакие элементы не найдены,Ҳеч қандай элемент топилмади
 common_entrance,Kirish,Подъезд,Кириш
 common_error_district_not_selected,Avval tumanni tanlang,Сначала выберите район,Аввал туманни танланг
 common_error_email_not_valid,To‘g‘ri e-pochta manzilini kiriting,Введите действительный адрес эл. почты,Тўғри э-почта манзилини киритинг
@@ -415,6 +417,9 @@ report_user_block_title,Foydalanuvchini bloklash,Блокировка польз
 report_user_report_desc,"Sizningcha, ushbu foydalanuvchi qoidalarni buzadimi? Bizga shikoyat yuboring va biz E’lonni tekshiramiz. Sababini tanlang.","Считаете, что данный пользователь нарушает правила? Отправьте нам жалобу и мы проверим объявление. Выберите причину:","Сизнингча, ушбу фойдаланувчи қоидаларни бузадими? Бизга шикоят юборинг ва биз Эълонни текширамиз. Сабабини танланг."
 report_user_report_title,Foydalanuvchidan shikoyat qilish,Жалоба на пользователя,Фойдаланувчидан шикоят қилиш
 request_title,So‘rovlar,Запросы,Сўровлар
+search_hint_category,Turkum bo‘yicha izlash,Поиск по категории,Туркум бўйича излаш
+search_hint_category_and_products,Mahsulotlar va kategoriyalar qidiring,Искать товары и категории,Маҳсулотлар ва категориялар қидиринг
+search_initial_message,Qidiruvni boshlash uchun so‘rovni kiriting,"Введите запрос, чтобы начать поиск",Қидирувни бошлаш учун сўровни киритинг
 selection_ad_transaction_type_title,E’lon turini tanlang,Выберите тип объявления,Эълон турини танланг
 selection_currency_title,Pul birligini tanlang,Выберите валюту,Пул бирлигини танланг
 selection_delivery_districts_title,Yetkazib berish hududlarini tanlang,Выберите регионы доставки,Етказиб бериш ҳудудларини танланг

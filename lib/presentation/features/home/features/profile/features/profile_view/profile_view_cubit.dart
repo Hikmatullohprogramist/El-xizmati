@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/core/extensions/list_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
@@ -29,7 +29,7 @@ class ProfileViewCubit extends BaseCubit<ProfileViewState, ProfileViewEvent> {
     this._authRepository,
     this._userRepository,
   ) : super(ProfileViewState()) {
-    getActiveDeviceController();
+    getActiveSessions();
     getSocialAccountInfo();
   }
 
@@ -261,21 +261,26 @@ class ProfileViewCubit extends BaseCubit<ProfileViewState, ProfileViewEvent> {
         .updateNotificationSources(sources: sources)
         .initFuture()
         .onStart(() {
-      updateState((state) => state.copyWith(isUpdatingNotification: true));
-    }).onSuccess((data) {
-      updateState((state) => state.copyWith(
-            isUpdatingNotification: false,
-            savedSmsState: state.actualSmsState,
-            savedEmailState: state.actualEmailState,
-            savedTelegramState: state.actualTelegramState,
-          ));
-      stateMessageManager
-          .showSuccessSnackBar(Strings.messageChangesSavingSuccess);
-    }).onError((error) {
-      stateMessageManager.showErrorSnackBar(Strings.messageChangesSavingFailed);
-    }).onFinished(() {
-      updateState((state) => state.copyWith(isUpdatingNotification: false));
-    }).executeFuture();
+          updateState((state) => state.copyWith(isUpdatingNotification: true));
+        })
+        .onSuccess((data) {
+          updateState((state) => state.copyWith(
+                isUpdatingNotification: false,
+                savedSmsState: state.actualSmsState,
+                savedEmailState: state.actualEmailState,
+                savedTelegramState: state.actualTelegramState,
+              ));
+
+          stateMessageManager
+              .showSuccessSnackBar(Strings.messageChangesSavingSuccess);
+        })
+        .onError((error) {
+          stateMessageManager
+              .showErrorSnackBar(Strings.messageChangesSavingFailed);
+          updateState((state) => state.copyWith(isUpdatingNotification: false));
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> updateSocialAccountInfo() async {
@@ -303,67 +308,43 @@ class ProfileViewCubit extends BaseCubit<ProfileViewState, ProfileViewEvent> {
     }
   }
 
-  Future<void> getActiveDeviceController() async {
-    final controller = states.controller ?? getActiveDevices(status: 1);
-    updateState((state) => state.copyWith(controller: controller));
+  void getActiveSessions() {
+    _userRepository
+        .getActiveSessions()
+        .initFuture()
+        .onStart(() {
+          updateState((state) => state.copyWith(
+                activeSessionsState: LoadingState.loading,
+              ));
+        })
+        .onSuccess((data) {
+          updateState((state) => state.copyWith(
+                activeSessions: data.length > 2 ? data.sublist(0, 2) : data,
+                activeSessionsState:
+                    data.isEmpty ? LoadingState.empty : LoadingState.success,
+              ));
+        })
+        .onError((error) {
+          logger.e(error);
+          updateState((state) => state.copyWith(
+                activeSessionsState: LoadingState.error,
+              ));
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
-  PagingController<int, ActiveSession> getActiveDevices({
-    required int status,
-  }) {
-    final controller = PagingController<int, ActiveSession>(
-      firstPageKey: 1,
-      invisibleItemsThreshold: 100,
-    );
-    logger.i(states.controller);
-
-    controller.addPageRequestListener(
-      (pageKey) async {
-        _userRepository
-            .getActiveSessions()
-            .initFuture()
-            .onStart(() {})
-            .onSuccess((data) {
-              if (data.length <= 1000) {
-                if (data.length > 2) {
-                  controller.appendLastPage(data.sublist(0, 2));
-                } else {
-                  controller.appendLastPage(data);
-                }
-                logger.i(states.controller);
-                return;
-              }
-              controller.appendPage(data, pageKey + 1);
-            })
-            .onError((error) {
-              logger.e(error);
-              controller.error = error;
-            })
-            .onFinished(() {})
-            .executeFuture();
-
-        final items = await _userRepository.getActiveSessions();
-        if (items.length <= 1000) {
-          if (items.length > 2) {
-            controller.appendLastPage(items.sublist(0, 2));
-          } else {
-            controller.appendLastPage(items);
-          }
-          logger.i(states.controller);
-          return;
-        }
-        controller.appendPage(items, pageKey + 1);
-        logger.i(states.controller);
-      },
-    );
-    return controller;
-  }
-
-  Future<void> removeActiveDevice(ActiveSession session) async {
+  Future<void> removeActiveSession(ActiveSession session) async {
     try {
-      await _userRepository.removeActiveResponse(session);
-      states.controller?.itemList?.remove(session);
-      states.controller?.notifyListeners();
+      await _userRepository.removeActiveSession(session);
+      final activeSessions = states.activeSessions.toList(growable: true);
+      activeSessions.removeIf((e) => e.id == session.id);
+      updateState((state) => state.copyWith(
+            activeSessions: activeSessions,
+            activeSessionsState: activeSessions.isEmpty
+                ? LoadingState.empty
+                : LoadingState.success,
+          ));
     } catch (error) {
       logger.e(error.toString());
     }

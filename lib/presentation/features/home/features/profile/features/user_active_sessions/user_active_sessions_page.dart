@@ -5,17 +5,17 @@ import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
-import 'package:onlinebozor/presentation/widgets/device/active_session_shimmer.dart';
-import 'package:onlinebozor/presentation/widgets/device/active_session_widget.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
+import 'package:onlinebozor/presentation/widgets/session/active_session_shimmer.dart';
+import 'package:onlinebozor/presentation/widgets/session/active_session_widget.dart';
 
 import 'user_active_sessions_cubit.dart';
 
 @RoutePage()
-class UserActiveSessionsPage extends BasePage<UserActiveSessionsCubit, UserActiveSessionsState, UserActiveSessionsEvent> {
+class UserActiveSessionsPage extends BasePage<UserActiveSessionsCubit,
+    UserActiveSessionsState, UserActiveSessionsEvent> {
   const UserActiveSessionsPage({super.key});
 
   @override
@@ -62,7 +62,7 @@ class UserActiveSessionsPage extends BasePage<UserActiveSessionsCubit, UserActiv
                 shrinkWrap: true,
                 itemCount: 6,
                 itemBuilder: (BuildContext context, int index) {
-                  return ActiveDeviceShimmer();
+                  return ActiveSessionShimmer();
                 },
               ),
             );
@@ -88,11 +88,24 @@ class UserActiveSessionsPage extends BasePage<UserActiveSessionsCubit, UserActiv
           },
           transitionDuration: Duration(milliseconds: 100),
           itemBuilder: (context, item, index) {
-            return ActiveSessionWidget(
-              session: item,
-              onClicked: (session) {
-                cubit(context).removeActiveDevice(session);
-              },
+            return SizedBox(
+              height: 120,
+              child: ActiveSessionWidget(
+                session: item,
+                onTerminateClicked: (session) {
+                  showYesNoBottomSheet(
+                    context,
+                    title: Strings.activeSessionsTerminateTitle,
+                    message: Strings.activeSessionsTerminateMessage,
+                    yesTitle: Strings.activeSessionsTerminate,
+                    onYesClicked: () {
+                      cubit(context).removeActiveSession(session);
+                    },
+                    noTitle: Strings.commonCancel,
+                    onNoClicked: () {},
+                  );
+                },
+              ),
             );
           },
         ),

@@ -2,13 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/enum/social_enum.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
@@ -18,12 +16,12 @@ import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/presentation/widgets/dashboard/see_all_widget.dart';
-import 'package:onlinebozor/presentation/widgets/device/active_session_shimmer.dart';
-import 'package:onlinebozor/presentation/widgets/device/active_session_widget.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
 import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
-import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
-import 'package:onlinebozor/presentation/widgets/profile/profil_view_shimmer.dart';
+import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
+import 'package:onlinebozor/presentation/widgets/profile/profile_view_shimmer.dart';
+import 'package:onlinebozor/presentation/widgets/session/active_session_shimmer.dart';
+import 'package:onlinebozor/presentation/widgets/session/active_session_widget.dart';
 import 'package:onlinebozor/presentation/widgets/switch/custom_switch.dart';
 
 import 'profile_view_cubit.dart';
@@ -59,49 +57,48 @@ class ProfileViewPage
     _youtubeController.updateOnRestore(state.youtubeInfo?.link ?? "");
 
     return Scaffold(
-        appBar: ActionAppBar(
-          titleText: Strings.profileViewTitlle,
-          titleTextColor: context.textPrimary,
-          backgroundColor: context.appBarColor,
-          onBackPressed: () => context.router.pop(),
-          actions: state.isRegistered
-              ? [
-                  CustomTextButton(
-                    text: Strings.commonEdit,
-                    onPressed: () => context.router.push(ProfileEditRoute()),
-                  )
-                ]
-              : [],
-        ),
-        backgroundColor: context.backgroundGreyColor,
-        body: Stack(
-          children: [
-            Visibility(
-              visible: !state.isUserLoading,
-              child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 12),
-                    _getHeaderBlock(context, state),
-                    SizedBox(height: 12),
-                    _getBioBlock(context, state),
-                    SizedBox(height: 12),
-                    _buildNotificationBlock(context, state),
-                    SizedBox(height: 12),
-                    _buildSocialBlock(context, state),
-                    SizedBox(height: 12),
-                    _buildActiveDeviceBlock(context, state),
-                    SizedBox(height: 12),
-                  ],
-                ),
+      appBar: _buildAppBar(context, state),
+      backgroundColor: context.backgroundGreyColor,
+      body: state.isUserLoading
+          ? ProfileViewShimmer()
+          : SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(height: 12),
+                  _getHeaderBlock(context, state),
+                  SizedBox(height: 12),
+                  _getBioBlock(context, state),
+                  SizedBox(height: 12),
+                  _buildNotificationBlock(context, state),
+                  SizedBox(height: 12),
+                  _buildSocialBlock(context, state),
+                  SizedBox(height: 12),
+                  _buildActiveSessionsBlock(context, state),
+                  SizedBox(height: 12),
+                ],
               ),
             ),
-            Visibility(visible: state.isUserLoading, child: profilShimmer())
-          ],
-        ));
+    );
+  }
+
+  AppBar _buildAppBar(BuildContext context, ProfileViewState state) {
+    return ActionAppBar(
+      titleText: Strings.profileViewTitlle,
+      titleTextColor: context.textPrimary,
+      backgroundColor: context.appBarColor,
+      onBackPressed: () => context.router.pop(),
+      actions: state.isRegistered
+          ? [
+              CustomTextButton(
+                text: Strings.commonEdit,
+                onPressed: () => context.router.push(ProfileEditRoute()),
+              )
+            ]
+          : [],
+    );
   }
 
   Widget _getHeaderBlock(BuildContext context, ProfileViewState state) {
@@ -469,19 +466,6 @@ class ProfileViewPage
   }
 
   Widget _buildSocialBlock(BuildContext context, ProfileViewState state) {
-    // _instagramController.selection = TextSelection.fromPosition(
-    //   TextPosition(offset: _instagramController.text.length),
-    // );
-    // _telegramController.selection = TextSelection.fromPosition(
-    //   TextPosition(offset: _telegramController.text.length),
-    // );
-    // _facebookController.selection = TextSelection.fromPosition(
-    //   TextPosition(offset: _facebookController.text.length),
-    // );
-    // _youtubeController.selection = TextSelection.fromPosition(
-    //   TextPosition(offset: _youtubeController.text.length),
-    // );
-
     return Container(
       color: context.cardColor,
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -851,85 +835,58 @@ class ProfileViewPage
     );
   }
 
-  Widget _buildActiveDeviceBlock(BuildContext context, ProfileViewState state) {
-    double width;
-    double height;
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
-    return Column(
-      children: [
-        Container(
-          color: context.backgroundGreyColor,
-          padding: EdgeInsets.only(top: 8),
-          child: SeeAllWidget(
+  Widget _buildActiveSessionsBlock(
+    BuildContext context,
+    ProfileViewState state,
+  ) {
+    return Container(
+      color: context.backgroundGreyColor,
+      padding: EdgeInsets.only(top: 8),
+      child: Column(
+        children: [
+          SeeAllWidget(
             title: Strings.settingsActiveDevices,
             onClicked: () => context.router.push(UserActiveSessionsRoute()),
           ),
-        ),
-        PagedGridView<int, ActiveSession>(
-          shrinkWrap: true,
-          physics: BouncingScrollPhysics(),
-          pagingController: state.controller!,
-          showNewPageProgressIndicatorAsGridChild: false,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: width / height,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 0,
-            mainAxisExtent: 145,
-            crossAxisCount: 1,
-          ),
-          builderDelegate: PagedChildBuilderDelegate<ActiveSession>(
-            firstPageErrorIndicatorBuilder: (_) {
-              return DefaultErrorWidget(
-                isFullScreen: true,
-                onRetryClicked: () =>
-                    cubit(context).states.controller?.refresh(),
-              );
-            },
-            firstPageProgressIndicatorBuilder: (_) {
-              return SingleChildScrollView(
-                child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 2,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ActiveDeviceShimmer();
+          LoaderStateWidget(
+            isFullScreen: false,
+            loadingState: state.activeSessionsState,
+            loadingBody: ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: 2,
+              itemBuilder: (BuildContext context, int index) {
+                return ActiveSessionShimmer();
+              },
+            ),
+            emptyBody: Center(child: Text(Strings.commonEmptyMessage)),
+            successBody: ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              padding: EdgeInsets.only(left: 16, right: 16),
+              itemCount: state.activeSessions.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ActiveSessionWidget(
+                  session: state.activeSessions[index],
+                  onTerminateClicked: (session) {
+                    showYesNoBottomSheet(
+                      context,
+                      title: Strings.activeSessionsTerminateTitle,
+                      message: Strings.activeSessionsTerminateMessage,
+                      yesTitle: Strings.activeSessionsTerminate,
+                      onYesClicked: () {
+                        cubit(context).removeActiveSession(session);
+                      },
+                      noTitle: Strings.commonCancel,
+                      onNoClicked: () {},
+                    );
                   },
-                ),
-              );
-            },
-            noItemsFoundIndicatorBuilder: (_) {
-              return Center(child: Text(Strings.commonEmptyMessage));
-            },
-            newPageProgressIndicatorBuilder: (_) {
-              return SizedBox(
-                height: 60,
-                child: Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.blue,
-                  ),
-                ),
-              );
-            },
-            newPageErrorIndicatorBuilder: (_) {
-              return DefaultErrorWidget(
-                isFullScreen: false,
-                onRetryClicked: () =>
-                    cubit(context).states.controller?.refresh(),
-              );
-            },
-            transitionDuration: Duration(milliseconds: 100),
-            itemBuilder: (context, item, index) {
-              return ActiveSessionWidget(
-                session: item,
-                onClicked: (response) {
-                  cubit(context).removeActiveDevice(response);
-                },
-              );
-            },
+                );
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

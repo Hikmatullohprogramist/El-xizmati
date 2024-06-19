@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:shimmer/shimmer.dart';
 
-class ActiveDeviceShimmer extends StatelessWidget {
-  const ActiveDeviceShimmer({
+class ActiveSessionShimmer extends StatelessWidget {
+  const ActiveSessionShimmer({
     super.key,
   });
 

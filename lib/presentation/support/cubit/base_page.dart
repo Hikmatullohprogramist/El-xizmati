@@ -150,6 +150,8 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(height: 24),
+            Center(child: title.s(18)),
+            SizedBox(height: 24),
             Center(child: message.s(16)),
             SizedBox(height: 32),
             Row(
@@ -157,7 +159,7 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
                 SizedBox(width: 16),
                 Expanded(
                   child: CustomElevatedButton(
-                    text: Strings.commonNo,
+                    text: noTitle,
                     onPressed: () {
                       onNoClicked();
                       Navigator.pop(context);
@@ -168,8 +170,7 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
                 SizedBox(width: 16),
                 Expanded(
                   child: CustomElevatedButton(
-                    text: Strings.commonYes,
-                    // backgroundColor: Color(0xFFEB2F69),
+                    text: yesTitle,
                     onPressed: () {
                       onYesClicked();
                       Navigator.pop(context);

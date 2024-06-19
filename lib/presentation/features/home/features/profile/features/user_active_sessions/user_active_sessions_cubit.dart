@@ -60,9 +60,9 @@ class UserActiveSessionsCubit
     return controller;
   }
 
-  Future<void> removeActiveDevice(ActiveSession session) async {
+  Future<void> removeActiveSession(ActiveSession session) async {
     try {
-      await _userRepository.removeActiveResponse(session);
+      await _userRepository.removeActiveSession(session);
       states.controller?.itemList?.remove(session);
       states.controller?.notifyListeners();
     } catch (error) {

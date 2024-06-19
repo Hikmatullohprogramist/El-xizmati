@@ -4,8 +4,11 @@ import 'package:shimmer/shimmer.dart';
 
 import '../divider/custom_divider.dart';
 
-extension ProfilViewShimmer on Widget {
-  Widget profilShimmer() {
+class ProfileViewShimmer extends StatelessWidget {
+  const ProfileViewShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Container(
@@ -75,28 +78,30 @@ extension ProfilViewShimmer on Widget {
                           Row(
                             children: [
                               Shimmer.fromColors(
-                                  baseColor: StaticColors.shimmerBaseColor,
-                                  highlightColor:
-                                      StaticColors.shimmerHighLightColor,
-                                  child: Container(
-                                    width: 67,
-                                    height: 20,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(5)),
-                                  )),
+                                baseColor: StaticColors.shimmerBaseColor,
+                                highlightColor:
+                                    StaticColors.shimmerHighLightColor,
+                                child: Container(
+                                  width: 67,
+                                  height: 20,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(5)),
+                                ),
+                              ),
                               SizedBox(width: 10),
                               Shimmer.fromColors(
-                                  baseColor: StaticColors.shimmerBaseColor,
-                                  highlightColor:
-                                      StaticColors.shimmerHighLightColor,
-                                  child: Container(
-                                    width: 67,
-                                    height: 20,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(5)),
-                                  )),
+                                baseColor: StaticColors.shimmerBaseColor,
+                                highlightColor:
+                                    StaticColors.shimmerHighLightColor,
+                                child: Container(
+                                  width: 67,
+                                  height: 20,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(5)),
+                                ),
+                              ),
                             ],
                           )
                         ],
@@ -105,14 +110,15 @@ extension ProfilViewShimmer on Widget {
                   ),
                   SizedBox(height: 6),
                   Shimmer.fromColors(
-                      baseColor: StaticColors.shimmerBaseColor,
-                      highlightColor: StaticColors.shimmerHighLightColor,
-                      child: Container(
-                        height: 36,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(5)),
-                      )),
+                    baseColor: StaticColors.shimmerBaseColor,
+                    highlightColor: StaticColors.shimmerHighLightColor,
+                    child: Container(
+                      height: 36,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5)),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -154,52 +160,56 @@ extension ProfilViewShimmer on Widget {
                     ///
                     SizedBox(height: 8),
                     Shimmer.fromColors(
-                        baseColor: StaticColors.shimmerBaseColor,
-                        highlightColor: StaticColors.shimmerHighLightColor,
-                        child: Container(
-                          width: 75,
-                          height: 15,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(7)),
-                        )),
+                      baseColor: StaticColors.shimmerBaseColor,
+                      highlightColor: StaticColors.shimmerHighLightColor,
+                      child: Container(
+                        width: 75,
+                        height: 15,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(7)),
+                      ),
+                    ),
                     SizedBox(height: 6),
                     Shimmer.fromColors(
-                        baseColor: StaticColors.shimmerBaseColor,
-                        highlightColor: StaticColors.shimmerHighLightColor,
-                        child: Container(
-                          width: 175,
-                          height: 15,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(7)),
-                        )),
+                      baseColor: StaticColors.shimmerBaseColor,
+                      highlightColor: StaticColors.shimmerHighLightColor,
+                      child: Container(
+                        width: 175,
+                        height: 15,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(7)),
+                      ),
+                    ),
                     SizedBox(height: 8),
                     CustomDivider(),
 
                     ///
                     SizedBox(height: 8),
                     Shimmer.fromColors(
-                        baseColor: StaticColors.shimmerBaseColor,
-                        highlightColor: StaticColors.shimmerHighLightColor,
-                        child: Container(
-                          width: 75,
-                          height: 15,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(7)),
-                        )),
+                      baseColor: StaticColors.shimmerBaseColor,
+                      highlightColor: StaticColors.shimmerHighLightColor,
+                      child: Container(
+                        width: 75,
+                        height: 15,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(7)),
+                      ),
+                    ),
                     SizedBox(height: 6),
                     Shimmer.fromColors(
-                        baseColor: StaticColors.shimmerBaseColor,
-                        highlightColor: StaticColors.shimmerHighLightColor,
-                        child: Container(
-                          width: 175,
-                          height: 15,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(7)),
-                        )),
+                      baseColor: StaticColors.shimmerBaseColor,
+                      highlightColor: StaticColors.shimmerHighLightColor,
+                      child: Container(
+                        width: 175,
+                        height: 15,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(7)),
+                      ),
+                    ),
                     SizedBox(height: 8),
                     CustomDivider(),
 
@@ -335,15 +345,16 @@ extension ProfilViewShimmer on Widget {
                         ),
                         SizedBox(width: 16),
                         Shimmer.fromColors(
-                            baseColor: StaticColors.shimmerBaseColor,
-                            highlightColor: StaticColors.shimmerHighLightColor,
-                            child: Container(
-                              height: 20,
-                              width: 180,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(9)),
-                            )),
+                          baseColor: StaticColors.shimmerBaseColor,
+                          highlightColor: StaticColors.shimmerHighLightColor,
+                          child: Container(
+                            height: 20,
+                            width: 180,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(9)),
+                          ),
+                        ),
                       ]),
                     ),
                   ),
@@ -438,26 +449,28 @@ extension ProfilViewShimmer on Widget {
                     height: 5,
                   ),
                   Shimmer.fromColors(
-                      baseColor: StaticColors.shimmerBaseColor,
-                      highlightColor: StaticColors.shimmerHighLightColor,
-                      child: Container(
-                        width: 150,
-                        height: 14,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(7)),
-                      )),
+                    baseColor: StaticColors.shimmerBaseColor,
+                    highlightColor: StaticColors.shimmerHighLightColor,
+                    child: Container(
+                      width: 150,
+                      height: 14,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(7)),
+                    ),
+                  ),
                   SizedBox(height: 15),
                   Shimmer.fromColors(
-                      baseColor: StaticColors.shimmerBaseColor,
-                      highlightColor: StaticColors.shimmerHighLightColor,
-                      child: Container(
-                        width: double.infinity,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(7)),
-                      )),
+                    baseColor: StaticColors.shimmerBaseColor,
+                    highlightColor: StaticColors.shimmerHighLightColor,
+                    child: Container(
+                      width: double.infinity,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(7)),
+                    ),
+                  ),
                   SizedBox(height: 18),
                 ],
               ),
