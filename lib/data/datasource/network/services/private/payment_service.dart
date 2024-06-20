@@ -9,7 +9,6 @@ class PaymentService {
 
   Future<Response> getTransactions(int page, int limit) async {
     return _dio.get("api/mobile/v1/user/billings");
-    // https://online-bozor.uz/api/v1/user/billings?page=1&page_size=10&lang=la
   }
 
   Future<Response> getPaymentMerchantToken(int tin, String redirectUrl) async {

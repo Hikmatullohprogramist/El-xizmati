@@ -1,6 +1,6 @@
 import 'package:onlinebozor/data/datasource/floor/dao/user_address_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/network/responses/address/user_address_response.dart';
-import 'package:onlinebozor/data/datasource/network/services/user_address_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/private/user_address_service.dart';
 import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';

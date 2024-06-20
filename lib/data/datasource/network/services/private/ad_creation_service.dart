@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:onlinebozor/data/datasource/network/constants/rest_query_keys.dart';
 import 'package:onlinebozor/data/datasource/network/extensions/rest_mappers.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
-
-import '../constants/rest_query_keys.dart';
 
 class AdCreationService {
   final Dio _dio;
@@ -380,11 +379,15 @@ class AdCreationService {
   }
 
   Future<Response> getProductAdForEdit({required int adId}) {
-    final queryParameters = {RestQueryKeys.adId: adId};
-    return _dio.get(
+    final params = {
+      RestQueryKeys.adId: adId,
+    };
+
+    final response = _dio.get(
       "api/mobile/v1/get-product-ad-details-for-edit",
-      queryParameters: queryParameters,
+      queryParameters: params,
     );
+    return response;
   }
 
   Future<Response> getServiceAdForEdit({required int adId}) {

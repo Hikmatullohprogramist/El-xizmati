@@ -17,24 +17,28 @@ class UserAdService {
       RestQueryKeys.page: page,
       RestQueryKeys.status: userAdType.name.toUpperCase()
     };
+
     return _dio.get("api/mobile/v1/user/adsList", queryParameters: params);
   }
 
   Future<Response> getUserAdDetail({required int adId}) {
-    final queryParameters = {RestQueryKeys.id: adId};
+    final params = {RestQueryKeys.id: adId};
+
     return _dio.get(
       "api/mobile/v1/ads/get-user-ad-detail",
-      queryParameters: queryParameters,
+      queryParameters: params,
     );
   }
 
   Future<Response> deactivateAd(int adId) async {
     final params = {RestQueryKeys.adId: adId};
+
     return _dio.put("api/mobile/v1/deactivate-ad", queryParameters: params);
   }
 
   Future<Response> activateAd(int adId) async {
     final params = {RestQueryKeys.adId: adId};
+
     return _dio.put("api/mobile/v1/activate-ad", queryParameters: params);
   }
 

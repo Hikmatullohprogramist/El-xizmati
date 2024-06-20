@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:onlinebozor/data/datasource/network/constants/rest_header_keys.dart';
+import 'package:onlinebozor/data/datasource/network/constants/rest_constants.dart';
 import 'package:onlinebozor/data/datasource/network/constants/rest_query_keys.dart';
 
 class CardService {
@@ -17,8 +17,8 @@ class CardService {
 
   Future<Response> getAddCardMerchantToken(int tin, String redirectUrl) async {
     final params = {
-      // RestQueryKeys.tin: tin,
-      // RestQueryKeys.customerType: RestConstants.REAL_PAY_TYPE_ADD_CART,
+      RestQueryKeys.tin: tin,
+      RestQueryKeys.customerType: RestConstants.REAL_PAY_TYPE_ADD_CART,
       RestQueryKeys.redirectUrl: redirectUrl,
     };
 

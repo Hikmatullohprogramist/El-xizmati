@@ -11,6 +11,7 @@ class UserAddressService {
       RestQueryKeys.page: page,
       RestQueryKeys.limit: limit,
     };
+
     return _dio.get("api/mobile/v1/user/address", queryParameters: params);
   }
 
@@ -36,6 +37,7 @@ class UserAddressService {
       RestQueryKeys.isMain: isMain,
       RestQueryKeys.geo: geo,
     };
+
     return _dio.post('api/mobile/v1/user/address', data: body);
   }
 
@@ -65,6 +67,7 @@ class UserAddressService {
       RestQueryKeys.id: id,
       RestQueryKeys.state: 1
     };
+
     return _dio.put('api/mobile/v1/user/address', data: body);
   }
 
@@ -73,6 +76,7 @@ class UserAddressService {
       RestQueryKeys.id: userAddressId,
       RestQueryKeys.type: "SELECTED"
     };
+
     return _dio.delete("api/mobile/v1/user/address", queryParameters: body);
   }
 
@@ -84,6 +88,7 @@ class UserAddressService {
       RestQueryKeys.id: userAddressId,
       RestQueryKeys.isMain: isMain
     };
+
     return _dio.patch("api/mobile/v1/user/address", queryParameters: body);
   }
 }

@@ -8,9 +8,8 @@ class UserService {
 
   UserService(this._dio);
 
-  Future<Response> getFullUserInfo() {
-    final response = _dio.get("api/mobile/v1/user/profile");
-    return response;
+  Future<Response> getUserProfile() {
+    return _dio.get("api/mobile/v1/user/profile");
   }
 
   Future<Response> getIdentityDocument({
@@ -57,7 +56,7 @@ class UserService {
     required String postName,
     required String phoneNumber,
   }) async {
-    final data = {
+    final body = {
       RestQueryKeys.email: email,
       RestQueryKeys.gender: gender,
       RestQueryKeys.homeName: homeName,
@@ -72,30 +71,32 @@ class UserService {
       "birth_date": birthDate,
       RestQueryKeys.postName: postName,
     };
-    final response =
-        await _dio.post("api/mobile/v1/user/profile", queryParameters: data);
+    final response = await _dio.post(
+      "api/mobile/v1/user/profile",
+      queryParameters: body,
+    );
     return response;
   }
 
   Future<Response> validateUser({
+    required int id,
+    required int pinfl,
     required String birthDate,
-    required int districtId,
     required String email,
     required String fullName,
     required String gender,
     required String homeName,
-    required int id,
-    required int mahallaId,
     required String mobilePhone,
     required String passportNumber,
     required String passportSeries,
     required String phoneNumber,
     required String photo,
-    required int pinfl,
     required String postName,
-    required int region_Id,
+    required int regionId,
+    required int districtId,
+    required int neighborhoodId,
   }) async {
-    final queryParameters = {
+    final params = {
       RestQueryKeys.brithDate: birthDate,
       RestQueryKeys.districtId: districtId,
       RestQueryKeys.email: email,
@@ -103,7 +104,7 @@ class UserService {
       RestQueryKeys.gender: gender,
       RestQueryKeys.homeName: homeName,
       RestQueryKeys.id: id,
-      RestQueryKeys.neighborhoodId: mahallaId,
+      RestQueryKeys.neighborhoodId: neighborhoodId,
       RestQueryKeys.mobilePhone: mobilePhone,
       RestQueryKeys.passportNumber: passportNumber,
       RestQueryKeys.passportSerial: passportSeries,
@@ -111,11 +112,13 @@ class UserService {
       RestQueryKeys.photo: photo,
       RestQueryKeys.pinfl: pinfl,
       RestQueryKeys.postName: postName,
-      RestQueryKeys.regionId: region_Id,
+      RestQueryKeys.regionId: regionId,
     };
-    final response = await _dio.put("api/mobile/v1/user/profile",
-        queryParameters: queryParameters);
-    return response;
+
+    return await _dio.put(
+      "api/mobile/v1/user/profile",
+      queryParameters: params,
+    );
   }
 
   Future<Response> checkAvailableNumber({
@@ -124,13 +127,14 @@ class UserService {
     required String bioDocSeries,
     required String phoneNumber,
   }) async {
-    final data = {
+    final body = {
       RestQueryKeys.brithDate: birthDate,
       RestQueryKeys.passportNumber: bioDocNumber,
       RestQueryKeys.passportSerial: bioDocSeries,
       RestQueryKeys.phoneNumber: phoneNumber,
     };
-    final response = await _dio.post("api/v2/user/profile", data: data);
+
+    final response = await _dio.post("api/v2/user/profile", data: body);
     return response;
   }
 
@@ -139,25 +143,26 @@ class UserService {
     return response;
   }
 
-  Future<Response> getRegions() async {
-    final response = await _dio.get("api/mobile/v1/regions");
-    return response;
+  Future<Response> getRegions() {
+    return _dio.get("api/mobile/v1/regions");
   }
 
-  Future<Response> getDistricts(int regionId) async {
-    final queryParameters = {RestQueryKeys.regionId: regionId};
-    final response = await _dio.get("api/mobile/v1/districts/list",
-        queryParameters: queryParameters);
-    return response;
-  }
+  Future<Response> getDistricts(int regionId) {
+    final params = {RestQueryKeys.regionId: regionId};
 
-  Future<Response> getStreets(int districtId) async {
-    final queryParameters = {RestQueryKeys.districtId: districtId};
-    final response = await _dio.get(
-      'api/mobile/v1/street/list',
-      queryParameters: queryParameters,
+    return _dio.get(
+      "api/mobile/v1/districts/list",
+      queryParameters: params,
     );
-    return response;
+  }
+
+  Future<Response> getNeighborhoods(int districtId) {
+    final params = {RestQueryKeys.districtId: districtId};
+
+    return _dio.get(
+      'api/mobile/v1/street/list',
+      queryParameters: params,
+    );
   }
 
   Future<Response> getActiveSessions() async {
@@ -165,17 +170,19 @@ class UserService {
     return response;
   }
 
-  Future<void> removeActiveDevice(ActiveSession session) async {
-    final queryParameters = {RestQueryKeys.id: session.id};
-    await _dio.delete("api/v1/user/active", queryParameters: queryParameters);
+  Future<void> removeActiveSession(ActiveSession session) async {
+    final params = {RestQueryKeys.id: session.id};
+
+    await _dio.delete("api/v1/user/active", queryParameters: params);
     return;
   }
 
   Future<Response> updateNotificationSources({required String sources}) async {
-    final data = {RestQueryKeys.messageType: sources};
+    final body = {RestQueryKeys.messageType: sources};
+
     final response = await _dio.patch(
       "api/v1/mobile/user/update-notification-sources",
-      data: data,
+      data: body,
     );
     return response;
   }
@@ -183,7 +190,7 @@ class UserService {
   Future<Response> updateSocialAccountInfo({
     required List<SocialAccountInfo?> socials,
   }) async {
-    final Map<String, dynamic> data = {
+    final Map<String, dynamic> body = {
       'socials': socials
           .map((element) => {
                 RestQueryKeys.socialId: element?.id,
@@ -199,7 +206,7 @@ class UserService {
 
     final response = await _dio.patch(
       "api/v1/mobile/user/update-social-accounts",
-      data: data,
+      data: body,
     );
     return response;
   }

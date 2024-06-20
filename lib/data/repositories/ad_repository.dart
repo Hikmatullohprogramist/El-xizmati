@@ -2,7 +2,10 @@ import 'package:onlinebozor/data/datasource/floor/dao/ad_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad_detail/ad_detail_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/search/search_response.dart';
-import 'package:onlinebozor/data/datasource/network/services/ad_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/private/ad_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/public/ad_detail_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/public/ad_list_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/public/dashboard_service.dart';
 import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
@@ -13,15 +16,21 @@ import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/domain/models/stats/stats_type.dart';
 
 class AdRepository {
+  final AdDetailService _adDetailService;
   final AdEntityDao _adEntityDao;
-  final AdService _adsService;
+  final AdListService _adListService;
+  final AdService _adService;
   final AuthPreferences _authPreferences;
+  final DashboardService _dashboardService;
   final UserPreferences _userPreferences;
 
   AdRepository(
+    this._adDetailService,
     this._adEntityDao,
-    this._adsService,
+    this._adListService,
+    this._adService,
     this._authPreferences,
+    this._dashboardService,
     this._userPreferences,
   );
 
@@ -38,26 +47,27 @@ class AdRepository {
         .asyncMap((event) => event.map((e) => e.toAd()).toList());
   }
 
-  Future<List<Ad>> getHomeAds(
-    int pageIndex,
-    int pageSize,
+  Future<List<Ad>> getAdsByCategory(
+    int page,
+    int limit,
     String keyWord,
   ) async {
-    final response = await _adsService.getHomeAds(pageIndex, pageSize, keyWord);
+    final response =
+        await _adListService.getHomeAds(page, limit, keyWord);
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
 
     return _getAsCombined(adResponses);
   }
 
   Future<List<Ad>> getDashboardPopularAds({required AdType adType}) async {
-    final response = await _adsService.getDashboardAdsByType(adType: adType);
+    final response = await _adListService.getDashboardAdsByType(adType: adType);
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
 
     return _getAsCombined(adResponses);
   }
 
   Future<List<Ad>> getDashboardTopRatedAds() async {
-    final response = await _adsService.getDashboardTopRatedAds();
+    final response = await _dashboardService.getDashboardTopRatedAds();
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
 
     return _getAsCombined(adResponses);
@@ -68,7 +78,7 @@ class AdRepository {
     required int page,
     required int limit,
   }) async {
-    final response = await _adsService.getPopularAdsByType(
+    final response = await _adListService.getPopularAdsByType(
       adType: adType,
       page: page,
       limit: limit,
@@ -83,7 +93,7 @@ class AdRepository {
     required int page,
     required int limit,
   }) async {
-    final response = await _adsService.getCheapAdsByAdType(
+    final response = await _adListService.getCheapAdsByAdType(
       adType: adType,
       page: page,
       limit: limit,
@@ -98,17 +108,14 @@ class AdRepository {
     required int limit,
     required AdType adType,
   }) async {
-    Future.delayed(Duration(seconds: 3));
-    throw UnsupportedError("test");
-
-    final response = await _adsService.getAdsByAdType(adType, page, limit);
+    final response = await _adListService.getAdsByAdType(adType, page, limit);
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
     return _getAsCombined(adResponses);
   }
 
   Future<AdDetail?> getAdDetail(int adId) async {
     final savedAd = await _adEntityDao.readAdById(adId);
-    final response = await _adsService.getAdDetail(adId);
+    final response = await _adDetailService.getAdDetail(adId);
     final adDetail = AdDetailRootResponse.fromJson(response.data).data.results;
 
     return adDetail.toMap(
@@ -118,7 +125,7 @@ class AdRepository {
   }
 
   Future<List<AdSearchResponse>> getSearch(String query) async {
-    final response = await _adsService.getSearchAd(query);
+    final response = await _adListService.getSearchAd(query);
     final searchAd = SearchResponse.fromJson(response.data).data;
     return searchAd.ads;
   }
@@ -131,7 +138,7 @@ class AdRepository {
     if (_authPreferences.isNotAuthorized) throw NotAuthorizedException();
     if (_userPreferences.isNotIdentified) throw NotIdentifiedException();
 
-    final response = await _adsService.getAdsByUser(
+    final response = await _adListService.getAdsByUser(
       sellerTin: sellerTin,
       page: page,
       limit: limit,
@@ -145,8 +152,8 @@ class AdRepository {
     required int page,
     required int limit,
   }) async {
-    final response =
-        await _adsService.getSimilarAds(adId: adId, page: page, limit: limit);
+    final response = await _adDetailService.getSimilarAds(
+        adId: adId, page: page, limit: limit);
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
     return _getAsCombined(adResponses);
   }
@@ -155,14 +162,14 @@ class AdRepository {
     required StatsType type,
     required int adId,
   }) async {
-    await _adsService.increaseAdStats(type: type, adId: adId);
+    await _adDetailService.increaseAdStats(type: type, adId: adId);
     return;
   }
 
   Future<void> addAdToRecentlyViewed({required int adId}) async {
     if (_authPreferences.isNotAuthorized) throw NotAuthorizedException();
 
-    await _adsService.addAdToRecentlyViewed(adId: adId);
+    await _adService.addAdToRecentlyViewed(adId: adId);
     return;
   }
 
@@ -172,7 +179,7 @@ class AdRepository {
   }) async {
     if (_authPreferences.isNotAuthorized) throw NotAuthorizedException();
 
-    final response = await _adsService.getRecentlyViewedAds(
+    final response = await _adService.getRecentlyViewedAds(
       page: page,
       limit: limit,
     );

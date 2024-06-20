@@ -3,8 +3,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:onlinebozor/data/datasource/network/constants/rest_query_keys.dart';
-
-import '../responses/face_id/validate_bio_doc_request.dart';
+import 'package:onlinebozor/data/datasource/network/responses/face_id/validate_bio_doc_request.dart';
 
 class AuthService {
   final Dio _dio;

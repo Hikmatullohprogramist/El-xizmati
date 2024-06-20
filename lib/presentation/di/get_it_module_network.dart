@@ -2,29 +2,34 @@ import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
+import 'package:onlinebozor/data/datasource/network/interceptor/auth_interceptor.dart';
 import 'package:onlinebozor/data/datasource/network/interceptor/common_interceptor.dart';
 import 'package:onlinebozor/data/datasource/network/interceptor/error_interceptor.dart';
 import 'package:onlinebozor/data/datasource/network/interceptor/language_interceptor.dart';
-import 'package:onlinebozor/data/datasource/network/services/ad_creation_service.dart';
-import 'package:onlinebozor/data/datasource/network/services/ad_service.dart';
-import 'package:onlinebozor/data/datasource/network/services/auth_service.dart';
-import 'package:onlinebozor/data/datasource/network/services/card_service.dart';
-import 'package:onlinebozor/data/datasource/network/services/cart_service.dart';
-import 'package:onlinebozor/data/datasource/network/services/common_service.dart';
-import 'package:onlinebozor/data/datasource/network/services/favorite_service.dart';
-import 'package:onlinebozor/data/datasource/network/services/payment_service.dart';
-import 'package:onlinebozor/data/datasource/network/services/report_service.dart';
-import 'package:onlinebozor/data/datasource/network/services/user_ad_service.dart';
-import 'package:onlinebozor/data/datasource/network/services/user_address_service.dart';
-import 'package:onlinebozor/data/datasource/network/services/user_order_service.dart';
-import 'package:onlinebozor/data/datasource/network/services/user_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/private/ad_creation_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/private/ad_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/private/auth_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/private/card_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/private/cart_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/private/favorite_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/private/payment_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/private/user_ad_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/private/user_address_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/private/user_order_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/private/user_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/public/ad_detail_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/public/ad_list_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/public/dashboard_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/public/report_service.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-const String dio_default = "default_dio";
+const String private = "dio_with_authorization";
+const String public = "dio_without_authorization";
 
 extension GetItModuleNetwork on GetIt {
   Future<void> networkModule() async {
-    registerLazySingleton(() => CommonInterceptor(get()));
+    registerLazySingleton(() => AuthInterceptor(get(), get(), get(), get()));
+    registerLazySingleton(() => CommonInterceptor());
     registerLazySingleton(() => LanguageInterceptor(get()));
     registerLazySingleton(() => ErrorInterceptor());
     registerLazySingleton(() => ChuckerDioInterceptor());
@@ -49,6 +54,7 @@ extension GetItModuleNetwork on GetIt {
       ),
     );
 
+    AuthInterceptor authInterceptor = get();
     CommonInterceptor commonInterceptor = get();
     LanguageInterceptor languageInterceptor = get();
     ErrorInterceptor errorInterceptor = get();
@@ -56,51 +62,61 @@ extension GetItModuleNetwork on GetIt {
     PrettyDioLogger loggerInterceptor = get();
     ChuckerDioInterceptor chuckerDioInterceptor = get();
 
-    final interceptors = [
-      commonInterceptor,
-      languageInterceptor,
-      loggerInterceptor,
-      errorInterceptor,
-      headerInterceptor,
-      chuckerDioInterceptor
-    ];
+    /// Providing public dio and services
 
     registerSingleton<Dio>(
-      provideDefaultDio(interceptors: interceptors),
-      instanceName: dio_default,
+      provideDio(
+        interceptors: [
+          commonInterceptor,
+          languageInterceptor,
+          loggerInterceptor,
+          errorInterceptor,
+          headerInterceptor,
+          chuckerDioInterceptor
+        ],
+      ),
+      instanceName: public,
     );
 
-    registerLazySingleton(
-        () => AdCreationService(get(instanceName: dio_default)));
-    registerLazySingleton(() => AdService(get<Dio>(instanceName: dio_default)));
-    registerLazySingleton(
-        () => AuthService(get<Dio>(instanceName: dio_default)));
-    registerLazySingleton(
-        () => CardService(get<Dio>(instanceName: dio_default)));
-    registerLazySingleton(
-        () => CartService(get<Dio>(instanceName: dio_default)));
-    registerLazySingleton(
-        () => CommonService(get<Dio>(instanceName: dio_default)));
-    registerLazySingleton(
-        () => FavoriteService(get<Dio>(instanceName: dio_default)));
-    registerLazySingleton(
-        () => PaymentService(get<Dio>(instanceName: dio_default)));
-    registerLazySingleton(
-        () => ReportService(get<Dio>(instanceName: dio_default)));
-    registerLazySingleton(
-        () => UserAdService(get<Dio>(instanceName: dio_default)));
-    registerLazySingleton(
-        () => UserAddressService(get<Dio>(instanceName: dio_default)));
-    registerLazySingleton(
-        () => UserOrderService(get<Dio>(instanceName: dio_default)));
-    registerLazySingleton(
-        () => UserService(get<Dio>(instanceName: dio_default)));
+    registerLazySingleton(() => DashboardService(get(instanceName: public)));
+    registerLazySingleton(() => AdListService(get(instanceName: public)));
+    registerLazySingleton(() => AdDetailService(get(instanceName: public)));
+    registerLazySingleton(() => ReportService(get(instanceName: public)));
+
+    /// Providing private dio and services
+
+    registerSingleton<Dio>(
+      provideDio(
+        interceptors: [
+          authInterceptor,
+          commonInterceptor,
+          languageInterceptor,
+          loggerInterceptor,
+          errorInterceptor,
+          headerInterceptor,
+          chuckerDioInterceptor
+        ],
+      ),
+      instanceName: private,
+    );
+
+    registerLazySingleton(() => AdCreationService(get(instanceName: private)));
+    registerLazySingleton(() => AdService(get(instanceName: private)));
+    registerLazySingleton(() => AuthService(get(instanceName: private)));
+    registerLazySingleton(() => CardService(get(instanceName: private)));
+    registerLazySingleton(() => CartService(get(instanceName: private)));
+    registerLazySingleton(() => FavoriteService(get(instanceName: private)));
+    registerLazySingleton(() => PaymentService(get(instanceName: private)));
+    registerLazySingleton(() => UserAdService(get(instanceName: private)));
+    registerLazySingleton(() => UserAddressService(get(instanceName: private)));
+    registerLazySingleton(() => UserOrderService(get(instanceName: private)));
+    registerLazySingleton(() => UserService(get(instanceName: private)));
 
     await allReady();
   }
 }
 
-Dio provideDefaultDio({List<Interceptor> interceptors = const []}) {
+Dio provideDio({List<Interceptor> interceptors = const []}) {
   final Dio dio = Dio();
 
   final timeout = Duration(seconds: 120);

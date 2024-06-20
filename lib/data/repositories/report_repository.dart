@@ -1,4 +1,4 @@
-import 'package:onlinebozor/data/datasource/network/services/report_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/public/report_service.dart';
 import 'package:onlinebozor/domain/models/report/report_reason.dart';
 
 class ReportRepository {

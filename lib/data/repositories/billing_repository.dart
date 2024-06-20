@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:onlinebozor/data/datasource/network/responses/billing/billing_transaction_response.dart';
-import 'package:onlinebozor/data/datasource/network/services/payment_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/private/payment_service.dart';
 import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
@@ -19,15 +19,15 @@ class BillingRepository {
   );
 
   Future<List<BillingTransaction>> getPaymentTransactions({
-    required int pageSize,
-    required pageIndex,
+    required int limit,
+    required page,
   }) async {
     if (_authPreferences.isNotAuthorized) throw NotAuthorizedException();
     if (_userPreferences.isNotIdentified) throw NotIdentifiedException();
 
     final root = await _paymentService.getTransactions(
-      pageIndex,
-      pageSize,
+      page,
+      limit,
     );
     final response = BillingTransactionRootResponse.fromJson(root.data).data;
     return response.results.mapIndexed((i, e) => e.toTransaction(i)).toList();

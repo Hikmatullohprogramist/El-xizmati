@@ -7,7 +7,7 @@ import 'package:onlinebozor/data/datasource/network/responses/profile/user_full/
 import 'package:onlinebozor/data/datasource/network/responses/profile/verify_identity/identity_document_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/region/region_and_district_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/region/region_root_response.dart';
-import 'package:onlinebozor/data/datasource/network/services/user_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/private/user_service.dart';
 import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
@@ -40,7 +40,7 @@ class UserRepository {
   Future<UserResponse> getUser() async {
     if (_authPreferences.isNotAuthorized) throw NotAuthorizedException();
 
-    final response = await _userService.getFullUserInfo();
+    final response = await _userService.getUserProfile();
     final actual = UserRootResponse.fromJson(response.data).data;
     final saved = await _userEntityDao.getUser();
 
@@ -125,7 +125,7 @@ class UserRepository {
   }
 
   Future<List<Neighborhood>> getNeighborhoods(int streetId) async {
-    final response = await _userService.getStreets(streetId);
+    final response = await _userService.getNeighborhoods(streetId);
     final result = RegionRootResponse.fromJson(response.data).data;
     return result.map((e) => e.toNeighborhood()).toList();
   }
@@ -188,7 +188,7 @@ class UserRepository {
         gender: gender,
         homeName: homeName,
         id: id,
-        mahallaId: mahallaId,
+        neighborhoodId: mahallaId,
         mobilePhone: mobilePhone,
         passportNumber: passportNumber,
         passportSeries: passportSeries,
@@ -196,7 +196,7 @@ class UserRepository {
         photo: photo,
         pinfl: pinfl,
         postName: postName,
-        region_Id: region_Id);
+        regionId: region_Id);
   }
 
   Future<void> updateNotificationSources({required String sources}) async {
@@ -218,8 +218,8 @@ class UserRepository {
   }
 
   Future<List<ActiveSession>> getActiveSessions() async {
-    final deviceResponse = await _userService.getActiveSessions();
-    final root = ActiveSessionsRootResponse.fromJson(deviceResponse.data).data;
+    final response = await _userService.getActiveSessions();
+    final root = ActiveSessionsRootResponse.fromJson(response.data).data;
     final userAgent = DeviceInfo.userAgent;
     final items = root.map((e) => e.toMap(e.user_agent == userAgent)).toList();
     items.sort((a, b) {
@@ -231,8 +231,8 @@ class UserRepository {
     return items;
   }
 
-  Future<void> removeActiveResponse(ActiveSession session) async {
-    await _userService.removeActiveDevice(session);
+  Future<void> removeActiveSession(ActiveSession session) async {
+    await _userService.removeActiveSession(session);
     return;
   }
 }

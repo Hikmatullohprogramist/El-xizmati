@@ -8,7 +8,7 @@ import 'package:onlinebozor/data/datasource/network/responses/category/category/
 import 'package:onlinebozor/data/datasource/network/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/payment_type/payment_type_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/unit/unit_response.dart';
-import 'package:onlinebozor/data/datasource/network/services/ad_creation_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/private/ad_creation_service.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/mappers/category_mapper.dart';
 import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';

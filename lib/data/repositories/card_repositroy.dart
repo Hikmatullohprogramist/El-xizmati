@@ -1,6 +1,6 @@
 import 'package:onlinebozor/data/datasource/network/responses/balance/user_deposit_balance_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/realpay/real_pay_card_response.dart';
-import 'package:onlinebozor/data/datasource/network/services/card_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/private/card_service.dart';
 import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';

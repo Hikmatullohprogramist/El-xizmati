@@ -11,7 +11,12 @@ class ReportService {
     required ReportReason reason,
     required String comment,
   }) async {
-    final body = {"ad_id": adId, "reason": reason.name, "comment": comment};
+    final body = {
+      "ad_id": adId,
+      "reason": reason.name,
+      "comment": comment,
+    };
+
     return _dio.post('api/mobile/v1/ad/report-ad', data: body);
   }
 
@@ -20,7 +25,12 @@ class ReportService {
     required ReportReason reason,
     required String comment,
   }) async {
-    final body = {"ad_id": adId, "reason": reason.name, "comment": comment};
+    final body = {
+      "ad_id": adId,
+      "reason": reason.name,
+      "comment": comment,
+    };
+
     return _dio.post('api/mobile/v1/ad/block-ad', data: body);
   }
 
@@ -29,7 +39,12 @@ class ReportService {
     required ReportReason reason,
     required String comment,
   }) async {
-    final body = {"user_tin": tin, "reason": reason.name, "comment": comment};
+    final body = {
+      "user_tin": tin,
+      "reason": reason.name,
+      "comment": comment,
+    };
+
     return _dio.post('api/mobile/v1/ad/report-ad-author', data: body);
   }
 
@@ -38,7 +53,12 @@ class ReportService {
     required ReportReason reason,
     required String comment,
   }) async {
-    final body = {"user_tin": tin, "reason": reason.name, "comment": comment};
+    final body = {
+      "user_tin": tin,
+      "reason": reason.name,
+      "comment": comment,
+    };
+
     return _dio.post('api/mobile/v1/ad/block-ad-author', data: body);
   }
 }

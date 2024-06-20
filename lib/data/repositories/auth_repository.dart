@@ -11,7 +11,7 @@ import 'package:onlinebozor/data/datasource/network/responses/auth/login/login_r
 import 'package:onlinebozor/data/datasource/network/responses/auth/one_id/one_id_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/e_imzo_response/e_imzo_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/face_id/validate_bio_doc_request.dart';
-import 'package:onlinebozor/data/datasource/network/services/auth_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/private/auth_service.dart';
 import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/mappers/user_mapper.dart';
