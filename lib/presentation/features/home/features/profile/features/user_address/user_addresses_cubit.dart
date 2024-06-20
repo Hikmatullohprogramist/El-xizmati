@@ -17,16 +17,20 @@ class UserAddressesCubit
   final UserAddressRepository userAddressRepository;
 
   UserAddressesCubit(this.userAddressRepository) : super(UserAddressesState()) {
-    getController(false);
+    getController();
   }
 
-  Future<void> getController(bool isReload) async {
+  void reloadAddresses(){
+    getController(isReload: true);
+  }
+
+  Future<void> getController({bool isReload = false}) async {
     try {
-      if (isReload && states.controller != null) {
-        states.controller?.refresh();
-      } else {
-        final controller = states.controller ?? getAddressController(isReload);
+      if (states.controller == null) {
+        final controller = getAddressController();
         updateState((state) => state.copyWith(controller: controller));
+      } else if (isReload) {
+        states.controller?.refresh();
       }
     } catch (e, stackTrace) {
       logger.w(e.toString(), error: e, stackTrace: stackTrace);
@@ -34,7 +38,7 @@ class UserAddressesCubit
     }
   }
 
-  PagingController<int, UserAddress> getAddressController(bool isReload) {
+  PagingController<int, UserAddress> getAddressController() {
     final controller = PagingController<int, UserAddress>(
       firstPageKey: 1,
       invisibleItemsThreshold: 100,
@@ -44,7 +48,7 @@ class UserAddressesCubit
     controller.addPageRequestListener(
       (pageKey) async {
         userAddressRepository
-            .getUserAddresses(isReload: isReload)
+            .getActualUserAddresses(page: pageKey, limit: 20)
             .initFuture()
             .onStart(() {})
             .onSuccess((data) {
@@ -71,10 +75,7 @@ class UserAddressesCubit
 
   Future<void> makeMainAddress(UserAddress address, int index) async {
     userAddressRepository
-        .updateMainAddress(
-          id: address.id,
-          isMain: true,
-        )
+        .updateMainAddress(id: address.id)
         .initFuture()
         .onStart(() {})
         .onSuccess((data) {

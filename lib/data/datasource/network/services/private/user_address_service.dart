@@ -6,8 +6,12 @@ class UserAddressService {
 
   UserAddressService(this._dio);
 
-  Future<Response> getUserAddresses() async {
-    return _dio.get("api/mobile/v1/user/address");
+  Future<Response> getUserAddresses(int page, int limit) async {
+    final params = {
+      RestQueryKeys.page: page,
+      RestQueryKeys.limit: limit,
+    };
+    return _dio.get("api/mobile/v1/user/address", queryParameters: params);
   }
 
   Future<Response> addUserAddress({

@@ -40,7 +40,7 @@ class UserAddressesPage extends BasePage<UserAddressesCubit, UserAddressesState,
             onPressed: () async {
               final isAdded = await context.router.push(AddAddressRoute());
               if (isAdded is bool && isAdded == true) {
-                cubit(context).getController(true);
+                cubit(context).reloadAddresses();
               }
             },
           )
@@ -83,7 +83,7 @@ class UserAddressesPage extends BasePage<UserAddressesCubit, UserAddressesState,
               return UserAddressEmptyWidget(onActionClicked: () async {
                 final isAdded = await context.router.push(AddAddressRoute());
                 if (isAdded is bool && isAdded == true) {
-                  cubit(context).getController(true);
+                  cubit(context).reloadAddresses();
                 }
               });
             },
@@ -160,7 +160,7 @@ class UserAddressesPage extends BasePage<UserAddressesCubit, UserAddressesState,
                       .push(AddAddressRoute(address: address));
 
                   if (isChanged is bool && isChanged == true) {
-                    cubit(context).getController(true);
+                    cubit(context).reloadAddresses();
                   }
                 },
               ),
