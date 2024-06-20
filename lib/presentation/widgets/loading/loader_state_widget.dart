@@ -30,7 +30,7 @@ class LoaderStateWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return switch (loadingState) {
-      LoadingState.none => initialBody ?? _buildDefaultInitialBody(),
+      LoadingState.initial => initialBody ?? _buildDefaultInitialBody(),
       LoadingState.loading => loadingBody ?? _buildDefaultLoadingBody(),
       LoadingState.success => successBody,
       LoadingState.empty => emptyBody ?? _buildDefaultEmptyBody(),

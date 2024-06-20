@@ -5,7 +5,7 @@ class OneIdState with _$OneIdState {
   const OneIdState._();
 
   const factory OneIdState({
-    @Default(LoadingState.none) LoadingState loginState,
+    @Default(LoadingState.initial) LoadingState loginState,
     @Default(LoadingState.loading) LoadingState pageState,
   }) = _OneIdState;
 

@@ -34,7 +34,7 @@ class OAuthWebView extends StatefulWidget {
 class _OAuthWebViewState extends State<OAuthWebView>
     with AutomaticKeepAliveClientMixin {
   late final WebViewController _webViewController;
-  LoadingState loadingState = LoadingState.none;
+  LoadingState loadingState = LoadingState.initial;
 
   @override
   bool get wantKeepAlive => true;
