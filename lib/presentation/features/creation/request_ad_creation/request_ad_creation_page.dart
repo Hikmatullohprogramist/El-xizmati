@@ -511,7 +511,7 @@ class RequestAdCreationPage extends BasePage<RequestAdCreationCubit,
             },
           ),
           SizedBox(height: 16),
-          LabelTextField(Strings.adCreationSearchAddressLabel),
+          LabelTextField(Strings.adCreationRequiredAddressLabel),
           SizedBox(height: 8),
           ChipList(
             chips: _buildRequestAddressChips(context, state),

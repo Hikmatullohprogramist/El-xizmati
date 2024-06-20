@@ -93,7 +93,7 @@ class DashboardPage
                     Assets.images.iconSearch.svg(),
                     SizedBox(width: 6),
                     Expanded(
-                      child: Strings.adSearchHint
+                      child: Strings.searchHintCategoryAndProducts
                           .w(400)
                           .s(14)
                           .c(context.textSecondary)

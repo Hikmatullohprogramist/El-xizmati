@@ -56,7 +56,7 @@ class CategoryPage
               child: CustomTextFormField(
                 height: 42,
                 controller: searchTextController,
-                hint: Strings.categoryListSearchHint,
+                hint: Strings.searchHintCategory,
                 inputType: TextInputType.text,
                 keyboardType: TextInputType.text,
                 maxLines: 1,
@@ -77,7 +77,7 @@ class CategoryPage
         loadingState: state.loadState,
         loadingBody: _buildLoadingBody(),
         successBody: _buildSuccessBody(state),
-        onRetryClicked: () => cubit(context).getCategories(),
+        onRetryClicked: () => cubit(context).getCatalogCategories(),
       ),
     );
   }

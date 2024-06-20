@@ -61,7 +61,7 @@ class CategorySelectionPage extends BasePage<CategorySelectionCubit, CategorySel
               child: CustomTextFormField(
                 height: 42,
                 controller: searchTextController,
-                hint: Strings.categoryListSearchHint,
+                hint: Strings.searchHintCategory,
                 inputType: TextInputType.text,
                 keyboardType: TextInputType.text,
                 maxLines: 1,

@@ -13,14 +13,14 @@ part 'category_state.dart';
 @injectable
 class CategoryCubit extends BaseCubit<CategoryState, CategoryEvent> {
   CategoryCubit(this._commonRepository) : super(CategoryState()) {
-    getCategories();
+    getCatalogCategories();
   }
 
   final CommonRepository _commonRepository;
 
-  Future<void> getCategories() async {
+  Future<void> getCatalogCategories() async {
     await _commonRepository
-        .getCategories(CategoryType.catalog)
+        .getCatalogCategories(CategoryType.catalog)
         .initFuture()
         .onStart(() {
           updateState((state) => state.copyWith(
