@@ -7,18 +7,26 @@ import 'package:onlinebozor/data/repositories/ad_repository.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
 part 'search_cubit.freezed.dart';
-
 part 'search_state.dart';
 
 @injectable
 class SearchCubit extends BaseCubit<SearchState, SearchEvent> {
-  SearchCubit(this._adRepository) : super(SearchState());
-
   final AdRepository _adRepository;
 
-  Future<void> getSearchResult(String request) async {
-    _adRepository
-        .getSearch(request)
+  SearchCubit(this._adRepository) : super(SearchState());
+
+  Future<void>? _future;
+
+  Future<void> setSearchQuery(String? query) async {
+    _future?.ignore();
+    if (query == null || query.trim().isEmpty) {
+      updateState((state) => state.copyWith(
+            loadingState: LoadingState.initial,
+          ));
+      return;
+    }
+    _future = _adRepository
+        .getSearch(query)
         .initFuture()
         .onStart(() {
           updateState((state) => state.copyWith(
