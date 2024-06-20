@@ -20,7 +20,7 @@ class AdListByTypeCubit
     this._favoriteRepository,
   ) : super(AdListByTypeState());
 
-  static const _pageSize = 20;
+  static const _limit = 20;
 
   final AdRepository _adRepository;
   final FavoriteRepository _favoriteRepository;
@@ -107,7 +107,7 @@ class AdListByTypeCubit
             .getAdsByType(
               adType: states.adType,
               page: pageKey,
-              limit: _pageSize,
+              limit: _limit,
             )
             .initFuture()
             .onStart(() {})

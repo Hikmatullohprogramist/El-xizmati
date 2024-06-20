@@ -28,7 +28,9 @@ const String public = "dio_without_authorization";
 
 extension GetItModuleNetwork on GetIt {
   Future<void> networkModule() async {
-    registerLazySingleton(() => AuthInterceptor(get(), get(), get(), get()));
+    registerLazySingleton(
+      () => AuthInterceptor(get(), get(), get(), get(), get()),
+    );
     registerLazySingleton(() => CommonInterceptor());
     registerLazySingleton(() => LanguageInterceptor(get()));
     registerLazySingleton(() => ErrorInterceptor());

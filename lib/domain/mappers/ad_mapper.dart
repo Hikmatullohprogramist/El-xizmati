@@ -17,7 +17,6 @@ extension AdResponseExtension on AdResponse {
   }) {
     return Ad(
       id: id,
-      backendId: backendId ?? -1,
       name: name ?? "",
       photo: photos?.first.image ?? "",
       price: price ?? 0,
@@ -41,6 +40,7 @@ extension AdResponseExtension on AdResponse {
       isSort: isSort ?? 0,
       isSell: isSell ?? false,
       isCheck: false,
+      backendId: backendId ?? -1,
     );
   }
 
@@ -220,8 +220,8 @@ extension AdEntityExtension on AdEntity {
       isFavorite: isFavorite ?? false,
       isInCart: isInCart ?? false,
       sellerName: sellerName,
-      backendId: backendId,
       viewCount: viewCount,
+      backendId: backendId,
     );
   }
 }

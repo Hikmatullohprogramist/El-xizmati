@@ -40,8 +40,8 @@ class BillingTransactionsCubit
       (pageKey) async {
         _paymentRepository
             .getPaymentTransactions(
-              pageSize: 20,
-              pageIndex: pageKey,
+              limit: 20,
+              page: pageKey,
             )
             .initFuture()
             .onStart(() {})

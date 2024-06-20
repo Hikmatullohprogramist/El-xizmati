@@ -21,7 +21,7 @@ class AdListCubit extends BaseCubit<AdListState, AdListEvent> {
     this._favoriteRepository,
   ) : super(AdListState());
 
-  static const _pageSize = 20;
+  static const _limit = 20;
   final AdRepository _adRepository;
   final CartRepository _cartRepository;
   final FavoriteRepository _favoriteRepository;
@@ -62,51 +62,51 @@ class AdListCubit extends BaseCubit<AdListState, AdListEvent> {
           List<Ad> adsList;
           switch (states.adListType) {
             case AdListType.homeList:
-              adsList = await _adRepository.getHomeAds(
+              adsList = await _adRepository.getAdsByCategory(
                 pageKey,
-                _pageSize,
+                _limit,
                 states.keyWord,
               );
             case AdListType.homePopularAds:
               adsList = await _adRepository.getPopularAdsByType(
                 adType: AdType.product,
                 page: pageKey,
-                limit: _pageSize,
+                limit: _limit,
               );
             case AdListType.adsByUser:
               adsList = await _adRepository.getAdsByUser(
                 sellerTin: states.sellerTin ?? -1,
                 page: pageKey,
-                limit: _pageSize,
+                limit: _limit,
               );
             case AdListType.similarAds:
               adsList = await _adRepository.getSimilarAds(
                 adId: states.adId ?? 0,
                 page: pageKey,
-                limit: _pageSize,
+                limit: _limit,
               );
             case AdListType.popularCategoryAds:
-              adsList = await _adRepository.getHomeAds(
+              adsList = await _adRepository.getAdsByCategory(
                 pageKey,
-                _pageSize,
+                _limit,
                 states.keyWord,
               );
             case AdListType.cheaperAdsByAdType:
               adsList = await _adRepository.getCheapAdsByType(
                 adType: states.collectiveType ?? AdType.product,
                 page: pageKey,
-                limit: _pageSize,
+                limit: _limit,
               );
             case AdListType.popularAdsByAdType:
               adsList = await _adRepository.getPopularAdsByType(
                 adType: states.collectiveType ?? AdType.product,
                 page: pageKey,
-                limit: _pageSize,
+                limit: _limit,
               );
             case AdListType.recentlyViewedAds:
               adsList = await _adRepository.getRecentlyViewedAds(
                 page: pageKey,
-                limit: _pageSize,
+                limit: _limit,
               );
           }
 
