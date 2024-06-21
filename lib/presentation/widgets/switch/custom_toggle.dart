@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:flutter/services.dart';
+import 'package:onlinebozor/core/extensions/text_extensions.dart';
+import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 
 class CustomToggle extends StatefulWidget {
   CustomToggle({
@@ -24,14 +26,14 @@ class CustomToggle extends StatefulWidget {
 class _CustomToggleState extends State<CustomToggle> {
   @override
   Widget build(BuildContext context) {
-    var negativeColor =
-        !widget.isChecked ? Color(0xFF5C6AC4) : Color(0xFFFBFAFF);
-    var negativeTextColor =
+    final negativeColor =
+        !widget.isChecked ? StaticColors.buttonColor : Colors.transparent;
+    final negativeTextColor =
         !widget.isChecked ? Color(0xFFFFFFFF) : Color(0xFFAEB2CD);
 
-    var positiveColor =
-        widget.isChecked ? Color(0xFF5C6AC4) : Color(0xFFFBFAFF);
-    var positiveTextColor =
+    final positiveColor =
+        widget.isChecked ? StaticColors.buttonColor : Colors.transparent;
+    final positiveTextColor =
         widget.isChecked ? Color(0xFFFFFFFF) : Color(0xFFAEB2CD);
 
     return GestureDetector(
@@ -43,15 +45,14 @@ class _CustomToggleState extends State<CustomToggle> {
         width: widget.width,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Color(0xFFFBFAFF),
+          color: context.inputBackgroundColor,
           border: Border.all(
             width: 1,
-            color: Color(0xFFDFE2E9),
+            color: context.inputStrokeInactiveColor,
           ),
         ),
         child: Padding(
           padding: const EdgeInsets.all(6),
-          // Space between the thumb and the track
           child: AnimatedAlign(
             alignment:
                 widget.isChecked ? Alignment.centerRight : Alignment.centerLeft,

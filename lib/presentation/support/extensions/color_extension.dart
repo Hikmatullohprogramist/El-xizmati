@@ -29,9 +29,7 @@ extension ColorExtension on BuildContext {
 
   Color get bottomBarColor => Theme.of(this).colorScheme.background;
 
-  // Color get cardColor => Theme.of(this).colorScheme.secondary;
-  Color get cardColor =>
-      isDarkMode ? Theme.of(this).colorScheme.surface : Color(0x80F6F7FC);
+  Color get cardColor => isDarkMode ? colorScheme.surface : Color(0x80F6F7FC);
 
   Color get cardStrokeColor => Theme.of(this).cardColor;
 

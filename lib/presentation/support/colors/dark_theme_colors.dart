@@ -46,7 +46,7 @@ class DarkThemeColors extends ThemeColors {
   Color get adPropertyPersonalBackground => StaticColors.manatee;
 
   @override
-  Color get inputBackground => Color(0xFF333333);
+  Color get inputBackground => Color(0x80F6F7FC);//Color(0xFF333333);
 
   @override
   Color get iconPrimary => StaticColors.iconPrimaryDark;
