@@ -7,11 +7,11 @@ class AdListService {
 
   AdListService(this._dio);
 
-  Future<Response> getHomeAds(int page, int limit, String keyWord) {
+  Future<Response> getAdsByCategory(int page, int limit, String key) {
     final params = {
       RestQueryKeys.page: page,
       RestQueryKeys.limit: limit,
-      RestQueryKeys.keyWord: keyWord
+      RestQueryKeys.keyWord: key
     };
 
     return _dio.get('api/mobile/v1/home/ads?', queryParameters: params);

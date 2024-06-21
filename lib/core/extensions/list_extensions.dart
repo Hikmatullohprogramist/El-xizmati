@@ -58,6 +58,10 @@ extension AdListExtensions on List<Ad> {
     return map((e) => e.id).toList();
   }
 
+  void sortByIds(List<int> adIds) {
+     sort((a, b) => adIds.indexOf(a.id).compareTo(adIds.indexOf(b.id)));
+  }
+
   int cartCount() {
     return filterIf((e) => e.isInCart).length;
   }

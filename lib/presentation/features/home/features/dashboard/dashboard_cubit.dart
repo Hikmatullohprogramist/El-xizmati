@@ -104,7 +104,7 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
               logger.w(
                   "watchPopularProductAds ads count = ${ads.length}, cart count = ${ads.cartCount()}, favorite count = ${ads.favoriteCount()}");
               updateState((state) => state.copyWith(
-                    popularProductAds: ads.map((e) => e).toList(),
+                    popularProductAds: ads,//..sortByIds(ids),
                     popularProductAdsState:
                         ads.isEmpty ? LoadingState.empty : LoadingState.success,
                   ));

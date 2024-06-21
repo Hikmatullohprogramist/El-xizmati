@@ -1,3 +1,5 @@
+import 'package:logger/logger.dart';
+import 'package:onlinebozor/core/extensions/list_extensions.dart';
 import 'package:onlinebozor/data/datasource/floor/dao/ad_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/ad/ad_detail/ad_detail_response.dart';
@@ -34,43 +36,39 @@ class AdRepository {
     this._userPreferences,
   );
 
-  Future<List<Ad>> _getAsCombined(List<AdResponse> ads) async {
+  Future<List<Ad>> _readAdsByAds(List<AdResponse> ads) async {
     await _adEntityDao.upsertAds(ads.map((e) => e.toAdEntity()).toList());
     final ids = ads.map((e) => e.id).toList();
+    Logger().w("_getAsCombined ids = $ids");
     final entities = await _adEntityDao.readAdsByIds(ids);
-    return entities.map((e) => e.toAd()).toList(growable: true);
+    return entities.map((e) => e.toAd()).toList(growable: true)..sortByIds(ids);
   }
 
   Stream<List<Ad>> watchAdsByIds(List<int> adIds) {
-    return _adEntityDao
-        .watchAdsByIds(adIds)
-        .asyncMap((event) => event.map((e) => e.toAd()).toList());
+    return _adEntityDao.watchAdsByIds(adIds).asyncMap((event) {
+      return event.map((e) => e.toAd()).toList()..sortByIds(adIds);
+    });
   }
 
-  Future<List<Ad>> getAdsByCategory(
-    int page,
-    int limit,
-    String keyWord,
-  ) async {
-    final response =
-        await _adListService.getHomeAds(page, limit, keyWord);
+  Future<List<Ad>> getAdsByCategory(int page, int limit, String key) async {
+    final response = await _adListService.getAdsByCategory(page, limit, key);
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
 
-    return _getAsCombined(adResponses);
+    return _readAdsByAds(adResponses);
   }
 
   Future<List<Ad>> getDashboardPopularAds({required AdType adType}) async {
     final response = await _adListService.getDashboardAdsByType(adType: adType);
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
 
-    return _getAsCombined(adResponses);
+    return _readAdsByAds(adResponses);
   }
 
   Future<List<Ad>> getDashboardTopRatedAds() async {
     final response = await _dashboardService.getDashboardTopRatedAds();
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
 
-    return _getAsCombined(adResponses);
+    return _readAdsByAds(adResponses);
   }
 
   Future<List<Ad>> getPopularAdsByType({
@@ -85,7 +83,7 @@ class AdRepository {
     );
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
 
-    return _getAsCombined(adResponses);
+    return _readAdsByAds(adResponses);
   }
 
   Future<List<Ad>> getCheapAdsByType({
@@ -100,7 +98,7 @@ class AdRepository {
     );
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
 
-    return _getAsCombined(adResponses);
+    return _readAdsByAds(adResponses);
   }
 
   Future<List<Ad>> getAdsByType({
@@ -110,7 +108,7 @@ class AdRepository {
   }) async {
     final response = await _adListService.getAdsByAdType(adType, page, limit);
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
-    return _getAsCombined(adResponses);
+    return _readAdsByAds(adResponses);
   }
 
   Future<AdDetail?> getAdDetail(int adId) async {
@@ -144,7 +142,7 @@ class AdRepository {
       limit: limit,
     );
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
-    return _getAsCombined(adResponses);
+    return _readAdsByAds(adResponses);
   }
 
   Future<List<Ad>> getSimilarAds({
@@ -155,7 +153,7 @@ class AdRepository {
     final response = await _adDetailService.getSimilarAds(
         adId: adId, page: page, limit: limit);
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
-    return _getAsCombined(adResponses);
+    return _readAdsByAds(adResponses);
   }
 
   Future<void> increaseAdStats({
@@ -184,6 +182,6 @@ class AdRepository {
       limit: limit,
     );
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
-    return _getAsCombined(adResponses);
+    return _readAdsByAds(adResponses);
   }
 }

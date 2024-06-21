@@ -332,7 +332,7 @@ class DashboardPage
             onClicked: () {
               context.router.push(
                 AdListRoute(
-                  adListType: AdListType.homeList,
+                  adListType: AdListType.recentlyViewedAds,
                   keyWord: '',
                   title: Strings.recentlyViewedTitle,
                   sellerTin: null,
