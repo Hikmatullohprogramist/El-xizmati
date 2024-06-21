@@ -23,16 +23,16 @@ class UserAddressRootResponse with _$UserAddressRootResponse {
 class UserAddressResponse with _$UserAddressResponse {
   const factory UserAddressResponse({
     required int id,
-    UserAddressItemResponse? region,
-    UserAddressItemResponse? district,
-    UserAddressItemResponse? neighborhood,
-    int? state,
-    String? name,
-    String? street_num,
-    String? home_num,
-    String? apartment_num,
-    String? geo,
-    bool? is_main,
+    @JsonKey(name: "region") UserAddressItemResponse? region,
+    @JsonKey(name: "district") UserAddressItemResponse? district,
+    @JsonKey(name: "mahalla") UserAddressItemResponse? neighborhood,
+    @JsonKey(name: "state") int? state,
+    @JsonKey(name: "name") String? name,
+    @JsonKey(name: "street_num") String? streetName,
+    @JsonKey(name: "home_num") String? houseNum,
+    @JsonKey(name: "apartment_num") String? apartmentNum,
+    @JsonKey(name: "geo") String? geo,
+    @JsonKey(name: "is_main") bool? isMain,
   }) = _UserAddressResponse;
 
   const UserAddressResponse._();

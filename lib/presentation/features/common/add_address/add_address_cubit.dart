@@ -52,7 +52,8 @@ class AddAddressCubit extends BaseCubit<AddAddressState, AddAddressEvent> {
 
       if (states.districtId != null) {
         getDistricts();
-      } else if (states.neighborhoodId != null) {
+      }
+      if (states.neighborhoodId != null) {
         getNeighborhoods();
       }
     } else {

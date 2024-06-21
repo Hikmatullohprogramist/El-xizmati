@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/core/extensions/list_extensions.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/user_address_repository.dart';
@@ -17,60 +17,36 @@ class UserAddressesCubit
   final UserAddressRepository userAddressRepository;
 
   UserAddressesCubit(this.userAddressRepository) : super(UserAddressesState()) {
-    getController();
+    getActualUserAddresses();
   }
 
-  void reloadAddresses(){
-    getController(isReload: true);
+  void reloadAddresses() {
+    getActualUserAddresses(isReload: true);
   }
 
-  Future<void> getController({bool isReload = false}) async {
-    try {
-      if (states.controller == null) {
-        final controller = getAddressController();
-        updateState((state) => state.copyWith(controller: controller));
-      } else if (isReload) {
-        states.controller?.refresh();
-      }
-    } catch (e, stackTrace) {
-      logger.w(e.toString(), error: e, stackTrace: stackTrace);
-      stateMessageManager.showErrorSnackBar(e.localizedMessage);
-    }
-  }
+  void getActualUserAddresses({bool isReload = false}) {
+    userAddressRepository
+        .getUserAddresses(isReload: isReload)
+        .initFuture()
+        .onStart(() {})
+        .onSuccess((data) {
+          updateState((state) => state.copyWith(
+                loadingState:
+                    data.isEmpty ? LoadingState.empty : LoadingState.success,
+                addresses: data,
+              ));
+        })
+        .onError((error) {
+          updateState((state) => state.copyWith(
+                loadingState: LoadingState.error,
+              ));
 
-  PagingController<int, UserAddress> getAddressController() {
-    final controller = PagingController<int, UserAddress>(
-      firstPageKey: 1,
-      invisibleItemsThreshold: 100,
-    );
-    logger.w(states.controller);
-
-    controller.addPageRequestListener(
-      (pageKey) async {
-        userAddressRepository
-            .getActualUserAddresses(page: pageKey, limit: 20)
-            .initFuture()
-            .onStart(() {})
-            .onSuccess((data) {
-              if (data.length <= 1000) {
-                controller.appendLastPage(data);
-                logger.i(states.controller);
-                return;
-              }
-              controller.appendPage(data, pageKey + 1);
-            })
-            .onError((error) {
-              controller.error = error;
-              if (error.isRequiredShowError) {
-                stateMessageManager
-                    .showErrorBottomSheet(error.localizedMessage);
-              }
-            })
-            .onFinished(() {})
-            .executeFuture();
-      },
-    );
-    return controller;
+          if (error.isRequiredShowError) {
+            stateMessageManager.showErrorBottomSheet(error.localizedMessage);
+          }
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> makeMainAddress(UserAddress address, int index) async {
@@ -79,24 +55,22 @@ class UserAddressesCubit
         .initFuture()
         .onStart(() {})
         .onSuccess((data) {
-          var items = states.controller?.itemList;
-          if (items != null) {
-            var oldMain = items.firstIf((element) => element.isMain);
-            if (oldMain != null) {
-              var oldMainIndex = items.indexOf(oldMain);
-              oldMain.isMain = false;
-              var oldMainChanged = oldMain;
-              items.remove(oldMain);
-              items.insert(oldMainIndex, oldMainChanged);
-            }
-
-            var item = items[index];
-            items.removeAt(index);
-            item.isMain = true;
-            items.insert(0, item);
-
-            states.controller?.notifyListeners();
+          var addresses = states.addresses.toList(growable: true);
+          var oldMain = addresses.firstIf((element) => element.isMain);
+          if (oldMain != null) {
+            var oldMainIndex = addresses.indexOf(oldMain);
+            oldMain.isMain = false;
+            var oldMainChanged = oldMain;
+            addresses.remove(oldMain);
+            addresses.insert(oldMainIndex, oldMainChanged);
           }
+
+          var item = addresses[index];
+          addresses.removeAt(index);
+          item.isMain = true;
+          addresses.insert(0, item);
+
+          updateState((state) => state.copyWith(addresses: addresses));
         })
         .onError((error) {
           logger.e(error);
@@ -112,9 +86,9 @@ class UserAddressesCubit
         .initFuture()
         .onStart(() {})
         .onSuccess((data) async {
-          states.controller?.itemList?.remove(address);
-          states.controller?.notifyListeners();
-          // await getController(false);
+          final addresses = states.addresses.toList(growable: true);
+          addresses.removeIf((e) => e.id == address.id);
+          updateState((state) => state.copyWith(addresses: addresses));
         })
         .onError((error) {
           logger.e(error);

@@ -20,20 +20,19 @@ class UserAddressRepository {
     this._userPreferences,
   );
 
-  Future<List<UserAddress>> getActualUserAddresses({
-    required int page,
-    required int limit,
-  }) async {
-    final response = await _userAddressService.getUserAddresses(page, limit);
+  Future<List<UserAddress>> getActualUserAddresses() async {
+    final response = await _userAddressService.getUserAddresses();
     final addresses = UserAddressRootResponse.fromJson(response.data).data;
     await _userAddressEntityDao.upsertAll(
       addresses.map((e) => e.toAddressEntity()).toList(),
     );
-    return addresses.map((e) => e.toAddress()).toList();
+    // return addresses.map((e) => e.toAddress()).toList();
+    final entities = await _userAddressEntityDao.readAddresses();
+    return entities.map((e) => e.toAddress()).toList();
   }
 
   Future<List<UserAddress>> getSavedUserAddresses() async {
-    final entities = await _userAddressEntityDao.readSavedAddresses();
+    final entities = await _userAddressEntityDao.readAddresses();
     return entities.map((e) => e.toAddress()).toList();
   }
 
@@ -43,7 +42,7 @@ class UserAddressRepository {
 
     final count = await _userAddressEntityDao.readAddressesCount() ?? 0;
     if (isReload || count <= 0) {
-      return getActualUserAddresses(page: 1, limit: 100);
+      return getActualUserAddresses();
     } else {
       return getSavedUserAddresses();
     }

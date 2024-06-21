@@ -30,11 +30,11 @@ extension UserAddressResponseExtension on UserAddressResponse {
       districtName: district?.name ?? "",
       neighborhoodId: neighborhood?.id ?? 0,
       neighborhoodName: neighborhood?.name ?? "",
-      streetName: street_num ?? "",
-      houseNumber: home_num ?? "",
-      apartmentNumber: apartment_num ?? "",
+      streetName: streetName ?? "",
+      houseNumber: houseNum ?? "",
+      apartmentNumber: apartmentNum ?? "",
       state: state ?? 0,
-      isMain: is_main ?? false,
+      isMain: isMain ?? false,
       geo: geo ?? "",
     );
   }
@@ -49,11 +49,11 @@ extension UserAddressResponseExtension on UserAddressResponse {
       districtName: district?.name ?? "",
       neighborhoodId: neighborhood?.id ?? 0,
       neighborhoodName: neighborhood?.name ?? "",
-      streetName: street_num ?? "",
-      houseNumber: home_num ?? "",
-      apartmentNumber: apartment_num ?? "",
+      streetName: streetName ?? "",
+      houseNumber: houseNum ?? "",
+      apartmentNumber: apartmentNum ?? "",
       state: state ?? 0,
-      isMain: is_main ?? false,
+      isMain: isMain ?? false,
       geo: geo ?? "",
     );
   }

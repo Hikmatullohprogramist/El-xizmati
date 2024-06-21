@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
@@ -18,6 +17,7 @@ import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title
 import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/presentation/widgets/elevation/elevation_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
+import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 
 import 'user_addresses_cubit.dart';
 
@@ -47,85 +47,88 @@ class UserAddressesPage extends BasePage<UserAddressesCubit, UserAddressesState,
         ],
       ),
       backgroundColor: context.backgroundGreyColor,
-      body: RefreshIndicator(
-        displacement: 80,
-        strokeWidth: 3,
-        color: StaticColors.colorPrimary,
-        onRefresh: () async {
-          cubit(context).states.controller!.refresh();
-        },
-        child: PagedListView<int, UserAddress>(
-          shrinkWrap: true,
-          addAutomaticKeepAlives: true,
-          // physics: BouncingScrollPhysics(),
-          padding: EdgeInsets.symmetric(vertical: 12),
-          pagingController: state.controller!,
-          builderDelegate: PagedChildBuilderDelegate<UserAddress>(
-            firstPageErrorIndicatorBuilder: (_) {
-              return DefaultErrorWidget(
-                isFullScreen: true,
-                onRetryClicked: () => cubit(context).states.controller?.refresh(),
-              );
-            },
-            firstPageProgressIndicatorBuilder: (_) {
-              return SingleChildScrollView(
-                child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 4,
-                  itemBuilder: (BuildContext context, int index) {
-                    return UserAddressShimmer();
-                  },
-                ),
-              );
-            },
-            noItemsFoundIndicatorBuilder: (_) {
-              return UserAddressEmptyWidget(onActionClicked: () async {
-                final isAdded = await context.router.push(AddAddressRoute());
-                if (isAdded is bool && isAdded == true) {
-                  cubit(context).reloadAddresses();
-                }
-              });
-            },
-            newPageProgressIndicatorBuilder: (_) {
-              return SizedBox(
-                height: 160,
-                child: Center(
-                  child: CircularProgressIndicator(color: Colors.blue),
-                ),
-              );
-            },
-            newPageErrorIndicatorBuilder: (_) {
-              return DefaultErrorWidget(
-                isFullScreen: false,
-                onRetryClicked: () => cubit(context).states.controller?.refresh(),
-              );
-            },
-            transitionDuration: Duration(milliseconds: 100),
-            itemBuilder: (context, item, index) {
-              return ElevationWidget(
-                topLeftRadius: 8,
-                topRightRadius: 8,
-                bottomLeftRadius: 8,
-                bottomRightRadius: 8,
-                leftMargin: 16,
-                topMargin: 6,
-                rightMargin: 16,
-                bottomMargin: 6,
-                child: UserAddressWidget(
-                  onClicked: () {},
-                  address: item,
-                  onEditClicked: () {
-                    // _showAddressActions(context, state, item);
-                    _showAddressActions(context, item, index);
-                  },
-                  isManageEnabled: true,
-                ),
-              );
-            },
-          ),
-        ),
+      body: LoaderStateWidget(
+        isFullScreen: true,
+        loadingState: state.loadingState,
+        loadingBody: _buildLoadingBody(),
+        successBody: _buildSuccessBody(context, state),
+        emptyBody: _buildEmptyBody(context),
+        errorBody: _buildErrorBody(context),
       ),
+    );
+  }
+
+  Widget _buildLoadingBody() {
+    return ListView.separated(
+      physics: BouncingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: 3,
+      itemBuilder: (context, index) {
+        return UserAddressShimmer();
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return Padding(padding: EdgeInsets.only(top: 3, bottom: 3));
+      },
+    );
+  }
+
+  Widget _buildSuccessBody(BuildContext context, UserAddressesState state) {
+    return RefreshIndicator(
+      displacement: 80,
+      strokeWidth: 3,
+      color: StaticColors.colorPrimary,
+      onRefresh: () async {
+        cubit(context).reloadAddresses();
+      },
+      child: ListView.separated(
+        // physics: BouncingScrollPhysics(),
+        // shrinkWrap: true,
+        padding: EdgeInsets.symmetric(vertical: 12),
+        itemCount: state.addresses.length,
+        itemBuilder: (context, index) {
+          var address = state.addresses[index];
+          return ElevationWidget(
+            topLeftRadius: 8,
+            topRightRadius: 8,
+            bottomLeftRadius: 8,
+            bottomRightRadius: 8,
+            leftMargin: 16,
+            topMargin: 6,
+            rightMargin: 16,
+            bottomMargin: 6,
+            child: UserAddressWidget(
+              onClicked: () {},
+              address: address,
+              onEditClicked: () {
+                _showAddressActions(context, address, index);
+              },
+              isManageEnabled: true,
+            ),
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return SizedBox();
+        },
+      ),
+    );
+  }
+
+  Widget _buildEmptyBody(BuildContext context) {
+    return UserAddressEmptyWidget(
+      onActionClicked: () async {
+        final isAdded = await context.router.push(AddAddressRoute());
+        if (isAdded is bool && isAdded == true) {
+          cubit(context).reloadAddresses();
+        }
+      },
+    );
+  }
+
+  Widget _buildErrorBody(BuildContext context) {
+    return DefaultErrorWidget(
+      isFullScreen: true,
+      onRetryClicked: () => cubit(context).reloadAddresses(),
     );
   }
 
