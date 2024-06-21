@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
+import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 
 class CustomOutlinedButton extends StatelessWidget {
   const CustomOutlinedButton({
@@ -11,7 +12,7 @@ class CustomOutlinedButton extends StatelessWidget {
     this.buttonHeight = 48,
     this.isEnabled = true,
     this.isLoading = false,
-    this.textColor = StaticColors.textColorPrimary,
+    this.textColor,
     this.strokeColor = StaticColors.buttonColor,
     this.rightIcon,
   }) : super(key: key);
@@ -22,7 +23,7 @@ class CustomOutlinedButton extends StatelessWidget {
   final double buttonHeight;
   final bool isLoading;
   final bool isEnabled;
-  final Color textColor;
+  final Color? textColor;
   final Color strokeColor;
   final Widget? rightIcon;
 
@@ -49,9 +50,11 @@ class CustomOutlinedButton extends StatelessWidget {
           }
         : null;
 
-    var actualTextColor = isEnabled ? textColor : textColor.withOpacity(0.75);
-    var actualStrokeColor =
-        isEnabled ? strokeColor : strokeColor.withOpacity(0.75);
+    final textColor1 = textColor ?? context.textPrimary;
+    var actualTextColor = isEnabled ? textColor1 : textColor1.withOpacity(0.75);
+    var actualStrokeColor = isEnabled
+        ? strokeColor.withOpacity(0.75)
+        : strokeColor.withOpacity(0.55);
     var actualTextAlign = rightIcon != null ? TextAlign.left : TextAlign.center;
 
     return OutlinedButton(
@@ -63,7 +66,7 @@ class CustomOutlinedButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         side: BorderSide(
-          width: 1,
+          width: 0.1,
           color: actualStrokeColor,
         ),
       ),
