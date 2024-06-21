@@ -66,21 +66,14 @@ abstract class AdEntityDao {
 
   @transaction
   Future<void> upsertAd(AdEntity ad) async {
-    Logger().w(
-        "dao => upsertAd received ad isFavorite = ${ad.isFavorite}, isInCart = ${ad.isInCart} ");
     final int id = await insertAd(ad);
-    Logger().w("dao => is inserted ad = ${id >= 0}  ");
-    if (id == -1) {
+    if (id <= 0) {
       final savedAd = await readAdById(ad.id);
       if (savedAd != null) {
-        Logger().w(
-            "dao => upsertAd saved ad isFavorite = ${ad.isFavorite}, isInCart = ${ad.isInCart} ");
         ad.isFavorite = ad.isFavorite ?? savedAd.isFavorite;
         ad.isFavorite = ad.isInCart ?? savedAd.isInCart;
         ad.backendId = ad.backendId ?? savedAd.backendId;
       }
-      Logger().w(
-          "dao => upsertAd mixed ad isFavorite = ${ad.isFavorite}, isInCart = ${ad.isInCart} ");
       await updateAd(ad);
     }
   }

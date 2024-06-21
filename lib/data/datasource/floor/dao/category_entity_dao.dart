@@ -31,7 +31,7 @@ abstract class CategoryEntityDao {
   @transaction
   Future<void> upsert(CategoryEntity category) async {
     final int id = await insertCategory(category);
-    if (id == -1) {
+    if (id <= 0) {
       await updateCategory(category);
     }
   }

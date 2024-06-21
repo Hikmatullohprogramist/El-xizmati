@@ -4,7 +4,7 @@ import 'package:onlinebozor/data/datasource/floor/entities/user_address_entity.d
 @dao
 abstract class UserAddressEntityDao {
   @Query('SELECT * FROM user_addresses ORDER BY user_address_is_main DESC ')
-  Future<List<UserAddressEntity>> readSavedAddresses();
+  Future<List<UserAddressEntity>> readAddresses();
 
   @Query('SELECT * FROM user_addresses WHERE user_address_id = :id ')
   Future<UserAddressEntity?> readAddressById(int id);
@@ -33,8 +33,8 @@ abstract class UserAddressEntityDao {
   @transaction
   Future<void> upsert(UserAddressEntity address) async {
     final int id = await insertAddress(address);
-    if (id == -1) {
-       updateAddress(address);
+    if (id <= 0) {
+      await updateAddress(address);
     }
   }
 
