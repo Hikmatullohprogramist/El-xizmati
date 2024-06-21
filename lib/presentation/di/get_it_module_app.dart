@@ -65,7 +65,7 @@ extension GetItModuleApp on GetIt {
     registerSingleton<StateMessageManager>(StateMessageManagerImpl());
 
     // ad
-    registerFactory(() => AdDetailCubit(get(), get(), get(), get()));
+    registerFactory(() => AdDetailCubit(get(), get(), get()));
     registerFactory(() => AdListCubit(get(), get(), get()));
     registerFactory(() => AdListByTypeCubit(get(), get()));
     registerFactory(() => UserAdDetailCubit(get()));
@@ -113,7 +113,7 @@ extension GetItModuleApp on GetIt {
     registerFactory(() => SubCategoryCubit());
     registerFactory(() => AdCreationChooserCubit(get()));
     registerFactory(() => DashboardCubit(get(), get(), get(), get()));
-    registerFactory(() => ProfileCubit(get(), get(), get()));
+    registerFactory(() => ProfileCubit(get(), get(), get(), get()));
 
     // profile
     registerFactory(() => BillingTransactionsCubit(get()));

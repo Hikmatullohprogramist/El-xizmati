@@ -5,7 +5,6 @@ import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/ad_repository.dart';
 import 'package:onlinebozor/data/repositories/cart_repository.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
-import 'package:onlinebozor/data/repositories/state_repository.dart';
 import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 import 'package:onlinebozor/domain/models/ad/ad_detail.dart';
@@ -18,17 +17,15 @@ part 'ad_detail_state.dart';
 
 @injectable
 class AdDetailCubit extends BaseCubit<AdDetailState, AdDetailEvent> {
+  final AdRepository _adRepository;
+  final CartRepository _cartRepository;
+  final FavoriteRepository _favoriteRepository;
+
   AdDetailCubit(
     this._adRepository,
     this._cartRepository,
     this._favoriteRepository,
-    this._stateRepository,
   ) : super(AdDetailState());
-
-  final AdRepository _adRepository;
-  final CartRepository _cartRepository;
-  final FavoriteRepository _favoriteRepository;
-  final StateRepository _stateRepository;
 
   void setInitialParams(int adId) {
     updateState((state) => state.copyWith(
@@ -200,10 +197,7 @@ class AdDetailCubit extends BaseCubit<AdDetailState, AdDetailEvent> {
           limit: 20,
         )
         .initFuture()
-        .onStart(() {
-          if (states.adId == null) throw UnsupportedError("adId is null");
-          if (!_stateRepository.isAuthorized()) throw UnsupportedError("");
-        })
+        .onStart(() {})
         .onSuccess((data) {
           data.removeWhere((e) => e.id == state.state?.adId);
           updateState((state) => state.copyWith(

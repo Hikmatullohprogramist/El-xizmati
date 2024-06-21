@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/auth_repository.dart';
+import 'package:onlinebozor/data/repositories/language_repository.dart';
 import 'package:onlinebozor/data/repositories/state_repository.dart';
 import 'package:onlinebozor/data/repositories/user_repository.dart';
 import 'package:onlinebozor/domain/models/language/language.dart';
@@ -14,11 +15,13 @@ part 'profile_state.dart';
 @injectable
 class ProfileCubit extends BaseCubit<ProfileState, ProfileEvent> {
   final AuthRepository _authRepository;
+  final LanguageRepository _languageRepository;
   final StateRepository _stateRepository;
   final UserRepository _userRepository;
 
   ProfileCubit(
     this._authRepository,
+    this._languageRepository,
     this._stateRepository,
     this._userRepository,
   ) : super(ProfileState()) {
@@ -44,7 +47,7 @@ class ProfileCubit extends BaseCubit<ProfileState, ProfileEvent> {
 
   Future<void> getLanguage() async {
     try {
-      final language = _stateRepository.getLanguage();
+      final language = _languageRepository.getLanguage();
       updateState((state) => state.copyWith(language: language));
     } catch (e) {
       logger.w(e);
@@ -53,7 +56,7 @@ class ProfileCubit extends BaseCubit<ProfileState, ProfileEvent> {
 
   Future<void> selectLanguage(Language language, String languageName) async {
     updateState((state) => state.copyWith(language: language));
-    await _stateRepository.setLanguage(language);
+    await _languageRepository.setLanguage(language);
   }
 
   Future<void> logOut() async {

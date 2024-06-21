@@ -147,7 +147,6 @@ class AuthStartPage
                   onPressed: () {
                     context.router.push(FaceIdStartRoute());
                   },
-                  strokeColor: context.colors.borderColor,
                   rightIcon: Assets.images.icFaceId.svg(),
                 ),
               ),
@@ -161,7 +160,6 @@ class AuthStartPage
                 child: CustomOutlinedButton(
                   text: Strings.authStartLoginWithOneId,
                   onPressed: () => context.router.push(OneIdRoute()),
-                  strokeColor: context.colors.borderColor,
                   rightIcon: Assets.images.icOneId.svg(),
                 ),
               ),
@@ -184,7 +182,7 @@ class AuthStartPage
                       );
                     });
                   },
-                  strokeColor: context.colors.borderColor,
+                  // strokeColor: context.colors.borderColor,
                   rightIcon: Assets.images.pngImages.eImzo.image(),
                 ),
               ),

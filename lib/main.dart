@@ -41,7 +41,7 @@ Future<void> main() async {
   await _getDeviceAndAppInfo();
 
   var stateRepository = GetIt.instance<StateRepository>();
-  var isLanguageSelected = stateRepository.isLanguageSelection();
+  var isLanguageSelected = stateRepository.isLanguageSelected();
   var isAuthorized = stateRepository.isAuthorized();
 
   runApp(

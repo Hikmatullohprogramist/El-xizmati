@@ -7,6 +7,7 @@ import 'package:onlinebozor/data/repositories/card_repositroy.dart';
 import 'package:onlinebozor/data/repositories/cart_repository.dart';
 import 'package:onlinebozor/data/repositories/common_repository.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
+import 'package:onlinebozor/data/repositories/language_repository.dart';
 import 'package:onlinebozor/data/repositories/merchant_repository.dart';
 import 'package:onlinebozor/data/repositories/report_repository.dart';
 import 'package:onlinebozor/data/repositories/state_repository.dart';
@@ -17,7 +18,8 @@ import 'package:onlinebozor/data/repositories/user_repository.dart';
 
 extension GetItModuleExtension on GetIt {
   Future<void> repositoryModule() async {
-    registerLazySingleton(() => StateRepository(get(), get(), get()));
+    registerLazySingleton(() => StateRepository(get(), get()));
+    registerLazySingleton(() => LanguageRepository(get(), get(), get()));
     registerLazySingleton(() => AdCreationRepository(get(), get(), get()));
     registerLazySingleton(
       () => AdRepository(get(), get(), get(), get(), get(), get(), get()),
@@ -40,6 +42,7 @@ extension GetItModuleExtension on GetIt {
       () => UserOrderRepository(get(), get(), get(), get(), get()),
     );
     registerLazySingleton(() => UserRepository(get(), get(), get(), get()));
+
     await allReady();
   }
 }
