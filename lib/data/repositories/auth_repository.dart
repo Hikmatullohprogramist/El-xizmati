@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:dio/src/response.dart';
 import 'package:onlinebozor/data/datasource/floor/dao/ad_entity_dao.dart';
+import 'package:onlinebozor/data/datasource/floor/dao/user_address_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/floor/dao/user_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/floor/entities/user_entity.dart';
 import 'package:onlinebozor/data/datasource/network/responses/auth/auth_start/auth_start_response.dart';
@@ -20,13 +21,15 @@ class AuthRepository {
   final AdEntityDao _adEntityDao;
   final AuthPreferences _authPreferences;
   final AuthService _authService;
-  final UserPreferences _userPreferences;
+  final UserAddressEntityDao _userAddressEntityDao;
   final UserEntityDao _userEntityDao;
+  final UserPreferences _userPreferences;
 
   AuthRepository(
     this._adEntityDao,
     this._authPreferences,
     this._authService,
+    this._userAddressEntityDao,
     this._userEntityDao,
     this._userPreferences,
   );
@@ -228,6 +231,7 @@ class AuthRepository {
   Future<void> logOut() async {
     await _adEntityDao.clear();
     await _authPreferences.clear();
+    await _userAddressEntityDao.clear();
     await _userEntityDao.clear();
     await _userPreferences.clear();
     return;

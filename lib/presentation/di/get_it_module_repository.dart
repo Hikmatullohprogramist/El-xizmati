@@ -24,7 +24,7 @@ extension GetItModuleExtension on GetIt {
     );
     registerLazySingleton(() => BillingRepository(get(), get(), get()));
     registerLazySingleton(
-      () => AuthRepository(get(), get(), get(), get(), get()),
+      () => AuthRepository(get(), get(), get(), get(), get(), get()),
     );
     registerLazySingleton(() => CardRepository(get(), get(), get()));
     registerLazySingleton(() => CartRepository(get(), get(), get()));
