@@ -7,7 +7,6 @@ import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/responses/user_order/user_order_response.dart';
 import 'package:onlinebozor/domain/models/order/order_type.dart';
 import 'package:onlinebozor/domain/models/order/user_order_status.dart';
-import 'package:onlinebozor/presentation/features/home/features/profile/features/user_orders/features/user_order_cancel/user_order_cancel_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_orders/features/user_order_info/user_order_info_page.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
@@ -75,7 +74,7 @@ class UserOrderListPage extends BasePage<UserOrderListCubit, UserOrderListState,
                 shrinkWrap: true,
                 itemCount: 15,
                 itemBuilder: (BuildContext context, int index) {
-                  return UserOrderWidgetShimmer();
+                  return UserOrderShimmer();
                 },
               ),
             );
@@ -121,10 +120,7 @@ class UserOrderListPage extends BasePage<UserOrderListCubit, UserOrderListState,
               bottomMargin: 6,
               child: UserOrderWidget(
                 order: item,
-                onClicked: () {},
-                onCancelClicked: () =>
-                    _showOrderCancelPage(context, state, item),
-                onMoreClicked: () => _showOrderInfoPage(context, state, item),
+                onClicked: () => _showOrderInfoPage(context, state, item),
               ),
             );
           },
@@ -133,29 +129,18 @@ class UserOrderListPage extends BasePage<UserOrderListCubit, UserOrderListState,
     );
   }
 
-  Future<void> _showOrderCancelPage(
+  void _showOrderInfoPage(
     BuildContext context,
     UserOrderListState state,
     UserOrder order,
   ) async {
     final cancelledOrder = await showCupertinoModalBottomSheet(
       context: context,
-      builder: (context) => UserOrderCancelPage(order: order),
+      builder: (context) => UserOrderInfoPage(order: order),
     );
 
     if (cancelledOrder != null && cancelledOrder is UserOrder) {
       cubit(context).updateCancelledOrder(cancelledOrder);
     }
-  }
-
-  void _showOrderInfoPage(
-    BuildContext context,
-    UserOrderListState state,
-    UserOrder order,
-  ) async {
-    showCupertinoModalBottomSheet(
-      context: context,
-      builder: (context) => UserOrderInfoPage(order: order),
-    );
   }
 }

@@ -3,8 +3,8 @@ import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:shimmer/shimmer.dart';
 
-class UserOrderWidgetShimmer extends StatelessWidget {
-  const UserOrderWidgetShimmer({
+class UserOrderShimmer extends StatelessWidget {
+  const UserOrderShimmer({
     super.key,
   });
 
@@ -29,7 +29,7 @@ class UserOrderWidgetShimmer extends StatelessWidget {
               children: [
                 Container(
                   width: 80,
-                  height: 20,
+                  height: 12,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(width: 0.50, color: Color(0xFFE5E9F3)),
@@ -38,7 +38,7 @@ class UserOrderWidgetShimmer extends StatelessWidget {
                 ),
                 Container(
                   width: 110,
-                  height: 20,
+                  height: 12,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(width: 0.50, color: Color(0xFFE5E9F3)),
@@ -76,7 +76,7 @@ class UserOrderWidgetShimmer extends StatelessWidget {
                       highlightColor: StaticColors.shimmerHighLightColor,
                       child: Container(
                         width: 150,
-                        height: 14,
+                        height: 12,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(7),
@@ -89,7 +89,7 @@ class UserOrderWidgetShimmer extends StatelessWidget {
                       highlightColor: StaticColors.shimmerHighLightColor,
                       child: Container(
                         width: 150,
-                        height: 14,
+                        height: 12,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(7),
@@ -105,7 +105,7 @@ class UserOrderWidgetShimmer extends StatelessWidget {
                           highlightColor: StaticColors.shimmerHighLightColor,
                           child: Container(
                             width: 140,
-                            height: 14,
+                            height: 12,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(7),
                               color: Colors.white,
@@ -120,33 +120,7 @@ class UserOrderWidgetShimmer extends StatelessWidget {
                       highlightColor: StaticColors.shimmerHighLightColor,
                       child: Container(
                         width: 130,
-                        height: 14,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(7),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Shimmer.fromColors(
-                      baseColor: StaticColors.shimmerBaseColor,
-                      highlightColor: StaticColors.shimmerHighLightColor,
-                      child: Container(
-                        width: 120,
-                        height: 14,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(7),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Shimmer.fromColors(
-                      baseColor: StaticColors.shimmerBaseColor,
-                      highlightColor: StaticColors.shimmerHighLightColor,
-                      child: Container(
-                        width: 140,
-                        height: 14,
+                        height: 12,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(7),
@@ -158,37 +132,32 @@ class UserOrderWidgetShimmer extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 24),
+          SizedBox(height: 20),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                child: Shimmer.fromColors(
-                  baseColor: StaticColors.shimmerBaseColor,
-                  highlightColor: StaticColors.shimmerHighLightColor,
-                  child: Container(
-                    height: 20,
-                    decoration: ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      color: Colors.white,
-                    ),
+              Shimmer.fromColors(
+                baseColor: StaticColors.shimmerBaseColor,
+                highlightColor: StaticColors.shimmerHighLightColor,
+                child: Container(
+                  width: 120,
+                  height: 12,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(7),
                   ),
                 ),
               ),
               SizedBox(width: 8),
-              Expanded(
-                child: Shimmer.fromColors(
-                  baseColor: StaticColors.shimmerBaseColor,
-                  highlightColor: StaticColors.shimmerHighLightColor,
-                  child: Container(
-                    height: 20,
-                    decoration: ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      color: Colors.white,
-                    ),
+              Shimmer.fromColors(
+                baseColor: StaticColors.shimmerBaseColor,
+                highlightColor: StaticColors.shimmerHighLightColor,
+                child: Container(
+                  width: 140,
+                  height: 12,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(7),
                   ),
                 ),
               ),
