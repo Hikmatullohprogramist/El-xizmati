@@ -2,9 +2,14 @@ part of 'user_order_info_cubit.dart';
 
 @freezed
 class UserOrderInfoState with _$UserOrderInfoState {
+  const UserOrderInfoState._();
+
   const factory UserOrderInfoState({
-    UserOrder? userOrder,
+    UserOrder? initialOrder,
+    UserOrder? updatedOrder,
   }) = _UserOrderInfoState;
+
+  UserOrder get actualOrder => updatedOrder ?? initialOrder!;
 }
 
 @freezed

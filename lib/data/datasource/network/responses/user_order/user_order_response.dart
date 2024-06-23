@@ -55,6 +55,10 @@ class UserOrder with _$UserOrder {
     return products?.firstOrNull;
   }
 
+  UserOrderInfo? get firstInfo {
+    return products?.firstOrNull?.product;
+  }
+
   String get formattedTotalSum {
     return "${priceMaskFormatter.formatDouble(totalSum ?? 0.0)} ${Strings.currencyUzs}";
   }
