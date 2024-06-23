@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 
 class CustomElevatedButton extends StatelessWidget {
+  final String text;
+  final VoidCallback? onPressed;
+  final double buttonWidth;
+  final double buttonHeight;
+  final bool isLoading;
+  final bool isEnabled;
+  final Color textColor;
+  final double textSize;
+  final Color? backgroundColor;
+  final Widget? leftIcon;
+  final Widget? rightIcon;
+
   const CustomElevatedButton({
     Key? key,
     required this.text,
@@ -14,19 +26,9 @@ class CustomElevatedButton extends StatelessWidget {
     this.textColor = Colors.white,
     this.textSize = 14,
     this.backgroundColor,
+    this.leftIcon,
     this.rightIcon,
   }) : super(key: key);
-
-  final String text;
-  final VoidCallback? onPressed;
-  final double buttonWidth;
-  final double buttonHeight;
-  final bool isLoading;
-  final bool isEnabled;
-  final Color textColor;
-  final double textSize;
-  final Color? backgroundColor;
-  final Widget? rightIcon;
 
   bool isClickedRecently(DateTime? lastClickTime) {
     if (lastClickTime == null) return false;
@@ -57,6 +59,8 @@ class CustomElevatedButton extends StatelessWidget {
         isEnabled ? backcolor : backcolor.withOpacity(0.75);
     var actualTextAlign = rightIcon != null ? TextAlign.left : TextAlign.center;
 
+    final hasIcon = leftIcon != null || rightIcon != null;
+
     return SizedBox(
       height: buttonHeight,
       width: buttonWidth,
@@ -75,6 +79,18 @@ class CustomElevatedButton extends StatelessWidget {
           height: buttonHeight,
           child: Row(
             children: [
+              Visibility(
+                visible: hasIcon,
+                child: SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: leftIcon,
+                ),
+              ),
+              Visibility(
+                visible: hasIcon,
+                child: SizedBox(width: 12),
+              ),
               Expanded(
                 child: text.w(400).s(textSize).c(actualTextColor).copyWith(
                       maxLines: 1,
@@ -96,11 +112,11 @@ class CustomElevatedButton extends StatelessWidget {
                 ),
               ),
               Visibility(
-                visible: rightIcon != null,
+                visible: hasIcon,
                 child: SizedBox(width: 12),
               ),
               Visibility(
-                visible: rightIcon != null,
+                visible: hasIcon,
                 child: SizedBox(
                   width: 20,
                   height: 20,
