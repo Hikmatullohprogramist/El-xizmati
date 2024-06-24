@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/di/get_it_injection.dart';
+import 'package:onlinebozor/presentation/application/di/get_it_injection.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_builder.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_event.dart';
