@@ -1,0 +1,30 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "realsoft-onlinebozor",
+          "appId": "1:1016522161477:android:5ec3596cd8b0389358d22c",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "realsoft-onlinebozor",
+          "appId": "1:1016522161477:ios:71c301bc0332720958d22c",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "realsoft-onlinebozor",
+          "configurations": {
+            "android": "1:1016522161477:android:5ec3596cd8b0389358d22c",
+            "ios": "1:1016522161477:ios:71c301bc0332720958d22c"
+          }
+        }
+      }
+    }
+  }
+}

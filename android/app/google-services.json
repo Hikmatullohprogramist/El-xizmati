@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1016522161477",
+    "project_id": "realsoft-onlinebozor",
+    "storage_bucket": "realsoft-onlinebozor.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016522161477:android:5ec3596cd8b0389358d22c",
+        "android_client_info": {
+          "package_name": "uz.onlinebozor.client"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1aQamtxDhSEWJy_44JUIe55AVAqQulBc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
