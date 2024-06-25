@@ -76,7 +76,7 @@ class AdListPage extends BasePage<AdListCubit, AdListState, AdListEvent> {
             )
         ],
       ),
-      backgroundColor: context.backgroundGreyColor,
+      backgroundColor: context.backgroundWhiteColor,
       body: PagedGridView<int, Ad>(
         shrinkWrap: true,
         addAutomaticKeepAlives: true,
@@ -109,7 +109,6 @@ class AdListPage extends BasePage<AdListCubit, AdListState, AdListEvent> {
                 mainAxisSpacing: 1.0,
               ),
               itemCount: 6,
-              // Number of items in the grid
               itemBuilder: (context, index) {
                 return VerticalAdShimmer();
               },

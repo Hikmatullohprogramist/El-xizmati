@@ -5,6 +5,7 @@ import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/mappers/region_mapper.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
+import 'package:onlinebozor/presentation/support/extensions/platform_sizes.dart';
 import 'package:onlinebozor/presentation/widgets/action/action_item_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/action/multi_selection_expandable_item.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
@@ -32,53 +33,47 @@ class RegionSelectionPage extends BasePage<RegionSelectionCubit,
   @override
   Widget onWidgetBuild(BuildContext context, RegionSelectionState state) {
     return Material(
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Container(
-              color: context.bottomSheetColor,
-              child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Column(
-                  children: [
-                    SizedBox(height: 20),
-                    BottomSheetTitle(
-                      title: Strings.selectionDeliveryDistrictsTitle,
-                      onCloseClicked: () {
-                        context.router.pop();
-                      },
-                    ),
-                    LoaderStateWidget(
-                      isFullScreen: false,
-                      loadingState: state.loadState,
-                      loadingBody: _buildLoadingBody(),
-                      successBody: _buildSuccessBody(state),
-                    ),
-                    SizedBox(height: 56),
-                  ],
-                ),
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          Container(
+            color: context.bottomSheetColor,
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  BottomSheetTitle(
+                    title: Strings.selectionDeliveryDistrictsTitle,
+                    onCloseClicked: () {
+                      context.router.pop();
+                    },
+                  ),
+                  LoaderStateWidget(
+                    isFullScreen: false,
+                    loadingState: state.loadState,
+                    loadingBody: _buildLoadingBody(),
+                    successBody: _buildSuccessBody(state),
+                  ),
+                  SizedBox(height: 56),
+                ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12),
-              child: CustomElevatedButton(
-                text: Strings.commonSave,
-                onPressed: () {
-                  List<District> districts = state.allItems
-                      .where((e) => !e.isParent && e.isSelected)
-                      .map((e) => e.toDistrict())
-                      .toList();
-                  context.router.pop(districts);
-                },
-              ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(16, 0, 16, bottomSheetBottomPadding),
+            child: CustomElevatedButton(
+              text: Strings.commonSave,
+              onPressed: () {
+                List<District> districts = state.allItems
+                    .where((e) => !e.isParent && e.isSelected)
+                    .map((e) => e.toDistrict())
+                    .toList();
+                context.router.pop(districts);
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -103,6 +98,7 @@ class RegionSelectionPage extends BasePage<RegionSelectionCubit,
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
+      padding: EdgeInsets.only(bottom: 64),
       itemCount: state.visibleItems.length,
       itemBuilder: (context, index) {
         var element = state.visibleItems[index];

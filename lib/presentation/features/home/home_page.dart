@@ -7,6 +7,7 @@ import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/platform_sizes.dart';
 
 import 'home_cubit.dart';
 
@@ -34,7 +35,7 @@ class HomePage extends BasePage<HomeCubit, HomeState, HomeEvent> {
           resizeToAvoidBottomInset: false,
           body: child,
           bottomNavigationBar: Container(
-            height: 80,
+            height: bottomBarHeight,
             decoration: const BoxDecoration(
               border: Border(
                 top: BorderSide(width: 0.50, color: Color(0xFFE5E9F3)),

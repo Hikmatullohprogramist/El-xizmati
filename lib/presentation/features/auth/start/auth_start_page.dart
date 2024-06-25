@@ -60,12 +60,12 @@ class AuthStartPage
     _phoneController.updateOnRestore(state.phone);
 
     return Scaffold(
-      backgroundColor: context.appBarColor,
+      backgroundColor: context.backgroundWhiteColor,
       resizeToAvoidBottomInset: false,
       appBar: DefaultAppBar(
         titleText: Strings.authStartSingin,
         titleTextColor: context.textPrimary,
-        backgroundColor: context.backgroundGreyColor,
+        backgroundColor: context.appBarColor,
         onBackPressed: () => context.router.pop(),
       ),
       body: Padding(

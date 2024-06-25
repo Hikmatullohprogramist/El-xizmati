@@ -45,7 +45,7 @@ class CategoryPage
     return Scaffold(
       appBar: AppBar(
         backgroundColor: context.appBarColor,
-        elevation: 0,
+        elevation: 0.5,
         toolbarHeight: 64,
         // leadingWidth: 0,
         actions: [

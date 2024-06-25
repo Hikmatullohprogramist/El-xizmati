@@ -59,11 +59,13 @@ class UserOrderWidget extends StatelessWidget {
               SizedBox(height: 8),
               Row(
                 children: [
-                  (order.seller?.name ?? "").toString().w(500).s(13).copyWith(
-                        textAlign: TextAlign.left,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                  Expanded(
+                    child: (order.seller?.name ?? "").toString().w(500).s(13).copyWith(
+                          textAlign: TextAlign.left,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                  ),
                 ],
               ),
               SizedBox(height: 10),

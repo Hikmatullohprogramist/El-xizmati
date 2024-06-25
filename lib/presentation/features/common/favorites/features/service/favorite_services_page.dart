@@ -25,7 +25,7 @@ class FavoriteServicesPage extends BasePage<FavoriteServicesCubit, FavoriteServi
     height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: context.backgroundGreyColor,
+      backgroundColor: context.backgroundWhiteColor,
       body: RefreshIndicator(
         displacement: 160,
         strokeWidth: 3,

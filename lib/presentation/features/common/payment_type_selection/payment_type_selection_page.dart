@@ -4,6 +4,7 @@ import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/responses/payment_type/payment_type_response.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/platform_sizes.dart';
 import 'package:onlinebozor/presentation/widgets/action/action_item_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/action/multi_selection_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
@@ -31,50 +32,44 @@ class PaymentTypeSelectionPage extends BasePage<PaymentTypeSelectionCubit,
   @override
   Widget onWidgetBuild(BuildContext context, PaymentTypeSelectionState state) {
     return Material(
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Container(
-              color: context.bottomSheetColor,
-              child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Column(
-                  children: [
-                    SizedBox(height: 20),
-                    BottomSheetTitle(
-                      title: Strings.selectionPaymentTypeTitle,
-                      onCloseClicked: () {
-                        context.router.pop();
-                      },
-                    ),
-                    LoaderStateWidget(
-                      isFullScreen: false,
-                      loadingState: state.loadState,
-                      loadingBody: _buildLoadingBody(),
-                      successBody: _buildSuccessBody(state),
-                      onRetryClicked: () => cubit(context).getItems(),
-                    ),
-                    SizedBox(height: 82),
-                  ],
-                ),
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          Container(
+            color: context.bottomSheetColor,
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  BottomSheetTitle(
+                    title: Strings.selectionPaymentTypeTitle,
+                    onCloseClicked: () {
+                      context.router.pop();
+                    },
+                  ),
+                  LoaderStateWidget(
+                    isFullScreen: false,
+                    loadingState: state.loadState,
+                    loadingBody: _buildLoadingBody(),
+                    successBody: _buildSuccessBody(state),
+                    onRetryClicked: () => cubit(context).getItems(),
+                  ),
+                  SizedBox(height: 82),
+                ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(20, 0, 20, 24),
-              child: CustomElevatedButton(
-                text: Strings.commonSave,
-                onPressed: () {
-                  context.router.pop(state.selectedItems);
-                },
-              ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(20, 0, 20, bottomSheetBottomPadding),
+            child: CustomElevatedButton(
+              text: Strings.commonSave,
+              onPressed: () {
+                context.router.pop(state.selectedItems);
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

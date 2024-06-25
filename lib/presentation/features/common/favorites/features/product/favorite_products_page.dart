@@ -29,7 +29,7 @@ class FavoriteProductsPage extends BasePage<FavoriteProductsCubit, FavoriteProdu
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: context.backgroundGreyColor,
+      backgroundColor: context.backgroundWhiteColor,
       body: RefreshIndicator(
         displacement: 160,
         strokeWidth: 3,

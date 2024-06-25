@@ -30,7 +30,7 @@ class PopularCategoriesPage extends BasePage<PopularCategoriesCubit,
       appBar: DefaultAppBar(
         titleText: title ?? "",
         titleTextColor: context.textPrimary,
-        backgroundColor: context.backgroundGreyColor,
+        backgroundColor: context.appBarColor,
         onBackPressed: () => context.router.pop(),
       ),
       backgroundColor: context.backgroundGreyColor,

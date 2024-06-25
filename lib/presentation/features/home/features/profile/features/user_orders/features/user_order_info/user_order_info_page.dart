@@ -7,6 +7,7 @@ import 'package:onlinebozor/data/datasource/network/responses/user_order/user_or
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_orders/features/user_order_cancel/user_order_cancel_page.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/platform_sizes.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
@@ -33,40 +34,31 @@ class UserOrderInfoPage extends BasePage<UserOrderInfoCubit, UserOrderInfoState,
   @override
   Widget onWidgetBuild(BuildContext context, UserOrderInfoState state) {
     return Material(
-      child: SizedBox(
-        width: double.infinity,
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              Container(
-                color: context.bottomSheetColor,
-                child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 20),
-                      BottomSheetTitle(
-                        title: "№ ${state.actualOrder.orderId}",
-                        onCloseClicked: () {
-                          context.router.pop(state.updatedOrder);
-                        },
-                      ),
-                      _buildProductBlock(context, state),
-                      SizedBox(height: 8),
-                      _buildActions(context, state),
-                      SizedBox(height: 12),
-                    ],
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          Container(
+            color: context.bottomSheetColor,
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  BottomSheetTitle(
+                    title: "№ ${state.actualOrder.orderId}",
+                    onCloseClicked: () {
+                      context.router.pop(state.updatedOrder);
+                    },
                   ),
-                ),
+                  _buildProductBlock(context, state),
+                  SizedBox(height: 8),
+                  _buildActions(context, state),
+                  SizedBox(height: bottomSheetBottomPadding),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

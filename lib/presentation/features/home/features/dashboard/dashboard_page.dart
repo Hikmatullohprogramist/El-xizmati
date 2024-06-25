@@ -40,7 +40,7 @@ class DashboardPage
   Widget onWidgetBuild(BuildContext context, DashboardState state) {
     return Scaffold(
       appBar: _buildAppBar(context),
-      backgroundColor: context.backgroundGreyColor,
+      backgroundColor: context.backgroundWhiteColor,
       body: RefreshIndicator(
         displacement: 160,
         strokeWidth: 3,
@@ -74,7 +74,7 @@ class DashboardPage
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       elevation: 0.5,
-      backgroundColor: context.backgroundGreyColor,
+      backgroundColor: context.appBarColor,
       actions: [
         Expanded(
           child: Container(
@@ -84,7 +84,7 @@ class DashboardPage
               borderRadius: BorderRadius.circular(6),
               child: Container(
                 decoration: BoxDecoration(
-                  color: context.cardColor,
+                  color: context.inputBackgroundColor,
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Row(

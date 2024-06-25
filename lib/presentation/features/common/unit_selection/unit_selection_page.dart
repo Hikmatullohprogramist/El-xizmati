@@ -4,6 +4,7 @@ import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/responses/unit/unit_response.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/platform_sizes.dart';
 import 'package:onlinebozor/presentation/widgets/action/action_item_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/action/selection_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
@@ -25,35 +26,29 @@ class UnitSelectionPage extends BasePage<UnitSelectionCubit, UnitSelectionState,
   @override
   Widget onWidgetBuild(BuildContext context, UnitSelectionState state) {
     return Material(
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-        child: Container(
-          color: context.bottomSheetColor,
-          child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: Column(
-              children: [
-                SizedBox(height: 20),
-                BottomSheetTitle(
-                  title: Strings.selectionUnitTitle,
-                  onCloseClicked: () {
-                    context.router.pop();
-                  },
-                ),
-                LoaderStateWidget(
-                  isFullScreen: false,
-                  loadingState: state.loadState,
-                  loadingBody: _buildLoadingBody(),
-                  successBody: _buildSuccessBody(state),
-                  onRetryClicked: () {
-                    cubit(context).getItems();
-                  },
-                ),
-              ],
-            ),
+      child: Container(
+        color: context.bottomSheetColor,
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              SizedBox(height: 20),
+              BottomSheetTitle(
+                title: Strings.selectionUnitTitle,
+                onCloseClicked: () {
+                  context.router.pop();
+                },
+              ),
+              LoaderStateWidget(
+                isFullScreen: false,
+                loadingState: state.loadState,
+                loadingBody: _buildLoadingBody(),
+                successBody: _buildSuccessBody(state),
+                onRetryClicked: () {
+                  cubit(context).getItems();
+                },
+              ),
+            ],
           ),
         ),
       ),
@@ -81,6 +76,7 @@ class UnitSelectionPage extends BasePage<UnitSelectionCubit, UnitSelectionState,
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       itemCount: state.items.length,
+      padding: EdgeInsets.only(bottom: bottomSheetBottomPadding),
       itemBuilder: (context, index) {
         var element = state.items[index];
         return SelectionListItem(

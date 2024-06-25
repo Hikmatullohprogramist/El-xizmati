@@ -1,9 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/responses/currencies/currency_response.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/platform_sizes.dart';
 import 'package:onlinebozor/presentation/widgets/action/action_item_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/action/selection_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
@@ -13,7 +14,8 @@ import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dar
 import 'currency_selection_cubit.dart';
 
 @RoutePage()
-class CurrencySelectionPage extends BasePage<CurrencySelectionCubit, CurrencySelectionState, CurrencySelectionEvent> {
+class CurrencySelectionPage extends BasePage<CurrencySelectionCubit,
+    CurrencySelectionState, CurrencySelectionEvent> {
   const CurrencySelectionPage({
     super.key,
     this.initialSelectedItem,
@@ -24,35 +26,29 @@ class CurrencySelectionPage extends BasePage<CurrencySelectionCubit, CurrencySel
   @override
   Widget onWidgetBuild(BuildContext context, CurrencySelectionState state) {
     return Material(
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-        child: Container(
-          color: context.bottomSheetColor,
-          child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: Column(
-              children: [
-                SizedBox(height: 20),
-                BottomSheetTitle(
-                  title: Strings.selectionCurrencyTitle,
-                  onCloseClicked: () {
-                    context.router.pop();
-                  },
-                ),
-                LoaderStateWidget(
-                  isFullScreen: false,
-                  loadingState: state.loadState,
-                  loadingBody: _buildLoadingBody(),
-                  successBody: _buildSuccessBody(state),
-                  onRetryClicked: () {
-                    cubit(context).getItems();
-                  },
-                ),
-              ],
-            ),
+      child: Container(
+        color: context.bottomSheetColor,
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              SizedBox(height: 20),
+              BottomSheetTitle(
+                title: Strings.selectionCurrencyTitle,
+                onCloseClicked: () {
+                  context.router.pop();
+                },
+              ),
+              LoaderStateWidget(
+                isFullScreen: false,
+                loadingState: state.loadState,
+                loadingBody: _buildLoadingBody(),
+                successBody: _buildSuccessBody(state),
+                onRetryClicked: () {
+                  cubit(context).getItems();
+                },
+              ),
+            ],
           ),
         ),
       ),
@@ -64,7 +60,7 @@ class CurrencySelectionPage extends BasePage<CurrencySelectionCubit, CurrencySel
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
-      itemCount: 7,
+      itemCount: 4,
       itemBuilder: (context, index) {
         return ActionItemShimmer();
       },
@@ -80,6 +76,7 @@ class CurrencySelectionPage extends BasePage<CurrencySelectionCubit, CurrencySel
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       itemCount: state.items.length,
+      padding: EdgeInsets.only(bottom: bottomSheetBottomPadding),
       itemBuilder: (context, index) {
         var element = state.items[index];
         return SelectionListItem(

@@ -1,19 +1,18 @@
-import 'dart:io' as favorite_list_page;
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
 import 'favorite_list_cubit.dart';
 
 @RoutePage()
-class FavoriteListPage extends BasePage<FavoriteListCubit, FavoriteListState, FavoriteListEvent> {
+class FavoriteListPage
+    extends BasePage<FavoriteListCubit, FavoriteListState, FavoriteListEvent> {
   const FavoriteListPage({super.key});
 
   @override
@@ -25,7 +24,7 @@ class FavoriteListPage extends BasePage<FavoriteListCubit, FavoriteListState, Fa
         return Scaffold(
           appBar: AppBar(
             elevation: 0.5,
-            backgroundColor: context.backgroundGreyColor,
+            backgroundColor: context.appBarColor,
             centerTitle: true,
             bottomOpacity: 1,
             title: Strings.bottomNavigationFavorite
@@ -33,7 +32,7 @@ class FavoriteListPage extends BasePage<FavoriteListCubit, FavoriteListState, Fa
                 .s(16)
                 .c(context.textPrimary),
             leading: IconButton(
-              onPressed: ()=>context.router.pop(),
+              onPressed: () => context.router.pop(),
               icon: Assets.images.icArrowLeft.svg(),
             ),
             bottom: TabBar(

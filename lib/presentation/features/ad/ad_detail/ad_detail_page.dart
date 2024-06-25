@@ -58,7 +58,7 @@ class AdDetailPage
       appBar: _getAppBar(context, state),
       bottomNavigationBar:
           state.isNotPrepared ? null : _getBottomNavigationBar(context, state),
-      backgroundColor: context.backgroundGreyColor,
+      backgroundColor: context.backgroundWhiteColor,
       body: state.isNotPrepared
           ? Container(
               child: state.isPreparingInProcess
@@ -71,6 +71,7 @@ class AdDetailPage
           : _getBodyContent(context, state),
     );
   }
+
 
   Widget _getBodyContent(BuildContext context, AdDetailState state) {
     return SafeArea(

@@ -26,8 +26,9 @@ class OneIdPage extends BasePage<OneIdCubit, OneIdState, OneIdEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, OneIdState state) {
     return Scaffold(
+      backgroundColor: context.backgroundWhiteColor,
       appBar: AppBar(
-        backgroundColor: context.backgroundGreyColor,
+        backgroundColor: context.appBarColor,
         elevation: 0,
         leading: IconButton(
             icon: Icon(

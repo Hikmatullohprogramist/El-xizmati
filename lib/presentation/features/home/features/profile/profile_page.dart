@@ -36,7 +36,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
     return Scaffold(
       appBar: EmptyAppBar(
         titleText: Strings.profileViewTitlle,
-        backgroundColor: context.backgroundWhiteColor,
+        backgroundColor: context.appBarColor,
         textColor: context.textPrimary,
       ),
       backgroundColor: context.backgroundGreyColor,
@@ -321,7 +321,9 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
   /// Bottom sheet showing methods
 
   void _showChangeLanguageBottomSheet(
-      BuildContext context, ProfileState state) {
+    BuildContext context,
+    ProfileState state,
+  ) {
     showCupertinoModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,

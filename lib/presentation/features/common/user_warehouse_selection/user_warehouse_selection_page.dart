@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/data/datasource/network/responses/address/user_address_response.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/platform_sizes.dart';
 import 'package:onlinebozor/presentation/widgets/action/action_item_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/action/multi_selection_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
@@ -15,8 +15,8 @@ import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dar
 import 'user_warehouse_selection_cubit.dart';
 
 @RoutePage()
-class UserWarehouseSelectionPage
-    extends BasePage<UserWarehouseSelectionCubit, UserWarehouseSelectionState, UserWarehouseSelectionEvent> {
+class UserWarehouseSelectionPage extends BasePage<UserWarehouseSelectionCubit,
+    UserWarehouseSelectionState, UserWarehouseSelectionEvent> {
   const UserWarehouseSelectionPage({super.key, this.selectedItems});
 
   final List<UserAddress>? selectedItems;
@@ -27,55 +27,50 @@ class UserWarehouseSelectionPage
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, UserWarehouseSelectionState state) {
+  Widget onWidgetBuild(
+      BuildContext context, UserWarehouseSelectionState state) {
     return Material(
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Container(
-              color: context.backgroundGreyColor,
-              child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Column(
-                  children: [
-                    SizedBox(height: 20),
-                    BottomSheetTitle(
-                      title: Strings.selectionPickupAddressesTitle,
-                      onCloseClicked: () {
-                        context.router.pop();
-                      },
-                    ),
-                    LoaderStateWidget(
-                      isFullScreen: false,
-                      loadingState: state.loadState,
-                      loadingBody: _buildLoadingBody(),
-                      successBody: _buildSuccessBody(state),
-                    ),
-                    SizedBox(height: 72),
-                    Visibility(
-                      visible: state.items.length < 3,
-                      child: SizedBox(height: 160),
-                    )
-                  ],
-                ),
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          Container(
+            color: context.backgroundGreyColor,
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  BottomSheetTitle(
+                    title: Strings.selectionPickupAddressesTitle,
+                    onCloseClicked: () {
+                      context.router.pop();
+                    },
+                  ),
+                  LoaderStateWidget(
+                    isFullScreen: false,
+                    loadingState: state.loadState,
+                    loadingBody: _buildLoadingBody(),
+                    successBody: _buildSuccessBody(state),
+                  ),
+                  SizedBox(height: 72),
+                  Visibility(
+                    visible: state.items.length < 3,
+                    child: SizedBox(height: 160),
+                  )
+                ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12),
-              child: CustomElevatedButton(
-                text: Strings.commonSave,
-                onPressed: () {
-                  context.router.pop(state.selectedItems);
-                },
-              ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(16, 0, 16, bottomSheetBottomPadding),
+            child: CustomElevatedButton(
+              text: Strings.commonSave,
+              onPressed: () {
+                context.router.pop(state.selectedItems);
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

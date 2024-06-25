@@ -8,6 +8,7 @@ import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:flutter/services.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
+import 'package:onlinebozor/presentation/support/extensions/platform_sizes.dart';
 import 'package:onlinebozor/presentation/widgets/action/action_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/ad/image_list/ad_image_list_add_widget.dart';
 import 'package:onlinebozor/presentation/widgets/ad/image_list/ad_image_list_image_widget.dart';
@@ -192,7 +193,7 @@ class AdImageListWidget extends StatelessWidget {
                     Navigator.pop(context);
                   },
                 ),
-                SizedBox(height: 32),
+                SizedBox(height: bottomSheetBottomPadding),
               ],
             ),
           ),

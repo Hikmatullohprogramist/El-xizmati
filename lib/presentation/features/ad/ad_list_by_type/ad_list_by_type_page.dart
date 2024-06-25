@@ -35,8 +35,8 @@ class AdListByTypePage
   Widget onWidgetBuild(BuildContext context, AdListByTypeState state) {
     return Center(
       child: Scaffold(
-        backgroundColor: context.backgroundGreyColor,
         appBar: _buildAppBar(context),
+        backgroundColor: context.backgroundWhiteColor,
         body: CustomScrollView(
           physics: BouncingScrollPhysics(),
           slivers: [
@@ -71,7 +71,7 @@ class AdListByTypePage
               borderRadius: BorderRadius.circular(6),
               child: Container(
                 decoration: BoxDecoration(
-                  color: context.cardColor,
+                  color: context.inputBackgroundColor,
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Row(

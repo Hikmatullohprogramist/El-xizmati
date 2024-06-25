@@ -5,6 +5,7 @@ import 'package:onlinebozor/data/datasource/network/responses/user_order/user_or
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
+import 'package:onlinebozor/presentation/support/extensions/platform_sizes.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 import 'package:onlinebozor/presentation/widgets/action/selection_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
@@ -44,84 +45,79 @@ class UserOrderCancelPage extends BasePage<UserOrderCancelCubit,
     commentController.updateOnRestore(state.cancelComment);
 
     return Material(
-      child: SizedBox(
-        width: double.infinity,
-        // height: MediaQuery.sizeOf(context).height * .9,
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              Container(
-                color: context.bottomSheetColor,
-                child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 20),
-                      BottomSheetTitle(
-                        title: Strings.orderCancellationTitle,
-                        onCloseClicked: () {
-                          context.router.pop();
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          Container(
+            color: context.bottomSheetColor,
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  BottomSheetTitle(
+                    title: Strings.orderCancellationTitle,
+                    onCloseClicked: () {
+                      context.router.pop();
+                    },
+                  ),
+                  _buildReasonsItems(context, state),
+                  Visibility(
+                    visible: state.isCommentEnabled,
+                    child: SizedBox(height: 8),
+                  ),
+                  Visibility(
+                    visible: state.isCommentEnabled,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: LabelTextField(
+                        Strings.commonComment,
+                        isRequired: true,
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                    visible: state.isCommentEnabled,
+                    child: SizedBox(height: 8),
+                  ),
+                  Visibility(
+                    visible: state.isCommentEnabled,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: CustomTextFormField(
+                        autofillHints: const [AutofillHints.name],
+                        inputType: TextInputType.name,
+                        keyboardType: TextInputType.name,
+                        maxLines: 5,
+                        minLines: 3,
+                        hint: Strings.commonComment,
+                        textInputAction: TextInputAction.next,
+                        controller: commentController,
+                        onChanged: (value) {
+                          cubit(context).setEnteredComment(value);
                         },
                       ),
-                      _buildReasonsItems(context, state),
-                      Visibility(
-                        visible: state.isCommentEnabled,
-                        child: SizedBox(height: 8),
-                      ),
-                      Visibility(
-                        visible: state.isCommentEnabled,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: LabelTextField(
-                            Strings.commonComment,
-                            isRequired: true,
-                          ),
-                        ),
-                      ),
-                      Visibility(
-                        visible: state.isCommentEnabled,
-                        child: SizedBox(height: 8),
-                      ),
-                      Visibility(
-                        visible: state.isCommentEnabled,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: CustomTextFormField(
-                            autofillHints: const [AutofillHints.name],
-                            inputType: TextInputType.name,
-                            keyboardType: TextInputType.name,
-                            maxLines: 5,
-                            minLines: 3,
-                            hint: Strings.commonComment,
-                            textInputAction: TextInputAction.next,
-                            controller: commentController,
-                            onChanged: (value) {
-                              cubit(context).setEnteredComment(value);
-                            },
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(16, 12, 16, 20),
-                        child: CustomElevatedButton(
-                          text: Strings.commonCancel,
-                          onPressed: () {
-                            cubit(context).cancelOrder();
-                          },
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(
+                      16,
+                      12,
+                      16,
+                      bottomSheetBottomPadding,
+                    ),
+                    child: CustomElevatedButton(
+                      text: Strings.commonCancel,
+                      onPressed: () {
+                        cubit(context).cancelOrder();
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

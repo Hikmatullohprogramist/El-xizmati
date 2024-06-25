@@ -350,9 +350,7 @@ class ProfileEditPage
                   SizedBox(
                     height: 320,
                     child: CupertinoTheme(
-                      data: CupertinoThemeData(
-                        brightness: context.brightness,
-                      ),
+                      data: CupertinoThemeData(brightness: context.brightness),
                       child: CupertinoDatePicker(
                         mode: CupertinoDatePickerMode.date,
                         initialDateTime: DateTime(2000),
