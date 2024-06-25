@@ -51,7 +51,7 @@ class _SearchInputFieldState extends State<SearchInputField> {
         children: [
           Expanded(
             child: TextField(
-              autofocus: true,
+              autofocus: false,
               controller: _controller,
               onChanged: (value) {
                 _onSearchChanged(value);

@@ -28,7 +28,9 @@ class FaceIdConfirmationCubit
 
   void setupCamera() async {
     await initialCamera().then((value) {
-      updateState((state) => state.copyWith(loadState: LoadingState.success));
+      updateState((state) => state.copyWith(
+            cameraInitState: LoadingState.success,
+          ));
     });
   }
 
@@ -43,7 +45,7 @@ class FaceIdConfirmationCubit
     updateState((state) => state.copyWith(
           cameras: cameras,
           cameraController: cameraController,
-          loadState: LoadingState.loading,
+          cameraInitState: LoadingState.loading,
         ));
   }
 
@@ -51,9 +53,9 @@ class FaceIdConfirmationCubit
     updateState((state) => state.copyWith(secretKey: secretKey));
   }
 
-  void sendImage(String image, String secretKey) async {
+  void sendImage(String image) async {
     _authRepository
-        .sendImage(image, secretKey)
+        .sendImage(image, states.secretKey)
         .initFuture()
         .onStart(() {
           updateState((state) => state.copyWith(loading: true));
@@ -61,17 +63,13 @@ class FaceIdConfirmationCubit
         .onSuccess((data) {
           updateState((state) => state.copyWith(
                 loading: false,
-                loadState: LoadingState.success,
               ));
           sendAllFavoriteAds();
           emitEvent(
               FaceIdConfirmationEvent(FaceIdConfirmationEventType.onSuccess));
         })
         .onError((error) {
-          updateState((state) => state.copyWith(
-                loading: false,
-                showPicture: false,
-              ));
+          updateState((state) => state.copyWith(loading: false));
           emitEvent(
               FaceIdConfirmationEvent(FaceIdConfirmationEventType.onFailure));
           stateMessageManager.showErrorSnackBar(error.localizedMessage);
@@ -90,11 +88,12 @@ class FaceIdConfirmationCubit
   }
 
   void closeIntroPage() {
-    updateState((state) => state.copyWith(introState: false));
+    updateState((state) => state.copyWith(isIntroVisible: false));
   }
 
-  void showPicture(bool value) {
-    updateState((state) => state.copyWith(showPicture: value));
+  void showPicture(bool isVisible) {
+    emitEvent(
+        FaceIdConfirmationEvent(FaceIdConfirmationEventType.onShowTakenPhoto));
   }
 
   void croppedImage(String value) {

@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class CameraPreviewRoundedPainter extends CustomPainter {
   final double screenWidth;
   final double screenHeight;
+  final Color backgroundColor;
 
   CameraPreviewRoundedPainter({
     required this.screenWidth,
     required this.screenHeight,
+    required this.backgroundColor,
   });
 
   @override
@@ -36,7 +38,7 @@ class CameraPreviewRoundedPainter extends CustomPainter {
         Path.combine(PathOperation.difference, outerPath, rectPath);
 
     final paint = Paint()
-      ..color = Colors.white.withOpacity(1)
+      ..color = backgroundColor
       ..style = PaintingStyle.fill;
 
     final borderPaint = Paint()
