@@ -14,7 +14,8 @@ extension ColorExtension on BuildContext {
 
   ColorScheme get colorScheme => Theme.of(this).colorScheme;
 
-  Color get backgroundGreyColor => Theme.of(this).colorScheme.secondary;
+  Color get backgroundGreyColor =>
+      isDarkMode ? Color(0xFF121212) : Color(0xFFF2F4FB);
 
   Color get backgroundWhiteColor => Theme.of(this).colorScheme.secondary;
 
@@ -24,12 +25,11 @@ extension ColorExtension on BuildContext {
 
   Color get appBarColor => Theme.of(this).colorScheme.secondary;
 
-  Color get elevatedColor =>
-      isDarkMode ? Theme.of(this).colorScheme.surface : Color(0xFFF6F7FC);
+  Color get elevatedColor => isDarkMode ? Color(0xFF333333) : Color(0xFFFFFFFF);
 
   Color get bottomBarColor => Theme.of(this).colorScheme.background;
 
-  Color get cardColor => isDarkMode ? colorScheme.surface : Color(0x80F6F7FC);
+  Color get cardColor => isDarkMode ? Color(0xFF333333) : Color(0xFFFFFFFF);
 
   Color get cardStrokeColor => Theme.of(this).cardColor;
 
@@ -45,7 +45,8 @@ extension ColorExtension on BuildContext {
 
   Color get inputStrokeActiveColor => colors.buttonPrimary;
 
-  Color get inputStrokeInactiveColor => Theme.of(this).colorScheme.surface;
+  Color get inputStrokeInactiveColor =>
+      isDarkMode ? Color(0xCCF6F7FC) : Color(0xFFDFE2E9);
 
   Color get iconPrimary => colors.iconPrimary;
 

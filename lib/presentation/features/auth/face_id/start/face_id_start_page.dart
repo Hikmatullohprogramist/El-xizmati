@@ -49,15 +49,16 @@ class FaceIdStartPage
       appBar: DefaultAppBar(
         titleText: Strings.faceIdTitle,
         titleTextColor: context.textPrimary,
-        backgroundColor: context.backgroundGreyColor,
+        backgroundColor: context.appBarColor,
         onBackPressed: () => context.router.pop(),
       ),
-      backgroundColor: context.backgroundGreyColor,
+      backgroundColor: context.backgroundWhiteColor,
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
-          Container(
-            margin: EdgeInsets.only(left: 16, top: 24, right: 16),
+          SizedBox(height: 20),
+          Padding(
+            padding: EdgeInsets.only(left: 16, right: 16),
             child: CustomToggle(
               isChecked: state.isFaceIdByPinflEnabled,
               onChanged: (isChecked) {
@@ -70,9 +71,9 @@ class FaceIdStartPage
           state.isFaceIdByPinflEnabled
               ? _buildPinflFields(context, state)
               : _buildBioDocFields(context, state),
-          Expanded(child: Container()),
+          // Expanded(child: Container()),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
             child: CustomElevatedButton(
               text: Strings.commonContinue,
               onPressed: () {
@@ -87,9 +88,6 @@ class FaceIdStartPage
               isLoading: state.isRequestInProcess,
             ),
           ),
-          SizedBox(
-            height: 10,
-          )
         ],
       ),
     );
@@ -102,11 +100,12 @@ class FaceIdStartPage
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox(height: 100),
-          SizedBox(height: 70),
-          SizedBox(height: 10),
-          Strings.commonPinfl.w(500).s(16).c(Colors.black),
-          SizedBox(height: 10),
+          SizedBox(height: 32),
+          SizedBox(height: 64),
+          SizedBox(height: 12),
+          SizedBox(height: 16),
+          Strings.commonPinfl.s(16).w(450),
+          SizedBox(height: 8),
           Row(
             children: [
               Expanded(
@@ -124,107 +123,92 @@ class FaceIdStartPage
               ),
             ],
           ),
-          SizedBox(height: 40),
+          SizedBox(height: 16),
         ],
       ),
     );
   }
 
   Widget _buildBioDocFields(BuildContext context, FaceIdStartState state) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        SizedBox(height: 16),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          width: double.infinity,
-          color: Colors.white,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16),
+      width: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 32),
+          Strings.profileUserDateOfDocValidity.s(16).w(450),
+          SizedBox(height: 8),
+          Row(
             children: [
-              SizedBox(height: 35),
-              Strings.profileUserDateOfDocValidity.w(450).s(16).c(Colors.black),
-              SizedBox(height: 8),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 60,
-                    child: CustomTextFormField(
-                      autofillHints: const [AutofillHints.telephoneNumber],
-                      inputType: TextInputType.text,
-                      keyboardType: TextInputType.phone,
-                      maxLines: 1,
-                      hint: "AA",
-                      maxLength: 2,
-                      controller: bioDocSerialController,
-                      textCapitalization: TextCapitalization.characters,
-                      textInputAction: TextInputAction.next,
-                      onChanged: (value) {
-                        cubit(context).setEnteredBioDocSerial(value);
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Expanded(
-                    child: CustomTextFormField(
-                      autofillHints: const [AutofillHints.telephoneNumber],
-                      inputType: TextInputType.number,
-                      keyboardType: TextInputType.phone,
-                      maxLines: 1,
-                      maxLength: 7,
-                      controller: bioDocNumberController,
-                      textInputAction: TextInputAction.done,
-                      hint: "0123456",
-                      onChanged: (value) {
-                        cubit(context).setEnteredBioDocNumber(value);
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                ],
-              ),
-              SizedBox(height: 10),
-              Strings.profileUserDateOfBirth.w(400).s(16).c(Colors.black),
-              SizedBox(height: 10),
-              InkWell(
-                onTap: () {
-                  showDatePickerDialog(context);
-                },
-                child: Container(
-                  height: 48,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFFBFAFF),
-                    borderRadius: BorderRadius.circular(7),
-                    border: Border.all(
-                      color: Color(0xFFDFE2E9),
-                      width: 1.0,
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      SizedBox(width: 15),
-                      Assets.images.icCalendar.svg(height: 24, width: 24),
-                      SizedBox(width: 10),
-                      if (state.birthDate == "dd.mm.yyyy")
-                        state.birthDate.w(500).s(16).c(context.textSecondary),
-                      if (state.birthDate != "dd.mm.yyyy")
-                        state.birthDate.w(400).s(15).c(Colors.black87),
-                    ],
-                  ),
+              SizedBox(
+                width: 60,
+                child: CustomTextFormField(
+                  autofillHints: const [AutofillHints.telephoneNumber],
+                  inputType: TextInputType.text,
+                  keyboardType: TextInputType.phone,
+                  maxLines: 1,
+                  hint: "AA",
+                  maxLength: 2,
+                  controller: bioDocSerialController,
+                  textCapitalization: TextCapitalization.characters,
+                  textInputAction: TextInputAction.next,
+                  onChanged: (value) {
+                    cubit(context).setEnteredBioDocSerial(value);
+                  },
                 ),
               ),
-              SizedBox(height: 80),
+              SizedBox(width: 12),
+              Expanded(
+                child: CustomTextFormField(
+                  autofillHints: const [AutofillHints.telephoneNumber],
+                  inputType: TextInputType.number,
+                  keyboardType: TextInputType.phone,
+                  maxLines: 1,
+                  maxLength: 7,
+                  controller: bioDocNumberController,
+                  textInputAction: TextInputAction.done,
+                  hint: "123 45 67",
+                  onChanged: (value) {
+                    cubit(context).setEnteredBioDocNumber(value);
+                  },
+                ),
+              ),
             ],
           ),
-        ),
-      ],
+          SizedBox(height: 10),
+          Strings.profileUserDateOfBirth.s(16).w(450),
+          SizedBox(height: 10),
+          Container(
+            height: 48,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: context.inputBackgroundColor,
+              borderRadius: BorderRadius.circular(7),
+              border: Border.all(
+                color: context.inputStrokeInactiveColor,
+                width: 1.0,
+              ),
+            ),
+            child: InkWell(
+              onTap: () => showDatePickerDialog(context),
+              child: Row(
+                children: [
+                  SizedBox(width: 15),
+                  Assets.images.icCalendar.svg(height: 24, width: 24),
+                  SizedBox(width: 10),
+                  if (state.birthDate == "dd.mm.yyyy")
+                    state.birthDate.w(500).s(16).c(context.textSecondary),
+                  if (state.birthDate != "dd.mm.yyyy")
+                    state.birthDate.w(400).s(15).c(context.textPrimary),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 21),
+        ],
+      ),
     );
   }
 
@@ -249,9 +233,7 @@ class FaceIdStartPage
                   SizedBox(
                     height: 320,
                     child: CupertinoTheme(
-                      data: CupertinoThemeData(
-                        brightness: context.brightness,
-                      ),
+                      data: CupertinoThemeData(brightness: context.brightness),
                       child: CupertinoDatePicker(
                         mode: CupertinoDatePickerMode.date,
                         initialDateTime: DateTime(2000),
@@ -259,7 +241,7 @@ class FaceIdStartPage
                         maximumYear: 2024,
                         onDateTimeChanged: (DateTime newDateTime) {
                           final formattedDate =
-                          DateFormat("yyyy-MM-dd").format(newDateTime);
+                              DateFormat("yyyy-MM-dd").format(newDateTime);
                           cubit(context).setBirthDate(formattedDate);
                         },
                       ),
@@ -269,12 +251,7 @@ class FaceIdStartPage
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: CustomElevatedButton(
                       text: Strings.commonSave,
-                      onPressed: () {
-                        Navigator.of(buildContext).pop();
-                      },
-                      backgroundColor: buildContext.colors.buttonPrimary,
-                      isEnabled: true,
-                      isLoading: false,
+                      onPressed: () => Navigator.of(buildContext).pop(),
                     ),
                   ),
                   SizedBox(height: 20),
