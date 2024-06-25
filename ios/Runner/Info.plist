@@ -45,5 +45,15 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+    <string>Allows the app to access your music library to play audio.</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Used to determine your location when using the app to provide location-based services like address lookup.</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Allows the app to access your location even when not in use to provide background location updates.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Used for face identification and adding images to ads.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Allows the app to access your photo library to select images for ads.</string>
 </dict>
 </plist>
