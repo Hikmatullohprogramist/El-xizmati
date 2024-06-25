@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/core/extensions/list_extensions.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
+import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/datasource/network/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/payment_type/payment_type_response.dart';
 import 'package:onlinebozor/data/repositories/ad_creation_repository.dart';
@@ -18,6 +19,7 @@ import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/presentation/support/extensions/compressing_exts.dart';
+import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/xfile_exts.dart';
 
 part 'request_ad_creation_cubit.freezed.dart';
@@ -73,92 +75,111 @@ class RequestAdCreationCubit
   }
 
   Future<void> getEditingInitialData() async {
-    try {
-      updateState((state) => state.copyWith(isPreparingInProcess: true));
-      final ad =
-          await _adCreationRepository.getRequestAdForEdit(adId: states.adId!);
-
-      updateState((state) => state.copyWith(
-            isNotPrepared: false,
-            isPreparingInProcess: false,
-            //
-            title: ad.name ?? "",
-            category: ad.getCategory(),
-            //
-            pickedImages: ad.getPhotos(),
-            //
-            desc: ad.description ?? "",
-            //
-            fromPrice: ad.fromPrice,
-            toPrice: ad.toPrice,
-            currency: ad.getCurrency(),
-            paymentTypes: ad.getPaymentTypes(),
-            isAgreedPrice: ad.isContract ?? false,
-            //
-            contactPerson: ad.contactName ?? "",
-            phone: ad.phoneNumber?.clearPhoneWithoutCode() ?? "",
-            email: ad.email ?? "",
-            //
-            address: ad.getUserAddress()?.toAddress(),
-            requestDistricts: ad.getRequestDistricts(),
-            //
-            isAutoRenewal: ad.isAutoRenew ?? false,
-          ));
-    } catch (e) {
-      logger.w(e);
-      updateState((state) => state.copyWith(isPreparingInProcess: false));
-    }
+    _adCreationRepository
+        .getRequestAdForEdit(adId: states.adId!)
+        .initFuture()
+        .onStart(() {
+          updateState((state) => state.copyWith(isPreparingInProcess: true));
+        })
+        .onSuccess((ad) {
+          updateState((state) => state.copyWith(
+                isNotPrepared: false,
+                isPreparingInProcess: false,
+                //
+                title: ad.name ?? "",
+                category: ad.getCategory(),
+                //
+                pickedImages: ad.getPhotos(),
+                //
+                desc: ad.description ?? "",
+                //
+                fromPrice: ad.fromPrice,
+                toPrice: ad.toPrice,
+                currency: ad.getCurrency(),
+                paymentTypes: ad.getPaymentTypes(),
+                isAgreedPrice: ad.isContract ?? false,
+                //
+                contactPerson: ad.contactName ?? "",
+                phone: ad.phoneNumber?.clearPhoneWithoutCode() ?? "",
+                email: ad.email ?? "",
+                //
+                address: ad.getUserAddress()?.toAddress(),
+                requestDistricts: ad.getRequestDistricts(),
+                //
+                isAutoRenewal: ad.isAutoRenew ?? false,
+              ));
+        })
+        .onError((error) {
+          logger.w(error);
+          updateState((state) => state.copyWith(isPreparingInProcess: false));
+          stateMessageManager.showErrorBottomSheet(error.localizedMessage);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> createOrUpdateRequestAd() async {
     updateState((state) => state.copyWith(isRequestSending: true));
+    emitEvent(RequestAdCreationEvent(
+      RequestAdCreationEventType.onRequestStarted,
+    ));
 
     await uploadImages();
 
-    try {
-      final adId = await _adCreationRepository.createOrUpdateRequestAd(
-        adId: states.adId,
-        //
-        title: states.title,
-        categoryId: states.category!.id,
-        serviceCategoryId: states.category!.parentId ?? states.category!.id,
-        serviceSubCategoryId: states.category!.id,
-        //
-        adType: states.adType,
-        adTransactionType: states.adTransactionType,
-        //
-        mainImageId: states.pickedImages!.map((e) => e.id).first!,
-        pickedImageIds: states.pickedImages!.map((e) => e.id!).toList(),
-        //
-        desc: states.desc,
-        fromPrice: states.fromPrice!,
-        toPrice: states.toPrice!,
-        currency: states.currency!,
-        paymentTypes: states.paymentTypes,
-        isAgreedPrice: states.isAgreedPrice,
-        //
-        requestDistricts: states.requestDistricts,
-        //
-        address: states.address!,
-        contactPerson: states.contactPerson,
-        phone: states.phone.clearPhoneWithCode(),
-        email: states.email,
-        //
-        isAutoRenewal: states.isAutoRenewal,
-      );
+    _adCreationRepository
+        .createOrUpdateRequestAd(
+          adId: states.adId,
+          //
+          title: states.title,
+          categoryId: states.category!.id,
+          serviceCategoryId: states.category!.parentId ?? states.category!.id,
+          serviceSubCategoryId: states.category!.id,
+          //
+          adType: states.adType,
+          adTransactionType: states.adTransactionType,
+          //
+          mainImageId: states.pickedImages!.map((e) => e.id).first!,
+          pickedImageIds: states.pickedImages!.map((e) => e.id!).toList(),
+          //
+          desc: states.desc,
+          fromPrice: states.fromPrice!,
+          toPrice: states.toPrice!,
+          currency: states.currency!,
+          paymentTypes: states.paymentTypes,
+          isAgreedPrice: states.isAgreedPrice,
+          //
+          requestDistricts: states.requestDistricts,
+          //
+          address: states.address!,
+          contactPerson: states.contactPerson,
+          phone: states.phone.clearPhoneWithCode(),
+          email: states.email,
+          //
+          isAutoRenewal: states.isAutoRenewal,
+        )
+        .initFuture()
+        .onStart(() {})
+        .onSuccess((data) async {
+          updateState((state) => state.copyWith(isRequestSending: false));
+          if (!states.isEditing) {
+            updateState((state) => state.copyWith(adId: data));
+          }
 
-      updateState((state) => state.copyWith(isRequestSending: false));
-      if (!states.isEditing) {
-        updateState((state) => state.copyWith(adId: adId));
-      }
+          await Future.delayed(Duration(seconds: 2));
 
-      await Future.delayed(Duration(seconds: 2));
-
-      emitEvent(RequestAdCreationEvent(RequestAdCreationEventType.onAdCreated));
-    } catch (exception) {
-      logger.e(exception.toString());
-      updateState((state) => state.copyWith(isRequestSending: false));
-    }
+          emitEvent(RequestAdCreationEvent(
+            RequestAdCreationEventType.onRequestFinished,
+          ));
+        })
+        .onError((error) {
+          logger.e(error);
+          updateState((state) => state.copyWith(isRequestSending: false));
+          emitEvent(RequestAdCreationEvent(
+            RequestAdCreationEventType.onRequestFailed,
+          ));
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> uploadImages() async {
@@ -177,6 +198,9 @@ class RequestAdCreationCubit
       } catch (exception) {
         logger.e(exception.toString());
         updateState((state) => state.copyWith(isRequestSending: false));
+        emitEvent(RequestAdCreationEvent(
+          RequestAdCreationEventType.onRequestFailed,
+        ));
       } finally {
         updateState((state) => state.copyWith(pickedImages: images));
       }

@@ -73,6 +73,11 @@ class ProductAdCreationEvent with _$ProductAdCreationEvent {
   }) = _ProductAdCreationEvent;
 }
 
-enum ProductAdCreationEventType { onOverMaxCount, onAdCreated }
+enum ProductAdCreationEventType {
+  onOverMaxCount,
+  onRequestStarted,
+  onRequestFinished,
+  onRequestFailed,
+}
 
 const int MAX_IMAGE_COUNT = 5;

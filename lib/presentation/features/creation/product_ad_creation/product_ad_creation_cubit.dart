@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/core/extensions/list_extensions.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
+import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/datasource/network/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/payment_type/payment_type_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/unit/unit_response.dart';
@@ -18,6 +19,7 @@ import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/presentation/support/extensions/compressing_exts.dart';
+import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/xfile_exts.dart';
 
 part 'product_ad_creation_cubit.freezed.dart';
@@ -72,123 +74,143 @@ class ProductAdCreationCubit
   }
 
   Future<void> getEditingInitialData() async {
-    updateState((state) => state.copyWith(isPreparingInProcess: true));
-    try {
-      final ad =
-          await _adCreationRepository.getProductAdForEdit(adId: states.adId!);
-
-      updateState((state) => state.copyWith(
-            isFirstTime: false,
-            isNotPrepared: false,
-            isPreparingInProcess: false,
-            title: ad.name ?? "",
-            category: ad.getCategory(),
-            pickedImages: ad.getPhotos(),
-            desc: ad.description ?? "",
-            warehouseCount: ad.warehouseCount,
-            unit: ad.getUnit(),
-            price: ad.price,
-            currency: ad.getCurrency(),
-            paymentTypes: ad.getPaymentTypes(),
-            isBusiness: ad.getIsBusiness(),
-            isNew: ad.getIsNew(),
-            isAgreedPrice: ad.isContract ?? false,
-            address: ad.getUserAddress()?.toAddress(),
-            contactPerson: ad.contactName ?? "",
-            phone: ad.phoneNumber?.clearPhoneWithoutCode() ?? "",
-            email: ad.email ?? "",
-            exchangeTitle: ad.otherName ?? "",
-            exchangeDesc: ad.otherDescription ?? "",
-            isExchangeNew: ad.getIsOtherNew(),
-            exchangeCategory: ad.getOtherCategory(),
-            isPickupEnabled: ad.pickupEnabled ?? false,
-            pickupWarehouses:
-                ad.getWarehouses().map((e) => e.toAddress()).toList(),
-            isFreeDeliveryEnabled: ad.freeDeliveryEnabled ?? false,
-            freeDeliveryDistricts: ad.getFreeDeliveryDistricts(),
-            isPaidDeliveryEnabled: ad.paidDeliveryEnabled ?? false,
-            paidDeliveryDistricts: ad.getPaidDeliveryDistricts(),
-            paidDeliveryPrice: ad.paidDeliveryPrice,
-            isAutoRenewal: ad.isAutoRenew ?? false,
-            videoUrl: ad.video ?? "",
-            isShowMySocialAccount: ad.showSocial ?? false,
-          ));
-    } catch (e) {
-      logger.w("getEditingInitialData error = $e");
-      updateState((state) => state.copyWith(
-            isFirstTime: false,
-            isPreparingInProcess: false,
-            isNotPrepared: true,
-          ));
-    }
+    _adCreationRepository
+        .getProductAdForEdit(adId: states.adId!)
+        .initFuture()
+        .onStart(() {
+          updateState((state) => state.copyWith(isPreparingInProcess: true));
+        })
+        .onSuccess((ad) {
+          updateState((state) => state.copyWith(
+                isFirstTime: false,
+                isNotPrepared: false,
+                isPreparingInProcess: false,
+                title: ad.name ?? "",
+                category: ad.getCategory(),
+                pickedImages: ad.getPhotos(),
+                desc: ad.description ?? "",
+                warehouseCount: ad.warehouseCount,
+                unit: ad.getUnit(),
+                price: ad.price,
+                currency: ad.getCurrency(),
+                paymentTypes: ad.getPaymentTypes(),
+                isBusiness: ad.getIsBusiness(),
+                isNew: ad.getIsNew(),
+                isAgreedPrice: ad.isContract ?? false,
+                address: ad.getUserAddress()?.toAddress(),
+                contactPerson: ad.contactName ?? "",
+                phone: ad.phoneNumber?.clearPhoneWithoutCode() ?? "",
+                email: ad.email ?? "",
+                exchangeTitle: ad.otherName ?? "",
+                exchangeDesc: ad.otherDescription ?? "",
+                isExchangeNew: ad.getIsOtherNew(),
+                exchangeCategory: ad.getOtherCategory(),
+                isPickupEnabled: ad.pickupEnabled ?? false,
+                pickupWarehouses:
+                    ad.getWarehouses().map((e) => e.toAddress()).toList(),
+                isFreeDeliveryEnabled: ad.freeDeliveryEnabled ?? false,
+                freeDeliveryDistricts: ad.getFreeDeliveryDistricts(),
+                isPaidDeliveryEnabled: ad.paidDeliveryEnabled ?? false,
+                paidDeliveryDistricts: ad.getPaidDeliveryDistricts(),
+                paidDeliveryPrice: ad.paidDeliveryPrice,
+                isAutoRenewal: ad.isAutoRenew ?? false,
+                videoUrl: ad.video ?? "",
+                isShowMySocialAccount: ad.showSocial ?? false,
+              ));
+        })
+        .onError((error) {
+          logger.e(error);
+          updateState((state) => state.copyWith(
+                isFirstTime: false,
+                isPreparingInProcess: false,
+                isNotPrepared: true,
+              ));
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> createOrUpdateProductAd() async {
     updateState((state) => state.copyWith(isRequestSending: true));
+    emitEvent(ProductAdCreationEvent(
+      ProductAdCreationEventType.onRequestStarted,
+    ));
 
     await uploadImages();
 
-    try {
-      final adId = await _adCreationRepository.createOrUpdateProductAd(
-        adId: states.adId,
-        //
-        title: states.title,
-        category: states.category!,
-        adTransactionType: states.adTransactionType,
-        //
-        mainImageId: states.pickedImages!.map((e) => e.id).first!,
-        pickedImageIds: states.pickedImages!.map((e) => e.id!).toList(),
-        //
-        desc: states.desc,
-        warehouseCount: states.warehouseCount,
-        unit: states.unit,
-        minAmount: states.minAmount,
-        price: states.price,
-        currency: states.currency,
-        paymentTypes: states.paymentTypes,
-        isAgreedPrice: states.isAgreedPrice,
-        //
-        propertyStatus: states.isNew ? "NEW" : "USED",
-        accountType: states.isBusiness ? "BUSINESS" : "PRIVATE",
-        //
-        exchangeTitle: states.exchangeTitle,
-        exchangeCategory: states.exchangeCategory,
-        exchangeDesc: states.exchangeDesc,
-        exchangePropertyStatus: states.isExchangeNew ? "NEW" : "USED",
-        exchangeAccountType: states.isExchangeBusiness ? "BUSINESS" : "PRIVATE",
-        //
-        address: states.address,
-        contactPerson: states.contactPerson,
-        phone: states.phone.clearPhoneWithCode(),
-        email: states.email,
-        //
-        isPickupEnabled: states.isPickupEnabled,
-        pickupWarehouses: states.pickupWarehouses,
-        isFreeDeliveryEnabled: states.isFreeDeliveryEnabled,
-        freeDeliveryMaxDay: states.freeDeliveryMaxDay,
-        freeDeliveryDistricts: states.freeDeliveryDistricts,
-        isPaidDeliveryEnabled: states.isPaidDeliveryEnabled,
-        paidDeliveryMaxDay: states.paidDeliveryMaxDay,
-        paidDeliveryPrice: states.paidDeliveryPrice,
-        paidDeliveryDistricts: states.paidDeliveryDistricts,
-        //
-        isAutoRenewal: states.isAutoRenewal,
-        isShowMySocialAccount: states.isShowMySocialAccount,
-        videoUrl: states.videoUrl,
-      );
+    _adCreationRepository
+        .createOrUpdateProductAd(
+          adId: states.adId,
+          //
+          title: states.title,
+          category: states.category!,
+          adTransactionType: states.adTransactionType,
+          //
+          mainImageId: states.pickedImages!.map((e) => e.id).first!,
+          pickedImageIds: states.pickedImages!.map((e) => e.id!).toList(),
+          //
+          desc: states.desc,
+          warehouseCount: states.warehouseCount,
+          unit: states.unit,
+          minAmount: states.minAmount,
+          price: states.price,
+          currency: states.currency,
+          paymentTypes: states.paymentTypes,
+          isAgreedPrice: states.isAgreedPrice,
+          //
+          propertyStatus: states.isNew ? "NEW" : "USED",
+          accountType: states.isBusiness ? "BUSINESS" : "PRIVATE",
+          //
+          exchangeTitle: states.exchangeTitle,
+          exchangeCategory: states.exchangeCategory,
+          exchangeDesc: states.exchangeDesc,
+          exchangePropertyStatus: states.isExchangeNew ? "NEW" : "USED",
+          exchangeAccountType:
+              states.isExchangeBusiness ? "BUSINESS" : "PRIVATE",
+          //
+          address: states.address,
+          contactPerson: states.contactPerson,
+          phone: states.phone.clearPhoneWithCode(),
+          email: states.email,
+          //
+          isPickupEnabled: states.isPickupEnabled,
+          pickupWarehouses: states.pickupWarehouses,
+          isFreeDeliveryEnabled: states.isFreeDeliveryEnabled,
+          freeDeliveryMaxDay: states.freeDeliveryMaxDay,
+          freeDeliveryDistricts: states.freeDeliveryDistricts,
+          isPaidDeliveryEnabled: states.isPaidDeliveryEnabled,
+          paidDeliveryMaxDay: states.paidDeliveryMaxDay,
+          paidDeliveryPrice: states.paidDeliveryPrice,
+          paidDeliveryDistricts: states.paidDeliveryDistricts,
+          //
+          isAutoRenewal: states.isAutoRenewal,
+          isShowMySocialAccount: states.isShowMySocialAccount,
+          videoUrl: states.videoUrl,
+        )
+        .initFuture()
+        .onStart(() {})
+        .onSuccess((data) async {
+          updateState((state) => state.copyWith(isRequestSending: false));
+          if (!states.isEditing) {
+            updateState((state) => state.copyWith(adId: data));
+          }
 
-      updateState((state) => state.copyWith(isRequestSending: false));
-      if (!states.isEditing) {
-        updateState((state) => state.copyWith(adId: adId));
-      }
+          await Future.delayed(Duration(seconds: 2));
 
-      await Future.delayed(Duration(seconds: 2));
-
-      emitEvent(ProductAdCreationEvent(ProductAdCreationEventType.onAdCreated));
-    } catch (exception) {
-      logger.e(exception.toString());
-      updateState((state) => state.copyWith(isRequestSending: false));
-    }
+          emitEvent(ProductAdCreationEvent(
+            ProductAdCreationEventType.onRequestFinished,
+          ));
+        })
+        .onError((error) {
+          logger.e(error);
+          updateState((state) => state.copyWith(isRequestSending: false));
+          emitEvent(ProductAdCreationEvent(
+            ProductAdCreationEventType.onRequestStarted,
+          ));
+          stateMessageManager.showErrorBottomSheet(error.localizedMessage);
+        })
+        .onFinished(() {})
+        .executeFuture();
   }
 
   Future<void> uploadImages() async {
@@ -207,6 +229,9 @@ class ProductAdCreationCubit
       } catch (exception) {
         logger.e(exception.toString());
         updateState((state) => state.copyWith(isRequestSending: false));
+        emitEvent(ProductAdCreationEvent(
+          ProductAdCreationEventType.onRequestFailed,
+        ));
       } finally {
         updateState((state) => state.copyWith(pickedImages: images));
       }

@@ -50,6 +50,11 @@ class RequestAdCreationEvent with _$RequestAdCreationEvent {
   }) = _RequestAdCreationEvent;
 }
 
-enum RequestAdCreationEventType { onOverMaxCount, onAdCreated }
+enum RequestAdCreationEventType {
+  onOverMaxCount,
+  onRequestStarted,
+  onRequestFinished,
+  onRequestFailed,
+}
 
 const int MAX_IMAGE_COUNT = 5;

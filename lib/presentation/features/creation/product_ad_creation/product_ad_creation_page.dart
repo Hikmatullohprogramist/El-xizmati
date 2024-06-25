@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
@@ -19,7 +20,6 @@ import 'package:onlinebozor/presentation/support/extensions/color_extension.dart
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
-import 'package:flutter/services.dart';
 import 'package:onlinebozor/presentation/widgets/action/selection_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/ad/image_list/ad_image_list_widget.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
@@ -76,11 +76,18 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
     switch (event.type) {
       case ProductAdCreationEventType.onOverMaxCount:
         _showMaxCountError(context, event.maxImageCount);
-      case ProductAdCreationEventType.onAdCreated:
-        context.router.replace(AdCreationResultRoute(
-          adId: cubit(context).states.adId!,
-          adTransactionType: cubit(context).states.adTransactionType,
-        ));
+      case ProductAdCreationEventType.onRequestStarted:
+        showProgressDialog(context);
+      case ProductAdCreationEventType.onRequestFinished:
+        {
+          hideProgressBarDialog(context);
+          context.router.replace(AdCreationResultRoute(
+            adId: cubit(context).states.adId!,
+            adTransactionType: cubit(context).states.adTransactionType,
+          ));
+        }
+      case ProductAdCreationEventType.onRequestFailed:
+        hideProgressBarDialog(context);
     }
   }
 
@@ -420,7 +427,8 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
                             hint: "-",
                             validator: (v) => NotEmptyValidator.validate(v),
                             onTap: () async {
-                              final currency = await showCupertinoModalBottomSheet(
+                              final currency =
+                                  await showCupertinoModalBottomSheet(
                                 context: context,
                                 builder: (context) => CurrencySelectionPage(
                                   initialSelectedItem: state.currency,

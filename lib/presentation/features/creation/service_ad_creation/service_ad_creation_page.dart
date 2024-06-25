@@ -64,11 +64,18 @@ class ServiceAdCreationPage extends BasePage<ServiceAdCreationCubit,
     switch (event.type) {
       case ServiceAdCreationEventType.onOverMaxCount:
         _showMaxCountError(context, event.maxImageCount);
-      case ServiceAdCreationEventType.onAdCreated:
-        context.router.replace(AdCreationResultRoute(
-          adId: cubit(context).states.adId!,
-          adTransactionType: AdTransactionType.service,
-        ));
+      case ServiceAdCreationEventType.onRequestStarted:
+        showProgressDialog(context);
+      case ServiceAdCreationEventType.onRequestFinished:
+        {
+          hideProgressBarDialog(context);
+          context.router.replace(AdCreationResultRoute(
+            adId: cubit(context).states.adId!,
+            adTransactionType: AdTransactionType.service,
+          ));
+        }
+      case ServiceAdCreationEventType.onRequestFailed:
+        hideProgressBarDialog(context);
     }
   }
 

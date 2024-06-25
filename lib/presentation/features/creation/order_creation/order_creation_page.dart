@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -12,9 +13,11 @@ import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
+import 'package:onlinebozor/presentation/support/extensions/platform_sizes.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
+import 'package:onlinebozor/presentation/widgets/elevation/elevation_widget.dart';
 import 'package:onlinebozor/presentation/widgets/favorite/order_ad_favorite_widget.dart';
 import 'package:onlinebozor/presentation/widgets/favorite/order_ad_remove_widget.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/custom_dropdown_form_field.dart';
@@ -64,8 +67,6 @@ class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationState,
         context.router.push(AuthStartRoute());
       case OrderCreationEventType.onFailedOrderCreation:
         showErrorBottomSheet(context, event.message ?? "");
-      // case PageEventType.onFailedIdentityNotVerified:
-      //   showErrorBottomSheet(context, event.message ?? "");
     }
   }
 
@@ -121,7 +122,7 @@ class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationState,
       color: context.cardColor,
       padding: EdgeInsets.symmetric(vertical: 16),
       child: SizedBox(
-        height: 100,
+        height: 86,
         child: ListView.separated(
           physics: BouncingScrollPhysics(),
           scrollDirection: Axis.horizontal,
@@ -133,7 +134,7 @@ class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationState,
                 borderRadius: BorderRadius.circular(6),
                 child: RoundedCachedNetworkImage(
                   imageId: state.adDetail!.photos?[index].image ?? "",
-                  imageWidth: 160,
+                  imageWidth: 140,
                 ),
                 onTap: () {
                   context.router.push(
@@ -359,99 +360,105 @@ class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationState,
           SizedBox(height: 16),
           Strings.orderCreationPaymentMethod.w(700).s(16),
           SizedBox(height: 8),
-          InkWell(
-            borderRadius: BorderRadius.circular(10),
-            onTap: () {
-              cubit(context).setPaymentType(1);
-              HapticFeedback.lightImpact();
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(width: 1, color: Color(0xFFDEE1E8)),
-              ),
-              child: Row(
-                children: [
-                  state.paymentId == 1
-                      ? Assets.images.icRadioButtonSelected.svg()
-                      : Assets.images.icRadioButtonUnSelected.svg(),
-                  SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Strings.orderCreationPaymentWithCash.w(600).s(14),
-                      ],
-                    ),
-                  )
-                ],
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(10),
+              onTap: () {
+                cubit(context).setPaymentType(1);
+                HapticFeedback.lightImpact();
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(width: 1, color: Color(0xFFDEE1E8)),
+                ),
+                child: Row(
+                  children: [
+                    state.paymentId == 1
+                        ? Assets.images.icRadioButtonSelected.svg()
+                        : Assets.images.icRadioButtonUnSelected.svg(),
+                    SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Strings.orderCreationPaymentWithCash.w(600).s(14),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
           SizedBox(height: 8),
-          InkWell(
-            borderRadius: BorderRadius.circular(10),
-            onTap: () {
-              cubit(context).setPaymentType(7);
-              HapticFeedback.lightImpact();
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(width: 1, color: Color(0xFFDEE1E8)),
-              ),
-              child: Row(
-                children: [
-                  state.paymentId == 7
-                      ? Assets.images.icRadioButtonSelected.svg()
-                      : Assets.images.icRadioButtonUnSelected.svg(),
-                  SizedBox(width: 16),
-                  Expanded(
-                    child: Strings.orderCreationPaymentWithDeposit.w(600).s(14),
-                  ),
-                  "${priceMaskFormatter.formatDouble(state.actualDepositBalance)} ${Strings.currencyUzs}"
-                      .s(16)
-                      .w(500)
-                      .c(state.actualDepositBalance > 0
-                          ? Colors.green
-                          : Colors.red),
-                  SizedBox(width: 8),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: context.colors.primary,
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(10),
+              onTap: () {
+                cubit(context).setPaymentType(7);
+                HapticFeedback.lightImpact();
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(width: 1, color: Color(0xFFDEE1E8)),
+                ),
+                child: Row(
+                  children: [
+                    state.paymentId == 7
+                        ? Assets.images.icRadioButtonSelected.svg()
+                        : Assets.images.icRadioButtonUnSelected.svg(),
+                    SizedBox(width: 16),
+                    Expanded(
+                      child: Strings.orderCreationPaymentWithDeposit.w(600).s(14),
                     ),
-                    child: Material(
-                      color: Colors.transparent,
-                      child: InkWell(
+                    "${priceMaskFormatter.formatDouble(state.actualDepositBalance)} ${Strings.currencyUzs}"
+                        .s(16)
+                        .w(500)
+                        .c(state.actualDepositBalance > 0
+                            ? Colors.green
+                            : Colors.red),
+                    SizedBox(width: 8),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: context.colors.primary,
                         borderRadius: BorderRadius.all(Radius.circular(12)),
-                        onTap: () async {
-                          RefillWithRealPayPage page = RefillWithRealPayPage();
-                          var isSuccess = await showCupertinoModalBottomSheet(
-                            context: context,
-                            builder: (context) {
-                              return page;
-                            },
-                          );
-
-                          if (isSuccess is bool && isSuccess) {
-                            cubit(context).getDepositCardBalance();
-                          }
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 6,
-                            horizontal: 12,
+                      ),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          onTap: () async {
+                            RefillWithRealPayPage page = RefillWithRealPayPage();
+                            var isSuccess = await showCupertinoModalBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                return page;
+                              },
+                            );
+            
+                            if (isSuccess is bool && isSuccess) {
+                              cubit(context).getDepositCardBalance();
+                            }
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 6,
+                              horizontal: 8,
+                            ),
+                            child: Assets.images.icCardRefill
+                                .svg(color: Colors.white),
                           ),
-                          child: Assets.images.icCardRefill
-                              .svg(color: Colors.white),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -461,63 +468,70 @@ class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationState,
     );
   }
 
-  Container _buildBottomBar(BuildContext context, OrderCreationState state) {
-    return Container(
-      decoration: BoxDecoration(
-        color: context.cardColor,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16),
-          topRight: Radius.circular(16),
-        ),
-        border: Border.all(
-          color: context.cardStrokeColor,
-          width: .25,
-        ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(height: 12),
-          Row(
-            children: [
-              SizedBox(width: 16),
-              "${Strings.orderCreationTotalPrice}:".w(600).s(16),
-              SizedBox(width: 8),
-              (priceMaskFormatter.formatInt(state.totalPrice) ?? "")
-                  .w(800)
-                  .s(18)
-                  .c(Color(0xFF5C6AC3))
-                  .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
-              (state.adDetail?.currency.getLocalizedName() ??
-                      Strings.currencyUzs)
-                  .w(800)
-                  .s(18)
-                  .c(Color(0xFF5C6AC3))
-                  .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
-              SizedBox(width: 16),
-            ],
+  Widget _buildBottomBar(BuildContext context, OrderCreationState state) {
+    return ElevationWidget(
+      topLeftRadius: 20,
+      topRightRadius: 20,
+      shadowSpreadRadius: 2,
+      shadowBlurRadius: 2,
+      child: Container(
+        decoration: BoxDecoration(
+          color: context.cardColor,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
           ),
-          SizedBox(height: 12),
-          Row(
-            children: [
-              SizedBox(width: 16),
-              Expanded(
-                child: CustomElevatedButton(
-                  text: Strings.cartOrderCreate,
-                  onPressed: () {
-                    HapticFeedback.lightImpact();
-                    if (_formKey.currentState!.validate()) {
-                      cubit(context).orderCreate();
-                    }
-                  },
+          border: Border.all(
+            color: context.cardStrokeColor,
+            width: .25,
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(height: 12),
+            Row(
+              children: [
+                SizedBox(width: 16),
+                "${Strings.orderCreationTotalPrice}:".w(600).s(16),
+                SizedBox(width: 8),
+                (priceMaskFormatter.formatInt(state.totalPrice) ?? "")
+                    .w(800)
+                    .s(18)
+                    .c(Color(0xFF5C6AC3))
+                    .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
+                SizedBox(width: 4),
+                (state.adDetail?.currency.getLocalizedName() ??
+                        Strings.currencyUzs)
+                    .w(800)
+                    .s(18)
+                    .c(Color(0xFF5C6AC3))
+                    .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
+                SizedBox(width: 16),
+              ],
+            ),
+            SizedBox(height: 12),
+            Row(
+              children: [
+                SizedBox(width: 16),
+                Expanded(
+                  child: CustomElevatedButton(
+                    text: Strings.cartOrderCreate,
+                    onPressed: () {
+                      HapticFeedback.lightImpact();
+                      if (_formKey.currentState!.validate()) {
+                        cubit(context).orderCreate();
+                      }
+                    },
+                  ),
                 ),
-              ),
-              SizedBox(width: 16)
-            ],
-          ),
-          SizedBox(height: 16),
-        ],
+                SizedBox(width: 16)
+              ],
+            ),
+            SizedBox(height: bottomSheetBottomPadding),
+          ],
+        ),
       ),
     );
   }

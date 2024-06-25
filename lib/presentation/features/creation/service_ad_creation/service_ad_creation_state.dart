@@ -51,6 +51,11 @@ class ServiceAdCreationEvent with _$ServiceAdCreationEvent {
   }) = _ServiceAdCreationEvent;
 }
 
-enum ServiceAdCreationEventType { onOverMaxCount, onAdCreated }
+enum ServiceAdCreationEventType {
+  onOverMaxCount,
+  onRequestStarted,
+  onRequestFinished,
+  onRequestFailed,
+}
 
 const int MAX_IMAGE_COUNT = 5;

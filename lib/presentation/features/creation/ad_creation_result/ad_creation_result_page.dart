@@ -35,7 +35,7 @@ class AdCreationResultPage extends BasePage<AdCreationResultCubit,
         backgroundColor: context.appBarColor,
         onBackPressed: () => context.router.pop(),
       ),
-      backgroundColor: context.backgroundGreyColor,
+      backgroundColor: context.backgroundWhiteColor,
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
