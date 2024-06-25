@@ -2,13 +2,17 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 
 class SearchInputField extends StatefulWidget {
-  final Function(String? query) onSearch;
+  final String hintText;
+  final Function(String? query) onQueryChanged;
 
-  const SearchInputField(this.onSearch, {super.key});
+  const SearchInputField({
+    super.key,
+    required this.hintText,
+    required this.onQueryChanged,
+  });
 
   @override
   _SearchInputFieldState createState() => _SearchInputFieldState();
@@ -28,14 +32,14 @@ class _SearchInputFieldState extends State<SearchInputField> {
   void _onSearchChanged(String query) {
     _debounceTimer?.cancel();
     _debounceTimer = Timer(Duration(milliseconds: 250), () {
-      widget.onSearch(query);
+      widget.onQueryChanged(query);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 64, top: 8, bottom: 8, right: 16),
+      margin: EdgeInsets.only(left: 16, top: 8, bottom: 8, right: 16),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: ShapeDecoration(
         color: context.inputBackgroundColor,
@@ -60,7 +64,7 @@ class _SearchInputFieldState extends State<SearchInputField> {
                 fontSize: 14,
               ),
               decoration: InputDecoration.collapsed(
-                hintText: Strings.searchHintCategoryAndProducts,
+                hintText: widget.hintText,
                 hintStyle: TextStyle(
                   color: context.textSecondary,
                   fontSize: 12,
@@ -69,18 +73,6 @@ class _SearchInputFieldState extends State<SearchInputField> {
               keyboardType: TextInputType.text,
             ),
           ),
-          // Material(
-          //   color: Colors.transparent,
-          //   child: InkWell(
-          //     borderRadius: BorderRadius.circular(12),
-          //     onTap: () {
-          //       _onSearchChanged(_controller.text);
-          //     },
-          //     child: Assets.images.iconSearch
-          //         .svg(color: Colors.blueAccent, width: 24, height: 24),
-          //   ),
-          // ),
-          // SizedBox(width: 8),
           Material(
             color: Colors.transparent,
             child: InkWell(

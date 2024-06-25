@@ -9,14 +9,14 @@ import 'package:onlinebozor/presentation/support/extensions/color_extension.dart
 import 'package:onlinebozor/presentation/widgets/category/category_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/category/category_widget.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
-import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_field.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
+import 'package:onlinebozor/presentation/widgets/search/search_input_field.dart';
 
 import 'category_selection_cubit.dart';
 
 @RoutePage()
-class CategorySelectionPage extends BasePage<CategorySelectionCubit, CategorySelectionState,
-    CategorySelectionEvent> {
+class CategorySelectionPage extends BasePage<CategorySelectionCubit,
+    CategorySelectionState, CategorySelectionEvent> {
   final AdType adType;
   final void Function(Category category) onResult;
 
@@ -56,20 +56,10 @@ class CategorySelectionPage extends BasePage<CategorySelectionCubit, CategorySel
           ),
           Expanded(
             child: Container(
-              height: 62,
-              margin: EdgeInsets.fromLTRB(0, 6, 16, 0),
-              child: CustomTextFormField(
-                height: 42,
-                controller: searchTextController,
-                hint: Strings.searchHintCategory,
-                inputType: TextInputType.text,
-                keyboardType: TextInputType.text,
-                maxLines: 1,
-                isStrokeEnabled: false,
-                enabledColor: context.cardColor,
-                onChanged: (value) {
-                  cubit(context).setSearchQuery(value);
-                },
+              margin: EdgeInsets.fromLTRB(0, 4, 0, 4),
+              child: SearchInputField(
+                hintText: Strings.searchHintCategory,
+                onQueryChanged: (query) => cubit(context).setSearchQuery(query),
               ),
             ),
           ),

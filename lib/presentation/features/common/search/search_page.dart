@@ -15,24 +15,26 @@ import 'search_cubit.dart';
 class SearchPage extends BasePage<SearchCubit, SearchState, SearchEvent> {
   SearchPage({super.key});
 
-  // final textController = TextEditingController();
-
   @override
   Widget onWidgetBuild(BuildContext context, SearchState state) {
     return Scaffold(
-      backgroundColor: context.backgroundGreyColor,
+      backgroundColor: context.backgroundWhiteColor,
       appBar: AppBar(
         elevation: 0.5,
-        backgroundColor: context.backgroundGreyColor,
+        backgroundColor: context.appBarColor,
         leading: IconButton(
           onPressed: () => context.router.pop(),
           icon: Assets.images.icArrowLeft.svg(),
         ),
         actions: [
           Expanded(
-            child: SearchInputField((query) {
-              cubit(context).setSearchQuery(query);
-            }),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 42),
+              child: SearchInputField(
+                hintText: Strings.searchHintCategoryAndProducts,
+                onQueryChanged: (query) => cubit(context).setSearchQuery(query),
+              ),
+            ),
           )
         ],
       ),
