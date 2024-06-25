@@ -5,15 +5,11 @@ import 'package:android_id/android_id.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization_loader/easy_localization_loader.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
-import 'package:onlinebozor/firebase_options.dart';
 import 'package:onlinebozor/presentation/application/di/get_it_injection.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:uuid/uuid.dart';
@@ -31,9 +27,9 @@ Future<void> main() async {
     //   }
     // });
 
-    await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform);
-    FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(!kDebugMode);
+    // await Firebase.initializeApp(
+    //     options: DefaultFirebaseOptions.currentPlatform);
+    // FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(!kDebugMode);
 
     await initializeGetIt();
 
@@ -61,7 +57,7 @@ Future<void> main() async {
     //   statusBarColor: Colors.white,
     // ));
   }, (error, stackTrace) {
-    FirebaseCrashlytics.instance.recordError(error, stackTrace);
+    // FirebaseCrashlytics.instance.recordError(error, stackTrace);
   });
 }
 
