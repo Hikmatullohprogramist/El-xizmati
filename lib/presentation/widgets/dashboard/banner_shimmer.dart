@@ -8,10 +8,11 @@ class BannerShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 140,
-      decoration: BoxDecoration(color: Color(0xFFFFFFFF)),
+      height: 130,
+      margin: const EdgeInsets.only(left: 16, right: 16),
+      decoration: BoxDecoration(color: Color(0xFFFFFFFF), borderRadius: BorderRadius.all(Radius.circular(16))),
       child: Padding(
-        padding: EdgeInsets.only(left: 12, top: 12, right: 12),
+        padding: const EdgeInsets.only(left: 12, top: 12, right: 12),
         child: Row(
           children: [
             Shimmer.fromColors(

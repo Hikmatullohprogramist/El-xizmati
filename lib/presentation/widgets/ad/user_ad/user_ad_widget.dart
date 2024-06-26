@@ -82,7 +82,6 @@ class UserAdWidget extends StatelessWidget {
                       (userAd.name ?? "")
                           .w(600)
                           .s(14)
-                          .c(Color(0xFF41455E))
                           .copyWith(
                             maxLines: 3,
                             overflow: TextOverflow.ellipsis,

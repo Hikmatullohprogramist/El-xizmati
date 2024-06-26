@@ -60,7 +60,7 @@ class LoginPage extends BasePage<LoginCubit, LoginState, LoginEvent> {
         appBar: DefaultAppBar(
           titleText: Strings.authStartSingin,
           titleTextColor: context.textPrimary,
-          backgroundColor: context.backgroundGreyColor,
+          backgroundColor: context.appBarColor,
           onBackPressed: () {
             context.router.replace(AuthStartRoute(phone: state.phone));
           },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/presentation/support/colors/dark_theme_colors.dart';
 import 'package:onlinebozor/presentation/support/colors/light_theme_colors.dart';
+import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/colors/theme_colors.dart';
 
 extension ColorExtension on BuildContext {
@@ -41,14 +42,16 @@ extension ColorExtension on BuildContext {
 
   Color get textPrimaryInverse => colors.textPrimaryInverse;
 
-  Color get inputBackgroundColor => colors.inputBackground;
+  Color get inputBackgroundColor =>
+      isDarkMode ? Color(0x80333131) : Color(0xFFFBFAFF);
 
   Color get inputStrokeActiveColor => colors.buttonPrimary;
 
   Color get inputStrokeInactiveColor =>
       isDarkMode ? Color(0xCCF6F7FC) : Color(0xFFDFE2E9);
 
-  Color get iconPrimary => colors.iconPrimary;
+  Color get iconPrimary =>
+      isDarkMode ? StaticColors.iconPrimaryDark : StaticColors.iconPrimaryLight;
 
   Color get iconSecondary => colors.iconSecondary;
 }
