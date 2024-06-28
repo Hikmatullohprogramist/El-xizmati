@@ -17,6 +17,7 @@ import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/platform_sizes.dart';
 import 'package:onlinebozor/presentation/widgets/action/action_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/ad/detail/ad_detail_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/ad/detail/detail_price_text_widget.dart';
@@ -27,6 +28,7 @@ import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/dashboard/see_all_widget.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
+import 'package:onlinebozor/presentation/widgets/elevation/elevation_widget.dart';
 import 'package:onlinebozor/presentation/widgets/favorite/ad_detail_favorite_widget.dart';
 import 'package:onlinebozor/presentation/widgets/image/rectangle_cached_network_image_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
@@ -227,52 +229,57 @@ class AdDetailPage
       visible: (state.adDetail!.mainTypeStatus == "SELL" ||
           state.adDetail!.mainTypeStatus == "FREE" ||
           state.adDetail!.mainTypeStatus == "EXCHANGE"),
-      child: Container(
-        decoration: BoxDecoration(
-          color: context.cardColor,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16),
-            topRight: Radius.circular(16),
+      child: ElevationWidget(
+        topLeftRadius:16,
+        topRightRadius: 16,
+        backgroundColor: Colors.transparent,
+        child: Container(
+          decoration: BoxDecoration(
+            color: context.cardColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+            ),
+            border: Border.all(
+              color: context.cardStrokeColor,
+              width: .25,
+            ),
           ),
-          border: Border.all(
-            color: context.cardStrokeColor,
-            width: .25,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: 16),
+              Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                SizedBox(width: 16),
+                Flexible(
+                  child: CustomElevatedButton(
+                    text: Strings.adBuy,
+                    backgroundColor: StaticColors.majorelleBlue.withOpacity(0.8),
+                    onPressed: () {
+                      context.router.push(OrderCreationRoute(adId: state.adId!));
+                    },
+                  ),
+                ),
+                SizedBox(width: 8),
+                Flexible(
+                  child: CustomElevatedButton(
+                    text: !state.isAddCart
+                        ? Strings.adDetailAddToCart
+                        : Strings.adDetailOpenCart,
+                    onPressed: () {
+                      !state.isAddCart
+                          ? cubit(context).addCart()
+                          : context.router.push(CartRoute());
+                    },
+                  ),
+                ),
+                SizedBox(width: 16)
+              ]),
+              SizedBox(height: bottomSheetBottomPadding)
+            ],
           ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(height: 16),
-            Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-              SizedBox(width: 16),
-              Flexible(
-                child: CustomElevatedButton(
-                  text: Strings.adBuy,
-                  backgroundColor: StaticColors.majorelleBlue.withOpacity(0.8),
-                  onPressed: () {
-                    context.router.push(OrderCreationRoute(adId: state.adId!));
-                  },
-                ),
-              ),
-              SizedBox(width: 8),
-              Flexible(
-                child: CustomElevatedButton(
-                  text: !state.isAddCart
-                      ? Strings.adDetailAddToCart
-                      : Strings.adDetailOpenCart,
-                  onPressed: () {
-                    !state.isAddCart
-                        ? cubit(context).addCart()
-                        : context.router.push(CartRoute());
-                  },
-                ),
-              ),
-              SizedBox(width: 16)
-            ]),
-            SizedBox(height: 16)
-          ],
         ),
       ),
     );

@@ -188,7 +188,7 @@ class ProfileEditPage
                   child: InkWell(
                     borderRadius: BorderRadius.circular(6),
                     onTap: () {
-                      showDatePickerDialog(context);
+                      _showDatePickerDialog(context);
                       HapticFeedback.lightImpact();
                     },
                     child: Padding(
@@ -329,7 +329,7 @@ class ProfileEditPage
     );
   }
 
-  void showDatePickerDialog(BuildContext context) {
+  void _showDatePickerDialog(BuildContext context) {
     showCupertinoModalPopup(
       context: context,
       builder: (BuildContext buildContext) {

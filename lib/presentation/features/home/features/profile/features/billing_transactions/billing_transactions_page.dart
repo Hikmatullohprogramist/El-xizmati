@@ -13,6 +13,7 @@ import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/platform_sizes.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/billing/billing_transaction_empty_widget.dart';
 import 'package:onlinebozor/presentation/widgets/billing/billing_transaction_shimmer.dart';
@@ -37,13 +38,13 @@ class BillingTransactionsPage extends BasePage<BillingTransactionsCubit,
         titleTextColor: context.textPrimary,
         backgroundColor: context.appBarColor,
         onBackPressed: () => context.router.pop(),
-        actions: [
-          CustomTextButton(
-            text: Strings.commonFilter,
-            onPressed: () =>
-                context.router.push(BillingTransactionFilterRoute()),
-          )
-        ],
+        // actions: [
+        //   CustomTextButton(
+        //     text: Strings.commonFilter,
+        //     onPressed: () =>
+        //         context.router.push(BillingTransactionFilterRoute()),
+        //   )
+        // ],
       ),
       backgroundColor: context.backgroundGreyColor,
       body: RefreshIndicator(
@@ -65,7 +66,7 @@ class BillingTransactionsPage extends BasePage<BillingTransactionsCubit,
       shrinkWrap: true,
       addAutomaticKeepAlives: true,
       physics: BouncingScrollPhysics(),
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.only(top: 10, bottom: bottomSheetBottomPadding),
       pagingController: state.controller!,
       builderDelegate: PagedChildBuilderDelegate<dynamic>(
         firstPageErrorIndicatorBuilder: (_) {

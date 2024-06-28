@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -47,9 +48,10 @@ class BillingTransactionFilterPage extends BasePage<
                     flex: 1,
                     child: InkWell(
                       onTap: () {
-                        _showDatePicker(context, state.fromDate).then((value) {
-                          cubit(context).fromDate(value);
-                        });
+                        _showDatePickerDialog(context, state, true);
+                        // _showDatePicker(context, state.fromDate).then((value) {
+                        //   cubit(context).fromDate(value);
+                        // });
                       },
                       child: Container(
                           decoration: BoxDecoration(
@@ -285,6 +287,68 @@ class BillingTransactionFilterPage extends BasePage<
     );
   }
 
+  void _showDatePickerDialog(
+    BuildContext context,
+    BillingTransactionFilterState state,
+    bool isForFromDate,
+  ) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext buildContext) {
+        return Container(
+          decoration: BoxDecoration(
+            color: context.bottomSheetColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.0),
+              topRight: Radius.circular(20.0),
+            ),
+          ),
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    height: 320,
+                    child: CupertinoTheme(
+                      data: CupertinoThemeData(brightness: context.brightness),
+                      child: CupertinoDatePicker(
+                        mode: CupertinoDatePickerMode.date,
+                        initialDateTime: DateTime.now(),
+                        minimumYear: 2022,
+                        maximumYear: 2024,
+                        onDateTimeChanged: (DateTime newDateTime) {
+                          final formattedDate =
+                              DateFormat("yyyy-MM-dd").format(newDateTime);
+                          // cubit(context).setBrithDate(formattedDate);
+                          // _birthDateController.text = formattedDate;
+                        },
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: CustomElevatedButton(
+                      text: Strings.commonSave,
+                      onPressed: () {
+                        Navigator.of(buildContext).pop();
+                      },
+                      backgroundColor: buildContext.colors.buttonPrimary,
+                      isEnabled: true,
+                      isLoading: false,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   Future<String> _showDatePicker(BuildContext context, String date) async {
     if (date.isEmpty) {
       date = DateFormat("dd.MM.yyyy").format(DateTime.now());
@@ -391,19 +455,25 @@ class BillingTransactionFilterPage extends BasePage<
     var response = state.transactions;
 
     if (state.paymentType == "Reklama") {
-      response = response.where((element) => element.transactionType == "ADS").toList();
+      response = response
+          .where((element) => element.transactionType == "ADS")
+          .toList();
     }
     if (state.paymentType == "Hamyon") {
-      response = response.where((element) => element.transactionType == "WALLET").toList();
+      response = response
+          .where((element) => element.transactionType == "WALLET")
+          .toList();
     }
 
     if (state.paymentMethod == "Hamyon") {
-      response =
-          response.where((element) => element.transactionAction == "WALLET").toList();
+      response = response
+          .where((element) => element.transactionAction == "WALLET")
+          .toList();
     }
     if (state.paymentMethod == "REALPAY") {
-      response =
-          response.where((element) => element.transactionAction == "REALPAY").toList();
+      response = response
+          .where((element) => element.transactionAction == "REALPAY")
+          .toList();
     }
 
     if (state.transactionState == "To'landi") {

@@ -8,6 +8,7 @@ import 'package:onlinebozor/domain/models/ad/ad_action.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
+import 'package:onlinebozor/domain/models/billing/billing_transaction_type.dart';
 import 'package:onlinebozor/domain/models/currency/currency_code.dart';
 import 'package:onlinebozor/domain/models/language/language.dart';
 import 'package:onlinebozor/domain/models/order/order_cancel_reason.dart';
@@ -107,6 +108,83 @@ extension AdActionResExts on AdAction {
         return Assets.images.icActionActivate;
       case AdAction.ACTION_DELETE:
         return Assets.images.icActionDelete;
+    }
+  }
+}
+
+extension BillingTransactionTypeExtension on BillingTransactionType {
+  String getTransactionTypeLocalizedName() {
+    switch (this) {
+      case BillingTransactionType.credit:
+        return "Kredit";
+      case BillingTransactionType.debit:
+        return "Kirim";
+      case BillingTransactionType.hold:
+        return "Blockdagi mablag'";
+      case BillingTransactionType.holdCard:
+        return "Kartadagi blocklangan mablag'";
+      case BillingTransactionType.holdCardCanceled:
+        return "Kartadagi blocklangan mablag' yechildi";
+      case BillingTransactionType.creditCard:
+        return "Kredit karta";
+      case BillingTransactionType.holdCanceled:
+        return "Blocklangan mablag' yechildi";
+    }
+  }
+  String getPaymentTypeLocalizedName() {
+    switch (this) {
+      case BillingTransactionType.credit:
+        return "Kredit";
+      case BillingTransactionType.debit:
+        return "Debit karta";
+      case BillingTransactionType.hold:
+        return "Komissiya'";
+      case BillingTransactionType.holdCard:
+        return "Kartadagi blocklangan mablag'";
+      case BillingTransactionType.holdCardCanceled:
+        return "Kartadagi blocklangan mablag' yechildi";
+      case BillingTransactionType.creditCard:
+        return "Kredit karta";
+      case BillingTransactionType.holdCanceled:
+        return "Blocklangan mablag' yechildi";
+    }
+  }
+
+  Color getTypeColor() {
+    switch (this) {
+      case BillingTransactionType.credit:
+        return Color(0xFF0060FE);
+      case BillingTransactionType.debit:
+        return Color(0xFF4BB16F);
+      case BillingTransactionType.hold:
+        return Color(0xFFF79500);
+      case BillingTransactionType.holdCard:
+        return Color(0xFFF79500);
+      case BillingTransactionType.holdCardCanceled:
+        return Color(0xFFFB577C);
+      case BillingTransactionType.creditCard:
+        return Color(0xFF4BB16F);
+      case BillingTransactionType.holdCanceled:
+        return Color(0xFFFB577C);
+    }
+  }
+
+  Color getPriceColor() {
+    switch (this) {
+      case BillingTransactionType.credit:
+        return Color(0xFF0060FE);
+      case BillingTransactionType.debit:
+        return Color(0xFF4BB16F);
+      case BillingTransactionType.hold:
+        return Color(0xFFF79500);
+      case BillingTransactionType.holdCard:
+        return Color(0xFFF79500);
+      case BillingTransactionType.holdCardCanceled:
+        return Color(0xFFFB577C);
+      case BillingTransactionType.creditCard:
+        return Color(0xFF4BB16F);
+      case BillingTransactionType.holdCanceled:
+        return Color(0xFFFB577C);
     }
   }
 }

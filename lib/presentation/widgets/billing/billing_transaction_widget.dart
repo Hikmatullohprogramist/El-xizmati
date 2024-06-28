@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/billing/billing_transaction.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
-import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
+import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 
 class BillingTransactionWidget extends StatelessWidget {
   const BillingTransactionWidget({
@@ -25,38 +23,69 @@ class BillingTransactionWidget extends StatelessWidget {
         onTap: () => onClicked(),
         borderRadius: BorderRadius.circular(8),
         child: Container(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
             children: [
-              transaction.index.toString().s(14).w(600),
-              SizedBox(width: 8),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  "type = ${transaction.transactionType.name} \n action = ${transaction.transactionAction.name} \n state = ${transaction.balanceState.name}"
-                      .s(12)
-                      .w(500),
-                  SizedBox(height: 8),
-                  Row(
-                    children: [
-                      transaction.note.s(12).w(500),
-                    ],
+                  transaction.payDate.s(14).w(600),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: transaction.transactionType
+                        .getTransactionTypeLocalizedName()
+                        .s(14)
+                        .w(400)
+                        // .c(transaction.transactionType.getTypeColor())
+                        .copyWith(
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.end,
+                        ),
                   ),
-                  SizedBox(height: 8),
-                  transaction.payDate.w(500).s(12).c(context.textSecondary),
-                  SizedBox(height: 8),
-                  "${phoneMaskFormatter.formatDouble(transaction.amount)} ${Strings.currencyUzs}"
-                      .toString()
-                      .w(500)
-                      .s(12)
-                      .c(Color(0xFF41455E)),
-                  SizedBox(height: 8),
-                  SizedBox(height: 8),
                 ],
               ),
+              SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(
+                    child: transaction.note
+                        .s(12)
+                        .w(500)
+                        .copyWith(maxLines: 3, overflow: TextOverflow.ellipsis),
+                  ),
+                ],
+              ),
+              SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  transaction.transactionType
+                      .getPaymentTypeLocalizedName()
+                      .s(14)
+                      .w(600),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child:
+                        "${priceMaskFormatter.formatDouble(transaction.amount)} ${Strings.currencyUzs}"
+                            .toString()
+                            .w(500)
+                            .s(14)
+                            .c(transaction.transactionType.getPriceColor())
+                            .copyWith(
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.end,
+                            ),
+                  ),
+                ],
+              ),
+              // SizedBox(height: 12),
+              // "type = ${transaction.transactionType.name} \n action = ${transaction.transactionAction.name} \n state = ${transaction.balanceState.name}"
+              //     .s(12)
+              //     .w(500),
+              SizedBox(height: 12),
             ],
           ),
         ),
