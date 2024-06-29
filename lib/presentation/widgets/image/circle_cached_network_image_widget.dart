@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/cache/CustomCacheManager.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 
 class CircleCachedNetworkImage extends StatelessWidget {
   const CircleCachedNetworkImage({
@@ -31,34 +31,41 @@ class CircleCachedNetworkImage extends StatelessWidget {
       height: imageHeight,
       imageUrl: actualUrl,
       cacheManager: CustomCacheManager.imageCacheManager,
-      imageBuilder: (context, imageProvider) => Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          image: DecorationImage(
-            image: imageProvider,
-            fit: BoxFit.cover,
-            // colorFilter: ColorFilter.mode(
-            //   Colors.white,
-            //   BlendMode.colorBurn,
-            // ),
+      imageBuilder: (context, imageProvider) {
+        return Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              image: imageProvider,
+              fit: BoxFit.cover,
+              // colorFilter: ColorFilter.mode(
+              //   Colors.white,
+              //   BlendMode.colorBurn,
+              // ),
+            ),
           ),
-        ),
-      ),
-      placeholder: (context, url) => Container(
-        decoration: BoxDecoration(
-          color: context.cardColor,
-          shape: BoxShape.circle,
-        ),
-        child:
-            placeHolderIcon != null ? Center(child: placeHolderIcon) : Center(),
-      ),
-      errorWidget: (context, url, error) => Container(
-        decoration: BoxDecoration(
-          color: context.cardColor,
-          shape: BoxShape.circle,
-        ),
-        child: errorIcon != null ? Center(child: errorIcon) : Center(),
-      ),
+        );
+      },
+      placeholder: (context, url) {
+        return Container(
+          decoration: BoxDecoration(
+            color: context.cardColor,
+            shape: BoxShape.circle,
+          ),
+          child: placeHolderIcon != null
+              ? Center(child: placeHolderIcon)
+              : Center(),
+        );
+      },
+      errorWidget: (context, url, error) {
+        return Container(
+          decoration: BoxDecoration(
+            color: context.cardColor,
+            shape: BoxShape.circle,
+          ),
+          child: errorIcon != null ? Center(child: errorIcon) : Center(),
+        );
+      },
     );
   }
 }

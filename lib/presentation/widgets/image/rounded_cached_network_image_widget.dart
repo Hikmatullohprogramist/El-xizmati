@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/cache/CustomCacheManager.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 
 class RoundedCachedNetworkImage extends StatelessWidget {
   const RoundedCachedNetworkImage({
@@ -27,38 +27,46 @@ class RoundedCachedNetworkImage extends StatelessWidget {
         : "${Constants.baseUrlForImage}$imageId";
 
     return CachedNetworkImage(
-      width: imageWidth,
-      height: imageHeight,
-      imageUrl: actualUrl,
-      cacheManager: CustomCacheManager.imageCacheManager,
-      imageBuilder: (context, imageProvider) => Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(6),
-          image: DecorationImage(
-            image: imageProvider,
-            fit: BoxFit.cover,
-            // colorFilter: ColorFilter.mode(
-            //   Colors.white,
-            //   BlendMode.colorBurn,
-            // ),
-          ),
-        ),
-      ),
-      placeholder: (context, url) => Container(
-        decoration: BoxDecoration(
-          color: context.cardColor,
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child:
-            placeHolderIcon != null ? Center(child: placeHolderIcon) : Center(),
-      ),
-      errorWidget: (context, url, error) => Container(
-        decoration: BoxDecoration(
-          color: context.cardColor,
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: errorIcon != null ? Center(child: errorIcon) : Center(),
-      ),
-    );
+        width: imageWidth,
+        height: imageHeight,
+        imageUrl: actualUrl,
+        cacheManager: CustomCacheManager.imageCacheManager,
+        imageBuilder: (context, imageProvider) {
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6),
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+                // colorFilter: ColorFilter.mode(
+                //   Colors.white,
+                //   BlendMode.colorBurn,
+                // ),
+              ),
+            ),
+          );
+        },
+        placeholder: (context, url) {
+          // Logger().w("RoundedCachedNetworkImage url = $actualUrl");
+          return Container(
+            decoration: BoxDecoration(
+              color: context.cardColor,
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: placeHolderIcon != null
+                ? Center(child: placeHolderIcon)
+                : Center(),
+          );
+        },
+        errorWidget: (context, url, error) {
+          // Logger().w("RoundedCachedNetworkImage error = $error");
+          return Container(
+            decoration: BoxDecoration(
+              color: context.cardColor,
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: errorIcon != null ? Center(child: errorIcon) : Center(),
+          );
+        });
   }
 }

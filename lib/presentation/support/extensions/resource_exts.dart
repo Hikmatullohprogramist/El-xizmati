@@ -138,7 +138,7 @@ extension BillingTransactionTypeExtension on BillingTransactionType {
       case BillingTransactionType.debit:
         return "Debit karta";
       case BillingTransactionType.hold:
-        return "Komissiya'";
+        return "Komissiya";
       case BillingTransactionType.holdCard:
         return "Kartadagi blocklangan mablag'";
       case BillingTransactionType.holdCardCanceled:
@@ -171,10 +171,10 @@ extension BillingTransactionTypeExtension on BillingTransactionType {
 
   Color getPriceColor() {
     switch (this) {
-      case BillingTransactionType.credit:
-        return Color(0xFF0060FE);
       case BillingTransactionType.debit:
         return Color(0xFF4BB16F);
+      case BillingTransactionType.credit:
+        return Color(0xFF0060FE);
       case BillingTransactionType.hold:
         return Color(0xFFF79500);
       case BillingTransactionType.holdCard:
