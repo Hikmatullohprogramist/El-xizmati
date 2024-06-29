@@ -22,7 +22,7 @@ extension GetItModuleExtension on GetIt {
     registerLazySingleton(() => LanguageRepository(get(), get(), get()));
     registerLazySingleton(() => AdCreationRepository(get(), get(), get()));
     registerLazySingleton(
-      () => AdRepository(get(), get(), get(), get(), get(), get(), get()),
+      () => AdRepository(get(), get(), get(), get(), get(), get()),
     );
     registerLazySingleton(() => BillingRepository(get(), get(), get()));
     registerLazySingleton(

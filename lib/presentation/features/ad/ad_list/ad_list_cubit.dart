@@ -118,6 +118,7 @@ class AdListCubit extends BaseCubit<AdListState, AdListEvent> {
           controller.appendPage(adsList, pageKey + 1);
           logger.i(states.controller);
         } catch (e) {
+          logger.e("type = ${states.adListType}, error = $e");
           controller.error = e;
         }
       },

@@ -24,7 +24,6 @@ class AdRepository {
   final AdService _adService;
   final AuthPreferences _authPreferences;
   final DashboardService _dashboardService;
-  final UserPreferences _userPreferences;
 
   AdRepository(
     this._adDetailService,
@@ -33,7 +32,6 @@ class AdRepository {
     this._adService,
     this._authPreferences,
     this._dashboardService,
-    this._userPreferences,
   );
 
   Future<List<Ad>> _readAdsByAds(List<AdResponse> ads) async {
@@ -133,9 +131,6 @@ class AdRepository {
     required int page,
     required int limit,
   }) async {
-    if (_authPreferences.isNotAuthorized) throw NotAuthorizedException();
-    if (_userPreferences.isNotIdentified) throw NotIdentifiedException();
-
     final response = await _adListService.getAdsByUser(
       sellerTin: sellerTin,
       page: page,
