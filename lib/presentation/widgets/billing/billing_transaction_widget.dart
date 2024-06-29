@@ -36,7 +36,7 @@ class BillingTransactionWidget extends StatelessWidget {
                     child: transaction.transactionType
                         .getTransactionTypeLocalizedName()
                         .s(14)
-                        .w(400)
+                        .w(500)
                         // .c(transaction.transactionType.getTypeColor())
                         .copyWith(
                           maxLines: 1,
@@ -64,13 +64,13 @@ class BillingTransactionWidget extends StatelessWidget {
                   transaction.transactionType
                       .getPaymentTypeLocalizedName()
                       .s(14)
-                      .w(600),
+                      .w(400),
                   SizedBox(width: 12),
                   Expanded(
                     child:
-                        "${priceMaskFormatter.formatDouble(transaction.amount)} ${Strings.currencyUzs}"
+                        "${transaction.formattedAmount} ${Strings.currencyUzs}"
                             .toString()
-                            .w(500)
+                            .w(600)
                             .s(14)
                             .c(transaction.transactionType.getPriceColor())
                             .copyWith(

@@ -1,6 +1,7 @@
 import 'package:onlinebozor/domain/models/billing/billing_balance_state.dart';
 import 'package:onlinebozor/domain/models/billing/billing_transaction_action.dart';
 import 'package:onlinebozor/domain/models/billing/billing_transaction_type.dart';
+import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
 
 class BillingTransaction {
   int id;
@@ -24,6 +25,11 @@ class BillingTransaction {
     required this.balanceState,
     required this.note,
   });
+
+  String get formattedAmount =>
+      "${transactionType == BillingTransactionType.debit ? "+" : "-"}${priceMaskFormatter.formatDouble(amount)}";
+
+  bool get isIncome => transactionType == BillingTransactionType.debit;
 
 // 'CREDIT', 'DEBIT', 'HOLD', 'HOLD_CARD', 'HOLD_CARD_CANCELED',
 // 'CREDIT_CARD', 'HOLD_CANCELED'.  type
