@@ -4,11 +4,11 @@ import 'package:camera/camera.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
+import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/auth_repository.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
-import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
 
 part 'face_id_confirmation_cubit.freezed.dart';
 part 'face_id_confirmation_state.dart';
@@ -59,20 +59,27 @@ class FaceIdConfirmationCubit
         .initFuture()
         .onStart(() {
           updateState((state) => state.copyWith(loading: true));
+          emitEvent(FaceIdConfirmationEvent(
+            FaceIdConfirmationEventType.onRequestStarted,
+          ));
         })
         .onSuccess((data) {
           updateState((state) => state.copyWith(
                 loading: false,
               ));
           sendAllFavoriteAds();
-          emitEvent(
-              FaceIdConfirmationEvent(FaceIdConfirmationEventType.onSuccess));
+          emitEvent(FaceIdConfirmationEvent(
+            FaceIdConfirmationEventType.onRequestFinished,
+          ));
         })
         .onError((error) {
           updateState((state) => state.copyWith(loading: false));
-          emitEvent(
-              FaceIdConfirmationEvent(FaceIdConfirmationEventType.onFailure));
-          stateMessageManager.showErrorSnackBar(error.localizedMessage);
+          emitEvent(FaceIdConfirmationEvent(
+            FaceIdConfirmationEventType.onRequestFailed,
+          ));
+          // stateMessageManager.showErrorSnackBar(error.localizedMessage);
+          stateMessageManager
+              .showErrorBottomSheet(Strings.faceIdIdentityNotVerified);
         })
         .onFinished(() {})
         .executeFuture();
@@ -83,7 +90,8 @@ class FaceIdConfirmationCubit
       await _favoriteRepository.pushAllFavoriteAds();
     } catch (error) {
       stateMessageManager.showErrorSnackBar("Xatolik yuz berdi");
-      emitEvent(FaceIdConfirmationEvent(FaceIdConfirmationEventType.onSuccess));
+      emitEvent(FaceIdConfirmationEvent(
+          FaceIdConfirmationEventType.onRequestFinished));
     }
   }
 

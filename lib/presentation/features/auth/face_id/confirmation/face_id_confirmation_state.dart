@@ -32,8 +32,8 @@ class FaceIdConfirmationEvent with _$FaceIdConfirmationEvent {
 }
 
 enum FaceIdConfirmationEventType {
-  onStart,
-  onSuccess,
-  onFailure,
-  onShowTakenPhoto
+  onShowTakenPhoto,
+  onRequestStarted,
+  onRequestFinished,
+  onRequestFailed,
 }

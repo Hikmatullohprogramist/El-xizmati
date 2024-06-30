@@ -19,17 +19,19 @@ class CameraPreviewRoundedPainter extends CustomPainter {
     const double strokeWidth = 2;
 
     final rectPath = Path()
-      ..addRRect(RRect.fromRectAndCorners(
-        Rect.fromCenter(
-          center: Offset(screenWidth / 2, screenHeight / 2.5),
-          width: rectWidth,
-          height: rectHeight,
+      ..addRRect(
+        RRect.fromRectAndCorners(
+          Rect.fromCenter(
+            center: Offset(screenWidth / 2, screenHeight / 4),
+            width: rectWidth,
+            height: rectHeight,
+          ),
+          topLeft: Radius.circular(cornerRadius),
+          topRight: Radius.circular(cornerRadius),
+          bottomLeft: Radius.circular(cornerRadius),
+          bottomRight: Radius.circular(cornerRadius),
         ),
-        topLeft: Radius.circular(cornerRadius),
-        topRight: Radius.circular(cornerRadius),
-        bottomLeft: Radius.circular(cornerRadius),
-        bottomRight: Radius.circular(cornerRadius),
-      ));
+      );
 
     final outerPath = Path()
       ..addRect(Rect.fromLTWH(0, 0, screenWidth, screenHeight));
@@ -38,7 +40,8 @@ class CameraPreviewRoundedPainter extends CustomPainter {
         Path.combine(PathOperation.difference, outerPath, rectPath);
 
     final paint = Paint()
-      ..color = backgroundColor
+      // ..color = backgroundColor
+      ..color = Colors.transparent
       ..style = PaintingStyle.fill;
 
     final borderPaint = Paint()

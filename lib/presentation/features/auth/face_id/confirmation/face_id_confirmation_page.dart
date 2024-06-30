@@ -37,20 +37,17 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit,
   @override
   void onEventEmitted(BuildContext context, FaceIdConfirmationEvent event) {
     switch (event.type) {
-      case FaceIdConfirmationEventType.onStart:
+      case FaceIdConfirmationEventType.onShowTakenPhoto:
+        _showTakenPhotoBottomSheet(context, cubit(context).states);
+      case FaceIdConfirmationEventType.onRequestStarted:
         showProgressDialog(context);
-      case FaceIdConfirmationEventType.onSuccess:
+      case FaceIdConfirmationEventType.onRequestFinished:
         {
           hideProgressBarDialog(context);
           context.router.replace(HomeRoute());
         }
-      case FaceIdConfirmationEventType.onFailure:
-        {
-          hideProgressBarDialog(context);
-          showErrorBottomSheet(context, Strings.faceIdIdentityNotVerified);
-        }
-      case FaceIdConfirmationEventType.onShowTakenPhoto:
-        _showTakenPhotoBottomSheet(context, cubit(context).states);
+      case FaceIdConfirmationEventType.onRequestFailed:
+        hideProgressBarDialog(context);
     }
   }
 
@@ -249,8 +246,8 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit,
             ),
           ),
         ),
-        // SizedBox(height: 20),
-        // _buildInstructionTexts(context),
+        SizedBox(height: 20),
+        _buildInstructionTexts(context),
         Spacer(),
         _buildActionButton(context, state),
         SizedBox(height: 20),
@@ -268,12 +265,21 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit,
     final cameraAspectRatio = cameraController.value.aspectRatio;
     final screenAspectRatio = MediaQuery.of(context).size.aspectRatio;
 
-    return ClipRect(
-      clipper: _MediaSizeClipper(MediaQuery.of(context).size),
-      child: Transform.scale(
-        scale: 1 / (cameraAspectRatio * screenAspectRatio),
-        alignment: Alignment.topCenter,
-        child: CameraPreview(cameraController),
+    final Size screenSize = MediaQuery.of(context).size;
+    final double screenWidth = screenSize.width;
+    final double screenHeight = screenSize.height;
+
+    final double rectWidth = screenWidth * 0.80;
+    final double rectHeight = screenHeight * 0.45;
+
+    return Center(
+      child: ClipRect(
+        clipper: _MediaSizeClipper(MediaQuery.of(context).size),
+        child: Transform.scale(
+          scale: 1 / (rectHeight / rectWidth),
+          alignment: Alignment.center,
+          child: CameraPreview(cameraController),
+        ),
       ),
     );
   }
@@ -329,9 +335,10 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit,
             cubit(context).states.cameraController?.takePicture().then(
               (value) async {
                 final takeImage = File(value.path);
-                Uint8List imageBytes = await takeImage.readAsBytes();
-                String croppedImage = await cropImage(imageBytes);
-                cubit(context).croppedImage(croppedImage);
+                Uint8List takenImageBytes = await takeImage.readAsBytes();
+                String croppedImageBytes = await cropImage(takenImageBytes);
+
+                cubit(context).croppedImage(croppedImageBytes);
                 cubit(context).showPicture(true);
               },
             );
@@ -433,18 +440,6 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit,
         Uint8List.fromList(img.encodeJpg(croppedImage, quality: 80)));
     return base64StringSecond;
   }
-}
-
-class _CustomPathClipper extends CustomClipper<Path> {
-  final Path path;
-
-  _CustomPathClipper(this.path);
-
-  @override
-  Path getClip(Size size) => path;
-
-  @override
-  bool shouldReclip(_CustomPathClipper oldClipper) => oldClipper.path != path;
 }
 
 class _MediaSizeClipper extends CustomClipper<Rect> {
