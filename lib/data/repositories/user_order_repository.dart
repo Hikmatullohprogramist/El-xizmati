@@ -48,7 +48,7 @@ class UserOrderRepository {
     required int amount,
     required int paymentTypeId,
     required int tin,
-    required int? servicePrice,
+    required String? servicePrice,
   }) async {
     if (_authPreferences.isNotAuthorized) throw NotAuthorizedException();
     if (_userPreferences.isNotIdentified) throw NotIdentifiedException();

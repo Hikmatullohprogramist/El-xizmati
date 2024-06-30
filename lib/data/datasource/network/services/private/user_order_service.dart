@@ -34,7 +34,7 @@ class UserOrderService {
     required int amount,
     required int paymentTypeId,
     required int tin,
-    required int? servicePrice,
+    required String? servicePrice,
     required int neighborhoodId,
   }) async {
     //   {

@@ -196,7 +196,7 @@ class OrderCreationCubit
           amount: states.count,
           paymentTypeId: states.paymentId,
           tin: states.adDetail?.sellerTin ?? -1,
-          servicePrice: states.price,
+          servicePrice: states.price?.toString(),
         )
         .initFuture()
         .onStart(() {
