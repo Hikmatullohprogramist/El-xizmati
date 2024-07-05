@@ -1,11 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
+import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/repositories/report_repository.dart';
 import 'package:onlinebozor/domain/models/report/report_reason.dart';
 import 'package:onlinebozor/domain/models/report/report_type.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 
 part 'submit_report_cubit.freezed.dart';
 part 'submit_report_state.dart';
@@ -16,7 +17,6 @@ class SubmitReportCubit
   final ReportRepository _reportRepository;
 
   SubmitReportCubit(this._reportRepository) : super(SubmitReportState());
-
 
   void setInitialParams(int idOrTin, ReportType reportType) {
     updateState((state) => state.copyWith(
@@ -62,7 +62,10 @@ class SubmitReportCubit
       logger.w("cancelOrder success");
       emitEvent(SubmitReportEvent(SubmitReportEventType.onClose));
 
-      stateMessageManager.showSuccessBottomSheet(Strings.reportSuccessMessage);
+      stateMessageManager.showSuccessBottomSheet(
+        Strings.reportSuccessMessage,
+        states.reportType.getLocalizedPageTitle(),
+      );
     } catch (e) {
       logger.w("cancelOrder error = $e");
       updateState((state) => state.copyWith(loadState: LoadingState.error));
