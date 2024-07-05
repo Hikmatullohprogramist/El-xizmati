@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:flutter/services.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 
 class SeeAllWidget extends StatelessWidget {
   final String title;
@@ -21,7 +21,13 @@ class SeeAllWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          title.w(600).s(16).c(context.textPrimary),
+          Expanded(
+            child: title
+                .w(600)
+                .s(16)
+                .c(context.textPrimary)
+                .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis),
+          ),
           TextButton(
             onPressed: () {
               onClicked();
@@ -32,7 +38,7 @@ class SeeAllWidget extends StatelessWidget {
               children: <Widget>[
                 Strings.allTitle.w(600).s(12).c(context.colors.textAccent),
                 SizedBox(width: 4),
-                Icon(Icons.keyboard_arrow_right_rounded), // The arrow icon
+                Icon(Icons.keyboard_arrow_right_rounded),
               ],
             ),
           )

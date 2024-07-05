@@ -11,7 +11,7 @@ class CardService {
     return _dio.get("api/v1/user/balance");
   }
 
-  Future<Response> getAddedCards() async {
+  Future<Response> getUserDebitCards() async {
     return _dio.get("api/realpay/v1/card/user-card/get-all");
   }
 

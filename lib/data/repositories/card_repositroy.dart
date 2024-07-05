@@ -25,8 +25,8 @@ class CardRepository {
     return response;
   }
 
-  Future<List<RealPayCard>> getAddedCards() async {
-    final root = await _cardService.getAddedCards();
+  Future<List<RealPayCard>> getUserDebitCards() async {
+    final root = await _cardService.getUserDebitCards();
     final response = RealPayCardRootResponse.fromJson(root.data).data.data;
     return response;
   }

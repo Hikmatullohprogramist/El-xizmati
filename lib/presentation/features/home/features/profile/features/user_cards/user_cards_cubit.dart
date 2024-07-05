@@ -16,14 +16,14 @@ part 'user_cards_cubit.freezed.dart';
 part 'user_cards_state.dart';
 
 @injectable
-class UserCardsCubit extends BaseCubit<PageState, PageEvent> {
+class UserCardsCubit extends BaseCubit<UserCardsState, UserCardsEvent> {
   UserCardsCubit(
     this._cardRepository,
     this._userRepository,
-  ) : super(PageState()) {
+  ) : super(UserCardsState()) {
     getUser();
     getDepositCardBalance();
-    getAddedCards();
+    getUserDebitCards();
   }
 
   final CardRepository _cardRepository;
@@ -31,7 +31,7 @@ class UserCardsCubit extends BaseCubit<PageState, PageEvent> {
 
   void reload() {
     getDepositCardBalance();
-    getAddedCards();
+    getUserDebitCards();
   }
 
   Future<void> getUser() async {
@@ -68,9 +68,9 @@ class UserCardsCubit extends BaseCubit<PageState, PageEvent> {
         .executeFuture();
   }
 
-  Future<void> getAddedCards() async {
+  Future<void> getUserDebitCards() async {
     _cardRepository
-        .getAddedCards()
+        .getUserDebitCards()
         .initFuture()
         .onStart(() {
           updateState((state) => state.copyWith(
@@ -79,7 +79,7 @@ class UserCardsCubit extends BaseCubit<PageState, PageEvent> {
         })
         .onSuccess((data) {
           updateState((state) => state.copyWith(
-                addedCards: data,
+                debitCards: data,
                 cardsState: LoadingState.success,
               ));
         })
@@ -99,9 +99,9 @@ class UserCardsCubit extends BaseCubit<PageState, PageEvent> {
         .initFuture()
         .onStart(() {})
         .onSuccess((data) {
-          final cards = states.addedCards.map((e) => e.copyWith()).toList();
+          final cards = states.debitCards.map((e) => e.copyWith()).toList();
           cards.removeIf((e) => e.cardId == card.id);
-          updateState((state) => state.copyWith(addedCards: cards));
+          updateState((state) => state.copyWith(debitCards: cards));
           stateMessageManager.showSuccessSnackBar(Strings.cardDeletedMessage);
         })
         .onError((error) {
