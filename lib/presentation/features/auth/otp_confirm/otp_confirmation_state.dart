@@ -9,7 +9,7 @@ class OtpConfirmationState with _$OtpConfirmationState {
     @Default('') String code,
     @Default(false) bool isResendLoading,
     @Default(false) bool isConfirmLoading,
-    @Default(OtpConfirmType.confirm) OtpConfirmType otpConfirmType,
+    @Default(OtpConfirmType.registerConfirm) OtpConfirmType otpConfirmType,
     @Default(120) int timerTime,
   }) = _OtpConfirmationState;
 

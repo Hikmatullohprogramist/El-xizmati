@@ -18,58 +18,54 @@ class AddCardWithRealPayPage extends BasePage<AddCardWithRealpayCubit,
 
   @override
   Widget onWidgetBuild(BuildContext context, AddCardWithRealpayState state) {
-    return SizedBox(
-      width: double.infinity,
-      // height: MediaQuery.sizeOf(context).height * .9,
-      child: Material(
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          child: Container(
-            color: context.bottomSheetColor,
-            padding: EdgeInsets.only(top: 15),
-            child: Stack(
-              children: [
-                state.loadingState == LoadingState.loading
-                    ? Center(
-                        child: CircularProgressIndicator(
-                        color: StaticColors.dodgerBlue,
-                      ))
-                    : Column(
-                        children: [
-                          SizedBox(height: 24),
-                          Expanded(
-                            child: OAuthWebView(
-                              initialUrl: cubit(context).generatePaymentUrl(),
-                              redirectUrl: RestConstants.REAL_PAY_REDIRECT_URI,
-                              onPageStarted: (url) {},
-                              onProcess: (process) {},
-                              onPageFinished: (url) {},
-                              onRedirectUrlHandled: (url) async {
-                                cubit(context)
-                                    .stateMessageManager
-                                    .showSuccessSnackBar(
-                                        Strings.cardAddedMessage);
+    return Material(
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+        child: Container(
+          color: context.bottomSheetColor,
+          padding: EdgeInsets.only(top: 15),
+          child: Stack(
+            children: [
+              state.loadingState == LoadingState.loading
+                  ? Center(
+                      child: CircularProgressIndicator(
+                      color: StaticColors.dodgerBlue,
+                    ))
+                  : Column(
+                      children: [
+                        SizedBox(height: 24),
+                        Expanded(
+                          child: OAuthWebView(
+                            initialUrl: cubit(context).generatePaymentUrl(),
+                            redirectUrl: RestConstants.REAL_PAY_REDIRECT_URI,
+                            onPageStarted: (url) {},
+                            onProcess: (process) {},
+                            onPageFinished: (url) {},
+                            onRedirectUrlHandled: (url) async {
+                              cubit(context)
+                                  .stateMessageManager
+                                  .showSuccessSnackBar(
+                                      Strings.cardAddedMessage);
 
-                                await Future.delayed(Duration(seconds: 2));
+                              await Future.delayed(Duration(seconds: 2));
 
-                                context.router.pop(true);
-                              },
-                              onFailed: (url) {},
-                            ),
+                              context.router.pop(true);
+                            },
+                            onFailed: (url) {},
                           ),
-                        ],
-                      ),
-                BottomSheetTitle(
-                  title: Strings.cardAddTitle,
-                  onCloseClicked: () {
-                    context.router.pop();
-                  },
-                ),
-              ],
-            ),
+                        ),
+                      ],
+                    ),
+              BottomSheetTitle(
+                title: Strings.cardAddTitle,
+                onCloseClicked: () {
+                  context.router.pop();
+                },
+              ),
+            ],
           ),
         ),
       ),

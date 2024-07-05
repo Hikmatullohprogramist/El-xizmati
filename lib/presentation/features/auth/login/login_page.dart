@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/features/auth/otp_confirm/otp_confirmation_page.dart';
+import 'package:onlinebozor/domain/models/otp/otp_confirm_type.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
@@ -45,7 +45,7 @@ class LoginPage extends BasePage<LoginCubit, LoginState, LoginEvent> {
       case LoginEventType.onOpenAuthConfirm:
         context.router.replace(OtpConfirmationRoute(
           phone: phone,
-          confirmType: OtpConfirmType.recovery,
+          confirmType: OtpConfirmType.resetPasswordConfirm,
         ));
     }
   }
@@ -55,104 +55,105 @@ class LoginPage extends BasePage<LoginCubit, LoginState, LoginEvent> {
     _passwordController.updateOnRestore(state.password);
 
     return Scaffold(
-        backgroundColor: context.backgroundWhiteColor,
-        resizeToAvoidBottomInset: false,
-        appBar: DefaultAppBar(
-          titleText: Strings.authStartSingin,
-          titleTextColor: context.textPrimary,
-          backgroundColor: context.appBarColor,
-          onBackPressed: () {
-            context.router.replace(AuthStartRoute(phone: state.phone));
-          },
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: AutofillGroup(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 20),
-                  LabelTextField(Strings.commonPhoneNumber, isRequired: false),
-                  SizedBox(height: 8),
-                  CustomTextFormField(
-                    autofillHints: const [AutofillHints.telephoneNumber],
-                    enabled: false,
-                    readOnly: true,
-                    maxLines: 1,
-                    prefixText: "998 ",
-                    label: state.phone,
-                    onChanged: (value) {},
+      backgroundColor: context.backgroundWhiteColor,
+      resizeToAvoidBottomInset: false,
+      appBar: DefaultAppBar(
+        titleText: Strings.authStartSingin,
+        titleTextColor: context.textPrimary,
+        backgroundColor: context.appBarColor,
+        onBackPressed: () {
+          context.router.replace(AuthStartRoute(phone: state.phone));
+        },
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: AutofillGroup(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 20),
+                LabelTextField(Strings.commonPhoneNumber, isRequired: false),
+                SizedBox(height: 8),
+                CustomTextFormField(
+                  autofillHints: const [AutofillHints.telephoneNumber],
+                  enabled: false,
+                  readOnly: true,
+                  maxLines: 1,
+                  prefixText: "998 ",
+                  label: state.phone,
+                  onChanged: (value) {},
+                ),
+                SizedBox(height: 16),
+                LabelTextField(Strings.authCommonPassword, isRequired: false),
+                SizedBox(height: 8),
+                CustomTextFormField(
+                  autofillHints: const [AutofillHints.password],
+                  enableSuggestions: true,
+                  inputType: TextInputType.visiblePassword,
+                  keyboardType: TextInputType.visiblePassword,
+                  textInputAction: TextInputAction.done,
+                  readOnly: false,
+                  maxLines: 1,
+                  obscureText: true,
+                  controller: _passwordController,
+                  validator: (value) => PasswordValidator.validate(value),
+                  onChanged: (value) {
+                    cubit(context).setPassword(value);
+                  },
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: CustomTextButton(
+                    text: Strings.authVerificationForgetPassword,
+                    onPressed: () => cubit(context).forgetPassword(),
                   ),
-                  SizedBox(height: 16),
-                  LabelTextField(Strings.authCommonPassword, isRequired: false),
-                  SizedBox(height: 8),
-                  CustomTextFormField(
-                    autofillHints: const [AutofillHints.password],
-                    enableSuggestions: true,
-                    inputType: TextInputType.visiblePassword,
-                    keyboardType: TextInputType.visiblePassword,
-                    textInputAction: TextInputAction.done,
-                    readOnly: false,
-                    maxLines: 1,
-                    obscureText: true,
-                    controller: _passwordController,
-                    validator: (value) => PasswordValidator.validate(value),
-                    onChanged: (value) {
-                      cubit(context).setPassword(value);
-                    },
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: CustomTextButton(
-                      text: Strings.authVerificationForgetPassword,
-                      onPressed: () => cubit(context).forgetPassword(),
-                    ),
-                  ),
-                  Text.rich(
-                    TextSpan(
-                      children: [
-                        TextSpan(
-                          text: Strings.authPolicyAgree,
-                          style: TextStyle(
-                            color: context.textSecondary,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                          ),
+                ),
+                Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: Strings.authPolicyAgree,
+                        style: TextStyle(
+                          color: context.textSecondary,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
                         ),
-                        TextSpan(
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              cubit(context).launchURLApp();
-                            },
-                          text: Strings.authPersonPolicy,
-                          style: TextStyle(
-                            color: Color(0xFF5C6AC3),
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                          ),
+                      ),
+                      TextSpan(
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            cubit(context).launchURLApp();
+                          },
+                        text: Strings.authPersonPolicy,
+                        style: TextStyle(
+                          color: Color(0xFF5C6AC3),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
                         ),
-                      ],
-                    ),
-                    textAlign: TextAlign.center,
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 16),
-                  CustomElevatedButton(
-                    text: Strings.commonContinue,
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        TextInput.finishAutofillContext(shouldSave: true);
-                        cubit(context).login();
-                      }
-                    },
-                    isLoading: state.isRequestSending,
-                  ),
-                ],
-              ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 16),
+                CustomElevatedButton(
+                  text: Strings.commonContinue,
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      TextInput.finishAutofillContext(shouldSave: true);
+                      cubit(context).login();
+                    }
+                  },
+                  isLoading: state.isRequestSending,
+                ),
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

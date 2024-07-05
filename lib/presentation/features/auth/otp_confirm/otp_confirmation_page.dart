@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/domain/models/otp/otp_confirm_type.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
@@ -15,8 +16,8 @@ import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_fie
 import 'otp_confirmation_cubit.dart';
 
 @RoutePage()
-class OtpConfirmationPage
-    extends BasePage<OtpConfirmationCubit, OtpConfirmationState, OtpConfirmationEvent> {
+class OtpConfirmationPage extends BasePage<OtpConfirmationCubit,
+    OtpConfirmationState, OtpConfirmationEvent> {
   final String phone;
   final OtpConfirmType confirmType;
 
@@ -170,5 +171,3 @@ class OtpConfirmationPage
     );
   }
 }
-
-enum OtpConfirmType { confirm, recovery }

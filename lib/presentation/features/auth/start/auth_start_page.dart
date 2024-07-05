@@ -6,9 +6,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/domain/models/otp/otp_confirm_type.dart';
 import 'package:onlinebozor/presentation/features/auth/eds_request/crc32.dart';
 import 'package:onlinebozor/presentation/features/auth/eds_request/gost_hash.dart';
-import 'package:onlinebozor/presentation/features/auth/otp_confirm/otp_confirmation_page.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
@@ -46,7 +46,7 @@ class AuthStartPage
       case AuthStartEventType.onOpenConfirm:
         context.router.push(OtpConfirmationRoute(
           phone: event.phone!,
-          confirmType: OtpConfirmType.confirm,
+          confirmType: OtpConfirmType.registerConfirm,
         ));
       case AuthStartEventType.onEdsLoginFailed:
         showErrorBottomSheet(context, Strings.authStartLoginWithEImzoError);

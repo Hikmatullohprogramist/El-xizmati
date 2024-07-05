@@ -6,7 +6,7 @@ import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/auth_repository.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
-import 'package:onlinebozor/presentation/features/auth/otp_confirm/otp_confirmation_page.dart';
+import 'package:onlinebozor/domain/models/otp/otp_confirm_type.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -63,10 +63,10 @@ class OtpConfirmationCubit
   void resendCode() {}
 
   void confirmCode() {
-    if (OtpConfirmType.confirm == state.state?.otpConfirmType) {
-      phoneConfirmByCode();
+    if (OtpConfirmType.registerConfirm == state.state?.otpConfirmType) {
+      confirmOtpCodeForRegister();
     } else {
-      recoveryPhoneConfirmByCode();
+      confirmOtpCodeForResetPassword();
     }
   }
 
@@ -80,7 +80,7 @@ class OtpConfirmationCubit
     }
   }
 
-  Future<void> phoneConfirmByCode() async {
+  Future<void> confirmOtpCodeForRegister() async {
     _authRepository
         .confirm(states.phone.clearPhoneWithCode(), states.code)
         .initFuture()
@@ -102,7 +102,7 @@ class OtpConfirmationCubit
         .executeFuture();
   }
 
-  Future<void> recoveryPhoneConfirmByCode() async {
+  Future<void> confirmOtpCodeForResetPassword() async {
     _authRepository
         .recoveryConfirm(states.phone.clearPhoneWithCode(), states.code)
         .initFuture()
