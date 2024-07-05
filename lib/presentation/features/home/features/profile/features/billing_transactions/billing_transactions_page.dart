@@ -48,7 +48,7 @@ class BillingTransactionsPage extends BasePage<BillingTransactionsCubit,
       ),
       backgroundColor: context.backgroundGreyColor,
       body: RefreshIndicator(
-          displacement: 160,
+          displacement: 80,
           strokeWidth: 3,
           color: StaticColors.colorPrimary,
           onRefresh: () async {

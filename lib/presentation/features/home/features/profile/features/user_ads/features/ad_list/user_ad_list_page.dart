@@ -44,7 +44,7 @@ class UserAdListPage
     return Scaffold(
       backgroundColor: context.backgroundGreyColor,
       body: RefreshIndicator(
-        displacement: 160,
+        displacement: 80,
         strokeWidth: 3,
         color: StaticColors.colorPrimary,
         onRefresh: () async {
@@ -53,7 +53,7 @@ class UserAdListPage
         child: PagedListView<int, UserAd>(
           shrinkWrap: true,
           addAutomaticKeepAlives: true,
-          physics: BouncingScrollPhysics(),
+          // physics: BouncingScrollPhysics(),
           pagingController: state.controller!,
           padding: EdgeInsets.only(top: 12, bottom: 12),
           builderDelegate: PagedChildBuilderDelegate<UserAd>(

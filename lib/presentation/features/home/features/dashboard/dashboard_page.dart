@@ -42,7 +42,7 @@ class DashboardPage
       appBar: _buildAppBar(context),
       backgroundColor: context.backgroundWhiteColor,
       body: RefreshIndicator(
-        displacement: 160,
+        displacement: 80,
         strokeWidth: 3,
         color: StaticColors.colorPrimary,
         onRefresh: () async {

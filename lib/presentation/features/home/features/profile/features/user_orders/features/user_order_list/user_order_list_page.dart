@@ -48,7 +48,7 @@ class UserOrderListPage extends BasePage<UserOrderListCubit, UserOrderListState,
 
   Widget _buildBody(BuildContext context, UserOrderListState state) {
     return RefreshIndicator(
-      displacement: 160,
+      displacement: 80,
       strokeWidth: 3,
       color: StaticColors.colorPrimary,
       onRefresh: () async {
@@ -57,7 +57,7 @@ class UserOrderListPage extends BasePage<UserOrderListCubit, UserOrderListState,
       child: PagedListView<int, UserOrder>(
         shrinkWrap: true,
         addAutomaticKeepAlives: false,
-        physics: BouncingScrollPhysics(),
+        // physics: BouncingScrollPhysics(),
         padding: EdgeInsets.symmetric(vertical: 10),
         pagingController: state.controller!,
         builderDelegate: PagedChildBuilderDelegate<UserOrder>(
