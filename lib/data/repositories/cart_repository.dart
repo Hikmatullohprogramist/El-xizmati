@@ -3,6 +3,7 @@ import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.
 import 'package:onlinebozor/data/datasource/network/responses/add_result/add_result_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/private/cart_service.dart';
 import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
+import 'package:onlinebozor/data/error/app_locale_exception.dart';
 import 'package:onlinebozor/data/mappers/ad_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 
@@ -41,13 +42,19 @@ class CartRepository {
     await _adEntityDao.removeFromCart(adId);
   }
 
-  Future<List<Ad>> getCartAds() async {
-    final isAuthorized = _authPreferences.isAuthorized;
-    if (isAuthorized) {
-      final root = await _cartService.getCartAllAds();
-      final ads = AdRootResponse.fromJson(root.data).data.results;
-      await _adEntityDao.upsertAds(ads.map((e) => e.toAdEntity()).toList());
-    }
+  Future<List<Ad>> getActualCartAds() async {
+    if (_authPreferences.isNotAuthorized) throw NotAuthorizedException();
+
+    final root = await _cartService.getCartAllAds();
+    final ads = AdRootResponse.fromJson(root.data).data.results;
+    await _adEntityDao
+        .upsertAds(ads.map((e) => e.toAdEntity(isInCart: true)).toList());
+
+    final entities = await _adEntityDao.readCartAds();
+    return entities.map((e) => e.toAd()).toList();
+  }
+
+  Future<List<Ad>> getSavedCartAds() async {
     final entities = await _adEntityDao.readCartAds();
     return entities.map((e) => e.toAd()).toList();
   }

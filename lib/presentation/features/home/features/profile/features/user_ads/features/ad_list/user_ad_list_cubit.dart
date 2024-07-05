@@ -3,8 +3,8 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
+import 'package:onlinebozor/data/mappers/ad_mapper.dart';
 import 'package:onlinebozor/data/repositories/user_ad_repository.dart';
-import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
@@ -51,7 +51,7 @@ class UserAdListCubit extends BaseCubit<UserAdListState, UserAdListEvent> {
             .initFuture()
             .onStart(() {})
             .onSuccess((data) {
-              final adsList = data.map((e) => e.toMap()).toList();
+              final adsList = data.map((e) => e.toUserAd()).toList();
               if (adsList.length < 20) {
                 controller.appendLastPage(adsList);
                 return;

@@ -60,14 +60,15 @@ class CartPage extends BasePage<CartCubit, CartState, CartEvent> {
 
   Widget _buildSuccessBody(BuildContext context, CartState state) {
     return RefreshIndicator(
-      displacement: 160,
+      displacement: 80,
       strokeWidth: 3,
       color: StaticColors.colorPrimary,
       onRefresh: () async {
         cubit(context).getCartAds();
       },
       child: ListView.separated(
-        physics: BouncingScrollPhysics(),
+        // physics: BouncingScrollPhysics(),
+        physics: AlwaysScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         itemCount: state.cardAds.length,

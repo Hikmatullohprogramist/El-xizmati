@@ -10,6 +10,7 @@ import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_builder.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_event.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_state.dart';
+import 'package:onlinebozor/presentation/support/extensions/platform_sizes.dart';
 import 'package:onlinebozor/presentation/support/state_message/state_bottom_sheet_exts.dart';
 import 'package:onlinebozor/presentation/support/state_message/state_message_type.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
@@ -152,7 +153,7 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
             SizedBox(height: 24),
             Center(child: title.s(18)),
             SizedBox(height: 24),
-            Center(child: message.s(16)),
+            Center(child: message.s(16).copyWith(textAlign: TextAlign.center)),
             SizedBox(height: 32),
             Row(
               children: <Widget>[
@@ -181,7 +182,7 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
                 SizedBox(width: 16),
               ],
             ),
-            SizedBox(height: 24),
+            SizedBox(height: bottomSheetBottomPadding),
           ],
         ),
       ),
