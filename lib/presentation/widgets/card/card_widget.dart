@@ -50,44 +50,42 @@ class CardWidget extends StatelessWidget {
                 topRight: Radius.circular(12),
               ),
             ),
-            child: Expanded(
-              child: Row(
-                children: [
-                  SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 16),
-                        userCard.cardName
-                            .s(14)
-                            .w(400)
-                            .c(context.textPrimaryInverse),
-                        SizedBox(height: 16),
-                        "${priceMaskFormatter.formatDouble(userCard.balance)} ${Strings.currencyUzs}"
-                            .s(20)
-                            .w(600)
-                            .c(context.textPrimaryInverse),
-                        SizedBox(height: 16),
-                        userCard.cardHolder
-                            .s(15)
-                            .w(500)
-                            .c(context.textPrimaryInverse)
-                            .copyWith(
-                                maxLines: 1, overflow: TextOverflow.ellipsis),
-                        SizedBox(height: 12),
-                        userCard.cardPan
-                            .s(14)
-                            .w(400)
-                            .c(context.textPrimaryInverse),
-                        SizedBox(height: 12),
-                      ],
-                    ),
+            child: Row(
+              children: [
+                SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 16),
+                      userCard.cardName
+                          .s(14)
+                          .w(400)
+                          .c(context.textPrimaryInverse),
+                      SizedBox(height: 16),
+                      "${priceMaskFormatter.formatDouble(userCard.balance)} ${Strings.currencyUzs}"
+                          .s(20)
+                          .w(600)
+                          .c(context.textPrimaryInverse),
+                      SizedBox(height: 16),
+                      userCard.cardHolder
+                          .s(15)
+                          .w(500)
+                          .c(context.textPrimaryInverse)
+                          .copyWith(
+                              maxLines: 1, overflow: TextOverflow.ellipsis),
+                      SizedBox(height: 12),
+                      userCard.cardPan
+                          .s(14)
+                          .w(400)
+                          .c(context.textPrimaryInverse),
+                      SizedBox(height: 12),
+                    ],
                   ),
-                  SizedBox(width: 16),
-                ],
-              ),
+                ),
+                SizedBox(width: 16),
+              ],
             ),
           ),
           Stack(
