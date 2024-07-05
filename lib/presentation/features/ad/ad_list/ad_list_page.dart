@@ -12,6 +12,7 @@ import 'package:onlinebozor/presentation/features/common/report/submit_report_pa
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:onlinebozor/presentation/support/extensions/platform_sizes.dart';
 import 'package:onlinebozor/presentation/widgets/action/action_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/ad/vertical/vertical_ad_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/ad/vertical/vertical_ad_widget.dart';
@@ -160,16 +161,6 @@ class AdListPage extends BasePage<AdListCubit, AdListState, AdListEvent> {
     );
   }
 
-  void _showReportPage(
-    BuildContext context,
-    ReportType reportType,
-  ) async {
-    final isReported = await showCupertinoModalBottomSheet(
-      context: context,
-      builder: (context) => SubmitReportPage(sellerTin!, reportType),
-    );
-  }
-
   void _showReportTypeBottomSheet(BuildContext context) {
     showCupertinoModalBottomSheet(
       context: context,
@@ -214,7 +205,7 @@ class AdListPage extends BasePage<AdListCubit, AdListState, AdListEvent> {
                     _showReportPage(context, ReportType.AUTHOR_BLOCK);
                   },
                 ),
-                SizedBox(height: 32),
+                SizedBox(height: bottomSheetBottomPadding),
               ],
             ),
           ),
@@ -222,4 +213,15 @@ class AdListPage extends BasePage<AdListCubit, AdListState, AdListEvent> {
       },
     );
   }
+
+  void _showReportPage(
+      BuildContext context,
+      ReportType reportType,
+      ) async {
+    final isReported = await showCupertinoModalBottomSheet(
+      context: context,
+      builder: (context) => SubmitReportPage(sellerTin!, reportType),
+    );
+  }
+
 }

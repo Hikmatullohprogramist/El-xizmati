@@ -743,16 +743,6 @@ class AdDetailPage
     }
   }
 
-  void _showReportPage(
-    BuildContext context,
-    ReportType reportType,
-  ) async {
-    final isReported = await showCupertinoModalBottomSheet(
-      context: context,
-      builder: (context) => SubmitReportPage(adId, reportType),
-    );
-  }
-
   void _showReportTypeBottomSheet(BuildContext context) {
     showCupertinoModalBottomSheet(
       context: context,
@@ -802,6 +792,16 @@ class AdDetailPage
           ),
         );
       },
+    );
+  }
+
+  void _showReportPage(
+      BuildContext context,
+      ReportType reportType,
+      ) async {
+    final isReported = await showCupertinoModalBottomSheet(
+      context: context,
+      builder: (context) => SubmitReportPage(adId, reportType),
     );
   }
 }
