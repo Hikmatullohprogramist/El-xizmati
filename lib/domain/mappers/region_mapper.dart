@@ -38,7 +38,7 @@ extension RegionItemExts on ExpandableListItem {
 }
 
 extension RegionAndDistrictExts on RegionAndDistrictResponse {
-  RegionAndDistrict toMap() {
+  RegionAndDistrict toRegionAndDistrict() {
     return RegionAndDistrict(
       regions: regions.map((e) => e.toRegion()).toList(),
       districts: districts.map((e) => e.toDistrict()).toList(),

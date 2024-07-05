@@ -109,7 +109,7 @@ class UserRepository {
   Future<RegionAndDistrict> getRegionAndDistricts() async {
     final response = await _userService.getRegionAndDistricts();
     final result = RegionAndDistrictRootResponse.fromJson(response.data).data;
-    return result.toMap();
+    return result.toRegionAndDistrict();
   }
 
   Future<List<Region>> getRegions() async {

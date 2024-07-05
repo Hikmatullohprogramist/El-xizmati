@@ -113,7 +113,7 @@ class AdDetailCubit extends BaseCubit<AdDetailState, AdDetailEvent> {
             (state) => state.copyWith(adDetail: ad?..isFavorite = false));
       } else {
         final backendId =
-            await _favoriteRepository.addToFavorite(states.adDetail!.toMap());
+            await _favoriteRepository.addToFavorite(states.adDetail!.toAd());
 
         ad?.isFavorite = true;
         ad?.backendId = backendId;
@@ -127,7 +127,7 @@ class AdDetailCubit extends BaseCubit<AdDetailState, AdDetailEvent> {
 
   Future<void> addCart() async {
     try {
-      await _cartRepository.addToCart(states.adDetail!.toMap());
+      await _cartRepository.addToCart(states.adDetail!.toAd());
       updateState((state) => state.copyWith(isAddCart: true));
     } catch (e) {
       logger.e(e.toString());

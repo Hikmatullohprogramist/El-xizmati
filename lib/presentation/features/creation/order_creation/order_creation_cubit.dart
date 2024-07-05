@@ -160,7 +160,7 @@ class OrderCreationCubit
       if (states.adDetail?.isFavorite == true) {
         await _favoriteRepository.removeFromFavorite(states.adDetail!.adId);
       } else {
-        await _favoriteRepository.addToFavorite(states.adDetail!.toMap());
+        await _favoriteRepository.addToFavorite(states.adDetail!.toAd());
       }
 
       final favorite = !states.favorite;

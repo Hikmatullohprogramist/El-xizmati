@@ -9,9 +9,8 @@ import 'package:onlinebozor/data/datasource/network/services/public/ad_detail_se
 import 'package:onlinebozor/data/datasource/network/services/public/ad_list_service.dart';
 import 'package:onlinebozor/data/datasource/network/services/public/dashboard_service.dart';
 import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
-import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
-import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
+import 'package:onlinebozor/data/mappers/ad_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 import 'package:onlinebozor/domain/models/ad/ad_detail.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
@@ -34,7 +33,7 @@ class AdRepository {
     this._dashboardService,
   );
 
-  Future<List<Ad>> _readAdsByAds(List<AdResponse> ads) async {
+  Future<List<Ad>> _readAdsBySaving(List<AdResponse> ads) async {
     await _adEntityDao.upsertAds(ads.map((e) => e.toAdEntity()).toList());
     final ids = ads.map((e) => e.id).toList();
     Logger().w("_getAsCombined ids = $ids");
@@ -52,21 +51,21 @@ class AdRepository {
     final response = await _adListService.getAdsByCategory(page, limit, key);
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
 
-    return _readAdsByAds(adResponses);
+    return _readAdsBySaving(adResponses);
   }
 
   Future<List<Ad>> getDashboardPopularAds({required AdType adType}) async {
     final response = await _adListService.getDashboardAdsByType(adType: adType);
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
 
-    return _readAdsByAds(adResponses);
+    return _readAdsBySaving(adResponses);
   }
 
   Future<List<Ad>> getDashboardTopRatedAds() async {
     final response = await _dashboardService.getDashboardTopRatedAds();
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
 
-    return _readAdsByAds(adResponses);
+    return _readAdsBySaving(adResponses);
   }
 
   Future<List<Ad>> getPopularAdsByType({
@@ -81,7 +80,7 @@ class AdRepository {
     );
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
 
-    return _readAdsByAds(adResponses);
+    return _readAdsBySaving(adResponses);
   }
 
   Future<List<Ad>> getCheapAdsByType({
@@ -96,7 +95,7 @@ class AdRepository {
     );
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
 
-    return _readAdsByAds(adResponses);
+    return _readAdsBySaving(adResponses);
   }
 
   Future<List<Ad>> getAdsByType({
@@ -106,7 +105,7 @@ class AdRepository {
   }) async {
     final response = await _adListService.getAdsByAdType(adType, page, limit);
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
-    return _readAdsByAds(adResponses);
+    return _readAdsBySaving(adResponses);
   }
 
   Future<AdDetail?> getAdDetail(int adId) async {
@@ -137,7 +136,7 @@ class AdRepository {
       limit: limit,
     );
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
-    return _readAdsByAds(adResponses);
+    return _readAdsBySaving(adResponses);
   }
 
   Future<List<Ad>> getSimilarAds({
@@ -148,7 +147,7 @@ class AdRepository {
     final response = await _adDetailService.getSimilarAds(
         adId: adId, page: page, limit: limit);
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
-    return _readAdsByAds(adResponses);
+    return _readAdsBySaving(adResponses);
   }
 
   Future<void> increaseAdStats({
@@ -177,6 +176,6 @@ class AdRepository {
       limit: limit,
     );
     final adResponses = AdRootResponse.fromJson(response.data).data.results;
-    return _readAdsByAds(adResponses);
+    return _readAdsBySaving(adResponses);
   }
 }

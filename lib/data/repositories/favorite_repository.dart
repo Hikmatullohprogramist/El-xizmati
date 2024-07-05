@@ -5,7 +5,7 @@ import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.
 import 'package:onlinebozor/data/datasource/network/responses/add_result/add_result_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/private/favorite_service.dart';
 import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
-import 'package:onlinebozor/domain/mappers/ad_mapper.dart';
+import 'package:onlinebozor/data/mappers/ad_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 
 class FavoriteRepository {
