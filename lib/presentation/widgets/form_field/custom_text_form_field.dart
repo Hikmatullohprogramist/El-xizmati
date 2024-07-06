@@ -149,17 +149,19 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             color: context.textSecondary,
           ),
           // prefixText: widget.prefixText,
-          prefix: widget.prefixText == null
+          prefixIcon: widget.prefixText == null
               ? null
               : Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    SizedBox(width: 12),
                     (widget.prefixText ?? "").c(context.textPrimary),
+                    SizedBox(width: 8),
                     Container(
                       width: 1,
                       margin: EdgeInsets.fromLTRB(6, 5, 10, 4),
                       color: _isFocused ? Color(0xFF5C6AC4) : Color(0xFFDFE2E9),
-                    )
+                    ),
                   ],
                 ),
           prefixStyle: TextStyle(
