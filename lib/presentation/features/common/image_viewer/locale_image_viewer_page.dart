@@ -6,6 +6,7 @@ import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
+import 'package:onlinebozor/presentation/support/extensions/platform_sizes.dart';
 import 'package:onlinebozor/presentation/support/extensions/xfile_exts.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:photo_view/photo_view.dart';
@@ -162,7 +163,7 @@ class _LocaleImageViewerPageState extends State<LocaleImageViewerPage> {
   ) {
     return Positioned(
       left: 16,
-      bottom: 16,
+      bottom: bottomSheetBottomPadding,
       right: 16,
       child: Row(
         mainAxisSize: MainAxisSize.max,
