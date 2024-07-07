@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 
 class BillingTransactionsEmptyWidget extends StatelessWidget {
   const BillingTransactionsEmptyWidget({super.key, required this.listener});
@@ -16,7 +17,7 @@ class BillingTransactionsEmptyWidget extends StatelessWidget {
         SizedBox(height: 120),
         Assets.images.pngImages.cardEmpty.image(),
         SizedBox(height: 48),
-        "Hech qanday to'lovlar yo'q".w(500).s(16).c(Color(0xFF41455E)).copyWith(
+        "Hech qanday to'lovlar yo'q".w(500).s(16).c(context.textPrimary).copyWith(
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.start),
@@ -24,7 +25,7 @@ class BillingTransactionsEmptyWidget extends StatelessWidget {
         // Strings.cardEmptyDescripton
         //      .w(400)
         //      .s(12)
-        //      .c(Color(0xFF41455E))
+        //      .c(context.textPrimary)
         //      .copyWith(
         //        maxLines: 2,
         //        textAlign: TextAlign.center,

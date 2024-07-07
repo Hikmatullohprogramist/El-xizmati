@@ -5,8 +5,8 @@ import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
 
-class UserAddressSelection extends StatelessWidget {
-  const UserAddressSelection({
+class UserAddressSelectionWidget extends StatelessWidget {
+  const UserAddressSelectionWidget({
     super.key,
     required this.address,
     required this.isSelected,
@@ -48,7 +48,7 @@ class UserAddressSelection extends StatelessWidget {
                         child: (address.name ?? "")
                             .w(600)
                             .s(16)
-                            .c(Color(0xFF41455E))
+                            .c(context.textPrimary)
                             .copyWith(overflow: TextOverflow.ellipsis),
                       ),
                       Row(
@@ -81,7 +81,7 @@ class UserAddressSelection extends StatelessWidget {
                       .w(400)
                       .c(context.textSecondary),
                   SizedBox(height: 5),
-                  address.fullAddress.w(500).s(12).c(Color(0xFF41455E)),
+                  address.fullAddress.w(500).s(12).c(context.textPrimary),
                   SizedBox(height: 12),
                 ],
               ),

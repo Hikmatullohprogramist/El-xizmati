@@ -193,7 +193,7 @@ class AdCreationChooserPage extends BasePage<AdCreationChooserCubit,
             Strings.authRecommentDesc
                 .w(500)
                 .s(16)
-                .c(Color(0xFF41455E))
+                .c(context.textPrimary)
                 .copyWith(textAlign: TextAlign.center),
             SizedBox(height: 120),
             SizedBox(

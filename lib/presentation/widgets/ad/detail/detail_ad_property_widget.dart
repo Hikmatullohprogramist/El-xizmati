@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 
 import '../../../../domain/models/ad/ad_item_condition.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
@@ -24,9 +25,9 @@ class DetailAdPropertyWidget extends StatelessWidget {
           SizedBox(width: 2),
           switch (adItemCondition) {
             AdItemCondition.fresh =>
-              Strings.adStatusNew.w(400).s(14).c(Color(0xFF41455E)),
+              Strings.adStatusNew.w(400).s(14).c(context.textPrimary),
             AdItemCondition.used =>
-              Strings.adStatusOld.w(400).s(14).c(Color(0xFF41455E)),
+              Strings.adStatusOld.w(400).s(14).c(context.textPrimary),
           },
         ],
       ),

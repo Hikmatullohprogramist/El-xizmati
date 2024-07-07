@@ -115,17 +115,17 @@ class IdentityVerificationPage extends BasePage<IdentityVerificationCubit,
           Strings.identityVerificationPersonalData
               .w(700)
               .s(16)
-              .c(Color(0xFF41455E)),
+              .c(context.textPrimary),
           SizedBox(height: 12),
           Strings.identityVerificationPersonalDataDesc
               .w(500)
               .s(14)
-              .c(Color(0xFF41455E)),
+              .c(context.textPrimary),
           SizedBox(height: 24),
           Strings.profileEditBiometricInformation
               .w(500)
               .s(14)
-              .c(Color(0xFF41455E)),
+              .c(context.textPrimary),
           SizedBox(height: 8),
           Row(
             children: [
@@ -160,7 +160,7 @@ class IdentityVerificationPage extends BasePage<IdentityVerificationCubit,
             ],
           ),
           SizedBox(height: 12),
-          Strings.profileEditBrithDate.w(500).s(14).c(Color(0xFF41455E)),
+          Strings.profileEditBrithDate.w(500).s(14).c(context.textPrimary),
           SizedBox(height: 8),
           Stack(
             alignment: Alignment.centerRight,
@@ -201,7 +201,7 @@ class IdentityVerificationPage extends BasePage<IdentityVerificationCubit,
             ],
           ),
           SizedBox(height: 12),
-          Strings.commonPhoneNumber.w(500).s(12).c(Color(0xFF41455E)),
+          Strings.commonPhoneNumber.w(500).s(12).c(context.textPrimary),
           SizedBox(height: 8),
           CustomTextFormField(
             autofillHints: const [AutofillHints.telephoneNumber],

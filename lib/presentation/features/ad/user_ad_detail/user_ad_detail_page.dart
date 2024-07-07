@@ -105,7 +105,7 @@ class UserAdDetailPage extends BasePage<UserAdDetailCubit, UserAdDetailState, Us
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 16),
-          (userAd.name ?? "").w(600).s(14).c(Color(0xFF41455E)),
+          (userAd.name ?? "").w(600).s(14).c(context.textPrimary),
           SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -190,7 +190,7 @@ class UserAdDetailPage extends BasePage<UserAdDetailCubit, UserAdDetailState, Us
                             .toString()
                             .w(600)
                             .s(10)
-                            .c(Color(0xFF41455E))
+                            .c(context.textPrimary)
                       ]),
                 ),
               ),
@@ -216,7 +216,7 @@ class UserAdDetailPage extends BasePage<UserAdDetailCubit, UserAdDetailState, Us
                           .toString()
                           .w(600)
                           .s(10)
-                          .c(Color(0xFF41455E))
+                          .c(context.textPrimary)
                     ],
                   ),
                 ),
@@ -243,7 +243,7 @@ class UserAdDetailPage extends BasePage<UserAdDetailCubit, UserAdDetailState, Us
                             .toString()
                             .w(600)
                             .s(10)
-                            .c(Color(0xFF41455E))
+                            .c(context.textPrimary)
                       ]),
                 ),
               ),
@@ -269,7 +269,7 @@ class UserAdDetailPage extends BasePage<UserAdDetailCubit, UserAdDetailState, Us
                           .toString()
                           .w(600)
                           .s(10)
-                          .c(Color(0xFF41455E))
+                          .c(context.textPrimary)
                     ],
                   ),
                 ),

@@ -8,7 +8,7 @@ import 'package:onlinebozor/presentation/support/extensions/color_extension.dart
 import 'package:flutter/services.dart';
 import 'package:onlinebozor/presentation/support/extensions/platform_sizes.dart';
 import 'package:onlinebozor/presentation/widgets/address/user_address_empty_widget.dart';
-import 'package:onlinebozor/presentation/widgets/address/user_address_selection.dart';
+import 'package:onlinebozor/presentation/widgets/address/user_address_selection_widget.dart';
 import 'package:onlinebozor/presentation/widgets/address/user_address_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
@@ -90,7 +90,7 @@ class UserAddressSelectionPage extends BasePage<UserAddressSelectionCubit,
       itemCount: state.items.length,
       itemBuilder: (context, index) {
         var element = state.items[index];
-        return UserAddressSelection(
+        return UserAddressSelectionWidget(
           address: element,
           onClicked: () {
             context.router.pop(element);

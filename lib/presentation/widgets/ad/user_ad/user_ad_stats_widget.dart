@@ -31,7 +31,7 @@ class AdStatsWidget extends StatelessWidget {
               .toString()
               .w(600)
               .s(14)
-              .c(Color(0xFF41455E)),
+              .c(context.textPrimary),
           SizedBox(width: 8),
         ],
       ),

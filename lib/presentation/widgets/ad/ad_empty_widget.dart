@@ -24,7 +24,7 @@ class AdEmptyWidget extends StatelessWidget {
             Strings.adEmptyMessageAll
                 .w(500)
                 .s(16)
-                .c(Color(0xFF41455E))
+                .c(context.textPrimary)
                 .copyWith(
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,

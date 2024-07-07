@@ -1,8 +1,7 @@
-import 'package:elegant_notification/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 
 class UserAddressEmptyWidget extends StatelessWidget {
@@ -24,11 +23,12 @@ class UserAddressEmptyWidget extends StatelessWidget {
             Strings.addressEmptyTitle
                 .w(500)
                 .s(16)
-                .c(Color(0xFF41455E))
+                .c(context.textPrimary)
                 .copyWith(
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                ),
             SizedBox(height: 42),
             CustomElevatedButton(
               onPressed: onActionClicked,

@@ -63,7 +63,7 @@ class ChatItem extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      "Техно-ID".w(600).s(14).c(Color(0xFF41455E)),
+                      "Техно-ID".w(600).s(14).c(context.textPrimary),
                       "11:23".w(500).s(10).c(context.textSecondary)
                     ],
                   ),
