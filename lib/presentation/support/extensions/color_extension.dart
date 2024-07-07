@@ -20,7 +20,9 @@ extension ColorExtension on BuildContext {
 
   Color get backgroundWhiteColor => Theme.of(this).colorScheme.secondary;
 
-  Color get bottomSheetColor => Theme.of(this).colorScheme.surface;
+  // Color get bottomSheetColor => Theme.of(this).colorScheme.surface;
+  Color get bottomSheetColor =>
+      isDarkMode ? Color(0xFF121212) : Color(0xFFF2F4FB);
 
   Color get bottomNavigationColor => Theme.of(this).colorScheme.background;
 

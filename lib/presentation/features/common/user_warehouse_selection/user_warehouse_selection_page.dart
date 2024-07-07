@@ -34,7 +34,7 @@ class UserWarehouseSelectionPage extends BasePage<UserWarehouseSelectionCubit,
         alignment: Alignment.bottomCenter,
         children: [
           Container(
-            color: context.backgroundGreyColor,
+            color: context.bottomSheetColor,
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               child: Column(
