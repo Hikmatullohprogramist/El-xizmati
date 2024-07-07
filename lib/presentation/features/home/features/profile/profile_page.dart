@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/language/language.dart';
@@ -16,6 +17,7 @@ import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title
 import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
 import 'package:onlinebozor/presentation/widgets/elevation/elevation_widget.dart';
 import 'package:onlinebozor/presentation/widgets/profile/profile_item_widget.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import 'profile_cubit.dart';
 
@@ -41,18 +43,20 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
       ),
       backgroundColor: context.backgroundGreyColor,
       body: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              _buildProfileBlock(context, state),
-              _buildOrderBlock(context, state),
-              _buildCardBlock(context, state),
-              _buildSettingsBlock(context, state),
-              _buildLogoutBlock(context, state),
-            ],
-          )),
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _buildProfileBlock(context, state),
+            _buildOrderBlock(context, state),
+            _buildCardBlock(context, state),
+            _buildSettingsBlock(context, state),
+            _buildLogoutBlock(context, state),
+            _buildAppVersionBlock(),
+          ],
+        ),
+      ),
     );
   }
 
@@ -315,6 +319,30 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildAppVersionBlock() {
+    return FutureBuilder<PackageInfo>(
+      future: PackageInfo.fromPlatform(),
+      builder: (context, snapshot) {
+        return Column(
+          children: [
+            SizedBox(height: 24),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: SizedBox(
+                height: 32,
+                child: Assets.images.pngImages.appNameAndLogo.image(),
+              ),
+            ),
+            "${snapshot.data!.version}(${snapshot.data!.buildNumber})"
+                .s(14)
+                .w(500),
+            SizedBox(height: 32),
+          ],
+        );
+      },
     );
   }
 
