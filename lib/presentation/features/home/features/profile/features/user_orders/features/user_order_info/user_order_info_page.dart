@@ -34,37 +34,82 @@ class UserOrderInfoPage extends BasePage<UserOrderInfoCubit, UserOrderInfoState,
 
   @override
   Widget onWidgetBuild(BuildContext context, UserOrderInfoState state) {
-    return Material(
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Container(
-            color: context.bottomSheetColor,
-            child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Column(
-                children: [
-                  SizedBox(height: 20),
-                  BottomSheetTitle(
-                    title: "№ ${state.actualOrder.orderId}",
-                    onCloseClicked: () {
-                      context.router.pop(state.updatedOrder);
-                    },
-                  ),
-                  _buildProductBlock(context, state),
-                  SizedBox(height: 8),
-                  _buildActions(context, state),
-                  SizedBox(height: bottomSheetBottomPadding),
-                ],
+    return WillPopScope(
+      onWillPop: () async {
+        context.router.pop(state.updatedOrder);
+        return true;
+      },
+      child: Material(
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Container(
+              color: context.bottomSheetColor,
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    SizedBox(height: 20),
+                    Row(
+                      children: [
+                        SizedBox(width: 16),
+                        Expanded(
+                          child: "№ ${state.actualOrder.orderId}"
+                              .s(18)
+                              .w(600)
+                              .copyWith(
+                                textAlign: TextAlign.start,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                        ),
+                        Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 6, horizontal: 8),
+                              decoration: BoxDecoration(
+                                color: state.actualOrder.status
+                                    .color()
+                                    .withOpacity(.2),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: (state.actualOrder.status.getLocalizedName())
+                                  .s(13)
+                                  .w(400)
+                                  .c(state.actualOrder.status.color()),
+                            ),
+                            SizedBox(width: 12),
+                            IconButton(
+                              onPressed: () {
+                                context.router.pop(state.updatedOrder);
+                                HapticFeedback.lightImpact();
+                              },
+                              icon: Assets.images.icClose
+                                  .svg(width: 24, height: 24),
+                            ),
+                            SizedBox(width: 6),
+                          ],
+                        ),
+                      ],
+                    ),
+                    _buildProductBlock(context, state),
+                    if (state.actualOrder.isCancelled)
+                      _buildCancelNoteBlock(context, state),
+                    SizedBox(height: 8),
+                    _buildActions(context, state),
+                    SizedBox(height: bottomSheetBottomPadding),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  Container _buildProductBlock(BuildContext context, UserOrderInfoState state) {
+  Widget _buildProductBlock(BuildContext context, UserOrderInfoState state) {
     return Container(
       padding: EdgeInsets.only(left: 12, right: 12),
       child: Column(

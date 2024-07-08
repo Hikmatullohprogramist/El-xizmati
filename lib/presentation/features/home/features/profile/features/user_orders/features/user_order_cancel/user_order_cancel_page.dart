@@ -44,80 +44,86 @@ class UserOrderCancelPage extends BasePage<UserOrderCancelCubit,
   Widget onWidgetBuild(BuildContext context, UserOrderCancelState state) {
     commentController.updateOnRestore(state.cancelComment);
 
-    return Material(
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Container(
-            color: context.bottomSheetColor,
-            child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Column(
-                children: [
-                  SizedBox(height: 20),
-                  BottomSheetTitle(
-                    title: Strings.orderCancellationTitle,
-                    onCloseClicked: () {
-                      context.router.pop();
-                    },
-                  ),
-                  _buildReasonsItems(context, state),
-                  Visibility(
-                    visible: state.isCommentEnabled,
-                    child: SizedBox(height: 8),
-                  ),
-                  Visibility(
-                    visible: state.isCommentEnabled,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: LabelTextField(
-                        Strings.commonComment,
-                        isRequired: true,
+    return WillPopScope(
+      onWillPop: () async {
+        context.router.pop(state.userOrder!);
+        return true;
+      },
+      child: Material(
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Container(
+              color: context.bottomSheetColor,
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    SizedBox(height: 20),
+                    BottomSheetTitle(
+                      title: Strings.orderCancellationTitle,
+                      onCloseClicked: () {
+                        context.router.pop();
+                      },
+                    ),
+                    _buildReasonsItems(context, state),
+                    Visibility(
+                      visible: state.isCommentEnabled,
+                      child: SizedBox(height: 8),
+                    ),
+                    Visibility(
+                      visible: state.isCommentEnabled,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: LabelTextField(
+                          Strings.commonComment,
+                          isRequired: true,
+                        ),
                       ),
                     ),
-                  ),
-                  Visibility(
-                    visible: state.isCommentEnabled,
-                    child: SizedBox(height: 8),
-                  ),
-                  Visibility(
-                    visible: state.isCommentEnabled,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: CustomTextFormField(
-                        autofillHints: const [AutofillHints.name],
-                        inputType: TextInputType.name,
-                        keyboardType: TextInputType.name,
-                        maxLines: 5,
-                        minLines: 3,
-                        hint: Strings.commonComment,
-                        textInputAction: TextInputAction.next,
-                        controller: commentController,
-                        onChanged: (value) {
-                          cubit(context).setEnteredComment(value);
+                    Visibility(
+                      visible: state.isCommentEnabled,
+                      child: SizedBox(height: 8),
+                    ),
+                    Visibility(
+                      visible: state.isCommentEnabled,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: CustomTextFormField(
+                          autofillHints: const [AutofillHints.name],
+                          inputType: TextInputType.name,
+                          keyboardType: TextInputType.name,
+                          maxLines: 5,
+                          minLines: 3,
+                          hint: Strings.commonComment,
+                          textInputAction: TextInputAction.next,
+                          controller: commentController,
+                          onChanged: (value) {
+                            cubit(context).setEnteredComment(value);
+                          },
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(
+                        16,
+                        12,
+                        16,
+                        bottomSheetBottomPadding,
+                      ),
+                      child: CustomElevatedButton(
+                        text: Strings.commonCancel,
+                        onPressed: () {
+                          cubit(context).cancelOrder();
                         },
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(
-                      16,
-                      12,
-                      16,
-                      bottomSheetBottomPadding,
-                    ),
-                    child: CustomElevatedButton(
-                      text: Strings.commonCancel,
-                      onPressed: () {
-                        cubit(context).cancelOrder();
-                      },
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
