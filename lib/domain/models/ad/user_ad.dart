@@ -90,7 +90,7 @@ class UserAd {
     return [
       UserAdStatus.INACTIVE,
       UserAdStatus.REJECTED,
-      UserAdStatus.CANCELLED,
+      UserAdStatus.CANCELED,
     ].contains(status);
   }
 

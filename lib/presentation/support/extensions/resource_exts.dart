@@ -214,14 +214,18 @@ extension UserAdStatusResExts on UserAdStatus {
         return Strings.userAdsActive;
       case UserAdStatus.WAIT:
         return Strings.userAdsWait;
+      case UserAdStatus.UNPAID:
+        return Strings.userAdsWait;
       case UserAdStatus.INACTIVE:
         return Strings.userAdsInactive;
       case UserAdStatus.REJECTED:
         return Strings.userAdsRejected;
-      case UserAdStatus.CANCELLED:
+      case UserAdStatus.CANCELED:
         return Strings.userAdsCancelled;
-      case UserAdStatus.SYS_CANCELLED:
+      case UserAdStatus.SYS_CANCELED:
         return Strings.userAdsCancelled;
+      case UserAdStatus.ARCHIVED:
+        return Strings.userAdsInactive;
     }
   }
 
@@ -233,14 +237,18 @@ extension UserAdStatusResExts on UserAdStatus {
         return Strings.adEmptyMessageActive;
       case UserAdStatus.WAIT:
         return Strings.adEmptyMessageWait;
+      case UserAdStatus.UNPAID:
+        return Strings.adEmptyMessageWait;
       case UserAdStatus.INACTIVE:
         return Strings.adEmptyMessageInactive;
       case UserAdStatus.REJECTED:
         return Strings.adEmptyMessageCancelled;
-      case UserAdStatus.CANCELLED:
+      case UserAdStatus.CANCELED:
         return Strings.adEmptyMessageCancelled;
-      case UserAdStatus.SYS_CANCELLED:
+      case UserAdStatus.SYS_CANCELED:
         return Strings.adEmptyMessageCancelled;
+      case UserAdStatus.ARCHIVED:
+        return Strings.adEmptyMessageInactive;
     }
   }
 
@@ -252,14 +260,18 @@ extension UserAdStatusResExts on UserAdStatus {
         return Color(0xFF4BB16F);
       case UserAdStatus.WAIT:
         return Color(0xFF0060FE);
+      case UserAdStatus.UNPAID:
+        return Color(0xFF0060FE);
       case UserAdStatus.INACTIVE:
         return Color(0xFFF79500);
       case UserAdStatus.REJECTED:
         return Color(0xFFFB577C);
-      case UserAdStatus.CANCELLED:
+      case UserAdStatus.CANCELED:
         return Color(0xFFFB577C);
-      case UserAdStatus.SYS_CANCELLED:
+      case UserAdStatus.SYS_CANCELED:
         return Color(0xFFFB577C);
+      case UserAdStatus.ARCHIVED:
+        return Color(0xFFF79500);
     }
   }
 }

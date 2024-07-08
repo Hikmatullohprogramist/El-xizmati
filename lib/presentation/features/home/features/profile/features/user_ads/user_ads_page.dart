@@ -25,7 +25,7 @@ class UserAdsPage extends BasePage<UserAdsCubit, UserAdsState, UserAdsEvent> {
         UserAdListRoute(userAdStatus: UserAdStatus.ACTIVE),
         UserAdListRoute(userAdStatus: UserAdStatus.WAIT),
         UserAdListRoute(userAdStatus: UserAdStatus.INACTIVE),
-        UserAdListRoute(userAdStatus: UserAdStatus.CANCELLED),
+        UserAdListRoute(userAdStatus: UserAdStatus.CANCELED),
       ],
       builder: (context, child, controller) {
         return Scaffold(
