@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
+import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/data/datasource/network/responses/user_order/user_order_response.dart';
+import 'package:onlinebozor/domain/models/order/user_order.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
-
-import '../image/rounded_cached_network_image_widget.dart';
+import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
 
 class UserOrderWidget extends StatelessWidget {
   const UserOrderWidget({
@@ -42,16 +42,16 @@ class UserOrderWidget extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
                     decoration: BoxDecoration(
-                      color: order.orderStatus.color().withOpacity(.2),
+                      color: order.status.color().withOpacity(.2),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: (order.orderStatus.getLocalizedName())
+                    child: (order.status.getLocalizedName())
                         .s(13)
                         .w(400)
-                        .c(order.orderStatus.color()),
+                        .c(order.status.color()),
                   ),
-                  // SizedBox(width: 8),
-                  // Assets.images.icThreeDotVertical.svg()
+                  SizedBox(width: 8),
+                  Assets.images.icThreeDotVertical.svg()
                 ],
               ),
               SizedBox(height: 12),
@@ -60,7 +60,11 @@ class UserOrderWidget extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: (order.seller?.name ?? "").toString().w(500).s(13).copyWith(
+                    child: (order.seller?.name ?? "")
+                        .toString()
+                        .w(500)
+                        .s(13)
+                        .copyWith(
                           textAlign: TextAlign.left,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
@@ -93,7 +97,7 @@ class UserOrderWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Expanded(
-                              child: (order.products?.first.product?.name ?? "")
+                              child: (order.firstProductName)
                                   .toString()
                                   .w(600)
                                   .s(13)

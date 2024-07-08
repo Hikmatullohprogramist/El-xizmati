@@ -1,11 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/data/repositories/user_order_repository.dart';
-import 'package:onlinebozor/data/datasource/network/responses/user_order/user_order_response.dart';
 import 'package:onlinebozor/domain/models/order/order_cancel_reason.dart';
+import 'package:onlinebozor/domain/models/order/user_order.dart';
 import 'package:onlinebozor/domain/models/order/user_order_status.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
 part 'user_order_cancel_cubit.freezed.dart';
 part 'user_order_cancel_state.dart';
@@ -36,16 +36,17 @@ class UserOrderCancelCubit
       );
       updateState((state) => state.copyWith(
             loadState: LoadingState.success,
-            userOrder: state.userOrder?.copyWith(
-              status: UserOrderStatus.CANCELED.name,
-              cancelNote: state.isCommentEnabled
+            userOrder: state.userOrder?.updateState(
+              UserOrderStatus.CANCELED,
+              state.isCommentEnabled
                   ? state.cancelComment
                   : state.selectedReason.name,
             ),
           ));
 
       logger.w("cancelOrder success");
-      emitEvent(UserOrderCancelEvent(UserOrderCancelEventType.onBackAfterCancel));
+      emitEvent(
+          UserOrderCancelEvent(UserOrderCancelEventType.onBackAfterCancel));
     } catch (e) {
       logger.w("cancelOrder error = $e");
       updateState((state) => state.copyWith(loadState: LoadingState.error));

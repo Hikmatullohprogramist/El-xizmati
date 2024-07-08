@@ -1,15 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
+import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/data/datasource/network/responses/user_order/user_order_response.dart';
+import 'package:onlinebozor/domain/models/order/user_order.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_orders/features/user_order_cancel/user_order_cancel_page.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/extensions/platform_sizes.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
-import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
 import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
@@ -88,7 +89,7 @@ class UserOrderInfoPage extends BasePage<UserOrderInfoCubit, UserOrderInfoState,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Expanded(
-                          child: (state.actualOrder.firstInfo?.name ?? "")
+                          child: (state.actualOrder.firstProductName)
                               .toString()
                               .w(600)
                               .s(13)
@@ -161,14 +162,21 @@ class UserOrderInfoPage extends BasePage<UserOrderInfoCubit, UserOrderInfoState,
                             .s(13)
                             .c(context.textPrimary),
                         SizedBox(width: 6),
-                        state.actualOrder.formattedTotalSum.w(500).s(13).copyWith(
+                        state.actualOrder.formattedTotalSum
+                            .w(500)
+                            .s(13)
+                            .copyWith(
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
                       ],
                     ),
                     SizedBox(height: 3),
-                    (state.actualOrder.seller?.name ?? "").toString().w(500).s(13).copyWith(
+                    (state.actualOrder.seller?.name ?? "")
+                        .toString()
+                        .w(500)
+                        .s(13)
+                        .copyWith(
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -181,38 +189,31 @@ class UserOrderInfoPage extends BasePage<UserOrderInfoCubit, UserOrderInfoState,
           SizedBox(height: 12),
           CustomDivider(thickness: 0.5),
           SizedBox(height: 12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-                decoration: BoxDecoration(
-                  color: state.actualOrder.orderStatus.color().withOpacity(.2),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: (state.actualOrder.orderStatus.getLocalizedName())
-                    .s(13)
-                    .w(400)
-                    .c(state.actualOrder.orderStatus.color()),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  vertical: 6,
-                  horizontal: 8,
-                ),
-                decoration: BoxDecoration(
-                  color: state.actualOrder.isCanCancel
-                      ? Colors.transparent
-                      : Color(0xFFF79500).withOpacity(.2),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: (state.actualOrder.getLocalizedCancelComment())
-                    .s(13)
-                    .w(400)
-                    .c(Color(0xFFF79500)),
-              ),
-            ],
-          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCancelNoteBlock(BuildContext context, UserOrderInfoState state) {
+    return Container(
+      padding: EdgeInsets.only(left: 12, right: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(
+              vertical: 6,
+              horizontal: 8,
+            ),
+            child: (state.actualOrder.getLocalizedCancelComment())
+                .s(14)
+                .w(500)
+                .c(Color(0xFFFB577C))
+                .copyWith(textAlign: TextAlign.start),
+          ),
+          SizedBox(height: 12),
+          CustomDivider(thickness: 0.5),
+          SizedBox(height: 12),
         ],
       ),
     );

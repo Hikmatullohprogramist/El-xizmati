@@ -3,9 +3,9 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
-import 'package:onlinebozor/data/datasource/network/responses/user_order/user_order_response.dart';
 import 'package:onlinebozor/data/repositories/user_order_repository.dart';
 import 'package:onlinebozor/domain/models/order/order_type.dart';
+import 'package:onlinebozor/domain/models/order/user_order.dart';
 import 'package:onlinebozor/domain/models/order/user_order_status.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
@@ -84,8 +84,7 @@ class UserOrderListCubit
 
   void updateCancelledOrder(UserOrder order) {
     int index = states.controller?.itemList
-            ?.indexWhere((e) => e.orderId == order.orderId) ??
-        -1;
+            ?.indexWhere((e) => e.orderId == order.orderId) ?? -1;
 
     final item =
         index >= 0 ? states.controller?.itemList?.elementAt(index) : null;
@@ -94,7 +93,7 @@ class UserOrderListCubit
       states.controller?.itemList?.removeAt(index);
       states.controller?.itemList?.insert(
         index,
-        item.copyWith(status: order.status, cancelNote: order.cancelNote),
+        item.updateState(order.status, order.cancelNote),
       );
       states.controller?.notifyListeners();
     }

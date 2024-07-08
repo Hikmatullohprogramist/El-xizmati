@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:onlinebozor/core/enum/social_enum.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/data/datasource/network/responses/user_order/user_order_response.dart';
 import 'package:onlinebozor/domain/models/ad/ad_action.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
@@ -12,6 +11,7 @@ import 'package:onlinebozor/domain/models/billing/billing_transaction_type.dart'
 import 'package:onlinebozor/domain/models/currency/currency_code.dart';
 import 'package:onlinebozor/domain/models/language/language.dart';
 import 'package:onlinebozor/domain/models/order/order_cancel_reason.dart';
+import 'package:onlinebozor/domain/models/order/user_order.dart';
 import 'package:onlinebozor/domain/models/order/user_order_status.dart';
 import 'package:onlinebozor/domain/models/report/report_reason.dart';
 import 'package:onlinebozor/domain/models/report/report_type.dart';
@@ -131,6 +131,7 @@ extension BillingTransactionTypeExtension on BillingTransactionType {
         return "Blocklangan mablag' yechildi";
     }
   }
+
   String getPaymentTypeLocalizedName() {
     switch (this) {
       case BillingTransactionType.credit:
@@ -304,7 +305,7 @@ extension UserOrderStatusResExts on UserOrderStatus {
         return Strings.userOrderRejected;
       case UserOrderStatus.CANCELED:
         return Strings.userOrderCancelled;
-      case UserOrderStatus.SYSCANCELED:
+      case UserOrderStatus.SYS_CANCELED:
         return Strings.userOrderCancelled;
       case UserOrderStatus.IN_PROGRESS:
         return Strings.userOrderInProgress;
@@ -327,7 +328,7 @@ extension UserOrderStatusResExts on UserOrderStatus {
         return Strings.orderEmptyMessageRejected;
       case UserOrderStatus.CANCELED:
         return Strings.orderEmptyMessageCancelled;
-      case UserOrderStatus.SYSCANCELED:
+      case UserOrderStatus.SYS_CANCELED:
         return Strings.orderEmptyMessageCancelled;
       case UserOrderStatus.IN_PROGRESS:
         return Strings.orderEmptyMessageWait;
@@ -350,7 +351,7 @@ extension UserOrderStatusResExts on UserOrderStatus {
         return Color(0xFFFB577C);
       case UserOrderStatus.CANCELED:
         return Color(0xFFFB577C);
-      case UserOrderStatus.SYSCANCELED:
+      case UserOrderStatus.SYS_CANCELED:
         return Color(0xFFFB577C);
       case UserOrderStatus.IN_PROGRESS:
         return Color(0xFFF79500);

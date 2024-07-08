@@ -6,6 +6,6 @@ enum UserOrderStatus {
   INACTIVE,
   REJECTED,
   CANCELED,
-  SYSCANCELED,
+  SYS_CANCELED,
   IN_PROGRESS
 }

@@ -28,34 +28,34 @@ class Data with _$Data {
   const factory Data({
     Valid? valid,
     int? count,
-    required List<UserOrder> results,
+    required List<UserOrderResponse> results,
   }) = _Data;
 
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 }
 
 @freezed
-class UserOrder with _$UserOrder {
-  const factory UserOrder({
+class UserOrderResponse with _$UserOrderResponse {
+  const factory UserOrderResponse({
     @JsonKey(name: "order_id") required int orderId,
-    Seller? seller,
+    UserOrderSellerResponse? seller,
     String? status,
     @JsonKey(name: "final_sum") double? totalSum,
     @JsonKey(name: "created_at") String? createdAt,
     @JsonKey(name: "cancel_note") String? cancelNote,
-    List<UserOrderProduct>? products,
-  }) = _UserOrder;
+    List<UserOrderProductResponse>? products,
+  }) = _UserOrderResponse;
 
-  const UserOrder._();
+  const UserOrderResponse._();
 
-  factory UserOrder.fromJson(Map<String, dynamic> json) =>
-      _$UserOrderFromJson(json);
+  factory UserOrderResponse.fromJson(Map<String, dynamic> json) =>
+      _$UserOrderResponseFromJson(json);
 
-  UserOrderProduct? get firstProduct {
+  UserOrderProductResponse? get firstProduct {
     return products?.firstOrNull;
   }
 
-  UserOrderInfo? get firstInfo {
+  UserOrderInfoResponse? get firstInfo {
     return products?.firstOrNull?.product;
   }
 
@@ -70,7 +70,7 @@ class UserOrder with _$UserOrder {
   bool get isCanCancel {
     return ![
       UserOrderStatus.CANCELED,
-      UserOrderStatus.SYSCANCELED,
+      UserOrderStatus.SYS_CANCELED,
       UserOrderStatus.REJECTED,
       UserOrderStatus.ACCEPTED
     ].contains(orderStatus);
@@ -91,47 +91,47 @@ class UserOrder with _$UserOrder {
 }
 
 @freezed
-class UserOrderProduct with _$UserOrderProduct {
-  const factory UserOrderProduct({
+class UserOrderProductResponse with _$UserOrderProductResponse {
+  const factory UserOrderProductResponse({
     int? id,
     @JsonKey(name: "order_id") int? orderId,
     @JsonKey(name: "amount") int? quantity,
     int? price,
     @JsonKey(name: "total_sum") int? totalSum,
-    UserOrderInfo? product,
-    @JsonKey(name: "payment_type") UserOrderInfo? paymentType,
-    UserOrderInfo? unit,
-    UserOrderInfo? shipping,
-    UserOrderInfo? delivery,
+    UserOrderInfoResponse? product,
+    @JsonKey(name: "payment_type") UserOrderInfoResponse? paymentType,
+    UserOrderInfoResponse? unit,
+    UserOrderInfoResponse? shipping,
+    UserOrderInfoResponse? delivery,
     String? status,
     @JsonKey(name: "main_photo") String? mainPhoto,
-  }) = _UserOrderProduct;
+  }) = _UserOrderProductResponse;
 
-  factory UserOrderProduct.fromJson(Map<String, dynamic> json) =>
-      _$UserOrderProductFromJson(json);
+  factory UserOrderProductResponse.fromJson(Map<String, dynamic> json) =>
+      _$UserOrderProductResponseFromJson(json);
 }
 
 @freezed
-class UserOrderInfo with _$UserOrderInfo {
-  const factory UserOrderInfo({
+class UserOrderInfoResponse with _$UserOrderInfoResponse {
+  const factory UserOrderInfoResponse({
     int? id,
     String? name,
-  }) = _UserOrderInfo;
+  }) = _UserOrderInfoResponse;
 
-  factory UserOrderInfo.fromJson(Map<String, dynamic> json) =>
-      _$UserOrderInfoFromJson(json);
+  factory UserOrderInfoResponse.fromJson(Map<String, dynamic> json) =>
+      _$UserOrderInfoResponseFromJson(json);
 }
 
 @freezed
-class Seller with _$Seller {
-  const factory Seller({
+class UserOrderSellerResponse with _$UserOrderSellerResponse {
+  const factory UserOrderSellerResponse({
     int? id,
     String? name,
     int? tin,
-    String? photo,
-  }) = _Seller;
+    String? image,
+  }) = _UserOrderSellerResponse;
 
-  factory Seller.fromJson(Map<String, dynamic> json) => _$SellerFromJson(json);
+  factory UserOrderSellerResponse.fromJson(Map<String, dynamic> json) => _$UserOrderSellerResponseFromJson(json);
 }
 
 @freezed

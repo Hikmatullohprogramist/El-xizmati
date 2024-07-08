@@ -4,9 +4,11 @@ import 'package:onlinebozor/data/datasource/network/services/private/user_order_
 import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
+import 'package:onlinebozor/data/mappers/user_order_mapper.dart';
 import 'package:onlinebozor/data/repositories/cart_repository.dart';
 import 'package:onlinebozor/domain/models/order/order_cancel_reason.dart';
 import 'package:onlinebozor/domain/models/order/order_type.dart';
+import 'package:onlinebozor/domain/models/order/user_order.dart';
 import 'package:onlinebozor/domain/models/order/user_order_status.dart';
 
 class UserOrderRepository {
@@ -40,7 +42,7 @@ class UserOrderRepository {
       orderType: orderType,
     );
     final orders = UserOrderRootResponse.fromJson(response.data).data.results;
-    return orders;
+    return orders.map((e) => e.toOrder()).toList();
   }
 
   Future<void> orderCreate({

@@ -22,6 +22,6 @@ class UserOrdersCubit extends BaseCubit<UserOrdersState, UserOrdersEvent> {
               : OrderType.sell,
         ));
 
-    emitEvent(UserOrdersEvent(UserOrdersEventType.onOrderTypeChange));
+    // emitEvent(UserOrdersEvent(UserOrdersEventType.onOrderTypeChange));
   }
 }
