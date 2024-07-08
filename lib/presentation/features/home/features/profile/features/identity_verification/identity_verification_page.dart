@@ -104,10 +104,15 @@ class IdentityVerificationPage extends BasePage<IdentityVerificationCubit,
   }
 
   Widget _buildValidateBlock(
-      BuildContext context, IdentityVerificationState state) {
+    BuildContext context,
+    IdentityVerificationState state,
+  ) {
     return Container(
-      color: context.cardColor,
       padding: const EdgeInsets.only(left: 16, right: 16),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -237,12 +242,17 @@ class IdentityVerificationPage extends BasePage<IdentityVerificationCubit,
   }
 
   Widget _userUserInfoBlock(
-      BuildContext context, IdentityVerificationState state) {
+    BuildContext context,
+    IdentityVerificationState state,
+  ) {
     return Visibility(
       visible: state.isIdentityVerified,
       child: Container(
-        color: context.cardColor,
         padding: EdgeInsets.symmetric(horizontal: 16),
+        decoration: BoxDecoration(
+          color: context.cardColor,
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -278,12 +288,17 @@ class IdentityVerificationPage extends BasePage<IdentityVerificationCubit,
   }
 
   Widget _userAddressBlock(
-      BuildContext context, IdentityVerificationState state) {
+    BuildContext context,
+    IdentityVerificationState state,
+  ) {
     return Visibility(
       visible: state.isIdentityVerified,
       child: Container(
-        color: context.cardColor,
         padding: const EdgeInsets.symmetric(horizontal: 16),
+        decoration: BoxDecoration(
+          color: context.cardColor,
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -414,7 +429,7 @@ class IdentityVerificationPage extends BasePage<IdentityVerificationCubit,
                         maximumYear: 2024,
                         onDateTimeChanged: (DateTime newDateTime) {
                           final formattedDate =
-                          DateFormat("yyyy-MM-dd").format(newDateTime);
+                              DateFormat("yyyy-MM-dd").format(newDateTime);
                           cubit(context).setBrithDate(formattedDate);
                           _birthDateController.text = formattedDate;
                         },

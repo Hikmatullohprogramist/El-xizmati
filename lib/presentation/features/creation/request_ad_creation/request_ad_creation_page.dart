@@ -148,10 +148,15 @@ class RequestAdCreationPage extends BasePage<RequestAdCreationCubit,
   /// Build block methods
 
   Widget _buildTitleAndCategoryBlock(
-      BuildContext context, RequestAdCreationState state) {
+    BuildContext context,
+    RequestAdCreationState state,
+  ) {
     return Container(
-      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         children: [
           LabelTextField(Strings.adCreationNameLabel),
@@ -195,9 +200,14 @@ class RequestAdCreationPage extends BasePage<RequestAdCreationCubit,
   }
 
   Widget _buildImageListBlock(
-      BuildContext context, RequestAdCreationState state) {
+    BuildContext context,
+    RequestAdCreationState state,
+  ) {
     return Container(
-      color: context.cardColor,
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         children: [
           AdImageListWidget(
@@ -229,12 +239,22 @@ class RequestAdCreationPage extends BasePage<RequestAdCreationCubit,
   }
 
   Widget _buildDescAndPriceBlock(
-      BuildContext context, RequestAdCreationState state) {
+    BuildContext context,
+    RequestAdCreationState state,
+  ) {
     return Column(
       children: [
         Container(
-          color: context.cardColor,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+          decoration: BoxDecoration(
+            color: context.cardColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(12),
+              topRight: Radius.circular(12),
+              bottomLeft: Radius.circular(4),
+              bottomRight: Radius.circular(4),
+            ),
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -263,8 +283,16 @@ class RequestAdCreationPage extends BasePage<RequestAdCreationCubit,
         ),
         SizedBox(height: 4),
         Container(
-          color: context.cardColor,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+          decoration: BoxDecoration(
+            color: context.cardColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4),
+              topRight: Radius.circular(4),
+              bottomLeft: Radius.circular(4),
+              bottomRight: Radius.circular(4),
+            ),
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -388,8 +416,16 @@ class RequestAdCreationPage extends BasePage<RequestAdCreationCubit,
         ),
         SizedBox(height: 4),
         Container(
-          color: context.cardColor,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+          decoration: BoxDecoration(
+            color: context.cardColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4),
+              topRight: Radius.circular(4),
+              bottomLeft: Radius.circular(12),
+              bottomRight: Radius.circular(12),
+            ),
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -426,10 +462,15 @@ class RequestAdCreationPage extends BasePage<RequestAdCreationCubit,
   }
 
   Widget _buildContactsBlock(
-      BuildContext context, RequestAdCreationState state) {
+    BuildContext context,
+    RequestAdCreationState state,
+  ) {
     return Container(
-      color: context.cardColor,
       padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -491,10 +532,15 @@ class RequestAdCreationPage extends BasePage<RequestAdCreationCubit,
   }
 
   Widget _buildAddressBlock(
-      BuildContext context, RequestAdCreationState state) {
+    BuildContext context,
+    RequestAdCreationState state,
+  ) {
     return Container(
-      color: context.cardColor,
       padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -538,9 +584,14 @@ class RequestAdCreationPage extends BasePage<RequestAdCreationCubit,
   }
 
   Widget _buildAutoContinueBlock(
-      BuildContext context, RequestAdCreationState state) {
+    BuildContext context,
+    RequestAdCreationState state,
+  ) {
     return Container(
-      color: context.cardColor,
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
@@ -576,8 +627,11 @@ class RequestAdCreationPage extends BasePage<RequestAdCreationCubit,
 
   Widget _buildFooterBlock(BuildContext context, RequestAdCreationState state) {
     return Container(
-      color: context.cardColor,
       padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         children: [
           Row(

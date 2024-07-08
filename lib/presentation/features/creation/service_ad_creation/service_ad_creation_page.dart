@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
@@ -16,7 +17,6 @@ import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
-import 'package:flutter/services.dart';
 import 'package:onlinebozor/presentation/widgets/ad/image_list/ad_image_list_widget.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
@@ -149,10 +149,15 @@ class ServiceAdCreationPage extends BasePage<ServiceAdCreationCubit,
   /// Build block methods
 
   Widget _buildTitleAndCategoryBlock(
-      BuildContext context, ServiceAdCreationState state) {
+    BuildContext context,
+    ServiceAdCreationState state,
+  ) {
     return Container(
-      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         children: [
           LabelTextField(Strings.adCreationNameLabel),
@@ -197,9 +202,14 @@ class ServiceAdCreationPage extends BasePage<ServiceAdCreationCubit,
   }
 
   Widget _buildImageListBlock(
-      BuildContext context, ServiceAdCreationState state) {
+    BuildContext context,
+    ServiceAdCreationState state,
+  ) {
     return Container(
-      color: context.cardColor,
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         children: [
           AdImageListWidget(
@@ -256,12 +266,22 @@ class ServiceAdCreationPage extends BasePage<ServiceAdCreationCubit,
   }
 
   Widget _buildDescAndPriceBlock(
-      BuildContext context, ServiceAdCreationState state) {
+    BuildContext context,
+    ServiceAdCreationState state,
+  ) {
     return Column(
       children: [
         Container(
-          color: context.cardColor,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+          decoration: BoxDecoration(
+            color: context.cardColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(12),
+              topRight: Radius.circular(12),
+              bottomLeft: Radius.circular(4),
+              bottomRight: Radius.circular(4),
+            ),
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -290,8 +310,16 @@ class ServiceAdCreationPage extends BasePage<ServiceAdCreationCubit,
         ),
         SizedBox(height: 4),
         Container(
-          color: context.cardColor,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+          decoration: BoxDecoration(
+            color: context.cardColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4),
+              topRight: Radius.circular(4),
+              bottomLeft: Radius.circular(4),
+              bottomRight: Radius.circular(4),
+            ),
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -372,7 +400,8 @@ class ServiceAdCreationPage extends BasePage<ServiceAdCreationCubit,
                           hint: "-",
                           validator: (v) => NotEmptyValidator.validate(v),
                           onTap: () async {
-                            final currency = await showCupertinoModalBottomSheet(
+                            final currency =
+                                await showCupertinoModalBottomSheet(
                               context: context,
                               builder: (context) => CurrencySelectionPage(
                                 initialSelectedItem: state.currency,
@@ -412,8 +441,16 @@ class ServiceAdCreationPage extends BasePage<ServiceAdCreationCubit,
         ),
         SizedBox(height: 4),
         Container(
-          color: context.cardColor,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+          decoration: BoxDecoration(
+            color: context.cardColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4),
+              topRight: Radius.circular(4),
+              bottomLeft: Radius.circular(12),
+              bottomRight: Radius.circular(12),
+            ),
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -450,10 +487,15 @@ class ServiceAdCreationPage extends BasePage<ServiceAdCreationCubit,
   }
 
   Widget _buildAdditionalInfoBlock(
-      BuildContext context, ServiceAdCreationState state) {
+    BuildContext context,
+    ServiceAdCreationState state,
+  ) {
     return Container(
-      color: context.cardColor,
       padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -494,10 +536,15 @@ class ServiceAdCreationPage extends BasePage<ServiceAdCreationCubit,
   }
 
   Widget _buildContactsBlock(
-      BuildContext context, ServiceAdCreationState state) {
+    BuildContext context,
+    ServiceAdCreationState state,
+  ) {
     return Container(
-      color: context.cardColor,
       padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -577,9 +624,14 @@ class ServiceAdCreationPage extends BasePage<ServiceAdCreationCubit,
   }
 
   Widget _buildAutoRenewBlock(
-      BuildContext context, ServiceAdCreationState state) {
+    BuildContext context,
+    ServiceAdCreationState state,
+  ) {
     return Container(
-      color: context.cardColor,
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
@@ -614,12 +666,17 @@ class ServiceAdCreationPage extends BasePage<ServiceAdCreationCubit,
   }
 
   Widget _buildUsefulLinkBlock(
-      BuildContext context, ServiceAdCreationState state) {
+    BuildContext context,
+    ServiceAdCreationState state,
+  ) {
     return Column(
       children: [
         Container(
-          color: context.cardColor,
           padding: EdgeInsets.symmetric(horizontal: 16),
+          decoration: BoxDecoration(
+            color: context.cardColor,
+            borderRadius: BorderRadius.all(Radius.circular(12)),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -651,8 +708,11 @@ class ServiceAdCreationPage extends BasePage<ServiceAdCreationCubit,
 
   Widget _buildFooterBlock(BuildContext context, ServiceAdCreationState state) {
     return Container(
-      color: context.cardColor,
       padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         children: [
           Row(

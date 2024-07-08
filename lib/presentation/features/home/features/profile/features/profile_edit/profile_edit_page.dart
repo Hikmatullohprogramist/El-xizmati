@@ -75,7 +75,7 @@ class ProfileEditPage
             SizedBox(height: 16),
             _buildRegionBlock(context, state),
             SizedBox(height: 16),
-            _buildFooterBlock(state, email, context),
+            _buildFooterBlock(context,state, email),
             SizedBox(height: 20),
           ],
         ),
@@ -85,8 +85,11 @@ class ProfileEditPage
 
   Widget _buildNameBlock(BuildContext context, ProfileEditState state) {
     return Container(
-      color: context.cardColor,
       padding: EdgeInsets.only(left: 16, right: 16),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -121,8 +124,11 @@ class ProfileEditPage
 
   Widget _buildContactsBlock(BuildContext context, ProfileEditState state) {
     return Container(
-      color: context.cardColor,
       padding: EdgeInsets.only(left: 16, top: 20, right: 16, bottom: 16),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         children: [
           LabelTextField(Strings.commonEmail, isRequired: false),
@@ -156,8 +162,11 @@ class ProfileEditPage
 
   Widget _buildDocInfoBlock(BuildContext context, ProfileEditState state) {
     return Container(
-      color: context.cardColor,
       padding: EdgeInsets.only(left: 16, top: 20, right: 16, bottom: 16),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         children: [
           LabelTextField(Strings.profileEditBrithDate),
@@ -246,8 +255,11 @@ class ProfileEditPage
 
   Widget _buildRegionBlock(BuildContext context, ProfileEditState state) {
     return Container(
-      color: context.cardColor,
       padding: EdgeInsets.only(left: 16, top: 20, right: 16, bottom: 16),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         children: [
           LabelTextField(Strings.commonRegion),
@@ -292,10 +304,16 @@ class ProfileEditPage
   }
 
   Widget _buildFooterBlock(
-      ProfileEditState state, String email, BuildContext context) {
+    BuildContext context,
+    ProfileEditState state,
+    String email,
+  ) {
     return Container(
-      color: context.cardColor,
       padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         children: [
           Row(

@@ -143,11 +143,13 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
                     _buildImageListBlock(context, state),
                     SizedBox(height: 20),
                     _buildDescBlock(context, state),
-                    _buildPriceBlock(context, state),
+                    if (!cubit(context).isFreeAdMode())
+                      _buildPriceBlock(context, state),
                     SizedBox(height: 20),
                     _buildAdditionalInfoBlock(context, state),
                     SizedBox(height: cubit(context).isExchangeMode() ? 16 : 0),
-                    _buildExchangeAdBlock(context, state),
+                    if (cubit(context).isExchangeMode())
+                      _buildExchangeAdBlock(context, state),
                     SizedBox(height: 20),
                     _buildContactsBlock(context, state),
                     SizedBox(height: 20),
@@ -173,10 +175,15 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
   /// Build block methods
 
   Widget _buildTitleAndCategoryBlock(
-      BuildContext context, ProductAdCreationState state) {
+    BuildContext context,
+    ProductAdCreationState state,
+  ) {
     return Container(
-      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         children: [
           LabelTextField(Strings.adCreationTransactionTypeLabel),
@@ -233,7 +240,10 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
   Widget _buildImageListBlock(
       BuildContext context, ProductAdCreationState state) {
     return Container(
-      color: context.cardColor,
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         children: [
           AdImageListWidget(
@@ -289,8 +299,16 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
 
   Widget _buildDescBlock(BuildContext context, ProductAdCreationState state) {
     return Container(
-      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(12),
+          topRight: Radius.circular(12),
+          bottomLeft: Radius.circular(cubit(context).isFreeAdMode() ? 16 : 4),
+          bottomRight: Radius.circular(cubit(context).isFreeAdMode() ? 16 : 4),
+        ),
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -312,190 +330,223 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
               cubit(context).setEnteredDesc(value);
             },
           ),
-          SizedBox(height: cubit(context).isFreeAdMode() ? 24 : 0),
+          SizedBox(height: cubit(context).isFreeAdMode() ? 24 : 12),
         ],
       ),
     );
   }
 
   Widget _buildPriceBlock(BuildContext context, ProductAdCreationState state) {
-    return cubit(context).isFreeAdMode()
-        ? SizedBox(height: 0, width: 0)
-        : Container(
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 4),
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+          decoration: BoxDecoration(
             color: context.cardColor,
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 16),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Flexible(
-                      flex: 5,
-                      child: Column(
-                        children: [
-                          LabelTextField(Strings.adCreationWarehouseCountLabel),
-                          SizedBox(height: 6),
-                          CustomTextFormField(
-                            autofillHints: const [
-                              AutofillHints.telephoneNumber
-                            ],
-                            inputType: TextInputType.number,
-                            keyboardType: TextInputType.number,
-                            maxLines: 1,
-                            minLines: 1,
-                            hint: "-",
-                            textInputAction: TextInputAction.next,
-                            controller: warehouseController,
-                            inputFormatters: quantityMaskFormatter,
-                            validator: (v) => NotEmptyValidator.validate(v),
-                            onChanged: (value) {
-                              cubit(context).setEnteredWarehouseCount(value);
-                            },
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(width: 16),
-                    Flexible(
-                      flex: 4,
-                      child: Column(
-                        children: [
-                          LabelTextField(Strings.adCreationWarehouseUnitLabel),
-                          SizedBox(height: 6),
-                          CustomDropdownFormField(
-                            value: state.unit?.name ?? "",
-                            hint: "-",
-                            validator: (v) => NotEmptyValidator.validate(v),
-                            onTap: () async {
-                              final unit = await showCupertinoModalBottomSheet(
-                                context: context,
-                                builder: (context) => UnitSelectionPage(
-                                  selectedUnit: state.unit,
-                                ),
-                              );
-
-                              cubit(context).setSelectedUnit(unit);
-                            },
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(height: 16),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Flexible(
-                      flex: 5,
-                      child: Column(
-                        children: [
-                          LabelTextField(Strings.adCreationPriceLabel),
-                          SizedBox(height: 6),
-                          CustomTextFormField(
-                            autofillHints: const [
-                              AutofillHints.transactionAmount
-                            ],
-                            inputType: TextInputType.number,
-                            keyboardType: TextInputType.number,
-                            maxLines: 1,
-                            minLines: 1,
-                            hint: "-",
-                            textInputAction: TextInputAction.next,
-                            inputFormatters: priceMaskFormatter,
-                            controller: priceController,
-                            validator: (v) => NotEmptyValidator.validate(v),
-                            onChanged: (value) {
-                              cubit(context).setEnteredPrice(value);
-                            },
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(width: 16),
-                    Flexible(
-                      flex: 4,
-                      child: Column(
-                        children: [
-                          LabelTextField(Strings.adCreationCurrencyLabel),
-                          SizedBox(height: 6),
-                          CustomDropdownFormField(
-                            value: state.currency?.name ?? "",
-                            hint: "-",
-                            validator: (v) => NotEmptyValidator.validate(v),
-                            onTap: () async {
-                              final currency =
-                                  await showCupertinoModalBottomSheet(
-                                context: context,
-                                builder: (context) => CurrencySelectionPage(
-                                  initialSelectedItem: state.currency,
-                                ),
-                              );
-                              cubit(context).setSelectedCurrency(currency);
-                            },
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    CustomSwitch(
-                      isChecked: state.isAgreedPrice,
-                      onChanged: (value) {
-                        cubit(context).setAgreedPrice(value);
-                      },
-                    ),
-                    SizedBox(width: 16),
-                    Expanded(
-                      child: Strings.adCreationNegotiableLabel.w(400).s(14),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 24),
-                LabelTextField(
-                  Strings.adCreationPaymentTypeLabel,
-                  isRequired: true,
-                ),
-                SizedBox(height: 16),
-                ChipList(
-                  chips: _buildPaymentTypeChips(context, state),
-                  isShowAll: true,
-                  isShowChildrenCount: false,
-                  validator: (value) => CountValidator.validate(value),
-                  onClickedAdd: () async {
-                    final paymentTypes = await showCupertinoModalBottomSheet(
-                      context: context,
-                      builder: (context) => PaymentTypeSelectionPage(
-                        selectedPaymentTypes: state.paymentTypes,
-                      ),
-                    );
-                    cubit(context).setSelectedPaymentTypes(paymentTypes);
-                  },
-                  onClickedShowLess: () {},
-                  onClickedShowMore: () {},
-                ),
-                SizedBox(height: 24),
-              ],
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4),
+              topRight: Radius.circular(4),
+              bottomLeft: Radius.circular(4),
+              bottomRight: Radius.circular(4),
             ),
-          );
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 16),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Flexible(
+                    flex: 5,
+                    child: Column(
+                      children: [
+                        LabelTextField(Strings.adCreationWarehouseCountLabel),
+                        SizedBox(height: 6),
+                        CustomTextFormField(
+                          autofillHints: const [AutofillHints.telephoneNumber],
+                          inputType: TextInputType.number,
+                          keyboardType: TextInputType.number,
+                          maxLines: 1,
+                          minLines: 1,
+                          hint: "-",
+                          textInputAction: TextInputAction.next,
+                          controller: warehouseController,
+                          inputFormatters: quantityMaskFormatter,
+                          validator: (v) => NotEmptyValidator.validate(v),
+                          onChanged: (value) {
+                            cubit(context).setEnteredWarehouseCount(value);
+                          },
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Flexible(
+                    flex: 4,
+                    child: Column(
+                      children: [
+                        LabelTextField(Strings.adCreationWarehouseUnitLabel),
+                        SizedBox(height: 6),
+                        CustomDropdownFormField(
+                          value: state.unit?.name ?? "",
+                          hint: "-",
+                          validator: (v) => NotEmptyValidator.validate(v),
+                          onTap: () async {
+                            final unit = await showCupertinoModalBottomSheet(
+                              context: context,
+                              builder: (context) => UnitSelectionPage(
+                                selectedUnit: state.unit,
+                              ),
+                            );
+
+                            cubit(context).setSelectedUnit(unit);
+                          },
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(height: 16),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Flexible(
+                    flex: 5,
+                    child: Column(
+                      children: [
+                        LabelTextField(Strings.adCreationPriceLabel),
+                        SizedBox(height: 6),
+                        CustomTextFormField(
+                          autofillHints: const [
+                            AutofillHints.transactionAmount
+                          ],
+                          inputType: TextInputType.number,
+                          keyboardType: TextInputType.number,
+                          maxLines: 1,
+                          minLines: 1,
+                          hint: "-",
+                          textInputAction: TextInputAction.next,
+                          inputFormatters: priceMaskFormatter,
+                          controller: priceController,
+                          validator: (v) => NotEmptyValidator.validate(v),
+                          onChanged: (value) {
+                            cubit(context).setEnteredPrice(value);
+                          },
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Flexible(
+                    flex: 4,
+                    child: Column(
+                      children: [
+                        LabelTextField(Strings.adCreationCurrencyLabel),
+                        SizedBox(height: 6),
+                        CustomDropdownFormField(
+                          value: state.currency?.name ?? "",
+                          hint: "-",
+                          validator: (v) => NotEmptyValidator.validate(v),
+                          onTap: () async {
+                            final currency =
+                                await showCupertinoModalBottomSheet(
+                              context: context,
+                              builder: (context) => CurrencySelectionPage(
+                                initialSelectedItem: state.currency,
+                              ),
+                            );
+                            cubit(context).setSelectedCurrency(currency);
+                          },
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CustomSwitch(
+                    isChecked: state.isAgreedPrice,
+                    onChanged: (value) {
+                      cubit(context).setAgreedPrice(value);
+                    },
+                  ),
+                  SizedBox(width: 16),
+                  Expanded(
+                    child: Strings.adCreationNegotiableLabel.w(400).s(14),
+                  ),
+                ],
+              ),
+              SizedBox(height: 16),
+            ],
+          ),
+        ),
+        SizedBox(height: 4),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+          decoration: BoxDecoration(
+            color: context.cardColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4),
+              topRight: Radius.circular(4),
+              bottomLeft: Radius.circular(12),
+              bottomRight: Radius.circular(12),
+            ),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 16),
+              LabelTextField(
+                Strings.adCreationPaymentTypeLabel,
+                isRequired: true,
+              ),
+              SizedBox(height: 16),
+              ChipList(
+                chips: _buildPaymentTypeChips(context, state),
+                isShowAll: true,
+                isShowChildrenCount: false,
+                validator: (value) => CountValidator.validate(value),
+                onClickedAdd: () async {
+                  final paymentTypes = await showCupertinoModalBottomSheet(
+                    context: context,
+                    builder: (context) => PaymentTypeSelectionPage(
+                      selectedPaymentTypes: state.paymentTypes,
+                    ),
+                  );
+                  cubit(context).setSelectedPaymentTypes(paymentTypes);
+                },
+                onClickedShowLess: () {},
+                onClickedShowMore: () {},
+              ),
+              SizedBox(height: 24),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
   Widget _buildAdditionalInfoBlock(
       BuildContext context, ProductAdCreationState state) {
     return Container(
-      color: context.cardColor,
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 8),
+          SizedBox(height: 24),
           Strings.adCreationAdditionalInfoLabel.w(700).s(16),
           SizedBox(height: 20),
           LabelTextField(
@@ -524,90 +575,94 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
             negativeTitle: Strings.adCreationStateUsedLabel,
             positiveTitle: Strings.adCreationStateNewLabel,
           ),
+          SizedBox(height: 24),
         ],
       ),
     );
   }
 
   Widget _buildExchangeAdBlock(
-      BuildContext context, ProductAdCreationState state) {
-    return !cubit(context).isExchangeMode()
-        ? SizedBox(height: 0, width: 0)
-        : Container(
-            color: context.cardColor,
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Strings.adCreationExchangeLabel.w(700).s(16),
-                SizedBox(height: 20),
-                LabelTextField(Strings.adCreationNameLabel),
-                SizedBox(height: 6),
-                CustomTextFormField(
-                  autofillHints: const [AutofillHints.name],
-                  inputType: TextInputType.name,
-                  keyboardType: TextInputType.name,
-                  minLines: 1,
-                  maxLines: 3,
-                  hint: Strings.adCreationNameLabel,
-                  textInputAction: TextInputAction.next,
-                  controller: exchangeTitleController,
-                  validator: (value) => NotEmptyValidator.validate(value),
-                  onChanged: (value) {
-                    cubit(context).setEnteredAnotherTitle(value);
+    BuildContext context,
+    ProductAdCreationState state,
+  ) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Strings.adCreationExchangeLabel.w(700).s(16),
+          SizedBox(height: 20),
+          LabelTextField(Strings.adCreationNameLabel),
+          SizedBox(height: 6),
+          CustomTextFormField(
+            autofillHints: const [AutofillHints.name],
+            inputType: TextInputType.name,
+            keyboardType: TextInputType.name,
+            minLines: 1,
+            maxLines: 3,
+            hint: Strings.adCreationNameLabel,
+            textInputAction: TextInputAction.next,
+            controller: exchangeTitleController,
+            validator: (value) => NotEmptyValidator.validate(value),
+            onChanged: (value) {
+              cubit(context).setEnteredAnotherTitle(value);
+            },
+          ),
+          SizedBox(height: 16),
+          LabelTextField(Strings.adCreationCategoryLabel),
+          SizedBox(height: 6),
+          CustomDropdownFormField(
+            value: state.exchangeCategory?.name ?? "",
+            hint: Strings.adCreationCategoryLabel,
+            validator: (value) => NotEmptyValidator.validate(value),
+            onTap: () {
+              context.router.push(
+                CategorySelectionRoute(
+                  adType: AdType.product,
+                  onResult: (category) {
+                    cubit(context).setSelectedAnotherCategory(category);
                   },
                 ),
-                SizedBox(height: 16),
-                LabelTextField(Strings.adCreationCategoryLabel),
-                SizedBox(height: 6),
-                CustomDropdownFormField(
-                  value: state.exchangeCategory?.name ?? "",
-                  hint: Strings.adCreationCategoryLabel,
-                  validator: (value) => NotEmptyValidator.validate(value),
-                  onTap: () {
-                    context.router.push(
-                      CategorySelectionRoute(
-                        adType: AdType.product,
-                        onResult: (category) {
-                          cubit(context).setSelectedAnotherCategory(category);
-                        },
-                      ),
-                    );
-                  },
-                ),
-                SizedBox(height: 16),
-                LabelTextField(Strings.adCreationDescLabel, isRequired: false),
-                SizedBox(height: 6),
-                CustomTextFormField(
-                  height: null,
-                  autofillHints: const [AutofillHints.name],
-                  inputType: TextInputType.name,
-                  keyboardType: TextInputType.name,
-                  maxLines: 5,
-                  minLines: 3,
-                  hint: Strings.adCreationDescLabel,
-                  textInputAction: TextInputAction.next,
-                  controller: exchangeDescController,
-                  textCapitalization: TextCapitalization.sentences,
-                  onChanged: (value) {
-                    cubit(context).setEnteredAnotherDesc(value);
-                  },
-                ),
-                SizedBox(height: 16),
-                LabelTextField(Strings.adCreationStateLabel, isRequired: false),
-                SizedBox(height: 8),
-                CustomToggle(
-                  width: 240,
-                  isChecked: state.isExchangeNew,
-                  onChanged: (isChecked) {
-                    cubit(context).setAnotherIsNew(isChecked);
-                  },
-                  negativeTitle: Strings.adCreationStateUsedLabel,
-                  positiveTitle: Strings.adCreationStateNewLabel,
-                ),
-              ],
-            ),
-          );
+              );
+            },
+          ),
+          SizedBox(height: 16),
+          LabelTextField(Strings.adCreationDescLabel, isRequired: false),
+          SizedBox(height: 6),
+          CustomTextFormField(
+            height: null,
+            autofillHints: const [AutofillHints.name],
+            inputType: TextInputType.name,
+            keyboardType: TextInputType.name,
+            maxLines: 5,
+            minLines: 3,
+            hint: Strings.adCreationDescLabel,
+            textInputAction: TextInputAction.next,
+            controller: exchangeDescController,
+            textCapitalization: TextCapitalization.sentences,
+            onChanged: (value) {
+              cubit(context).setEnteredAnotherDesc(value);
+            },
+          ),
+          SizedBox(height: 16),
+          LabelTextField(Strings.adCreationStateLabel, isRequired: false),
+          SizedBox(height: 8),
+          CustomToggle(
+            width: 240,
+            isChecked: state.isExchangeNew,
+            onChanged: (isChecked) {
+              cubit(context).setAnotherIsNew(isChecked);
+            },
+            negativeTitle: Strings.adCreationStateUsedLabel,
+            positiveTitle: Strings.adCreationStateNewLabel,
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildContactsBlock(
@@ -615,8 +670,11 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
     ProductAdCreationState state,
   ) {
     return Container(
-      color: context.cardColor,
       padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -700,8 +758,16 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
     ProductAdCreationState state,
   ) {
     return Container(
-      color: context.cardColor,
       padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(12),
+          topRight: Radius.circular(12),
+          bottomLeft: Radius.circular(4),
+          bottomRight: Radius.circular(4),
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -744,8 +810,16 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
     ProductAdCreationState state,
   ) {
     return Container(
-      color: context.cardColor,
       padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(4),
+          topRight: Radius.circular(4),
+          bottomLeft: Radius.circular(4),
+          bottomRight: Radius.circular(4),
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -786,8 +860,16 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
     ProductAdCreationState state,
   ) {
     return Container(
-      color: context.cardColor,
       padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(4),
+          topRight: Radius.circular(4),
+          bottomLeft: Radius.circular(12),
+          bottomRight: Radius.circular(12),
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -844,9 +926,14 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
   }
 
   Widget _buildAutoContinueBlock(
-      BuildContext context, ProductAdCreationState state) {
+    BuildContext context,
+    ProductAdCreationState state,
+  ) {
     return Container(
-      color: context.cardColor,
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
@@ -881,12 +968,17 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
   }
 
   Widget _buildUsefulLinkBlock(
-      BuildContext context, ProductAdCreationState state) {
+    BuildContext context,
+    ProductAdCreationState state,
+  ) {
     return Column(
       children: [
         Container(
-          color: context.cardColor,
           padding: EdgeInsets.symmetric(horizontal: 16),
+          decoration: BoxDecoration(
+            color: context.cardColor,
+            borderRadius: BorderRadius.all(Radius.circular(12)),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -920,8 +1012,11 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
 
   Widget _buildFooterBlock(BuildContext context, ProductAdCreationState state) {
     return Container(
-      color: context.cardColor,
       padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         children: [
           Row(

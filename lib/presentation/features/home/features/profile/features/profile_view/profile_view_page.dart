@@ -103,8 +103,11 @@ class ProfileViewPage
 
   Widget _getHeaderBlock(BuildContext context, ProfileViewState state) {
     return Container(
-      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -243,57 +246,66 @@ class ProfileViewPage
 
   Widget _getBioBlock(BuildContext context, ProfileViewState state) {
     return Container(
-      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Strings.profileUserDateOfBirth.w(400).s(14).c(context.textSecondary),
-        SizedBox(height: 6),
-        state.brithDate.w(500).s(16),
-        SizedBox(height: 8),
-        CustomDivider(),
-        SizedBox(height: 8),
-        Strings.profileUserDateOfDocValidity
-            .w(400)
-            .s(14)
-            .c(context.textSecondary),
-        SizedBox(height: 6),
-        state.biometricInformation.w(500).s(16),
-        SizedBox(height: 8),
-        CustomDivider(),
-        SizedBox(height: 8),
-        Strings.commonEmail.w(400).s(14).c(context.textSecondary),
-        SizedBox(height: 6),
-        state.email.w(500).s(16),
-        SizedBox(height: 8),
-        CustomDivider(),
-        SizedBox(height: 8),
-        Strings.commonPhoneNumber.w(400).s(14).c(context.textSecondary),
-        SizedBox(height: 6),
-        state.phoneNumber.w(500).s(16),
-        SizedBox(height: 8),
-        CustomDivider(),
-        SizedBox(height: 8),
-        Strings.adDetailLocation.w(400).s(14).c(context.textSecondary),
-        SizedBox(height: 6),
-        Row(
-          children: [
-            state.regionName.w(500).s(16),
-            ".".w(500).s(16),
-            SizedBox(width: 7),
-            state.districtName.w(500).s(16),
-            SizedBox(width: 7),
-            state.neighborhoodName.w(500).s(16),
-          ],
-        ),
-        SizedBox(height: 5),
-      ]),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Strings.profileUserDateOfBirth.w(400).s(14).c(context.textSecondary),
+          SizedBox(height: 6),
+          state.brithDate.w(500).s(16),
+          SizedBox(height: 8),
+          CustomDivider(),
+          SizedBox(height: 8),
+          Strings.profileUserDateOfDocValidity
+              .w(400)
+              .s(14)
+              .c(context.textSecondary),
+          SizedBox(height: 6),
+          state.biometricInformation.w(500).s(16),
+          SizedBox(height: 8),
+          CustomDivider(),
+          SizedBox(height: 8),
+          Strings.commonEmail.w(400).s(14).c(context.textSecondary),
+          SizedBox(height: 6),
+          state.email.w(500).s(16),
+          SizedBox(height: 8),
+          CustomDivider(),
+          SizedBox(height: 8),
+          Strings.commonPhoneNumber.w(400).s(14).c(context.textSecondary),
+          SizedBox(height: 6),
+          state.phoneNumber.w(500).s(16),
+          SizedBox(height: 8),
+          CustomDivider(),
+          SizedBox(height: 8),
+          Strings.adDetailLocation.w(400).s(14).c(context.textSecondary),
+          SizedBox(height: 6),
+          Row(
+            children: [
+              state.regionName.w(500).s(16),
+              ".".w(500).s(16),
+              SizedBox(width: 7),
+              state.districtName.w(500).s(16),
+              SizedBox(width: 7),
+              state.neighborhoodName.w(500).s(16),
+            ],
+          ),
+          SizedBox(height: 5),
+        ],
+      ),
     );
   }
 
   Widget _buildNotificationBlock(BuildContext context, ProfileViewState state) {
     return Container(
-      color: context.cardColor,
       padding: const EdgeInsets.symmetric(horizontal: 16),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -425,12 +437,14 @@ class ProfileViewPage
             TextSpan(
               children: [
                 TextSpan(
-                    text: Strings.telegramBotDescription,
-                    style: TextStyle(
-                        overflow: TextOverflow.ellipsis,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12,
-                        color: context.textSecondary)),
+                  text: Strings.telegramBotDescription,
+                  style: TextStyle(
+                    overflow: TextOverflow.ellipsis,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                    color: context.textSecondary,
+                  ),
+                ),
                 WidgetSpan(child: SizedBox(width: 5)),
                 TextSpan(
                   recognizer: TapGestureRecognizer()
@@ -467,8 +481,11 @@ class ProfileViewPage
 
   Widget _buildSocialBlock(BuildContext context, ProfileViewState state) {
     return Container(
-      color: context.cardColor,
       padding: const EdgeInsets.symmetric(horizontal: 16),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -840,8 +857,11 @@ class ProfileViewPage
     ProfileViewState state,
   ) {
     return Container(
-      color: context.backgroundGreyColor,
       padding: EdgeInsets.only(top: 8),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         children: [
           SeeAllWidget(
