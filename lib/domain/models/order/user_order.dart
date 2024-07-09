@@ -64,6 +64,10 @@ class UserOrder {
     ].contains(status);
   }
 
+  bool get hasCancelNote {
+    return isCancelled && cancelNote?.trim().isNotEmpty == true;
+  }
+
   get mainPhoto =>
       products.firstIf((e) => e.mainPhoto != null)?.mainPhoto ?? "";
 }

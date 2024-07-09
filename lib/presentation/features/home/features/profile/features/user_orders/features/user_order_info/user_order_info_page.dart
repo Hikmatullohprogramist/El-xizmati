@@ -94,7 +94,7 @@ class UserOrderInfoPage extends BasePage<UserOrderInfoCubit, UserOrderInfoState,
                       ],
                     ),
                     _buildProductBlock(context, state),
-                    if (state.actualOrder.isCancelled)
+                    if (state.actualOrder.hasCancelNote)
                       _buildCancelNoteBlock(context, state),
                     SizedBox(height: 8),
                     _buildActions(context, state),

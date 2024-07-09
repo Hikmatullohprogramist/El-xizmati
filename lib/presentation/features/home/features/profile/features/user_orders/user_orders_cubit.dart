@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
 import 'package:onlinebozor/domain/models/order/order_type.dart';
 
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
@@ -16,11 +17,15 @@ class UserOrdersCubit extends BaseCubit<UserOrdersState, UserOrdersEvent> {
   }
 
   void changeOrderType() {
+    Logger().w("BEFORE UPDATE STATE order type = ${states.orderType}");
+
     updateState((state) => state.copyWith(
           orderType: state.orderType == OrderType.sell
               ? OrderType.buy
               : OrderType.sell,
         ));
+
+    Logger().w("AFTER UPDATE STATE order type = ${states.orderType}");
 
     // emitEvent(UserOrdersEvent(UserOrdersEventType.onOrderTypeChange));
   }

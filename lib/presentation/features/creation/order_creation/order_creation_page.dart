@@ -119,8 +119,11 @@ class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationState,
 
   Widget _buildImageList(BuildContext context, OrderCreationState state) {
     return Container(
-      color: context.cardColor,
       padding: EdgeInsets.symmetric(vertical: 16),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: SizedBox(
         height: 86,
         child: ListView.separated(
@@ -156,7 +159,10 @@ class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationState,
   Widget _buildInfoBlock(BuildContext context, OrderCreationState state) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16),
-      color: context.cardColor,
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -352,8 +358,11 @@ class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationState,
 
   Widget _buildPaymentTypes(BuildContext context, OrderCreationState state) {
     return Container(
-      color: context.cardColor,
       padding: EdgeInsets.symmetric(horizontal: 16),
+      decoration: BoxDecoration(
+        color: context.cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
