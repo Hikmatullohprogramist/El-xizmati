@@ -256,7 +256,7 @@ extension UserAdExtension on UserAdResponse {
       status: status.toUserAdStatus(),
       isSell: false,
       moderatorNote: moderator_note,
-      moderatorNoteType: moderator_note_type,
+      // moderatorNoteType: moderator_note_type,
     );
   }
 }

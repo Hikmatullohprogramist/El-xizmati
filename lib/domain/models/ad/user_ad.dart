@@ -7,7 +7,6 @@ import 'package:onlinebozor/domain/models/order/order_type.dart';
 
 import '../../../data/datasource/network/responses/user_ad/user_ad_response.dart';
 
-
 class UserAd {
   UserAd({
     required this.id,
@@ -37,7 +36,6 @@ class UserAd {
     required this.status,
     this.isSell,
     this.moderatorNote,
-    this.moderatorNoteType,
   });
 
   int id;
@@ -66,8 +64,7 @@ class UserAd {
   int? messageViewedCount;
   UserAdStatus status;
   bool? isSell;
-  dynamic moderatorNote;
-  String? moderatorNoteType;
+  String? moderatorNote;
 
   bool hasPrice() {
     return (price != null && price! > 0) ||
@@ -94,7 +91,11 @@ class UserAd {
     ].contains(status);
   }
 
-  bool isCanAdvertise() {
-    return false;
+  bool isCanAdvertise() => false;
+
+  bool hasModeratorNote() {
+    return moderatorNote != null &&
+        moderatorNote!.trim().isNotEmpty &&
+        !moderatorNote!.trim().contains("-");
   }
 }

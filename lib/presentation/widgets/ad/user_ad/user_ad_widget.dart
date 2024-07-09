@@ -7,6 +7,7 @@ import 'package:onlinebozor/presentation/support/extensions/color_extension.dart
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 import 'package:onlinebozor/presentation/widgets/ad/list_price_text_widget.dart';
 import 'package:onlinebozor/presentation/widgets/ad/user_ad/user_ad_stats_widget.dart';
+import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
 import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
 
 import '../../../../domain/models/ad/user_ad.dart';
@@ -34,6 +35,7 @@ class UserAdWidget extends StatelessWidget {
           padding: EdgeInsets.only(left: 12, top: 12, right: 0),
           child: Column(
             children: [
+              if (userAd.hasModeratorNote()) ..._buildModeratorNoteWidgets(),
               Row(
                 children: [
                   Stack(
@@ -79,10 +81,7 @@ class UserAdWidget extends StatelessWidget {
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      (userAd.name ?? "")
-                          .w(600)
-                          .s(14)
-                          .copyWith(
+                      (userAd.name ?? "").w(600).s(14).copyWith(
                             maxLines: 3,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -184,5 +183,24 @@ class UserAdWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  List<Widget> _buildModeratorNoteWidgets() {
+    return [
+      Row(
+        children: [
+          Expanded(
+            child: userAd.moderatorNote!
+                .s(15)
+                .w(500)
+                .c(Color(0xFFFB577C))
+                .copyWith(textAlign: TextAlign.start),
+          ),
+        ],
+      ),
+      SizedBox(height: 12),
+      CustomDivider(thickness: 0.75, endIndent: 12),
+      SizedBox(height: 12),
+    ];
   }
 }
