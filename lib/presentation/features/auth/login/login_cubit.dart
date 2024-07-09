@@ -22,7 +22,10 @@ class LoginCubit extends BaseCubit<LoginState, LoginEvent> {
   final FavoriteRepository _favoriteRepository;
 
   void setPhone(String phone) {
-    updateState((state) => state.copyWith(phone: phone, password: ""));
+    updateState((state) => state.copyWith(
+          phone: phone.clearPhoneWithoutCode(),
+          password: "",
+        ));
   }
 
   void setPassword(String password) {
@@ -52,16 +55,15 @@ class LoginCubit extends BaseCubit<LoginState, LoginEvent> {
         .onSuccess((data) {
           logger.w("login onSuccess");
           sendAllFavoriteAds();
+          updateState((state) => state.copyWith(isRequestSending: false));
           emitEvent(LoginEvent(LoginEventType.onOpenHome));
         })
         .onError((error) {
           logger.w("login onError  ${error.toString()}");
+          updateState((state) => state.copyWith(isRequestSending: false));
           stateMessageManager.showErrorBottomSheet(error.localizedMessage);
         })
-        .onFinished(() {
-          logger.w("login onFinished");
-          updateState((state) => state.copyWith(isRequestSending: false));
-        })
+        .onFinished(() {})
         .executeFuture();
   }
 

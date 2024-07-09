@@ -82,7 +82,7 @@ class LoginPage extends BasePage<LoginCubit, LoginState, LoginEvent> {
                   enabled: false,
                   readOnly: true,
                   maxLines: 1,
-                  prefixText: "998 ",
+                  prefixText: "+998",
                   label: state.phone,
                   onChanged: (value) {},
                 ),
