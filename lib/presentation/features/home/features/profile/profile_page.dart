@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
@@ -81,10 +80,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
               icon: Assets.images.icUserAvatar,
               topRadius: 16,
               bottomRadius: 16,
-              onClicked: () {
-                context.router.push(ProfileViewRoute());
-                HapticFeedback.lightImpact();
-              },
+              onClicked: () => context.router.push(ProfileViewRoute()),
             ),
           ),
           Visibility(
@@ -94,10 +90,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
               icon: Assets.images.icUserAvatar,
               topRadius: 16,
               bottomRadius: 16,
-              onClicked: () {
-                context.router.push(AuthStartRoute());
-                HapticFeedback.lightImpact();
-              },
+              onClicked: () => context.router.push(AuthStartRoute()),
             ),
           ),
         ],
@@ -123,10 +116,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
               name: Strings.profileMyAds,
               icon: Assets.images.icProfileMyAds,
               topRadius: 16,
-              onClicked: () {
-                context.router.push(UserAdsRoute());
-                HapticFeedback.lightImpact();
-              },
+              onClicked: () => context.router.push(UserAdsRoute()),
             ),
           ),
           Visibility(
@@ -139,9 +129,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
               name: Strings.profileOrders,
               icon: Assets.images.icProfileOrder,
               onClicked: () {
-                // context.router.push(UserOrderTypeRoute());
                 context.router.push(UserOrdersRoute(orderType: OrderType.buy));
-                HapticFeedback.lightImpact();
               },
             ),
           ),
@@ -155,10 +143,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
               name: Strings.profilePayment,
               icon: Assets.images.icProfilePayment,
               bottomRadius: 16,
-              onClicked: () {
-                context.router.push(BillingTransactionsRoute());
-                HapticFeedback.lightImpact();
-              },
+              onClicked: () => context.router.push(BillingTransactionsRoute()),
             ),
           ),
         ],
@@ -187,10 +172,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
               name: Strings.profileMyCard,
               icon: Assets.images.icCard,
               topRadius: 16,
-              onClicked: () {
-                context.router.push(UserCardsRoute());
-                HapticFeedback.lightImpact();
-              },
+              onClicked: () => context.router.push(UserCardsRoute()),
             ),
           ),
           Visibility(
@@ -202,10 +184,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
             child: ProfileItemWidget(
               name: Strings.profileMyAddress,
               icon: Assets.images.icProfileLocation,
-              onClicked: () {
-                context.router.push(UserAddressesRoute());
-                HapticFeedback.lightImpact();
-              },
+              onClicked: () => context.router.push(UserAddressesRoute()),
             ),
           ),
           Visibility(
@@ -217,10 +196,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
             icon: Assets.images.bottomBar.favorite,
             topRadius: state.isAuthorized ? 0 : 16,
             bottomRadius: 16,
-            onClicked: () {
-              context.router.push(FavoriteListRoute());
-              HapticFeedback.lightImpact();
-            },
+            onClicked: () => context.router.push(FavoriteListRoute()),
           ),
         ],
       ),
@@ -248,10 +224,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
             icon: Assets.images.icProfileLanguage,
             topRadius: 16,
             bottomRadius: 16,
-            onClicked: () {
-              _showChangeLanguageBottomSheet(context, state);
-              HapticFeedback.lightImpact();
-            },
+            onClicked: () => _showChangeLanguageBottomSheet(context, state),
           ),
           Visibility(visible: false, child: Divider(indent: 46, height: 1)),
           Visibility(
@@ -261,10 +234,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
               icon: Assets.images.icProfileDarkMode,
               topRadius: 16,
               bottomRadius: 16,
-              onClicked: () {
-                _showChangeLanguageBottomSheet(context, state);
-                HapticFeedback.lightImpact();
-              },
+              onClicked: () => _showChangeLanguageBottomSheet(context, state),
             ),
           ),
         ],
@@ -301,19 +271,13 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
                   title: Strings.profileLogoutTitle,
                   message: Strings.profileLogoutDescription,
                   noTitle: Strings.commonNo,
-                  onNoClicked: () {
-                    Navigator.pop(context);
-                    HapticFeedback.lightImpact();
-                  },
+                  onNoClicked: () => Navigator.pop(context),
                   yesTitle: Strings.commonYes,
                   onYesClicked: () async {
-                    HapticFeedback.lightImpact();
-
                     await cubit(context).logOut();
                     Navigator.pop(context);
                   },
                 );
-                HapticFeedback.lightImpact();
               },
             ),
           ],

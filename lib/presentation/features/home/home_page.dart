@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
@@ -48,17 +47,15 @@ class HomePage extends BasePage<HomeCubit, HomeState, HomeEvent> {
               selectedItemColor: const Color(0xFF5C6AC3),
               backgroundColor: context.bottomBarColor,
               currentIndex: tabsRouter.activeIndex,
-              onTap: (index) {
-                tabsRouter.setActiveIndex(index);
-                HapticFeedback.lightImpact();
-              },
+              onTap: (index) => tabsRouter.setActiveIndex(index),
               items: [
                 BottomNavigationBarItem(
                   label: Strings.bottomNavigationHome,
                   tooltip: Strings.bottomNavigationHome,
                   icon: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Assets.images.bottomBar.dashboard.svg()),
+                    padding: const EdgeInsets.all(8.0),
+                    child: Assets.images.bottomBar.dashboard.svg(),
+                  ),
                   activeIcon: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Assets.images.bottomBar.dashboardActive.svg(),
@@ -67,8 +64,9 @@ class HomePage extends BasePage<HomeCubit, HomeState, HomeEvent> {
                 BottomNavigationBarItem(
                   label: Strings.bottomNavigationCatalog,
                   icon: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Assets.images.bottomBar.category.svg()),
+                    padding: const EdgeInsets.all(8.0),
+                    child: Assets.images.bottomBar.category.svg(),
+                  ),
                   activeIcon: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Assets.images.bottomBar.categoryActive.svg(),
@@ -78,7 +76,8 @@ class HomePage extends BasePage<HomeCubit, HomeState, HomeEvent> {
                   label: Strings.bottomNavigationAddAd,
                   icon: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Assets.images.bottomBar.addAd.svg(height: 22, width: 22),
+                    child: Assets.images.bottomBar.addAd
+                        .svg(height: 22, width: 22),
                   ),
                   activeIcon: Padding(
                     padding: const EdgeInsets.all(8.0),

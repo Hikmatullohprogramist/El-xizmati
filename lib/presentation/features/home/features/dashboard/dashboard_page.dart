@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
@@ -11,7 +10,6 @@ import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:flutter/services.dart';
 import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_list_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_list_widget.dart';
 import 'package:onlinebozor/presentation/widgets/ad/top_rated/top_rated_ad_list_shimmer.dart';
@@ -110,18 +108,11 @@ class DashboardPage
           ),
         ),
         IconButton(
-          onPressed: () {
-            context.router.push(FavoriteListRoute());
-            HapticFeedback.lightImpact();
-          },
-          icon:
-              Assets.images.bottomBar.favorite.svg(color: Color(0xFF5C6AC4)),
+          onPressed: () => context.router.push(FavoriteListRoute()),
+          icon: Assets.images.bottomBar.favorite.svg(color: Color(0xFF5C6AC4)),
         ),
         IconButton(
-          onPressed: () {
-            context.router.push(NotificationListRoute());
-            HapticFeedback.lightImpact();
-          },
+          onPressed: () => context.router.push(NotificationListRoute()),
           icon: Assets.images.icNotification.svg(color: Color(0xFF5C6AC4)),
         )
       ],

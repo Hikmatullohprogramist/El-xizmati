@@ -38,7 +38,7 @@ class _CustomSwitchState extends State<CustomSwitch> {
           child: AnimatedAlign(
             alignment:
                 widget.isChecked ? Alignment.centerRight : Alignment.centerLeft,
-            duration: Duration(milliseconds: 300),
+            duration: Duration(milliseconds: 180),
             curve: Curves.easeIn,
             child: Container(
               width: 22,
