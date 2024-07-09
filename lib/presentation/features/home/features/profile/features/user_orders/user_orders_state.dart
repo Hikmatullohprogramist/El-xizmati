@@ -12,6 +12,4 @@ class UserOrdersEvent with _$UserOrdersEvent {
   const factory UserOrdersEvent(UserOrdersEventType type) = _UserOrdersEvent;
 }
 
-enum UserOrdersEventType {
-  onOrderTypeChange,
-}
+class UserOrdersEventType {}

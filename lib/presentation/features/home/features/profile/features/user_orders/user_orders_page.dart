@@ -29,19 +29,6 @@ class UserOrdersPage
   }
 
   @override
-  void onEventEmitted(BuildContext context, UserOrdersEvent event) {
-    {
-      switch (event.type) {
-        case UserOrdersEventType.onOrderTypeChange:
-          context.router.pop();
-          context.router.replace(
-            UserOrdersRoute(orderType: cubit(context).states.orderType),
-          );
-      }
-    }
-  }
-
-  @override
   Widget onWidgetBuild(BuildContext context, UserOrdersState state) {
     return DefaultTabController(
       length: 2,
@@ -120,7 +107,7 @@ class UserOrdersPage
                 SizedBox(width: 64),
               ],
             ),
-            _buildTabBarViewTabBar(context, controller),
+            _buildOrderTypeTabBar(context, controller),
           ],
         ),
       ),
@@ -144,71 +131,45 @@ class UserOrdersPage
     return DefaultTabController(
       length: 6,
       initialIndex: 0,
-      child: Column(
-        children: [
-          TabBar(
-            isScrollable: true,
-            physics: BouncingScrollPhysics(),
-            indicator: MaterialIndicator(
-              height: 6,
-              tabPosition: TabPosition.bottom,
-              topLeftRadius: 100,
-              topRightRadius: 100,
-              color: Color(0xFF5C6AC3),
-              paintingStyle: PaintingStyle.fill,
-            ),
-            indicatorSize: TabBarIndicatorSize.label,
-            labelColor: Color(0xFF5C6AC3),
-            unselectedLabelColor: context.textSecondary,
-            indicatorColor: context.textPrimary,
-            // controller: controller,
-            tabs: [
-              Tab(text: Strings.userOrderAll),
-              Tab(text: Strings.userOrderWait),
-              Tab(text: Strings.userOrderRejected),
-              Tab(text: Strings.userOrderCancelled),
-              Tab(text: Strings.userOrderInProgress),
-              Tab(text: Strings.userOrderAccepted)
-            ],
-          ),
-          Expanded(
-            child: TabBarView(
-              children: [
-                for (var status in orderStatus)
-                  UserOrderListPage(type: orderType, status: status),
+      child: Container(
+        color: context.appBarColor,
+        child: Column(
+          children: [
+            TabBar(
+              isScrollable: true,
+              physics: BouncingScrollPhysics(),
+              indicator: MaterialIndicator(
+                height: 6,
+                tabPosition: TabPosition.bottom,
+                topLeftRadius: 100,
+                topRightRadius: 100,
+                color: Color(0xFF5C6AC3),
+                paintingStyle: PaintingStyle.fill,
+              ),
+              indicatorSize: TabBarIndicatorSize.label,
+              labelColor: Color(0xFF5C6AC3),
+              unselectedLabelColor: context.textSecondary,
+              indicatorColor: context.textPrimary,
+              // controller: controller,
+              tabs: [
+                Tab(text: Strings.userOrderAll),
+                Tab(text: Strings.userOrderWait),
+                Tab(text: Strings.userOrderRejected),
+                Tab(text: Strings.userOrderCancelled),
+                Tab(text: Strings.userOrderInProgress),
+                Tab(text: Strings.userOrderAccepted)
               ],
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Container _buildTabBarViewTabBar(
-    BuildContext context,
-    TabController controller,
-  ) {
-    return Container(
-      margin: EdgeInsets.fromLTRB(16, 0, 16, 0),
-      height: 45,
-      decoration: BoxDecoration(
-        color: context.backgroundGreyColor,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: TabBar(
-        padding: EdgeInsets.fromLTRB(4, 4, 4, 4),
-        physics: BouncingScrollPhysics(),
-        controller: controller,
-        indicator: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: context.elevatedColor,
+            Expanded(
+              child: TabBarView(
+                children: [
+                  for (var status in orderStatus)
+                    UserOrderListPage(type: orderType, status: status),
+                ],
+              ),
+            ),
+          ],
         ),
-        labelColor: context.textPrimary,
-        unselectedLabelColor: context.textSecondary,
-        tabs: [
-          Tab(text: Strings.orderListTypeSell),
-          Tab(text: Strings.orderListTypeBuy)
-        ],
       ),
     );
   }
@@ -304,7 +265,7 @@ class UserOrdersPage
               ],
             ),
             SizedBox(height: 0),
-            _buildTabBarViewTabBar(context, controller),
+            _buildOrderTypeTabBar(context, controller),
           ],
         ),
       ),
@@ -340,6 +301,37 @@ class UserOrdersPage
         Tab(text: Strings.userOrderInProgress),
         Tab(text: Strings.userOrderAccepted)
       ],
+    );
+  }
+
+  /// common methods
+
+  Container _buildOrderTypeTabBar(
+    BuildContext context,
+    TabController controller,
+  ) {
+    return Container(
+      margin: EdgeInsets.fromLTRB(16, 0, 16, 0),
+      height: 45,
+      decoration: BoxDecoration(
+        color: context.backgroundGreyColor,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: TabBar(
+        padding: EdgeInsets.fromLTRB(4, 4, 4, 4),
+        physics: BouncingScrollPhysics(),
+        controller: controller,
+        indicator: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: context.elevatedColor,
+        ),
+        labelColor: context.textPrimary,
+        unselectedLabelColor: context.textSecondary,
+        tabs: [
+          Tab(text: Strings.orderListTypeSell),
+          Tab(text: Strings.orderListTypeBuy)
+        ],
+      ),
     );
   }
 }
