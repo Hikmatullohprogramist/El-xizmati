@@ -333,7 +333,7 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: SizedBox(
                 height: 32,
-                child: Assets.images.pngImages.appNameAndLogo.image(),
+                child: Assets.images.appNameAndLogo.svg(),
               ),
             ),
             "${snapshot.data!.version}(${snapshot.data!.buildNumber})"
