@@ -538,7 +538,7 @@ class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationState,
                 SizedBox(width: 16)
               ],
             ),
-            SizedBox(height: bottomSheetBottomPadding),
+            SizedBox(height: defaultBottomPadding),
           ],
         ),
       ),

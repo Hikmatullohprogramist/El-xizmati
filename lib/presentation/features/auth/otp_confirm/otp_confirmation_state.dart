@@ -24,4 +24,7 @@ class OtpConfirmationEvent with _$OtpConfirmationEvent {
       _OtpConfirmationEvent;
 }
 
-enum OtpConfirmationEventType { setPassword }
+enum OtpConfirmationEventType {
+  onOpenResetPassword,
+  onOpenIdentityVerification,
+}

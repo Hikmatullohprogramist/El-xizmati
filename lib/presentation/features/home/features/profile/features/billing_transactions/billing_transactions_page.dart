@@ -66,7 +66,7 @@ class BillingTransactionsPage extends BasePage<BillingTransactionsCubit,
       shrinkWrap: true,
       addAutomaticKeepAlives: true,
       physics: BouncingScrollPhysics(),
-      padding: EdgeInsets.only(top: 10, bottom: bottomSheetBottomPadding),
+      padding: EdgeInsets.only(top: 10, bottom: defaultBottomPadding),
       pagingController: state.controller!,
       builderDelegate: PagedChildBuilderDelegate<dynamic>(
         firstPageErrorIndicatorBuilder: (_) {

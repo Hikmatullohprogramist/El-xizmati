@@ -29,7 +29,7 @@ class IdentityVerificationPage extends BasePage<IdentityVerificationCubit,
 
   final TextEditingController _birthDateController = TextEditingController();
   final TextEditingController _docNumberController = TextEditingController();
-  final TextEditingController _docSerialController = TextEditingController();
+  final TextEditingController _docSeriesController = TextEditingController();
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
@@ -62,7 +62,7 @@ class IdentityVerificationPage extends BasePage<IdentityVerificationCubit,
         .updateOnRestore(birthDateMaskFormatter.formatString(state.brithDate));
     _docNumberController
         .updateOnRestore(docNumberMaskFormatter.formatString(state.docNumber));
-    _docSerialController.updateOnRestore(state.docSerial.toUpperCase());
+    _docSeriesController.updateOnRestore(state.docSeries.toUpperCase());
     _fullNameController.updateOnRestore(state.fullName);
     _emailController.updateOnRestore(state.email);
     _phoneController
@@ -142,9 +142,9 @@ class IdentityVerificationPage extends BasePage<IdentityVerificationCubit,
                   inputType: TextInputType.text,
                   textCapitalization: TextCapitalization.characters,
                   textInputAction: TextInputAction.next,
-                  controller: _docSerialController,
+                  controller: _docSeriesController,
                   onChanged: (value) {
-                    cubit(context).setBiometricSerial(value);
+                    cubit(context).setDocSeries(value);
                   },
                 ),
               ),
@@ -158,7 +158,7 @@ class IdentityVerificationPage extends BasePage<IdentityVerificationCubit,
                   controller: _docNumberController,
                   inputFormatters: docNumberMaskFormatter,
                   onChanged: (value) {
-                    cubit(context).setBiometricNumber(value);
+                    cubit(context).setDocNumber(value);
                   },
                 ),
               ),

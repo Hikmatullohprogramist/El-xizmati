@@ -163,7 +163,7 @@ class _LocaleImageViewerPageState extends State<LocaleImageViewerPage> {
   ) {
     return Positioned(
       left: 16,
-      bottom: bottomSheetBottomPadding,
+      bottom: defaultBottomPadding,
       right: 16,
       child: Row(
         mainAxisSize: MainAxisSize.max,

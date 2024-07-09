@@ -205,7 +205,7 @@ class AdListPage extends BasePage<AdListCubit, AdListState, AdListEvent> {
                     _showReportPage(context, ReportType.AUTHOR_BLOCK);
                   },
                 ),
-                SizedBox(height: bottomSheetBottomPadding),
+                SizedBox(height: defaultBottomPadding),
               ],
             ),
           ),

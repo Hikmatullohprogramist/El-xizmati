@@ -76,7 +76,7 @@ class CurrencySelectionPage extends BasePage<CurrencySelectionCubit,
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       itemCount: state.items.length,
-      padding: EdgeInsets.only(bottom: bottomSheetBottomPadding),
+      padding: EdgeInsets.only(bottom: defaultBottomPadding),
       itemBuilder: (context, index) {
         var element = state.items[index];
         return SelectionListItem(

@@ -32,7 +32,7 @@ class LoginPage extends BasePage<LoginCubit, LoginState, LoginEvent> {
 
   @override
   void onWidgetCreated(BuildContext context) {
-    cubit(context).setPhone(phone.clearPhoneWithCode());
+    cubit(context).setInitialParams(phone.clearPhoneWithCode());
     _phoneController.text = phone.clearPhoneWithCode();
   }
 
@@ -42,7 +42,7 @@ class LoginPage extends BasePage<LoginCubit, LoginState, LoginEvent> {
     switch (event.type) {
       case LoginEventType.onOpenHome:
         context.router.replace(HomeRoute());
-      case LoginEventType.onOpenAuthConfirm:
+      case LoginEventType.onOpenResetPassword:
         context.router.replace(OtpConfirmationRoute(
           phone: phone,
           confirmType: OtpConfirmType.resetPasswordConfirm,

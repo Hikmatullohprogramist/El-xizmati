@@ -21,10 +21,9 @@ class LoginCubit extends BaseCubit<LoginState, LoginEvent> {
   final AuthRepository _authRepository;
   final FavoriteRepository _favoriteRepository;
 
-  void setPhone(String phone) {
+  void setInitialParams(String phone) {
     updateState((state) => state.copyWith(
           phone: phone.clearPhoneWithoutCode(),
-          password: "",
         ));
   }
 
@@ -69,8 +68,8 @@ class LoginCubit extends BaseCubit<LoginState, LoginEvent> {
 
   Future<void> forgetPassword() async {
     try {
-      await _authRepository.forgetPassword(states.phone.clearPhoneWithCode());
-      emitEvent(LoginEvent(LoginEventType.onOpenAuthConfirm));
+      await _authRepository.requestResetOtpCode(states.phone.clearPhoneWithCode());
+      emitEvent(LoginEvent(LoginEventType.onOpenResetPassword));
     } catch (e) {
       logger.w(e);
     }

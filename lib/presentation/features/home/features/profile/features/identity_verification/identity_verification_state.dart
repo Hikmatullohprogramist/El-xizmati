@@ -3,7 +3,7 @@ part of 'identity_verification_cubit.dart';
 @freezed
 class IdentityVerificationState with _$IdentityVerificationState {
   const factory IdentityVerificationState({
-    @Default("") String docSerial,
+    @Default("") String docSeries,
     @Default("") String docNumber,
     @Default("") String brithDate,
     //

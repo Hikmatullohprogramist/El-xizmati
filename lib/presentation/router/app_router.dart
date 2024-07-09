@@ -26,7 +26,8 @@ import 'package:onlinebozor/presentation/features/auth/face_id/start/face_id_sta
 import 'package:onlinebozor/presentation/features/auth/login/login_page.dart';
 import 'package:onlinebozor/presentation/features/auth/one_id/one_id_page.dart';
 import 'package:onlinebozor/presentation/features/auth/otp_confirm/otp_confirmation_page.dart';
-import 'package:onlinebozor/presentation/features/auth/set_password/set_password_page.dart';
+import 'package:onlinebozor/presentation/features/auth/registration/registration_page.dart';
+import 'package:onlinebozor/presentation/features/auth/reset_password/reset_password_page.dart';
 import 'package:onlinebozor/presentation/features/auth/start/auth_start_page.dart';
 import 'package:onlinebozor/presentation/features/common/add_address/add_address_page.dart';
 import 'package:onlinebozor/presentation/features/common/category_selection/category_selection_page.dart';
@@ -108,8 +109,12 @@ class AppRouter extends _$AppRouter {
           path: '/login',
         ),
         AutoRoute(
-          page: SetPasswordRoute.page,
-          path: '/set_password',
+          page: ResetPasswordRoute.page,
+          path: '/reset_password',
+        ),
+        AutoRoute(
+          page: RegistrationRoute.page,
+          path: '/registration',
         ),
         AutoRoute(
           page: OneIdRoute.page,

@@ -30,7 +30,7 @@ class IdentityVerificationCubit
     _userRepository
         .getIdentityDocument(
           phoneNumber: states.phoneNumber.clearPhoneWithCode(),
-          docSerial: states.docSerial,
+          docSeries: states.docSeries,
           docNumber: states.docNumber,
           brithDate: states.brithDate,
         )
@@ -50,7 +50,7 @@ class IdentityVerificationCubit
               updateState((state) => states.copyWith(
                     gender: info.gender ?? "",
                     userName: info.fullName ?? "",
-                    docSerial: info.series ?? "",
+                    docSeries: info.series ?? "",
                     docNumber: info.number ?? "",
                     fullName: info.fullName ?? "",
                     brithDate: info.birthDate ?? "",
@@ -88,8 +88,8 @@ class IdentityVerificationCubit
           id: states.id ?? 0,
           mahallaId: states.neighborhoodId ?? 0,
           mobilePhone: states.phoneNumber.clearPhoneWithCode(),
-          passportNumber: states.docNumber,
-          passportSeries: states.docSerial,
+          docSeries: states.docSeries,
+          docNumber: states.docNumber,
           phoneNumber: states.phoneNumber,
           photo: "",
           pinfl: states.pinfl ?? 0,
@@ -154,7 +154,7 @@ class IdentityVerificationCubit
 
   Future<void> validationAndRequest() async {
     if (states.phoneNumber.clearPhoneNumber().length >= 9 &&
-        states.docSerial.trim().length >= 2 &&
+        states.docSeries.trim().length >= 2 &&
         states.docNumber.trim().length >= 7 &&
         states.brithDate.trim().length >= 10) {
       getIdentityDocument();
@@ -191,7 +191,7 @@ class IdentityVerificationCubit
             gender: response.userInfo.gender,
             userName: response.userInfo.full_name ?? "",
             fullName: response.userInfo.full_name ?? "",
-            docSerial: response.userInfo.pass_serial ?? "",
+            docSeries: response.userInfo.pass_serial ?? "",
             docNumber: response.userInfo.pass_number ?? "",
             pinfl: response.userInfo.pinfl,
             tin: response.userInfo.tin,
@@ -216,7 +216,7 @@ class IdentityVerificationCubit
         photo: "",
         pinfl: states.pinfl ?? -1,
         birthDate: states.brithDate,
-        docSerial: states.docSerial.toUpperCase(),
+        docSeries: states.docSeries.toUpperCase(),
         docNumber: states.docNumber,
         postName: states.postName ?? "",
         phoneNumber: states.phoneNumber,
@@ -227,13 +227,13 @@ class IdentityVerificationCubit
     }
   }
 
-  void setBiometricSerial(String serial) {
-    updateState((state) => states.copyWith(docSerial: serial));
+  void setDocSeries(String docSeries) {
+    updateState((state) => states.copyWith(docSeries: docSeries));
   }
 
-  void setBiometricNumber(String number) {
+  void setDocNumber(String docNumber) {
     updateState((state) => states.copyWith(
-          docNumber: number.replaceAll(" ", ""),
+          docNumber: docNumber.replaceAll(" ", ""),
         ));
   }
 

@@ -18,6 +18,6 @@ class LoginEvent with _$LoginEvent {
 }
 
 enum LoginEventType {
-  onOpenAuthConfirm,
+  onOpenResetPassword,
   onOpenHome,
 }

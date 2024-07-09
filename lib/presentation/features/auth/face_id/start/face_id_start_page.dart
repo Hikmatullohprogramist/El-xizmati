@@ -21,9 +21,9 @@ class FaceIdStartPage
     extends BasePage<FaceIdStartCubit, FaceIdStartState, FaceIdStartEvent> {
   FaceIdStartPage({super.key});
 
-  final bioDocNumberController = TextEditingController();
-  final bioDocSerialController = TextEditingController();
-  final pinflController = TextEditingController();
+  final _docNumberController = TextEditingController();
+  final _docSeriesController = TextEditingController();
+  final _pinflController = TextEditingController();
 
   @override
   void onEventEmitted(BuildContext context, FaceIdStartEvent event) {
@@ -41,9 +41,9 @@ class FaceIdStartPage
 
   @override
   Widget onWidgetBuild(BuildContext context, FaceIdStartState state) {
-    bioDocNumberController.updateOnRestore(state.bioDocNumber);
-    bioDocSerialController.updateOnRestore(state.bioDocSerial);
-    pinflController.updateOnRestore(state.pinfl);
+    _docNumberController.updateOnRestore(state.docNumber);
+    _docSeriesController.updateOnRestore(state.docSeries);
+    _pinflController.updateOnRestore(state.pinfl);
 
     return Scaffold(
       appBar: DefaultAppBar(
@@ -113,7 +113,7 @@ class FaceIdStartPage
                   autofillHints: const [AutofillHints.telephoneNumber],
                   inputType: TextInputType.number,
                   keyboardType: TextInputType.phone,
-                  controller: pinflController,
+                  controller: _pinflController,
                   maxLines: 1,
                   maxLength: 14,
                   hint: Strings.commonPinflHint,
@@ -151,11 +151,11 @@ class FaceIdStartPage
                   maxLines: 1,
                   hint: "AA",
                   maxLength: 2,
-                  controller: bioDocSerialController,
+                  controller: _docSeriesController,
                   textCapitalization: TextCapitalization.characters,
                   textInputAction: TextInputAction.next,
                   onChanged: (value) {
-                    cubit(context).setEnteredBioDocSerial(value);
+                    cubit(context).setEnteredDocSeries(value);
                   },
                 ),
               ),
@@ -167,7 +167,7 @@ class FaceIdStartPage
                   keyboardType: TextInputType.phone,
                   maxLines: 1,
                   maxLength: 7,
-                  controller: bioDocNumberController,
+                  controller: _docNumberController,
                   textInputAction: TextInputAction.done,
                   hint: "123 45 67",
                   onChanged: (value) {

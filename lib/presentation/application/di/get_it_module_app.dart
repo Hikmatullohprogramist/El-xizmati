@@ -9,7 +9,8 @@ import 'package:onlinebozor/presentation/features/auth/face_id/start/face_id_sta
 import 'package:onlinebozor/presentation/features/auth/login/login_cubit.dart';
 import 'package:onlinebozor/presentation/features/auth/one_id/one_id_cubit.dart';
 import 'package:onlinebozor/presentation/features/auth/otp_confirm/otp_confirmation_cubit.dart';
-import 'package:onlinebozor/presentation/features/auth/set_password/set_password_cubit.dart';
+import 'package:onlinebozor/presentation/features/auth/registration/registration_cubit.dart';
+import 'package:onlinebozor/presentation/features/auth/reset_password/reset_password_cubit.dart';
 import 'package:onlinebozor/presentation/features/auth/start/auth_start_cubit.dart';
 import 'package:onlinebozor/presentation/features/common/add_address/add_address_cubit.dart';
 import 'package:onlinebozor/presentation/features/common/category_selection/category_selection_cubit.dart';
@@ -76,8 +77,9 @@ extension GetItModuleApp on GetIt {
     registerFactory(() => FaceIdStartCubit(get()));
     registerFactory(() => LoginCubit(get(), get()));
     registerFactory(() => OneIdCubit(get(), get()));
-    registerFactory(() => SetPasswordCubit(get()));
+    registerFactory(() => ResetPasswordCubit(get()));
     registerFactory(() => AuthStartCubit(get()));
+    registerFactory(() => RegistrationCubit(get()));
 
     // common
     registerFactory(() => AddAddressCubit(get(), get()));

@@ -20,7 +20,7 @@ class UserEntity {
   String? gender;
 
   @ColumnInfo(name: "user_doc_serial")
-  String? docSerial;
+  String? docSeries;
 
   @ColumnInfo(name: "user_doc_number")
   String? docNumber;
@@ -76,7 +76,7 @@ class UserEntity {
     required this.pinfl,
     required this.tin,
     required this.gender,
-    required this.docSerial,
+    required this.docSeries,
     required this.docNumber,
     required this.regionId,
     required this.regionName,

@@ -12,9 +12,12 @@ class RestQueryKeys {
 
   static String cancelNote = "cancel_note";
   static String cardId = "card_id";
-  static String confirmPassword = "repeat_password";
+  static String repeatPassword = "repeat_password";
+  static String confirm = "confirm";
   static String customerType = "customer_type";
 
+  static String docSeries = "doc_series";
+  static String docNumber = "doc_number";
   static String deliveryAddressId = "delivery_address_id";
   static String districtId = "district_id";
 

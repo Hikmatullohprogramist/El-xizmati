@@ -43,11 +43,8 @@ class AuthStartPage
     switch (event.type) {
       case AuthStartEventType.onOpenLogin:
         context.router.push(LoginRoute(phone: event.phone!));
-      case AuthStartEventType.onOpenConfirm:
-        context.router.push(OtpConfirmationRoute(
-          phone: event.phone!,
-          confirmType: OtpConfirmType.registerConfirm,
-        ));
+      case AuthStartEventType.onOpenRegister:
+        context.router.push(RegistrationRoute(phone: event.phone!));
       case AuthStartEventType.onEdsLoginFailed:
         showErrorBottomSheet(context, Strings.authStartLoginWithEImzoError);
       case AuthStartEventType.onOpenHome:

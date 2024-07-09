@@ -61,7 +61,7 @@ class PaymentTypeSelectionPage extends BasePage<PaymentTypeSelectionCubit,
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(20, 0, 20, bottomSheetBottomPadding),
+            padding: EdgeInsets.fromLTRB(20, 0, 20, defaultBottomPadding),
             child: CustomElevatedButton(
               text: Strings.commonSave,
               onPressed: () {

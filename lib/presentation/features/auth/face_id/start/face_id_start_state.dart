@@ -3,14 +3,19 @@ part of 'face_id_start_cubit.dart';
 @freezed
 class FaceIdStartState with _$FaceIdStartState {
   const factory FaceIdStartState({
+//
     @Default(true) bool isFaceIdByPinflEnabled,
+//
     @Default(false) bool isAllDataValid,
     @Default(false) bool isRequestInProcess,
+//
     @Default("dd.mm.yyyy") String birthDate,
-    @Default("") String bioDocSerial,
-    @Default("") String bioDocNumber,
+    @Default("") String docSeries,
+    @Default("") String docNumber,
     @Default("") String pinfl,
+//
     @Default("") String secretKey,
+//
   }) = _FaceIdStartState;
 }
 

@@ -82,7 +82,7 @@ class OtpConfirmationCubit
 
   Future<void> confirmOtpCodeForRegister() async {
     _authRepository
-        .confirm(states.phone.clearPhoneWithCode(), states.code)
+        .confirmRegisterOtpCode(states.phone.clearPhoneWithCode(), states.code)
         .initFuture()
         .onStart(() {
           updateState((state) => state.copyWith(isConfirmLoading: true));
@@ -91,7 +91,9 @@ class OtpConfirmationCubit
           _timer?.cancel();
           sendAllFavoriteAds();
           updateState((state) => state.copyWith(isConfirmLoading: false));
-          emitEvent(OtpConfirmationEvent(OtpConfirmationEventType.setPassword));
+          emitEvent(OtpConfirmationEvent(
+            OtpConfirmationEventType.onOpenIdentityVerification,
+          ));
         })
         .onError((error) {
           logger.e(error);
@@ -104,7 +106,7 @@ class OtpConfirmationCubit
 
   Future<void> confirmOtpCodeForResetPassword() async {
     _authRepository
-        .recoveryConfirm(states.phone.clearPhoneWithCode(), states.code)
+        .confirmResetOtpCode(states.phone.clearPhoneWithCode(), states.code)
         .initFuture()
         .onStart(() {
           updateState((state) => state.copyWith(isConfirmLoading: true));
@@ -113,12 +115,14 @@ class OtpConfirmationCubit
           _timer?.cancel();
           updateState((state) => state.copyWith(isConfirmLoading: false));
           await sendAllFavoriteAds();
-          emitEvent(OtpConfirmationEvent(OtpConfirmationEventType.setPassword));
+          emitEvent(OtpConfirmationEvent(
+              OtpConfirmationEventType.onOpenResetPassword));
         })
         .onError((error) {
           logger.e(error);
           updateState((state) => state.copyWith(isConfirmLoading: false));
-          emitEvent(OtpConfirmationEvent(OtpConfirmationEventType.setPassword));
+          emitEvent(OtpConfirmationEvent(
+              OtpConfirmationEventType.onOpenResetPassword));
           stateMessageManager.showErrorSnackBar(error.localizedMessage);
         })
         .onFinished(() {})
@@ -132,7 +136,8 @@ class OtpConfirmationCubit
         .onSuccess((data) {})
         .onError((error) {
           stateMessageManager.showErrorSnackBar(error.localizedMessage);
-          emitEvent(OtpConfirmationEvent(OtpConfirmationEventType.setPassword));
+          emitEvent(OtpConfirmationEvent(
+              OtpConfirmationEventType.onOpenResetPassword));
         })
         .onFinished(() {})
         .executeFuture();

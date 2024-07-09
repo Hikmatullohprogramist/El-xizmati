@@ -39,7 +39,7 @@ class ProfileEditCubit extends BaseCubit<ProfileEditState, ProfileEditEvent> {
             email: response.email ?? "",
             birthDate: response.birth_date ?? "",
             docNumber: response.passport_number ?? "",
-            docSerial: response.passport_serial ?? "",
+            docSeries: response.passport_serial ?? "",
             apartmentNumber: response.home_name ?? "",
             districtId: response.district_id,
             regionId: response.region_id,
@@ -67,7 +67,7 @@ class ProfileEditCubit extends BaseCubit<ProfileEditState, ProfileEditEvent> {
           phoneNumber: states.phoneNumber.clearPhoneWithCode(),
           photo: states.photo ?? "",
           pinfl: states.pinfl ?? -1,
-          docSerial: states.docSerial.toUpperCase(),
+          docSeries: states.docSeries.toUpperCase(),
           docNumber: states.docNumber,
           birthDate: states.birthDate,
           postName: states.postName ?? "",
@@ -140,13 +140,13 @@ class ProfileEditCubit extends BaseCubit<ProfileEditState, ProfileEditEvent> {
     }
   }
 
-  void setDocSerial(String serial) {
-    updateState((state) => states.copyWith(docSerial: serial));
+  void setDocSeries(String docSeries) {
+    updateState((state) => states.copyWith(docSeries: docSeries));
   }
 
-  void setDocNumber(String number) {
+  void setDocNumber(String docNumber) {
     updateState((state) => states.copyWith(
-          docNumber: number.replaceAll(" ", ""),
+          docNumber: docNumber.replaceAll(" ", ""),
         ));
   }
 

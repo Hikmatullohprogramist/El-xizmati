@@ -11,22 +11,22 @@ import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.d
 import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_field.dart';
 
-import 'set_password_cubit.dart';
+import 'reset_password_cubit.dart';
 
 @RoutePage()
-class SetPasswordPage extends BasePage<SetPasswordCubit, SetPasswordState, SetPasswordEvent> {
-  const SetPasswordPage({super.key});
+class ResetPasswordPage extends BasePage<ResetPasswordCubit, ResetPasswordState, ResetPasswordEvent> {
+  const ResetPasswordPage({super.key});
 
   @override
-  void onEventEmitted(BuildContext context, SetPasswordEvent event) {
+  void onEventEmitted(BuildContext context, ResetPasswordEvent event) {
     switch (event.type) {
-      case SetPasswordEventType.navigationToHome:
+      case ResetPasswordEventType.navigationToHome:
         context.router.replace(HomeRoute());
     }
   }
 
   @override
-  Widget onWidgetBuild(BuildContext context, SetPasswordState state) {
+  Widget onWidgetBuild(BuildContext context, ResetPasswordState state) {
     return Scaffold(
       backgroundColor: context.backgroundWhiteColor,
       resizeToAvoidBottomInset: false,

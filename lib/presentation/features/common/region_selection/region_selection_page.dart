@@ -61,7 +61,7 @@ class RegionSelectionPage extends BasePage<RegionSelectionCubit,
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(16, 0, 16, bottomSheetBottomPadding),
+            padding: EdgeInsets.fromLTRB(16, 0, 16, defaultBottomPadding),
             child: CustomElevatedButton(
               text: Strings.commonSave,
               onPressed: () {

@@ -65,8 +65,8 @@ class AuthRepository {
             pinfl: actual.pinfl ?? saved?.pinfl,
             tin: actual.tin ?? saved?.tin,
             gender: actual.gender ?? saved?.gender,
-            docSerial: actual.passportSerial ?? saved?.docSerial,
-            docNumber: actual.passportNumber ?? saved?.docNumber,
+            docSeries: actual.docSeries ?? saved?.docSeries,
+            docNumber: actual.docNumber ?? saved?.docNumber,
             regionId: actual.regionId ?? saved?.regionId,
             regionName: saved?.regionName ?? "",
             districtId: saved?.districtId,
@@ -136,8 +136,15 @@ class AuthRepository {
     return;
   }
 
-  Future<void> confirm(String phone, String code) async {
-    final response = await _authService.confirm(
+  Future<void> requestResetOtpCode(String phone) async {
+    final response = await _authService.requestResetOtpCode(phone: phone);
+    final forgetResponse = AuthStartResponse.fromJson(response.data);
+    sessionToken = forgetResponse.data.session_token!;
+    return;
+  }
+
+  Future<void> confirmResetOtpCode(String phone, String code) async {
+    final response = await _authService.confirmResetOtpCode(
       phone: phone,
       code: code,
       sessionToken: sessionToken,
@@ -149,20 +156,49 @@ class AuthRepository {
       await _userPreferences.setUserInfo(confirmResponse.user);
       return;
     }
-  }
-
-  Future<void> forgetPassword(String phone) async {
-    final response = await _authService.forgetPassword(phone: phone);
-    final forgetResponse = AuthStartResponse.fromJson(response.data);
-    sessionToken = forgetResponse.data.session_token!;
     return;
   }
 
-  Future<void> registerOrResetPassword(
-      String password, String repeatPassword) async {
-    await _authService.registerOrResetPassword(
-        password: password, repeatPassword: repeatPassword);
+  Future<void> setNewPassword(
+    String password,
+    String confirm,
+  ) async {
+    await _authService.setNewPassword(password: password, confirm: confirm);
     return;
+  }
+
+  Future<String> requestCreateAccount({
+    required String docSeries,
+    required String docNumber,
+    required String birthDate,
+    required String phoneNumber,
+    required String password,
+    required String confirm,
+  }) async {
+    final response = await _authService.requestCreateAccount(
+      docSeries: docSeries,
+      docNumber: docNumber,
+      birthDate: birthDate,
+      phoneNumber: phoneNumber,
+      password: password,
+      confirm: confirm,
+    );
+    return response.data;
+  }
+
+  Future<void> confirmRegisterOtpCode(String phone, String code) async {
+    final response = await _authService.confirmRegisterOtpCode(
+      phone: phone,
+      code: code,
+      sessionToken: sessionToken,
+    );
+    final confirmResponse = LoginRootResponse.fromJson(response.data).data;
+    if (confirmResponse.token != null) {
+      await _authPreferences.setToken(confirmResponse.token ?? "");
+      await _authPreferences.setIsAuthorized(true);
+      await _userPreferences.setUserInfo(confirmResponse.user);
+      return;
+    }
   }
 
   Future<Response> validateByBioDoc(ValidateBioDocRequest request) async {
@@ -187,22 +223,6 @@ class AuthRepository {
       await _userPreferences.setUserInfo(response.user);
       // await favoriteRepository.pushAllFavoriteAds();
     }
-  }
-
-  Future<void> recoveryConfirm(String phone, String code) async {
-    final response = await _authService.recoveryConfirm(
-      phone: phone,
-      code: code,
-      sessionToken: sessionToken,
-    );
-    final confirmResponse = LoginRootResponse.fromJson(response.data).data;
-    if (confirmResponse.token != null) {
-      await _authPreferences.setToken(confirmResponse.token ?? "");
-      await _authPreferences.setIsAuthorized(true);
-      await _userPreferences.setUserInfo(confirmResponse.user);
-      return;
-    }
-    return;
   }
 
   Future<void> loginWithOneId(String accessCode) async {

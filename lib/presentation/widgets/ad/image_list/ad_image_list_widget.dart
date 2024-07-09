@@ -193,7 +193,7 @@ class AdImageListWidget extends StatelessWidget {
                     Navigator.pop(context);
                   },
                 ),
-                SizedBox(height: bottomSheetBottomPadding),
+                SizedBox(height: defaultBottomPadding),
               ],
             ),
           ),

@@ -277,7 +277,7 @@ class AdDetailPage
                 ),
                 SizedBox(width: 16)
               ]),
-              SizedBox(height: bottomSheetBottomPadding)
+              SizedBox(height: defaultBottomPadding)
             ],
           ),
         ),

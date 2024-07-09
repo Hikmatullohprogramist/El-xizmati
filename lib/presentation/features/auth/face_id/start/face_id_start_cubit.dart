@@ -1,9 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/data/datasource/network/responses/face_id/validate_bio_doc_request.dart';
 import 'package:onlinebozor/data/datasource/network/responses/face_id/validate_bio_doc_response.dart';
 import 'package:onlinebozor/data/repositories/auth_repository.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
 part 'face_id_start_cubit.freezed.dart';
 part 'face_id_start_state.dart';
@@ -22,19 +22,19 @@ class FaceIdStartCubit extends BaseCubit<FaceIdStartState, FaceIdStartEvent> {
         var response = await _authRepository.validateByPinfl(states.pinfl);
         if (response.statusCode == 200) {
           secretKey =
-              ValidateBioDocResponse.fromJson(response.data).data.secret_key;
+              ValidateBioDocResponse.fromJson(response.data).data.secretKey;
         }
       } else {
         var response = await _authRepository.validateByBioDoc(
           ValidateBioDocRequest(
-            passport_serial: states.bioDocSerial,
-            passport_number: states.bioDocNumber,
-            birth_date: states.birthDate,
+            docSeries: states.docSeries,
+            docNumber: states.docNumber,
+            birthDate: states.birthDate,
           ),
         );
         if (response.statusCode == 200) {
           secretKey =
-              ValidateBioDocResponse.fromJson(response.data).data.secret_key;
+              ValidateBioDocResponse.fromJson(response.data).data.secretKey;
         }
       }
 
@@ -63,12 +63,12 @@ class FaceIdStartCubit extends BaseCubit<FaceIdStartState, FaceIdStartEvent> {
     updateState((state) => state.copyWith(isFaceIdByPinflEnabled: isEnabled));
   }
 
-  void setEnteredBioDocSerial(String bioDocSerial) {
-    updateState((state) => state.copyWith(bioDocSerial: bioDocSerial));
+  void setEnteredDocSeries(String docSeries) {
+    updateState((state) => state.copyWith(docSeries: docSeries));
   }
 
-  void setEnteredBioDocNumber(String bioDocNumber) {
-    updateState((state) => state.copyWith(bioDocNumber: bioDocNumber));
+  void setEnteredBioDocNumber(String docNumber) {
+    updateState((state) => state.copyWith(docNumber: docNumber));
   }
 
   void setEnteredPinfl(String pinfl) {
@@ -83,8 +83,8 @@ class FaceIdStartCubit extends BaseCubit<FaceIdStartState, FaceIdStartEvent> {
     if (states.isFaceIdByPinflEnabled) {
       return states.pinfl.length == 14;
     } else {
-      return states.bioDocSerial.length == 2 &&
-          states.bioDocNumber.length == 7 &&
+      return states.docSeries.length == 2 &&
+          states.docNumber.length == 7 &&
           states.birthDate != "dd.MM.yyyy";
     }
   }

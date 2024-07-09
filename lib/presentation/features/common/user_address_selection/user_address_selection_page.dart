@@ -86,7 +86,7 @@ class UserAddressSelectionPage extends BasePage<UserAddressSelectionCubit,
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
-      padding: EdgeInsets.only(top: 12, bottom: bottomSheetBottomPadding),
+      padding: EdgeInsets.only(top: 12, bottom: defaultBottomPadding),
       itemCount: state.items.length,
       itemBuilder: (context, index) {
         var element = state.items[index];

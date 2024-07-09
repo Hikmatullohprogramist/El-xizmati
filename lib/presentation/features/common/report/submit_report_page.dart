@@ -97,7 +97,7 @@ class SubmitReportPage
                       },
                     ),
                   ),
-                  SizedBox(height: bottomSheetBottomPadding),
+                  SizedBox(height: defaultBottomPadding),
                 ],
               ),
             ),

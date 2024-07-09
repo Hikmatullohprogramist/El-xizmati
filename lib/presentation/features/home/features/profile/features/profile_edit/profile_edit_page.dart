@@ -30,7 +30,7 @@ class ProfileEditPage
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _docSerialController = TextEditingController();
+  final TextEditingController _docSeriesController = TextEditingController();
   final TextEditingController _docNumberController = TextEditingController();
   final TextEditingController _birthDateController = TextEditingController();
   final TextEditingController _homeNumberController = TextEditingController();
@@ -43,7 +43,7 @@ class ProfileEditPage
     _phoneController.updateOnRestore(
       phoneMaskFormatter.formatString(state.phoneNumber),
     );
-    _docSerialController.updateOnRestore(state.docSerial);
+    _docSeriesController.updateOnRestore(state.docSeries);
     _docNumberController.updateOnRestore(
       docNumberMaskFormatter.formatString(state.docNumber),
     );
@@ -225,10 +225,10 @@ class ProfileEditPage
                   inputType: TextInputType.text,
                   maxLength: 2,
                   textInputAction: TextInputAction.next,
-                  controller: _docSerialController,
+                  controller: _docSeriesController,
                   textCapitalization: TextCapitalization.characters,
                   validator: (value) => NotEmptyValidator.validate(value),
-                  onChanged: (value) => cubit(context).setDocSerial(value),
+                  onChanged: (value) => cubit(context).setDocSeries(value),
                 ),
               ),
               SizedBox(width: 12),

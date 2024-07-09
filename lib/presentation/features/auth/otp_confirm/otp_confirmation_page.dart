@@ -40,8 +40,10 @@ class OtpConfirmationPage extends BasePage<OtpConfirmationCubit,
   @override
   void onEventEmitted(BuildContext context, OtpConfirmationEvent event) {
     switch (event.type) {
-      case OtpConfirmationEventType.setPassword:
-        context.router.replace(SetPasswordRoute());
+      case OtpConfirmationEventType.onOpenResetPassword:
+        context.router.replace(ResetPasswordRoute());
+      case OtpConfirmationEventType.onOpenIdentityVerification:
+        context.router.replace(FaceIdStartRoute());
     }
   }
 

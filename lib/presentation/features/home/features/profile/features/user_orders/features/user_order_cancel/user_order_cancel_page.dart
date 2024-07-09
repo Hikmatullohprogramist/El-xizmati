@@ -109,7 +109,7 @@ class UserOrderCancelPage extends BasePage<UserOrderCancelCubit,
                         16,
                         12,
                         16,
-                        bottomSheetBottomPadding,
+                        defaultBottomPadding,
                       ),
                       child: CustomElevatedButton(
                         text: Strings.commonCancel,

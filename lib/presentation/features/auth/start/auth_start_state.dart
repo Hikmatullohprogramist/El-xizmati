@@ -17,7 +17,7 @@ class AuthStartEvent with _$AuthStartEvent {
 
 enum AuthStartEventType {
   onOpenLogin,
-  onOpenConfirm,
+  onOpenRegister,
   onEdsLoginFailed,
   onOpenHome
 }
