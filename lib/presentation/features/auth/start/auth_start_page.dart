@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
@@ -6,7 +7,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/domain/models/otp/otp_confirm_type.dart';
 import 'package:onlinebozor/presentation/features/auth/eds_request/crc32.dart';
 import 'package:onlinebozor/presentation/features/auth/eds_request/gost_hash.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
@@ -172,7 +172,7 @@ class AuthStartPage
                   text: Strings.authStartLoginWithEImzo,
                   onPressed: () {
                     cubit(context).edsAuth().then((value) {
-                      generateQrCode(
+                      _generateEdsQrCode(
                         context,
                         value?.challange ?? "",
                         value?.siteId ?? "",
@@ -198,55 +198,56 @@ class AuthStartPage
     } catch (error) {}
   }
 
-  void openEdsAppWithQrCode(String code) async {
-    await LaunchApp.openApp(
-      iosUrlScheme: 'eimzo://sign?qc=$code',
-      appStoreLink:
-          'itms-apps://itunes.apple.com/us/app/e-imzo-id-карта/id1563416406',
-      // openStore: false
-    );
-  }
-
-  void openEdsAppInfoInPlayMarket() async {
-    await LaunchApp.openApp(
-      androidPackageName: 'uz.yt.idcard.eimzo',
-      iosUrlScheme: 'eimzo://',
-      appStoreLink:
-          'itms-apps://itunes.apple.com/us/app/e-imzo-id-карта/id1563416406',
-      // openStore: false
-    );
-  }
-
-  void generateQrCode(
+  void _generateEdsQrCode(
     BuildContext context,
     String challenge,
     String siteId,
     String documentId,
   ) {
     var docHash = GostHash.hashGost(challenge);
-    var code = siteId + documentId + docHash;
-    var crc32 = Crc32.calcHex(code);
-    code += crc32;
+    var qrCodeValue = siteId + documentId + docHash;
+    var crc32 = Crc32.calcHex(qrCodeValue);
+    qrCodeValue += crc32;
+
+    final edsSignDeepLink = 'eimzo://sign?qc=$qrCodeValue';
+
     if (Platform.isAndroid) {
-      var _deepLink = 'eimzo://sign?qc=$code';
-      _launchURL(_deepLink);
+      _tryLaunchEdsInAndroid(edsSignDeepLink);
       cubit(context).edsCheckStatus(documentId);
     } else {
-      openEdsAppWithQrCode(code);
+      _tryLaunchEdsIniOS(edsSignDeepLink);
+      cubit(context).edsCheckStatus(documentId);
     }
   }
 
-  void _launchURL(String url) async {
-    if (await canLaunchUrl(
-      Uri.parse(url),
-    )) {
+  void _tryLaunchEdsInAndroid(String edsSignDeepLink) async {
+    if (await canLaunchUrl(Uri.parse(edsSignDeepLink))) {
       await launchUrl(
-        Uri.parse(url),
+        Uri.parse(edsSignDeepLink),
         mode: LaunchMode.externalApplication,
       );
     } else {
-      openEdsAppInfoInPlayMarket();
-      throw 'Ишга туширилмади $url';
+      await LaunchApp.openApp(
+        androidPackageName: 'uz.yt.idcard.eimzo',
+        // openStore: false
+      );
+      throw 'Ишга туширилмади $edsSignDeepLink';
+    }
+  }
+
+  void _tryLaunchEdsIniOS(String edsSignDeepLink) async {
+    if (await canLaunchUrl(Uri.parse(edsSignDeepLink))) {
+      await launchUrl(Uri.parse(edsSignDeepLink));
+      Timer(Duration(seconds: 3), () async {
+        await launchUrl(Uri.parse(edsSignDeepLink));
+      });
+    } else {
+      await LaunchApp.openApp(
+        iosUrlScheme: edsSignDeepLink,
+        appStoreLink:
+            'itms-apps://itunes.apple.com/us/app/e-imzo-id-карта/id1563416406',
+        // openStore: false
+      );
     }
   }
 }

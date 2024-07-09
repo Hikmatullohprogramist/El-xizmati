@@ -35,11 +35,11 @@ class AuthStartCubit extends BaseCubit<AuthStartState, AuthStartEvent> {
           updateState((state) => state.copyWith(loading: true));
         })
         .onSuccess((data){
-          // if (data.data.is_registered == true) {
-          //   emitEvent(AuthStartEvent(AuthStartEventType.onOpenLogin, phone: states.phone));
-          // } else {
+          if (data.data.is_registered == true) {
+            emitEvent(AuthStartEvent(AuthStartEventType.onOpenLogin, phone: states.phone));
+          } else {
             emitEvent(AuthStartEvent(AuthStartEventType.onOpenRegister, phone: states.phone));
-          // }
+          }
         })
         .onError((error){
           stateMessageManager.showErrorSnackBar(error.localizedMessage);
