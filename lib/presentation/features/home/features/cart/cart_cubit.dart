@@ -62,6 +62,7 @@ class CartCubit extends BaseCubit<CartState, CartEvent> {
         .onSuccess((data) => watchCardAds())
         .onError((error) {
           logger.w("getActualCartAds error = $error");
+          watchCardAds();
         })
         .onFinished(() {})
         .executeFuture();

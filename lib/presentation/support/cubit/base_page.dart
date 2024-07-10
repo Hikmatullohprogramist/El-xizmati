@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +12,7 @@ import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_builder.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_event.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_state.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/extensions/platform_sizes.dart';
 import 'package:onlinebozor/presentation/support/state_message/state_bottom_sheet_exts.dart';
 import 'package:onlinebozor/presentation/support/state_message/state_message_type.dart';
@@ -186,6 +189,69 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
           ],
         ),
       ),
+    );
+  }
+
+  void showDatePickerDialog(
+    BuildContext context, {
+    DateTime? selectedDate,
+    int minimumYear = 1930,
+    int maximumYear = 2024,
+    required Function(String date) onDateSelected,
+  }) {
+    final dateFormat = DateFormat("yyyy-MM-dd");
+    final initialDate = selectedDate ?? DateTime.now();
+    var formattedDate = dateFormat.format(initialDate);
+
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext buildContext) {
+        return Container(
+          decoration: BoxDecoration(
+            color: context.bottomSheetColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.0),
+              topRight: Radius.circular(20.0),
+            ),
+          ),
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    height: 320,
+                    child: CupertinoTheme(
+                      data: CupertinoThemeData(brightness: context.brightness),
+                      child: CupertinoDatePicker(
+                        mode: CupertinoDatePickerMode.date,
+                        initialDateTime: initialDate,
+                        minimumYear: minimumYear,
+                        maximumYear: maximumYear,
+                        onDateTimeChanged: (DateTime newDateTime) {
+                          formattedDate = dateFormat.format(newDateTime);
+                        },
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: CustomElevatedButton(
+                      text: Strings.commonSave,
+                      onPressed: () {
+                        onDateSelected(formattedDate);
+                        Navigator.of(buildContext).pop();
+                      },
+                    ),
+                  ),
+                  SizedBox(height: defaultBottomPadding),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
