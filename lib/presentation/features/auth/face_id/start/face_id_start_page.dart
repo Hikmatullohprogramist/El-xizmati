@@ -1,6 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
@@ -21,6 +19,7 @@ class FaceIdStartPage
     extends BasePage<FaceIdStartCubit, FaceIdStartState, FaceIdStartEvent> {
   FaceIdStartPage({super.key});
 
+  final _birthDateController = TextEditingController();
   final _docNumberController = TextEditingController();
   final _docSeriesController = TextEditingController();
   final _pinflController = TextEditingController();
@@ -41,6 +40,7 @@ class FaceIdStartPage
 
   @override
   Widget onWidgetBuild(BuildContext context, FaceIdStartState state) {
+    _birthDateController.updateOnRestore(state.birthDate);
     _docNumberController.updateOnRestore(state.docNumber);
     _docSeriesController.updateOnRestore(state.docSeries);
     _pinflController.updateOnRestore(state.pinfl);
@@ -64,7 +64,7 @@ class FaceIdStartPage
               onChanged: (isChecked) {
                 cubit(context).changePinflEnabledState(isChecked);
               },
-              negativeTitle: Strings.commonBioDocSeries,
+              negativeTitle: Strings.commonDocSeries,
               positiveTitle: Strings.commonPinfl,
             ),
           ),
@@ -192,7 +192,15 @@ class FaceIdStartPage
               ),
             ),
             child: InkWell(
-              onTap: () => showDatePickerDialog(context),
+              onTap: () {
+                showDefaultDatePickerDialog(
+                  context,
+                  selectedDate: DateTime.tryParse(state.birthDate),
+                  onDateSelected: (date) {
+                    cubit(context).setBirthDate(date);
+                  },
+                );
+              },
               child: Row(
                 children: [
                   SizedBox(width: 15),
@@ -209,58 +217,6 @@ class FaceIdStartPage
           SizedBox(height: 21),
         ],
       ),
-    );
-  }
-
-  void showDatePickerDialog(BuildContext context) {
-    showCupertinoModalPopup(
-      context: context,
-      builder: (BuildContext buildContext) {
-        return Container(
-          decoration: BoxDecoration(
-            color: context.bottomSheetColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0),
-              topRight: Radius.circular(20.0),
-            ),
-          ),
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    height: 320,
-                    child: CupertinoTheme(
-                      data: CupertinoThemeData(brightness: context.brightness),
-                      child: CupertinoDatePicker(
-                        mode: CupertinoDatePickerMode.date,
-                        initialDateTime: DateTime(2000),
-                        minimumYear: 1930,
-                        maximumYear: 2024,
-                        onDateTimeChanged: (DateTime newDateTime) {
-                          final formattedDate =
-                              DateFormat("yyyy-MM-dd").format(newDateTime);
-                          cubit(context).setBirthDate(formattedDate);
-                        },
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: CustomElevatedButton(
-                      text: Strings.commonSave,
-                      onPressed: () => Navigator.of(buildContext).pop(),
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                ],
-              ),
-            ],
-          ),
-        );
-      },
     );
   }
 }

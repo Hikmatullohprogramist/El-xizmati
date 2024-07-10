@@ -72,7 +72,6 @@ class AuthStartCubit extends BaseCubit<AuthStartState, AuthStartEvent> {
               await _authRepository.edsCheckStatus(documentId, _timer);
           logger.e(result);
           if (result == 1) {
-            // await Future.delayed(Duration(seconds: 2));
             edsSignIn(documentId);
           }
           _elapsedSeconds += 3;

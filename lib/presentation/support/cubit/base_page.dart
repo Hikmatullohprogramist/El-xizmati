@@ -192,7 +192,7 @@ abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
     );
   }
 
-  void showDatePickerDialog(
+  void showDefaultDatePickerDialog(
     BuildContext context, {
     DateTime? selectedDate,
     int minimumYear = 1930,

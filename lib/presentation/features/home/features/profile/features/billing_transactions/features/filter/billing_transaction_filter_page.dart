@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -45,39 +44,43 @@ class BillingTransactionFilterPage extends BasePage<
             child: Row(
               children: [
                 Flexible(
-                    flex: 1,
-                    child: InkWell(
-                      onTap: () {
-                        _showDatePickerDialog(context, state, true);
-                        // _showDatePicker(context, state.fromDate).then((value) {
-                        //   cubit(context).fromDate(value);
-                        // });
-                      },
-                      child: Container(
-                          decoration: BoxDecoration(
-                              color: Color(0xFFFAF9FF),
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                width: 1,
-                                color: Color(0xFFFAF9FF),
-                              )),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 24, vertical: 16),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              if (state.fromDate.isEmpty)
-                                Strings.paymentFilterFromDate
-                                    .w(600)
-                                    .s(14)
-                                    .c(context.textSecondary),
-                              if (state.fromDate.isNotEmpty)
-                                state.fromDate.w(600).s(14).c(Colors.black),
-                              Assets.images.icCalendar
-                                  .svg(height: 24, width: 24)
-                            ],
-                          )),
-                    )),
+                  flex: 1,
+                  child: InkWell(
+                    onTap: () {
+                      showDefaultDatePickerDialog(
+                        context,
+                        onDateSelected: (date) {},
+                      );
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Color(0xFFFAF9FF),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          width: 1,
+                          color: Color(0xFFFAF9FF),
+                        ),
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 16,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          if (state.fromDate.isEmpty)
+                            Strings.paymentFilterFromDate
+                                .w(600)
+                                .s(14)
+                                .c(context.textSecondary),
+                          if (state.fromDate.isNotEmpty)
+                            state.fromDate.w(600).s(14).c(Colors.black),
+                          Assets.images.icCalendar.svg(height: 24, width: 24)
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(width: 16),
                 Flexible(
                   flex: 1,
@@ -284,68 +287,6 @@ class BillingTransactionFilterPage extends BasePage<
           SizedBox(height: 24)
         ],
       ),
-    );
-  }
-
-  void _showDatePickerDialog(
-    BuildContext context,
-    BillingTransactionFilterState state,
-    bool isForFromDate,
-  ) {
-    showCupertinoModalPopup(
-      context: context,
-      builder: (BuildContext buildContext) {
-        return Container(
-          decoration: BoxDecoration(
-            color: context.bottomSheetColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0),
-              topRight: Radius.circular(20.0),
-            ),
-          ),
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    height: 320,
-                    child: CupertinoTheme(
-                      data: CupertinoThemeData(brightness: context.brightness),
-                      child: CupertinoDatePicker(
-                        mode: CupertinoDatePickerMode.date,
-                        initialDateTime: DateTime.now(),
-                        minimumYear: 2022,
-                        maximumYear: 2024,
-                        onDateTimeChanged: (DateTime newDateTime) {
-                          final formattedDate =
-                              DateFormat("yyyy-MM-dd").format(newDateTime);
-                          // cubit(context).setBrithDate(formattedDate);
-                          // _birthDateController.text = formattedDate;
-                        },
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: CustomElevatedButton(
-                      text: Strings.commonSave,
-                      onPressed: () {
-                        Navigator.of(buildContext).pop();
-                      },
-                      backgroundColor: buildContext.colors.buttonPrimary,
-                      isEnabled: true,
-                      isLoading: false,
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                ],
-              ),
-            ],
-          ),
-        );
-      },
     );
   }
 

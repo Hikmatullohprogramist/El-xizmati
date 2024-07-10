@@ -1,6 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -75,7 +73,7 @@ class ProfileEditPage
             SizedBox(height: 16),
             _buildRegionBlock(context, state),
             SizedBox(height: 16),
-            _buildFooterBlock(context,state, email),
+            _buildFooterBlock(context, state, email),
             SizedBox(height: 20),
           ],
         ),
@@ -197,7 +195,14 @@ class ProfileEditPage
                   child: InkWell(
                     borderRadius: BorderRadius.circular(6),
                     onTap: () {
-                      _showDatePickerDialog(context);
+                      showDefaultDatePickerDialog(
+                        context,
+                        selectedDate: DateTime.tryParse(state.birthDate),
+                        onDateSelected: (date) {
+                          cubit(context).setBrithDate(date);
+                          _birthDateController.text = date;
+                        },
+                      );
                       HapticFeedback.lightImpact();
                     },
                     child: Padding(
@@ -213,7 +218,7 @@ class ProfileEditPage
             ],
           ),
           SizedBox(height: 8),
-          LabelTextField(Strings.profileEditBiometricInformation),
+          LabelTextField(Strings.commonDocInfo),
           SizedBox(height: 6),
           Row(
             children: [
@@ -237,7 +242,7 @@ class ProfileEditPage
                   maxLength: 9,
                   readOnly: true,
                   enabled: false,
-                  hint: Strings.profileEditBiometricSerial,
+                  hint: Strings.commonDocSeries,
                   controller: _docNumberController,
                   inputFormatters: docNumberMaskFormatter,
                   textInputAction: TextInputAction.done,
@@ -344,64 +349,6 @@ class ProfileEditPage
           ),
         ],
       ),
-    );
-  }
-
-  void _showDatePickerDialog(BuildContext context) {
-    showCupertinoModalPopup(
-      context: context,
-      builder: (BuildContext buildContext) {
-        return Container(
-          decoration: BoxDecoration(
-            color: context.bottomSheetColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0),
-              topRight: Radius.circular(20.0),
-            ),
-          ),
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    height: 320,
-                    child: CupertinoTheme(
-                      data: CupertinoThemeData(brightness: context.brightness),
-                      child: CupertinoDatePicker(
-                        mode: CupertinoDatePickerMode.date,
-                        initialDateTime: DateTime(2000),
-                        minimumYear: 1930,
-                        maximumYear: 2024,
-                        onDateTimeChanged: (DateTime newDateTime) {
-                          final formattedDate =
-                              DateFormat("yyyy-MM-dd").format(newDateTime);
-                          cubit(context).setBrithDate(formattedDate);
-                          _birthDateController.text = formattedDate;
-                        },
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: CustomElevatedButton(
-                      text: Strings.commonSave,
-                      onPressed: () {
-                        Navigator.of(buildContext).pop();
-                      },
-                      backgroundColor: buildContext.colors.buttonPrimary,
-                      isEnabled: true,
-                      isLoading: false,
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                ],
-              ),
-            ],
-          ),
-        );
-      },
     );
   }
 

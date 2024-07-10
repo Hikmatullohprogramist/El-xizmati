@@ -1,6 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -127,10 +125,7 @@ class IdentityVerificationPage extends BasePage<IdentityVerificationCubit,
               .s(14)
               .c(context.textPrimary),
           SizedBox(height: 24),
-          Strings.profileEditBiometricInformation
-              .w(500)
-              .s(14)
-              .c(context.textPrimary),
+          Strings.commonDocInfo.w(500).s(14).c(context.textPrimary),
           SizedBox(height: 8),
           Row(
             children: [
@@ -190,7 +185,14 @@ class IdentityVerificationPage extends BasePage<IdentityVerificationCubit,
                   child: InkWell(
                     borderRadius: BorderRadius.circular(6),
                     onTap: () {
-                      showDatePickerDialog(context);
+                      showDefaultDatePickerDialog(
+                        context,
+                        selectedDate: DateTime.tryParse(state.brithDate),
+                        onDateSelected: (date) {
+                          cubit(context).setBrithDate(date);
+                          _birthDateController.text = date;
+                        },
+                      );
                       HapticFeedback.lightImpact();
                     },
                     child: Padding(
@@ -397,64 +399,6 @@ class IdentityVerificationPage extends BasePage<IdentityVerificationCubit,
           ],
         ),
       ),
-    );
-  }
-
-  void showDatePickerDialog(BuildContext context) {
-    showCupertinoModalPopup(
-      context: context,
-      builder: (BuildContext buildContext) {
-        return Container(
-          decoration: BoxDecoration(
-            color: context.bottomSheetColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0),
-              topRight: Radius.circular(20.0),
-            ),
-          ),
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    height: 320,
-                    child: CupertinoTheme(
-                      data: CupertinoThemeData(brightness: context.brightness),
-                      child: CupertinoDatePicker(
-                        mode: CupertinoDatePickerMode.date,
-                        initialDateTime: DateTime(2000),
-                        minimumYear: 1930,
-                        maximumYear: 2024,
-                        onDateTimeChanged: (DateTime newDateTime) {
-                          final formattedDate =
-                              DateFormat("yyyy-MM-dd").format(newDateTime);
-                          cubit(context).setBrithDate(formattedDate);
-                          _birthDateController.text = formattedDate;
-                        },
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: CustomElevatedButton(
-                      text: Strings.commonSave,
-                      onPressed: () {
-                        Navigator.of(buildContext).pop();
-                      },
-                      backgroundColor: buildContext.colors.buttonPrimary,
-                      isEnabled: true,
-                      isLoading: false,
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                ],
-              ),
-            ],
-          ),
-        );
-      },
     );
   }
 
