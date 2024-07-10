@@ -112,131 +112,128 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: widget.height,
-      child: TextFormField(
-        validator: widget.validator,
-        focusNode: _focusNode,
-        autofillHints: widget.autofillHints,
-        textAlign: widget.textAlign,
-        textAlignVertical: TextAlignVertical.center,
-        autovalidateMode: widget.autoValidateMode,
-        style: TextStyle(
+    return TextFormField(
+      validator: widget.validator,
+      focusNode: _focusNode,
+      autofillHints: widget.autofillHints,
+      textAlign: widget.textAlign,
+      textAlignVertical: TextAlignVertical.center,
+      autovalidateMode: widget.autoValidateMode,
+      style: TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        color: context.textPrimary,
+      ),
+      textCapitalization:
+          widget.textCapitalization ?? TextCapitalization.none,
+      controller: widget.controller,
+      keyboardType: widget.inputType,
+      minLines: widget.minLines,
+      maxLines: widget.maxLines,
+      maxLength: widget.maxLength,
+      readOnly: widget.readOnly,
+      enabled: widget.enabled,
+      enableSuggestions: widget.enableSuggestions ?? true,
+      textInputAction: widget.textInputAction,
+      onChanged: widget.onChanged,
+      inputFormatters:
+          widget.inputFormatters != null ? [widget.inputFormatters!] : null,
+      decoration: InputDecoration(
+        filled: true,
+        hintText: widget.hint,
+        hintStyle: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w400,
-          color: context.textPrimary,
+          color: context.textSecondary,
         ),
-        textCapitalization:
-            widget.textCapitalization ?? TextCapitalization.none,
-        controller: widget.controller,
-        keyboardType: widget.inputType,
-        minLines: widget.minLines,
-        maxLines: widget.maxLines,
-        maxLength: widget.maxLength,
-        readOnly: widget.readOnly,
-        enabled: widget.enabled,
-        enableSuggestions: widget.enableSuggestions ?? true,
-        textInputAction: widget.textInputAction,
-        onChanged: widget.onChanged,
-        inputFormatters:
-            widget.inputFormatters != null ? [widget.inputFormatters!] : null,
-        decoration: InputDecoration(
-          filled: true,
-          hintText: widget.hint,
-          hintStyle: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: context.textSecondary,
-          ),
-          // prefixText: widget.prefixText,
-          prefixIcon: widget.prefixText == null
-              ? null
-              : Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(width: 12),
-                    (widget.prefixText ?? "").c(context.textPrimary),
-                    SizedBox(width: 8),
-                    Container(
-                      width: 1,
-                      margin: EdgeInsets.fromLTRB(6, 5, 10, 4),
-                      color: _isFocused ? Color(0xFF5C6AC4) : Color(0xFFDFE2E9),
-                    ),
-                  ],
-                ),
-          prefixStyle: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: Color(0xFF41455F),
-          ),
-          isDense: false,
-          counter: Offstage(),
-          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          labelText: widget.label,
-          labelStyle: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: Color(0xFF41455F),
-          ),
-          // focusColor: Color(0xFFFFFFFF),
-          fillColor: widget.enabledColor ?? context.inputBackgroundColor,
-          //_isFocused ? context.backgroundWhiteColor : context.backgroundWhiteColor,
-          border: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: widget.isStrokeEnabled
-                  ? context.inputStrokeInactiveColor
-                  : Colors.transparent,
-            ),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: widget.isStrokeEnabled
-                  ? context.inputStrokeInactiveColor
-                  : Colors.transparent,
-            ),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          disabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: widget.isStrokeEnabled
-                  ? context.inputStrokeInactiveColor
-                  : Colors.transparent,
-            ),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: widget.isStrokeEnabled
-                  ? context.inputStrokeActiveColor
-                  : Colors.transparent,
-            ),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: widget.isStrokeEnabled
-                  ? Colors.red.shade200
-                  : Colors.transparent,
-            ),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          suffixIcon: !widget.obscureText
-              ? null
-              : IconButton(
-                  icon: Icon(
-                    _passwordVisible ? Icons.visibility : Icons.visibility_off,
-                    color: Theme.of(context).primaryColorDark,
+        // prefixText: widget.prefixText,
+        prefixIcon: widget.prefixText == null
+            ? null
+            : Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(width: 12),
+                  (widget.prefixText ?? "").c(context.textPrimary),
+                  SizedBox(width: 8),
+                  Container(
+                    width: 1,
+                    margin: EdgeInsets.fromLTRB(6, 5, 10, 4),
+                    color: _isFocused ? Color(0xFF5C6AC4) : Color(0xFFDFE2E9),
                   ),
-                  onPressed: () {
-                    setState(() {
-                      _passwordVisible = !_passwordVisible;
-                    });
-                  },
-                ),
+                ],
+              ),
+        prefixStyle: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          color: Color(0xFF41455F),
         ),
-        obscureText: _passwordVisible,
+        isDense: false,
+        counter: Offstage(),
+        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        labelText: widget.label,
+        labelStyle: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: Color(0xFF41455F),
+        ),
+        // focusColor: Color(0xFFFFFFFF),
+        fillColor: widget.enabledColor ?? context.inputBackgroundColor,
+        //_isFocused ? context.backgroundWhiteColor : context.backgroundWhiteColor,
+        border: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: widget.isStrokeEnabled
+                ? context.inputStrokeInactiveColor
+                : Colors.transparent,
+          ),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: widget.isStrokeEnabled
+                ? context.inputStrokeInactiveColor
+                : Colors.transparent,
+          ),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: widget.isStrokeEnabled
+                ? context.inputStrokeInactiveColor
+                : Colors.transparent,
+          ),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: widget.isStrokeEnabled
+                ? context.inputStrokeActiveColor
+                : Colors.transparent,
+          ),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: widget.isStrokeEnabled
+                ? Colors.red.shade200
+                : Colors.transparent,
+          ),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        suffixIcon: !widget.obscureText
+            ? null
+            : IconButton(
+                icon: Icon(
+                  _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: Theme.of(context).primaryColorDark,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _passwordVisible = !_passwordVisible;
+                  });
+                },
+              ),
       ),
+      obscureText: _passwordVisible,
     );
   }
 }
