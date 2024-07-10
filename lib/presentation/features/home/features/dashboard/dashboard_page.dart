@@ -132,7 +132,9 @@ class DashboardPage
   }
 
   Widget _getPopularCategoriesWidget(
-      BuildContext context, DashboardState state) {
+    BuildContext context,
+    DashboardState state,
+  ) {
     return Column(
       children: [
         SeeAllWidget(
@@ -201,7 +203,9 @@ class DashboardPage
   }
 
   Widget _getDashboardProductAdsWidget(
-      BuildContext context, DashboardState state) {
+    BuildContext context,
+    DashboardState state,
+  ) {
     return Column(
       children: [
         SeeAllWidget(
@@ -245,7 +249,9 @@ class DashboardPage
   }
 
   Widget _getDashboardServiceAdsWidget(
-      BuildContext context, DashboardState state) {
+    BuildContext context,
+    DashboardState state,
+  ) {
     return Column(
       children: [
         SeeAllWidget(
