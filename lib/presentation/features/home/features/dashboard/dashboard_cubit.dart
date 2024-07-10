@@ -57,11 +57,16 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
 
   StreamSubscription? _productAdsSubs;
   StreamSubscription? _serviceAdsSubs;
+  StreamSubscription? _topAdsSubs;
+  StreamSubscription? _recentlyAdsSubs;
 
   @override
   Future<void> close() async {
     await _productAdsSubs?.cancel();
     await _serviceAdsSubs?.cancel();
+    await _topAdsSubs?.cancel();
+    await _recentlyAdsSubs?.cancel();
+
     super.close();
   }
 
@@ -99,6 +104,7 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
         })
         .onSuccess((data) {
           final ids = data.adIds();
+          _productAdsSubs?.cancel();
           _productAdsSubs = _adRepository.watchAdsByIds(ids).listen(
             (ads) {
               logger.w(
@@ -137,6 +143,7 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
         })
         .onSuccess((data) {
           final ids = data.adIds();
+          _serviceAdsSubs?.cancel();
           _serviceAdsSubs = _adRepository.watchAdsByIds(ids).listen((ads) {
             logger.w(
                 "watchPopularServiceAds ads count = ${ads.length}, cart count = ${ads.cartCount()}, favorite count = ${ads.favoriteCount()}");
@@ -164,11 +171,6 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
   }
 
   Future<void> getTopRatedAds() async {
-    if (states.topRatedAdsState == LoadingState.success ||
-        states.topRatedAds.isNotEmpty) {
-      return;
-    }
-
     _adRepository
         .getDashboardTopRatedAds()
         .initFuture()
@@ -178,14 +180,22 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
               ));
         })
         .onSuccess((data) {
-          updateState((state) => state.copyWith(
-                topRatedAdsState: LoadingState.success,
-              ));
-          _adRepository.watchAdsByIds(data.adIds()).listen((ads) {
+          final ids = data.adIds();
+
+          _topAdsSubs?.cancel();
+          _topAdsSubs = _adRepository.watchAdsByIds(ids).listen((ads) {
             updateState((state) => state.copyWith(
                   topRatedAds: ads.map((e) => e.copy()).toList(),
+                  topRatedAdsState:
+                      ads.isEmpty ? LoadingState.empty : LoadingState.success,
                 ));
-          });
+          })
+            ..onError((error) {
+              logger.w("watchPopularServiceAds error = $error");
+              updateState((state) => state.copyWith(
+                    topRatedAdsState: LoadingState.error,
+                  ));
+            });
         })
         .onError((error) {
           updateState((state) => state.copyWith(
@@ -207,10 +217,22 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
               ));
         })
         .onSuccess((data) {
-          updateState((state) => state.copyWith(
-                recentlyViewedAds: data,
-                recentlyViewedAdsState: LoadingState.success,
-              ));
+          final ids = data.adIds();
+
+          _recentlyAdsSubs?.cancel();
+          _recentlyAdsSubs = _adRepository.watchAdsByIds(ids).listen((ads) {
+            updateState((state) => state.copyWith(
+                  recentlyViewedAds: ads.map((e) => e.copy()).toList(),
+                  recentlyViewedAdsState:
+                      ads.isEmpty ? LoadingState.empty : LoadingState.success,
+                ));
+          })
+            ..onError((error) {
+              logger.w("watchPopularServiceAds error = $error");
+              updateState((state) => state.copyWith(
+                    recentlyViewedAdsState: LoadingState.error,
+                  ));
+            });
         })
         .onError((error) {
           updateState((state) => state.copyWith(
