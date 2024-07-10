@@ -164,7 +164,6 @@ close_title,Yopish,Закрыть,Ёпиш
 common_add,Qo‘shish,Добавить,Қўшиш
 common_apartment,Kvartira,Квартира,Квартира
 common_apply,Qo‘llash,Применять,Қўллаш
-common_bio_doc_series,Pasport seriyasi,Паспорт серии,Паспорт серияси
 common_cancel,Bekor qilish,Отменить,Бекор қилиш
 common_choose,Tanlash,Выбрать,Танлаш
 common_close,Yopish,Закрыть,Ёпиш
@@ -174,11 +173,17 @@ common_date,Sana,Дата,Сана
 common_delete,O‘chirish,Удалить,Ўчириш
 common_details,Batafsil,Подробно,Батафсил
 common_district,Tuman,Район,Туман
+common_doc_info,Pasport ma’lumotlari,Паспортные данные,Паспорт маълумотлари
+common_doc_number,Pasport raqami,Номер паспорта,Паспорт рақами
+common_doc_series,Pasport seriyasi,Паспорт серии,Паспорт серияси
 common_edit,Tahrirlash,Редактировать,Таҳрирлаш
 common_email,Elektron pochta,Эл. почта,Электрон почта
 common_empty_message,Hech qanday element topilmadi,Никакие элементы не найдены,Ҳеч қандай элемент топилмади
 common_entrance,Kirish,Подъезд,Кириш
+common_error_birth_date_not_valid,To‘g‘ri tug‘ilgan sanani kiriting,Введите правильную дату рождения,Тўғри туғилган санани киритинг
 common_error_district_not_selected,Avval tumanni tanlang,Сначала выберите район,Аввал туманни танланг
+common_error_doc_number_not_valid,To‘g‘ri hujjat raqamini kiriting,Введите правильный номер документа,Тўғри ҳужжат рақамини киритинг
+common_error_doc_series_not_valid,To‘g‘ri hujjat seriyasini kiriting,Введите правильную серию документов,Тўғри ҳужжат сериясини киритинг
 common_error_email_not_valid,To‘g‘ri e-pochta manzilini kiriting,Введите действительный адрес эл. почты,Тўғри э-почта манзилини киритинг
 common_error_field_is_required,Maydon to‘ldirilishi majburiy,Это поле обязательно,Майдон тўлдирилиши мажбурий
 common_error_message,Xatolik yuz berdi,Произошла ошибка,Хатолик юз берди
@@ -341,9 +346,7 @@ profile_change_to_business,Biznesga o‘tish,Поменять на бизнес,
 profile_comparison,Taqqoslash ro‘yxati,Список сравнения,Таққослаш рўйхати
 profile_dark_mode,Tungi rejim,Ночной режим,Тунги режим
 profile_edit_apartment,Kvartira,Квартира,Квартира
-profile_edit_biometric_information,Biometric ma‘lumotlar,Паспортные данные,Биометриc маълумотлар
-profile_edit_biometric_serial,Biometric raqami,Номер паспорта,Биометриc рақами
-profile_edit_brith_date,Tug‘ilgan yil (2004-11-28),Дата рождения (2004-11-28),Туғилган йил (2004-11-28)
+profile_edit_brith_date,Tug‘ilgan sana,Дата рождения,Туғилган сана
 profile_edit_change_personal_data,Shaxsiy ma‘lumotlarni o‘zgartiring,Изменить личные данные,Шахсий маълумотларни ўзгартиринг
 profile_edit_full_biometric,"Pasport raqami va seriyasini, tug‘ilgan sanasini ko‘rsating","Укажите номер и серия паспорта, дата рождения","Паспорт рақами ва сериясини, туғилган санасини кўрсатинг"
 profile_edit_title,Tahrirlash,Изменить,Таҳрирлаш
