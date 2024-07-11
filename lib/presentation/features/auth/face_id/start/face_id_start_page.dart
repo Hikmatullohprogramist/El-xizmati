@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/domain/models/faceid/face_id_confirm_type.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
@@ -29,6 +30,7 @@ class FaceIdStartPage
     switch (event.type) {
       case FaceIdStartEventType.onVerificationSuccess:
         context.router.push(FaceIdConfirmationRoute(
+          faceIdConfirmType: FaceIdConfirmType.forSingIn,
           secretKey: cubit(context).states.secretKey,
         ));
       case FaceIdStartEventType.onBioDocNotFound:

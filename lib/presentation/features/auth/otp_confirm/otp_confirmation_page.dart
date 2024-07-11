@@ -4,7 +4,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/domain/models/faceid/face_id_confirm_type.dart';
 import 'package:onlinebozor/domain/models/otp/otp_confirm_type.dart';
+import 'package:onlinebozor/presentation/features/auth/face_id/confirmation/face_id_confirmation_page.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
@@ -18,12 +20,14 @@ import 'otp_confirmation_cubit.dart';
 @RoutePage()
 class OtpConfirmationPage extends BasePage<OtpConfirmationCubit,
     OtpConfirmationState, OtpConfirmationEvent> {
-  final String phone;
+  final String phoneNumber;
+  final String sessionToken;
   final OtpConfirmType confirmType;
 
   OtpConfirmationPage({
     super.key,
-    required this.phone,
+    required this.phoneNumber,
+    required this.sessionToken,
     required this.confirmType,
   });
 
@@ -32,9 +36,9 @@ class OtpConfirmationPage extends BasePage<OtpConfirmationCubit,
 
   @override
   void onWidgetCreated(BuildContext context) {
-    cubit(context).setInitialParams(phone, confirmType);
+    cubit(context).setInitialParams(phoneNumber, sessionToken, confirmType);
     cubit(context).startTimer();
-    textEditingController.text = phone;
+    textEditingController.text = phoneNumber;
   }
 
   @override
@@ -43,7 +47,10 @@ class OtpConfirmationPage extends BasePage<OtpConfirmationCubit,
       case OtpConfirmationEventType.onOpenResetPassword:
         context.router.replace(ResetPasswordRoute());
       case OtpConfirmationEventType.onOpenIdentityVerification:
-        context.router.replace(FaceIdStartRoute());
+        context.router.replace(FaceIdConfirmationRoute(
+          secretKey: cubit(context).states.secretKey,
+          faceIdConfirmType: FaceIdConfirmType.forRegister,
+        ));
     }
   }
 
@@ -94,7 +101,7 @@ class OtpConfirmationPage extends BasePage<OtpConfirmationCubit,
             SizedBox(height: 24),
             Align(
               alignment: Alignment.centerLeft,
-              child: Strings.authConfirmSentSmsYourPhone(phone: phone)
+              child: Strings.authConfirmSentSmsYourPhone(phone: phoneNumber)
                   .w(500)
                   .s(14)
                   .c(context.textPrimary)
@@ -106,7 +113,7 @@ class OtpConfirmationPage extends BasePage<OtpConfirmationCubit,
               maxLines: 1,
               textInputAction: TextInputAction.done,
               onChanged: (value) {
-                cubit(context).setCode(value);
+                cubit(context).setEnteredOtpCode(value);
               },
             ),
             Row(

@@ -5,7 +5,6 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/auth_repository.dart';
-import 'package:onlinebozor/data/repositories/favorite_repository.dart';
 import 'package:onlinebozor/domain/models/otp/otp_confirm_type.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
@@ -17,21 +16,25 @@ part 'otp_confirmation_state.dart';
 @injectable
 class OtpConfirmationCubit
     extends BaseCubit<OtpConfirmationState, OtpConfirmationEvent> {
+  final AuthRepository _authRepository;
+
   OtpConfirmationCubit(
     this._authRepository,
-    this._favoriteRepository,
   ) : super(OtpConfirmationState());
 
-  final AuthRepository _authRepository;
-  final FavoriteRepository _favoriteRepository;
   Timer? _timer;
 
-  void setInitialParams(String phone, OtpConfirmType otpConfirmType) {
+  void setInitialParams(
+    String phone,
+    String sessionToken,
+    OtpConfirmType otpConfirmType,
+  ) {
     updateState(
       (state) => state.copyWith(
         phone: phone,
+        sessionToken: sessionToken,
         otpConfirmType: otpConfirmType,
-        code: "",
+        otpCode: "",
       ),
     );
   }
@@ -43,10 +46,13 @@ class OtpConfirmationCubit
 
   void startTimer() {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      updateState((state) => state.copyWith(
-            timerTime: state.timerTime - 1,
-          ));
-      if (states.timerTime == 0) stopTimer();
+      if (states.timerTime > 0) {
+        updateState((state) => state.copyWith(
+              timerTime: state.timerTime - 1,
+            ));
+      } else {
+        stopTimer();
+      }
     });
   }
 
@@ -56,15 +62,15 @@ class OtpConfirmationCubit
     }
   }
 
-  void setCode(String code) {
-    updateState((state) => state.copyWith(code: code));
+  void setEnteredOtpCode(String otpCode) {
+    updateState((state) => state.copyWith(otpCode: otpCode));
   }
 
   void resendCode() {}
 
   void confirmCode() {
-    if (OtpConfirmType.registerConfirm == state.state?.otpConfirmType) {
-      confirmOtpCodeForRegister();
+    if (OtpConfirmType.forRegister == state.state?.otpConfirmType) {
+      registerConfirmOtpCode();
     } else {
       confirmOtpCodeForResetPassword();
     }
@@ -80,17 +86,24 @@ class OtpConfirmationCubit
     }
   }
 
-  Future<void> confirmOtpCodeForRegister() async {
+  Future<void> registerConfirmOtpCode() async {
     _authRepository
-        .confirmRegisterOtpCode(states.phone.clearPhoneWithCode(), states.code)
+        .registerConfirmOtpCode(
+          states.phone.clearPhoneWithCode(),
+          states.sessionToken,
+          states.otpCode,
+        )
         .initFuture()
         .onStart(() {
           updateState((state) => state.copyWith(isConfirmLoading: true));
         })
         .onSuccess((data) {
           _timer?.cancel();
-          sendAllFavoriteAds();
-          updateState((state) => state.copyWith(isConfirmLoading: false));
+
+          updateState((state) => state.copyWith(
+                isConfirmLoading: false,
+                secretKey: data,
+              ));
           emitEvent(OtpConfirmationEvent(
             OtpConfirmationEventType.onOpenIdentityVerification,
           ));
@@ -106,7 +119,7 @@ class OtpConfirmationCubit
 
   Future<void> confirmOtpCodeForResetPassword() async {
     _authRepository
-        .confirmResetOtpCode(states.phone.clearPhoneWithCode(), states.code)
+        .confirmResetOtpCode(states.phone.clearPhoneWithCode(), states.otpCode)
         .initFuture()
         .onStart(() {
           updateState((state) => state.copyWith(isConfirmLoading: true));
@@ -114,7 +127,6 @@ class OtpConfirmationCubit
         .onSuccess((data) async {
           _timer?.cancel();
           updateState((state) => state.copyWith(isConfirmLoading: false));
-          await sendAllFavoriteAds();
           emitEvent(OtpConfirmationEvent(
               OtpConfirmationEventType.onOpenResetPassword));
         })
@@ -124,20 +136,6 @@ class OtpConfirmationCubit
           emitEvent(OtpConfirmationEvent(
               OtpConfirmationEventType.onOpenResetPassword));
           stateMessageManager.showErrorSnackBar(error.localizedMessage);
-        })
-        .onFinished(() {})
-        .executeFuture();
-  }
-
-  Future<void> sendAllFavoriteAds() async {
-    _favoriteRepository
-        .pushAllFavoriteAds()
-        .initFuture()
-        .onSuccess((data) {})
-        .onError((error) {
-          stateMessageManager.showErrorSnackBar(error.localizedMessage);
-          emitEvent(OtpConfirmationEvent(
-              OtpConfirmationEventType.onOpenResetPassword));
         })
         .onFinished(() {})
         .executeFuture();

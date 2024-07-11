@@ -13,8 +13,9 @@ class RegistrationState with _$RegistrationState {
     @Default("") String password,
     @Default("") String confirm,
 //
-    @Default(false) bool enabled,
-    @Default(false) bool loading,
+    @Default(false) bool isLoading,
+//
+    @Default("") String sessionToken,
   }) = _RegistrationState;
 }
 

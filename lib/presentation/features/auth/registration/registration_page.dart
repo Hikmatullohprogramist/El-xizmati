@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/domain/models/otp/otp_confirm_type.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
@@ -24,11 +25,11 @@ import 'registration_cubit.dart';
 @RoutePage()
 class RegistrationPage
     extends BasePage<RegistrationCubit, RegistrationState, RegistrationEvent> {
-  final String phone;
+  final String phoneNumber;
 
   RegistrationPage({
     super.key,
-    required this.phone,
+    required this.phoneNumber,
   });
 
   final TextEditingController _birthDateController = TextEditingController();
@@ -41,14 +42,18 @@ class RegistrationPage
 
   @override
   void onWidgetCreated(BuildContext context) {
-    cubit(context).setInitialParams(phone);
+    cubit(context).setInitialParams(phoneNumber);
   }
 
   @override
   void onEventEmitted(BuildContext context, RegistrationEvent event) {
     switch (event.type) {
       case RegistrationEventType.onOpenOtpConfirm:
-        context.router.replace(HomeRoute());
+        context.router.push(OtpConfirmationRoute(
+          phoneNumber: cubit(context).states.phoneNumber,
+          sessionToken: cubit(context).states.sessionToken,
+          confirmType: OtpConfirmType.forRegister,
+        ));
     }
   }
 
@@ -228,7 +233,7 @@ class RegistrationPage
                         cubit(context).requestCreateAccount();
                       }
                     },
-                    isLoading: state.loading,
+                    isLoading: state.isLoading,
                   ),
                   SizedBox(height: 20),
                 ],

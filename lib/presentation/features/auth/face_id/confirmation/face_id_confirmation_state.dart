@@ -5,6 +5,9 @@ class FaceIdConfirmationState with _$FaceIdConfirmationState {
   const FaceIdConfirmationState._();
 
   const factory FaceIdConfirmationState({
+    @Default("") String secretKey,
+    @Default(FaceIdConfirmType.forSingIn) FaceIdConfirmType faceIdConfirmType,
+//
     @Default(true) bool isIntroVisible,
 //
     @Default(<CameraDescription>[]) List<CameraDescription> cameras,
@@ -13,9 +16,8 @@ class FaceIdConfirmationState with _$FaceIdConfirmationState {
     @Default(LoadingState.loading) LoadingState cameraInitState,
     @Default(false) bool loading,
 //
-    @Default("") String secretKey,
-//
     @Default("") String cropperImage,
+//
   }) = _FaceIdConfirmationState;
 
   bool get isCameraSetupLoadingVisible =>

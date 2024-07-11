@@ -23,6 +23,7 @@ class RestQueryKeys {
 
   static String email = "email";
 
+  static String faceImage = "face_image";
   static String fullName = "full_name";
 
   static String gender = "gender";
@@ -47,6 +48,7 @@ class RestQueryKeys {
   static String note = "note";
 
   static String orderId = "order_id";
+  static String otpCode = "otp_code";
 
   static String page = "page";
   static String passportNumber = "passport_number";
@@ -71,6 +73,7 @@ class RestQueryKeys {
   static String servicePrice = "servise_price";
   static String secretKey = "secret_key";
   static String securityCode = "security_code";
+  static String sessionId = "session_id";
   static String sessionToken = "session_token";
   static String shippingId = "shipping_id";
   static String state = "state";

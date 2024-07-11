@@ -21,9 +21,9 @@ import 'login_cubit.dart';
 
 @RoutePage()
 class LoginPage extends BasePage<LoginCubit, LoginState, LoginEvent> {
-  LoginPage(this.phone, {super.key});
+  LoginPage(this.phoneNumber, {super.key});
 
-  final String phone;
+  final String phoneNumber;
 
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -32,8 +32,8 @@ class LoginPage extends BasePage<LoginCubit, LoginState, LoginEvent> {
 
   @override
   void onWidgetCreated(BuildContext context) {
-    cubit(context).setInitialParams(phone.clearPhoneWithCode());
-    _phoneController.text = phone.clearPhoneWithCode();
+    cubit(context).setInitialParams(phoneNumber.clearPhoneWithCode());
+    _phoneController.text = phoneNumber.clearPhoneWithCode();
   }
 
   @override
@@ -44,8 +44,9 @@ class LoginPage extends BasePage<LoginCubit, LoginState, LoginEvent> {
         context.router.replace(HomeRoute());
       case LoginEventType.onOpenResetPassword:
         context.router.replace(OtpConfirmationRoute(
-          phone: phone,
-          confirmType: OtpConfirmType.resetPasswordConfirm,
+          phoneNumber: phoneNumber,
+          sessionToken: phoneNumber,
+          confirmType: OtpConfirmType.forResetPassword,
         ));
     }
   }

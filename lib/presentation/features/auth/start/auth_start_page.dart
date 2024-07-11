@@ -42,9 +42,9 @@ class AuthStartPage
   void onEventEmitted(BuildContext context, AuthStartEvent event) {
     switch (event.type) {
       case AuthStartEventType.onOpenLogin:
-        context.router.push(LoginRoute(phone: event.phone!));
+        context.router.push(LoginRoute(phoneNumber: event.phone!));
       case AuthStartEventType.onOpenRegister:
-        context.router.push(RegistrationRoute(phone: event.phone!));
+        context.router.push(RegistrationRoute(phoneNumber: event.phone!));
       case AuthStartEventType.onEdsLoginFailed:
         showErrorBottomSheet(context, Strings.authStartLoginWithEImzoError);
       case AuthStartEventType.onOpenHome:

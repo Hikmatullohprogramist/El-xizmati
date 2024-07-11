@@ -72,8 +72,8 @@ extension GetItModuleApp on GetIt {
     registerFactory(() => UserAdDetailCubit(get()));
 
     // auth
-    registerFactory(() => OtpConfirmationCubit(get(), get()));
-    registerFactory(() => FaceIdConfirmationCubit(get(), get()));
+    registerFactory(() => OtpConfirmationCubit(get()));
+    registerFactory(() => FaceIdConfirmationCubit(get()));
     registerFactory(() => FaceIdStartCubit(get()));
     registerFactory(() => LoginCubit(get(), get()));
     registerFactory(() => OneIdCubit(get(), get()));

@@ -29,7 +29,8 @@ class AuthStartCubit extends BaseCubit<AuthStartState, AuthStartEvent> {
 
   void validation() async {
     _authRepository
-        .authStart(states.phone.clearPhoneWithCode())
+        // .phoneVerification(states.phone.clearPhoneWithCode())
+        .phoneCheck(states.phone.clearPhoneWithCode())
         .initFuture()
         .onStart((){
           updateState((state) => state.copyWith(loading: true));

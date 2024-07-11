@@ -48,12 +48,9 @@ class LoginCubit extends BaseCubit<LoginState, LoginEvent> {
         .login(states.phone.clearPhoneWithCode(), states.password)
         .initFuture()
         .onStart(() {
-          logger.w("login onStart");
           updateState((state) => state.copyWith(isRequestSending: true));
         })
         .onSuccess((data) {
-          logger.w("login onSuccess");
-          sendAllFavoriteAds();
           updateState((state) => state.copyWith(isRequestSending: false));
           emitEvent(LoginEvent(LoginEventType.onOpenHome));
         })
@@ -72,15 +69,6 @@ class LoginCubit extends BaseCubit<LoginState, LoginEvent> {
       emitEvent(LoginEvent(LoginEventType.onOpenResetPassword));
     } catch (e) {
       logger.w(e);
-    }
-  }
-
-  Future<void> sendAllFavoriteAds() async {
-    try {
-      await _favoriteRepository.pushAllFavoriteAds();
-    } catch (error) {
-      stateMessageManager.showErrorSnackBar("Xatolik yuz berdi");
-      emitEvent(LoginEvent(LoginEventType.onOpenHome));
     }
   }
 }

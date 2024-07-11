@@ -10,6 +10,7 @@ import 'package:onlinebozor/domain/models/ad/user_ad.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
 import 'package:onlinebozor/domain/models/category/category.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
+import 'package:onlinebozor/domain/models/faceid/face_id_confirm_type.dart';
 import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
 import 'package:onlinebozor/domain/models/order/order_type.dart';
 import 'package:onlinebozor/domain/models/order/user_order.dart';

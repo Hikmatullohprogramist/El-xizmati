@@ -5,17 +5,25 @@ class OtpConfirmationState with _$OtpConfirmationState {
   const OtpConfirmationState._();
 
   const factory OtpConfirmationState({
+//
     @Default("") String phone,
-    @Default('') String code,
+    @Default("") String sessionToken,
+    @Default(OtpConfirmType.forRegister) OtpConfirmType otpConfirmType,
+//
+    @Default(120) int timerTime,
+//
+    @Default('') String otpCode,
+//
     @Default(false) bool isResendLoading,
     @Default(false) bool isConfirmLoading,
-    @Default(OtpConfirmType.registerConfirm) OtpConfirmType otpConfirmType,
-    @Default(120) int timerTime,
+//
+    @Default("") String secretKey,
+//
   }) = _OtpConfirmationState;
 
   bool get isResentButtonEnabled => timerTime == 0;
 
-  bool get isConfirmButtonEnabled => code.length == 4;
+  bool get isConfirmButtonEnabled => otpCode.length >= 4;
 }
 
 @freezed

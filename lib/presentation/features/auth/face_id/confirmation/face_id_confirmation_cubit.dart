@@ -7,7 +7,7 @@ import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/auth_repository.dart';
-import 'package:onlinebozor/data/repositories/favorite_repository.dart';
+import 'package:onlinebozor/domain/models/faceid/face_id_confirm_type.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
 part 'face_id_confirmation_cubit.freezed.dart';
@@ -17,12 +17,17 @@ part 'face_id_confirmation_state.dart';
 class FaceIdConfirmationCubit
     extends BaseCubit<FaceIdConfirmationState, FaceIdConfirmationEvent> {
   final AuthRepository _authRepository;
-  final FavoriteRepository _favoriteRepository;
 
   FaceIdConfirmationCubit(
     this._authRepository,
-    this._favoriteRepository,
-  ) : super(const FaceIdConfirmationState()) {
+  ) : super(const FaceIdConfirmationState());
+
+  void setInitialParams(String secretKey, FaceIdConfirmType faceIdConfirmType) {
+    updateState((state) => state.copyWith(
+          faceIdConfirmType: faceIdConfirmType,
+          secretKey: secretKey,
+        ));
+
     setupCamera();
   }
 
@@ -49,13 +54,10 @@ class FaceIdConfirmationCubit
         ));
   }
 
-  void setSecretKey(String secretKey) {
-    updateState((state) => state.copyWith(secretKey: secretKey));
-  }
-
   void sendImage(String image) async {
-    _authRepository
-        .sendImage(image, states.secretKey)
+    (states.faceIdConfirmType == FaceIdConfirmType.forSingIn
+            ? _authRepository.signInFaceIdIdentity(image, states.secretKey)
+            : _authRepository.registerFaceIdIdentity(image, states.secretKey))
         .initFuture()
         .onStart(() {
           updateState((state) => state.copyWith(loading: true));
@@ -67,7 +69,6 @@ class FaceIdConfirmationCubit
           updateState((state) => state.copyWith(
                 loading: false,
               ));
-          sendAllFavoriteAds();
           emitEvent(FaceIdConfirmationEvent(
             FaceIdConfirmationEventType.onRequestFinished,
           ));
@@ -77,22 +78,11 @@ class FaceIdConfirmationCubit
           emitEvent(FaceIdConfirmationEvent(
             FaceIdConfirmationEventType.onRequestFailed,
           ));
-          // stateMessageManager.showErrorSnackBar(error.localizedMessage);
           stateMessageManager
               .showErrorBottomSheet(Strings.faceIdIdentityNotVerified);
         })
         .onFinished(() {})
         .executeFuture();
-  }
-
-  Future<void> sendAllFavoriteAds() async {
-    try {
-      await _favoriteRepository.pushAllFavoriteAds();
-    } catch (error) {
-      stateMessageManager.showErrorSnackBar("Xatolik yuz berdi");
-      emitEvent(FaceIdConfirmationEvent(
-          FaceIdConfirmationEventType.onRequestFinished));
-    }
   }
 
   void closeIntroPage() {

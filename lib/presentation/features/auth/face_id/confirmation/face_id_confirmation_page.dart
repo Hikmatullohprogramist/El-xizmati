@@ -11,6 +11,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/domain/models/faceid/face_id_confirm_type.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
@@ -25,13 +26,18 @@ import 'face_id_confirmation_cubit.dart';
 @RoutePage()
 class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit,
     FaceIdConfirmationState, FaceIdConfirmationEvent> {
-  final secretKey;
+  final String secretKey;
+  final FaceIdConfirmType faceIdConfirmType;
 
-  const FaceIdConfirmationPage(this.secretKey, {super.key});
+  const FaceIdConfirmationPage({
+    super.key,
+    required this.secretKey,
+    required this.faceIdConfirmType,
+  });
 
   @override
   void onWidgetCreated(BuildContext context) {
-    cubit(context).setSecretKey(secretKey.toString());
+    cubit(context).setInitialParams(secretKey, faceIdConfirmType);
   }
 
   @override
@@ -54,7 +60,7 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit,
   @override
   Widget onWidgetBuild(BuildContext context, FaceIdConfirmationState state) {
     return Scaffold(
-      backgroundColor: Colors.amber,
+      backgroundColor: context.backgroundWhiteColor,
       appBar: DefaultAppBar(
         titleText: Strings.faceIdTitle,
         titleTextColor: context.textPrimary,
@@ -240,7 +246,8 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit,
             child: Stack(
               // alignment: Alignment.center,
               children: [
-                _buildCameraPreView(context, state),
+                // _buildCameraPreView(context, state),
+                _buildCameraPreview(context, state),
                 _buildPreviewPainter(context, screenWidth, screenHeight),
               ],
             ),
@@ -269,19 +276,76 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit,
     final double screenWidth = screenSize.width;
     final double screenHeight = screenSize.height;
 
-    final double rectWidth = screenWidth * 0.80;
-    final double rectHeight = screenHeight * 0.45;
+    final double rectWidth = screenWidth * 0.65;
+    final double rectHeight = screenHeight * 0.35;
 
     return Center(
       child: ClipRect(
         clipper: _MediaSizeClipper(MediaQuery.of(context).size),
-        child: Transform.scale(
-          scale: 1 / (rectHeight / rectWidth),
-          alignment: Alignment.center,
-          child: CameraPreview(cameraController),
+        child: OverflowBox(
+          child: Transform.scale(
+            scale: 1 / (rectHeight / rectWidth),
+            alignment: Alignment.center,
+            child: CameraPreview(cameraController),
+          ),
         ),
       ),
     );
+  }
+
+  Widget _buildCameraPreview(
+    BuildContext context,
+    FaceIdConfirmationState state,
+  ) {
+    final cameraController = state.cameraController;
+    if (cameraController == null) return Center();
+
+    final cameraAspectRatio = cameraController.value.aspectRatio;
+    final screenAspectRatio = MediaQuery.of(context).size.aspectRatio;
+
+    final Size screenSize = MediaQuery.of(context).size;
+    final double screenWidth = screenSize.width;
+    final double screenHeight = screenSize.height;
+
+    final double rectWidth = screenWidth * 0.65;
+    final double rectHeight = screenHeight * 0.35;
+
+    final scale = 1.0; //screenHeight / screenWidth;
+    final aspectRatio = screenWidth / screenHeight;
+
+    return Container(
+      color: Colors.black,
+      child: Transform.scale(
+        // scale: _getImageZoom(context),
+        scale: scale,
+        child: Center(
+          child: AspectRatio(
+            aspectRatio: aspectRatio, //cameraController.value.aspectRatio,
+            child: CameraPreview(cameraController),
+          ),
+        ),
+      ),
+    );
+  }
+
+  double _getImageZoom(BuildContext context) {
+    final mediaQueryData = MediaQuery.of(context);
+    final Size screenSize = mediaQueryData.size;
+
+    final double screenWidth = screenSize.width;
+    final double screenHeight = screenSize.height;
+
+    final double rectWidth = screenWidth;
+    final double rectHeight = screenHeight;
+
+    final double logicalWidth = screenWidth;
+    // final double logicalHeight = _previewSize.aspectRatio * logicalWidth;
+    final double logicalHeight = (rectWidth / rectHeight) * logicalWidth;
+
+    final EdgeInsets padding = mediaQueryData.padding;
+    final double maxLogicalHeight = screenHeight - padding.top - padding.bottom;
+
+    return maxLogicalHeight / logicalHeight;
   }
 
   Widget _buildPreviewPainter(
@@ -304,16 +368,27 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit,
       mainAxisSize: MainAxisSize.min,
       children: [
         // Expanded(child: SizedBox()),
-        Center(
-          child:
-              Strings.faceIdIndentityInfo.s(16).w(600).c(context.textPrimary),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Center(
+            child: Strings.faceIdIndentityInfo
+                .s(16)
+                .w(600)
+                .c(context.textPrimary)
+                .copyWith(textAlign: TextAlign.center),
+          ),
         ),
         SizedBox(height: 16),
-        Center(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Center(
             child: Strings.faceIdIndentityDesc
                 .w(400)
                 .s(14)
-                .c(context.textSecondary)),
+                .c(context.textSecondary)
+                .copyWith(textAlign: TextAlign.center),
+          ),
+        ),
         // Expanded(child: SizedBox()),
       ],
     );

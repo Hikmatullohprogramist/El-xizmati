@@ -7,20 +7,24 @@ import 'package:onlinebozor/data/datasource/floor/dao/user_address_entity_dao.da
 import 'package:onlinebozor/data/datasource/floor/dao/user_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/floor/entities/user_entity.dart';
 import 'package:onlinebozor/data/datasource/network/responses/auth/auth_start/auth_start_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/auth/check/phone_check_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/auth/eds/eds_sign_in_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/auth/login/login_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/auth/one_id/one_id_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/e_imzo_response/e_imzo_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/face_id/validate_bio_doc_request.dart';
+import 'package:onlinebozor/data/datasource/network/responses/register/register_otp_confirm_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/private/auth_service.dart';
 import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/mappers/user_mapper.dart';
+import 'package:onlinebozor/data/repositories/favorite_repository.dart';
 
 class AuthRepository {
   final AdEntityDao _adEntityDao;
   final AuthPreferences _authPreferences;
   final AuthService _authService;
+  final FavoriteRepository _favoriteRepository;
   final UserAddressEntityDao _userAddressEntityDao;
   final UserEntityDao _userEntityDao;
   final UserPreferences _userPreferences;
@@ -29,6 +33,7 @@ class AuthRepository {
     this._adEntityDao,
     this._authPreferences,
     this._authService,
+    this._favoriteRepository,
     this._userAddressEntityDao,
     this._userEntityDao,
     this._userPreferences,
@@ -36,12 +41,18 @@ class AuthRepository {
 
   String sessionToken = "";
 
-  Future<AuthStartResponse> authStart(String phone) async {
-    final response = await _authService.authStart(phone: phone);
+  Future<AuthStartResponse> phoneVerification(String phone) async {
+    final response = await _authService.phoneVerification(phone: phone);
     final authStartResponse = AuthStartResponse.fromJson(response.data);
     if (authStartResponse.data.is_registered == false) {
       sessionToken = authStartResponse.data.session_token!;
     }
+    return authStartResponse;
+  }
+
+  Future<AuthStartResponse> phoneCheck(String phone) async {
+    final response = await _authService.phoneCheck(phone: phone);
+    final authStartResponse = AuthStartResponse.fromJson(response.data);
     return authStartResponse;
   }
 
@@ -86,7 +97,8 @@ class AuthRepository {
           ),
         );
       }
-      // await favoriteRepository.pushAllFavoriteAds();
+
+      await _favoriteRepository.pushAllFavoriteAds();
     }
     return;
   }
@@ -167,7 +179,7 @@ class AuthRepository {
     return;
   }
 
-  Future<String> requestCreateAccount({
+  Future<String> registerRequestOtpCode({
     required String docSeries,
     required String docNumber,
     required String birthDate,
@@ -175,7 +187,7 @@ class AuthRepository {
     required String password,
     required String confirm,
   }) async {
-    final response = await _authService.requestCreateAccount(
+    final response = await _authService.registerRequestOtpCode(
       docSeries: docSeries,
       docNumber: docNumber,
       birthDate: birthDate,
@@ -183,21 +195,34 @@ class AuthRepository {
       password: password,
       confirm: confirm,
     );
-    return response.data;
+    final checkResponse = PhoneCheckResponse.fromJson(response.data);
+    return checkResponse.data.sessionToken;
   }
 
-  Future<void> confirmRegisterOtpCode(String phone, String code) async {
-    final response = await _authService.confirmRegisterOtpCode(
-      phone: phone,
-      code: code,
+  Future<String> registerConfirmOtpCode(
+    String phone,
+    String sessionToken,
+    String otpCode,
+  ) async {
+    final response = await _authService.registerConfirmOtpCode(
+      otpCode: otpCode,
       sessionToken: sessionToken,
     );
-    final confirmResponse = LoginRootResponse.fromJson(response.data).data;
-    if (confirmResponse.token != null) {
-      await _authPreferences.setToken(confirmResponse.token ?? "");
+    final confirmResponse = RegisterOtpConfirmResponse.fromJson(response.data);
+    return confirmResponse.data.secretKey;
+  }
+
+  Future<void> registerFaceIdIdentity(String image, String secretKey) async {
+    final rootResponse = await _authService.registerFaceIdIdentity(
+      image: image,
+      secretKey: secretKey,
+    );
+    final response = LoginRootResponse.fromJson(rootResponse.data).data;
+    if (response.token != null) {
+      await _authPreferences.setToken(response.token ?? "");
       await _authPreferences.setIsAuthorized(true);
-      await _userPreferences.setUserInfo(confirmResponse.user);
-      return;
+      await _userPreferences.setUserInfo(response.user);
+      await _favoriteRepository.pushAllFavoriteAds();
     }
   }
 
@@ -211,8 +236,8 @@ class AuthRepository {
     return response;
   }
 
-  Future<void> sendImage(String image, String secretKey) async {
-    final rootResponse = await _authService.sendImage(
+  Future<void> signInFaceIdIdentity(String image, String secretKey) async {
+    final rootResponse = await _authService.signInFaceIdIdentity(
       image: image,
       secretKey: secretKey,
     );
@@ -221,7 +246,7 @@ class AuthRepository {
       await _authPreferences.setToken(response.token ?? "");
       await _authPreferences.setIsAuthorized(true);
       await _userPreferences.setUserInfo(response.user);
-      // await favoriteRepository.pushAllFavoriteAds();
+      await _favoriteRepository.pushAllFavoriteAds();
     }
   }
 

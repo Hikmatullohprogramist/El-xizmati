@@ -10,9 +10,14 @@ class AuthService {
 
   AuthService(this._dio);
 
-  Future<Response> authStart({required String phone}) {
+  Future<Response> phoneVerification({required String phone}) {
     final body = {RestQueryKeys.phoneNumber: phone};
     return _dio.post('api/mobile/v1/auth/phone/verification', data: body);
+  }
+
+  Future<Response> phoneCheck({required String phone}) {
+    final body = {RestQueryKeys.phoneNumber: phone};
+    return _dio.post('api/mobile/v1/auth/phone/check', data: body);
   }
 
   Future<http.Response> edsAuth() async {
@@ -48,17 +53,46 @@ class AuthService {
     return _dio.get('auth/eimzo-v2/$sign');
   }
 
-  Future<Response> confirmRegisterOtpCode({
-    required String phone,
-    required String code,
+  Future<Response> registerRequestOtpCode({
+    required String docSeries,
+    required String docNumber,
+    required String birthDate,
+    required String phoneNumber,
+    required String password,
+    required String confirm,
+  }) async {
+    final body = {
+      RestQueryKeys.docSeries: docSeries,
+      RestQueryKeys.docNumber: docNumber,
+      RestQueryKeys.brithDate: birthDate,
+      RestQueryKeys.phoneNumber: phoneNumber,
+      RestQueryKeys.password: password,
+      RestQueryKeys.confirm: confirm
+    };
+    return _dio.post('api/mobile/v1/auth/register', data: body);
+  }
+
+  Future<Response> registerConfirmOtpCode({
     required String sessionToken,
+    required String otpCode,
   }) {
     final body = {
-      RestQueryKeys.phoneNumber: phone,
-      RestQueryKeys.sessionToken: sessionToken,
-      RestQueryKeys.securityCode: code
+      RestQueryKeys.sessionId: sessionToken,
+      RestQueryKeys.otpCode: otpCode
     };
-    return _dio.post('api/mobile/v1/auth/otp/confirm', data: body);
+    return _dio.post('api/mobile/v1/auth/register/otp-confirm', data: body);
+  }
+
+  Future<Response> registerFaceIdIdentity({
+    required String image,
+    required String secretKey,
+  }) {
+    final body = {
+      RestQueryKeys.secretKey: secretKey,
+      RestQueryKeys.imageData: image,
+    };
+
+    return _dio.post('api/mobile/v1/auth/identity-verify', data: body);
   }
 
   Future<Response> validateByBioDoc({required ValidateBioDocRequest request}) {
@@ -75,7 +109,7 @@ class AuthService {
     return _dio.post('api/v1/auth/face_id/by_pinfl', data: body);
   }
 
-  Future<Response> sendImage({
+  Future<Response> signInFaceIdIdentity({
     required String image,
     required String secretKey,
   }) {
@@ -126,40 +160,6 @@ class AuthService {
       RestQueryKeys.repeatPassword: confirm
     };
     return _dio.put('api/mobile/v1/auth/user/change_password', data: body);
-  }
-
-  // https://api.online-bozor.uz/api/mobile/v1/auth/register
-  //
-  //
-  // header 'Content-Type: application/json'
-  // header 'Authorization: Basic dm9oaWQ6dm9oaWQxMjM='
-  //
-  // --data '{
-  // "doc_series": "AC",
-  // "doc_number": "2471523",
-  // "phone_number": "998949554545",
-  // "birth_date": "2002-03-24",
-  // "password": "aA12345678"
-  // "confirm": "aA12345678"
-// }
-
-  Future<Response> requestCreateAccount({
-    required String docSeries,
-    required String docNumber,
-    required String birthDate,
-    required String phoneNumber,
-    required String password,
-    required String confirm,
-  }) async {
-    final body = {
-      RestQueryKeys.docSeries: docSeries,
-      RestQueryKeys.docNumber: docNumber,
-      RestQueryKeys.brithDate: birthDate,
-      RestQueryKeys.phoneNumber: phoneNumber,
-      RestQueryKeys.password: password,
-      RestQueryKeys.confirm: confirm
-    };
-    return _dio.post('api/mobile/v1/auth/register', data: body);
   }
 
   Future<Response> loginValidate({required String accessCode}) {
