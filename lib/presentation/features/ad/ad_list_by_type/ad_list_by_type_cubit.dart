@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
+import 'package:onlinebozor/core/extensions/list_extensions.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/ad_repository.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
@@ -20,10 +23,20 @@ class AdListByTypeCubit
     this._favoriteRepository,
   ) : super(AdListByTypeState());
 
-  static const _limit = 20;
-
   final AdRepository _adRepository;
   final FavoriteRepository _favoriteRepository;
+
+  static const _limit = 20;
+  StreamSubscription? _cheapestAdsSubs;
+  StreamSubscription? _popularAdsSubs;
+
+  @override
+  Future<void> close() async {
+    await _cheapestAdsSubs?.cancel();
+    await _popularAdsSubs?.cancel();
+
+    super.close();
+  }
 
   Future<void> setInitialParams(AdType adType) async {
     updateState((state) => state.copyWith(adType: adType));
@@ -48,10 +61,21 @@ class AdListByTypeCubit
         .initFuture()
         .onStart(() {})
         .onSuccess((data) {
-          updateState((state) => state.copyWith(
-                cheapAds: data,
-                cheapAdsState: LoadingState.success,
-              ));
+          final ids = data.adIds();
+
+          _cheapestAdsSubs?.cancel();
+          _cheapestAdsSubs = _adRepository.watchAdsByIds(ids).listen((ads) {
+            updateState((state) => state.copyWith(
+                  cheapAds: ads.map((e) => e.copy()).toList(),
+                  cheapAdsState:
+                      ads.isEmpty ? LoadingState.empty : LoadingState.success,
+                ));
+          })
+            ..onError((error) {
+              updateState((state) => state.copyWith(
+                    cheapAdsState: LoadingState.error,
+                  ));
+            });
         })
         .onError((error) {
           updateState((state) => state.copyWith(
@@ -73,10 +97,21 @@ class AdListByTypeCubit
         .initFuture()
         .onStart(() {})
         .onSuccess((data) {
-          updateState((state) => state.copyWith(
-                popularAds: data,
-                popularAdsState: LoadingState.success,
-              ));
+          final ids = data.adIds();
+
+          _popularAdsSubs?.cancel();
+          _popularAdsSubs = _adRepository.watchAdsByIds(ids).listen((ads) {
+            updateState((state) => state.copyWith(
+                  popularAds: ads.map((e) => e.copy()).toList(),
+                  popularAdsState:
+                      ads.isEmpty ? LoadingState.empty : LoadingState.success,
+                ));
+          })
+            ..onError((error) {
+              updateState((state) => state.copyWith(
+                    popularAdsState: LoadingState.error,
+                  ));
+            });
         })
         .onError((error) {
           logger.e(error);
@@ -129,51 +164,19 @@ class AdListByTypeCubit
     return controller;
   }
 
-  Future<void> popularAdsAddFavorite(Ad ad) async {
-    try {
-      if (ad.isFavorite == true) {
-        await _favoriteRepository.removeFromFavorite(ad.id);
-        final index = states.popularAds.indexOf(ad);
-        final item = states.popularAds.elementAt(index);
-        states.popularAds.insert(index, item..isFavorite = false);
-      } else {
-        final backendId = await _favoriteRepository.addToFavorite(ad);
-        final index = states.popularAds.indexOf(ad);
-        final item = states.popularAds.elementAt(index);
-        states.popularAds.insert(
-          index,
-          item
-            ..isFavorite = true
-            ..backendId = backendId,
-        );
-      }
-    } catch (error) {
-      stateMessageManager.showErrorSnackBar("xatolik yuz  berdi");
-      logger.e(error.toString());
+  Future<void> cheapAdsAddFavorite(Ad ad) async {
+    if (ad.isFavorite == true) {
+      await _favoriteRepository.removeFromFavorite(ad.id);
+    } else {
+      await _favoriteRepository.addToFavorite(ad);
     }
   }
 
-  Future<void> cheapAdsAddFavorite(Ad ad) async {
-    try {
-      if (ad.isFavorite == true) {
-        await _favoriteRepository.removeFromFavorite(ad.id);
-        final index = states.cheapAds.indexOf(ad);
-        final item = states.cheapAds.elementAt(index);
-        states.cheapAds.insert(index, item..isFavorite = false);
-      } else {
-        final backendId = await _favoriteRepository.addToFavorite(ad);
-        final index = states.cheapAds.indexOf(ad);
-        final item = states.cheapAds.elementAt(index);
-        states.cheapAds.insert(
-          index,
-          item
-            ..isFavorite = true
-            ..backendId = backendId,
-        );
-      }
-    } catch (error) {
-      stateMessageManager.showErrorSnackBar("xatolik yuz  berdi");
-      logger.e(error.toString());
+  Future<void> popularAdsAddFavorite(Ad ad) async {
+    if (ad.isFavorite == true) {
+      await _favoriteRepository.removeFromFavorite(ad.id);
+    } else {
+      await _favoriteRepository.addToFavorite(ad);
     }
   }
 

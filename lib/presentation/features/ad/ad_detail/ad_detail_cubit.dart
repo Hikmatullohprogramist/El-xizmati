@@ -31,11 +31,13 @@ class AdDetailCubit extends BaseCubit<AdDetailState, AdDetailEvent> {
   ) : super(AdDetailState());
 
   StreamSubscription? _ownerAdsSubs;
+  StreamSubscription? _recentlyAdsSubs;
   StreamSubscription? _similarAdsSubs;
 
   @override
   Future<void> close() async {
     await _ownerAdsSubs?.cancel();
+    await _recentlyAdsSubs?.cancel();
     await _similarAdsSubs?.cancel();
 
     super.close();
@@ -274,10 +276,21 @@ class AdDetailCubit extends BaseCubit<AdDetailState, AdDetailEvent> {
               ));
         })
         .onSuccess((data) {
+      final ids = data.adIds();
+
+      _recentlyAdsSubs?.cancel();
+      _recentlyAdsSubs = _adRepository.watchAdsByIds(ids).listen((ads) {
+        updateState((state) => state.copyWith(
+          recentlyViewedAds: ads.map((e) => e.copy()).toList(),
+          recentlyViewedAdsState:
+          ads.isEmpty ? LoadingState.empty : LoadingState.success,
+        ));
+      })
+        ..onError((error) {
           updateState((state) => state.copyWith(
-                recentlyViewedAds: data,
-                recentlyViewedAdsState: LoadingState.success,
-              ));
+            recentlyViewedAdsState: LoadingState.error,
+          ));
+        });
         })
         .onError((error) {
           updateState((state) => state.copyWith(
