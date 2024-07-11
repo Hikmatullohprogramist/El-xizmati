@@ -1,6 +1,6 @@
 import 'package:logger/logger.dart';
 import 'package:onlinebozor/data/error/app_exception.dart';
-import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
+import 'package:onlinebozor/data/mappers/dio_error_mapper.dart';
 
 class FutureHandler<T> {
   final Future<T> future;
@@ -38,7 +38,7 @@ class FutureHandler<T> {
       _onSuccess?.call(result);
     } catch (e, stackTrace) {
       Logger().w("executeFuture e = $e, stackTrace = $stackTrace");
-      _onError?.call(e.toAppException(stackTrace));
+      _onError?.call(e.objectToAppException(stackTrace));
     } finally {
       _onFinished?.call();
     }
