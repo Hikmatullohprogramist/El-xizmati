@@ -1,10 +1,7 @@
-import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/data/error/app_exception.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
 import 'package:onlinebozor/data/error/app_network_exception.dart';
-import 'package:onlinebozor/data/mappers/exception_exts.dart';
 
 extension ExceptionMessageExts on Exception {
   String get localizedMessage {
@@ -30,28 +27,14 @@ extension ObjectExceptionExts on Object {
       return toString();
     }
   }
-
-  AppException toAppException(StackTrace? stackTrace) {
-    if(this is AppException) {
-      return this as AppException;
-    } else if (this is DioError) {
-      return (this as DioError).errorToAppNetworkException();
-    } else if (this is DioException) {
-      return (this as DioException).toAppNetworkException();
-    } else {
-      return AppNetworkDioException(message: "Unknown error", statusCode: 1);
-    }
-  }
 }
 
 extension AppLocalxceptionMessageExts on AppLocalException {
   String get localizedMessage {
     if (this is NotAuthorizedException) {
-      Logger().w("localizedMessage => NotAuthorizedException");
       return Strings.messageUserNotAuthorized;
     }
     if (this is NotIdentifiedException) {
-      Logger().w("localizedMessage => NotIdentifiedException");
       return Strings.messageUserIdentityNotVerified;
     }
     return Strings.messageUnknownError;
@@ -61,13 +44,12 @@ extension AppLocalxceptionMessageExts on AppLocalException {
 extension AppNetworkExceptionMessageExts on AppNetworkException {
   String get localizedMessage {
     if (this is AppNetworkConnectionException) {
-      Logger().w("localizedMessage => AppNetworkConnectionException");
       return Strings.messageConnectionError;
-    } else if (this is AppNetworkDioException) {
-      Logger().w("localizedMessage => AppNetworkDioException");
+    }
+    if (this is AppNetworkDioException) {
       return Strings.messageResponseError;
-    } else if (this is AppNetworkHttpException) {
-      Logger().w("localizedMessage => AppNetworkHttpException");
+    }
+    if (this is AppNetworkHttpException) {
       switch ((this as AppNetworkHttpException).statusCode) {
         case 400:
           return Strings.messageBadRequestError;
