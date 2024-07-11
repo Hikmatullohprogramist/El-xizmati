@@ -72,6 +72,7 @@ class DashboardPage
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       elevation: 0.5,
+      leading: Assets.images.icArrowLeft.svg(color: Colors.transparent),
       backgroundColor: context.appBarColor,
       actions: [
         Expanded(
