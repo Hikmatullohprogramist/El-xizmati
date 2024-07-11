@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 import 'package:onlinebozor/domain/models/ad/ad_priority_level.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/ad/ad_status_widget.dart';
 import 'package:onlinebozor/presentation/widgets/ad/ad_type_widget.dart';
 import 'package:onlinebozor/presentation/widgets/ad/list_ad_author_type_widget.dart';
@@ -56,15 +55,13 @@ class HorizontalAdWidget extends StatelessWidget {
                   alignment: Alignment.topRight,
                   child: AdFavoriteWidget(
                     isSelected: ad.isFavorite,
-                    invoke: () => onFavoriteClicked(ad),
+                    onClicked: () => onFavoriteClicked(ad),
                   ),
                 ),
                 Positioned(
                   left: 0,
                   bottom: 0,
-                  child: AdTypeWidget(
-                    adType: ad.transactionType.adType(),
-                  ),
+                  child: AdTypeWidget(adType: ad.transactionType.adType()),
                 ),
                 Positioned(
                   right: 0,

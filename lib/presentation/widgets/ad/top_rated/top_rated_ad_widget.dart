@@ -124,7 +124,7 @@ class TopRatedAdWidget extends StatelessWidget {
           children: [
             AdFavoriteWidget(
               isSelected: ad.isFavorite,
-              invoke: () => onFavoriteClicked(ad),
+              onClicked: () => onFavoriteClicked(ad),
             ),
             SizedBox(width: 6)
           ],
