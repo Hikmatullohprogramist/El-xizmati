@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/ad/ad_list_type.dart';
 import 'package:onlinebozor/domain/models/category/category.dart';
@@ -47,7 +48,8 @@ class CategoryPage
         backgroundColor: context.appBarColor,
         elevation: 0.5,
         toolbarHeight: 64,
-        // leadingWidth: 0,
+        leadingWidth: 0,
+        leading: Assets.images.icArrowLeft.svg(color: Colors.transparent),
         actions: [
           Expanded(
             child: Container(
