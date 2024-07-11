@@ -113,14 +113,12 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
                   ));
             },
           )..onError((error) {
-              logger.w("watchPopularProductAds error = $error");
               updateState((state) => state.copyWith(
                     popularProductAdsState: LoadingState.error,
                   ));
             });
         })
         .onError((error) {
-          logger.e("watchPopularProductAds error = $error");
           updateState((state) => state.copyWith(
                 popularProductAdsState: LoadingState.error,
               ));
@@ -149,14 +147,12 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
                 ));
           })
             ..onError((error) {
-              logger.w("watchPopularServiceAds error = $error");
               updateState((state) => state.copyWith(
                     popularServiceAdsState: LoadingState.error,
                   ));
             });
         })
         .onError((error) {
-          logger.e("watchPopularServiceAds error = $error");
           updateState((state) => state.copyWith(
                 popularServiceAdsState: LoadingState.error,
               ));
@@ -186,7 +182,6 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
                 ));
           })
             ..onError((error) {
-              logger.w("watchPopularServiceAds error = $error");
               updateState((state) => state.copyWith(
                     topRatedAdsState: LoadingState.error,
                   ));
@@ -223,7 +218,6 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
                 ));
           })
             ..onError((error) {
-              logger.w("watchPopularServiceAds error = $error");
               updateState((state) => state.copyWith(
                     recentlyViewedAdsState: LoadingState.error,
                   ));

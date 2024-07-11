@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
+import 'package:onlinebozor/core/extensions/list_extensions.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/ad_repository.dart';
 import 'package:onlinebozor/data/repositories/cart_repository.dart';
@@ -26,6 +29,17 @@ class AdDetailCubit extends BaseCubit<AdDetailState, AdDetailEvent> {
     this._cartRepository,
     this._favoriteRepository,
   ) : super(AdDetailState());
+
+  StreamSubscription? _ownerAdsSubs;
+  StreamSubscription? _similarAdsSubs;
+
+  @override
+  Future<void> close() async {
+    await _ownerAdsSubs?.cancel();
+    await _similarAdsSubs?.cancel();
+
+    super.close();
+  }
 
   void setInitialParams(int adId) {
     updateState((state) => state.copyWith(
@@ -162,12 +176,21 @@ class AdDetailCubit extends BaseCubit<AdDetailState, AdDetailEvent> {
           updateState((s) => s.copyWith(similarAdsState: LoadingState.loading));
         })
         .onSuccess((data) {
-          updateState(
-            (state) => state.copyWith(
-              similarAds: data,
-              similarAdsState: LoadingState.success,
-            ),
-          );
+          final ids = data.adIds();
+
+          _similarAdsSubs?.cancel();
+          _similarAdsSubs = _adRepository.watchAdsByIds(ids).listen((ads) {
+            updateState((state) => state.copyWith(
+                  similarAds: ads.map((e) => e.copy()).toList(),
+                  similarAdsState:
+                      ads.isEmpty ? LoadingState.empty : LoadingState.success,
+                ));
+          })
+            ..onError((error) {
+              updateState((state) => state.copyWith(
+                    similarAdsState: LoadingState.error,
+                  ));
+            });
         })
         .onError((error) {
           updateState((s) => s.copyWith(similarAdsState: LoadingState.error));
@@ -200,6 +223,23 @@ class AdDetailCubit extends BaseCubit<AdDetailState, AdDetailEvent> {
         .onStart(() {})
         .onSuccess((data) {
           data.removeWhere((e) => e.id == state.state?.adId);
+
+          final ids = data.adIds();
+
+          _ownerAdsSubs?.cancel();
+          _ownerAdsSubs = _adRepository.watchAdsByIds(ids).listen((ads) {
+            updateState((state) => state.copyWith(
+                  ownerAds: ads.map((e) => e.copy()).toList(),
+                  ownerAdsState:
+                      ads.isEmpty ? LoadingState.empty : LoadingState.success,
+                ));
+          })
+            ..onError((error) {
+              updateState((state) => state.copyWith(
+                    ownerAdsState: LoadingState.error,
+                  ));
+            });
+
           updateState((state) => state.copyWith(
                 ownerAds: data,
                 ownerAdsState: LoadingState.success,
