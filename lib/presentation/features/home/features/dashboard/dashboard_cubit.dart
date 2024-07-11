@@ -34,6 +34,21 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
   final CommonRepository _commonRepository;
   final FavoriteRepository _favoriteRepository;
 
+  StreamSubscription? _productAdsSubs;
+  StreamSubscription? _serviceAdsSubs;
+  StreamSubscription? _topAdsSubs;
+  StreamSubscription? _recentlyAdsSubs;
+
+  @override
+  Future<void> close() async {
+    await _productAdsSubs?.cancel();
+    await _serviceAdsSubs?.cancel();
+    await _topAdsSubs?.cancel();
+    await _recentlyAdsSubs?.cancel();
+
+    super.close();
+  }
+
   Future<void> _getInitialData() async {
     await Future.wait([
       getBanners(),
@@ -53,21 +68,6 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
       getTopRatedAds(),
       getRecentlyViewedAds(),
     ]);
-  }
-
-  StreamSubscription? _productAdsSubs;
-  StreamSubscription? _serviceAdsSubs;
-  StreamSubscription? _topAdsSubs;
-  StreamSubscription? _recentlyAdsSubs;
-
-  @override
-  Future<void> close() async {
-    await _productAdsSubs?.cancel();
-    await _serviceAdsSubs?.cancel();
-    await _topAdsSubs?.cancel();
-    await _recentlyAdsSubs?.cancel();
-
-    super.close();
   }
 
   Future<void> getPopularCategories() async {
@@ -93,7 +93,6 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
   }
 
   Future<void> getPopularProductAds() async {
-    logger.w("getDashboardPopularAds called");
     _adRepository
         .getDashboardPopularAds(adType: AdType.product)
         .initFuture()
@@ -107,8 +106,6 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
           _productAdsSubs?.cancel();
           _productAdsSubs = _adRepository.watchAdsByIds(ids).listen(
             (ads) {
-              logger.w(
-                  "watchPopularProductAds ads count = ${ads.length}, cart count = ${ads.cartCount()}, favorite count = ${ads.favoriteCount()}");
               updateState((state) => state.copyWith(
                     popularProductAds: ads,
                     popularProductAdsState:
@@ -145,8 +142,6 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
           final ids = data.adIds();
           _serviceAdsSubs?.cancel();
           _serviceAdsSubs = _adRepository.watchAdsByIds(ids).listen((ads) {
-            logger.w(
-                "watchPopularServiceAds ads count = ${ads.length}, cart count = ${ads.cartCount()}, favorite count = ${ads.favoriteCount()}");
             updateState((state) => state.copyWith(
                   popularServiceAds: ads,
                   popularServiceAdsState:
@@ -318,19 +313,11 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
 
   Future<void> _updateFavoriteData(Ad ad, List<Ad> adList) async {
     try {
-      // int index = adList.indexOf(ad);
-      // if (index == -1) return;
-
       if (ad.isFavorite) {
         await _favoriteRepository.removeFromFavorite(ad.id);
-        // adList[index] = ad..isFavorite = false;
       } else {
-        final backendId = await _favoriteRepository.addToFavorite(ad);
-        // adList[index] = ad
-        //   ..isFavorite = true
-        //   ..backendId = backendId;
+        await _favoriteRepository.addToFavorite(ad);
       }
-      // updateState((state) => state);
     } catch (error) {
       logger.e(error.toString());
     }

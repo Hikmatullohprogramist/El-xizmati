@@ -57,7 +57,7 @@ class VerticalAdWidget extends StatelessWidget {
                     alignment: Alignment.topRight,
                     child: AdFavoriteWidget(
                       isSelected: ad.isFavorite,
-                      invoke: () => onFavoriteClicked(ad),
+                      onClicked: () => onFavoriteClicked(ad),
                     ),
                   ),
                   Positioned(

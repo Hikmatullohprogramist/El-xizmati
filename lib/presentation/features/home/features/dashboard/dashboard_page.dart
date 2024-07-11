@@ -52,13 +52,13 @@ class DashboardPage
             SliverToBoxAdapter(
               child: Column(
                 children: [
-                  _getBannersWidget(context, state),
-                  _getPopularCategoriesWidget(context, state),
+                  ..._getBannersWidget(context, state),
+                  ..._getPopularCategoriesWidget(context, state),
                   _getAdTypeChooserWidget(context),
-                  _getDashboardProductAdsWidget(context, state),
-                  _getDashboardServiceAdsWidget(context, state),
-                  _getTopRatedAdsWidget(context, state),
-                  _getRecentlyViewedAdsWidget(context, state),
+                  ..._getDashboardProductAdsWidget(context, state),
+                  ..._getDashboardServiceAdsWidget(context, state),
+                  ..._getTopRatedAdsWidget(context, state),
+                  ..._getRecentlyViewedAdsWidget(context, state),
                 ],
               ),
             ),
@@ -119,53 +119,53 @@ class DashboardPage
     );
   }
 
-  Widget _getBannersWidget(BuildContext context, DashboardState state) {
-    return LoaderStateWidget(
-      onRetryClicked: () {
-        cubit(context).getBanners();
-      },
-      isFullScreen: false,
-      loadingState: state.bannersState,
-      loadingBody: BannerListShimmer(),
-      successBody: BannerListWidget(banners: state.banners),
-    );
+  List<Widget> _getBannersWidget(BuildContext context, DashboardState state) {
+    return [
+      LoaderStateWidget(
+        onRetryClicked: () {
+          cubit(context).getBanners();
+        },
+        isFullScreen: false,
+        loadingState: state.bannersState,
+        loadingBody: BannerListShimmer(),
+        successBody: BannerListWidget(banners: state.banners),
+      )
+    ];
   }
 
-  Widget _getPopularCategoriesWidget(
+  List<Widget> _getPopularCategoriesWidget(
     BuildContext context,
     DashboardState state,
   ) {
-    return Column(
-      children: [
-        SeeAllWidget(
-          onClicked: () => context.router.push(
-            PopularCategoriesRoute(title: Strings.popularCategoriesTitle),
-          ),
-          title: Strings.popularCategoriesTitle,
+    return [
+      SeeAllWidget(
+        onClicked: () => context.router.push(
+          PopularCategoriesRoute(title: Strings.popularCategoriesTitle),
         ),
-        LoaderStateWidget(
-          onRetryClicked: () {
-            cubit(context).getPopularCategories();
+        title: Strings.popularCategoriesTitle,
+      ),
+      LoaderStateWidget(
+        onRetryClicked: () {
+          cubit(context).getPopularCategories();
+        },
+        isFullScreen: false,
+        loadingState: state.popularCategoriesState,
+        loadingBody: PopularCategoryListShimmer(),
+        successBody: PopularCategoryListWidget(
+          categories: state.popularCategories,
+          onCategoryClicked: (popularCategories) {
+            context.router.push(
+              AdListRoute(
+                adListType: AdListType.homeList,
+                keyWord: popularCategories.key_word,
+                title: popularCategories.name,
+                sellerTin: null,
+              ),
+            );
           },
-          isFullScreen: false,
-          loadingState: state.popularCategoriesState,
-          loadingBody: PopularCategoryListShimmer(),
-          successBody: PopularCategoryListWidget(
-            categories: state.popularCategories,
-            onCategoryClicked: (popularCategories) {
-              context.router.push(
-                AdListRoute(
-                  adListType: AdListType.homeList,
-                  keyWord: popularCategories.key_word,
-                  title: popularCategories.name,
-                  sellerTin: null,
-                ),
-              );
-            },
-          ),
         ),
-      ],
-    );
+      ),
+    ];
   }
 
   Widget _getAdTypeChooserWidget(BuildContext context) {
@@ -202,167 +202,169 @@ class DashboardPage
     );
   }
 
-  Widget _getDashboardProductAdsWidget(
+  List<Widget> _getDashboardProductAdsWidget(
     BuildContext context,
     DashboardState state,
   ) {
-    return Column(
-      children: [
-        SeeAllWidget(
-          onClicked: () {
-            context.router.push(
-              AdListRoute(
-                adListType: AdListType.homePopularAds,
-                keyWord: '',
-                title: Strings.popularProducts,
-                sellerTin: null,
-              ),
-            );
-          },
-          title: Strings.popularProducts,
-        ),
-        LoaderStateWidget(
-          isFullScreen: false,
-          onRetryClicked: () {
-            cubit(context).getPopularProductAds();
-          },
-          loadingState: state.popularProductAdsState,
-          loadingBody: HorizontalAdListShimmer(),
-          successBody: HorizontalAdListWidget(
-            ads: state.popularProductAds,
-            onItemClicked: (Ad ad) {
-              context.router.push(AdDetailRoute(adId: ad.id));
-            },
-            onFavoriteClicked: (Ad ad) {
-              cubit(context).popularProductAdsUpdateFavorite(ad);
-            },
-            onCartClicked: (Ad ad) {
-              cubit(context).popularProductAdsUpdateCart(ad);
-            },
-            onBuyClicked: (Ad ad) {
-              context.router.push(OrderCreationRoute(adId: ad.id));
-            },
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _getDashboardServiceAdsWidget(
-    BuildContext context,
-    DashboardState state,
-  ) {
-    return Column(
-      children: [
-        SeeAllWidget(
-          onClicked: () {
-            context.router.push(
-              AdListRoute(
-                adListType: AdListType.homePopularAds,
-                keyWord: '',
-                title: Strings.popularServices,
-                sellerTin: null,
-              ),
-            );
-          },
-          title: Strings.popularServices,
-        ),
-        LoaderStateWidget(
-          isFullScreen: false,
-          onRetryClicked: () {
-            cubit(context).getPopularServiceAds();
-          },
-          loadingState: state.popularServiceAdsState,
-          loadingBody: HorizontalAdListShimmer(),
-          successBody: HorizontalAdListWidget(
-            ads: state.popularServiceAds,
-            onItemClicked: (Ad ad) {
-              context.router.push(AdDetailRoute(adId: ad.id));
-            },
-            onFavoriteClicked: (Ad ad) {
-              cubit(context).popularServiceAdsUpdateFavorite(ad);
-            },
-            onCartClicked: (Ad ad) {
-              cubit(context).popularServiceAdsUpdateCart(ad);
-            },
-            onBuyClicked: (Ad ad) {
-              context.router.push(OrderCreationRoute(adId: ad.id));
-            },
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _getTopRatedAdsWidget(BuildContext context, DashboardState state) {
-    return LoaderStateWidget(
-      isFullScreen: false,
-      onRetryClicked: () {
-        cubit(context).getTopRatedAds();
-      },
-      loadingState: state.popularServiceAdsState,
-      loadingBody: TopRatedAdListShimmer(),
-      successBody: TopRatedAdListWidget(
-        ads: state.topRatedAds,
-        onItemClicked: (Ad ad) {
-          context.router.push(AdDetailRoute(adId: ad.id));
-        },
-        onOnClickBuyClicked: (Ad ad) {
-          context.router.push(OrderCreationRoute(adId: ad.id));
-        },
-        onFavoriteClicked: (Ad ad) {
-          cubit(context).topRatedAdsUpdateFavorite(ad);
-        },
-      ),
-    );
-  }
-
-  Widget _getRecentlyViewedAdsWidget(
-    BuildContext context,
-    DashboardState state,
-  ) {
-    return Visibility(
-      visible: state.isRecentlyViewedAdsVisible,
-      child: Column(
-        children: [
-          SeeAllWidget(
-            onClicked: () {
-              context.router.push(
-                AdListRoute(
-                  adListType: AdListType.recentlyViewedAds,
-                  keyWord: '',
-                  title: Strings.recentlyViewedTitle,
-                  sellerTin: null,
-                ),
-              );
-            },
-            title: Strings.recentlyViewedTitle,
-          ),
-          LoaderStateWidget(
-            isFullScreen: false,
-            onRetryClicked: () {
-              cubit(context).getRecentlyViewedAds();
-            },
-            loadingState: state.recentlyViewedAdsState,
-            loadingBody: HorizontalAdListShimmer(),
-            successBody: HorizontalAdListWidget(
-              ads: state.recentlyViewedAds,
-              onItemClicked: (Ad ad) {
-                context.router.push(AdDetailRoute(adId: ad.id));
-              },
-              onFavoriteClicked: (Ad ad) {
-                cubit(context).recentlyViewAdUpdateFavorite(ad);
-              },
-              onCartClicked: (Ad ad) {
-                cubit(context).recentlyViewAdUpdateCart(ad);
-              },
-              onBuyClicked: (Ad ad) {
-                context.router.push(OrderCreationRoute(adId: ad.id));
-              },
+    return [
+      SeeAllWidget(
+        onClicked: () {
+          context.router.push(
+            AdListRoute(
+              adListType: AdListType.homePopularAds,
+              keyWord: '',
+              title: Strings.popularProducts,
+              sellerTin: null,
             ),
-          ),
-        ],
+          );
+        },
+        title: Strings.popularProducts,
       ),
-    );
+      LoaderStateWidget(
+        isFullScreen: false,
+        onRetryClicked: () {
+          cubit(context).getPopularProductAds();
+        },
+        loadingState: state.popularProductAdsState,
+        loadingBody: HorizontalAdListShimmer(),
+        successBody: HorizontalAdListWidget(
+          ads: state.popularProductAds,
+          onItemClicked: (Ad ad) {
+            context.router.push(AdDetailRoute(adId: ad.id));
+          },
+          onFavoriteClicked: (Ad ad) {
+            cubit(context).popularProductAdsUpdateFavorite(ad);
+          },
+          onCartClicked: (Ad ad) {
+            cubit(context).popularProductAdsUpdateCart(ad);
+          },
+          onBuyClicked: (Ad ad) {
+            context.router.push(OrderCreationRoute(adId: ad.id));
+          },
+        ),
+      ),
+    ];
+  }
+
+  List<Widget> _getDashboardServiceAdsWidget(
+    BuildContext context,
+    DashboardState state,
+  ) {
+    return [
+      SeeAllWidget(
+        onClicked: () {
+          context.router.push(
+            AdListRoute(
+              adListType: AdListType.homePopularAds,
+              keyWord: '',
+              title: Strings.popularServices,
+              sellerTin: null,
+            ),
+          );
+        },
+        title: Strings.popularServices,
+      ),
+      LoaderStateWidget(
+        isFullScreen: false,
+        onRetryClicked: () {
+          cubit(context).getPopularServiceAds();
+        },
+        loadingState: state.popularServiceAdsState,
+        loadingBody: HorizontalAdListShimmer(),
+        successBody: HorizontalAdListWidget(
+          ads: state.popularServiceAds,
+          onItemClicked: (Ad ad) {
+            context.router.push(AdDetailRoute(adId: ad.id));
+          },
+          onFavoriteClicked: (Ad ad) {
+            cubit(context).popularServiceAdsUpdateFavorite(ad);
+          },
+          onCartClicked: (Ad ad) {
+            cubit(context).popularServiceAdsUpdateCart(ad);
+          },
+          onBuyClicked: (Ad ad) {
+            context.router.push(OrderCreationRoute(adId: ad.id));
+          },
+        ),
+      ),
+    ];
+  }
+
+  List<Widget> _getTopRatedAdsWidget(
+    BuildContext context,
+    DashboardState state,
+  ) {
+    return [
+      LoaderStateWidget(
+        isFullScreen: false,
+        onRetryClicked: () {
+          cubit(context).getTopRatedAds();
+        },
+        loadingState: state.popularServiceAdsState,
+        loadingBody: TopRatedAdListShimmer(),
+        successBody: TopRatedAdListWidget(
+          ads: state.topRatedAds,
+          onItemClicked: (Ad ad) {
+            context.router.push(AdDetailRoute(adId: ad.id));
+          },
+          onOnClickBuyClicked: (Ad ad) {
+            context.router.push(OrderCreationRoute(adId: ad.id));
+          },
+          onFavoriteClicked: (Ad ad) {
+            cubit(context).topRatedAdsUpdateFavorite(ad);
+          },
+        ),
+      )
+    ];
+  }
+
+  List<Widget> _getRecentlyViewedAdsWidget(
+    BuildContext context,
+    DashboardState state,
+  ) {
+    return [
+      Visibility(
+        visible: state.isRecentlyViewedAdsVisible,
+        child: SeeAllWidget(
+          onClicked: () {
+            context.router.push(
+              AdListRoute(
+                adListType: AdListType.recentlyViewedAds,
+                keyWord: '',
+                title: Strings.recentlyViewedTitle,
+                sellerTin: null,
+              ),
+            );
+          },
+          title: Strings.recentlyViewedTitle,
+        ),
+      ),
+      Visibility(
+        visible: state.isRecentlyViewedAdsVisible,
+        child: LoaderStateWidget(
+          isFullScreen: false,
+          onRetryClicked: () {
+            cubit(context).getRecentlyViewedAds();
+          },
+          loadingState: state.recentlyViewedAdsState,
+          loadingBody: HorizontalAdListShimmer(),
+          successBody: HorizontalAdListWidget(
+            ads: state.recentlyViewedAds,
+            onItemClicked: (Ad ad) {
+              context.router.push(AdDetailRoute(adId: ad.id));
+            },
+            onFavoriteClicked: (Ad ad) {
+              cubit(context).recentlyViewAdUpdateFavorite(ad);
+            },
+            onCartClicked: (Ad ad) {
+              cubit(context).recentlyViewAdUpdateCart(ad);
+            },
+            onBuyClicked: (Ad ad) {
+              context.router.push(OrderCreationRoute(adId: ad.id));
+            },
+          ),
+        ),
+      ),
+    ];
   }
 }
