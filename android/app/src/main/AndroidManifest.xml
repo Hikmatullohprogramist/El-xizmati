@@ -47,8 +47,8 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="onlinebozor" />
-                <data android:host="sign_result" />
-                <!--onlinebozor://sign_result?doc_id=123&sign_state=SIGNED"-->
+                <data android:host="doc_sign_result" />
+                <!--onlinebozor://doc_sign_result?doc_id=123&sign_state=SIGNED"-->
 
             </intent-filter>
 
