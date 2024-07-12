@@ -4,8 +4,8 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/extensions/list_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
+import 'package:onlinebozor/data/repositories/region_repository.dart';
 import 'package:onlinebozor/data/repositories/user_address_repository.dart';
-import 'package:onlinebozor/data/repositories/user_repository.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/region/region.dart';
 import 'package:onlinebozor/domain/models/street/street.dart';
@@ -18,15 +18,15 @@ part 'add_address_state.dart';
 
 @injectable
 class AddAddressCubit extends BaseCubit<AddAddressState, AddAddressEvent> {
+  final RegionRepository _regionRepository;
+  final UserAddressRepository _userAddressRepository;
+
   AddAddressCubit(
-    this._userRepository,
+    this._regionRepository,
     this._userAddressRepository,
   ) : super(AddAddressState()) {
     getRegions();
   }
-
-  final UserAddressRepository _userAddressRepository;
-  final UserRepository _userRepository;
 
   void setInitialParams(UserAddress? address) {
     if (address != null) {
@@ -181,7 +181,7 @@ class AddAddressCubit extends BaseCubit<AddAddressState, AddAddressEvent> {
   }
 
   Future<void> getRegions() async {
-    _userRepository
+    _regionRepository
         .getRegions()
         .initFuture()
         .onSuccess((data) {
@@ -201,7 +201,7 @@ class AddAddressCubit extends BaseCubit<AddAddressState, AddAddressEvent> {
       return;
     }
 
-    _userRepository
+    _regionRepository
         .getDistricts(states.regionId!)
         .initFuture()
         .onSuccess((data) {
@@ -225,7 +225,7 @@ class AddAddressCubit extends BaseCubit<AddAddressState, AddAddressEvent> {
       return;
     }
 
-    _userRepository
+    _regionRepository
         .getNeighborhoods(states.districtId!)
         .initFuture()
         .onStart(() {})

@@ -1,23 +1,26 @@
 import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
-import 'package:onlinebozor/data/repositories/user_repository.dart';
+import 'package:onlinebozor/data/repositories/region_repository.dart';
 import 'package:onlinebozor/domain/mappers/item_mapper.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/list/expandable_list_item.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
 part 'region_selection_cubit.freezed.dart';
 part 'region_selection_state.dart';
 
 @Injectable()
-class RegionSelectionCubit extends BaseCubit<RegionSelectionState, RegionSelectionEvent> {
-  RegionSelectionCubit(this._authRepository) : super(const RegionSelectionState()) {
+class RegionSelectionCubit
+    extends BaseCubit<RegionSelectionState, RegionSelectionEvent> {
+  RegionSelectionCubit(
+    this._regionRepository,
+  ) : super(const RegionSelectionState()) {
     getRegionAndDistricts();
   }
 
-  final UserRepository _authRepository;
+  final RegionRepository _regionRepository;
 
   void setInitialParams(List<District>? districts) {
     try {
@@ -38,7 +41,7 @@ class RegionSelectionCubit extends BaseCubit<RegionSelectionState, RegionSelecti
 
   Future<void> getRegionAndDistricts() async {
     try {
-      final response = await _authRepository.getRegionAndDistricts();
+      final response = await _regionRepository.getRegionAndDistricts();
       var allRegions = response.regions;
       var allDistricts = response.districts;
       List<ExpandableListItem> allItems = [];

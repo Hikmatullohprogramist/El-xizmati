@@ -5,6 +5,8 @@ import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/datasource/network/responses/profile/verify_identity/identity_document_response.dart';
+import 'package:onlinebozor/data/repositories/identity_repository.dart';
+import 'package:onlinebozor/data/repositories/region_repository.dart';
 import 'package:onlinebozor/data/repositories/user_repository.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/region/region.dart';
@@ -18,16 +20,21 @@ part 'identity_verification_state.dart';
 @Injectable()
 class IdentityVerificationCubit
     extends BaseCubit<IdentityVerificationState, IdentityVerificationEvent> {
+  final IdentityRepository _identityRepository;
+  final RegionRepository _regionRepository;
   final UserRepository _userRepository;
 
-  IdentityVerificationCubit(this._userRepository)
-      : super(const IdentityVerificationState()) {
+  IdentityVerificationCubit(
+    this._identityRepository,
+    this._regionRepository,
+    this._userRepository,
+  ) : super(const IdentityVerificationState()) {
     getUserNumber();
     getRegions();
   }
 
   Future<void> getIdentityDocument() async {
-    _userRepository
+    _identityRepository
         .getIdentityDocument(
           phoneNumber: states.phoneNumber.clearPhoneWithCode(),
           docSeries: states.docSeries,
@@ -77,7 +84,7 @@ class IdentityVerificationCubit
   }
 
   Future<void> validateUser() async {
-    _userRepository
+    _identityRepository
         .validateUser(
           birthDate: states.brithDate,
           districtId: states.districtId ?? 0,
@@ -183,7 +190,7 @@ class IdentityVerificationCubit
     String phoneNumber,
   ) async {
     try {
-      final response = await _userRepository.continueVerifyingIdentity(
+      final response = await _identityRepository.continueVerifyingIdentity(
         phoneNumber: phoneNumber,
         secretKey: secretKey,
       );
@@ -288,7 +295,7 @@ class IdentityVerificationCubit
   }
 
   getRegions() {
-    _userRepository
+    _regionRepository
         .getRegions()
         .initFuture()
         .onStart(() {})
@@ -309,7 +316,7 @@ class IdentityVerificationCubit
     final regionId = states.regionId;
     if (regionId == null) return;
 
-    _userRepository
+    _regionRepository
         .getDistricts(regionId)
         .initFuture()
         .onStart(() {})
@@ -331,7 +338,7 @@ class IdentityVerificationCubit
     final districtId = states.districtId;
     if (districtId == null) return;
 
-    _userRepository
+    _regionRepository
         .getNeighborhoods(districtId)
         .initFuture()
         .onStart(() {})

@@ -6,6 +6,7 @@ import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/datasource/network/responses/e_imzo_response/e_imzo_response.dart';
 import 'package:onlinebozor/data/repositories/auth_repository.dart';
+import 'package:onlinebozor/data/repositories/eds_repository.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -15,9 +16,13 @@ part 'auth_start_state.dart';
 
 @injectable
 class AuthStartCubit extends BaseCubit<AuthStartState, AuthStartEvent> {
-  AuthStartCubit(this._authRepository) : super(AuthStartState());
-
   final AuthRepository _authRepository;
+  final EdsRepository _edsRepository;
+
+  AuthStartCubit(
+    this._authRepository,
+    this._edsRepository,
+  ) : super(AuthStartState());
 
   void setPhone(String phone) {
     logger.i(phone);

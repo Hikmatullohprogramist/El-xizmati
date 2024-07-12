@@ -5,19 +5,13 @@ import 'package:onlinebozor/data/datasource/network/responses/active_sessions/ac
 import 'package:onlinebozor/data/datasource/network/responses/profile/user/user_info_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/profile/user_full/user_full_info_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/profile/verify_identity/identity_document_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/region/region_and_district_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/region/region_root_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/private/user_service.dart';
 import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
 import 'package:onlinebozor/domain/mappers/user_mapper.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
-import 'package:onlinebozor/domain/models/district/district.dart';
-import 'package:onlinebozor/domain/models/region/region.dart';
-import 'package:onlinebozor/domain/models/region/region_and_district.dart';
 import 'package:onlinebozor/domain/models/social_account/social_account_info.dart';
-import 'package:onlinebozor/domain/models/street/street.dart';
 
 class UserRepository {
   final AuthPreferences _authPreferences;
@@ -77,58 +71,6 @@ class UserRepository {
     return actual;
   }
 
-  Future<IdentityDocumentInfoResponse> getIdentityDocument({
-    required String phoneNumber,
-    required String docSeries,
-    required String docNumber,
-    required String brithDate,
-  }) async {
-    final response = await _userService.getIdentityDocument(
-      phoneNumber: phoneNumber,
-      biometricSerial: docSeries,
-      biometricNumber: docNumber,
-      brithDate: brithDate,
-    );
-    final result = IdentityDocumentRootResponse.fromJson(response.data).data;
-    return result;
-  }
-
-  Future<UserInfoResponse> continueVerifyingIdentity({
-    required String phoneNumber,
-    required String secretKey,
-  }) async {
-    final response = await _userService.continueVerifyingIdentity(
-      secretKey: secretKey,
-      phoneNumber: phoneNumber,
-    );
-    final responseResult = UserInfoRootResponse.fromJson(response.data).data;
-    return responseResult;
-  }
-
-  Future<RegionAndDistrict> getRegionAndDistricts() async {
-    final response = await _userService.getRegionAndDistricts();
-    final result = RegionAndDistrictRootResponse.fromJson(response.data).data;
-    return result.toRegionAndDistrict();
-  }
-
-  Future<List<Region>> getRegions() async {
-    final response = await _userService.getRegions();
-    final result = RegionRootResponse.fromJson(response.data).data;
-    return result.map((e) => e.toRegion()).toList();
-  }
-
-  Future<List<District>> getDistricts(int regionId) async {
-    final response = await _userService.getDistricts(regionId);
-    final result = RegionRootResponse.fromJson(response.data).data;
-    return result.map((e) => e.toDistrict(regionId)).toList();
-  }
-
-  Future<List<Neighborhood>> getNeighborhoods(int streetId) async {
-    final response = await _userService.getNeighborhoods(streetId);
-    final result = RegionRootResponse.fromJson(response.data).data;
-    return result.map((e) => e.toNeighborhood()).toList();
-  }
-
   Future<void> updateUserProfile({
     required String email,
     required String gender,
@@ -159,43 +101,6 @@ class UserRepository {
       postName: postName,
       phoneNumber: phoneNumber,
     );
-  }
-
-  Future<void> validateUser({
-    required String birthDate,
-    required int districtId,
-    required String email,
-    required String fullName,
-    required String gender,
-    required String homeName,
-    required int id,
-    required int mahallaId,
-    required String mobilePhone,
-    required String docSeries,
-    required String docNumber,
-    required String phoneNumber,
-    required String photo,
-    required int pinfl,
-    required String postName,
-    required int region_Id,
-  }) async {
-    await _userService.validateUser(
-        birthDate: birthDate,
-        districtId: districtId,
-        email: email,
-        fullName: fullName,
-        gender: gender,
-        homeName: homeName,
-        id: id,
-        neighborhoodId: mahallaId,
-        mobilePhone: mobilePhone,
-        docSeries: docSeries,
-        docNumber: docNumber,
-        phoneNumber: phoneNumber,
-        photo: photo,
-        pinfl: pinfl,
-        postName: postName,
-        regionId: region_Id);
   }
 
   Future<void> updateNotificationSources({required String sources}) async {

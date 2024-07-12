@@ -7,6 +7,7 @@ import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/datasource/network/responses/profile/user_full/user_full_info_response.dart';
 import 'package:onlinebozor/data/repositories/auth_repository.dart';
+import 'package:onlinebozor/data/repositories/region_repository.dart';
 import 'package:onlinebozor/data/repositories/user_repository.dart';
 import 'package:onlinebozor/domain/mappers/social_account_mapper.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
@@ -23,10 +24,12 @@ part 'profile_view_state.dart';
 @injectable
 class ProfileViewCubit extends BaseCubit<ProfileViewState, ProfileViewEvent> {
   final AuthRepository _authRepository;
+  final RegionRepository _regionRepository;
   final UserRepository _userRepository;
 
   ProfileViewCubit(
     this._authRepository,
+    this._regionRepository,
     this._userRepository,
   ) : super(ProfileViewState()) {
     getActiveSessions();
@@ -103,7 +106,7 @@ class ProfileViewCubit extends BaseCubit<ProfileViewState, ProfileViewEvent> {
   Future<void> getRegions() async {
     if (states.regions.isNotEmpty) return;
 
-    final regions = await _userRepository.getRegions();
+    final regions = await _regionRepository.getRegions();
     if (regions.isNotEmpty) {
       final regionName = regions.firstIf((e) => e.id == states.regionId)?.name;
       updateState((state) => state.copyWith(
@@ -119,7 +122,7 @@ class ProfileViewCubit extends BaseCubit<ProfileViewState, ProfileViewEvent> {
     final regionId = states.regionId;
     if (regionId == null) return;
 
-    final districts = await _userRepository.getDistricts(states.regionId!);
+    final districts = await _regionRepository.getDistricts(states.regionId!);
     final name = districts.firstIf((e) => e.id == states.districtId)?.name;
     updateState((state) => state.copyWith(
           districtName: name ?? "",
@@ -133,7 +136,7 @@ class ProfileViewCubit extends BaseCubit<ProfileViewState, ProfileViewEvent> {
     final districtId = states.districtId;
     if (districtId == null) return;
 
-    final neighborhoods = await _userRepository.getNeighborhoods(districtId);
+    final neighborhoods = await _regionRepository.getNeighborhoods(districtId);
     final name = neighborhoods.firstIf((e) => e.id == states.streetId)?.name;
     updateState((state) => state.copyWith(
           neighborhoodName: name ?? "",

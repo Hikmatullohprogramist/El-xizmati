@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:dio/src/response.dart';
 import 'package:onlinebozor/data/datasource/floor/dao/ad_entity_dao.dart';
@@ -8,10 +7,8 @@ import 'package:onlinebozor/data/datasource/floor/dao/user_entity_dao.dart';
 import 'package:onlinebozor/data/datasource/floor/entities/user_entity.dart';
 import 'package:onlinebozor/data/datasource/network/responses/auth/auth_start/auth_start_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/auth/check/phone_check_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/auth/eds/eds_sign_in_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/auth/login/login_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/auth/one_id/one_id_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/e_imzo_response/e_imzo_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/face_id/validate_bio_doc_request.dart';
 import 'package:onlinebozor/data/datasource/network/responses/register/register_otp_confirm_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/private/auth_service.dart';
@@ -99,51 +96,6 @@ class AuthRepository {
       }
 
       await _favoriteRepository.pushAllFavoriteAds();
-    }
-    return;
-  }
-
-  Future<EImzoModel?> edsAuth() async {
-    EImzoModel? eImzoModel;
-    final response = await _authService.edsAuth();
-
-    final int statusCode = response.statusCode;
-    final resultClass = json.decode(utf8.decode(response.bodyBytes));
-    if (statusCode == 200) {
-      eImzoModel = EImzoModel.fromJson(resultClass);
-    }
-    return eImzoModel;
-  }
-
-  Future<int?> edsCheckStatus(String documentId, Timer? _timer) async {
-    final response = await _authService.edsCheckStatus(documentId, _timer);
-
-    final int statusCode = response.statusCode;
-    final resultClass = json.decode(utf8.decode(response.bodyBytes));
-    if (statusCode == 200) {
-      if (resultClass["status"] == 1) {
-        _timer?.cancel();
-      }
-      return resultClass["status"];
-    }
-    return resultClass["status"];
-  }
-
-  Future<void> edsSignIn(String sign) async {
-    final response = await _authService.edsSignIn(sign: sign);
-    final edsResponse = EdsSignInRootResponse.fromJson(response.data);
-    final userResponse = edsResponse.user;
-    if (edsResponse.token != null) {
-      await _authPreferences.setToken(edsResponse.token ?? "");
-      await _authPreferences.setIsAuthorized(true);
-
-      await _userPreferences.setUserTin(userResponse?.tin);
-      await _userPreferences.setUserPinfl(userResponse?.pinfl);
-      await _userPreferences.setIdentityState(userResponse?.isRegistered);
-
-      if (userResponse != null) {
-        await _userEntityDao.insertUser(userResponse.toUserEntity());
-      }
     }
     return;
   }
@@ -251,10 +203,10 @@ class AuthRepository {
   }
 
   Future<void> loginWithOneId(String accessCode) async {
-    final root = await _authService.loginValidate(accessCode: accessCode);
+    final root = await _authService.oneIdValidate(accessCode: accessCode);
     final oneIdResponse = OneIdRootResponse.fromJson(root.data).data;
     if (oneIdResponse.access_token != null) {
-      final response = await _authService.loginWithOneId(
+      final response = await _authService.oneIdLogin(
         accessCode: oneIdResponse.access_token ?? "",
       );
       final confirmResponse = LoginRootResponse.fromJson(response.data).data;

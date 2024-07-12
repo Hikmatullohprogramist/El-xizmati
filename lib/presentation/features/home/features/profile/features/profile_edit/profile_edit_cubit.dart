@@ -4,6 +4,7 @@ import 'package:onlinebozor/core/extensions/list_extensions.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
+import 'package:onlinebozor/data/repositories/region_repository.dart';
 import 'package:onlinebozor/data/repositories/user_repository.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/region/region.dart';
@@ -15,9 +16,13 @@ part 'profile_edit_state.dart';
 
 @injectable
 class ProfileEditCubit extends BaseCubit<ProfileEditState, ProfileEditEvent> {
+  final RegionRepository _regionRepository;
   final UserRepository _userRepository;
 
-  ProfileEditCubit(this._userRepository) : super(ProfileEditState()) {
+  ProfileEditCubit(
+    this._regionRepository,
+    this._userRepository,
+  ) : super(ProfileEditState()) {
     getUserProfile();
   }
 
@@ -87,7 +92,7 @@ class ProfileEditCubit extends BaseCubit<ProfileEditState, ProfileEditEvent> {
   }
 
   Future<void> getRegions() async {
-    final response = await _userRepository.getRegions();
+    final response = await _regionRepository.getRegions();
     final regionList = response.where((e) => e.id == states.regionId);
     if (regionList.isNotEmpty) {
       updateState((state) => states.copyWith(
@@ -103,7 +108,7 @@ class ProfileEditCubit extends BaseCubit<ProfileEditState, ProfileEditEvent> {
     final regionId = states.regionId;
     if (regionId == null) return;
 
-    final districts = await _userRepository.getDistricts(regionId);
+    final districts = await _regionRepository.getDistricts(regionId);
     if (states.districtId != null) {
       updateState((state) => states.copyWith(
             districts: districts,
@@ -118,7 +123,7 @@ class ProfileEditCubit extends BaseCubit<ProfileEditState, ProfileEditEvent> {
   Future<void> getStreets() async {
     try {
       final districtId = states.districtId!;
-      final neighborhoods = await _userRepository.getNeighborhoods(districtId);
+      final neighborhoods = await _regionRepository.getNeighborhoods(districtId);
       if (states.neighborhoodId != null) {
         updateState((state) => states.copyWith(
               neighborhoods: neighborhoods,
@@ -164,7 +169,7 @@ class ProfileEditCubit extends BaseCubit<ProfileEditState, ProfileEditEvent> {
   }
 
   Future<void> setRegion(Region region) async {
-   await updateState((state) => states.copyWith(
+    await updateState((state) => states.copyWith(
           regionId: region.id,
           regionName: region.name,
           districtId: null,
