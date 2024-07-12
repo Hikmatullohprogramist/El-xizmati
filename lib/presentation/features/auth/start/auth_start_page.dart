@@ -167,22 +167,6 @@ class AuthStartPage
                 bottomLeftRadius: 8,
                 bottomRightRadius: 8,
                 topMargin: 6,
-                bottomMargin: 6,
-                child: CustomOutlinedButton(
-                  text: "Open SmartMarket App",
-                  onPressed: () {
-                    const deepLink = 'smartmarket://doc_sign_result?doc_id=123&sign_state=SIGNED';
-                    _tryLaunchAndroidApp(deepLink, "uz.smartmarket.buyer");
-                  },
-                  rightIcon: Assets.images.icActiveDevice.svg(),
-                ),
-              ),
-              ElevationWidget(
-                topLeftRadius: 8,
-                topRightRadius: 8,
-                bottomLeftRadius: 8,
-                bottomRightRadius: 8,
-                topMargin: 6,
                 bottomMargin: 20,
                 child: CustomOutlinedButton(
                   text: Strings.authStartLoginWithEImzo,
@@ -246,10 +230,7 @@ class AuthStartPage
         mode: LaunchMode.externalApplication,
       );
     } else {
-      await LaunchApp.openApp(
-        androidPackageName: packageName,
-        openStore: true
-      );
+      await LaunchApp.openApp(androidPackageName: packageName, openStore: true);
       throw 'Ишга туширилмади $deepLink';
     }
   }
@@ -262,11 +243,10 @@ class AuthStartPage
       });
     } else {
       await LaunchApp.openApp(
-        iosUrlScheme: deepLink,
-        appStoreLink:
-            'itms-apps://itunes.apple.com/us/app/e-imzo-id-карта/id1563416406',
-        openStore: true
-      );
+          iosUrlScheme: deepLink,
+          appStoreLink:
+              'itms-apps://itunes.apple.com/us/app/e-imzo-id-карта/id1563416406',
+          openStore: true);
     }
   }
 }
