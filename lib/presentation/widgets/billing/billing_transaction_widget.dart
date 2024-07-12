@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/billing/billing_transaction.dart';
-import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 
 class BillingTransactionWidget extends StatelessWidget {
+  final BillingTransaction transaction;
+  final VoidCallback onClicked;
+
   const BillingTransactionWidget({
     super.key,
     required this.transaction,
     required this.onClicked,
   });
-
-  final BillingTransaction transaction;
-  final VoidCallback onClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -81,10 +80,6 @@ class BillingTransactionWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              // SizedBox(height: 12),
-              // "type = ${transaction.transactionType.name} \n action = ${transaction.transactionAction.name} \n state = ${transaction.balanceState.name}"
-              //     .s(12)
-              //     .w(500),
               SizedBox(height: 12),
             ],
           ),
