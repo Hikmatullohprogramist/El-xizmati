@@ -46,7 +46,7 @@ class IdentityVerificationCubit
         .onSuccess((data) async {
           logger.w("getIdentityDocument onSuccess info = ${data.passportInfo}");
           // if (data.status?.toUpperCase() != "IN_PROCESS") {
-          if (data.status?.toUpperCase().contains("IN_PROCESS") == true) {
+          if (data.status?.toUpperCase().contains("IN_PROCESS") == false) {
             await continueVerifyingIdentity(
               data.secretKey ?? "",
               states.phoneNumber,
