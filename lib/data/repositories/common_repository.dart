@@ -3,8 +3,8 @@ import 'package:onlinebozor/data/datasource/network/responses/banner/banner_resp
 import 'package:onlinebozor/data/datasource/network/responses/category/category/category_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/category/popular_category/popular_category_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/public/dashboard_service.dart';
-import 'package:onlinebozor/data/mappers/banner_mapper.dart';
-import 'package:onlinebozor/data/mappers/category_mapper.dart';
+import 'package:onlinebozor/data/mappers/banner_mappers.dart';
+import 'package:onlinebozor/data/mappers/category_mappers.dart';
 import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
 import 'package:onlinebozor/domain/models/banner/banner_image.dart';
 import 'package:onlinebozor/domain/models/category/category.dart';

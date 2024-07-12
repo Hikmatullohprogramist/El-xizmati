@@ -11,7 +11,6 @@ import 'package:onlinebozor/data/datasource/network/services/private/user_servic
 import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
-import 'package:onlinebozor/domain/mappers/region_mapper.dart';
 import 'package:onlinebozor/domain/mappers/user_mapper.dart';
 import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';

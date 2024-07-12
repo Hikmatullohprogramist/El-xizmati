@@ -10,7 +10,7 @@ import 'package:onlinebozor/data/datasource/network/responses/payment_type/payme
 import 'package:onlinebozor/data/datasource/network/responses/unit/unit_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/private/ad_creation_service.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
-import 'package:onlinebozor/data/mappers/category_mapper.dart';
+import 'package:onlinebozor/data/mappers/category_mappers.dart';
 import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
 import 'package:onlinebozor/domain/mappers/user_mapper.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';

@@ -4,7 +4,7 @@ import 'package:onlinebozor/data/datasource/network/services/private/user_order_
 import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
-import 'package:onlinebozor/data/mappers/user_order_mapper.dart';
+import 'package:onlinebozor/data/mappers/user_order_mappers.dart';
 import 'package:onlinebozor/data/repositories/cart_repository.dart';
 import 'package:onlinebozor/domain/models/order/order_cancel_reason.dart';
 import 'package:onlinebozor/domain/models/order/order_type.dart';

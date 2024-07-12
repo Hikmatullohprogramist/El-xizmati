@@ -4,7 +4,7 @@ import 'package:onlinebozor/data/datasource/network/services/private/payment_ser
 import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
-import 'package:onlinebozor/data/mappers/billing_mapper.dart';
+import 'package:onlinebozor/data/mappers/billing_mappers.dart';
 import 'package:onlinebozor/domain/models/billing/billing_transaction.dart';
 
 class BillingRepository {

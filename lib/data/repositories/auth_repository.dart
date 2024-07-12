@@ -17,7 +17,7 @@ import 'package:onlinebozor/data/datasource/network/responses/register/register_
 import 'package:onlinebozor/data/datasource/network/services/private/auth_service.dart';
 import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
-import 'package:onlinebozor/data/mappers/user_mapper.dart';
+import 'package:onlinebozor/data/mappers/user_mappers.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
 
 class AuthRepository {

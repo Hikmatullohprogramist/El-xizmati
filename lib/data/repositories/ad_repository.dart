@@ -10,7 +10,7 @@ import 'package:onlinebozor/data/datasource/network/services/public/ad_list_serv
 import 'package:onlinebozor/data/datasource/network/services/public/dashboard_service.dart';
 import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
 import 'package:onlinebozor/data/error/app_locale_exception.dart';
-import 'package:onlinebozor/data/mappers/ad_mapper.dart';
+import 'package:onlinebozor/data/mappers/ad_mappers.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 import 'package:onlinebozor/domain/models/ad/ad_detail.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
