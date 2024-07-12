@@ -11,8 +11,12 @@ import 'package:onlinebozor/data/datasource/network/services/private/ad_service.
 import 'package:onlinebozor/data/datasource/network/services/private/auth_service.dart';
 import 'package:onlinebozor/data/datasource/network/services/private/card_service.dart';
 import 'package:onlinebozor/data/datasource/network/services/private/cart_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/private/eds_service.dart';
 import 'package:onlinebozor/data/datasource/network/services/private/favorite_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/private/identity_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/private/notification_service.dart';
 import 'package:onlinebozor/data/datasource/network/services/private/payment_service.dart';
+import 'package:onlinebozor/data/datasource/network/services/private/region_service.dart';
 import 'package:onlinebozor/data/datasource/network/services/private/user_ad_service.dart';
 import 'package:onlinebozor/data/datasource/network/services/private/user_address_service.dart';
 import 'package:onlinebozor/data/datasource/network/services/private/user_order_service.dart';
@@ -29,7 +33,7 @@ const String public = "dio_without_authorization";
 extension GetItModuleNetwork on GetIt {
   Future<void> networkModule() async {
     registerLazySingleton(
-      () => AuthInterceptor(get(), get(), get(), get(), get()),
+          () => AuthInterceptor(get(), get(), get(), get(), get()),
     );
     registerLazySingleton(() => CommonInterceptor());
     registerLazySingleton(() => LanguageInterceptor(get()));
@@ -64,7 +68,9 @@ extension GetItModuleNetwork on GetIt {
     PrettyDioLogger loggerInterceptor = get();
     ChuckerDioInterceptor chuckerDioInterceptor = get();
 
+    ///
     /// Providing public dio and services
+    ///
 
     registerSingleton<Dio>(
       provideDio(
@@ -80,12 +86,16 @@ extension GetItModuleNetwork on GetIt {
       instanceName: public,
     );
 
-    registerLazySingleton(() => DashboardService(get(instanceName: public)));
     registerLazySingleton(() => AdListService(get(instanceName: public)));
     registerLazySingleton(() => AdDetailService(get(instanceName: public)));
+
+    registerLazySingleton(() => DashboardService(get(instanceName: public)));
+
     registerLazySingleton(() => ReportService(get(instanceName: public)));
 
+    ///
     /// Providing private dio and services
+    ///
 
     registerSingleton<Dio>(
       provideDio(
@@ -105,10 +115,22 @@ extension GetItModuleNetwork on GetIt {
     registerLazySingleton(() => AdCreationService(get(instanceName: private)));
     registerLazySingleton(() => AdService(get(instanceName: private)));
     registerLazySingleton(() => AuthService(get(instanceName: private)));
+
     registerLazySingleton(() => CardService(get(instanceName: private)));
     registerLazySingleton(() => CartService(get(instanceName: private)));
+
+    registerLazySingleton(() => EdsService(get(instanceName: private)));
+
     registerLazySingleton(() => FavoriteService(get(instanceName: private)));
+
+    registerLazySingleton(() => IdentityService(get(instanceName: private)));
+
+    registerLazySingleton(() => NotificationService(get(instanceName: private)));
+
     registerLazySingleton(() => PaymentService(get(instanceName: private)));
+
+    registerLazySingleton(() => RegionService(get(instanceName: private)));
+
     registerLazySingleton(() => UserAdService(get(instanceName: private)));
     registerLazySingleton(() => UserAddressService(get(instanceName: private)));
     registerLazySingleton(() => UserOrderService(get(instanceName: private)));

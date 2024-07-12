@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
-import 'package:onlinebozor/data/mappers/dio_error_mapper.dart';
+import 'package:onlinebozor/data/mappers/dio_error_mappers.dart';
 
 @lazySingleton
 class ErrorInterceptor extends InterceptorsWrapper {

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:http/http.dart' as http;
 import 'package:onlinebozor/data/datasource/network/constants/rest_query_keys.dart';
 import 'package:onlinebozor/data/datasource/network/responses/face_id/validate_bio_doc_request.dart';
 
@@ -9,6 +8,10 @@ class AuthService {
   final Dio _dio;
 
   AuthService(this._dio);
+
+  ///
+  /// Phone check
+  ///
 
   Future<Response> phoneVerification({required String phone}) {
     final body = {RestQueryKeys.phoneNumber: phone};
@@ -20,38 +23,9 @@ class AuthService {
     return _dio.post('api/mobile/v1/auth/phone/check', data: body);
   }
 
-  Future<http.Response> edsAuth() async {
-    final response = await http.post(
-      Uri.parse('https://hujjat.uz/mobile-id/frontend/mobile/auth'),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-    );
-    return response;
-  }
-
-  Future<http.Response> edsCheckStatus(String documentId, Timer? _timer) async {
-    final response = await http.post(
-      Uri.parse(
-          'https://hujjat.uz/mobile-id/frontend/mobile/status?documentId=${documentId}'),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-    );
-    return response;
-  }
-
-  Future<Response> edsSignIn({
-    required String sign,
-  }) async {
-    final body = {
-      RestQueryKeys.accessToken: sign,
-    };
-    // return _dio.post('api/v2/mobile/auth/e-imzo/login', queryParameters: body);
-    return _dio.get('auth/eimzo-v2/$sign');
-  }
+  ///
+  /// Register
+  ///
 
   Future<Response> registerRequestOtpCode({
     required String docSeries,
@@ -95,6 +69,10 @@ class AuthService {
     return _dio.post('api/mobile/v1/auth/identity-verify', data: body);
   }
 
+  ///
+  /// Face Id Login
+  ///
+
   Future<Response> validateByBioDoc({required ValidateBioDocRequest request}) {
     final body = {
       RestQueryKeys.brithDate: request.birthDate,
@@ -120,6 +98,10 @@ class AuthService {
     return _dio.post('api/v1/auth/face_id/by_image', data: body);
   }
 
+  ///
+  /// Login
+  ///
+
   Future<Response> login({
     required String phone,
     required String password,
@@ -130,6 +112,10 @@ class AuthService {
     };
     return _dio.post('api/mobile/v2/auth/login', data: body);
   }
+
+  ///
+  /// Reset Password
+  ///
 
   Future<Response> requestResetOtpCode({required String phone}) {
     final body = {RestQueryKeys.phoneNumber: phone};
@@ -162,12 +148,16 @@ class AuthService {
     return _dio.put('api/mobile/v1/auth/user/change_password', data: body);
   }
 
-  Future<Response> loginValidate({required String accessCode}) {
+  ///
+  /// One Id login
+  ///
+
+  Future<Response> oneIdValidate({required String accessCode}) {
     final body = {RestQueryKeys.accessToken: accessCode};
     return _dio.post("api/mobile/v1/auth/one_id/login-validate", data: body);
   }
 
-  Future<Response> loginWithOneId({required String accessCode}) {
+  Future<Response> oneIdLogin({required String accessCode}) {
     final body = {RestQueryKeys.accessToken: accessCode};
     return _dio.post("api/mobile/v1/auth/one_id/login", data: body);
   }
