@@ -19,7 +19,7 @@ class FavoriteProductsPage extends BasePage<FavoriteProductsCubit, FavoriteProdu
 
   @override
   void onWidgetCreated(BuildContext context) {
-    cubit(context).getController();
+    cubit(context).initController();
   }
 
   @override

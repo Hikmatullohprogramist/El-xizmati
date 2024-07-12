@@ -78,7 +78,7 @@ extension GetItModuleApp on GetIt {
     registerFactory(() => LoginCubit(get(), get()));
     registerFactory(() => OneIdCubit(get(), get()));
     registerFactory(() => ResetPasswordCubit(get()));
-    registerFactory(() => AuthStartCubit(get()));
+    registerFactory(() => AuthStartCubit(get(), get()));
     registerFactory(() => RegistrationCubit(get()));
 
     // common
@@ -89,7 +89,7 @@ extension GetItModuleApp on GetIt {
     registerFactory(() => FavoriteProductsCubit(get()));
     registerFactory(() => FavoriteServicesCubit(get()));
     registerFactory(() => SetLanguageCubit(get()));
-    registerFactory(() => NotificationListCubit());
+    registerFactory(() => NotificationListCubit(get()));
     registerFactory(() => PaymentTypeSelectionCubit(get()));
     registerFactory(() => PopularCategoriesCubit(get()));
     registerFactory(() => RegionSelectionCubit(get()));
@@ -120,9 +120,9 @@ extension GetItModuleApp on GetIt {
     // profile
     registerFactory(() => BillingTransactionsCubit(get()));
     registerFactory(() => BillingTransactionFilterCubit(get()));
-    registerFactory(() => IdentityVerificationCubit(get()));
-    registerFactory(() => ProfileEditCubit(get()));
-    registerFactory(() => ProfileViewCubit(get(), get()));
+    registerFactory(() => IdentityVerificationCubit(get(), get(), get()));
+    registerFactory(() => ProfileEditCubit(get(), get()));
+    registerFactory(() => ProfileViewCubit(get(), get(), get()));
     registerFactory(() => UserActiveSessionsCubit(get()));
     registerFactory(() => UserAddressesCubit(get()));
     registerFactory(() => UserAdsCubit());

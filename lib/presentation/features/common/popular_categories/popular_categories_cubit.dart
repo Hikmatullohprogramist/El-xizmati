@@ -15,19 +15,17 @@ class PopularCategoriesCubit
     extends BaseCubit<PopularCategoriesState, PopularCategoriesEvent> {
   PopularCategoriesCubit(this._commonRepository)
       : super(const PopularCategoriesState()) {
-    getController();
+    initController();
   }
 
   final CommonRepository _commonRepository;
 
-  Future<void> getController() async {
-    final controller = states.controller ?? getPagingController(status: 1);
+  Future<void> initController() async {
+    final controller = states.controller ?? getController(status: 1);
     updateState((state) => state.copyWith(controller: controller));
   }
 
-  PagingController<int, PopularCategory> getPagingController({
-    required int status,
-  }) {
+  PagingController<int, PopularCategory> getController({required int status}) {
     final controller = PagingController<int, PopularCategory>(
       firstPageKey: 1,
     );

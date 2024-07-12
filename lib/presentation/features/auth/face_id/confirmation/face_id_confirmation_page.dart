@@ -314,7 +314,7 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit,
     final aspectRatio = screenWidth / screenHeight;
 
     return Container(
-      color: Colors.black,
+      color: context.backgroundWhiteColor,
       child: Transform.scale(
         // scale: _getImageZoom(context),
         scale: scale,

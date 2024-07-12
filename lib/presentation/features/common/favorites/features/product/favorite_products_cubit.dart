@@ -1,14 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
+import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
+import 'package:onlinebozor/domain/models/ad/ad_list_type.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
-
-import '../../../../../../core/enum/enums.dart';
-import '../../../../../../domain/models/ad/ad_list_type.dart';
 
 part 'favorite_products_cubit.freezed.dart';
 part 'favorite_products_state.dart';
@@ -18,17 +17,17 @@ class FavoriteProductsCubit
     extends BaseCubit<FavoriteProductsState, FavoriteProductsEvent> {
   FavoriteProductsCubit(this._favoriteRepository)
       : super(const FavoriteProductsState()) {
-    getController();
+    initController();
   }
 
   final FavoriteRepository _favoriteRepository;
 
-  Future<void> getController() async {
-    final controller = states.controller ?? getAdsController(status: 1);
+  Future<void> initController() async {
+    final controller = states.controller ?? getController(status: 1);
     updateState((state) => state.copyWith(controller: controller));
   }
 
-  PagingController<int, Ad> getAdsController({required int status}) {
+  PagingController<int, Ad> getController({required int status}) {
     final controller = PagingController<int, Ad>(
         firstPageKey: 1, invisibleItemsThreshold: 100);
     logger.i(states.controller);

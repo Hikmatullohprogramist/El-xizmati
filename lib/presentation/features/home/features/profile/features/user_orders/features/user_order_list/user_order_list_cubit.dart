@@ -19,7 +19,7 @@ class UserOrderListCubit
   final UserOrderRepository userOrderRepository;
 
   UserOrderListCubit(this.userOrderRepository) : super(UserOrderListState()) {
-    getController();
+    initController();
   }
 
   void setInitialParams(OrderType orderType, UserOrderStatus status) {
@@ -29,9 +29,9 @@ class UserOrderListCubit
         ));
   }
 
-  Future<void> getController() async {
+  Future<void> initController() async {
     try {
-      final controller = states.controller ?? getOrderController(status: 1);
+      final controller = states.controller ?? getController(status: 1);
       updateState((state) => states.copyWith(controller: controller));
     } catch (e, stackTrace) {
       logger.e(e.toString(), error: e, stackTrace: stackTrace);
@@ -42,7 +42,7 @@ class UserOrderListCubit
     }
   }
 
-  PagingController<int, UserOrder> getOrderController({required int status}) {
+  PagingController<int, UserOrder> getController({required int status}) {
     final controller = PagingController<int, UserOrder>(
       firstPageKey: 1,
       invisibleItemsThreshold: 100,

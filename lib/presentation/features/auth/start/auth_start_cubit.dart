@@ -34,32 +34,29 @@ class AuthStartCubit extends BaseCubit<AuthStartState, AuthStartEvent> {
 
   void validation() async {
     _authRepository
-        // .phoneVerification(states.phone.clearPhoneWithCode())
         .phoneCheck(states.phone.clearPhoneWithCode())
         .initFuture()
-        .onStart((){
-          updateState((state) => state.copyWith(loading: true));
-        })
-        .onSuccess((data){
-          if (data.data.is_registered == true) {
-            emitEvent(AuthStartEvent(AuthStartEventType.onOpenLogin, phone: states.phone));
-          } else {
-            emitEvent(AuthStartEvent(AuthStartEventType.onOpenRegister, phone: states.phone));
-          }
-        })
-        .onError((error){
-          stateMessageManager.showErrorSnackBar(error.localizedMessage);
-        })
-        .onFinished((){
-          updateState((state) => state.copyWith(loading: false));
-        })
-        .executeFuture();
+        .onStart(() {
+      updateState((state) => state.copyWith(loading: true));
+    }).onSuccess((data) {
+      if (data.data.is_registered == true) {
+        emitEvent(AuthStartEvent(AuthStartEventType.onOpenLogin,
+            phone: states.phone));
+      } else {
+        emitEvent(AuthStartEvent(AuthStartEventType.onOpenRegister,
+            phone: states.phone));
+      }
+    }).onError((error) {
+      stateMessageManager.showErrorSnackBar(error.localizedMessage);
+    }).onFinished(() {
+      updateState((state) => state.copyWith(loading: false));
+    }).executeFuture();
   }
 
   Future<EImzoModel?> edsAuth() async {
     // updateState((state) => state.copyWith(loading: true));
     try {
-      final result = await _authRepository.edsAuth();
+      final result = await _edsRepository.createDoc();
       return result;
     } catch (e) {
       emitEvent(AuthStartEvent(AuthStartEventType.onEdsLoginFailed));
@@ -74,8 +71,7 @@ class AuthStartCubit extends BaseCubit<AuthStartState, AuthStartEvent> {
     try {
       _timer = Timer.periodic(Duration(seconds: 3), (timer) async {
         if (_elapsedSeconds < 90) {
-          final result =
-              await _authRepository.edsCheckStatus(documentId, _timer);
+          final result = await _edsRepository.checkStatus(documentId, _timer);
           logger.e(result);
           if (result == 1) {
             edsSignIn(documentId);
@@ -94,7 +90,7 @@ class AuthStartCubit extends BaseCubit<AuthStartState, AuthStartEvent> {
     updateState((state) => state.copyWith(loading: true));
     try {
       logger.e(documentId);
-      await _authRepository.edsSignIn(documentId);
+      await _edsRepository.signIn(documentId);
       edsSignIn(documentId).whenComplete(() {
         emitEvent(AuthStartEvent(AuthStartEventType.onOpenHome));
       });

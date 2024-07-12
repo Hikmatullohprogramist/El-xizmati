@@ -4,11 +4,10 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
+import 'package:onlinebozor/domain/models/ad/ad.dart';
+import 'package:onlinebozor/domain/models/ad/ad_list_type.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
-
-import '../../../../../../domain/models/ad/ad.dart';
-import '../../../../../../domain/models/ad/ad_list_type.dart';
 
 part 'favorite_services_cubit.freezed.dart';
 part 'favorite_services_state.dart';
@@ -18,17 +17,17 @@ class FavoriteServicesCubit
     extends BaseCubit<FavoriteServicesState, FavoriteServicesEvent> {
   FavoriteServicesCubit(this._favoriteRepository)
       : super(const FavoriteServicesState()) {
-    getController();
+    initController();
   }
 
   final FavoriteRepository _favoriteRepository;
 
-  Future<void> getController() async {
-    final controller = states.controller ?? getAdsController(status: 1);
+  Future<void> initController() async {
+    final controller = states.controller ?? getController(status: 1);
     updateState((state) => state.copyWith(controller: controller));
   }
 
-  PagingController<int, Ad> getAdsController({
+  PagingController<int, Ad> getController({
     required int status,
   }) {
     final controller = PagingController<int, Ad>(

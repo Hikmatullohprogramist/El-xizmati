@@ -22,19 +22,19 @@ class UserAdListCubit extends BaseCubit<UserAdListState, UserAdListEvent> {
   void setInitialParams(UserAdStatus userAdStatus) {
     updateState((state) => state.copyWith(userAdStatus: userAdStatus));
 
-    getController();
+    initController();
   }
 
-  Future<void> getController() async {
+  Future<void> initController() async {
     try {
-      final controller = states.controller ?? getAdsController(status: 1);
+      final controller = states.controller ?? getController(status: 1);
       updateState((state) => state.copyWith(controller: controller));
     } catch (e, stackTrace) {
       logger.e(e.toString(), error: e, stackTrace: stackTrace);
     }
   }
 
-  PagingController<int, UserAd> getAdsController({required int status}) {
+  PagingController<int, UserAd> getController({required int status}) {
     final controller = PagingController<int, UserAd>(
       firstPageKey: 1,
       invisibleItemsThreshold: 100,

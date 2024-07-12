@@ -18,17 +18,15 @@ class UserActiveSessionsCubit
 
   UserActiveSessionsCubit(this._userRepository)
       : super(UserActiveSessionsState()) {
-    getController();
+    initController();
   }
 
-  Future<void> getController() async {
-    final controller = states.controller ?? getAdsController(status: 1);
+  Future<void> initController() async {
+    final controller = states.controller ?? getController(status: 1);
     updateState((state) => state.copyWith(controller: controller));
   }
 
-  PagingController<int, ActiveSession> getAdsController({
-    required int status,
-  }) {
+  PagingController<int, ActiveSession> getController({required int status}) {
     final controller = PagingController<int, ActiveSession>(
       firstPageKey: 1,
       invisibleItemsThreshold: 100,

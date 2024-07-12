@@ -167,6 +167,22 @@ class AuthStartPage
                 bottomLeftRadius: 8,
                 bottomRightRadius: 8,
                 topMargin: 6,
+                bottomMargin: 6,
+                child: CustomOutlinedButton(
+                  text: "Open SmartMarket App",
+                  onPressed: () {
+                    const deepLink = 'smartmarket://doc_sign_result?doc_id=123&sign_state=SIGNED';
+                    _tryLaunchAndroidApp(deepLink, "uz.smartmarket.buyer");
+                  },
+                  rightIcon: Assets.images.icActiveDevice.svg(),
+                ),
+              ),
+              ElevationWidget(
+                topLeftRadius: 8,
+                topRightRadius: 8,
+                bottomLeftRadius: 8,
+                bottomRightRadius: 8,
+                topMargin: 6,
                 bottomMargin: 20,
                 child: CustomOutlinedButton(
                   text: Strings.authStartLoginWithEImzo,
@@ -212,41 +228,44 @@ class AuthStartPage
     final edsSignDeepLink = 'eimzo://sign?qc=$qrCodeValue';
 
     if (Platform.isAndroid) {
-      _tryLaunchEdsInAndroid(edsSignDeepLink);
+      _tryLaunchAndroidApp(edsSignDeepLink, "uz.yt.idcard.eimzo");
       cubit(context).edsCheckStatus(documentId);
     } else {
-      _tryLaunchEdsIniOS(edsSignDeepLink);
+      _tryLaunchIosApp(edsSignDeepLink);
       cubit(context).edsCheckStatus(documentId);
     }
   }
 
-  void _tryLaunchEdsInAndroid(String edsSignDeepLink) async {
-    if (await canLaunchUrl(Uri.parse(edsSignDeepLink))) {
+  void _tryLaunchAndroidApp(
+    String deepLink,
+    String packageName,
+  ) async {
+    if (await canLaunchUrl(Uri.parse(deepLink))) {
       await launchUrl(
-        Uri.parse(edsSignDeepLink),
+        Uri.parse(deepLink),
         mode: LaunchMode.externalApplication,
       );
     } else {
       await LaunchApp.openApp(
-        androidPackageName: 'uz.yt.idcard.eimzo',
-        // openStore: false
+        androidPackageName: packageName,
+        openStore: true
       );
-      throw 'Ишга туширилмади $edsSignDeepLink';
+      throw 'Ишга туширилмади $deepLink';
     }
   }
 
-  void _tryLaunchEdsIniOS(String edsSignDeepLink) async {
-    if (await canLaunchUrl(Uri.parse(edsSignDeepLink))) {
-      await launchUrl(Uri.parse(edsSignDeepLink));
+  void _tryLaunchIosApp(String deepLink) async {
+    if (await canLaunchUrl(Uri.parse(deepLink))) {
+      await launchUrl(Uri.parse(deepLink));
       Timer(Duration(seconds: 3), () async {
-        await launchUrl(Uri.parse(edsSignDeepLink));
+        await launchUrl(Uri.parse(deepLink));
       });
     } else {
       await LaunchApp.openApp(
-        iosUrlScheme: edsSignDeepLink,
+        iosUrlScheme: deepLink,
         appStoreLink:
             'itms-apps://itunes.apple.com/us/app/e-imzo-id-карта/id1563416406',
-        // openStore: false
+        openStore: true
       );
     }
   }

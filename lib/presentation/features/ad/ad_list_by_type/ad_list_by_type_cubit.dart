@@ -47,7 +47,7 @@ class AdListByTypeCubit
     await Future.wait([
       getCheapAdsByType(),
       getPopularAdsByType(),
-      getController(),
+      initController(),
     ]);
   }
 
@@ -123,12 +123,12 @@ class AdListByTypeCubit
         .executeFuture();
   }
 
-  Future<void> getController() async {
-    final controller = states.controller ?? getAdsController(status: 1);
+  Future<void> initController() async {
+    final controller = states.controller ?? getController(status: 1);
     updateState((state) => state.copyWith(controller: controller));
   }
 
-  PagingController<int, Ad> getAdsController({
+  PagingController<int, Ad> getController({
     required int status,
   }) {
     final controller = PagingController<int, Ad>(
