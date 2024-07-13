@@ -313,15 +313,32 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit,
     final scale = 1.0; //screenHeight / screenWidth;
     final aspectRatio = screenWidth / screenHeight;
 
+    final double previewWidth = screenWidth * 0.75;
+    final double previewHeight = screenHeight * 0.45;
+
     return Container(
       color: context.backgroundWhiteColor,
-      child: Transform.scale(
-        // scale: _getImageZoom(context),
-        scale: scale,
-        child: Center(
-          child: AspectRatio(
-            aspectRatio: aspectRatio, //cameraController.value.aspectRatio,
-            child: CameraPreview(cameraController),
+      // child: Transform.scale(
+      //   // scale: _getImageZoom(context),
+      //   scale: scale,
+      //   child: Center(
+      //     child: AspectRatio(
+      //       aspectRatio: aspectRatio, //cameraController.value.aspectRatio,
+      //       child: CameraPreview(cameraController),
+      //     ),
+      //   ),
+      // ),
+      child: Center(
+        child: Positioned.fill(
+          child: FittedBox(
+            fit: BoxFit.contain,
+            child: SizedBox(
+              width: previewWidth,
+              //310, //cameraController.value.previewSize!.height,
+              height: previewHeight,
+              //375, //cameraController.value.previewSize!.width,
+              child: CameraPreview(cameraController),
+            ),
           ),
         ),
       ),
@@ -367,7 +384,6 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit,
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-        // Expanded(child: SizedBox()),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Center(
@@ -389,7 +405,6 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit,
                 .copyWith(textAlign: TextAlign.center),
           ),
         ),
-        // Expanded(child: SizedBox()),
       ],
     );
   }
@@ -503,17 +518,24 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit,
     List<int> compressedBytes = await FlutterImageCompress.compressWithList(
       takenPhoto,
       quality: 80,
-      minHeight: 400,
-      minWidth: 300,
+      // minHeight: 400,
+      // minWidth: 300,
     );
     String compressedBase64 = base64.encode(compressedBytes);
+
     final Uint8List imageBytesLast = base64Decode(compressedBase64);
-    final img.Image? image = img.decodeImage(imageBytesLast);
+    final img.Image? decodedImage = img.decodeImage(imageBytesLast);
     final img.Image croppedImage =
-        img.copyResize(image!, width: 300, height: 400);
-    String base64StringSecond = base64Encode(
-        Uint8List.fromList(img.encodeJpg(croppedImage, quality: 80)));
-    return base64StringSecond;
+        img.copyResize(decodedImage!, width: 300, height: 400);
+    // img.copyResize(decodedImage!);
+
+    // return base64Encode(
+    //   Uint8List.fromList(img.encodeJpg(croppedImage, quality: 80)),
+    // );
+
+    return base64Encode(
+      Uint8List.fromList(img.encodeJpg(decodedImage, quality: 80)),
+    );
   }
 }
 
