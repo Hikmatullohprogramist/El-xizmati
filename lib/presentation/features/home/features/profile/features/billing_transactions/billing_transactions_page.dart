@@ -9,7 +9,7 @@ import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
 import 'package:onlinebozor/domain/models/billing/billing_transaction.dart';
-import 'package:onlinebozor/presentation/router/app_router.dart';
+import 'package:onlinebozor/domain/models/billing/billing_transaction_action.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
@@ -18,7 +18,6 @@ import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/billing/billing_transaction_empty_widget.dart';
 import 'package:onlinebozor/presentation/widgets/billing/billing_transaction_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/billing/billing_transaction_widget.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
 import 'package:onlinebozor/presentation/widgets/elevation/elevation_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
@@ -118,7 +117,9 @@ class BillingTransactionsPage extends BasePage<BillingTransactionsCubit,
             bottomMargin: 6,
             child: BillingTransactionWidget(
               transaction: item,
-              onClicked: () {},
+              onClicked: () {
+                // showTransactionDetailBottomSheet(context, item);
+              },
             ),
           );
         },
@@ -132,127 +133,131 @@ class BillingTransactionsPage extends BasePage<BillingTransactionsCubit,
   ) async {
     await showCupertinoModalBottomSheet(
       context: context,
-      builder: (context) => Container(
-        height: 300,
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10.0),
-            // Adjust the radius as needed
-            topRight: Radius.circular(10.0), // Adjust the radius as needed
+      builder: (context) => Material(
+        child: Container(
+          height: 300,
+          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10.0),
+              topRight: Radius.circular(10.0),
+            ),
           ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: 48,
-                  width: 48,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      if (transaction.transactionAction == "REALPAY")
-                        Assets.images.realPay.svg()
-                      else
-                        CachedNetworkImage(
-                          imageUrl: Constants.baseUrlForImage,
-                          imageBuilder: (context, imageProvider) => Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6),
-                              image: DecorationImage(
-                                  image: imageProvider,
-                                  fit: BoxFit.cover,
-                                  colorFilter: ColorFilter.mode(
-                                      Colors.white, BlendMode.colorBurn)),
-                            ),
-                          ),
-                          placeholder: (context, url) => Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                          ),
-                          errorWidget: (context, url, error) => Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6)),
-                            child: Center(child: Icon(Icons.error)),
-                          ),
-                        )
-                    ],
-                  ),
-                ),
-                SizedBox(width: 16),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 48,
+                    width: 48,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Stack(
+                      alignment: Alignment.center,
                       children: [
-                        NumberFormat('#,###')
-                            .format(double.parse(transaction.amount.toString()))
-                            .w(700)
-                            .s(16)
-                            .c(context.textPrimary),
-                        SizedBox(
-                          width: 7,
-                        ),
-                        "UZS".w(700).s(16).c(context.textPrimary),
+                        if (transaction.transactionAction ==
+                            BillingTransactionAction.realpay)
+                          Assets.images.realPay.svg()
+                        else
+                          CachedNetworkImage(
+                            imageUrl: Constants.baseUrlForImage,
+                            imageBuilder: (context, imageProvider) => Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6),
+                                image: DecorationImage(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
+                                    colorFilter: ColorFilter.mode(
+                                        Colors.white, BlendMode.colorBurn)),
+                              ),
+                            ),
+                            placeholder: (context, url) => Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                            ),
+                            errorWidget: (context, url, error) => Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6)),
+                              child: Center(child: Icon(Icons.error)),
+                            ),
+                          )
                       ],
                     ),
-                    SizedBox(height: 6),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
+                  ),
+                  SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          NumberFormat('#,###')
+                              .format(
+                                  double.parse(transaction.amount.toString()))
+                              .w(700)
+                              .s(16)
+                              .c(context.textPrimary),
+                          SizedBox(
+                            width: 7,
+                          ),
+                          "UZS".w(700).s(16).c(context.textPrimary),
+                        ],
                       ),
-                      child: transaction.payStatus
-                          .w(500)
-                          .s(14)
-                          .c(Color(0xFF32B88B)),
-                    )
-                  ],
-                ),
-                Spacer(),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Assets.images.icClose.svg(),
-                    )
-                  ],
-                ),
-              ],
-            ),
-            SizedBox(height: 7),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: CustomDivider(height: 1),
-            ),
-            SizedBox(height: 7),
-            "Transaction data".w(500).s(12).c(context.textPrimary),
-            SizedBox(height: 5),
-            transaction.payDate.w(500).s(16).c(context.textPrimary),
-            SizedBox(height: 10),
-            "Payment type".w(500).s(12).c(context.textPrimary),
-            SizedBox(height: 2),
-            transaction.balanceState.name.w(500).s(15).c(context.textPrimary),
-            SizedBox(
-              height: 12,
-            ),
-            "Node".w(500).s(12).c(context.textPrimary),
-            (transaction.note ?? "***").w(500).s(16).c(context.textPrimary),
-          ],
+                      SizedBox(height: 6),
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: transaction.payStatus
+                            .w(500)
+                            .s(14)
+                            .c(Color(0xFF32B88B)),
+                      )
+                    ],
+                  ),
+                  Spacer(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Assets.images.icClose.svg(),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: 7),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: CustomDivider(height: 1),
+              ),
+              SizedBox(height: 7),
+              "Transaction data".w(500).s(12).c(context.textPrimary),
+              SizedBox(height: 5),
+              transaction.payDate.w(500).s(16).c(context.textPrimary),
+              SizedBox(height: 10),
+              "Payment type".w(500).s(12).c(context.textPrimary),
+              SizedBox(height: 2),
+              transaction.balanceState.name.w(500).s(15).c(context.textPrimary),
+              SizedBox(
+                height: 12,
+              ),
+              "Node".w(500).s(12).c(context.textPrimary),
+              (transaction.note ?? "***").w(500).s(16).c(context.textPrimary),
+            ],
+          ),
         ),
       ),
     );

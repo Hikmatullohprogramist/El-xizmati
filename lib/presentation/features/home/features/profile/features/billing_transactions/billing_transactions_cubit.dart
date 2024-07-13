@@ -14,10 +14,10 @@ part 'billing_transactions_state.dart';
 @injectable
 class BillingTransactionsCubit
     extends BaseCubit<BillingTransactionsState, BillingTransactionsEvent> {
-  final BillingRepository _paymentRepository;
+  final BillingRepository _billingRepository;
 
   BillingTransactionsCubit(
-    this._paymentRepository,
+    this._billingRepository,
   ) : super(BillingTransactionsState()) {
     initController();
   }
@@ -38,7 +38,7 @@ class BillingTransactionsCubit
 
     controller.addPageRequestListener(
       (pageKey) async {
-        _paymentRepository
+        _billingRepository
             .getPaymentTransactions(
               limit: 20,
               page: pageKey,
