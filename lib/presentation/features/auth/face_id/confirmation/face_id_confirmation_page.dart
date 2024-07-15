@@ -162,7 +162,7 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit,
                         child: Strings.faceIdIntroFaceBlock
                             .w(400)
                             .s(15)
-                            .copyWith(maxLines: 2, textAlign: TextAlign.start),
+                            .copyWith(textAlign: TextAlign.start),
                       ),
                       SizedBox(width: 8),
                     ],
@@ -418,7 +418,7 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit,
       left: 16,
       right: 16,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: CustomElevatedButton(
           text: Strings.commonTakePhoto,
           onPressed: () {
@@ -518,8 +518,8 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit,
     List<int> compressedBytes = await FlutterImageCompress.compressWithList(
       takenPhoto,
       quality: 80,
-      // minHeight: 400,
-      // minWidth: 300,
+      minWidth: 300,
+      minHeight: 400,
     );
     String compressedBase64 = base64.encode(compressedBytes);
 
@@ -527,15 +527,14 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit,
     final img.Image? decodedImage = img.decodeImage(imageBytesLast);
     final img.Image croppedImage =
         img.copyResize(decodedImage!, width: 300, height: 400);
-    // img.copyResize(decodedImage!);
-
-    // return base64Encode(
-    //   Uint8List.fromList(img.encodeJpg(croppedImage, quality: 80)),
-    // );
 
     return base64Encode(
-      Uint8List.fromList(img.encodeJpg(decodedImage, quality: 80)),
+      Uint8List.fromList(img.encodeJpg(croppedImage, quality: 100)),
     );
+
+    // return base64Encode(
+    //   Uint8List.fromList(img.encodeJpg(decodedImage, quality: 80)),
+    // );
   }
 }
 

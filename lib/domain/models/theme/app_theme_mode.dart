@@ -19,7 +19,7 @@ enum AppThemeMode {
   static AppThemeMode valueOrDefault(String? languageName) {
     return AppThemeMode.values.firstWhere(
       (e) => e.name.toUpperCase() == languageName?.toUpperCase(),
-      orElse: () => AppThemeMode.followSystem,
+      orElse: () => AppThemeMode.lightMode,
     );
   }
 

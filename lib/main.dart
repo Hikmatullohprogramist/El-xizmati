@@ -6,7 +6,6 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization_loader/easy_localization_loader.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
@@ -14,7 +13,6 @@ import 'package:onlinebozor/presentation/application/di/get_it_injection.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:uuid/uuid.dart';
 
-import 'data/repositories/state_repository.dart';
 import 'presentation/application/application.dart';
 
 Future<void> main() async {
@@ -37,25 +35,15 @@ Future<void> main() async {
 
     await _getDeviceAndAppInfo();
 
-    var stateRepository = GetIt.instance<StateRepository>();
-    var isLanguageSelected = stateRepository.isLanguageSelected();
-    var isAuthorized = stateRepository.isAuthorized();
     runApp(
       EasyLocalization(
         supportedLocales: Strings.supportedLocales,
         path: Assets.localization.translations,
         fallbackLocale: Strings.supportedLocales.first,
         assetLoader: CsvAssetLoader(),
-        child: Application(
-          isLanguageSelected: isLanguageSelected,
-          isAuthorized: isAuthorized,
-        ),
+        child: Application(),
       ),
     );
-    // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    //   systemNavigationBarColor: Colors.white,
-    //   statusBarColor: Colors.white,
-    // ));
   }, (error, stackTrace) {
     // FirebaseCrashlytics.instance.recordError(error, stackTrace);
   });

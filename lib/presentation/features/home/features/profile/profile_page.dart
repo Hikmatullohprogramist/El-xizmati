@@ -7,6 +7,7 @@ import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/language/language.dart';
 import 'package:onlinebozor/domain/models/order/order_type.dart';
+import 'package:onlinebozor/domain/models/theme/app_theme_mode.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
@@ -226,16 +227,13 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
             bottomRadius: 16,
             onClicked: () => _showChangeLanguageBottomSheet(context, state),
           ),
-          Visibility(visible: false, child: Divider(indent: 46, height: 1)),
-          Visibility(
-            visible: false,
-            child: ProfileItemWidget(
-              name: Strings.profileDarkMode,
-              icon: Assets.images.icProfileDarkMode,
-              topRadius: 16,
-              bottomRadius: 16,
-              onClicked: () => _showChangeLanguageBottomSheet(context, state),
-            ),
+          Divider(indent: 46, height: 1),
+          ProfileItemWidget(
+            name: Strings.profileDarkMode,
+            icon: Assets.images.icProfileDarkMode,
+            topRadius: 16,
+            bottomRadius: 16,
+            onClicked: () => _showThemeModeBottomSheet(context, state),
           ),
         ],
       ),
@@ -321,59 +319,109 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
       backgroundColor: Colors.transparent,
       builder: (BuildContext bc) {
         return Material(
-          child: Container(
-            decoration: BoxDecoration(
-              // color: context.bottomSheetColor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              SizedBox(height: 12),
+              BottomSheetTitle(
+                title: Strings.languageSetTitle,
+                onCloseClicked: () {
+                  context.router.pop();
+                },
               ),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                SizedBox(height: 12),
-                BottomSheetTitle(
-                  title: Strings.languageSetTitle,
-                  onCloseClicked: () {
-                    context.router.pop();
-                  },
-                ),
-                SizedBox(height: 16),
-                SelectionListItem(
-                  item: Language.uzbekLatin,
-                  title: Strings.languageUzLat,
-                  isSelected: state.language == Language.uzbekLatin,
-                  onClicked: (item) {
-                    _saveSelectedLanguage(context, item);
-                    context.router.pop();
-                  },
-                ),
-                CustomDivider(height: 2, startIndent: 20, endIndent: 20),
-                SelectionListItem(
-                  item: Language.uzbekCyrill,
-                  title: Strings.languageUzCyr,
-                  isSelected: state.language == Language.uzbekCyrill,
-                  onClicked: (item) {
-                    _saveSelectedLanguage(context, item);
-                    context.router.pop();
-                  },
-                ),
-                CustomDivider(height: 2, startIndent: 20, endIndent: 20),
-                SelectionListItem(
-                  item: Language.russian,
-                  title: Strings.languageRus,
-                  isSelected: state.language == Language.russian,
-                  onClicked: (item) {
-                    _saveSelectedLanguage(context, item);
-                    context.router.pop();
-                  },
-                ),
-                SizedBox(height: 32)
-              ],
-            ),
+              SizedBox(height: 16),
+              SelectionListItem(
+                item: Language.uzbekLatin,
+                title: Strings.languageUzLat,
+                isSelected: state.language == Language.uzbekLatin,
+                onClicked: (item) {
+                  _saveSelectedLanguage(context, item);
+                  context.router.pop();
+                },
+              ),
+              CustomDivider(height: 2, startIndent: 20, endIndent: 20),
+              SelectionListItem(
+                item: Language.uzbekCyrill,
+                title: Strings.languageUzCyr,
+                isSelected: state.language == Language.uzbekCyrill,
+                onClicked: (item) {
+                  _saveSelectedLanguage(context, item);
+                  context.router.pop();
+                },
+              ),
+              CustomDivider(height: 2, startIndent: 20, endIndent: 20),
+              SelectionListItem(
+                item: Language.russian,
+                title: Strings.languageRus,
+                isSelected: state.language == Language.russian,
+                onClicked: (item) {
+                  _saveSelectedLanguage(context, item);
+                  context.router.pop();
+                },
+              ),
+              SizedBox(height: 32)
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _showThemeModeBottomSheet(
+    BuildContext context,
+    ProfileState state,
+  ) {
+    showCupertinoModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext bc) {
+        return Material(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              SizedBox(height: 12),
+              BottomSheetTitle(
+                title: Strings.profileDarkMode,
+                onCloseClicked: () {
+                  context.router.pop();
+                },
+              ),
+              SizedBox(height: 16),
+              SelectionListItem(
+                item: AppThemeMode.darkMode,
+                title: Strings.themeModeDarkMode,
+                isSelected: state.appThemeMode == AppThemeMode.darkMode,
+                onClicked: (item) {
+                  cubit(context).setSelectedThemeMode(item);
+                  context.router.pop();
+                },
+              ),
+              CustomDivider(height: 2, startIndent: 20, endIndent: 20),
+              SelectionListItem(
+                item: AppThemeMode.lightMode,
+                title: Strings.themeModeLightMode,
+                isSelected: state.appThemeMode == AppThemeMode.lightMode,
+                onClicked: (item) {
+                  cubit(context).setSelectedThemeMode(item);
+                  context.router.pop();
+                },
+              ),
+              CustomDivider(height: 2, startIndent: 20, endIndent: 20),
+              SelectionListItem(
+                item: AppThemeMode.followSystem,
+                title: Strings.themeModeSystem,
+                isSelected: state.appThemeMode == AppThemeMode.followSystem,
+                onClicked: (item) {
+                  cubit(context).setSelectedThemeMode(item);
+                  context.router.pop();
+                },
+              ),
+              SizedBox(height: 32)
+            ],
           ),
         );
       },
@@ -400,6 +448,6 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
 
     EasyLocalization.of(context)?.setLocale(locale);
 
-    cubit(context).selectLanguage(language, name);
+    cubit(context).setSelectedLanguage(language, name);
   }
 }

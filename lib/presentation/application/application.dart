@@ -1,30 +1,61 @@
+import 'dart:async';
+
+import 'package:auto_route/auto_route.dart';
 import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/data/datasource/preference/language_preferences.dart';
+import 'package:onlinebozor/data/datasource/preference/theme_mode_preferences.dart';
+import 'package:onlinebozor/domain/models/theme/app_theme_mode.dart';
 import 'package:onlinebozor/presentation/application/di/get_it_injection.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
+import 'package:onlinebozor/presentation/stream_controllers/app_theme_mode_stream_controller.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/state_message/state_message.dart';
 import 'package:onlinebozor/presentation/support/state_message/state_message_manager.dart';
 import 'package:onlinebozor/presentation/support/state_message/state_snack_bar_exts.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 
-class Application extends StatelessWidget {
-  Application({
+class Application extends StatefulWidget {
+  const Application({
     super.key,
-    required this.isLanguageSelected,
-    required this.isAuthorized,
   });
 
-  final bool isLanguageSelected;
-  final bool isAuthorized;
+  @override
+  _ApplicationState createState() => _ApplicationState();
+}
+
+class _ApplicationState extends State<Application> {
+  final AppThemeModeStreamController appThemeModeStreamController = getIt.get();
+
+  final ThemeModePreferences _themeModePreferences = getIt.get();
+  final LanguagePreferences _languagePreferences = getIt.get();
+
+  late ThemeMode _themeMode;
+  StreamSubscription<AppThemeMode>? _themeSubscription;
 
   final _appRouter = AppRouter();
+
+  @override
+  void initState() {
+    super.initState();
+    _themeMode = _themeModePreferences.appThemeMode.themeMode;
+    _themeSubscription = appThemeModeStreamController.listen((event) {
+      setState(() {
+        _themeMode = event.themeMode;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _themeSubscription?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +65,6 @@ class Application extends StatelessWidget {
       systemNavigationBarColor: isDarkMode ? Colors.white : context.appBarColor,
       statusBarIconBrightness: isDarkMode ? Brightness.dark : Brightness.light,
     ));
-    ThemeMode themeMode = ThemeMode.system;
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -53,11 +83,13 @@ class Application extends StatelessWidget {
               brightness: Brightness.dark,
               colorScheme: _getDarkModeColorScheme(),
             ),
-            themeMode: themeMode,
+            themeMode: _themeMode,
             routerConfig: _appRouter.config(
-              initialRoutes: [
-                if (isLanguageSelected) HomeRoute() else SetLanguageRoute()
-              ],
+              deepLinkBuilder: (_) => DeepLink(
+                !_languagePreferences.isLanguageSelected
+                    ? [HomeRoute()]
+                    : [SetLanguageRoute()],
+              ),
               navigatorObservers: () => [ChuckerFlutter.navigatorObserver],
             ),
             localizationsDelegates: context.localizationDelegates,
@@ -188,10 +220,10 @@ class Application extends StatelessWidget {
                 Center(child: message.titleOrDefault.s(22).w(600)),
                 SizedBox(height: 14),
                 message.message.s(16).w(500).copyWith(
-                  maxLines: 5,
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                ),
+                      maxLines: 5,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                 SizedBox(height: 32),
                 CustomElevatedButton(
                   text: Strings.closeTitle,
