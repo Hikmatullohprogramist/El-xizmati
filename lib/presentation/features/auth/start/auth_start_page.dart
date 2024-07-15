@@ -5,6 +5,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:external_app_launcher/external_app_launcher.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/presentation/features/auth/eds_request/crc32.dart';
@@ -118,7 +119,16 @@ class AuthStartPage
                         fontWeight: FontWeight.w400,
                       ),
                       recognizer: TapGestureRecognizer()
-                        ..onTap = _handleTextClick,
+                        ..onTap = () async {
+                          try {
+                            var url = Uri.parse(
+                              "https://online-bozor.uz/uz/page/privacy",
+                            );
+                            await launchUrl(url);
+                          } catch (error) {
+                            Logger().w("privacy policy launch error = $error");
+                          }
+                        },
                     ),
                     TextSpan(text: " "),
                     TextSpan(
@@ -148,17 +158,20 @@ class AuthStartPage
                   rightIcon: Assets.images.icFaceId.svg(),
                 ),
               ),
-              ElevationWidget(
-                topLeftRadius: 8,
-                topRightRadius: 8,
-                bottomLeftRadius: 8,
-                bottomRightRadius: 8,
-                topMargin: 6,
-                bottomMargin: 6,
-                child: CustomOutlinedButton(
-                  text: Strings.authStartLoginWithOneId,
-                  onPressed: () => context.router.push(OneIdRoute()),
-                  rightIcon: Assets.images.icOneId.svg(),
+              Visibility(
+                visible: false,
+                child: ElevationWidget(
+                  topLeftRadius: 8,
+                  topRightRadius: 8,
+                  bottomLeftRadius: 8,
+                  bottomRightRadius: 8,
+                  topMargin: 6,
+                  bottomMargin: 6,
+                  child: CustomOutlinedButton(
+                    text: Strings.authStartLoginWithOneId,
+                    onPressed: () => context.router.push(OneIdRoute()),
+                    rightIcon: Assets.images.icOneId.svg(),
+                  ),
                 ),
               ),
               ElevationWidget(
@@ -189,13 +202,6 @@ class AuthStartPage
         ),
       ),
     );
-  }
-
-  void _handleTextClick() async {
-    try {
-      var url = Uri.parse("https://online-bozor.uz/uz/page/privacy");
-      await launchUrl(url);
-    } catch (error) {}
   }
 
   void _generateEdsQrCode(

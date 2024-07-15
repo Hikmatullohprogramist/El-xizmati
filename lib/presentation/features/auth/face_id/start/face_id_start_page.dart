@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
@@ -12,6 +14,7 @@ import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_field.dart';
 import 'package:onlinebozor/presentation/widgets/switch/custom_toggle.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'face_id_start_cubit.dart';
 
@@ -75,7 +78,7 @@ class FaceIdStartPage
               : _buildBioDocFields(context, state),
           // Expanded(child: Container()),
           Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
             child: CustomElevatedButton(
               text: Strings.commonContinue,
               onPressed: () {
@@ -90,6 +93,54 @@ class FaceIdStartPage
               isLoading: state.isRequestInProcess,
             ),
           ),
+          SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+            child: RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: Strings.authPricePoliceStart,
+                    style: TextStyle(
+                      color: context.textPrimary,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  TextSpan(text: " "),
+                  TextSpan(
+                    text: Strings.authPricePoliceAction,
+                    style: TextStyle(
+                      color: Color(0xFF5C6AC4),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () async {
+                        try {
+                          var url = Uri.parse(
+                            "https://online-bozor.uz/uz/page/privacy",
+                          );
+                          await launchUrl(url);
+                        } catch (error) {
+                          Logger().w("privacy policy launch error = $error");
+                        }
+                      },
+                  ),
+                  TextSpan(text: " "),
+                  TextSpan(
+                    text: Strings.authPricePoliceEnd,
+                    style: TextStyle(
+                      color: context.textPrimary,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 20),
         ],
       ),
     );

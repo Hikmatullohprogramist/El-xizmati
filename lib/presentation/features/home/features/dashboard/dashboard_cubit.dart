@@ -20,6 +20,11 @@ part 'dashboard_state.dart';
 
 @injectable
 class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
+  final AdRepository _adRepository;
+  final CartRepository _cartRepository;
+  final CommonRepository _commonRepository;
+  final FavoriteRepository _favoriteRepository;
+
   DashboardCubit(
     this._adRepository,
     this._cartRepository,
@@ -28,11 +33,6 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
   ) : super(DashboardState()) {
     _getInitialData();
   }
-
-  final AdRepository _adRepository;
-  final CartRepository _cartRepository;
-  final CommonRepository _commonRepository;
-  final FavoriteRepository _favoriteRepository;
 
   StreamSubscription? _productAdsSubs;
   StreamSubscription? _recentlyAdsSubs;

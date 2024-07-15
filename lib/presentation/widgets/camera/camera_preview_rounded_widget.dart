@@ -40,8 +40,8 @@ class CameraPreviewRoundedPainter extends CustomPainter {
         Path.combine(PathOperation.difference, outerPath, rectPath);
 
     final paint = Paint()
-      // ..color = backgroundColor
-      ..color = Colors.transparent
+      ..color = backgroundColor
+      // ..color = Colors.transparent
       ..style = PaintingStyle.fill;
 
     final borderPaint = Paint()

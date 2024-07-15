@@ -35,9 +35,10 @@ class AdRepository {
 
   Future<List<Ad>> _readAdsBySaving(List<AdResponse> ads) async {
     await _adEntityDao.upsertAds(ads.map((e) => e.toAdEntity()).toList());
+
     final ids = ads.map((e) => e.id).toList();
-    Logger().w("_getAsCombined ids = $ids");
     final entities = await _adEntityDao.readAdsByIds(ids);
+
     return entities.map((e) => e.toAd()).toList(growable: true)..sortByIds(ids);
   }
 

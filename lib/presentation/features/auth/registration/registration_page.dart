@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:logger/logger.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/otp/otp_confirm_type.dart';
@@ -19,6 +21,7 @@ import 'package:onlinebozor/presentation/widgets/form_field/validator/doc_number
 import 'package:onlinebozor/presentation/widgets/form_field/validator/doc_series_validator.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/validator/password_confirm_validator.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/validator/password_validator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'registration_cubit.dart';
 
@@ -234,6 +237,50 @@ class RegistrationPage
                       }
                     },
                     isLoading: state.isLoading,
+                  ),
+                  SizedBox(height: 16),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: Strings.authPricePoliceStart,
+                          style: TextStyle(
+                            color: context.textPrimary,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        TextSpan(text: " "),
+                        TextSpan(
+                          text: Strings.authPricePoliceAction,
+                          style: TextStyle(
+                            color: Color(0xFF5C6AC4),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () async {
+                              try {
+                                var url = Uri.parse(
+                                  "https://online-bozor.uz/uz/page/privacy",
+                                );
+                                await launchUrl(url);
+                              } catch (error) {
+                                Logger().w("privacy policy launch error = $error");
+                              }
+                            },
+                        ),
+                        TextSpan(text: " "),
+                        TextSpan(
+                          text: Strings.authPricePoliceEnd,
+                          style: TextStyle(
+                            color: context.textPrimary,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(height: 20),
                 ],
