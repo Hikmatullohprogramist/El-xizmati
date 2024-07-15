@@ -3,7 +3,7 @@ import 'package:onlinebozor/data/datasource/network/responses/auth/login/login_r
 import 'package:onlinebozor/data/datasource/preference/preferences_extensions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-@lazySingleton
+// @lazySingleton
 class UserPreferences {
   UserPreferences(this._preferences);
 

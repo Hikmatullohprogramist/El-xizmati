@@ -115,7 +115,9 @@ extension GetItModuleApp on GetIt {
     registerFactory(() => SubCategoryCubit());
     registerFactory(() => AdCreationChooserCubit(get()));
     registerFactory(() => DashboardCubit(get(), get(), get(), get()));
-    registerFactory(() => ProfileCubit(get(), get(), get(), get()));
+    registerFactory(
+      () => ProfileCubit(get(), get(), get(), get(), get(), get()),
+    );
 
     // profile
     registerFactory(() => BillingTransactionsCubit(get()));

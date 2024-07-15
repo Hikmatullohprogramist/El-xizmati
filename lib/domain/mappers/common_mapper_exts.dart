@@ -1,6 +1,5 @@
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
 import 'package:onlinebozor/domain/models/category/category_type.dart';
-import 'package:onlinebozor/domain/models/language/language.dart';
 import 'package:onlinebozor/domain/models/order/user_order_status.dart';
 
 import '../models/ad/ad_author_type.dart';
@@ -60,13 +59,6 @@ extension StringMapperExts on String? {
             return CurrencyCode.uzs;
         }
       },
-    );
-  }
-
-  Language toLanguage() {
-    return Language.values.firstWhere(
-      (e) => e.name.toUpperCase() == this?.toUpperCase(),
-      orElse: () => Language.uzbekLatin,
     );
   }
 

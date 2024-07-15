@@ -15,6 +15,7 @@ import 'package:onlinebozor/data/repositories/notification_repository.dart';
 import 'package:onlinebozor/data/repositories/region_repository.dart';
 import 'package:onlinebozor/data/repositories/report_repository.dart';
 import 'package:onlinebozor/data/repositories/state_repository.dart';
+import 'package:onlinebozor/data/repositories/theme_mode_repository.dart';
 import 'package:onlinebozor/data/repositories/user_ad_repository.dart';
 import 'package:onlinebozor/data/repositories/user_address_repository.dart';
 import 'package:onlinebozor/data/repositories/user_order_repository.dart';
@@ -52,6 +53,8 @@ extension GetItModuleExtension on GetIt {
 
     registerLazySingleton(() => RegionRepository(get()));
     registerLazySingleton(() => ReportRepository(get()));
+
+    registerLazySingleton(() => ThemeModeRepository(get()));
 
     registerLazySingleton(() => UserAdRepository(get(), get(), get()));
     registerLazySingleton(
