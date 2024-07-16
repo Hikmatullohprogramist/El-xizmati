@@ -276,8 +276,11 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit,
     final double screenWidth = screenSize.width;
     final double screenHeight = screenSize.height;
 
-    final double rectWidth = screenWidth * 0.65;
-    final double rectHeight = screenHeight * 0.35;
+    // final double rectWidth = screenWidth * 0.65;
+    // final double rectHeight = screenHeight * 0.35;
+
+    final double rectWidth = 300;
+    final double rectHeight = 400;
 
     return Center(
       child: ClipRect(
@@ -313,8 +316,10 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit,
     final scale = 1.0; //screenHeight / screenWidth;
     final aspectRatio = screenWidth / screenHeight;
 
-    final double previewWidth = screenWidth * 0.75;
-    final double previewHeight = screenHeight * 0.45;
+    // final double previewWidth = screenWidth * 0.75;
+    // final double previewHeight = screenHeight * 0.45;
+    final double previewWidth = 300;
+    final double previewHeight = 400;
 
     return Container(
       color: context.backgroundWhiteColor,

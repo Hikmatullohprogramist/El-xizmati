@@ -13,8 +13,10 @@ class CameraPreviewRoundedPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final double rectWidth = screenWidth * 0.75;
-    final double rectHeight = screenHeight * 0.45;
+    // final double rectWidth = screenWidth * 0.75;
+    // final double rectHeight = screenHeight * 0.45;
+    final double rectWidth = 300;
+    final double rectHeight = 400;
     const double cornerRadius = 24;
     const double strokeWidth = 2;
 
