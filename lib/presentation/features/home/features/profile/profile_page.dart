@@ -224,14 +224,14 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
             name: Strings.profileChangeLanguage,
             icon: Assets.images.icProfileLanguage,
             topRadius: 16,
-            bottomRadius: 16,
+            bottomRadius: 0,
             onClicked: () => _showChangeLanguageBottomSheet(context, state),
           ),
           Divider(indent: 46, height: 1),
           ProfileItemWidget(
             name: Strings.profileDarkMode,
             icon: Assets.images.icProfileDarkMode,
-            topRadius: 16,
+            topRadius: 0,
             bottomRadius: 16,
             onClicked: () => _showThemeModeBottomSheet(context, state),
           ),
@@ -430,24 +430,21 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
 
   void _saveSelectedLanguage(BuildContext context, Language language) {
     Locale locale;
-    String name;
+
     switch (language) {
       case Language.russian:
         locale = Locale('ru', 'RU');
-        name = "ru";
         break;
       case Language.uzbekCyrill:
         locale = Locale('uz', 'UZK');
-        name = "uzk";
         break;
       case Language.uzbekLatin:
         locale = Locale('uz', 'UZ');
-        name = "uz";
         break;
     }
 
     EasyLocalization.of(context)?.setLocale(locale);
 
-    cubit(context).setSelectedLanguage(language, name);
+    cubit(context).setSelectedLanguage(language);
   }
 }

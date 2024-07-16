@@ -64,7 +64,7 @@ class ProfileCubit extends BaseCubit<ProfileState, ProfileEvent> {
     updateState((state) => state.copyWith(appThemeMode: mode));
   }
 
-  void setSelectedLanguage(Language language, String languageName) async {
+  void setSelectedLanguage(Language language) async {
     updateState((state) => state.copyWith(language: language));
     await _languageRepository.setLanguage(language);
   }
