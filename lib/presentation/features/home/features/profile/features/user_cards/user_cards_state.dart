@@ -26,47 +26,21 @@ class UserCardsState with _$UserCardsState {
       );
 
   List<UserCard> get cards {
-    List<UserCard> cards = [
-      // UserCard(
-      //   id: "1",
-      //   balance: depositBalance,
-      //   cardHolder: userFullName,
-      //   cardName: Strings.userCardDepositCardName,
-      //   cardPan: Strings.userCardDepositCardPan,
-      //   isDeposit: true,
-      //   cardLogo: Assets.images.icCardDeposit,
-      // )
-    ];
-    if (debitCards.isNotEmpty) {
-      cards.addAll(
-        debitCards
-            .map(
-              (e) => UserCard(
-                id: e.cardId,
-                balance: e.balance / 100,
-                cardHolder: e.cardHolder,
-                cardName: e.bankName,
-                cardPan: e.maskedPan,
-                isDeposit: false,
-                cardLogo: e.isHumo
-                    ? Assets.images.icCardHumoWhite
-                    : Assets.images.icCardUzcardWhite,
-              ),
-            )
-            .toList(),
-      );
-    } else {
-      cards.add(UserCard(
-        id: "1",
-        balance: depositBalance,
-        cardHolder: userFullName,
-        cardName: Strings.userCardDepositCardName,
-        cardPan: Strings.userCardDepositCardPan,
-        isDeposit: true,
-        cardLogo: Assets.images.icCardDeposit,
-      ));
-    }
-    return cards;
+    return debitCards
+        .map(
+          (e) => UserCard(
+            id: e.cardId,
+            balance: e.balance / 100,
+            cardHolder: e.cardHolder,
+            cardName: e.bankName,
+            cardPan: e.maskedPan,
+            isDeposit: false,
+            cardLogo: e.isHumo
+                ? Assets.images.icCardHumoWhite
+                : Assets.images.icCardUzcardWhite,
+          ),
+        )
+        .toList();
   }
 }
 
