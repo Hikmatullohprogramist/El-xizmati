@@ -9,7 +9,6 @@ import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
 import 'package:onlinebozor/domain/models/billing/billing_transaction_type.dart';
 import 'package:onlinebozor/domain/models/currency/currency_code.dart';
-import 'package:onlinebozor/domain/models/language/language.dart';
 import 'package:onlinebozor/domain/models/order/order_cancel_reason.dart';
 import 'package:onlinebozor/domain/models/order/user_order.dart';
 import 'package:onlinebozor/domain/models/order/user_order_status.dart';
@@ -278,25 +277,9 @@ extension UserAdStatusResExts on UserAdStatus {
 
 extension UserOrderResExts on UserOrder {
   String getLocalizedCancelComment() {
-    switch (cancelNote) {
-      case "sellernone":
-        return OrderCancelReason.SELLER_NOT_ANSWERED.getLocalizedName();
-      case "SELLER_NOT_ANSWERED":
-        return OrderCancelReason.SELLER_NOT_ANSWERED.getLocalizedName();
-      case "CHANGED_IDEA":
-        return OrderCancelReason.CHANGED_IDEA.getLocalizedName();
-      case "changedidea":
-        return OrderCancelReason.CHANGED_IDEA.getLocalizedName();
-      case "selectedother":
-        return OrderCancelReason.SELECTED_INCORRECTED_AD.getLocalizedName();
-      case "SELECTED_INCORRECTED_AD":
-        return OrderCancelReason.SELECTED_INCORRECTED_AD.getLocalizedName();
-      case "other":
-        return OrderCancelReason.OTHER_REASON.getLocalizedName();
-      case "OTHER_REASON":
-        return OrderCancelReason.OTHER_REASON.getLocalizedName();
-    }
-    return cancelNote ?? "";
+    return OrderCancelReason.valurOrNull(cancelNote)?.getLocalizedName() ??
+        cancelNote ??
+        "";
   }
 }
 
@@ -368,16 +351,6 @@ extension UserOrderStatusResExts on UserOrderStatus {
       case UserOrderStatus.IN_PROGRESS:
         return Color(0xFFF79500);
     }
-  }
-}
-
-extension LanguageExts on Language {
-  Locale getLocale() {
-    return switch (this) {
-      Language.uzbekLatin => Locale('uz', 'UZ'),
-      Language.russian => Locale('ru', 'RU'),
-      Language.uzbekCyrill => Locale('uz', 'UZK'),
-    };
   }
 }
 
