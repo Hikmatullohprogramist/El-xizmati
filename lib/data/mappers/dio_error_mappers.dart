@@ -10,7 +10,7 @@ extension DioErrorExts on DioError {
     if (error is SocketException) {
       return AppNetworkConnectionException(
         message: Strings.messageConnectionError,
-        statusCode: -1,
+        statusCode: -499,
       );
     }
 
@@ -21,13 +21,13 @@ extension DioErrorExts on DioError {
     if (response != null) {
       return AppNetworkHttpException(
         message: response?.statusMessage ?? Strings.messageResponseError,
-        statusCode: response?.statusCode ?? -1,
+        statusCode: response?.statusCode ?? -488,
       );
     }
 
     return AppNetworkDioException(
       message: message ?? "Unknown message",
-      statusCode: -1,
+      statusCode: -477,
     );
   }
 }
@@ -39,14 +39,17 @@ extension DioExceptionExts on DioException {
     }
 
     return response != null
-        ? response?.dioResponseToAppException() ??
-            AppNetworkDioException(
-              message: response?.statusMessage ?? "Unknown error",
-              statusCode: response?.statusCode ?? 0,
-            )
+        // ? response?.dioResponseToAppException() ??
+        ? AppNetworkDioException(
+            message: response?.statusMessage ??
+                response?.toString() ??
+                message ??
+                "Unknown error",
+            statusCode: response?.statusCode ?? -466,
+          )
         : AppNetworkConnectionException(
             message: message ?? "Unknown error",
-            statusCode: 0,
+            statusCode: -455,
           );
   }
 }
@@ -55,14 +58,12 @@ extension DioResponseExceptionExts on Response {
   AppNetworkException dioResponseToAppException() {
     return AppNetworkHttpException(
       message: statusMessage ?? "Unknown error",
-      statusCode: statusCode ?? 0,
+      statusCode: statusCode ?? -444,
     );
   }
 }
 
-
 extension ObjectExceptionExts on Object {
-
   AppException objectToAppException(StackTrace? stackTrace) {
     if (this is AppException) {
       return this as AppException;

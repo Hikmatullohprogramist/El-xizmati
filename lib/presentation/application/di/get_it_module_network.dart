@@ -104,9 +104,9 @@ extension GetItModuleNetwork on GetIt {
           commonInterceptor,
           languageInterceptor,
           loggerInterceptor,
+          chuckerDioInterceptor,
           errorInterceptor,
           headerInterceptor,
-          chuckerDioInterceptor
         ],
       ),
       instanceName: private,
