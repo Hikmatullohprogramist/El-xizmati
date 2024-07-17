@@ -16,13 +16,13 @@ class NotificationRepository {
     this._notificationService,
   );
 
-  Future<List<AppNotification>> getNotifications({
+  Future<List<AppNotification>> getAppNotifications({
     required int page,
     required int limit,
   }) async {
     if (_authPreferences.isNotAuthorized) throw NotAuthorizedException();
 
-    final root = await _notificationService.getNotifications(
+    final root = await _notificationService.getAppNotifications(
       page: page,
       limit: limit,
     );
@@ -31,8 +31,8 @@ class NotificationRepository {
     return response.data.results.map((e) => e.toAppNotification()).toList();
   }
 
-  Future<void> markAsRead(AppNotification notification) async {
-    final response = await _notificationService.markAsRead(notification.id);
+  Future<void> readAppNotification(AppNotification notification) async {
+    final r = await _notificationService.readAppNotification(notification.id);
     return;
   }
 }

@@ -6,7 +6,7 @@ class NotificationService {
 
   NotificationService(this._dio);
 
-  Future<Response> getNotifications({
+  Future<Response> getAppNotifications({
     required int page,
     required int limit,
   }) {
@@ -25,7 +25,7 @@ class NotificationService {
     );
   }
 
-  Future<Response> markAsRead(int notificationId) {
+  Future<Response> readAppNotification(int notificationId) {
     final params = {"id": notificationId};
 
     return _dio.put(

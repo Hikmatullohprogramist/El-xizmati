@@ -41,7 +41,7 @@ class NotificationListCubit
     controller.addPageRequestListener(
       (pageKey) {
         _notificationRepository
-            .getNotifications(
+            .getAppNotifications(
               page: pageKey,
               limit: 20,
             )
@@ -77,7 +77,7 @@ class NotificationListCubit
     if(notification.isRead) return;
 
     _notificationRepository
-        .markAsRead(notification)
+        .readAppNotification(notification)
         .initFuture()
         .onStart(() {})
         .onSuccess((data) {
