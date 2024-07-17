@@ -893,12 +893,10 @@ class ProfileViewPage
                       context,
                       title: Strings.activeSessionsTerminateTitle,
                       message: Strings.activeSessionsTerminateMessage,
-                      yesTitle: Strings.activeSessionsTerminate,
-                      onYesClicked: () {
-                        cubit(context).removeActiveSession(session);
-                      },
                       noTitle: Strings.commonCancel,
                       onNoClicked: () {},
+                      yesTitle: Strings.activeSessionsTerminate,
+                      onYesClicked: () => cubit(context).removeActiveSession(session),
                     );
                   },
                 );

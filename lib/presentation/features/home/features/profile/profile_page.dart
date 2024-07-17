@@ -269,11 +269,10 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
                   title: Strings.profileLogoutTitle,
                   message: Strings.profileLogoutDescription,
                   noTitle: Strings.commonNo,
-                  onNoClicked: () => Navigator.pop(context),
+                  onNoClicked: () {},
                   yesTitle: Strings.commonYes,
                   onYesClicked: () async {
                     await cubit(context).logOut();
-                    Navigator.pop(context);
                   },
                 );
               },

@@ -123,9 +123,7 @@ class UserCardsPage
             noTitle: Strings.commonNo,
             onNoClicked: () {},
             yesTitle: Strings.commonYes,
-            onYesClicked: () {
-              cubit(context).removeCard(card);
-            },
+            onYesClicked: () => cubit(context).removeCard(card),
           );
         },
         onHistoryClicked: () {},

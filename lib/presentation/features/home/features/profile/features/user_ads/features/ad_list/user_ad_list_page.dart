@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
@@ -245,16 +244,9 @@ class UserAdListPage
                         title: Strings.messageTitleWarning,
                         message: Strings.adDeleteMessage,
                         noTitle: Strings.commonNo,
-                        onNoClicked: () {
-                          Navigator.pop(context);
-                          HapticFeedback.lightImpact();
-                        },
+                        onNoClicked: () {},
                         yesTitle: Strings.commonYes,
-                        onYesClicked: () {
-                          Navigator.pop(context);
-                          HapticFeedback.lightImpact();
-                          cubit(context).deleteAd(ad);
-                        },
+                        onYesClicked: () => cubit(context).deleteAd(ad),
                       );
                     },
                   ),

@@ -93,9 +93,7 @@ class CartPage extends BasePage<CartCubit, CartState, CartEvent> {
                   noTitle: Strings.commonNo,
                   onNoClicked: () {},
                   yesTitle: Strings.commonYes,
-                  onYesClicked: () {
-                    cubit(context).removeFromCart(ad);
-                  },
+                  onYesClicked: () => cubit(context).removeFromCart(ad),
                 );
               },
               onFavoriteClicked: (Ad ad) {
