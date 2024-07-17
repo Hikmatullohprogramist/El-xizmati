@@ -22,6 +22,13 @@ class FaceIdConfirmationCubit
     this._authRepository,
   ) : super(const FaceIdConfirmationState());
 
+  @override
+  Future<void> close() async {
+    await closeCamera();
+
+    super.close();
+  }
+
   void setInitialParams(String secretKey, FaceIdConfirmType faceIdConfirmType) {
     updateState((state) => state.copyWith(
           faceIdConfirmType: faceIdConfirmType,
@@ -32,14 +39,14 @@ class FaceIdConfirmationCubit
   }
 
   void setupCamera() async {
-    await initialCamera().then((value) {
+    await initCamera().then((value) {
       updateState((state) => state.copyWith(
             cameraInitState: LoadingState.success,
           ));
     });
   }
 
-  Future<void> initialCamera() async {
+  Future<void> initCamera() async {
     List<CameraDescription> cameras = await availableCameras();
     final CameraController cameraController = CameraController(
       cameras[1],
@@ -52,6 +59,10 @@ class FaceIdConfirmationCubit
           cameraController: cameraController,
           cameraInitState: LoadingState.loading,
         ));
+  }
+
+  Future<void> closeCamera() async {
+    await states.cameraController?.dispose();
   }
 
   void sendImage(String image) async {
