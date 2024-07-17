@@ -334,17 +334,21 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit,
       //   ),
       // ),
       child: Center(
-        child: Positioned.fill(
-          child: FittedBox(
-            fit: BoxFit.contain,
-            child: SizedBox(
-              width: previewWidth,
-              //310, //cameraController.value.previewSize!.height,
-              height: previewHeight,
-              //375, //cameraController.value.previewSize!.width,
-              child: CameraPreview(cameraController),
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: FittedBox(
+                fit: BoxFit.contain,
+                child: SizedBox(
+                  width: previewWidth,
+                  //310, //cameraController.value.previewSize!.height,
+                  height: previewHeight,
+                  //375, //cameraController.value.previewSize!.width,
+                  child: CameraPreview(cameraController),
+                ),
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
@@ -418,30 +422,25 @@ class FaceIdConfirmationPage extends BasePage<FaceIdConfirmationCubit,
     BuildContext context,
     FaceIdConfirmationState state,
   ) {
-    return Positioned(
-      bottom: 20,
-      left: 16,
-      right: 16,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: CustomElevatedButton(
-          text: Strings.commonTakePhoto,
-          onPressed: () {
-            cubit(context).states.cameraController?.takePicture().then(
-              (value) async {
-                final takeImage = File(value.path);
-                Uint8List takenImageBytes = await takeImage.readAsBytes();
-                String croppedImageBytes = await cropImage(takenImageBytes);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: CustomElevatedButton(
+        text: Strings.commonTakePhoto,
+        onPressed: () {
+          cubit(context).states.cameraController?.takePicture().then(
+            (value) async {
+              final takeImage = File(value.path);
+              Uint8List takenImageBytes = await takeImage.readAsBytes();
+              String croppedImageBytes = await cropImage(takenImageBytes);
 
-                cubit(context).croppedImage(croppedImageBytes);
-                cubit(context).showPicture(true);
-              },
-            );
-          },
-          backgroundColor: context.colors.buttonPrimary,
-          leftIcon: Assets.images.icAddImageCamera
-              .svg(width: 32, height: 32, color: Colors.white),
-        ),
+              cubit(context).croppedImage(croppedImageBytes);
+              cubit(context).showPicture(true);
+            },
+          );
+        },
+        backgroundColor: context.colors.buttonPrimary,
+        leftIcon: Assets.images.icAddImageCamera
+            .svg(width: 32, height: 32, color: Colors.white),
       ),
     );
   }
