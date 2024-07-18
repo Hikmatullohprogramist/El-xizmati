@@ -219,7 +219,6 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
       bottomMargin: 8,
       child: Column(
         children: [
-          Visibility(visible: false, child: Divider(indent: 46, height: 1)),
           ProfileItemWidget(
             name: Strings.profileChangeLanguage,
             icon: Assets.images.icProfileLanguage,
@@ -232,8 +231,22 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
             name: Strings.profileDarkMode,
             icon: Assets.images.icProfileDarkMode,
             topRadius: 0,
-            bottomRadius: 16,
+            bottomRadius: state.isAuthorized ? 0 : 16,
             onClicked: () => _showThemeModeBottomSheet(context, state),
+          ),
+          Visibility(
+            visible: state.isAuthorized,
+            child: Divider(indent: 46, height: 1),
+          ),
+          Visibility(
+            visible: state.isAuthorized,
+            child: ProfileItemWidget(
+              name: Strings.settingsActiveDevices,
+              icon: Assets.images.icActiveDevice,
+              topRadius: 0,
+              bottomRadius: 16,
+              onClicked: () => context.router.push(UserActiveSessionsRoute()),
+            ),
           ),
         ],
       ),
