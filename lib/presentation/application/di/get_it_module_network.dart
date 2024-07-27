@@ -6,6 +6,7 @@ import 'package:onlinebozor/data/datasource/network/interceptor/auth_interceptor
 import 'package:onlinebozor/data/datasource/network/interceptor/common_interceptor.dart';
 import 'package:onlinebozor/data/datasource/network/interceptor/error_interceptor.dart';
 import 'package:onlinebozor/data/datasource/network/interceptor/language_interceptor.dart';
+import 'package:onlinebozor/data/datasource/network/interceptor/region_interceptor.dart';
 import 'package:onlinebozor/data/datasource/network/services/private/ad_creation_service.dart';
 import 'package:onlinebozor/data/datasource/network/services/private/ad_service.dart';
 import 'package:onlinebozor/data/datasource/network/services/private/auth_service.dart';
@@ -33,7 +34,7 @@ const String public = "dio_without_authorization";
 extension GetItModuleNetwork on GetIt {
   Future<void> networkModule() async {
     registerLazySingleton(
-          () => AuthInterceptor(get(), get(), get(), get(), get()),
+      () => AuthInterceptor(get(), get(), get(), get(), get()),
     );
     registerLazySingleton(() => CommonInterceptor());
     registerLazySingleton(() => LanguageInterceptor(get()));
@@ -63,6 +64,7 @@ extension GetItModuleNetwork on GetIt {
     AuthInterceptor authInterceptor = get();
     CommonInterceptor commonInterceptor = get();
     LanguageInterceptor languageInterceptor = get();
+    RegionInterceptor regionInterceptor = get();
     ErrorInterceptor errorInterceptor = get();
     InterceptorsWrapper headerInterceptor = get();
     PrettyDioLogger loggerInterceptor = get();
@@ -77,6 +79,7 @@ extension GetItModuleNetwork on GetIt {
         interceptors: [
           commonInterceptor,
           languageInterceptor,
+          regionInterceptor,
           loggerInterceptor,
           errorInterceptor,
           headerInterceptor,
@@ -125,7 +128,8 @@ extension GetItModuleNetwork on GetIt {
 
     registerLazySingleton(() => IdentityService(get(instanceName: private)));
 
-    registerLazySingleton(() => NotificationService(get(instanceName: private)));
+    registerLazySingleton(
+        () => NotificationService(get(instanceName: private)));
 
     registerLazySingleton(() => PaymentService(get(instanceName: private)));
 

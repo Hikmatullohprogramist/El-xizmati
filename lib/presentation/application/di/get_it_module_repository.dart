@@ -51,7 +51,7 @@ extension GetItModuleExtension on GetIt {
 
     registerLazySingleton(() => NotificationRepository(get(), get()));
 
-    registerLazySingleton(() => RegionRepository(get()));
+    registerLazySingleton(() => RegionRepository(get(), get()));
     registerLazySingleton(() => ReportRepository(get()));
 
     registerLazySingleton(() => ThemeModeRepository(get()));
