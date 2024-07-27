@@ -1,21 +1,20 @@
 import 'package:onlinebozor/data/datasource/network/responses/region/region_and_district_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/region/region_root_response.dart';
 import 'package:onlinebozor/data/datasource/network/services/private/region_service.dart';
+import 'package:onlinebozor/data/datasource/preference/region_preferences.dart';
 import 'package:onlinebozor/domain/mappers/region_mapper.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/region/region.dart';
 import 'package:onlinebozor/domain/models/region/region_and_district.dart';
-import 'package:onlinebozor/domain/models/region_preference/region_preference.dart';
 import 'package:onlinebozor/domain/models/street/street.dart';
-import 'package:onlinebozor/data/datasource/preference/region_preferences.dart';
 
 class RegionRepository {
-  final RegionService _regionService;
   final RegionPreferences _regionPreferences;
+  final RegionService _regionService;
 
   RegionRepository(
+    this._regionPreferences,
     this._regionService,
-    this._regionPreferences
   );
 
   Future<RegionAndDistrict> getRegionAndDistricts() async {
@@ -42,15 +41,25 @@ class RegionRepository {
     return result.map((e) => e.toNeighborhood()).toList();
   }
 
-  Future<void> save(int regionId, String regionName, int districtId, String districtName) async {
-    return _regionPreferences.setRegion(RegionPreference(regionId: regionId, regionName: regionName, districtId: districtId, districtName: districtName));
+  Future<void> setSelectedRegion(
+    int regionId,
+    String regionName,
+    int districtId,
+    String districtName,
+  ) async {
+    return _regionPreferences.setSelectedRegion(
+      regionId: regionId,
+      regionName: regionName,
+      districtId: districtId,
+      districtName: districtName,
+    );
   }
 
-  String Function() get(){
-    return _regionPreferences.getRegionInfo;
+  String getSelectedRegionName() {
+    return _regionPreferences.selectedRegionName;
   }
 
-  Future<void> clear(){
+  Future<void> clearSelectedRegion() {
     return _regionPreferences.clear();
   }
 }

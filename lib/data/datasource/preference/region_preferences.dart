@@ -1,7 +1,5 @@
-import 'package:onlinebozor/domain/models/region_preference/region_preference.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:onlinebozor/data/datasource/preference/preferences_extensions.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegionPreferences {
   final SharedPreferences _preferences;
@@ -20,24 +18,28 @@ class RegionPreferences {
   }
 
   int? get regionId => _preferences.getInt(_regionId);
-  String? get regionName => _preferences.getString(_regionName);
-  int? get districtId => _preferences.getInt(_districtId);
-  String? get districtName => _preferences.getString(_districtName);
 
-  String getRegionInfo(){
-    if(isRegionSelected){
-      return regionName! + districtName!;
-    }
-    return '';
-  }
+  String? get regionName => _preferences.getString(_regionName);
+
+  int? get districtId => _preferences.getInt(_districtId);
+
+  String? get districtName => _preferences.getString(_districtName);
 
   bool get isRegionSelected => regionId != null && districtId != null;
 
-  Future<void> setRegion(RegionPreference region) async {
-    await _preferences.setInt(_regionId, region.regionId);
-    await _preferences.setString(_regionName, region.regionName);
-    await _preferences.setInt(_districtId, region.districtId);
-    await _preferences.setString(_districtName, region.districtName);
+  String get selectedRegionName =>
+      isRegionSelected ? "${regionName!}, ${districtName!}" : "";
+
+  Future<void> setSelectedRegion({
+    required int regionId,
+    required String regionName,
+    required int districtId,
+    required String districtName,
+  }) async {
+    await _preferences.setInt(_regionId, regionId);
+    await _preferences.setString(_regionName, regionName);
+    await _preferences.setInt(_districtId, districtId);
+    await _preferences.setString(_districtName, districtName);
   }
 
   Future<void> clear() async {
