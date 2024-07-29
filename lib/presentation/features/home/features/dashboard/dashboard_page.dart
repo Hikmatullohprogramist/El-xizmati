@@ -61,6 +61,7 @@ class DashboardPage
                   ..._getDashboardProductAdsWidget(context, state),
                   ..._getDashboardServiceAdsWidget(context, state),
                   ..._getTopRatedAdsWidget(context, state),
+                  ..._getInstallmentAdsWidget(context, state),
                   ..._getRecentlyViewedAdsWidget(context, state),
                 ],
               ),
@@ -296,12 +297,8 @@ class DashboardPage
           onItemClicked: (Ad ad) {
             context.router.push(AdDetailRoute(adId: ad.id));
           },
-          onFavoriteClicked: (Ad ad) {
-            cubit(context).popularProductAdsUpdateFavorite(ad);
-          },
-          onCartClicked: (Ad ad) {
-            cubit(context).popularProductAdsUpdateCart(ad);
-          },
+          onFavoriteClicked: (Ad ad) => cubit(context).updateFavoriteData(ad),
+          onCartClicked: (Ad ad) => cubit(context).updateCartData(ad),
           onBuyClicked: (Ad ad) {
             context.router.push(OrderCreationRoute(adId: ad.id));
           },
@@ -340,12 +337,8 @@ class DashboardPage
           onItemClicked: (Ad ad) {
             context.router.push(AdDetailRoute(adId: ad.id));
           },
-          onFavoriteClicked: (Ad ad) {
-            cubit(context).popularServiceAdsUpdateFavorite(ad);
-          },
-          onCartClicked: (Ad ad) {
-            cubit(context).popularServiceAdsUpdateCart(ad);
-          },
+          onFavoriteClicked: (Ad ad) => cubit(context).updateFavoriteData(ad),
+          onCartClicked: (Ad ad) => cubit(context).updateCartData(ad),
           onBuyClicked: (Ad ad) {
             context.router.push(OrderCreationRoute(adId: ad.id));
           },
@@ -371,14 +364,40 @@ class DashboardPage
           onItemClicked: (Ad ad) {
             context.router.push(AdDetailRoute(adId: ad.id));
           },
-          onOnClickBuyClicked: (Ad ad) {
+          onOneClickBuyClicked: (Ad ad) {
             context.router.push(OrderCreationRoute(adId: ad.id));
           },
-          onFavoriteClicked: (Ad ad) {
-            cubit(context).topRatedAdsUpdateFavorite(ad);
-          },
+          onFavoriteClicked: (Ad ad) => cubit(context).updateFavoriteData(ad),
         ),
       )
+    ];
+  }
+
+  List<Widget> _getInstallmentAdsWidget(
+    BuildContext context,
+    DashboardState state,
+  ) {
+    return [
+      SeeAllWidget(title: Strings.installmentPayment),
+      LoaderStateWidget(
+        isFullScreen: false,
+        onRetryClicked: () {
+          cubit(context).getPopularProductAds();
+        },
+        loadingState: state.installmentAdsState,
+        loadingBody: HorizontalAdListShimmer(),
+        successBody: HorizontalAdListWidget(
+          ads: state.installmentAds,
+          onItemClicked: (Ad ad) {
+            context.router.push(AdDetailRoute(adId: ad.id));
+          },
+          onFavoriteClicked: (Ad ad) => cubit(context).updateFavoriteData(ad),
+          onCartClicked: (Ad ad) => cubit(context).updateCartData(ad),
+          onBuyClicked: (Ad ad) {
+            context.router.push(OrderCreationRoute(adId: ad.id));
+          },
+        ),
+      ),
     ];
   }
 
@@ -417,12 +436,8 @@ class DashboardPage
             onItemClicked: (Ad ad) {
               context.router.push(AdDetailRoute(adId: ad.id));
             },
-            onFavoriteClicked: (Ad ad) {
-              cubit(context).recentlyViewAdUpdateFavorite(ad);
-            },
-            onCartClicked: (Ad ad) {
-              cubit(context).recentlyViewAdUpdateCart(ad);
-            },
+            onFavoriteClicked: (Ad ad) => cubit(context).updateFavoriteData(ad),
+            onCartClicked: (Ad ad) => cubit(context).updateFavoriteData(ad),
             onBuyClicked: (Ad ad) {
               context.router.push(OrderCreationRoute(adId: ad.id));
             },

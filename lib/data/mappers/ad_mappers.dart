@@ -160,7 +160,47 @@ extension AdDetailResponseExtension on AdDetailResponse {
   }
 }
 
-extension AdEntityExtension on AdEntity {
+extension AdDetailSellerResponseMapper on AdDetailSellerResponse {
+  AdDetailSeller toMap() {
+    return AdDetailSeller(
+      id: id,
+      fullName: fullName,
+      tin: tin,
+      lastLoginAt: lastLoginAt,
+      photo: photo,
+      cancelledOrdersCount: cancelledOrdersCount,
+      isTrusted: isTrusted,
+    );
+  }
+}
+
+extension InstallmentInfoMapper on AdDetailInstallmentInfo {
+  InstallmentInfo toMap(List<AdDetailInstallmentPlan>? paymentPlans) {
+    return InstallmentInfo(
+      monthCount: monthCount,
+      monthlyPrice: monthlyPrice,
+      paymentPlans: paymentPlans?.map((e) => e.toMap()).toList() ?? [],
+    );
+  }
+}
+
+extension InstallmentPaymentPlanMapper on AdDetailInstallmentPlan {
+  InstallmentPaymentPlan toMap() {
+    return InstallmentPaymentPlan(
+      id: id,
+      adsId: adId,
+      monthCount: monthCount,
+      monthlyPrice: monthlyPrice,
+      startingPrice: startingPrice,
+      startingPercentage: startingPercentage,
+      totalPrice: totalPrice,
+      overtimePrice: overtimePrice,
+      overtimePercentage: overtimePercentage,
+    );
+  }
+}
+
+extension AdEntityMapper on AdEntity {
   Ad toAd() {
     return Ad(
       id: id,

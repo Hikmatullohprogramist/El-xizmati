@@ -6,6 +6,7 @@ class DashboardState with _$DashboardState {
 
   @freezed
   const factory DashboardState({
+//
     String? selectedRegionName,
 //
     @Default([]) List<PopularCategory> popularCategories,
@@ -20,11 +21,15 @@ class DashboardState with _$DashboardState {
     @Default([]) List<Ad> topRatedAds,
     @Default(LoadingState.loading) LoadingState topRatedAdsState,
 //
+    @Default([]) List<Ad> installmentAds,
+    @Default(LoadingState.loading) LoadingState installmentAdsState,
+//
     @Default([]) List<Ad> recentlyViewedAds,
     @Default(LoadingState.loading) LoadingState recentlyViewedAdsState,
 //
     @Default([]) List<BannerImage> banners,
     @Default(LoadingState.loading) LoadingState bannersState,
+//
   }) = _DashboardState;
 
   bool get isRecentlyViewedAdsVisible =>

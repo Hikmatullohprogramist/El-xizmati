@@ -126,6 +126,12 @@ class AdRepository {
     return searchAd.ads;
   }
 
+  Future<List<Ad>> getAdsWithInstallment() async {
+    final response = await _adListService.getInstallmentAds();
+    final adResponses = AdRootResponse.fromJson(response.data).data.results;
+    return _readAdsBySaving(adResponses);
+  }
+
   Future<List<Ad>> getAdsByUser({
     required int sellerTin,
     required int page,

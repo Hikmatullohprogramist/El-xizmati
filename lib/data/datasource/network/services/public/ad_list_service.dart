@@ -62,6 +62,10 @@ class AdListService {
     return _dio.get('api/mobile/v1/search', queryParameters: params);
   }
 
+  Future<Response> getInstallmentAds( ) {
+    return _dio.get('api/mobile/v1/ads/get-ads-with-installment');
+  }
+
   Future<Response> getAdsByUser({
     required int sellerTin,
     required int page,

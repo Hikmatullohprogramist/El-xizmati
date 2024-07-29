@@ -45,6 +45,7 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
     _getInitialData();
   }
 
+  StreamSubscription? _installmentAdsSubs;
   StreamSubscription? _productAdsSubs;
   StreamSubscription? _recentlyAdsSubs;
   StreamSubscription? _selectedRegionSubs;
@@ -53,6 +54,7 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
 
   @override
   Future<void> close() async {
+    await _installmentAdsSubs?.cancel();
     await _productAdsSubs?.cancel();
     await _recentlyAdsSubs?.cancel();
     await _selectedRegionSubs?.cancel();
@@ -76,6 +78,7 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
       getPopularProductAds(),
       getPopularServiceAds(),
       getTopRatedAds(),
+      getInstallmentAds()
     ]);
   }
 
@@ -86,6 +89,7 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
       getPopularProductAds(),
       getPopularServiceAds(),
       getTopRatedAds(),
+      getInstallmentAds(),
       getRecentlyViewedAds(),
     ]);
   }
@@ -99,7 +103,11 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
     _commonRepository
         .getPopularCategories(1, 20)
         .initFuture()
-        .onStart(() {})
+        .onStart(() {
+          updateState((state) => state.copyWith(
+                popularCategoriesState: LoadingState.loading,
+              ));
+        })
         .onSuccess((data) {
           updateState((state) => state.copyWith(
                 popularCategories: data,
@@ -138,12 +146,14 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
                   ));
             },
           )..onError((error) {
+              logger.e("getPopularProductAds error = $error");
               updateState((state) => state.copyWith(
                     popularProductAdsState: LoadingState.error,
                   ));
             });
         })
         .onError((error) {
+          logger.e("getPopularProductAds error = $error");
           updateState((state) => state.copyWith(
                 popularProductAdsState: LoadingState.error,
               ));
@@ -172,12 +182,14 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
                 ));
           })
             ..onError((error) {
+              logger.e("getPopularServiceAds error = $error");
               updateState((state) => state.copyWith(
                     popularServiceAdsState: LoadingState.error,
                   ));
             });
         })
         .onError((error) {
+          logger.e("getPopularServiceAds error = $error");
           updateState((state) => state.copyWith(
                 popularServiceAdsState: LoadingState.error,
               ));
@@ -207,16 +219,55 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
                 ));
           })
             ..onError((error) {
+              logger.e("getTopRatedAds error = $error");
               updateState((state) => state.copyWith(
                     topRatedAdsState: LoadingState.error,
                   ));
             });
         })
         .onError((error) {
+          logger.e("getTopRatedAds error = $error");
           updateState((state) => state.copyWith(
                 topRatedAdsState: LoadingState.error,
               ));
           logger.e(error);
+        })
+        .onFinished(() {})
+        .executeFuture();
+  }
+
+  Future<void> getInstallmentAds() async {
+    _adRepository
+        .getAdsWithInstallment()
+        .initFuture()
+        .onStart(() {
+          updateState((state) => state.copyWith(
+                installmentAdsState: LoadingState.loading,
+              ));
+        })
+        .onSuccess((data) {
+          final ids = data.adIds();
+          _installmentAdsSubs?.cancel();
+          _installmentAdsSubs = _adRepository.watchAdsByIds(ids).listen(
+            (ads) {
+              updateState((state) => state.copyWith(
+                    installmentAds: ads,
+                    installmentAdsState:
+                        ads.isEmpty ? LoadingState.empty : LoadingState.success,
+                  ));
+            },
+          )..onError((error) {
+              logger.e("getInstallmentAds error = $error");
+              updateState((state) => state.copyWith(
+                    installmentAdsState: LoadingState.error,
+                  ));
+            });
+        })
+        .onError((error) {
+          logger.e("getInstallmentAds error = $error");
+          updateState((state) => state.copyWith(
+                popularProductAdsState: LoadingState.error,
+              ));
         })
         .onFinished(() {})
         .executeFuture();
@@ -283,54 +334,15 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
         .executeFuture();
   }
 
-  Future<void> popularProductAdsUpdateFavorite(Ad ad) async {
-    _updateFavoriteData(ad, []);
-  }
-
-  Future<void> popularProductAdsUpdateCart(Ad ad) async {
-    _updateCartData(ad, states.popularProductAds.toList());
-  }
-
-  Future<void> popularServiceAdsUpdateFavorite(Ad ad) async {
-    _updateFavoriteData(ad, states.popularServiceAds.toList());
-  }
-
-  Future<void> popularServiceAdsUpdateCart(Ad ad) async {
-    _updateCartData(ad, states.popularServiceAds.toList());
-  }
-
-  Future<void> topRatedAdsUpdateFavorite(Ad ad) async {
-    _updateFavoriteData(ad, states.topRatedAds.toList());
-  }
-
-  Future<void> recentlyViewAdUpdateFavorite(Ad ad) async {
-    _updateFavoriteData(ad, states.recentlyViewedAds.toList());
-  }
-
-  Future<void> recentlyViewAdUpdateCart(Ad ad) async {
-    _updateCartData(ad, states.recentlyViewedAds.toList());
-  }
-
-  Future<void> _updateCartData(Ad ad, List<Ad> adList) async {
-    try {
-      int index = adList.indexOf(ad);
-      if (index == -1) return;
-
-      if (ad.isInCart) {
-        await _cartRepository.removeFromCart(ad.id);
-        adList[index] = ad..isInCart = false;
-      } else {
-        await _cartRepository.addToCart(ad);
-        adList[index] = ad..isInCart = true;
-      }
-
-      updateState((state) => state);
-    } catch (error) {
-      logger.e(error.toString());
+  Future<void> updateCartData(Ad ad) async {
+    if (ad.isInCart) {
+      await _cartRepository.removeFromCart(ad.id);
+    } else {
+      await _cartRepository.addToCart(ad);
     }
   }
 
-  Future<void> _updateFavoriteData(Ad ad, List<Ad> adList) async {
+  Future<void> updateFavoriteData(Ad ad) async {
     try {
       if (ad.isFavorite) {
         await _favoriteRepository.removeFromFavorite(ad.id);
