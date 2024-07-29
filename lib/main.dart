@@ -6,6 +6,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization_loader/easy_localization_loader.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
@@ -45,6 +46,7 @@ Future<void> main() async {
       ),
     );
   }, (error, stackTrace) {
+    Logger().e("application launch error = $error $stackTrace");
     // FirebaseCrashlytics.instance.recordError(error, stackTrace);
   });
 }

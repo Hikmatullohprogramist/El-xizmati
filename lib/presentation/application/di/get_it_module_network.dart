@@ -39,6 +39,7 @@ extension GetItModuleNetwork on GetIt {
     registerLazySingleton(() => CommonInterceptor());
     registerLazySingleton(() => LanguageInterceptor(get()));
     registerLazySingleton(() => ErrorInterceptor());
+    registerLazySingleton(() => RegionInterceptor(get()));
     registerLazySingleton(() => ChuckerDioInterceptor());
 
     registerLazySingleton(
