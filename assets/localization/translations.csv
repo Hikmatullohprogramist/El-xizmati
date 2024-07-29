@@ -270,6 +270,8 @@ image_list_add_title,Rasm qo‘shish,Добавить фото,Расм қўши
 image_list_main_image,Birinchi surat e’loningiz asosiy rasmi bo‘ladi. Suratlar tartibini ularning ustiga bosib va olib o‘tish bilan o‘zgartirishingiz mumkin.,"Первое фото будет на обложке объявления. Перетащите, чтобы изменить порядок.",Биринчи сурат эълонингиз асосий расми бўлади. Суратлар тартибини уларнинг устига босиб ва олиб ўтиш билан ўзгартиришингиз мумкин.
 image_list_max_count_error,Siz ko‘pi bilan {max_count} ta rasmni qo‘shishingiz mumkin,Вы можете добавить максимум {max_count} изображений,Сиз кўпи билан {max_count} та расмни қўшишингиз мумкин
 image_list_title,Rasmlar,Фото,Расмлар
+installment_payment,Muddatli to‘lov,Оплата в рассрочку,Муддатли тўлов
+installment_payment_price,{monthly_price} so‘m / {month_count} oy,{monthly_price} сум / {month_count} месяца,{monthly_price} сўм / {month_count} ой
 language_rus,Русский,Русский,Русский
 language_set_title,Ilova tilini tanlang,Выберите язык приложения,Илова тилини танланг
 language_uz_cyr,Ўзбекча,Ўзбекча,Ўзбекча
