@@ -77,14 +77,17 @@ ad_detail_add_to_cart,Savatga qo‘shish,В корзину,Саватга қўш
 ad_detail_author,Muallif,Автор,Муаллиф
 ad_detail_author_ads,Muallifning boshqa e‘lonlari,Другие объявления автора,Муаллифнинг бошқа эълонлари
 ad_detail_characteristics,Xususiyatlari,Характеристики,Хусусиятлари
+ad_detail_cheap_price,Arzon narx,Дешевая цена,Aрзон нарх
+ad_detail_chip_item_condition,Holati:,Состояние:,Ҳолати:
+ad_detail_chip_published_date,Nashr etilgan:,Опубликовано:,Нашр этилган:
+ad_detail_chip_viewed_count,Ko‘rishlar soni:,Количество просмотров:,Кўришлар сони:
 ad_detail_complain,Shikoyat qiling,Пожаловаться,Шикоят қилинг
 ad_detail_description,Tavsif,Описание,Тавсиф
+ad_detail_expensive_price,Qimmat narx,Дорогая цена,Қиммат нарх
 ad_detail_feedback,Sharhlar,Отзывы,Шарҳлар
 ad_detail_location,Manzil,Местоположение,Манзил
-ad_detail_number_views,Ko‘rishlar soni,Количество просмотров,Кўришлар сони
 ad_detail_on_online_bozor,OnlineBozorda,на OnlineBozor с,OnlineBozorда
 ad_detail_open_cart,Savatni ko‘rish,Посмотреть корзину,Саватни кўриш
-ad_detail_published_date,Nashr etilgan:,Опубликовано:,Нашр этилган:
 ad_detail_show_more,Ko‘proq ko‘rsatish,Показать больше,Кўпроқ кўрсатиш
 ad_detail_show_phone,Qo‘ng‘iroq,Позвонить,Қўнғироқ
 ad_detail_towritemessge,Sms,Sms,Sms
@@ -164,6 +167,7 @@ close_title,Yopish,Закрыть,Ёпиш
 common_add,Qo‘shish,Добавить,Қўшиш
 common_apartment,Kvartira,Квартира,Квартира
 common_apply,Qo‘llash,Применять,Қўллаш
+common_bargain,Kelishiladi,Возможен торг,Келишилади
 common_cancel,Bekor qilish,Отменить,Бекор қилиш
 common_choose,Tanlash,Выбрать,Танлаш
 common_close,Yopish,Закрыть,Ёпиш
@@ -228,6 +232,7 @@ common_show_more,Ko‘proq ko‘rsatish,Показать больше,Кўпро
 common_street,Ko'cha,Улица,Кўча
 common_take_photo,Rasmga olish,Снять фото ,Расмга олиш
 common_total_cost,Umumiy narx,Общая стоимость,Умумий нарх
+common_trusted_seller,Ishonchli sotuvchi,Надежный продавец,Ишончли сотувчи
 common_unfind,topilmadi,не найдено,топилмади
 common_yes,Ha,Да,Ҳа
 create_request_title,So‘rov yaratish,Создать запрос,Сўров яратиш
