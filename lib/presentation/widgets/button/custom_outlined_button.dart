@@ -4,6 +4,17 @@ import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 
 class CustomOutlinedButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+  final double buttonWidth;
+  final double buttonHeight;
+  final bool isLoading;
+  final bool isEnabled;
+  final bool isSelected;
+  final Color? textColor;
+  final Color strokeColor;
+  final Widget? rightIcon;
+
   const CustomOutlinedButton({
     Key? key,
     required this.text,
@@ -12,20 +23,13 @@ class CustomOutlinedButton extends StatelessWidget {
     this.buttonHeight = 48,
     this.isEnabled = true,
     this.isLoading = false,
+    this.isSelected = false,
     this.textColor,
     this.strokeColor = StaticColors.buttonColor,
     this.rightIcon,
   }) : super(key: key);
 
-  final String text;
-  final VoidCallback onPressed;
-  final double buttonWidth;
-  final double buttonHeight;
-  final bool isLoading;
-  final bool isEnabled;
-  final Color? textColor;
-  final Color strokeColor;
-  final Widget? rightIcon;
+
 
   bool isClickedRecently(DateTime? lastClickTime) {
     if (lastClickTime == null) return false;
@@ -66,7 +70,7 @@ class CustomOutlinedButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         side: BorderSide(
-          width: 0.1,
+          width: isSelected ? 0.8 : 0.3,
           color: actualStrokeColor,
         ),
       ),
