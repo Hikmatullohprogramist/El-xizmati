@@ -25,6 +25,7 @@ import 'package:onlinebozor/presentation/features/common/popular_categories/popu
 import 'package:onlinebozor/presentation/features/common/region_selection/region_selection_cubit.dart';
 import 'package:onlinebozor/presentation/features/common/report/submit_report_cubit.dart';
 import 'package:onlinebozor/presentation/features/common/search/search_cubit.dart';
+import 'package:onlinebozor/presentation/features/common/set_region/set_region_cubit.dart';
 import 'package:onlinebozor/presentation/features/common/unit_selection/unit_selection_cubit.dart';
 import 'package:onlinebozor/presentation/features/common/user_address_selection/user_address_selection_cubit.dart';
 import 'package:onlinebozor/presentation/features/common/user_warehouse_selection/user_warehouse_selection_cubit.dart';
@@ -95,6 +96,7 @@ extension GetItModuleApp on GetIt {
     registerFactory(() => RegionSelectionCubit(get()));
     registerFactory(() => SubmitReportCubit(get()));
     registerFactory(() => SearchCubit(get()));
+    registerFactory(() => SetRegionCubit(get(), get()));
     registerFactory(() => UnitSelectionCubit(get()));
     registerFactory(() => UserAddressSelectionCubit(get()));
     registerFactory(() => UserWarehouseSelectionCubit(get()));
@@ -114,7 +116,8 @@ extension GetItModuleApp on GetIt {
     registerFactory(() => CategoryCubit(get()));
     registerFactory(() => SubCategoryCubit());
     registerFactory(() => AdCreationChooserCubit(get()));
-    registerFactory(() => DashboardCubit(get(), get(), get(), get()));
+    registerFactory(
+        () => DashboardCubit(get(), get(), get(), get(), get(), get()));
     registerFactory(
       () => ProfileCubit(get(), get(), get(), get(), get(), get()),
     );

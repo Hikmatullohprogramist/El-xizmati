@@ -77,14 +77,17 @@ ad_detail_add_to_cart,Savatga qo‘shish,В корзину,Саватга қўш
 ad_detail_author,Muallif,Автор,Муаллиф
 ad_detail_author_ads,Muallifning boshqa e‘lonlari,Другие объявления автора,Муаллифнинг бошқа эълонлари
 ad_detail_characteristics,Xususiyatlari,Характеристики,Хусусиятлари
+ad_detail_cheap_price,Arzon narx,Дешевая цена,Aрзон нарх
+ad_detail_chip_item_condition,Holati:,Состояние:,Ҳолати:
+ad_detail_chip_published_date,Nashr etilgan:,Опубликовано:,Нашр этилган:
+ad_detail_chip_viewed_count,Ko‘rishlar soni:,Количество просмотров:,Кўришлар сони:
 ad_detail_complain,Shikoyat qiling,Пожаловаться,Шикоят қилинг
 ad_detail_description,Tavsif,Описание,Тавсиф
+ad_detail_expensive_price,Qimmat narx,Дорогая цена,Қиммат нарх
 ad_detail_feedback,Sharhlar,Отзывы,Шарҳлар
 ad_detail_location,Manzil,Местоположение,Манзил
-ad_detail_number_views,Ko‘rishlar soni,Количество просмотров,Кўришлар сони
 ad_detail_on_online_bozor,OnlineBozorda,на OnlineBozor с,OnlineBozorда
 ad_detail_open_cart,Savatni ko‘rish,Посмотреть корзину,Саватни кўриш
-ad_detail_published_date,Nashr etilgan:,Опубликовано:,Нашр этилган:
 ad_detail_show_more,Ko‘proq ko‘rsatish,Показать больше,Кўпроқ кўрсатиш
 ad_detail_show_phone,Qo‘ng‘iroq,Позвонить,Қўнғироқ
 ad_detail_towritemessge,Sms,Sms,Sms
@@ -164,6 +167,7 @@ close_title,Yopish,Закрыть,Ёпиш
 common_add,Qo‘shish,Добавить,Қўшиш
 common_apartment,Kvartira,Квартира,Квартира
 common_apply,Qo‘llash,Применять,Қўллаш
+common_bargain,Kelishiladi,Возможен торг,Келишилади
 common_cancel,Bekor qilish,Отменить,Бекор қилиш
 common_choose,Tanlash,Выбрать,Танлаш
 common_close,Yopish,Закрыть,Ёпиш
@@ -228,6 +232,7 @@ common_show_more,Ko‘proq ko‘rsatish,Показать больше,Кўпро
 common_street,Ko'cha,Улица,Кўча
 common_take_photo,Rasmga olish,Снять фото ,Расмга олиш
 common_total_cost,Umumiy narx,Общая стоимость,Умумий нарх
+common_trusted_seller,Ishonchli sotuvchi,Надежный продавец,Ишончли сотувчи
 common_unfind,topilmadi,не найдено,топилмади
 common_yes,Ha,Да,Ҳа
 create_request_title,So‘rov yaratish,Создать запрос,Сўров яратиш
@@ -270,6 +275,8 @@ image_list_add_title,Rasm qo‘shish,Добавить фото,Расм қўши
 image_list_main_image,Birinchi surat e’loningiz asosiy rasmi bo‘ladi. Suratlar tartibini ularning ustiga bosib va olib o‘tish bilan o‘zgartirishingiz mumkin.,"Первое фото будет на обложке объявления. Перетащите, чтобы изменить порядок.",Биринчи сурат эълонингиз асосий расми бўлади. Суратлар тартибини уларнинг устига босиб ва олиб ўтиш билан ўзгартиришингиз мумкин.
 image_list_max_count_error,Siz ko‘pi bilan {max_count} ta rasmni qo‘shishingiz mumkin,Вы можете добавить максимум {max_count} изображений,Сиз кўпи билан {max_count} та расмни қўшишингиз мумкин
 image_list_title,Rasmlar,Фото,Расмлар
+installment_payment,Muddatli to‘lov,Оплата в рассрочку,Муддатли тўлов
+installment_payment_price,{monthly_price} so‘m / {month_count} oy,{monthly_price} сум / {month_count} месяца,{monthly_price} сўм / {month_count} ой
 language_rus,Русский,Русский,Русский
 language_set_title,Ilova tilini tanlang,Выберите язык приложения,Илова тилини танланг
 language_uz_cyr,Ўзбекча,Ўзбекча,Ўзбекча
@@ -434,6 +441,11 @@ selection_pickup_addresses_title,Olib ketish manzillarini tanlang,Выберит
 selection_unit_title,O‘lchov turini tanlang,Выберите единицу измерения,Ўлчов турини танланг
 selection_user_address_title,Manzilni tanlang,Выберите адрес,Манзилни танланг
 services_title,Xizmatlar,Услуги,Хизматлар
+set_region_description,"Iltimos, hududingizni tanlang. Biz sizni hududingizga mos keladigan 
+e’lonlarni ko'rsatamiz.","Пожалуйста, выберите свой регион. Мы покажем объявления по выбранному вами региону.","Илтимос, ҳудудингизни танланг. Биз сизни ҳудудингизга мос келадиган 
+эълонларни кўрсатамиз."
+set_region_selected_name,Butun O‘zbekiston bo‘yicha,По всему Узбекистану,Бутун Ўзбекистон бўйича
+set_region_title,Hududingizni tanlang,Выберите свой регион,Ҳудудингизни танланг
 settings_active_devices,Faol qurilmalar,Активные устройства,Фаол қурилмалар
 settings_change_password,Parolni o‘zgartirish,Поменять пароль,Паролни ўзгартириш
 settings_receive_notification,Bildirishnomani qanday olish mumkin,Способ получения уведомления,Билдиришномани қандай олиш мумкин

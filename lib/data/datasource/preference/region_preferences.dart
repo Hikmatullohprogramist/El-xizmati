@@ -10,6 +10,7 @@ class RegionPreferences {
   static const String _regionName = 'region_name';
   static const String _districtId = 'district_id';
   static const String _districtName = 'district_name';
+  static const String _isSelected = 'isSelected';
 
   @factoryMethod
   static Future<RegionPreferences> create() async {
@@ -27,8 +28,7 @@ class RegionPreferences {
 
   bool get isRegionSelected => regionId != null && districtId != null;
 
-  String get selectedRegionName =>
-      isRegionSelected ? "${regionName!}, ${districtName!}" : "";
+  String? get selectedRegionName => isRegionSelected ? districtName : null;
 
   Future<void> setSelectedRegion({
     required int regionId,

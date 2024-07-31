@@ -45,6 +45,7 @@ import 'package:onlinebozor/presentation/features/common/popular_categories/popu
 import 'package:onlinebozor/presentation/features/common/region_selection/region_selection_page.dart';
 import 'package:onlinebozor/presentation/features/common/report/submit_report_page.dart';
 import 'package:onlinebozor/presentation/features/common/search/search_page.dart';
+import 'package:onlinebozor/presentation/features/common/set_region/set_region_page.dart';
 import 'package:onlinebozor/presentation/features/common/unit_selection/unit_selection_page.dart';
 import 'package:onlinebozor/presentation/features/common/user_address_selection/user_address_selection_page.dart';
 import 'package:onlinebozor/presentation/features/common/user_warehouse_selection/user_warehouse_selection_page.dart';
@@ -249,6 +250,10 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           page: NotificationListRoute.page,
           path: '/notification_list',
+        ),
+        AutoRoute(
+          page: SetRegionRoute.page,
+          path: '/set_region',
         ),
         AutoRoute(
           page: UserActiveSessionsRoute.page,

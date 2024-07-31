@@ -1,4 +1,15 @@
 class ExpandableListItem {
+  dynamic item;
+  int id;
+  int parentId;
+  String name;
+  bool isParent;
+  int totalChildCount;
+  int selectedChildCount;
+  bool isSelected;
+  bool isVisible;
+  bool isOpened;
+
   ExpandableListItem({
     required this.item,
     required this.id,
@@ -27,14 +38,5 @@ class ExpandableListItem {
     );
   }
 
-  dynamic item;
-  int id;
-  int parentId;
-  String name;
-  bool isParent;
-  int totalChildCount;
-  int selectedChildCount;
-  bool isSelected;
-  bool isVisible;
-  bool isOpened;
+  bool get isChild => !isParent;
 }

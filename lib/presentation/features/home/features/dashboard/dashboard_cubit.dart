@@ -4,18 +4,22 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/core/extensions/list_extensions.dart';
+import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
 import 'package:onlinebozor/data/datasource/network/responses/category/popular_category/popular_category_response.dart';
 import 'package:onlinebozor/data/repositories/ad_repository.dart';
 import 'package:onlinebozor/data/repositories/cart_repository.dart';
 import 'package:onlinebozor/data/repositories/common_repository.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
+import 'package:onlinebozor/data/repositories/region_repository.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/domain/models/banner/banner_image.dart';
+import 'package:onlinebozor/presentation/stream_controllers/selected_region_stream_controller.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
 part 'dashboard_cubit.freezed.dart';
+
 part 'dashboard_state.dart';
 
 @injectable
@@ -24,18 +28,30 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
   final CartRepository _cartRepository;
   final CommonRepository _commonRepository;
   final FavoriteRepository _favoriteRepository;
+  final RegionRepository _regionRepository;
+  final SelectedRegionStreamController _selectedRegionStreamController;
 
   DashboardCubit(
     this._adRepository,
     this._cartRepository,
     this._commonRepository,
     this._favoriteRepository,
+    this._regionRepository,
+    this._selectedRegionStreamController,
   ) : super(DashboardState()) {
+    getSelectedRegion();
+    _selectedRegionSubs = _selectedRegionStreamController.listen((event) {
+      getSelectedRegion();
+      if(event == 0){
+        clearSelectedRegion();
+      }
+    });
     _getInitialData();
   }
 
   StreamSubscription? _productAdsSubs;
   StreamSubscription? _recentlyAdsSubs;
+  StreamSubscription? _selectedRegionSubs;
   StreamSubscription? _serviceAdsSubs;
   StreamSubscription? _topAdsSubs;
 
@@ -43,6 +59,7 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
   Future<void> close() async {
     await _productAdsSubs?.cancel();
     await _recentlyAdsSubs?.cancel();
+    await _selectedRegionSubs?.cancel();
     await _serviceAdsSubs?.cancel();
     await _topAdsSubs?.cancel();
 
@@ -68,6 +85,15 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
       getTopRatedAds(),
       getRecentlyViewedAds(),
     ]);
+  }
+
+  Future<void> getSelectedRegion() async {
+    final regionName = _regionRepository.getSelectedRegionName();
+    updateState((state) => state.copyWith(selectedRegionName: regionName));
+  }
+
+  Future<void> clearSelectedRegion() async {
+    updateState((state) => state.copyWith(selectedRegionName: null));
   }
 
   Future<void> getPopularCategories() async {

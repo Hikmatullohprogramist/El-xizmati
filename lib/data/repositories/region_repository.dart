@@ -41,22 +41,25 @@ class RegionRepository {
     return result.map((e) => e.toNeighborhood()).toList();
   }
 
-  Future<void> setSelectedRegion(
-    int regionId,
-    String regionName,
-    int districtId,
-    String districtName,
-  ) async {
+  Future<void> setSelectedRegion(int regionId, String regionName,
+      int districtId, String districtName) async {
     return _regionPreferences.setSelectedRegion(
-      regionId: regionId,
-      regionName: regionName,
-      districtId: districtId,
-      districtName: districtName,
-    );
+        regionId: regionId,
+        regionName: regionName,
+        districtId: districtId,
+        districtName: districtName,);
   }
 
-  String getSelectedRegionName() {
+  String? getSelectedRegionName() {
     return _regionPreferences.selectedRegionName;
+  }
+
+  int? getSelectedRegionId() {
+    return _regionPreferences.regionId;
+  }
+
+  int? getSelectedDistrictId() {
+    return _regionPreferences.districtId;
   }
 
   Future<void> clearSelectedRegion() {

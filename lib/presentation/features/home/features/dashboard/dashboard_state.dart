@@ -6,6 +6,8 @@ class DashboardState with _$DashboardState {
 
   @freezed
   const factory DashboardState({
+    String? selectedRegionName,
+//
     @Default([]) List<PopularCategory> popularCategories,
     @Default(LoadingState.loading) LoadingState popularCategoriesState,
 //
@@ -29,6 +31,8 @@ class DashboardState with _$DashboardState {
       recentlyViewedAdsState == LoadingState.loading ||
       (recentlyViewedAdsState == LoadingState.success &&
           recentlyViewedAds.isNotEmpty);
+
+  String get actualRegionName => selectedRegionName?? Strings.setRegionSelectedName;
 }
 
 @freezed
