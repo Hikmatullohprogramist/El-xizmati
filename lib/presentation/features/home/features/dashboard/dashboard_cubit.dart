@@ -19,7 +19,6 @@ import 'package:onlinebozor/presentation/stream_controllers/selected_region_stre
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
 part 'dashboard_cubit.freezed.dart';
-
 part 'dashboard_state.dart';
 
 @injectable
@@ -40,12 +39,9 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
     this._selectedRegionStreamController,
   ) : super(DashboardState()) {
     getSelectedRegion();
-    _selectedRegionSubs = _selectedRegionStreamController.listen((event) {
-      getSelectedRegion();
-      if(event == 0){
-        clearSelectedRegion();
-      }
-    });
+
+    _subscribeStreams();
+
     _getInitialData();
   }
 
@@ -64,6 +60,13 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
     await _topAdsSubs?.cancel();
 
     super.close();
+  }
+
+  void _subscribeStreams() {
+    _selectedRegionSubs?.cancel();
+    _selectedRegionSubs = _selectedRegionStreamController.listen((event) {
+      getSelectedRegion();
+    });
   }
 
   Future<void> _getInitialData() async {
@@ -90,10 +93,6 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
   Future<void> getSelectedRegion() async {
     final regionName = _regionRepository.getSelectedRegionName();
     updateState((state) => state.copyWith(selectedRegionName: regionName));
-  }
-
-  Future<void> clearSelectedRegion() async {
-    updateState((state) => state.copyWith(selectedRegionName: null));
   }
 
   Future<void> getPopularCategories() async {

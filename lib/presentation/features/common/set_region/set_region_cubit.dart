@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
@@ -11,7 +10,6 @@ import 'package:onlinebozor/presentation/stream_controllers/selected_region_stre
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
 part 'set_region_cubit.freezed.dart';
-
 part 'set_region_state.dart';
 
 @Injectable()
@@ -25,23 +23,6 @@ class SetRegionCubit extends BaseCubit<SetRegionState, SetRegionEvent> {
   ) : super(const SetRegionState()) {
     getSelectedRegion();
     getRegionAndDistricts();
-  }
-
-  void setInitialParams(List<District>? districts) {
-    try {
-      if (districts != null) {
-        List<ExpandableListItem> initialSelectedItems = districts
-            .map((e) =>
-                e.toExpandableListItem(isSelected: false, isVisible: false))
-            .toList();
-
-        updateState((state) => state.copyWith(
-              initialSelectedItems: initialSelectedItems,
-            ));
-      }
-    } catch (e) {
-      logger.e(e.toString());
-    }
   }
 
   void getSelectedRegion() {
@@ -85,6 +66,9 @@ class SetRegionCubit extends BaseCubit<SetRegionState, SetRegionEvent> {
 
       updateState((state) => state.copyWith(
             loadState: LoadingState.success,
+            regionName: allItems.firstIf((e) => e.id == states.regionId)?.name,
+            districtName:
+                allItems.firstIf((e) => e.id == states.districtId)?.name,
             allItems: allItems,
             visibleItems: allItems.where((e) => e.isVisible).toList(),
           ));
@@ -94,93 +78,68 @@ class SetRegionCubit extends BaseCubit<SetRegionState, SetRegionEvent> {
     }
   }
 
-  void updateSelectedState(ExpandableListItem item) {
-    try {
-      var allItems = states.allItems.map((e) => e.copy()).toList();
-      bool state = !item.isSelected;
-      if (item.isParent) {
-        allItems
-            .where((e) => e.parentId == item.id || e.id == item.id)
-            .forEach((child) => child.isSelected = state);
-
-        int selectedChildCount =
-            allItems.where((e) => e.parentId == item.id && e.isSelected).length;
-
-        int totalChildCount =
-            allItems.where((e) => e.parentId == item.id).length;
-
-        allItems.firstWhereOrNull((e) => e.id == item.id)?.isSelected =
-            totalChildCount == selectedChildCount;
-
-        allItems
-            .firstWhereOrNull((e) => e.id == item.parentId)
-            ?.selectedChildCount = selectedChildCount;
-      } else {
-        allItems
-            .firstWhereOrNull((element) => element.id == item.id)
-            ?.isSelected = state;
-
-        int selectedChildCount = allItems
-            .where((e) => e.parentId == item.parentId && e.isSelected)
-            .length;
-
-        int totalChildCount =
-            allItems.where((e) => e.parentId == item.parentId).length;
-
-        allItems.firstWhereOrNull((e) => e.id == item.parentId)?.isSelected =
-            totalChildCount == selectedChildCount;
-
-        allItems
-            .firstWhereOrNull((e) => e.id == item.parentId)
-            ?.selectedChildCount = selectedChildCount;
-      }
-
-      updateState((state) => state.copyWith(
-            allItems: allItems,
-            visibleItems: allItems.where((e) => e.isVisible).toList(),
-          ));
-    } catch (e) {
-      logger.e("update-selected-state ERROR = ${e.toString()}");
-    }
-  }
-
   void openOrClose(ExpandableListItem regionItem) {
-    var allItems = states.allItems;
-    if (regionItem.isChild) {
-      for (var district in allItems) {
-        district.isSelected = district.id == regionItem.id;
-      }
-      updateState((state) => state.copyWith(
-          allItems: allItems,
-          districtId: regionItem.id,
-          districtName: regionItem.name));
-      return;
-    } else {
-      allItems.where((e) => e.parentId == regionItem.id).forEach((e) {
-        e.isVisible = !e.isVisible;
-      });
-      // for (var region in allItems) {
-      //   region.isSelected = region.id == regionItem.id;
-      // }
-      allItems.firstWhere((e) => e.id == regionItem.id).isOpened =
-          !regionItem.isOpened;
+    var allItems = states.allItems.map((e) => e.copy()).toList();
 
-      updateState(
-        (state) => state.copyWith(
-          regionId: regionItem.id,
-          regionName: regionItem.name,
-          allItems: allItems,
-          visibleItems: allItems.where((e) => e.isVisible).toList(),
-        ),
-      );
+    if (regionItem.isOpened) {
+      allItems.filterIf((e) => e.isParent).forEach((e) => e.isOpened = false);
+
+      allItems.filterIf((e) => e.isChild).forEach((e) {
+        e.isVisible = false;
+      });
+    } else {
+      allItems
+          .filterIf((e) => e.isParent)
+          .forEach((e) => e.isOpened = e.id == regionItem.id);
+
+      allItems.filterIf((e) => e.isChild).forEach((e) {
+        e.isVisible = e.parentId == regionItem.id;
+      });
+
+      if (states.regionId != regionItem.id) {
+        allItems.filterIf((e) => e.isChild).forEach((e) {
+          e.isSelected = false;
+        });
+      }
     }
+
+    updateState(
+      (state) => state.copyWith(
+        regionId: regionItem.id,
+        regionName: regionItem.name,
+        districtId: null,
+        districtName: null,
+        allItems: allItems,
+        visibleItems: allItems.where((e) => e.isVisible).toList(),
+      ),
+    );
   }
 
-  Future<void> saveSelectedRegion(state) async {
-    await _regionRepository.setSelectedRegion(state.regionId, state.regionName,
-        state.districtId, state.districtName);
+  void setSelectedDistrict(ExpandableListItem districtItem) {
+    var allItems = states.allItems;
+    allItems
+        .filterIf((e) => e.isChild)
+        .forEach((e) => e.isSelected = e.id == districtItem.id);
 
-    _selectedRegionStreamController.add(states.districtId!);
+    updateState((state) => state.copyWith(
+          allItems: allItems,
+          districtId: districtItem.id,
+          districtName: districtItem.name,
+        ));
+  }
+
+  Future<void> saveSelectedRegion() async {
+    if (states.isRegionSelected) {
+      await _regionRepository.setSelectedRegion(
+        states.regionId!,
+        states.regionName!,
+        states.districtId!,
+        states.districtName!,
+      );
+
+      _selectedRegionStreamController.add(states.districtId!);
+    }
+
     emitEvent(SetRegionEvent(SetRegionEventType.onSave));
   }
 

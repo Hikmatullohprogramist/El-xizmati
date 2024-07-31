@@ -94,9 +94,7 @@ class DashboardPage
                       onTap: () async {
                         showCupertinoModalBottomSheet(
                           context: context,
-                          builder: (context) => SetRegionPage(
-                            initialSelectedDistricts: [],
-                          ),
+                          builder: (context) => SetRegionPage(),
                         );
                         HapticFeedback.lightImpact();
                       },
@@ -140,7 +138,7 @@ class DashboardPage
               Expanded(
                 child: Container(
                   margin:
-                      EdgeInsets.only(left: 16, top: 8, bottom: 8, right: 6),
+                      EdgeInsets.only(left: 16, top: 0, bottom: 12, right: 6),
                   child: InkWell(
                     onTap: () => context.router.push(SearchRoute()),
                     borderRadius: BorderRadius.circular(6),

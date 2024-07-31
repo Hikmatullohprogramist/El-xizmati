@@ -2,18 +2,14 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/domain/mappers/region_mapper.dart';
-import 'package:onlinebozor/domain/models/district/district.dart';
+import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
+import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
+import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/extensions/platform_sizes.dart';
 import 'package:onlinebozor/presentation/widgets/action/action_item_shimmer.dart';
-import 'package:onlinebozor/presentation/widgets/action/multi_selection_expandable_item.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_outlined_button.dart';
 import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 
@@ -23,12 +19,7 @@ import 'set_region_cubit.dart';
 @RoutePage()
 class SetRegionPage
     extends BasePage<SetRegionCubit, SetRegionState, SetRegionEvent> {
-  final List<District>? initialSelectedDistricts;
-
-  const SetRegionPage({
-    super.key,
-    this.initialSelectedDistricts,
-  });
+  const SetRegionPage({super.key});
 
   @override
   void onEventEmitted(BuildContext context, SetRegionEvent event) {
@@ -38,11 +29,6 @@ class SetRegionPage
       case SetRegionEventType.onSave:
         context.router.pop();
     }
-  }
-
-  @override
-  void onWidgetCreated(BuildContext context) {
-    cubit(context).setInitialParams(initialSelectedDistricts);
   }
 
   @override
@@ -102,7 +88,7 @@ class SetRegionPage
                   child: CustomElevatedButton(
                     text: Strings.commonSave,
                     onPressed: () {
-                      cubit(context).saveSelectedRegion(state);
+                      cubit(context).saveSelectedRegion();
                     },
                   ),
                 ),
@@ -150,7 +136,11 @@ class SetRegionPage
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: () {
-                        cubit(context).openOrClose(element);
+                        if (element.isParent) {
+                          cubit(context).openOrClose(element);
+                        } else if (element.isChild) {
+                          cubit(context).setSelectedDistrict(element);
+                        }
                         HapticFeedback.lightImpact();
                       },
                       child: Container(

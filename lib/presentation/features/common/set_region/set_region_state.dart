@@ -2,6 +2,8 @@ part of 'set_region_cubit.dart';
 
 @freezed
 class SetRegionState with _$SetRegionState {
+  const SetRegionState._();
+
   const factory SetRegionState({
 //
     @Default([]) List<ExpandableListItem> initialSelectedItems,
@@ -14,9 +16,11 @@ class SetRegionState with _$SetRegionState {
     int? regionId,
     String? regionName,
     int? districtId,
-    String? districtName
+    String? districtName,
 //
   }) = _SetRegionState;
+
+  bool get isRegionSelected => regionId != null && districtId != null;
 }
 
 @freezed
