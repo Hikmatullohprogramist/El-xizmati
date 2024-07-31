@@ -8,8 +8,6 @@ import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 import 'package:onlinebozor/domain/models/ad/ad_list_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
-import 'package:onlinebozor/presentation/features/common/region_selection/region_selection_page.dart';
-import 'package:onlinebozor/presentation/features/common/set_region/set_region_cubit.dart';
 import 'package:onlinebozor/presentation/features/common/set_region/set_region_page.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
@@ -19,7 +17,6 @@ import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_lis
 import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_list_widget.dart';
 import 'package:onlinebozor/presentation/widgets/ad/top_rated/top_rated_ad_list_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/ad/top_rated/top_rated_ad_list_widget.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/category/popular_category_list_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/category/popular_category_list_widget.dart';
 import 'package:onlinebozor/presentation/widgets/dashboard/banner_list_shimmer.dart';
@@ -85,56 +82,66 @@ class DashboardPage
         Flexible(
           child: Column(
             children: [
-              Row(children: [
-                Expanded(
-                  child: Container(
-                    margin:
-                        EdgeInsets.only(left: 16, top: 8, bottom: 8, right: 6),
-                    child: InkWell(
-                      onTap: () async {
-                        showCupertinoModalBottomSheet(
-                          context: context,
-                          builder: (context) => SetRegionPage(),
-                        );
-                        HapticFeedback.lightImpact();
-                      },
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            SizedBox(width: 8),
-                            Expanded(
-                              child: state.actualRegionName
-                                  .w(600)
-                                  .s(14)
-                                  .c(Color(0xFF494B50))
-                                  .copyWith(
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                            ),
-                            SizedBox(width: 4),
-                            Assets.images.icArrowDown.svg(),
-                            SizedBox(width: 8),
-                          ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: Container(
+                      margin: EdgeInsets.only(
+                          left: 16, top: 8, bottom: 8, right: 6),
+                      child: InkWell(
+                        onTap: () async {
+                          showCupertinoModalBottomSheet(
+                            context: context,
+                            builder: (context) => SetRegionPage(),
+                          );
+                          HapticFeedback.lightImpact();
+                        },
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(width: 8),
+                              Flexible(
+                                child: state.actualRegionName
+                                    .w(600)
+                                    .s(14)
+                                    .c(Color(0xFF494B50))
+                                    .copyWith(
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                              ),
+                              SizedBox(width: 4),
+                              Assets.images.icArrowDown.svg(),
+                              SizedBox(width: 8),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                IconButton(
-                  onPressed: () => context.router.push(FavoriteListRoute()),
-                  icon: Assets.images.bottomBar.favorite
-                      .svg(color: Color(0xFF5C6AC4)),
-                ),
-                IconButton(
-                  onPressed: () => context.router.push(NotificationListRoute()),
-                  icon: Assets.images.icNotification
-                      .svg(color: Color(0xFF5C6AC4)),
-                )
-              ]),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        onPressed: () =>
+                            context.router.push(FavoriteListRoute()),
+                        icon: Assets.images.bottomBar.favorite
+                            .svg(color: Color(0xFF5C6AC4)),
+                      ),
+                      IconButton(
+                        onPressed: () =>
+                            context.router.push(NotificationListRoute()),
+                        icon: Assets.images.icNotification
+                            .svg(color: Color(0xFF5C6AC4)),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
               Expanded(
                 child: Container(
                   margin:

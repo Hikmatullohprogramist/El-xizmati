@@ -28,7 +28,8 @@ class RegionPreferences {
 
   bool get isRegionSelected => regionId != null && districtId != null;
 
-  String? get selectedRegionName => isRegionSelected ? districtName : null;
+  String? get selectedRegionName =>
+      isRegionSelected ? "$regionName, $districtName" : null;
 
   Future<void> setSelectedRegion({
     required int regionId,

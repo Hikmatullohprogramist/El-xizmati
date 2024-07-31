@@ -66,14 +66,10 @@ class SetRegionPage
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(
-              16,
-              0,
-              16,
-              defaultBottomPadding,
-            ),
+            padding: EdgeInsets.only(bottom: defaultBottomPadding),
             child: Row(
               children: [
+                SizedBox(width: 16),
                 Expanded(
                   child: CustomElevatedButton(
                     text: Strings.commonFilterReset,
@@ -92,6 +88,7 @@ class SetRegionPage
                     },
                   ),
                 ),
+                SizedBox(width: 16),
               ],
             ),
           ),
