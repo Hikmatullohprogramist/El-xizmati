@@ -82,8 +82,8 @@ class UserOrderWidget extends StatelessWidget {
                     children: [
                       RoundedCachedNetworkImage(
                         imageId: order.mainPhoto,
-                        imageWidth: 120,
-                        imageHeight: 80,
+                        width: 120,
+                        height: 80,
                       ),
                     ],
                   ),

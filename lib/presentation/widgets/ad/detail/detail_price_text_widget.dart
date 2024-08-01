@@ -1,42 +1,44 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
+import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
+import 'package:onlinebozor/domain/models/currency/currency_code.dart';
 import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 
-import '../../../../domain/models/currency/currency_code.dart';
-
 class DetailPriceTextWidget extends StatelessWidget {
-  DetailPriceTextWidget(
-      {super.key,
-      required this.price,
-      required this.toPrice,
-      required this.fromPrice,
-      required this.currency,
-      this.color});
-
   final int price;
   final int toPrice;
   final int fromPrice;
   final CurrencyCode currency;
   Color? color;
+  final double textSize;
+  final int fontWeight;
 
-  var format = NumberFormat('###,000');
+  DetailPriceTextWidget({
+    super.key,
+    required this.price,
+    required this.toPrice,
+    required this.fromPrice,
+    required this.currency,
+    this.color,
+    this.textSize = 16,
+    this.fontWeight = 800,
+  });
 
   @override
   Widget build(BuildContext context) {
     String priceStr = "";
-
+    var f = Constants.formatter;
     if (price == 0) {
-      priceStr = "${format.format(fromPrice).replaceAll(',', ' ')} - "
-          "${format.format(toPrice).replaceAll(',', ' ')} ${currency.getLocalizedName()}";
+      priceStr = "${f.format(fromPrice).replaceAll(',', ' ')} - "
+          "${f.format(toPrice).replaceAll(',', ' ')} ${currency.getLocalizedName()}";
     } else {
       priceStr =
-          "${format.format(price).replaceAll(',', ' ')} ${currency.getLocalizedName()}";
+          "${f.format(price).replaceAll(',', ' ')} ${currency.getLocalizedName()}";
     }
 
     return priceStr
-        .w(800)
-        .s(16)
+        .w(fontWeight)
+        .s(textSize)
         .c(color != null ? color! : Color(0xFF5C6AC3))
         .copyWith(maxLines: 1, overflow: TextOverflow.ellipsis);
   }

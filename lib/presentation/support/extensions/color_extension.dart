@@ -26,7 +26,8 @@ extension ColorExtension on BuildContext {
 
   Color get bottomNavigationColor => Theme.of(this).colorScheme.background;
 
-  Color get appBarColor => Theme.of(this).colorScheme.secondary;
+  // Color get appBarColor => Theme.of(this).colorScheme.secondary;
+  Color get appBarColor => isDarkMode ? Color(0xFF424242) : Color(0xFFFFFFFF);
 
   Color get elevatedColor => isDarkMode ? Color(0xFF333333) : Color(0xFFFFFFFF);
 

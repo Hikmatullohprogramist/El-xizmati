@@ -47,8 +47,8 @@ class HorizontalAdWidget extends StatelessWidget {
               children: [
                 RoundedCachedNetworkImage(
                   imageId: ad.photo,
-                  imageWidth: 140,
-                  imageHeight: 140,
+                  width: 140,
+                  height: 140,
                 ),
                 AppAdStatusWidget(adStatus: AdPriorityLevel.standard),
                 Align(

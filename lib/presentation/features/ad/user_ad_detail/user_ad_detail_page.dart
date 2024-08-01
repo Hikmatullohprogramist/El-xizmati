@@ -70,21 +70,21 @@ class UserAdDetailPage extends BasePage<UserAdDetailCubit, UserAdDetailState, Us
           physics: BouncingScrollPhysics(),
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
-          itemCount: state.userAdDetail?.photos?.length ?? 0,
+          itemCount: state.adPhotos.length,
           padding: EdgeInsets.only(left: 10, right: 16),
           itemBuilder: (context, index) {
             return InkWell(
               onTap: () {
                 context.router.push(
                   ImageViewerRoute(
-                    images: cubit(context).getAdImages(),
+                    images: state.adPhotos,
                     initialIndex: index,
                   ),
                 );
               },
               child: RoundedCachedNetworkImage(
-                imageId: state.userAdDetail!.photos![index].image,
-                imageWidth: 160,
+                imageId: state.adPhotos[index],
+                width: 160,
               ),
             );
           },

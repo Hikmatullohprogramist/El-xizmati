@@ -8,12 +8,12 @@ class TopRatedAdListWidget extends StatelessWidget {
     super.key,
     required this.ads,
     required this.onItemClicked,
-    required this.onOnClickBuyClicked,
+    required this.onOneClickBuyClicked,
     required this.onFavoriteClicked,
   });
 
   final List<Ad> ads;
-  final Function(Ad ad) onOnClickBuyClicked;
+  final Function(Ad ad) onOneClickBuyClicked;
   final Function(Ad ad) onFavoriteClicked;
   final Function(Ad ad) onItemClicked;
 
@@ -31,7 +31,7 @@ class TopRatedAdListWidget extends StatelessWidget {
           return TopRatedAdWidget(
             ad: ads[index],
             onItemClicked: onItemClicked,
-            onOnClickBuyClicked: onOnClickBuyClicked,
+            onOnClickBuyClicked: onOneClickBuyClicked,
             onFavoriteClicked: onFavoriteClicked,
           );
         },

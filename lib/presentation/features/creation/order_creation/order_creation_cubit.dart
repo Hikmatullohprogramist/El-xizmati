@@ -49,7 +49,7 @@ class OrderCreationCubit
 
   List<String> getImages() {
     return (states.adDetail?.photos ?? List.empty(growable: true))
-        .map((e) => "${Constants.baseUrlForImage}${e.image}")
+        .map((e) => "${Constants.baseUrlForImage}$e")
         .toList();
   }
 
@@ -89,13 +89,13 @@ class OrderCreationCubit
         .initFuture()
         .onStart(() {})
         .onSuccess((data) {
-          final paymentList =
-              data?.paymentTypes?.map((e) => e.id ?? -1).toList() ?? [];
+          // final paymentList =
+          //     data?.paymentTypes?.map((e) => e.id ?? -1).toList() ?? [];
           updateState((state) => state.copyWith(
                 adDetail: data,
                 favorite: data?.isFavorite ?? false,
                 hasRangePrice: data?.hasRangePrice() ?? false,
-                paymentType: paymentList,
+                // paymentType: paymentList,
               ));
         })
         .onError((error) {
@@ -195,7 +195,7 @@ class OrderCreationCubit
           adId: states.adId ?? -1,
           amount: states.count,
           paymentTypeId: states.paymentId,
-          tin: states.adDetail?.sellerTin ?? -1,
+          tin: states.adDetail?.seller?.tin ?? -1,
           servicePrice: states.price?.toString(),
         )
         .initFuture()

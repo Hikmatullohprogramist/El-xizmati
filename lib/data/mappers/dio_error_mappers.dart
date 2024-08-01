@@ -39,7 +39,6 @@ extension DioExceptionExts on DioException {
     }
 
     return response != null
-        // ? response?.dioResponseToAppException() ??
         ? AppNetworkDioException(
             message: response?.statusMessage ??
                 response?.toString() ??

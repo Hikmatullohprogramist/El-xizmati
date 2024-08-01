@@ -121,8 +121,8 @@ class UserOrderInfoPage extends BasePage<UserOrderInfoCubit, UserOrderInfoState,
             children: [
               RoundedCachedNetworkImage(
                 imageId: state.actualOrder.mainPhoto,
-                imageWidth: 120,
-                imageHeight: 80,
+                width: 120,
+                height: 80,
               ),
               SizedBox(width: 12),
               Expanded(

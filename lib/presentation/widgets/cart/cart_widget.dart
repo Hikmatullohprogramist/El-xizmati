@@ -59,8 +59,8 @@ class CartWidget extends StatelessWidget {
                 children: [
                   RoundedCachedNetworkImage(
                     imageId: ad.photo,
-                    imageWidth: 120,
-                    imageHeight: 80,
+                    width: 120,
+                    height: 80,
                   ),
                   SizedBox(width: 12),
                   Expanded(

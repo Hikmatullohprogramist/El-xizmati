@@ -70,8 +70,8 @@ class TopRatedAdWidget extends StatelessWidget {
   Widget _getAdImageWidget() {
     return RoundedCachedNetworkImage(
       imageId: ad.photo,
-      imageWidth: 72,
-      imageHeight: 72,
+      width: 72,
+      height: 72,
     );
   }
 

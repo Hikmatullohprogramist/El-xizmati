@@ -1,4 +1,10 @@
 enum AdItemCondition {
   fresh,
-  used,
+  used;
+
+  static AdItemCondition valueOrDefault(String? stringValue) {
+    return stringValue?.contains("USED") == true
+        ? AdItemCondition.used
+        : AdItemCondition.fresh;
+  }
 }
