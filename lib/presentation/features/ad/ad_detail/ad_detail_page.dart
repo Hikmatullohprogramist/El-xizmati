@@ -280,29 +280,58 @@ class AdDetailPage
     BuildContext context,
     AdDetailState state,
   ) {
+    double calculatePricePosition(
+        double minPrice, double maxPrice, double price) {
+      if (maxPrice == minPrice) {
+        return 0.0;
+      } else if (price >= maxPrice) {
+        return 70.0;
+      }
+      final position = ((price - minPrice) / (maxPrice - minPrice)) * 100;
+      if (position < 10.0) {
+        return 10.0;
+      } else if (position > 70.0) {
+        return 70.0;
+      }
+      return position;
+    }
+
+    double pricePosition = calculatePricePosition(
+      state.adDetail!.minPrice!,
+      state.adDetail!.maxPrice!,
+      state.adDetail!.price.toDouble(),
+    );
+    print("Min Price: ${state.adDetail!.minPrice}");
+    print("Price: ${state.adDetail!.price}");
+    print("Max Price: ${state.adDetail!.maxPrice}");
+
+    print(pricePosition);
     return [
       Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Column(
-            children: [
-              RoundedCachedNetworkImage(
-                imageId: state.adDetail?.photos?.firstOrNull ?? "",
-                width: 100,
-                height: 64,
-              ),
-              DetailPriceTextWidget(
-                price: state.adDetail!.price,
-                toPrice: state.adDetail!.toPrice,
-                fromPrice: state.adDetail!.fromPrice,
-                currency: state.adDetail!.currency,
-                color: Color(0xFFFF0098),
-                textSize: 14,
-                fontWeight: 400,
-              ),
-            ],
-          ),
+          Padding(
+            padding: EdgeInsets.only(
+                left:
+                    MediaQuery.of(context).size.width * (pricePosition / 100)),
+            child: Column(
+              children: [
+                RoundedCachedNetworkImage(
+                  imageId: state.adDetail?.photos?.firstOrNull ?? "",
+                  width: 100,
+                  height: 64,
+                ),
+                DetailPriceTextWidget(
+                  price: state.adDetail!.price,
+                  toPrice: state.adDetail!.toPrice,
+                  fromPrice: state.adDetail!.fromPrice,
+                  currency: state.adDetail!.currency,
+                  color: Color(0xFFFF0098),
+                  textSize: 14,
+                  fontWeight: 400,
+                ),
+              ],
+            ),
+          )
         ],
       ),
       SizedBox(height: 2),
