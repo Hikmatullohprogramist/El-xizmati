@@ -65,4 +65,8 @@ class RegionRepository {
   Future<void> clearSelectedRegion() {
     return _regionPreferences.clear();
   }
+
+  Future<void> setIntroRegionSelection() {
+    return _regionPreferences.setDefaultRegionSelection;
+  }
 }

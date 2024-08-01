@@ -28,6 +28,5 @@ class SetLanguageCubit extends BaseCubit<SetLanguageState, SetLanguageEvent> {
 
   Future<void> setLanguage(Language language) async {
     await _languageRepository.setLanguage(language);
-    // emitEvent(PageEvent(PageEventType.navigationAuthStart));
   }
 }

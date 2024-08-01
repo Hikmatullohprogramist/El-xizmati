@@ -10,7 +10,7 @@ class RegionPreferences {
   static const String _regionName = 'region_name';
   static const String _districtId = 'district_id';
   static const String _districtName = 'district_name';
-  static const String _isSelected = 'isSelected';
+  static String defaultRegionSelection = 'default_region_selection';
 
   @factoryMethod
   static Future<RegionPreferences> create() async {
@@ -25,8 +25,12 @@ class RegionPreferences {
   int? get districtId => _preferences.getInt(_districtId);
 
   String? get districtName => _preferences.getString(_districtName);
+  bool? get showDefaultRegionPage => _preferences.getBool(defaultRegionSelection);
 
   bool get isRegionSelected => regionId != null && districtId != null;
+
+  Future<void> get setDefaultRegionSelection => _preferences.setBool(defaultRegionSelection, true);
+
 
   String? get selectedRegionName =>
       isRegionSelected ? "$regionName, $districtName" : null;

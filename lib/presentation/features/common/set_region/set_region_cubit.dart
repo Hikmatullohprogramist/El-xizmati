@@ -6,6 +6,7 @@ import 'package:onlinebozor/data/repositories/region_repository.dart';
 import 'package:onlinebozor/domain/mappers/item_mapper.dart';
 import 'package:onlinebozor/domain/models/district/district.dart';
 import 'package:onlinebozor/domain/models/list/expandable_list_item.dart';
+import 'package:onlinebozor/domain/models/region/set_region_event.dart';
 import 'package:onlinebozor/presentation/stream_controllers/selected_region_stream_controller.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
@@ -137,7 +138,7 @@ class SetRegionCubit extends BaseCubit<SetRegionState, SetRegionEvent> {
         states.districtName!,
       );
 
-      _selectedRegionStreamController.add(states.districtId!);
+      _selectedRegionStreamController.add(SetRegionResult.regionChanged);
     }
 
     emitEvent(SetRegionEvent(SetRegionEventType.onSave));
@@ -146,7 +147,7 @@ class SetRegionCubit extends BaseCubit<SetRegionState, SetRegionEvent> {
   Future<void> clearSelectedRegion() async {
     await _regionRepository.clearSelectedRegion();
 
-    _selectedRegionStreamController.add(0);
+    _selectedRegionStreamController.add(SetRegionResult.regionReset);
     emitEvent(SetRegionEvent(SetRegionEventType.onClose));
   }
 }

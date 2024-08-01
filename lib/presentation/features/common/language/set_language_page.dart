@@ -21,15 +21,6 @@ class SetLanguagePage
   const SetLanguagePage({super.key});
 
   @override
-  void onEventEmitted(BuildContext context, SetLanguageEvent event) {
-    switch (event.type) {
-      case SetLanguageEventType.navigationAuthStart:
-        context.router.replace(HomeRoute());
-        break;
-    }
-  }
-
-  @override
   Widget onWidgetBuild(BuildContext context, SetLanguageState state) {
     return Scaffold(
       appBar: AppBar(
@@ -55,10 +46,7 @@ class SetLanguagePage
               ),
               Spacer(),
               Text(Strings.languageWelcome).w(500).s(24).c(Color(0xFF41455F)),
-              Text(Strings.languageSetTitle)
-                  .w(400)
-                  .s(12)
-                  .c(context.textSecondary),
+              Text(Strings.languageSetTitle).w(400).s(12),
               Spacer(),
               CustomOutlinedButton(
                 text: Strings.languageUzLat,
@@ -102,7 +90,7 @@ class SetLanguagePage
               CustomElevatedButton(
                 text: Strings.commonContinue,
                 onPressed: () {
-                  context.router.replace(HomeRoute());
+                  context.router.replace(SetIntroRegionRoute());
                 },
               ),
             ],

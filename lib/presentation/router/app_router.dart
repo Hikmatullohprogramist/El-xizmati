@@ -77,6 +77,7 @@ import 'package:onlinebozor/presentation/features/home/features/profile/profile_
 import 'package:onlinebozor/presentation/features/home/home_page.dart';
 import 'package:onlinebozor/presentation/features/realpay/add_card/add_card_with_realpay_page.dart';
 import 'package:onlinebozor/presentation/features/realpay/refill/refill_with_realpay_page.dart';
+import 'package:onlinebozor/presentation/features/common/set_intro_region/set_intro_region_page.dart';
 
 part 'app_router.gr.dart';
 
@@ -89,6 +90,11 @@ class AppRouter extends _$AppRouter {
           page: SetLanguageRoute.page,
           path: "/set_language",
           initial: false,
+        ),
+        // default region
+        AutoRoute(
+          page: SetIntroRegionRoute.page,
+          path: '/set_intro_region',
         ),
 
         /// Add address

@@ -7,7 +7,5 @@ class SetLanguageState with _$SetLanguageState {
 
 @freezed
 class SetLanguageEvent with _$SetLanguageEvent {
-  const factory SetLanguageEvent(SetLanguageEventType type) = _SetLanguageEvent;
+  const factory SetLanguageEvent() = _SetLanguageEvent;
 }
-
-enum SetLanguageEventType { navigationAuthStart }
