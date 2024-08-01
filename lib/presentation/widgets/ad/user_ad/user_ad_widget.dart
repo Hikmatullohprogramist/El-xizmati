@@ -42,8 +42,8 @@ class UserAdWidget extends StatelessWidget {
                     children: [
                       RoundedCachedNetworkImage(
                         imageId: userAd.mainPhoto ?? "",
-                        imageWidth: 130,
-                        imageHeight: 100,
+                        width: 130,
+                        height: 100,
                       ),
                       Align(
                         alignment: Alignment.topLeft,

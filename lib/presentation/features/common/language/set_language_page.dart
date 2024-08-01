@@ -7,7 +7,6 @@ import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/language/language.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
@@ -46,10 +45,13 @@ class SetLanguagePage
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Spacer(),
+              Assets.images.pngImages.appLogo.image(width: 64, height: 64),
+              SizedBox(height: 8),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("Online").w(700).s(32).c(Color(0xFF5C6AC4)),
+                  SizedBox(width: 6),
                   Text("Bozor").w(700).s(32).c(Color(0xFFBAC2D6)),
                 ],
               ),
@@ -64,37 +66,32 @@ class SetLanguagePage
                 text: Strings.languageUzLat,
                 onPressed: () {
                   HapticFeedback.lightImpact();
-                  EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZ'));
                   cubit(context).setLanguage(Language.uzbekLatin);
+                  EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZ'));
                 },
-                strokeColor: cubit(context).isUzbekLatinSelected
-                    ? StaticColors.buttonColor
-                    : Color(0xFFE5E9F3),
+                isSelected: cubit(context).isUzbekLatinSelected,
                 rightIcon: Assets.images.pngImages.flagUz.image(),
               ),
+
               SizedBox(height: 12),
               CustomOutlinedButton(
                 text: Strings.languageRus,
                 onPressed: () {
                   HapticFeedback.lightImpact();
-                  EasyLocalization.of(context)?.setLocale(Locale('ru', 'RU'));
                   cubit(context).setLanguage(Language.russian);
+                  EasyLocalization.of(context)?.setLocale(Locale('ru', 'RU'));
                 },
-                strokeColor: cubit(context).isRussianSelected
-                    ? StaticColors.buttonColor
-                    : Color(0xFFE5E9F3),
+                isSelected: cubit(context).isRussianSelected,
                 rightIcon: Assets.images.pngImages.flagRu.image(),
               ),
               SizedBox(height: 12),
               CustomOutlinedButton(
                 onPressed: () {
                   HapticFeedback.lightImpact();
-                  EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZK'));
                   cubit(context).setLanguage(Language.uzbekCyrill);
+                  EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZK'));
                 },
-                strokeColor: cubit(context).isUzbekCyrillSelected
-                    ? StaticColors.buttonColor
-                    : Color(0xFFE5E9F3),
+                isSelected: cubit(context).isUzbekCyrillSelected,
                 rightIcon: Assets.images.pngImages.flagUz.image(),
                 text: Strings.languageUzCyr,
               ),

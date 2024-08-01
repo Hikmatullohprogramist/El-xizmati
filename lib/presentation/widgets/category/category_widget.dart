@@ -36,8 +36,8 @@ class CategoryWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               RoundedCachedNetworkImage(
-                imageWidth: 20,
-                imageHeight: 20,
+                width: 20,
+                height: 20,
                 imageId: category.icon ?? "",
               ),
               SizedBox(width: 16),

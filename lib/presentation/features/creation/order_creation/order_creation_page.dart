@@ -136,8 +136,8 @@ class OrderCreationPage extends BasePage<OrderCreationCubit, OrderCreationState,
             return InkWell(
                 borderRadius: BorderRadius.circular(6),
                 child: RoundedCachedNetworkImage(
-                  imageId: state.adDetail!.photos?[index].image ?? "",
-                  imageWidth: 140,
+                  imageId: state.adDetail!.photos?[index] ?? "",
+                  width: 140,
                 ),
                 onTap: () {
                   context.router.push(

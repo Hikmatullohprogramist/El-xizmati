@@ -117,8 +117,8 @@ class ProfileViewPage
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               RoundedCachedNetworkImage(
-                imageWidth: 64,
-                imageHeight: 64,
+                width: 64,
+                height: 64,
                 imageId: state.photo,
                 placeHolderIcon: Assets.images.icAvatarBoy.svg(),
                 errorIcon: Assets.images.icAvatarBoy.svg(),

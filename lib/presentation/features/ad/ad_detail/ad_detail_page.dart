@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
@@ -10,6 +11,7 @@ import 'package:onlinebozor/domain/models/ad/ad.dart';
 import 'package:onlinebozor/domain/models/ad/ad_author_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_item_condition.dart';
 import 'package:onlinebozor/domain/models/ad/ad_list_type.dart';
+import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/report/report_type.dart';
 import 'package:onlinebozor/domain/models/stats/stats_type.dart';
 import 'package:onlinebozor/presentation/features/common/report/submit_report_page.dart';
@@ -31,12 +33,14 @@ import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
 import 'package:onlinebozor/presentation/widgets/elevation/elevation_widget.dart';
 import 'package:onlinebozor/presentation/widgets/favorite/ad_detail_favorite_widget.dart';
 import 'package:onlinebozor/presentation/widgets/image/rectangle_cached_network_image_widget.dart';
+import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
 import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../domain/models/ad/ad_type.dart';
 import 'ad_detail_cubit.dart';
 
 @RoutePage()
@@ -57,117 +61,50 @@ class AdDetailPage
   @override
   Widget onWidgetBuild(BuildContext context, AdDetailState state) {
     return Scaffold(
-      appBar: _getAppBar(context, state),
-      bottomNavigationBar:
-          state.isNotPrepared ? null : _getBottomNavigationBar(context, state),
+      appBar: _buildAppBar(context, state),
+      bottomNavigationBar: state.isNotPrepared
+          ? null
+          : _buildBottomNavigationBar(context, state),
       backgroundColor: context.backgroundWhiteColor,
       body: state.isNotPrepared
-          ? Container(
-              child: state.isPreparingInProcess
-                  ? AdDetailShimmer()
-                  : DefaultErrorWidget(
-                      isFullScreen: true,
-                      onRetryClicked: () => cubit(context).getDetailResponse(),
-                    ),
-            )
-          : _getBodyContent(context, state),
+          ? _buildLoadingBody(state, context)
+          : _buildSuccessBody(context, state),
     );
   }
 
+  Widget _buildLoadingBody(AdDetailState state, BuildContext context) {
+    return state.isPreparingInProcess
+        ? AdDetailShimmer()
+        : DefaultErrorWidget(
+            isFullScreen: true,
+            onRetryClicked: () => cubit(context).getDetailResponse(),
+          );
+  }
 
-  Widget _getBodyContent(BuildContext context, AdDetailState state) {
+  Widget _buildSuccessBody(BuildContext context, AdDetailState state) {
     return SafeArea(
       bottom: true,
       child: ListView(
         shrinkWrap: true,
         physics: BouncingScrollPhysics(),
         children: [
-          CarouselSlider(
-            carouselController: _controller,
-            options: CarouselOptions(
-              autoPlay: false,
-              height: 340,
-              viewportFraction: 1,
-              onPageChanged: (index, reason) {
-                cubit(context).setVisibleImageIndex(index);
-              },
-            ),
-            items: state.images.mapIndexed((index, image) {
-              return Builder(
-                builder: (BuildContext context) {
-                  return InkWell(
-                    onTap: () {
-                      context.router.push(
-                        ImageViewerRoute(
-                          images: state.images,
-                          initialIndex: index,
-                        ),
-                      );
-                    },
-                    child: RectangleCachedNetworkImage(imageId: image),
-                  );
-                },
-              );
-            }).toList(),
-          ),
-          SizedBox(height: 8),
-          Center(
-            child: AnimatedSmoothIndicator(
-              activeIndex: state.visibleImageIndex,
-              effect: ExpandingDotsEffect(
-                dotWidth: 9,
-                dotHeight: 3,
-                spacing: 5,
-                radius: 3,
-                dotColor: StaticColors.buttonColor.withOpacity(0.5),
-                activeDotColor: StaticColors.buttonColor,
-              ),
-              count: state.imagesCount,
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 16),
-                state.adDetail!.adName.w(600).s(16).copyWith(
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                SizedBox(height: 16),
-                DetailPriceTextWidget(
-                  price: state.adDetail!.price,
-                  toPrice: state.adDetail!.toPrice,
-                  fromPrice: state.adDetail!.fromPrice,
-                  currency: state.adDetail!.currency,
-                  color: Color(0xFFFF0098),
-                ),
-                SizedBox(height: 12),
-                CustomDivider(),
-                SizedBox(height: 12),
-                _getAdInfoChips(state),
-                // SizedBox(height: 12),
-                // AppDivider(),
-                // SizedBox(height: 12),
-                // AppDivider(),
-                // getWatch(Strings.adDetailFeedback, () {}),
-              ],
-            ),
-          ),
-          Visibility(
-            visible: (state.adDetail?.hasDescription() ?? false),
-            child: CustomDivider(startIndent: 16, endIndent: 16),
-          ),
-          _getDescriptionBlock(context, state),
-          CustomDivider(startIndent: 16, endIndent: 16),
-          _getAuthorBlock(context, state),
+          ..._buildImageListWidget(context, state),
+          SizedBox(height: 16),
+          ..._buildNameAndPriceWidgets(context, state),
           SizedBox(height: 12),
-          _getContactsBlock(context, state),
+          ..._buildPriceRangeWidgets(context, state),
+          SizedBox(height: 12),
+          ..._buildAdInfoChips(context, state),
+          SizedBox(height: 12),
+          ..._buildDescBlock(context, state),
+          SizedBox(height: 12),
+          ..._buildAuthorBlock(context, state),
+          SizedBox(height: 12),
+          _buildContactsBlock(context, state),
           SizedBox(height: 12),
           CustomDivider(startIndent: 16, endIndent: 16),
           SizedBox(height: 12),
-          _getAddressBlock(context, state),
+          _buildAddressBlock(context, state),
           Visibility(
             visible: false,
             child: Column(
@@ -179,15 +116,355 @@ class AdDetailPage
               ],
             ),
           ),
-          _getSimilarAds(context, state),
-          _getOwnerAdsWidget(context, state),
-          _getRecentlyViewedAdsWidget(context, state)
+          _buildSimilarAds(context, state),
+          _buildOwnerAdsWidget(context, state),
+          _buildRecentlyViewedAdsWidget(context, state)
         ],
       ),
     );
   }
 
-  AppBar _getAppBar(BuildContext context, AdDetailState state) {
+  List<Widget> _buildNameAndPriceWidgets(
+    BuildContext context,
+    AdDetailState state,
+  ) {
+    return [
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: state.adDetail!.adName.w(600).s(16).copyWith(
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+      ),
+      SizedBox(height: 8),
+      Row(
+        children: [
+          SizedBox(width: 16),
+          DetailPriceTextWidget(
+            price: state.adDetail!.price,
+            toPrice: state.adDetail!.toPrice,
+            fromPrice: state.adDetail!.fromPrice,
+            currency: state.adDetail!.currency,
+            color: Color(0xFFFF0098),
+          ),
+          Visibility(
+            visible: state.adDetail?.isContract == true,
+            child: SizedBox(width: 12),
+          ),
+          Visibility(
+            visible: state.adDetail?.isContract == true,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: Color(0xFF0096B2).withOpacity(0.15),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+              child: Row(
+                children: [
+                  Assets.images.icBargain.svg(width: 20, height: 20),
+                  SizedBox(width: 4),
+                  Strings.commonBargain.s(13).w(500).c(Color(0xFF0096B2)),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(width: 16),
+        ],
+      ),
+      SizedBox(height: 12),
+      Visibility(
+        visible: state.hasInstallment,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(width: 16),
+            InkWell(
+              onTap: () {
+                HapticFeedback.lightImpact();
+              },
+              child: Flexible(
+                flex: 2,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(6),
+                      bottomLeft: Radius.circular(6),
+                    ),
+                    color: StaticColors.majorelleBlue.withOpacity(0.85),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(width: 12),
+                      Assets.images.icInstallmentPayment.svg(
+                        width: 15,
+                        height: 15,
+                        color: Colors.white,
+                      ),
+                      SizedBox(width: 8),
+                      Strings.installmentPaymentPrice(
+                              monthly_price: state.installmentMonthlyPrice,
+                              month_count: state.installmentMonthlyCount)
+                          .s(14)
+                          .w(500)
+                          .c(context.textPrimaryInverse)
+                          .copyWith(
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                      SizedBox(width: 12),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 2),
+            InkWell(
+              onTap: () {
+                HapticFeedback.lightImpact();
+              },
+              child: Flexible(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(6),
+                      bottomRight: Radius.circular(6),
+                    ),
+                    color: StaticColors.majorelleBlue.withOpacity(0.85),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(width: 12),
+                      Strings.commonMore
+                          .s(14)
+                          .w(400)
+                          .c(context.textPrimaryInverse)
+                          .copyWith(
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                      SizedBox(width: 6),
+                      Assets.images.icArrowRight.svg(
+                        width: 15,
+                        height: 15,
+                        color: Colors.white,
+                      ),
+                      SizedBox(width: 12),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: 16),
+          ],
+        ),
+      ),
+      Visibility(
+        visible: state.hasInstallment,
+        child: SizedBox(height: 12),
+      ),
+      CustomDivider(startIndent: 16, endIndent: 16),
+    ];
+  }
+
+  List<Widget> _buildPriceRangeWidgets(
+    BuildContext context,
+    AdDetailState state,
+  ) {
+    return [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Column(
+            children: [
+              RoundedCachedNetworkImage(
+                imageId: state.adDetail?.photos?.firstOrNull ?? "",
+                width: 100,
+                height: 64,
+              ),
+              DetailPriceTextWidget(
+                price: state.adDetail!.price,
+                toPrice: state.adDetail!.toPrice,
+                fromPrice: state.adDetail!.fromPrice,
+                currency: state.adDetail!.currency,
+                color: Color(0xFFFF0098),
+                textSize: 14,
+                fontWeight: 400,
+              ),
+            ],
+          ),
+        ],
+      ),
+      SizedBox(height: 2),
+      Row(
+        children: [
+          SizedBox(width: 16),
+          Flexible(
+            child: Container(
+              height: 4,
+              margin: EdgeInsets.symmetric(horizontal: 1),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFF76cf5e),
+                    Color(0xFF76cf5e).withOpacity(0.85),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+          Flexible(
+            child: Container(
+              height: 4,
+              margin: EdgeInsets.symmetric(horizontal: 1),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFF76cf5e).withOpacity(0.70),
+                    Color(0xFF76cf5e).withOpacity(0.55),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+          Flexible(
+            child: Container(
+              height: 4,
+              margin: EdgeInsets.symmetric(horizontal: 1),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFF76cf5e).withOpacity(0.40),
+                    Color(0xFFf7cf47),
+                    Color(0xFFf7cf47),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+          Flexible(
+            child: Container(
+              height: 4,
+              margin: EdgeInsets.symmetric(horizontal: 1),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: const [
+                    Color(0xFFf7cf47),
+                    Color(0xFFf7cf47),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+          Flexible(
+            child: Container(
+              height: 4,
+              margin: EdgeInsets.symmetric(horizontal: 1),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: const [
+                    Color(0xFFf7cf47),
+                    Color(0xFFf7cf47),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+          Flexible(
+            child: Container(
+              height: 4,
+              margin: EdgeInsets.symmetric(horizontal: 1),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: const [
+                    Color(0xFFf7cf47),
+                    Color(0xFFf7cf47),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+          Flexible(
+            child: Container(
+              height: 4,
+              margin: EdgeInsets.symmetric(horizontal: 1),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFFf7cf47),
+                    Color(0xFFeb535a).withOpacity(0.4),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+          Flexible(
+            child: Container(
+              height: 4,
+              margin: EdgeInsets.symmetric(horizontal: 1),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFFeb535a).withOpacity(0.55),
+                    Color(0xFFeb535a).withOpacity(0.7),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+          Flexible(
+            child: Container(
+              height: 4,
+              margin: EdgeInsets.symmetric(horizontal: 1),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFFeb535a).withOpacity(0.85),
+                    Color(0xFFeb535a),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+          SizedBox(width: 16),
+        ],
+      ),
+      SizedBox(height: 8),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Strings.adDetailCheapPrice.s(14).w(400),
+            Strings.adDetailExpensivePrice.s(14).w(400)
+          ],
+        ),
+      ),
+      SizedBox(height: 12),
+      CustomDivider(startIndent: 16, endIndent: 16),
+    ];
+  }
+
+  AppBar _buildAppBar(BuildContext context, AdDetailState state) {
     return state.isNotPrepared
         ? ActionAppBar(
             titleText: "",
@@ -224,13 +501,62 @@ class AdDetailPage
           );
   }
 
-  Widget _getBottomNavigationBar(BuildContext context, AdDetailState state) {
+  List<Widget> _buildImageListWidget(
+      BuildContext context, AdDetailState state) {
+    return [
+      CarouselSlider(
+        carouselController: _controller,
+        options: CarouselOptions(
+          autoPlay: false,
+          height: 340,
+          viewportFraction: 1,
+          onPageChanged: (index, reason) {
+            cubit(context).setVisibleImageIndex(index);
+          },
+        ),
+        items: state.images.mapIndexed((index, image) {
+          return Builder(
+            builder: (BuildContext context) {
+              return InkWell(
+                onTap: () {
+                  context.router.push(
+                    ImageViewerRoute(
+                      images: state.images,
+                      initialIndex: index,
+                    ),
+                  );
+                },
+                child: RectangleCachedNetworkImage(imageId: image),
+              );
+            },
+          );
+        }).toList(),
+      ),
+      SizedBox(height: 8),
+      Center(
+        child: AnimatedSmoothIndicator(
+          activeIndex: state.visibleImageIndex,
+          effect: ExpandingDotsEffect(
+            dotWidth: 9,
+            dotHeight: 3,
+            spacing: 5,
+            radius: 3,
+            dotColor: StaticColors.buttonColor.withOpacity(0.5),
+            activeDotColor: StaticColors.buttonColor,
+          ),
+          count: state.imagesCount,
+        ),
+      ),
+    ];
+  }
+
+  Widget _buildBottomNavigationBar(BuildContext context, AdDetailState state) {
     return Visibility(
-      visible: (state.adDetail!.mainTypeStatus == "SELL" ||
-          state.adDetail!.mainTypeStatus == "FREE" ||
-          state.adDetail!.mainTypeStatus == "EXCHANGE"),
+      visible: (state.adDetail!.adTransactionType == AdTransactionType.sell ||
+          state.adDetail!.adTransactionType == AdTransactionType.free ||
+          state.adDetail!.adTransactionType == AdTransactionType.exchange),
       child: ElevationWidget(
-        topLeftRadius:16,
+        topLeftRadius: 16,
         topRightRadius: 16,
         backgroundColor: Colors.transparent,
         child: Container(
@@ -256,9 +582,11 @@ class AdDetailPage
                 Flexible(
                   child: CustomElevatedButton(
                     text: Strings.adBuy,
-                    backgroundColor: StaticColors.majorelleBlue.withOpacity(0.8),
+                    backgroundColor:
+                        StaticColors.majorelleBlue.withOpacity(0.8),
                     onPressed: () {
-                      context.router.push(OrderCreationRoute(adId: state.adId!));
+                      context.router
+                          .push(OrderCreationRoute(adId: state.adId!));
                     },
                   ),
                 ),
@@ -285,133 +613,166 @@ class AdDetailPage
     );
   }
 
-  Widget _getAdInfoChips(AdDetailState state) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: switch (state.adDetail!.adAuthorType) {
-              AdAuthorType.private => Color(0x28AEB2CD),
-              AdAuthorType.business => Color(0x1E6546E7),
-            },
-          ),
-          child: switch (state.adDetail!.adAuthorType) {
-            AdAuthorType.private => Strings.adPropertyPersonal.w(400).s(12),
-            AdAuthorType.business => Strings.adPropertyBiznes.w(400).s(12),
-          },
-        ),
-        SizedBox(width: 8),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: Color(0x28AEB2CD),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              switch (state.adDetail!.adItemCondition) {
-                AdItemCondition.fresh => Strings.adStatusNew.w(400).s(12),
-                AdItemCondition.used => Strings.adStatusOld.w(400).s(12),
-              },
-            ],
-          ),
-        ),
-        SizedBox(width: 8),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: Color(0x28AEB2CD),
-          ),
-          child: Row(mainAxisSize: MainAxisSize.min, children: [
-            Assets.images.icEye.svg(height: 14, width: 14),
-            SizedBox(width: 4),
-            state.adDetail!.view.toString().w(500).s(12),
-          ]),
-        ),
-        SizedBox(width: 8),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: Color(0x28AEB2CD),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Assets.images.icEdit.svg(height: 12, width: 12),
-              SizedBox(width: 6),
-              (state.adDetail!.createdAt ?? "").w(500).s(12)
-            ],
-          ),
-        )
-      ],
-    );
-  }
-
-  Widget _getDescriptionBlock(BuildContext context, AdDetailState state) {
-    return Visibility(
-      visible: true, //(state.adDetail?.hasDescription() ?? false),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+  List<Widget> _buildAdInfoChips(BuildContext context, AdDetailState state) {
+    return [
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          alignment: WrapAlignment.start,
+          crossAxisAlignment: WrapCrossAlignment.start,
+          runAlignment: WrapAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: Strings.adDetailDescription.w(600).s(14),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: switch (state.adDetail!.adAuthorType) {
+                  AdAuthorType.private => Color(0x28AEB2CD),
+                  AdAuthorType.business => Color(0x1E6546E7),
+                },
+              ),
+              child: switch (state.adDetail!.adAuthorType) {
+                AdAuthorType.private => Strings.adPropertyPersonal.w(400).s(12),
+                AdAuthorType.business => Strings.adPropertyBiznes.w(400).s(12),
+              },
             ),
-            (state.adDetail?.description ?? "")
-                .w(400)
-                .s(14)
-                .copyWith(maxLines: 7),
-            SizedBox(height: 8),
-            Visibility(
-              visible: false,
-              child: InkWell(
-                onTap: () {},
-                child: Strings.adDetailShowMore.w(500).s(14),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: Color(0x28AEB2CD),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  (state.adDetail!.adType == AdType.product
+                          ? Strings.adTypeProductTitle
+                          : Strings.adTypeServiceTitle)
+                      .s(12)
+                      .w(400),
+                ],
               ),
             ),
-            SizedBox(height: 16),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: Color(0x28AEB2CD),
+              ),
+              child: Row(mainAxisSize: MainAxisSize.min, children: [
+                Strings.adDetailChipViewedCount
+                    .s(12)
+                    .w(400)
+                    .c(context.textPrimary.withOpacity(0.85)),
+                SizedBox(width: 4),
+                state.adDetail!.viewedCount.toString().w(500).s(12),
+              ]),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: Color(0x28AEB2CD),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Strings.adDetailChipItemCondition
+                      .s(12)
+                      .w(400)
+                      .c(context.textPrimary.withOpacity(0.85)),
+                  SizedBox(width: 6),
+                  (state.adDetail!.adItemCondition == AdItemCondition.fresh
+                          ? Strings.adStatusNew
+                          : Strings.adStatusOld)
+                      .s(12)
+                      .w(500),
+                ],
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: Color(0x28AEB2CD),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Strings.adDetailChipPublishedDate
+                      .s(12)
+                      .w(400)
+                      .c(context.textPrimary.withOpacity(0.85)),
+                  SizedBox(width: 6),
+                  (state.adDetail!.createdAt ?? "").w(500).s(12)
+                ],
+              ),
+            ),
           ],
         ),
       ),
-    );
+    ];
   }
 
-  Widget _getAuthorBlock(BuildContext context, AdDetailState state) {
-    return Container(
-      padding: EdgeInsets.only(left: 16, top: 8),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Strings.adDetailAuthor.w(600).s(14),
-          SizedBox(height: 16),
-          InkWell(
-              child: Row(
-                children: [
-                  Container(
-                    height: 52,
-                    width: 52,
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Color(0xFFE0E0ED),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Assets.images.icAvatarBoy.svg(),
+  List<Widget> _buildDescBlock(BuildContext context, AdDetailState state) {
+    return state.adDetail?.hasDescription() == false
+        ? []
+        : [
+            CustomDivider(startIndent: 16, endIndent: 16),
+            SizedBox(height: 12),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Strings.adDetailDescription.w(600).s(14),
+            ),
+            SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: (state.adDetail?.description ?? "")
+                  .w(400)
+                  .s(14)
+                  .copyWith(maxLines: 7),
+            ),
+          ];
+  }
+
+  List<Widget> _buildAuthorBlock(BuildContext context, AdDetailState state) {
+    return [
+      CustomDivider(startIndent: 16, endIndent: 16),
+      SizedBox(height: 12),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Strings.adDetailAuthor.w(600).s(14),
+      ),
+      SizedBox(height: 4),
+      InkWell(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 8),
+            Row(
+              children: [
+                SizedBox(width: 16),
+                Container(
+                  height: 52,
+                  width: 52,
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Color(0xFFE0E0ED),
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  SizedBox(width: 16),
-                  Flexible(
-                      child: Column(
+                  child: Assets.images.icAvatarBoy.svg(),
+                ),
+                SizedBox(width: 16),
+                Flexible(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      (state.adDetail!.sellerFullName ?? "")
+                      (state.adDetail?.seller?.fullName ?? "")
                           .w(500)
                           .s(14)
                           .copyWith(
@@ -424,33 +785,91 @@ class AdDetailPage
                           Strings.adDetailOnOnlineBozor
                               .w(400)
                               .s(14)
-                              .c(context.textSecondary),
+                              .c(context.textPrimary.withOpacity(0.85)),
                           SizedBox(width: 8),
                           (state.adDetail!.beginDate ?? "").w(400).s(14)
                         ],
-                      )
+                      ),
                     ],
-                  )),
-                  Assets.images.icArrowRight.svg(width: 18, height: 18),
-                  SizedBox(width: 16)
+                  ),
+                ),
+                Assets.images.icArrowRight.svg(width: 18, height: 18),
+                SizedBox(width: 16)
+              ],
+            ),
+            SizedBox(height: 12),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: Color(0xFF0096B2).withOpacity(0.75),
+              ),
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Assets.images.icTrustedSeller.svg(width: 15, height: 15),
+                  SizedBox(width: 6),
+                  Strings.commonTrustedSeller
+                      .s(13)
+                      .w(500)
+                      .c(context.textPrimaryInverse)
+                      .copyWith(
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                 ],
               ),
-              onTap: () {
-                context.router.push(
-                  AdListRoute(
-                      adListType: AdListType.adsByUser,
-                      keyWord: "",
-                      title: state.adDetail?.sellerFullName,
-                      sellerTin: state.adDetail?.sellerTin),
-                );
-              }),
-          SizedBox(height: 8)
-        ],
+            ),
+            SizedBox(height: 8),
+          ],
+        ),
+        onTap: () {
+          context.router.push(
+            AdListRoute(
+              adListType: AdListType.adsByUser,
+              keyWord: "",
+              title: state.adDetail?.seller?.fullName ?? "",
+              sellerTin: state.adDetail?.seller?.tin,
+            ),
+          );
+        },
       ),
-    );
+      SizedBox(height: 4),
+      Visibility(
+        visible: state.adDetail?.hasAddress == true,
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 4),
+              Strings.adDetailLocation.w(600).s(14),
+              SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Assets.images.icLocation.svg(width: 16, height: 16),
+                  SizedBox(width: 4),
+                  (state.adDetail!.actualAddress)
+                      .w(700)
+                      .s(12)
+                      .c(Color(0xFF5C6AC3)),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+      SizedBox(height: 12),
+      CustomDivider(startIndent: 16, endIndent: 16),
+      // SizedBox(height: 8),
+    ];
   }
 
-  Widget _getAddressBlock(BuildContext context, AdDetailState state) {
+  Widget _buildAddressBlock(BuildContext context, AdDetailState state) {
     return Visibility(
       visible: state.adDetail?.address != null,
       child: Container(
@@ -507,7 +926,7 @@ class AdDetailPage
     );
   }
 
-  Widget _getContactsBlock(BuildContext context, AdDetailState state) {
+  Widget _buildContactsBlock(BuildContext context, AdDetailState state) {
     return Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -545,7 +964,7 @@ class AdDetailPage
               onTap: () {
                 cubit(context).increaseAdStats(StatsType.message);
                 try {
-                  launch("sms://${state.adDetail!.phoneNumber}");
+                  launch("sms://${state.adDetail!.sellerPhoneNumber}");
                 } catch (e) {}
               }),
         ),
@@ -571,7 +990,7 @@ class AdDetailPage
                     Flexible(
                       flex: 1,
                       child: (state.isPhoneVisible
-                              ? (state.adDetail?.phoneNumber
+                              ? (state.adDetail?.sellerPhoneNumber
                                       ?.getFormattedPhoneNumber() ??
                                   "")
                               : Strings.adDetailShowPhone)
@@ -587,7 +1006,7 @@ class AdDetailPage
                 if (state.isPhoneVisible) {
                   try {
                     launch(
-                        "tel://${state.adDetail!.phoneNumber?.getFormattedPhoneNumber() ?? ""}");
+                        "tel://${state.adDetail!.sellerPhoneNumber?.getFormattedPhoneNumber() ?? ""}");
                   } catch (e) {}
                 } else {
                   cubit(context).setPhoneNumberVisibility();
@@ -599,7 +1018,7 @@ class AdDetailPage
     );
   }
 
-  Widget _getSimilarAds(BuildContext context, AdDetailState state) {
+  Widget _buildSimilarAds(BuildContext context, AdDetailState state) {
     if (cubit(context).hasSimilarAds()) {
       return Column(
         children: [
@@ -646,7 +1065,7 @@ class AdDetailPage
     }
   }
 
-  Widget _getOwnerAdsWidget(BuildContext context, AdDetailState state) {
+  Widget _buildOwnerAdsWidget(BuildContext context, AdDetailState state) {
     if (cubit(context).hasOwnerOtherAds()) {
       return Column(
         children: [
@@ -658,7 +1077,7 @@ class AdDetailPage
                   adListType: AdListType.adsByUser,
                   keyWord: '',
                   title: Strings.adDetailAuthorAds,
-                  sellerTin: state.adDetail?.sellerTin,
+                  sellerTin: state.adDetail?.seller?.tin,
                 ),
               );
             },
@@ -694,8 +1113,10 @@ class AdDetailPage
     }
   }
 
-  Widget _getRecentlyViewedAdsWidget(
-      BuildContext context, AdDetailState state) {
+  Widget _buildRecentlyViewedAdsWidget(
+    BuildContext context,
+    AdDetailState state,
+  ) {
     if (cubit(context).hasRecentlyViewedAds()) {
       return Column(
         children: [
@@ -796,9 +1217,9 @@ class AdDetailPage
   }
 
   void _showReportPage(
-      BuildContext context,
-      ReportType reportType,
-      ) async {
+    BuildContext context,
+    ReportType reportType,
+  ) async {
     final isReported = await showCupertinoModalBottomSheet(
       context: context,
       builder: (context) => SubmitReportPage(adId, reportType),

@@ -25,7 +25,6 @@ class BaseBuilder<Cubit extends StateStreamable<BaseState<STATE, EVENT>>, STATE,
     List<Object?>? built;
     return BlocBuilder<Cubit, BaseState<STATE, EVENT>>(
       buildWhen: (_, current) {
-        print('checking');
         if (current.state == null) return false;
         return !equals(built, properties(current.state as STATE)) &&
             (onStateUpdated == null || onStateUpdated!(current as STATE));

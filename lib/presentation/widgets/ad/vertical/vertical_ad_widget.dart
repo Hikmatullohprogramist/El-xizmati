@@ -50,7 +50,7 @@ class VerticalAdWidget extends StatelessWidget {
                 children: [
                   RoundedCachedNetworkImage(
                     imageId: ad.photo,
-                    imageHeight: 140,
+                    height: 140,
                   ),
                   AppAdStatusWidget(adStatus: ad.priorityLevel),
                   Align(

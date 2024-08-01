@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/core/extensions/list_extensions.dart';
 import 'package:onlinebozor/core/handler/future_handler_exts.dart';
+import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
 import 'package:onlinebozor/data/repositories/ad_repository.dart';
 import 'package:onlinebozor/data/repositories/cart_repository.dart';
 import 'package:onlinebozor/data/repositories/favorite_repository.dart';
@@ -89,11 +91,12 @@ class AdDetailCubit extends BaseCubit<AdDetailState, AdDetailEvent> {
                 isPreparingInProcess: true,
               ));
         })
-        .onSuccess((data) {
+        .onSuccess((ad) {
           updateState((state) => state.copyWith(
-                adDetail: data,
+                adDetail: ad,
+                adPhotos: ad?.actualAdPhotos ?? [],
                 isPhoneVisible: false,
-                isAddCart: data?.isInCart ?? false,
+                isAddCart: ad?.isInCart ?? false,
                 isNotPrepared: false,
                 isPreparingInProcess: false,
               ));
@@ -210,14 +213,14 @@ class AdDetailCubit extends BaseCubit<AdDetailState, AdDetailEvent> {
   }
 
   Future<void> getOwnerOtherAds() async {
-    if (states.adDetail?.sellerTin == null) {
+    if (states.adDetail?.seller?.tin == null) {
       updateState((s) => s.copyWith(ownerAdsState: LoadingState.error));
       return;
     }
 
     _adRepository
         .getAdsByUser(
-          sellerTin: states.adDetail!.sellerTin!,
+          sellerTin: states.adDetail!.seller!.tin!,
           page: 1,
           limit: 20,
         )
@@ -276,21 +279,21 @@ class AdDetailCubit extends BaseCubit<AdDetailState, AdDetailEvent> {
               ));
         })
         .onSuccess((data) {
-      final ids = data.adIds();
+          final ids = data.adIds();
 
-      _recentlyAdsSubs?.cancel();
-      _recentlyAdsSubs = _adRepository.watchAdsByIds(ids).listen((ads) {
-        updateState((state) => state.copyWith(
-          recentlyViewedAds: ads.map((e) => e.copy()).toList(),
-          recentlyViewedAdsState:
-          ads.isEmpty ? LoadingState.empty : LoadingState.success,
-        ));
-      })
-        ..onError((error) {
-          updateState((state) => state.copyWith(
-            recentlyViewedAdsState: LoadingState.error,
-          ));
-        });
+          _recentlyAdsSubs?.cancel();
+          _recentlyAdsSubs = _adRepository.watchAdsByIds(ids).listen((ads) {
+            updateState((state) => state.copyWith(
+                  recentlyViewedAds: ads.map((e) => e.copy()).toList(),
+                  recentlyViewedAdsState:
+                      ads.isEmpty ? LoadingState.empty : LoadingState.success,
+                ));
+          })
+            ..onError((error) {
+              updateState((state) => state.copyWith(
+                    recentlyViewedAdsState: LoadingState.error,
+                  ));
+            });
         })
         .onError((error) {
           updateState((state) => state.copyWith(

@@ -10,6 +10,7 @@ class AdDetailState with _$AdDetailState {
 //
     int? adId,
     AdDetail? adDetail,
+    @Default([]) List<String> adPhotos,
 //
     @Default(0) int visibleImageIndex,
 //
@@ -26,10 +27,18 @@ class AdDetailState with _$AdDetailState {
     @Default(LoadingState.loading) LoadingState recentlyViewedAdsState,
   }) = _AdDetailState;
 
-  List<String> get images =>
-      adDetail?.photos?.map((e) => e.image ?? "").toList() ?? [];
+  List<String> get images => adDetail?.photos?.map((e) => e).toList() ?? [];
 
   int get imagesCount => adDetail?.photos?.length ?? 0;
+
+  bool get hasInstallment => adDetail?.installmentInfo != null;
+
+  String get installmentMonthlyPrice => hasInstallment
+      ? Constants.formatter.format(adDetail!.installmentInfo!.monthlyPrice)
+      : "";
+
+  String get installmentMonthlyCount =>
+      hasInstallment ? adDetail!.installmentInfo!.monthCount.toString() : "";
 }
 
 @freezed

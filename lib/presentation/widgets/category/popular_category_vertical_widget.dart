@@ -34,8 +34,8 @@ class PopularCategoryVerticalWidget extends StatelessWidget {
             children: [
               CircleCachedNetworkImage(
                 imageId: category.icon ?? "",
-                imageWidth: 64,
-                imageHeight: 64,
+                width: 64,
+                height: 64,
               ),
               SizedBox(width: 10),
               Flexible(

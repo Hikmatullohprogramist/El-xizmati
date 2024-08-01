@@ -4,5 +4,12 @@ enum AdTransactionType {
   exchange,
   service,
   buy,
-  buy_service,
+  buy_service;
+
+  static AdTransactionType valueOrDefault(String? stringValue) {
+    return AdTransactionType.values.firstWhere(
+      (e) => e.name.toUpperCase() == stringValue?.toUpperCase(),
+      orElse: () => AdTransactionType.sell,
+    );
+  }
 }

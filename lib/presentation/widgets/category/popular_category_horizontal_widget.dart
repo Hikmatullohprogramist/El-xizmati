@@ -32,8 +32,8 @@ class PopularCategoryHorizontal extends StatelessWidget {
               SizedBox(height: 8),
               CircleCachedNetworkImage(
                 imageId: category.icon ?? "",
-                imageWidth: 52,
-                imageHeight: 52,
+                width: 52,
+                height: 52,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 6),

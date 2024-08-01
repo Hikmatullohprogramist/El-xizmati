@@ -1,4 +1,10 @@
 enum AdPriorityLevel {
   top,
-  standard,
+  standard;
+
+  static AdPriorityLevel valueOrDefault(String? stringValue) {
+    return stringValue?.contains("TOP") == true
+        ? AdPriorityLevel.top
+        : AdPriorityLevel.standard;
+  }
 }

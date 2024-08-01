@@ -10,30 +10,9 @@ import '../models/ad/ad_type.dart';
 import '../models/currency/currency_code.dart';
 
 extension StringMapperExts on String? {
-  AdItemCondition toAdItemCondition() {
-    return this?.contains("USED") == true
-        ? AdItemCondition.used
-        : AdItemCondition.fresh;
-  }
 
-  AdAuthorType toAdAuthorType() {
-    return this?.contains("BUSINESS") == true
-        ? AdAuthorType.business
-        : AdAuthorType.private;
-  }
 
-  AdPriorityLevel toAdPriorityLevel() {
-    return this?.contains("TOP") == true
-        ? AdPriorityLevel.top
-        : AdPriorityLevel.standard;
-  }
 
-  AdTransactionType toAdTransactionType() {
-    return AdTransactionType.values.firstWhere(
-      (e) => e.name.toUpperCase() == this?.toUpperCase(),
-      orElse: () => AdTransactionType.sell,
-    );
-  }
 
   CategoryType toCategoryType() {
     return CategoryType.values.firstWhere(

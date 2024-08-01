@@ -8,11 +8,11 @@ extension AdDetailExtension on AdDetail {
   Ad toAd() {
     return Ad(
       id: adId,
-      photo: photos?.first.image ?? "",
+      photo: photos?.first ?? "",
       regionName: address?.region?.name ?? "",
       districtName: address?.district?.name ?? "",
       toPrice: toPrice,
-      sellerId: sellerId ?? -1,
+      sellerId: seller?.id ?? -1,
       fromPrice: fromPrice,
       categoryName: categoryName ?? "",
       categoryId: categoryId ?? -1,
@@ -29,8 +29,8 @@ extension AdDetailExtension on AdDetail {
       isInCart: isInCart,
       name: adName,
       price: price,
-      sellerName: sellerFullName ?? "",
-      viewCount: view,
+      sellerName: seller?.fullName ?? "",
+      viewCount: viewedCount ?? 0,
       backendId: 0,
     );
   }

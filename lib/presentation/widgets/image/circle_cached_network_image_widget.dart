@@ -8,15 +8,15 @@ class CircleCachedNetworkImage extends StatelessWidget {
   const CircleCachedNetworkImage({
     super.key,
     required this.imageId,
-    this.imageWidth,
-    this.imageHeight,
+    this.width,
+    this.height,
     this.placeHolderIcon,
     this.errorIcon,
   });
 
   final String imageId;
-  final double? imageHeight;
-  final double? imageWidth;
+  final double? height;
+  final double? width;
   final Widget? placeHolderIcon;
   final Widget? errorIcon;
 
@@ -27,8 +27,8 @@ class CircleCachedNetworkImage extends StatelessWidget {
         : "${Constants.baseUrlForImage}$imageId";
 
     return CachedNetworkImage(
-      width: imageWidth,
-      height: imageHeight,
+      width: width,
+      height: height,
       imageUrl: actualUrl,
       cacheManager: CustomCacheManager.imageCacheManager,
       imageBuilder: (context, imageProvider) {

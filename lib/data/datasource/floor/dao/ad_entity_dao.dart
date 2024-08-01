@@ -1,10 +1,8 @@
 import 'package:floor/floor.dart';
-import 'package:logger/logger.dart';
 import 'package:onlinebozor/data/datasource/floor/entities/ad_entity.dart';
 
 @dao
 abstract class AdEntityDao {
-
   @Query('SELECT * FROM ads WHERE ad_is_in_cart == 1')
   Future<List<AdEntity>> readCartAds();
 

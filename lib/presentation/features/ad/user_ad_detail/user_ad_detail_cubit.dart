@@ -10,7 +10,8 @@ part 'user_ad_detail_cubit.freezed.dart';
 part 'user_ad_detail_state.dart';
 
 @Injectable()
-class UserAdDetailCubit extends BaseCubit<UserAdDetailState, UserAdDetailEvent> {
+class UserAdDetailCubit
+    extends BaseCubit<UserAdDetailState, UserAdDetailEvent> {
   UserAdDetailCubit(this._userAdRepository) : super(UserAdDetailState());
 
   final UserAdRepository _userAdRepository;
@@ -20,24 +21,15 @@ class UserAdDetailCubit extends BaseCubit<UserAdDetailState, UserAdDetailEvent> 
     getUserAdDetail();
   }
 
-  List<String> getAdImages() {
-    List<String> images = [];
-    if (states.userAd?.mainPhoto != null) {
-      images.add(states.userAd!.mainPhoto!);
-    }
-    return images;
-  }
-
   Future<void> getUserAdDetail() async {
     updateState((state) => state.copyWith(loadState: LoadingState.loading));
     try {
-      final userAdDetail = await _userAdRepository.getUserAdDetail(
-        adId: states.userAd!.id,
-      );
+      final ad = await _userAdRepository.getUserAdDetail(id: states.userAd!.id);
 
       updateState((state) => state.copyWith(
             loadState: LoadingState.success,
-            userAdDetail: userAdDetail,
+            userAdDetail: ad,
+            adPhotos: ad.photos?.map((e) => e.image).toSet().toList() ?? [],
           ));
     } catch (e) {
       updateState((state) => state.copyWith(loadState: LoadingState.error));

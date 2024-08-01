@@ -31,57 +31,75 @@ class Data with _$Data {
 @freezed
 class AdDetailResponse with _$AdDetailResponse {
   const factory AdDetailResponse({
-    required int id,
-    String? name,
-    String? sale_type,
-    String? main_type_status,
-    Category? category,
-    String? description,
-    int? price,
-    String? currency,
-    bool? is_contract,
-    String? route_type,
-    String? property_status,
-    AdDetailDistrictResponse? region,
-    AdDetailDistrictResponse? district,
-    dynamic email,
-    String? phone_number,
-    bool? is_autoRenew,
-    String? type_status,
-    String? begin_date,
-    String? end_date,
-    Seller? seller,
-    String? created_at,
-    dynamic other_name,
-    AdDetailDistrictResponse? other_category,
-    dynamic other_description,
-    dynamic other_route_type,
-    dynamic other_property_status,
-    String? type,
-    bool? show_social,
-    int? tin,
-    dynamic has_free_shipping,
-    dynamic has_shipping,
-    dynamic has_warehouse,
-    int? shipping_price,
-    dynamic shipping_unitId,
-    int? view,
-    int? selected,
-    int? phone_view,
-    int? message_number,
-    dynamic type_expire_date,
-    int? unit_id,
-    int? to_price,
-    int? from_price,
-    int? address_id,
-    dynamic video,
-    List<dynamic>? params,
-    List<dynamic>? social_medias,
-    List<dynamic>? warehouses,
-    List<dynamic>? shippings,
-    List<Photo>? photos,
-    AdDetailAddressResponse? address,
-    List<AdDetailDistrictResponse>? payment_types,
+//
+    @JsonKey(name: "id") required int id,
+    @JsonKey(name: "name") String? name,
+    @JsonKey(name: "description") String? description,
+    @JsonKey(name: "category") AdDetailCategory? category,
+    @JsonKey(name: "category_id") int? categoryId,
+    @JsonKey(name: "photos") List<AdDetailPhoto>? photos,
+    @JsonKey(name: "video") String? videoUrl,
+//
+    @JsonKey(name: "type_status") String? adType,
+    @JsonKey(name: "sale_type") String? saleType,
+    @JsonKey(name: "main_type_status") String? adTransactionType,
+    @JsonKey(name: "property_status") String? adItemCondition,
+    @JsonKey(name: "type") String? adPriorityLevel,
+//
+    @JsonKey(name: "price") int? price,
+    @JsonKey(name: "to_price") int? toPrice,
+    @JsonKey(name: "from_price") int? fromPrice,
+    @JsonKey(name: "currency") String? currency,
+    @JsonKey(name: "payment_types") List<AdDetailResponseItem>? paymentTypes,
+    @JsonKey(name: "is_contract") bool? isContract,
+    @JsonKey(name: "price_range") AdDetailPriceComparison? priceComparison,
+//
+    @JsonKey(name: "installments") AdDetailInstallmentInfo? installmentInfo,
+    @JsonKey(name: "plan_payments") List<AdDetailInstallmentPlan>? paymentPlans,
+//
+    @JsonKey(name: "region") AdDetailResponseItem? region,
+    @JsonKey(name: "district") AdDetailResponseItem? district,
+//
+    @JsonKey(name: "seller") AdDetailSellerResponse? seller,
+    @JsonKey(name: "tin") int? tin,
+    @JsonKey(name: "email") String? email,
+    @JsonKey(name: "phone_number") String? phoneNumber,
+    @JsonKey(name: "route_type") String? adAuthorType,
+    @JsonKey(name: "address_id") int? addressId,
+    @JsonKey(name: "address") AdDetailAddressResponse? address,
+//
+    @JsonKey(name: "is_autoRenew") bool? isAutoRenew,
+    @JsonKey(name: "showSocial") bool? isShowSocial,
+//
+    @JsonKey(name: "begin_date") String? beginDate,
+    @JsonKey(name: "end_date") String? endDate,
+    @JsonKey(name: "created_at") String? createdAt,
+//
+    @JsonKey(name: "other_name") String? otherAdName,
+    @JsonKey(name: "other_category") AdDetailResponseItem? otherAdCategory,
+    @JsonKey(name: "other_description") String? otherAdDescription,
+    @JsonKey(name: "other_route_type") String? otherAdAuthorType,
+    @JsonKey(name: "other_property_status") String? otherAdItemCondition,
+//
+    @JsonKey(name: "has_free_shipping") bool? hasFreeShipping,
+    @JsonKey(name: "has_shipping") bool? hasShipping,
+    @JsonKey(name: "has_warehouse") bool? hasWarehouse,
+    @JsonKey(name: "shipping_price") int? shippingPrice,
+    @JsonKey(name: "shipping_unitId") int? shippingUnitId,
+//
+    @JsonKey(name: "view") int? viewedCount,
+    @JsonKey(name: "selected") int? favoritesCount,
+    @JsonKey(name: "phone_view") int? phoneNumberViewedCount,
+    @JsonKey(name: "message_number") int? smsNumberViewedCount,
+//
+    @JsonKey(name: "type_expire_date") dynamic typeExpireDate,
+    @JsonKey(name: "unit_id") int? unitId,
+//
+    // @JsonKey(name: "params") List<dynamic>? params,
+    // @JsonKey(name: "social_medias") List<dynamic>? social_medias,
+    // @JsonKey(name: "warehouses") List<dynamic>? warehouses,
+    // @JsonKey(name: "shippings") List<dynamic>? shippings,
+//
   }) = _AdDetailResponse;
 
   factory AdDetailResponse.fromJson(Map<String, dynamic> json) =>
@@ -92,64 +110,108 @@ class AdDetailResponse with _$AdDetailResponse {
 class AdDetailAddressResponse with _$AdDetailAddressResponse {
   const factory AdDetailAddressResponse({
     int? id,
-    AdDetailDistrictResponse? region,
-    AdDetailDistrictResponse? district,
+    AdDetailResponseItem? region,
+    AdDetailResponseItem? district,
     String? name,
-    AdDetailDistrictResponse? mahalla,
+    AdDetailResponseItem? mahalla,
     dynamic home_num,
     dynamic street_num,
-    AdDetailDistrictResponse? floor,
+    AdDetailResponseItem? floor,
     dynamic apartment_num,
     String? geo,
-  }) = _Address;
+  }) = _AdDetailAddressResponse;
 
   factory AdDetailAddressResponse.fromJson(Map<String, dynamic> json) =>
       _$AdDetailAddressResponseFromJson(json);
 }
 
 @freezed
-class AdDetailDistrictResponse with _$AdDetailDistrictResponse {
-  const factory AdDetailDistrictResponse({
+class AdDetailResponseItem with _$AdDetailResponseItem {
+  const factory AdDetailResponseItem({
     int? id,
     String? name,
-  }) = _District;
+  }) = _AdDetailResponseItem;
 
-  factory AdDetailDistrictResponse.fromJson(Map<String, dynamic> json) =>
-      _$AdDetailDistrictResponseFromJson(json);
+  factory AdDetailResponseItem.fromJson(Map<String, dynamic> json) =>
+      _$AdDetailResponseItemFromJson(json);
 }
 
 @freezed
-class Category with _$Category {
-  const factory Category({
-    int? id,
-    bool? is_sell,
-    String? name,
-    String? key_word,
-  }) = _Category;
+class AdDetailPriceComparison with _$AdDetailPriceComparison {
+  const factory AdDetailPriceComparison({
+    @JsonKey(name: "max_price") required double maxPrice,
+    @JsonKey(name: "min_price") required double minPrice,
+  }) = _AdDetailPriceComparison;
 
-  factory Category.fromJson(Map<String, dynamic> json) =>
-      _$CategoryFromJson(json);
+  factory AdDetailPriceComparison.fromJson(Map<String, dynamic> json) =>
+      _$AdDetailPriceComparisonFromJson(json);
 }
 
 @freezed
-class Photo with _$Photo {
-  const factory Photo({
-    String? image,
-    bool? is_main,
-  }) = _Photo;
+class AdDetailInstallmentInfo with _$AdDetailInstallmentInfo {
+  const factory AdDetailInstallmentInfo({
+    @JsonKey(name: "month_id") required int monthCount,
+    @JsonKey(name: "monthly_price") required double monthlyPrice,
+  }) = _AdDetailInstallmentInfo;
 
-  factory Photo.fromJson(Map<String, dynamic> json) => _$PhotoFromJson(json);
+  factory AdDetailInstallmentInfo.fromJson(Map<String, dynamic> json) =>
+      _$AdDetailInstallmentInfoFromJson(json);
 }
 
 @freezed
-class Seller with _$Seller {
-  const factory Seller({
-    String? full_name,
-    int? id,
-    int? tin,
-    String? last_login_at,
-    dynamic photo,
-  }) = _Seller;
+class AdDetailInstallmentPlan with _$AdDetailInstallmentPlan {
+  const factory AdDetailInstallmentPlan({
+    @JsonKey(name: "id") required int id,
+    @JsonKey(name: "ads_id") required int adId,
+    @JsonKey(name: "month_id") required int monthCount,
+    @JsonKey(name: "monthly_price") required double monthlyPrice,
+    @JsonKey(name: "starting_price") required double startingPrice,
+    @JsonKey(name: "starting_percentage") required double startingPercentage,
+    @JsonKey(name: "total_price") required double totalPrice,
+    @JsonKey(name: "overtime_price") required double overtimePrice,
+    @JsonKey(name: "overtime_percentage") required double overtimePercentage,
+  }) = _AdDetailInstallmentPlan;
 
-  factory Seller.fromJson(Map<String, dynamic> json) => _$SellerFromJson(json);
+  factory AdDetailInstallmentPlan.fromJson(Map<String, dynamic> json) =>
+      _$AdDetailInstallmentPlanFromJson(json);
+}
+
+@freezed
+class AdDetailCategory with _$AdDetailCategory {
+  const factory AdDetailCategory({
+    @JsonKey(name: "id") int? id,
+    @JsonKey(name: "name") String? name,
+    @JsonKey(name: "is_sell") bool? isSell,
+    @JsonKey(name: "key_word") String? keyWord,
+  }) = _AdDetailCategory;
+
+  factory AdDetailCategory.fromJson(Map<String, dynamic> json) =>
+      _$AdDetailCategoryFromJson(json);
+}
+
+@freezed
+class AdDetailPhoto with _$AdDetailPhoto {
+  const factory AdDetailPhoto({
+    @JsonKey(name: "image") String? image,
+    @JsonKey(name: "is_main") bool? isMain,
+  }) = _AdDetailPhoto;
+
+  factory AdDetailPhoto.fromJson(Map<String, dynamic> json) =>
+      _$AdDetailPhotoFromJson(json);
+}
+
+@freezed
+class AdDetailSellerResponse with _$AdDetailSellerResponse {
+  const factory AdDetailSellerResponse({
+    @JsonKey(name: "id") int? id,
+    @JsonKey(name: "full_name") String? fullName,
+    @JsonKey(name: "tin") int? tin,
+    @JsonKey(name: "last_login_at") String? lastLoginAt,
+    @JsonKey(name: "phote") String? photo,
+    @JsonKey(name: "order_cancellations") int? cancelledOrdersCount,
+    @JsonKey(name: "is_trusted") bool? isTrusted,
+  }) = _AdDetailSellerResponse;
+
+  factory AdDetailSellerResponse.fromJson(Map<String, dynamic> json) =>
+      _$AdDetailSellerResponseFromJson(json);
 }
