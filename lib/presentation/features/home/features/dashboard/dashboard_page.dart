@@ -76,7 +76,7 @@ class DashboardPage
   AppBar _buildAppBar(BuildContext context, DashboardState state) {
     return AppBar(
       elevation: 0.5,
-      toolbarHeight: 120,
+      toolbarHeight: 100,
       leading: Assets.images.icArrowLeft.svg(color: Colors.transparent),
       backgroundColor: context.appBarColor,
       actions: [
@@ -88,8 +88,7 @@ class DashboardPage
                 children: [
                   Flexible(
                     child: Container(
-                      margin: EdgeInsets.only(
-                          left: 16, top: 8, bottom: 8, right: 6),
+                      margin: EdgeInsets.only(left: 16, right: 6),
                       child: InkWell(
                         onTap: () async {
                           showCupertinoModalBottomSheet(
@@ -109,14 +108,16 @@ class DashboardPage
                                 child: state.actualRegionName
                                     .w(600)
                                     .s(14)
-                                    .c(Color(0xFF494B50))
+                                    .c(context.textPrimary)
                                     .copyWith(
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                               ),
                               SizedBox(width: 4),
-                              Assets.images.icArrowDown.svg(),
+                              Assets.images.icArrowDown.svg(
+                                color: context.textPrimary,
+                              ),
                               SizedBox(width: 8),
                             ],
                           ),
@@ -128,16 +129,20 @@ class DashboardPage
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                        onPressed: () =>
-                            context.router.push(FavoriteListRoute()),
-                        icon: Assets.images.bottomBar.favorite
-                            .svg(color: Color(0xFF5C6AC4)),
+                        onPressed: () {
+                          context.router.push(FavoriteListRoute());
+                        },
+                        icon: Assets.images.bottomBar.favorite.svg(
+                          color: Color(0xFF5C6AC4),
+                        ),
                       ),
                       IconButton(
-                        onPressed: () =>
-                            context.router.push(NotificationListRoute()),
-                        icon: Assets.images.icNotification
-                            .svg(color: Color(0xFF5C6AC4)),
+                        onPressed: () {
+                          context.router.push(NotificationListRoute());
+                        },
+                        icon: Assets.images.icNotification.svg(
+                          color: Color(0xFF5C6AC4),
+                        ),
                       ),
                     ],
                   ),
@@ -145,8 +150,12 @@ class DashboardPage
               ),
               Expanded(
                 child: Container(
-                  margin:
-                      EdgeInsets.only(left: 16, top: 0, bottom: 12, right: 6),
+                  margin: EdgeInsets.only(
+                    left: 16,
+                    top: 4,
+                    bottom: 12,
+                    right: 16,
+                  ),
                   child: InkWell(
                     onTap: () => context.router.push(SearchRoute()),
                     borderRadius: BorderRadius.circular(6),

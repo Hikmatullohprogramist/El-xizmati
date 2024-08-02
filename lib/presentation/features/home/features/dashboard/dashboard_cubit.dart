@@ -97,6 +97,8 @@ class DashboardCubit extends BaseCubit<DashboardState, DashboardEvent> {
   Future<void> getSelectedRegion() async {
     final regionName = _regionRepository.getSelectedRegionName();
     updateState((state) => state.copyWith(selectedRegionName: regionName));
+
+    reload();
   }
 
   Future<void> getPopularCategories() async {

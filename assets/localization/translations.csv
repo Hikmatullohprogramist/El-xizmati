@@ -229,6 +229,7 @@ common_save_changes,O‘zgarishlarni saqlash,Сохранить изменени
 common_send,Yuborish,Отправить,Юбориш
 common_show_less,Kamroq ko‘rsatish,Показать меньше,Камроқ кўрсатиш
 common_show_more,Ko‘proq ko‘rsatish,Показать больше,Кўпроқ кўрсатиш
+common_skip,O‘tkazib yuborish,Пропустить,Ўтказиб юбориш
 common_street,Ko'cha,Улица,Кўча
 common_take_photo,Rasmga olish,Снять фото ,Расмга олиш
 common_total_cost,Umumiy narx,Общая стоимость,Умумий нарх
@@ -441,6 +442,15 @@ selection_pickup_addresses_title,Olib ketish manzillarini tanlang,Выберит
 selection_unit_title,O‘lchov turini tanlang,Выберите единицу измерения,Ўлчов турини танланг
 selection_user_address_title,Manzilni tanlang,Выберите адрес,Манзилни танланг
 services_title,Xizmatlar,Услуги,Хизматлар
+set_intro_choose_later,Keyinroq tanlash,Выбрать позже,Кейинроқ танлаш
+set_intro_region_description,"Sizga eng qulay bo‘lgan e’lonlarni topich uchun, iltimos hududingizni tanlang.","Чтобы вам было легче найти более подходящие объявления, пожалуйста укажите свой регион.","Сизга энг қулай бўлган эълонларни топич учун, илтимос ҳудудингизни танланг."
+set_intro_region_select_button,Hududni tanlash,Выбрать регион,Ҳудудни танлаш
+set_intro_region_title,Hududingizni tanlang,Выберите свой регион,Ҳудудингизни танланг
+set_region_description,"Iltimos, hududingizni tanlang. Biz sizni hududingizga mos keladigan 
+e’lonlarni ko'rsatamiz.","Пожалуйста, выберите свой регион. Мы покажем объявления по выбранному вами региону.","Илтимос, ҳудудингизни танланг. Биз сизни ҳудудингизга мос келадиган 
+эълонларни кўрсатамиз."
+set_region_selected_name,Butun O‘zbekiston bo‘yicha,По всему Узбекистану,Бутун Ўзбекистон бўйича
+set_region_title,Hududingizni tanlang,Выберите свой регион,Ҳудудингизни танланг
 settings_active_devices,Faol qurilmalar,Активные устройства,Фаол қурилмалар
 settings_change_password,Parolni o‘zgartirish,Поменять пароль,Паролни ўзгартириш
 settings_receive_notification,Bildirishnomani qanday olish mumkin,Способ получения уведомления,Билдиришномани қандай олиш мумкин

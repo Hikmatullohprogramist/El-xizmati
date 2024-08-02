@@ -46,7 +46,7 @@ extension ColorExtension on BuildContext {
   Color get textPrimaryInverse => colors.textPrimaryInverse;
 
   Color get inputBackgroundColor =>
-      isDarkMode ? Color(0x80333131) : Color(0xFFFBFAFF);
+      isDarkMode ? Color(0x80333131) : Color(0xFFF2F4FB);
 
   Color get inputStrokeActiveColor => colors.buttonPrimary;
 
