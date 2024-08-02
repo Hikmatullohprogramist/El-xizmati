@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 import 'package:onlinebozor/presentation/features/ad/ad_detail/ad_detail_cubit.dart';
+import 'package:onlinebozor/presentation/features/ad/ad_detail/features/installmentsa_info/cubit/installment_info_cubit.dart';
 import 'package:onlinebozor/presentation/features/ad/ad_list/ad_list_cubit.dart';
 import 'package:onlinebozor/presentation/features/ad/ad_list_by_type/ad_list_by_type_cubit.dart';
 import 'package:onlinebozor/presentation/features/ad/user_ad_detail/user_ad_detail_cubit.dart';
@@ -90,6 +91,7 @@ extension GetItModuleApp on GetIt {
     registerFactory(() => FavoriteListCubit());
     registerFactory(() => FavoriteProductsCubit(get()));
     registerFactory(() => FavoriteServicesCubit(get()));
+    registerFactory(() => InstallmentInfoCubit(get(), get(), get()));
     registerFactory(() => SetLanguageCubit(get()));
     registerFactory(() => NotificationListCubit(get()));
     registerFactory(() => PaymentTypeSelectionCubit(get()));

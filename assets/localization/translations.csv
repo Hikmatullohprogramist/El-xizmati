@@ -88,6 +88,8 @@ ad_detail_feedback,Sharhlar,Отзывы,Шарҳлар
 ad_detail_location,Manzil,Местоположение,Манзил
 ad_detail_on_online_bozor,OnlineBozorda,на OnlineBozor с,OnlineBozorда
 ad_detail_open_cart,Savatni ko‘rish,Посмотреть корзину,Саватни кўриш
+ad_detail_sale_count_end,dona bor,штука,дона бор
+ad_detail_sale_count_start,Sotuvda,В продаже,Сотувда
 ad_detail_show_more,Ko‘proq ko‘rsatish,Показать больше,Кўпроқ кўрсатиш
 ad_detail_show_phone,Qo‘ng‘iroq,Позвонить,Қўнғироқ
 ad_detail_towritemessge,Sms,Sms,Sms
@@ -161,13 +163,16 @@ card_added_message,Karta muvaffaqiyatli qo‘shildi,Карта успешно д
 card_deleted_message,Karta muvaffaqiyatli o‘chirildi,Карта успешно удалена,Карта муваффақиятли ўчирилди
 card_deleting_message,Kartani o‘chirishni hohlaysizmi?,Вы хотите удалить карту?,Картани ўчиришни ҳоҳлайсизми?
 cart_ad_remove_message,E’lonni savatdan o‘chirishni hohlaysizmi?,Хотите удалить объявление из корзины?,Эълонни саватдан ўчиришни ҳоҳлайсизми?
+cart_make_order,Rasmiylashtirish,Оформить,Расмийлаштириш
 cart_order_create,Rasmiylashtirish,Оформить,Расмийлаштириш
 category_ads_count,ta e‘lon,объявлений,та эълон
 close_title,Yopish,Закрыть,Ёпиш
 common_add,Qo‘shish,Добавить,Қўшиш
+common_all_price,Jami,Итого,Жами
 common_apartment,Kvartira,Квартира,Квартира
 common_apply,Qo‘llash,Применять,Қўллаш
 common_bargain,Kelishiladi,Возможен торг,Келишилади
+common_calculate_loading,Hisoblanmoqda...,Подсчет...,Ҳисобланмоқда...
 common_cancel,Bekor qilish,Отменить,Бекор қилиш
 common_choose,Tanlash,Выбрать,Танлаш
 common_close,Yopish,Закрыть,Ёпиш
@@ -180,6 +185,7 @@ common_district,Tuman,Район,Туман
 common_doc_info,Pasport ma’lumotlari,Паспортные данные,Паспорт маълумотлари
 common_doc_number,Pasport raqami,Номер паспорта,Паспорт рақами
 common_doc_series,Pasport seriyasi,Паспорт серии,Паспорт серияси
+common_download_again,Qayta yuklash,Перезагрузить,Қайта юклаш
 common_edit,Tahrirlash,Редактировать,Таҳрирлаш
 common_email,Elektron pochta,Эл. почта,Электрон почта
 common_empty_message,Hech qanday element topilmadi,Никакие элементы не найдены,Ҳеч қандай элемент топилмади
@@ -204,9 +210,11 @@ common_gender_female,Ayol,Жен.,Аёл
 common_gender_male,Erkak,Муж.,Эркак
 common_home_number,Uy raqami,Номер дома,Уй рақами
 common_house,Uy,Дом,Уй
+common_installment,Bo‘lib to‘lash,Оплата в рассрочку,Бўлиб тўлаш
 common_main,Asosiy,Основной,Асосий
 common_main_photo,Asosiy rasm,Главное фото,Асосий расм
 common_make_main_photo,Asosiy qilish,Сделать главным,Асосий қилиш
+common_month,oy,месяц,ойлик тўлов
 common_more,Ko‘proq,Подробнее,Кўпроқ
 common_more_with_count,Yana {count} ta,Ещё {count},Яна {count} та
 common_neighborhood,Mahalla,Махалля,Маҳалла
@@ -278,12 +286,21 @@ image_list_max_count_error,Siz ko‘pi bilan {max_count} ta rasmni qo‘shishing
 image_list_title,Rasmlar,Фото,Расмлар
 installment_payment,Muddatli to‘lov,Оплата в рассрочку,Муддатли тўлов
 installment_payment_price,{monthly_price} so‘m / {month_count} oy,{monthly_price} сум / {month_count} месяца,{monthly_price} сўм / {month_count} ой
+installmnet_table_payment_balance,To‘lov summasi,Сумма платежа,Тўлов суммаси
+installmnet_table_remaining_balance,Qoldiq summa,Остаточная сумма,Қолдиқ сумма
+intend_page_calculate_cart_data,Intend karta ma'lumotlari hisoblanmoqda..,Расчет данных карты интенд,Интенд карта маълумотлари ҳисобланмоқда..
+intend_page_intend_limit,Sizning ajratilgan limitingiz:,Ваш выделенный лимит:,Сизнинг ажратилган лимитингиз:
+intend_page_not_intend_cart_center,kartalar bo‘limiga o‘ting,зайдите в раздел карточек,карталар бўлимига ўтинг
+intend_page_not_intend_cart_end,va Intend kartani rasmiylashtiring!,и оформите Интенд-карту!,ва Интенд картани расмийлаштиринг!
+intend_page_not_intend_cart_start,Buyurtmani rasmiylashtirish uchun,Чтобы завершить заказ,Буюртмани расмийлаштириш учун
 language_rus,Русский,Русский,Русский
 language_set_title,Ilova tilini tanlang,Выберите язык приложения,Илова тилини танланг
 language_uz_cyr,Ўзбекча,Ўзбекча,Ўзбекча
 language_uz_lat,O’zbekcha,O’zbekcha,O’zbekcha
 language_welcome,Xush kelibsiz,Добро пожаловать,Xуш келибсиз
 link_title,link,связь,линк
+login_with_family_credit_date,Sana,Дата,Сана
+login_with_phone_number_error,Raqam yoki parol noto‘g‘ri,Номер или пароль неверен,Рақам ёки парол нотўғри
 message_bad_request_error,So‘rovni bajarishda xatolik yuz berdi,Произошла ошибка при обработке запроса,Сўровни бажаришда хатолик юз берди
 message_changes_saving_failed,O‘zgarishlarni saqlashda xatolik yuz berdi,Произошла ошибка при сохранении изменений,Ўзгаришларни сақлашда хатолик юз берди
 message_changes_saving_success,O‘zgarishlar muvaffaqiyatli saqlandi,Изменения успешно сохранены,Ўзгаришлар муваффақиятли сақланди
@@ -345,6 +362,11 @@ payment_filter_status,Holat,Статус,Ҳолат
 payment_filter_to_date,Gacha:,До:,Гача:
 payment_filter_type,Turi,Тип,Тури
 payment_title,To‘lovlar,Платежи,Тўловлар
+plan_installments_minimum_price,Eng kam,Меньше,Энг кам
+plan_installments_monthly_price,Oylik to‘lov,Ежемесячная плата,Ойлик тўлов
+plan_installments_start_date,Birinchi to‘lov sanasi,Дата первого платежа,Биринчи тўлов санаси
+plan_installments_start_price,Boshlang‘ich to‘lov,Первый платеж,Бошланғич тўлов
+plan_installments_table_title,To‘lov jadvali,График оплаты,Тўлов жадвали
 popular_categories_title,Ommabop kategoriyalar,Популярные категории,Оммабоп категориялар
 popular_products,Ommabop mahsulotlar,Популярные продукты,Оммабоп маҳсулотлар
 popular_services,Ommabop xizmatlar,Популярные услуги,Оммабоп хизматлар
@@ -457,6 +479,7 @@ settings_receive_notification,Bildirishnomani qanday olish mumkin,Способ �
 settings_social_network,Mening ijtimoiy tarmoqlarim,Мои соц.сети,Менинг ижтимоий тармоқларим
 settings_title,Sozlamalar,Настройки,Созламалар
 similar_product_title,O‘xshash mahsulotlar,Похожие продукты,Ўхшаш маҳсулотлар
+sm_installment_error_title,Muddatli to‘lov ma'lumotlari yuklashda xatolik yuz berdi. Iltimos qayta urinib ko‘ring,"""Не удалось загрузить информацию об оплате в рассрочку. Пожалуйста, попробуйте еще раз""",Муддатли тўлов маълумотлари юклашда хатолик юз берди. Илтимос қайта уриниб кўринг
 telegram_bot_description,Bot orqali bildirishnomalarni olish uchun siz botga ulangan bo‘lishingiz kerak,"Вы должны быть подключены, чтобы получать уведомления от ботов.",Бот орқали билдиришномаларни олиш учун сиз ботга уланган бўлишингиз керак
 theme_mode_dark_mode,Qorong‘i rejim,Темный режим,Қоронғи режим
 theme_mode_light_mode,Yorug‘ rejim,Светлый режим,Ёруғ режим

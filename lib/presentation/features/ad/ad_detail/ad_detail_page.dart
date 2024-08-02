@@ -3,17 +3,23 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/data/datasource/network/responses/ad/ad_detail/ad_detail_response.dart';
+import 'package:onlinebozor/data/datasource/network/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
 import 'package:onlinebozor/domain/models/ad/ad_author_type.dart';
+import 'package:onlinebozor/domain/models/ad/ad_detail.dart';
 import 'package:onlinebozor/domain/models/ad/ad_item_condition.dart';
 import 'package:onlinebozor/domain/models/ad/ad_list_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
+import 'package:onlinebozor/domain/models/currency/currency_code.dart';
 import 'package:onlinebozor/domain/models/report/report_type.dart';
 import 'package:onlinebozor/domain/models/stats/stats_type.dart';
+import 'package:onlinebozor/presentation/features/ad/ad_detail/features/installmentsa_info/installment_info_page.dart';
 import 'package:onlinebozor/presentation/features/common/report/submit_report_page.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
@@ -25,6 +31,7 @@ import 'package:onlinebozor/presentation/widgets/ad/detail/ad_detail_shimmer.dar
 import 'package:onlinebozor/presentation/widgets/ad/detail/detail_price_text_widget.dart';
 import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_list_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_list_widget.dart';
+import 'package:onlinebozor/presentation/widgets/ad/list_price_text_widget.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
@@ -39,8 +46,8 @@ import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dar
 import 'package:share_plus/share_plus.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 
-import '../../../../domain/models/ad/ad_type.dart';
 import 'ad_detail_cubit.dart';
 
 @RoutePage()
@@ -95,6 +102,10 @@ class AdDetailPage
           ..._buildPriceRangeWidgets(context, state),
           SizedBox(height: 12),
           ..._buildAdInfoChips(context, state),
+          SizedBox(height: 12),
+          Visibility(
+              visible: state.hasInstallment,
+              child: _hasInstallement(context, state)),
           SizedBox(height: 12),
           ..._buildDescBlock(context, state),
           SizedBox(height: 12),
@@ -301,11 +312,7 @@ class AdDetailPage
       state.adDetail!.maxPrice!,
       state.adDetail!.price.toDouble(),
     );
-    print("Min Price: ${state.adDetail!.minPrice}");
-    print("Price: ${state.adDetail!.price}");
-    print("Max Price: ${state.adDetail!.maxPrice}");
 
-    print(pricePosition);
     return [
       Row(
         children: [
@@ -491,6 +498,62 @@ class AdDetailPage
       SizedBox(height: 12),
       CustomDivider(startIndent: 16, endIndent: 16),
     ];
+  }
+
+  Widget _hasInstallement(BuildContext context, AdDetailState state) {
+    return InkWell(
+      onTap: () {
+        _showSmInstallmentsPage(context, state, state.adDetail!);
+      },
+      child: Container(
+        height: 50,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: Color(0xFFf3f4f6),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(width: 10),
+            Assets.images.bottomBar.dashboardActive.svg(width: 44, height: 44),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                "Online".w(500).s(14).c(Color(0xFF7a889b)),
+                "Bozor".w(700).s(14).c(Color(0xFF424b52)),
+              ],
+            ),
+            Expanded(child: SizedBox()),
+            Container(
+              padding: EdgeInsets.all(7),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: Color(0xFFfacc15),
+              ),
+              child: Row(
+                children: [
+                  ListPriceTextWidget(
+                    color: Color(0xFF424b52),
+                    price: (state.adDetail?.installmentInfo?.monthlyPrice)
+                            ?.toInt() ??
+                        0,
+                    toPrice: 5,
+                    fromPrice: 5,
+                    currency: CurrencyCode.uzs,
+                  ),
+                  " / ".w(700).s(14).c(Color(0xFF424b52)),
+                  "${state.adDetail?.installmentInfo?.monthCount} oy"
+                      .w(500)
+                      .s(12)
+                      .c(Color(0xFF424b52)),
+                ],
+              ),
+            ),
+            SizedBox(width: 20)
+          ],
+        ),
+      ),
+    );
   }
 
   AppBar _buildAppBar(BuildContext context, AdDetailState state) {
@@ -1254,4 +1317,17 @@ class AdDetailPage
       builder: (context) => SubmitReportPage(adId, reportType),
     );
   }
+}
+
+void _showSmInstallmentsPage(
+    BuildContext context, AdDetailState state, AdDetail detail) async {
+  InstallmentInfoPage smInstallmentsPage = InstallmentInfoPage(detail: detail);
+  var result = await showCupertinoModalBottomSheet(
+    isDismissible: false,
+    context: context,
+    backgroundColor: Colors.transparent,
+    builder: (context) {
+      return smInstallmentsPage;
+    },
+  );
 }

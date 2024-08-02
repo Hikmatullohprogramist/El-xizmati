@@ -18,6 +18,7 @@ class AdDetail {
   final String? categoryKeyWord;
   final List<String>? photos;
   final String? videoUrl;
+  final bool? hasInstallment;
 
   final AdType? adType;
   final String saleType;
@@ -107,6 +108,7 @@ class AdDetail {
     required this.categoryKeyWord,
     required this.photos,
     required this.videoUrl,
+    required this.hasInstallment,
 //
     required this.adType,
     required this.saleType,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:onlinebozor/data/datasource/network/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/payment_type/payment_type_response.dart';
 import 'package:onlinebozor/data/datasource/network/responses/unit/unit_response.dart';
+import 'package:onlinebozor/domain/models/ad/ad_detail.dart';
 import 'package:onlinebozor/domain/models/ad/ad_list_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
@@ -19,6 +20,7 @@ import 'package:onlinebozor/domain/models/otp/otp_confirm_type.dart';
 import 'package:onlinebozor/domain/models/report/report_type.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
 import 'package:onlinebozor/presentation/features/ad/ad_detail/ad_detail_page.dart';
+import 'package:onlinebozor/presentation/features/ad/ad_detail/features/installmentsa_info/installment_info_page.dart';
 import 'package:onlinebozor/presentation/features/ad/ad_list/ad_list_page.dart';
 import 'package:onlinebozor/presentation/features/ad/ad_list_by_type/ad_list_by_type_page.dart';
 import 'package:onlinebozor/presentation/features/ad/user_ad_detail/user_ad_detail_page.dart';
@@ -242,6 +244,10 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           page: AdDetailRoute.page,
           path: '/ads_detail',
+        ),
+        AutoRoute(
+          page: InstallmentInfoRoute.page,
+          path: '/sm_installments',
         ),
 
         //  common page

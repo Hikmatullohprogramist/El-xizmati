@@ -39,6 +39,7 @@ class AdDetailResponse with _$AdDetailResponse {
     @JsonKey(name: "category_id") int? categoryId,
     @JsonKey(name: "photos") List<AdDetailPhoto>? photos,
     @JsonKey(name: "video") String? videoUrl,
+    @JsonKey(name: "has_installment") bool? hasInstallment,
 //
     @JsonKey(name: "type_status") String? adType,
     @JsonKey(name: "sale_type") String? saleType,
@@ -214,4 +215,80 @@ class AdDetailSellerResponse with _$AdDetailSellerResponse {
 
   factory AdDetailSellerResponse.fromJson(Map<String, dynamic> json) =>
       _$AdDetailSellerResponseFromJson(json);
+}
+
+
+@freezed
+class UserOrderSmartDetailResponse with _$UserOrderSmartDetailResponse {
+  const factory UserOrderSmartDetailResponse({
+    required int id,
+    int? product_id,
+    String? main_photo,
+    String? name,
+    int? amount,
+    num? credit_price_product,
+    num? price,
+    num? total_sum,
+    OrderProductDetail? product,
+    dynamic plan_payment_date,
+    dynamic month_id,
+    dynamic begin_price,
+    dynamic overtime_percentage,
+    dynamic starting_percentage,
+    bool?  has_installment,
+
+  }) = _UserOrderSmartDetailResponse;
+
+  factory UserOrderSmartDetailResponse.fromJson(Map<String, dynamic> json) =>
+      _$UserOrderSmartDetailResponseFromJson(json);
+}
+
+@freezed
+class OrderProductDetail with _$OrderProductDetail {
+  const factory OrderProductDetail({
+    int? id,
+    String? status,
+  }) = _OrderProductDetail;
+
+  factory OrderProductDetail.fromJson(Map<String, dynamic> json) => _$OrderProductDetailFromJson(json);
+}
+
+@freezed
+class UserOrderSmartResponse with _$UserOrderSmartResponse {
+  const factory UserOrderSmartResponse({
+    required int id,
+    Order? order,
+    String? status,
+    Seller? seller,
+    int? amount,
+    num? final_sum,
+    String? payment_type,
+    String? note,
+  }) = _UserOrderSmartResponse;
+
+  factory UserOrderSmartResponse.fromJson(Map<String, dynamic> json) =>
+      _$UserOrderSmartResponseFromJson(json);
+}
+
+
+@freezed
+class Order with _$Order {
+  const factory Order({
+    String? doc_date,
+    String? doc_num,
+  }) = _Order;
+  factory Order.fromJson(Map<String, dynamic> json) =>
+      _$OrderFromJson(json);
+}
+
+@freezed
+class Seller with _$Seller {
+  const factory Seller({
+    String? name,
+    String? phone,
+    int? tin,
+    dynamic photo,
+  }) = _Seller;
+
+  factory Seller.fromJson(Map<String, dynamic> json) => _$SellerFromJson(json);
 }

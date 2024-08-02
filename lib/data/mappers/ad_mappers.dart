@@ -119,6 +119,7 @@ extension AdDetailResponseMapper on AdDetailResponse {
               .toList() ??
           [],
       videoUrl: videoUrl,
+      hasInstallment: hasInstallment,
 
       adType: AdType.valueOrDefault(adType),
       saleType: saleType ?? "",
