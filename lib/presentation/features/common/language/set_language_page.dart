@@ -14,6 +14,8 @@ import 'package:onlinebozor/presentation/widgets/button/custom_outlined_button.d
 
 import 'set_language_cubit.dart';
 
+// just for push
+
 @RoutePage()
 class SetLanguagePage
     extends BasePage<SetLanguageCubit, SetLanguageState, SetLanguageEvent> {
