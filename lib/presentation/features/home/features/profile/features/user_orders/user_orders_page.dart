@@ -163,7 +163,7 @@ class UserOrdersPage
               child: TabBarView(
                 children: [
                   for (var status in orderStatus)
-                    UserOrderListPage(type: orderType, status: status),
+                    UserOrderListPage(orderType: orderType, status: status),
                 ],
               ),
             ),

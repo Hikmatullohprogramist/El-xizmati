@@ -5,6 +5,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/domain/models/order/order_type.dart';
 import 'package:onlinebozor/domain/models/order/user_order.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_orders/features/user_order_cancel/user_order_cancel_page.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
@@ -20,10 +21,12 @@ import 'user_order_info_cubit.dart';
 @RoutePage()
 class UserOrderInfoPage extends BasePage<UserOrderInfoCubit, UserOrderInfoState,
     UserOrderInfoEvent> {
+  final OrderType orderType;
   final UserOrder order;
 
   const UserOrderInfoPage({
     super.key,
+    required this.orderType,
     required this.order,
   });
 
@@ -74,10 +77,11 @@ class UserOrderInfoPage extends BasePage<UserOrderInfoCubit, UserOrderInfoState,
                                     .withOpacity(.2),
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              child: (state.actualOrder.status.getLocalizedName())
-                                  .s(13)
-                                  .w(400)
-                                  .c(state.actualOrder.status.color()),
+                              child:
+                                  (state.actualOrder.status.getLocalizedName())
+                                      .s(13)
+                                      .w(400)
+                                      .c(state.actualOrder.status.color()),
                             ),
                             SizedBox(width: 12),
                             IconButton(
@@ -299,7 +303,7 @@ class UserOrderInfoPage extends BasePage<UserOrderInfoCubit, UserOrderInfoState,
   ) async {
     final cancelledOrder = await showCupertinoModalBottomSheet(
       context: context,
-      builder: (context) => UserOrderCancelPage(order: order),
+      builder: (c) => UserOrderCancelPage(orderType: orderType, order: order),
     );
 
     if (cancelledOrder != null && cancelledOrder is UserOrder) {

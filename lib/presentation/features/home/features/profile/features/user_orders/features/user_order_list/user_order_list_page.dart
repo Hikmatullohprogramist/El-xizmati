@@ -24,18 +24,18 @@ import 'user_order_list_cubit.dart';
 @RoutePage()
 class UserOrderListPage extends BasePage<UserOrderListCubit, UserOrderListState,
     UserOrderListEvent> {
-  final OrderType type;
+  final OrderType orderType;
   final UserOrderStatus status;
 
   const UserOrderListPage({
     super.key,
-    required this.type,
+    required this.orderType,
     required this.status,
   });
 
   @override
   void onWidgetCreated(BuildContext context) {
-    cubit(context).setInitialParams(type, status);
+    cubit(context).setInitialParams(orderType, status);
   }
 
   @override
@@ -136,7 +136,7 @@ class UserOrderListPage extends BasePage<UserOrderListCubit, UserOrderListState,
   ) async {
     final cancelledOrder = await showCupertinoModalBottomSheet(
       context: context,
-      builder: (context) => UserOrderInfoPage(order: order),
+      builder: (c) => UserOrderInfoPage(orderType: orderType, order: order),
     );
 
     if (cancelledOrder != null && cancelledOrder is UserOrder) {

@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/data/repositories/user_order_repository.dart';
 import 'package:onlinebozor/domain/models/order/order_cancel_reason.dart';
+import 'package:onlinebozor/domain/models/order/order_type.dart';
 import 'package:onlinebozor/domain/models/order/user_order.dart';
 import 'package:onlinebozor/domain/models/order/user_order_status.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
@@ -18,10 +19,12 @@ class UserOrderCancelCubit
 
   final UserOrderRepository _userOrderRepository;
 
-  void setInitialParams(UserOrder userOrder) {
+  void setInitialParams(OrderType orderType, UserOrder userOrder) {
     updateState((state) => state.copyWith(
+          orderType: orderType,
           userOrder: userOrder,
-          reasons: OrderCancelReason.values,
+          reasons: orderType == OrderType.buy ? OrderCancelReason.values : [],
+          isCommentEnabled: orderType == OrderType.sell,
         ));
   }
 

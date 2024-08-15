@@ -3,6 +3,9 @@ part of 'user_order_cancel_cubit.dart';
 @freezed
 class UserOrderCancelState with _$UserOrderCancelState {
   const factory UserOrderCancelState({
+//
+    @Default(OrderType.buy) OrderType orderType,
+//
     UserOrder? userOrder,
 //
     @Default([]) List<OrderCancelReason> reasons,

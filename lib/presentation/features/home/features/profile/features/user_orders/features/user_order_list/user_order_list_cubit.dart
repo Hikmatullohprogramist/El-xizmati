@@ -56,7 +56,7 @@ class UserOrderListCubit
               limit: 20,
               userOrderStatus: states.userOrderStatus,
               page: pageKey,
-              orderType: states.orderType,
+              orderType: OrderType.buy,
             )
             .initFuture()
             .onStart(() {})

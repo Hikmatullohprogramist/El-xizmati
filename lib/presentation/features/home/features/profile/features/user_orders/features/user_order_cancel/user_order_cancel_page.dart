@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:onlinebozor/domain/models/order/order_type.dart';
 import 'package:onlinebozor/domain/models/order/user_order.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
@@ -12,24 +14,28 @@ import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_field.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/label_text_field.dart';
+import 'package:onlinebozor/presentation/widgets/form_field/validator/default_validator.dart';
 
 import 'user_order_cancel_cubit.dart';
 
 @RoutePage()
 class UserOrderCancelPage extends BasePage<UserOrderCancelCubit,
     UserOrderCancelState, UserOrderCancelEvent> {
+  final OrderType orderType;
   final UserOrder order;
 
   UserOrderCancelPage({
     super.key,
+    required this.orderType,
     required this.order,
   });
 
   final TextEditingController commentController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void onWidgetCreated(BuildContext context) {
-    cubit(context).setInitialParams(order);
+    cubit(context).setInitialParams(orderType, order);
   }
 
   @override
@@ -57,68 +63,74 @@ class UserOrderCancelPage extends BasePage<UserOrderCancelCubit,
               color: context.bottomSheetColor,
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
-                child: Column(
-                  children: [
-                    SizedBox(height: 20),
-                    BottomSheetTitle(
-                      title: Strings.orderCancellationTitle,
-                      onCloseClicked: () {
-                        context.router.pop();
-                      },
-                    ),
-                    _buildReasonsItems(context, state),
-                    Visibility(
-                      visible: state.isCommentEnabled,
-                      child: SizedBox(height: 8),
-                    ),
-                    Visibility(
-                      visible: state.isCommentEnabled,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: LabelTextField(
-                          Strings.commonComment,
-                          isRequired: true,
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      SizedBox(height: 20),
+                      BottomSheetTitle(
+                        title: Strings.orderCancellationTitle,
+                        onCloseClicked: () {
+                          context.router.pop();
+                        },
+                      ),
+                      _buildReasonsItems(context, state),
+                      Visibility(
+                        visible: state.isCommentEnabled,
+                        child: SizedBox(height: 8),
+                      ),
+                      Visibility(
+                        visible: state.isCommentEnabled,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: LabelTextField(
+                            Strings.commonComment,
+                            isRequired: true,
+                          ),
                         ),
                       ),
-                    ),
-                    Visibility(
-                      visible: state.isCommentEnabled,
-                      child: SizedBox(height: 8),
-                    ),
-                    Visibility(
-                      visible: state.isCommentEnabled,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: CustomTextFormField(
-                          autofillHints: const [AutofillHints.name],
-                          inputType: TextInputType.name,
-                          keyboardType: TextInputType.name,
-                          maxLines: 5,
-                          minLines: 3,
-                          hint: Strings.commonComment,
-                          textInputAction: TextInputAction.next,
-                          controller: commentController,
-                          onChanged: (value) {
-                            cubit(context).setEnteredComment(value);
+                      Visibility(
+                        visible: state.isCommentEnabled,
+                        child: SizedBox(height: 8),
+                      ),
+                      Visibility(
+                        visible: state.isCommentEnabled,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: CustomTextFormField(
+                            autofillHints: const [AutofillHints.name],
+                            inputType: TextInputType.name,
+                            keyboardType: TextInputType.name,
+                            maxLines: 3,
+                            minLines: 2,
+                            hint: Strings.commonComment,
+                            textInputAction: TextInputAction.next,
+                            controller: commentController,
+                            validator: (v) => NotEmptyValidator.validate(v),
+                            onChanged: (value) {
+                              cubit(context).setEnteredComment(value);
+                            },
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
+                        child: CustomElevatedButton(
+                          text: Strings.commonCancel,
+                          onPressed: () {
+                            HapticFeedback.lightImpact();
+                            if (_formKey.currentState!.validate()) {
+                              cubit(context).cancelOrder();
+                            }
                           },
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(
-                        16,
-                        12,
-                        16,
-                        defaultBottomPadding,
+                      SizedBox(
+                        height:
+                            state.isCommentEnabled ? 360 : defaultBottomPadding,
                       ),
-                      child: CustomElevatedButton(
-                        text: Strings.commonCancel,
-                        onPressed: () {
-                          cubit(context).cancelOrder();
-                        },
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -129,7 +141,9 @@ class UserOrderCancelPage extends BasePage<UserOrderCancelCubit,
   }
 
   ListView _buildReasonsItems(
-      BuildContext context, UserOrderCancelState state) {
+    BuildContext context,
+    UserOrderCancelState state,
+  ) {
     return ListView.separated(
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,
