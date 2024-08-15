@@ -94,7 +94,7 @@ class HorizontalAdWidget extends StatelessWidget {
                 Assets.images.icLocation.svg(width: 12, height: 12),
                 SizedBox(width: 4),
                 Expanded(
-                  child: "${ad.regionName} ${ad.districtName}"
+                  child: ad.districtName
                       .w(400)
                       .s(12)
                       .c(context.textSecondary)
