@@ -37,7 +37,13 @@ class DashboardState with _$DashboardState {
       (recentlyViewedAdsState == LoadingState.success &&
           recentlyViewedAds.isNotEmpty);
 
-  String get actualRegionName => selectedRegionName?? Strings.setRegionSelectedName;
+  bool get isInstallmentAdsVisible =>
+      installmentAdsState == LoadingState.loading ||
+      (installmentAdsState == LoadingState.success &&
+          installmentAds.isNotEmpty);
+
+  String get actualRegionName =>
+      selectedRegionName ?? Strings.setRegionSelectedName;
 }
 
 @freezed
