@@ -3,35 +3,29 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/data/datasource/network/responses/ad/ad_detail/ad_detail_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/currencies/currency_response.dart';
 import 'package:onlinebozor/domain/models/ad/ad.dart';
-import 'package:onlinebozor/domain/models/ad/ad_author_type.dart';
-import 'package:onlinebozor/domain/models/ad/ad_detail.dart';
 import 'package:onlinebozor/domain/models/ad/ad_item_condition.dart';
 import 'package:onlinebozor/domain/models/ad/ad_list_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
-import 'package:onlinebozor/domain/models/currency/currency_code.dart';
 import 'package:onlinebozor/domain/models/report/report_type.dart';
 import 'package:onlinebozor/domain/models/stats/stats_type.dart';
-import 'package:onlinebozor/presentation/features/ad/ad_detail/features/installmentsa_info/installment_info_page.dart';
+import 'package:onlinebozor/presentation/features/ad/ad_detail/features/installment_info/installment_info_page.dart';
 import 'package:onlinebozor/presentation/features/common/report/submit_report_page.dart';
 import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 import 'package:onlinebozor/presentation/support/extensions/platform_sizes.dart';
+import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
 import 'package:onlinebozor/presentation/widgets/action/action_list_item.dart';
 import 'package:onlinebozor/presentation/widgets/ad/detail/ad_detail_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/ad/detail/detail_price_text_widget.dart';
 import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_list_shimmer.dart';
 import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_list_widget.dart';
-import 'package:onlinebozor/presentation/widgets/ad/list_price_text_widget.dart';
 import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
 import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
 import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
@@ -46,7 +40,6 @@ import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dar
 import 'package:share_plus/share_plus.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 
 import 'ad_detail_cubit.dart';
 
@@ -103,10 +96,6 @@ class AdDetailPage
           SizedBox(height: 12),
           ..._buildAdInfoChips(context, state),
           SizedBox(height: 12),
-          Visibility(
-              visible: state.hasInstallment,
-              child: _hasInstallement(context, state)),
-          SizedBox(height: 12),
           ..._buildDescBlock(context, state),
           SizedBox(height: 12),
           ..._buildAuthorBlock(context, state),
@@ -158,29 +147,37 @@ class AdDetailPage
             currency: state.adDetail!.currency,
             color: Color(0xFFFF0098),
           ),
-          Visibility(
-            visible: state.adDetail?.isContract == true,
-            child: SizedBox(width: 12),
-          ),
-          Visibility(
-            visible: state.adDetail?.isContract == true,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6),
-                color: Color(0xFF0096B2).withOpacity(0.15),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-              child: Row(
-                children: [
-                  Assets.images.icBargain.svg(width: 20, height: 20),
-                  SizedBox(width: 4),
-                  Strings.commonBargain.s(13).w(500).c(Color(0xFF0096B2)),
-                ],
-              ),
-            ),
-          ),
           SizedBox(width: 16),
         ],
+      ),
+      Visibility(
+        visible: state.adDetail?.isContract == true,
+        child: SizedBox(height: 12),
+      ),
+      Visibility(
+        visible: state.adDetail?.isContract == true,
+        child: Row(
+          children: [
+            Flexible(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6),
+                  color: Color(0xFF0096B2).withOpacity(0.15),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                margin: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Assets.images.icBargain.svg(width: 20, height: 20),
+                    SizedBox(width: 4),
+                    Strings.commonBargain.s(13).w(500).c(Color(0xFF0096B2)),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
       SizedBox(height: 12),
       Visibility(
@@ -221,8 +218,8 @@ class AdDetailPage
                       Strings.installmentPaymentPrice(
                               monthly_price: state.installmentMonthlyPrice,
                               month_count: state.installmentMonthlyCount)
-                          .s(14)
-                          .w(500)
+                          .s(13)
+                          .w(400)
                           .c(context.textPrimaryInverse)
                           .copyWith(
                             maxLines: 1,
@@ -238,6 +235,7 @@ class AdDetailPage
             InkWell(
               onTap: () {
                 HapticFeedback.lightImpact();
+                _showSmInstallmentsPage(context, state);
               },
               child: Flexible(
                 child: Container(
@@ -256,7 +254,7 @@ class AdDetailPage
                     children: [
                       SizedBox(width: 12),
                       Strings.commonMore
-                          .s(14)
+                          .s(13)
                           .w(400)
                           .c(context.textPrimaryInverse)
                           .copyWith(
@@ -353,6 +351,21 @@ class AdDetailPage
                 gradient: LinearGradient(
                   colors: [
                     Color(0xFF76cf5e),
+                    Color(0xFF76cf5e).withOpacity(0.95),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+          Flexible(
+            child: Container(
+              height: 4,
+              margin: EdgeInsets.symmetric(horizontal: 1),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFF76cf5e).withOpacity(0.9),
                     Color(0xFF76cf5e).withOpacity(0.85),
                   ],
                 ),
@@ -367,8 +380,9 @@ class AdDetailPage
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Color(0xFF76cf5e).withOpacity(0.70),
-                    Color(0xFF76cf5e).withOpacity(0.55),
+                    Color(0xFF76cf5e).withOpacity(0.8),
+                    Color(0xFF76cf5e).withOpacity(0.75),
+                    Color(0xFFf7cf47).withOpacity(0.75),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(2),
@@ -382,39 +396,9 @@ class AdDetailPage
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Color(0xFF76cf5e).withOpacity(0.40),
-                    Color(0xFFf7cf47),
-                    Color(0xFFf7cf47),
-                  ],
-                ),
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-          ),
-          Flexible(
-            child: Container(
-              height: 4,
-              margin: EdgeInsets.symmetric(horizontal: 1),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: const [
-                    Color(0xFFf7cf47),
-                    Color(0xFFf7cf47),
-                  ],
-                ),
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-          ),
-          Flexible(
-            child: Container(
-              height: 4,
-              margin: EdgeInsets.symmetric(horizontal: 1),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: const [
-                    Color(0xFFf7cf47),
-                    Color(0xFFf7cf47),
+                    Color(0xFFf7cf47).withOpacity(0.8),
+                    Color(0xFFf7cf47).withOpacity(0.85),
+                    Color(0xFFf7cf47).withOpacity(0.9),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(2),
@@ -443,8 +427,9 @@ class AdDetailPage
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Color(0xFFf7cf47),
-                    Color(0xFFeb535a).withOpacity(0.4),
+                    Color(0xFFf7cf47).withOpacity(0.9),
+                    Color(0xFFf7cf47).withOpacity(0.85),
+                    Color(0xFFf7cf47).withOpacity(0.8),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(2),
@@ -458,8 +443,24 @@ class AdDetailPage
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Color(0xFFeb535a).withOpacity(0.55),
-                    Color(0xFFeb535a).withOpacity(0.7),
+                    Color(0xFFf7cf47).withOpacity(0.75),
+                    Color(0xFFeb535a).withOpacity(0.75),
+                    Color(0xFFeb535a).withOpacity(0.8),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+          Flexible(
+            child: Container(
+              height: 4,
+              margin: EdgeInsets.symmetric(horizontal: 1),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFFeb535a).withOpacity(0.85),
+                    Color(0xFFeb535a).withOpacity(0.9),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(2),
@@ -500,62 +501,6 @@ class AdDetailPage
     ];
   }
 
-  Widget _hasInstallement(BuildContext context, AdDetailState state) {
-    return InkWell(
-      onTap: () {
-        _showSmInstallmentsPage(context, state, state.adDetail!);
-      },
-      child: Container(
-        height: 50,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: Color(0xFFf3f4f6),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(width: 10),
-            Assets.images.bottomBar.dashboardActive.svg(width: 44, height: 44),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                "Online".w(500).s(14).c(Color(0xFF7a889b)),
-                "Bozor".w(700).s(14).c(Color(0xFF424b52)),
-              ],
-            ),
-            Expanded(child: SizedBox()),
-            Container(
-              padding: EdgeInsets.all(7),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Color(0xFFfacc15),
-              ),
-              child: Row(
-                children: [
-                  ListPriceTextWidget(
-                    color: Color(0xFF424b52),
-                    price: (state.adDetail?.installmentInfo?.monthlyPrice)
-                            ?.toInt() ??
-                        0,
-                    toPrice: 5,
-                    fromPrice: 5,
-                    currency: CurrencyCode.uzs,
-                  ),
-                  " / ".w(700).s(14).c(Color(0xFF424b52)),
-                  "${state.adDetail?.installmentInfo?.monthCount} oy"
-                      .w(500)
-                      .s(12)
-                      .c(Color(0xFF424b52)),
-                ],
-              ),
-            ),
-            SizedBox(width: 20)
-          ],
-        ),
-      ),
-    );
-  }
-
   AppBar _buildAppBar(BuildContext context, AdDetailState state) {
     return state.isNotPrepared
         ? ActionAppBar(
@@ -594,7 +539,9 @@ class AdDetailPage
   }
 
   List<Widget> _buildImageListWidget(
-      BuildContext context, AdDetailState state) {
+    BuildContext context,
+    AdDetailState state,
+  ) {
     return [
       CarouselSlider(
         carouselController: _controller,
@@ -720,64 +667,17 @@ class AdDetailPage
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
-                color: switch (state.adDetail!.adAuthorType) {
-                  AdAuthorType.private => Color(0x28AEB2CD),
-                  AdAuthorType.business => Color(0x1E6546E7),
-                },
-              ),
-              child: switch (state.adDetail!.adAuthorType) {
-                AdAuthorType.private => Strings.adPropertyPersonal.w(400).s(12),
-                AdAuthorType.business => Strings.adPropertyBiznes.w(400).s(12),
-              },
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
                 color: Color(0x28AEB2CD),
               ),
-              child: Row(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  (state.adDetail!.adType == AdType.product
-                          ? Strings.adTypeProductTitle
-                          : Strings.adTypeServiceTitle)
-                      .s(12)
-                      .w(400),
-                ],
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: Color(0x28AEB2CD),
-              ),
-              child: Row(mainAxisSize: MainAxisSize.min, children: [
-                Strings.adDetailChipViewedCount
-                    .s(12)
-                    .w(400)
-                    .c(context.textPrimary.withOpacity(0.85)),
-                SizedBox(width: 4),
-                state.adDetail!.viewedCount.toString().w(500).s(12),
-              ]),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: Color(0x28AEB2CD),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Strings.adDetailChipItemCondition
                       .s(12)
                       .w(400)
                       .c(context.textPrimary.withOpacity(0.85)),
-                  SizedBox(width: 6),
+                  SizedBox(height: 6),
                   (state.adDetail!.adItemCondition == AdItemCondition.fresh
                           ? Strings.adStatusNew
                           : Strings.adStatusOld)
@@ -792,14 +692,34 @@ class AdDetailPage
                 borderRadius: BorderRadius.circular(5),
                 color: Color(0x28AEB2CD),
               ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Strings.adDetailChipViewedCount
+                      .s(12)
+                      .w(400)
+                      .c(context.textPrimary.withOpacity(0.85)),
+                  SizedBox(height: 6),
+                  state.adDetail!.viewedCount.toString().w(500).s(12),
+                ],
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: Color(0x28AEB2CD),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Strings.adDetailChipPublishedDate
                       .s(12)
                       .w(400)
                       .c(context.textPrimary.withOpacity(0.85)),
-                  SizedBox(width: 6),
+                  SizedBox(height: 6),
                   (state.adDetail!.createdAt ?? "").w(500).s(12)
                 ],
               ),
@@ -890,29 +810,47 @@ class AdDetailPage
               ],
             ),
             SizedBox(height: 12),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6),
-                color: Color(0xFF0096B2).withOpacity(0.75),
-              ),
-              margin: const EdgeInsets.symmetric(horizontal: 16),
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Assets.images.icTrustedSeller.svg(width: 15, height: 15),
-                  SizedBox(width: 6),
-                  Strings.commonTrustedSeller
+            Row(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6),
+                    color: Color(0xFF0096B2).withOpacity(0.75),
+                  ),
+                  margin: const EdgeInsets.only(left: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                  child: state.adDetail!.adAuthorType
+                      .getLocalizedName()
                       .s(13)
                       .w(500)
-                      .c(context.textPrimaryInverse)
-                      .copyWith(
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                ],
-              ),
+                      .c(context.textPrimaryInverse),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6),
+                    color: Color(0xFF0096B2).withOpacity(0.75),
+                  ),
+                  margin: const EdgeInsets.only(left: 12, right: 16),
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Assets.images.icTrustedSeller.svg(width: 15, height: 15),
+                      SizedBox(width: 6),
+                      Strings.commonTrustedSeller
+                          .s(13)
+                          .w(500)
+                          .c(context.textPrimaryInverse)
+                          .copyWith(
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                    ],
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 8),
           ],
@@ -1319,9 +1257,8 @@ class AdDetailPage
   }
 }
 
-void _showSmInstallmentsPage(
-    BuildContext context, AdDetailState state, AdDetail detail) async {
-  InstallmentInfoPage smInstallmentsPage = InstallmentInfoPage(detail: detail);
+void _showSmInstallmentsPage(BuildContext context, AdDetailState state) async {
+  final smInstallmentsPage = InstallmentInfoPage(detail: state.adDetail!);
   var result = await showCupertinoModalBottomSheet(
     isDismissible: false,
     context: context,

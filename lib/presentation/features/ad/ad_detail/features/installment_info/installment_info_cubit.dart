@@ -13,7 +13,6 @@ import 'package:onlinebozor/domain/models/ad/installments/sm_installments_model.
 import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
 
 part 'installment_info_cubit.freezed.dart';
-
 part 'installment_info_state.dart';
 
 @Injectable()

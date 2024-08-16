@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
@@ -9,12 +6,8 @@ import 'package:onlinebozor/core/enum/enums.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
-import 'package:onlinebozor/data/datasource/network/responses/ad/ad_detail/ad_detail_response.dart';
 import 'package:onlinebozor/domain/models/ad/ad_detail.dart';
 import 'package:onlinebozor/domain/models/currency/currency_code.dart';
-import 'package:onlinebozor/presentation/features/ad/ad_detail/features/installmentsa_info/cubit/installment_info_cubit.dart';
-import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
@@ -25,10 +18,11 @@ import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
 import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_field.dart';
 import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
 
+import 'installment_info_cubit.dart';
+
 @RoutePage()
 class InstallmentInfoPage extends BasePage<InstallmentInfoCubit,
-    InstallmentInfoState,
-    InstallmentInfoEvent> {
+    InstallmentInfoState, InstallmentInfoEvent> {
   InstallmentInfoPage({super.key, required this.detail});
 
   final AdDetail detail;
@@ -159,13 +153,13 @@ class InstallmentInfoPage extends BasePage<InstallmentInfoCubit,
                                   .w(400)
                                   .s(12)
                                   .c(state.enableStartPrice
-                                  ? Color(0xFFa855f7)
-                                  : Colors.red),
+                                      ? Color(0xFFa855f7)
+                                      : Colors.red),
                               SizedBox(width: 2),
                               ListPriceTextWidget(
                                 price: (state.constCurrentSelectionMonth
-                                    ?.contsStartingPrice ??
-                                    0) *
+                                            ?.contsStartingPrice ??
+                                        0) *
                                     state.productCount as int,
                                 color: state.enableStartPrice
                                     ? Color(0xFFa855f7)
@@ -213,7 +207,7 @@ class InstallmentInfoPage extends BasePage<InstallmentInfoCubit,
                               maxLines: 1,
                               maxLength: 15,
                               controller:
-                              TextEditingController(text: state.startDate),
+                                  TextEditingController(text: state.startDate),
                               enabled: false,
                               // errorMessage: Strings.loginWithPhoneNumberError,
                               onChanged: (value) {
@@ -236,7 +230,7 @@ class InstallmentInfoPage extends BasePage<InstallmentInfoCubit,
                               SizedBox(width: 5),
                               ListPriceTextWidget(
                                 price: state.planPayments[state.selectionItem]
-                                    .monthlyPrice *
+                                        .monthlyPrice *
                                     state.productCount as int,
                                 color: StaticColors.majorelleBlue,
                                 currency: CurrencyCode.uzs,
@@ -320,7 +314,7 @@ class InstallmentInfoPage extends BasePage<InstallmentInfoCubit,
                             children: [
                               Padding(
                                 padding:
-                                const EdgeInsets.symmetric(horizontal: 10),
+                                    const EdgeInsets.symmetric(horizontal: 10),
                                 child: Strings.smInstallmentErrorTitle
                                     .w(500)
                                     .s(14)
@@ -330,7 +324,7 @@ class InstallmentInfoPage extends BasePage<InstallmentInfoCubit,
                               SizedBox(height: 25),
                               Padding(
                                 padding:
-                                const EdgeInsets.symmetric(horizontal: 120),
+                                    const EdgeInsets.symmetric(horizontal: 120),
                                 child: CustomElevatedButton(
                                     text: Strings.commonDownloadAgain,
                                     onPressed: () {
@@ -362,9 +356,11 @@ class InstallmentInfoPage extends BasePage<InstallmentInfoCubit,
     );
   }
 
-  Widget _productItem(BuildContext context,
-      AdDetail item,
-      InstallmentInfoState state,) {
+  Widget _productItem(
+    BuildContext context,
+    AdDetail item,
+    InstallmentInfoState state,
+  ) {
     print("photo: ${item.photos?.firstOrNull}");
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -391,11 +387,10 @@ class InstallmentInfoPage extends BasePage<InstallmentInfoCubit,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Expanded(
-                      child:
-                      (item.adName).toString().w(600).s(14).copyWith(
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                      child: (item.adName).toString().w(600).s(14).copyWith(
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                     )
                   ],
                 ),
@@ -502,20 +497,22 @@ class InstallmentInfoPage extends BasePage<InstallmentInfoCubit,
           SizedBox(width: 20),
           Expanded(
               child:
-              "${Strings.adDetailSaleCountStart} ${state.productCount} ${Strings.adDetailSaleCountEnd}"
-                  .w(500)
-                  .s(14)
-                  .c(StaticColors.majorelleBlue)
-                  .copyWith(maxLines: 2)),
+                  "${Strings.adDetailSaleCountStart} ${state.productCount} ${Strings.adDetailSaleCountEnd}"
+                      .w(500)
+                      .s(14)
+                      .c(StaticColors.majorelleBlue)
+                      .copyWith(maxLines: 2)),
         ],
       ),
     );
   }
 
-  Widget _monthsBlock(BuildContext context,
-      AdDetail item,
-      InstallmentInfoState state,
-      int index,) {
+  Widget _monthsBlock(
+    BuildContext context,
+    AdDetail item,
+    InstallmentInfoState state,
+    int index,
+  ) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
@@ -542,7 +539,8 @@ class InstallmentInfoPage extends BasePage<InstallmentInfoCubit,
               SizedBox(height: 15),
               ListPriceTextWidget(
                 price: (item.installmentInfo!.monthlyPrice as int) *
-                    state.productCount ?? 0,
+                        state.productCount ??
+                    0,
                 color: StaticColors.majorelleBlue,
                 currency: CurrencyCode.uzs,
                 fromPrice: item.fromPrice,
@@ -560,26 +558,26 @@ class InstallmentInfoPage extends BasePage<InstallmentInfoCubit,
     );
   }
 
-  void _showInstallmentTablePage(BuildContext context,
-      InstallmentInfoState state) async {
-      // final monthlyId = state.currentSelectionMonth?.monthId ?? 3;
-      // final item = state.planPayments[state.selectionItem];
-      // final monthlyPrice = item.monthlyPrice * state.productCount;
-      // InstallmentTablePage installmentTable = InstallmentTablePage(
-      //   month: monthlyId,
-      //   allPrice: state.overallSumma,
-      //   monthlyPrice: monthlyPrice,
-      //   dateTime: state.startDay!,
-      // );
-      // var result = await showModalBottomSheet(
-      //   isDismissible: false,
-      //   context: context,
-      //   isScrollControlled: true,
-      //   useSafeArea: true,
-      //   backgroundColor: Colors.transparent,
-      //   builder: (context) {
-      //     return installmentTable;
-      //   },
-      // );
-    }
+  void _showInstallmentTablePage(
+      BuildContext context, InstallmentInfoState state) async {
+    // final monthlyId = state.currentSelectionMonth?.monthId ?? 3;
+    // final item = state.planPayments[state.selectionItem];
+    // final monthlyPrice = item.monthlyPrice * state.productCount;
+    // InstallmentTablePage installmentTable = InstallmentTablePage(
+    //   month: monthlyId,
+    //   allPrice: state.overallSumma,
+    //   monthlyPrice: monthlyPrice,
+    //   dateTime: state.startDay!,
+    // );
+    // var result = await showModalBottomSheet(
+    //   isDismissible: false,
+    //   context: context,
+    //   isScrollControlled: true,
+    //   useSafeArea: true,
+    //   backgroundColor: Colors.transparent,
+    //   builder: (context) {
+    //     return installmentTable;
+    //   },
+    // );
   }
+}

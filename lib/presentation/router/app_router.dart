@@ -20,7 +20,7 @@ import 'package:onlinebozor/domain/models/otp/otp_confirm_type.dart';
 import 'package:onlinebozor/domain/models/report/report_type.dart';
 import 'package:onlinebozor/domain/models/user/user_address.dart';
 import 'package:onlinebozor/presentation/features/ad/ad_detail/ad_detail_page.dart';
-import 'package:onlinebozor/presentation/features/ad/ad_detail/features/installmentsa_info/installment_info_page.dart';
+import 'package:onlinebozor/presentation/features/ad/ad_detail/features/installment_info/installment_info_page.dart';
 import 'package:onlinebozor/presentation/features/ad/ad_list/ad_list_page.dart';
 import 'package:onlinebozor/presentation/features/ad/ad_list_by_type/ad_list_by_type_page.dart';
 import 'package:onlinebozor/presentation/features/ad/user_ad_detail/user_ad_detail_page.dart';

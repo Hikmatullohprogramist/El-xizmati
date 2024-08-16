@@ -4,6 +4,7 @@ import 'package:onlinebozor/core/enum/social_enum.dart';
 import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
 import 'package:onlinebozor/core/gen/localization/strings.dart';
 import 'package:onlinebozor/domain/models/ad/ad_action.dart';
+import 'package:onlinebozor/domain/models/ad/ad_author_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
 import 'package:onlinebozor/domain/models/ad/ad_type.dart';
 import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
@@ -75,6 +76,17 @@ extension AdTypeResExts on AdType {
         return Strings.adTypeProductTitle;
       case AdType.service:
         return Strings.adTypeServiceTitle;
+    }
+  }
+}
+
+extension AdAuthorTypeResExts on AdAuthorType {
+  String getLocalizedName() {
+    switch (this) {
+      case AdAuthorType.private :
+        return Strings.adPropertyPersonal;
+      case AdAuthorType.business :
+        return Strings.adPropertyBiznes;
     }
   }
 }
@@ -358,10 +370,10 @@ extension OrderCancelReasonExts on OrderCancelReason {
   String getLocalizedName() {
     return switch (this) {
       OrderCancelReason.SELLER_NOT_ANSWERED =>
-        Strings.orderCancellationSellerNotAnswered,
+      Strings.orderCancellationSellerNotAnswered,
       OrderCancelReason.CHANGED_IDEA => Strings.orderCancellationChangedIdea,
       OrderCancelReason.SELECTED_INCORRECTED_AD =>
-        Strings.orderCancellationSelectedInfcorrectedAd,
+      Strings.orderCancellationSelectedInfcorrectedAd,
       OrderCancelReason.OTHER_REASON => Strings.orderCancellationOtherReason,
     };
   }
@@ -374,11 +386,11 @@ extension ReportReasonExts on ReportReason {
       ReportReason.FRAUD => Strings.reportReasonFraud,
       ReportReason.INSULT_OR_THREATS => Strings.reportReasonInsultOrThreats,
       ReportReason.PROHIBITED_GOODS_SERVICES =>
-        Strings.reportReasonProhibitedGoodsServices,
+      Strings.reportReasonProhibitedGoodsServices,
       ReportReason.IRRELEVANT_ADS => Strings.reportReasonIrrelevantAds,
       ReportReason.PROHIBITED_SERVICE => Strings.reportReasonProhibitedService,
       ReportReason.INAPPROPRIATE_CONTENT =>
-        Strings.reportReasonInappropriateContent,
+      Strings.reportReasonInappropriateContent,
       ReportReason.OTHER => Strings.reportReasonOther,
     };
   }

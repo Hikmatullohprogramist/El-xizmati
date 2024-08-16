@@ -80,7 +80,7 @@ ad_detail_characteristics,Xususiyatlari,Характеристики,Хусус�
 ad_detail_cheap_price,Arzon narx,Дешевая цена,Aрзон нарх
 ad_detail_chip_item_condition,Holati:,Состояние:,Ҳолати:
 ad_detail_chip_published_date,Nashr etilgan:,Опубликовано:,Нашр этилган:
-ad_detail_chip_viewed_count,Ko‘rishlar soni:,Количество просмотров:,Кўришлар сони:
+ad_detail_chip_viewed_count,Ko‘rildi:,Просмотров:,Кўрилди:
 ad_detail_complain,Shikoyat qiling,Пожаловаться,Шикоят қилинг
 ad_detail_description,Tavsif,Описание,Тавсиф
 ad_detail_expensive_price,Qimmat narx,Дорогая цена,Қиммат нарх
@@ -93,7 +93,6 @@ ad_detail_sale_count_start,Sotuvda,В продаже,Сотувда
 ad_detail_show_more,Ko‘proq ko‘rsatish,Показать больше,Кўпроқ кўрсатиш
 ad_detail_show_phone,Qo‘ng‘iroq,Позвонить,Қўнғироқ
 ad_detail_towritemessge,Sms,Sms,Sms
-ad_detail_view_count_title,Ko‘rishlar:,Просмотров:,Кўришлар:
 ad_edit_title,E’lon tahrirlash,Редактировать объявление,Эълон таҳрирлаш
 ad_empty_message_active,Sizda hozircha faol e‘lon yo‘q!,У вас пока нет активных объявлений!,Сизда ҳозирча фаол эълон йўқ!
 ad_empty_message_all,Siz hali birorta ham e’lon qo‘shmadingiz!,Вы еще не добавили объявлений!,Сиз ҳали бирорта ҳам эълон қўшмадингиз!

@@ -102,7 +102,7 @@ class AdDetailCubit extends BaseCubit<AdDetailState, AdDetailEvent> {
               ));
         })
         .onError((error) {
-          logger.e(error);
+          logger.e("getAdDetail$error");
           updateState((state) => state.copyWith(
                 isNotPrepared: true,
                 isPreparingInProcess: false,

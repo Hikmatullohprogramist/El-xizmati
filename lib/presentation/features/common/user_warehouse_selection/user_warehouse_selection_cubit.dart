@@ -18,6 +18,18 @@ class UserWarehouseSelectionCubit extends BaseCubit<UserWarehouseSelectionState,
     getItems();
   }
 
+  void setInitialSelectedParams(List<UserAddress>? warehouses) {
+    try {
+      if (warehouses != null) {
+        List<UserAddress> selectedItems = [];
+        selectedItems.addAll(warehouses);
+        updateState((state) => state.copyWith(selectedItems: selectedItems));
+      }
+    } catch (e) {
+      logger.e(e.toString());
+    }
+  }
+
   Future<void> getItems() async {
     try {
       final warehouses = await _repository.getWarehousesForCreationAd();
@@ -31,18 +43,6 @@ class UserWarehouseSelectionCubit extends BaseCubit<UserWarehouseSelectionState,
     } catch (exception) {
       logger.e(exception.toString());
       updateState((state) => state.copyWith(loadState: LoadingState.error));
-    }
-  }
-
-  void setInitialSelectedParams(List<UserAddress>? warehouses) {
-    try {
-      if (warehouses != null) {
-        List<UserAddress> selectedItems = [];
-        selectedItems.addAll(warehouses);
-        updateState((state) => state.copyWith(selectedItems: selectedItems));
-      }
-    } catch (e) {
-      logger.e(e.toString());
     }
   }
 
