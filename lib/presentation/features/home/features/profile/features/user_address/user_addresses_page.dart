@@ -146,7 +146,7 @@ class UserAddressesPage extends BasePage<UserAddressesCubit, UserAddressesState,
             children: [
               SizedBox(height: 20),
               BottomSheetTitle(
-                title: Strings.actionTitle,
+                title: Strings.userAddressActionsTitle,
                 onCloseClicked: () {
                   context.router.pop();
                 },

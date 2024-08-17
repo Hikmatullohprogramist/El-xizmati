@@ -5,7 +5,6 @@ action_deactivate,Faolsizlantirish,Деактивировать,Фаолсизл
 action_delete,O‘chirish,Удалить,Ўчириш
 action_edit,Tahrirlash,Редактировать,Таҳрирлаш
 action_make_main,Asosiy qilish,Сделать основным,Асосий қилиш
-action_title,Harakat,Действие,Ҳаракат
 active_sessions_current_session,Joriy sessiya,Текущий сеанс,Жорий сессия
 active_sessions_mobile_app,Mobil ilova,Мобильное приложение,Мобил илова
 active_sessions_terminate,Seansni tugatish,Завершить сеанс,Сеансни тугатиш
@@ -118,6 +117,7 @@ ad_transaction_type_sell,Mahsulot,Продукт,Маҳсулот
 ad_transaction_type_service,Xizmat,Услуга,Хизмат
 ad_type_product_title,Mahsulot,Продукт,Маҳсулот
 ad_type_service_title,Xizmat,Услуга,Хизмат
+add_image_actions_title,Rasm qo‘shish,Добавить изображение,Расм қўшиш
 address_add_title,Manzil qo‘shish,Добавить адрес,Манзил қўшиш
 address_empty_title,"Siz hali manzil qo‘shmagansiz, qo‘shmoqchimisiz?","Вы ещё не добавили адрес, хотите добавить?","Сиз ҳали манзил қўшмагансиз, қўшмоқчимисиз?"
 all_title,Barchasi,Все,Барчаси
@@ -462,6 +462,7 @@ selection_payment_type_title,To‘lov turlarini tanlang,Выберите тип�
 selection_pickup_addresses_title,Olib ketish manzillarini tanlang,Выберите адреса самовывоза,Олиб кетиш манзилларини танланг
 selection_unit_title,O‘lchov turini tanlang,Выберите единицу измерения,Ўлчов турини танланг
 selection_user_address_title,Manzilni tanlang,Выберите адрес,Манзилни танланг
+send_report_actions_title,Shikoyat yuborish,Отправить жалобу,Шикоят юбориш
 services_title,Xizmatlar,Услуги,Хизматлар
 set_intro_choose_later,Keyinroq tanlash,Выбрать позже,Кейинроқ танлаш
 set_intro_region_description,"Sizga eng qulay bo‘lgan e’lonlarni topich uchun, iltimos hududingizni tanlang.","Чтобы вам было легче найти более подходящие объявления, пожалуйста укажите свой регион.","Сизга энг қулай бўлган эълонларни топич учун, илтимос ҳудудингизни танланг."
@@ -483,7 +484,9 @@ telegram_bot_description,Bot orqali bildirishnomalarni olish uchun siz botga ula
 theme_mode_dark_mode,Qorong‘i rejim,Темный режим,Қоронғи режим
 theme_mode_light_mode,Yorug‘ rejim,Светлый режим,Ёруғ режим
 theme_mode_system,Telefondagi kabi,Как на телефоне,Телефондаги каби
+user_ad_action_view,E’lonni ko‘rish,Просмотреть объявление,Эълонни кўриш
 user_ad_detail_remainder,Qolgan,Остаток,Қолган
+user_address_actions_title,Manzilga bilan bog‘liq amallar,Действия с адресом,Манзилга билан боғлиқ амаллар
 user_address_add_title,Yangi manzil qo‘shish,Добавить новый адрес,Янги манзил қўшиш
 user_address_address,Manzil:,Адрес:,Манзил:
 user_address_edit_title,Manzilni tahrirlash,Редактировать адрес,Манзилни таҳрирлаш
@@ -492,6 +495,7 @@ user_address_location,Joylashuvni tanlang,Выберите локацию,Жой
 user_address_my_address,Mening manzillarim,Мои адреса,Менинг манзилларим
 user_address_name,Manzil nomi,Название адреса,Манзил номи
 user_address_taken_location,Aniqlangan joylashuv,Полученный местоположения,Аниқланган жойлашув
+user_ads_actions_title,E’longa bilan bog‘liq amallar,Действия с объявлением,Эълонга билан боғлиқ амаллар
 user_ads_active,Faol,Активный,Фаол
 user_ads_all,Barchasi,Все,Барчаси
 user_ads_cancelled,Bekor qilingan,Отменено,Бекор қилинган

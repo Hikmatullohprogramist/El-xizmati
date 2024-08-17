@@ -1,7 +1,8 @@
 enum AdAction {
-  ACTION_EDIT,
-  ACTION_ADVERTISE,
-  ACTION_DEACTIVATE,
-  ACTION_ACTIVATE,
-  ACTION_DELETE,
+  actionView,
+  actionEdit,
+  actionAdvertise,
+  actionDeactivate,
+  actionActivate,
+  actionDelete,
 }

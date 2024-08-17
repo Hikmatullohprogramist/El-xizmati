@@ -83,42 +83,46 @@ extension AdTypeResExts on AdType {
 extension AdAuthorTypeResExts on AdAuthorType {
   String getLocalizedName() {
     switch (this) {
-      case AdAuthorType.private :
+      case AdAuthorType.private:
         return Strings.adPropertyPersonal;
-      case AdAuthorType.business :
+      case AdAuthorType.business:
         return Strings.adPropertyBiznes;
     }
   }
 }
 
 extension AdActionResExts on AdAction {
-  String getLocalizedName() {
+  SvgGenImage getActionIcon() {
     switch (this) {
-      case AdAction.ACTION_EDIT:
-        return Strings.actionEdit;
-      case AdAction.ACTION_ADVERTISE:
-        return Strings.actionAdvertise;
-      case AdAction.ACTION_DEACTIVATE:
-        return Strings.actionDeactivate;
-      case AdAction.ACTION_ACTIVATE:
-        return Strings.actionActivate;
-      case AdAction.ACTION_DELETE:
-        return Strings.actionDelete;
+      case AdAction.actionView:
+        return Assets.images.icActionView;
+      case AdAction.actionEdit:
+        return Assets.images.icActionEdit;
+      case AdAction.actionAdvertise:
+        return Assets.images.icActionEdit;
+      case AdAction.actionDeactivate:
+        return Assets.images.icActionDeactivate;
+      case AdAction.actionActivate:
+        return Assets.images.icActionActivate;
+      case AdAction.actionDelete:
+        return Assets.images.icActionDelete;
     }
   }
 
-  SvgGenImage getActionIcon() {
+  String getLocalizedName() {
     switch (this) {
-      case AdAction.ACTION_EDIT:
-        return Assets.images.icActionEdit;
-      case AdAction.ACTION_ADVERTISE:
-        return Assets.images.icActionEdit;
-      case AdAction.ACTION_DEACTIVATE:
-        return Assets.images.icActionDeactivate;
-      case AdAction.ACTION_ACTIVATE:
-        return Assets.images.icActionActivate;
-      case AdAction.ACTION_DELETE:
-        return Assets.images.icActionDelete;
+      case AdAction.actionView:
+        return Strings.userAdActionView;
+      case AdAction.actionEdit:
+        return Strings.actionEdit;
+      case AdAction.actionAdvertise:
+        return Strings.actionAdvertise;
+      case AdAction.actionDeactivate:
+        return Strings.actionDeactivate;
+      case AdAction.actionActivate:
+        return Strings.actionActivate;
+      case AdAction.actionDelete:
+        return Strings.actionDelete;
     }
   }
 }
@@ -370,10 +374,10 @@ extension OrderCancelReasonExts on OrderCancelReason {
   String getLocalizedName() {
     return switch (this) {
       OrderCancelReason.SELLER_NOT_ANSWERED =>
-      Strings.orderCancellationSellerNotAnswered,
+        Strings.orderCancellationSellerNotAnswered,
       OrderCancelReason.CHANGED_IDEA => Strings.orderCancellationChangedIdea,
       OrderCancelReason.SELECTED_INCORRECTED_AD =>
-      Strings.orderCancellationSelectedInfcorrectedAd,
+        Strings.orderCancellationSelectedInfcorrectedAd,
       OrderCancelReason.OTHER_REASON => Strings.orderCancellationOtherReason,
     };
   }
@@ -386,11 +390,11 @@ extension ReportReasonExts on ReportReason {
       ReportReason.FRAUD => Strings.reportReasonFraud,
       ReportReason.INSULT_OR_THREATS => Strings.reportReasonInsultOrThreats,
       ReportReason.PROHIBITED_GOODS_SERVICES =>
-      Strings.reportReasonProhibitedGoodsServices,
+        Strings.reportReasonProhibitedGoodsServices,
       ReportReason.IRRELEVANT_ADS => Strings.reportReasonIrrelevantAds,
       ReportReason.PROHIBITED_SERVICE => Strings.reportReasonProhibitedService,
       ReportReason.INAPPROPRIATE_CONTENT =>
-      Strings.reportReasonInappropriateContent,
+        Strings.reportReasonInappropriateContent,
       ReportReason.OTHER => Strings.reportReasonOther,
     };
   }

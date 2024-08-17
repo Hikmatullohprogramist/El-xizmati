@@ -181,7 +181,7 @@ class AdListPage extends BasePage<AdListCubit, AdListState, AdListEvent> {
               children: <Widget>[
                 SizedBox(height: 20),
                 BottomSheetTitle(
-                  title: Strings.actionTitle,
+                  title: Strings.sendReportActionsTitle,
                   onCloseClicked: () {
                     context.router.pop();
                   },

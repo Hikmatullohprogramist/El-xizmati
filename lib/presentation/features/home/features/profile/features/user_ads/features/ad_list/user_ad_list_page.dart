@@ -120,7 +120,7 @@ class UserAdListPage
                       _showActionsBottomSheet(context, item);
                     },
                     onItemClicked: () {
-                      context.router.push(UserAdDetailRoute(userAd: item));
+                      _showActionsBottomSheet(context, item);
                     },
                     userAd: item,
                   ),
@@ -154,16 +154,25 @@ class UserAdListPage
               children: [
                 SizedBox(height: 12),
                 BottomSheetTitle(
-                  title: Strings.actionTitle,
+                  title: Strings.userAdsActionsTitle,
                   onCloseClicked: () {
                     context.router.pop();
                   },
                 ),
                 SizedBox(height: 16),
                 ActionListItem(
-                  item: AdAction.ACTION_EDIT,
-                  title: AdAction.ACTION_EDIT.getLocalizedName(),
-                  icon: AdAction.ACTION_EDIT.getActionIcon(),
+                  item: AdAction.actionView,
+                  title: AdAction.actionView.getLocalizedName(),
+                  icon: AdAction.actionView.getActionIcon(),
+                  onClicked: (item) {
+                    context.router.pop();
+                    context.router.push(UserAdDetailRoute(userAd: ad));
+                  },
+                ),
+                ActionListItem(
+                  item: AdAction.actionEdit,
+                  title: AdAction.actionEdit.getLocalizedName(),
+                  icon: AdAction.actionEdit.getActionIcon(),
                   onClicked: (item) {
                     context.router.pop();
 
@@ -202,9 +211,9 @@ class UserAdListPage
                 ),
                 if (ad.isCanAdvertise())
                   ActionListItem(
-                    item: AdAction.ACTION_ADVERTISE,
-                    title: AdAction.ACTION_ADVERTISE.getLocalizedName(),
-                    icon: AdAction.ACTION_ADVERTISE.getActionIcon(),
+                    item: AdAction.actionAdvertise,
+                    title: AdAction.actionAdvertise.getLocalizedName(),
+                    icon: AdAction.actionAdvertise.getActionIcon(),
                     color: Colors.purpleAccent,
                     onClicked: (item) {
                       context.router.pop();
@@ -212,9 +221,9 @@ class UserAdListPage
                   ),
                 if (ad.isCanDeactivate())
                   ActionListItem(
-                    item: AdAction.ACTION_DEACTIVATE,
-                    title: AdAction.ACTION_DEACTIVATE.getLocalizedName(),
-                    icon: AdAction.ACTION_DEACTIVATE.getActionIcon(),
+                    item: AdAction.actionDeactivate,
+                    title: AdAction.actionDeactivate.getLocalizedName(),
+                    icon: AdAction.actionDeactivate.getActionIcon(),
                     color: Color(0xFFFA6F5D),
                     onClicked: (item) {
                       context.router.pop();
@@ -223,9 +232,9 @@ class UserAdListPage
                   ),
                 if (ad.isCanActivate())
                   ActionListItem(
-                    item: AdAction.ACTION_ACTIVATE,
-                    title: AdAction.ACTION_ACTIVATE.getLocalizedName(),
-                    icon: AdAction.ACTION_ACTIVATE.getActionIcon(),
+                    item: AdAction.actionActivate,
+                    title: AdAction.actionActivate.getLocalizedName(),
+                    icon: AdAction.actionActivate.getActionIcon(),
                     onClicked: (item) {
                       context.router.pop();
                       cubit(context).activateAd(ad);
@@ -233,9 +242,9 @@ class UserAdListPage
                   ),
                 if (ad.isCanDelete())
                   ActionListItem(
-                    item: AdAction.ACTION_DELETE,
-                    title: AdAction.ACTION_DELETE.getLocalizedName(),
-                    icon: AdAction.ACTION_DELETE.getActionIcon(),
+                    item: AdAction.actionDelete,
+                    title: AdAction.actionDelete.getLocalizedName(),
+                    icon: AdAction.actionDelete.getActionIcon(),
                     color: Color(0xFFFA6F5D),
                     onClicked: (item) {
                       context.router.pop();

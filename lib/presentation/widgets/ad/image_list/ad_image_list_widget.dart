@@ -169,7 +169,7 @@ class AdImageListWidget extends StatelessWidget {
               children: <Widget>[
                 SizedBox(height: 20),
                 BottomSheetTitle(
-                  title: Strings.actionTitle,
+                  title: Strings.addImageActionsTitle,
                   onCloseClicked: () {
                     context.router.pop();
                   },

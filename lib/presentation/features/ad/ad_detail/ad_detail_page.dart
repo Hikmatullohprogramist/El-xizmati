@@ -1213,7 +1213,7 @@ class AdDetailPage
               children: <Widget>[
                 SizedBox(height: 20),
                 BottomSheetTitle(
-                  title: Strings.actionTitle,
+                  title: Strings.sendReportActionsTitle,
                   onCloseClicked: () {
                     context.router.pop();
                   },
