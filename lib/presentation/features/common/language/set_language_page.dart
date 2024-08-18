@@ -32,63 +32,45 @@ class SetLanguagePage
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 26),
+          padding: EdgeInsets.only(left: 35,right: 35, bottom :80, top: 20),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Spacer(),
               Assets.images.pngImages.appLogo.image(width: 64, height: 64),
-              SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Online").w(700).s(32).c(Color(0xFF5C6AC4)),
-                  SizedBox(width: 6),
-                  Text("Bozor").w(700).s(32).c(Color(0xFFBAC2D6)),
-                ],
-              ),
+              Text("el xizmati").w(700).s(32).c(Color(0xFF703EDB)),
+              Text("ishchilar jamiyati").w(300).s(18).c(Color(0xFF2A174E)),
+              SizedBox(height: 50),
+              Text(
+                "Interfeys\ntilini tanlang",
+                textAlign: TextAlign.center,
+              ).w(800).s(32).c(Color(0xFF2A174E)),
               Spacer(),
-              Text(Strings.languageWelcome).w(500).s(24).c(Color(0xFF41455F)),
-              Text(Strings.languageSetTitle).w(400).s(12),
-              Spacer(),
-              CustomOutlinedButton(
+              CustomElevatedButton(
                 text: Strings.languageUzLat,
                 onPressed: () {
                   HapticFeedback.lightImpact();
-                  cubit(context).setLanguage(Language.uzbekLatin);
+                  cubit(context).setLanguage(Language.uzbekCyrill);
                   EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZ'));
+                  context.router.replace(SetIntroRegionRoute());
                 },
-                isSelected: cubit(context).isUzbekLatinSelected,
-                rightIcon: Assets.images.pngImages.flagUz.image(),
               ),
-
               SizedBox(height: 12),
-              CustomOutlinedButton(
+              CustomElevatedButton(
                 text: Strings.languageRus,
                 onPressed: () {
                   HapticFeedback.lightImpact();
-                  cubit(context).setLanguage(Language.russian);
+                  cubit(context).setLanguage(Language.uzbekCyrill);
                   EasyLocalization.of(context)?.setLocale(Locale('ru', 'RU'));
+                  context.router.replace(SetIntroRegionRoute());
                 },
-                isSelected: cubit(context).isRussianSelected,
-                rightIcon: Assets.images.pngImages.flagRu.image(),
               ),
               SizedBox(height: 12),
-              CustomOutlinedButton(
+              CustomElevatedButton(
+                text: Strings.languageUzCyr,
                 onPressed: () {
                   HapticFeedback.lightImpact();
                   cubit(context).setLanguage(Language.uzbekCyrill);
                   EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZK'));
-                },
-                isSelected: cubit(context).isUzbekCyrillSelected,
-                rightIcon: Assets.images.pngImages.flagUz.image(),
-                text: Strings.languageUzCyr,
-              ),
-              SizedBox(height: 16),
-              CustomElevatedButton(
-                text: Strings.commonContinue,
-                onPressed: () {
                   context.router.replace(SetIntroRegionRoute());
                 },
               ),

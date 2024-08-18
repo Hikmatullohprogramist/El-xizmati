@@ -57,7 +57,7 @@ class CustomElevatedButton extends StatelessWidget {
     var backcolor = backgroundColor ?? context.colors.buttonPrimary;
     var actualBackgroundColor =
         isEnabled ? backcolor : backcolor.withOpacity(0.75);
-    var actualTextAlign = rightIcon != null ? TextAlign.left : TextAlign.center;
+    var actualTextAlign = TextAlign.center;
 
     final hasIcon = leftIcon != null || rightIcon != null;
 
@@ -65,16 +65,26 @@ class CustomElevatedButton extends StatelessWidget {
       height: buttonHeight,
       width: buttonWidth,
       child: ElevatedButton(
+        autofocus: true,
+        clipBehavior: Clip.hardEdge,
         onPressed: onButtonPressed,
         style: ElevatedButton.styleFrom(
+          shadowColor: actualBackgroundColor,
+          padding: EdgeInsets.all(0),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6),
+            borderRadius: BorderRadius.circular(12),
           ),
-          backgroundColor: actualBackgroundColor,
           disabledBackgroundColor: actualBackgroundColor.withAlpha(150),
-          elevation: 0,
+          elevation: 3,
         ),
-        child: SizedBox(
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [actualBackgroundColor, Color(0xFF9A6AFF)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight
+            ),
+          ),
           width: buttonWidth,
           height: buttonHeight,
           child: Row(
@@ -92,11 +102,26 @@ class CustomElevatedButton extends StatelessWidget {
                 child: SizedBox(width: 12),
               ),
               Expanded(
-                child: text.w(400).s(textSize).c(actualTextColor).copyWith(
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: actualTextAlign,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    text.w(400).s(textSize).c(actualTextColor).copyWith(
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: actualTextAlign,
+                        ),
+                    SizedBox(width: 4),
+                    Visibility(
+                      visible: hasIcon,
+                      child: SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: rightIcon,
+                      ),
                     ),
+                  ],
+                ),
               ),
               Visibility(visible: isLoading, child: SizedBox(width: 12)),
               Visibility(
@@ -109,18 +134,6 @@ class CustomElevatedButton extends StatelessWidget {
                     strokeWidth: 1.5,
                     strokeAlign: 0.5,
                   ),
-                ),
-              ),
-              Visibility(
-                visible: hasIcon,
-                child: SizedBox(width: 12),
-              ),
-              Visibility(
-                visible: hasIcon,
-                child: SizedBox(
-                  width: 20,
-                  height: 20,
-                  child: rightIcon,
                 ),
               ),
             ],

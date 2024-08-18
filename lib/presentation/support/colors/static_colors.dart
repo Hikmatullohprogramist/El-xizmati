@@ -9,7 +9,7 @@ abstract class StaticColors {
   static const brightGray = Color(0xFFF3EFE5);
   static const colorPrimary = Color(0xFF5C6AC4);
   static const colorAccent = Color(0xFF5C6AC4);
-  static const buttonColor = Color(0xFF5C6AC4);
+  static const buttonColor = Color(0xFF703EDB);
   static const majorelleBlue = Color(0xFF6546E7);
   static const bondiBlue = Color(0xFF0096B2);
   static const manatee = Color(0xFF999CB2);
