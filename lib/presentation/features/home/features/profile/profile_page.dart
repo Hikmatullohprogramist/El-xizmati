@@ -48,12 +48,12 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            _buildProfileBlock(context, state),
-            _buildOrderBlock(context, state),
-            _buildCardBlock(context, state),
+            // _buildProfileBlock(context, state),
+            // _buildOrderBlock(context, state),
+            // _buildCardBlock(context, state),
             _buildSettingsBlock(context, state),
-            _buildLogoutBlock(context, state),
-            _buildAppVersionBlock(),
+            // _buildLogoutBlock(context, state),
+            // _buildAppVersionBlock(),
           ],
         ),
       ),
@@ -220,34 +220,75 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
       child: Column(
         children: [
           ProfileItemWidget(
-            name: Strings.profileChangeLanguage,
-            icon: Assets.images.icProfileLanguage,
+            name: Strings.profilePersonalData,
+            icon: Assets.images.icProfileInfo,
             topRadius: 16,
             bottomRadius: 0,
-            onClicked: () => _showChangeLanguageBottomSheet(context, state),
+            onClicked: () => {},
           ),
-          Divider(indent: 46, height: 1),
           ProfileItemWidget(
-            name: Strings.profileDarkMode,
-            icon: Assets.images.icProfileDarkMode,
+            name: Strings.settingsChangePassword,
+            icon: Assets.images.icProfileChangePassword,
             topRadius: 0,
             bottomRadius: state.isAuthorized ? 0 : 16,
-            onClicked: () => _showThemeModeBottomSheet(context, state),
+            onClicked: () => {},
           ),
-          Visibility(
-            visible: state.isAuthorized,
-            child: Divider(indent: 46, height: 1),
+          ProfileItemWidget(
+            name: Strings.profileMyBalans,
+            icon: Assets.images.icProfileBalance,
+            topRadius: 0,
+            bottomRadius: state.isAuthorized ? 0 : 16,
+            onClicked: () => {},
           ),
-          Visibility(
-            visible: state.isAuthorized,
-            child: ProfileItemWidget(
-              name: Strings.settingsActiveDevices,
-              icon: Assets.images.icActiveDevice,
-              topRadius: 0,
-              bottomRadius: 16,
-              onClicked: () => context.router.push(UserActiveSessionsRoute()),
-            ),
+          ProfileItemWidget(
+            name: Strings.profileNotification,
+            icon: Assets.images.icProfileNotification,
+            topRadius: 0,
+            bottomRadius: state.isAuthorized ? 0 : 16,
+            onClicked: () => {},
           ),
+          ProfileItemWidget(
+            name: Strings.profileChangeLanguage,
+            icon: Assets.images.icProfileLanguage,
+            topRadius: 0,
+            bottomRadius: state.isAuthorized ? 0 : 16,
+            onClicked: () => {},
+          ),
+          Divider(
+            height: 1,
+            indent: 16,
+            endIndent: 16,
+          ),
+          ProfileItemWidget(
+            name: 'Yordam so’rash',
+            icon: Assets.images.icProfileSupport,
+            topRadius: 0,
+            bottomRadius: state.isAuthorized ? 0 : 16,
+            onClicked: () => {},
+          ),
+          ProfileItemWidget(
+            name: '',
+            icon: Assets.images.icProfileIcon,
+            topRadius: 0,
+            bottomRadius: state.isAuthorized ? 0 : 16,
+            onClicked: () => {},
+          ),
+
+
+          // Visibility(
+          //   visible: state.isAuthorized,
+          //   child: Divider(indent: 46, height: 1),
+          // ),
+          // Visibility(
+          //   visible: state.isAuthorized,
+          //   child: ProfileItemWidget(
+          //     name: Strings.settingsActiveDevices,
+          //     icon: Assets.images.icActiveDevice,
+          //     topRadius: 0,
+          //     bottomRadius: 16,
+          //     onClicked: () => context.router.push(UserActiveSessionsRoute()),
+          //   ),
+          // ),
         ],
       ),
     );

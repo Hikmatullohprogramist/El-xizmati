@@ -70,7 +70,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   auto_route_generator: ^7.3.1
-  build_runner: ^2.4.6
+  build_runner: ^2.4.11
   easy_localization_generator: ^0.3.2
   floor_generator: ^1.4.2
   flutter_gen_runner: ^5.3.1

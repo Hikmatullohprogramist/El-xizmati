@@ -101,7 +101,7 @@ class HomePage extends BasePage<HomeCubit, HomeState, HomeEvent> {
                 ),
               ),
               BottomNavigationBarItem(
-                label: Strings.bottomNavigationMore,
+                label: Strings.bottomNavigationProfile,
                 icon: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Assets.images.bottomBar.profile.svg(),
