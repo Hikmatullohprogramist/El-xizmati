@@ -16,6 +16,7 @@ class ElevationWidget extends StatelessWidget {
   final double topRightRadius;
   final double bottomLeftRadius;
   final double bottomRightRadius;
+  final EdgeInsets? padding;
   final Widget child;
 
   const ElevationWidget({
@@ -35,6 +36,7 @@ class ElevationWidget extends StatelessWidget {
     this.topRightRadius = 0,
     this.bottomLeftRadius = 0,
     this.bottomRightRadius = 0,
+    this.padding,
   });
 
   @override
@@ -46,6 +48,7 @@ class ElevationWidget extends StatelessWidget {
         right: rightMargin,
         bottom: bottomMargin,
       ),
+      padding: padding,
       decoration: BoxDecoration(
         color: backgroundColor ?? context.elevatedColor,
         borderRadius: BorderRadius.only(

@@ -7,7 +7,7 @@ abstract class StaticColors {
   static const white = Color(0xFFFFFFFF);
   static const cadetBlue = Color(0xFF9EABBE);
   static const brightGray = Color(0xFFF3EFE5);
-  static const colorPrimary = Color(0xFF5C6AC4);
+  static const colorPrimary = Color(0xFF703EDB);
   static const colorAccent = Color(0xFF5C6AC4);
   static const buttonColor = Color(0xFF703EDB);
   static const majorelleBlue = Color(0xFF6546E7);
@@ -18,7 +18,7 @@ abstract class StaticColors {
   static const inputBackgroundColor = Color(0xFFFAF9FF);
   static const inputStrokeColor = Color(0xFFDFE2E9);
 
-  static const textColorPrimary = Color(0xFF41455F);
+  static const textColorPrimary = Color(0xFF3D3D3D);
   // static const textColorSecondary = Color(0xFF5A5D83);
   // static const textColorSecondary = context.textSecondary;
   static const textColorSecondary = Color(0xFFA8A8A8);
