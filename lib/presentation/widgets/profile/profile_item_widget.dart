@@ -42,9 +42,9 @@ class ProfileItemWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    icon.svg(width: 22, height: 22),
+                    icon.svg(width: 20, height: 20),
                     SizedBox(width: 16),
-                    name.w(500).s(14).c(color ?? context.textPrimary)
+                    name.w(500).s(18).c(color ?? context.textPrimary)
                   ],
                 ),
                 Assets.images.icArrowRight.svg(

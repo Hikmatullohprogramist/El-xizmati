@@ -100,6 +100,7 @@ flutter:
   assets:
     - assets/localization/
     - assets/images/
+    - assets/sp_images/
     - assets/images/png_images/
     - assets/images/bottom_bar/
 

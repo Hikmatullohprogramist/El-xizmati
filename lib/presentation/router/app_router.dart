@@ -75,7 +75,7 @@ import 'package:onlinebozor/presentation/features/home/features/profile/features
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_orders/features/user_order_info/user_order_info_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_orders/features/user_order_list/user_order_list_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_orders/user_orders_page.dart';
-import 'package:onlinebozor/presentation/features/home/features/profile/profile_page.dart';
+import 'package:onlinebozor/presentation/features/home/features/my_profile/profile_page.dart';
 import 'package:onlinebozor/presentation/features/home/home_page.dart';
 import 'package:onlinebozor/presentation/features/realpay/add_card/add_card_with_realpay_page.dart';
 import 'package:onlinebozor/presentation/features/realpay/refill/refill_with_realpay_page.dart';

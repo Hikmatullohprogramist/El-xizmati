@@ -55,7 +55,7 @@ import 'package:onlinebozor/presentation/features/home/features/profile/features
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_orders/features/user_order_info/user_order_info_cubit.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_orders/features/user_order_list/user_order_list_cubit.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/user_orders/user_orders_cubit.dart';
-import 'package:onlinebozor/presentation/features/home/features/profile/profile_cubit.dart';
+import 'package:onlinebozor/presentation/features/home/features/my_profile/profile_cubit.dart';
 import 'package:onlinebozor/presentation/features/home/home_cubit.dart';
 import 'package:onlinebozor/presentation/features/realpay/add_card/add_card_with_realpay_cubit.dart';
 import 'package:onlinebozor/presentation/features/realpay/refill/refill_with_realpay_cubit.dart';
@@ -122,9 +122,6 @@ extension GetItModuleApp on GetIt {
     registerFactory(() => AdCreationChooserCubit(get()));
     registerFactory(
         () => DashboardCubit(get(), get(), get(), get(), get(), get()));
-    registerFactory(
-      () => ProfileCubit(get(), get(), get(), get(), get(), get()),
-    );
 
     // profile
     registerFactory(() => BillingTransactionsCubit(get()));
@@ -145,6 +142,10 @@ extension GetItModuleApp on GetIt {
     // realpay
     registerFactory(() => AddCardWithRealpayCubit(get()));
     registerFactory(() => RefillWithRealpayCubit(get()));
+
+
+    //SP
+    registerFactory(()=> ProfileCubit(get()));
 
     await allReady();
   }
