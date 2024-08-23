@@ -62,6 +62,8 @@ import 'package:onlinebozor/presentation/features/realpay/refill/refill_with_rea
 import 'package:onlinebozor/presentation/support/state_message/state_message_manager.dart';
 import 'package:onlinebozor/presentation/support/state_message/state_message_manager_impl.dart';
 
+import '../../features/home/features/my_profile/features/personal/personal_cubit.dart';
+
 extension GetItModuleApp on GetIt {
   Future<void> appModule() async {
     registerLazySingleton(() => Logger());
@@ -146,6 +148,7 @@ extension GetItModuleApp on GetIt {
 
     //SP
     registerFactory(()=> ProfileCubit(get()));
+    registerFactory(()=> PersonalCubit());
 
     await allReady();
   }

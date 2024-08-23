@@ -19,7 +19,7 @@ class LabelTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Flexible(
-          child: text.w(500).s(14).copyWith(
+          child: text.w(700).s(12).copyWith(
                 textAlign: TextAlign.left,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

@@ -81,6 +81,8 @@ import 'package:onlinebozor/presentation/features/realpay/add_card/add_card_with
 import 'package:onlinebozor/presentation/features/realpay/refill/refill_with_realpay_page.dart';
 import 'package:onlinebozor/presentation/features/common/set_intro_region/set_intro_region_page.dart';
 
+import '../features/home/features/my_profile/features/personal/personal_page.dart';
+
 part 'app_router.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
@@ -387,5 +389,9 @@ class AppRouter extends _$AppRouter {
           page: SubmitReportRoute.page,
           path: '/submit_report',
         ),
+        AutoRoute(
+          page: PersonalRoute.page,
+          path: '/sp_profile_edit'
+        )
       ];
 }

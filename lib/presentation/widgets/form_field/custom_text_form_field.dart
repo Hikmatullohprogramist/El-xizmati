@@ -33,6 +33,7 @@ class CustomTextFormField extends StatefulWidget {
     this.autoValidateMode,
     this.textCapitalization,
     this.isStrokeEnabled = true,
+    this.endIcon,
   }) : super(key: key);
 
   final double? height;
@@ -76,6 +77,7 @@ class CustomTextFormField extends StatefulWidget {
   final Color? enabledColor;
   final Color? disabledColor;
   final bool isStrokeEnabled;
+  final Widget? endIcon;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -184,22 +186,25 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             color: widget.isStrokeEnabled
                 ? context.inputStrokeInactiveColor
                 : Colors.transparent,
+            width: 2
           ),
           borderRadius: BorderRadius.circular(8),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: widget.isStrokeEnabled
-                ? context.inputStrokeInactiveColor
+                ? context.inputStrokeActiveColor
                 : Colors.transparent,
+            width: 2
           ),
           borderRadius: BorderRadius.circular(8),
         ),
         disabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: widget.isStrokeEnabled
-                ? context.inputStrokeInactiveColor
+                ? context.inputStrokeActiveColor
                 : Colors.transparent,
+            width: 2
           ),
           borderRadius: BorderRadius.circular(8),
         ),
@@ -208,6 +213,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             color: widget.isStrokeEnabled
                 ? context.inputStrokeActiveColor
                 : Colors.transparent,
+            width: 2
           ),
           borderRadius: BorderRadius.circular(8),
         ),
@@ -216,11 +222,12 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             color: widget.isStrokeEnabled
                 ? Colors.red.shade200
                 : Colors.transparent,
+            width: 2
           ),
           borderRadius: BorderRadius.circular(8),
         ),
         suffixIcon: !widget.obscureText
-            ? null
+            ? widget.endIcon
             : IconButton(
                 icon: Icon(
                   _passwordVisible ? Icons.visibility : Icons.visibility_off,

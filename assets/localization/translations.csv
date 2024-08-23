@@ -78,7 +78,7 @@ ad_detail_author_ads,Muallifning boshqa e‘lonlari,Другие объявле�
 ad_detail_characteristics,Xususiyatlari,Характеристики,Хусусиятлари
 ad_detail_cheap_price,Arzon narx,Дешевая цена,Aрзон нарх
 ad_detail_chip_item_condition,Holati:,Состояние:,Ҳолати:
-ad_detail_chip_published_date,Nashr etilgan:,Опубликовано:,Нашр этилган:
+ad_detail_chip_published_date,Chop etilgan:,Опубликовано:,Нашр этилган:
 ad_detail_chip_viewed_count,Ko‘rildi:,Просмотров:,Кўрилди:
 ad_detail_complain,Shikoyat qiling,Пожаловаться,Шикоят қилинг
 ad_detail_description,Tavsif,Описание,Тавсиф
@@ -486,6 +486,11 @@ theme_mode_light_mode,Yorug‘ rejim,Светлый режим,Ёруғ режи
 theme_mode_system,Telefondagi kabi,Как на телефоне,Телефондаги каби
 user_ad_action_view,E’lonni ko‘rish,Просмотреть объявление,Эълонни кўриш
 user_ad_detail_remainder,Qolgan,Остаток,Қолган
+user_ad_status_active,Ushbu e’lon chop etilgan,Это объявление опубликовано,Ушбу эълон чоп етилган
+user_ad_status_cancelled,Ushbu e’lon bekor qilingan,Это объявление отменено,Ушбу эълон бекор қилинган
+user_ad_status_inactive,Ushbu e’lon nofaol,Это объявление не активно,Ушбу эълон нофаол
+user_ad_status_rejected,Ushbu e’lon rad etilgan,Это объявление отклонено,Ушбу эълон рад этилган
+user_ad_status_wait,Ushbu e’lon ko‘rib chiqilishi kutilmoqda,Это объявление на рассмотрении,Ушбу эълон кўриб чиқилиши кутилмоқда
 user_address_actions_title,Manzilga bilan bog‘liq amallar,Действия с адресом,Манзилга билан боғлиқ амаллар
 user_address_add_title,Yangi manzil qo‘shish,Добавить новый адрес,Янги манзил қўшиш
 user_address_address,Manzil:,Адрес:,Манзил:
@@ -496,7 +501,7 @@ user_address_my_address,Mening manzillarim,Мои адреса,Менинг ма
 user_address_name,Manzil nomi,Название адреса,Манзил номи
 user_address_taken_location,Aniqlangan joylashuv,Полученный местоположения,Аниқланган жойлашув
 user_ads_actions_title,E’longa bilan bog‘liq amallar,Действия с объявлением,Эълонга билан боғлиқ амаллар
-user_ads_active,Faol,Активный,Фаол
+user_ads_active,Chop etilgan,Опубликованый,Чоп етилган
 user_ads_all,Barchasi,Все,Барчаси
 user_ads_cancelled,Bekor qilingan,Отменено,Бекор қилинган
 user_ads_inactive,Nofaol,Неактивный,Нофаол
