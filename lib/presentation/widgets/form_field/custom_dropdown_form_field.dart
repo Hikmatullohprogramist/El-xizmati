@@ -37,7 +37,7 @@ class CustomDropdownFormField extends StatelessWidget {
                 color: context.inputBackgroundColor,
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
-                  width: 1,
+                  width: 2,
                   color: state.hasError
                       ? Colors.red.shade200
                       : context.inputStrokeInactiveColor,

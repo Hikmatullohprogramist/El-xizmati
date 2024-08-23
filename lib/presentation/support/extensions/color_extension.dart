@@ -51,7 +51,7 @@ extension ColorExtension on BuildContext {
   Color get inputStrokeActiveColor => colors.buttonPrimary;
 
   Color get inputStrokeInactiveColor =>
-      isDarkMode ? Color(0xCCF6F7FC) : Color(0xFFDFE2E9);
+      isDarkMode ? Color(0xCCF6F7FC) : Color(0xFF703EDB);
 
   Color get iconPrimary =>
       isDarkMode ? StaticColors.iconPrimaryDark : StaticColors.iconPrimaryLight;

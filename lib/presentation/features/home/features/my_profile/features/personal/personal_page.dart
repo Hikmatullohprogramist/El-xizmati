@@ -191,8 +191,16 @@ class PersonalPage
       ),
       child: Column(
         children: [
-          SizedBox(height: 8),
           LabelTextField("Viloyat", isRequired: false,),
+          SizedBox(height: 6),
+          CustomDropdownFormField(
+            value: state.regionName,
+            hint: Strings.commonDistrict,
+            validator: (value) => NotEmptyValidator.validate(value),
+            onTap: () => _showRegionBottomSheet(context, state),
+          ),
+          SizedBox(height: 16),
+          LabelTextField("Shahar/Tuman:", isRequired: false,),
           SizedBox(height: 6),
           CustomDropdownFormField(
             value: state.districtName,
@@ -200,7 +208,7 @@ class PersonalPage
             validator: (value) => NotEmptyValidator.validate(value),
             onTap: () => _showDistrictBottomSheet(context, state),
           ),
-          SizedBox(height: 8),
+          SizedBox(height: 16),
           LabelTextField("Manzil", isRequired: false,),
           SizedBox(height: 6),
           CustomTextFormField(
@@ -209,8 +217,44 @@ class PersonalPage
             inputType: TextInputType.number,
             validator: (value) => NotEmptyValidator.validate(value),
           ),
+          SizedBox(height: 16),
+          LabelTextField("Kim bo'lasiz:", isRequired: false,),
+          SizedBox(height: 6),
+          CustomDropdownFormField(
+            value: 'Ish beruvchi',
+            hint: Strings.commonDistrict,
+            validator: (value) => NotEmptyValidator.validate(value),
+            onTap: () => _showWorkerTypeBottomSheet(context, state),
+          ),
         ],
       ),
+    );
+  }
+  void _showRegionBottomSheet(BuildContext context, PersonalState state) {
+
+
+    showCupertinoModalBottomSheet(
+      context: context,
+      builder: (BuildContext buildContext) {
+        return Material(
+          child: ListView.builder(
+            shrinkWrap: true,
+            physics: BouncingScrollPhysics(),
+            itemCount: 3,
+            itemBuilder: (BuildContext buildContext, int index) {
+              return InkWell(
+                onTap: () {
+                  Navigator.pop(buildContext);
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: "Toshkent".w(500),
+                ),
+              );
+            },
+          ),
+        );
+      },
     );
   }
   void _showDistrictBottomSheet(BuildContext context, PersonalState state) {
@@ -231,7 +275,34 @@ class PersonalPage
                 },
                 child: Padding(
                   padding: EdgeInsets.all(16),
-                  child: "Toshkent".w(500),
+                  child: "Urganch".w(500),
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+  void _showWorkerTypeBottomSheet(BuildContext context, PersonalState state) {
+
+
+    showCupertinoModalBottomSheet(
+      context: context,
+      builder: (BuildContext buildContext) {
+        return Material(
+          child: ListView.builder(
+            shrinkWrap: true,
+            physics: BouncingScrollPhysics(),
+            itemCount: 3,
+            itemBuilder: (BuildContext buildContext, int index) {
+              return InkWell(
+                onTap: () {
+                  Navigator.pop(buildContext);
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: "Ish beruvchi".w(500),
                 ),
               );
             },

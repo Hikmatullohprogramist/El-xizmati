@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:onlinebozor/core/extensions/text_extensions.dart';
+import 'package:onlinebozor/presentation/features/home/features/my_profile/features/personal/personal_page.dart';
 import 'package:onlinebozor/presentation/features/home/features/my_profile/profile_cubit.dart';
+import 'package:onlinebozor/presentation/router/app_router.dart';
 import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
 import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
 
@@ -109,7 +111,9 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
             icon: Assets.spImages.icProfileInfo,
             topRadius: 16,
             bottomRadius: 0,
-            onClicked: () => {},
+            onClicked: () => {
+              context.router.push(PersonalRoute())
+            },
           ),
           ProfileItemWidget(
             name: Strings.settingsChangePassword,
