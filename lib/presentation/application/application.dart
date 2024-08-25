@@ -86,10 +86,9 @@ class _ApplicationState extends State<Application> {
             themeMode: _themeMode,
             routerConfig: _appRouter.config(
               deepLinkBuilder: (_) => DeepLink(
-                // _languagePreferences.isLanguageSelected
-                //     ? [HomeRoute()]
-                //     : [SetLanguageRoute()],
-                  [SetLanguageRoute()]
+                _languagePreferences.isLanguageSelected
+                    ? [HomeRoute()]
+                    : [SetLanguageRoute()],
               ),
               navigatorObservers: () => [ChuckerFlutter.navigatorObserver],
             ),

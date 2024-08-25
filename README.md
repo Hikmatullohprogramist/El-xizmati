@@ -1,1 +1,1 @@
-Figma:https://www.figma.com/file/BLBEOyuhKsiB1NwHDY8mh2/Online-Bazar?type=design&node-id=1329-3710&mode=design&t=4xPSedqYRyHEpZkY-0
+Figma: https://www.figma.com/design/lsRH9rs8oyv2OY7O7hhQ4V/Mobile-UI-Design?node-id=374-11331&t=o4Svd7GsXuNK7au7-1

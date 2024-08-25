@@ -30,7 +30,7 @@ class LightThemeColors extends ThemeColors {
   Color get textPrimaryInverse => StaticColors.white;
 
   @override
-  Color get borderColor => StaticColors.brightGray;
+  Color get borderColor => StaticColors.colorPrimary;
 
   @override
   Color get buttonPrimary => StaticColors.buttonColor;

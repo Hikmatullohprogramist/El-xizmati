@@ -1,3 +1,4 @@
+import 'package:El_xizmati/presentation/features/common/sp_add_picture/add_picture_cubit.dart';
 import 'package:El_xizmati/presentation/features/common/sp_set_intro/set_intro_region_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
@@ -149,6 +150,7 @@ extension GetItModuleApp on GetIt {
     //SP
     registerFactory(()=> ProfileCubit(get()));
     registerFactory(()=> PersonalCubit());
+    registerFactory(()=> AddPictureCubit());
 
     await allReady();
   }
