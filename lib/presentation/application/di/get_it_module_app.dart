@@ -41,6 +41,7 @@ import 'package:onlinebozor/presentation/features/home/features/cart/cart_cubit.
 import 'package:onlinebozor/presentation/features/home/features/category/category_cubit.dart';
 import 'package:onlinebozor/presentation/features/home/features/category/features/sub_category_cubit.dart';
 import 'package:onlinebozor/presentation/features/home/features/dashboard/dashboard_cubit.dart';
+import 'package:onlinebozor/presentation/features/home/features/my_profile/features/change_password/change_password_cubit.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/billing_transactions/billing_transactions_cubit.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/billing_transactions/features/filter/billing_transaction_filter_cubit.dart';
 import 'package:onlinebozor/presentation/features/home/features/profile/features/identity_verification/identity_verification_cubit.dart';
@@ -149,6 +150,7 @@ extension GetItModuleApp on GetIt {
     //SP
     registerFactory(()=> ProfileCubit(get()));
     registerFactory(()=> PersonalCubit());
+    registerFactory(()=> ChangePasswordCubit());
 
     await allReady();
   }
