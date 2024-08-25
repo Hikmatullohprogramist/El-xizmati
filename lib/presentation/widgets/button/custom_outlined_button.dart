@@ -68,7 +68,7 @@ class CustomOutlinedButton extends StatelessWidget {
         backgroundColor: actualStrokeColor.withOpacity(0.015),
         foregroundColor: actualStrokeColor.withOpacity(0.45),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(12),
         ),
         side: BorderSide(
           width: 2,

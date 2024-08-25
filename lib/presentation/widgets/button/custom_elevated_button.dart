@@ -55,8 +55,7 @@ class CustomElevatedButton extends StatelessWidget {
 
     var actualTextColor = isEnabled ? textColor : textColor.withOpacity(0.75);
     var backcolor = backgroundColor ?? context.colors.buttonPrimary;
-    var actualBackgroundColor =
-        isEnabled ? backcolor : backcolor.withOpacity(0.75);
+    var actualBackgroundColor = isEnabled ? backcolor : backcolor.withOpacity(0.75);
     var actualTextAlign = TextAlign.center;
 
     final hasIcon = leftIcon != null || rightIcon != null;

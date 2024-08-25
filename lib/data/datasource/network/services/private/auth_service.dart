@@ -15,12 +15,14 @@ class AuthService {
 
   Future<Response> phoneVerification({required String phone}) {
     final body = {RestQueryKeys.phoneNumber: phone};
-    return _dio.post('api/mobile/v1/auth/phone/verification', data: body);
+    return _dio.post('api/mobile/auth/send-sms/', data: body);
   }
 
-  Future<Response> phoneCheck({required String phone}) {
-    final body = {RestQueryKeys.phoneNumber: phone};
-    return _dio.post('api/mobile/v1/auth/phone/check', data: body);
+
+  /// use sp
+  Future<Response> phoneSendSms({required String phone}) {
+    final body = {RestQueryKeys.phoneNumber: "+$phone"};
+    return _dio.post('api/mobile/auth/send-sms/', data: body);
   }
 
   ///

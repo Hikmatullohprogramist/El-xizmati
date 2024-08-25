@@ -45,8 +45,6 @@ class LoginPage extends BasePage<LoginCubit, LoginState, LoginEvent> {
       case LoginEventType.onOpenResetPassword:
         context.router.replace(OtpConfirmationRoute(
           phoneNumber: phoneNumber,
-          sessionToken: phoneNumber,
-          confirmType: OtpConfirmType.forResetPassword,
         ));
     }
   }

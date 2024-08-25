@@ -104,6 +104,7 @@ flutter:
     - assets/images/bottom_bar/
     - assets/sp_images/
     - assets/sp_images/png_images/
+    - assets/sp_images/svg_images/
     - assets/sp_images/app_logo/
 
 

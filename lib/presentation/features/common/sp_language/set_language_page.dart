@@ -10,7 +10,6 @@ import 'package:El_xizmati/presentation/router/app_router.dart';
 import 'package:El_xizmati/presentation/support/cubit/base_page.dart';
 import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
 import 'package:El_xizmati/presentation/widgets/button/custom_elevated_button.dart';
-import 'package:El_xizmati/presentation/widgets/button/custom_outlined_button.dart';
 
 import 'set_language_cubit.dart';
 
@@ -51,7 +50,7 @@ class SetLanguagePage
                   HapticFeedback.lightImpact();
                   cubit(context).setLanguage(Language.uzbekCyrill);
                   EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZ'));
-                  context.router.replace(SetIntroRegionRoute());
+                  context.router.push(SetIntroRoute());
                 },
               ),
               SizedBox(height: 12),
@@ -61,7 +60,7 @@ class SetLanguagePage
                   HapticFeedback.lightImpact();
                   cubit(context).setLanguage(Language.uzbekCyrill);
                   EasyLocalization.of(context)?.setLocale(Locale('ru', 'RU'));
-                  context.router.replace(SetIntroRegionRoute());
+                  context.router.push(SetIntroRoute());
                 },
               ),
               SizedBox(height: 12),
@@ -71,7 +70,7 @@ class SetLanguagePage
                   HapticFeedback.lightImpact();
                   cubit(context).setLanguage(Language.uzbekCyrill);
                   EasyLocalization.of(context)?.setLocale(Locale('uz', 'UZK'));
-                  context.router.replace(SetIntroRegionRoute());
+                  context.router.push(SetIntroRoute());
                 },
               ),
             ],

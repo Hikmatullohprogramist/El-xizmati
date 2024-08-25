@@ -21,14 +21,11 @@ import 'otp_confirmation_cubit.dart';
 class OtpConfirmationPage extends BasePage<OtpConfirmationCubit,
     OtpConfirmationState, OtpConfirmationEvent> {
   final String phoneNumber;
-  final String sessionToken;
-  final OtpConfirmType confirmType;
+
 
   OtpConfirmationPage({
     super.key,
     required this.phoneNumber,
-    required this.sessionToken,
-    required this.confirmType,
   });
 
   final textEditingController = TextEditingController();
@@ -36,7 +33,7 @@ class OtpConfirmationPage extends BasePage<OtpConfirmationCubit,
 
   @override
   void onWidgetCreated(BuildContext context) {
-    cubit(context).setInitialParams(phoneNumber, sessionToken, confirmType);
+    cubit(context).setInitialParams(phoneNumber);
     cubit(context).startTimer();
     textEditingController.text = phoneNumber;
   }

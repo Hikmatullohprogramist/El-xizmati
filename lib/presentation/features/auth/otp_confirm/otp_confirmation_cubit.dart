@@ -26,14 +26,10 @@ class OtpConfirmationCubit
 
   void setInitialParams(
     String phone,
-    String sessionToken,
-    OtpConfirmType otpConfirmType,
   ) {
     updateState(
       (state) => state.copyWith(
         phone: phone,
-        sessionToken: sessionToken,
-        otpConfirmType: otpConfirmType,
         otpCode: "",
       ),
     );

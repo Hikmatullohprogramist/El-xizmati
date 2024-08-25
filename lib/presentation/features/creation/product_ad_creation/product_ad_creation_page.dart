@@ -237,8 +237,7 @@ class ProductAdCreationPage extends BasePage<ProductAdCreationCubit,
     );
   }
 
-  Widget _buildImageListBlock(
-      BuildContext context, ProductAdCreationState state) {
+  Widget _buildImageListBlock(BuildContext context, ProductAdCreationState state) {
     return Container(
       decoration: BoxDecoration(
         color: context.cardColor,

@@ -1,3 +1,4 @@
+import 'package:El_xizmati/presentation/features/common/sp_set_intro/set_intro_region_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 import 'package:El_xizmati/presentation/features/ad/ad_detail/ad_detail_cubit.dart';
@@ -19,14 +20,13 @@ import 'package:El_xizmati/presentation/features/common/currency_selection/curre
 import 'package:El_xizmati/presentation/features/common/favorites/favorite_list_cubit.dart';
 import 'package:El_xizmati/presentation/features/common/favorites/features/product/favorite_products_cubit.dart';
 import 'package:El_xizmati/presentation/features/common/favorites/features/service/favorite_services_cubit.dart';
-import 'package:El_xizmati/presentation/features/common/language/set_language_cubit.dart';
+import 'package:El_xizmati/presentation/features/common/sp_language/set_language_cubit.dart';
 import 'package:El_xizmati/presentation/features/common/notification/notification_list_cubit.dart';
 import 'package:El_xizmati/presentation/features/common/payment_type_selection/payment_type_selection_cubit.dart';
 import 'package:El_xizmati/presentation/features/common/popular_categories/popular_categories_cubit.dart';
 import 'package:El_xizmati/presentation/features/common/region_selection/region_selection_cubit.dart';
 import 'package:El_xizmati/presentation/features/common/report/submit_report_cubit.dart';
 import 'package:El_xizmati/presentation/features/common/search/search_cubit.dart';
-import 'package:El_xizmati/presentation/features/common/set_intro_region/set_intro_region_cubit.dart';
 import 'package:El_xizmati/presentation/features/common/set_region/set_region_cubit.dart';
 import 'package:El_xizmati/presentation/features/common/unit_selection/unit_selection_cubit.dart';
 import 'package:El_xizmati/presentation/features/common/user_address_selection/user_address_selection_cubit.dart';
@@ -102,7 +102,7 @@ extension GetItModuleApp on GetIt {
     registerFactory(() => SubmitReportCubit(get()));
     registerFactory(() => SearchCubit(get()));
     registerFactory(() => SetRegionCubit(get(), get()));
-    registerFactory(() => SetIntroRegionCubit(get(), get()));
+    registerFactory(() => SetIntroCubit(get(), get()));
     registerFactory(() => UnitSelectionCubit(get()));
     registerFactory(() => UserAddressSelectionCubit(get()));
     registerFactory(() => UserWarehouseSelectionCubit(get()));

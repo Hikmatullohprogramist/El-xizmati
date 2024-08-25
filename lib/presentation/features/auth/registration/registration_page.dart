@@ -54,8 +54,6 @@ class RegistrationPage
       case RegistrationEventType.onOpenOtpConfirm:
         context.router.push(OtpConfirmationRoute(
           phoneNumber: cubit(context).states.phoneNumber,
-          sessionToken: cubit(context).states.sessionToken,
-          confirmType: OtpConfirmType.forRegister,
         ));
     }
   }

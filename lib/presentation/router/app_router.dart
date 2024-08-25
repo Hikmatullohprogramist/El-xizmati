@@ -1,3 +1,5 @@
+import 'package:El_xizmati/presentation/features/common/sp_language/set_language_page.dart';
+import 'package:El_xizmati/presentation/features/common/sp_set_intro/set_intro_region_page.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:El_xizmati/data/datasource/network/responses/currencies/currency_response.dart';
@@ -40,7 +42,6 @@ import 'package:El_xizmati/presentation/features/common/favorites/features/produ
 import 'package:El_xizmati/presentation/features/common/favorites/features/service/favorite_services_page.dart';
 import 'package:El_xizmati/presentation/features/common/image_viewer/image_viewer_page.dart';
 import 'package:El_xizmati/presentation/features/common/image_viewer/locale_image_viewer_page.dart';
-import 'package:El_xizmati/presentation/features/common/language/set_language_page.dart';
 import 'package:El_xizmati/presentation/features/common/notification/notification_list_page.dart';
 import 'package:El_xizmati/presentation/features/common/payment_type_selection/payment_type_selection_page.dart';
 import 'package:El_xizmati/presentation/features/common/popular_categories/popular_categories_page.dart';
@@ -79,7 +80,6 @@ import 'package:El_xizmati/presentation/features/home/features/my_profile/profil
 import 'package:El_xizmati/presentation/features/home/home_page.dart';
 import 'package:El_xizmati/presentation/features/realpay/add_card/add_card_with_realpay_page.dart';
 import 'package:El_xizmati/presentation/features/realpay/refill/refill_with_realpay_page.dart';
-import 'package:El_xizmati/presentation/features/common/set_intro_region/set_intro_region_page.dart';
 
 import '../features/home/features/my_profile/features/personal/personal_page.dart';
 
@@ -97,7 +97,7 @@ class AppRouter extends _$AppRouter {
         ),
         // default region
         AutoRoute(
-          page: SetIntroRegionRoute.page,
+          page: SetIntroRoute.page,
           path: '/set_intro_region',
         ),
 

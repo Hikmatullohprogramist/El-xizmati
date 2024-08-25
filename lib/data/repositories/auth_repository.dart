@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:El_xizmati/data/datasource/network/sp_response/auth/auth_send_sms_response.dart';
 import 'package:dio/src/response.dart';
 import 'package:El_xizmati/data/datasource/floor/dao/ad_entity_dao.dart';
 import 'package:El_xizmati/data/datasource/floor/dao/user_address_entity_dao.dart';
@@ -47,10 +48,10 @@ class AuthRepository {
     return authStartResponse;
   }
 
-  Future<AuthStartResponse> phoneCheck(String phone) async {
-    final response = await _authService.phoneCheck(phone: phone);
-    final authStartResponse = AuthStartResponse.fromJson(response.data);
-    return authStartResponse;
+  Future<AuthSendSMSResponse> authSmSCode(String phone) async {
+    final response = await _authService.phoneSendSms(phone: phone);
+    final authSMSCode = AuthSendSMSResponse.fromJson(response.data);
+    return authSMSCode;
   }
 
   Future<void> login(String phone, String password) async {
