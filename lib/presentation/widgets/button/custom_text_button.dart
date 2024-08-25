@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
 
 class CustomTextButton extends StatelessWidget {
   const CustomTextButton({
@@ -71,7 +71,7 @@ class CustomTextButton extends StatelessWidget {
 }
 
 // import 'package:flutter/material.dart';
-// import 'package:onlinebozor/core/extensions/text_extensions.dart';
+// import 'package:El_xizmati/core/extensions/text_extensions.dart';
 //
 // class CustomTextButton extends StatelessWidget {
 //   const CustomTextButton({

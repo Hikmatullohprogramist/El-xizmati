@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:onlinebozor/data/datasource/network/constants/rest_constants.dart';
-import 'package:onlinebozor/data/datasource/network/constants/rest_query_keys.dart';
+import 'package:El_xizmati/data/datasource/network/constants/rest_constants.dart';
+import 'package:El_xizmati/data/datasource/network/constants/rest_query_keys.dart';
 
 class PaymentService {
   final Dio _dio;

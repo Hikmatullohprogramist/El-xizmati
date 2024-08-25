@@ -1,12 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/core/enum/enums.dart';
-import 'package:onlinebozor/data/repositories/user_order_repository.dart';
-import 'package:onlinebozor/domain/models/order/order_cancel_reason.dart';
-import 'package:onlinebozor/domain/models/order/order_type.dart';
-import 'package:onlinebozor/domain/models/order/user_order.dart';
-import 'package:onlinebozor/domain/models/order/user_order_status.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:El_xizmati/core/enum/enums.dart';
+import 'package:El_xizmati/data/repositories/user_order_repository.dart';
+import 'package:El_xizmati/domain/models/order/order_cancel_reason.dart';
+import 'package:El_xizmati/domain/models/order/order_type.dart';
+import 'package:El_xizmati/domain/models/order/user_order.dart';
+import 'package:El_xizmati/domain/models/order/user_order_status.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_cubit.dart';
 
 part 'user_order_cancel_cubit.freezed.dart';
 part 'user_order_cancel_state.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/presentation/support/colors/static_colors.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
 
 class CustomToggle extends StatefulWidget {
   CustomToggle({

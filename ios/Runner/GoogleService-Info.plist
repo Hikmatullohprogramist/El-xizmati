@@ -9,11 +9,11 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>uz.onlinebozor.client</string>
+	<string>uz.El_xizmati.client</string>
 	<key>PROJECT_ID</key>
-	<string>realsoft-onlinebozor</string>
+	<string>realsoft-El_xizmati</string>
 	<key>STORAGE_BUCKET</key>
-	<string>realsoft-onlinebozor.appspot.com</string>
+	<string>realsoft-El_xizmati.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>

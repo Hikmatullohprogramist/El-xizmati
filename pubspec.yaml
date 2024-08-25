@@ -1,5 +1,5 @@
-name: onlinebozor
-description: onlinebozor is online marketplace
+name: El_xizmati
+description: El_xizmati is online marketplace
 publish_to: 'none'
 
 version: 1.3.11+1039
@@ -84,7 +84,7 @@ dependency_overrides:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/images/png_images/app_logo.png"
+  image_path: "assets/sp_images/app_logo/app_logo.png"
 
 
 flutter:
@@ -100,9 +100,12 @@ flutter:
   assets:
     - assets/localization/
     - assets/images/
-    - assets/sp_images/
     - assets/images/png_images/
     - assets/images/bottom_bar/
+    - assets/sp_images/
+    - assets/sp_images/png_images/
+    - assets/sp_images/app_logo/
+
 
 flutter_gen:
   output: lib/core/gen/assets/

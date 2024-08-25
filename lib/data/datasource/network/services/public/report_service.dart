@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:onlinebozor/domain/models/report/report_reason.dart';
+import 'package:El_xizmati/domain/models/report/report_reason.dart';
 
 class ReportService {
   final Dio _dio;

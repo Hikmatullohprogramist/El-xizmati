@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/core/gen/assets/assets.gen.dart';
 import 'package:flutter/services.dart';
 
 class BottomSheetTitle extends StatelessWidget {

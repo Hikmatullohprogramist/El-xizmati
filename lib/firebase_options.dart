@@ -53,16 +53,16 @@
 //     apiKey: 'AIzaSyC1aQamtxDhSEWJy_44JUIe55AVAqQulBc',
 //     appId: '1:1016522161477:android:5ec3596cd8b0389358d22c',
 //     messagingSenderId: '1016522161477',
-//     projectId: 'realsoft-onlinebozor',
-//     storageBucket: 'realsoft-onlinebozor.appspot.com',
+//     projectId: 'realsoft-El_xizmati',
+//     storageBucket: 'realsoft-El_xizmati.appspot.com',
 //   );
 //
 //   static const FirebaseOptions ios = FirebaseOptions(
 //     apiKey: 'AIzaSyAAGHIFd4FAwA25DjF5X_nAwf67cdOWrI4',
 //     appId: '1:1016522161477:ios:71c301bc0332720958d22c',
 //     messagingSenderId: '1016522161477',
-//     projectId: 'realsoft-onlinebozor',
-//     storageBucket: 'realsoft-onlinebozor.appspot.com',
-//     iosBundleId: 'uz.onlinebozor.client',
+//     projectId: 'realsoft-El_xizmati',
+//     storageBucket: 'realsoft-El_xizmati.appspot.com',
+//     iosBundleId: 'uz.El_xizmati.client',
 //   );
 // }

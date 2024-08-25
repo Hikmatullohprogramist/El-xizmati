@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:onlinebozor/data/datasource/network/responses/notification/app_notification_response.dart';
-import 'package:onlinebozor/data/datasource/network/services/private/notification_service.dart';
-import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
-import 'package:onlinebozor/data/error/app_locale_exception.dart';
-import 'package:onlinebozor/data/mappers/notification_mappers.dart';
-import 'package:onlinebozor/domain/models/notification/notification.dart';
+import 'package:El_xizmati/data/datasource/network/responses/notification/app_notification_response.dart';
+import 'package:El_xizmati/data/datasource/network/services/private/notification_service.dart';
+import 'package:El_xizmati/data/datasource/preference/auth_preferences.dart';
+import 'package:El_xizmati/data/error/app_locale_exception.dart';
+import 'package:El_xizmati/data/mappers/notification_mappers.dart';
+import 'package:El_xizmati/domain/models/notification/notification.dart';
 
 class NotificationRepository {
   final AuthPreferences _authPreferences;

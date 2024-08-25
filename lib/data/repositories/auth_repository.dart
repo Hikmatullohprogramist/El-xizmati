@@ -1,21 +1,21 @@
 import 'dart:async';
 
 import 'package:dio/src/response.dart';
-import 'package:onlinebozor/data/datasource/floor/dao/ad_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/floor/dao/user_address_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/floor/dao/user_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/floor/entities/user_entity.dart';
-import 'package:onlinebozor/data/datasource/network/responses/auth/auth_start/auth_start_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/auth/check/phone_check_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/auth/login/login_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/auth/one_id/one_id_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/face_id/validate_bio_doc_request.dart';
-import 'package:onlinebozor/data/datasource/network/responses/register/register_otp_confirm_response.dart';
-import 'package:onlinebozor/data/datasource/network/services/private/auth_service.dart';
-import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
-import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
-import 'package:onlinebozor/data/mappers/user_mappers.dart';
-import 'package:onlinebozor/data/repositories/favorite_repository.dart';
+import 'package:El_xizmati/data/datasource/floor/dao/ad_entity_dao.dart';
+import 'package:El_xizmati/data/datasource/floor/dao/user_address_entity_dao.dart';
+import 'package:El_xizmati/data/datasource/floor/dao/user_entity_dao.dart';
+import 'package:El_xizmati/data/datasource/floor/entities/user_entity.dart';
+import 'package:El_xizmati/data/datasource/network/responses/auth/auth_start/auth_start_response.dart';
+import 'package:El_xizmati/data/datasource/network/responses/auth/check/phone_check_response.dart';
+import 'package:El_xizmati/data/datasource/network/responses/auth/login/login_response.dart';
+import 'package:El_xizmati/data/datasource/network/responses/auth/one_id/one_id_response.dart';
+import 'package:El_xizmati/data/datasource/network/responses/face_id/validate_bio_doc_request.dart';
+import 'package:El_xizmati/data/datasource/network/responses/register/register_otp_confirm_response.dart';
+import 'package:El_xizmati/data/datasource/network/services/private/auth_service.dart';
+import 'package:El_xizmati/data/datasource/preference/auth_preferences.dart';
+import 'package:El_xizmati/data/datasource/preference/user_preferences.dart';
+import 'package:El_xizmati/data/mappers/user_mappers.dart';
+import 'package:El_xizmati/data/repositories/favorite_repository.dart';
 
 class AuthRepository {
   final AdEntityDao _adEntityDao;

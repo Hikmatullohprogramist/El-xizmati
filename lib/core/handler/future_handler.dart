@@ -1,6 +1,6 @@
 import 'package:logger/logger.dart';
-import 'package:onlinebozor/data/error/app_exception.dart';
-import 'package:onlinebozor/data/mappers/dio_error_mappers.dart';
+import 'package:El_xizmati/data/error/app_exception.dart';
+import 'package:El_xizmati/data/mappers/dio_error_mappers.dart';
 
 class FutureHandler<T> {
   final Future<T> future;

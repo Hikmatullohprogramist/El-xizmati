@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/state_message/state_message.dart';
-import 'package:onlinebozor/presentation/support/state_message/state_message_type.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/presentation/support/state_message/state_message.dart';
+import 'package:El_xizmati/presentation/support/state_message/state_message_type.dart';
+import 'package:El_xizmati/presentation/widgets/button/custom_elevated_button.dart';
 
 extension StateBottomSheetExts on BuildContext {
   void showStateMessageBottomSheet(StateMessage message) {

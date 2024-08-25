@@ -1,4 +1,4 @@
-import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
+import 'package:El_xizmati/data/datasource/network/constants/constants.dart';
 
 import '../../domain/models/currency/currency_code.dart';
 

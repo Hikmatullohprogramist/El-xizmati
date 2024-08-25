@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:onlinebozor/data/datasource/network/responses/ad/edit/ad_address_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/ad/edit/ad_payment_type_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/ad/edit/ad_photo_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/address/user_address_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/currencies/currency_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/payment_type/payment_type_response.dart';
-import 'package:onlinebozor/domain/models/district/district.dart';
-import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
+import 'package:El_xizmati/data/datasource/network/responses/ad/edit/ad_address_response.dart';
+import 'package:El_xizmati/data/datasource/network/responses/ad/edit/ad_payment_type_response.dart';
+import 'package:El_xizmati/data/datasource/network/responses/ad/edit/ad_photo_response.dart';
+import 'package:El_xizmati/data/datasource/network/responses/address/user_address_response.dart';
+import 'package:El_xizmati/data/datasource/network/responses/currencies/currency_response.dart';
+import 'package:El_xizmati/data/datasource/network/responses/payment_type/payment_type_response.dart';
+import 'package:El_xizmati/domain/models/district/district.dart';
+import 'package:El_xizmati/domain/models/image/uploadable_file.dart';
 
 import '../../../../../../domain/models/category/category.dart';
 

@@ -1,16 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
-import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/widgets/app_bar/empty_app_bar.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
-import 'package:onlinebozor/presentation/widgets/elevation/elevation_widget.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/core/gen/assets/assets.gen.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
+import 'package:El_xizmati/domain/models/ad/ad_transaction_type.dart';
+import 'package:El_xizmati/presentation/router/app_router.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_page.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/presentation/widgets/app_bar/empty_app_bar.dart';
+import 'package:El_xizmati/presentation/widgets/button/custom_elevated_button.dart';
+import 'package:El_xizmati/presentation/widgets/elevation/elevation_widget.dart';
 
 import 'ad_creation_chooser_cubit.dart';
 

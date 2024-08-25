@@ -1,11 +1,11 @@
 import 'package:collection/collection.dart';
-import 'package:onlinebozor/data/datasource/network/responses/billing/billing_transaction_response.dart';
-import 'package:onlinebozor/data/datasource/network/services/private/payment_service.dart';
-import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
-import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
-import 'package:onlinebozor/data/error/app_locale_exception.dart';
-import 'package:onlinebozor/data/mappers/billing_mappers.dart';
-import 'package:onlinebozor/domain/models/billing/billing_transaction.dart';
+import 'package:El_xizmati/data/datasource/network/responses/billing/billing_transaction_response.dart';
+import 'package:El_xizmati/data/datasource/network/services/private/payment_service.dart';
+import 'package:El_xizmati/data/datasource/preference/auth_preferences.dart';
+import 'package:El_xizmati/data/datasource/preference/user_preferences.dart';
+import 'package:El_xizmati/data/error/app_locale_exception.dart';
+import 'package:El_xizmati/data/mappers/billing_mappers.dart';
+import 'package:El_xizmati/domain/models/billing/billing_transaction.dart';
 
 class BillingRepository {
   final AuthPreferences _authPreferences;

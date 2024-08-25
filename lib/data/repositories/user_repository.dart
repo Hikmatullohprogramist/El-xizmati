@@ -1,17 +1,17 @@
-import 'package:onlinebozor/data/datasource/floor/dao/user_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/floor/entities/user_entity.dart';
-import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
-import 'package:onlinebozor/data/datasource/network/responses/active_sessions/active_session_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/profile/user/user_info_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/profile/user_full/user_full_info_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/profile/verify_identity/identity_document_response.dart';
-import 'package:onlinebozor/data/datasource/network/services/private/user_service.dart';
-import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
-import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
-import 'package:onlinebozor/data/error/app_locale_exception.dart';
-import 'package:onlinebozor/domain/mappers/user_mapper.dart';
-import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
-import 'package:onlinebozor/domain/models/social_account/social_account_info.dart';
+import 'package:El_xizmati/data/datasource/floor/dao/user_entity_dao.dart';
+import 'package:El_xizmati/data/datasource/floor/entities/user_entity.dart';
+import 'package:El_xizmati/data/datasource/network/constants/constants.dart';
+import 'package:El_xizmati/data/datasource/network/responses/active_sessions/active_session_response.dart';
+import 'package:El_xizmati/data/datasource/network/responses/profile/user/user_info_response.dart';
+import 'package:El_xizmati/data/datasource/network/responses/profile/user_full/user_full_info_response.dart';
+import 'package:El_xizmati/data/datasource/network/responses/profile/verify_identity/identity_document_response.dart';
+import 'package:El_xizmati/data/datasource/network/services/private/user_service.dart';
+import 'package:El_xizmati/data/datasource/preference/auth_preferences.dart';
+import 'package:El_xizmati/data/datasource/preference/user_preferences.dart';
+import 'package:El_xizmati/data/error/app_locale_exception.dart';
+import 'package:El_xizmati/domain/mappers/user_mapper.dart';
+import 'package:El_xizmati/domain/models/active_sessions/active_session.dart';
+import 'package:El_xizmati/domain/models/social_account/social_account_info.dart';
 
 class UserRepository {
   final AuthPreferences _authPreferences;

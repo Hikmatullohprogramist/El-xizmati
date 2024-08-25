@@ -1,18 +1,18 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/domain/models/notification/notification.dart';
-import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
-import 'package:onlinebozor/presentation/widgets/elevation/elevation_widget.dart';
-import 'package:onlinebozor/presentation/widgets/loading/default_empty_widget.dart';
-import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
-import 'package:onlinebozor/presentation/widgets/notification/app_notification_shimmer.dart';
-import 'package:onlinebozor/presentation/widgets/notification/app_notification_widget.dart';
+import 'package:El_xizmati/core/gen/assets/assets.gen.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
+import 'package:El_xizmati/domain/models/notification/notification.dart';
+import 'package:El_xizmati/presentation/support/colors/static_colors.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_page.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/presentation/widgets/app_bar/action_app_bar.dart';
+import 'package:El_xizmati/presentation/widgets/elevation/elevation_widget.dart';
+import 'package:El_xizmati/presentation/widgets/loading/default_empty_widget.dart';
+import 'package:El_xizmati/presentation/widgets/loading/default_error_widget.dart';
+import 'package:El_xizmati/presentation/widgets/notification/app_notification_shimmer.dart';
+import 'package:El_xizmati/presentation/widgets/notification/app_notification_widget.dart';
 
 import 'notification_list_cubit.dart';
 

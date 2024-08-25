@@ -1,10 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/handler/future_handler_exts.dart';
-import 'package:onlinebozor/data/repositories/auth_repository.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
-import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/core/handler/future_handler_exts.dart';
+import 'package:El_xizmati/data/repositories/auth_repository.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_cubit.dart';
+import 'package:El_xizmati/presentation/support/extensions/extension_message_exts.dart';
 
 part 'registration_cubit.freezed.dart';
 part 'registration_state.dart';

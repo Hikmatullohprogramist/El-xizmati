@@ -1,8 +1,8 @@
-import 'package:onlinebozor/domain/models/ad/ad.dart';
-import 'package:onlinebozor/domain/models/ad/ad_detail.dart';
-import 'package:onlinebozor/domain/models/ad/ad_item_condition.dart';
-import 'package:onlinebozor/domain/models/ad/ad_priority_level.dart';
-import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
+import 'package:El_xizmati/domain/models/ad/ad.dart';
+import 'package:El_xizmati/domain/models/ad/ad_detail.dart';
+import 'package:El_xizmati/domain/models/ad/ad_item_condition.dart';
+import 'package:El_xizmati/domain/models/ad/ad_priority_level.dart';
+import 'package:El_xizmati/domain/models/ad/ad_transaction_type.dart';
 
 extension AdDetailExtension on AdDetail {
   Ad toAd() {

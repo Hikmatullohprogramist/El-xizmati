@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/domain/models/ad/ad_item_condition.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
+import 'package:El_xizmati/domain/models/ad/ad_item_condition.dart';
 
 class ListAdPropertyWidget extends StatelessWidget {
   const ListAdPropertyWidget(

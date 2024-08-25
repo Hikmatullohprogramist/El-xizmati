@@ -1,10 +1,10 @@
-import 'package:onlinebozor/data/datasource/floor/dao/user_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/network/responses/profile/user/user_info_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/profile/verify_identity/identity_document_response.dart';
-import 'package:onlinebozor/data/datasource/network/services/private/identity_service.dart';
-import 'package:onlinebozor/data/datasource/network/services/private/user_service.dart';
-import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
-import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
+import 'package:El_xizmati/data/datasource/floor/dao/user_entity_dao.dart';
+import 'package:El_xizmati/data/datasource/network/responses/profile/user/user_info_response.dart';
+import 'package:El_xizmati/data/datasource/network/responses/profile/verify_identity/identity_document_response.dart';
+import 'package:El_xizmati/data/datasource/network/services/private/identity_service.dart';
+import 'package:El_xizmati/data/datasource/network/services/private/user_service.dart';
+import 'package:El_xizmati/data/datasource/preference/auth_preferences.dart';
+import 'package:El_xizmati/data/datasource/preference/user_preferences.dart';
 
 class IdentityRepository {
   final IdentityService _identityService;

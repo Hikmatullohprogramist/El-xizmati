@@ -1,8 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/domain/models/banner/banner_image.dart';
-import 'package:onlinebozor/presentation/widgets/dashboard/banner_widget.dart';
-import 'package:onlinebozor/presentation/widgets/elevation/elevation_widget.dart';
+import 'package:El_xizmati/domain/models/banner/banner_image.dart';
+import 'package:El_xizmati/presentation/widgets/dashboard/banner_widget.dart';
+import 'package:El_xizmati/presentation/widgets/elevation/elevation_widget.dart';
 
 class BannerListWidget extends StatelessWidget {
   final List<BannerImage> banners;

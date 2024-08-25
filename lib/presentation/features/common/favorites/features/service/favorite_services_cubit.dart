@@ -1,13 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/core/enum/enums.dart';
-import 'package:onlinebozor/core/handler/future_handler_exts.dart';
-import 'package:onlinebozor/data/repositories/favorite_repository.dart';
-import 'package:onlinebozor/domain/models/ad/ad.dart';
-import 'package:onlinebozor/domain/models/ad/ad_list_type.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
-import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
+import 'package:El_xizmati/core/enum/enums.dart';
+import 'package:El_xizmati/core/handler/future_handler_exts.dart';
+import 'package:El_xizmati/data/repositories/favorite_repository.dart';
+import 'package:El_xizmati/domain/models/ad/ad.dart';
+import 'package:El_xizmati/domain/models/ad/ad_list_type.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_cubit.dart';
+import 'package:El_xizmati/presentation/support/extensions/extension_message_exts.dart';
 
 part 'favorite_services_cubit.freezed.dart';
 part 'favorite_services_state.dart';

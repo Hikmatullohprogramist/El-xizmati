@@ -1,17 +1,17 @@
-import 'package:onlinebozor/core/extensions/list_extensions.dart';
-import 'package:onlinebozor/data/datasource/floor/entities/ad_entity.dart';
-import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/ad/ad_detail/ad_detail_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/user_ad/user_ad_response.dart';
-import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
-import 'package:onlinebozor/domain/models/ad/ad.dart';
-import 'package:onlinebozor/domain/models/ad/ad_author_type.dart';
-import 'package:onlinebozor/domain/models/ad/ad_detail.dart';
-import 'package:onlinebozor/domain/models/ad/ad_item_condition.dart';
-import 'package:onlinebozor/domain/models/ad/ad_priority_level.dart';
-import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
-import 'package:onlinebozor/domain/models/ad/ad_type.dart';
-import 'package:onlinebozor/domain/models/ad/user_ad.dart';
+import 'package:El_xizmati/core/extensions/list_extensions.dart';
+import 'package:El_xizmati/data/datasource/floor/entities/ad_entity.dart';
+import 'package:El_xizmati/data/datasource/network/responses/ad/ad/ad_response.dart';
+import 'package:El_xizmati/data/datasource/network/responses/ad/ad_detail/ad_detail_response.dart';
+import 'package:El_xizmati/data/datasource/network/responses/user_ad/user_ad_response.dart';
+import 'package:El_xizmati/domain/mappers/common_mapper_exts.dart';
+import 'package:El_xizmati/domain/models/ad/ad.dart';
+import 'package:El_xizmati/domain/models/ad/ad_author_type.dart';
+import 'package:El_xizmati/domain/models/ad/ad_detail.dart';
+import 'package:El_xizmati/domain/models/ad/ad_item_condition.dart';
+import 'package:El_xizmati/domain/models/ad/ad_priority_level.dart';
+import 'package:El_xizmati/domain/models/ad/ad_transaction_type.dart';
+import 'package:El_xizmati/domain/models/ad/ad_type.dart';
+import 'package:El_xizmati/domain/models/ad/user_ad.dart';
 
 extension AdResponseMapper on AdResponse {
   Ad toAd({

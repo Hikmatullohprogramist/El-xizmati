@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
 
 import '../../../domain/models/ad/ad_type.dart';
 

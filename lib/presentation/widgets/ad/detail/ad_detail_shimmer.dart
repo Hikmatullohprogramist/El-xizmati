@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
-import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/presentation/support/colors/static_colors.dart';
+import 'package:El_xizmati/presentation/widgets/divider/custom_divider.dart';
 import 'package:shimmer/shimmer.dart';
 
 class AdDetailShimmer extends StatelessWidget {

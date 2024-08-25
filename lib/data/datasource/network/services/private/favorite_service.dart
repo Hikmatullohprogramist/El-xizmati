@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:onlinebozor/data/datasource/network/constants/rest_query_keys.dart';
+import 'package:El_xizmati/data/datasource/network/constants/rest_query_keys.dart';
 
 class FavoriteService {
   final Dio _dio;

@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/core/gen/assets/assets.gen.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
 
 class SearchInputField extends StatefulWidget {
   final String hintText;

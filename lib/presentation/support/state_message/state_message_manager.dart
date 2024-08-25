@@ -1,4 +1,4 @@
-import 'package:onlinebozor/presentation/support/state_message/state_message.dart';
+import 'package:El_xizmati/presentation/support/state_message/state_message.dart';
 
 abstract class StateMessageManager {
   void setListeners({

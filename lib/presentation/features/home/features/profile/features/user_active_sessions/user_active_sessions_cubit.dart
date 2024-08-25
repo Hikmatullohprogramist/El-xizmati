@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/core/handler/future_handler_exts.dart';
-import 'package:onlinebozor/data/repositories/user_repository.dart';
-import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:El_xizmati/core/handler/future_handler_exts.dart';
+import 'package:El_xizmati/data/repositories/user_repository.dart';
+import 'package:El_xizmati/domain/models/active_sessions/active_session.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_cubit.dart';
 
 part 'user_active_sessions_cubit.freezed.dart';
 part 'user_active_sessions_state.dart';

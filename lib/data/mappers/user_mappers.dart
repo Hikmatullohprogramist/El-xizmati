@@ -1,6 +1,6 @@
-import 'package:onlinebozor/data/datasource/floor/entities/user_entity.dart';
-import 'package:onlinebozor/data/datasource/network/responses/auth/eds/eds_sign_in_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/auth/login/login_response.dart';
+import 'package:El_xizmati/data/datasource/floor/entities/user_entity.dart';
+import 'package:El_xizmati/data/datasource/network/responses/auth/eds/eds_sign_in_response.dart';
+import 'package:El_xizmati/data/datasource/network/responses/auth/login/login_response.dart';
 
 extension LoginUserResponseMapper on LoginUser {
   UserEntity toUserEntity() {

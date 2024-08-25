@@ -1,11 +1,11 @@
-import 'package:onlinebozor/data/datasource/floor/dao/ad_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/network/responses/ad/ad/ad_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/add_result/add_result_response.dart';
-import 'package:onlinebozor/data/datasource/network/services/private/cart_service.dart';
-import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
-import 'package:onlinebozor/data/error/app_locale_exception.dart';
-import 'package:onlinebozor/data/mappers/ad_mappers.dart';
-import 'package:onlinebozor/domain/models/ad/ad.dart';
+import 'package:El_xizmati/data/datasource/floor/dao/ad_entity_dao.dart';
+import 'package:El_xizmati/data/datasource/network/responses/ad/ad/ad_response.dart';
+import 'package:El_xizmati/data/datasource/network/responses/add_result/add_result_response.dart';
+import 'package:El_xizmati/data/datasource/network/services/private/cart_service.dart';
+import 'package:El_xizmati/data/datasource/preference/auth_preferences.dart';
+import 'package:El_xizmati/data/error/app_locale_exception.dart';
+import 'package:El_xizmati/data/mappers/ad_mappers.dart';
+import 'package:El_xizmati/domain/models/ad/ad.dart';
 
 class CartRepository {
   final AdEntityDao _adEntityDao;

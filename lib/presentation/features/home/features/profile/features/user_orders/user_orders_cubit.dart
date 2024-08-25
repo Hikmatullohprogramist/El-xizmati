@@ -1,9 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
-import 'package:onlinebozor/domain/models/order/order_type.dart';
+import 'package:El_xizmati/domain/models/order/order_type.dart';
 
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_cubit.dart';
 
 part 'user_orders_cubit.freezed.dart';
 part 'user_orders_state.dart';

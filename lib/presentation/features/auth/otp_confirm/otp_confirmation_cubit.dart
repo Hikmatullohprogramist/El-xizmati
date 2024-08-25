@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/handler/future_handler_exts.dart';
-import 'package:onlinebozor/data/repositories/auth_repository.dart';
-import 'package:onlinebozor/domain/models/otp/otp_confirm_type.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
-import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/core/handler/future_handler_exts.dart';
+import 'package:El_xizmati/data/repositories/auth_repository.dart';
+import 'package:El_xizmati/domain/models/otp/otp_confirm_type.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_cubit.dart';
+import 'package:El_xizmati/presentation/support/extensions/extension_message_exts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 part 'otp_confirmation_cubit.freezed.dart';

@@ -16,7 +16,7 @@
 
     <application
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/launcher_icon"
         android:label="Online-bozor"
         android:roundIcon="@mipmap/ic_rounded_launcher">
         <activity
@@ -46,9 +46,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="onlinebozor" />
+                <data android:scheme="El_xizmati" />
                 <data android:host="doc_sign_result" />
-                <!--onlinebozor://doc_sign_result?doc_id=123&sign_state=SIGNED"-->
+                <!--El_xizmati://doc_sign_result?doc_id=123&sign_state=SIGNED"-->
 
             </intent-filter>
 

@@ -1,14 +1,14 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/core/enum/enums.dart';
-import 'package:onlinebozor/core/extensions/list_extensions.dart';
-import 'package:onlinebozor/data/repositories/region_repository.dart';
-import 'package:onlinebozor/domain/mappers/item_mapper.dart';
-import 'package:onlinebozor/domain/models/district/district.dart';
-import 'package:onlinebozor/domain/models/list/expandable_list_item.dart';
-import 'package:onlinebozor/domain/models/region/set_region_event.dart';
-import 'package:onlinebozor/presentation/stream_controllers/selected_region_stream_controller.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:El_xizmati/core/enum/enums.dart';
+import 'package:El_xizmati/core/extensions/list_extensions.dart';
+import 'package:El_xizmati/data/repositories/region_repository.dart';
+import 'package:El_xizmati/domain/mappers/item_mapper.dart';
+import 'package:El_xizmati/domain/models/district/district.dart';
+import 'package:El_xizmati/domain/models/list/expandable_list_item.dart';
+import 'package:El_xizmati/domain/models/region/set_region_event.dart';
+import 'package:El_xizmati/presentation/stream_controllers/selected_region_stream_controller.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_cubit.dart';
 
 part 'set_region_cubit.freezed.dart';
 part 'set_region_state.dart';

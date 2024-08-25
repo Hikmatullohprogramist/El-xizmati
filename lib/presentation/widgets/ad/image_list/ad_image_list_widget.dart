@@ -2,18 +2,18 @@ import 'package:auto_route/auto_route.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/core/gen/assets/assets.gen.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
 import 'package:flutter/services.dart';
-import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
-import 'package:onlinebozor/presentation/support/extensions/platform_sizes.dart';
-import 'package:onlinebozor/presentation/widgets/action/action_list_item.dart';
-import 'package:onlinebozor/presentation/widgets/ad/image_list/ad_image_list_add_widget.dart';
-import 'package:onlinebozor/presentation/widgets/ad/image_list/ad_image_list_image_widget.dart';
-import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
-import 'package:onlinebozor/presentation/widgets/form_field/label_text_field.dart';
+import 'package:El_xizmati/domain/models/image/uploadable_file.dart';
+import 'package:El_xizmati/presentation/support/extensions/platform_sizes.dart';
+import 'package:El_xizmati/presentation/widgets/action/action_list_item.dart';
+import 'package:El_xizmati/presentation/widgets/ad/image_list/ad_image_list_add_widget.dart';
+import 'package:El_xizmati/presentation/widgets/ad/image_list/ad_image_list_image_widget.dart';
+import 'package:El_xizmati/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
+import 'package:El_xizmati/presentation/widgets/form_field/label_text_field.dart';
 
 class AdImageListWidget extends StatelessWidget {
   const AdImageListWidget({

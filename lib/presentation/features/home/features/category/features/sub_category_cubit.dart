@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/core/enum/enums.dart';
-import 'package:onlinebozor/domain/models/category/category.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:El_xizmati/core/enum/enums.dart';
+import 'package:El_xizmati/domain/models/category/category.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_cubit.dart';
 
 part 'sub_category_cubit.freezed.dart';
 part 'sub_category_state.dart';

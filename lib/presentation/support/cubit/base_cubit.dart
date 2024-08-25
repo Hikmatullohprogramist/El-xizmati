@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
-import 'package:onlinebozor/presentation/application/di/get_it_injection.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_state.dart';
-import 'package:onlinebozor/presentation/support/state_message/state_message_manager.dart';
+import 'package:El_xizmati/presentation/application/di/get_it_injection.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_state.dart';
+import 'package:El_xizmati/presentation/support/state_message/state_message_manager.dart';
 
 abstract class BaseCubit<STATE, EVENT> extends Cubit<BaseState<STATE, EVENT>> {
   late STATE states;

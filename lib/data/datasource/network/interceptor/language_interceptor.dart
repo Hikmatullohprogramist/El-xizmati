@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:onlinebozor/data/datasource/preference/language_preferences.dart';
+import 'package:El_xizmati/data/datasource/preference/language_preferences.dart';
 
 class LanguageInterceptor extends QueuedInterceptor {
   LanguageInterceptor(this._languagePreferences);

@@ -1,15 +1,15 @@
 {
   "project_info": {
     "project_number": "1016522161477",
-    "project_id": "realsoft-onlinebozor",
-    "storage_bucket": "realsoft-onlinebozor.appspot.com"
+    "project_id": "realsoft-El_xizmati",
+    "storage_bucket": "realsoft-El_xizmati.appspot.com"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:1016522161477:android:5ec3596cd8b0389358d22c",
         "android_client_info": {
-          "package_name": "uz.onlinebozor.client"
+          "package_name": "uz.El_xizmati.client"
         }
       },
       "oauth_client": [],

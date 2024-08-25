@@ -1,11 +1,11 @@
-import 'package:onlinebozor/data/datasource/floor/dao/user_address_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/network/responses/address/user_address_response.dart';
-import 'package:onlinebozor/data/datasource/network/services/private/user_address_service.dart';
-import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
-import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
-import 'package:onlinebozor/data/error/app_locale_exception.dart';
-import 'package:onlinebozor/domain/mappers/user_mapper.dart';
-import 'package:onlinebozor/domain/models/user/user_address.dart';
+import 'package:El_xizmati/data/datasource/floor/dao/user_address_entity_dao.dart';
+import 'package:El_xizmati/data/datasource/network/responses/address/user_address_response.dart';
+import 'package:El_xizmati/data/datasource/network/services/private/user_address_service.dart';
+import 'package:El_xizmati/data/datasource/preference/auth_preferences.dart';
+import 'package:El_xizmati/data/datasource/preference/user_preferences.dart';
+import 'package:El_xizmati/data/error/app_locale_exception.dart';
+import 'package:El_xizmati/domain/mappers/user_mapper.dart';
+import 'package:El_xizmati/domain/models/user/user_address.dart';
 
 class UserAddressRepository {
   final AuthPreferences _authPreferences;

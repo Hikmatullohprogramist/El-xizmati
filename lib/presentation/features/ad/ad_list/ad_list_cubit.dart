@@ -1,14 +1,14 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/core/enum/enums.dart';
-import 'package:onlinebozor/data/repositories/ad_repository.dart';
-import 'package:onlinebozor/data/repositories/cart_repository.dart';
-import 'package:onlinebozor/data/repositories/favorite_repository.dart';
-import 'package:onlinebozor/domain/models/ad/ad.dart';
-import 'package:onlinebozor/domain/models/ad/ad_list_type.dart';
-import 'package:onlinebozor/domain/models/ad/ad_type.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:El_xizmati/core/enum/enums.dart';
+import 'package:El_xizmati/data/repositories/ad_repository.dart';
+import 'package:El_xizmati/data/repositories/cart_repository.dart';
+import 'package:El_xizmati/data/repositories/favorite_repository.dart';
+import 'package:El_xizmati/domain/models/ad/ad.dart';
+import 'package:El_xizmati/domain/models/ad/ad_list_type.dart';
+import 'package:El_xizmati/domain/models/ad/ad_type.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_cubit.dart';
 
 part 'ad_list_cubit.freezed.dart';
 part 'ad_list_state.dart';

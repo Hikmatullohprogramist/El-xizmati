@@ -1,9 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/core/enum/enums.dart';
-import 'package:onlinebozor/data/datasource/network/responses/payment_type/payment_type_response.dart';
-import 'package:onlinebozor/data/repositories/ad_creation_repository.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:El_xizmati/core/enum/enums.dart';
+import 'package:El_xizmati/data/datasource/network/responses/payment_type/payment_type_response.dart';
+import 'package:El_xizmati/data/repositories/ad_creation_repository.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_cubit.dart';
 
 part 'payment_type_selection_cubit.freezed.dart';
 part 'payment_type_selection_state.dart';

@@ -1,10 +1,10 @@
 import 'package:elegant_notification/elegant_notification.dart';
 import 'package:elegant_notification/resources/arrays.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
-import 'package:onlinebozor/presentation/support/state_message/state_message.dart';
-import 'package:onlinebozor/presentation/support/state_message/state_message_type.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/presentation/support/colors/static_colors.dart';
+import 'package:El_xizmati/presentation/support/state_message/state_message.dart';
+import 'package:El_xizmati/presentation/support/state_message/state_message_type.dart';
 
 extension StateSnackBarExts on BuildContext {
   void showStateMessageSnackBar(StateMessage message) =>

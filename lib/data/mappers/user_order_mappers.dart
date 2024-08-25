@@ -1,8 +1,8 @@
-import 'package:onlinebozor/data/datasource/network/responses/user_order/user_order_response.dart';
-import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
-import 'package:onlinebozor/domain/models/order/user_order.dart';
-import 'package:onlinebozor/domain/models/order/user_order_product.dart';
-import 'package:onlinebozor/domain/models/seller/seller.dart';
+import 'package:El_xizmati/data/datasource/network/responses/user_order/user_order_response.dart';
+import 'package:El_xizmati/domain/mappers/common_mapper_exts.dart';
+import 'package:El_xizmati/domain/models/order/user_order.dart';
+import 'package:El_xizmati/domain/models/order/user_order_product.dart';
+import 'package:El_xizmati/domain/models/seller/seller.dart';
 
 extension UserOrderResponseMapper on UserOrderResponse {
   UserOrder toOrder() {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/data/datasource/network/responses/category/popular_category/popular_category_response.dart';
-import 'package:onlinebozor/presentation/widgets/category/popular_category_horizontal_widget.dart';
-import 'package:onlinebozor/presentation/widgets/elevation/elevation_widget.dart';
+import 'package:El_xizmati/data/datasource/network/responses/category/popular_category/popular_category_response.dart';
+import 'package:El_xizmati/presentation/widgets/category/popular_category_horizontal_widget.dart';
+import 'package:El_xizmati/presentation/widgets/elevation/elevation_widget.dart';
 
 class PopularCategoryListWidget extends StatelessWidget {
   const PopularCategoryListWidget({

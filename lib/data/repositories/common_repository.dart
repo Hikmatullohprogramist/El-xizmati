@@ -1,14 +1,14 @@
-import 'package:onlinebozor/data/datasource/floor/dao/category_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/network/responses/banner/banner_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/category/category/category_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/category/popular_category/popular_category_response.dart';
-import 'package:onlinebozor/data/datasource/network/services/public/dashboard_service.dart';
-import 'package:onlinebozor/data/mappers/banner_mappers.dart';
-import 'package:onlinebozor/data/mappers/category_mappers.dart';
-import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
-import 'package:onlinebozor/domain/models/banner/banner_image.dart';
-import 'package:onlinebozor/domain/models/category/category.dart';
-import 'package:onlinebozor/domain/models/category/category_type.dart';
+import 'package:El_xizmati/data/datasource/floor/dao/category_entity_dao.dart';
+import 'package:El_xizmati/data/datasource/network/responses/banner/banner_response.dart';
+import 'package:El_xizmati/data/datasource/network/responses/category/category/category_response.dart';
+import 'package:El_xizmati/data/datasource/network/responses/category/popular_category/popular_category_response.dart';
+import 'package:El_xizmati/data/datasource/network/services/public/dashboard_service.dart';
+import 'package:El_xizmati/data/mappers/banner_mappers.dart';
+import 'package:El_xizmati/data/mappers/category_mappers.dart';
+import 'package:El_xizmati/domain/mappers/common_mapper_exts.dart';
+import 'package:El_xizmati/domain/models/banner/banner_image.dart';
+import 'package:El_xizmati/domain/models/category/category.dart';
+import 'package:El_xizmati/domain/models/category/category_type.dart';
 
 class CommonRepository {
   final CategoryEntityDao _categoryEntityDao;

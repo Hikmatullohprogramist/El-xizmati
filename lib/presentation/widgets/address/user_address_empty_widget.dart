@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/presentation/widgets/button/custom_elevated_button.dart';
 
 class UserAddressEmptyWidget extends StatelessWidget {
   const UserAddressEmptyWidget({super.key, required this.onActionClicked});

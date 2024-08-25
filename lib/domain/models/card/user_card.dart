@@ -1,4 +1,4 @@
-import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
+import 'package:El_xizmati/core/gen/assets/assets.gen.dart';
 
 class UserCard {
   final String id;

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
-import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
-import 'package:onlinebozor/presentation/widgets/favorite/order_ad_favorite_widget.dart';
-import 'package:onlinebozor/presentation/widgets/favorite/order_ad_remove_widget.dart';
-import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/presentation/widgets/button/custom_elevated_button.dart';
+import 'package:El_xizmati/presentation/widgets/divider/custom_divider.dart';
+import 'package:El_xizmati/presentation/widgets/favorite/order_ad_favorite_widget.dart';
+import 'package:El_xizmati/presentation/widgets/favorite/order_ad_remove_widget.dart';
+import 'package:El_xizmati/presentation/widgets/image/rounded_cached_network_image_widget.dart';
 
 import '../../../domain/models/ad/ad.dart';
 import '../ad/list_price_text_widget.dart';

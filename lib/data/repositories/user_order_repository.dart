@@ -1,15 +1,15 @@
-import 'package:onlinebozor/data/datasource/floor/dao/user_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/network/responses/user_order/user_order_response.dart';
-import 'package:onlinebozor/data/datasource/network/services/private/user_order_service.dart';
-import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
-import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
-import 'package:onlinebozor/data/error/app_locale_exception.dart';
-import 'package:onlinebozor/data/mappers/user_order_mappers.dart';
-import 'package:onlinebozor/data/repositories/cart_repository.dart';
-import 'package:onlinebozor/domain/models/order/order_cancel_reason.dart';
-import 'package:onlinebozor/domain/models/order/order_type.dart';
-import 'package:onlinebozor/domain/models/order/user_order.dart';
-import 'package:onlinebozor/domain/models/order/user_order_status.dart';
+import 'package:El_xizmati/data/datasource/floor/dao/user_entity_dao.dart';
+import 'package:El_xizmati/data/datasource/network/responses/user_order/user_order_response.dart';
+import 'package:El_xizmati/data/datasource/network/services/private/user_order_service.dart';
+import 'package:El_xizmati/data/datasource/preference/auth_preferences.dart';
+import 'package:El_xizmati/data/datasource/preference/user_preferences.dart';
+import 'package:El_xizmati/data/error/app_locale_exception.dart';
+import 'package:El_xizmati/data/mappers/user_order_mappers.dart';
+import 'package:El_xizmati/data/repositories/cart_repository.dart';
+import 'package:El_xizmati/domain/models/order/order_cancel_reason.dart';
+import 'package:El_xizmati/domain/models/order/order_type.dart';
+import 'package:El_xizmati/domain/models/order/user_order.dart';
+import 'package:El_xizmati/domain/models/order/user_order_status.dart';
 
 class UserOrderRepository {
   final AuthPreferences _authPreferences;

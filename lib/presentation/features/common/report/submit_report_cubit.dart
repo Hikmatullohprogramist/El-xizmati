@@ -1,12 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/core/enum/enums.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/data/repositories/report_repository.dart';
-import 'package:onlinebozor/domain/models/report/report_reason.dart';
-import 'package:onlinebozor/domain/models/report/report_type.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
-import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
+import 'package:El_xizmati/core/enum/enums.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
+import 'package:El_xizmati/data/repositories/report_repository.dart';
+import 'package:El_xizmati/domain/models/report/report_reason.dart';
+import 'package:El_xizmati/domain/models/report/report_type.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_cubit.dart';
+import 'package:El_xizmati/presentation/support/extensions/resource_exts.dart';
 
 part 'submit_report_cubit.freezed.dart';
 part 'submit_report_state.dart';

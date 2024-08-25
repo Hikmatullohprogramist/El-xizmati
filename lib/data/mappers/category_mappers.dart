@@ -1,8 +1,8 @@
-import 'package:onlinebozor/data/datasource/floor/entities/category_entity.dart';
-import 'package:onlinebozor/data/datasource/network/responses/category/category/category_response.dart';
-import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
-import 'package:onlinebozor/domain/models/category/category.dart';
-import 'package:onlinebozor/domain/models/category/category_type.dart';
+import 'package:El_xizmati/data/datasource/floor/entities/category_entity.dart';
+import 'package:El_xizmati/data/datasource/network/responses/category/category/category_response.dart';
+import 'package:El_xizmati/domain/mappers/common_mapper_exts.dart';
+import 'package:El_xizmati/domain/models/category/category.dart';
+import 'package:El_xizmati/domain/models/category/category_type.dart';
 
 extension CategoryResponseMapper on CategoryResponse {
   CategoryEntity toCategoryEntity(CategoryType categoryType) {

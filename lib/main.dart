@@ -7,10 +7,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization_loader/easy_localization_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
-import 'package:onlinebozor/presentation/application/di/get_it_injection.dart';
+import 'package:El_xizmati/core/gen/assets/assets.gen.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
+import 'package:El_xizmati/data/datasource/network/constants/constants.dart';
+import 'package:El_xizmati/presentation/application/di/get_it_injection.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:uuid/uuid.dart';
 

@@ -1,5 +1,5 @@
-import 'package:onlinebozor/data/datasource/preference/theme_mode_preferences.dart';
-import 'package:onlinebozor/domain/models/theme/app_theme_mode.dart';
+import 'package:El_xizmati/data/datasource/preference/theme_mode_preferences.dart';
+import 'package:El_xizmati/domain/models/theme/app_theme_mode.dart';
 
 class ThemeModeRepository {
   final ThemeModePreferences _themeModePreferences;

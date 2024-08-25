@@ -5,18 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/application/di/get_it_injection.dart';
-import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_builder.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_event.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_state.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/extensions/platform_sizes.dart';
-import 'package:onlinebozor/presentation/support/state_message/state_bottom_sheet_exts.dart';
-import 'package:onlinebozor/presentation/support/state_message/state_message_type.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
+import 'package:El_xizmati/presentation/application/di/get_it_injection.dart';
+import 'package:El_xizmati/presentation/support/colors/static_colors.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_builder.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_event.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_state.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/presentation/support/extensions/platform_sizes.dart';
+import 'package:El_xizmati/presentation/support/state_message/state_bottom_sheet_exts.dart';
+import 'package:El_xizmati/presentation/support/state_message/state_message_type.dart';
+import 'package:El_xizmati/presentation/widgets/button/custom_elevated_button.dart';
 
 abstract class BasePage<CUBIT extends Cubit<BaseState<STATE, EVENT>>, STATE,
     EVENT> extends StatelessWidget {

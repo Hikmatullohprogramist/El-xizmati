@@ -1,4 +1,4 @@
-import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
 
 class DocSeriesValidator {
   static String? validate(String? value) {

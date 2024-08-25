@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
+import 'package:El_xizmati/core/gen/assets/assets.gen.dart';
 import 'package:flutter/services.dart';
-import 'package:onlinebozor/domain/models/image/uploadable_file.dart';
-import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
+import 'package:El_xizmati/domain/models/image/uploadable_file.dart';
+import 'package:El_xizmati/presentation/widgets/image/rounded_cached_network_image_widget.dart';
 
 class AdImageListImageWidget extends StatelessWidget {
   const AdImageListImageWidget({

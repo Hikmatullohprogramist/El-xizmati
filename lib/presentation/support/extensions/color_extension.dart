@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/colors/dark_theme_colors.dart';
-import 'package:onlinebozor/presentation/support/colors/light_theme_colors.dart';
-import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
-import 'package:onlinebozor/presentation/support/colors/theme_colors.dart';
+import 'package:El_xizmati/presentation/support/colors/dark_theme_colors.dart';
+import 'package:El_xizmati/presentation/support/colors/light_theme_colors.dart';
+import 'package:El_xizmati/presentation/support/colors/static_colors.dart';
+import 'package:El_xizmati/presentation/support/colors/theme_colors.dart';
 
 extension ColorExtension on BuildContext {
   ThemeColors get colors => isDarkMode ? DarkThemeColors() : LightThemeColors();

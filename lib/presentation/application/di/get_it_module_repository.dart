@@ -1,25 +1,25 @@
 import 'package:get_it/get_it.dart';
-import 'package:onlinebozor/data/repositories/ad_creation_repository.dart';
-import 'package:onlinebozor/data/repositories/ad_repository.dart';
-import 'package:onlinebozor/data/repositories/auth_repository.dart';
-import 'package:onlinebozor/data/repositories/billing_repository.dart';
-import 'package:onlinebozor/data/repositories/card_repositroy.dart';
-import 'package:onlinebozor/data/repositories/cart_repository.dart';
-import 'package:onlinebozor/data/repositories/common_repository.dart';
-import 'package:onlinebozor/data/repositories/eds_repository.dart';
-import 'package:onlinebozor/data/repositories/favorite_repository.dart';
-import 'package:onlinebozor/data/repositories/identity_repository.dart';
-import 'package:onlinebozor/data/repositories/language_repository.dart';
-import 'package:onlinebozor/data/repositories/merchant_repository.dart';
-import 'package:onlinebozor/data/repositories/notification_repository.dart';
-import 'package:onlinebozor/data/repositories/region_repository.dart';
-import 'package:onlinebozor/data/repositories/report_repository.dart';
-import 'package:onlinebozor/data/repositories/state_repository.dart';
-import 'package:onlinebozor/data/repositories/theme_mode_repository.dart';
-import 'package:onlinebozor/data/repositories/user_ad_repository.dart';
-import 'package:onlinebozor/data/repositories/user_address_repository.dart';
-import 'package:onlinebozor/data/repositories/user_order_repository.dart';
-import 'package:onlinebozor/data/repositories/user_repository.dart';
+import 'package:El_xizmati/data/repositories/ad_creation_repository.dart';
+import 'package:El_xizmati/data/repositories/ad_repository.dart';
+import 'package:El_xizmati/data/repositories/auth_repository.dart';
+import 'package:El_xizmati/data/repositories/billing_repository.dart';
+import 'package:El_xizmati/data/repositories/card_repositroy.dart';
+import 'package:El_xizmati/data/repositories/cart_repository.dart';
+import 'package:El_xizmati/data/repositories/common_repository.dart';
+import 'package:El_xizmati/data/repositories/eds_repository.dart';
+import 'package:El_xizmati/data/repositories/favorite_repository.dart';
+import 'package:El_xizmati/data/repositories/identity_repository.dart';
+import 'package:El_xizmati/data/repositories/language_repository.dart';
+import 'package:El_xizmati/data/repositories/merchant_repository.dart';
+import 'package:El_xizmati/data/repositories/notification_repository.dart';
+import 'package:El_xizmati/data/repositories/region_repository.dart';
+import 'package:El_xizmati/data/repositories/report_repository.dart';
+import 'package:El_xizmati/data/repositories/state_repository.dart';
+import 'package:El_xizmati/data/repositories/theme_mode_repository.dart';
+import 'package:El_xizmati/data/repositories/user_ad_repository.dart';
+import 'package:El_xizmati/data/repositories/user_address_repository.dart';
+import 'package:El_xizmati/data/repositories/user_order_repository.dart';
+import 'package:El_xizmati/data/repositories/user_repository.dart';
 
 extension GetItModuleExtension on GetIt {
   Future<void> repositoryModule() async {

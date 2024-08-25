@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:logger/logger.dart';
-import 'package:onlinebozor/core/enum/enums.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
+import 'package:El_xizmati/core/enum/enums.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/presentation/widgets/loading/default_error_widget.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class OAuthWebView extends StatefulWidget {

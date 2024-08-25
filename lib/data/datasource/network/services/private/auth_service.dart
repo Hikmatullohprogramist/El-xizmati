@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:onlinebozor/data/datasource/network/constants/rest_query_keys.dart';
-import 'package:onlinebozor/data/datasource/network/responses/face_id/validate_bio_doc_request.dart';
+import 'package:El_xizmati/data/datasource/network/constants/rest_query_keys.dart';
+import 'package:El_xizmati/data/datasource/network/responses/face_id/validate_bio_doc_request.dart';
 
 class AuthService {
   final Dio _dio;

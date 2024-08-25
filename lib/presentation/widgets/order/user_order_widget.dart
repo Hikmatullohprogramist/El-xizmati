@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/domain/models/order/user_order.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
-import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
-import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/core/gen/assets/assets.gen.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
+import 'package:El_xizmati/domain/models/order/user_order.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/presentation/support/extensions/resource_exts.dart';
+import 'package:El_xizmati/presentation/widgets/divider/custom_divider.dart';
+import 'package:El_xizmati/presentation/widgets/image/rounded_cached_network_image_widget.dart';
 
 class UserOrderWidget extends StatelessWidget {
   const UserOrderWidget({

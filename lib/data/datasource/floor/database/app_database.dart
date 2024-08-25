@@ -1,16 +1,16 @@
 import 'dart:async';
 
 import 'package:floor/floor.dart';
-import 'package:onlinebozor/data/datasource/floor/dao/ad_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/floor/dao/category_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/floor/dao/user_address_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/floor/dao/user_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/floor/database/callback.dart';
-import 'package:onlinebozor/data/datasource/floor/database/migrations.dart';
-import 'package:onlinebozor/data/datasource/floor/entities/ad_entity.dart';
-import 'package:onlinebozor/data/datasource/floor/entities/category_entity.dart';
-import 'package:onlinebozor/data/datasource/floor/entities/user_address_entity.dart';
-import 'package:onlinebozor/data/datasource/floor/entities/user_entity.dart';
+import 'package:El_xizmati/data/datasource/floor/dao/ad_entity_dao.dart';
+import 'package:El_xizmati/data/datasource/floor/dao/category_entity_dao.dart';
+import 'package:El_xizmati/data/datasource/floor/dao/user_address_entity_dao.dart';
+import 'package:El_xizmati/data/datasource/floor/dao/user_entity_dao.dart';
+import 'package:El_xizmati/data/datasource/floor/database/callback.dart';
+import 'package:El_xizmati/data/datasource/floor/database/migrations.dart';
+import 'package:El_xizmati/data/datasource/floor/entities/ad_entity.dart';
+import 'package:El_xizmati/data/datasource/floor/entities/category_entity.dart';
+import 'package:El_xizmati/data/datasource/floor/entities/user_address_entity.dart';
+import 'package:El_xizmati/data/datasource/floor/entities/user_entity.dart';
 import 'package:sqflite/sqflite.dart' as sqflite;
 
 part 'app_database.g.dart';
