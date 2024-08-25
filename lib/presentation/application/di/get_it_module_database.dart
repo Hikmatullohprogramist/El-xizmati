@@ -1,9 +1,9 @@
 import 'package:get_it/get_it.dart';
-import 'package:onlinebozor/data/datasource/floor/dao/ad_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/floor/dao/category_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/floor/dao/user_address_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/floor/dao/user_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/floor/database/app_database.dart';
+import 'package:El_xizmati/data/datasource/floor/dao/ad_entity_dao.dart';
+import 'package:El_xizmati/data/datasource/floor/dao/category_entity_dao.dart';
+import 'package:El_xizmati/data/datasource/floor/dao/user_address_entity_dao.dart';
+import 'package:El_xizmati/data/datasource/floor/dao/user_entity_dao.dart';
+import 'package:El_xizmati/data/datasource/floor/database/app_database.dart';
 
 extension GetItModuleDatabase on GetIt {
   Future<void> databaseModule() async {

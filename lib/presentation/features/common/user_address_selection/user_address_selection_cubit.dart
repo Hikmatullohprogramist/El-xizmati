@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/repositories/user_address_repository.dart';
-import 'package:onlinebozor/domain/models/user/user_address.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:El_xizmati/data/repositories/user_address_repository.dart';
+import 'package:El_xizmati/domain/models/user/user_address.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_cubit.dart';
 
 import '../../../../../core/enum/enums.dart';
 

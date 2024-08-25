@@ -1,4 +1,4 @@
-import 'package:onlinebozor/data/error/app_exception.dart';
+import 'package:El_xizmati/data/error/app_exception.dart';
 
 abstract class AppNetworkException extends AppException {
   @override

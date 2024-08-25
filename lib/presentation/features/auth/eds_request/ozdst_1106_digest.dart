@@ -1,6 +1,6 @@
-import 'package:onlinebozor/presentation/features/auth/eds_request/gost_28147_engine.dart';
-import 'package:onlinebozor/presentation/features/auth/eds_request/key_parameter.dart';
-import 'package:onlinebozor/presentation/features/auth/eds_request/parameters_with_sbox.dart';
+import 'package:El_xizmati/presentation/features/auth/eds_request/gost_28147_engine.dart';
+import 'package:El_xizmati/presentation/features/auth/eds_request/key_parameter.dart';
+import 'package:El_xizmati/presentation/features/auth/eds_request/parameters_with_sbox.dart';
 
 class OzDSt1106Digest {
 

@@ -1,4 +1,4 @@
-import 'package:onlinebozor/presentation/features/auth/eds_request/hex.dart';
+import 'package:El_xizmati/presentation/features/auth/eds_request/hex.dart';
 
 import 'gost_28147_engine.dart';
 import 'ozdst_1106_digest.dart';

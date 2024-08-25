@@ -1,16 +1,16 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/core/enum/enums.dart';
-import 'package:onlinebozor/core/extensions/list_extensions.dart';
-import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/core/handler/future_handler_exts.dart';
-import 'package:onlinebozor/data/datasource/network/responses/realpay/real_pay_card_response.dart';
-import 'package:onlinebozor/data/repositories/card_repositroy.dart';
-import 'package:onlinebozor/data/repositories/user_repository.dart';
-import 'package:onlinebozor/domain/models/card/user_card.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
-import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
+import 'package:El_xizmati/core/enum/enums.dart';
+import 'package:El_xizmati/core/extensions/list_extensions.dart';
+import 'package:El_xizmati/core/gen/assets/assets.gen.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
+import 'package:El_xizmati/core/handler/future_handler_exts.dart';
+import 'package:El_xizmati/data/datasource/network/responses/realpay/real_pay_card_response.dart';
+import 'package:El_xizmati/data/repositories/card_repositroy.dart';
+import 'package:El_xizmati/data/repositories/user_repository.dart';
+import 'package:El_xizmati/domain/models/card/user_card.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_cubit.dart';
+import 'package:El_xizmati/presentation/support/extensions/extension_message_exts.dart';
 
 part 'user_cards_cubit.freezed.dart';
 part 'user_cards_state.dart';

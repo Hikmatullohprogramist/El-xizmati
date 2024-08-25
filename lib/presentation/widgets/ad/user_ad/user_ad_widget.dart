@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/domain/mappers/common_mapper_exts.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
-import 'package:onlinebozor/presentation/widgets/ad/list_price_text_widget.dart';
-import 'package:onlinebozor/presentation/widgets/ad/user_ad/user_ad_stats_widget.dart';
-import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
-import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/core/gen/assets/assets.gen.dart';
+import 'package:El_xizmati/domain/mappers/common_mapper_exts.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/presentation/support/extensions/resource_exts.dart';
+import 'package:El_xizmati/presentation/widgets/ad/list_price_text_widget.dart';
+import 'package:El_xizmati/presentation/widgets/ad/user_ad/user_ad_stats_widget.dart';
+import 'package:El_xizmati/presentation/widgets/divider/custom_divider.dart';
+import 'package:El_xizmati/presentation/widgets/image/rounded_cached_network_image_widget.dart';
 
 import '../../../../domain/models/ad/user_ad.dart';
 

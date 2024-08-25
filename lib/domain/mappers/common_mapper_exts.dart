@@ -1,6 +1,6 @@
-import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
-import 'package:onlinebozor/domain/models/category/category_type.dart';
-import 'package:onlinebozor/domain/models/order/user_order_status.dart';
+import 'package:El_xizmati/domain/models/ad/user_ad_status.dart';
+import 'package:El_xizmati/domain/models/category/category_type.dart';
+import 'package:El_xizmati/domain/models/order/user_order_status.dart';
 
 import '../models/ad/ad_author_type.dart';
 import '../models/ad/ad_item_condition.dart';

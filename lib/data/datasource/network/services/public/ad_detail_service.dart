@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:onlinebozor/data/datasource/network/constants/rest_query_keys.dart';
-import 'package:onlinebozor/domain/models/stats/stats_type.dart';
+import 'package:El_xizmati/data/datasource/network/constants/rest_query_keys.dart';
+import 'package:El_xizmati/domain/models/stats/stats_type.dart';
 
 class AdDetailService {
   final Dio _dio;

@@ -1,6 +1,6 @@
-import 'package:onlinebozor/data/datasource/network/responses/ad/ad_detail/ad_detail_response.dart';
-import 'package:onlinebozor/domain/models/ad/ad_item_condition.dart';
-import 'package:onlinebozor/domain/models/currency/currency_code.dart';
+import 'package:El_xizmati/data/datasource/network/responses/ad/ad_detail/ad_detail_response.dart';
+import 'package:El_xizmati/domain/models/ad/ad_item_condition.dart';
+import 'package:El_xizmati/domain/models/currency/currency_code.dart';
 
 import 'ad_author_type.dart';
 import 'ad_priority_level.dart';

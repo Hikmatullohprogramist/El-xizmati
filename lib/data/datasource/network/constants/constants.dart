@@ -2,8 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 
 abstract class Constants {
   //static String baseUrl = 'https://api.online-bozor.uz/api/mobile/';
-  static String baseUrl = 'https://api.online-bozor.uz/';
-  static String baseUrlCabinet = 'https://api.cabinet.online-bozor.uz/';
+  //static String baseUrl = 'https://api.online-bozor.uz/';
+  static String baseUrl = 'http://api.el-xizmat.uz/';
+  static String baseUrlCabinet = 'http://api.el-xizmat.uz/';
   static String baseUrlForImage = 'https://api.online-bozor.uz/uploads/images/';
   static var formatter = NumberFormat('###,000');
 }

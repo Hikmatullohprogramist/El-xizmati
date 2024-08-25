@@ -1,14 +1,14 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/core/handler/future_handler_exts.dart';
-import 'package:onlinebozor/data/mappers/ad_mappers.dart';
-import 'package:onlinebozor/data/repositories/user_ad_repository.dart';
-import 'package:onlinebozor/domain/models/ad/user_ad.dart';
-import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
-import 'package:onlinebozor/presentation/support/extensions/extension_message_exts.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
+import 'package:El_xizmati/core/handler/future_handler_exts.dart';
+import 'package:El_xizmati/data/mappers/ad_mappers.dart';
+import 'package:El_xizmati/data/repositories/user_ad_repository.dart';
+import 'package:El_xizmati/domain/models/ad/user_ad.dart';
+import 'package:El_xizmati/domain/models/ad/user_ad_status.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_cubit.dart';
+import 'package:El_xizmati/presentation/support/extensions/extension_message_exts.dart';
 
 part 'user_ad_list_cubit.freezed.dart';
 part 'user_ad_list_state.dart';

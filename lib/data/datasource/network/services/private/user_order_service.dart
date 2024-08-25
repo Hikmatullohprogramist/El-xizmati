@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:onlinebozor/data/datasource/network/constants/rest_query_keys.dart';
-import 'package:onlinebozor/data/datasource/network/extensions/rest_mappers.dart';
-import 'package:onlinebozor/domain/models/order/order_cancel_reason.dart';
-import 'package:onlinebozor/domain/models/order/order_type.dart';
-import 'package:onlinebozor/domain/models/order/user_order_status.dart';
+import 'package:El_xizmati/data/datasource/network/constants/rest_query_keys.dart';
+import 'package:El_xizmati/data/datasource/network/extensions/rest_mappers.dart';
+import 'package:El_xizmati/domain/models/order/order_cancel_reason.dart';
+import 'package:El_xizmati/domain/models/order/order_type.dart';
+import 'package:El_xizmati/domain/models/order/user_order_status.dart';
 
 class UserOrderService {
   final Dio _dio;

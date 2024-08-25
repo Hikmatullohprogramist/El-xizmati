@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/data/datasource/network/constants/rest_constants.dart';
-import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
-import 'package:onlinebozor/presentation/widgets/webview/oauth_web_view.dart';
+import 'package:El_xizmati/data/datasource/network/constants/rest_constants.dart';
+import 'package:El_xizmati/presentation/router/app_router.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_page.dart';
+import 'package:El_xizmati/presentation/widgets/webview/oauth_web_view.dart';
 
 import 'one_id_cubit.dart';
 

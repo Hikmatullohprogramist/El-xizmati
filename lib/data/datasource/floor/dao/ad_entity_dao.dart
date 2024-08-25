@@ -1,5 +1,5 @@
 import 'package:floor/floor.dart';
-import 'package:onlinebozor/data/datasource/floor/entities/ad_entity.dart';
+import 'package:El_xizmati/data/datasource/floor/entities/ad_entity.dart';
 
 @dao
 abstract class AdEntityDao {

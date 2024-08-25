@@ -1,9 +1,9 @@
-import 'package:onlinebozor/domain/models/ad/ad_author_type.dart';
-import 'package:onlinebozor/domain/models/ad/ad_item_condition.dart';
-import 'package:onlinebozor/domain/models/ad/ad_priority_level.dart';
-import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
-import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
-import 'package:onlinebozor/domain/models/order/order_type.dart';
+import 'package:El_xizmati/domain/models/ad/ad_author_type.dart';
+import 'package:El_xizmati/domain/models/ad/ad_item_condition.dart';
+import 'package:El_xizmati/domain/models/ad/ad_priority_level.dart';
+import 'package:El_xizmati/domain/models/ad/ad_transaction_type.dart';
+import 'package:El_xizmati/domain/models/ad/user_ad_status.dart';
+import 'package:El_xizmati/domain/models/order/order_type.dart';
 
 import '../../../data/datasource/network/responses/user_ad/user_ad_response.dart';
 

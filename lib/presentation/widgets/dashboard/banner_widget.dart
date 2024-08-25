@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
+import 'package:El_xizmati/presentation/widgets/image/rounded_cached_network_image_widget.dart';
 
 class BannerWidget extends StatelessWidget {
   const BannerWidget({

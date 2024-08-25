@@ -1,7 +1,7 @@
 import 'package:logger/logger.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/data/error/app_locale_exception.dart';
-import 'package:onlinebozor/data/error/app_network_exception.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
+import 'package:El_xizmati/data/error/app_locale_exception.dart';
+import 'package:El_xizmati/data/error/app_network_exception.dart';
 
 extension ExceptionMessageExts on Exception {
   String get localizedMessage {

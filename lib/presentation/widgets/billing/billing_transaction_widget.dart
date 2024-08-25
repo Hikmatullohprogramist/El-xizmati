@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/domain/models/billing/billing_transaction.dart';
-import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
+import 'package:El_xizmati/domain/models/billing/billing_transaction.dart';
+import 'package:El_xizmati/presentation/support/extensions/resource_exts.dart';
 
 class BillingTransactionWidget extends StatelessWidget {
   final BillingTransaction transaction;

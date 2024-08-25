@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:onlinebozor/data/datasource/preference/region_preferences.dart';
+import 'package:El_xizmati/data/datasource/preference/region_preferences.dart';
 
 class RegionInterceptor extends QueuedInterceptor {
   RegionInterceptor(this._regionPreferences);

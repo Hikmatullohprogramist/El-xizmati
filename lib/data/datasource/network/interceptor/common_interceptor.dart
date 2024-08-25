@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
+import 'package:El_xizmati/data/datasource/network/constants/constants.dart';
 
 class CommonInterceptor extends QueuedInterceptor {
   CommonInterceptor();

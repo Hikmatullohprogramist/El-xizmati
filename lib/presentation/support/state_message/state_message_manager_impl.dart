@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/presentation/support/state_message/state_message.dart';
-import 'package:onlinebozor/presentation/support/state_message/state_message_manager.dart';
-import 'package:onlinebozor/presentation/support/state_message/state_message_type.dart';
+import 'package:El_xizmati/presentation/support/state_message/state_message.dart';
+import 'package:El_xizmati/presentation/support/state_message/state_message_manager.dart';
+import 'package:El_xizmati/presentation/support/state_message/state_message_type.dart';
 
 @Singleton(as: StateMessageManager)
 class StateMessageManagerImpl extends StateMessageManager {

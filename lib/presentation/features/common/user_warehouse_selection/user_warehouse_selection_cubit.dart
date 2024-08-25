@@ -1,9 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/core/enum/enums.dart';
-import 'package:onlinebozor/data/repositories/ad_creation_repository.dart';
-import 'package:onlinebozor/domain/models/user/user_address.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:El_xizmati/core/enum/enums.dart';
+import 'package:El_xizmati/data/repositories/ad_creation_repository.dart';
+import 'package:El_xizmati/domain/models/user/user_address.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_cubit.dart';
 
 part 'user_warehouse_selection_cubit.freezed.dart';
 part 'user_warehouse_selection_state.dart';

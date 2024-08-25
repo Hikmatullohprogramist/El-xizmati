@@ -1,15 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:onlinebozor/domain/models/ad/ad.dart';
-import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/widgets/ad/vertical/vertical_ad_shimmer.dart';
-import 'package:onlinebozor/presentation/widgets/ad/vertical/vertical_ad_widget.dart';
-import 'package:onlinebozor/presentation/widgets/favorite/favorite_empty_widget.dart';
-import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
+import 'package:El_xizmati/domain/models/ad/ad.dart';
+import 'package:El_xizmati/presentation/router/app_router.dart';
+import 'package:El_xizmati/presentation/support/colors/static_colors.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_page.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/presentation/widgets/ad/vertical/vertical_ad_shimmer.dart';
+import 'package:El_xizmati/presentation/widgets/ad/vertical/vertical_ad_widget.dart';
+import 'package:El_xizmati/presentation/widgets/favorite/favorite_empty_widget.dart';
+import 'package:El_xizmati/presentation/widgets/loading/default_error_widget.dart';
 
 import 'favorite_products_cubit.dart';
 

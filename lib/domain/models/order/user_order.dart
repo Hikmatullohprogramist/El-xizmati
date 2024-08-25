@@ -1,9 +1,9 @@
-import 'package:onlinebozor/core/extensions/list_extensions.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/domain/models/order/user_order_product.dart';
-import 'package:onlinebozor/domain/models/order/user_order_status.dart';
-import 'package:onlinebozor/domain/models/seller/seller.dart';
-import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
+import 'package:El_xizmati/core/extensions/list_extensions.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
+import 'package:El_xizmati/domain/models/order/user_order_product.dart';
+import 'package:El_xizmati/domain/models/order/user_order_status.dart';
+import 'package:El_xizmati/domain/models/seller/seller.dart';
+import 'package:El_xizmati/presentation/support/extensions/mask_formatters.dart';
 
 class UserOrder {
   int orderId;

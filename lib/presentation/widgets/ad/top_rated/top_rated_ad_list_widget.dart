@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/widgets/ad/top_rated/top_rated_ad_widget.dart';
+import 'package:El_xizmati/presentation/widgets/ad/top_rated/top_rated_ad_widget.dart';
 
 import '../../../../domain/models/ad/ad.dart';
 

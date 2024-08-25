@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:onlinebozor/data/datasource/network/responses/region/region_response.dart';
+import 'package:El_xizmati/data/datasource/network/responses/region/region_response.dart';
 
 import 'district_response.dart';
 

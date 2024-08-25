@@ -1,4 +1,4 @@
-import 'package:onlinebozor/domain/models/category/category_type.dart';
+import 'package:El_xizmati/domain/models/category/category_type.dart';
 
 class Category {
   int id;

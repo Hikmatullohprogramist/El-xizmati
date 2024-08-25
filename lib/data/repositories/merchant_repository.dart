@@ -1,10 +1,10 @@
-import 'package:onlinebozor/data/datasource/network/constants/rest_constants.dart';
-import 'package:onlinebozor/data/datasource/network/extensions/rest_mappers.dart';
-import 'package:onlinebozor/data/datasource/network/responses/realpay/real_pay_merchant_token_response.dart';
-import 'package:onlinebozor/data/datasource/network/services/private/card_service.dart';
-import 'package:onlinebozor/data/datasource/network/services/private/payment_service.dart';
-import 'package:onlinebozor/data/datasource/preference/language_preferences.dart';
-import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
+import 'package:El_xizmati/data/datasource/network/constants/rest_constants.dart';
+import 'package:El_xizmati/data/datasource/network/extensions/rest_mappers.dart';
+import 'package:El_xizmati/data/datasource/network/responses/realpay/real_pay_merchant_token_response.dart';
+import 'package:El_xizmati/data/datasource/network/services/private/card_service.dart';
+import 'package:El_xizmati/data/datasource/network/services/private/payment_service.dart';
+import 'package:El_xizmati/data/datasource/preference/language_preferences.dart';
+import 'package:El_xizmati/data/datasource/preference/user_preferences.dart';
 
 class MerchantRepository {
   final CardService _cardService;

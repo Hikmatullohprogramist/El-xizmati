@@ -1,5 +1,5 @@
-import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
-import 'package:onlinebozor/data/datasource/preference/language_preferences.dart';
+import 'package:El_xizmati/data/datasource/preference/auth_preferences.dart';
+import 'package:El_xizmati/data/datasource/preference/language_preferences.dart';
 
 class StateRepository {
   final AuthPreferences _authPreferences;

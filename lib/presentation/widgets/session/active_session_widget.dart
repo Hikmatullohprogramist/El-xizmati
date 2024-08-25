@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
-import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/core/gen/assets/assets.gen.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
+import 'package:El_xizmati/data/datasource/network/constants/constants.dart';
+import 'package:El_xizmati/domain/models/active_sessions/active_session.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
 
 import '../divider/custom_divider.dart';
 

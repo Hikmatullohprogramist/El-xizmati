@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final String text;
@@ -55,8 +55,7 @@ class CustomElevatedButton extends StatelessWidget {
 
     var actualTextColor = isEnabled ? textColor : textColor.withOpacity(0.75);
     var backcolor = backgroundColor ?? context.colors.buttonPrimary;
-    var actualBackgroundColor =
-        isEnabled ? backcolor : backcolor.withOpacity(0.75);
+    var actualBackgroundColor = isEnabled ? backcolor : backcolor.withOpacity(0.75);
     var actualTextAlign = TextAlign.center;
 
     final hasIcon = leftIcon != null || rightIcon != null;

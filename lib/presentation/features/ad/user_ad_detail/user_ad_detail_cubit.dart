@@ -1,10 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/core/enum/enums.dart';
-import 'package:onlinebozor/data/datasource/network/responses/ad/ad_detail/user_ad_detail_response.dart';
-import 'package:onlinebozor/data/repositories/user_ad_repository.dart';
-import 'package:onlinebozor/domain/models/ad/user_ad.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:El_xizmati/core/enum/enums.dart';
+import 'package:El_xizmati/data/datasource/network/responses/ad/ad_detail/user_ad_detail_response.dart';
+import 'package:El_xizmati/data/repositories/user_ad_repository.dart';
+import 'package:El_xizmati/domain/models/ad/user_ad.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_cubit.dart';
 
 part 'user_ad_detail_cubit.freezed.dart';
 part 'user_ad_detail_state.dart';

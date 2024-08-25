@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/enum/enums.dart';
-import 'package:onlinebozor/presentation/widgets/loading/default_empty_widget.dart';
-import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
+import 'package:El_xizmati/core/enum/enums.dart';
+import 'package:El_xizmati/presentation/widgets/loading/default_empty_widget.dart';
+import 'package:El_xizmati/presentation/widgets/loading/default_error_widget.dart';
 
 class LoaderStateWidget extends StatelessWidget {
   const LoaderStateWidget({

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_shimmer.dart';
+import 'package:El_xizmati/presentation/widgets/ad/horizontal/horizontal_ad_shimmer.dart';
 
 class HorizontalAdListShimmer extends StatelessWidget {
   const HorizontalAdListShimmer({super.key});

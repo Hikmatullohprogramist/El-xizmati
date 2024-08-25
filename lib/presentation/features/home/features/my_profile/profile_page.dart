@@ -3,12 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/presentation/features/home/features/my_profile/features/personal/personal_page.dart';
-import 'package:onlinebozor/presentation/features/home/features/my_profile/profile_cubit.dart';
-import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/presentation/features/home/features/my_profile/features/personal/personal_page.dart';
+import 'package:El_xizmati/presentation/features/home/features/my_profile/profile_cubit.dart';
+import 'package:El_xizmati/presentation/router/app_router.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_page.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
 
 import '../../../../../core/gen/assets/assets.gen.dart';
 import '../../../../../core/gen/localization/strings.dart';

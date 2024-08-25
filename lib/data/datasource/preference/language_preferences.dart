@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/datasource/preference/preferences_extensions.dart';
-import 'package:onlinebozor/domain/models/language/language.dart';
+import 'package:El_xizmati/data/datasource/preference/preferences_extensions.dart';
+import 'package:El_xizmati/domain/models/language/language.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguagePreferences {

@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:onlinebozor/data/datasource/floor/dao/ad_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/floor/dao/user_address_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/floor/dao/user_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/network/constants/rest_header_keys.dart';
-import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
-import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
+import 'package:El_xizmati/data/datasource/floor/dao/ad_entity_dao.dart';
+import 'package:El_xizmati/data/datasource/floor/dao/user_address_entity_dao.dart';
+import 'package:El_xizmati/data/datasource/floor/dao/user_entity_dao.dart';
+import 'package:El_xizmati/data/datasource/network/constants/rest_header_keys.dart';
+import 'package:El_xizmati/data/datasource/preference/auth_preferences.dart';
+import 'package:El_xizmati/data/datasource/preference/user_preferences.dart';
 
 class AuthInterceptor extends Interceptor {
   final AdEntityDao _adEntityDao;

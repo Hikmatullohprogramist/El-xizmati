@@ -6,7 +6,8 @@ class AuthStartState with _$AuthStartState {
       {@Default("") String phone,
       @Default(false) bool validation,
       @Default(false) bool oriflameCheckBox,
-      @Default(false) bool loading}) = _AuthStartState;
+      @Default(false) bool loading,
+      }) = _AuthStartState;
 }
 
 @freezed
@@ -16,8 +17,5 @@ class AuthStartEvent with _$AuthStartEvent {
 }
 
 enum AuthStartEventType {
-  onOpenLogin,
-  onOpenRegister,
-  onEdsLoginFailed,
-  onOpenHome
+  onOTPConfirm,
 }

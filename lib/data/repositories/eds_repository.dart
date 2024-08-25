@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:onlinebozor/data/datasource/floor/dao/user_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/network/responses/auth/eds/eds_sign_in_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/e_imzo_response/e_imzo_response.dart';
-import 'package:onlinebozor/data/datasource/network/services/private/eds_service.dart';
-import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
-import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
-import 'package:onlinebozor/data/mappers/user_mappers.dart';
+import 'package:El_xizmati/data/datasource/floor/dao/user_entity_dao.dart';
+import 'package:El_xizmati/data/datasource/network/responses/auth/eds/eds_sign_in_response.dart';
+import 'package:El_xizmati/data/datasource/network/responses/e_imzo_response/e_imzo_response.dart';
+import 'package:El_xizmati/data/datasource/network/services/private/eds_service.dart';
+import 'package:El_xizmati/data/datasource/preference/auth_preferences.dart';
+import 'package:El_xizmati/data/datasource/preference/user_preferences.dart';
+import 'package:El_xizmati/data/mappers/user_mappers.dart';
 
 class EdsRepository {
   final AuthPreferences _authPreferences;

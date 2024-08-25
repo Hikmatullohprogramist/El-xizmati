@@ -1,17 +1,17 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/domain/models/card/user_card.dart';
-import 'package:onlinebozor/presentation/features/realpay/add_card/add_card_with_realpay_page.dart';
-import 'package:onlinebozor/presentation/features/realpay/refill/refill_with_realpay_page.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart';
-import 'package:onlinebozor/presentation/widgets/card/card_shimmer.dart';
-import 'package:onlinebozor/presentation/widgets/card/card_widget.dart';
-import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
+import 'package:El_xizmati/domain/models/card/user_card.dart';
+import 'package:El_xizmati/presentation/features/realpay/add_card/add_card_with_realpay_page.dart';
+import 'package:El_xizmati/presentation/features/realpay/refill/refill_with_realpay_page.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_page.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/presentation/widgets/app_bar/action_app_bar.dart';
+import 'package:El_xizmati/presentation/widgets/button/custom_text_button.dart';
+import 'package:El_xizmati/presentation/widgets/card/card_shimmer.dart';
+import 'package:El_xizmati/presentation/widgets/card/card_widget.dart';
+import 'package:El_xizmati/presentation/widgets/loading/loader_state_widget.dart';
 
 import 'user_cards_cubit.dart';
 

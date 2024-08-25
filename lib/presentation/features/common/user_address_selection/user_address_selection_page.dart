@@ -1,17 +1,17 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/domain/models/user/user_address.dart';
-import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
+import 'package:El_xizmati/domain/models/user/user_address.dart';
+import 'package:El_xizmati/presentation/router/app_router.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_page.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
 import 'package:flutter/services.dart';
-import 'package:onlinebozor/presentation/support/extensions/platform_sizes.dart';
-import 'package:onlinebozor/presentation/widgets/address/user_address_empty_widget.dart';
-import 'package:onlinebozor/presentation/widgets/address/user_address_selection_widget.dart';
-import 'package:onlinebozor/presentation/widgets/address/user_address_shimmer.dart';
-import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
-import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
+import 'package:El_xizmati/presentation/support/extensions/platform_sizes.dart';
+import 'package:El_xizmati/presentation/widgets/address/user_address_empty_widget.dart';
+import 'package:El_xizmati/presentation/widgets/address/user_address_selection_widget.dart';
+import 'package:El_xizmati/presentation/widgets/address/user_address_shimmer.dart';
+import 'package:El_xizmati/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
+import 'package:El_xizmati/presentation/widgets/loading/loader_state_widget.dart';
 
 import 'user_address_selection_cubit.dart';
 

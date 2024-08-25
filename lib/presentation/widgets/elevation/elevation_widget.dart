@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
 
 class ElevationWidget extends StatelessWidget {
   final Color? backgroundColor;

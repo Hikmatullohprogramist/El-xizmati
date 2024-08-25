@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/cache/CustomCacheManager.dart';
-import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/core/cache/CustomCacheManager.dart';
+import 'package:El_xizmati/data/datasource/network/constants/constants.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
 
 class RectangleCachedNetworkImage extends StatelessWidget {
   final String imageId;

@@ -1,8 +1,8 @@
-import 'package:onlinebozor/data/datasource/network/responses/billing/billing_transaction_response.dart';
-import 'package:onlinebozor/domain/models/billing/billing_balance_state.dart';
-import 'package:onlinebozor/domain/models/billing/billing_transaction.dart';
-import 'package:onlinebozor/domain/models/billing/billing_transaction_action.dart';
-import 'package:onlinebozor/domain/models/billing/billing_transaction_type.dart';
+import 'package:El_xizmati/data/datasource/network/responses/billing/billing_transaction_response.dart';
+import 'package:El_xizmati/domain/models/billing/billing_balance_state.dart';
+import 'package:El_xizmati/domain/models/billing/billing_transaction.dart';
+import 'package:El_xizmati/domain/models/billing/billing_transaction_action.dart';
+import 'package:El_xizmati/domain/models/billing/billing_transaction_type.dart';
 
 extension BillingTransactionResponseMapper on BillingTransactionResponse {
   BillingTransaction toTransaction(int index) {

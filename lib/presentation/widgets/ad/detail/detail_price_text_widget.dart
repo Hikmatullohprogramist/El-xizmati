@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/data/datasource/network/constants/constants.dart';
-import 'package:onlinebozor/domain/models/currency/currency_code.dart';
-import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/data/datasource/network/constants/constants.dart';
+import 'package:El_xizmati/domain/models/currency/currency_code.dart';
+import 'package:El_xizmati/presentation/support/extensions/resource_exts.dart';
 
 class DetailPriceTextWidget extends StatelessWidget {
   final int price;

@@ -1,8 +1,8 @@
-import 'package:onlinebozor/data/datasource/floor/entities/user_address_entity.dart';
-import 'package:onlinebozor/data/datasource/network/responses/active_sessions/active_session_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/address/user_address_response.dart';
-import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
-import 'package:onlinebozor/domain/models/user/user_address.dart';
+import 'package:El_xizmati/data/datasource/floor/entities/user_address_entity.dart';
+import 'package:El_xizmati/data/datasource/network/responses/active_sessions/active_session_response.dart';
+import 'package:El_xizmati/data/datasource/network/responses/address/user_address_response.dart';
+import 'package:El_xizmati/domain/models/active_sessions/active_session.dart';
+import 'package:El_xizmati/domain/models/user/user_address.dart';
 
 extension ActiveSessionsExtension on ActiveSessionResponse {
   ActiveSession toMap(bool isCurrentSession) {

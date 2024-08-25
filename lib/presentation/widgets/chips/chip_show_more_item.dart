@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
 
-import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
+import 'package:El_xizmati/core/gen/assets/assets.gen.dart';
 
 class ChipShowMoreItem extends StatelessWidget {
   const ChipShowMoreItem({

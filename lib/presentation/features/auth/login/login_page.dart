@@ -3,19 +3,19 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/domain/models/otp/otp_confirm_type.dart';
-import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/extensions/controller_exts.dart';
-import 'package:onlinebozor/presentation/widgets/app_bar/default_app_bar.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_text_button.dart';
-import 'package:onlinebozor/presentation/widgets/form_field/custom_text_form_field.dart';
-import 'package:onlinebozor/presentation/widgets/form_field/label_text_field.dart';
-import 'package:onlinebozor/presentation/widgets/form_field/validator/password_validator.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
+import 'package:El_xizmati/domain/models/otp/otp_confirm_type.dart';
+import 'package:El_xizmati/presentation/router/app_router.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_page.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/presentation/support/extensions/controller_exts.dart';
+import 'package:El_xizmati/presentation/widgets/app_bar/default_app_bar.dart';
+import 'package:El_xizmati/presentation/widgets/button/custom_elevated_button.dart';
+import 'package:El_xizmati/presentation/widgets/button/custom_text_button.dart';
+import 'package:El_xizmati/presentation/widgets/form_field/custom_text_form_field.dart';
+import 'package:El_xizmati/presentation/widgets/form_field/label_text_field.dart';
+import 'package:El_xizmati/presentation/widgets/form_field/validator/password_validator.dart';
 
 import 'login_cubit.dart';
 
@@ -45,8 +45,6 @@ class LoginPage extends BasePage<LoginCubit, LoginState, LoginEvent> {
       case LoginEventType.onOpenResetPassword:
         context.router.replace(OtpConfirmationRoute(
           phoneNumber: phoneNumber,
-          sessionToken: phoneNumber,
-          confirmType: OtpConfirmType.forResetPassword,
         ));
     }
   }

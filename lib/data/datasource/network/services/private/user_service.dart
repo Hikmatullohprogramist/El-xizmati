@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:onlinebozor/data/datasource/network/constants/rest_query_keys.dart';
-import 'package:onlinebozor/domain/models/active_sessions/active_session.dart';
-import 'package:onlinebozor/domain/models/social_account/social_account_info.dart';
+import 'package:El_xizmati/data/datasource/network/constants/rest_query_keys.dart';
+import 'package:El_xizmati/domain/models/active_sessions/active_session.dart';
+import 'package:El_xizmati/domain/models/social_account/social_account_info.dart';
 
 class UserService {
   final Dio _dio;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/presentation/widgets/chips/chip_add_item.dart';
-import 'package:onlinebozor/presentation/widgets/chips/chip_count_item.dart';
-import 'package:onlinebozor/presentation/widgets/chips/chip_show_less_item.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/presentation/widgets/chips/chip_add_item.dart';
+import 'package:El_xizmati/presentation/widgets/chips/chip_count_item.dart';
+import 'package:El_xizmati/presentation/widgets/chips/chip_show_less_item.dart';
 
 import 'chip_show_more_item.dart';
 

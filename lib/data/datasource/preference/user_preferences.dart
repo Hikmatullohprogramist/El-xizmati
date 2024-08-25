@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/data/datasource/network/responses/auth/login/login_response.dart';
-import 'package:onlinebozor/data/datasource/preference/preferences_extensions.dart';
+import 'package:El_xizmati/data/datasource/network/responses/auth/login/login_response.dart';
+import 'package:El_xizmati/data/datasource/preference/preferences_extensions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // @lazySingleton

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/presentation/support/colors/static_colors.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
 
 class CustomOutlinedButton extends StatelessWidget {
   final String text;
@@ -68,7 +68,7 @@ class CustomOutlinedButton extends StatelessWidget {
         backgroundColor: actualStrokeColor.withOpacity(0.015),
         foregroundColor: actualStrokeColor.withOpacity(0.45),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(12),
         ),
         side: BorderSide(
           width: 2,

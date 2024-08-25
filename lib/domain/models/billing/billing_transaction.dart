@@ -1,7 +1,7 @@
-import 'package:onlinebozor/domain/models/billing/billing_balance_state.dart';
-import 'package:onlinebozor/domain/models/billing/billing_transaction_action.dart';
-import 'package:onlinebozor/domain/models/billing/billing_transaction_type.dart';
-import 'package:onlinebozor/presentation/support/extensions/mask_formatters.dart';
+import 'package:El_xizmati/domain/models/billing/billing_balance_state.dart';
+import 'package:El_xizmati/domain/models/billing/billing_transaction_action.dart';
+import 'package:El_xizmati/domain/models/billing/billing_transaction_type.dart';
+import 'package:El_xizmati/presentation/support/extensions/mask_formatters.dart';
 
 class BillingTransaction {
   int id;

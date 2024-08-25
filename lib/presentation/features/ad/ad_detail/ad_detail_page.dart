@@ -4,39 +4,39 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/domain/models/ad/ad.dart';
-import 'package:onlinebozor/domain/models/ad/ad_item_condition.dart';
-import 'package:onlinebozor/domain/models/ad/ad_list_type.dart';
-import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
-import 'package:onlinebozor/domain/models/report/report_type.dart';
-import 'package:onlinebozor/domain/models/stats/stats_type.dart';
-import 'package:onlinebozor/presentation/features/ad/ad_detail/features/installment_info/installment_info_page.dart';
-import 'package:onlinebozor/presentation/features/common/report/submit_report_page.dart';
-import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/colors/static_colors.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/support/extensions/platform_sizes.dart';
-import 'package:onlinebozor/presentation/support/extensions/resource_exts.dart';
-import 'package:onlinebozor/presentation/widgets/action/action_list_item.dart';
-import 'package:onlinebozor/presentation/widgets/ad/detail/ad_detail_shimmer.dart';
-import 'package:onlinebozor/presentation/widgets/ad/detail/detail_price_text_widget.dart';
-import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_list_shimmer.dart';
-import 'package:onlinebozor/presentation/widgets/ad/horizontal/horizontal_ad_list_widget.dart';
-import 'package:onlinebozor/presentation/widgets/app_bar/action_app_bar.dart';
-import 'package:onlinebozor/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
-import 'package:onlinebozor/presentation/widgets/dashboard/see_all_widget.dart';
-import 'package:onlinebozor/presentation/widgets/divider/custom_divider.dart';
-import 'package:onlinebozor/presentation/widgets/elevation/elevation_widget.dart';
-import 'package:onlinebozor/presentation/widgets/favorite/ad_detail_favorite_widget.dart';
-import 'package:onlinebozor/presentation/widgets/image/rectangle_cached_network_image_widget.dart';
-import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
-import 'package:onlinebozor/presentation/widgets/loading/default_error_widget.dart';
-import 'package:onlinebozor/presentation/widgets/loading/loader_state_widget.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/core/gen/assets/assets.gen.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
+import 'package:El_xizmati/domain/models/ad/ad.dart';
+import 'package:El_xizmati/domain/models/ad/ad_item_condition.dart';
+import 'package:El_xizmati/domain/models/ad/ad_list_type.dart';
+import 'package:El_xizmati/domain/models/ad/ad_transaction_type.dart';
+import 'package:El_xizmati/domain/models/report/report_type.dart';
+import 'package:El_xizmati/domain/models/stats/stats_type.dart';
+import 'package:El_xizmati/presentation/features/ad/ad_detail/features/installment_info/installment_info_page.dart';
+import 'package:El_xizmati/presentation/features/common/report/submit_report_page.dart';
+import 'package:El_xizmati/presentation/router/app_router.dart';
+import 'package:El_xizmati/presentation/support/colors/static_colors.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_page.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/presentation/support/extensions/platform_sizes.dart';
+import 'package:El_xizmati/presentation/support/extensions/resource_exts.dart';
+import 'package:El_xizmati/presentation/widgets/action/action_list_item.dart';
+import 'package:El_xizmati/presentation/widgets/ad/detail/ad_detail_shimmer.dart';
+import 'package:El_xizmati/presentation/widgets/ad/detail/detail_price_text_widget.dart';
+import 'package:El_xizmati/presentation/widgets/ad/horizontal/horizontal_ad_list_shimmer.dart';
+import 'package:El_xizmati/presentation/widgets/ad/horizontal/horizontal_ad_list_widget.dart';
+import 'package:El_xizmati/presentation/widgets/app_bar/action_app_bar.dart';
+import 'package:El_xizmati/presentation/widgets/bottom_sheet/bottom_sheet_title.dart';
+import 'package:El_xizmati/presentation/widgets/button/custom_elevated_button.dart';
+import 'package:El_xizmati/presentation/widgets/dashboard/see_all_widget.dart';
+import 'package:El_xizmati/presentation/widgets/divider/custom_divider.dart';
+import 'package:El_xizmati/presentation/widgets/elevation/elevation_widget.dart';
+import 'package:El_xizmati/presentation/widgets/favorite/ad_detail_favorite_widget.dart';
+import 'package:El_xizmati/presentation/widgets/image/rectangle_cached_network_image_widget.dart';
+import 'package:El_xizmati/presentation/widgets/image/rounded_cached_network_image_widget.dart';
+import 'package:El_xizmati/presentation/widgets/loading/default_error_widget.dart';
+import 'package:El_xizmati/presentation/widgets/loading/loader_state_widget.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -793,11 +793,11 @@ class AdDetailPage
                           ),
                       SizedBox(height: 8),
                       Row(
-                        children: [
-                          Strings.adDetailOnOnlineBozor
-                              .w(400)
-                              .s(14)
-                              .c(context.textPrimary.withOpacity(0.85)),
+                        children: [  // Strings.adDetailOnEl_xizmati
+                          //     .w(400)
+                          //     .s(14)
+                          //     .c(context.textPrimary.withOpacity(0.85)),
+
                           SizedBox(width: 8),
                           (state.adDetail!.beginDate ?? "").w(400).s(14)
                         ],

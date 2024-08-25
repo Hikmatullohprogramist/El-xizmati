@@ -1,5 +1,5 @@
 import 'package:collection/collection.dart';
-import 'package:onlinebozor/domain/models/ad/ad.dart';
+import 'package:El_xizmati/domain/models/ad/ad.dart';
 
 extension ListExtensions<T> on List<T> {
   T? getOrNull(int index) {

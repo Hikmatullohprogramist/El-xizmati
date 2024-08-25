@@ -1,4 +1,4 @@
-import 'package:onlinebozor/domain/models/currency/currency_code.dart';
+import 'package:El_xizmati/domain/models/currency/currency_code.dart';
 
 import 'ad_author_type.dart';
 import 'ad_item_condition.dart';

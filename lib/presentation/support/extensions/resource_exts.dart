@@ -1,20 +1,20 @@
 import 'dart:ui';
 
-import 'package:onlinebozor/core/enum/social_enum.dart';
-import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/domain/models/ad/ad_action.dart';
-import 'package:onlinebozor/domain/models/ad/ad_author_type.dart';
-import 'package:onlinebozor/domain/models/ad/ad_transaction_type.dart';
-import 'package:onlinebozor/domain/models/ad/ad_type.dart';
-import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
-import 'package:onlinebozor/domain/models/billing/billing_transaction_type.dart';
-import 'package:onlinebozor/domain/models/currency/currency_code.dart';
-import 'package:onlinebozor/domain/models/order/order_cancel_reason.dart';
-import 'package:onlinebozor/domain/models/order/user_order.dart';
-import 'package:onlinebozor/domain/models/order/user_order_status.dart';
-import 'package:onlinebozor/domain/models/report/report_reason.dart';
-import 'package:onlinebozor/domain/models/report/report_type.dart';
+import 'package:El_xizmati/core/enum/social_enum.dart';
+import 'package:El_xizmati/core/gen/assets/assets.gen.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
+import 'package:El_xizmati/domain/models/ad/ad_action.dart';
+import 'package:El_xizmati/domain/models/ad/ad_author_type.dart';
+import 'package:El_xizmati/domain/models/ad/ad_transaction_type.dart';
+import 'package:El_xizmati/domain/models/ad/ad_type.dart';
+import 'package:El_xizmati/domain/models/ad/user_ad_status.dart';
+import 'package:El_xizmati/domain/models/billing/billing_transaction_type.dart';
+import 'package:El_xizmati/domain/models/currency/currency_code.dart';
+import 'package:El_xizmati/domain/models/order/order_cancel_reason.dart';
+import 'package:El_xizmati/domain/models/order/user_order.dart';
+import 'package:El_xizmati/domain/models/order/user_order_status.dart';
+import 'package:El_xizmati/domain/models/report/report_reason.dart';
+import 'package:El_xizmati/domain/models/report/report_type.dart';
 
 extension AdTransactionTypeResExts on AdTransactionType {
   String getLocalizedName() {

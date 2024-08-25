@@ -1,5 +1,5 @@
-import 'package:onlinebozor/data/datasource/network/services/public/report_service.dart';
-import 'package:onlinebozor/domain/models/report/report_reason.dart';
+import 'package:El_xizmati/data/datasource/network/services/public/report_service.dart';
+import 'package:El_xizmati/domain/models/report/report_reason.dart';
 
 class ReportRepository {
   final ReportService _reportService;

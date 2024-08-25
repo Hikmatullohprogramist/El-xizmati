@@ -1,12 +1,12 @@
 import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:onlinebozor/core/enum/enums.dart';
-import 'package:onlinebozor/data/repositories/region_repository.dart';
-import 'package:onlinebozor/domain/mappers/item_mapper.dart';
-import 'package:onlinebozor/domain/models/district/district.dart';
-import 'package:onlinebozor/domain/models/list/expandable_list_item.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_cubit.dart';
+import 'package:El_xizmati/core/enum/enums.dart';
+import 'package:El_xizmati/data/repositories/region_repository.dart';
+import 'package:El_xizmati/domain/mappers/item_mapper.dart';
+import 'package:El_xizmati/domain/models/district/district.dart';
+import 'package:El_xizmati/domain/models/list/expandable_list_item.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_cubit.dart';
 
 part 'region_selection_cubit.freezed.dart';
 part 'region_selection_state.dart';

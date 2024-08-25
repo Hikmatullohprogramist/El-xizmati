@@ -2,31 +2,32 @@ import 'package:auto_route/auto_route.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/gen/assets/assets.gen.dart';
-import 'package:onlinebozor/presentation/router/app_router.dart';
-import 'package:onlinebozor/presentation/support/cubit/base_page.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_elevated_button.dart';
-import 'package:onlinebozor/presentation/widgets/button/custom_outlined_button.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/core/gen/assets/assets.gen.dart';
+import 'package:El_xizmati/presentation/router/app_router.dart';
+import 'package:El_xizmati/presentation/support/cubit/base_page.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/presentation/widgets/button/custom_elevated_button.dart';
+import 'package:El_xizmati/presentation/widgets/button/custom_outlined_button.dart';
+import 'package:logger/logger.dart';
 
 import 'set_intro_region_cubit.dart';
 
 @RoutePage()
-class SetIntroRegionPage extends BasePage<SetIntroRegionCubit,
-    SetIntroRegionState, SetIntroRegionEvent>  {
-  SetIntroRegionPage({super.key});
+class SetIntroPage extends BasePage<SetIntroCubit,
+    SetIntroState, SetIntroEvent>  {
+  SetIntroPage({super.key});
   @override
-  void onEventEmitted(BuildContext context, SetIntroRegionEvent event) {
+  void onEventEmitted(BuildContext context, SetIntroEvent event) {
     switch (event.type) {
-      case SetIntroRegionEventType.onSkip:
-        context.router.replace(HomeRoute());
-      case SetIntroRegionEventType.onSet:
+      case SetIntroEventType.onSkip:
+        context.router.replace(AuthStartRoute());
+      case SetIntroEventType.onSet:
         context.router.replace(HomeRoute());
     }
   }
   @override
-  Widget onWidgetBuild(BuildContext context, SetIntroRegionState state) {
+  Widget onWidgetBuild(BuildContext context, SetIntroState state) {
     return DefaultTabController(
       length: 3,
       child: IntroTabbar(cubit: cubit(context),)
@@ -35,7 +36,7 @@ class SetIntroRegionPage extends BasePage<SetIntroRegionCubit,
 }
 class IntroTabbar extends StatelessWidget {
   const IntroTabbar({super.key, required this.cubit});
-  final SetIntroRegionCubit cubit;
+  final SetIntroCubit cubit;
   @override
   Widget build(BuildContext context) {
     final controller = DefaultTabController.of(context);
@@ -98,8 +99,10 @@ class IntroTabbar extends StatelessWidget {
                 child: CustomElevatedButton(
                   text: 'Davom etish',
                   onPressed: () {
-                    if(controller.index != controller.length)
+                    if(controller.index != (controller.length-1))
                     controller.animateTo(controller.index+1);
+                    else
+                      context.router.replace(AuthStartRoute());
                   },
                   rightIcon: Icon(
                     Icons.arrow_forward,
@@ -122,10 +125,9 @@ class IntroTabbar extends StatelessWidget {
       ),
     );
   }
-  Column intro(
-      BuildContext context, String title, String subtitle, SvgGenImage svg) {
-    return Column(
 
+  Column intro(BuildContext context, String title, String subtitle, SvgGenImage svg) {
+    return Column(
       children: [
         svg.svg(
             height: MediaQuery.of(context).size.height * 0.3,

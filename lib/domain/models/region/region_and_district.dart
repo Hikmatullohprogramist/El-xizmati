@@ -1,5 +1,5 @@
-import 'package:onlinebozor/domain/models/district/district.dart';
-import 'package:onlinebozor/domain/models/region/region.dart';
+import 'package:El_xizmati/domain/models/district/district.dart';
+import 'package:El_xizmati/domain/models/region/region.dart';
 
 class RegionAndDistrict {
   RegionAndDistrict({

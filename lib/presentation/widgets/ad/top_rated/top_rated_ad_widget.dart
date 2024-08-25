@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/core/gen/localization/strings.dart';
-import 'package:onlinebozor/presentation/widgets/ad/list_price_text_widget.dart';
-import 'package:onlinebozor/presentation/widgets/favorite/ad_favorite_widget.dart';
-import 'package:onlinebozor/presentation/widgets/image/rounded_cached_network_image_widget.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/core/gen/localization/strings.dart';
+import 'package:El_xizmati/presentation/widgets/ad/list_price_text_widget.dart';
+import 'package:El_xizmati/presentation/widgets/favorite/ad_favorite_widget.dart';
+import 'package:El_xizmati/presentation/widgets/image/rounded_cached_network_image_widget.dart';
 
 import '../../../../domain/models/ad/ad.dart';
 

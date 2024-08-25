@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onlinebozor/presentation/widgets/category/popular_category_horizontal_shimmer.dart';
+import 'package:El_xizmati/presentation/widgets/category/popular_category_horizontal_shimmer.dart';
 
 class PopularCategoryListShimmer extends StatelessWidget {
   const PopularCategoryListShimmer({super.key});

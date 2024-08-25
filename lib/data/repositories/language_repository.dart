@@ -1,7 +1,7 @@
-import 'package:onlinebozor/data/datasource/floor/dao/category_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/floor/dao/user_address_entity_dao.dart';
-import 'package:onlinebozor/data/datasource/preference/language_preferences.dart';
-import 'package:onlinebozor/domain/models/language/language.dart';
+import 'package:El_xizmati/data/datasource/floor/dao/category_entity_dao.dart';
+import 'package:El_xizmati/data/datasource/floor/dao/user_address_entity_dao.dart';
+import 'package:El_xizmati/data/datasource/preference/language_preferences.dart';
+import 'package:El_xizmati/domain/models/language/language.dart';
 
 class LanguageRepository {
   final CategoryEntityDao _categoryEntityDao;

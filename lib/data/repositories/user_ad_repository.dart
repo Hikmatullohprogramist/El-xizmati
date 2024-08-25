@@ -1,10 +1,10 @@
-import 'package:onlinebozor/data/datasource/network/responses/ad/ad_detail/user_ad_detail_response.dart';
-import 'package:onlinebozor/data/datasource/network/responses/user_ad/user_ad_response.dart';
-import 'package:onlinebozor/data/datasource/network/services/private/user_ad_service.dart';
-import 'package:onlinebozor/data/datasource/preference/auth_preferences.dart';
-import 'package:onlinebozor/data/datasource/preference/user_preferences.dart';
-import 'package:onlinebozor/data/error/app_locale_exception.dart';
-import 'package:onlinebozor/domain/models/ad/user_ad_status.dart';
+import 'package:El_xizmati/data/datasource/network/responses/ad/ad_detail/user_ad_detail_response.dart';
+import 'package:El_xizmati/data/datasource/network/responses/user_ad/user_ad_response.dart';
+import 'package:El_xizmati/data/datasource/network/services/private/user_ad_service.dart';
+import 'package:El_xizmati/data/datasource/preference/auth_preferences.dart';
+import 'package:El_xizmati/data/datasource/preference/user_preferences.dart';
+import 'package:El_xizmati/data/error/app_locale_exception.dart';
+import 'package:El_xizmati/domain/models/ad/user_ad_status.dart';
 
 class UserAdRepository {
   final AuthPreferences _authPreferences;

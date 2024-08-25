@@ -2,13 +2,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:onlinebozor/core/extensions/text_extensions.dart';
-import 'package:onlinebozor/presentation/support/extensions/color_extension.dart';
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
 
 class CustomTextFormField extends StatefulWidget {
   const CustomTextFormField({
     Key? key,
-    this.height = 58,
+    this.height = 60,
     this.autofillHints,
     this.enableSuggestions,
     this.hint,
@@ -188,7 +188,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                 : Colors.transparent,
             width: 2
           ),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(12),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
@@ -197,7 +197,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                 : Colors.transparent,
             width: 2
           ),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(12),
         ),
         disabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
@@ -206,7 +206,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                 : Colors.transparent,
             width: 2
           ),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(12),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
@@ -215,7 +215,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                 : Colors.transparent,
             width: 2
           ),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(12),
         ),
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(
@@ -224,7 +224,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                 : Colors.transparent,
             width: 2
           ),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(12),
         ),
         suffixIcon: !widget.obscureText
             ? widget.endIcon
