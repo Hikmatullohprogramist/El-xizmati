@@ -1,3 +1,4 @@
+import 'package:El_xizmati/data/datasource/network/sp_response/category/category_response/category_response.dart';
 import 'package:flutter/material.dart';
 import 'package:El_xizmati/core/enum/enums.dart';
 import 'package:El_xizmati/core/extensions/text_extensions.dart';
@@ -15,8 +16,8 @@ class CategoryWidget extends StatelessWidget {
     this.loadingState,
   });
 
-  final Function(Category category) onClicked;
-  final Category category;
+  final Function(Results category) onClicked;
+  final Results category;
   final bool isShowCount;
   final LoadingState? loadingState;
 
@@ -29,34 +30,27 @@ class CategoryWidget extends StatelessWidget {
           onClicked(category);
         },
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-          color: context.cardColor,
-          child: Row(
+          color: Colors.white,
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              RoundedCachedNetworkImage(
-                width: 20,
-                height: 20,
-                imageId: category.icon ?? "",
-              ),
-              SizedBox(width: 16),
-              Expanded(
-                child: Row(
-                  children: [
-                    Flexible(
-                      child: (category.name).w(500).s(14).copyWith(
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                    ),
-                    if (isShowCount && category.hasAdCount)
-                      "(${category.adCount})".w(500).s(14)
-                  ],
+              Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6),
+                  border: Border.all(color: Color(0xFFBDBDBD))
+                ),
+                child: Center(
+                  child: Image.network(category.icon),
                 ),
               ),
-              SizedBox(width: 4),
-              Assets.images.icArrowRight.svg(height: 16, width: 16)
+              SizedBox(height: 21),
+              'Category name'.s(13).c(Color(0xFF703EDB)).copyWith(
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF703EDB), fontSize: 13)
+                  ),
             ],
           ),
         ),

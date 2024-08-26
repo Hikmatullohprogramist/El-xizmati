@@ -99,7 +99,6 @@ class _ApplicationState extends State<Application> {
           Builder(
             builder: (context) {
               _initStateMessageManager(context);
-
               return const SizedBox.shrink();
             },
           ),

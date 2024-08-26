@@ -1,3 +1,4 @@
+import 'package:El_xizmati/data/datasource/network/sp_response/category/category_response/category_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:El_xizmati/core/enum/enums.dart';
@@ -20,7 +21,7 @@ class CategoryCubit extends BaseCubit<CategoryState, CategoryEvent> {
 
   Future<void> getCatalogCategories() async {
     await _commonRepository
-        .getCatalogCategories(CategoryType.catalog)
+        .getCatalogCategories()
         .initFuture()
         .onStart(() {
           updateState((state) => state.copyWith(
@@ -28,7 +29,7 @@ class CategoryCubit extends BaseCubit<CategoryState, CategoryEvent> {
               ));
         })
         .onSuccess((data) {
-          final parents = data.where((e) => e.isParent).toList();
+          final parents = data;
           updateState((state) => state.copyWith(
                 allItems: data,
                 visibleItems: parents,
@@ -45,7 +46,7 @@ class CategoryCubit extends BaseCubit<CategoryState, CategoryEvent> {
 
   void setSearchQuery(String? query) {
     if (query == null || query.trim().isEmpty) {
-      final parentItems = states.allItems.where((e) => e.isParent).toList();
+      final parentItems = states.allItems;
 
       updateState((state) => state.copyWith(visibleItems: parentItems));
     } else {
@@ -65,9 +66,9 @@ class CategoryCubit extends BaseCubit<CategoryState, CategoryEvent> {
     }
   }
 
-  void setSelectedCategory(Category category) {
+  void setSelectedCategory(Results category) {
     var categories = states.allItems
-        .where((e) => e.isNotParent && e.parentId == category.id)
+        .where((e) => e.id == category.id)
         .toList();
 
     if (categories.isNotEmpty) {

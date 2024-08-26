@@ -124,7 +124,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       style: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w400,
-        color: context.textPrimary,
+        color: Color(0xFF703EDB),
       ),
       textCapitalization:
           widget.textCapitalization ?? TextCapitalization.none,
@@ -155,7 +155,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SizedBox(width: 12),
-                  (widget.prefixText ?? "").c(context.textPrimary),
+                  (widget.prefixText ?? "").c(Color(0xFF703EDB)),
                   SizedBox(width: 8),
                   Container(
                     width: 1,

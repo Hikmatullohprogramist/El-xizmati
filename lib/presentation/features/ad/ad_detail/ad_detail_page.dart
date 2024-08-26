@@ -715,10 +715,10 @@ class AdDetailPage
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Strings.adDetailChipPublishedDate
+                  /*Strings.adDetailChipPublishedDate
                       .s(12)
                       .w(400)
-                      .c(context.textPrimary.withOpacity(0.85)),
+                      .c(context.textPrimary.withOpacity(0.85)),*/
                   SizedBox(height: 6),
                   (state.adDetail!.createdAt ?? "").w(500).s(12)
                 ],
