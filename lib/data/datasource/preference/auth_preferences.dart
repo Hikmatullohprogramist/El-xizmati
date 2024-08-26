@@ -8,6 +8,7 @@ class AuthPreferences {
   AuthPreferences(this._preferences);
 
   static const String _keyAccessToken = "string_access_token";
+  static const String _keyRefreshToken = "string_refresh_token";
   static const String _keyIsAuthorized = "bool_is_authorized";
 
   @factoryMethod
@@ -17,9 +18,11 @@ class AuthPreferences {
   }
 
   String get token => _preferences.getString(_keyAccessToken) ?? "";
+  String get refreshToken => _preferences.getString(_keyRefreshToken) ?? "";
 
-  Future<void> setToken(String token) async =>
-      await _preferences.setOrRemove(_keyAccessToken, token);
+  Future<void> setToken(String token) async => await _preferences.setOrRemove(_keyAccessToken, token);
+
+  Future<void> setRefreshToken(String token) async => await _preferences.setOrRemove(_keyRefreshToken, token);
 
   bool get isAuthorized => _preferences.getBool(_keyIsAuthorized) ?? false;
 

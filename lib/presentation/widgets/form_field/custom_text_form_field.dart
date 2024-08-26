@@ -126,8 +126,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         fontWeight: FontWeight.w400,
         color: context.textPrimary,
       ),
-      textCapitalization:
-          widget.textCapitalization ?? TextCapitalization.none,
+      textCapitalization: widget.textCapitalization ?? TextCapitalization.none,
       controller: widget.controller,
       keyboardType: widget.inputType,
       minLines: widget.minLines,
@@ -138,8 +137,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       enableSuggestions: widget.enableSuggestions ?? true,
       textInputAction: widget.textInputAction,
       onChanged: widget.onChanged,
-      inputFormatters:
-          widget.inputFormatters != null ? [widget.inputFormatters!] : null,
+      inputFormatters: widget.inputFormatters != null ? [widget.inputFormatters!] : null,
       decoration: InputDecoration(
         filled: true,
         hintText: widget.hint,
@@ -226,9 +224,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           ),
           borderRadius: BorderRadius.circular(12),
         ),
-        suffixIcon: !widget.obscureText
-            ? widget.endIcon
-            : IconButton(
+        suffixIcon: !widget.obscureText? widget.endIcon : IconButton(
                 icon: Icon(
                   _passwordVisible ? Icons.visibility : Icons.visibility_off,
                   color: Theme.of(context).primaryColorDark,

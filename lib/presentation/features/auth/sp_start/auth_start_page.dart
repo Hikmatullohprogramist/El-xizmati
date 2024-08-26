@@ -88,14 +88,29 @@ class AuthStartPage
                     cubit(context).setPhone(value);
                   },
                 ),
+                SizedBox(height: 8),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(height: 35,width: 35,
-                    child: Column(
-                      children: [
-                        Assets.spImages.svgImages.icCheckboxSelected.svg(),
-                      ],
-                    ),),
+                    InkWell(
+                      borderRadius: BorderRadius.circular(4),
+                      onTap: (){
+                        cubit(context).checkBox();
+                      },
+                      child: Container(height: 35,width: 35,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          if(state.oriflameCheckBox)
+                          Assets.spImages.svgImages.icCheckboxSelected.svg()
+                          else
+                          Assets.spImages.svgImages.icCheckboxUnselected.svg(),
+                        ],
+                      ),),
+                    ),
+                    SizedBox(width: 5),
                     Expanded(
                       child: RichText(
                         text: TextSpan(
@@ -119,9 +134,7 @@ class AuthStartPage
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () async {
                                   try {
-                                    var url = Uri.parse(
-                                      "https://online-bozor.uz/uz/page/privacy",
-                                    );
+                                    var url = Uri.parse(" ",);
                                     await launchUrl(url);
                                   } catch (error) {
                                     Logger().w("privacy policy launch error = $error");
@@ -159,8 +172,7 @@ class AuthStartPage
               ),
             ),
             SizedBox(height: 13),
-            Container(height: 60,
-              decoration: BoxDecoration(
+            Container(height: 60,decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(40),
                       topLeft:  Radius.circular(40),
