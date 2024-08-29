@@ -1,5 +1,6 @@
 import 'package:El_xizmati/presentation/features/common/sp_add_picture/add_picture_cubit.dart';
 import 'package:El_xizmati/presentation/features/common/sp_set_intro/set_intro_region_cubit.dart';
+import 'package:El_xizmati/presentation/features/home/features/my_profile/features/change_password/change_password_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 import 'package:El_xizmati/presentation/features/ad/ad_detail/ad_detail_cubit.dart';
@@ -151,6 +152,7 @@ extension GetItModuleApp on GetIt {
     registerFactory(()=> ProfileCubit(get()));
     registerFactory(()=> PersonalCubit());
     registerFactory(()=> AddPictureCubit());
+    registerFactory(()=> ChangePasswordCubit());
 
     await allReady();
   }

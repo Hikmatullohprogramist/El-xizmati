@@ -31,7 +31,7 @@ class PersonalPage
       // resizeToAvoidBottomInset: false,
       appBar: DefaultAppBar(
         titleText: Strings.profileEditTitle,
-        titleTextColor: context.textPrimary,
+        titleTextColor: context.colors.primary,
         backgroundColor: context.backgroundGreyColor,
         onBackPressed: () => context.router.pop(),
       ),

@@ -120,7 +120,9 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
             icon: Assets.spImages.icProfileChangePassword,
             topRadius: 0,
             bottomRadius: 0,
-            onClicked: () => {},
+            onClicked: () => {
+              context.router.push(ChangePasswordRoute())
+            },
           ),
           ProfileItemWidget(
             name: Strings.profileMyBalans,

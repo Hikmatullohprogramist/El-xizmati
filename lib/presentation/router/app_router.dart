@@ -82,6 +82,7 @@ import 'package:El_xizmati/presentation/features/realpay/add_card/add_card_with_
 import 'package:El_xizmati/presentation/features/realpay/refill/refill_with_realpay_page.dart';
 
 import '../features/common/sp_add_picture/add_picture_page.dart';
+import '../features/home/features/my_profile/features/change_password/change_password_page.dart';
 import '../features/home/features/my_profile/features/personal/personal_page.dart';
 
 part 'app_router.gr.dart';
@@ -397,6 +398,10 @@ class AppRouter extends _$AppRouter {
     AutoRoute(
           page: AddPictureRoute.page,
           path: '/sp_add_picture'
+        ),
+    AutoRoute(
+          page: ChangePasswordRoute.page,
+          path: '/sp_edit_password'
         )
       ];
 }
