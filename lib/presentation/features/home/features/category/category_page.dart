@@ -1,23 +1,19 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
-import 'package:El_xizmati/core/gen/assets/assets.gen.dart';
-import 'package:El_xizmati/core/gen/localization/strings.dart';
 import 'package:El_xizmati/domain/models/ad/ad_list_type.dart';
-import 'package:El_xizmati/domain/models/category/category.dart';
 import 'package:El_xizmati/presentation/router/app_router.dart';
 import 'package:El_xizmati/presentation/support/cubit/base_page.dart';
 import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
 import 'package:El_xizmati/presentation/widgets/category/category_shimmer.dart';
-import 'package:El_xizmati/presentation/widgets/category/category_widget.dart';
 import 'package:El_xizmati/presentation/widgets/divider/custom_divider.dart';
 import 'package:El_xizmati/presentation/widgets/loading/loader_state_widget.dart';
-import 'package:El_xizmati/presentation/widgets/search/search_input_field.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 
+import '../../../../../data/datasource/network/sp_response/category/category_response/category_response.dart';
+import '../../../../widgets/category/category_widget.dart';
 import 'category_cubit.dart';
 
 @RoutePage()
-class CategoryPage
-    extends BasePage<CategoryCubit, CategoryState, CategoryEvent> {
+class CategoryPage extends BasePage<CategoryCubit, CategoryState, CategoryEvent> {
   CategoryPage({super.key});
 
   final searchTextController = TextEditingController();
@@ -34,7 +30,7 @@ class CategoryPage
       case CategoryEventType.onOpenProductList:
         context.router.push(AdListRoute(
           adListType: AdListType.popularCategoryAds,
-          keyWord: event.category!.keyWord,
+          keyWord: event.category!.name,
           title: event.category!.name,
           sellerTin: null,
         ));
@@ -45,7 +41,7 @@ class CategoryPage
   Widget onWidgetBuild(BuildContext context, CategoryState state) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: context.appBarColor,
+        /*backgroundColor: context.appBarColor,
         elevation: 0.5,
         toolbarHeight: 64,
         leadingWidth: 0,
@@ -60,10 +56,12 @@ class CategoryPage
               ),
             ),
           ),
-        ],
+        ],*/
+        backgroundColor: context.backgroundWhiteColor,
+        elevation: 0,
       ),
       resizeToAvoidBottomInset: false,
-      backgroundColor: context.backgroundGreyColor,
+      backgroundColor: context.backgroundWhiteColor,
       body: LoaderStateWidget(
         isFullScreen: true,
         loadingState: state.loadState,
@@ -89,15 +87,29 @@ class CategoryPage
     );
   }
 
-  ListView _buildSuccessBody(CategoryState state) {
-    return ListView.separated(
+  GridView _buildSuccessBody(CategoryState state) {
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3,mainAxisSpacing: 8,crossAxisSpacing: 8,childAspectRatio: 0.8),
+      padding: EdgeInsets.all(24),
+      physics: BouncingScrollPhysics(),
+      itemBuilder: (context, index){
+        return CategoryWidget(
+          onClicked: (Results category) {
+            cubit(context).setSelectedCategory(category);
+          },
+          category: state.visibleItems[index],
+        );
+      },
+      itemCount: state.visibleItems.length,
+    );
+    /*ListView.separated(
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       itemCount: state.visibleItems.length,
       itemBuilder: (context, index) {
         return CategoryWidget(
-          onClicked: (Category category) {
+          onClicked: (Results category) {
             cubit(context).setSelectedCategory(category);
           },
           category: state.visibleItems[index],
@@ -106,6 +118,6 @@ class CategoryPage
       separatorBuilder: (BuildContext context, int index) {
         return CustomDivider(startIndent: 48, color: Color(0xFFE5E9F3));
       },
-    );
+    );*/
   }
 }

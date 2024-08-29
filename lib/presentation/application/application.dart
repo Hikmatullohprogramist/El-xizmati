@@ -86,10 +86,9 @@ class _ApplicationState extends State<Application> {
             themeMode: _themeMode,
             routerConfig: _appRouter.config(
               deepLinkBuilder: (_) => DeepLink(
-                // _languagePreferences.isLanguageSelected
-                //     ? [HomeRoute()]
-                //     : [SetLanguageRoute()],
-                  [SetLanguageRoute()]
+                _languagePreferences.isLanguageSelected
+                    ? [HomeRoute()]
+                    : [SetLanguageRoute()],
               ),
               navigatorObservers: () => [ChuckerFlutter.navigatorObserver],
             ),
@@ -100,7 +99,6 @@ class _ApplicationState extends State<Application> {
           Builder(
             builder: (context) {
               _initStateMessageManager(context);
-
               return const SizedBox.shrink();
             },
           ),
@@ -120,7 +118,7 @@ class _ApplicationState extends State<Application> {
 
   ColorScheme _getLightModeColorScheme() {
     return ColorScheme.fromSwatch(brightness: Brightness.light).copyWith(
-      primary: Color(0xFF5C6AC4),
+      primary: Color(0xFF703EDB),
       secondary: Color(0xFFFFFFFF),
       background: Color(0xFFFFFFFF),
       onBackground: Color(0xFF000000),

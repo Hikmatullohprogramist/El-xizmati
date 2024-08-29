@@ -109,7 +109,7 @@ class CustomElevatedButton extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           textAlign: actualTextAlign,
-                        ),
+                        ).w(500),
                     SizedBox(width: 4),
                     Visibility(
                       visible: hasIcon,

@@ -96,11 +96,11 @@ class CategorySelectionPage extends BasePage<CategorySelectionCubit,
       shrinkWrap: true,
       itemCount: state.visibleItems.length,
       itemBuilder: (context, index) {
-        return CategoryWidget(
+        return Column();/*CategoryWidget(
           category: state.visibleItems[index],
           isShowCount: false,
           onClicked: (category) => cubit(context).selectCategory(category),
-        );
+        );*/
       },
       separatorBuilder: (BuildContext context, int index) {
         return CustomDivider(startIndent: 54, color: Color(0xFFE5E9F3));

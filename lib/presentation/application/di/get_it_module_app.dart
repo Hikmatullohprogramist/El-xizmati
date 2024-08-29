@@ -1,5 +1,6 @@
-import 'package:El_xizmati/presentation/features/auth/sp_start/auth_start_cubit.dart';
+import 'package:El_xizmati/presentation/features/common/sp_add_picture/add_picture_cubit.dart';
 import 'package:El_xizmati/presentation/features/common/sp_set_intro/set_intro_region_cubit.dart';
+import 'package:El_xizmati/presentation/features/home/features/my_profile/features/change_password/change_password_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 import 'package:El_xizmati/presentation/features/ad/ad_detail/ad_detail_cubit.dart';
@@ -11,9 +12,10 @@ import 'package:El_xizmati/presentation/features/auth/face_id/confirmation/face_
 import 'package:El_xizmati/presentation/features/auth/face_id/start/face_id_start_cubit.dart';
 import 'package:El_xizmati/presentation/features/auth/login/login_cubit.dart';
 import 'package:El_xizmati/presentation/features/auth/one_id/one_id_cubit.dart';
-import 'package:El_xizmati/presentation/features/auth/sp_otp_confirm/otp_confirmation_cubit.dart';
+import 'package:El_xizmati/presentation/features/auth/otp_confirm/otp_confirmation_cubit.dart';
 import 'package:El_xizmati/presentation/features/auth/registration/registration_cubit.dart';
 import 'package:El_xizmati/presentation/features/auth/reset_password/reset_password_cubit.dart';
+import 'package:El_xizmati/presentation/features/auth/start/auth_start_cubit.dart';
 import 'package:El_xizmati/presentation/features/common/add_address/add_address_cubit.dart';
 import 'package:El_xizmati/presentation/features/common/category_selection/category_selection_cubit.dart';
 import 'package:El_xizmati/presentation/features/common/currency_selection/currency_selection_cubit.dart';
@@ -149,6 +151,8 @@ extension GetItModuleApp on GetIt {
     //SP
     registerFactory(()=> ProfileCubit(get()));
     registerFactory(()=> PersonalCubit());
+    registerFactory(()=> AddPictureCubit());
+    registerFactory(()=> ChangePasswordCubit());
 
     await allReady();
   }
