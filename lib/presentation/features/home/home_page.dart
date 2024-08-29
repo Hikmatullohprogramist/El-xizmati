@@ -18,7 +18,7 @@ class HomePage extends BasePage<HomeCubit, HomeState, HomeEvent> {
   Widget onWidgetBuild(BuildContext context, HomeState state) {
     return AutoTabsRouter(
       routes: [
-        DashboardRoute(),
+        MainRoute(),
         CategoryRoute(),
         AdCreationChooserRoute(),
         CartRoute(),

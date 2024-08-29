@@ -16,7 +16,7 @@ import 'package:El_xizmati/presentation/widgets/button/custom_text_button.dart';
 import 'package:El_xizmati/presentation/widgets/form_field/custom_text_form_field.dart';
 
 import '../../../../core/gen/assets/assets.gen.dart';
-import 'otp_confirmation_cubit.dart';
+import '../sp_otp_confirm/otp_confirmation_cubit.dart';
 
 @RoutePage()
 class OtpConfirmationPage extends BasePage<OtpConfirmationCubit,
@@ -41,15 +41,15 @@ class OtpConfirmationPage extends BasePage<OtpConfirmationCubit,
 
   @override
   void onEventEmitted(BuildContext context, OtpConfirmationEvent event) {
-    switch (event.type) {
-      case OtpConfirmationEventType.onOpenResetPassword:
-        context.router.replace(ResetPasswordRoute());
-      case OtpConfirmationEventType.onOpenIdentityVerification:
-        context.router.replace(FaceIdConfirmationRoute(
-          secretKey: cubit(context).states.secretKey,
-          faceIdConfirmType: FaceIdConfirmType.forRegister,
-        ));
-    }
+    // switch (event.type) {
+    //   case OtpConfirmationEventType.onOpenResetPassword:
+    //     context.router.replace(ResetPasswordRoute());
+    //   case OtpConfirmationEventType.onOpenIdentityVerification:
+    //     context.router.replace(FaceIdConfirmationRoute(
+    //       secretKey: cubit(context).states.secretKey,
+    //       faceIdConfirmType: FaceIdConfirmType.forRegister,
+    //     ));
+    // }
   }
 
   @override
@@ -121,15 +121,15 @@ class OtpConfirmationPage extends BasePage<OtpConfirmationCubit,
             ),
             Row(
               children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: CustomTextButton(
-                    text: Strings.authConfirmAgainSentSmsYourPhone,
-                    isEnabled: state.isResentButtonEnabled,
-                    isLoading: state.isResendLoading,
-                    onPressed: () => cubit(context).resendCode(),
-                  ),
-                ),
+                // Align(
+                //   alignment: Alignment.centerLeft,
+                //   child: CustomTextButton(
+                //     text: Strings.authConfirmAgainSentSmsYourPhone,
+                //     isEnabled: state.isResentButtonEnabled,
+                //     isLoading: state.isResendLoading,
+                //     // onPressed: () => cubit(context).resendCode(),
+                //   ),
+                // ),
                 format
                     .format(
                       DateTime.fromMillisecondsSinceEpoch(
@@ -144,7 +144,7 @@ class OtpConfirmationPage extends BasePage<OtpConfirmationCubit,
             CustomElevatedButton(
               text: Strings.commonContinue,
               onPressed: () {
-                cubit(context).confirmCode();
+                // cubit(context).confirmCode();
               },
               isEnabled: state.isConfirmButtonEnabled,
               isLoading: state.isConfirmLoading,
@@ -164,7 +164,7 @@ class OtpConfirmationPage extends BasePage<OtpConfirmationCubit,
                   TextSpan(
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
-                        cubit(context).launchURLApp();
+                        // cubit(context).launchURLApp();
                       },
                     text: Strings.authPersonPolicy,
                     style: TextStyle(

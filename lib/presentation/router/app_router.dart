@@ -84,6 +84,8 @@ import '../../data/datasource/network/sp_response/category/category_response/cat
 import '../features/common/sp_add_picture/add_picture_page.dart';
 import '../features/home/features/my_profile/features/change_password/change_password_page.dart';
 import '../features/home/features/my_profile/features/personal/personal_page.dart';
+import '../features/home/features/sp_main/features/ad_create/ad_create_page.dart';
+import '../features/home/features/sp_main/main_page.dart';
 
 part 'app_router.gr.dart';
 
@@ -150,8 +152,8 @@ class AppRouter extends _$AppRouter {
           initial: true,
           children: [
             AutoRoute(
-              page: DashboardRoute.page,
-              path: 'dashboard',
+              page: MainRoute.page,
+              path: 'main',
               maintainState: false,
               keepHistory: false,
             ),
@@ -402,6 +404,10 @@ class AppRouter extends _$AppRouter {
     AutoRoute(
           page: ChangePasswordRoute.page,
           path: '/sp_edit_password'
+        ),
+    AutoRoute(
+          page: AdCreateRoute.page,
+          path: '/sp_ad_create'
         )
       ];
 }

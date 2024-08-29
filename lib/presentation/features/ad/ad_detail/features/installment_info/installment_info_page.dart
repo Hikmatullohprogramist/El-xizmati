@@ -149,12 +149,12 @@ class InstallmentInfoPage extends BasePage<InstallmentInfoCubit,
                                       ? Color(0xFFa855f7)
                                       : Colors.red),
                               SizedBox(width: 2),
-                              Strings.planInstallmentsMinimumPrice
-                                  .w(400)
-                                  .s(12)
-                                  .c(state.enableStartPrice
-                                      ? Color(0xFFa855f7)
-                                      : Colors.red),
+                              // Strings.planInstallmentsMinimumPrice
+                              //     .w(400)
+                              //     .s(12)
+                              //     .c(state.enableStartPrice
+                              //         ? Color(0xFFa855f7)
+                              //         : Colors.red),
                               SizedBox(width: 2),
                               ListPriceTextWidget(
                                 price: (state.constCurrentSelectionMonth
