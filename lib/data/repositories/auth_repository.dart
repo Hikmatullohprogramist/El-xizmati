@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:El_xizmati/data/datasource/network/sp_response/auth/auth_otp_confirm_response.dart';
 import 'package:El_xizmati/data/datasource/network/sp_response/auth/auth_send_sms_response.dart';
 import 'package:dio/src/response.dart';
 import 'package:El_xizmati/data/datasource/floor/dao/ad_entity_dao.dart';
@@ -152,17 +153,16 @@ class AuthRepository {
     return checkResponse.data.sessionToken;
   }
 
-  Future<String> registerConfirmOtpCode(
-    String phone,
-    String sessionToken,
-    String otpCode,
-  ) async {
-    final response = await _authService.registerConfirmOtpCode(
-      otpCode: otpCode,
-      sessionToken: sessionToken,
-    );
-    final confirmResponse = RegisterOtpConfirmResponse.fromJson(response.data);
-    return confirmResponse.data.secretKey;
+  /// sp use
+  Future<AuthOtpConfirmResponse?> registerConfirmOtpCode(String phone, String otpCode) async {
+    final response = await _authService.sendConfirmOtpCode(otpCode: otpCode, phoneNumber: phone);
+    final confirmResponse = AuthOtpConfirmRootResponse.fromJson(response.data).data;
+    if (confirmResponse?.tokens != null) {
+      await _authPreferences.setToken(confirmResponse?.tokens?.access ?? "");
+      await _authPreferences.setRefreshToken(confirmResponse?.tokens?.refresh ?? "");
+      await _authPreferences.setIsAuthorized(true);
+    }
+    return confirmResponse;
   }
 
   Future<void> registerFaceIdIdentity(String image, String secretKey) async {

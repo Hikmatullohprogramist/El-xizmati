@@ -34,5 +34,6 @@ class OtpConfirmationEvent with _$OtpConfirmationEvent {
 
 enum OtpConfirmationEventType {
   onOpenResetPassword,
-  onOpenIdentityVerification,
+  onOpenRegistrationRoute,
+  onOpenHome
 }

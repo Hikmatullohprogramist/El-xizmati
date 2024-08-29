@@ -230,11 +230,11 @@ class PersonalPage
       ),
     );
   }
+
   void _showRegionBottomSheet(BuildContext context, PersonalState state) {
 
 
-    showCupertinoModalBottomSheet(
-      context: context,
+    showCupertinoModalBottomSheet(context: context,
       builder: (BuildContext buildContext) {
         return Material(
           child: ListView.builder(

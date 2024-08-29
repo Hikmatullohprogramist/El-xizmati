@@ -1,3 +1,4 @@
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -5,13 +6,11 @@ import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 import 'package:El_xizmati/core/gen/assets/assets.gen.dart';
 import 'package:El_xizmati/core/gen/localization/strings.dart';
-import 'package:El_xizmati/domain/models/otp/otp_confirm_type.dart';
 import 'package:El_xizmati/presentation/router/app_router.dart';
 import 'package:El_xizmati/presentation/support/cubit/base_page.dart';
 import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
 import 'package:El_xizmati/presentation/support/extensions/controller_exts.dart';
 import 'package:El_xizmati/presentation/support/extensions/mask_formatters.dart';
-import 'package:El_xizmati/presentation/widgets/app_bar/default_app_bar.dart';
 import 'package:El_xizmati/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:El_xizmati/presentation/widgets/button/custom_text_button.dart';
 import 'package:El_xizmati/presentation/widgets/form_field/custom_text_form_field.dart';
@@ -34,6 +33,9 @@ class RegistrationPage
     super.key,
     required this.phoneNumber,
   });
+
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
 
   final TextEditingController _birthDateController = TextEditingController();
   final TextEditingController _docNumberController = TextEditingController();
@@ -60,10 +62,8 @@ class RegistrationPage
 
   @override
   Widget onWidgetBuild(BuildContext context, RegistrationState state) {
-    _birthDateController
-        .updateOnRestore(birthDateMaskFormatter.formatString(state.brithDate));
-    _docNumberController
-        .updateOnRestore(docNumberMaskFormatter.formatString(state.docNumber));
+    _birthDateController.updateOnRestore(birthDateMaskFormatter.formatString(state.brithDate));
+    _docNumberController.updateOnRestore(docNumberMaskFormatter.formatString(state.docNumber));
     _docSeriesController.updateOnRestore(state.docSeries.toUpperCase());
     _passwordController.updateOnRestore(state.password);
     _confirmController.updateOnRestore(state.confirm);
@@ -71,14 +71,8 @@ class RegistrationPage
     return Scaffold(
       backgroundColor: context.backgroundWhiteColor,
       resizeToAvoidBottomInset: false,
-      appBar: DefaultAppBar(
-        titleText: Strings.authRegisterRegister,
-        titleTextColor: context.textPrimary,
-        backgroundColor: context.appBarColor,
-        onBackPressed: () => context.router.pop(),
-      ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Form(
           key: _formKey,
           child: AutofillGroup(
@@ -88,7 +82,35 @@ class RegistrationPage
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 24),
+                  SizedBox(height: MediaQuery.of(context).size.height*0.06),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Assets.images.pngImages.appLogo.image(width: 64, height: 64),
+                      SizedBox(width: 10),
+                      Column(children: [
+                        Text("el xizmati").w(700).s(32).c(Color(0xFF703EDB)),
+                        Text("ishchilar jamiyati").w(300).s(18).c(Color(0xFF2A174E)),
+                      ],)
+                    ],),
+                  SizedBox(height: 30),
+                  Text("Shaxsingizni tasdiqlovchi ma'lumotlaringizni kiriting").w(700).s(20).c(Color(0xFF2A174E)).copyWith(textAlign: TextAlign.center),
+                  SizedBox(height: 30),
+
+                  /// name
+                  LabelTextField("Ismingiz"),
+                  SizedBox(height: 8),
+                  CustomTextFormField(
+                    autofillHints: const [AutofillHints.name],
+                    inputType: TextInputType.name,
+                    keyboardType: TextInputType.name,
+                    maxLines: 1,
+                   hint: "Ismingiz",
+                   // label: state.phoneNumber,
+                    controller: _firstNameController,
+                    onChanged: (value) {},
+                  ),
+                  ///
                   LabelTextField(Strings.commonDocInfo),
                   SizedBox(height: 8),
                   Row(

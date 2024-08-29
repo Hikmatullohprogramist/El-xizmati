@@ -24,11 +24,7 @@ class AuthStartCubit extends BaseCubit<AuthStartState, AuthStartEvent> {
   ) : super(AuthStartState());
 
   void setPhone(String phone) {
-    logger.i(phone);
-    updateState((state) => state.copyWith(
-          phone: phone,
-          validation: phone.length >= 9,
-        ));
+    updateState((state) => state.copyWith(phone: phone, validation: phone.length >= 9));
   }
 
   Future<void> authSendSMSCode() async {
@@ -42,6 +38,10 @@ class AuthStartCubit extends BaseCubit<AuthStartState, AuthStartEvent> {
     }).onFinished(() {
       updateState((state) => state.copyWith(loading: false));
     }).executeFuture();
+  }
+
+  void checkBox(){
+    updateState((state) => state.copyWith(oriflameCheckBox: !states.oriflameCheckBox));
   }
 
 

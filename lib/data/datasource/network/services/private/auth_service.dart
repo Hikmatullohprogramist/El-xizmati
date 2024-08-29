@@ -48,15 +48,15 @@ class AuthService {
     return _dio.post('api/mobile/v1/auth/register', data: body);
   }
 
-  Future<Response> registerConfirmOtpCode({
-    required String sessionToken,
+  Future<Response> sendConfirmOtpCode({
+    required String phoneNumber,
     required String otpCode,
   }) {
     final body = {
-      RestQueryKeys.sessionId: sessionToken,
-      RestQueryKeys.otpCode: otpCode
+      RestQueryKeys.phoneNumber: phoneNumber,
+      RestQueryKeys.code: otpCode
     };
-    return _dio.post('api/mobile/v1/auth/register/otp-confirm', data: body);
+    return _dio.post('/api/mobile/auth/verify-phone-number/', data: body);
   }
 
   Future<Response> registerFaceIdIdentity({

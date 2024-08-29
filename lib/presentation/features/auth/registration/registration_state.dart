@@ -3,6 +3,10 @@ part of 'registration_cubit.dart';
 @freezed
 class RegistrationState with _$RegistrationState {
   const factory RegistrationState({
+
+    @Default("") String firstName,
+    @Default("") String lastName,
+
 //
     @Default("") String docSeries,
     @Default("") String docNumber,
