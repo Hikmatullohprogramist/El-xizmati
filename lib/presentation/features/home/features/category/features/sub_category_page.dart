@@ -1,3 +1,4 @@
+import 'package:El_xizmati/data/datasource/network/sp_response/category/category_response/category_response.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:El_xizmati/domain/models/ad/ad_list_type.dart';
@@ -18,7 +19,7 @@ class SubCategoryPage
     extends BasePage<SubCategoryCubit, SubCategoryState, SubCategoryEvent> {
   final String title;
   final int parentId;
-  final List<Category> categories;
+  final List<Results> categories;
 
   const SubCategoryPage({
     super.key,
@@ -78,7 +79,7 @@ class SubCategoryPage
             context.router.push(
               AdListRoute(
                 adListType: AdListType.popularCategoryAds,
-                keyWord: category.keyWord,
+                keyWord: category.name,
                 title: category.name,
                 sellerTin: null,
               ),

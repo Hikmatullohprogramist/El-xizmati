@@ -11,7 +11,7 @@ class DashboardService {
   }
 
   Future<Response> getCatalogCategories() {
-    return _dio.get('api/mobile/v1/categories');
+    return _dio.get('api/mobile/categories/');
   }
 
   Future<Response> getPopularCategories(int page, int limit) {

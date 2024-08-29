@@ -3,8 +3,8 @@ part of 'category_cubit.dart';
 @freezed
 class CategoryState with _$CategoryState {
   const factory CategoryState({
-    @Default(<Category>[]) List<Category> allItems,
-    @Default(<Category>[]) List<Category> visibleItems,
+    @Default(<Results>[]) List<Results> allItems,
+    @Default(<Results>[]) List<Results> visibleItems,
     @Default(LoadingState.loading) LoadingState loadState,
     String? searchQuery,
   }) = _CategoryState;
@@ -14,8 +14,8 @@ class CategoryState with _$CategoryState {
 class CategoryEvent with _$CategoryEvent {
   const factory CategoryEvent(
     CategoryEventType type, {
-    List<Category>? categories,
-    Category? category,
+    List<Results>? categories,
+    Results? category,
   }) = _CategoryEvent;
 }
 

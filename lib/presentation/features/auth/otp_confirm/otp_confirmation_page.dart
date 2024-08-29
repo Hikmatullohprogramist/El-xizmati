@@ -15,6 +15,7 @@ import 'package:El_xizmati/presentation/widgets/button/custom_elevated_button.da
 import 'package:El_xizmati/presentation/widgets/button/custom_text_button.dart';
 import 'package:El_xizmati/presentation/widgets/form_field/custom_text_form_field.dart';
 
+import '../../../../core/gen/assets/assets.gen.dart';
 import 'otp_confirmation_cubit.dart';
 
 @RoutePage()
@@ -56,18 +57,23 @@ class OtpConfirmationPage extends BasePage<OtpConfirmationCubit,
     return Scaffold(
       backgroundColor: context.backgroundWhiteColor,
       resizeToAvoidBottomInset: false,
-      appBar: DefaultAppBar(
-        titleText: Strings.authConfirmCorfimationCode,
-        titleTextColor: context.textPrimary,
-        backgroundColor: context.backgroundGreyColor,
-        onBackPressed: () => context.router.pop(),
+      appBar: AppBar(
+        backgroundColor: context.backgroundWhiteColor,
+        elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
+      body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 35, right: 35, top: 20),
+              child: Assets.images.pngImages.appLogo.image(width: 64, height: 64),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 35, right: 35),
+              child: "el xizmati".w(700).s(32).c(Color(0xFF703EDB)),
+            ),
             SizedBox(height: 20),
             Align(
               alignment: Alignment.centerLeft,
