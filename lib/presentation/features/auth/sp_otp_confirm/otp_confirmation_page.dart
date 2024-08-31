@@ -44,7 +44,7 @@ class OtpConfirmationPage extends BasePage<OtpConfirmationCubit,
         context.router.replace(RegistrationRoute(phoneNumber: phoneNumber));
       case OtpConfirmationEventType.onOpenHome:
         context.router.pushAndPopUntil(
-          DashboardRoute(), predicate: (Route<dynamic> route) => route is DashboardRoute, // Stop at LoginPage
+          HomeRoute(), predicate: (Route<dynamic> route) => route is HomeRoute, // Stop at LoginPage
         );
 
     }

@@ -7,5 +7,8 @@ part 'ad_create_cubit.freezed.dart';
 @injectable
 class AdCreateCubit extends BaseCubit<AdCreateState, AdCreateEvent>{
   AdCreateCubit():super(AdCreateState());
+  void setScrolling(bool isScrolling){
+    updateState((state)=> state.copyWith(isScrolling:isScrolling));
+  }
 
 }

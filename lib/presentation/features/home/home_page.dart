@@ -6,7 +6,6 @@ import 'package:El_xizmati/core/gen/localization/strings.dart';
 import 'package:El_xizmati/presentation/router/app_router.dart';
 import 'package:El_xizmati/presentation/support/cubit/base_page.dart';
 import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
-import 'package:El_xizmati/presentation/support/extensions/platform_sizes.dart';
 
 import 'home_cubit.dart';
 

@@ -28,6 +28,7 @@ class MainPage extends BasePage<MainCubit, MainState, MainEvent>{
               context.router.push(AdCreateRoute());
             },
             child: Container(
+              alignment: Alignment.center,
               padding: EdgeInsets.all(60),
               decoration: BoxDecoration(
                 color: context.colors.primary.withOpacity(0.3),

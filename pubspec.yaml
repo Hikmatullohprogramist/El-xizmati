@@ -67,6 +67,7 @@ dependencies:
   webview_flutter: ^4.7.0
   uuid: ^4.1.0
   flutter_multi_formatter: ^2.13.0
+  yandex_mapkit: ^4.1.0
 
 dev_dependencies:
   flutter_test:

@@ -285,8 +285,8 @@ image_list_max_count_error,Siz ko‘pi bilan {max_count} ta rasmni qo‘shishing
 image_list_title,Rasmlar,Фото,Расмлар
 installment_payment,Muddatli to‘lov,Оплата в рассрочку,Муддатли тўлов
 installment_payment_price,{monthly_price} so‘m / {month_count} oy,{monthly_price} сум / {month_count} месяца,{monthly_price} сўм / {month_count} ой
-installmnet_table_payment_balance,To‘lov summasi,Сумма платежа,Тўлов суммаси
-installmnet_table_remaining_balance,Qoldiq summa,Остаточная сумма,Қолдиқ сумма
+installment_table_payment_balance,To‘lov summasi,Сумма платежа,Тўлов суммаси
+installment_table_remaining_balance,Qoldiq summa,Остаточная сумма,Қолдиқ сумма
 intend_page_calculate_cart_data,Intend karta ma'lumotlari hisoblanmoqda..,Расчет данных карты интенд,Интенд карта маълумотлари ҳисобланмоқда..
 intend_page_intend_limit,Sizning ajratilgan limitingiz:,Ваш выделенный лимит:,Сизнинг ажратилган лимитингиз:
 intend_page_not_intend_cart_center,kartalar bo‘limiga o‘ting,зайдите в раздел карточек,карталар бўлимига ўтинг
@@ -361,7 +361,8 @@ payment_filter_status,Holat,Статус,Ҳолат
 payment_filter_to_date,Gacha:,До:,Гача:
 payment_filter_type,Turi,Тип,Тури
 payment_title,To‘lovlar,Платежи,Тўловлар
-plan_installments_minimum_price,Eng kam,Меньше,Энг кам
+plan_installments_empty_price,Boshlang‘ich to‘lov majburiy emas,Первоначальный взнос не обязателен,Бошланғич тўлов мажбурий эмас
+plan_installments_minimum_price,{price}dan va yuqori,От {price} и выше,{price}дан ва юқори
 plan_installments_monthly_price,Oylik to‘lov,Ежемесячная плата,Ойлик тўлов
 plan_installments_start_date,Birinchi to‘lov sanasi,Дата первого платежа,Биринчи тўлов санаси
 plan_installments_start_price,Boshlang‘ich to‘lov,Первый платеж,Бошланғич тўлов
