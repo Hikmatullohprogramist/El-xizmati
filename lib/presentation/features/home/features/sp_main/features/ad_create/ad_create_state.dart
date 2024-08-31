@@ -3,12 +3,12 @@ part of 'ad_create_cubit.dart';
 @freezed
 class AdCreateState with _$AdCreateState {
   const factory AdCreateState({
-    @Default('') String something,
+    @Default(null) UploadableFile? image,
     @Default(false) bool isScrolling,
     @Default("") String category,
     @Default("") String description,
     @Default("") String price,
-    @Default("") String location,
+    @Default(null) Point? location,
     @Default("") String country,
     @Default("") String region,
     @Default("") String district,

@@ -18,6 +18,8 @@ import '../../../../widgets/profile/profile_item_widget.dart';
 
 @RoutePage()
 class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
+  const ProfilePage({super.key});
+
   @override
   Widget onWidgetBuild(BuildContext context, ProfileState state) {
     return Scaffold(

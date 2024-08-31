@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:El_xizmati/core/extensions/text_extensions.dart';
 import 'package:El_xizmati/presentation/features/home/features/sp_main/features/ad_create/ad_create_cubit.dart';
 import 'package:El_xizmati/presentation/support/cubit/base_page.dart';
@@ -22,8 +24,10 @@ class AdCreatePage
   AdCreatePage({super.key});
 
   Point? _point;
-  TextEditingController _districtController = TextEditingController();
-
+  final _districtController = TextEditingController();
+  final _workNameController = TextEditingController();
+  final _workInfoController = TextEditingController();
+  final _priceController = TextEditingController();
   @override
   Widget onWidgetBuild(BuildContext context, AdCreateState state) {
     return Scaffold(
@@ -43,9 +47,9 @@ class AdCreatePage
               color: Colors.white, borderRadius: BorderRadius.circular(16)),
           child: Column(
             children: [
-              _buildMediaLoader(context),
+              _buildMediaLoader(context, state),
               SizedBox(height: 16),
-              _buildWorkInfo(context),
+              _buildWorkInfo(context,state),
               SizedBox(height: 16),
               _buildMap(context),
               SizedBox(height: 16),
@@ -58,28 +62,40 @@ class AdCreatePage
     );
   }
 
-  Widget _buildMediaLoader(BuildContext context) {
+  Widget _buildMediaLoader(BuildContext context, AdCreateState state) {
     return Container(
-      height: 125,
+      width: double.infinity,
+      clipBehavior: Clip.hardEdge,
       alignment: Alignment.center,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color: context.cardColor.withOpacity(0.3)),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          showImagePickerDialog(context, cubit(context));
+        },
         borderRadius: BorderRadius.circular(12),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.image_outlined),
-            Text("Rasm yoki video qo'shing").c(context.textPrimary)
-          ],
+        child: state.image!=null ? Image.file(
+          File(state.image!.xFile!.path),
+          fit: BoxFit
+              .cover, // Change to BoxFit.cover for better filling
+        ) :SizedBox(
+          height: 125,
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.image_outlined),
+                Text("Rasm yoki video qo'shing").c(context.textPrimary)
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildWorkInfo(BuildContext context) {
+  Widget _buildWorkInfo(BuildContext context, AdCreateState state) {
     return Column(
       children: [
         LabelTextField(
@@ -88,6 +104,7 @@ class AdCreatePage
         ),
         SizedBox(height: 6),
         CustomDropdownFormField(
+          value: state.category,
           hint: "Remont",
           onTap: () {},
         ),
@@ -98,6 +115,7 @@ class AdCreatePage
         ),
         SizedBox(height: 6),
         CustomTextFormField(
+          controller: _workNameController,
           hint: "Ish nomini yozing",
         ),
         SizedBox(height: 16),
@@ -108,6 +126,7 @@ class AdCreatePage
         SizedBox(height: 6),
         CustomTextFormField(
           maxLines: 7,
+          controller: _workInfoController,
           hint: "Ish haqida barchasini yozing",
         ),
         SizedBox(height: 16),
@@ -117,6 +136,7 @@ class AdCreatePage
         ),
         SizedBox(height: 6),
         CustomTextFormField(
+          controller: _priceController,
           endIcon: Icon(Icons.monetization_on_outlined),
           hint: "Narxini yozing",
         ),
@@ -142,7 +162,7 @@ class AdCreatePage
               onMapCreated: (controller) {},
               onCameraPositionChanged: (point, reason, isStopped) {
                 if (isStopped) {
-                  _point = point.target;
+                   cubit(context).updateLoc(point.target);
                 }
               },
             ),
@@ -221,6 +241,7 @@ class AdCreatePage
             itemBuilder: (BuildContext buildContext, int index) {
               return InkWell(
                 onTap: () {
+
                   Navigator.pop(buildContext);
                 },
                 child: Padding(
@@ -283,6 +304,58 @@ class AdCreatePage
                 ),
               );
             },
+          ),
+        );
+      },
+    );
+  }
+  void showImagePickerDialog(BuildContext context, AdCreateCubit cubit) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(24),
+            ),
+          ),
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 32),
+            margin: EdgeInsets.symmetric(horizontal: 50),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                    cubit.takeImage();
+                  },
+                  child: Row(children: [
+                    Icon(
+                      Icons.camera_alt_rounded,
+                      color: context.colors.buttonPrimary,
+                    ),
+                    SizedBox(width: 10),
+                    Text("Rasmga olish").w(600).c(context.textPrimary)
+                  ]),
+                ),
+                SizedBox(height: 32),
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                    cubit.pickImage();
+                  },
+                  child: Row(children: [
+                    Icon(
+                      Icons.image_outlined,
+                      color: context.colors.buttonPrimary,
+                    ),
+                    SizedBox(width: 10),
+                    Text("Galereyadan tanlash").w(600).c(context.textPrimary)
+                  ]),
+                ),
+              ],
+            ),
           ),
         );
       },
