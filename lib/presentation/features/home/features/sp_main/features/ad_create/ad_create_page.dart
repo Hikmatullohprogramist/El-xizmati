@@ -5,10 +5,12 @@ import 'package:El_xizmati/presentation/features/home/features/sp_main/features/
 import 'package:El_xizmati/presentation/support/cubit/base_page.dart';
 import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
 import 'package:El_xizmati/presentation/widgets/app_bar/default_app_bar.dart';
+import 'package:El_xizmati/presentation/widgets/button/custom_elevated_button.dart';
 import 'package:El_xizmati/presentation/widgets/form_field/custom_dropdown_form_field.dart';
 import 'package:El_xizmati/presentation/widgets/form_field/custom_text_form_field.dart';
 import 'package:El_xizmati/presentation/widgets/form_field/label_text_field.dart';
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:logger/logger.dart';
@@ -23,11 +25,20 @@ class AdCreatePage
     extends BasePage<AdCreateCubit, AdCreateState, AdCreateEvent> {
   AdCreatePage({super.key});
 
+  @override
+  void onEventEmitted(BuildContext context, AdCreateEvent event) {
+    switch (event.type) {
+      case AdCreateEventType.onSuccess:
+        context.router.pop();
+    }
+  }
+
   Point? _point;
   final _districtController = TextEditingController();
   final _workNameController = TextEditingController();
   final _workInfoController = TextEditingController();
   final _priceController = TextEditingController();
+
   @override
   Widget onWidgetBuild(BuildContext context, AdCreateState state) {
     return Scaffold(
@@ -49,15 +60,43 @@ class AdCreatePage
             children: [
               _buildMediaLoader(context, state),
               SizedBox(height: 16),
-              _buildWorkInfo(context,state),
+              _buildWorkInfo(context, state),
               SizedBox(height: 16),
               _buildMap(context),
               SizedBox(height: 16),
               _buildRegionBlock(context, state),
               SizedBox(height: 16),
+              _buildPaymentType(context),
+              SizedBox(height: 40),
+              _buildButton(context)
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildButton(BuildContext context) {
+    return CustomElevatedButton(text: "E'lon berish", onPressed: () {
+      cubit(context).createAd();
+    });
+  }
+
+  Widget _buildPaymentType(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(color: Colors.grey),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Row(
+            children: [
+              Icon(
+                Icons.radio_button_off,
+                color: context.iconPrimary,
+              )
+            ],
+          )
+        ],
       ),
     );
   }
@@ -75,22 +114,23 @@ class AdCreatePage
           showImagePickerDialog(context, cubit(context));
         },
         borderRadius: BorderRadius.circular(12),
-        child: state.image!=null ? Image.file(
-          File(state.image!.xFile!.path),
-          fit: BoxFit
-              .cover, // Change to BoxFit.cover for better filling
-        ) :SizedBox(
-          height: 125,
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.image_outlined),
-                Text("Rasm yoki video qo'shing").c(context.textPrimary)
-              ],
-            ),
-          ),
-        ),
+        child: state.image != null
+            ? Image.file(
+                File(state.image!.xFile!.path),
+                fit: BoxFit.cover, // Change to BoxFit.cover for better filling
+              )
+            : SizedBox(
+                height: 125,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.image_outlined),
+                      Text("Rasm yoki video qo'shing").c(context.textPrimary)
+                    ],
+                  ),
+                ),
+              ),
       ),
     );
   }
@@ -147,10 +187,10 @@ class AdCreatePage
 
   Widget _buildMap(BuildContext context) {
     return Listener(
-      onPointerDown: (_){
-          cubit(context).setScrolling(true);
+      onPointerDown: (_) {
+        cubit(context).setScrolling(true);
       },
-      onPointerUp: (_){
+      onPointerUp: (_) {
         cubit(context).setScrolling(false);
       },
       child: ClipRRect(
@@ -162,7 +202,7 @@ class AdCreatePage
               onMapCreated: (controller) {},
               onCameraPositionChanged: (point, reason, isStopped) {
                 if (isStopped) {
-                   cubit(context).updateLoc(point.target);
+                  cubit(context).updateLoc(point.target);
                 }
               },
             ),
@@ -181,6 +221,7 @@ class AdCreatePage
       ),
     );
   }
+
   Widget _buildRegionBlock(BuildContext context, AdCreateState state) {
     return Container(
       decoration: BoxDecoration(
@@ -189,7 +230,10 @@ class AdCreatePage
       child: Column(
         children: [
           SizedBox(height: 16),
-          LabelTextField("Viloyat", isRequired: false,),
+          LabelTextField(
+            "Viloyat",
+            isRequired: false,
+          ),
           SizedBox(height: 6),
           CustomDropdownFormField(
             value: state.country,
@@ -198,7 +242,10 @@ class AdCreatePage
             onTap: () => _showRegionBottomSheet(context, state),
           ),
           SizedBox(height: 16),
-          LabelTextField("Shahar:", isRequired: false,),
+          LabelTextField(
+            "Shahar:",
+            isRequired: false,
+          ),
           SizedBox(height: 6),
           CustomDropdownFormField(
             value: state.region,
@@ -207,7 +254,10 @@ class AdCreatePage
             onTap: () => _showDistrictBottomSheet(context, state),
           ),
           SizedBox(height: 16),
-          LabelTextField("Manzil", isRequired: false,),
+          LabelTextField(
+            "Manzil",
+            isRequired: false,
+          ),
           SizedBox(height: 6),
           CustomTextFormField(
             controller: _districtController,
@@ -215,7 +265,10 @@ class AdCreatePage
             validator: (value) => NotEmptyValidator.validate(value),
           ),
           SizedBox(height: 16),
-          LabelTextField("Ish turi:", isRequired: false,),
+          LabelTextField(
+            "Ish turi:",
+            isRequired: false,
+          ),
           SizedBox(height: 6),
           CustomDropdownFormField(
             value: state.type,
@@ -229,9 +282,8 @@ class AdCreatePage
   }
 
   void _showRegionBottomSheet(BuildContext context, AdCreateState state) {
-
-
-    showCupertinoModalBottomSheet(context: context,
+    showCupertinoModalBottomSheet(
+      context: context,
       builder: (BuildContext buildContext) {
         return Material(
           child: ListView.builder(
@@ -241,7 +293,6 @@ class AdCreatePage
             itemBuilder: (BuildContext buildContext, int index) {
               return InkWell(
                 onTap: () {
-
                   Navigator.pop(buildContext);
                 },
                 child: Padding(
@@ -255,9 +306,8 @@ class AdCreatePage
       },
     );
   }
+
   void _showDistrictBottomSheet(BuildContext context, AdCreateState state) {
-
-
     showCupertinoModalBottomSheet(
       context: context,
       builder: (BuildContext buildContext) {
@@ -282,9 +332,8 @@ class AdCreatePage
       },
     );
   }
+
   void _showWorkTypeBottomSheet(BuildContext context, AdCreateState state) {
-
-
     showCupertinoModalBottomSheet(
       context: context,
       builder: (BuildContext buildContext) {
@@ -309,6 +358,7 @@ class AdCreatePage
       },
     );
   }
+
   void showImagePickerDialog(BuildContext context, AdCreateCubit cubit) {
     showDialog(
       context: context,

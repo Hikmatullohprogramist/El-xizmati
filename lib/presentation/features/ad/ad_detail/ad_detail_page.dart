@@ -839,14 +839,14 @@ class AdDetailPage
                     children: [
                       Assets.images.icTrustedSeller.svg(width: 15, height: 15),
                       SizedBox(width: 6),
-                      Strings.commonTrustedSeller
-                          .s(13)
-                          .w(500)
-                          .c(context.textPrimaryInverse)
-                          .copyWith(
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                      // Strings.commonTrustedSeller
+                      //     .s(13)
+                      //     .w(500)
+                      //     .c(context.textPrimaryInverse)
+                      //     .copyWith(
+                      //       maxLines: 1,
+                      //       overflow: TextOverflow.ellipsis,
+                      //     ),
                     ],
                   ),
                 ),

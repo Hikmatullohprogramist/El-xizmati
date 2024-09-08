@@ -1,9 +1,11 @@
+import 'package:El_xizmati/core/extensions/list_extensions.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:El_xizmati/data/datasource/network/constants/rest_query_keys.dart';
 import 'package:El_xizmati/data/datasource/network/extensions/rest_mappers.dart';
 import 'package:El_xizmati/domain/models/ad/ad_transaction_type.dart';
 import 'package:El_xizmati/domain/models/ad/ad_type.dart';
+import 'package:logger/logger.dart';
 
 class AdCreationService {
   final Dio _dio;
@@ -404,5 +406,31 @@ class AdCreationService {
       "api/mobile/v1/get-request-ad-details-for-edit",
       queryParameters: queryParameters,
     );
+  }
+  Future<Response> createAd(
+      {required String name,
+        required String description,
+        required String price,
+        required int category,
+        required String workType,
+        required String district,
+        required String address,
+        required double longitude,
+        required double latitude,
+        required String token,
+        List<String>? medias}) {
+    Map<String, Object?> body = {
+      "name": name,
+      "description": description,
+      "price": price,
+      "category": category,
+      "work_type": workType,
+      "district": district,
+      "address": address,
+      "latitude": latitude,
+      "longitude": longitude,
+      "medias": medias
+    };
+    return _dio.post("/api/mobile/ads/", data: body);
   }
 }
