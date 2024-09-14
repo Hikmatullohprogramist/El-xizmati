@@ -1,4 +1,5 @@
 import 'package:El_xizmati/core/extensions/list_extensions.dart';
+import 'package:El_xizmati/domain/models/image/uploadable_file.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:El_xizmati/data/datasource/network/constants/rest_query_keys.dart';
@@ -418,7 +419,7 @@ class AdCreationService {
         required double longitude,
         required double latitude,
         required String token,
-        List<String>? medias}) {
+        required List<UploadableFile> medias}) {
     Map<String, Object?> body = {
       "name": name,
       "description": description,

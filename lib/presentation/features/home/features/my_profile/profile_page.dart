@@ -1,3 +1,5 @@
+import 'package:El_xizmati/presentation/widgets/button/custom_elevated_button.dart';
+import 'package:El_xizmati/presentation/widgets/button/custom_outlined_button.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -113,18 +115,14 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
             icon: Assets.spImages.icProfileInfo,
             topRadius: 16,
             bottomRadius: 0,
-            onClicked: () => {
-              context.router.push(PersonalRoute())
-            },
+            onClicked: () => {context.router.push(PersonalRoute())},
           ),
           ProfileItemWidget(
             name: Strings.settingsChangePassword,
             icon: Assets.spImages.icProfileChangePassword,
             topRadius: 0,
             bottomRadius: 0,
-            onClicked: () => {
-              context.router.push(ChangePasswordRoute())
-            },
+            onClicked: () => {context.router.push(ChangePasswordRoute())},
           ),
           ProfileItemWidget(
             name: Strings.profileMyBalans,
@@ -138,14 +136,14 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
             icon: Assets.spImages.icProfileNotification,
             topRadius: 0,
             bottomRadius: 0,
-            onClicked: () => {},
+            onClicked: () => {context.router.push(NotificationRoute())},
           ),
           ProfileItemWidget(
             name: Strings.profileChangeLanguage,
             icon: Assets.spImages.icProfileLanguage,
             topRadius: 0,
             bottomRadius: 0,
-            onClicked: () => {},
+            onClicked: () => {context.router.push(LanguageThemeRoute())},
           ),
           Divider(
             height: 16,
@@ -164,17 +162,67 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
             icon: Assets.spImages.icProfileIcon,
             topRadius: 0,
             bottomRadius: state.isAuthorized ? 0 : 16,
-            onClicked: () => {},
+            onClicked: () => {context.router.push(AboutRoute())},
           ),
           ProfileItemWidget(
             name: 'Chiqish',
             icon: Assets.spImages.icProfileLogout,
             topRadius: 0,
             bottomRadius: state.isAuthorized ? 0 : 16,
-            onClicked: () => {},
+            onClicked: () => {_showExitDialog(context)},
           ),
         ],
       ),
     );
+  }
+
+  void _showExitDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(24),
+              ),
+            ),
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 32),
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "Ilovadan chiqish",
+                    style:
+                        TextStyle(color: context.colors.primary, fontSize: 24),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    "Lorem ipsum dolor sit amet consectetur. Sed posuere tellus mauris scelerisque curabitur.",
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 30),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: CustomOutlinedButton(
+                              text: "Chiqish", onPressed: () {})),
+                      SizedBox(width: 20),
+                      Expanded(
+                        child: CustomElevatedButton(
+                          text: "Bekor qilish",
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          );
+        });
   }
 }

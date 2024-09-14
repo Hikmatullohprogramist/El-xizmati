@@ -355,10 +355,11 @@ class AdCreationRepository {
     required String address,
     required double longitude,
     required double latitude,
-    List<String>? medias
+    required List<UploadableFile> medias
   }) async {
     final response = await _adCreationService.createAd(
       name: name,
+      medias: medias,
       description: description,
       price: price,
       category: category,

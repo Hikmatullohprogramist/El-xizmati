@@ -6,6 +6,7 @@ class AdCreateState with _$AdCreateState {
     @Default(null) UploadableFile? image,
     @Default(false) bool isScrolling,
     @Default("") String category,
+    @Default("") String name,
     @Default("") String description,
     @Default("") String price,
     @Default(null) Point? location,

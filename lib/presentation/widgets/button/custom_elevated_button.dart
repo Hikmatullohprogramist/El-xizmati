@@ -78,11 +78,7 @@ class CustomElevatedButton extends StatelessWidget {
         ),
         child: Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [actualBackgroundColor, Color(0xFF9A6AFF)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight
-            ),
+            color: actualBackgroundColor
           ),
           width: buttonWidth,
           height: buttonHeight,

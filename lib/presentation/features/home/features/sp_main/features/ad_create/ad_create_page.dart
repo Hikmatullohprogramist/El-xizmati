@@ -84,18 +84,34 @@ class AdCreatePage
 
   Widget _buildPaymentType(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: Colors.grey),
+      decoration: BoxDecoration(color: Colors.black12),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Row(
-            children: [
-              Icon(
-                Icons.radio_button_off,
-                color: context.iconPrimary,
-              )
-            ],
-          )
+          InkWell(
+            onTap: (){},
+            child: Row(
+              children: [
+                Icon(
+                  Icons.radio_button_off,
+                  color: context.iconPrimary,
+                ),
+                Text("Tizim orqali")
+              ],
+            ),
+          ),
+          InkWell(
+            onTap: (){},
+            child: Row(
+              children: [
+                Icon(
+                  Icons.radio_button_checked,
+                  color: context.iconPrimary,
+                ),
+                Text("Naqd pul")
+              ],
+            ),
+          ),
         ],
       ),
     );

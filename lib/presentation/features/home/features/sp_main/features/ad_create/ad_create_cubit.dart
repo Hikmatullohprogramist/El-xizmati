@@ -64,15 +64,16 @@ class AdCreateCubit extends BaseCubit<AdCreateState, AdCreateEvent> {
   Future<void> createAd() async {
     _adCreationRepository
         .createAd(
-            name: "",
-            description: "",
-            price: "price",
-            category: 0,
-            workType: "",
-            district: "district",
-            address: "",
-            longitude: 0,
-            latitude: 1)
+            name: "Nigga",
+            description: "Qora ishchi",
+            price: "100",
+            category: 1,
+            workType: "one_time",
+            district: "122",
+            address: "America",
+            medias: [],
+            longitude: 1.3232,
+            latitude: 1.232)
         .initFuture()
         .onStart(() {
           updateState((s) => s.copyWith(isLoadingCreate: true));
