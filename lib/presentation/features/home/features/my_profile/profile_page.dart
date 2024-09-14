@@ -129,7 +129,9 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
             icon: Assets.spImages.icProfileBalance,
             topRadius: 0,
             bottomRadius: 0,
-            onClicked: () => {},
+            onClicked: () => {
+
+            },
           ),
           ProfileItemWidget(
             name: Strings.profileNotification,
@@ -155,7 +157,9 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
             icon: Assets.spImages.icProfileSupport,
             topRadius: 0,
             bottomRadius: 0,
-            onClicked: () => {},
+            onClicked: () => {
+              context.router.push(ChatRoute())
+            },
           ),
           ProfileItemWidget(
             name: 'Ilova haqida',

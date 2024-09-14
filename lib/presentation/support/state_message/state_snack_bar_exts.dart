@@ -62,7 +62,7 @@ extension StateSnackBarExts on BuildContext {
       title: title.s(16).w(600).c(color),
       description: message.s(14).w(400).c(color),
       icon: Icon(icon, color: color),
-      notificationPosition: NotificationPosition.topCenter,
+      position: Alignment.topCenter,
       animation: AnimationType.fromTop,
       progressIndicatorColor: color,
     ).show(this);

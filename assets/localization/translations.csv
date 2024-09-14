@@ -153,19 +153,19 @@ auth_start_login_with_one_id,One-ID bilan kirish,Войти с помощью On
 auth_start_singin,Tizimga kirish,Войти в систему,Тизимга кириш
 auth_verification_forget_password,Parolni unutdingizmi?,Забыли пароль?,Паролни унутдингизми?
 billing_payment_type_credit,Kredit,Кредит,Кредит
+billing_payment_type_credit_card,Kredit karta,Кредитная карта,Кредит карта
 billing_payment_type_debit,Debit karta,Дебетовая карта,Дебит карта
 billing_payment_type_hold,Komissiya,Комиссия,Комиссия
+billing_payment_type_hold_cancelled,Bloklangan mablag‘ yechildi,Заблокированные средства были разблокированы.,Блокланган маблағ ечилди
 billing_payment_type_hold_card,Kartadagi bloklangan mablag‘,Заблокированные средства на карте,Картадаги блокланган маблағ
 billing_payment_type_hold_card_cancelled,Kartadagi bloklangan mablag‘ yechildi,Заблокированная сумма на карте снята,Картадаги блокланган маблағ ечилди
-billing_payment_type_credit_card,Kredit karta,Кредитная карта,Кредит карта
-billing_payment_type_hold_cancelled,Bloklangan mablag‘ yechildi,Заблокированные средства были разблокированы.,Блокланган маблағ ечилди
 billing_transaction_type_credit,Kredit,Кредит,Кредит
+billing_transaction_type_credit_card,Kredit karta,Кредитная карта,Кредит карта
 billing_transaction_type_debit,Kirim,Доход,Кирим
 billing_transaction_type_hold,Blokdagi mablag‘,Средства в блоке,Блокдаги маблағ
+billing_transaction_type_hold_cancelled,Bloklangan mablag‘ yechildi,Заблокированные средства сняты,Блокланган маблағ ечилди
 billing_transaction_type_hold_card,Kartadagi bloklangan mablag‘,Заблокированные средства на карте,Картадаги блокланган маблағ
 billing_transaction_type_hold_card_cancelled,Kartadagi bloklangan mablag‘ yechildi,Заблокированные средства на снятии с карты,Картадаги блокланган маблағ ечилди
-billing_transaction_type_credit_card,Kredit karta,Кредитная карта,Кредит карта
-billing_transaction_type_hold_cancelled,Bloklangan mablag‘ yechildi,Заблокированные средства сняты,Блокланган маблағ ечилди
 bottom_navigation_add_ad,Yaratish,Создать,Яратиш
 bottom_navigation_cart,Savat,Корзина,Сават
 bottom_navigation_catalog,Turkumlar,Категории,Туркумлар
@@ -339,6 +339,8 @@ my_requests_title,Mening so‘rovlarim,Мои Запросы,Менинг сўр
 no_have_notification,Sizda hech qanday bildirishnoma yoʻq,У вас нет уведомлений,Сизда ҳеч қандай билдиришнома йўқ
 no_you_have_card_description,Ushbu kartalar bilan siz mahsulot yoki xizmat uchun to‘lashingiz mumkin,С помощью этих карт вы можете оплатит за товар или услугу,Ушбу карталар билан сиз маҳсулот ёки хизмат учун тўлашингиз мумкин
 no_you_have_card_title,Siz hali toʻlov kartasini qoʻshmagansiz,Вы еще не добавили карту для оплаты,Сиз ҳали тўлов картасини қўшмагансиз
+notification_list_total_count,Barcha xabarlar soni: ,Общее количество уведомлений: ,Барча хабарлар сони: 
+notification_list_unread_count,O‘qilmagan xabarlar soni: ,Количество непрочитанных уведомлений: ,Ўқилмаган хабарлар сони: 
 notification_receive_email,Elektron pochta orqali,Через Эл. почту,Электрон почта орқали
 notification_receive_sms,SMS xabar,СМС собщение,СМС хабар
 notification_receive_telegram,Telegram boti,Телеграм бот,Телеграм боти

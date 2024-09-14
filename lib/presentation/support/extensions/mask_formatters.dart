@@ -31,7 +31,7 @@ var cardExpiredMaskFormatter = MaskTextInputFormatter(
   type: MaskAutoCompletionType.lazy,
 );
 
-var priceMaskFormatter = CurrencyTextInputFormatter(
+var priceMaskFormatter = CurrencyTextInputFormatter.currency(
   decimalDigits: 0,
   enableNegative: true,
   inputDirection: InputDirection.right,
@@ -42,7 +42,7 @@ var priceMaskFormatter = CurrencyTextInputFormatter(
   customPattern: null,
 );
 
-var quantityMaskFormatter = CurrencyTextInputFormatter(
+var quantityMaskFormatter = CurrencyTextInputFormatter.currency(
   decimalDigits: 0,
   enableNegative: true,
   inputDirection: InputDirection.right,
