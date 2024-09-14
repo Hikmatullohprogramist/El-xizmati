@@ -21,15 +21,18 @@ import 'package:El_xizmati/domain/models/district/district.dart';
 import 'package:El_xizmati/domain/models/image/uploadable_file.dart';
 import 'package:El_xizmati/domain/models/user/user_address.dart';
 
+import '../datasource/preference/auth_preferences.dart';
+
 class AdCreationRepository {
   final AdCreationService _adCreationService;
   final CategoryEntityDao _categoryEntityDao;
   final UserPreferences _userPreferences;
+  final AuthPreferences _authPreferences;
 
   AdCreationRepository(
     this._adCreationService,
     this._categoryEntityDao,
-    this._userPreferences,
+    this._userPreferences, this._authPreferences,
   );
 
   Future<List<Category>> getAdCreationCategories(
@@ -339,5 +342,33 @@ class AdCreationRepository {
     final response = await _adCreationService.getRequestAdForEdit(adId: adId);
     final adsResponse = RequestAdRootResponse.fromJson(response.data).data;
     return adsResponse;
+  }
+
+  //sp
+  Future<int?> createAd({
+    required String name,
+    required String description,
+    required String price,
+    required int category,
+    required String workType,
+    required String district,
+    required String address,
+    required double longitude,
+    required double latitude,
+    List<String>? medias
+  }) async {
+    final response = await _adCreationService.createAd(
+      name: name,
+      description: description,
+      price: price,
+      category: category,
+      district: district,
+      workType: workType,
+      address: '',
+      longitude: 1,
+      latitude: 1,
+      token: _authPreferences.token
+    );
+    return null;
   }
 }

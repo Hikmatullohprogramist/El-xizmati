@@ -156,7 +156,7 @@ extension GetItModuleApp on GetIt {
     registerFactory(()=> AddPictureCubit());
     registerFactory(()=> ChangePasswordCubit());
     registerFactory(()=> MainCubit());
-    registerFactory(()=> AdCreateCubit());
+    registerFactory(()=> AdCreateCubit(get()));
 
     await allReady();
   }

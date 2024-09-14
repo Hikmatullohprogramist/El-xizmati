@@ -14,10 +14,15 @@ class AdCreateState with _$AdCreateState {
     @Default("") String district,
     @Default("") String type,
     @Default("") String payment_type,
+    // @Default(LoadingState.loading) LoadingState adCreateLoading,
+    @Default(false) bool isLoadingCreate
   }) = _AdCreateState;
 }
 
 @freezed
 class AdCreateEvent with _$AdCreateEvent {
-  const factory AdCreateEvent() = _AdCreateEvent;
+  const factory AdCreateEvent(AdCreateEventType type) = _AdCreateEvent;
+}
+enum AdCreateEventType {
+  onSuccess
 }
