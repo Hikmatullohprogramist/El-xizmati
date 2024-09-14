@@ -1,3 +1,4 @@
+import 'package:El_xizmati/core/gen/assets/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:El_xizmati/core/extensions/text_extensions.dart';
 import 'package:El_xizmati/core/gen/localization/strings.dart';
@@ -30,11 +31,10 @@ class PopularCategoryHorizontal extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(height: 8),
-              CircleCachedNetworkImage(
-                imageId: category.icon ?? "",
-                width: 52,
-                height: 52,
-              ),
+              Container(
+                 width: 40,
+                  height: 40,
+                  child: Assets.spImages.svgImages.toolBox.image()),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 6),
                 child: _getCategoryNameAsString(category),
@@ -42,7 +42,7 @@ class PopularCategoryHorizontal extends StatelessWidget {
               Column(
                 children: [
                   SizedBox(height: 4),
-                  CustomDivider(),
+
                   SizedBox(height: 8),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 6),
