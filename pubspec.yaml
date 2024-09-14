@@ -68,6 +68,10 @@ dependencies:
   uuid: ^4.1.0
   flutter_multi_formatter: ^2.13.0
   yandex_mapkit: ^4.1.0
+  chatview: ^2.2.0
+  flutter_chat_ui: ^1.6.12
+  file_picker: ^8.0.7
+  open_filex: ^4.5.0
 
 dev_dependencies:
   flutter_test:
@@ -107,7 +111,6 @@ flutter:
     - assets/images/png_images/
     - assets/images/bottom_bar/
     - assets/sp_images/
-    - assets/sp_images/png_images/
     - assets/sp_images/svg_images/
     - assets/sp_images/app_logo/
 

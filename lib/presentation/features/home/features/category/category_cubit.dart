@@ -14,10 +14,38 @@ part 'category_state.dart';
 @injectable
 class CategoryCubit extends BaseCubit<CategoryState, CategoryEvent> {
   CategoryCubit(this._commonRepository) : super(CategoryState()) {
-    getCatalogCategories();
+   // getCatalogCategories();
+    setCategories();
   }
 
   final CommonRepository _commonRepository;
+
+  void setCategories(){
+    List<Results> allItems=[];
+     allItems.add(Results(0, "Tozalash", ""));
+     allItems.add(Results(1, "Tuzatish", ""));
+     allItems.add(Results(0, "Remont", ""));
+     allItems.add(Results(1, "Bo'yash", ""));
+     allItems.add(Results(0, "Tozalash", ""));
+     allItems.add(Results(1, "Tuzatish", ""));
+     allItems.add(Results(0, "Tozalash", ""));
+     allItems.add(Results(1, "Tuzatish", ""));
+     allItems.add(Results(0, "Remont", ""));
+     allItems.add(Results(1, "Bo'yash", ""));
+    allItems.add(Results(0, "Tozalash", ""));
+    allItems.add(Results(1, "Tuzatish", ""));
+    allItems.add(Results(0, "Tozalash", ""));
+    allItems.add(Results(1, "Tuzatish", ""));
+    allItems.add(Results(0, "Remont", ""));
+    allItems.add(Results(1, "Bo'yash", ""));
+    allItems.add(Results(0, "Tozalash", ""));
+    allItems.add(Results(1, "Tuzatish", ""));
+
+    updateState((state) => state.copyWith(
+      visibleItems: allItems,
+      loadState: LoadingState.success,
+    ));
+  }
 
   Future<void> getCatalogCategories() async {
     await _commonRepository

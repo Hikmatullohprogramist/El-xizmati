@@ -96,12 +96,9 @@ class OtpConfirmationPage extends BasePage<OtpConfirmationCubit,
                       onPressed: () {},
                     ),
                   ),
-                  format
-                      .format(
-                        DateTime.fromMillisecondsSinceEpoch(
+                  format.format(DateTime.fromMillisecondsSinceEpoch(
                           state.timerTime * 1000,
-                        ),
-                      )
+                        ))
                       .w(500)
                       .s(14)
                       .c(Colors.black)

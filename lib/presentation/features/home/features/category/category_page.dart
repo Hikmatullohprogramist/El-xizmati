@@ -1,5 +1,8 @@
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/core/gen/assets/assets.gen.dart';
 import 'package:El_xizmati/domain/models/ad/ad_list_type.dart';
 import 'package:El_xizmati/presentation/router/app_router.dart';
+import 'package:El_xizmati/presentation/support/colors/static_colors.dart';
 import 'package:El_xizmati/presentation/support/cubit/base_page.dart';
 import 'package:El_xizmati/presentation/support/extensions/color_extension.dart';
 import 'package:El_xizmati/presentation/widgets/category/category_shimmer.dart';
@@ -41,24 +44,16 @@ class CategoryPage extends BasePage<CategoryCubit, CategoryState, CategoryEvent>
   Widget onWidgetBuild(BuildContext context, CategoryState state) {
     return Scaffold(
       appBar: AppBar(
-        /*backgroundColor: context.appBarColor,
-        elevation: 0.5,
+        backgroundColor: context.appBarColor,
+        elevation: 0,
         toolbarHeight: 64,
         leadingWidth: 0,
-        leading: Assets.images.icArrowLeft.svg(color: Colors.transparent),
+        centerTitle: true,
+        //leading: Assets.images.icArrowLeft.svg(color: Colors.red),
+        title: "Kategoriyalar".s(18).c(StaticColors.colorPrimary).w(700),
         actions: [
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.fromLTRB(0, 4, 0, 4),
-              child: SearchInputField(
-                hintText: Strings.searchHintCategory,
-                onQueryChanged: (query) => cubit(context).setSearchQuery(query),
-              ),
-            ),
-          ),
-        ],*/
-        backgroundColor: context.backgroundWhiteColor,
-        elevation: 0,
+
+        ],
       ),
       resizeToAvoidBottomInset: false,
       backgroundColor: context.backgroundWhiteColor,
@@ -89,7 +84,7 @@ class CategoryPage extends BasePage<CategoryCubit, CategoryState, CategoryEvent>
 
   GridView _buildSuccessBody(CategoryState state) {
     return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3,mainAxisSpacing: 8,crossAxisSpacing: 8,childAspectRatio: 0.8),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3,mainAxisSpacing: 10,crossAxisSpacing: 8,childAspectRatio: 0.75),
       padding: EdgeInsets.all(24),
       physics: BouncingScrollPhysics(),
       itemBuilder: (context, index){

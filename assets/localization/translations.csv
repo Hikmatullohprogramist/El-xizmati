@@ -16,7 +16,7 @@ ad_buy_by_one_click,Bir klikda sotib olish,Купить в один клик,Б�
 ad_creation_additional_info_label,Qo‘shimcha ma’lumot,Дополнительная информация,Қўшимча маълумот
 ad_creation_address_label,Mening manzilim,Мои адрес,Менинг манзилим
 ad_creation_addresses_info_label,Manzillar,Адреса,Манзиллар
-ad_creation_auto_renew_label,Avtomatik uzaytirish,Автопродление,Автоматик узайтириш
+ad_creation_auto_renew_label,Avtomatik uzaytirish,Автопродление,Автопродление
 ad_creation_auto_renew_off_desc,E’lon 15 kundan keyin faolsizlantiriladi,Объявление будет деактивировано через 15 дней,Эълон 15 кундан кейин фаолсизлантирилади
 ad_creation_auto_renew_on_desc,E’lon har 15 kunda avtomatik uzaytiriladi,Автоматически продлевать объявление каждые 15 дней,Эълон ҳар 15 кунда автоматик узайтирилади
 ad_creation_business_label,Biznes,Бизнес,Бизнес
@@ -32,6 +32,7 @@ ad_creation_exchange_title,Almashish,Обмен,Алмашиш
 ad_creation_free_delivery_label,Bepul yetkazib berish,Бесплатная доставка,Бепул етказиб бериш
 ad_creation_free_title,Bepul,Бесплатно,Бепул
 ad_creation_from_price_label,dan,с,дан
+ad_creation_image_min_count_error,2 yoki undan ortiq rasm qo‘shish talab qilinadi,Требуется добавить 2 и более фото,2 ёки ундан ортиқ расм қўшиш талаб қилинади
 ad_creation_name_label,Mahsulot nomi,Название товара,Маҳсулот номи
 ad_creation_negotiable_label,Kelishish mumkin,Договорная,Келишиш мумкин
 ad_creation_paid_delivery_label,Pullik yetkazib berish,Платная доставка,Пуллик етказиб бериш
@@ -98,6 +99,7 @@ ad_empty_message_all,Siz hali birorta ham e’lon qo‘shmadingiz!,Вы еще �
 ad_empty_message_cancelled,Sizda hozircha bekor qilingan e‘lon yo‘q!,У вас нет отмененных объявлений!,Сизда ҳозирча бекор қилинган эълон йўқ!
 ad_empty_message_inactive,Sizda hozircha nofaol e‘lon yo‘q!,У вас пока нет неактивных объявлений!,Сизда ҳозирча нофаол эълон йўқ!
 ad_empty_message_wait,Sizda hozircha ko‘rib chiqilayotgan e’lon yo‘q!,У вас нет ожидающих объявлений!,Сизда ҳозирча кўриб чиқилаётган эълон йўқ!
+ad_installment_hint_status,Bo‘lib to‘lash hozirgi paytda ishlamayapti,Оплата в рассрочку на данный момент не доступна,Бўлиб тўлаш ҳозирги пайтда ишламаяпти
 ad_list_interesting_products,Qiziqarli mahsulotlar,Интересные продукты,Қизиқарли маҳсулотлар
 ad_list_interesting_services,Qiziqarli xizmatlar,Интересные услуги,Қизиқарли хизматлар
 ad_list_low_price_products,Hamyonbop mahsulotlar,Доступные продукты,Ҳамёнбоп маҳсулотлар
@@ -150,6 +152,20 @@ auth_start_login_with_mobile_id,Mobile-ID bilan kirish,Войти с помощ�
 auth_start_login_with_one_id,One-ID bilan kirish,Войти с помощью One-ID,One-ID билан кириш
 auth_start_singin,Tizimga kirish,Войти в систему,Тизимга кириш
 auth_verification_forget_password,Parolni unutdingizmi?,Забыли пароль?,Паролни унутдингизми?
+billing_payment_type_credit,Kredit,Кредит,Кредит
+billing_payment_type_debit,Debit karta,Дебетовая карта,Дебит карта
+billing_payment_type_hold,Komissiya,Комиссия,Комиссия
+billing_payment_type_hold_card,Kartadagi bloklangan mablag‘,Заблокированные средства на карте,Картадаги блокланган маблағ
+billing_payment_type_hold_card_cancelled,Kartadagi bloklangan mablag‘ yechildi,Заблокированная сумма на карте снята,Картадаги блокланган маблағ ечилди
+billing_payment_type_credit_card,Kredit karta,Кредитная карта,Кредит карта
+billing_payment_type_hold_cancelled,Bloklangan mablag‘ yechildi,Заблокированные средства были разблокированы.,Блокланган маблағ ечилди
+billing_transaction_type_credit,Kredit,Кредит,Кредит
+billing_transaction_type_debit,Kirim,Доход,Кирим
+billing_transaction_type_hold,Blokdagi mablag‘,Средства в блоке,Блокдаги маблағ
+billing_transaction_type_hold_card,Kartadagi bloklangan mablag‘,Заблокированные средства на карте,Картадаги блокланган маблағ
+billing_transaction_type_hold_card_cancelled,Kartadagi bloklangan mablag‘ yechildi,Заблокированные средства на снятии с карты,Картадаги блокланган маблағ ечилди
+billing_transaction_type_credit_card,Kredit karta,Кредитная карта,Кредит карта
+billing_transaction_type_hold_cancelled,Bloklangan mablag‘ yechildi,Заблокированные средства сняты,Блокланган маблағ ечилди
 bottom_navigation_add_ad,Yaratish,Создать,Яратиш
 bottom_navigation_cart,Savat,Корзина,Сават
 bottom_navigation_catalog,Turkumlar,Категории,Туркумлар
@@ -233,6 +249,9 @@ common_retake_photo,Qayta suratga olish,Переснять фото,Қайта �
 common_retry,Qayta urinish,Повторить попытку,Қайта уриниш
 common_save,Saqlash,Сохранить,Сақлаш
 common_save_changes,O‘zgarishlarni saqlash,Сохранить изменения,Ўзгаришларни сақлаш
+common_seller_reliable,Ishonchli sotuvchi,Надежный продавец,Ишончли сотувчи
+common_seller_stable,Oddiy sotuvchi,Обычный продавец,Оддий сотувчи
+common_seller_unreliable,Ishonchsiz sotuvchi,Ненадежный продавец,Ишончсиз сотувчи
 common_send,Yuborish,Отправить,Юбориш
 common_show_less,Kamroq ko‘rsatish,Показать меньше,Камроқ кўрсатиш
 common_show_more,Ko‘proq ko‘rsatish,Показать больше,Кўпроқ кўрсатиш
@@ -240,7 +259,6 @@ common_skip,O‘tkazib yuborish,Пропустить,Ўтказиб юбориш
 common_street,Ko'cha,Улица,Кўча
 common_take_photo,Rasmga olish,Снять фото ,Расмга олиш
 common_total_cost,Umumiy narx,Общая стоимость,Умумий нарх
-common_trusted_seller,Ishonchli sotuvchi,Надежный продавец,Ишончли сотувчи
 common_unfind,topilmadi,не найдено,топилмади
 common_yes,Ha,Да,Ҳа
 create_request_title,So‘rov yaratish,Создать запрос,Сўров яратиш

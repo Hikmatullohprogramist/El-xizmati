@@ -1,3 +1,4 @@
+import 'package:El_xizmati/presentation/features/home/features/cart/chat/chat/chat.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,24 +24,8 @@ class CartPage extends BasePage<CartCubit, CartState, CartEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, CartState state) {
     return Scaffold(
-      appBar: EmptyAppBar(
-        titleText: Strings.bottomNavigationCart,
-        backgroundColor: context.appBarColor,
-        textColor: context.textPrimary,
-      ),
       backgroundColor: context.backgroundGreyColor,
-      body: LoaderStateWidget(
-        isFullScreen: true,
-        loadingState: state.cartAdsState,
-        loadingBody: _buildLoadingBody(),
-        successBody: _buildSuccessBody(context, state),
-        emptyBody: FavoriteEmptyWidget(
-          onActionClicked: () {
-            AutoTabsRouter.of(context).setActiveIndex(0);
-          },
-        ),
-        onRetryClicked: () => cubit(context).getCartAds(),
-      ),
+      body: SizedBox()
     );
   }
 

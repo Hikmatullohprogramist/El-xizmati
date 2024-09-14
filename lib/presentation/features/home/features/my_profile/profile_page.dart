@@ -1,3 +1,4 @@
+import 'package:El_xizmati/presentation/features/home/features/cart/chat/chat/chat.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -157,7 +158,12 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
             icon: Assets.spImages.icProfileSupport,
             topRadius: 0,
             bottomRadius: 0,
-            onClicked: () => {},
+            onClicked: () => {
+            Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ChatPage()),
+            )
+            },
           ),
           ProfileItemWidget(
             name: 'Ilova haqida',

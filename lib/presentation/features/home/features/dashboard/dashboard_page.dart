@@ -40,7 +40,30 @@ class DashboardPage
   @override
   Widget onWidgetBuild(BuildContext context, DashboardState state) {
     return Scaffold(
-      appBar: _buildAppBar(context, state),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+
+        leading: Padding(
+          padding: const EdgeInsets.only(top: 10,left: 10,bottom: 5),
+          child: IconButton(
+            icon: Icon(Icons.menu,color: StaticColors.colorPrimary,),
+            onPressed: () {
+            //  cubit(context).showLogOut(true);
+            },
+          ),
+        ),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(top: 20,right: 15),
+            child: GestureDetector(
+                onTap: (){
+                //  cubit(context).showLogOut(true);
+                },
+                child: "PIN-kodni unitdingizmi?".s(16).w(500).c(StaticColors.textColorPrimary)),
+          )
+        ],
+      ),
       backgroundColor: context.backgroundWhiteColor,
       body: RefreshIndicator(
         displacement: 80,

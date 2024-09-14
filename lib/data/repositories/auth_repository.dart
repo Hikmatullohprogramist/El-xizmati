@@ -18,6 +18,7 @@ import 'package:El_xizmati/data/datasource/preference/auth_preferences.dart';
 import 'package:El_xizmati/data/datasource/preference/user_preferences.dart';
 import 'package:El_xizmati/data/mappers/user_mappers.dart';
 import 'package:El_xizmati/data/repositories/favorite_repository.dart';
+import 'package:logger/logger.dart';
 
 class AuthRepository {
   final AdEntityDao _adEntityDao;
@@ -158,6 +159,8 @@ class AuthRepository {
     final response = await _authService.sendConfirmOtpCode(otpCode: otpCode, phoneNumber: phone);
     final confirmResponse = AuthOtpConfirmRootResponse.fromJson(response.data).data;
     if (confirmResponse?.tokens != null) {
+      Logger().e("acces token ${confirmResponse?.tokens?.access ?? ""}");
+      Logger().e("refresh token ${confirmResponse?.tokens?.refresh?? ""}");
       await _authPreferences.setToken(confirmResponse?.tokens?.access ?? "");
       await _authPreferences.setRefreshToken(confirmResponse?.tokens?.refresh ?? "");
       await _authPreferences.setIsAuthorized(true);

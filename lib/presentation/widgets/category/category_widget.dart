@@ -36,17 +36,18 @@ class CategoryWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(25),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6),
                   border: Border.all(color: Color(0xFFBDBDBD))
                 ),
                 child: Center(
-                  child: Image.network(category.icon),
+                  child: category.id==0? Assets.spImages.svgImages.computer.image():
+                  Assets.spImages.svgImages.toolBox.image(),
                 ),
               ),
-              SizedBox(height: 21),
-              'Category name'.s(13).c(Color(0xFF703EDB)).copyWith(
+              SizedBox(height: 10),
+              '${category.name}'.s(13).c(Color(0xFF703EDB)).copyWith(
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF703EDB), fontSize: 13)
