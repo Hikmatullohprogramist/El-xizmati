@@ -1,3 +1,5 @@
+import 'package:El_xizmati/core/extensions/text_extensions.dart';
+import 'package:El_xizmati/core/gen/assets/assets.gen.dart';
 import 'package:El_xizmati/presentation/features/home/features/cart/chat/chat/chat.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -24,80 +26,100 @@ class CartPage extends BasePage<CartCubit, CartState, CartEvent> {
   @override
   Widget onWidgetBuild(BuildContext context, CartState state) {
     return Scaffold(
-      backgroundColor: context.backgroundGreyColor,
-      body: SizedBox()
-    );
-  }
-
-  Widget _buildLoadingBody() {
-    return SingleChildScrollView(
-      child: ListView.builder(
-        physics: BouncingScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: 3,
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        itemBuilder: (BuildContext context, int index) {
-          return CartShimmer();
-        },
-      ),
-    );
-  }
-
-  Widget _buildSuccessBody(BuildContext context, CartState state) {
-    return RefreshIndicator(
-      displacement: 80,
-      strokeWidth: 3,
-      color: StaticColors.colorPrimary,
-      onRefresh: () async {
-        cubit(context).getCartAds();
-      },
-      child: ListView.separated(
-        // physics: BouncingScrollPhysics(),
-        physics: AlwaysScrollableScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: state.cardAds.length,
-        padding: EdgeInsets.only(top: 13, bottom: 13),
-        itemBuilder: (context, index) {
-          return ElevationWidget(
-            topLeftRadius: 8,
-            topRightRadius: 8,
-            bottomLeftRadius: 8,
-            bottomRightRadius: 8,
-            leftMargin: 16,
-            topMargin: 3,
-            rightMargin: 16,
-            bottomMargin: 3,
-            child: CartWidget(
-              ad: state.cardAds[index],
-              onDeleteClicked: (Ad ad) {
-                showYesNoBottomSheet(
-                  context,
-                  title: Strings.messageTitleWarning,
-                  message: Strings.cartAdRemoveMessage,
-                  noTitle: Strings.commonNo,
-                  onNoClicked: () {},
-                  yesTitle: Strings.commonYes,
-                  onYesClicked: () => cubit(context).removeFromCart(ad),
-                );
-              },
-              onFavoriteClicked: (Ad ad) {
-                HapticFeedback.lightImpact();
-                cubit(context).changeFavorite(ad);
-              },
-              onProductClicked: (Ad ad) {
-                context.router.push(AdDetailRoute(adId: ad.id));
-              },
-              onOrderClicked: (Ad ad) {
-                context.router.push(OrderCreationRoute(adId: ad.id));
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          leading: Padding(
+            padding: const EdgeInsets.only(top: 10,left: 10,bottom: 5),
+            child: IconButton(
+              icon: Icon(Icons.menu,color: StaticColors.colorPrimary,),
+              onPressed: () {
+                //  cubit(context).showLogOut(true);
               },
             ),
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return SizedBox(width: 16, height: 8);
-        },
-      ),
+          ),
+          actions: <Widget>[
+
+            Icon(Icons.delete,color:StaticColors.colorPrimary),
+            SizedBox(width: 12),
+          ],
+        ),
+      backgroundColor:Colors.white,
+      body: _getMessages(context, state)
+    );
+  }
+
+
+  Widget _getMessages(BuildContext context, CartState state,) {
+    return  ListView.separated(
+      physics: BouncingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: 15,
+      padding: EdgeInsets.only(left: 16,right: 16),
+      itemBuilder: (context, index) {
+        return Container(
+
+          height: 65,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.grey.withOpacity(0.4)),
+          ),
+          child: Row(
+            children: [
+              Container(
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.grey.withOpacity(0.4))
+                  ),
+                padding: EdgeInsets.all(5),
+                margin: EdgeInsets.all(10),
+                  child: Assets.spImages.svgImages.robot.image()),
+
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                      "Shodlik Yagmurov".s(16).w(600).c(StaticColors.colorPrimary),
+                      "15 daq".s(12).w(600).c(StaticColors.textColorPrimary)
+
+                    ],),
+                  ),
+                  SizedBox(height: 5),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        "Assalomu alaykum. Salomatmisiz?".s(12).w(400).c(Color(0xFF7C7C7C)),
+                         Container(
+                           width: 20,
+                           height: 20,
+                           decoration: BoxDecoration(
+                               shape: BoxShape.circle,
+                               color: StaticColors.colorPrimary
+                           ),
+                           child: Center(child: "2".s(10).w(400).c(Colors.white)),
+                         )
+
+                      ],),
+                  )
+
+                ],),
+              )
+            ],
+          ),
+
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return SizedBox(height: 8);
+      },
     );
   }
 }

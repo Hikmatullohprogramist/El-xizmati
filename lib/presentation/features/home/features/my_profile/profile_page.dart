@@ -180,9 +180,9 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
     );
   }
 
-  void _showExitDialog(BuildContext context) {
+  void _showExitDialog(BuildContext cont) {
     showDialog(
-        context: context,
+        context: cont,
         builder: (context) {
           return Dialog(
             shape: RoundedRectangleBorder(
@@ -211,7 +211,14 @@ class ProfilePage extends BasePage<ProfileCubit, ProfileState, ProfileEvent> {
                     children: [
                       Expanded(
                           child: CustomOutlinedButton(
-                              text: "Chiqish", onPressed: () {})),
+                              text: "Chiqish", onPressed: () {
+                            cont.router.pushAndPopUntil(
+                              AuthStartRoute(), // Push the Profile route
+                              predicate: (Route<dynamic> route) =>
+                              route is AuthStartRoute, // Stop at LoginPage
+                            );
+                            Navigator.of(context).pop();
+                          })),
                       SizedBox(width: 20),
                       Expanded(
                         child: CustomElevatedButton(

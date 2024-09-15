@@ -253,7 +253,10 @@ class RegistrationPage
                     onPressed: () {
                       if (_formKey.currentState?.validate() == true) {
                         TextInput.finishAutofillContext(shouldSave: true);
-                        cubit(context).requestCreateAccount();
+
+                        context.router.pushAndPopUntil(
+                          HomeRoute(), predicate: (Route<dynamic> route) => route is HomeRoute, // Stop at LoginPage
+                        );
                       }
                     },
                     isLoading: state.isLoading,
@@ -282,7 +285,7 @@ class RegistrationPage
                             ..onTap = () async {
                               try {
                                 var url = Uri.parse(
-                                  "https://online-bozor.uz/uz/page/privacy",
+                                  "privacy",
                                 );
                                 await launchUrl(url);
                               } catch (error) {

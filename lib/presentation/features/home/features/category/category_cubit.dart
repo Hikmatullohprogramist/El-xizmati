@@ -4,8 +4,6 @@ import 'package:injectable/injectable.dart';
 import 'package:El_xizmati/core/enum/enums.dart';
 import 'package:El_xizmati/core/handler/future_handler_exts.dart';
 import 'package:El_xizmati/data/repositories/common_repository.dart';
-import 'package:El_xizmati/domain/models/category/category.dart';
-import 'package:El_xizmati/domain/models/category/category_type.dart';
 import 'package:El_xizmati/presentation/support/cubit/base_cubit.dart';
 
 part 'category_cubit.freezed.dart';
@@ -22,24 +20,22 @@ class CategoryCubit extends BaseCubit<CategoryState, CategoryEvent> {
 
   void setCategories(){
     List<Results> allItems=[];
-     allItems.add(Results(0, "Tozalash", ""));
-     allItems.add(Results(1, "Tuzatish", ""));
-     allItems.add(Results(0, "Remont", ""));
-     allItems.add(Results(1, "Bo'yash", ""));
-     allItems.add(Results(0, "Tozalash", ""));
-     allItems.add(Results(1, "Tuzatish", ""));
-     allItems.add(Results(0, "Tozalash", ""));
-     allItems.add(Results(1, "Tuzatish", ""));
-     allItems.add(Results(0, "Remont", ""));
-     allItems.add(Results(1, "Bo'yash", ""));
-    allItems.add(Results(0, "Tozalash", ""));
-    allItems.add(Results(1, "Tuzatish", ""));
-    allItems.add(Results(0, "Tozalash", ""));
-    allItems.add(Results(1, "Tuzatish", ""));
-    allItems.add(Results(0, "Remont", ""));
-    allItems.add(Results(1, "Bo'yash", ""));
-    allItems.add(Results(0, "Tozalash", ""));
-    allItems.add(Results(1, "Tuzatish", ""));
+     allItems.add(Results(1, "Уборка", ""));
+     allItems.add(Results(2, "Сантехник", ""));
+     allItems.add(Results(3, "Строительные", ""));
+     allItems.add(Results(4, "Моляры", ""));
+     allItems.add(Results(5, "Электрик", ""));
+     allItems.add(Results(6, "Вывоз мусора", ""));
+     allItems.add(Results(7, "Дезинфекция", ""));
+     allItems.add(Results(8, "Чистка ковров", ""));
+    allItems.add(Results(1, "Уборка", ""));
+    allItems.add(Results(2, "Сантехник", ""));
+    allItems.add(Results(3, "Строительные", ""));
+    allItems.add(Results(4, "Моляры", ""));
+    allItems.add(Results(5, "Электрик", ""));
+    allItems.add(Results(6, "Вывоз мусора", ""));
+    allItems.add(Results(7, "Дезинфекция", ""));
+    allItems.add(Results(8, "Чистка ковров", ""));
 
     updateState((state) => state.copyWith(
       visibleItems: allItems,

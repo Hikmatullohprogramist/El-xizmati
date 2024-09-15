@@ -24,7 +24,7 @@ class CartCubit extends BaseCubit<CartState, CartEvent> {
   ) : super(CartState()) {
     // watchCardAds();
 
-    getCartAds();
+
   }
 
   StreamSubscription? _cartSubscription;

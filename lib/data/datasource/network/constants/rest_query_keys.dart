@@ -25,6 +25,15 @@ class RestQueryKeys {
   static String email = "email";
 
   static String faceImage = "face_image";
+  static String firstName = "first_name";
+  static String lastName = "last_name";
+  static String language = "language";
+  static String passportSerialNumber = "passport_serial_number";
+  static String role = "role";
+  static String district = "district";
+
+
+
   static String fullName = "full_name";
 
   static String gender = "gender";

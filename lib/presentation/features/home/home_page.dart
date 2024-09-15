@@ -77,7 +77,7 @@ class HomePage extends BasePage<HomeCubit, HomeState, HomeEvent> {
                 ),
               ),
               BottomNavigationBarItem(
-                label: Strings.bottomNavigationCart,
+                label:"Chat",
                 icon: Padding(
                   padding: const EdgeInsets.all(8),
                   child: Badge(
@@ -85,7 +85,7 @@ class HomePage extends BasePage<HomeCubit, HomeState, HomeEvent> {
                     alignment: Alignment.topRight,
                     isLabelVisible: state.cartAdsCount > 0,
                     label: state.cartAdsCount.toString().w(500),
-                    child: Assets.images.bottomBar.cart.svg(),
+                    child:Icon(Icons.sms_outlined,color: Colors.grey,),
                   ),
                 ),
                 activeIcon: Padding(
@@ -95,7 +95,7 @@ class HomePage extends BasePage<HomeCubit, HomeState, HomeEvent> {
                     alignment: Alignment.topRight,
                     isLabelVisible: state.cartAdsCount > 0,
                     label: state.cartAdsCount.toString().w(500),
-                    child: Assets.images.bottomBar.cartActive.svg(),
+                    child: Icon(Icons.sms),
                   ),
                 ),
               ),

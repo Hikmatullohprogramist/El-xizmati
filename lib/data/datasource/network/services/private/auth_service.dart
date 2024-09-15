@@ -45,7 +45,7 @@ class AuthService {
       RestQueryKeys.password: password,
       RestQueryKeys.confirm: confirm
     };
-    return _dio.post('api/mobile/v1/auth/register', data: body);
+    return _dio.post('api/mobile/v1/auth/set-user-info/', data: body);
   }
 
   Future<Response> sendConfirmOtpCode({

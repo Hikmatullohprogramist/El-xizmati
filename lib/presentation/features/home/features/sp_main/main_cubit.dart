@@ -12,12 +12,14 @@ class MainCubit extends BaseCubit<MainState, MainEvent>{
 
   void setCategories(){
     List<PopularCategory> allItems=[];
-    allItems.add(PopularCategory(id: 1,name: "Tozalash"));
-    allItems.add(PopularCategory(id: 1,name: "Tuzatish"));
-    allItems.add(PopularCategory(id: 1,name: "Remont"));
-    allItems.add(PopularCategory(id: 1,name: "Bo'yash"));
-    allItems.add(PopularCategory(id: 1,name: "Tozalash"));
-    allItems.add(PopularCategory(id: 1,name: "Tuzatish"));
+    allItems.add(PopularCategory(id: 1,name: "Уборка"));
+    allItems.add(PopularCategory(id: 2,name: "Сантехник"));
+    allItems.add(PopularCategory(id: 3,name: "Строительные"));
+    allItems.add(PopularCategory(id: 4,name: "Моляры"));
+    allItems.add(PopularCategory(id: 5,name: "Электрик"));
+    allItems.add(PopularCategory(id: 6,name: "Вывоз мусора"));
+    allItems.add(PopularCategory(id: 7,name: "Дезинфекция"));
+    allItems.add(PopularCategory(id: 8,name: "Чистка ковров"));
 
     updateState((state) => state.copyWith(
       popularCategories:allItems

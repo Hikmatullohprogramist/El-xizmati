@@ -28,7 +28,34 @@ class AdCreationChooserPage extends BasePage<AdCreationChooserCubit,
         textColor: context.textPrimary,
       ),
       backgroundColor: context.backgroundGreyColor,
-      body: SingleChildScrollView(
+      body: Column(
+        children: [
+           InkWell(
+              onTap: (){
+                context.router.push(AdCreateRoute());
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 20),
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.all(60),
+                  decoration: BoxDecoration(
+                    color: context.colors.primary.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(12)
+                  ),
+                  child: Column(
+                    children: [
+                      Icon(Icons.add,size: 30),
+                      SizedBox(height: 10),
+                      Text("E'lon yaratish").w(400).s(16),
+                    ],
+                  ),
+                ),
+              ),
+            )
+        ],
+      )
+      /*SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -42,7 +69,7 @@ class AdCreationChooserPage extends BasePage<AdCreationChooserCubit,
                   _buildAuthBlock(context),
                 ],
         ),
-      ),
+      ),*/
     );
   }
 
