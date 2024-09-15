@@ -5,30 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:El_xizmati/data/datasource/network/responses/currencies/currency_response.dart';
 import 'package:El_xizmati/data/datasource/network/responses/payment_type/payment_type_response.dart';
 import 'package:El_xizmati/data/datasource/network/responses/unit/unit_response.dart';
-import 'package:El_xizmati/domain/models/ad/ad_detail.dart';
-import 'package:El_xizmati/domain/models/ad/ad_list_type.dart';
-import 'package:El_xizmati/domain/models/ad/ad_transaction_type.dart';
 import 'package:El_xizmati/domain/models/ad/ad_type.dart';
-import 'package:El_xizmati/domain/models/ad/user_ad.dart';
-import 'package:El_xizmati/domain/models/ad/user_ad_status.dart';
 import 'package:El_xizmati/domain/models/category/category.dart';
 import 'package:El_xizmati/domain/models/district/district.dart';
-import 'package:El_xizmati/domain/models/faceid/face_id_confirm_type.dart';
 import 'package:El_xizmati/domain/models/image/uploadable_file.dart';
-import 'package:El_xizmati/domain/models/order/order_type.dart';
-import 'package:El_xizmati/domain/models/order/user_order.dart';
-import 'package:El_xizmati/domain/models/order/user_order_status.dart';
 import 'package:El_xizmati/domain/models/report/report_type.dart';
 import 'package:El_xizmati/domain/models/user/user_address.dart';
-import 'package:El_xizmati/presentation/features/ad/ad_detail/ad_detail_page.dart';
-import 'package:El_xizmati/presentation/features/ad/ad_detail/features/installment_info/installment_info_page.dart';
-import 'package:El_xizmati/presentation/features/ad/ad_list/ad_list_page.dart';
-import 'package:El_xizmati/presentation/features/ad/ad_list_by_type/ad_list_by_type_page.dart';
-import 'package:El_xizmati/presentation/features/ad/user_ad_detail/user_ad_detail_page.dart';
-import 'package:El_xizmati/presentation/features/auth/face_id/confirmation/face_id_confirmation_page.dart';
-import 'package:El_xizmati/presentation/features/auth/face_id/start/face_id_start_page.dart';
-import 'package:El_xizmati/presentation/features/auth/login/login_page.dart';
-import 'package:El_xizmati/presentation/features/auth/one_id/one_id_page.dart';
 import 'package:El_xizmati/presentation/features/auth/sp_otp_confirm/otp_confirmation_page.dart';
 import 'package:El_xizmati/presentation/features/auth/registration/registration_page.dart';
 import 'package:El_xizmati/presentation/features/auth/reset_password/reset_password_page.dart';
@@ -36,45 +18,17 @@ import 'package:El_xizmati/presentation/features/auth/sp_start/auth_start_page.d
 import 'package:El_xizmati/presentation/features/common/add_address/add_address_page.dart';
 import 'package:El_xizmati/presentation/features/common/category_selection/category_selection_page.dart';
 import 'package:El_xizmati/presentation/features/common/currency_selection/currency_selection_page.dart';
-import 'package:El_xizmati/presentation/features/common/favorites/favorite_list_page.dart';
-import 'package:El_xizmati/presentation/features/common/favorites/features/product/favorite_products_page.dart';
-import 'package:El_xizmati/presentation/features/common/favorites/features/service/favorite_services_page.dart';
 import 'package:El_xizmati/presentation/features/common/image_viewer/image_viewer_page.dart';
 import 'package:El_xizmati/presentation/features/common/image_viewer/locale_image_viewer_page.dart';
 import 'package:El_xizmati/presentation/features/common/notification/notification_list_page.dart';
 import 'package:El_xizmati/presentation/features/common/payment_type_selection/payment_type_selection_page.dart';
-import 'package:El_xizmati/presentation/features/common/popular_categories/popular_categories_page.dart';
 import 'package:El_xizmati/presentation/features/common/region_selection/region_selection_page.dart';
 import 'package:El_xizmati/presentation/features/common/report/submit_report_page.dart';
-import 'package:El_xizmati/presentation/features/common/search/search_page.dart';
 import 'package:El_xizmati/presentation/features/common/set_region/set_region_page.dart';
 import 'package:El_xizmati/presentation/features/common/unit_selection/unit_selection_page.dart';
-import 'package:El_xizmati/presentation/features/common/user_address_selection/user_address_selection_page.dart';
-import 'package:El_xizmati/presentation/features/common/user_warehouse_selection/user_warehouse_selection_page.dart';
-import 'package:El_xizmati/presentation/features/creation/ad_creation_result/ad_creation_result_page.dart';
-import 'package:El_xizmati/presentation/features/creation/order_creation/order_creation_page.dart';
-import 'package:El_xizmati/presentation/features/creation/product_ad_creation/product_ad_creation_page.dart';
-import 'package:El_xizmati/presentation/features/creation/request_ad_creation/request_ad_creation_page.dart';
-import 'package:El_xizmati/presentation/features/creation/service_ad_creation/service_ad_creation_page.dart';
 import 'package:El_xizmati/presentation/features/home/features/ad_creation_chooser/ad_creation_chooser_page.dart';
 import 'package:El_xizmati/presentation/features/home/features/cart/cart_page.dart';
 import 'package:El_xizmati/presentation/features/home/features/category/category_page.dart';
-import 'package:El_xizmati/presentation/features/home/features/category/features/sub_category_page.dart';
-import 'package:El_xizmati/presentation/features/home/features/dashboard/dashboard_page.dart';
-import 'package:El_xizmati/presentation/features/home/features/profile/features/billing_transactions/billing_transactions_page.dart';
-import 'package:El_xizmati/presentation/features/home/features/profile/features/billing_transactions/features/filter/billing_transaction_filter_page.dart';
-import 'package:El_xizmati/presentation/features/home/features/profile/features/identity_verification/identity_verification_page.dart';
-import 'package:El_xizmati/presentation/features/home/features/profile/features/profile_edit/profile_edit_page.dart';
-import 'package:El_xizmati/presentation/features/home/features/profile/features/profile_view/profile_view_page.dart';
-import 'package:El_xizmati/presentation/features/home/features/profile/features/user_active_sessions/user_active_sessions_page.dart';
-import 'package:El_xizmati/presentation/features/home/features/profile/features/user_address/user_addresses_page.dart';
-import 'package:El_xizmati/presentation/features/home/features/profile/features/user_ads/features/ad_list/user_ad_list_page.dart';
-import 'package:El_xizmati/presentation/features/home/features/profile/features/user_ads/user_ads_page.dart';
-import 'package:El_xizmati/presentation/features/home/features/profile/features/user_cards/user_cards_page.dart';
-import 'package:El_xizmati/presentation/features/home/features/profile/features/user_orders/features/user_order_cancel/user_order_cancel_page.dart';
-import 'package:El_xizmati/presentation/features/home/features/profile/features/user_orders/features/user_order_info/user_order_info_page.dart';
-import 'package:El_xizmati/presentation/features/home/features/profile/features/user_orders/features/user_order_list/user_order_list_page.dart';
-import 'package:El_xizmati/presentation/features/home/features/profile/features/user_orders/user_orders_page.dart';
 import 'package:El_xizmati/presentation/features/home/features/my_profile/profile_page.dart';
 import 'package:El_xizmati/presentation/features/home/home_page.dart';
 import 'package:El_xizmati/presentation/features/realpay/add_card/add_card_with_realpay_page.dart';
@@ -124,10 +78,7 @@ class AppRouter extends _$AppRouter {
           page: OtpConfirmationRoute.page,
           path: '/confirmation',
         ),
-        AutoRoute(
-          page: LoginRoute.page,
-          path: '/login',
-        ),
+
         AutoRoute(
           page: ResetPasswordRoute.page,
           path: '/reset_password',
@@ -136,18 +87,7 @@ class AppRouter extends _$AppRouter {
           page: RegistrationRoute.page,
           path: '/registration',
         ),
-        AutoRoute(
-          page: OneIdRoute.page,
-          path: "/one_id",
-        ),
-        AutoRoute(
-          page: FaceIdStartRoute.page,
-          path: "/face_id_start",
-        ),
-        AutoRoute(
-          page: FaceIdConfirmationRoute.page,
-          path: "/face_id_confirmation",
-        ),
+
 
         /// home
         AutoRoute(
@@ -188,87 +128,7 @@ class AppRouter extends _$AppRouter {
           ],
         ),
 
-        /// Favorite ads
-        AutoRoute(
-          page: FavoriteListRoute.page,
-          path: '/favorite_list',
-          maintainState: true,
-          children: [
-            AutoRoute(
-              page: FavoriteProductsRoute.page,
-              path: 'favorites_products',
-              maintainState: true,
-              keepHistory: false,
-            ),
-            AutoRoute(
-              page: FavoriteServicesRoute.page,
-              path: 'favorites_services',
-              maintainState: true,
-              keepHistory: false,
-            )
-          ],
-        ),
 
-        /// create product ad
-        AutoRoute(
-          page: ProductAdCreationRoute.page,
-          path: '/product_ad_creation',
-        ),
-
-        /// create service ad
-        AutoRoute(
-          page: ServiceAdCreationRoute.page,
-          path: '/service_ad_creation',
-        ),
-
-        /// create service ad
-        AutoRoute(
-          page: AdCreationResultRoute.page,
-          path: '/ad_creation_result',
-        ),
-
-        /// create request ad
-        AutoRoute(
-          page: RequestAdCreationRoute.page,
-          path: "/request_ad_creation",
-        ),
-
-        ///  sub category
-        AutoRoute(page: SubCategoryRoute.page, path: "/sub_category"),
-
-        /// order create
-        AutoRoute(
-          page: OrderCreationRoute.page,
-          path: '/order_creation',
-        ),
-
-        /// Ads collections
-        AutoRoute(
-          page: AdListByTypeRoute.page,
-          path: "/ads_list_by_type",
-        ),
-        AutoRoute(
-          page: AdListRoute.page,
-          path: '/ads_list',
-        ),
-        AutoRoute(
-          page: AdDetailRoute.page,
-          path: '/ads_detail',
-        ),
-        AutoRoute(
-          page: InstallmentInfoRoute.page,
-          path: '/sm_installments',
-        ),
-
-        //  common page
-        AutoRoute(
-          page: PopularCategoriesRoute.page,
-          path: '/popular_categories',
-        ),
-        AutoRoute(
-          page: SearchRoute.page,
-          path: '/search',
-        ),
         AutoRoute(
           page: NotificationListRoute.page,
           path: '/notification_list',
@@ -276,10 +136,6 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           page: SetRegionRoute.page,
           path: '/set_region',
-        ),
-        AutoRoute(
-          page: UserActiveSessionsRoute.page,
-          path: '/user_active_sessions',
         ),
 
         /// image viewer
@@ -294,36 +150,6 @@ class AppRouter extends _$AppRouter {
           path: '/local_image_viewer',
         ),
 
-        ///   profile page
-        AutoRoute(
-          page: ProfileViewRoute.page,
-          path: '/profile_viewer',
-        ),
-        AutoRoute(
-          page: UserAddressesRoute.page,
-          path: '/user_addresses',
-        ),
-        AutoRoute(
-          page: UserAdsRoute.page,
-          path: '/user_ads',
-          children: [
-            AutoRoute(page: UserAdListRoute.page, path: "user_ad_list"),
-          ],
-        ),
-        AutoRoute(
-          page: UserCardsRoute.page,
-          path: '/user_card_list',
-        ),
-        AutoRoute(
-          page: UserOrdersRoute.page,
-          path: '/user_orders',
-          children: [
-            AutoRoute(
-              page: UserOrderListRoute.page,
-              path: 'user_order_list',
-            ),
-          ],
-        ),
 
         /// RealPay Payment
         AutoRoute(
@@ -335,37 +161,6 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           page: AddCardWithRealPayRoute.page,
           path: '/add_card_with_realpay',
-        ),
-
-        /// Payment transactions
-        AutoRoute(
-          page: BillingTransactionsRoute.page,
-          path: '/billing_transactions',
-        ),
-        AutoRoute(
-          page: BillingTransactionFilterRoute.page,
-          path: '/billing_transaction_filter',
-        ),
-
-        AutoRoute(
-          page: ProfileEditRoute.page,
-          path: '/profile_edit',
-        ),
-        AutoRoute(
-          page: IdentityVerificationRoute.page,
-          path: '/identity_verification',
-        ),
-        AutoRoute(
-          page: UserOrderCancelRoute.page,
-          path: '/user_order_cancel',
-        ),
-        AutoRoute(
-          page: UserOrderInfoRoute.page,
-          path: '/user_order_info',
-        ),
-        AutoRoute(
-          page: UserAdDetailRoute.page,
-          path: "/user_ad_detail",
         ),
 
         AutoRoute(
@@ -383,10 +178,7 @@ class AppRouter extends _$AppRouter {
           path: '/region_selection',
         ),
 
-        AutoRoute(
-          page: UserWarehouseSelectionRoute.page,
-          path: '/user_warehouse_selection',
-        ),
+
 
         AutoRoute(
           page: UnitSelectionRoute.page,

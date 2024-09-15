@@ -25,18 +25,7 @@ class CategoryPage extends BasePage<CategoryCubit, CategoryState, CategoryEvent>
   void onEventEmitted(BuildContext context, CategoryEvent event) {
     switch (event.type) {
       case CategoryEventType.onOpenSubCategory:
-        context.router.push(SubCategoryRoute(
-          title: event.category!.name,
-          parentId: event.category!.id,
-          categories: event.categories!,
-        ));
       case CategoryEventType.onOpenProductList:
-        context.router.push(AdListRoute(
-          adListType: AdListType.popularCategoryAds,
-          keyWord: event.category!.name,
-          title: event.category!.name,
-          sellerTin: null,
-        ));
     }
   }
 

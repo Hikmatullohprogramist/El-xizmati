@@ -6,12 +6,11 @@ import 'package:easy_localization_generator/easy_localization_generator.dart';
 part 'strings.g.dart';
 
 // LINK FOR THE GOOGLE SHEET
-// https://docs.google.com/spreadsheets/d/14H9f5eQWz2aH71NH9cGqEuy_BvgDyo_VMo-AlznFsfY/edit#gid=0
-// file owner on cloud is realsoftllc.developers@gmail.com
+// https://docs.google.com/spreadsheets/d/1kK1eXqORw-lKWkzznIAVhoqef70vgcnbxAk4bNtWto8/edit?gid=0#gid=0
 
 // ignore: unused_element
 @SheetLocalization(
-  docId: '14H9f5eQWz2aH71NH9cGqEuy_BvgDyo_VMo-AlznFsfY',
+  docId: '1kK1eXqORw-lKWkzznIAVhoqef70vgcnbxAk4bNtWto8',
   version: 1,
   outDir: 'assets/localization',
   outName: 'translations.csv',
